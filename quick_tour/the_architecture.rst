@@ -113,7 +113,7 @@ questa è solo una convenzione. Si possono inserire in qualsiasi posto,
 globalmente sul proprio server o localmente nei propri progetti.
 
 .. index::
-   single: Bundles
+   single: Bundle
 
 Il sistema dei bundle
 ---------------------
@@ -386,7 +386,7 @@ i propri bundle tra le applicazioni, memorizzarli localmente o globalmente, a
 propria scelta.
 
 .. index::
-   single: Vendors
+   single: Vendor
 
 Usare i vendor
 --------------
@@ -398,8 +398,8 @@ l'ORM Propel, il sistema di template Twig e una selezione di classi di
 Zend Framework.
 
 .. index::
-   single: Configuration Cache
-   single: Logs
+   single: Cache di configurazione
+   single: Log
 
 Cache e log
 -----------
@@ -420,7 +420,7 @@ proposito delle richieste e aiutano a risolvere il problema in breve tempo.
 
 .. index::
    single: CLI
-   single: Command Line
+   single: Linea di comando
 
 L'interfaccia a linea di comando
 --------------------------------

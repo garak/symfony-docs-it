@@ -9,7 +9,7 @@ già pronto.
 Avendo già usato un framework per il web, ci si troverà come a casa con Symfony2.
 
 .. index::
-   pair: Sandbox; Download
+   pair: Sandbox; Scaricamento
 
 Scaricare e installare Symfony2
 -------------------------------
@@ -42,7 +42,7 @@ ora avere una cartella ``sandbox/``::
             web/
 
 .. index::
-   single: Installation; Check
+   single: Installazione; Verifica
 
 Verifica della configurazione
 -----------------------------
@@ -87,7 +87,7 @@ la richiesta dell'utente (``/hello/Fabien``) alla risorsa associata (``Hello
 Fabien!``).
 
 .. index::
-   single: Configuration
+   single: Configurazione
 
 Configurazione
 ~~~~~~~~~~~~~~
@@ -107,8 +107,8 @@ configurazione molto semplice).
    mostra la configurazione per tutti i formati supportati).
 
 .. index::
-   single: Routing
-   pair: Configuration; Routing
+   single: Rotte
+   pair: Configurazione; Rotte
 
 Rotte
 ~~~~~
@@ -204,8 +204,8 @@ Ecco fatto! Come si può vedere, lo schema della risorsa "``/hello/:name``"
 su un controllore, riferito dal valore ``_controller``.
 
 .. index::
-   single: Controller
-   single: MVC; Controller
+   single: Controllore
+   single: MVC; Controllore
 
 Controllori
 ~~~~~~~~~~~
@@ -279,8 +279,8 @@ Symfony2. Non è stato difficile, vero? Symfony2 rende molto facile implementare
 siti web migliori e più veloci.
 
 .. index::
-   single: Environment
-   single: Configuration; Environment
+   single: Ambiente
+   single: Configurazione; Ambiente
 
 Lavorare con gli ambienti
 -------------------------

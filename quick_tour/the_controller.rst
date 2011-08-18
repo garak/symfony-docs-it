@@ -235,6 +235,8 @@ dover generare la stessa risorsa più volte. Symfony2 usa gli header di cache
 HTTP per gestire la cache delle risorse. Per semplici strategie di cache, si può
 usare l'annotazione ``@Cache()``::
 
+.. code-block:: php
+
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;

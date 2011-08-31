@@ -1,5 +1,5 @@
-Ricette
-=======
+Ricettario
+==========
 
 .. toctree::
     :hidden:

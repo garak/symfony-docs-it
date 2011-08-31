@@ -2,7 +2,7 @@
    single: Emails
 
 Come spedire una mail
-====================
+=====================
 
 Spedire le mail è un delle azioni classiche di ogni applicazione web ma 
 rappresenta anche l'origine di potenziali problemi e complicazioni. Invece 
@@ -26,7 +26,7 @@ di reinventare la ruota, una soluzione per l'invio di mail è l'uso di
 .. _swift-mailer-configuration:
 
 Configurazione
--------------
+--------------
 
 Prima di utilizzare Swiftmailer, assicuratevi di includerne la configurazione. 
 L'unico parametro obbligatorio della configurazione è il parametro ``transport``:
@@ -93,7 +93,7 @@ Sono disponibili i seguenti parametri di configurazione:
 * ``disable_delivery``  (impostare a true per disabilitare completamente l'invio)
 
 L'invio delle mail
---------------
+------------------
 
 Per lavorare con la libreria Swiftmailer dovrete creare, configurare e quindi 
 spedire oggetti di tipo ``Swift_Message``. Il "mailer" è il vero responsabile 
@@ -116,10 +116,9 @@ In generale, spedire una mail è abbastanza intuitivo::
 Per tenere i vari aspetti separati, il corpo del messaggio è stato salvato
 in un template che viene poi restituito tramite il metodo ``renderView()``.
 
-L'oggetto ``$messaggio`` supporta molte altre opzioni, come la possibilità
-di gestire allegati, di aggiungere contenuti HTML e molto altro. Fortunatamente 
-la documentazione di Swiftmailer affronta questo argomento dettagliatamente 
-nel capitolo `Creazione di Messaggi`_ .
+L'oggetto ``$messaggio`` supporta molte altre opzioni, come l'aggiunta di allegati, 
+l'inserimento di HTML e molto altro. Fortunatamente la documentazione di Swiftmailer affronta 
+questo argomento dettagliatamente nel capitolo sulla `Creazione di Messaggi`_ .
 
 .. tip::
 
@@ -131,4 +130,4 @@ nel capitolo `Creazione di Messaggi`_ .
     * :doc:`email/spool`
 
 .. _`Swiftmailer`: http://www.swiftmailer.org/
-.. _`Creating Messages`: http://swiftmailer.org/docs/messages
+.. _`Creazione di Messaggi`: http://swiftmailer.org/docs/messages

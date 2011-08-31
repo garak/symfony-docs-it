@@ -2,11 +2,11 @@ Un quadro generale
 ==================
 
 Volete provare Symfony2 avendo a disposizione solo dieci minuti? Questa prima
-parte di questa guida è stata scritta appositamente. Essa spiega come
+parte di questa guida è stata scritta appositamente: spiega come
 partire subito con Symfony2, mostrando la struttura di un semplice progetto
 già pronto.
 
-Avendo già usato un framework per il web, ci si troverà come a casa con Symfony2.
+Chi ha già usato un framework per il web si troverà come a casa con Symfony2.
 
 .. tip::
 
@@ -19,12 +19,12 @@ Scaricare Symfony2
 Prima di tutto, verificare di avere almeno PHP 5.3.2 (o successivo) installato e configurato correttamente per funzionare con un server web,
 come Apache.
 
-Pronti? Iniziamo scaricando "`Symfony2 Standard Edition_"`, una :term:`distribuzione`
+Pronti? Iniziamo scaricando "`Symfony2 Standard Edition_`", una :term:`distribuzione`
 di Symfony preconfigurata per gli usi più comuni e che contiene anche del codice
 che dimostra come usare Symfony2 (con l'archivio che include i *venditori*, si
 parte ancora più velocemente).
 
-Scaricare la `sandbox`_ e scompattarla nella cartella radice del web. Si dovrebbe
+Scaricare l'archivio e scompattarlo nella cartella radice del web. Si dovrebbe
 ora avere una cartella ``Symfony/``, come la seguente:
 
 .. code-block:: text

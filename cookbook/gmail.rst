@@ -5,16 +5,16 @@ Come usare Gmail per l'invio delle mail
 =======================================
 
 In fase di sviluppo, invece di utilizzare un normale server SMTP per l'invio delle mail, 
-potreste trovare più semplice e pratico usare Gmail. Il bundle Swiftmailer ne rende 
+potrebbe essere più semplice e pratico usare Gmail. Il bundle Swiftmailer ne rende 
 facilissimo l'utilizzo.
 
 .. tip::
 
-    Invece di usare il vostro normale account di Gmail, sarebbe meglio
+    Invece di usare un normale account di Gmail, sarebbe meglio
     crearne uno da usare appositamente per questo scopo.
 
-Nel file di configurazione dell'ambiente di sviluppo, assegnate al parametro ``transport`` 
-l'ozione ``gmail`` e ai parametri ``username`` e ``password le vostre credenziali di Google:
+Nel file di configurazione dell'ambiente di sviluppo, si assegna al parametro ``transport`` 
+l'ozione ``gmail`` e ai parametri ``username`` e ``password le credenziali dell'account di Google:
 
 .. configuration-block::
 
@@ -23,8 +23,8 @@ l'ozione ``gmail`` e ai parametri ``username`` e ``password le vostre credenzial
         # app/config/config_dev.yml
         swiftmailer:
             transport: gmail
-            username:  vostro_nome_utente_gmail
-            password:  vostra_password_gmail
+            username:  nome_utente_gmail
+            password:  password_gmail
 
     .. code-block:: xml
 
@@ -37,16 +37,16 @@ l'ozione ``gmail`` e ai parametri ``username`` e ``password le vostre credenzial
 
         <swiftmailer:config
             transport="gmail"
-            username="vostro_nome_utente_gmail"
-            password="vostra_password_gmail" />
+            username="nome_utente_gmail"
+            password="password_gmail" />
 
     .. code-block:: php
 
         // app/config/config_dev.php
         $container->loadFromExtension('swiftmailer', array(
             'transport' => "gmail",
-            'username'  => "vostro_nome_utente_gmail",
-            'password'  => "vostra_password_gmail",
+            'username'  => "nome_utente_gmail",
+            'password'  => "password_gmail",
         ));
 
 E il gioco è fatto!

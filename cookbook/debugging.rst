@@ -1,10 +1,10 @@
 .. index::
    single: Debugging
 
-Come ottimizzare l'ambiente di sviluppo per il debugging
+Come ottimizzare l'ambiente di sviluppo per il debug
 ========================================================
 
-Lavorando ad un progetto Symfony sulla propria macchina locale, dovreste 
+Lavorando ad un progetto Symfony sulla propria macchina locale, si dovrebbe 
 utilizzare l'ambiente ``dev`` (il front controller ``app_dev.php``). La configurazione 
 di questo ambiente è ottimizzata per due scopi principali:
 
@@ -16,17 +16,17 @@ di questo ambiente è ottimizzata per due scopi principali:
 
 .. _cookbook-debugging-disable-bootstrap:
 
-Disabilitare il file di avvio e il caching delle classi
--------------------------------------------------------
+Disabilitare il file di avvio e la cache delle classi
+-----------------------------------------------------
 
 Per rendere l'ambiente di produzione il più veloce possibile, Symfony crea 
 un unico file PHP, all'interno della cache, che raccoglie tutte le classi PHP 
-di cui ha bisogno il vostro progetto. Un comportamento che potrebbe però confondere 
-il vostro IDE o il vostro debugger. Questa ricetta mostrerà come modificare 
-il meccanismo di caching per rendere più agevole il debug del codice relativo 
+di cui ha bisogno il progetto. Un comportamento che potrebbe però confondere 
+l'IDE o il debugger. Questa ricetta mostrerà come modificare il meccanismo di
+gestione della cache per rendere più agevole il debug del codice relativo 
 alle classi di Symfony.
 
-Il front controller ``app_dev.php`` contiente, nella sua versione predefinita, il seguente codice::
+Il front controller ``app_dev.php`` contiene, nella sua versione predefinita, il seguente codice::
 
     // ...
 
@@ -39,8 +39,8 @@ Il front controller ``app_dev.php`` contiente, nella sua versione predefinita, i
     $kernel->loadClassCache();
     $kernel->handle(Request::createFromGlobals())->send();
 
-Per facilitare il lavoro del vostro debugger, potete disabilitare la cache di
-tutte le classi PHP rimuovendo la chiamata a ``loadClassCache()`` e sistituendo 
+Per facilitare il lavoro del debugger, è possibile disabilitare la cache di
+tutte le classi PHP rimuovendo la chiamata a ``loadClassCache()`` e sostituendo 
 la dichirazione del require, nel seguente modo::
 
     // ...
@@ -58,11 +58,11 @@ la dichirazione del require, nel seguente modo::
 
 .. tip::
 
-    Se disabilitate la cache delle classi PHP, non dimenticatevi di riabilitarla 
-    una volta conlusa la sessione di debug.
+    Una volta disabilitata la cache delle classi PHP, non bisogna dimenticare di riabilitarla 
+    alla fine della sessione di debug.
 
 Alcuni IDE non gradiscono il fatto che certe classi siano salvate in posti differenti. 
-Per evitare problemi, potete o configurare l'IDE per ignorare i file PHP della cache 
-oppure modificare l'estensione che Symfony utilizza per questi file::
+Per evitare problemi, è possibile o configurare l'IDE per ignorare i file PHP della cache 
+oppure modificare l'estensione che Symfony assegna a questi file::
 
     $kernel->loadClassCache('classes', '.php.cache');

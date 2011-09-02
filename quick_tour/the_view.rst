@@ -284,5 +284,5 @@ Ma non corriamo troppo. Prima occorre imparare di più sul
 controllore e questo è esattamente l'argomento della :doc:`prossima parte di questa guida<the_controller>`.
 Pronti per altri dieci minuti di Symfony2?
 
-.. _Twig:           http://www.twig-project.org/
-.. _documentazione: http://www.twig-project.org/documentation
+.. _Twig:           http://twig.sensiolabs.org/
+.. _documentazione: http://twig.sensiolabs.org/documentation

@@ -419,4 +419,4 @@ sezione: ":doc:`La vista<the_view>`".
 .. _Separazione degli ambiti:       http://en.wikipedia.org/wiki/Separation_of_concerns
 .. _YAML:                           http://www.yaml.org/
 .. _annotazioni nei controllori:    http://bundles.symfony-reloaded.org/frameworkextrabundle/
-.. _Twig:                           http://www.twig-project.org/
+.. _Twig:                           http://twig.sensiolabs.org/

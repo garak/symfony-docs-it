@@ -16,7 +16,6 @@ Glossario
         di bundle, librerie di terze parti, un autoloader e alcuni script per
         il front controller del web.
 
-
     Applicazione
         Una *applicazione* è una cartella contenente la *configurazione* per
         un dato insieme di bundle.
@@ -32,6 +31,7 @@ Glossario
         proprio progetto. Solitamente, *ogni* richiesta è gestita eseguendo lo stesso
         front controller, il cui compito è quello di inizializzare l'applicazione Symfony.
 
+   
    Controllore
         Un *controllore* è una funzione PHP che ospita tutta la logica necessaria a
         restituire un oggetto ``Response`` che rappresenta una particolare pagina.
@@ -100,7 +100,7 @@ Glossario
         Il *kernel* è il nucleo di Symfony2. L'oggetto kernel gestisce le richieste HTTP,
         usando tutti i bundle e le librerie registrate. Si veda
         :ref:`L'architettura: La cartella delle applicazioni <the-app-dir>` e il
-        capitolo :doc:`/book/internals/kernel`.
+        capitolo :doc:`/book/internals`.
 
    Firewall
         In Symfony2, un *firewall* non ha a che fare con le reti. Definisce invece
@@ -113,8 +113,6 @@ Glossario
         *YAML* è un acronimo ricorsivo che sta per "YAML Ain't a Markup Language". È un
         linguaggio di serializzazione dei dati leggero e umano, molto usato nei file
         di configurazione di Symfony2. Si veda il capitolo :doc:`/reference/YAML`.
-
-
 
 
 

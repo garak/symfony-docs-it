@@ -60,8 +60,6 @@ Questa classe deve implementare due metodi:
 
 L'autoloading di PHP può essere configurato tramite ``app/autoload.php``::
 
-.. code-block:: php
-
     // app/autoload.php
     use Symfony\Component\ClassLoader\UniversalClassLoader;
 

@@ -114,7 +114,7 @@ i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati 
 Cosa sta accadendo? Dissezionamo l'URL:
 
 * ``app_dev.php``: È un :term:`front controller`. È l'unico punto di ingresso
-   dell'applicazione e risponde a ogni richiesta dell'utente;
+  dell'applicazione e risponde a ogni richiesta dell'utente;
 
 * ``/demo/hello/Fabien``: È il *percorso virtuale* alla risorsa a cui l'utente
   vuole accedere .
@@ -134,7 +134,7 @@ indicato dal front controller app_**dev**.php, viene caricato il file di configu
 ``app/config/routing_dev.yml``. Nella Standard Edition, le rotte delle pagine di demo
 sono in quel file:
 
- .. code-block:: yaml
+.. code-block:: yaml
 
     # app/config/routing_dev.yml
     _welcome:

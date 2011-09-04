@@ -19,7 +19,7 @@ Scaricare Symfony2
 Prima di tutto, verificare di avere almeno PHP 5.3.2 (o successivo) installato e configurato correttamente per funzionare con un server web,
 come Apache.
 
-Pronti? Iniziamo scaricando "`Symfony2 Standard Edition_`", una :term:`distribuzione`
+Pronti? Iniziamo scaricando "`Symfony2 Standard Edition`_", una :term:`distribuzione`
 di Symfony preconfigurata per gli usi più comuni e che contiene anche del codice
 che dimostra come usare Symfony2 (con l'archivio che include i *venditori*, si
 parte ancora più velocemente).

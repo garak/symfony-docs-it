@@ -11,7 +11,7 @@ Oggigiorno, un'applicazione web dovrebbe essere in grado di servire
 più che semplici pagine HTML. Da XML per i feed RSS o per web service,
 a JSON per le richieste Ajax, ci sono molti formati diversi tra cui
 scegliere. Il supporto di tali formati in Symfony2 è semplice.
-Modificare il file ``routing.yml`` e aggiungere un formato ``_format``, con valore ``xml``:
+Modificare il file ``routing.yml`` e aggiungere un formato ``_format``, con valore ``xml``::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

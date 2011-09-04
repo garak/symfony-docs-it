@@ -24,7 +24,7 @@ locale:
    
 3. Creare un nuovo file chiamato ``.gitignore`` nella radice del nuovo progetto
    (ovvero vicino al file ``deps``) e copiarvi le righe seguenti. I file corrispondenti
-   a questi schemi saranno ignorati da git:
+   a questi schemi saranno ignorati da git::
 
     .. code-block:: text
 
@@ -75,7 +75,7 @@ di più su come configurare e sviluppare la propria applicazione.
 .. tip::
 
     Symfony2 Standard Edition è distribuito con alcuni esempi di funzionamento. Per
-    rimuovere il codice di esempio, seguire le istruzioni nel `file Readme di Standard Edition`_.
+    rimuovere il codice di esempio, seguire le istruzioni nel file `Readme di Standard Edition`_.
 
 Gestire le librerie dei venditori
 ---------------------------------
@@ -136,7 +136,7 @@ di `GitHub`_. I repository pubblici sono gratuiti, mentre per quelli privati è 
 pagare mensilmente.
 
 In alternativa, si può ospitare un proprio repository git su un qualsiasi server, creando
-un `barebones repository`_ e usando quello. Una libreria che può aiutare in tal senso
+un `repository privato`_ e usando quello. Una libreria che può aiutare in tal senso
 è `Gitosis`_.
 
 .. _`git`: http://git-scm.com/
@@ -144,5 +144,5 @@ un `barebones repository`_ e usando quello. Una libreria che può aiutare in tal
 .. _`Readme di Standard Edition`: https://github.com/symfony/symfony-standard/blob/master/README.md
 .. _`sotto-moduli di git`: http://book.git-scm.com/5_submodules.html
 .. _`GitHub`: https://github.com/
-.. _`barebones repository`: http://progit.org/book/ch4-4.html
+.. _`repository privato`: http://progit.org/book/ch4-4.html
 .. _`Gitosis`: https://github.com/res0nat0r/gitosis

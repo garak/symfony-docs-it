@@ -223,7 +223,7 @@ modo, tutti gli URL saranno facilmente aggiornati al cambiare della configurazio
 La funzione  ``path()`` accetta come parametri un nome di rotta e un
 array di parametri. Il nome della rotta è la chiave principale sotto
 cui le rotte sono elencate e i parametri sono i valori dei segnaposto
-definiti nello schema della rotta:
+definiti nello schema della rotta::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

@@ -113,7 +113,7 @@ gigantesco array. Questo array diceva a symfony1 esattamente quale file
 conteneva ciascuna classe. Nell'ambiente di produzione, questo causava la necessità
 di dover pulire la cache quando una classe veniva aggiunta o spostata.
 
-In Symfony2, una nuova classe,  ``UniversalClassLoader`` gestisce questo processo.
+In Symfony2, una nuova classe, ``UniversalClassLoader`` gestisce questo processo.
 L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso il
 namespace) deve corrispondere al percorso del file che contiene tale classe.
 Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di

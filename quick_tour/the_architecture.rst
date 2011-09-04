@@ -24,7 +24,7 @@ La cartella ``web/``
 
 La cartella radice del web è la casa di tutti i file pubblici e statici,
 come immagini, fogli di stile, file JavaScript. È anche il posto in cui
-stanno i :term:`front controller`:
+stanno i :term:`front controller`::
 
     // web/app.php
     require_once __DIR__.'/../app/bootstrap.php.cache';
@@ -100,7 +100,7 @@ tutte le dipendenze sono sotto la cartella ``vendor/``, ma questa è solo una co
     si può leggere la ricetta ":doc:`/cookbook/tools/autoloader`".
 
 
-Capure il sistema dei bundle
+Capire il sistema dei bundle
 ----------------------------
 
 Questa sezione è un'introduzione a una delle più grandi e
@@ -157,11 +157,11 @@ Configurare un bundle
 ~~~~~~~~~~~~~~~~~~~~~
 
 Ogni bundle può essere personalizzato tramite file di configurazione scritti in YAML,
-XML o PHP. Si veda la configurazione predefinita:
+XML o PHP. Si veda la configurazione predefinita::
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+    # app/config/config.yml
     imports:
         - { resource: parameters.ini }
         - { resource: security.yml }
@@ -226,7 +226,7 @@ configura ``SwiftmailerBundle``.
 Ogni :term:`ambiente` può sovrascrivere la configurazione predefinita, fornendo un file
 di configurazione specifico. Per esempio, l'ambiente ``dev`` carica il file ``config_dev.yml``,
 che carica la configurazione principale (cioè ``config.yml``) e quindi la modifica per
-aggiungere alcuni strumenti di debug:
+aggiungere alcuni strumenti di debug::
 
     .. code-block:: yaml
 

@@ -417,7 +417,7 @@ campi più comuni e i tipi di dati di cui necessitano i form:
 .. include:: /reference/forms/types/map.rst.inc
 
 E' anche possibile creare dei tipi di campi personalizzati. Questo argomento è trattato
-nell'articolo the ":doc:`/cookbook/form/create_custom_field_type`" del cookbook.
+nell'articolo the ":doc:`/cookbook/form/create_custom_field_type`" del ricettario.
 
 .. index::
    single: Forms; Field type options
@@ -1308,12 +1308,12 @@ Ci sono altre cose da imparare sul potente mondo dei form, ad esempio
 come gestire :doc:`l'upload dei file con Doctrine
 </cookbook/doctrine/file_uploads>` o come creare un form dove un numero
 dinamico di sub-form possono essere aggiunti (ad esempio una todo list in cui è possibile continuare ad aggiungere
-più campi tramite Javascript prima di inviare). Vedere il cookbook per questi
+più campi tramite Javascript prima di inviare). Vedere il ricettario per questi
 argomenti. Inoltre, assicurarsi di basarsi sulla
 :doc:`field type reference documentation</reference/forms/types>`, che
 comprende esempi di come usare ogni tipo di campo e le relative opzioni.
 
-Saperne di più con il Cookbook
+Saperne di più con il Ricettario
 ------------------------------
 
 * :doc:`/cookbook/doctrine/file_uploads`

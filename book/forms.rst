@@ -746,7 +746,6 @@ Porre la logica del form in una propria classe significa che il form può essere
 riutilizzato in altre parti del progetto. Questo è il modo migliore per creare form, ma
 la scelta in ultima analisi, spetta a voi.
 
-
 .. sidebar:: Impostare ``data_class``
 
     Ogni form ha bisogno di sapere il nome della classe che detiene i dati

@@ -417,7 +417,7 @@ campi più comuni e i tipi di dati di cui necessitano i form:
 .. include:: /reference/forms/types/map.rst.inc
 
 E' anche possibile creare dei tipi di campi personalizzati. Questo argomento è trattato
-nell'articolo the ":doc:`/cookbook/form/create_custom_field_type`" del cookbook.
+nell'articolo the ":doc:`/cookbook/form/create_custom_field_type`" del ricettario.
 
 .. index::
    single: Forms; Field type options
@@ -745,7 +745,6 @@ task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore u
 Porre la logica del form in una propria classe significa che il form può essere facilmente
 riutilizzato in altre parti del progetto. Questo è il modo migliore per creare form, ma
 la scelta in ultima analisi, spetta a voi.
-
 
 .. sidebar:: Impostare ``data_class``
 
@@ -1103,8 +1102,6 @@ frammento ``field_errors``, rinominarlo in ``textarea_errors`` e personalizzrlo.
 sovrascrivere la resa degli errori predefiniti di *tutti* i campi, copiare e personalizzare
 direttamente il frammento ``field_errors``.
 
-
-
 .. tip::
 
     Il tipo "genitore" di ogni tipo di campo è disponibile
@@ -1254,3 +1251,79 @@ malintenzionato cerca di fare inviare inconsapevolmente agli utenti legittimi da
 non intendono fare conoscere. Fortunatamente, gli attacchi CSRF possono essere prevenuti
 utilizzando un token CSRF all'interno dei form.
 
+La buona notizia è che, per impostazione predefinita, Symfony integra e convalida i token CSRF
+automaticamente. Questo significa che è possibile usufruire della protezione
+CSRF senza fare nulla. Infatti, ogni form di questo capitolo
+sfrutta la protezione CSRF!
+
+La protezione CSRF funziona con l'aggiunta di un campo nascosto al form - chiamato per impostazione
+predefinita ``_token`` - che contiene un valore che solo voi e il vostro utente conosce. Questo
+garantisce che proprio l'utente - non qualche altra entità - sta inviando i dati.
+Symfony valida automaticamente la presenza e l'esattezza di questo token.
+
+Il campo ``_token`` è un campo nascosto e sarà reso automaticamente
+se si include la funzione ``form_rest()`` nel template, perché questa assicura
+che tutti i campi non resi vengano visualizzati.
+
+Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad esempio::
+
+    class TaskType extends AbstractType
+    {
+        // ...
+    
+        public function getDefaultOptions(array $options)
+        {
+            return array(
+                'data_class'      => 'Acme\TaskBundle\Entity\Task',
+                'csrf_protection' => true,
+                'csrf_field_name' => '_token',
+                // a unique key to help generate the secret token
+                'intention'       => 'task_item',
+            );
+        }
+        
+        // ...
+    }
+
+Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a false.
+Le personalizzazioni possono essere fatte anche a livello globale nel progetto. Per ulteriori informazioni
+vedere la sezione
+:ref:`form configuration reference </reference-frameworkbundle-forms>`.
+
+.. note::
+
+    L'opzione ``intention`` è opzionale, ma migliora notevolmente la sicurezza
+    del token generato rendendolo diverso per ogni modulo.
+
+Considerazioni finali
+---------------------
+
+Ora si è a conoscenza di tutti i mattoni necessari per costruire form complessi e
+funzionali per la propria applicazione. Quando si costruiscono form, bisogna tenere presente che
+il primo gol di un form è quello di tradurre i dati da un oggetto (``Task``) ad un
+form HTML in modo che l'utente possa modificare i dati. Il secondo obiettivo di un form è quello di
+prendere i dati inviati dall'utente e ri-applicarli all'oggetto.
+
+Ci sono altre cose da imparare sul potente mondo dei form, ad esempio
+come gestire :doc:`l'upload dei file con Doctrine
+</cookbook/doctrine/file_uploads>` o come creare un form dove un numero
+dinamico di sub-form possono essere aggiunti (ad esempio una todo list in cui è possibile continuare ad aggiungere
+più campi tramite Javascript prima di inviare). Vedere il ricettario per questi
+argomenti. Inoltre, assicurarsi di basarsi sulla
+:doc:`field type reference documentation</reference/forms/types>`, che
+comprende esempi di come usare ogni tipo di campo e le relative opzioni.
+
+Saperne di più con il Ricettario
+------------------------------
+
+* :doc:`/cookbook/doctrine/file_uploads`
+* :doc:`File Field Reference </reference/forms/types/file>`
+* :doc:`Creating Custom Field Types </cookbook/form/create_custom_field_type>`
+* :doc:`/cookbook/form/form_customization`
+
+.. _`Symfony2 Form Component`: https://github.com/symfony/Form
+.. _`DateTime`: http://php.net/manual/en/class.datetime.php
+.. _`Twig Bridge`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge/Twig
+.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+.. _`Cross-site request forgery`: http://en.wikipedia.org/wiki/Cross-site_request_forgery
+.. _`view on GitHub`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form

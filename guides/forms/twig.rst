@@ -260,7 +260,7 @@ Se si vogliono personalizzare tutti i campi di un dato form, usare il tag ``form
 Ogni volta che si chiama il filtro ``render_widget`` sul form, dopo questa chiamata
 Symfony2 cercherà una rappresentazione nel template, prima di ricadere su
 quella predefinita.
-	
+ 
 Se i blocchi widget sono definiti in diversi template, si possono aggiungere come
 array ordinati:
 

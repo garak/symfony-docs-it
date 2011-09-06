@@ -36,7 +36,7 @@ classe ``Customer``::
 
 La classe contiene due proprietà ``name`` e "age". La proprietà ``$name``
 è pubblica, mentre ``$age`` può essere modificata solo attraverso setter e getter.
-	
+  
 Ora creiamo un form per consentire al visitatore di inserire i dati dell'oggetto::
 
     // src/Application/HelloBundle/Controller/HelloController.php
@@ -59,7 +59,7 @@ pubblica o accessibile attraverso getter e setter pubblici.
 
 Invece di passare l'istanza del form direttamente alla vista, la "avvolgiamo" con un
 oggetto che fornisce i metodi che aiutano a visualizzare il form con maggiore flessibilità
-(``$this['templating.form']->get($form)``).	
+(``$this['templating.form']->get($form)``).  
 
 Creiamo un semplice template per visualizzare il form:
 

@@ -1,5 +1,5 @@
 .. index::
-   single: Forms
+   single: Form
 
 Form
 =====
@@ -114,7 +114,7 @@ da dentro un controllore::
 .. tip::
 
    Questo esempio mostra come costruire il form direttamente nel controllore.
-   Più tardi, nella sezione ":ref:`book-form-creazione-classi-form`", si imparerà
+   Più tardi, nella sezione ":ref:`book-form-creating-form-classes`", si imparerà
    come costruire il form in una classe autonoma, metodo consigliato perché in questo modo
    il form diventa riutilizzabile.
 
@@ -129,10 +129,10 @@ E' stato anche assegnato un "tipo" ciascuno (ad esempio ``text``, ``date``), che
 le altre cose, determina quale tag form HTML viene utilizzato per tale campo.
 
 Symfony2 ha molti tipi predefiniti che verranno trattati a breve
-(see :ref:`book-forms-riferimento-tipi`).
+(see :ref:`book-forms-type-reference`).
 
 .. index::
-  single: Forms; Visualizzazione di base nel template
+  single: Form; Visualizzazione di base nel template
 
 Visualizzare il Form
 ~~~~~~~~~~~~~~~~~~~~
@@ -170,8 +170,8 @@ helper per i form:
 .. note::
 
     Questo esempio presuppone che sia stata creata una rotta chiamata ``task_new``
-	che punta al controllore ``AcmeTaskBundle:Default:new`` che
-	era stato creato precedentemente.
+    che punta al controllore ``AcmeTaskBundle:Default:new`` che
+    era stato creato precedentemente.
 
 Questo è tutto! Scrivendo ``form_widget(form)``, ciascun campo del form viene
 reso, insieme ad una etichetta e a un messaggio di errore (se presente). Per quanto semplice,
@@ -194,7 +194,7 @@ in un formato adatto ad essere reso in un form HTML.
    ``isPublished()``) invece di un getter ad esempio ``getPublished()``).
 
 .. index::
-  single: Forms; Handling form submission
+  single: Form; Gestione dell'invio del form
 
 Gestione dell'invio del form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -236,8 +236,8 @@ dell'oggetto ``$task``. Tutto questo avviene attraverso il metodo ``bindRequest(
 .. note::
 
     Appena viene chiamata ``bindRequest()``, i dati inviati vengono immediatamente
-	trasferiti all'oggetto sottostante. Questo avviene indipendentemente dal fatto che
-	i dati sottostanti siano validi o meno.
+    trasferiti all'oggetto sottostante. Questo avviene indipendentemente dal fatto che
+    i dati sottostanti siano validi o meno.
     
 Questo controllore segue uno schema comune per gestire i form, ed ha tre
 possibili percorsi:
@@ -257,10 +257,10 @@ possibili percorsi:
 .. note::
 
    Reindirizzare un utente dopo aver inviato con successo un form impedisce l'utente
-   di essere in grado di rpemere il tasto "aggiorna" e re-inviare i dati.
+   di essere in grado di premere il tasto "aggiorna" e re-inviare i dati.
 
 .. index::
-   single: Forms; Validation
+   single: Form; Validazione
 
 Validare un form
 ----------------
@@ -369,20 +369,20 @@ La validazione è una caratteristica molto potente di Symfony2 e dispone di un p
 :doc:`capitolo dedicato</book/validation>`.
 
 .. index::
-   single: Forms; Validation Groups
+   single: Form; Gruppi di validatori
 
 .. _book-forms-validation-groups:
 
-Gruppi di valiadtori
+Gruppi di validatori
 ~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
 
     Se non si usano i :ref:`gruppi di validatori <book-validation-validation-groups>`,
-	è possibile saltare questa sezione.
+  è possibile saltare questa sezione.
     
 Se il proprio oggetto si avvale dei :ref:`gruppi di validatori <book-validation-validation-groups>`,
-si avrà bisogno di specificare quele/i gruppi di convalida deve usare il form::
+si avrà bisogno di specificare quelle/i gruppi di convalida deve usare il form::
 
     $form = $this->createFormBuilder($users, array(
         'validation_groups' => array('registration'),
@@ -404,7 +404,7 @@ In entrambi i casi, *solo* il gruppo di validazione ``registration`` verrà
 utilizzato per validare l'oggetto sottostante.
 
 .. index::
-   single: Forms; Built-in Field Types
+   single: Form; Tipi di campo predefiniti
 
 .. _book-forms-type-reference:
 
@@ -420,7 +420,7 @@ E' anche possibile creare dei tipi di campi personalizzati. Questo argomento è 
 nell'articolo the ":doc:`/cookbook/form/create_custom_field_type`" del ricettario.
 
 .. index::
-   single: Forms; Field type options
+   single: Form; Opzioni dei tipi di campo
 
 Opzioni dei tipi di campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -443,22 +443,22 @@ nella documentazione di ciascun tipo.
 .. sidebar:: L'opzione ``required``
 
     L'opzione più comune è l'opzione ``required``, che può essere applicata a
-	qualsiasi campo. Per impostazione predefinita, l'opzione ``required`` è impostata a ``true`` e questo significa
-	che i browser che interpretano l'HTML5 applicheranno la validazione lato client se il campo
-	viene lasciato vuoto. Se non si desidera questo comportamento, impostare l'opzione
-	``required`` del campo a ``false`` o :ref:`disabilitare la validazione HTML5<book-forms-html5-validation-disable>`.
+    qualsiasi campo. Per impostazione predefinita, l'opzione ``required`` è impostata a ``true`` e questo significa
+    che i browser che interpretano l'HTML5 applicheranno la validazione lato client se il campo
+    viene lasciato vuoto. Se non si desidera questo comportamento, impostare l'opzione
+    ``required`` del campo a ``false`` o :ref:`disabilitare la validazione HTML5<book-forms-html5-validation-disable>`.
 
     Si noti inoltre che l'impostazione dell'opzione ``required`` a ``true`` **non**
-	farà applicare la validazione lato server. In altre parole, se un
+    farà applicare la validazione lato server. In altre parole, se un
     utente invia un valore vuoto per il campo (sia con un browser vecchio
     o un servizio web, per esempio), sarà accettata come valore valido a meno 
-	che si utilizzi il vincolo di validazione ``NotBlank`` o ``NotNull``.
+    che si utilizzi il vincolo di validazione ``NotBlank`` o ``NotNull``.
  
     In altre parole, l'opzione ``required`` è "bella", ma la vera validazione lato server
     dovrebbe *sempre* essere utilizzata.
 
 .. index::
-   single: Forms; Field type guessing
+   single: Form; Indovinare il tipo di campo
 
 .. _book-forms-field-guessing:
 
@@ -489,12 +489,12 @@ al campo indovinato.
 .. caution::
 
     Se il form utilizza un gruppo specifico di validazione, la funzionalità che indovina il tipo di campo
-	prenderà ancora in cosiderazione *tutti* i vincoli di validazione quando andrà ad indovinare i
-	tipi di campi (compresi i vincoli che non fanno parte del processo di convalida
-	dei gruppi in uso).
+    prenderà ancora in considerazione *tutti* i vincoli di validazione quando andrà ad indovinare i
+    tipi di campi (compresi i vincoli che non fanno parte del processo di convalida
+    dei gruppi in uso).
 
 .. index::
-   single: Forms; Field type guessing
+   single: Form; Indovinare il tipo di campo
 
 Indovinare le opzioni dei tipi di campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -505,11 +505,11 @@ i valori corretti di una serie di opzioni del campo.
 .. tip::
 
     Quando queste opzioni vengono impostate, il campo sarà reso con speciali attributi
-	HTML che forniscono la validazione HTML5 lato client. Tuttavia,
+    HTML che forniscono la validazione HTML5 lato client. Tuttavia,
     non genera i vincoli equivalenti lato server (ad esempio ``Assert\MaxLength``).
-	E anche se si ha bisogno di aggiungere manualmente la validazione lato server, queste
-	opzioni dei tipi di campo possono essere ricavate da queste informazioni.
-	 
+    E anche se si ha bisogno di aggiungere manualmente la validazione lato server, queste
+    opzioni dei tipi di campo possono essere ricavate da queste informazioni.
+   
 * ``required``: L'opzione ``required`` può essere indovinata in base alle regole
   di validazione (cioè se il campo è ``NotBlank`` o ``NotNull``) o dai metadati di Doctrine
   (vale a dire se il campo è ``nullable``). Questo è molto utile, perché la validazione
@@ -533,11 +533,11 @@ passando l'opzione nell'array di opzioni del campo::
     ->add('task', null, array('min_length' => 4))
 
 .. index::
-   single: Forms; Rendering in a Template
+   single: Forms; Rendere un form in un template
 
 .. _form-rendering-template:
 
-Rendere un form in un remplate
+Rendere un form in un template
 ------------------------------
 
 Finora si è visto come un intero form può essere reso con una sola linea
@@ -581,7 +581,7 @@ Diamo uno sguardo a ogni parte:
   inserisce l'obbligatorio ``enctype="multipart/form-data"``;
 
 * ``form_errors(form)`` - Rende eventuali errori globali per l'intero modulo
-   (gli errori specifici dei campi vengono visualizzati accanto a ciascun campo);
+  (gli errori specifici dei campi vengono visualizzati accanto a ciascun campo);
 
 * ``form_row(form.dueDate)`` - Rende l'etichetta, eventuali errori e il widget
   HTML del form per il dato campo (ad esempio ``dueDate``) all'interno, per impostazione predefinita, di
@@ -749,11 +749,11 @@ la scelta in ultima analisi, spetta a voi.
 .. sidebar:: Impostare ``data_class``
 
     Ogni form ha bisogno di sapere il nome della classe che detiene i dati
-	sottostanti (ad esempio ``Acme\TaskBundle\Entity\Task``). Di solito, questo viene indovinato
-	in base all'oggetto passato al secondo argomento di ``createForm``
-	(vale a dire ``$task``). Dopo, quando si inizia a incorporare i form, questo
-	non sarà più sufficiente. Così, anche se non sempre necessario, è in genere una
-	buona idea specificare esplicitamente l'opzione ``data_class`` aggiungendo
+  sottostanti (ad esempio ``Acme\TaskBundle\Entity\Task``). Di solito, questo viene indovinato
+  in base all'oggetto passato al secondo argomento di ``createForm``
+  (vale a dire ``$task``). Dopo, quando si inizia a incorporare i form, questo
+  non sarà più sufficiente. Così, anche se non sempre necessario, è in genere una
+  buona idea specificare esplicitamente l'opzione ``data_class`` aggiungendo
     il codice seguente alla classe del tipo di form::
 
         public function getDefaultOptions(array $options)
@@ -774,7 +774,7 @@ form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto orig
 tale, il tema della persistenza dell'oggetto ``Task`` nel database è interamente
 non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
 per essere salvata attraverso Doctrine (vale a dire che epr farlo si è aggiunto
-:ref:`mapping metadata<book-doctrine-adding-mapping>`), allora il salvataggio
+:ref:`mappare i metadata<book-doctrine-adding-mapping>`), allora il salvataggio
 dopo l'invio di un form può essere fatto quando il form è valido::
 
     if ($form->isValid()) {
@@ -798,7 +798,7 @@ persistere i dati, è sufficiente persistere l'oggetto stesso (che già
 contiene i dati inviati).
 
 .. index::
-   single: Forms; Embedded forms
+   single: Form; Incorporare form
 
 Incorporare form
 ----------------
@@ -811,7 +811,7 @@ a un oggetto ``User`` così come a molti oggetti ``Address``. Fortunatamente, qu
 Incorporare un oggetto singolo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Supponiamo che ogni ``Task`` apaprtenga a un semplice oggetto ``Category``. Si parte,
+Supponiamo che ogni ``Task`` appartenga a un semplice oggetto ``Category``. Si parte,
 naturalmente, con la creazione di un oggetto ``Category``::
 
     // src/Acme/TaskBundle/Entity/Category.php
@@ -827,7 +827,7 @@ naturalmente, con la creazione di un oggetto ``Category``::
         public $name;
     }
 
-Poi, aggiungere una nuova proprità ``category`` alla classe ``Task``::
+Poi, aggiungere una nuova proprietà ``category`` alla classe ``Task``::
 
     // ...
 
@@ -929,7 +929,7 @@ dei campi ``Task`` originali:
 Quando l'utente invia il form, i dati inviati con i campi ``Category``
 sono utilizzati per costruire un'istanza di ``Category``, che viene poi impostata sul
 campo ``category`` dell'istanza ``Task``.
-		
+    
 L'istanza ``Category`` è accessibile naturalmente attraverso ``$task->getCategory()``
 e può essere memorizzata nel database o utilizzata quando serve.
 
@@ -941,8 +941,8 @@ utilizzando il tipo di campo ``collection``. Per maggiori informazioni, vedere i
 :doc:`riferimento alla collezione di tipi di form</reference/forms/types/collection>`.
 
 .. index::
-   single: Forms; Theming
-   single: Forms; Customizing fields
+   single: Form; Temi
+   single: Form; Personalizzare i campi
 
 .. _form-theming:
 
@@ -1030,7 +1030,7 @@ della sezione successiva.
 Per una trattazione più ampia, vedere :doc:`/cookbook/form/form_customization`.
 
 .. index::
-   single: Forms; Template fragment naming
+   single: Form; Nomi per i frammenti di form
 
 .. _form-template-blocks:
 
@@ -1046,7 +1046,7 @@ che vive all'interno di `Twig Bridge`_. Dentro questo file, è possibile ogni bl
 necessario alla resa del form e ogni tipo predefinito di campo.
 
 In PHP, i frammenti sono file template individuali. Per impostazione predefinita sono posizionati
-nella cartella `Resources/views/Form` del bundle framework (`view on GitHub`_).
+nella cartella `Resources/views/Form` del bundle framework (`vedere su GitHub`_).
 
 Ogni nome di frammento segue lo stesso schema di base ed è suddiviso in due pezzi,
 separati da un singolo carattere di sottolineatura (``_``). Alcuni esempi sono:
@@ -1062,20 +1062,20 @@ corrisponde al campo *type* che viene reso (es. ``textarea``, ``checkbox``,
 rendendo (es. ``label``, ``widget``, ``errors``, ecc). Per impostazione predefinita, ci
 sono 4 possibili *parti* di un form che possono essere rese:
 
-+-------------+--------------------------+---------------------------------------------------------+
-| ``label``   | (es. ``field_label``)   | rende l'etichetta dei campi                              |
-+-------------+--------------------------+---------------------------------------------------------+
-| ``widget``  | (es. ``field_widget``)  | rende la rappresentazione HTML dei campi                 |
-+-------------+--------------------------+---------------------------------------------------------+
-| ``errors``  | (es. ``field_errors``)  | rende gli errori dei campi                               |
-+-------------+--------------------------+---------------------------------------------------------+
-| ``row``     | (es. ``field_row``)     | renders the field's entire row (label, widget & errors) |
-+-------------+--------------------------+---------------------------------------------------------+
++-------------+-------------------------+-------------------------------------------------------------+
+| ``label``   | (es. ``field_label``)   | rende l'etichetta dei campi                                 |
++-------------+-------------------------+-------------------------------------------------------------+
+| ``widget``  | (es. ``field_widget``)  | rende la rappresentazione HTML dei campi                    |
++-------------+-------------------------+-------------------------------------------------------------+
+| ``errors``  | (es. ``field_errors``)  | rende gli errori dei campi                                  |
++-------------+-------------------------+-------------------------------------------------------------+
+| ``row``     | (es. ``field_row``)     | rende l'intera riga del campo (etichetta, widget ed errori) |
++-------------+-------------------------+-------------------------------------------------------------+
 
 .. note::
 
     In realtà ci sono altre 3 *parti* - ``rows``, ``rest`` e ``enctype`` -
-	ma raramente c'è la necessità di sovrascriverli.
+    ma raramente c'è la necessità di sovrascriverli.
 
 Conoscendo il tipo di campo (ad esempio ``textarea``) e che parte si vuole
 personalizzare (ad esempio ``widget``), si può costruire il nome del frammento che
@@ -1105,7 +1105,7 @@ direttamente il frammento ``field_errors``.
 .. tip::
 
     Il tipo "genitore" di ogni tipo di campo è disponibile
-	per ogni tipo di campo in :doc:`form type reference</reference/forms/types>`
+  per ogni tipo di campo in :doc:`form type reference</reference/forms/types>`
 
 .. index::
    single: Forms; Temi globali
@@ -1164,7 +1164,7 @@ per definire l'output del form.
 .. sidebar::  Personalizzare tutti gli output del form in un singolo file con Twig
 
     Con Twig, si può anche personalizzare il blocco di un form all'interno del template
-	in cui questa personalizzazione è necessaria:
+  in cui questa personalizzazione è necessaria:
 
     .. code-block:: html+jinja
 
@@ -1184,10 +1184,10 @@ per definire l'output del form.
             {{ form_row(form.task) }}
         {% endblock %}
 
-	Il tag ``{% form_theme form _self %}`` ai blocchi del form di essere personalizzati
-	direttamente all'interno del template che utilizzerà tali personalizzazioni. Utilizzare
-	questo metodo per creare velocemente personalizzazioni del form che saranno
-	utilizzate solo in un singolo template.
+  Il tag ``{% form_theme form _self %}`` ai blocchi del form di essere personalizzati
+  direttamente all'interno del template che utilizzerà tali personalizzazioni. Utilizzare
+  questo metodo per creare velocemente personalizzazioni del form che saranno
+  utilizzate solo in un singolo template.
 
 PHP
 ...
@@ -1288,7 +1288,7 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad e
 Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a false.
 Le personalizzazioni possono essere fatte anche a livello globale nel progetto. Per ulteriori informazioni
 vedere la sezione
-:ref:`form configuration reference </reference-frameworkbundle-forms>`.
+:ref:`riferimento della configurazione dei form </reference-frameworkbundle-forms>`.
 
 .. note::
 
@@ -1313,17 +1313,17 @@ argomenti. Inoltre, assicurarsi di basarsi sulla
 :doc:`field type reference documentation</reference/forms/types>`, che
 comprende esempi di come usare ogni tipo di campo e le relative opzioni.
 
-Saperne di più con il Ricettario
-------------------------------
+Saperne di più con il ricettario
+--------------------------------
 
 * :doc:`/cookbook/doctrine/file_uploads`
-* :doc:`File Field Reference </reference/forms/types/file>`
-* :doc:`Creating Custom Field Types </cookbook/form/create_custom_field_type>`
+* :doc:`Riferimento dei tipi di campo </reference/forms/types/file>`
+* :doc:`Creare tipi di campo personalizzati </cookbook/form/create_custom_field_type>`
 * :doc:`/cookbook/form/form_customization`
 
 .. _`Symfony2 Form Component`: https://github.com/symfony/Form
 .. _`DateTime`: http://php.net/manual/en/class.datetime.php
 .. _`Twig Bridge`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge/Twig
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
-.. _`Cross-site request forgery`: http://en.wikipedia.org/wiki/Cross-site_request_forgery
-.. _`view on GitHub`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form
+.. _`Cross-site request forgery`: http://it.wikipedia.org/wiki/Cross-site_request_forgery
+.. _`vedere on GitHub`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form

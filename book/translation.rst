@@ -10,7 +10,7 @@ dove possono essere tradotti e convertiti in base alle impostazioni internaziona
 lingua e paese). Per il testo, questo significa che ognuno viene avvolto con una funzione
 capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
 
-    // il testo verrà *sempre* stampato in English
+    // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
 
     // il testo può essere tradotto nella lingua dell'utente finale o per impostazione predefinita in inglese
@@ -654,4 +654,187 @@ stesse nel messaggio originale e in quello tradotto.
     Essendo che le etichette sono opzionali, il traduttore non le utilizza (il traduttore
     otterrà solo una stringa basata sulla sua posizione nella stringa).
 
+Intervallo di pluralizzazione esplicito
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Il modo più semplice per pluralizzare un messaggio è quello di lasciare che Symfony2 utilizzi la sua logica interna
+per scegliere quale stringa utilizzare sulla base di un dato numero. A volte
+c'è bisogno di più controllo o si vuole una traduzione diversa per casi specifici (per
+``0``, o   quando il conteggio è negativo, ad esempio). In tali casi, è possibile
+utilizzare espliciti intervalli matematici::
+
+    '{0} There is no apples|{1} There is one apple|]1,19] There are %count% apples|[20,Inf] There are many apples'
+
+Gli intervalli seguono la notazione `ISO 31-11`_. La suddetta stringa specifica
+quattro diversi intervalli: esattamente ``0``, esattamente ``1``, ``2-19`` e ``20``
+e superiori.
+
+È inoltre possibile combinare le regole matematiche e le regole standard. In questo caso, se
+il numero non corrisponde ad un intervallo specifico, le regole standard hanno
+effetto dopo aver rimosso le regole esplicite::
+
+    '{0} There is no apples|[20,Inf] There are many apples|There is one apple|a_few: There are %count% apples'
+
+Ad esempio, per ``1`` mela, verrà usata la regola standard ``C'è una mela``.
+Per ``2-19`` mele, verrà utilizzata la seconda regola standard
+``Ci sono %count% mele``.
+
+:class:`Symfony\\Component\\Translation\\Interval` può rappresentare un insieme finito
+di numeri::
+
+    {1,2,3,4}
+
+O numeri tra due numeri::
+
+    [1, +Inf[
+    ]-1,2[
+
+Il delimitatore di sinistra può essere ``[`` (incluso) o ``]`` (escluso). Il delimitatore
+di destra può essere ``[`` (escluso) o ``]`` (incluso). Oltre ai numeri, si
+può usare ``-Inf`` e ``+Inf`` per l'infinito.
+
+.. index::
+   single: Translations; In templates
+
+Traduzioni nei template
+-----------------------
+
+La maggior parte delle volte, la traduzione avviene nei template. Symfony2 fornisce un supporto
+nativo sia per i template Twig che per i template PHP.
+
+Template Twig
+~~~~~~~~~~~~~
+
+Symfony2 fornisce dei tag specifici per Twig (``trans`` e ``transchoice``) per
+aiutare nella traduzione di messaggi con *blocchi statici di testo*:
+
+.. code-block:: jinja
+
+    {% trans %}Hello %name%{% endtrans %}
+
+    {% transchoice count %}
+        {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+    {% endtranschoice %}
+
+Il tag ``transchoice`` ottiene automaticamente la variabile ``%count%`` dal
+contesto corrente e la passa al traduttore. Questo meccanismo funziona
+solo quando si utilizza un segnaposto che segue il pattern ``%var%``.
+
+.. tip::
+
+    Se in una stringa è necessario usare il carattere percentuale (``%``), escapizzarlo
+    raddoppiandolo: ``{% trans %}Percent: %percent%%%{% endtrans %}``
+
+È inoltre possibile specificare il dominio del messaggio e passare alcune variabili aggiuntive:
+
+.. code-block:: jinja
+
+    {% trans with {'%name%': 'Fabien'} from "app" %}Hello %name%{% endtrans %}
+
+    {% transchoice count with {'%name%': 'Fabien'} from "app" %}
+        {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+    {% endtranschoice %}
+
+I filtri ``trans`` e ``transchoice`` possono essere usati per tradurre *variabili
+di testo* ed espressioni complesse:
+
+.. code-block:: jinja
+
+    {{ message | trans }}
+
+    {{ message | transchoice(5) }}
+
+    {{ message | trans({'%name%': 'Fabien'}, "app") }}
+
+    {{ message | transchoice(5, {'%name%': 'Fabien'}, 'app') }}
+
+.. tip::
+
+    Utilizzare i tag di traduzione o i filtri ha lo stesso effetto, ma con
+    una sottile differenza: l'escape automatico dell'output è applicato solo alle
+    variabili tradotte utilizzando un filtro. In altre parole, se è necessario
+    essere sicuri che la variabile tradotta *non* venga escapizzata, è necessario
+    applicare il filtro raw dopo il filtro di traduzione:
+
+    .. code-block:: jinja
+
+            {# il testo tradotto tra i tag non è mai escapizzato #}
+            {% trans %}
+                <h3>foo</h3>
+            {% endtrans %}
+
+            {% set message = '<h3>foo</h3>' %}
+
+            {# una variabile tradotta attraverso un filtro è escapizzata per impostazione predefinita #}
+            {{ message | trans | raw }}
+
+            {# le stringhe statiche non sono mai escapizzate #}
+            {{ '<h3>foo</h3>' | trans }}
+
+Template PHP
+~~~~~~~~~~~~
+
+Il servizio di traduzione è accessibile nei template PHP attraverso
+l'helper ``translator``:
+
+.. code-block:: html+php
+
+    <?php echo $view['translator']->trans('Symfony2 is great') ?>
+
+    <?php echo $view['translator']->transChoice(
+        '{0} There is no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
+        10,
+        array('%count%' => 10)
+    ) ?>
+
+Forzare il locale della traduzione
+----------------------------------
+
+Quando si traduce un messaggio, Symfony2 utilizza il lodale della sessione utente
+o il locale ``fallback`` se necessario. È anche possibile specificare manualmente il
+locale da usare per la traduzione:
+
+.. code-block:: php
+
+    $this->get('translator')->trans(
+        'Symfony2 is great',
+        array(),
+        'messages',
+        'fr_FR',
+    );
+
+    $this->get('translator')->trans(
+        '{0} There is no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
+        10,
+        array('%count%' => 10),
+        'messages',
+        'fr_FR',
+    );
+
+Tradurre contenuti da un database
+---------------------------------
+
+La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine attraverso
+la `Translatable Extension`_. Per maggiori informazioni, vedere la documentazione
+di questa libreria.
+
+Riassunto
+---------
+
+Con il componente Translation di Symfony2, la creazione e l'internazionalizzazione di applicazioni
+non è più un processo doloroso	e si riduce solo a pochi semplici
+passi:
+
+* Astrarre i messaggi dell'applicazione avvolgendoli utilizzando i metodi
+  :method:`Symfony\\Component\\Translation\\Translator::trans` o
+  :method:`Symfony\\Component\\Translation\\Translator::transChoice`;
+
+* Tradurre ogni messaggio in più locale creando dei file con i messaggi
+  per la traduzione. Symfony2 scopre ed elabora ogni file perché i suoi nomi seguono
+  una specifica convenzione;
+
+* Gestire il locale dell'utente, che è memorizzato nella sessione.
+
+.. _`strtr function`: http://www.php.net/manual/en/function.strtr.php
+.. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
+.. _`Translatable Extension`: https://github.com/l3pp4rd/DoctrineExtensions

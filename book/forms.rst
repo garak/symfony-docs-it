@@ -379,7 +379,7 @@ Gruppi di validatori
 .. tip::
 
     Se non si usano i :ref:`gruppi di validatori <book-validation-validation-groups>`,
-  è possibile saltare questa sezione.
+    è possibile saltare questa sezione.
     
 Se il proprio oggetto si avvale dei :ref:`gruppi di validatori <book-validation-validation-groups>`,
 si avrà bisogno di specificare quelle/i gruppi di convalida deve usare il form::

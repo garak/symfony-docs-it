@@ -145,7 +145,6 @@ saluto sarà stampato, si può aggiungere la seguente opzione::
         ->addOption('ripetizioni', null, InputOption::VALUE_REQUIRED, 'Quante volte dovrà essere stampato il messaggio?', 1)
 
 Ora è possibile usare l'opzione per stampare più volte il messaggio:
-Ora è possibile usare l'opzione per stampare più volte il messaggio:
 
 .. code-block:: php
 

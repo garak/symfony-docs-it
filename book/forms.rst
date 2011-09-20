@@ -95,7 +95,7 @@ da dentro un controllore::
     {
         public function newAction(Request $request)
         {
-            // create a task and give it some dummy data for this example
+            // crea un task fornendo alcuni dati fittizi per questo esempio
             $task = new Task();
             $task->setTask('Write a blog post');
             $task->setDueDate(new \DateTime('tomorrow'));
@@ -208,7 +208,7 @@ controllore::
 
     public function newAction(Request $request)
     {
-        // just setup a fresh $task object (remove the dummy data)
+        // crea un nuovo oggetto $task (rimuove i dati fittizi)
         $task = new Task();
 
         $form = $this->createFormBuilder($task)
@@ -220,7 +220,7 @@ controllore::
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-                // perform some action, such as saving the task to the database
+                // esegue alcune azioni, come ad esempio salvare il task nel database
 
                 return $this->redirect($this->generateUrl('task_success'));
             }

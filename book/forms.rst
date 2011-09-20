@@ -749,11 +749,11 @@ la scelta in ultima analisi, spetta a voi.
 .. sidebar:: Impostare ``data_class``
 
     Ogni form ha bisogno di sapere il nome della classe che detiene i dati
-  sottostanti (ad esempio ``Acme\TaskBundle\Entity\Task``). Di solito, questo viene indovinato
-  in base all'oggetto passato al secondo argomento di ``createForm``
-  (vale a dire ``$task``). Dopo, quando si inizia a incorporare i form, questo
-  non sarà più sufficiente. Così, anche se non sempre necessario, è in genere una
-  buona idea specificare esplicitamente l'opzione ``data_class`` aggiungendo
+    sottostanti (ad esempio ``Acme\TaskBundle\Entity\Task``). Di solito, questo viene indovinato
+    in base all'oggetto passato al secondo argomento di ``createForm``
+    (vale a dire ``$task``). Dopo, quando si inizia a incorporare i form, questo
+    non sarà più sufficiente. Così, anche se non sempre necessario, è in genere una
+    buona idea specificare esplicitamente l'opzione ``data_class`` aggiungendo
     il codice seguente alla classe del tipo di form::
 
         public function getDefaultOptions(array $options)

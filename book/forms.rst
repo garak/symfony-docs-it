@@ -125,7 +125,7 @@ costruzione del form.
 
 In questo esempio sono stati aggiunti due campi al form - ``task`` e ``dueDate`` -
 corrispondenti alle proprietà ``task`` e ``dueDate`` della classe ``Task``.
-E' stato anche assegnato un "tipo" ciascuno (ad esempio ``text``, ``date``), che, tra
+È stato anche assegnato un "tipo" ciascuno (ad esempio ``text``, ``date``), che, tra
 le altre cose, determina quale tag form HTML viene utilizzato per tale campo.
 
 Symfony2 ha molti tipi predefiniti che verranno trattati a breve
@@ -174,7 +174,7 @@ helper per i form:
     era stato creato precedentemente.
 
 Questo è tutto! Scrivendo ``form_widget(form)``, ciascun campo del form viene
-reso, insieme ad una etichetta e a un messaggio di errore (se presente). Per quanto semplice,
+reso, insieme a un'etichetta e a un messaggio di errore (se presente). Per quanto semplice,
 questo metodo non è molto flessibile (ancora). Di solito, si ha bisogno di rendere individualmente
 ciascun campo in modo da poter controllare la visualizzazione del form. Si imparerà
 a farlo nella sezione ":ref:`form-rendering-template`".
@@ -182,7 +182,7 @@ a farlo nella sezione ":ref:`form-rendering-template`".
 Prima di andare avanti, notare come il campo input ``task`` reso ha il value
 della proprietà ``task`` dall'oggetto ``$task`` (ad esempio "Scrivi un post sul blog").
 Questo è il primo compito di un form: prendere i dati da un oggetto e tradurli
-in un formato adatto ad essere reso in un form HTML.
+in un formato adatto a essere reso in un form HTML.
 
 .. tip::
 
@@ -252,7 +252,7 @@ possibili percorsi:
 #. Quando l'utente invia il form con dati validi, il form viene associato e
    si ha la possibilità di eseguire alcune azioni usando l'oggetto ``$task``
    (ad esempio persistendo i dati nel database) prima di reindirizzare l'utente
-   ad un'altra pagina (ad esempio una pagina "thank you" o "success").
+   a un'altra pagina (ad esempio una pagina "thank you" o "success").
 
 .. note::
 
@@ -416,7 +416,7 @@ campi più comuni e i tipi di dati di cui necessitano i form:
 
 .. include:: /reference/forms/types/map.rst.inc
 
-E' anche possibile creare dei tipi di campi personalizzati. Questo argomento è trattato
+È anche possibile creare dei tipi di campi personalizzati. Questo argomento è trattato
 nell'articolo the ":doc:`/cookbook/form/create_custom_field_type`" del ricettario.
 
 .. index::
@@ -436,7 +436,7 @@ la data nella casella come una stringa)::
 .. image:: /images/book/form-simple2.png
     :align: center
 
-Ogni tipo di campo ha un numero di opzioni differente che possono essere passate ad esso.
+Ogni tipo di campo ha un numero di opzioni differente che possono essere passate a esso.
 Molte di queste sono specifiche per il tipo di campo e i dettagli possono essere trovati
 nella documentazione di ciascun tipo.
 
@@ -482,7 +482,7 @@ campo ``text`` e che il campo ``dueDate`` è un campo ``date``::
     }
 
 Questa funzionalità si attiva quando si omette il secondo argomento del metodo
-``add()`` (o se si passa ``null`` ad esso). Se si passa un array di opzioni come
+``add()`` (o se si passa ``null`` a esso). Se si passa un array di opzioni come
 terzo argomento (fatto sopra per ``dueDate``), queste opzioni vengono applicate
 al campo indovinato.
 
@@ -533,7 +533,7 @@ passando l'opzione nell'array di opzioni del campo::
     ->add('task', null, array('min_length' => 4))
 
 .. index::
-   single: Forms; Rendere un form in un template
+   single: Form; Rendere un form in un template
 
 .. _form-rendering-template:
 
@@ -599,7 +599,7 @@ per impostazione predefinita. Nella sezione :ref:`form-theming`, si apprenderà 
 di ``form_row`` possa essere personalizzato su diversi levelli.
 
 .. index::
-   single: Forms; Rendere manualmente ciascun campo
+   single: Form; Rendere manualmente ciascun campo
 
 Rendere manualmente ciascun campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -688,7 +688,7 @@ Leggendolo si può sapere tutto sugli helper disponibili e le opzioni
 che possono essere usate con ciascuno di essi.
 
 .. index::
-   single: Forms; Creating form classes
+   single: Form; Creating form classes
 
 .. _book-form-creating-form-classes:
 
@@ -764,12 +764,12 @@ la scelta in ultima analisi, spetta a voi.
         }
 
 .. index::
-   pair: Forms; Doctrine
+   pair: Form; Doctrine
 
 I form e Doctrine
 -----------------
 
-L'obiettivo di un form è quello di tradurre i dati da un oggetto (ad esempio ``Task``) ad un
+L'obiettivo di un form è quello di tradurre i dati da un oggetto (ad esempio ``Task``) a un
 form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto originale. Come
 tale, il tema della persistenza dell'oggetto ``Task`` nel database è interamente
 non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
@@ -790,7 +790,7 @@ Se, per qualche motivo, non si ha accesso all'oggetto originale ``$task``,
 
     $task = $form->getData();
 
-Per maggiori informazioni, vedere il :doc:`capitolo Doctrine ORM</book/doctrine>`.
+Per maggiori informazioni, vedere il :doc:`capitolo ORM Doctrine</book/doctrine>`.
 
 La cosa fondamentale da capire è che quando il form viene riempito, i dati
 inviati vengono trasferiti immediatamente all'oggetto sottostante. Se si vuole
@@ -1082,7 +1082,7 @@ personalizzare (ad esempio ``widget``), si può costruire il nome del frammento 
 deve essere sovrascritto (esempio ``textarea_widget``).
 
 .. index::
-   single: Forms; Ereditarietà dei frammenti di template
+   single: Form; Ereditarietà dei frammenti di template
 
 Ereditarietà dei frammenti di template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1105,10 +1105,10 @@ direttamente il frammento ``field_errors``.
 .. tip::
 
     Il tipo "genitore" di ogni tipo di campo è disponibile
-  per ogni tipo di campo in :doc:`form type reference</reference/forms/types>`
+    per ogni tipo di campo in :doc:`form type reference</reference/forms/types>`
 
 .. index::
-   single: Forms; Temi globali
+   single: Form; Temi globali
 
 Temi globali per i form
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -1164,7 +1164,7 @@ per definire l'output del form.
 .. sidebar::  Personalizzare tutti gli output del form in un singolo file con Twig
 
     Con Twig, si può anche personalizzare il blocco di un form all'interno del template
-  in cui questa personalizzazione è necessaria:
+    in cui questa personalizzazione è necessaria:
 
     .. code-block:: html+jinja
 
@@ -1184,10 +1184,10 @@ per definire l'output del form.
             {{ form_row(form.task) }}
         {% endblock %}
 
-  Il tag ``{% form_theme form _self %}`` ai blocchi del form di essere personalizzati
-  direttamente all'interno del template che utilizzerà tali personalizzazioni. Utilizzare
-  questo metodo per creare velocemente personalizzazioni del form che saranno
-  utilizzate solo in un singolo template.
+    Il tag ``{% form_theme form _self %}`` ai blocchi del form di essere personalizzati
+    direttamente all'interno del template che utilizzerà tali personalizzazioni. Utilizzare
+    questo metodo per creare velocemente personalizzazioni del form che saranno
+    utilizzate solo in un singolo template.
 
 PHP
 ...
@@ -1239,7 +1239,7 @@ Ogni frammento all'interno della cartella ``Acme/TaskBundle/Resources/views/Form
 è ora usato globalmente per definire l'output del form.
 
 .. index::
-   single: Forms; Protezione CSRF
+   single: Form; Protezione CSRF
 
 .. _forms-csrf:
 
@@ -1300,7 +1300,7 @@ Considerazioni finali
 
 Ora si è a conoscenza di tutti i mattoni necessari per costruire form complessi e
 funzionali per la propria applicazione. Quando si costruiscono form, bisogna tenere presente che
-il primo gol di un form è quello di tradurre i dati da un oggetto (``Task``) ad un
+il primo gol di un form è quello di tradurre i dati da un oggetto (``Task``) a un
 form HTML in modo che l'utente possa modificare i dati. Il secondo obiettivo di un form è quello di
 prendere i dati inviati dall'utente e ri-applicarli all'oggetto.
 
@@ -1326,4 +1326,4 @@ Saperne di più con il ricettario
 .. _`Twig Bridge`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge/Twig
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 .. _`Cross-site request forgery`: http://it.wikipedia.org/wiki/Cross-site_request_forgery
-.. _`vedere on GitHub`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form
+.. _`vedere su GitHub`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form

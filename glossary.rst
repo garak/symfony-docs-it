@@ -3,7 +3,7 @@
 Glossario
 =========
 
-.. glossario::
+.. glossary::
    :sorted:
 
    Distribuzione
@@ -11,22 +11,22 @@ Glossario
         una selezione di bundle, una struttura di cartelle sensibile, una
         configurazione predefinita e un sistema di configurazione opzionale.
 
-    Progetto
+   Progetto
         Un *progetto* è una cartella composta da un'applicazione, un insieme
         di bundle, librerie di terze parti, un autoloader e alcuni script per
         il front controller del web.
 
-    Applicazione
+   Applicazione
         Una *applicazione* è una cartella contenente la *configurazione* per
         un dato insieme di bundle.
 
-    Bundle
+   Bundle
         Un *bundle* è una cartella con un insieme di file (file PHP, fogli di stile,
         JavaScript, immagini, ...) che *implementa* una singola caratteristica
         (un blog, un forum, eccetera). In Symfony2, (*quasi*) tutto risiede all'interno
         di un bundle. (si veda :ref:`page-creation-bundles`)
 
-    Front controller
+   Front controller
         Un *front controller* è un piccolo script PHP che risiede nella cartella web del
         proprio progetto. Solitamente, *ogni* richiesta è gestita eseguendo lo stesso
         front controller, il cui compito è quello di inizializzare l'applicazione Symfony.

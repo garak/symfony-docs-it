@@ -70,6 +70,6 @@ inglese e applicare i cambiamenti alla propria versione quanto prima.
 
 .. Attenzione::
    I linguaggi non correttamente manutenuti sono rimossi dalla lista di quelli 
-   ufficiali poichè la documentazione non aggiornata è pericolosa
+   ufficiali poiché la documentazione non aggiornata è pericolosa
 
 .. _Symfony docs mailing-list: http://groups.google.com/group/symfony-docs

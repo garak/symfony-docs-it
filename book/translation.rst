@@ -257,7 +257,7 @@ traduzione:
 
     Symfony2 is Great => J'aime Symfony2
 
-E' compito dello sviluppatore (o traduttore) di una applicazione
+È compito dello sviluppatore (o traduttore) di una applicazione
 internazionalizzata creare queste traduzioni. Le traduzioni sono memorizzate sul
 filesystem e vengono trovate da Symfony grazie ad alcune convenzioni.
 
@@ -285,7 +285,7 @@ Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 * Per sovrascrivere eventuali traduzioni del bundle, posizionare i file con i messaggi
   nella cartella``app/Resources/translations``.
 
-E' importante anche il nome del file con le traduzioni, perché Symfony2 utilizza una convenzione
+È importante anche il nome del file con le traduzioni, perché Symfony2 utilizza una convenzione
 per determinare i dettagli sulle traduzioni. Ogni file con i messaggi deve essere nominato
 secondo il seguente schema: ``domain.locale.loader``:
 

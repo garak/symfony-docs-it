@@ -241,7 +241,7 @@ Utilizzando la classe :class:`Symfony\Bundle\FrameworkBundle\Command\ContainerAw
 come classe base per i comandi (al posto della meno evoluta 
 :class:`Symfony\Component\Console\Command\Command`) si ha la possibilità di accedere al 
 contenitore dei servizi. In altre parole, è possibile accedere ad ogni servizio che sia stato 
-configurato. Ad esempio, è possibile estendere facilmente la precedente azione affinchè sia traducibile::
+configurato. Ad esempio, è possibile estendere facilmente la precedente azione affinché sia traducibile::
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -296,7 +296,7 @@ intero negli altri altri casi).
 .. note::
 
 	Nella maggior parte dei casi, non è una buona idea quella di eseguire 
-	un comando al di fuori del terminale. Innanzitutto perchè l'output del 
+	un comando al di fuori del terminale. Innanzitutto perché l'output del 
 	comando è ottimizzato per il terminale. Ma, anche più importante, un comando 
 	è come un controllore: dovrebbe usare un modello per fare qualsiasi cosa e 
 	restituire informazioni all'utente. Perciò, invece di eseguire un comando

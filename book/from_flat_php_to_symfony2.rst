@@ -618,7 +618,9 @@ Il layout è quasi identico:
 
 Quando il motore di Symfony2 (chiamato ``Kernel``) parte, ha bisogno di una mappa che gli
 consenta di sapere quali controllori eseguire, in base alle informazioni della richiesta.
-Una configurazione delle rotte fornisce tali informazioni in un formato leggibile::
+Una configurazione delle rotte fornisce tali informazioni in un formato leggibile:
+
+.. code-block:: yaml
 
     # app/config/routing.yml
     blog_list:
@@ -668,7 +670,7 @@ da PHP puro a Symfony2 ci abbia migliorato la vita:
 
 * Il 100% del codice che si scrive è per la *propria* applicazione. **Non occorre
   sviluppare o mantenere utilità a basso livello**, come :ref:`autoloading<autoloading-introduction-sidebar>`,
-  :doc:`routing</book/routing>` o rendering :doc:`controllers</book/controller>`.
+  :doc:`routing</book/routing>` o rendere i :doc:`controllori</book/controller>`.
 
 * Symfony2 dà **accesso a strumenti open source**, come  Doctrine e i componenti
   Templating, Security, Form, Validation e Translation (solo per nominarne

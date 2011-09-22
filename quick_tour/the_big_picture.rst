@@ -235,7 +235,7 @@ client o anche restituire il contenuto di un'immagine JPG, con un header ``Conte
 
     Estendere la classe base ``Controller`` è facoltativo. Di fatto, un controllore
     può essere una semplice funzione PHP, o anche una funzione anonima PHP.
-    Il capitolo ":doc:`The Controller</book/controller>`" del libro dice tutto
+    Il capitolo ":doc:`Il controllore</book/controller>`" del libro dice tutto
     sui controllori di Symfony2.
 
 Il nome del template, ``AcmeDemoBundle:Welcome:index.html.twig``, è il *nome logico*

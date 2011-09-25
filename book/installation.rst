@@ -12,7 +12,7 @@ immediatamente a sviluppare.
 .. tip::
 
     Se si stanno cercando le istruzioni per creare un nuovo progetto e memorizzarlo con
-    un sistema di versionamento, si veda `Uso di un controllo dei sorgenti`_.
+    un sistema di versionamento, si veda `Usare un controllo di sorgenti`_.
 
 Scaricare una distribuzione Symfony2
 ------------------------------------

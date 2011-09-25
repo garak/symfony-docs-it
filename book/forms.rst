@@ -695,7 +695,7 @@ che possono essere usate con ciascuno di essi.
 Creare classi per i form
 ------------------------
 
-Come si è visto, un form può essere creato e utilizzato direttamente in un controllere.
+Come si è visto, un form può essere creato e utilizzato direttamente in un controllore.
 Tuttavia, una pratica migliore è quella di costruire il form in una apposita classe
 PHP, che può essere riutilizzata in qualsiasi punto dell'applicazione. Creare una nuova classe
 che ospiterà la logica per la costruzione del form task:
@@ -1017,14 +1017,14 @@ rende il form:
 
         <form ...>
 
-Il tag ``form_theme``(in Twig) "importa" i frammenti definiti nel dato
+Il tag ``form_theme`` (in Twig) "importa" i frammenti definiti nel dato
 template e li usa quando deve rendere il form. In altre parole, quando la
 funzione ``form_row`` è successivamente chiamata in questo template, utilizzerà il
 blocco ``field_row`` dal tema personalizzato (al posto del blocco predefinito ``field_row``
 fornito con Symfony).
 
 Per personalizzare una qualsiasi parte di un form, basta sovrascrivere il frammento
-appropriato. Sapere esattamente qual'è il blocco o il file da sovrascrivere è l'oggetto
+appropriato. Sapere esattamente qual è il blocco o il file da sovrascrivere è l'oggetto
 della sezione successiva.
 
 Per una trattazione più ampia, vedere :doc:`/cookbook/form/form_customization`.

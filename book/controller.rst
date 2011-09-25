@@ -1,17 +1,17 @@
 ﻿.. index::
    single: Controller
 
-Il controllere
+Il controllore
 ==============
 
-Un controllere è una funzione PHP che bisogna creare, che prende le informazioni dalla
+Un controllore è una funzione PHP che bisogna creare, che prende le informazioni dalla
 richiesta HTTP e costruttori e restituisce una risposta HTTP (come oggetto
 ``Response`` di Symfony2). La risposta potrebbe essere una pagina HTML, un documento XML,
 un array serializzato JSON, una immagine, una redirezione, un errore 404 o qualsiasi altra cosa
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
 *propria applicazione* necessita per rendere il contenuto di una pagina.
 
-Per vedere come questo è semplice, diamo un'occhiata  ad un controllere di Symfony2 in azione.
+Per vedere come questo è semplice, diamo un'occhiata  ad un controllore di Symfony2 in azione.
 Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mondo!``::
 
     use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mo
 L'obiettivo di un controllore è sempre lo stesso: creare e restituire un oggetto
 ``Response``. Lungo il percorso, potrebbe leggere le informazioni dalla richiesta, caricare una
 risorsa da un database, inviare una e-mail, o impostare informazioni sulla sessione dell'utente.
-Ma in ogni caso, il controllere alla fine restituirà un oggetto ``Response``
+Ma in ogni caso, il controllore alla fine restituirà un oggetto ``Response``
 che verrà restituito al client.
 	
 Non c'è nessuna magia e nessun altro requisito di cui preoccuparsi! Di seguito alcuni
@@ -67,7 +67,7 @@ controllore, che ospita il codice personalizzato dell'applicazione:
 #. Le intestazioni HTTP e il contenuto dell'oggetto ``Response`` vengono rispedite
    al client.
 
-Creare una pagina è facile come creare un controllore (#3) e fare una rotta che
+Creare una pagina è facile, basta creare un controllore (#3) e fare una rotta che
 mappa un URL su un controllore (#2).
 
 .. note::

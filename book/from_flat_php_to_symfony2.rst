@@ -731,7 +731,7 @@ Il template corrispondente ``layout.html.twig`` è anche più facile da scrivere
         </body>
     </html>
 
-Twig è ben supporato in Symfony2. Pur essendo sempre supportati i template PHP,
+Twig è ben supportato in Symfony2. Pur essendo sempre supportati i template PHP,
 continueremo a discutere dei molti vantaggi offerti da Twig. Per ulteriori informazioni,
 vedere il :doc:`capitolo dei template</book/templating>`.
 

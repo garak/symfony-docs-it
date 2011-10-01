@@ -48,17 +48,17 @@ La cartella ``app/``
 ~~~~~~~~~~~~~~~~~~~~
 
 La classe ``AppKernel`` è il punto di ingresso principale della configurazione
-dell'applicazione e quindi è memorizzata nella cartella ``app/`.
+dell'applicazione e quindi è memorizzata nella cartella ``app/``.
 
 Questa classe deve implementare due metodi:
 
 * ``registerBundles()`` deve restituire un array di tutti i bundle necessari per
   eseguire l'applicazione;
 
-* ``registerContainerConfiguration()``: carica la configurazione dell'applicazione
-(approfondito più avanti);
+* ``registerContainerConfiguration()`` carica la configurazione dell'applicazione
+  (approfondito più avanti);
 
-L'autoloading di PHP può essere configurato tramite ``app/autoload.php``::
+Il caricamento automatico di PHP può essere configurato tramite ``app/autoload.php``::
 
     // app/autoload.php
     use Symfony\Component\ClassLoader\UniversalClassLoader;
@@ -87,12 +87,12 @@ L'autoloading di PHP può essere configurato tramite ``app/autoload.php``::
     ));
     $loader->register();
 
-La classe `Symfony\\Component\\ClassLoader\\UniversalClassLoader` di Symfony2 è usata per auto-caricare i file che rispettano gli `standard`_  di interoperabilità  per i namespace di
-PHP 5.3 oppure la `convenzione`_ dei nomi di PEAR per le classi. Come si può vedere,
-tutte le dipendenze sono sotto la cartella ``vendor/``, ma questa è solo una convenzione. Si possono inserire in qualsiasi posto, globalmente sul proprio server o localmente nei propri progetti.
-
-
-
+La classe `Symfony\\Component\\ClassLoader\\UniversalClassLoader` di Symfony2 è usata
+per auto-caricare i file che rispettano gli `standard`_  di interoperabilità  per i namespace
+di PHP 5.3 oppure la `convenzione`_ dei nomi di PEAR per le classi. Come si può vedere,
+tutte le dipendenze sono sotto la cartella ``vendor/``, ma questa è solo una convenzione.
+Si possono inserire in qualsiasi posto, globalmente sul proprio server o localmente nei
+propri progetti.
 
 .. note::
 
@@ -157,9 +157,9 @@ Configurare un bundle
 ~~~~~~~~~~~~~~~~~~~~~
 
 Ogni bundle può essere personalizzato tramite file di configurazione scritti in YAML,
-XML o PHP. Si veda la configurazione predefinita::
+XML o PHP. Si veda la configurazione predefinita:
 
-    .. code-block:: yaml
+.. code-block:: yaml
 
     # app/config/config.yml
     imports:
@@ -168,8 +168,8 @@ XML o PHP. Si veda la configurazione predefinita::
 
     framework:
         secret:          %secret%
-            charset:       UTF-8
-            router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+        charset:         UTF-8
+        router:          { resource: "%kernel.root_dir%/config/routing.yml" }
         form:            true
         csrf_protection: true
         validation:      { enable_annotations: true }
@@ -178,12 +178,12 @@ XML o PHP. Si veda la configurazione predefinita::
             default_locale: %locale%
             auto_start:     true
 
-    # Twig Configuration
+    # Configurazione di Twig
     twig:
         debug:            %kernel.debug%
         strict_variables: %kernel.debug%
 
-    # Assetic Configuration
+    # Configurazione di Assetic
     assetic:
         debug:          %kernel.debug%
         use_controller: false
@@ -194,7 +194,7 @@ XML o PHP. Si veda la configurazione predefinita::
             # yui_css:
             #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
 
-    # Doctrine Configuration
+    # Configurazione di Doctrine
     doctrine:
         dbal:
             driver:   %database_driver%
@@ -208,7 +208,7 @@ XML o PHP. Si veda la configurazione predefinita::
             auto_generate_proxy_classes: %kernel.debug%
             auto_mapping: true
 
-    # Swiftmailer Configuration
+    # Configurazione di Swiftmailer
     swiftmailer:
         transport: %mailer_transport%
         host:      %mailer_host%
@@ -226,9 +226,9 @@ configura ``SwiftmailerBundle``.
 Ogni :term:`ambiente` può sovrascrivere la configurazione predefinita, fornendo un file
 di configurazione specifico. Per esempio, l'ambiente ``dev`` carica il file ``config_dev.yml``,
 che carica la configurazione principale (cioè ``config.yml``) e quindi la modifica per
-aggiungere alcuni strumenti di debug::
+aggiungere alcuni strumenti di debug:
 
-    .. code-block:: yaml
+.. code-block:: yaml
 
     # app/config/config_dev.yml
     imports:
@@ -258,24 +258,24 @@ aggiungere alcuni strumenti di debug::
 Estendere un bundle
 ~~~~~~~~~~~~~~~~~~~
 
-Oltre ad essere un modo carino per organizzare e configurare il proprio codice,
-un bundle può estendere un altro bundle. L'ereditarietà dei bundle consente di
-sovrascrivere un bundle esistente, per poter personalizzare i suoi controllori, i
-template o qualsiasi altro suo file. Qui sono d'aiuto i nomi logici (come
-``@AcmeDemoBundle/Controller/SecuredController.php``), che astraggono i posti in cui le risorse sono effettivamente memorizzate.
+Oltre ad essere un modo carino per organizzare e configurare il proprio codice, un bundle
+può estendere un altro bundle. L'ereditarietà dei bundle consente di sovrascrivere un bundle
+esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro suo
+file. Qui sono d'aiuto i nomi logici (come ``@AcmeDemoBundle/Controller/SecuredController.php``),
+che astraggono i posti in cui le risorse sono effettivamente memorizzate.
 
 Nomi logici di file
 ...................
 
 Quando si vuole fare riferimento a un file da un bundle, usare questa notazione:
 ``@NOME_BUNDLE/percorso/del/file``; Symfony2 risolverà ``@NOME_BUNDLE`` nel percorso
-reale del bundle.
-Per esempio, il percorso logico ``@AcmeDemoBundle/Controller/DemoController.php``
-verrebbe converito in ``src/Acme/DemoBundle/Controller/DemoController.php``,
-perché Symfony conosce la locazione di ``AcmeDemoBundle``.
+reale del bundle. Per esempio, il percorso logico
+``@AcmeDemoBundle/Controller/DemoController.php`` verrebbe convertito in
+``src/Acme/DemoBundle/Controller/DemoController.php``, perché Symfony conosce
+la locazione di ``AcmeDemoBundle``.
 
-Nomici logici di controllori
-............................
+Nomi logici di controllori
+..........................
 
 Per i controllori, occorre fare riferimento ai nomi dei metodi usando il formato
 ``NOME_BUNDLE:NOME_CONTROLLORE:NOME_AZIONE``. Per esempio,
@@ -294,11 +294,13 @@ memorizzare, per esempio, in una tabella di database.
 Estendere i bundle
 ..................
 
-Se si seguono queste convenzioni, si può usare l':doc:`ereditarietà dei bundle</cookbook/bundles/inheritance>` per "sovrascrivere" file, controllori o template.
-Per esempio, se un nuovo bundle chiamato ``AcmeNewBundle`` estende
-``AcmeDemoBundle``, Symfony proverà a caricare prima il controllore
-``AcmeDemoBundle:Welcome:index`` da ``AcmeNewBundle`` e poi cercherà il
-secondo ``AcmeDemoBundle``.
+Se si seguono queste convenzioni, si può usare
+l':doc:`ereditarietà dei bundle</cookbook/bundles/inheritance>`
+per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
+chiamato ``AcmeNewBundle`` estende ``AcmeDemoBundle``, Symfony proverà a caricare
+prima il controllore ``AcmeDemoBundle:Welcome:index`` da ``AcmeNewBundle`` e poi
+cercherà il secondo ``AcmeDemoBundle``. Questo vuol dire che un bundle può sovrascrivere
+quasi ogni parte di un altro bundle!
 
 Capite ora perché Symfony2 è così flessibile? Condividere i propri bundle tra le
 applicazioni, memorizzarli localmente o globalmente, a propria scelta.
@@ -358,7 +360,7 @@ varie cartelle, finché non si raggiunge il risultato voluto.
 
 E questo è tutto per il giro veloce. Dai test all'invio di email, occorre ancora
 imparare diverse cose per padroneggiare Symfony2. Pronti per approfondire questi
-temi? Senza indugi, basta andare nella pagine del `libro<:doc:`/book/index`` e
+temi? Senza indugi, basta andare nella pagine del :doc:`libro</book/index>` e
 scegliere un argomento a piacere.
 
 .. _standard:    http://groups.google.com/group/php-standards/web/psr-0-final-proposal

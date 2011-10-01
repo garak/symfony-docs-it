@@ -4,7 +4,6 @@
   file come ``app/config/config.yml``? In questa sezioni tutte le configurazioni disponibili
   sono elencate per ogni voce (per esempio ``framework``) che definisce ogni possibile
   sezione della configurazione di Symfony2.
-  section of your Symfony2 configuration.
 
   * :doc:`framework </reference/configuration/framework>`
   * :doc:`doctrine </reference/configuration/doctrine>`
@@ -17,7 +16,7 @@
 
 * **Form e validazione**
 
-  * :doc:`Riferiemtni dei tipi di campo dei form </reference/forms/types>`
+  * :doc:`Riferimenti dei tipi di campo dei form </reference/forms/types>`
   * :doc:`Riferimenti dei vincoli di validazione </reference/constraints>`
   * :doc:`Riferimenti delle funzioni dei template di Twig </reference/forms/twig_reference>`
 

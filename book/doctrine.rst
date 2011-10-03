@@ -15,7 +15,7 @@ con un database.
 
     Doctrine è totalmente disaccoppiato da Symfony e il suo utilizzo è facoltativo.
     Questo capitolo è tutto su Doctrine, che si prefigge lo scopo di consentire una mappatura
-    tra oggetti un un database relazionale (come *MySQL*, *PostgreSQL* o *Microsoft SQL*).
+    tra oggetti un database relazionale (come *MySQL*, *PostgreSQL* o *Microsoft SQL*).
     Se si preferisce l'uso di query grezze, lo si può fare facilmente, come spiegato
     nella ricetta ":doc:`/cookbook/doctrine/dbal`".
 
@@ -605,7 +605,7 @@ documentazione ufficiale di Doctrine `Doctrine Query Language`_.
 
 .. sidebar:: Impostare i parametri
 
-    Si prenda nota del metodo ``setParameter()`. Lavorando con Doctrine,
+    Si prenda nota del metodo ``setParameter()``. Lavorando con Doctrine,
     è sempre una buona idea impostare ogni valore esterno come "segnaposto",
     come è stato fatto nella query precedente:
     
@@ -1291,7 +1291,7 @@ consentendo di creare query complesse e sottoscrivere eventi che consentono
 di intraprendere diverse azioni, mentre gli oggetti viaggiano lungo il loro ciclo
 di vita della persistenza.
 
-Per maggiori informazioni su Doctrine, vedere la sezione *Dcotrine* del
+Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 :doc:`ricettario</cookbook/index>`, che include i seguenti articoli:
 
 * :doc:`/bundles/DoctrineFixturesBundle/index`

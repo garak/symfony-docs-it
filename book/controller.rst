@@ -4,14 +4,14 @@
 Il controllore
 ==============
 
-Un controllore è una funzione PHP che bisogna creare, che prende le informazioni dalla
-richiesta HTTP e costruttori e restituisce una risposta HTTP (come oggetto
+Un controllore è una funzione PHP da creare, che prende le informazioni dalla
+richiesta HTTP e dai costruttori e restituisce una risposta HTTP (come oggetto
 ``Response`` di Symfony2). La risposta potrebbe essere una pagina HTML, un documento XML,
 un array serializzato JSON, una immagine, una redirezione, un errore 404 o qualsiasi altra cosa
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
 *propria applicazione* necessita per rendere il contenuto di una pagina.
 
-Per vedere come questo è semplice, diamo un'occhiata  ad un controllore di Symfony2 in azione.
+Per vedere quanto questo è semplice, diamo un'occhiata  ad un controllore di Symfony2 in azione.
 Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mondo!``::
 
     use Symfony\Component\HttpFoundation\Response;

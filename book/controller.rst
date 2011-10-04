@@ -4,14 +4,14 @@
 Il controllore
 ==============
 
-Un controllore è una funzione PHP che bisogna creare, che prende le informazioni dalla
-richiesta HTTP e costruttori e restituisce una risposta HTTP (come oggetto
+Un controllore è una funzione PHP da creare, che prende le informazioni dalla
+richiesta HTTP e dai costruttori e restituisce una risposta HTTP (come oggetto
 ``Response`` di Symfony2). La risposta potrebbe essere una pagina HTML, un documento XML,
 un array serializzato JSON, una immagine, una redirezione, un errore 404 o qualsiasi altra cosa
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
 *propria applicazione* necessita per rendere il contenuto di una pagina.
 
-Per vedere come questo è semplice, diamo un'occhiata  ad un controllore di Symfony2 in azione.
+Per vedere quanto questo è semplice, diamo un'occhiata  ad un controllore di Symfony2 in azione.
 Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mondo!``::
 
     use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +38,10 @@ esempi comuni:
   quel blog. Se lo ``slug`` non viene trovato nel database, crea e
   restituisce un oggetto ``Response`` con codice di stato 404.
 
-* Il *controllore C* gestisce l'invio form di un form contatti. Legge le
-  informazioni del form da dalla richiesta, salva le informazioni del contatto nel
+* Il *controllore C* gestisce l'invio di un form contatti. Legge le
+  informazioni del form dalla richiesta, salva le informazioni del contatto nel
   database ed invia una email con le informazioni del contatto al webmaster. Infine,
-  crea un oggetto ``Response``che reindirizza il browser del client al
+  crea un oggetto ``Response``che reindirizza il browser del client
   alla pagina di ringraziamento del form contatti.
 
 .. index::
@@ -72,9 +72,9 @@ mappa un URL su un controllore (#2).
 
 .. note::
 
-    Anche se ha un nome simile, un "controllore principale" è diverso dagli altri
+    Anche se ha un nome simile, il "controllore principale" (front controller) è diverso dagli altri
     "controllori" di cui si parla in questo capitolo. Un controllore principale
-    è un breve file PHP che è presente nella vostra cartella web e sul quale sono
+    è un breve file PHP che è presente nella propria cartella web e sul quale sono
     dirette tutte le richieste. Una tipica applicazione avrà un controllore
     principale di produzione (ad esempio ``app.php``) e un controllore principale per lo sviluppo
     (ad esempio ``app_dev.php``). Probabilmente non si avrà mai bisogno di modificare, visualizzare o preoccuparsi
@@ -117,22 +117,22 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 Questo controllore è piuttosto semplice, ma vediamo di analizzarlo:
 
-* *line 3*: Symfony2 sfrutta la funzionalità namespace di PHP 5.3 per
+* *linea 3*: Symfony2 sfrutta la funzionalità namespace di PHP 5.3 per
   utilizzarla nell'intera classe dei controllori. La parola chiave ``use`` importa la
   classe ``Response``, che il controllore deve restituire.
 
-* *line 6*: Il nome della classe è la concatenazione di un nome per la classe
+* *linea 6*: Il nome della classe è la concatenazione di un nome per la classe
   controllore (ad esempio ``Hello``) e la parola ``Controller``. Questa è una convenzione
   che fornisce consistenza ai controllori e permette loro di essere referenziati
   solo dalla prima parte del nome (ad esempio ``Hello``) nella configurazione delle rotte.
 
-* *line 8*: Ad ogni azione in una classe controllore viene aggiunto il suffisso ``Action``
+* *linea 8*: Ad ogni azione in una classe controllore viene aggiunto il suffisso ``Action``
   mentre nella configurazione delle rotte viene utilizzato come riferimento il solo nome dell'azione (``index``).
-  In the next section, you'll create a route that maps a URI to this action.
+  Nella sezione successiva, verrà creata una rotta che mappa un URI in questa azione.
   Si imparerà come i segnaposto delle rotte (``{name}``) diventano argomenti
   del metodo dell'azione (``$name``).
 
-* *line 10*: Il controllore crea e restituisce un oggetto ``Response``.
+* *linea 10*: Il controllore crea e restituisce un oggetto ``Response``.
 
 .. index::
    single: Controller; Routes and controllers
@@ -168,7 +168,7 @@ nel controllore:
         )));
 
 Andando in ``/hello/ryan`` ora viene eseguito il controllore ``HelloController::indexAction()``
-e passa ``ryan`` nella variabile ``$name``. Creare una
+e viene passato ``ryan`` nella variabile ``$name``. Creare una
 "pagina" significa semplicemente creare un metodo controllore e associargli una rotta.
 
 Si noti la sintassi utilizzata per fare riferimento al controllore: ``AcmeHelloBundle:Hello:index``.
@@ -177,7 +177,7 @@ Questa è la sintassi più comune e dice a Symfony2 di cercare una classe
 controllore chiamata ``HelloController`` dentro un bundle chiamato ``AcmeHelloBundle``. Il
 metodo ``indexAction()`` viene quindi eseguito.
 
-Per maggiori dettagli sul formato stringa utilizzato per fare riferimento ai controllori differenti,
+Per maggiori dettagli sul formato stringa utilizzato per fare riferimento ai diversi controllori,
 vedere :ref:`controller-string-syntax`.
 
 .. note::
@@ -251,7 +251,7 @@ esempio:
             'color'       => 'green',
         )));
 
-Il controllore per questo può richiedere diversi argomenti::
+Per questo il controllore può richiedere diversi argomenti::
 
     public function indexAction($first_name, $last_name, $color)
     {
@@ -281,7 +281,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
 * **Ogni argomento richiesto del controllore, deve corrispondere ad uno dei parametri della rotta**
 
-    Il codice seguente genererebbe un ``RuntimeException``perché non c'è nessun parametro ``foo``
+    Il codice seguente genererebbe un ``RuntimeException`` perché non c'è nessun parametro ``foo``
     definito nella rotta::
 
         public function indexAction($first_name, $last_name, $color, $foo)
@@ -500,7 +500,7 @@ contenuto di un template può essere usato per creare un oggetto ``Response``::
 
     return new Response($content);
 
-Questo può anche essere fatto in un solo passaggio con con il metodo ``render()``, che
+Questo può anche essere fatto in un solo passaggio con il metodo ``render()``, che
 restituisce un oggetto ``Response`` contenente il contenuto di un template::
 
     return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
@@ -526,7 +526,7 @@ Accesso ad altri servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quando si estende la classe base del controllore, è possibile accedere a qualsiasi servizio di Symfony2
-attraverso il metodo ``get()``. Di seguito ci sono alcuni servizi comuni che potrebbero essere utili::
+attraverso il metodo ``get()``. Di seguito si elencano alcuni servizi comuni che potrebbero essere utili::
 
     $request = $this->getRequest();
 
@@ -570,7 +570,7 @@ Se si sta estendendo la classe base del controllore, procedere come segue::
 Il metodo ``createNotFoundException()`` crea uno speciale oggetto ``NotFoundHttpException``,
 che in ultima analisi innesca una risposta HTTP 404 all'interno di Symfony.
 
-Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllor -
+Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllore -
 Symfony2 ritornerà automaticamente un codice di risposta HTTP 500.
 
 .. code-block:: php
@@ -578,7 +578,7 @@ Symfony2 ritornerà automaticamente un codice di risposta HTTP 500.
     throw new \Exception('Qualcosa è andato storto!');
 
 In ogni caso, all'utente finale viene mostrata una pagina di errore predefinita e allo sviluppatore
-vien mostrata una pagina di errore completa di debug (quando si visualizza la pagina in modalità debug).
+viene mostrata una pagina di errore completa di debug (quando si visualizza la pagina in modalità debug).
 Entrambe le pagine di errore possono essere personalizzate. Per ulteriori informazioni, leggere
 nel ricettario ":doc:`/cookbook/controller/error_pages`".
 
@@ -692,8 +692,8 @@ headers e il contenuto che viene inviato al client::
     La proprietà ``headers`` è un
     oggetto :class:`Symfony\\Component\\HttpFoundation\\HeaderBag` con alcuni
     utili metodi per leggere e modificare gli header ``Response``. I
-    nomi degli header sono normalizzati in modo che l'utilizzo di ``Content-Type`` è equivalente
-    a ``content-type`` o anche ``content_type``.
+    nomi degli header sono normalizzati in modo che l'utilizzo di ``Content-Type`` sia equivalente
+    a ``content-type`` o anche a ``content_type``.
 
 .. index::
    single: Controller; Request object

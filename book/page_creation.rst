@@ -398,7 +398,7 @@ Il template di base definisce il layout HTML e rende il blocco ``body``, che era
 stato definito nel template ``index.html.twig``. Rende anche un blocco ``title``,
 che si può scegliere di definire nel template nel template ``index.html.twig``.
 Poiché non è stato definito il blocco ``title`` nel template figlio, il suo valore
-predefinito + "Benvenuto!".
+predefinito è "Benvenuto!".
 
 I template sono un modo potente per rendere e organizzare il contenuto della propria
 pagina. Un template può rendere qualsiasi cosa, dal codice HTML al CSS, o ogni

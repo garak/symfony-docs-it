@@ -317,7 +317,7 @@ La ``Request`` come argomento del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per comodità, è anche possibile far passare a Symfony l'oggetto ``Request``
-come argomento al controllore. E' particolarmente utile quando si
+come argomento al controllore. È particolarmente utile quando si
 lavora con i form, ad esempio::
 
     use Symfony\Component\HttpFoundation\Request;

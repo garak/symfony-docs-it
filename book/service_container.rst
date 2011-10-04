@@ -35,7 +35,7 @@ Cos'è un servizio?
 ------------------
 
 In parole povere, un :term:`servizio` è un qualsiasi oggetto PHP che esegue una sorta di
-compito "globale". E' un nome volutamente generico utilizzato in informatica
+compito "globale". È un nome volutamente generico utilizzato in informatica
 per descrivere un oggetto che è stato creato per uno scopo specifico (ad esempio spedire
 e-mail). Ogni servizio è utilizzato in tutta l'applicazione ogni volta che si ha bisogno
 delle funzionalità specifiche che fornisce. Non bisogna fare nulla di speciale
@@ -95,7 +95,7 @@ Creare/Configurare servizi nel contenitore
 ------------------------------------------
 
 Una soluzione migliore è quella di lasciare che il contenitore di servizi crei l'oggetto ``Mailer``
-per noi. Affinchè questo funzioni, bisogna *insegnare* al contenitore come
+per noi. Affinché questo funzioni, bisogna *insegnare* al contenitore come
 creare il servizio ``Mailer``. Questo viene fatto tramite la configurazione, che può
 essere specificata in YAML, XML o PHP:
 

@@ -26,7 +26,7 @@ locale:
    (ovvero vicino al file ``deps``) e copiarvi le righe seguenti. I file corrispondenti
    a questi schemi saranno ignorati da git::
 
-    .. code-block:: text
+   .. code-block:: text
 
         /web/bundles/
         /app/bootstrap*

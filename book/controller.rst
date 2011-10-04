@@ -38,10 +38,10 @@ esempi comuni:
   quel blog. Se lo ``slug`` non viene trovato nel database, crea e
   restituisce un oggetto ``Response`` con codice di stato 404.
 
-* Il *controllore C* gestisce l'invio form di un form contatti. Legge le
-  informazioni del form da dalla richiesta, salva le informazioni del contatto nel
+* Il *controllore C* gestisce l'invio di un form contatti. Legge le
+  informazioni del form dalla richiesta, salva le informazioni del contatto nel
   database ed invia una email con le informazioni del contatto al webmaster. Infine,
-  crea un oggetto ``Response``che reindirizza il browser del client al
+  crea un oggetto ``Response``che reindirizza il browser del client
   alla pagina di ringraziamento del form contatti.
 
 .. index::
@@ -72,9 +72,9 @@ mappa un URL su un controllore (#2).
 
 .. note::
 
-    Anche se ha un nome simile, un "controllore principale" è diverso dagli altri
+    Anche se ha un nome simile, il "controllore principale" (front controller) è diverso dagli altri
     "controllori" di cui si parla in questo capitolo. Un controllore principale
-    è un breve file PHP che è presente nella vostra cartella web e sul quale sono
+    è un breve file PHP che è presente nella propria cartella web e sul quale sono
     dirette tutte le richieste. Una tipica applicazione avrà un controllore
     principale di produzione (ad esempio ``app.php``) e un controllore principale per lo sviluppo
     (ad esempio ``app_dev.php``). Probabilmente non si avrà mai bisogno di modificare, visualizzare o preoccuparsi
@@ -117,22 +117,22 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 Questo controllore è piuttosto semplice, ma vediamo di analizzarlo:
 
-* *line 3*: Symfony2 sfrutta la funzionalità namespace di PHP 5.3 per
+* *linea 3*: Symfony2 sfrutta la funzionalità namespace di PHP 5.3 per
   utilizzarla nell'intera classe dei controllori. La parola chiave ``use`` importa la
   classe ``Response``, che il controllore deve restituire.
 
-* *line 6*: Il nome della classe è la concatenazione di un nome per la classe
+* *linea 6*: Il nome della classe è la concatenazione di un nome per la classe
   controllore (ad esempio ``Hello``) e la parola ``Controller``. Questa è una convenzione
   che fornisce consistenza ai controllori e permette loro di essere referenziati
   solo dalla prima parte del nome (ad esempio ``Hello``) nella configurazione delle rotte.
 
-* *line 8*: Ad ogni azione in una classe controllore viene aggiunto il suffisso ``Action``
+* *linea 8*: Ad ogni azione in una classe controllore viene aggiunto il suffisso ``Action``
   mentre nella configurazione delle rotte viene utilizzato come riferimento il solo nome dell'azione (``index``).
-  In the next section, you'll create a route that maps a URI to this action.
+  Nella sezione successiva, verrà creata una rotta che mappa un URI in questa azione.
   Si imparerà come i segnaposto delle rotte (``{name}``) diventano argomenti
   del metodo dell'azione (``$name``).
 
-* *line 10*: Il controllore crea e restituisce un oggetto ``Response``.
+* *linea 10*: Il controllore crea e restituisce un oggetto ``Response``.
 
 .. index::
    single: Controller; Routes and controllers

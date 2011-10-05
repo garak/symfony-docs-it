@@ -4,34 +4,35 @@
 Internals
 =========
 
-Looks like you want to understand how Symfony2 works and how to extend it.
-That makes me very happy! This section is an in-depth explanation of the
-Symfony2 internals.
+Sembra vogliate capire il funzionamento di Symfony2 e come estenderlo.
+Questo ci rende felici! Questa sezione è spiegazione in profondità del
+funzionamento interno di Symfony2.
 
 .. note::
 
-    You need to read this section only if you want to understand how Symfony2
-    works behind the scene, or if you want to extend Symfony2.
+    E necessario leggere questa sezione solo se si vuole capire come Symfony2
+    lavora dietro le quinte, o se si vuole estendere Symfony2.
 
-Overview
+Panoramica
 --------
 
 The Symfony2 code is made of several independent layers. Each layer is built
-on top of the previous one.
+Il codice di Symfony2 è composto da diversi layer indipendenti. Ogni layer è costruito
+sopra al precedente.
 
 .. tip::
 
-    Autoloading is not managed by the framework directly; it's done
-    independently with the help of the
-    :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` class
-    and the ``src/autoload.php`` file. Read the :doc:`dedicated chapter
-    </cookbook/tools/autoloader>` for more information.
+    L'autoloading non è gestito dal framework direttamente; è portato a termine
+    in maniera indipendente con l'aiuto della classe
+    :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader`
+    e con il file ``src/autoload.php``. Leggere la documentazione :doc:`dedicated chapter
+    </cookbook/tools/autoloader>` per maggiori informazioni.
 
-``HttpFoundation`` Component
+Il componente ``HttpFoundation``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The deepest level is the :namespace:`Symfony\\Component\\HttpFoundation`
-component. HttpFoundation provides the main objects needed to deal with HTTP.
+Il livello piu in profondità è il componente :namespace:`Symfony\\Component\\HttpFoundation`. 
+HttpFoundation provides the main objects needed to deal with HTTP.
 It is an Object-Oriented abstraction of some native PHP functions and
 variables:
 

@@ -318,7 +318,7 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
 
         return $collection;
 
-Finora, questa rotta è il più semplice possibile - non contiene segnaposto
+Finora, questa rotta è il più semplice possibile: non contiene segnaposto
 e corrisponde solo all'esatto URL ``/blog``. Ma cosa succede se si ha bisogno di questa rotta
 per supportare l'impaginazione, dove ``/blog/2`` visualizza la seconda pagina dell'elenco post
 del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
@@ -469,7 +469,7 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
 
         return $collection;
 
-Si riesce ad individuare il problema? Notare che entrambe le rotte hanno pattern che verificano
+Si riesce a individuare il problema? Notare che entrambe le rotte hanno pattern che verificano
 URL del tipo ``/blog/*``. Il router di Symfony sceglie sempre la
 **prima** rotta corrispondente che trova. In altre parole, la rotta ``blog_show``
 non sarà *mai* trovata. Invece, un URL del tipo ``/blog/my-blog-post`` verrà abbinato
@@ -487,7 +487,7 @@ per il parametro ``{page}``.
 La risposta al problema è aggiungere rotte *obbligatorie*. Le rotte in questo
 esempio potrebbero funzionare perfettamente se il pattern ``/blog/{page}`` fosse verificato *solo*
 per gli URL dove ``{page}`` fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
-espressioni regolari ed aggiunti per ogni parametro. Per esempio:
+espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
 .. configuration-block::
 
@@ -620,7 +620,7 @@ Aggiungere requisiti al metodo HTTP
 
 In aggiunta agli URL, si può anche verificare il *metodo* della richiesta
 entrante (ad esempio GET, HEAD, POST, PUT, DELETE). Si supponga di avere un form contatti
-con due controllori - uno per visualizzare il form (su una richiesta GET) e uno
+con due controllori: uno per visualizzare il form (su una richiesta GET) e uno
 per l'elaborazione del form dopo che è stato inviato (su una richiesta POST). Questo può
 essere realizzato con la seguente configurazione per le rotte:
 
@@ -681,7 +681,7 @@ essere realizzato con la seguente configurazione per le rotte:
 
 Nonostante il fatto che queste due rotte abbiano pattern identici (``/contact``),
 la prima rotta corrisponderà solo a richieste GET e la secoda rotta corrisponderà
-solo a richieste POST. Questo significa che è possibile visualizzare il form e invia ed inviarlo
+solo a richieste POST. Questo significa che è possibile visualizzare il form e invia e inviarlo
 utilizzando lo stesso URL ma controllori distinti per le due azioni.
 
 .. note::
@@ -887,8 +887,8 @@ vedere :ref:`route-parameters-controller-arguments`.
 Includere risorse esterne per le rotte
 --------------------------------------
 
-Tutte le rotte vengono caricate attraverso un singolo file di configurazione - generalmente ``app/config/routing.yml``
-(vedere `Creating Routes`_ sopra). In genere, però, si desidera caricare le rotte
+Tutte le rotte vengono caricate attraverso un singolo file di configurazione, generalmente ``app/config/routing.yml``
+(vedere `Creazione delle rotte`_ sopra). In genere, però, si desidera caricare le rotte
 da altri posti, come un file di rotte presente all'interno di un bundle. Questo può
 essere fatto "importando" il file:
 

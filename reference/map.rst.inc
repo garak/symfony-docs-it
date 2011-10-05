@@ -1,7 +1,7 @@
 * **Opzioni di configurazione**:
 
   Vi siete mai chiesti quali opzioni di configurazione sono disponibili nei
-  file come ``app/config/config.yml``? In questa sezioni tutte le configurazioni disponibili
+  file come ``app/config/config.yml``? In questa sezione, tutte le configurazioni disponibili
   sono elencate per ogni voce (per esempio ``framework``) che definisce ogni possibile
   sezione della configurazione di Symfony2.
 

@@ -7,7 +7,7 @@ Form
 L'utilizzo dei form HTML è uno degli utilizzi più comuni e stimolanti per
 uno sviluppatore web. Symfony2 integra un componente Form che permette di gestire
 facilmente i form. Con l'aiuto di questo capitolo si potrà creare da zero un form complesso,
-ed imparare le caratteristiche più importanti della libreria dei form.
+e imparare le caratteristiche più importanti della libreria dei form.
 
 .. note::
 
@@ -239,7 +239,7 @@ dell'oggetto ``$task``. Tutto questo avviene attraverso il metodo ``bindRequest(
     trasferiti all'oggetto sottostante. Questo avviene indipendentemente dal fatto che
     i dati sottostanti siano validi o meno.
     
-Questo controllore segue uno schema comune per gestire i form, ed ha tre
+Questo controllore segue uno schema comune per gestire i form e ha tre
 possibili percorsi:
 
 #. Quando in un browser inizia il caricamento di una pagina, il metodo request è ``GET``
@@ -467,7 +467,7 @@ Indovinare il tipo di campo
 
 Ora che sono stati aggiunti i metadati di validazione alla classe ``Task``, Symfony
 sa già un po' dei campi. Se lo si vuole permettere, Symfony può "indovinare"
-il tipo del campo ed impostarlo al posto vostro. In questo esempio, Symfony può
+il tipo del campo e impostarlo al posto vostro. In questo esempio, Symfony può
 indovinare dalle regole di validazione che il campo ``task`` è un normale
 campo ``text`` e che il campo ``dueDate`` è un campo ``date``::
 
@@ -1310,7 +1310,7 @@ come gestire :doc:`l'upload dei file con Doctrine
 dinamico di sub-form possono essere aggiunti (ad esempio una todo list in cui è possibile continuare ad aggiungere
 più campi tramite Javascript prima di inviare). Vedere il ricettario per questi
 argomenti. Inoltre, assicurarsi di basarsi sulla
-:doc:`field type reference documentation</reference/forms/types>`, che
+:doc:`documentazione di riferimento sui tipi di campo</reference/forms/types>`, che
 comprende esempi di come usare ogni tipo di campo e le relative opzioni.
 
 Saperne di più con il ricettario
@@ -1321,7 +1321,7 @@ Saperne di più con il ricettario
 * :doc:`Creare tipi di campo personalizzati </cookbook/form/create_custom_field_type>`
 * :doc:`/cookbook/form/form_customization`
 
-.. _`Symfony2 Form Component`: https://github.com/symfony/Form
+.. _`Componente Form di Symfony2`: https://github.com/symfony/Form
 .. _`DateTime`: http://php.net/manual/en/class.datetime.php
 .. _`Twig Bridge`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge/Twig
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

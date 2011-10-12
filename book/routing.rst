@@ -27,7 +27,7 @@ in differenti aree dell'applicazione. Entro la fine del capitolo, si sarà in gr
 Le rotte in azione
 ------------------
 
-Una *rotta* è una mappatura tra un pattern di URL e un controllore. Per esempio, supponiamo
+Una *rotta* è una mappatura tra uno schema di URL e un controllore. Per esempio, supponiamo
 che si voglia gestire un qualsiasi URL tipo ``/blog/my-post`` o ``/blog/all-about-symfony``
 e inviarlo a un controllore che cerchi e visualizzi quel post del blog.
 La rotta è semplice:
@@ -275,7 +275,7 @@ controllore. In altre parole, se l'URL è ``/blog/hello-world``, una variabile `
 con un valore ``hello-world``, sarà disponibile nel controllore.
 Questo può essere usato, ad esempio, per caricare il post sul blog che verifica questa stringa.
 
-Tuttavia il pattern *non* deve corrispondere semplicemente a ``/blog``. Questo perché,
+Tuttavia lo schema *non* deve corrispondere semplicemente a ``/blog``. Questo perché,
 per impostazione predefinita, tutti i segnaposto sono obbligatori. Questo comportamento può essere cambiato aggiungendo
 un valore segnaposto all'array ``defaults``.
 
@@ -469,7 +469,7 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
 
         return $collection;
 
-Si riesce a individuare il problema? Notare che entrambe le rotte hanno pattern che verificano
+Si riesce a individuare il problema? Notare che entrambe le rotte hanno schemi che verificano
 URL del tipo ``/blog/*``. Il router di Symfony sceglie sempre la
 **prima** rotta corrispondente che trova. In altre parole, la rotta ``blog_show``
 non sarà *mai* trovata. Invece, un URL del tipo ``/blog/my-blog-post`` verrà abbinato
@@ -485,7 +485,7 @@ per il parametro ``{page}``.
 +--------------------+-------+-----------------------+
 
 La risposta al problema è aggiungere rotte *obbligatorie*. Le rotte in questo
-esempio potrebbero funzionare perfettamente se il pattern ``/blog/{page}`` fosse verificato *solo*
+esempio potrebbero funzionare perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo*
 per gli URL dove ``{page}`` fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
 espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
@@ -975,7 +975,7 @@ Prefissare le rotte importate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si può anche scegliere di fornire un "prefisso" per le rotte importate. Per esempio,
-si supponga di volere che la rotta ``acme_hello`` abbia un pattern finale con ``/admin/hello/{name}``
+si supponga di volere che la rotta ``acme_hello`` abbia uno schema finale con ``/admin/hello/{name}``
 invece di ``/hello/{name}``:
 
 .. configuration-block::

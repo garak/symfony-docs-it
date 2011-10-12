@@ -167,7 +167,7 @@ può accedere a ``/foo`` senza che venga richiesto di autenticarsi.
 
 Questo funziona in primo luogo perché il firewall permette gli *utenti anonimi* attraverso
 il parametro di configurazione ``anonymous``. In altre parole, il firewall non richiede
-all'utente di fare immediatamente una autenticazione. Ed essendo che non è
+all'utente di fare immediatamente una autenticazione. E poiché non è
 necessario nessun ``ruolo`` speciale per accedere a ``/foo`` (sotto la sezione ``access_control``), la richiesta
 può essere soddisfatta senza mai chiedere all'utente di autenticarsi.
 
@@ -179,7 +179,7 @@ Controlli sull'accesso (autorizzazione)
 
 Tuttavia se un utente richiede ``/admin/foo``, il processo ha un diverso comportamento.
 Questo perché la sezione di configurazione ``access_control`` che dice
-che qualsiasi URL che corrispondono al pattern dell'espressione regolare ``^/admin`` (cioè ``/admin``
+che qualsiasi URL che corrispondono allo schema dell'espressione regolare ``^/admin`` (cioè ``/admin``
 o qualuque cosa del tipo ``/admin/*``) richiede il ruolo ``ROLE_ADMIN``. I ruoli
 sono la base per la maggior parte delle autorizzazioni: un utente può accedere ``/admin/foo`` solo
 se ha il ruolo ``ROLE_ADMIN``.
@@ -387,7 +387,7 @@ l'invio del form di login (ad esempio ``/login_check``):
 
     *Non* è necessario implementare un controllore per l'URL ``/login_check``
     perché il firewall catturerà ed elaborerà qualunque form inviato
-    a questo URL. E' facoltativo ma utile creare una rotta in modo che si
+    a questo URL. È facoltativo, ma utile, creare una rotta in modo che si
     possa usare per generare l'URL di invio del form nel template di login sottostante.
 
 Notare che il nome della rotta ``login`` non è importante. Quello che è importante
@@ -489,7 +489,7 @@ Infine, creare il template corrispondente:
 
     La variabile ``error`` passata nel template è una istranza di
     :class:`Symfony\\Component\\Security\\Core\\Exception\\AuthenticationException`.
-    Può contenere ulteriori informazioni - o anche informazioni sensibili - circa
+    Può contenere ulteriori informazioni, o anche informazioni sensibili, circa
     l'errore di autenticazione, quindi è da usare con saggezza!
 
 Il form ha molti pochi requisiti. In primo luogo, inviando il form a ``/login_check``
@@ -541,7 +541,7 @@ vedere :doc:`/cookbook/security/form_login`.
     **2. Assicurarsi che la pagina di login non sia protetta**
 
     Inoltre, bisogna assicurarsi che la pagina di login *non* richieda nessun ruolo per essere
-    visualizzata. Per esempio, la seguente configurazione - che richiede il
+    visualizzata. Per esempio, la seguente configurazione, che richiede il
     ruolo ``ROLE_ADMIN`` per tutti gli URL (includendo l'URL ``/login``),
     causerà un loop di redirect:
 
@@ -645,8 +645,8 @@ Autorizzazione
 --------------
 
 l primo passo per la sicurezza è sempre l'autenticazione: il processo di verificare
-chi è l'utente. Con Symfony, l'autenticazione può essere fatta in qualunque modo - attraverso
-un form di login, una autenticazione HTTP di base, o anche tramite Facebook.
+chi è l'utente. Con Symfony, l'autenticazione può essere fatta in qualunque modo, attraverso
+un form di login, una autenticazione HTTP di base o anche tramite Facebook.
 
 Una volta che l'utente è stato autenticato, l'autorizzazione ha inizio. L'autorizzazione
 fornisce un metodo standard e potente per decidere se un utente può accedere a una qualche risorsa
@@ -667,10 +667,10 @@ Protezione di specifici pattern di URL
 
 Il modo più semplice per proteggere parte dell'applicazione è quello di proteggere un intero
 pattern di URL. Si è già visto questo nel primo esempio di questo capitolo,
-dove tutto ciò a cui corrisponde il pattern di espressione regolare  ``^/admin`` richiede
+dove tutto ciò a cui corrisponde lo schema di espressione regolare  ``^/admin`` richiede
 il ruolo ``ROLE_ADMIN``.
 
-È possibile definire tanti pattern URL quanti se ne ha bisogno - ciascuna è una espressione regolare.
+È possibile definire tanti pattern URL quanti se ne ha bisogno, ciascuna è una espressione regolare.
 
 .. configuration-block::
 
@@ -706,7 +706,7 @@ il ruolo ``ROLE_ADMIN``.
 .. tip::
 
     Anteporre il percorso con ``^`` assicura che corrispondano solo gli URL che *iniziano* con
-    il pattern. Per esempio, un semplice percorso ``/admin`` (senza
+    lo schema. Per esempio, un semplice percorso ``/admin`` (senza
     il ``^``) corrisponderebbe correttamente a ``/admin/foo`` ma corrisponderebbe anche con gli URL
     tipo ``/foo/admin``.
 
@@ -840,7 +840,7 @@ Protezione degli altri servizi
 In realtà, con Symfony si può proteggere qualunque cosa utilizzando una strategia simile a
 quella vista nella sezione precedente. Per esempio, si supponga di avere un servizio
 (ovvero una classe PHP) il cui compito è quello di inviare email da un utente all'altro.
-È possibile limitare l'uso di questa classe - non importa dove è stata utilizzata -
+È possibile limitare l'uso di questa classe, non importa dove è stata utilizzata -
 per gli utenti che hanno un ruolo specifico.
 
 Per ulteriori informazioni su come è possibile utilizzare il componente di sicurezza per proteggere
@@ -876,8 +876,8 @@ Durante l'autenticazione, l'utente invia un set di credenziali (di solito un nom
 e una password). Il lavoro del sistema di autenticazione è quello di soddisfare queste credenziali 
 con l'insieme degli utenti. Quindi da dove proviene questa lista di utenti?
 
-In Symfony2, gli utenti possono arrivare da qualsiasi parte - un file di configurazione, una tabella
-di un database, un servizio web, o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
+In Symfony2, gli utenti possono arrivare da qualsiasi parte: un file di configurazione, una tabella
+di un database, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
 uno o più utenti nel sistema di autenticazione è noto come "user provider".
 Symfony2 viene fornito con i due user provider più diffusi; uno che
 carica gli utenti da un file di configurazione e uno che carica gli utenti da una tabella
@@ -961,7 +961,7 @@ attraverso la creazione di una classe ``User`` e configurando il provider ``enti
 
 .. tip:
 
-    E' disponibile un bundle open source di alta qualità che consente agli utenti
+    È disponibile un bundle open source di alta qualità che consente agli utenti
     di essere memorizzati tramite l'ORM o l'ODM Doctrine. Si trovano maggiori informazioni relative a `FOSUserBundle`_
     su GitHub.
 
@@ -1365,7 +1365,7 @@ I ruoli sono abbastanza semplici e sono fondamentalmente stringhe che si possono
 utilizzare secondo necessità (anche se i ruoli internamente sono oggetti). Per esempio, se
 è necessario limitare l'accesso alla sezione admin del sito web del blog ,
 si potrebbe proteggere quella parte con un ruolo ``ROLE_BLOG_ADMIN``. Questo ruolo
-non ha bisogno di essere definito ovunque - è sufficiente iniziare ad usarlo.
+non ha bisogno di essere definito ovunque, è sufficiente iniziare a usarlo.
 
 .. note::
 

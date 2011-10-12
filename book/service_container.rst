@@ -216,7 +216,7 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
             array('%my_mailer.transport%')
         ));
 
-Il risultato finale è esattamente lo stesso di prima - la differenza è solo nel
+Il risultato finale è esattamente lo stesso di prima, la differenza è solo nel
 *come* è stato definito il servizio. Circondando le stringhe ``my_mailer.class`` e
 ``my_mailer.transport`` con il segno di percentuale (``%``), il contenitore sa
 di dover cercare per parametri con questi nomi. Quando il contenitore è costruito,
@@ -389,7 +389,7 @@ In altre parole, una estensione dei contenitore dei servizi configura i servizi 
 il bundle per voi. E, come si vedrà tra poco, l'estensione fornisce
 una interfaccia sensibile e ad alto livello per configurre il bundle.
 
-Si prenda il ``FrameworkBundle`` - il bundle core del framework Symfony2 - come
+Si prenda il ``FrameworkBundle``, il bundle core del framework Symfony2, come
 esempio. La presenza del seguente codice nella configurazione dell'applicazione
 invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundle``:
 
@@ -563,7 +563,7 @@ In YAML, la sintassi speciale ``@my_mailer`` dice al contenitore di cercare
 un servizio chiamato ``my_mailer`` e di passare l'oggetto nel costruttore
 di ``NewsletterManager``. In questo caso, tuttavia, il servizio specificato ``my_mailer``
 deve esistere. In caso contrario, verrà lanciata un'eccezione. È possibile contrassegnare le proprie
-dipendenze come opzionali - questo sarà discusso nella prossima sezione.
+dipendenze come opzionali (sarà discusso nella prossima sezione).
 
 L'utilizzo di riferimenti è uno strumento molto potente che permette di creare classi
 di servizi indipendenti con dipendenze ben definite. In questo esempio, il servizio ``newsletter_manager``

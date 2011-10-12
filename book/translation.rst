@@ -718,7 +718,7 @@ aiutare nella traduzione di messaggi con *blocchi statici di testo*:
 
 Il tag ``transchoice`` ottiene automaticamente la variabile ``%count%`` dal
 contesto corrente e la passa al traduttore. Questo meccanismo funziona
-solo quando si utilizza un segnaposto che segue il pattern ``%var%``.
+solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
 
 .. tip::
 

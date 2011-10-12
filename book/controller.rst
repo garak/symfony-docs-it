@@ -141,7 +141,7 @@ Mappare un URL in un controllore
 --------------------------------
 
 Il nuovo controllore restituisce una semplice pagina HTML. Per visualizzare questa pagina
-nel browser, è necessario creare una rotta che mappa uno specifico pattern URL
+nel browser, è necessario creare una rotta che mappa uno specifico schema URL
 nel controllore:
 
 .. configuration-block::

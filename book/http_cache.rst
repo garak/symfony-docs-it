@@ -983,8 +983,8 @@ si usa la scadenza e si ha l'esigenza di invalidare una risorsa, vuol dire che s
 
 .. note::
 
-    Un altro motivo è non c'è alcun meccanismo di invalidazione che può
-    essere usato in un reverse proxy senza cambiare qualcosa nel codice dell'applicazione.
+    Essendo l'invalidazione un argomento specifico di ogni reverse proxy, se non ci si
+    preoccupa dell'invalidazione, si può cambiare reverse proxy senza cambiare alcuna parte del codice della propria applicazione.
 
 In realtà, ogni reverse proxy fornisce dei modi per pulire i dati in cache, ma
 andrebbero evitati, per quanto possibile. Il modo più standard è pulire la cache

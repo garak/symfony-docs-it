@@ -467,7 +467,7 @@ per i messaggi:
 * ``navigation.fr.xliff``
 
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
-è necessario specificare il dominio come terzo argomento di ``trans()``:
+è necessario specificare il dominio come terzo parametro di ``trans()``:
 
 .. code-block:: php
 
@@ -615,7 +615,7 @@ metodo :method:`Symfony\\Component\\Translation\\Translator::transChoice`:
         array('%count%' => 10)
     );
 
-Il secondo argomento (``10`` in questo esempio), è il *numero* di oggetti
+Il secondo parametro (``10`` in questo esempio), è il *numero* di oggetti
 che vengono descritti ed è usato per determinare quale traduzione è da usare e anche per popolare
 il segnaposto ``%count%``.
 

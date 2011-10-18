@@ -2,7 +2,7 @@ Sicurezza
 =========
 
 La sicurezza è una procedura che avviene in due fasi, il cui obiettivo è quello di impedire a un utente di accedere
-ad una risorsa a cui non dovrebbe avere accesso.
+a una risorsa a cui non dovrebbe avere accesso.
 
 Nella prima fase del processo, il sistema di sicurezza identifica chi è l'utente
 chiedendogli di presentare una sorta di identificazione. Quest'ultima  è chiamata
@@ -239,7 +239,7 @@ il flusso di richiesta è sempre lo stesso:
 
     L'*esatto* processo in realtà dipende un po' da quale meccanismo di
     autenticazione si sta usando. Per esempio, quando si utilizza il form di login, l'utente
-    invia le sue credenziali ad un URL che elabora il form (ad esempio ``/login_check``)
+    invia le sue credenziali a un URL che elabora il form (ad esempio ``/login_check``)
     e poi viene reindirizzato all'URL originariamente richiesto (ad esempio ``/admin/foo``).
     Ma con l'autenticazione HTTP, l'utente invia le proprie credenziali direttamente
     all'URL originale (ad esempio ``/admin/foo``) e poi la pagina viene restituita
@@ -504,7 +504,7 @@ indietro all'utente il form di login dove vengono visualizzati gli errori.
 
 Rivediamo l'ntero processo:
 
-#. L'utente prova ad accedere ad una risorsa protetta;
+#. L'utente prova ad accedere a una risorsa protetta;
 #. Il firewall avvia il processo di autenticazione reindirizzando
    l'utente al form di login (``/login``);
 #. La pagina ``/login`` rende il form di login attraverso la rotta e il controllore
@@ -518,7 +518,7 @@ Per impostazione predefinita, se le credenziali inviate sono corrette, l'utente 
 alla pagina originale che è stata richiesta  (ad esempio ``/admin/foo``). Se l'utente
 originariamente è andato direttamente alla pagina di login, sarà reindirizzato alla homepage.
 Questo comportamento può essere personalizzato, consentendo, ad esempio, di reindirizzare
-l'utente ad un URL specifico.
+l'utente a un URL specifico.
 
 Per maggiori dettagli su questo e su come personalizzare in generale il processo di login con il form,
 vedere :doc:`/cookbook/security/form_login`.
@@ -1713,11 +1713,11 @@ per la gestione dell'autenticazione, includendo quello che tratta l'implementazi
 "Ricorda i dati".
 
 Una volta che un utente è autenticato, lo strato di autorizzazione può stabilire se
-l'utente debba o meno avere accesso ad una specifica risorsa. Più frequentemente,
+l'utente debba o meno avere accesso a una specifica risorsa. Più frequentemente,
 i *ruoli* sono applicati a URL, classi o metodi e se l'utente corrente
 non ha quel ruolo, l'accesso è negato. Lo strato di autorizzazione, però,
 è molto più profondo e segue un sistema di "voto", in modo che tutte le parti
-possono determinare se l'utente corrente dovrebbe avere accesso ad una data risorsa.
+possono determinare se l'utente corrente dovrebbe avere accesso a una data risorsa.
 Ulteriori informazioni su questo e altri argomenti nel ricettario.
 
 Per saperne di più dal ricettario

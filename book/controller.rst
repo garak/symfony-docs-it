@@ -11,7 +11,7 @@ un array serializzato JSON, una immagine, una redirezione, un errore 404 o quals
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
 *propria applicazione* necessita per rendere il contenuto di una pagina.
 
-Per vedere quanto questo è semplice, diamo un'occhiata  ad un controllore di Symfony2 in azione.
+Per vedere quanto questo è semplice, diamo un'occhiata a un controllore di Symfony2 in azione.
 Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mondo!``::
 
     use Symfony\Component\HttpFoundation\Response;
@@ -129,7 +129,7 @@ Questo controllore è piuttosto semplice, ma vediamo di analizzarlo:
 * *linea 8*: Ad ogni azione in una classe controllore viene aggiunto il suffisso ``Action``
   mentre nella configurazione delle rotte viene utilizzato come riferimento il solo nome dell'azione (``index``).
   Nella sezione successiva, verrà creata una rotta che mappa un URI in questa azione.
-  Si imparerà come i segnaposto delle rotte (``{name}``) diventano argomenti
+  Si imparerà come i segnaposto delle rotte (``{name}``) diventano parametri
   del metodo dell'azione (``$name``).
 
 * *linea 10*: Il controllore crea e restituisce un oggetto ``Response``.
@@ -196,12 +196,12 @@ vedere :ref:`controller-string-syntax`.
 
 .. _route-parameters-controller-arguments:
 
-I parametri delle rotte come argomenti del controllore
+I parametri delle rotte come parametri del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si è già appreso che il parametro ``AcmeHelloBundle:Hello:index`` di ``_controller``
 fa riferimento a un metodo ``HelloController::indexAction()`` che vive all'interno di un
-bundle ``AcmeHelloBundle``. La cosa più interessante è che gli argomenti vengono
+bundle ``AcmeHelloBundle``. La cosa più interessante è che i parametri vengono
 passati a tale metodo:
 
 .. code-block:: php
@@ -220,9 +220,9 @@ passati a tale metodo:
         }
     }
 
-Il controllore ha un solo argomento, ``$name``, che corrisponde al
+Il controllore ha un solo parametro, ``$name``, che corrisponde al
 parametro ``{name}`` della rotta corrispondente (``ryan`` nel nostro esempio).
-Infatti, quando viene eseguito il controllore, Symfony2 verifica ogni argomento del
+Infatti, quando viene eseguito il controllore, Symfony2 verifica ogni parametro del
 controllore con un parametro della rotta abbinata. Vedere il seguente
 esempio:
 
@@ -251,7 +251,7 @@ esempio:
             'color'       => 'green',
         )));
 
-Per questo il controllore può richiedere diversi argomenti::
+Per questo il controllore può richiedere diversi parametri::
 
     public function indexAction($first_name, $last_name, $color)
     {
@@ -259,19 +259,19 @@ Per questo il controllore può richiedere diversi argomenti::
     }
 
 Si noti che entrambe le variabili segnaposto (``{first_name}``, ``{last_name}``)
-così come la variabile predefinita ``color`` sono disponibili come argomenti nel
+così come la variabile predefinita ``color`` sono disponibili come parametri nel
 controllore. Quando una rotta viene abbinata, le variabili segnaposto vengono unite
 con le ``impostazioni predefinite`` per creare un array che è disponibile al controllore.
 
-La mappatura dei parametri delle rotte negli argomenti del controllore è semplice e flessibile. Tenere
+La mappatura dei parametri delle rotte nei parametri del controllore è semplice e flessibile. Tenere
 in mente le seguenti linee guida mentre si sviluppa.
 
-* **L'ordine degli argomenti del controllore non ha importanza**
+* **L'ordine dei parametri del controllore non ha importanza**
 
     Symfony è in grado di abbinare i nomi dei parametri delle rotte nei nomi delle variabili
     dei metodi dei controllori. In altre parole, si vuole dire che
-    il parametro ``{last_name}`` corrisponde all'argomento ``$last_name``.
-    Gli argomenti del controllore possono essere totalmente riordinati e continuare a funzionare
+    il parametro ``{last_name}`` corrisponde al parametro ``$last_name``.
+    Gli parametri del controllore possono essere totalmente riordinati e continuare a funzionare
     perfettamente::
 
         public function indexAction($last_name, $color, $first_name)
@@ -279,7 +279,7 @@ in mente le seguenti linee guida mentre si sviluppa.
             // ..
         }
 
-* **Ogni argomento richiesto del controllore, deve corrispondere ad uno dei parametri della rotta**
+* **Ogni parametro richiesto del controllore, deve corrispondere a uno dei parametri della rotta**
 
     Il codice seguente genererebbe un ``RuntimeException`` perché non c'è nessun parametro ``foo``
     definito nella rotta::
@@ -289,7 +289,7 @@ in mente le seguenti linee guida mentre si sviluppa.
             // ..
         }
 
-    Rendere l'argomento facoltativo, metterebbe le cose a posto. Il seguente
+    Rendere l'parametro facoltativo, metterebbe le cose a posto. Il seguente
     esempio non lancerebbe un'eccezione::
 
         public function indexAction($first_name, $last_name, $color, $foo = 'bar')
@@ -297,7 +297,7 @@ in mente le seguenti linee guida mentre si sviluppa.
             // ..
         }
 
-* **Non tutti i parametri delle rotte devono essere argomenti del controllore**
+* **Non tutti i parametri delle rotte devono essere parametri del controllore**
 
     Se, per esempio, ``last_name`` non è importante per il controllore,
     si può ometterlo del tutto::
@@ -311,13 +311,13 @@ in mente le seguenti linee guida mentre si sviluppa.
 
     Ogni rotta ha anche un parametro speciale ``_route``, che è equivalente al
     nome della rotta che è stata abbinata (ad esempio ``hello``). Anche se di solito non è
-    utile, questa è ugualmente disponibile come argomento del controllore.
+    utile, questa è ugualmente disponibile come parametro del controllore.
 
-La ``Request`` come argomento del controllore
+La ``Request`` come parametro del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per comodità, è anche possibile far passare a Symfony l'oggetto ``Request``
-come argomento al controllore. È particolarmente utile quando si
+come parametro al controllore. È particolarmente utile quando si
 lavora con i form, ad esempio::
 
     use Symfony\Component\HttpFoundation\Request;
@@ -398,7 +398,7 @@ da gestire con Symfony2.
 Reindirizzamento
 ~~~~~~~~~~~~~~~~
 
-Se si vuole reindirizzare l'utente ad un'altra pagina, usare il metodo ``redirect()``::
+Se si vuole reindirizzare l'utente a un'altra pagina, usare il metodo ``redirect()``::
 
     public function indexAction()
     {
@@ -410,7 +410,7 @@ per una determinata rotta. Per maggiori informazioni, vedere il capitolo
 :doc:`Routing </book/routing>`.
 
 Per impostazione predefinita, il metodo ``redirect()`` esegue una redirezione 302 (temporanea). Per
-eseguire una redirezione 301 (permanente), modificare il secondo argomento::
+eseguire una redirezione 301 (permanente), modificare il secondo parametro::
 
     public function indexAction()
     {
@@ -434,7 +434,7 @@ eseguire una redirezione 301 (permanente), modificare il secondo argomento::
 Inoltro
 ~~~~~~~~~~
 
-Si può anche facilmente inoltrare internamente ad un altro controllore con il metodo
+Si può anche facilmente inoltrare internamente a un altro controllore con il metodo
 ``forward()``. Invece di redirigere il browser dell'utente, fa una sotto richiesta interna
 e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'oggetto
 ``Response`` che è tornato da quel controllore::
@@ -454,7 +454,7 @@ e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'ogget
 Si noti che il metodo `forward()` utilizza la stessa rappresentazione stringa del
 controllore utilizzato nella configurazione delle rotte. In questo caso, l'obiettivo
 della classe del controllore sarà ``HelloController`` all'interno di un qualche ``AcmeHelloBundle``.
-L'array passato al metodo diventa un insieme di argomenti sul controllore risultante.
+L'array passato al metodo diventa un insieme di parametri sul controllore risultante.
 La stessa interfaccia viene utilizzata quando si incorporano controllori nei template (vedere
 :ref:`templating-embedding-controller`). L'obiettivo del metodo controllore dovrebbe
 essere simile al seguente::
@@ -464,10 +464,10 @@ essere simile al seguente::
         // ... creare e restituire un oggetto Response
     }
 
-E proprio come quando si crea un controllore per una rotta, l'ordine degli argomenti
+E proprio come quando si crea un controllore per una rotta, l'ordine dei parametri
 di ``fancyAction`` non è importante. Symfony2 controlla i nomi degli indici chiave
-(ad esempio ``name``) con i nomi degli argomenti del metodo (ad esempio ``$name``). Se
-si modifica l'ordine degli argomenti, Symfony2 continuerà a passare il corretto
+(ad esempio ``name``) con i nomi dei parametri del metodo (ad esempio ``$name``). Se
+si modifica l'ordine dei parametri, Symfony2 continuerà a passare il corretto
 valore di ogni variabile.
 
 .. tip::

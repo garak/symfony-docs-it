@@ -73,7 +73,7 @@ la variabile ``slug`` ottiene il valore ``my-blog-post``, che è disponibile
 per l'utilizzo nel controllore (proseguire nella lettura).
 
 Il parametro ``_controller`` è una chiave speciale che dice a Symfony quale controllore
-dovrebbe essere eseguito quando una URL corrisponde a questa rotta. La stringa ``_controller``
+dovrebbe essere eseguito quando un URL corrisponde a questa rotta. La stringa ``_controller``
 è detta :ref:`nome logico<controller-string-syntax>`. Segue un
 pattern che punta a un specifico classe e metodo PHP:
 
@@ -775,7 +775,7 @@ Parametri speciali per le rotte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Come si è visto, ogni parametro della rotta o valore predefinito è disponibile
-come argomento nel metodo del controllore. Inoltre, ci sono tre parametri
+come parametro nel metodo del controllore. Inoltre, ci sono tre parametri
 speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
 * ``_controller``: Come si è visto, questo parametro viene utilizzato per determinare quale
@@ -842,11 +842,11 @@ e permette una maggiore flessibilità.
    utilizza solo un separatore due punti (ad esempio ``nome_servizio:indexAction``) e
    fa riferimento al controllore come un servizio (vedere :doc:`/cookbook/controller/service`).
 
-Parametri delle rotte e argomenti del controllore
+Parametri delle rotte e parametri del controllore
 -------------------------------------------------
 
 I parametri delle rotte (ad esempio ``{slug}``) sono particolarmente importanti perché
-ciascuno è reso disponibile come argomento al metodo del controllore:
+ciascuno è reso disponibile come parametro al metodo del controllore:
 
 .. code-block:: php
 
@@ -857,12 +857,12 @@ ciascuno è reso disponibile come argomento al metodo del controllore:
 
 In realtà, l'intera collezione ``defaults`` viene unita con i valori del
 parametro per formare un singolo array. Ogni chiave di questo array è disponibile come
-argomento sul controllore.
+parametro sul controllore.
 
-In altre parole, per ogni argomento del metodo del controllore, Symfony cerca
-per un parametro della rotta con quel nome e assegna il suo valore a tale argomento.
+In altre parole, per ogni parametro del metodo del controllore, Symfony cerca
+per un parametro della rotta con quel nome e assegna il suo valore a tale parametro.
 Nell'esempio avanzato di cui sopra, qualsiasi combinazioni (in qualsiasi ordine) delle seguenti variabili
-potrebbe essere usati come argomenti per il metodo ``showAction()``:
+potrebbe essere usati come parametri per il metodo ``showAction()``:
 
 * ``$culture``
 * ``$year``
@@ -1090,7 +1090,7 @@ Generare URL assoluti
 ~~~~~~~~~~~~~~~~~~~~~
 
 Per impostazione predefinita, il router genera URL relativi (ad esempio ``/blog``). Per generare
-un URL assoluto, è sufficiente passare ``true`` come terzo argomento del metodo
+un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
 ``generate()``:
 
 .. code-block:: php

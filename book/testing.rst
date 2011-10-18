@@ -311,7 +311,7 @@ Quando il client non segue i rinvii, si può forzare il rinvio con il metodo
 
     $crawler = $client->followRedirect();
 
-Da ultimo, ma non meno importante, si può forzare ogni righiesta ad essere eseguita
+Da ultimo, ma non meno importante, si può forzare ogni righiesta a essere eseguita
 in un suo processo PHP, per evitare effetti collaterali quando si lavora con molti client
 nello stesso script::
 

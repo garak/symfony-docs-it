@@ -481,9 +481,9 @@ campo ``text`` e che il campo ``dueDate`` è un campo ``date``::
             ->getForm();
     }
 
-Questa funzionalità si attiva quando si omette il secondo argomento del metodo
+Questa funzionalità si attiva quando si omette il secondo parametro del metodo
 ``add()`` (o se si passa ``null`` a esso). Se si passa un array di opzioni come
-terzo argomento (fatto sopra per ``dueDate``), queste opzioni vengono applicate
+terzo parametro (fatto sopra per ``dueDate``), queste opzioni vengono applicate
 al campo indovinato.
 
 .. caution::
@@ -525,7 +525,7 @@ i valori corretti di una serie di opzioni del campo.
 .. note::
 
   Queste opzioni di campi vengono indovinate *solo* se si sta usando Symfony per ricavare
-  il tipo di campo (ovvero omettendo o passando ``null`` nel secondo argomento di ``add()``).
+  il tipo di campo (ovvero omettendo o passando ``null`` nel secondo parametro di ``add()``).
   
 Se si desidera modificare uno dei valori indovinati, è possibile sovrascriverlo
 passando l'opzione nell'array di opzioni del campo::
@@ -750,7 +750,7 @@ la scelta in ultima analisi, spetta a voi.
 
     Ogni form ha bisogno di sapere il nome della classe che detiene i dati
     sottostanti (ad esempio ``Acme\TaskBundle\Entity\Task``). Di solito, questo viene indovinato
-    in base all'oggetto passato al secondo argomento di ``createForm``
+    in base all'oggetto passato al secondo parametro di ``createForm``
     (vale a dire ``$task``). Dopo, quando si inizia a incorporare i form, questo
     non sarà più sufficiente. Così, anche se non sempre necessario, è in genere una
     buona idea specificare esplicitamente l'opzione ``data_class`` aggiungendo

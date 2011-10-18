@@ -445,7 +445,7 @@ definiti.
 In questo caso, l'estensione consente di personalizzare la configurazione di
 ``charset``, ``error_handler``, ``csrf_protection``, ``router`` e di molte altre. Internamente,
 il ``FrameworkBundle`` usa le opzioni qui specificate per definire e configurare
-i servizi ad esso specifici. Il bundle si occupa di creare tutte i necessari
+i servizi a esso specifici. Il bundle si occupa di creare tutte i necessari
 ``parameters`` e ``services`` per il contenitore dei servizi, pur consentendo
 di personalizzare facilmente gran parte della configurazione. Come bonus aggiuntivo, la maggior parte
 delle estensioni dei contenitori di servizi sono anche sufficientemente intelligenti da eseguire la validazione -
@@ -467,7 +467,7 @@ disponibili per i core bundle si possono trovare all'interno della :doc:`Guida d
 Referenziare (iniettare) servizi
 --------------------------------
 
-Finora, il servizio ``my_mailer`` è semplice: prende un solo argomento
+Finora, il servizio ``my_mailer`` è semplice: accetta un solo parametro
 nel suo costruttore, che è facilmente configurabile. Come si vedrà, la potenza
 reale del contenitore viene fuori quando è necessario creare un servizio che
 dipende da uno o più altri servizi nel contenitore.
@@ -496,7 +496,7 @@ qualcosa del genere::
     }
 
 Senza utilizzare il contenitore di servizi, si può creare abbastanza facilmente
-un nuovo ``NewsletterManager`` dentro ad un controllore::
+un nuovo ``NewsletterManager`` dentro a un controllore::
 
     public function sendNewsletterAction()
     {
@@ -506,7 +506,7 @@ un nuovo ``NewsletterManager`` dentro ad un controllore::
     }
 
 Questo approccio va bene, ma cosa succede se più avanti si decide che la classe ``NewsletterManager``
-ha bisogno di un secondo o terzo argomento nel costruttore? Che cosa succede se si decide di
+ha bisogno di un secondo o terzo parametro nel costruttore? Che cosa succede se si decide di
 rifattorizzare il codice e rinominare la classe? In entrambi i casi si avrà bisogno di cercare ogni
 posto in cui viene istanziata ``NewsletterManager`` e fare le modifiche. Naturalmente,
 il contenitore dei servizi fornisce una soluzione molto migliore:
@@ -728,7 +728,7 @@ servizi. Per mantenere le cose semplici, Symfony2 per impostazione predefinita n
 i controllori siano definiti come servizi. Inoltre Symfony2 inietta l'intero
 contenitore dei servizi nel controllore. Ad esempio, per gestire la memorizzazione delle
 informazioni su una sessione utente, Symfony2 fornisce un servizio ``session``,
-a cui è possibile accedere dentro ad un controllore standard, come segue::
+a cui è possibile accedere dentro a un controllore standard, come segue::
 
     public function indexAction($bar)
     {
@@ -831,11 +831,11 @@ il servizio ``doctrine`` registrato con il contenitore quando si utilizza Doctri
 
 Tuttavia, ci sono casi d'uso in cui non si vuole che un servizio sia pubblico. Questo
 capita quando un servizio è definito solamente perché potrebbe essere usato come
-argomento per un altro servizio.
+parametro per un altro servizio.
 
 .. note::
 
-    Se si utilizza un servizio privato come argomento per più di un altro servizio,
+    Se si utilizza un servizio privato come parametro per più di un altro servizio,
     questo si tradurrà nell'utilizzo di due istanze diverse perché l'istanziazione
     di un servizio privato è fatto in linea (ad esempio ``new PrivateFooBar()``).
 
@@ -977,12 +977,12 @@ il bundle sa che il servizio ``foo.twig.extension`` dovrebbe essere registrato
 come estensione Twig con Twig. In altre parole, Twig cerca tutti i servizi etichettati
 con ``twig.extension`` e li registra automaticamente come estensioni.
 
-I tag, quindi, sono un modo per dire a Symfony2 o ad un altro bundle di terze parti che
+I tag, quindi, sono un modo per dire a Symfony2 o a un altro bundle di terze parti che
 il servizio dovrebbe essere registrato o utilizzato in un qualche modo speciale dal bundle.
 
 Quello che segue è un elenco dei tag disponibili con i bundle core di Symfony2.
 Ognuno di essi ha un differente effetto sul servizio e molti tag richiedono
-argomenti aggiuntivi (oltre al solo ``name`` del parametro).
+parametri aggiuntivi (oltre al solo ``name`` del parametro).
 
 * assetic.filter
 * assetic.templating.php

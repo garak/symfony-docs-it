@@ -662,15 +662,15 @@ In questa sezione, ci si concentrerà su come proteggere risorse diverse (ad ese
 le chiamate a metodi, ecc) con ruoli diversi. Più avanti, si imparerà di più su come
 i ruoli sono creati e assegnati agli utenti.
 
-Protezione di specifici pattern di URL
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Protezione di specifici schemi di URL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Il modo più semplice per proteggere parte dell'applicazione è quello di proteggere un intero
-pattern di URL. Si è già visto questo nel primo esempio di questo capitolo,
+schema di URL. Si è già visto questo nel primo esempio di questo capitolo,
 dove tutto ciò a cui corrisponde lo schema di espressione regolare  ``^/admin`` richiede
 il ruolo ``ROLE_ADMIN``.
 
-È possibile definire tanti pattern URL quanti se ne ha bisogno, ciascuna è una espressione regolare.
+È possibile definire tanti schemi di URL quanti ne occorrono, ciascuno è un'espressione regolare.
 
 .. configuration-block::
 
@@ -795,7 +795,7 @@ aggiungere una nuova voce access_control:
 Proteggere un controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Proteggere l'applicazione basandosi su pattern di URL è semplice, ma in
+Proteggere l'applicazione basandosi su schemi di URL è semplice, ma in
 alcuni casi non può essere abbastanza granulare. Quando necessario, si può facilmente forzare
 l'autorizzazione dall'interno di un controllore:
 

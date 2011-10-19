@@ -1,5 +1,5 @@
 .. index::
-   single: Routing
+   single: Rotte
 
 Le rotte
 ========
@@ -22,7 +22,7 @@ in differenti aree dell'applicazione. Entro la fine del capitolo, si sarà in gr
 * Eseguire il debug delle rotte
 
 .. index::
-   single: Routing; Basics
+   single: Rotte; Basi
 
 Le rotte in azione
 ------------------
@@ -67,7 +67,7 @@ La rotta è semplice:
 
         return $collection;
 
-Il pattern definito dalla rotta ``blog_show`` si comporta come ``/blog/*`` dove
+Lo schema definito dalla rotta ``blog_show`` si comporta come ``/blog/*``, dove
 al carattere jolly viene dato il nome ``slug``. Per l'URL ``/blog/my-blog-post``,
 la variabile ``slug`` ottiene il valore ``my-blog-post``, che è disponibile
 per l'utilizzo nel controllore (proseguire nella lettura).
@@ -105,7 +105,7 @@ controllore. Lungo la strada, si impareranno tutti i trucchi per mappare facilme
 anche gli URL più complessi. 
 
 .. index::
-   single: Routing; Under the hood
+   single: Rotte; Sotto il cofano
 
 Le rotte: funzionamento interno
 -------------------------------
@@ -140,7 +140,7 @@ quale controller dovrebbe essere eseguito. L'intero processo è il seguente:
    controllore da eseguire.
 
 .. index::
-   single: Routing; Creating routes
+   single: Rotte; Creazione di rotte
 
 Creazione delle rotte
 ---------------------
@@ -228,7 +228,7 @@ funzione PHP effettiva, ed eseguita. Questo processo verrà spiegato a breve
 nella sezione :ref:`controller-string-syntax`.
 
 .. index::
-   single: Routing; Placeholders
+   single: Rotte; Segnaposti
 
 Rotte con segnaposti
 ~~~~~~~~~~~~~~~~~~~~
@@ -269,7 +269,7 @@ rotte conterranno uno o più segnaposto "jolly":
 
         return $collection;
 
-Il pattern verrà soddisfatto da ogni cosa che è del tipo ``/blog/*``. Meglio ancora,
+Lo schema verrà soddisfatto da qualsiasi cosa del tipo ``/blog/*``. Meglio ancora,
 il valore corrispondente il segnaposto ``{slug}`` sarà disponibile all'interno del
 controllore. In altre parole, se l'URL è ``/blog/hello-world``, una variabile ``$slug``,
 con un valore ``hello-world``, sarà disponibile nel controllore.
@@ -415,7 +415,7 @@ corrispondenza, dando al parametro ``page`` il valore ``2``. Perfetto.
 +---------+------------+
 
 .. index::
-   single: Routing; Requirements
+   single: Rotte; Requisiti
 
 Aggiungere requisiti
 ~~~~~~~~~~~~~~~~~~~~
@@ -613,7 +613,7 @@ l'espressione regolare ``(en|fr)``.
 +-----+--------------------------------+
 
 .. index::
-   single: Routing; Method requirement
+   single: Rotte; Requisiti di metodi
 
 Aggiungere requisiti al metodo HTTP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -679,7 +679,7 @@ essere realizzato con la seguente configurazione per le rotte:
 
         return $collection;
 
-Nonostante il fatto che queste due rotte abbiano pattern identici (``/contact``),
+Nonostante il fatto che queste due rotte abbiano schemi identici (``/contact``),
 la prima rotta corrisponderà solo a richieste GET e la secoda rotta corrisponderà
 solo a richieste POST. Questo significa che è possibile visualizzare il form e invia e inviarlo
 utilizzando lo stesso URL ma controllori distinti per le due azioni.
@@ -692,8 +692,8 @@ Come avviene per gli altri requisiti, il requisito ``_method`` viene analizzato 
 regolare. Per abbinare le richieste ``GET`` *o* ``POST``, si può utilizzare ``GET|POST``.
 
 .. index::
-   single: Routing; Advanced example
-   single: Routing; _format parameter
+   single: Rotte; Esempio avanzato
+   single: Rotte; Parametro _format
 
 .. _advanced-routing-example:
 
@@ -786,18 +786,18 @@ speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 * ``_locale``: Utilizzato per impostare il locale sulla sessione (:ref:`per saperne di più<book-translation-locale-url>`);
 
 .. index::
-   single: Routing; Controllers
-   single: Controller; String naming format
+   single: Rotte; Controllori
+   single: Controller; Formato dei nomi delle stringhe
 
 .. _controller-string-syntax:
 
-Pattern per il nome dei controllori
------------------------------------
+Schema per il nome dei controllori
+----------------------------------
 
 Ogni rotta deve avere un parametro ``_controller``, che determina quale
 controllore dovrebbe essere eseguito quando si accoppia la rotta. Questo parametro
-utilizza un semplice pattern stringa chiamato *nome logico del controllore*, che
-Symfony mappa in uno specifico metodo PHP di una certa classe. Il pattern ha tre parti,
+utilizza un semplice schema stringa, chiamato *nome logico del controllore*, che
+Symfony mappa in uno specifico metodo PHP di una certa classe. Lo schema ha tre parti,
 ciascuna separata da due punti:
 
     **bundle**:**controllore**:**azione**
@@ -880,7 +880,7 @@ vedere :ref:`route-parameters-controller-arguments`.
     nome della rotta che è stata abbinata.
 
 .. index::
-   single: Routing; Importing routing resources
+   single: Rotte; Importare risorse per le rotte
 
 .. _routing-include-external-resources:
 
@@ -1009,11 +1009,11 @@ invece di ``/hello/{name}``:
 
         return $collection;
 
-La stringa ``/admin`` ora verrà preposta al pattern di ogni rotta
+La stringa ``/admin`` ora verrà preposta allo schema di ogni rotta
 caricata dalla nuova risorsa delle rotte.
 
 .. index::
-   single: Routing; Debugging
+   single: Rotte; Debug
 
 Visualizzare e fare il debug delle rotte
 ----------------------------------------
@@ -1047,14 +1047,14 @@ il nome della rotta dopo il comando:
     php app/console router:debug article_show
 
 .. index::
-   single: Routing; Generating URLs
+   single: Rotte; Generazione di URL
 
-Generazione delle URL
+Generazione degli URL
 ---------------------
 
-Il sistema delle rotte dovrebbe anche essere usato per generare le URL. In realtà, il routing
+Il sistema delle rotte dovrebbe anche essere usato per generare gli URL. In realtà, il routing
 è un sistema bidirezionale: mappa l'URL in un controllore + parametri e
-una rotta+parametri di nuovo in un URL. I metodi
+una rotta + parametri di nuovo in un URL. I metodi
 :method:`Symfony\\Component\\Routing\\Router::match` e
 :method:`Symfony\\Component\\Routing\\Router::generate` formano questo sistema
 bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
@@ -1066,7 +1066,7 @@ bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
     // /blog/my-blog-post
 
 Per generare un URL, è necessario specificare il nome della rotta (ad esempio ``blog_show``)
-ed eventuali caratteri jolly (ad esempio ``slug = my-blog-post``) usati nel pattern per
+ed eventuali caratteri jolly (ad esempio ``slug = my-blog-post``) usati nello schema  per
 questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilmente:
 
 .. code-block:: php
@@ -1084,7 +1084,7 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
 In una sezione successiva, si imparerà a generare URL da tempalte interni.
 
 .. index::
-   single: Routing; Absolute URLs
+   single: Rotte; URL assoluti
 
 Generare URL assoluti
 ~~~~~~~~~~~~~~~~~~~~~
@@ -1111,7 +1111,7 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
         $request->headers->set('HOST', 'www.example.com');
 
 .. index::
-   single: Routing; Generating URLs in a template
+   single: Rotte; Generare URL in un template
 
 Generare URL con query string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

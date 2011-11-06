@@ -80,9 +80,9 @@ Costruire il Form
 ~~~~~~~~~~~~~~~~~
 
 Ora che la classe ``Task`` è stata creata, il prossimo passo è creare e
-visualizzare il form HTML. In Symfony2, questo viene fatto con la costruzione di un oggetto
-form e poi con la visualizzazione in un template. Per ora, questo può essere fatto
-da dentro un controllore::
+visualizzare il form HTML. In Symfony2, lo si fa costruendo un oggetto
+form e poi visualizzandolo in un template. Per ora, lo si può fare
+all'interno di un controllore::
 
     // src/Acme/TaskBundle/Controller/DefaultController.php
     namespace Acme\TaskBundle\Controller;
@@ -773,7 +773,7 @@ L'obiettivo di un form è quello di tradurre i dati da un oggetto (ad esempio ``
 form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto originale. Come
 tale, il tema della persistenza dell'oggetto ``Task`` nel database è interamente
 non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
-per essere salvata attraverso Doctrine (vale a dire che epr farlo si è aggiunto
+per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunto
 :ref:`mappare i metadata<book-doctrine-adding-mapping>`), allora il salvataggio
 dopo l'invio di un form può essere fatto quando il form è valido::
 
@@ -882,9 +882,9 @@ creare una classe di form in modo che l'oggetto ``Category`` possa essere modifi
         }
     }
 
-L'obiettivo finale è quello di far si che la ``Category`` di un ``Task`` possa essere correttamente modificato
-all'interno dello stesso form task. Per fare questo, aggiungere il campo ``category``
-all'oggetto ``TaskType``il cui tipo è un'istanza della nuova classe
+L'obiettivo finale è quello di far si che la ``Category`` di un ``Task`` possa essere correttamente modificata
+all'interno dello stesso form task. Per farlo, aggiungere il campo ``category``
+all'oggetto ``TaskType``, il cui tipo è un'istanza della nuova classe
 ``CategoryType``:
 
 .. code-block:: php

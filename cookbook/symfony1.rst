@@ -87,7 +87,7 @@ un bundle. Con l'aiuto di un comando della console, la cartella ``Resources/publ
 di ogni bundle viene copiata o collegata alla cartella ``web/bundles/``.
 Questo consente di mantenere le risorse organizzate nel proprio bundle, ma ancora
 disponibili pubblicamente. Per assicurarsi che tutti i bundle siano disponibili,
-eseguire il seguente comando::
+eseguire il seguente comando:
 
 .. code-block:: bash
 
@@ -117,7 +117,7 @@ In Symfony2, una nuova classe, ``UniversalClassLoader`` gestisce questo processo
 L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso il
 namespace) deve corrispondere al percorso del file che contiene tale classe.
 Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di
-Symfony2::
+Symfony2:
 
 .. code-block:: php
 
@@ -232,7 +232,7 @@ potente di un plugin, perché il nucleo stesso del framework Symfony2 è costitu
 da una serie di bundle. In Symfony2, i bundle sono cittadini di prima classe e sono
 così flessibili che il nucleo stesso è un bundle.
 
-In symfony1, un plugin deve essere abilitato nella classe ``ProjectConfiguration``::
+In symfony1, un plugin deve essere abilitato nella classe ``ProjectConfiguration``:
 
 .. code-block:: php
 
@@ -242,7 +242,7 @@ In symfony1, un plugin deve essere abilitato nella classe ``ProjectConfiguration
         $this->enableAllPluginsExcept(array(/* nomi dei plugin */));
     }
 
-In Symfony2, the bundles are activated inside the application kernel::
+In Symfony2, i bundle sono attivati nel kernel dell'applicazione:
 
 .. code-block:: php
 
@@ -266,7 +266,7 @@ In symfony1, i file di configurazione ``routing.yml`` e ``app.yml`` sono
 caricati automaticamente all'interno di un plugin. In Symfony2, le rotte e le
 configurazioni dell'applicazioni all'interno di un bundle vanno incluse
 a mano. Per esempio, per inmcludere le rotte di un bundle chiamato ``AcmeDemoBundle``,
-si può fare nel seguente modo::
+si può fare nel seguente modo:
 
 .. code-block:: yaml
 
@@ -306,7 +306,7 @@ della propria configurazione:
     parameters:
         email.from_address: foo.bar@example.com
 
-Si può ora accedervi da un controllore, per esempio::
+Si può ora accedervi da un controllore, per esempio:
 
 .. code-block:: php
 

@@ -321,8 +321,8 @@ non esistono, crearle.
             array('%my_mailer.transport%')
         ));
 
-Non è cambiata la definizione, solo la sua locazione. Naturalmente il servizio
-contenitore non conosce il nuovo file di risorse. Fortunatamente, possiamo
+Non è cambiata la definizione, solo la sua posizione. Naturalmente il servizio
+contenitore non conosce il nuovo file di risorse. Fortunatamente, si può
 facilmente importare il file risorse utilizzando la chiave ``imports`` nella configurazione
 dell'applicazione.
 

@@ -24,22 +24,22 @@ locale:
    
 3. Creare un nuovo file chiamato ``.gitignore`` nella radice del nuovo progetto
    (ovvero vicino al file ``deps``) e copiarvi le righe seguenti. I file corrispondenti
-   a questi schemi saranno ignorati da git::
+   a questi schemi saranno ignorati da git:
 
-   .. code-block:: text
+    .. code-block:: text
 
         /web/bundles/
         /app/bootstrap*
         /app/cache/*
         /app/logs/*
         /vendor/  
-        /app/config/parameters.ini
+        /app/config/parameters.yml
 
-4. Copiare ``app/config/parameters.ini`` in ``app/config/parameters.ini.dist``.
-   Il file ``parameters.ini`` è ignorato da git (vedi sopra), quindi le impostazioni
+4. Copiare ``app/config/parameters.yml`` in ``app/config/parameters.yml.dist``.
+   Il file ``parameters.yml`` è ignorato da git (vedi sopra), quindi le impostazioni
    specifiche della macchina, come le password del database, non saranno inviate. Creando
-   il file ``parameters.ini.dist``, i nuovi sviluppatori potranno clonare rapidamente il
-   progetto, copiando questo file in ``parameters.ini`` e personalizzandolo.
+   il file ``parameters.yml.dist``, i nuovi sviluppatori potranno clonare rapidamente il
+   progetto, copiando questo file in ``parameters.yml`` e personalizzandolo.
 
 5. Inizializzare il proprio repository git:
 
@@ -87,7 +87,7 @@ Tale script legge il file ``deps`` e scarica le librerie specificate nella carte
 ``vendor/``. Legge anche il file ``deps.lock``, facendo puntare ogni libreria al
 relativo commit di git.
 
-In questa preparazione, le librerie devi venditori sono parte del proprio repository git,
+In questa preparazione, le librerie dei venditori non sono parte del proprio repository git,
 nemmeno come sotto-moduli. Ci si basa invece sui file ``deps`` e ``deps.lock`` e sullo
 script ``bin/vendors`` per gestire tutto. Questi file sono parte del proprio repository,
 quindi le versioni necessarie di ogni libreria di terze parti sono versionate in git
@@ -105,7 +105,7 @@ per assicurarsi che tutte le necessarie librerie dei venditori siano scaricate.
     per far corrispondere il loro stato all'ultima versione di Symfony Standard Edition.
 
     Ovviamente, se si aggiungono nuove voci a ``deps`` o a ``deps.lock``, ci si deve
-    assicurare di sostituire solo le parti originale (ovvero assicurarsi di non
+    assicurare di sostituire solo le parti originali (ovvero assicurarsi di non
     cancellare nessuna delle voci personalizzate).
 
 .. caution::

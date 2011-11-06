@@ -1,6 +1,6 @@
 ﻿.. index::
    single: YAML
-   single: Configuration; YAML
+   single: Configurazione; YAML
 
 YAML
 ====
@@ -8,18 +8,19 @@ YAML
 Il sito web di `YAML`_ dice "uno standard amichevole per la serializzazione dei dati
 per tutti i linguaggi di programmazione". YAML è un semplice linguaggio per descrivere dati.
 Come il PHP, ha una sintassi per i tipi semplici come stringhe, booleani, decimali, o interi.
-Ma a differenza di PHP, tratta in modo differente array (sequenze) e hashe
+Ma a differenza di PHP, tratta in modo differente array (sequenze) e hash
 (mapping).
 
-Il comopnente di Symfony2 :namespace:`Symfony\\Component\\Yaml` sa come interpretare
+Il componente di Symfony2 :namespace:`Symfony\\Component\\Yaml` sa come interpretare
 lo YAML e trasformare un array PHP in YAML.
 
 .. note::
-   Anche se il formato YAML può descrivere complesse strutture dati nidificate, questa
-   guida tratta solo il minimo insieme di funzionalità necessarie per utilizzare YAML come
-   file per il formato di configurazione.
 
-Legegre file YAML
+    Anche se il formato YAML può descrivere complesse strutture dati nidificate, questa
+    guida tratta solo il minimo insieme di funzionalità necessarie per utilizzare YAML
+    come file per il formato di configurazione.
+
+Leggere file YAML
 -----------------
 
 Il metodo :method:`Symfony\\Component\\Yaml\\Parser::parse` analizza una stringa
@@ -30,7 +31,7 @@ YAML e la converte in array PHP::
     $yaml = new Parser();
     $value = $yaml->parse(file_get_contents('/path/to/file.yaml'));
 
-Se durante l'analisi si incontra un errore, il parser lancia una eccezzione che indica
+Se durante l'analisi si incontra un errore, il parser lancia una eccezione, che indica
 il tipo di errore e la linea della stringa YAML originale dove è stato riscontrato
 l'errore::
 
@@ -42,22 +43,23 @@ l'errore::
     }
 
 .. tip::
-   Poiché il parser riparte ogni volta, è possibile utilizzare lo stesso oggetto parser per caricare
-   stringhe YAML diverse.
+
+    Poiché il parser riparte ogni volta, è possibile utilizzare lo stesso oggetto parser
+    per caricare stringhe YAML diverse.
 
 Quando si carica un file YAML, spesso è meglio utilizzare il
 metodo wrapper :method:`Symfony\\Component\\Yaml\\Yaml::load`::
 
     use Symfony\Component\Yaml\Yaml;
 
-    $loader = Yaml::load('/path/to/file.yml');
+    $loader = Yaml::parse('/path/to/file.yml');
 
 Il metodo statico ``Yaml::load()`` prende una stringa YAML o un file che contengono
 YAML. Internamente, viene chiamato il metodo ``Parser::parse()``, ma con alcuni bonus
 aggiunti:
 
 * Esegue il file YAML come se fosse un file PHP, ed in questo modo è possibile incorporare
-  comandi PHP in file YAML files;
+  comandi PHP in file YAML;
 
 * Quando un file non può essere analizzato, questo aggiunge automaticamente il nome del file
   al messaggio di errore, semplificando il debug nel caso l'applicazione stia caricando
@@ -78,23 +80,24 @@ nella sua rappresentazione YAML::
     file_put_contents('/path/to/file.yaml', $yaml);
 
 .. note::
-   Ci sono alcune limitazioni: il metodo non è in grado di convertire risorse e
-   convertire oggetti PHP è da considerarsi una funzionalità in stato alpha.
 
-Se c'è bisogno di convertire solo un array, si può usare
-una socrciatoia con il metodo statico :method:`Symfony\\Component\\Yaml\\Yaml::dump`::
+    Ci sono alcune limitazioni: il metodo non è in grado di convertire risorse e
+    convertire oggetti PHP è da considerarsi una funzionalità in stato alpha.
+
+Se c'è bisogno di convertire solo un array, si può usare una
+scorciatoia con il metodo statico :method:`Symfony\\Component\\Yaml\\Yaml::dump`::
 
     $yaml = Yaml::dump($array, $inline);
 
-Il formato YAML suporta le due rappresentazioni di array di YAML. Per impostazione predefinita, il
-dumper utilizza la rappresentazione in linea:
+Il formato YAML supporta le due rappresentazioni di array di YAML. Per impostazione
+predefinita, il dumper utilizza la rappresentazione in linea:
 
 .. code-block:: yaml
 
     { foo: bar, bar: { foo: bar, bar: baz } }
 
-Ma il secondo argomento del metodo ``dump()`` permette di personalizzare il livello nel quale
-l'output commuta dalla rappresentazione espansa a quella in linea::
+Ma il secondo argomento del metodo ``dump()`` permette di personalizzare il livello nel
+quale l'output commuta dalla rappresentazione espansa a quella in linea::
 
     echo $dumper->dump($array, 1);
 
@@ -143,13 +146,14 @@ L'utilizzo degli apici è utile quando una stringa inizia o finisce con uno o pi
 utili.
 
 .. tip::
-   L'utilizzo del doppio apice fornisce un modo per esprimere stringhe arbitrarie,
-   utilizzando ``\`` sequenze di escape. E' molto utile quando c'è bisogno di incorporare
-   uno ``\n`` o un carattere unicode in una stringa.
+
+    L'utilizzo del doppio apice fornisce un modo per esprimere stringhe arbitrarie,
+    utilizzando ``\`` sequenze di escape. E' molto utile quando c'è bisogno di incorporare
+    uno ``\n`` o un carattere unicode in una stringa.
 
 Quando una stringa contiene interruzioni di linea, si può usare lo stile letterale, indicato
 con un simbolo pipe di riga verticale (``|``), per indicare che la stringa si estende su più righe. Nei
-letetrali, gli a capo sono preservati:
+letterali, gli a capo sono preservati:
 
 .. code-block:: yaml
 
@@ -157,8 +161,8 @@ letetrali, gli a capo sono preservati:
       \/ /| |\/| |
       / / | |  | |__
 
-In alternativa, le stringhe possono essere scritte con lo stile folded, indicato con ``>``,
-dove ogni interruzione di linea viene sostituita da uno spazio:
+In alternativa, le stringhe possono essere scritte con lo stile indentato, indicato con
+``>``, in cui ogni interruzione di riga viene sostituita da uno spazio:
 
 .. code-block:: yaml
 
@@ -169,40 +173,41 @@ dove ogni interruzione di linea viene sostituita da uno spazio:
       senza ritorni a capo.
 
 .. note::
-   Notare i due spazi prima di ciascuna linea dell'esempio precedente. Non compariranno
-   nella stringa PHP risultante .
+
+    Notare i due spazi prima di ciascuna linea dell'esempio precedente. Non compariranno
+    nella stringa PHP risultante .
 
 Numeri
 ~~~~~~
 
 .. code-block:: yaml
 
-    # an integer
+    # un intero
     12
 
 .. code-block:: yaml
 
-    # an octal
+    # un ottale
     014
 
 .. code-block:: yaml
 
-    # an hexadecimal
+    # un esadecimale
     0xC
 
 .. code-block:: yaml
 
-    # a float
+    # un numero a virgola mobile
     13.4
 
 .. code-block:: yaml
 
-    # an exponential number
+    # un numero esponenziale
     1.2e+34
 
 .. code-block:: yaml
 
-    # infinity
+    # infinito
     .inf
 
 Null
@@ -229,13 +234,12 @@ YAML utilizza lo standard ISO-8601 per esprimere le date:
     # una semplice data
     2002-12-14
 
-Collezioni
-~~~~~~~~~~
+Insiemi
+~~~~~~~
 
 Un file YAML è usato raramente per descrivere un semplice scalare. La maggior parte
-delle volte, è utilizzato per descrive una collezione. Una collezione può essere
-una sequenza o una mappatura di elementi. Sia le sequenze che le mappe vengono
-convertite in array PHP.
+delle volte, è utilizzato per descrive un insieme. Un insieme può essere
+una sequenza o una mappa di elementi. Sia le sequenze che le mappe sono convertite in array PHP.
 
 Le sequenze utilizzano un trattino seguito da uno spazio (``- ``):
 
@@ -262,7 +266,8 @@ che è equivalente a questo codice PHP::
     array('PHP' => 5.2, 'MySQL' => 5.1, 'Apache' => '2.2.20');
 
 .. note::
-   In una mappa, una chiave può essere qualunque valore scalare.
+
+    In una mappa, una chiave può essere qualunque valore scalare.
 
 Il numero di spazi tra i due punti e il valore non ha importanza:
 
@@ -272,7 +277,7 @@ Il numero di spazi tra i due punti e il valore non ha importanza:
     MySQL:  5.1
     Apache: 2.2.20
 
-YAML utilizza l'indentazione con uno o più spazi per descrivere collezioni annidate:
+YAML utilizza l'indentazione con uno o più spazi per descrivere insiemi annidati:
 
 .. code-block:: yaml
 
@@ -298,7 +303,7 @@ Il codice YAML sovrastante è equivalente al seguente codice PHP::
 
 C'è una cosa importante da ricordare quando si usa l'indentazione in un
 file YAML: *L'indentazione deve essere fatta con uno o più spazi, ma mai con
-tab*.
+tabulazioni*.
 
 È possibile nidificare a piacere sequenze e mappature:
 
@@ -311,7 +316,7 @@ tab*.
         - Introduzione
         - Helper
 
-YAML può anche usare gli stili flow per le collezioni, utilizzando indicatori espliciti
+YAML può anche usare gli stili flow per gli insiemi, utilizzando indicatori espliciti
 al posto dell'indentazione per denotare l'ambito.
 
 Una sequenza può essere scritta come un elenco separato da virgole, tra parentesi quadre
@@ -322,7 +327,7 @@ Una sequenza può essere scritta come un elenco separato da virgole, tra parente
     [PHP, Perl, Python]
 
 Una mappa può essere scritta come un elenco separato da virgole, tra parentesi graffe
-braces (``{}``):
+(``{}``):
 
 .. code-block:: yaml
 
@@ -343,7 +348,7 @@ braces (``{}``):
 Commenti
 ~~~~~~~~
 
-Possono essere aggiunti commenti in YAML prefissandoli con un simbolo di cancelletto (``#``):
+Possono essere aggiunti commenti in YAML, aggiungendo un simbolo di cancelletto (``#``) a inizio riga:
 
 .. code-block:: yaml
 
@@ -351,8 +356,9 @@ Possono essere aggiunti commenti in YAML prefissandoli con un simbolo di cancell
     "Symfony2": { PHP: 5.3, Doctrine: 2.0 } # Commento alla fine di una linea
 
 .. note::
-   I commenti sono semplicemente ignorati dal parser YAML e non necessitano di essere
-   indentati in accordo con il corrente livello di nidificazione in una collezione.
+
+    I commenti sono semplicemente ignorati dal parser YAML e non necessitano di essere
+    indentati in accordo con l'attuale livello di nidificazione in un insieme.
 
 File YAML dinamici
 ~~~~~~~~~~~~~~~~~~

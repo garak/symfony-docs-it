@@ -11,7 +11,7 @@ I dati sottostanti usati per questo campo possono essere un oggetto ``DateTime``
 una stringa, un timestamp o un array. Se l'opzione `input`_ è impostata correttamente,
 il campo si occuperà di tutti i dettagli.
 
-Il campo può essere resto come una singola casella di testo, tre caselle di testo (mese,
+Il campo può essere reso come una singola casella di testo, tre caselle di testo (mese,
 giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 
 +--------------------------+-----------------------------------------------------------------------------+

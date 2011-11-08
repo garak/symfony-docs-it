@@ -1,7 +1,7 @@
 Tag select, checkbox o bottoni radio
 ------------------------------------
 
-Questo campo può essere resto come uno tra diversi campi HTML, a seconda
+Questo campo può essere reso come uno tra diversi campi HTML, a seconda
 delle opzioni ``expanded`` e ``multiple``:
 
 +------------------------------------------+----------+----------+

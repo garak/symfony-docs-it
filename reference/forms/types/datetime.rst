@@ -7,7 +7,7 @@ Tipo di campo datetime
 Questo tipo di campo consente all'utente di modicare dati che rappresentano
 una data e un'ora (p.e. ``1984-06-05 12:15:30``).
 
-Può essere resto come una casella di testo o con tag select. Il formato sottostante dei
+Può essere reso come una casella di testo o con tag select. Il formato sottostante dei
 dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 
 +--------------------------+-----------------------------------------------------------------------------+

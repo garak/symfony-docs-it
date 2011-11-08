@@ -6,7 +6,7 @@ Tipo di campo time
 
 Un campo per inserire un tempo.
 
-Può essere resto come campo testuale, una serie di campi testuali (p.e. ora,
+Può essere reso come campo testuale, una serie di campi testuali (p.e. ora,
 minuto, secondo) o una serie di select. I dati sottostanti possono essere memorizzati
 come oggetto ``DateTime``, stringa, timestamp o array.
 
@@ -68,7 +68,7 @@ widget
 
 **tipo**: ``stringa`` **predefinito**: ``choice``
 
-Il modo di base in cui il campo andrebbe resto. Può essere uno dei seguenti:
+Il modo di base in cui il campo andrebbe reso. Può essere uno dei seguenti:
 
 * ``choice``: rende due (o tre, se `with_seconds`_ è ``true``) select.
 

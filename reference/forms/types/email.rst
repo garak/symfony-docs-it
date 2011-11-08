@@ -4,7 +4,7 @@
 Tipo di campo email
 ===================
 
-Il campo ``email`` è un campo di testo resto usando il tag
+Il campo ``email`` è un campo di testo reso usando il tag
 ``<input type="email" />`` di HTML5.
 
 +---------------+---------------------------------------------------------------------+

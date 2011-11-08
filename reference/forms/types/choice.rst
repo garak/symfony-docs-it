@@ -5,7 +5,7 @@ Tipo di campo choice
 ====================
 
 Un campo multi-funzione, usato per consentire all'utente di scegliere una o più opzioni.
-Può essere resto come tag ``select``, bottone radio o checkbox.
+Può essere reso come tag ``select``, bottone radio o checkbox.
 
 Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l'opzione
 ``choices``.

@@ -7,7 +7,7 @@ Tipo di campo money
 Rende un campo di testo specializzato nella gestione di dati di
 valuta (money).
 
-Questo tipo di campo consente di specificare una valuta, il cui simbolo viene resto
+Questo tipo di campo consente di specificare una valuta, il cui simbolo viene reso
 accanto al campo testuale. Ci sono diverse altre opzioni per personalizzare la
 gestione dell'input e dell'output dei dati.
 

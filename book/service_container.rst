@@ -17,7 +17,7 @@ ad istanziare, organizzare e recuperare i tanti oggetti della propria applicazio
 Questo oggetto, chiamato contenitore di servizi, permetterà di standardizzare e
 centralizzare il modo in cui sono costruiti gli oggetti nell'applicazione. Il contenitore
 rende la vita più facile, è super veloce ed evidenzia un'architettura che
-promuove codice riusabile e disaccoppiato. E poiché tutte le classi core di Symfony2
+promuove codice riusabile e disaccoppiato. E poiché tutte le classi del nucleo di Symfony2
 utilizzano il contenitore, si apprenderà come estendere, configurare e usare qualsiasi oggetto
 in Symfony2. In gran parte, il contenitore dei servizi è il più grande contributore
 riguardo la velocità e l'estensibilità di Symfony2.
@@ -252,7 +252,7 @@ Importare altre risorse di configurazione del contenitore
 
 Il contenitore dei servizi è costruito utilizzando una singola risorsa di configurazione
 (per impostazione predefinita ``app/config/config.yml``). Tutte le altre configurazioni di servizi
-(comprese le configurazioni del core di Symfony2 e dei bundle di terze parti) devono
+(comprese le configurazioni del nucleo di Symfony2 e dei bundle di terze parti) devono
 essere importate da dentro questo file in un modo o nell'altro. Questo dà una assoluta
 flessibilità sui servizi dell'applicazione.
 
@@ -366,7 +366,7 @@ Importare la configurazione attraverso estensioni del contenitore
 Quando si sviluppa in Symfony2, si usa spesso la direttiva ``imports``
 per importare la configurazione del contenitore dai bundle che sono stati creati appositamente
 per l'applicazione. Le configurazioni dei contenitori di bundle di terze parti, includendo
-i servizi core di Symfony2, di solito sono caricati utilizzando un altro metodo che è più
+i servizi del nucleo di Symfony2, di solito sono caricati utilizzando un altro metodo che è più
 flessibile e facile da configurare nell'applicazione.
 
 Ecco come funziona. Internamente, ogni bundle definisce i propri servizi in modo
@@ -389,7 +389,7 @@ In altre parole, una estensione dei contenitore dei servizi configura i servizi 
 il bundle per voi. E, come si vedrà tra poco, l'estensione fornisce
 una interfaccia sensibile e ad alto livello per configurre il bundle.
 
-Si prenda il ``FrameworkBundle``, il bundle core del framework Symfony2, come
+Si prenda il ``FrameworkBundle``, il bundle del nucleo del framework Symfony2, come
 esempio. La presenza del seguente codice nella configurazione dell'applicazione
 invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundle``:
 
@@ -432,7 +432,7 @@ Quando viene analizzata la configurazione, il contenitore cerca un'estensione ch
 sia in grado di gestire la direttiva di configurazione ``framework``. L'estensione in questione,
 che vive nel ``FrameworkBundle``, viene invocata e la configurazione del servizio
 per il ``FrameworkBundle`` viene caricata. Se si rimuove del tutto la chiave ``framework``
-dal file di configurazione dell'applicazione, i servizi core di Symfony2
+dal file di configurazione dell'applicazione, i servizi del nucleo di Symfony2
 non vengono caricati. Il punto è che è tutto sotto controllo: il framework Symfony2
 non contiene nessuna magia e non esegue nessuna azione su cui non si abbia
 il controllo.
@@ -453,7 +453,7 @@ notificando le opzioni mancanti o con un tipo di dato sbagliato.
 
 Durante l'installazione o la configurazione di un bundle, consultare la documentazione del bundle per
 per vedere come devono essere installati e configurati i servizi per il bundle. Le opzioni
-disponibili per i core bundle si possono trovare all'interno della :doc:`Guida di riferimento</reference/index>`.
+disponibili per i  bundle del nucleo si possono trovare all'interno della :doc:`Guida di riferimento</reference/index>`.
 
 .. note::
 
@@ -719,8 +719,8 @@ consentire una dipendenza opzionale:
             // ...
         }
 
-Servizi del core di Symfony e di terze parti
---------------------------------------------
+Servizi del nucleo di Symfony e di terze parti
+----------------------------------------------
 
 Dal momento che Symfony2 e tutti i bundle di terze parti configurano e recuperano i loro servizi
 attraverso il contenitore, si possono accedere facilmente o addirittura usarli nei propri
@@ -738,7 +738,7 @@ a cui è possibile accedere dentro a un controllore standard, come segue::
         // ...
     }
 
-In Symfony2, si potranno sempre utilizzare i servizi forniti dal core di Symfony o
+In Symfony2, si potranno sempre utilizzare i servizi forniti dal nucleo di Symfony o
 dai bundle di terze parti per eseguire funzionalità come la resa di template (``templating``),
 l'invio di email (``mailer``), o l'accesso a informazioni sulla richiesta (``request``).
 
@@ -795,7 +795,7 @@ La configurazione del contenitore dei servizi è semplice:
             )
         ));
 
-Il servizio ``newsletter_manager`` ora ha accesso ai servizi core ``mailer``
+Il servizio ``newsletter_manager`` ora ha accesso ai servizi del nucleo ``mailer``
 e ``templating``. Questo è un modo comune per creare servizi specifici
 all'applicazione in grado di sfruttare la potenza di numerosi servizi presenti
 nel framework.
@@ -877,7 +877,7 @@ sotto) per accedere a questo servizio (attraverso l'alias).
 Aliasing
 ~~~~~~~~
 
-Quando nella propria applicazione si utilizzano core bundle o bundle di terze parti, si possono
+Quando nella propria applicazione si utilizzano bundle del nucleo o bundle di terze parti, si possono
 utilizzare scorciatoie per accedere ad alcuni servizi. Si può farlo mettendo un alias e
 inoltre, si può mettere l'alias anche su servizi non pubblici.
 
@@ -980,7 +980,7 @@ con ``twig.extension`` e li registra automaticamente come estensioni.
 I tag, quindi, sono un modo per dire a Symfony2 o a un altro bundle di terze parti che
 il servizio dovrebbe essere registrato o utilizzato in un qualche modo speciale dal bundle.
 
-Quello che segue è un elenco dei tag disponibili con i bundle core di Symfony2.
+Quello che segue è un elenco dei tag disponibili con i bundle del nucleo di Symfony2.
 Ognuno di essi ha un differente effetto sul servizio e molti tag richiedono
 parametri aggiuntivi (oltre al solo ``name`` del parametro).
 

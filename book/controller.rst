@@ -363,8 +363,8 @@ Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificar
 Questo in realtà non cambia nulla su come lavora il controllore. Nella
 prossima sezione, si imparerà a conoscere i metodi helper che rende disponibili
 la classe base del controllore. Questi metodi sono solo scorciatoie per usare funzionalità
-del core di Symfony2 che sono a disposizione con o senza la classe
-base di ``Controller``. Un ottimo modo per vedere le funzionalità core in azione
+del nucleo di Symfony2 che sono a disposizione con o senza la classe
+base di ``Controller``. Un ottimo modo per vedere le funzionalità del nucleo in azione
 è quello di guardare nella classe
 :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`
 stessa.
@@ -389,7 +389,7 @@ Attività comuni del controllore
 
 Anche se un controllore può fare praticamente qualsiasi cosa, la maggior parte dei controllori eseguiranno
 gli stessi compiti di base più volte. Questi compiti, come il reindirizzamento,
-l'inoltro, il rendere i template e l'accesso ai servizi core, sono molto semplici
+l'inoltro, il rendere i template e l'accesso ai servizi del nucleo, sono molto semplici
 da gestire con Symfony2.
 
 .. index::
@@ -473,7 +473,7 @@ valore di ogni variabile.
 .. tip::
 
     Come per gli altri metodi base di ``Controller``, il metodo ``forward`` è solo
-    una scorciatoia per funzionalità core di Symfony2. Un inoltro può essere eseguito
+    una scorciatoia per funzionalità del nucleo di Symfony2. Un inoltro può essere eseguito
     direttamente attraverso il servizio ``http_kernel``. Un inoltro restituisce un oggetto
     ``Response``::
     

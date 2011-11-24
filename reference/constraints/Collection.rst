@@ -11,7 +11,7 @@ Questo vincolo può anche assicurare che alcune chiavi dell'insieme siano presen
 e che chiavi extra non siano presenti.
 
 +----------------+--------------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                    |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                    |
 +----------------+--------------------------------------------------------------------------+
 | Opzioni        | - `fields`_                                                              |
 |                | - `allowExtraFields`_                                                    |
@@ -161,7 +161,7 @@ Opzioni
 fields
 ~~~~~~
 
-**tipo**: ``array`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione, obbligatorio, è un array associativo, che definisce tutte le
 chiavi nell'insieme e, per ogni chiave, esattamente quale validatore (o quali validatori)

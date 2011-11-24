@@ -1,12 +1,12 @@
 .. index::
    single: Emails
 
-Come spedire una mail
+Come spedire una email
 =====================
 
-Spedire le mail è un delle azioni classiche di ogni applicazione web ma 
+Spedire le email è un delle azioni classiche di ogni applicazione web ma 
 rappresenta anche l'origine di potenziali problemi e complicazioni. Invece 
-di reinventare la ruota, una soluzione per l'invio di mail è l'uso di 
+di reinventare la ruota, una soluzione per l'invio di email è l'uso di 
 ``SwiftmailerBundle``, il quale sfrutta la potenza della libreria `Swiftmailer`_ .
 
 .. note::
@@ -89,16 +89,16 @@ Sono disponibili i seguenti parametri di configurazione:
 
   * ``type`` (come accodare i messaggi: attualmente solo l'opzione ``file`` è supportata)
   * ``path`` (dove salvare i messaggi)
-* ``delivery_address``  (indirizzo email dove spedire TUTTE le mail)
+* ``delivery_address``  (indirizzo email dove spedire TUTTE le email)
 * ``disable_delivery``  (impostare a true per disabilitare completamente l'invio)
 
-L'invio delle mail
+L'invio delle email
 ------------------
 
 Per lavorare con la libreria Swiftmailer dovrete creare, configurare e quindi 
 spedire oggetti di tipo ``Swift_Message``. Il "mailer" è il vero responsabile 
 dell'invio dei messaggi ed è accessibile tramite il servizio ``mailer``. 
-In generale, spedire una mail è abbastanza intuitivo::
+In generale, spedire una email è abbastanza intuitivo::
 
     public function indexAction($name)
     {
@@ -123,7 +123,7 @@ questo argomento dettagliatamente nel capitolo sulla `Creazione di Messaggi`_ .
 .. tip::
 
     Diversi altri articoli di questo ricettario spiegano come spedire le 
-    mail grazie Symfony2:
+    email grazie Symfony2:
 
     * :doc:`gmail`
     * :doc:`email/dev_environment`

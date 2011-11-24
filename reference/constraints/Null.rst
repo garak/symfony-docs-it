@@ -1,12 +1,12 @@
 Null
 ====
 
-Valida che un valore is exactly equal to ``null``. To force that a property
-is simply blank (blank string or ``null``), see the  :doc:`/reference/constraints/Blank`
-constraint. To ensure that a property is not null, see :doc:`/reference/constraints/NotNull`.
+Valida che un valore sia esattamente uguale a ``null``. Per forzare una proprietà a essere
+vuota (stringa vuota o ``null``), vedere il vincolo :doc:`/reference/constraints/Blank`.
+Per assicurarsi che una proprietà non sia ``null``, vedere :doc:`/reference/constraints/NotNull`.
 
 +----------------+-----------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                 |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
 +----------------+-----------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                          |
 +----------------+-----------------------------------------------------------------------+
@@ -18,8 +18,8 @@ constraint. To ensure that a property is not null, see :doc:`/reference/constrai
 Uso di base
 -----------
 
-If, for some reason, you wanted to ensure that the ``firstName`` property
-of an ``Author`` class exactly equal to ``null``, you could do the following:
+Se, per qualche ragione, ci si vuole assicurare che la proprietà ``firstName`` di
+una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
 
 .. configuration-block::
 
@@ -54,4 +54,4 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value should be null``
 
-Messaggio mostrato se the value is not ``null``.
+Messaggio mostrato se il valore non è ``null``.

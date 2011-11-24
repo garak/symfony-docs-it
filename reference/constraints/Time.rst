@@ -1,14 +1,12 @@
 Time
 ====
 
-Valida che un valore sia un valid time string with format "HH:MM:SS".
-
-Valida che un valore sia un valid time, meaning either a ``DateTime`` object
-or a string (or an object that can be cast into a string) that follows
-a valid "HH:MM:SS" format.
+Valida che un valore sia un tempo valido, cioè o un oggetto ``DateTime`` o
+una stringa (o un oggetto che possa essere forzato a stringa) che segua il formato
+"HH:MM:SS".
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
@@ -20,8 +18,8 @@ a valid "HH:MM:SS" format.
 Uso di base
 -----------
 
-Suppose you have an Event class, with a ``startAt`` field that is the time
-of the day when the event starts:
+Si supponga di avere una classe ``Event``, con un campo ``startAt``, che indica l'ora
+del giorno in cui l'evento inizia:
 
 .. configuration-block::
 
@@ -56,4 +54,4 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid time``
 
-Messaggio mostrato se the underlying data is not a valid time.
+Messaggio mostrato se il dato sottostante non è un orario valido.

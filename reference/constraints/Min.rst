@@ -1,10 +1,10 @@
 Min
 ===
 
-Valida che un dato numero sia *maggioer* di un numero minimo.
+Valida che un dato numero sia *maggiore* di un numero minimo.
 
 +----------------+--------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`              |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`              |
 +----------------+--------------------------------------------------------------------+
 | Opzioni        | - `limit`_                                                         |
 |                | - `message`_                                                       |
@@ -50,7 +50,7 @@ Opzioni
 limit
 ~~~~~
 
-**tipo**: ``intero`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``intero`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è il valore minimo. La validazione fallisce se il valore
 fornito è **minore** di questo.

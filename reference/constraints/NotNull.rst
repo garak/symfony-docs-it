@@ -6,7 +6,7 @@ a value is simply not blank (not a blank string), see the  :doc:`/reference/cons
 constraint.
 
 +----------------+-----------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                 |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
 +----------------+-----------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                          |
 +----------------+-----------------------------------------------------------------------+

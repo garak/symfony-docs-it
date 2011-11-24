@@ -1,14 +1,14 @@
 Locale
 ======
 
-Valida che un valore sia un valid locale.
+Valida che un valore sia un locale valido.
 
-The "value" for each locale is either the two letter ISO639-1 *language* code
-(p.e. ``fr``), or the language code followed by an underscore (``_``), then
-the ISO3166 *country* code (p.e. ``fr_FR`` for French/France).
+Il valore di ogni locale è ubn codice di *lingua* ISO639-1 (p.e. ``fr``) oppure
+il codice di lingua seguito dal trattino basso (``_``), quindi
+un codice *paese* ISO3166 (p.e. ``fr_FR`` per Francese/Francia).
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
@@ -53,4 +53,4 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid locale``
 
-Messaggio mostrato se the string is not a valid locale.
+Messaggio mostrato se la stringa non è un locale valido.

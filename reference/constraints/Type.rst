@@ -6,7 +6,7 @@ deve essere un array, si può usare questo vincolo con l'opzione tipo ``array``,
 per validarla.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - :ref:`type<reference-constraint-type-type>`                       |
 |                | - `message`_                                                        |
@@ -54,7 +54,7 @@ Opzioni
 type
 ~~~~
 
-**tipo**: ``stringa`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``stringa`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è il nome pienamente qualificato della classe, oppure uno
 dei tipi di dato di PHP, come stabilito dalle funzioni ``is_`` di PHP.

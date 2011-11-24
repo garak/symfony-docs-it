@@ -6,7 +6,7 @@ o una stringa (o un oggetto che possa essere forzato a stringa) con un formato
 valido YYYY-MM-DD HH:MM:SS.
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+

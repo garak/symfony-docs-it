@@ -1,11 +1,11 @@
 Email
 =====
 
-Valida che un valore sia un valid email address. The underlying value is
-cast to a string before being validated.
+Valida che un valore sia un indirizzo email valido. Il valore sottostante è
+forzato a stringa, prima di essere validato.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                        |
 |                | - `checkMX`_                                                        |
@@ -56,14 +56,14 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid email address``
 
-Messaggio mostrato se the underlying data is not a valid email address.
+Messaggio mostrato se il dato sottostante non è un indirizzo email valido.
 
 checkMX
 ~~~~~~~
 
 **tipo**: ``booleano`` **predefinito**: ``false``
 
-If true, then the `checkdnsrr`_ PHP function will be used to check the validity
-of the MX record of the host of the given email.
+Se ``true``, sarà usata la funzione `checkdnsrr`_ di PHP per verificare la validità
+del record MX dell'host dell'email fornita.
 
 .. _`checkdnsrr`: http://www.php.net/manual/en/function.checkdnsrr.php

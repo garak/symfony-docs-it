@@ -1,14 +1,14 @@
 True
 ====
 
-Valida che un valore is ``true``. Specifically, this checks to see if
-the value is exactly ``true``, exactly the integer ``1``, or exactly the
-string "``1``".
+Valida che un valore sia ``true``. Nello specifico, controlla se il valore sia
+esattamente ``true``, esattamente l'intero ``1`` o esattamente la
+stringa "``1``".
 
-Also see :doc:`False <False>`.
+Veder anche :doc:`False <False>`.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+
@@ -20,10 +20,10 @@ Also see :doc:`False <False>`.
 Uso di base
 -----------
 
-This constraint can be applied to properties (p.e. a ``termsAccepted`` property
-on a registration model) or to a "getter" method. It's most powerful in the
-latter case, where you can assert that a method returns a true value. For
-example, suppose you have the following method:
+Questo vincolo si può applicare a proprietà (p.e. una proprietà  ``termsAccepted`` in
+un modello di registrazione) o a un metodo "getter". È molto potente nel secondo caso,
+in cui si può asserire che un metodo restituisca il valore ``true``. Per esempio,
+si supponga di avere il seguente metodo:
 
 .. code-block:: php
 
@@ -40,7 +40,7 @@ example, suppose you have the following method:
         }
     }
 
-Then you can constrain this method with ``True``.
+Si può vincolare questo metodo con ``True``.
 
 .. configuration-block::
 
@@ -111,7 +111,7 @@ Then you can constrain this method with ``True``.
             }
         }
 
-If the ``isTokenValid()`` returns false, the validation will fail.
+Se ``isTokenValid()`` restituisce ``false``, la validazione fallisce.
 
 Opzioni
 -------
@@ -121,4 +121,4 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value should be true``
 
-Messaggio mostrato se the underlying data is not true.
+Messaggio mostrato se il dato sottostante non è ``true``.

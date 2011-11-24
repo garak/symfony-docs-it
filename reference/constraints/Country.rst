@@ -4,7 +4,7 @@ Country
 Valida che un valore sia un codice valido per un paese.
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+

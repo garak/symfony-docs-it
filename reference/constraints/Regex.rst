@@ -4,7 +4,7 @@ Regex
 Valida che un valore corrisponda a un'espressione regolare.
 
 +----------------+-----------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                 |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
 +----------------+-----------------------------------------------------------------------+
 | Opzioni        | - `pattern`_                                                          |
 |                | - `match`_                                                            |
@@ -91,7 +91,7 @@ Opzioni
 pattern
 ~~~~~~~
 
-**tipo**: ``stringa`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``stringa`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è l'espressione regolare a cui il valore inserito deve
 corrispondere. Per impostazione predefinita, il validatore fallisce se la stringa

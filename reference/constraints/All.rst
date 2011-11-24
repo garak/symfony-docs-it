@@ -5,7 +5,7 @@ Quando applicato a un array (o a un oggetto Traversable), questo vincolo consent
 applicare un insieme di vincoli a ogni elemento dell'array.
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `vincoli`_                                                           |
 +----------------+------------------------------------------------------------------------+
@@ -59,7 +59,7 @@ Opzioni
 vincoli
 ~~~~~~~
 
-**tipo**: ``array`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è l'array dei vincoli di validazione che si vuole
 applicre a ogni elemento dell'array sottostante.

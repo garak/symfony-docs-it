@@ -62,7 +62,7 @@ Opzioni
 fields
 ~~~~~~
 
-**tipo**: ``array``|``stringa`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array``|``stringa`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è il campo (o la lista di campi) per cui l'entità deve essere
 unica. Per esempio, si può specificare che i campi email e nome nell'esempio

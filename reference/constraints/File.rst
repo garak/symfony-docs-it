@@ -17,7 +17,7 @@ Qursto vincolo si usa solitamente in form con il tipo di form
     :doc:`Image</reference/constraints/Image>`.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `maxSize`_                                                        |
 |                | - `mimeTypes`_                                                      |

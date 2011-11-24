@@ -86,7 +86,7 @@ Opzioni
 methods
 ~~~~~~~
 
-**tipo**: ``array`` **predefinito**: ``array()`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array`` **predefinito**: ``array()`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Un array di metodi che andrebbero eseguiti durante il processo di validazione.
 Ogni metodo può avere uno dei seguenti formati:

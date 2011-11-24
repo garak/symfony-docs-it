@@ -6,7 +6,7 @@ dell'insieme di scelte *valide*. Può anche essere usato per validare che ogni
 elemento in un array sia una di tali scelte valide.
 
 +----------------+-----------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`                 |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
 +----------------+-----------------------------------------------------------------------+
 | Opzioni        | - `choices`_                                                          |
 |                | - `callback`_                                                         |
@@ -195,7 +195,7 @@ Opzioni disponibili
 choices
 ~~~~~~~
 
-**tipo**: ``array`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Un'opzione obbligatoria (a meno che non sia specificato `callback`_), è l'array
 di opzioni da considerare nell'insieme valido. Il valore di input dovrà

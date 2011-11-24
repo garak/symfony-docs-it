@@ -8,7 +8,7 @@ esattamente ``false``, esattamente l'intero ``0`` o esattamente la stringa
 Vedere anche :doc:`True <True>`.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+

@@ -6,7 +6,7 @@ una strina (o un oggetto che possa essere forzato a stringa) che segue un format
 valido YYYY-MM-DD.
 
 +----------------+--------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`              |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`              |
 +----------------+--------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                       |
 +----------------+--------------------------------------------------------------------+

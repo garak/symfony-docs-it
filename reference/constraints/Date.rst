@@ -1,21 +1,21 @@
 Date
 ====
 
-Validates that a value is a valid date, meaning either a ``DateTime`` object
-or a string (or an object that can be cast into a string) that follows a
-valid YYYY-MM-DD format.
+Valida che un valore sia una data valida, cioà o un oggetto ``DateTime`` o
+una strina (o un oggetto che possa essere forzato a stringa) che segue un formato
+valido YYYY-MM-DD.
 
 +----------------+--------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`              |
+| Si applica a   | :ref:`property or method<validation-property-target>`              |
 +----------------+--------------------------------------------------------------------+
-| Options        | - `message`_                                                       |
+| Opzioni        | - `message`_                                                       |
 +----------------+--------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Date`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Date`          |
 +----------------+--------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\DateValidator` |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\DateValidator` |
 +----------------+--------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -41,12 +41,12 @@ Basic Usage
              protected $birthday;
         }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not a valid date``
+**tipo**: ``stringa`` **predefinito**: ``This value is not a valid date``
 
-This message is shown if the underlying data is not a valid date.
+Messaggio mostrato se i dati sottostanti non sono una data valida.

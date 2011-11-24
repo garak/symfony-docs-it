@@ -1,7 +1,7 @@
 ﻿.. index::
-   single: Routing; Scheme requirement
+   single: Rotte; Requisiti dello schema
 
-Come forzare le route per utilizzare sempre HTTPS
+Come forzare le rotte per utilizzare sempre HTTPS
 =================================================
 
 A volte, si desidera proteggere alcune rotte ed essere sicuri che siano sempre
@@ -70,7 +70,7 @@ URL per usare sempre ``http``.
 
 .. note::
 
-    La componente di sicurezza fornisce un altro modo per forzare lo schema HTTP tramite
+    La componente di sicurezza fornisce un altro modo per forzare lo schema HTTP, tramite
     l'impostazione ``requires_channel``. Questo metodo alternativo è più adatto
     per proteggere un'"area" del sito web (tutti gli URL sotto ``/admin``) o quando
-    si vuole proteggere URLs definiti in un bundle di terze parti.
+    si vuole proteggere URL definiti in un bundle di terze parti.

@@ -1,20 +1,20 @@
 Url
 ===
 
-Validates that a value is a valid URL string.
+Valida che un valore sia un valid URL string.
 
 +----------------+---------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`property or method<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
-| Options        | - `message`_                                                        |
+| Opzioni        | - `message`_                                                        |
 |                | - `protocols`_                                                      |
 +----------------+---------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Url`            |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Url`            |
 +----------------+---------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\UrlValidator`   |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\UrlValidator`   |
 +----------------+---------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -42,20 +42,20 @@ Basic Usage
             protected $bioUrl;
        }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not a valid URL``
+**tipo**: ``stringa`` **predefinito**: ``This value is not a valid URL``
 
-This message is shown if the URL is invalid.
+Messaggio mostrato se the URL is invalid.
 
 protocols
 ~~~~~~~~~
 
-**type**: ``array`` **default**: ``array('http', 'https')``
+**tipo**: ``array`` **predefinito**: ``array('http', 'https')``
 
 The protocols that will be considered to be valid. For example, if you also
 needed ``ftp://`` type URLs to be valid, you'd redefine the ``protocols``

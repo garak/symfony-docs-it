@@ -1,23 +1,23 @@
 Locale
 ======
 
-Validates that a value is a valid locale.
+Valida che un valore sia un valid locale.
 
 The "value" for each locale is either the two letter ISO639-1 *language* code
-(e.g. ``fr``), or the language code followed by an underscore (``_``), then
-the ISO3166 *country* code (e.g. ``fr_FR`` for French/France).
+(p.e. ``fr``), or the language code followed by an underscore (``_``), then
+the ISO3166 *country* code (p.e. ``fr_FR`` for French/France).
 
 +----------------+------------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`property or method<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
-| Options        | - `message`_                                                           |
+| Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Locale`            |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Locale`            |
 +----------------+------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\LocaleValidator`   |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\LocaleValidator`   |
 +----------------+------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -45,12 +45,12 @@ Basic Usage
             protected $locale;
        }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not a valid locale``
+**tipo**: ``stringa`` **predefinito**: ``This value is not a valid locale``
 
-This message is shown if the string is not a valid locale.
+Messaggio mostrato se the string is not a valid locale.

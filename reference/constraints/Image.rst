@@ -1,25 +1,25 @@
 Image
 =====
 
-The Image constraint works exactly like the :doc:`File</reference/constraints/File>`
-constraint, except that its `mimeTypes`_ and `mimeTypesMessage` options are
-automatically setup to work for image files specifically.
+Questo vincolo funziona esattamente come :doc:`File</reference/constraints/File>`,
+tranne per il fatto che le opzioni `mimeTypes`_ e `mimeTypesMessage` sono impostate
+automaticamente per lavorare specificatamente su file di tipo immagine.
 
-See the :doc:`File</reference/constraints/File>` constraint for the bulk of
-the documentation on this constraint.
+Vedere il vincolo :doc:`File</reference/constraints/File>` per la documentazione completa
+su questo vincolo.
 
-Options
+Opzioni
 -------
 
-This constraint shares all of its options with the :doc:`File</reference/constraints/File>`
-constraint. It does, however, modify two of the default option values:
+Questo vincolo condivide tutte le sue opzioni con il vincolo :doc:`File</reference/constraints/File>`.
+Tuttavia, modifica due dei valori predefiniti delle opzioni:
 
 mimeTypes
 ~~~~~~~~~
 
-**type**: ``array`` or ``string`` **default**: an array of jpg, gif and png image mime types
+**tipo**: ``array`` o ``stringa`` **predefinito**: un array di tipi mime jpg, gif e png
 
 mimeTypesMessage
 ~~~~~~~~~~~~~~~~
 
-**type**: ``string`` **default**: ``This file is not a valid image``
+**tipo**: ``stringa`` **predefinito**: ``This file is not a valid image``

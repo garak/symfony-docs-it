@@ -1,19 +1,19 @@
 Country
 =======
 
-Validates that a value is a valid two-letter country code.
+Valida che un valore sia un codice valido per un paese.
 
 +----------------+------------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`property or method<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
-| Options        | - `message`_                                                           |
+| Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Country`           |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Country`           |
 +----------------+------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\CountryValidator`  |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\CountryValidator`  |
 +----------------+------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -41,12 +41,12 @@ Basic Usage
             protected $country;
        }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not a valid country``
+**tipo**: ``stringa`` **predefinito**: ``This value is not a valid country``
 
-This message is shown if the string is not a valid country code.
+Messaggio mostrato se la stringa non è un codice valido per un paese.

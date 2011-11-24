@@ -1,21 +1,21 @@
 NotBlank
 ========
 
-Validates that a value is not blank, defined as not equal to a blank string
+Valida che un valore is not blank, defined as not equal to a blank string
 and also not equal to ``null``. To force that a value is simply not equal to
 ``null``, see the :doc:`/reference/constraints/NotNull` constraint.
 
 +----------------+------------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`property or method<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
-| Options        | - `message`_                                                           |
+| Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\NotBlank`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\NotBlank`          |
 +----------------+------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\NotBlankValidator` |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\NotBlankValidator` |
 +----------------+------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 If you wanted to ensure that the ``firstName`` property of an ``Author`` class
@@ -42,12 +42,12 @@ were not blank, you could do the following:
             protected $firstName;
         }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should not be blank``
+**tipo**: ``stringa`` **predefinito**: ``This value should not be blank``
 
-This is the message that will be shown if the value is blank.
+Messaggio mostrato se the value is blank.

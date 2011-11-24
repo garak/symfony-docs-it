@@ -96,7 +96,7 @@ predefinita, il dumper utilizza la rappresentazione in linea:
 
     { foo: bar, bar: { foo: bar, bar: baz } }
 
-Ma il secondo argomento del metodo ``dump()`` permette di personalizzare il livello nel
+Ma il secondo parametro del metodo ``dump()`` permette di personalizzare il livello nel
 quale l'output commuta dalla rappresentazione espansa a quella in linea::
 
     echo $dumper->dump($array, 1);

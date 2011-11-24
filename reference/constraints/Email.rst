@@ -1,21 +1,21 @@
 Email
 =====
 
-Validates that a value is a valid email address. The underlying value is
+Valida che un valore sia un valid email address. The underlying value is
 cast to a string before being validated.
 
 +----------------+---------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`property or method<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
-| Options        | - `message`_                                                        |
+| Opzioni        | - `message`_                                                        |
 |                | - `checkMX`_                                                        |
 +----------------+---------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Email`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Email`          |
 +----------------+---------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\EmailValidator` |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\EmailValidator` |
 +----------------+---------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -48,20 +48,20 @@ Basic Usage
              protected $email;
         }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not a valid email address``
+**tipo**: ``stringa`` **predefinito**: ``This value is not a valid email address``
 
-This message is shown if the underlying data is not a valid email address.
+Messaggio mostrato se the underlying data is not a valid email address.
 
 checkMX
 ~~~~~~~
 
-**type**: ``Boolean`` **default**: ``false``
+**tipo**: ``booleano`` **predefinito**: ``false``
 
 If true, then the `checkdnsrr`_ PHP function will be used to check the validity
 of the MX record of the host of the given email.

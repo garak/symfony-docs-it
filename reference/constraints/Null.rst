@@ -1,21 +1,21 @@
 Null
 ====
 
-Validates that a value is exactly equal to ``null``. To force that a property
+Valida che un valore is exactly equal to ``null``. To force that a property
 is simply blank (blank string or ``null``), see the  :doc:`/reference/constraints/Blank`
 constraint. To ensure that a property is not null, see :doc:`/reference/constraints/NotNull`.
 
 +----------------+-----------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                 |
+| Si applica a   | :ref:`property or method<validation-property-target>`                 |
 +----------------+-----------------------------------------------------------------------+
-| Options        | - `message`_                                                          |
+| Opzioni        | - `message`_                                                          |
 +----------------+-----------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Null`             |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Null`             |
 +----------------+-----------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\NullValidator`    |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\NullValidator`    |
 +----------------+-----------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 If, for some reason, you wanted to ensure that the ``firstName`` property
@@ -46,12 +46,12 @@ of an ``Author`` class exactly equal to ``null``, you could do the following:
             protected $firstName;
         }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be null``
+**tipo**: ``stringa`` **predefinito**: ``This value should be null``
 
-This is the message that will be shown if the value is not ``null``.
+Messaggio mostrato se the value is not ``null``.

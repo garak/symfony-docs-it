@@ -1,21 +1,21 @@
 NotNull
 =======
 
-Validates that a value is not strictly equal to ``null``. To ensure that
+Valida che un valore is not strictly equal to ``null``. To ensure that
 a value is simply not blank (not a blank string), see the  :doc:`/reference/constraints/NotBlank`
 constraint.
 
 +----------------+-----------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                 |
+| Si applica a   | :ref:`property or method<validation-property-target>`                 |
 +----------------+-----------------------------------------------------------------------+
-| Options        | - `message`_                                                          |
+| Opzioni        | - `message`_                                                          |
 +----------------+-----------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\NotNull`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\NotNull`          |
 +----------------+-----------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\NotNullValidator` |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\NotNullValidator` |
 +----------------+-----------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 If you wanted to ensure that the ``firstName`` property of an ``Author`` class
@@ -42,12 +42,12 @@ were not strictly equal to ``null``, you would:
             protected $firstName;
         }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should not be null``
+**tipo**: ``stringa`` **predefinito**: ``This value should not be null``
 
-This is the message that will be shown if the value is ``null``.
+Messaggio mostrato se the value is ``null``.

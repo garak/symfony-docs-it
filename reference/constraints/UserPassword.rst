@@ -3,37 +3,37 @@ UserPassword
 
 .. versionadded:: 2.1
 
-   This constraint is new in version 2.1.
+   Questo vincolo è stato aggiunto nella versione 2.1.
 
-This validates that an input value is equal to the current authenticated
-user's password. This is useful in a form where a user can change his password,
-but needs to enter his old password for security.
+Valida che un valore inserito sia uguale alla password dell'utente attualmente
+autenticato. Può tornare utile in un form in cui un utente può cambiare la propria
+password, ma deve inserire quella vecchia per motivi di sicurezza.
 
 .. note::
 
-    This should **not** be used validate a login form, since this is done
-    automatically by the security system.
+    Questo vincolo **non** va usato per la validazione di un form di login, che viene
+    fatta automaticamente dal sistema di sicurezza.
 
-When applied to an array (or Traversable object), this constraint allows
-you to apply a collection of constraints to each element of the array.
+Se applicato a un array (o a un oggetto ``Traversable``), questo vincolo consente di
+applicare un insieme di vincoli a ogni elemento dell'array.
 
 +----------------+----------------------------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                                  |
+| Si applica a   | :ref:`property or method<validation-property-target>`                                  |
 +----------------+----------------------------------------------------------------------------------------+
-| Options        | - `message`_                                                                           |
+| Opzioni        | - `message`_                                                                           |
 +----------------+----------------------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\UserPassword`                      |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\UserPassword`                      |
 +----------------+----------------------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Bundle\\SecurityBundle\\Validator\\Constraint\\UserPasswordValidator` |
+| Validatore     | :class:`Symfony\\Bundle\\SecurityBundle\\Validator\\Constraint\\UserPasswordValidator` |
 +----------------+----------------------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-Suppose you have a `PasswordChange` class, that's used in a form where the
-user can change his password by entering his old password and a new password.
-This constraint will validate that the old password matches the user's current
-password:
+Si supponga di avere una classe `PasswordChange`, usata in un form in cui l'utente possa
+cambiare la sua password, inserendo la sua vecchia password e quella nuova.
+Questo vincolo valida che la vecchia password corrisponda alla password attuale
+dell'utente:
 
 .. configuration-block::
 
@@ -63,13 +63,13 @@ password:
             protected $oldPassword;
        }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``message`` **default**: ``This value should be the user current password``
+**tipo**: ``message`` **predefinito**: ``This value should be the user current password``
 
-This is the message that's displayed when the underlying string does *not*
-match the current user's password.
+Messaggio mostrato quando la stringa sottostante *non* corrisponde alla password
+attuale dell'utente.

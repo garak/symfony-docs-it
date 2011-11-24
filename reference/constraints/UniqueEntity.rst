@@ -1,28 +1,28 @@
 UniqueEntity
 ============
 
-Validates that a particular field (or fields) in a Doctrine entity are unique.
-This is commonly used, for example, to prevent a new user to register using
-an email address that already exists in the system.
+Valida che un particolare campo (o campi) in un entità Doctrine sia unico.
+Si usa di solito, per esempio, per prevenire che un nuovo utente si registri
+usando un indirizzo email già esistente nel sistema.
 
 +----------------+-------------------------------------------------------------------------------------+
-| Applies to     | :ref:`class<validation-class-target>`                                               |
+| Si applica a   | :ref:`class<validation-class-target>`                                               |
 +----------------+-------------------------------------------------------------------------------------+
-| Options        | - `fields`_                                                                         |
+| Opzioni        | - `fields`_                                                                         |
 |                | - `message`_                                                                        |
 |                | - `em`_                                                                             |
 +----------------+-------------------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity`            |
+| Classe         | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity`            |
 +----------------+-------------------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity\\Validator` |
+| Validatore     | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity\\Validator` |
 +----------------+-------------------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-Suppose you have an ``AcmeUserBundle`` with a ``User`` entity that has an
-``email`` field. You can use the ``Unique`` constraint to guarantee that the
-``email`` field remains unique between all of the constrains in your user table:
+Si supponga di avere un ``AcmeUserBundle`` con un entità ``User``, che ha un campo
+``email``. Si può usare il vincolo ``Unique`` per garantire che il campo
+``email`` rimanga unico tra tutti i vincoli della propria tabella degli utenti:
 
 .. configuration-block::
 
@@ -46,39 +46,39 @@ Suppose you have an ``AcmeUserBundle`` with a ``User`` entity that has an
              * @Assert\Email()
              */
             protected $email;
-            
+
             // ...
         }
 
     .. code-block:: yaml
 
         # src/Acme/UserBundle/Resources/config/validation.yml
-        constraints:
+        vincoli:
             - UniqueEntity: email
 
-Options
+Opzioni
 -------
 
 fields
 ~~~~~~
 
-**type**: ``array``|``string`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array``|``stringa`` [:ref:`default option<validation-default-option>`]
 
-This required option is the field (or list of fields) on which this entity
-should be unique. For example, you could specify that both the email and
-name fields in the User example above should be unique.
+Questa opzione obbligatoria è il campo (o la lista di campi) per cui l'entità deve essere
+unica. Per esempio, si può specificare che i campi email e nome nell'esempio
+precedente debbano essere unici.
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is already used.``
+**tipo**: ``stringa`` **predefinito**: ``This value is already used.``
 
-The message that's displayed with this constraint fails.
+Messaggio mostrato quanto il vincolo fallisce.
 
 em
 ~~
 
-**type**: ``string``
+**tipo**: ``stringa``
 
-The name of the entity manager to use for making the query to determine the
-uniqueness. If left blank, the default entity manager will be used.
+Nome del gestore di entità da usare per eseguire la query che determina
+l'unicità. Se lasciato vuoto, sarà usato il gestore di entità predefinito.

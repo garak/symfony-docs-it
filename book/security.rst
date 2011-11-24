@@ -1357,7 +1357,7 @@ il :doc:`/reference/configuration/security`.
 Ruoli
 -----
 
-L'idea di un "ruolo" è la chiave per il processo di autorizzazione. Ad ogni utente viene assegnato
+L'idea di un "ruolo" è la chiave per il processo di autorizzazione. A ogni utente viene assegnato
 un insieme di ruoli e quindi ogni risorsa richiede uno o più ruoli. Se l'utente
 ha i ruoli richiesti, l'accesso è concesso. In caso contrario, l'accesso è negato.
 

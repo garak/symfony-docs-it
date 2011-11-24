@@ -86,7 +86,7 @@ mappa un URL su un controllore (#2).
 Un semplice controllore
 -----------------------
 
-Mentre un controllore può essere un qualsiasi PHP callable (una funzione, un metodo di un oggetto,
+Mentre un controllore può essere un qualsiasi callable PHP (una funzione, un metodo di un oggetto,
 o una ``Closure``), in Symfony2, un controllore di solito è un unico metodo all'interno
 di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
@@ -108,7 +108,7 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 .. tip::
 
-    Si noti che il *controllore* è il metodo ``indexAction``, che vive
+    Si noti che il *controllore* è il metodo ``indexAction``, che si trova
     all'interno di una *classe controllore* (``HelloController``). Non bisogna confondersi
     con i nomi: una *classe controllore* è semplicemente un modo comodo per raggruppare
     insieme vari controllori/azioni. Tipicamente, la classe controllore
@@ -117,16 +117,16 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 Questo controllore è piuttosto semplice, ma vediamo di analizzarlo:
 
-* *linea 3*: Symfony2 sfrutta la funzionalità namespace di PHP 5.3 per
+* *linea 3*: Symfony2 sfrutta la funzionalità degli spazi dei nomi di PHP 5.3 per
   utilizzarla nell'intera classe dei controllori. La parola chiave ``use`` importa la
   classe ``Response``, che il controllore deve restituire.
 
 * *linea 6*: Il nome della classe è la concatenazione di un nome per la classe
   controllore (ad esempio ``Hello``) e la parola ``Controller``. Questa è una convenzione
-  che fornisce consistenza ai controllori e permette loro di essere referenziati
+  che fornisce coerenza ai controllori e permette loro di essere referenziati
   solo dalla prima parte del nome (ad esempio ``Hello``) nella configurazione delle rotte.
 
-* *linea 8*: Ad ogni azione in una classe controllore viene aggiunto il suffisso ``Action``
+* *linea 8*: A ogni azione in una classe controllore viene aggiunto il suffisso ``Action``
   mentre nella configurazione delle rotte viene utilizzato come riferimento il solo nome dell'azione (``index``).
   Nella sezione successiva, verrà creata una rotta che mappa un URI in questa azione.
   Si imparerà come i segnaposto delle rotte (``{name}``) diventano parametri
@@ -200,7 +200,7 @@ I parametri delle rotte come parametri del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si è già appreso che il parametro ``AcmeHelloBundle:Hello:index`` di ``_controller``
-fa riferimento a un metodo ``HelloController::indexAction()`` che vive all'interno di un
+fa riferimento a un metodo ``HelloController::indexAction()`` che si trova all'interno di un
 bundle ``AcmeHelloBundle``. La cosa più interessante è che i parametri vengono
 passati a tale metodo:
 

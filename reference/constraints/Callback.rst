@@ -1,34 +1,34 @@
 Callback
 ========
 
-The purpose of the Callback assertion is to let you create completely custom
-validation rules and to assign any validation errors to specific fields on
-your object. If you're using validation with forms, this means that you can
-make these custom errors display next to a specific field, instead of simply
-at the top of your form.
+Lo scopo del vincolo Callback è di poter creare delle regole di validazioni
+completamente personalizzate e di assegnare qualsiasi errore di validazione a
+campi specifici del proprio oggetto. Se si usa la validazione con i form, questo vuol dire
+che si possono mostrare questi errori personalizzati accanto a campi specifici, invece di
+mostrarli semplicemente in cima al form.
 
-This process works by specifying one or more *callback* methods, each of
-which will be called during the validation process. Each of those methods
-can do anything, including creating and assigning validation errors.
+Questo processo funziona specificando uno o più metodi di *callback*, ciascuno dei quali
+sarà richiamato durante il processo di validazione. Ognuno di questi metodi può
+fare qualsiasi cosa, incluso creare e assegnare errori di validazione.
 
 .. note::
 
-    A callback method itself doesn't *fail* or return any value. Instead,
-    as you'll see in the example, a callback method has the ability to directly
-    add validator "violations".
+    Un metodo callback per sé stesso non *fallisce*, né restituisce valroi. Invece,
+    come vedremo nell'esempio, un metodo callback ha l'abilità di aggiungere direttamente
+    "violazioni" al validatore.
 
 +----------------+------------------------------------------------------------------------+
-| Applies to     | :ref:`class<validation-class-target>`                                  |
+| Si applica a   | :ref:`class<validation-class-target>`                                  |
 +----------------+------------------------------------------------------------------------+
-| Options        | - `methods`_                                                           |
+| Opzioni        | - `methods`_                                                           |
 +----------------+------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Callback`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Callback`          |
 +----------------+------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\CallbackValidator` |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\CallbackValidator` |
 +----------------+------------------------------------------------------------------------+
 
-Setup
------
+Preparazione
+------------
 
 .. configuration-block::
 
@@ -36,7 +36,7 @@ Setup
 
         # src/Acme/BlogBundle/Resources/config/validation.yml
         Acme\BlogBundle\Entity\Author:
-            constraints:
+            vincoli:
                 - Callback:
                     methods:   [isAuthorValid]
 
@@ -52,26 +52,26 @@ Setup
         {
         }
 
-The Callback Method
--------------------
+Il metod callback
+-----------------
 
-The callback method is passed a special ``ExecutionContext`` object. You
-can set "violations" directly on this object and determine to which field
-those errors should be attributed::
+Il metod callback è passato a uno speciale oggetto ``ExecutionContext``. Si possono
+impostare le "violazioni" direttamente su questo oggetto e determinare a quale campo
+questi errori vadano attribuiti::
 
     // ...
     use Symfony\Component\Validator\ExecutionContext;
-    
+
     class Author
     {
         // ...
         private $firstName;
-    
+
         public function isAuthorValid(ExecutionContext $context)
         {
             // somehow you have an array of "fake names"
             $fakeNames = array();
-        
+
             // check if the name is actually a fake name
             if (in_array($this->getFirstName(), $fakeNames)) {
                 $property_path = $context->getPropertyPath() . '.firstName';
@@ -80,26 +80,26 @@ those errors should be attributed::
             }
         }
 
-Options
+Opzioni
 -------
 
 methods
 ~~~~~~~
 
-**type**: ``array`` **default**: ``array()`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array`` **predefinito**: ``array()`` [:ref:`default option<validation-default-option>`]
 
-This is an array of the methods that should be executed during the validation
-process. Each method can be one of the following formats:
+Un array di metodi che andrebbero eseguiti durante il processo di validazione.
+Ogni metodo può avere uno dei seguenti formati:
 
-1) **String method name**
+1) **Stringa con il nome del metodo**
 
-    If the name of a method is a simple string (e.g. ``isAuthorValid``), that
-    method will be called on the same object that's being validated and the
-    ``ExecutionContext`` will be the only argument (see the above example).
+    Se il nome di un metodo è una semplice stringa (p.e. ``isAuthorValid``), quel
+    metodo sarà richiamato sullo stesso oggetto in corso di validazione e
+    ``ExecutionContext`` sarà l'unico parametro (vedere esempio precedente).
 
-2) **Static array callback**
+2) **Array statico callback**
 
-    Each method can also be specified as a standard array callback:
+    Ogni metodo può anche essere specificato con un array callback:
 
     .. configuration-block::
 
@@ -107,7 +107,7 @@ process. Each method can be one of the following formats:
 
             # src/Acme/BlogBundle/Resources/config/validation.yml
             Acme\BlogBundle\Entity\Author:
-                constraints:
+                vincoli:
                     - Callback:
                         methods:
                             -    [Acme\BlogBundle\MyStaticValidatorClass, isAuthorValid]
@@ -145,15 +145,15 @@ process. Each method can be one of the following formats:
                 }
             }
 
-    In this case, the static method ``isAuthorValid`` will be called on the
-    ``Acme\BlogBundle\MyStaticValidatorClass`` class. It's passed both the original
-    object being validated (e.g. ``Author``) as well as the ``ExecutionContext``::
+    In questo caso, sarà richiamato il metodo statico ``isAuthorValid`` della classe
+    ``Acme\BlogBundle\MyStaticValidatorClass``. Gli verrà passato sia l'oggetto originale
+    in corso di validazione (p.e. ``Author``) che ``ExecutionContext``::
 
         namespace Acme\BlogBundle;
-    
+
         use Symfony\Component\Validator\ExecutionContext;
         use Acme\BlogBundle\Entity\Author;
-    
+
         class MyStaticValidatorClass
         {
             static public function isAuthorValid(Author $author, ExecutionContext $context)
@@ -164,9 +164,9 @@ process. Each method can be one of the following formats:
 
     .. tip::
 
-        If you specify your ``Callback`` constraint via PHP, then you also have
-        the option to make your callback either a PHP closure or a non-static
-        callback. It is *not* currently possible, however, to specify a :term:`service`
-        as a constraint. To validate using a service, you should
-        :doc:`create a custom validation constraint</cookbook/validation/custom_constraint>`
-        and add that new constraint to your class.
+        Se si specifica il vincolo ``Callback`` tramite PHP, c'è anche l'opzione
+        di rendere il callback una closure PHP o un callback non statico.
+        Tuttavia, *non* è attualmente possibile specificare un :term:`servizio`
+        come vincolo. Per validare usando un servizio, si dovrebbe
+        :doc:`creare un vincolo personalizzato</cookbook/validation/custom_constraint>`
+        e aggiungere il nuovo vincolo alla propria classe.

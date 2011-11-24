@@ -1,21 +1,21 @@
 DateTime
 ========
 
-Validates that a value is a valid "datetime", meaning either a ``DateTime``
-object or a string (or an object that can be cast into a string) that follows
-a valid YYYY-MM-DD HH:MM:SS format.
+Valida che un valore sia una data/ora valida, cioè o un oggetto ``DateTime``
+o una stringa (o un oggetto che possa essere forzato a stringa) con un formato
+valido YYYY-MM-DD HH:MM:SS.
 
 +----------------+------------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`property or method<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
-| Options        | - `message`_                                                           |
+| Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\DateTime`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\DateTime`          |
 +----------------+------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\DateTimeValidator` |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\DateTimeValidator` |
 +----------------+------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -32,7 +32,7 @@ Basic Usage
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -43,12 +43,12 @@ Basic Usage
              protected $createdAt;
         }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not a valid datetime``
+**tipo**: ``stringa`` **predefinito**: ``This value is not a valid datetime``
 
-This message is shown if the underlying data is not a valid datetime.
+Messaggio mostrato se i dati sottostanti non sono una data/ora valida.

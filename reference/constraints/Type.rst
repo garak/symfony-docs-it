@@ -1,22 +1,22 @@
 Type
 ====
 
-Validates that a value is of a specific data type. For example, if a variable
-should be an array, you can use this constraint with the ``array`` type option
-to validate this.
+Valida che un valore sia di uno specifico tipo. Per esempio, se una variabile
+deve essere un array, si può usare questo vincolo con l'opzione tipo ``array``,
+per validarla.
 
 +----------------+---------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`property or method<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
-| Options        | - :ref:`type<reference-constraint-type-type>`                       |
+| Opzioni        | - :ref:`type<reference-constraint-type-type>`                       |
 |                | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Type`           |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Type`           |
 +----------------+---------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\TypeValidator`  |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\TypeValidator`  |
 +----------------+---------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -35,7 +35,7 @@ Basic Usage
 
        // src/Acme/BlogBundle/Entity/Author.php
        namespace Acme\BlogBundle\Entity;
-       
+
        use Symfony\Component\Validator\Constraints as Assert;
 
        class Author
@@ -46,7 +46,7 @@ Basic Usage
             protected $age;
        }
 
-Options
+Opzioni
 -------
 
 .. _reference-constraint-type-type:
@@ -54,17 +54,17 @@ Options
 type
 ~~~~
 
-**type**: ``string`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``stringa`` [:ref:`default option<validation-default-option>`]
 
-This required option is the fully qualified class name or one of the PHP datatypes
-as determined by PHP's ``is_`` functions.
+Questa opzione obbligatoria è il nome pienamente qualificato della classe, oppure uno
+dei tipi di dato di PHP, come stabilito dalle funzioni ``is_`` di PHP.
 
   * `array <http://php.net/is_array>`_
   * `bool <http://php.net/is_bool>`_
   * `callable <http://php.net/is_callable>`_
-  * `float <http://php.net/is_float>`_ 
+  * `float <http://php.net/is_float>`_
   * `double <http://php.net/is_double>`_
-  * `int <http://php.net/is_int>`_ 
+  * `int <http://php.net/is_int>`_
   * `integer <http://php.net/is_integer>`_
   * `long <http://php.net/is_long>`_
   * `null <http://php.net/is_null>`_
@@ -74,10 +74,10 @@ as determined by PHP's ``is_`` functions.
   * `resource <http://php.net/is_resource>`_
   * `scalar <http://php.net/is_scalar>`_
   * `string <http://php.net/is_string>`_
-  
+
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be of type {{ type }}``
+**tipo**: ``stringa`` **predefinito**: ``This value should be of type {{ type }}``
 
-The message if the underlying data is not of the given type.
+Messaggio mostrato se i dati sottostanti non sono del tipo dato.

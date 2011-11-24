@@ -1,29 +1,29 @@
 False
 =====
 
-Validates that a value is ``false``. Specifically, this checks to see if
-the value is exactly ``false``, exactly the integer ``0``, or exactly the
-string "``0``".
+Valida che un valore sia ``false``. Nello specifico, verifica se il valore sia
+esattamente ``false``, esattamente l'intero ``0`` o esattamente la stringa
+"``0``".
 
-Also see :doc:`True <True>`.
+Vedere anche :doc:`True <True>`.
 
 +----------------+---------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`property or method<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
-| Options        | - `message`_                                                        |
+| Opzioni        | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\False`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\False`          |
 +----------------+---------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\FalseValidator` |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\FalseValidator` |
 +----------------+---------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-The ``False`` constraint can be applied to a property or a "getter" method,
-but is most commonly useful in the latter case. For example, suppose that
-you want to guarantee that some ``state`` property is *not* in a dynamic
-``invalidStates`` array. First, you'd create a "getter" method::
+Il vincolo ``False`` può essere applicato ad una proprietà o a un metodo "getter",
+ma è usato più comunemente nel secondo caso. Per esempio, si supponga di voler
+garantire che una proprietà ``state`` *non* sia in un array dinamico
+``invalidStates``. Per prima cosa, creare un metodo "getter"::
 
     protected $state;
 
@@ -34,8 +34,8 @@ you want to guarantee that some ``state`` property is *not* in a dynamic
         return in_array($this->state, $this->invalidStates);
     }
 
-In this case, the underlying object is only valid if the ``isStateInvalid``
-method returns **false**:
+In questo caso, l'oggetto sottostante è valido solamente se il metodo ``isStateInvalid``
+restituisce **false**:
 
 .. configuration-block::
 
@@ -66,15 +66,15 @@ method returns **false**:
 
 .. caution::
 
-    When using YAML, be sure to surround ``False`` with quotes (``"False"``)
-    or else YAML will convert this into a Boolean value.
+    Usando YAML, assicurarsi di inserire ``False`` tra virgolette (``"False"``),
+    altrimenti YAML convertirà questo valore in un booleano.
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be false``
+**tipo**: ``stringa`` **predefinito**: ``This value should be false``
 
-This message is shown if the underlying data is not false.
+Messaggio mostrato se i dati sottostanti non sono ``false``.

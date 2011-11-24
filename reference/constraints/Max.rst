@@ -1,25 +1,25 @@
 Max
 ===
 
-Validates that a given number is *less* than some maximum number.
+Valida che un dato numero sia *minore* di un numero massimo.
 
 +----------------+--------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`              |
+| Si applica a   | :ref:`property or method<validation-property-target>`              |
 +----------------+--------------------------------------------------------------------+
-| Options        | - `limit`_                                                         |
+| Opzioni        | - `limit`_                                                         |
 |                | - `message`_                                                       |
 |                | - `invalidMessage`_                                                |
 +----------------+--------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Max`           |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Max`           |
 +----------------+--------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\MaxValidator`  |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\MaxValidator`  |
 +----------------+--------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-To verify that the "age" field of a class is not greater than "50", you might
-add the following:
+Per verificare che il campo "age" di una classe non sia maggiore di "50", si potrebbe
+aggiungere il seguente:
 
 .. configuration-block::
 
@@ -44,31 +44,31 @@ add the following:
              protected $age;
         }
 
-Options
+Opzioni
 -------
 
 limit
 ~~~~~
 
-**type**: ``integer`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``intero`` [:ref:`default option<validation-default-option>`]
 
-This required option is the "max" value. Validation will fail if the given
-value is **greater** than this max value.
+Questa opzione obbligatoria è il valore massimo. La validazione fallisce se il valore
+fornito è **maggiore** di questo.
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be {{ limit }} or less``
+**tipo**: ``stringa`` **predefinito**: ``This value should be {{ limit }} or less``
 
-The message that will be shown if the underlying value is greater than the
-`limit`_ option.
+Messaggio mostrato se il valore sottostante è maggiore dell'opzione
+`limit`_.
 
 invalidMessage
 ~~~~~~~~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be a valid number``
+**tipo**: ``stringa`` **predefinito**: ``This value should be a valid number``
 
-The message that will be shown if the underlying value is not a number (per
-the `is_numeric`_ PHP function).
+Messaggio mostrato se il valore sottostante non è un numero (in base alla funzione
+`is_numeric`_ di PHP).
 
 .. _`is_numeric`: http://www.php.net/manual/en/function.is-numeric.php

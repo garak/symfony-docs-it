@@ -1,23 +1,23 @@
 Time
 ====
 
-Validates that a value is a valid time string with format "HH:MM:SS".
+Valida che un valore sia un valid time string with format "HH:MM:SS".
 
-Validates that a value is a valid time, meaning either a ``DateTime`` object
+Valida che un valore sia un valid time, meaning either a ``DateTime`` object
 or a string (or an object that can be cast into a string) that follows
 a valid "HH:MM:SS" format.
 
 +----------------+------------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`property or method<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
-| Options        | - `message`_                                                           |
+| Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Time`              |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Time`              |
 +----------------+------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\TimeValidator`     |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\TimeValidator`     |
 +----------------+------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 Suppose you have an Event class, with a ``startAt`` field that is the time
@@ -48,12 +48,12 @@ of the day when the event starts:
              protected $startsAt;
         }
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not a valid time``
+**tipo**: ``stringa`` **predefinito**: ``This value is not a valid time``
 
-This message is shown if the underlying data is not a valid time.
+Messaggio mostrato se the underlying data is not a valid time.

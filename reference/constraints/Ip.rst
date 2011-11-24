@@ -1,22 +1,22 @@
 Ip
 ==
 
-Validates that a value is a valid IP address. By default, this will validate
-the value as IPv4, but a number of different options exist to validate as
-IPv6 and many other combinations.
+Valida che un valore sia un indirizzo IP valido. Per impostazione predefinita, valida
+un valore come IPv4, ma ci sono diverse opzioni per validare come IPv6 e
+altre combinazioni.
 
 +----------------+---------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`property or method<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
-| Options        | - `version`_                                                        |
+| Opzioni        | - `version`_                                                        |
 |                | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Ip`             |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Ip`             |
 +----------------+---------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\IpValidator`    |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\IpValidator`    |
 +----------------+---------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
 .. configuration-block::
@@ -44,44 +44,44 @@ Basic Usage
             protected $ipAddress;
        }
 
-Options
+Opzioni
 -------
 
 version
 ~~~~~~~
 
-**type**: ``string`` **default**: ``4``
+**tipo**: ``stringa`` **predefinito**: ``4``
 
-This determines exactly *how* the ip address is validated and can take one
-of a variety of different values:
+Determina esattamente *come* è validato l'indirizzo IP e acceta uno dei
+tanti valori a disposizione:
 
-**All ranges**
+**Tutte le fasce**
 
-* ``4`` - Validates for IPv4 addresses
-* ``6`` - Validates for IPv6 addresses
-* ``all`` - Validates all IP formats
+* ``4`` - Valida indirizzi IPv4
+* ``6`` - Valida indirizzi IPv6
+* ``all`` - Valida tutti i formati IP
 
-**No private ranges**
+**Nessuna fascia privata**
 
-* ``4_no_priv`` - Validates for IPv4 but without private IP ranges
-* ``6_no_priv`` - Validates for IPv6 but without private IP ranges
-* ``all_no_priv`` - Validates for all IP formats but without private IP ranges
+* ``4_no_priv`` - Valida IPv4, ma senza le fasce IP private
+* ``6_no_priv`` - Valida IPv6, ma senza le fasce IP private
+* ``all_no_priv`` - Valida tutti i formati IP, ma senza le fasce IP private
 
-**No reserved ranges**
+**Nessuna fascia riservata**
 
-* ``4_no_res`` - Validates for IPv4 but without reserved IP ranges
-* ``6_no_res`` - Validates for IPv6 but without reserved IP ranges
-* ``all_no_res`` - Validates for all IP formats but without reserved IP ranges
+* ``4_no_res`` - Valida IPv4, ma senza le fasce IP riservate
+* ``6_no_res`` - Valida IPv6, ma senza le fasce IP riservate
+* ``all_no_res`` - Valida tutti i formati IP, ma senza le fasce IP riservate
 
-**Only public ranges**
+**Solo fasce pubbliche**
 
-* ``4_public`` - Validates for IPv4 but without private and reserved ranges
-* ``6_public`` - Validates for IPv6 but without private and reserved ranges
-* ``all_public`` - Validates for all IP formats but without private and reserved ranges
+* ``4_public`` - Valida IPv4, ma senza fasce private e riservate
+* ``6_public`` - Valida IPv6, ma senza fasce private e riservate
+* ``all_public`` - VValida tutti i formati IP, ma senza le fasce IP private e riservate
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This is not a valid IP address``
+**tipo**: ``stringa`` **predefinito**: ``This is not a valid IP address``
 
-This message is shown if the string is not a valid IP address.
+Messaggio mostrato se la stringa non è un indirizzo IP valido.

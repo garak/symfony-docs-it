@@ -1,24 +1,24 @@
 All
 ===
 
-When applied to an array (or Traversable object), this constraint allows
-you to apply a collection of constraints to each element of the array.
+Quando applicato a un array (o a un oggetto Traversable), questo vincolo consente di
+applicare un insieme di vincoli a ogni elemento dell'array.
 
 +----------------+------------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                  |
+| Si applica a   | :ref:`property or method<validation-property-target>`                  |
 +----------------+------------------------------------------------------------------------+
-| Options        | - `constraints`_                                                       |
+| Opzioni        | - `vincoli`_                                                           |
 +----------------+------------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\All`               |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\All`               |
 +----------------+------------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\AllValidator`      |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\AllValidator`      |
 +----------------+------------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-Suppose that you have an array of strings, and you want to validate each
-entry in that array:
+Si supponga di avere un array di stringhe e di voler validare ogni elemento
+dell'array:
 
 .. configuration-block::
 
@@ -36,7 +36,7 @@ entry in that array:
 
        // src/Acme/UserBundle/Entity/User.php
        namespace Acme\UserBundle\Entity;
-       
+
        use Symfony\Component\Validator\Constraints as Assert;
 
        class User
@@ -50,16 +50,16 @@ entry in that array:
             protected $favoriteColors = array();
        }
 
-Now, each entry in the ``favoriteColors`` array will be validated to not
-be blank and to be at least 5 characters long.
+Ora, ogni elemento nell'array ``favoriteColors`` sarà validato per non essere
+vuoto e per avere almeno 5 caratteri.
 
-Options
+Opzioni
 -------
 
-constraints
-~~~~~~~~~~~
+vincoli
+~~~~~~~
 
-**type**: ``array`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``array`` [:ref:`default option<validation-default-option>`]
 
-This required option is the array of validation constraints that you want
-to apply to each element of the underlying array.
+Questa opzione obbligatoria è l'array dei vincoli di validazione che si vuole
+applicre a ogni elemento dell'array sottostante.

@@ -1,26 +1,26 @@
 True
 ====
 
-Validates that a value is ``true``. Specifically, this checks to see if
+Valida che un valore is ``true``. Specifically, this checks to see if
 the value is exactly ``true``, exactly the integer ``1``, or exactly the
 string "``1``".
 
 Also see :doc:`False <False>`.
 
 +----------------+---------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`property or method<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
-| Options        | - `message`_                                                        |
+| Opzioni        | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\True`           |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\True`           |
 +----------------+---------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\TrueValidator`  |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\TrueValidator`  |
 +----------------+---------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-This constraint can be applied to properties (e.g. a ``termsAccepted`` property
+This constraint can be applied to properties (p.e. a ``termsAccepted`` property
 on a registration model) or to a "getter" method. It's most powerful in the
 latter case, where you can assert that a method returns a true value. For
 example, suppose you have the following method:
@@ -113,12 +113,12 @@ Then you can constrain this method with ``True``.
 
 If the ``isTokenValid()`` returns false, the validation will fail.
 
-Options
+Opzioni
 -------
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be true``
+**tipo**: ``stringa`` **predefinito**: ``This value should be true``
 
-This message is shown if the underlying data is not true.
+Messaggio mostrato se the underlying data is not true.

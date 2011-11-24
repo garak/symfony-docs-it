@@ -1,27 +1,27 @@
 Regex
 =====
 
-Validates that a value matches a regular expression.
+Valida che un valore corrisponda a un'espressione regolare.
 
 +----------------+-----------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`                 |
+| Si applica a   | :ref:`property or method<validation-property-target>`                 |
 +----------------+-----------------------------------------------------------------------+
-| Options        | - `pattern`_                                                          |
+| Opzioni        | - `pattern`_                                                          |
 |                | - `match`_                                                            |
 |                | - `message`_                                                          |
 +----------------+-----------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Regex`            |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Regex`            |
 +----------------+-----------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\RegexValidator`   |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\RegexValidator`   |
 +----------------+-----------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-Suppose you have a ``description`` field and you want to verify that it begins
-with a valid word character. The regular expression to test for this would
-be ``/^\w+/``, indicating that you're looking for at least one or more word
-characters at the beginning of your string:
+Si supponga di avere un campo ``description`` e di voler verificare che inizi con un
+carattere alfanumerico valido. L'espressione regolare da testare sarebbe
+``/^\w+/``, che indica che si sta cercando almeno uno o più caratteri alfanumerici
+all'inizio della stringa:
 
 .. configuration-block::
 
@@ -37,7 +37,7 @@ characters at the beginning of your string:
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -48,10 +48,10 @@ characters at the beginning of your string:
             protected $description;
         }
 
-Alternatively, you can set the `match`_ option to ``false`` in order to assert
-that a given string does *not* match. In the following example, you'll assert
-that the ``firstName`` field does not contain any numbers and give it a custom
-message:
+In alternativa, si può impostare l'opzione `match`_ a ``false``, per asserire che
+una stringa data *non* debba corrispondere. Nell'esempio seguente, si asserisce che
+il campo ``firstName`` non contenga numeri e si imposta un messaggio
+personalizzato:
 
 .. configuration-block::
 
@@ -64,13 +64,13 @@ message:
                     - Regex:
                         pattern: "/\d/"
                         match:   false
-                        message: Your name cannot contain a number
+                        message: Il nome non può contenere numeri
 
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -79,41 +79,41 @@ message:
              * @Assert\Regex(
              *     pattern="/\d/",
              *     match=false,
-             *     message="Your name cannot contain a number"
+             *     message="Il nome non può contenere numeri"
              * )
              */
             protected $firstName;
         }
 
-Options
+Opzioni
 -------
 
 pattern
 ~~~~~~~
 
-**type**: ``string`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``stringa`` [:ref:`default option<validation-default-option>`]
 
-This required option is the regular expression pattern that the input will
-be matched against. By default, this validator will fail if the input string
-does *not* match this regular expression (via the `preg_match`_ PHP function).
-However, if `match`_ is set to false, then validation will fail if the input
-string *does* match this pattern.
+Questa opzione obbligatoria è l'espressione regolare a cui il valore inserito deve
+corrispondere. Per impostazione predefinita, il validatore fallisce se la stringa
+inserita *non* corrisponde a questa espressione regolare (tramite la funzione `preg_match`_
+di PHP). Se tuttavia `match`_ è ``false``, la validazione fallisce se la stringa inserita
+corrisponde a questo schema.
 
 match
 ~~~~~
 
-**type**: ``Boolean`` default: ``true``
+**tipo**: ``booleano`` default: ``true``
 
-If ``true`` (or not set), this validator will pass if the given string matches
-the given `pattern`_ regular expression. However, when this option is set
-to ``false``, the opposite will occur: validation will pass only if the given
-string does **not** match the `pattern`_ regular expression.
+Se ``true`` (o non impostato), questo validatore passerà se la stringa data
+corrisponde all'espressione regolare contenuta in `pattern`_. Se invece l'opzione è
+``false``, sarà il contrario: la validazione passerà solo se la stringa data
+**non** corrisponderà all'espressione regolare contenuta in `pattern`_.
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value is not valid``
+**tipo**: ``stringa`` **predefinito**: ``This value is not valid``
 
-This is the message that will be shown if this validator fails.
+Messaggio mostrato se il validatore fallisce.
 
 .. _`preg_match`: http://php.net/manual/en/function.preg-match.php

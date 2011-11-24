@@ -1,25 +1,25 @@
 Min
 ===
 
-Validates that a given number is *greater* than some minimum number.
+Valida che un dato numero sia *maggioer* di un numero minimo.
 
 +----------------+--------------------------------------------------------------------+
-| Applies to     | :ref:`property or method<validation-property-target>`              |
+| Si applica a   | :ref:`property or method<validation-property-target>`              |
 +----------------+--------------------------------------------------------------------+
-| Options        | - `limit`_                                                         |
+| Opzioni        | - `limit`_                                                         |
 |                | - `message`_                                                       |
 |                | - `invalidMessage`_                                                |
 +----------------+--------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Min`           |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Min`           |
 +----------------+--------------------------------------------------------------------+
-| Validator      | :class:`Symfony\\Component\\Validator\\Constraints\\MinValidator`  |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\MinValidator`  |
 +----------------+--------------------------------------------------------------------+
 
-Basic Usage
+Uso di base
 -----------
 
-To verify that the "age" field of a class is "18" or greater, you might add
-the following:
+Per verificare che il campo "age" di una classe sia "18" o più, si potrebbe
+aggiungere il seguente:
 
 .. configuration-block::
 
@@ -44,31 +44,31 @@ the following:
              protected $age;
         }
 
-Options
+Opzioni
 -------
 
 limit
 ~~~~~
 
-**type**: ``integer`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``intero`` [:ref:`default option<validation-default-option>`]
 
-This required option is the "min" value. Validation will fail if the given
-value is **less** than this min value.
+Questa opzione obbligatoria è il valore minimo. La validazione fallisce se il valore
+fornito è **minore** di questo.
 
 message
 ~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be {{ limit }} or more``
+**tipo**: ``stringa`` **predefinito**: ``This value should be {{ limit }} or more``
 
-The message that will be shown if the underlying value is less than the `limit`_
-option.
+Messaggio mostrato se il valore sottostante è minore dell'opzione
+`limit`_.
 
 invalidMessage
 ~~~~~~~~~~~~~~
 
-**type**: ``string`` **default**: ``This value should be a valid number``
+**tipo**: ``stringa`` **predefinito**: ``This value should be a valid number``
 
-The message that will be shown if the underlying value is not a number (per
-the `is_numeric`_ PHP function).
+Messaggio mostrato se il valore sottostante non è un numero (in base alla funzione
+`is_numeric`_ di PHP).
 
 .. _`is_numeric`: http://www.php.net/manual/en/function.is-numeric.php

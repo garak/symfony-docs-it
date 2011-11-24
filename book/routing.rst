@@ -124,7 +124,7 @@ quale controller dovrebbe essere eseguito. L'intero processo è il seguente:
 
 #. La richiesta è gestita dal front controller di Symfony2 (ad esempio ``app.php``);
 
-#. Il core di Symfony2 (ad es. il kernel) chiede al router di ispezionare la richiesta;
+#. Il nucleo di Symfony2 (ad es. il kernel) chiede al router di ispezionare la richiesta;
 
 #. Il router verifica la corrispondenza dell'URL in arrivo con una specifica rotta e restituisce informazioni
    sulla rotta, tra le quali il controllore che deve essere eseguito;

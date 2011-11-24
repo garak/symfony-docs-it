@@ -30,7 +30,7 @@ il processo ha diverse fasi comuni:
 
 1. Abilitare e configurare il componente ``Translation`` di Symfony;
 
-2. Astrarre le stringhe (i. "messaggi") avvolgendoli nelle chiamate al ``Traduttore``;
+2. Astrarre le stringhe (i. "messaggi") avvolgendoli nelle chiamate al ``Translator``;
 
 3. Creare risorse di traduzione per ogni lingua supportata che traducano tutti
    i messaggio dell'applicazione;
@@ -38,14 +38,14 @@ il processo ha diverse fasi comuni:
 4. Determinare, impostare e gestire le impostazioni locali dell'utente nella sessione.
 
 .. index::
-   single: Translations; Configuration
+   single: Traduzioni; Configurazione
 
 Configurazione
 --------------
 
-Le traduzioni sono gestire da un ``Traduttore`` :term:`service` che utilizza i
+Le traduzioni sono gestire da un :term:`servizio` ``Translator``, che utilizza i
 locale dell'utente per cercare e restituire i messaggi tradotti. Prima di utilizzarlo,
-abilitare il ``Traduttore`` nella configurazione:
+abilitare il ``Translator`` nella configurazione:
 
 .. configuration-block::
 
@@ -82,7 +82,7 @@ esiste nel locale dell'utente.
 Il locale usato nelle traduzioni è quello memorizzato nella sessione utente.
 
 .. index::
-   single: Translations; Basic translation
+   single: Traduzioni; Traduzioni di base
 
 Traduzione di base
 ------------------
@@ -161,7 +161,7 @@ Quando si usa il metodo ``trans()``, Symfony2 cerca la stringa esatta all'intern
 del catalogo dei messaggi e la restituisce (se esiste).
 
 .. index::
-   single: Translations; Message placeholders
+   single: Traduzioni; Segnaposto per i messaggi
 
 Segnaposto per i messaggi
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -244,7 +244,7 @@ The second step is done by creating message catalogues that define the translati
 for any number of different locales.
 
 .. index::
-   single: Translations; Message catalogues
+   single: Traduzioni; Cataloghi di messaggi
 
 Cataloghi di messaggi
 ---------------------
@@ -272,10 +272,10 @@ filesystem e vengono trovate da Symfony grazie ad alcune convenzioni.
         php app/console cache:clear
 
 .. index::
-   single: Translations; Translation resource locations
+   single: Traduzioni; Sedi per le traduzioni e convenzioni sui nomi
 
 Sedi per le traduzioni e convenzioni sui nomi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
@@ -290,9 +290,9 @@ per determinare i dettagli sulle traduzioni. Ogni file con i messaggi deve esser
 secondo il seguente schema: ``domain.locale.loader``:
 
 * **domain**: Un modo opzionale per organizzare i messaggi in gruppi (ad esempio ``admin``,
-  ``navigazione`` o il predefinito ``messaggi``) - vedere `Using Message Domains`_;
+  ``navigazione`` o il predefinito ``messaggi``) - vedere `Uso dei domini per i messaggi`_;
 
-* **locale**: Il locale per cui sono state scritte le traduzioni (ad esempio ``en_GB``, ``en``, ecc);
+* **locale**: Il locale per cui sono state scritte le traduzioni (ad esempio ``en_GB``, ``en``, ecc.);
 
 * **loader**: Come Symfony2 dovrebbe caricare e analizzare il file (ad esempio ``xliff``,
   ``php`` o ``yml``).
@@ -304,19 +304,19 @@ fornisce i seguenti loader:
 * ``php``:   file PHP;
 * ``yml``:  file YAML.
 
-La scelta di quali loader utilizzare è interamente a vostro carico ed è una questione
+La scelta di quali loader utilizzare è interamente a carico dello sviluppatore ed è una questione
 di gusti.
 
 .. note::
 
-    È anche possibile memorizzare le traduzioni in un database, o in qualsiasi altro storage
+    È anche possibile memorizzare le traduzioni in un database o in qualsiasi altro storage,
     fornendo una classe personalizzata che implementa
     l'interfaccia :class:`Symfony\\Component\\Translation\\Loader\\LoaderInterface`.
     Vedere :doc:`Loader per le traduzioni personalizzati </cookbook/translation/custom_loader>`
     di seguito per imparare a registrare loader personalizzati.
 
 .. index::
-   single: Translations; Creating translation resources
+   single: Traduzioni; Creazione delle traduzioni
 
 Creazione delle traduzioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -449,10 +449,10 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
             );
 
 .. index::
-   single: Translations; Message domains
+   single: Traduzioni; Domini dei messaggi
 
-Utilizzo dei domini per i messaggi
-----------------------------------
+Uso dei domini per i messaggi
+-----------------------------
 
 Come abbiamo visto, i file dei messaggi sono organizzati nei diversi locale che
 vanno a tradurre. I file dei messaggi possono anche essere organizzati in "domini".
@@ -477,7 +477,7 @@ Symfony2 cercherà ora il messaggio del locale dell'utente nel dominio
 ``admin``.
 
 .. index::
-   single: Translations; User's locale
+   single: Traduzioni; Locale dell'utente
 
 Gestione del locale dell'utente
 -------------------------------
@@ -492,14 +492,14 @@ tramite il servizio ``session``:
     $this->get('session')->setLocale('en_US');
 
 .. index::
-   single: Translations; Fallback and default locale
+   single: Traduzioni; Fallback e locale predefinito
 
 Fallback e locale predefinito
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Se il locale non è stato impostato in modo esplicito nella sessione, sarà
 utilizzato dal ``Translator`` il parametro di configurazione ``fallback_locale``. Il valore
-predefinito del parametro è ``en`` (vedere `Configuration`_).
+predefinito del parametro è ``en`` (vedere `Configurazione`_).
 
 In alternativa, è possibile garantire che un locale è impostato sulla sessione dell'utente
 definendo un ``default_locale`` per il servizio di sessione:
@@ -584,7 +584,7 @@ come locale per la sessione dell'utente.
 nell'applicazione.
 
 .. index::
-   single: Translations; Pluralization
+   single: Traduzioni; Pluralizzazione
 
 Pluralizzazione
 ---------------
@@ -694,7 +694,7 @@ di destra può essere ``[`` (escluso) o ``]`` (incluso). Oltre ai numeri, si
 può usare ``-Inf`` e ``+Inf`` per l'infinito.
 
 .. index::
-   single: Translations; In templates
+   single: Traduzioni; Nei template
 
 Traduzioni nei template
 -----------------------

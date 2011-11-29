@@ -334,7 +334,7 @@ Per gestire questa situazione, ogni risposta può essere impostata a pubblica o 
 * *pubblica*: Indica che la risposta può essere messa in cache sia da che private che da
   cache condivise;
 
-* *private*: Indica che tutta la risposta, o una sua parte, è per un singolo utente
+* *privata*: Indica che tutta la risposta, o una sua parte, è per un singolo utente
   e quindi non deve essere messa in una cache condivisa.
 
 Symfony è conservativo e ha come predefinita una risposta privata. Per sfruttare le
@@ -357,7 +357,7 @@ in cache dati, eccetera). Questo ha due conseguenze molto ragionevoli:
   proxy cache vuol dire che ogni richiesta GET o HEAD potrebbe arrivare al proprio server,
   ma potrebbe anche non arrivare.
 
-* Non aspettarsi la cache dei metodi PUT, POST o DELETE. Questi metodi non sono fatti per
+* Non aspettarsi la cache dei metodi PUT, POST o DELETE. Questi metodi sono fatti per
   essere usati quando si cambia lo stato della propria applicazione (p.e. si cancella un
   post di un blog). Metterli in cache impedirebbe ad alcune richieste di arrivare alla
   propria applicazione o di modificarla.
@@ -368,7 +368,7 @@ Regole e valori predefiniti della cache
 HTTP 1.1 consente per impostazione predefinita la cache di tutto, a meno che non ci sia un
 header esplicito ``Cache-Control``. In pratica, la maggior parte delle cache non fanno
 nulla quando la richiesta ha un cookie, un header di autorizzazione, usa un metodo non
-sicuro(PUT, POST, DELETE) o quando la risposta ha un codice di stato di rinvio.
+sicuro (PUT, POST, DELETE) o quando la risposta ha un codice di stato di rinvio.
 
 Symfony2 imposta automaticamente un header ``Cache-Control`` conservativo, quando
 nessun header è impostato dallo sviluppatore, seguendo queste regole:
@@ -464,7 +464,7 @@ Il risultante header HTTP sarà simile a questo::
     Il metodo ``setExpires()`` converte automaticamente la data al fuso orario GMT,
     come richiesto dalle specifiche.
 
-L'header ``Expires``soffre di due limitazioni. La prima è che gli orologi del server
+L'header ``Expires`` soffre di due limitazioni. La prima è che gli orologi del server
 web e della cache (p.e. del browser) devono essere sincronizzati. La seconda è che le
 specifiche stabiliscono che "i server HTTP/1.1 non dovrebbero inviare header ``Expires``
 oltre un anno nel futuro."
@@ -762,7 +762,7 @@ una limitazione: possono mettere in cache solo pagine intere. Se non si possono 
 cache pagine intere o se le pagine hanno più parti dinamiche, non vanno bene.
 Fortunatamente, Symfony2 fornisce una soluzione a questi casi, basata su una
 tecnologia chiamata `ESI`_, o Edge Side Includes. Akamaï ha scritto le specifiche quasi
-dieci anni fa, consentendo a specifiche parti di una pagina di avere differenti
+dieci anni fa, consentendo a determinate parti di una pagina di avere differenti
 strategie di cache rispetto alla pagina principale.
 
 Le specifiche ESI descrivono dei tag che si possono inserire nelle proprie pagine, per
@@ -895,12 +895,12 @@ dalla pagina principale.
     }
 
 Con ESI, la cache dell'intera pagina sarà valida per 600 secondi, mentre il
-componente delle new avrà una cache che dura per soli 60 secondi.
+componente delle news avrà una cache che dura per soli 60 secondi.
 
 Un requisito di ESI, tuttavia, è che l'azione inclusa sia accessibile tramite
 un URL, in modo che il gateway cache possa recuperarla indipendentemente dal
 resto della pagina. Ovviamente, un URL non può essere accessibile se non ha una rotta
-che punti a essa. Symfony2 si occupa di questo tramite una rotta e un controllore
+che punti a esso. Symfony2 si occupa di questo tramite una rotta e un controllore
 generici. Per poter far funzionare i tag include di ESI, occorre definire la rotta
 ``_internal``:
 
@@ -972,8 +972,8 @@ un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
 Invalidazione della cache
 -------------------------
 
-    "Ci sono solo due cose difficili in Informatica: invalidazione della cache e
-     nomi e delle cose." Phil Karlton
+    "Ci sono solo due cose difficili in informatica: invalidazione della cache e
+    nomi delle cose." Phil Karlton
 
 Non si dovrebbe mai aver bisogno di invalidare i dati in cache, perché
 dell'invalidazione si occupano già nativamente i modelli di cache HTTP. Se si usa

@@ -78,7 +78,7 @@ Opzioni del campo
 empty_value
 ~~~~~~~~~~~
 
-**tipo**: ``string``|``array``
+**tipo**: ``stringa``|``array``
 
 Se l'opzione del widget è ``choice``, il campo sarà rappresentato come una serie
 di ``select``. L'opzione ``empty_value`` può essere usata per aggiungere una voce

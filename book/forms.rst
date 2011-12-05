@@ -403,6 +403,43 @@ buona pratica), allora si avrà bisogno di aggiungere quanto segue al metodo
 In entrambi i casi, *solo* il gruppo di validazione ``registration`` verrà
 utilizzato per validare l'oggetto sottostante.
 
+Gruppi basati su dati inseriti
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+   La possibilità di specificare un callback o una Closure in ``validation_groups``
+   è stata aggiunta nella versione 2.1
+
+Se si ha bisogno di una logica avanzata per determinare i gruppi di validazione (p.e.
+basandosi sui dati inseriti), si può impostare l'opzione ``validation_groups`` a
+un callback o a una ``Closure``::
+
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'validation_groups' => array('Acme\\AcmeBundle\\Entity\\Client', 'determineValidationGroups'),
+        );
+    }
+
+Questo richiamerà il metodo statico ``determineValidationGroups()`` della classe
+``Client``, dopo il bind del form ma prima dell'esecuzione della validazione.
+L'oggetto Form è passato come parametro del metodo (vedere l'esempio successivo).
+Si può anche definire l'intera logica con una Closure::
+
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'validation_groups' => function(FormInterface $form) {
+                $data = $form->getData();
+                if (Entity\Client::TYPE_PERSON == $data->getType()) {
+                    return array('person')
+                } else {
+                    return array('company');
+                }
+            },
+        );
+    }
+
 .. index::
    single: Form; Tipi di campo predefiniti
 
@@ -417,7 +454,7 @@ campi più comuni e i tipi di dati di cui necessitano i form:
 .. include:: /reference/forms/types/map.rst.inc
 
 È anche possibile creare dei tipi di campi personalizzati. Questo argomento è trattato
-nell'articolo the ":doc:`/cookbook/form/create_custom_field_type`" del ricettario.
+nell'articolo ":doc:`/cookbook/form/create_custom_field_type`" del ricettario.
 
 .. index::
    single: Form; Opzioni dei tipi di campo
@@ -598,6 +635,20 @@ l'etichetta, gli errori e i widget HTML del form di ogni campo all'interno di un
 per impostazione predefinita. Nella sezione :ref:`form-theming`, si apprenderà come l'output
 di ``form_row`` possa essere personalizzato su diversi levelli.
 
+.. tip::
+
+    Si può accedere ai dati attuali del form tramite ``form.vars.value``:
+    
+    .. configuration-block::
+
+        .. code-block:: jinja
+        
+            {{ form.vars.value.task }}
+
+        .. code-block:: html+php
+
+            <?php echo $view['form']->get('value')->getTask() ?>
+
 .. index::
    single: Form; Rendere manualmente ciascun campo
 
@@ -745,6 +796,8 @@ task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore u
 Porre la logica del form in una propria classe significa che il form può essere facilmente
 riutilizzato in altre parti del progetto. Questo è il modo migliore per creare form, ma
 la scelta in ultima analisi, spetta a voi.
+
+.. _book-forms-data-class:
 
 .. sidebar:: Impostare ``data_class``
 
@@ -933,12 +986,15 @@ campo ``category`` dell'istanza ``Task``.
 L'istanza ``Category`` è accessibile naturalmente attraverso ``$task->getCategory()``
 e può essere memorizzata nel database o utilizzata quando serve.
 
-Incorporare una collezione di form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Incorporare un insieme di form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-È anche possibile incorporare una collezione di form in un form. Questo viene fatto
-utilizzando il tipo di campo ``collection``. Per maggiori informazioni, vedere il
-:doc:`riferimento alla collezione di tipi di form</reference/forms/types/collection>`.
+È anche possibile incorporare un insieme di form in un form (si immagini un form
+``Category`` con tanti sotto-form ``Product``.
+Lo si può fare utilizzando il tipo di campo ``collection``.
+
+Per maggiori informazioni, vedere la ricetta ":doc:`/cookbook/form/form_collections`" e il
+:doc:`riferimento al tipo collection</reference/forms/types/collection>`.
 
 .. index::
    single: Form; Temi
@@ -1295,6 +1351,130 @@ vedere la sezione
     L'opzione ``intention`` è opzionale, ma migliora notevolmente la sicurezza
     del token generato rendendolo diverso per ogni modulo.
 
+.. index:
+   single: Form; Senza classe
+
+Usare un form senza una classe
+------------------------------
+
+Nella maggior parte dei casi, un form è legato a un oggetto e i campi del form prendono i
+loro dati dalle proprietà di tale oggetto. Questo è quanto visto finora in
+questo capitolo, con la classe `Task`.
+
+A volte, però, si vuole solo usare un form, senza classi, per ottenere un
+array di dati inseriti. Lo si può fare in modo molto facile::
+
+    // assicurarsi di aver importato lo spazio dei nomi Request all'inizio della classe
+    use Symfony\Component\HttpFoundation\Request
+    // ...
+
+    public function contactAction(Request $request)
+    {
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+            ->add('name', 'text')
+            ->add('email', 'email')
+            ->add('message', 'textarea')
+            ->getForm();
+        
+            if ($request->getMethod() == 'POST') {
+                $form->bindRequest($request);
+
+                // data is an array with "name", "email", and "message" keys
+                $data = $form->getData();
+            }
+        
+        // ... render the form
+    }
+
+Per impostazione predefinita, un form ipotizza che si voglia lavorare con array
+di dati, invece che con oggetti. Ci sono due modi per modificare questo comportamento
+e legare un form a un oggetto:
+
+1. Passare un oggetto alla creazione del form (come primo parametro di
+   ``createFormBuilder`` o come secondo parametro di ``createForm``);
+
+2. Dichiarare l'opzione ``data_class`` nel form.
+
+Se *non* si fa nessuna di queste due cose, il form restituirà i dati come
+array. In questo esempio, poiché ``$defaultData`` non è un oggetto (e
+l'opzione ``data_class`` è omessa), ``$form->getData()`` restituirà
+un array.
+
+.. tip::
+
+    Si può anche accedere ai valori POST ("name", in questo caso) direttamente tramite
+    l'oggetto `Request`, in questo modo:
+
+    .. code-block:: php
+
+        $this->get('request')->request->get('name');
+
+    Tuttavia, si faccia attenzione che in molti casi l'uso del metodo getData() è
+    preferibile, poiché restituisce i dati (solitamente un oggetto) dopo
+    che sono stati manipolati dal sistema dei form.
+
+Aggiungere la validazione
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+L'ultima parte mancante è la validazione. Solitamente, quando si richiama ``$form->isValid()``,
+l'oggetto viene validato dalla lettura dei vincoli applicati alla classe.
+Ma senza una classe, come si possono aggiungere vincoli ai dati del
+form?
+
+La risposta è: impostare i vincoli in modo autonomo e passarli al proprio form.
+L'approccio generale è spiegato meglio nel :ref:`capitolo sulla validazione<book-validation-raw-values>`,
+ma ecco un breve esempio::
+
+    // importare gli spazi dei nomi all'inizio della classe
+    use Symfony\Component\Validator\Constraints\Email;
+    use Symfony\Component\Validator\Constraints\MinLength;
+    use Symfony\Component\Validator\Constraints\Collection;
+
+    $collectionConstraint = new Collection(array(
+        'name' => new MinLength(5),
+        'email' => new Email(array('message' => 'Invalid email address')),
+    ));
+
+    // creare un form, senza valori predefiniti, e passarlo all'opzione constraint
+    $form = $this->createFormBuilder(null, array(
+        'validation_constraint' => $collectionConstraint,
+    ))->add('email', 'email')
+        // ...
+    ;
+
+Ora, richiamando `$form->isValid()`, i vincoli impostati sono eseguiti sui dati
+del form. Se si usa una classe form, sovrascrivere il metodo ``getDefaultOptions``
+per specificare l'opzione::
+
+    namespace Acme\TaskBundle\Form\Type;
+
+    use Symfony\Component\Form\AbstractType;
+    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Validator\Constraints\Email;
+    use Symfony\Component\Validator\Constraints\MinLength;
+    use Symfony\Component\Validator\Constraints\Collection;
+
+    class ContactType extends AbstractType
+    {
+        // ...
+
+        public function getDefaultOptions(array $options)
+        {
+            $collectionConstraint = new Collection(array(
+                'name' => new MinLength(5),
+                'email' => new Email(array('message' => 'Invalid email address')),
+            ));
+        
+            return array('validation_constraint' => $collectionConstraint);
+        }
+    }
+
+Si possiede ora la flessibilità di creare form, con validazione, che restituiscano
+array di dati, invece di oggetti. In molti casi, è meglio (e sicuramente più
+robusto) legare il form a un oggetto. Ma questo è un bell'approccio per form
+più semplici. 
+
 Considerazioni finali
 ---------------------
 
@@ -1320,6 +1500,8 @@ Saperne di più con il ricettario
 * :doc:`Riferimento dei tipi di campo </reference/forms/types/file>`
 * :doc:`Creare tipi di campo personalizzati </cookbook/form/create_custom_field_type>`
 * :doc:`/cookbook/form/form_customization`
+* :doc:`/cookbook/form/dynamic_form_generation`
+* :doc:`/cookbook/form/data_transformers`
 
 .. _`Componente Form di Symfony2`: https://github.com/symfony/Form
 .. _`DateTime`: http://php.net/manual/en/class.datetime.php

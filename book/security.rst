@@ -21,7 +21,7 @@ Il modo migliore per imparare è quello di vedere un esempio, vediamolo subito.
 
 .. note::
 
-    Il `security component`_ di Symfony è disponibile come libreria PHP standalone
+    Il `componente security`_ di Symfony è disponibile come libreria PHP a sé stante,
     per l'utilizzo all'interno di qualsiasi progetto PHP.
 
 Esempio di base: l'autenticazione HTTP
@@ -31,13 +31,7 @@ La componente di sicurezza può essere configurata attraverso la configurazione 
 In realtà, per molte configurazioni standard di sicurezza basta solo usare la giusta
 configurazione. La seguente configurazione dice a Symfony di proteggere qualunque URL
 corrispondente a ``/admin/*`` e chiedere le credenziali all'utente  utilizzando l'autenticazione
-base HTTP
-
-The security component can be configured via your application configuration.
-In fact, most standard security setups are just matter of using the right
-configuration. The following configuration tells Symfony to secure any URL
-matching ``/admin/*`` and to ask the user for credentials using basic HTTP
-authentication (cioè il classico vecchio box nomeutente/password):
+base HTTP (cioè il classico vecchio box nomeutente/password):
 
 .. configuration-block::
 
@@ -57,9 +51,10 @@ authentication (cioè il classico vecchio box nomeutente/password):
 
             providers:
                 in_memory:
-                    users:
-                        ryan:  { password: ryanpass, roles: 'ROLE_USER' }
-                        admin: { password: kitten, roles: 'ROLE_ADMIN' }
+                    memory:
+                        users:
+                            ryan:  { password: ryanpass, roles: 'ROLE_USER' }
+                            admin: { password: kitten, roles: 'ROLE_ADMIN' }
 
             encoders:
                 Symfony\Component\Security\Core\User\User: plaintext
@@ -83,8 +78,10 @@ authentication (cioè il classico vecchio box nomeutente/password):
                 </access-control>
 
                 <provider name="in_memory">
-                    <user name="ryan" password="ryanpass" roles="ROLE_USER" />
-                    <user name="admin" password="kitten" roles="ROLE_ADMIN" />
+                    <memory>
+                        <user name="ryan" password="ryanpass" roles="ROLE_USER" />
+                        <user name="admin" password="kitten" roles="ROLE_ADMIN" />
+                    </memory>
                 </provider>
 
                 <encoder class="Symfony\Component\Security\Core\User\User" algorithm="plaintext" />
@@ -109,9 +106,11 @@ authentication (cioè il classico vecchio box nomeutente/password):
             ),
             'providers' => array(
                 'in_memory' => array(
-                    'users' => array(
-                        'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
-                        'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
+                    'memory' => array(
+                        'users' => array(
+                            'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
+                            'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
+                        ),
                     ),
                 ),
             ),
@@ -387,8 +386,11 @@ l'invio del form di login (ad esempio ``/login_check``):
 
     *Non* è necessario implementare un controllore per l'URL ``/login_check``
     perché il firewall catturerà ed elaborerà qualunque form inviato
-    a questo URL. È facoltativo, ma utile, creare una rotta in modo che si
-    possa usare per generare l'URL di invio del form nel template di login sottostante.
+    a questo URL.
+
+.. versionadded:: 2.1
+    A partire da Symfony 2.1, si *devono* avere rotte configurate per i propri URL ``login_path``
+    (p.e. ``/login``) e ``check_path`` (p.e. ``/login_check``).
 
 Notare che il nome della rotta ``login`` non è importante. Quello che è importante
 è che l'URL della rotta (``/login``) corrisponda al valore di configurazione ``login_path``,
@@ -898,9 +900,10 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
             # ...
             providers:
                 default_provider:
-                    users:
-                        ryan:  { password: ryanpass, roles: 'ROLE_USER' }
-                        admin: { password: kitten, roles: 'ROLE_ADMIN' }
+                    memory:
+                        users:
+                            ryan:  { password: ryanpass, roles: 'ROLE_USER' }
+                            admin: { password: kitten, roles: 'ROLE_ADMIN' }
 
     .. code-block:: xml
 
@@ -908,8 +911,10 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
         <config>
             <!-- ... -->
             <provider name="default_provider">
-                <user name="ryan" password="ryanpass" roles="ROLE_USER" />
-                <user name="admin" password="kitten" roles="ROLE_ADMIN" />
+                <memory>
+                    <user name="ryan" password="ryanpass" roles="ROLE_USER" />
+                    <user name="admin" password="kitten" roles="ROLE_ADMIN" />
+                </memory>
             </provider>
         </config>
 
@@ -920,9 +925,11 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
             // ...
             'providers' => array(
                 'default_provider' => array(
-                    'users' => array(
-                        'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
-                        'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
+                    'memory' => array(
+                        'users' => array(
+                            'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
+                            'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
+                        ),
                     ),
                 ),
             ),
@@ -997,11 +1004,11 @@ implementi questa interfaccia.
 .. note::
 
      L'oggetto utente verrà serializzato e salvato nella sessione durante le richieste,
-     quindi si consiglia di implementare la  \Serializable interface`_
+     quindi si consiglia di `implementare l'interfacia  \Serializable`_
      nel proprio oggetto utente. Ciò è particolarmente importante se la classe ``User``
      ha una classe genitore con proprietà private.
 
-Quindi configurare un user provider ``entity` e farlo puntare alla classe
+Quindi, configurare un user provider ``entity` e farlo puntare alla classe
 ``User``:
 
 .. configuration-block::
@@ -1035,7 +1042,7 @@ Quindi configurare un user provider ``entity` e farlo puntare alla classe
         ));
 
 Con l'introduzione di questo nuovo provider, il sistema di autenticazione
-tenterà di caricare un oggetto ``User`` dal database utilizzando il campo
+tenterà di caricare un oggetto ``User`` dal database, utilizzando il campo
 ``nomeutente`` di questa classe.
 
 .. note::
@@ -1065,9 +1072,10 @@ fare come segue:
             # ...
             providers:
                 in_memory:
-                    users:
-                        ryan:  { password: bb87a29949f3a1ee0559f8a57357487151281386, roles: 'ROLE_USER' }
-                        admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: 'ROLE_ADMIN' }
+                    memory:
+                        users:
+                            ryan:  { password: bb87a29949f3a1ee0559f8a57357487151281386, roles: 'ROLE_USER' }
+                            admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: 'ROLE_ADMIN' }
 
             encoders:
                 Symfony\Component\Security\Core\User\User:
@@ -1081,8 +1089,10 @@ fare come segue:
         <config>
             <!-- ... -->
             <provider name="in_memory">
-                <user name="ryan" password="bb87a29949f3a1ee0559f8a57357487151281386" roles="ROLE_USER" />
-                <user name="admin" password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620" roles="ROLE_ADMIN" />
+                <memory>
+                    <user name="ryan" password="bb87a29949f3a1ee0559f8a57357487151281386" roles="ROLE_USER" />
+                    <user name="admin" password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620" roles="ROLE_ADMIN" />
+                </memory>
             </provider>
 
             <encoder class="Symfony\Component\Security\Core\User\User" algorithm="sha1" iterations="1" encode_as_base64="false" />
@@ -1095,9 +1105,11 @@ fare come segue:
             // ...
             'providers' => array(
                 'in_memory' => array(
-                    'users' => array(
-                        'ryan' => array('password' => 'bb87a29949f3a1ee0559f8a57357487151281386', 'roles' => 'ROLE_USER'),
-                        'admin' => array('password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620', 'roles' => 'ROLE_ADMIN'),
+                    'memory' => array(
+                        'users' => array(
+                            'ryan' => array('password' => 'bb87a29949f3a1ee0559f8a57357487151281386', 'roles' => 'ROLE_USER'),
+                            'admin' => array('password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620', 'roles' => 'ROLE_ADMIN'),
+                        ),
                     ),
                 ),
             ),
@@ -1187,6 +1199,16 @@ del tipo:
         $user = $this->get('security.context')->getToken()->getUser();
     }
 
+In un controllore, si può usare una scorciatoia:
+
+.. code-block:: php
+
+    public function indexAction()
+    {
+        $user = $this->getUser();
+    }
+
+
 .. note::
 
     Gli utenti anonimi sono tecnicamenti autenticati, nel senso che il metodo
@@ -1211,7 +1233,8 @@ un nuovo provider che unisca insieme le due cose:
         security:
             providers:
                 chain_provider:
-                    providers: [in_memory, user_db]
+                    chain:
+                        providers: [in_memory, user_db]
                 in_memory:
                     users:
                         foo: { password: test }
@@ -1223,8 +1246,10 @@ un nuovo provider che unisca insieme le due cose:
         <!-- app/config/config.xml -->
         <config>
             <provider name="chain_provider">
-                <provider>in_memory</provider>
-                <provider>user_db</provider>
+                <chain>
+                    <provider>in_memory</provider>
+                    <provider>user_db</provider>
+                </chain>
             </provider>
             <provider name="in_memory">
                 <user name="foo" password="test" />
@@ -1240,7 +1265,9 @@ un nuovo provider che unisca insieme le due cose:
         $container->loadFromExtension('security', array(
             'providers' => array(
                 'chain_provider' => array(
-                    'providers' => array('in_memory', 'user_db'),
+                    'chain' => array(
+                        'providers' => array('in_memory', 'user_db'),
+                    ),
                 ),
                 'in_memory' => array(
                     'users' => array(
@@ -1271,16 +1298,21 @@ l'utente da entrambi i provider ``in_memory`` e ``user_db``.
             security:
                 providers:
                     main_provider:
-                        users:
-                            foo: { password: test }
-                        entity: { class: Acme\UserBundle\Entity\User, property: username }
+                        memory:
+                            users:
+                                foo: { password: test }
+                        entity:
+                            class: Acme\UserBundle\Entity\User,
+                            property: username
 
         .. code-block:: xml
 
             <!-- app/config/config.xml -->
             <config>
                 <provider name=="main_provider">
-                    <user name="foo" password="test" />
+                    <memory>
+                        <user name="foo" password="test" />
+                    </memory>
                     <entity class="Acme\UserBundle\Entity\User" property="username" />
                 </provider>
             </config>
@@ -1291,8 +1323,10 @@ l'utente da entrambi i provider ``in_memory`` e ``user_db``.
             $container->loadFromExtension('security', array(
                 'providers' => array(
                     'main_provider' => array(
-                        'users' => array(
-                            'foo' => array('password' => 'test'),
+                        'memory' => array(
+                            'users' => array(
+                                'foo' => array('password' => 'test'),
+                            ),
                         ),
                         'entity' => array('class' => 'Acme\UserBundle\Entity\User', 'property' => 'username'),
                     ),
@@ -1700,8 +1734,8 @@ cookie sarà mai creato da Symfony2):
     If you use a form login, Symfony2 will create a cookie even if you set
     ``stateless`` to ``true``.
 
-Le parole finali
-----------------
+Considerazioni finali
+---------------------
 
 La sicurezza può essere un problema profondo e complesso nell'applicazione da risolvere in modo corretto.
 Per fortuna, il componente di sicurezza di Symfony segue un ben collaudato modello di
@@ -1720,16 +1754,16 @@ non ha quel ruolo, l'accesso è negato. Lo strato di autorizzazione, però,
 possono determinare se l'utente corrente dovrebbe avere accesso a una data risorsa.
 Ulteriori informazioni su questo e altri argomenti nel ricettario.
 
-Per saperne di più dal ricettario
----------------------------------
+Saperne di più con il ricettario
+--------------------------------
 
-* :doc:`Forcing HTTP/HTTPS </cookbook/security/force_https>`
-* :doc:`Blacklist users by IP address with a custom voter </cookbook/security/voters>`
-* :doc:`Access Control Lists (ACLs) </cookbook/security/acl>`
+* :doc:`Fozare HTTP/HTTPS </cookbook/security/force_https>`
+* :doc:`Blacklist di utenti per indirizzo IP </cookbook/security/voters>`
+* :doc:`Access Control List (ACL) </cookbook/security/acl>`
 * :doc:`/cookbook/security/remember_me`
 
-.. _`security component`: https://github.com/symfony/Security
+.. _`componente security`: https://github.com/symfony/Security
 .. _`JMSSecurityExtraBundle`: https://github.com/schmittjoh/JMSSecurityExtraBundle
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
-.. _`implement the \Serializable interface`: http://php.net/manual/en/class.serializable.php
+.. _`implementare l'interfaccia \Serializable`: http://php.net/manual/en/class.serializable.php
 .. _`functions-online.com`: http://www.functions-online.com/sha1.html

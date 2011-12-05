@@ -785,6 +785,11 @@ speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
 * ``_locale``: Utilizzato per impostare il locale sulla sessione (:ref:`per saperne di più<book-translation-locale-url>`);
 
+.. tip::
+
+    Se si usa il parametro ``_locale`` in una rotta, il valore sarà memorizzato
+    nella sessione, in modo che le richieste successive lo mantengano.
+
 .. index::
    single: Rotte; Controllori
    single: Controller; Formato dei nomi delle stringhe
@@ -1083,6 +1088,18 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
 
 In una sezione successiva, si imparerà a generare URL da tempalte interni.
 
+.. tip::
+
+    Se la propria applicazione usa richieste AJAX, si potrebbe voler
+    generare URL in JavaScript, che siano basate sulla propria configurazione delle rotte.
+    Usando `FOSJsRoutingBundle`_, lo si può fare:
+    
+    .. code-block:: javascript
+    
+        var url = Routing.generate('blog_show', { "slug": 'my-blog-post});
+
+    Per ultetiori informazioni, vedere la documentazione del bundle.
+
 .. index::
    single: Rotte; URL assoluti
 
@@ -1172,3 +1189,5 @@ Imparare di più dal ricettario
 ------------------------------
 
 * :doc:`/cookbook/routing/scheme`
+
+.. _`FOSJsRoutingBundle`: https://github.com/FriendsOfSymfony/FOSJsRoutingBundle

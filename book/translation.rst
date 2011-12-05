@@ -24,7 +24,7 @@ capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
     il codice di *lingua* ISO639-1, un carattere di sottolineatura (``_``), poi il codice di *paese* ISO3166
     (per esempio ``fr_FR`` per francese / Francia).
 
-In questo capitolo, si imparererà a preparare un'applicazione per supportare più
+In questo capitolo, si imparerà a preparare un'applicazione per supportare più
 locale e poi a creare le traduzioni per più locale. Nel complesso,
 il processo ha diverse fasi comuni:
 
@@ -35,7 +35,8 @@ il processo ha diverse fasi comuni:
 3. Creare risorse di traduzione per ogni lingua supportata che traducano tutti
    i messaggio dell'applicazione;
 
-4. Determinare, impostare e gestire le impostazioni locali dell'utente nella sessione.
+4. Determinare, impostare e gestire le impostazioni locali dell'utente per la richiesta e,
+   facoltativamente, sull'intera sessione.
 
 .. index::
    single: Traduzioni; Configurazione
@@ -79,7 +80,8 @@ esiste nel locale dell'utente.
     ``fr_FR``). Se non c'è, cerca una traduzione
     utilizzando il locale di ripiego.
 
-Il locale usato nelle traduzioni è quello memorizzato nella sessione utente.
+Il locale usato nelle traduzioni è quello memorizzato nella richiesta. Tipicamente,
+è impostato tramite un attributo ``_locale`` in una rotta (vedere :ref:`book-translation-locale-url`).
 
 .. index::
    single: Traduzioni; Traduzioni di base
@@ -146,7 +148,8 @@ Il processo di traduzione
 
 Per tradurre il messaggio, Symfony2 utilizza un semplice processo:
 
-* Viene determinato il ``locale`` dell'utente corrente, che è memorizzato nella sessione;
+* Viene determinato il ``locale`` dell'utente corrente, che è memorizzato nella richiesta
+  (o nella sessione, come ``_locale``);
 
 * Un catalogo di messaggi tradotti viene caricato dalle risorse di traduzione definite
   per il ``locale`` (ad es. ``fr_FR``). Vengono anche caricati i messaggi dal locale predefinito
@@ -228,20 +231,20 @@ e *poi* sostituirà i segnaposto con i loro valori. La creazione di una traduzio
 .. note::
 
     Il segnaposto può assumere qualsiasi forma visto che il messaggio è ricostruito
-    utilizzando `strtr function`_ del PHP. Tuttavia, la notazione ``%var%`` è
+    utilizzando la `funzione strtr`_ di PHP. Tuttavia, la notazione ``%var%`` è
     richiesta quando si traduce utilizzando i template Twig e in generale è una 
     convenzione che è consigliato seguire.
 
 Come si è visto, la creazione di una traduzione è un processo in due fasi:
 
-1. Abstract the message that needs to be translated by processing it through
-   the ``Translator``.
+1. Astrarre il messaggio che si deve tradurre, processandolo tramite il
+   ``Translator``.
 
-2. Create a translation for the message in each locale that you choose to
-   support.
+2. Creare una traduzione per il messaggio in ogni locale che si desideri
+   supportare.
 
-The second step is done by creating message catalogues that define the translations
-for any number of different locales.
+Il secondo passo si esegue creando cataloghi di messaggi, che definiscono le traduzioni
+per ogni diverso locale.
 
 .. index::
    single: Traduzioni; Cataloghi di messaggi
@@ -482,17 +485,30 @@ Symfony2 cercherà ora il messaggio del locale dell'utente nel dominio
 Gestione del locale dell'utente
 -------------------------------
 
-Il locale dell'utente corrente è memorizzato nella sessione ed è accessibile
-tramite il servizio ``session``:
+Il locale dell'utente corrente è memorizzato nella richiesta ed è accessibile
+tramite l'oggetto ``request``:
 
 .. code-block:: php
 
-    $locale = $this->get('session')->getLocale();
+    // accesso all'oggetto requesta in un controllore
+    $request = $this->getRequest();
 
-    $this->get('session')->setLocale('en_US');
+    $locale = $request->getLocale();
+
+    $request->setLocale('en_US');
 
 .. index::
    single: Traduzioni; Fallback e locale predefinito
+
+È anche possibile memorizzare il locale in sessione, invece che in ogni
+richiesta. Se lo si fa, ogni richiesta successiva avrà lo stesso locale.
+
+.. code-block:: php
+
+    $this->get('session')->set('_locale', 'en_US');
+
+Vedere la sezione :ref:`.. _book-translation-locale-url:` sotto,
+sull'impostazione del locale tramite rotte.
 
 Fallback e locale predefinito
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -510,21 +526,27 @@ definendo un ``default_locale`` per il servizio di sessione:
 
         # app/config/config.yml
         framework:
-            session: { default_locale: en }
+            default_locale: en
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:session default-locale="en" />
+            <framework:default-locale>en</framework:default-locale>
         </framework:config>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            'session' => array('default_locale' => 'en'),
+            'default_locale' => 'en',
         ));
+
+.. versionadded:: 2.1
+
+     Il parametro ``default_locale`` era originariamente definito sotto la chiave
+     ``sessiom``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
+     è ora impostato nella richiesta, invece che nella sessione.
 
 .. _book-translation-locale-url:
 
@@ -589,7 +611,7 @@ nell'applicazione.
 Pluralizzazione
 ---------------
 
-La pluralizzazione dei messaggi è un argomento un po' difficile perché le regole possono essere complesse.Per
+La pluralizzazione dei messaggi è un argomento un po' difficile, perché le regole possono essere complesse. Per
 esempio, questa è la rappresentazione matematica delle regole di pluralizzazione
 russe::
 
@@ -731,6 +753,8 @@ solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
 
     {% trans with {'%name%': 'Fabien'} from "app" %}Hello %name%{% endtrans %}
 
+    {% trans with {'%name%': 'Fabien'} from "app" into "fr" %}Hello %name%{% endtrans %}
+
     {% transchoice count with {'%name%': 'Fabien'} from "app" %}
         {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
     {% endtranschoice %}
@@ -815,7 +839,7 @@ Tradurre contenuti da un database
 ---------------------------------
 
 La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine attraverso
-la `Translatable Extension`_. Per maggiori informazioni, vedere la documentazione
+l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 
 Riassunto
@@ -833,8 +857,9 @@ passi:
   per la traduzione. Symfony2 scopre ed elabora ogni file perché i suoi nomi seguono
   una specifica convenzione;
 
-* Gestire il locale dell'utente, che è memorizzato nella sessione.
+* Gestire il locale dell'utente, che è memorizzato nella richiesta, ma può
+  anche essere memorizzato nella sessione.
 
-.. _`strtr function`: http://www.php.net/manual/en/function.strtr.php
+.. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
 .. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
-.. _`Translatable Extension`: https://github.com/l3pp4rd/DoctrineExtensions
+.. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions

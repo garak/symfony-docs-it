@@ -71,7 +71,7 @@ Opzioni del campo
 class
 ~~~~~
 
-**tipo**: ``string`` **required**
+**tipo**: ``stringa`` **required**
 
 La classe dell'entità (p.e. ``AcmeStoreBundle:Category``). Può essere
 un nome di classe pienamente qualificato (p.e. ``Acme\StoreBundle\Entity\Category``)
@@ -80,7 +80,7 @@ o il suo alias (come mostrato sopra).
 property
 ~~~~~~~~
 
-**tipo**: ``string``
+**tipo**: ``stringa``
 
 La proprietà da usare per mostrare le entità come testi nell'elemento HTML.
 Se lasciata vuota, gli oggetti saranno formattati come stringhe, quindi
@@ -100,7 +100,7 @@ dell'entità.
 em
 ~~
 
-**tipo**: ``string`` **predefinito**: l'entity manager predefinito
+**tipo**: ``stringa`` **predefinito**: l'entity manager predefinito
 
 Se specificato, l'entity manager da usare per caricare le scelte, al posto
 di quello predefinito.

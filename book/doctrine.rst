@@ -803,6 +803,13 @@ nell'applicazione che ogni ``Category`` contenga un array di oggetti
     un po' di flessibilità in più. Se non sembra confortevole, niente paura.
     Si immagini solamente che sia un ``array``.
 
+.. tip::
+
+   Il valore ``targetEntity``, usato in precedenza sul decoratore, può riferirsi a qualsiasi entità
+   con uno spazio dei nomi valido, non solo a entità definite nella stessa classe. Per
+   riferirsi a entità definite in classi diverse, inserire uno spazio dei nomi completo come
+   ``targetEntity``.
+
 Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un oggetto
 ``Category``, si deve aggiungere una proprietà ``$category`` alla classe ``Product``::
 

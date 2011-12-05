@@ -9,7 +9,7 @@ delle opzioni ``expanded`` e ``multiple``:
 +==========================================+==========+==========+
 | tag select                               | false    | false    |
 +------------------------------------------+----------+----------+
-| tag select (con attributo ``multiple``   | false    | true     |
+| tag select (con attributo ``multiple``)  | false    | true     |
 +------------------------------------------+----------+----------+
 | bottoni radio                            | true     | false    |
 +------------------------------------------+----------+----------+

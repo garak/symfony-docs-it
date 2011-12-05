@@ -75,7 +75,7 @@ Il modo di base in cui il campo andrebbe reso. Può essere uno dei seguenti:
 * ``text``: rende due o tre input testuali (ora, minuto, secondo).
 
 * ``single_text``: rende un singolo input testuale. Il valore inserito dall'utente
-  sarà validato nella forma ``hh:mm`` (o ``hh:mm:ss``, se si usano i secondo).
+  sarà validato nella forma ``hh:mm`` (o ``hh:mm:ss``, se si usano i secondi).
 
 input
 ~~~~~
@@ -85,7 +85,7 @@ input
 IL formato dei dati di *ingresso*, cioè il formato in cui la data è memorizzata
 nell'oggetto sottostante. Valori validi sono:
 
-* ``string`` (p.e. ``12:17:26``)
+* ``stringa`` (p.e. ``12:17:26``)
 * ``datetime`` (un oggetto ``DateTime``)
 * ``array`` (p.e. ``array('hour' => 12, 'minute' => 17, 'second' => 26)``)
 * ``timestamp`` (p.e. ``1307232000``)

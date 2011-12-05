@@ -313,6 +313,8 @@ in mente le seguenti linee guida mentre si sviluppa.
     nome della rotta che è stata abbinata (ad esempio ``hello``). Anche se di solito non è
     utile, questa è ugualmente disponibile come parametro del controllore.
 
+.. _book-controller-request-argument:
+
 La ``Request`` come parametro del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

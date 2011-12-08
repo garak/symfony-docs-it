@@ -13,12 +13,12 @@ fare qualsiasi cosa, incluso creare e assegnare errori di validazione.
 
 .. note::
 
-    Un metodo callback per sé stesso non *fallisce*, né restituisce valroi. Invece,
+    Un metodo callback per sé stesso non *fallisce*, né restituisce valori. Invece,
     come vedremo nell'esempio, un metodo callback ha l'abilità di aggiungere direttamente
     "violazioni" al validatore.
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`class<validation-class-target>`                                  |
+| Si applica a   | :ref:`classi<validation-class-target>`                                 |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `methods`_                                                           |
 +----------------+------------------------------------------------------------------------+

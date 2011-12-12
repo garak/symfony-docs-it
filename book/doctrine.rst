@@ -381,7 +381,7 @@ Analizziamo questo esempio:
   responsabile della gestione del processo di persistenza e del recupero di
   oggetti dal database;
 
-* **riga 14** Il metodo ``persist()`` dice a Doctrine di "gestore" l'oggetto
+* **riga 14** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto
   ``$product``. Questo non fa (ancora) eseguire una query sul database.
 
 * **riga 15** Quando il metodo ``flush()`` è richiamato, Doctrine cerca tutti
@@ -442,7 +442,7 @@ accedere all'oggetto repository per una classe entità tramite::
 
     La stringa ``AcmeStoreBundle:Product`` è una scorciatoia utilizzabile ovunque in
     Doctrine al posto del nome intero della classe dell'entità (cioè ``Acme\StoreBundle\Entity\Product``).
-    Questo funzionerà finché le proprie entità rimarranno sotto il namespace ``Entity``
+    Questo funzionerà finché le proprie entità rimarranno sotto lo spazio dei nomi ``Entity``
     del proprio bundle.
 
 Una volta ottenuto il proprio repository, si avrà accesso a tanti metodi utili::
@@ -466,7 +466,7 @@ Una volta ottenuto il proprio repository, si avrà accesso a tanti metodi utili:
     informazioni nella sezione :ref:`book-doctrine-queries`.
 
 Si possono anche usare gli utili metodi ``findBy`` e ``findOneBy`` per
-recuperare facilmente ogetti in base a condizioni multiple::
+recuperare facilmente oggetti in base a condizioni multiple::
 
     // cerca un prodotto in base a nome e prezzo
     $product = $repository->findOneBy(array('name' => 'pippo', 'price' => 19.99));
@@ -1240,8 +1240,8 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 Comandi da console
 ------------------
 
-L'integrazione con l'ORM Doctrine2 offre diversi comandi da console, sotto il
-namespace ``doctrine``. Per vedere la lista dei comandi, si può eseguire la
+L'integrazione con l'ORM Doctrine2 offre diversi comandi da console, sotto lo spazio
+dei nomi ``doctrine``. Per vedere la lista dei comandi, si può eseguire la
 console senza parametri:
 
 .. code-block:: bash

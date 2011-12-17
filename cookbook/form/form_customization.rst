@@ -763,7 +763,7 @@ as above, but now call the block ``form_errors`` (Twig) / the file ``form_errors
 (PHP). Now, when errors for the ``form`` type are rendered, your customized
 fragment will be used instead of the default ``field_errors``.
 
-Customizing the "Form Row"
+Customizing  the "Form Row"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When you can manage it, the easiest way to render a form field is via the

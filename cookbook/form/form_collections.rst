@@ -1,7 +1,7 @@
 .. index::
    single: Form; Embed collection of forms
 
-How to Embed a Collection of Forms
+How  to Embed a Collection of Forms
 ==================================
 
 In this entry, you'll learn how to create a form that embeds a collection

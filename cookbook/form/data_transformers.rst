@@ -1,25 +1,31 @@
-Using Data Transformers
+Utilizzare i Data Transformers
 =======================
 
-You'll often find the need to transform the data the user entered in a form into
-something else for use in your program. You could easily do this manually in your
-controller, but what if you want to use this specific form in different places?
+Spesso si avrà la necessità di trasformare i dati che l'utente ha immesso in un form
+in qualcosa di diverso da utilizzare nel programma. Tutto questo si potrebbe fare
+manualmente nel controller ma nel caso in cui si volesse utilizzare il form
+in posti diversi?
 
-Say you have a one-to-one relation of Task to Issue, e.g. a Task optionally has an
-issue linked to it. Adding a listbox with all possible issues can eventually lead to
-a really long listbox in which it is impossible to find something. You'll rather want
-to add a textbox, in which the user can simply enter the number of the issue. In the
-controller you can convert this issue number to an actual task, and eventually add
-errors to the form if it was not found, but of course this is not really clean.
+Supponiamo di avere una relazione uno-a-uno tra Task e Rilasci, per esempio un Task
+può avere un rilascio associato. Avere una casella di riepilogo con la lista di tutti
+i rilasci può portare ad una casella di riepilogo molto lunga nella quale risulterà
+impossibile cercare qualcosa. Si vorrebbe, piuttosto, aggiungere un campo di testo nel
+quale l'utente può semplicementere inserire il numero del rilascio. Nel controller 
+si può convertire questo numero di rilascio in un task attuale ed eventualmente
+aggiungere errori al form se non è stato trovato ma questo non è il modo migliore di
+procedere.
 
-It would be better if this issue was automatically looked up and converted to an
-Issue object, for use in your action. This is where Data Transformers come into play.
+Sarebbe meglio se questo rilascio fosse cercato automaticamente e convertito in un
+oggetto Rilascio, in modo da poterlo utilizzare nell'azione. Questo tipo di casi d'uso
+è dove entrano in gioco i Data Transformers.
 
-First, create a custom form type which has a Data Transformer attached to it, which
-returns the Issue by number: the issue selector type. Eventually this will simply be 
-a text field, as we configure the fields' parent to be a "text" field, in which you
-will enter the issue number. The field will display an error if a non existing number
-was entered::
+Come prima cosa, bisogna creare un form che abbia un Data Transformer collegato che,
+dato un numero, ritorni un oggetto Rilascio: il tipo selettore rilascio. Eventualmente
+sarà semplicemente un campo di testo, dato che la configurazione dei campi che estendono
+è impostata come campo di testo, nel quale si potrà inserire il numero di rilascio. Il
+campo di testo farà comparire un errore se verrà inserito un numero di rilascio che
+non esiste::
+
 
     // src/Acme/TaskBundle/Form/IssueSelectorType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -47,7 +53,7 @@ was entered::
         public function getDefaultOptions(array $options)
         {
             return array(
-                'invalid_message'=>'The selected issue does not exist'
+                'invalid_message'=>'Il rilascio che cerchi non esiste.'
             );
         }
     
@@ -64,8 +70,10 @@ was entered::
 
 .. tip::
 
-    You can also use transformers without creating a new custom form type
-    by calling ``appendClientTransformer`` on any field builder::
+    È possibile utilizzare i transformers senza necessariamente creare un nuovo form
+    personalizzato invocando la funzione ``appendClientTransformer`` su qualsiasi
+    field builder:: 
+    
 
         use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
 
@@ -75,11 +83,11 @@ was entered::
             {
                 // ...
             
-                // this assumes that the entity manager was passed in as an option
+                // si assume che l'entity manager è stato passato come option
                 $entityManager = $options['em'];
                 $transformer = new IssueToNumberTransformer($entityManager);
 
-                // use a normal text field, but transform the text into an issue object
+                // utilizza un campo di testo ma trasforma il testo in un oggetto rilascio
                 $builder
                     ->add('issue', 'text')
                     ->appendClientTransformer($transformer)
@@ -89,7 +97,8 @@ was entered::
             // ...
         }
 
-Next, we create the data transformer, which does the actual conversion::
+Quindi, creiamo il data transformer che effettua la vera e propria conversione::
+
 
     // src/Acme/TaskBundle/Form/DataTransformer/IssueToNumberTransformer.php
     namespace Acme\TaskBundle\Form\DataTransformer;
@@ -107,7 +116,7 @@ Next, we create the data transformer, which does the actual conversion::
             $this->om = $om;
         }
 
-        // transforms the Issue object to a string
+        // trasforma l'oggetto Rilascio in una stringa
         public function transform($val)
         {
             if (null === $val) {
@@ -117,7 +126,7 @@ Next, we create the data transformer, which does the actual conversion::
             return $val->getNumber();
         }
 
-        // transforms the issue number into an Issue object
+        // trasforma il numero rilascio in un oggetto Rilascio
         public function reverseTransform($val)
         {
             if (!$val) {
@@ -127,16 +136,16 @@ Next, we create the data transformer, which does the actual conversion::
             $issue = $this->om->getRepository('AcmeTaskBundle:Issue')->findOneBy(array('number' => $val));
 
             if (null === $issue) {
-                throw new TransformationFailedException(sprintf('An issue with number %s does not exist!', $val));
+                throw new TransformationFailedException(sprintf('Un rilascio con numero %s non esiste', $val));
             }
 
             return $issue;
         }
     }
 
-Finally, since we've decided to create a custom form type that uses the data
-transformer, register the Type in the service container, so that the entity
-manager can be automatically injected:
+Infine, poichè abbiamo deciso di creare un campo di testo personalizzato che
+utilizza il data transformer, bisogna registrare il tipo nel service container,
+in modo che l'entity manager può essere automaticamente iniettato:
 
 .. configuration-block::
 
@@ -156,7 +165,7 @@ manager can be automatically injected:
             <tag name="form.type" alias="issue_selector" />
         </service>
 
-You can now add the type to your form by its alias as follows::
+Ora è possibile aggiungere il tipo al form dal suo alias come segue::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     
@@ -180,11 +189,12 @@ You can now add the type to your form by its alias as follows::
         }
     }
 
-Now it will be very easy at any random place in your application to use this
-selector type to select an issue by number. No logic has to be added to your 
-Controller at all.
+Ora sarà molto facile in qualsiasi punto dell'applicazione, usare questo tipo selettore
+per selezionare un rilascio da un numero. Tutto questo, senza aggiungere nessuna logica
+al Controller.
 
-If you want a new issue to be created when an unknown number is entered, you
-can instantiate it rather than throwing the TransformationFailedException, and
-even persist it to your entity manager if the task has no cascading options
-for the issue.
+Se si vuole creare un nuovo rilascio quando viene inserito un numero di rilascio
+sconosciuto, è possibile istanziarlo piuttosto che lanciare l'eccezione 
+TransformationFailedException e inoltre persiste nel tuo entity manager se il task
+non ha opzioni a cascata per il rilascio.
+

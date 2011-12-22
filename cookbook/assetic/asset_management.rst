@@ -89,7 +89,7 @@ Il tag effettivamente reso potrebbe assomigliare a:
 
     Questo è un punto fondamentale: una volta che si lascia gestire le risorse ad Assetic, i file vengono
     serviti da una posizione diversa. Questo *può* causare problemi con i file CSS
-    che fanno riferimento ad immagini tramite il loro percorso relativo. Comunque, il problema può essere risolto
+    che fanno riferimento a immagini tramite il loro percorso relativo. Comunque, il problema può essere risolto
     utilizzando il filtro ``cssrewrite``, che aggiorna i percorsi nei file CSS
     per riflettere la loro nuova posizione.
 
@@ -130,7 +130,7 @@ verrà reso come un unico tag `script`.
 
 .. tip::
 
-    Se si è nuovi con Assetic e si prova ad utilizzare la propria applicazione nell'ambiente
+    Se si è nuovi con Assetic e si prova a utilizzare la propria applicazione nell'ambiente
     ``prod`` (utilizzando il controllore ``app.php``), probabilmente si vedrà
     che tutti i CSS e JS sono interrotti. Non bisogna preoccuparsi! Accade di proposito.
     Per informazioni dettagliate sull'utilizzo di Assetic in ambiente `prod`, vedere :ref:`cookbook-assetic-dumping`.
@@ -282,7 +282,7 @@ contenuto (dopo aver eseguito eventuali filtri).
 
 Questo tipo di pubblicazione dinamica delle risorse che sono state elaborate, è ottima perché significa
 che si può immediatamente vedere il nuovo stato di tutti i file delle risorse modificate.
-E' anche un male, perché può essere molto lento. Se si stanno usando molti filtri,
+È anche un male, perché può essere molto lento. Se si stanno usando molti filtri,
 potrebbe essere addirittura frustrante.
 
 Fortunatamente, Assetic fornisce un modo per copiare le proprie risorse in file reali, anziché

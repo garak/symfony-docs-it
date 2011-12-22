@@ -3,7 +3,7 @@ Usare Assetic per l'ottimizzazione delle immagini con le funzioni di Twig
 
 Tra i vari filtri di Assetic, ve ne sono quattro che possono essere utilizzati per
 ottimizzare le immagini al volo. Ciò permette di avere immagini di dimensioni inferiori
-senza ricorrere ad un editor grafico per ogni modifica. Il risultato
+senza ricorrere a un editor grafico per ogni modifica. Il risultato
 dei filtri può essere messo in cache e usato in fase di produzione in modo da
 eliminare problemi di performance per l'utente finale.
 
@@ -113,7 +113,7 @@ Diminuire la qualità massima
 
 Senza ulteriori opzioni, la qualità dell'immagine JPEG non viene modificata. 
 È però possibile ridurre ulteriormente la dimensione del file configurando il livello
-di qualità massima per le immagini ad un livello inferiore di quello delle immagini stesse.
+di qualità massima per le immagini a un livello inferiore di quello delle immagini stesse.
 Ovviamente questo altererà la qualità dell'immagine:
 
 .. configuration-block::

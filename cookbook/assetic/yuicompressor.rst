@@ -2,7 +2,7 @@ Minimizzare i file JavaScript e i fogli di stile con YUI Compressor
 ===================================================================
 
 Yahoo! mette a disposizione un'eccellente strumento per minimizzare i file JavaScipt
-e i fogli di stile che così possono viaggiare più velocemente sulla rete: lo `YUI Compressor`_. 
+e i fogli di stile, che così possono viaggiare più velocemente sulla rete: lo `YUI Compressor`_. 
 Grazie ad Assetic utilizzare questo strumento è semplicissimo.
 
 Scaricare il JAR di YUI Compressor
@@ -15,7 +15,7 @@ Configurare i filtri per YUI
 ----------------------------
 
 È necessario configurare due filtri Assetic all'interno dell'applicazione. Uno
-per minimizzare i file JavaScript ed uno per minimizzare i fogli di stile 
+per minimizzare i file JavaScript e uno per minimizzare i fogli di stile 
 con YUI Compressor:
 
 .. configuration-block::
@@ -57,8 +57,8 @@ con YUI Compressor:
         ));
 
 Dall'applicazione si ha ora accesso a due nuovi filtri di Assetic:
-``yui_css`` e ``yui_js``. Questi filtri utuilizzeranno YUI Compressor per
-minimizzare, rispettivamente, i fogli di stile e i file JavaScripts.
+``yui_css`` e ``yui_js``. Questi filtri utilizzeranno YUI Compressor per
+minimizzare, rispettivamente, i fogli di stile e i file JavaScript.
 
 Minimizzare le risorse
 ----------------------
@@ -85,7 +85,7 @@ livello della vista, questo lavoro dovrà essere svolto nelle template:
 
 .. note::
 
-    Il precedente esmpio presuppone che ci sia un bundle chiamato ``AcmeFooBundle``
+    Il precedente esempio presuppone che ci sia un bundle chiamato ``AcmeFooBundle``
     e che i file JavaScript si trovino nella cartella ``Resources/public/js`` 
     all'interno del bundle. È comunque possibile includere file JavaScript
     che si trovino in posizioni differenti.
@@ -114,7 +114,7 @@ Disabilitare la minimizzazione in modalità debug
 ------------------------------------------------
 
 I file JavaScript e i fogli di stile minimizzati sono difficili da leggere
-e ancora più difficili da coreggere. Per questo motivo Assetic permette di disabilitare 
+e ancora più difficili da correggere. Per questo motivo Assetic permette di disabilitare 
 determinati filtri  quando l'applicazione viene eseguita in modalità debug.
 Mettendo il prefisso punto interrogativo ``?`` al nome dei filtri si chiede 
 ad Assetic di applicarli solamente quando la modalità debug è spenta.

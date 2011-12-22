@@ -4,7 +4,7 @@
 Come ottimizzare l'ambiente di sviluppo per il debug
 ========================================================
 
-Lavorando ad un progetto Symfony sulla propria macchina locale, si dovrebbe 
+Lavorando a un progetto Symfony sulla propria macchina locale, si dovrebbe 
 utilizzare l'ambiente ``dev`` (il front controller ``app_dev.php``). La configurazione 
 di questo ambiente è ottimizzata per due scopi principali:
 

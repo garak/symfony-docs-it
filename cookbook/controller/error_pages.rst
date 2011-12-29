@@ -2,7 +2,7 @@
 =======================================
 
 Quando in Symfony2 viene lanciata una qualsiasi eccezione, l'eccezione viene catturata all'interno
-della classe ``Kernel`` ed eventualmente inoltrata ad un controllore speciale,
+della classe ``Kernel`` ed eventualmente inoltrata a un controllore speciale,
 ``TwigBundle:Exception:show`` per la gestione. Questo controllore, che vive
 all'interno del core ``TwigBundle``, determina quale template di errore visualizzare e
 il codice di stato che dovrebbe essere impostato per la data eccezione.
@@ -58,7 +58,7 @@ predefinita per molti dei formati di risposta più comuni, tra cui JSON
 (``error.js.twig``), per citarne alcuni. Per sovrascrivere uno di questi template, basta
 creare un nuovo file con lo stesso nome nella cartella
 ``app/Resources/TwigBundle/views/Exception``. Questo è il metodo standard
-per sovrascrivere qualunque template posizionato dentro ad un bundle.
+per sovrascrivere qualunque template posizionato dentro a un bundle.
 
 .. _cookbook-error-pages-by-status-code:
 

@@ -240,7 +240,7 @@ Ottenere i servizi dal contenitore dei servizi
 Utilizzando la classe :class:`Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand` 
 come classe base per i comandi (al posto della meno evoluta 
 :class:`Symfony\Component\Console\Command\Command`) si ha la possibilità di accedere al 
-contenitore dei servizi. In altre parole, è possibile accedere ad ogni servizio che sia stato 
+contenitore dei servizi. In altre parole, è possibile accedere a ogni servizio che sia stato 
 configurato. Ad esempio, è possibile estendere facilmente la precedente azione affinché sia traducibile::
 
     protected function execute(InputInterface $input, OutputInterface $output)

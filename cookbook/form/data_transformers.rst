@@ -1,31 +1,25 @@
 Utilizzare i Data Transformers
 =======================
 
-Spesso si avrà la necessità di trasformare i dati che l'utente ha immesso in un form
-in qualcosa di diverso da utilizzare nel programma. Tutto questo si potrebbe fare
-manualmente nel controller ma nel caso in cui si volesse utilizzare il form
-in posti diversi?
+Spesso si avrà la necessità di trasformare i dati che l'utente ha immesso in un form in
+qualcosa di diverso da utilizzare nel programma. Tutto questo si potrebbe fare manualmente nel
+controller ma nel caso in cui si volesse utilizzare il form in posti diversi?
 
-Supponiamo di avere una relazione uno-a-uno tra Task e Rilasci, per esempio un Task
-può avere un rilascio associato. Avere una casella di riepilogo con la lista di tutti
-i rilasci può portare ad una casella di riepilogo molto lunga nella quale risulterà
-impossibile cercare qualcosa. Si vorrebbe, piuttosto, aggiungere un campo di testo nel
-quale l'utente può semplicementere inserire il numero del rilascio. Nel controller 
-si può convertire questo numero di rilascio in un task attuale ed eventualmente
-aggiungere errori al form se non è stato trovato ma questo non è il modo migliore di
-procedere.
+Supponiamo di avere una relazione uno-a-uno tra Task e Rilasci, per esempio un Task può avere un
+rilascio associato. Avere una casella di riepilogo con la lista di tutti i rilasci può portare ad
+una casella di riepilogo molto lunga nella quale risulterà impossibile cercare qualcosa. Si vorrebbe, piuttosto,
+aggiungere un campo di testo nel quale l'utente può semplicementere inserire il numero del rilascio. Nel
+controller si può convertire questo numero di rilascio in un task attuale ed eventualmente aggiungere
+errori al form se non è stato trovato ma questo non è il modo migliore di procedere.
 
 Sarebbe meglio se questo rilascio fosse cercato automaticamente e convertito in un
-oggetto Rilascio, in modo da poterlo utilizzare nell'azione. Questo tipo di casi d'uso
-è dove entrano in gioco i Data Transformers.
+oggetto Rilascio, in modo da poterlo utilizzare nell'azione. In questi casi entrano in gioco i Data Transformers.
 
 Come prima cosa, bisogna creare un form che abbia un Data Transformer collegato che,
-dato un numero, ritorni un oggetto Rilascio: il tipo selettore rilascio. Eventualmente
-sarà semplicemente un campo di testo, dato che la configurazione dei campi che estendono
-è impostata come campo di testo, nel quale si potrà inserire il numero di rilascio. Il
-campo di testo farà comparire un errore se verrà inserito un numero di rilascio che
-non esiste::
-
+dato un numero, ritorni un oggetto Rilascio: il tipo selettore rilascio. Eventualmente sarà semplicemente 
+un campo di testo, dato che la configurazione dei campi che estendono è impostata come campo di testo, nel quale
+si potrà inserire il numero di rilascio. Il campo di testo farà comparire un errore se verrà inserito
+un numero di rilascio che non esiste::
 
     // src/Acme/TaskBundle/Form/IssueSelectorType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -71,9 +65,7 @@ non esiste::
 .. tip::
 
     È possibile utilizzare i transformers senza necessariamente creare un nuovo form
-    personalizzato invocando la funzione ``appendClientTransformer`` su qualsiasi
-    field builder:: 
-    
+    personalizzato invocando la funzione ``appendClientTransformer`` su qualsiasi field builder::
 
         use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
 
@@ -98,7 +90,6 @@ non esiste::
         }
 
 Quindi, creiamo il data transformer che effettua la vera e propria conversione::
-
 
     // src/Acme/TaskBundle/Form/DataTransformer/IssueToNumberTransformer.php
     namespace Acme\TaskBundle\Form\DataTransformer;
@@ -143,9 +134,9 @@ Quindi, creiamo il data transformer che effettua la vera e propria conversione::
         }
     }
 
-Infine, poichè abbiamo deciso di creare un campo di testo personalizzato che
-utilizza il data transformer, bisogna registrare il tipo nel service container,
-in modo che l'entity manager può essere automaticamente iniettato:
+Infine, poichè abbiamo deciso di creare un campo di testo personalizzato che utilizza
+il data transformer, bisogna registrare il tipo nel service container, in modo che l'entity
+manager può essere automaticamente iniettato:
 
 .. configuration-block::
 
@@ -189,12 +180,11 @@ Ora è possibile aggiungere il tipo al form dal suo alias come segue::
         }
     }
 
-Ora sarà molto facile in qualsiasi punto dell'applicazione, usare questo tipo selettore
-per selezionare un rilascio da un numero. Tutto questo, senza aggiungere nessuna logica
+Ora sarà molto facile in qualsiasi punto dell'applicazione, usare questo
+tipo selettore per selezionare un rilascio da un numero. Tutto questo, senza aggiungere nessuna logica 
 al Controller.
 
-Se si vuole creare un nuovo rilascio quando viene inserito un numero di rilascio
-sconosciuto, è possibile istanziarlo piuttosto che lanciare l'eccezione 
-TransformationFailedException e inoltre persiste nel tuo entity manager se il task
-non ha opzioni a cascata per il rilascio.
-
+Se si vuole creare un nuovo rilascio quando viene inserito un numero di rilascio sconosciuto,
+è possibile istanziarlo piuttosto che lanciare l'eccezione TransformationFailedException e
+inoltre persiste nel tuo entity manager se il task non ha opzioni a cascata
+per il rilascio.

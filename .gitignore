@@ -6,3 +6,6 @@ conf.py
 favicon.ico
 images
 rsync.sh
+
+
+.DS_Store

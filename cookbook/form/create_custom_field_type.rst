@@ -1,7 +1,7 @@
 .. index::
-   single: Form; Custom field type
+   single: Form; Tipo di campo personalizzatao
 
-Come creare un campo personalizzato di un form
-======================================
+Come creare un tipo di campo personalizzato di un form
+======================================================
 
-Questo articolo non è ancora state scritto, ma lo sarà presto. Se sei interessato a scrivere questo articolo, segui questo link :doc:`/contributing/documentation/overview`.
+Questo articolo non è ancora state scritto, ma lo sarà presto. Chi fosse interessato a scrivere questo articolo, veda :doc:`/contributing/documentation/overview`.

@@ -1,5 +1,5 @@
-Utilizzare i Data Transformers
-=======================
+Utilizzare i data transformer
+=============================
 
 Spesso si avrà la necessità di trasformare i dati che l'utente ha immesso in un form in
 qualcosa di diverso da utilizzare nel programma. Tutto questo si potrebbe fare manualmente nel
@@ -13,7 +13,7 @@ controller si può convertire questo numero di rilascio in un task attuale ed ev
 errori al form se non è stato trovato ma questo non è il modo migliore di procedere.
 
 Sarebbe meglio se questo rilascio fosse cercato automaticamente e convertito in un
-oggetto Rilascio, in modo da poterlo utilizzare nell'azione. In questi casi entrano in gioco i Data Transformers.
+oggetto Rilascio, in modo da poterlo utilizzare nell'azione. In questi casi entrano in gioco i data transformer.
 
 Come prima cosa, bisogna creare un form che abbia un Data Transformer collegato che,
 dato un numero, ritorni un oggetto Rilascio: il tipo selettore rilascio. Eventualmente sarà semplicemente 
@@ -64,7 +64,7 @@ un numero di rilascio che non esiste::
 
 .. tip::
 
-    È possibile utilizzare i transformers senza necessariamente creare un nuovo form
+    È possibile utilizzare i transformer senza necessariamente creare un nuovo form
     personalizzato invocando la funzione ``appendClientTransformer`` su qualsiasi field builder::
 
         use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
@@ -182,9 +182,9 @@ Ora è possibile aggiungere il tipo al form dal suo alias come segue::
 
 Ora sarà molto facile in qualsiasi punto dell'applicazione, usare questo
 tipo selettore per selezionare un rilascio da un numero. Tutto questo, senza aggiungere nessuna logica 
-al Controller.
+al controllore.
 
 Se si vuole creare un nuovo rilascio quando viene inserito un numero di rilascio sconosciuto,
 è possibile istanziarlo piuttosto che lanciare l'eccezione TransformationFailedException e
-inoltre persiste nel tuo entity manager se il task non ha opzioni a cascata
+inoltre persiste nel proprio entity manager se il task non ha opzioni a cascata
 per il rilascio.

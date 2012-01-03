@@ -8,14 +8,14 @@ controller ma nel caso in cui si volesse utilizzare il form in posti diversi?
 Supponiamo di avere una relazione uno-a-uno tra Task e Rilasci, per esempio un Task può avere un
 rilascio associato. Avere una casella di riepilogo con la lista di tutti i rilasci può portare ad
 una casella di riepilogo molto lunga nella quale risulterà impossibile cercare qualcosa. Si vorrebbe, piuttosto,
-aggiungere un campo di testo nel quale l'utente può semplicementere inserire il numero del rilascio. Nel
+aggiungere un campo di testo nel quale l'utente può semplicemente inserire il numero del rilascio. Nel
 controller si può convertire questo numero di rilascio in un task attuale ed eventualmente aggiungere
 errori al form se non è stato trovato ma questo non è il modo migliore di procedere.
 
 Sarebbe meglio se questo rilascio fosse cercato automaticamente e convertito in un
-oggetto Rilascio, in modo da poterlo utilizzare nell'azione. In questi casi entrano in gioco i data transformer.
+oggetto rilascio, in modo da poterlo utilizzare nell'azione. In questi casi entrano in gioco i data transformer.
 
-Come prima cosa, bisogna creare un form che abbia un Data Transformer collegato che,
+Come prima cosa, bisogna creare un form che abbia un data transformer collegato che,
 dato un numero, ritorni un oggetto Rilascio: il tipo selettore rilascio. Eventualmente sarà semplicemente 
 un campo di testo, dato che la configurazione dei campi che estendono è impostata come campo di testo, nel quale
 si potrà inserire il numero di rilascio. Il campo di testo farà comparire un errore se verrà inserito
@@ -62,7 +62,7 @@ un numero di rilascio che non esiste::
         }
     }
 
-.. tip::
+.. suggerimento::
 
     È possibile utilizzare i transformer senza necessariamente creare un nuovo form
     personalizzato invocando la funzione ``appendClientTransformer`` su qualsiasi field builder::
@@ -89,7 +89,7 @@ un numero di rilascio che non esiste::
             // ...
         }
 
-Quindi, creiamo il data transformer che effettua la vera e propria conversione::
+quindi, creiamo il data transformer che effettua la vera e propria conversione::
 
     // src/Acme/TaskBundle/Form/DataTransformer/IssueToNumberTransformer.php
     namespace Acme\TaskBundle\Form\DataTransformer;
@@ -117,7 +117,7 @@ Quindi, creiamo il data transformer che effettua la vera e propria conversione::
             return $val->getNumber();
         }
 
-        // trasforma il numero rilascio in un oggetto Rilascio
+        // trasforma il numero rilascio in un oggetto rilascio
         public function reverseTransform($val)
         {
             if (!$val) {
@@ -170,7 +170,7 @@ Ora è possibile aggiungere il tipo al form dal suo alias come segue::
         public function buildForm(FormBuilder $builder, array $options)
         {
             $builder->add('task');
-            $builder->add('dueDate', null, array('widget' => 'single_text'));
+            $builder->add('dueDate', null, array('widget' => 'testo_singolo'));
             $builder->add('issue', 'issue_selector');
         }
     

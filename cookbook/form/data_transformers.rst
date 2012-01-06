@@ -62,7 +62,7 @@ un numero di rilascio che non esiste::
         }
     }
 
-.. suggerimento::
+.. tip::
 
     È possibile utilizzare i transformer senza necessariamente creare un nuovo form
     personalizzato invocando la funzione ``appendClientTransformer`` su qualsiasi field builder::
@@ -75,7 +75,7 @@ un numero di rilascio che non esiste::
             {
                 // ...
             
-                // si assume che l'entity manager è stato passato come option
+                // si assume che l'entity manager è stato passato come opzione
                 $entityManager = $options['em'];
                 $transformer = new IssueToNumberTransformer($entityManager);
 
@@ -170,7 +170,7 @@ Ora è possibile aggiungere il tipo al form dal suo alias come segue::
         public function buildForm(FormBuilder $builder, array $options)
         {
             $builder->add('task');
-            $builder->add('dueDate', null, array('widget' => 'testo_singolo'));
+            $builder->add('dueDate', null, array('widget' => 'single_text'));
             $builder->add('issue', 'issue_selector');
         }
     

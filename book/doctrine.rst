@@ -309,7 +309,7 @@ Creare tabelle e schema del database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora si ha una classe ``Product`` usabile, con informazioni di mappatura che consentono
-a Doctrine di sapere esattamente come persisterlo. Ovviamente, non sia ha ancora la
+a Doctrine di sapere esattamente come persisterla. Ovviamente, non si ha ancora la
 corrispondente tabella ``product`` nel proprio database. Fortunatamente, Doctrine può
 creare automaticamente tutte le tabelle del database necessarie a ogni entità nota
 nella propria applicazione. Per farlo, eseguire:
@@ -334,7 +334,7 @@ nella propria applicazione. Per farlo, eseguire:
     possono essere eseguite sistematicamente sul proprio server di produzione, per
     poter tracciare e migrare il proprio schema di database in modo sicuro e affidabile.
 
-Il proprio database ora una tabella ``product`` pienamente funzionante, con le colonne
+Il proprio database ora ha una tabella ``product`` pienamente funzionante, con le colonne
 corrispondenti ai meta-dati specificati.
 
 Persistere gli oggetti nel database
@@ -364,7 +364,7 @@ del bundle:
         $em->persist($product);
         $em->flush();
 
-        return new Response('Created product id '.$product->getId());
+        return new Response('Creato prodotto con id '.$product->getId());
     }
 
 .. note::

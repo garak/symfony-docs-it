@@ -178,8 +178,8 @@ Riferimento
 
 Autorizzazione con metodo di sicurezza
 --------------------------------------
-Di solito, si possono mettere in sicurezza tutti i metodo pubblici o protetti non statici
-e non finali. I metodi privati non possono essere messi in sicurezza. Si possono anche
+Di solito, si possono proteggere tutti i metodi public o protected che non siano 
+static o final. I metodi privati non possono essere protetti. Si possono anche
 aggiungere meta-dati per metodi astratti o interfacce, che saranno poi applicati alle
 loro effettive implementazioni in modo automatico.
 
@@ -204,12 +204,12 @@ Ovviamente, questo viene fatto se la propria classe è effettivamente un control
 Poi, lo schema viene verificato con la concatenazione del nome della classe e del metodo
 che si sta richiamando, p.e. ``Mia\Classe\Pienamente\Qualificata::mioMetodo``.
 
-**Nota:** Se si vogliono mettere in sicurezza controlli che non siano servizi, si deve
+**Nota:** Se si vogliono proteggere controlli che non siano servizi, si deve
 installare ``JMSDiExtraBundle``.
 
 Controllo degli accessi tramite annotazioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Se si vuole mettere in sicurezza un servizio con le annotazioni, occorre abilitare la
+Se si vuole proteggere un servizio con le annotazioni, occorre abilitare la
 configurazione delle annotazioni per tale servizio::
 
     <service id="foo" class="Bar">

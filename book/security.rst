@@ -1,18 +1,18 @@
 Sicurezza
 =========
 
-La sicurezza è una procedura che avviene in due fasi, il cui obiettivo è quello di impedire a un utente di accedere
-a una risorsa a cui non dovrebbe avere accesso.
+La sicurezza è una procedura che avviene in due fasi, il cui obiettivo è quello
+di impedire a un utente di accedere a una risorsa a cui non dovrebbe avere accesso.
 
-Nella prima fase del processo, il sistema di sicurezza identifica chi è l'utente
-chiedendogli di presentare una sorta di identificazione. Quest'ultima  è chiamata
-**autenticazione** e significa che il sistema sta cercando di scoprire chi
-sei.
+Nella prima fase del processo, il sistema di sicurezza identifica chi è
+l'utente, chiedendogli di presentare una sorta di identificazione.
+Quest'ultima è chiamata **autenticazione** e significa che il sistema
+sta cercando di scoprire chi sei.
 
-Una volta che il sistema sa chi sei, il passo successivo è quello di determinare se dovresti avere accesso
-a una determinata risorsa. Questa parte del processo è chiamato **autorizzazione**
-e significa che il sistema verifica se si dispongono dei privilegi per
-eseguire una certa azione.
+Una volta che il sistema sa chi sei, il passo successivo è quello di determinare
+se dovresti avere accesso a una determinata risorsa. Questa parte del
+processo è chiamato **autorizzazione** e significa che il sistema
+verifica se disponi dei privilegi per eseguire una certa azione.
 
 .. image:: /images/book/security_authentication_authorization.png
    :align: center
@@ -21,13 +21,13 @@ Il modo migliore per imparare è quello di vedere un esempio, vediamolo subito.
 
 .. note::
 
-    Il `componente security`_ di Symfony è disponibile come libreria PHP a sé stante,
+    Il `componente della sicurezza`_ di Symfony è disponibile come libreria PHP a sé stante,
     per l'utilizzo all'interno di qualsiasi progetto PHP.
 
 Esempio di base: l'autenticazione HTTP
 --------------------------------------
 
-La componente di sicurezza può essere configurata attraverso la configurazione dell'applicazione.
+Il componente di sicurezza può essere configurato attraverso la configurazione dell'applicazione.
 In realtà, per molte configurazioni standard di sicurezza basta solo usare la giusta
 configurazione. La seguente configurazione dice a Symfony di proteggere qualunque URL
 corrispondente a ``/admin/*`` e chiedere le credenziali all'utente  utilizzando l'autenticazione
@@ -678,7 +678,7 @@ il ruolo ``ROLE_ADMIN``.
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/security.yml
         security:
             # ...
             access_control:
@@ -687,7 +687,7 @@ il ruolo ``ROLE_ADMIN``.
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/security.xml -->
         <config>
             <!-- ... -->
             <rule path="^/admin/users" role="ROLE_SUPER_ADMIN" />
@@ -696,7 +696,7 @@ il ruolo ``ROLE_ADMIN``.
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/security.php
         $container->loadFromExtension('security', array(
             // ...
             'access_control' => array(
@@ -783,7 +783,7 @@ aggiungere una nuova voce access_control:
     .. code-block:: xml
 
             <access-control>
-                <rule path="^/cart/checkout" role="IS_AUTHENTICATED_ANONYMOUSLY" requires_channel: https />
+                <rule path="^/cart/checkout" role="IS_AUTHENTICATED_ANONYMOUSLY" requires_channel="https" />
             </access-control>
 
     .. code-block:: php
@@ -803,7 +803,7 @@ l'autorizzazione dall'interno di un controllore:
 
 .. code-block:: php
 
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     // ...
 
     public function helloAction($name)
@@ -1055,7 +1055,7 @@ caricare gli utenti tramite un servizio web), vedere :doc:`/cookbook/security/cu
 Codificare la password dell'utente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Fino ad ora, per semplicità, tutti gli esempi hanno memorizzato le password dell'utente
+Finora, per semplicità, tutti gli esempi hanno memorizzato le password dell'utente
 in formato testo (se tali utenti sono memorizzati in un file di configurazione o in
 un qualche database). Naturalmente, in un'applicazione reale, si consiglia per ragioni
 di sicurezza, di codificare le password degli utenti. Questo è facilmente realizzabile
@@ -1067,7 +1067,7 @@ fare come segue:
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/security.yml
         security:
             # ...
             providers:
@@ -1085,7 +1085,7 @@ fare come segue:
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/security.xml -->
         <config>
             <!-- ... -->
             <provider name="in_memory">
@@ -1100,7 +1100,7 @@ fare come segue:
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/security.php
         $container->loadFromExtension('security', array(
             // ...
             'providers' => array(
@@ -1137,7 +1137,7 @@ configurare l'encoder per questo utente:
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/security.yml
         security:
             # ...
 
@@ -1146,7 +1146,7 @@ configurare l'encoder per questo utente:
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/security.xml -->
         <config>
             <!-- ... -->
 
@@ -1155,7 +1155,7 @@ configurare l'encoder per questo utente:
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/security.php
         $container->loadFromExtension('security', array(
             // ...
 
@@ -1185,8 +1185,8 @@ può essere sempre determinata nel seguente modo da un controllore:
     $password = $encoder->encodePassword('ryanpass', $user->getSalt());
     $user->setPassword($password);
 
-Recuperare l'oggetto utente
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Recuperare l'oggetto User
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Dopo l'autenticazione, l'oggetto ``User`` dell'utente corrente può essere acceduto
 tramite il servizio ``security.context``. Da dentro un controllore, sarà
@@ -1243,7 +1243,7 @@ un nuovo provider che unisca insieme le due cose:
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/security.xml -->
         <config>
             <provider name="chain_provider">
                 <chain>
@@ -1261,7 +1261,7 @@ un nuovo provider che unisca insieme le due cose:
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/security.php
         $container->loadFromExtension('security', array(
             'providers' => array(
                 'chain_provider' => array(
@@ -1307,7 +1307,7 @@ l'utente da entrambi i provider ``in_memory`` e ``user_db``.
 
         .. code-block:: xml
 
-            <!-- app/config/config.xml -->
+            <!-- app/config/security.xml -->
             <config>
                 <provider name=="main_provider">
                     <memory>
@@ -1319,7 +1319,7 @@ l'utente da entrambi i provider ``in_memory`` e ``user_db``.
 
         .. code-block:: php
 
-            // app/config/config.php
+            // app/config/security.php
             $container->loadFromExtension('security', array(
                 'providers' => array(
                     'main_provider' => array(
@@ -1341,7 +1341,7 @@ viene sempre utilizzato il primo provider:
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/security.yml
         security:
             firewalls:
                 secured_area:
@@ -1354,7 +1354,7 @@ viene sempre utilizzato il primo provider:
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/security.xml -->
         <config>
             <firewall name="secured_area" pattern="^/" provider="user_db">
                 <!-- ... -->
@@ -1365,7 +1365,7 @@ viene sempre utilizzato il primo provider:
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
@@ -1694,8 +1694,8 @@ Autenticazione senza stato
 --------------------------
 
 Per impostazione predefinita, Symfony2 si basa su un cookie (Session) per persistere il contesto
-di sicurezza dell'utente. Ma se si utilizzano certificati o l'autenticazione HTTP per
-esempio, la persistenza non è necessaria in quanto le credenziali sono disponibili ad ogni
+di sicurezza dell'utente. Ma se si utilizzano certificati o l'autenticazione HTTP, per
+esempio, la persistenza non è necessaria, in quanto le credenziali sono disponibili a ogni
 richiesta. In questo caso e se non è necessario memorizzare nient'altro tra le
 richieste, è possibile attivare l'autenticazione senza stato (il che significa che nessun
 cookie sarà mai creato da Symfony2):
@@ -1731,8 +1731,8 @@ cookie sarà mai creato da Symfony2):
 
 .. note::
 
-    If you use a form login, Symfony2 will create a cookie even if you set
-    ``stateless`` to ``true``.
+    Se si usa un form di login, Symfony2 creerà un cookie anche se si imposta
+    ``stateless`` a ``true``.
 
 Considerazioni finali
 ---------------------
@@ -1757,12 +1757,12 @@ Ulteriori informazioni su questo e altri argomenti nel ricettario.
 Saperne di più con il ricettario
 --------------------------------
 
-* :doc:`Fozare HTTP/HTTPS </cookbook/security/force_https>`
+* :doc:`Forzare HTTP/HTTPS </cookbook/security/force_https>`
 * :doc:`Blacklist di utenti per indirizzo IP </cookbook/security/voters>`
 * :doc:`Access Control List (ACL) </cookbook/security/acl>`
 * :doc:`/cookbook/security/remember_me`
 
-.. _`componente security`: https://github.com/symfony/Security
+.. _`componente della sicurezza`: https://github.com/symfony/Security
 .. _`JMSSecurityExtraBundle`: https://github.com/schmittjoh/JMSSecurityExtraBundle
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/en/class.serializable.php

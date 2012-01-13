@@ -158,7 +158,7 @@ Un firewall viene attivato quando l'URL di una richiesta in arrivo corrisponde
 al valore ``pattern`` dell'espressione regolare del firewall configurato. In questo esempio, 
 ``pattern`` (``^/``) corrisponderà a *ogni* richiesta in arrivo. Il fatto che il
 firewall venga attivato *non* significa tuttavia che venga visualizzato
-il box di autenticazione con nom eutente e password per ogni URL. Per esempio, qualunque utente
+il box di autenticazione con nome utente e password per ogni URL. Per esempio, qualunque utente
 può accedere a ``/foo`` senza che venga richiesto di autenticarsi.
 
 .. image:: /images/book/security_anonymous_user_access.png
@@ -179,7 +179,7 @@ Controlli sull'accesso (autorizzazione)
 Se un utente richiede ``/admin/foo``, il processo ha un diverso comportamento.
 Questo perché la sezione di configurazione ``access_control`` dice
 che qualsiasi URL che corrispondono allo schema dell'espressione regolare ``^/admin`` (cioè ``/admin``
-o qualuque cosa del tipo ``/admin/*``) richiede il ruolo ``ROLE_ADMIN``. I ruoli
+o qualunque URL del tipo ``/admin/*``) richiede il ruolo ``ROLE_ADMIN``. I ruoli
 sono la base per la maggior parte delle autorizzazioni: un utente può accedere ``/admin/foo`` solo
 se ha il ruolo ``ROLE_ADMIN``.
 
@@ -242,7 +242,7 @@ il flusso di richiesta è sempre lo stesso:
     e poi viene reindirizzato all'URL originariamente richiesto (ad esempio ``/admin/foo``).
     Ma con l'autenticazione HTTP, l'utente invia le proprie credenziali direttamente
     all'URL originale (ad esempio ``/admin/foo``) e poi la pagina viene restituita
-    all'utente nella stessa richiesta (cioè senza redirect).
+    all'utente nella stessa richiesta (cioè senza rinvio).
     
     Questo tipo di idiosincrasie non dovrebbe causare alcun problema, ma è
     bene tenerle a mente.
@@ -261,7 +261,7 @@ Finora, si è visto come proteggere l'applicazione con un firewall e
 poi proteggere l'accesso a determinate aree tramite i ruoli. Utilizzando l'autenticazione HTTP,
 si può sfruttare senza fatica il box nativo nome utente/password offerti da
 tutti i browser. Tuttavia, Symfony supporta nativamente molti meccanismi di autenticazione.
-of the box. Per i dettagli su ciscuno di essi, vedere il
+Per i dettagli su ciascuno di essi, vedere il
 :doc:`Riferimento alla configurazione di sicurezza</reference/configuration/security>`.
 
 In questa sezione, si potrà proseguire l'apprendimento, consentendo all'utente di autenticarsi
@@ -647,7 +647,7 @@ Autorizzazione
 --------------
 
 Il primo passo per la sicurezza è sempre l'autenticazione: il processo di verificare
-l'identitò dell'utente. Con Symfony, l'autenticazione può essere fatta in qualunque modo, attraverso
+l'identità dell'utente. Con Symfony, l'autenticazione può essere fatta in qualunque modo, attraverso
 un form di login, autenticazione HTTP o anche tramite Facebook.
 
 Una volta che l'utente è stato autenticato, l'autorizzazione ha inizio. L'autorizzazione
@@ -707,16 +707,16 @@ il ruolo ``ROLE_ADMIN``.
 
 .. tip::
 
-    Anteporre il percorso con ``^`` assicura che corrispondano solo gli URL che *iniziano* con
+    Anteporre il percorso con il simbolo ``^`` assicura che corrispondano solo gli URL che *iniziano* con
     lo schema. Per esempio, un semplice percorso ``/admin`` (senza
-    il ``^``) corrisponderebbe correttamente a ``/admin/foo`` ma corrisponderebbe anche con gli URL
-    tipo ``/foo/admin``.
+    simbolo ``^``) corrisponderebbe correttamente a ``/admin/foo``, ma corrisponderebbe anche a URL
+    come ``/foo/admin``.
 
 Per ogni richiesta in arrivo, Symfony2 cerca di trovare una regola per il controllo dell'accesso
 che corrisponde (la prima vince). Se l'utente non è ancora autenticato, viene avviato
-il processo di autenticazione (cioè viene data all'utente la possibilità di fare il login). Tuttavia,
+il processo di autenticazione (cioè viene data all'utente la possibilità di fare login). Tuttavia,
 *se* l'utente è autenticato ma non ha il ruolo richiesto, viene lanciata
-una eccezione :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`,
+un'eccezione :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`,
 che è possibile gestire e trasformare in una simpatica pagina di errore "accesso negato"
 per l'utente. Vedere :doc:`/cookbook/controller/error_pages` per
 maggiori informazioni.
@@ -734,9 +734,9 @@ In certe situazioni può succedere di limitare l'accesso a una data
 rotta basata su IP. Questo è particolarmente rilevante nel caso di :ref:`Edge Side Includes<edge-side-includes>`
 (ESI), per esempio, che utilizzano una rotta chiamata "_internal". Quando
 viene utilizzato ESI, è richiesta la rotta interna dal gateway della cache per abilitare
-diverse opzioni di caching per le sottosezioni all'interno di una determinata pagina. Queste rotte
+diverse opzioni di cache per le sottosezioni all'interno di una determinata pagina. Queste rotte
 fornite con il prefisso ^/_internal per impostazione predefinita nell'edizione standard di Symfony (assumendo
-di aver decommentato queste linee dal file delle rotte).
+di aver scommentato queste linee dal file delle rotte).
 
 Ecco un esempio di come si possa garantire questa rotta da intrusioni esterne:
 
@@ -848,7 +848,7 @@ per gli utenti che hanno un ruolo specifico.
 Per ulteriori informazioni su come utilizzare il componente di sicurezza per proteggere
 servizi e metodi diversi nell'applicazione, vedere :doc:`/cookbook/security/securing_services`.
 
-Access Control List (ACL): Protezione dei singoli oggetti del database
+Access Control List (ACL): protezione dei singoli oggetti del database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Immaginare di stare progettando un sistema di blog, dove gli utenti possono commentare i
@@ -1126,7 +1126,7 @@ fare come segue:
 
 Impostando le ``iterazioni`` a ``1`` e il ``encode_as_base64`` a false,
 è sufficiente eseguire una sola volta l'algoritmo ``sha1`` sulla password e senza
-alcuna codifica supplementare. È ora possibile calcolare l'hashing della password a livello di codice
+alcuna codifica supplementare. È ora possibile calcolare l'hash della password a livello di codice
 (ad esempio ``hash('sha1', 'ryanpass')``) o tramite qualche strumento online come `functions-online.com`_
 
 Se si sta creando i propri utenti in modo dinamico (e memorizzarli in un database),
@@ -1168,7 +1168,7 @@ configurare l'encoder per questo utente:
 
 In questo caso, si utilizza il più forte algoritmo ``sha512``. Inoltre, poiché
 si è semplicemente specificato l'algoritmo (``sha512``) come stringa, il sistema
-per impostazione predefinita farà l'hashing 5000 volte in un riga e poi la codificherà
+per impostazione predefinita farà l'hash 5000 volte in un riga e poi la codificherà
 in base64. In altre parole, la password è stata notevolmente offuscata in modo
 che l'hash della password non può essere decodificato (cioè non è possibile determinare la password
 dall'hash della password).
@@ -1213,7 +1213,7 @@ In un controllore, si può usare una scorciatoia:
 
 .. note::
 
-    Gli utenti anonimi sono tecnicamenti autenticati, nel senso che il metodo
+    Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo
     ``isAuthenticated()`` dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se 
     l'utente sia effettivamente autenticato, verificare il ruolo 
     ``IS_AUTHENTICATED_FULLY``.
@@ -1449,7 +1449,7 @@ e ``ROLE_USER`` (ereditati da ``ROLE_ADMIN``).
 Logout
 ------
 
-Generalmente, si vuole che gli utenti possano fare la disonnessione tramite logout. Fortunatamente,
+Generalmente, si vuole che gli utenti possano disconnettersi tramite logout. Fortunatamente,
 il firewall può gestire automaticamente questo caso quando si attiva il
 parametro di configurazione ``logout``:
 
@@ -1493,9 +1493,9 @@ parametro di configurazione ``logout``:
 
 Una volta che questo viene configurato sotto il firewall, l'invio di un utente in ``/logout``
 (o qualunque debba essere il percorso), farà disconnettere
-l'utente corrente. L'utente sarà quindi inviato alla home page (il valore definito
+l'utente corrente. L'utente sarà quindi inviato alla homepage (il valore definito
 dal parametro  ``target``). Entrambi i parametri di configurazione ``path`` e ``target``
-assumone come impostazione predefinita ciò che è specificato qui. In altre parole, se non è necessario personalizzarli,
+assumono come impostazione predefinita ciò che è specificato qui. In altre parole, se non è necessario personalizzarli,
 è possibile ometterli completamente e accorciare la configurazione:
 
 .. configuration-block::
@@ -1553,8 +1553,8 @@ definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per
 ulteriori informazioni sulla configurazione di logout, vedere il
 :doc:`Riferimento della configurazione di sicurezza</reference/configuration/security>`.
 
-Cotrollare l'accesso nei template
----------------------------------
+Controllare l'accesso nei template
+----------------------------------
 
 Nel caso si voglia controllare all'interno di un template se l'utente corrente ha un ruolo, usare
 la funzione helper:
@@ -1577,10 +1577,10 @@ la funzione helper:
 
     Se si utilizza questa funzione e *non* si è in un URL dove c'è un firewall
     attivo, viene lanciata un'eccezione. Anche in questo caso, è quasi sempre una buona
-    idea avere un firewall principale che copre tutti gli URL (come si è visto
+    idea avere un firewall principale che copra tutti gli URL (come si è visto
     in questo capitolo).
 
-Controllare l'accesso nei controllori
+Verifica dell'accesso nei controllori
 -------------------------------------
 
 Quando si vuole verificare se l'utente corrente abbia un ruolo nel controllore, usare

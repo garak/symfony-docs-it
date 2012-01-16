@@ -123,7 +123,7 @@ sono costruiti con un "costruttore di form". Lo scopo del costruttore di form è
 di scrivere una semplice "ricetta" per il form  e fargli fare tutto il lavoro pesante della
 costruzione del form.
 
-In questo esempio sono stati aggiunti due campi al form - ``task`` e ``dueDate`` -
+In questo esempio sono stati aggiunti due campi al form, ``task`` e ``dueDate``,
 corrispondenti alle proprietà ``task`` e ``dueDate`` della classe ``Task``.
 È stato anche assegnato un "tipo" ciascuno (ad esempio ``text``, ``date``), che, tra
 le altre cose, determina quale tag form HTML viene utilizzato per tale campo.
@@ -1093,8 +1093,8 @@ Per una trattazione più ampia, vedere :doc:`/cookbook/form/form_customization`.
 Nomi per i frammenti di form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In Symfony, ogni parte di un form che viene reso - elementi HTML del form, errori,
-etichette, ecc - è definito in un tema base, il quale in Twig è una raccolta
+In Symfony, ogni parte di un form che viene reso (elementi HTML del form, errori,
+etichette, ecc.) è definito in un tema base, che in Twig è una raccolta
 di blocchi e in PHP una collezione di file template.
 
 In Twig, ogni blocco necessario è definito in un singolo file template (`form_div_layout.html.twig`_)
@@ -1144,7 +1144,7 @@ Ereditarietà dei frammenti di template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In alcuni casi, il frammento che si vuole personalizzare sembrerà mancare.
-Ad esempio, non c'è nessun frammento ``textarea_errors``nei temi predefiniti
+Ad esempio, non c'è nessun frammento ``textarea_errors`` nei temi predefiniti
 forniti con Symfony. Quindi dove sono gli errori di un campo textarea che deve essere reso?
 
 La risposta è: nel frammento ``field_errors``. Quando Symfony rende gli errori
@@ -1299,22 +1299,22 @@ Ogni frammento all'interno della cartella ``Acme/TaskBundle/Resources/views/Form
 
 .. _forms-csrf:
 
-Protezione CSRF
----------------
+Protezione da CSRF
+------------------
 
-CSRF - o `Cross-site request forgery`_ - è un metodo mediante il quale un utente
+CSRF, o `Cross-site request forgery`_, è un metodo mediante il quale un utente
 malintenzionato cerca di fare inviare inconsapevolmente agli utenti legittimi dati che
-non intendono fare conoscere. Fortunatamente, gli attacchi CSRF possono essere prevenuti
+non intendono far conoscere. Fortunatamente, gli attacchi CSRF possono essere prevenuti
 utilizzando un token CSRF all'interno dei form.
 
 La buona notizia è che, per impostazione predefinita, Symfony integra e convalida i token CSRF
 automaticamente. Questo significa che è possibile usufruire della protezione
-CSRF senza fare nulla. Infatti, ogni form di questo capitolo
+CSRF senza far nulla. Infatti, ogni form di questo capitolo
 sfrutta la protezione CSRF!
 
-La protezione CSRF funziona con l'aggiunta di un campo nascosto al form - chiamato per impostazione
-predefinita ``_token`` - che contiene un valore che solo voi e il vostro utente conosce. Questo
-garantisce che proprio l'utente - non qualche altra entità - sta inviando i dati.
+La protezione CSRF funziona con l'aggiunta al form di un campo nascosto, chiamato per impostazione
+predefinita ``_token``, che contiene un valore che solo sviluppatore e utente conoscono. Questo
+garantisce che proprio l'utente, non qualcun altro, stia inviando i dati.
 Symfony valida automaticamente la presenza e l'esattezza di questo token.
 
 Il campo ``_token`` è un campo nascosto e sarà reso automaticamente
@@ -1333,7 +1333,7 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad e
                 'data_class'      => 'Acme\TaskBundle\Entity\Task',
                 'csrf_protection' => true,
                 'csrf_field_name' => '_token',
-                // a unique key to help generate the secret token
+                // una chiave univoca per generare il token
                 'intention'       => 'task_item',
             );
         }
@@ -1341,15 +1341,15 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad e
         // ...
     }
 
-Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a false.
-Le personalizzazioni possono essere fatte anche a livello globale nel progetto. Per ulteriori informazioni
+Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a ``false``.
+Le personalizzazioni possono essere fatte anche a livello globale nel progetto. Per ulteriori informazioni,
 vedere la sezione
 :ref:`riferimento della configurazione dei form </reference-frameworkbundle-forms>`.
 
 .. note::
 
     L'opzione ``intention`` è opzionale, ma migliora notevolmente la sicurezza
-    del token generato rendendolo diverso per ogni modulo.
+    del token generato, rendendolo diverso per ogni modulo.
 
 .. index:
    single: Form; Senza classe
@@ -1361,7 +1361,7 @@ Nella maggior parte dei casi, un form è legato a un oggetto e i campi del form 
 loro dati dalle proprietà di tale oggetto. Questo è quanto visto finora in
 questo capitolo, con la classe `Task`.
 
-A volte, però, si vuole solo usare un form, senza classi, per ottenere un
+A volte, però, si vuole solo usare un form senza classi, per ottenere un
 array di dati inseriti. Lo si può fare in modo molto facile::
 
     // assicurarsi di aver importato lo spazio dei nomi Request all'inizio della classe

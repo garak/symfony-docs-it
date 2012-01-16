@@ -352,7 +352,7 @@ Creazione del front controller
 Stiamo per fare un **grosso** passo avanti con l'applicazione. Con un solo file
 a gestire tutte le richieste, possiamo centralizzare cose come gestione della
 sicurezza, caricamento della configurazione, rotte. In questa applicazione,
-``index.php` deve essere abbastanza intelligente da rendere la lista dei post
+``index.php`` deve essere abbastanza intelligente da rendere la lista dei post
 *oppure* il singolo post, in base all'URI richiesto:
 
 .. code-block:: html+php

@@ -14,7 +14,7 @@ facilissimo l'utilizzo.
     crearne uno da usare appositamente per questo scopo.
 
 Nel file di configurazione dell'ambiente di sviluppo, si assegna al parametro ``transport`` 
-l'ozione ``gmail`` e ai parametri ``username`` e ``password le credenziali dell'account di Google:
+l'ozione ``gmail`` e ai parametri ``username`` e ``password`` le credenziali dell'account di Google:
 
 .. configuration-block::
 

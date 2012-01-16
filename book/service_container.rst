@@ -47,7 +47,7 @@ un compito specifico. Congratulazioni, si è appena creato un servizio!
     Come regola generale, un oggetto PHP è u nservizio se viene utilizzato a livello globale
     nell'applicazione. Un singolo servizio ``Mailer`` è usato globalmente per inviare
     messaggi email mentre i molti oggetti ``Message`` che spedisce
-    *non* sono servizi. Allo stesso modo, un oggetto``Product`` non è un servizio,
+    *non* sono servizi. Allo stesso modo, un oggetto ``Product`` non è un servizio,
     ma un oggetto che persiste oggetti ``Product`` su un database *è* un servizio.
 
 Qual'è il discorso allora? Il vantaggio dei "servizi" è
@@ -905,7 +905,7 @@ inoltre, si può mettere l'alias anche su servizi non pubblici.
         $containerBuilder->setAlias('bar', 'foo');
 
 Questo significa che quando si utilizza il contenitore direttamente, è possibile accedere al
-servizio ``foo``richiedendo il servizio ``bar`` in questo modo::
+servizio ``foo`` richiedendo il servizio ``bar`` in questo modo::
 
     $container->get('bar'); // Restituirà il servizio foo
 

@@ -291,7 +291,7 @@ metodi già presenti).
     essere rimosso senza problemi.
 
 Si possono anche generare tutte le entità note (cioè ogni classe PHP con informazioni di
-mappatura di Doctrine) di un bundle o di un intero namespace:
+mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. code-block:: bash
 

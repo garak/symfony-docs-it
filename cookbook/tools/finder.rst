@@ -166,8 +166,8 @@ Restringere i file per data di ultima modifica, col metodo
 
     $finder->date('since yesterday');
 
-L'operatore di confronto può essere uno di questi: ``>``, ``>=``, ``<``, '<=',
-'=='. Si può anche usare ``since`` o ``after`` come alias di ``>``, e
+L'operatore di confronto può essere uno di questi: ``>``, ``>=``, ``<``, ``<=``,
+``==``. Si può anche usare ``since`` o ``after`` come alias di ``>``, e
 ``until`` o ``before`` come alias di ``<``.
 
 Il valore indicato può essere qualsiasi data supportata dalla funzione `strtotime`_.

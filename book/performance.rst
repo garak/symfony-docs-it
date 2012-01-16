@@ -49,7 +49,7 @@ Per impostazione predefinita, Symfony2 standard edition usa ``UniversalClassLoad
 nel file `autoloader.php`_. Questo autoloader è facile da usare, perché troverà
 automaticamente ogni nuova classe inserita nelle cartella registrate.
 
-Sfortunatamente, questo ha un costo, perché il caricatore itera tutti i namespace
+Sfortunatamente, questo ha un costo, perché il caricatore itera tutti gli spazi dei nomi
 configurati per trovare un particolare file, richiamando ``file_exists`` finché
 non trova il file cercato.
 
@@ -75,10 +75,10 @@ Per usare questo caricatore, basta adattare il file ``autoloader.php`` come segu
 
     Quando si usa l'autoloader APC, se si aggiungono nuove classi, saranno trovate
     automaticamente e tutto funzionerà come prima (cioè senza motivi per "pulire"
-    la cache). Tuttavia, se si cambia la posizione di un particolare namespace o
+    la cache). Tuttavia, se si cambia la posizione di un particolare spazio dei nomi o
     prefisso, occorrerà pulire la cache di APC. Altrimenti, l'autoloader cercherà
-    ancora la classe nella vecchia posizione per tutte le classi in quel
-    namespace.
+    ancora la classe nella vecchia posizione per tutte le classi in quello
+    spazio dei nomi.
 
 .. index::
    single: Prestazioni; file di avvio

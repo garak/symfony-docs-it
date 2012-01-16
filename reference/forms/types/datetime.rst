@@ -43,7 +43,7 @@ time_widget
 
 **tipo**: ``stringa`` **predefinito**: ``choice``
 
-Definisce l'opzione``widget`` per il tipo :doc:`time</reference/forms/types/time>`
+Definisce l'opzione ``widget`` per il tipo :doc:`time</reference/forms/types/time>`
 
 input
 ~~~~~

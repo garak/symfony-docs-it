@@ -297,7 +297,7 @@ bundle::
 
 Lo si potrebbe anche con una condizione, basata su uno dei valori di configurazione.
 Per esempio, si supponga di voler caricare un insieme di servizi, ma solo se un'opzione
-``enabled`` è impostata a ``true`::
+``enabled`` è impostata a ``true``::
 
     public function load(array $configs, ContainerBuilder $container)
     {

@@ -154,7 +154,7 @@ Per tradurre il messaggio, Symfony2 utilizza un semplice processo:
 * Un catalogo di messaggi tradotti viene caricato dalle risorse di traduzione definite
   per il ``locale`` (ad es. ``fr_FR``). Vengono anche caricati i messaggi dal locale predefinito
   e aggiunti al catalogo, se non esistono già. Il risultato
-  finale è un grande "dizionario" di traduzioni. Vedere i `Cataloghi dei messaggi`_
+  finale è un grande "dizionario" di traduzioni. Vedere i `Cataloghi di messaggi`_
   per maggiori dettagli;
 
 * Se il messaggio si trova nel catalogo, viene restituita la traduzione. Se
@@ -286,14 +286,14 @@ Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
   trovarsi nella cartella ``Resources/translations/`` del bundle;
 
 * Per sovrascrivere eventuali traduzioni del bundle, posizionare i file con i messaggi
-  nella cartella``app/Resources/translations``.
+  nella cartella ``app/Resources/translations``.
 
 È importante anche il nome del file con le traduzioni, perché Symfony2 utilizza una convenzione
 per determinare i dettagli sulle traduzioni. Ogni file con i messaggi deve essere nominato
 secondo il seguente schema: ``domain.locale.loader``:
 
 * **domain**: Un modo opzionale per organizzare i messaggi in gruppi (ad esempio ``admin``,
-  ``navigazione`` o il predefinito ``messaggi``) - vedere `Uso dei domini per i messaggi`_;
+  ``navigation`` o il predefinito ``messages``) - vedere `Uso dei domini per i messaggi`_;
 
 * **locale**: Il locale per cui sono state scritte le traduzioni (ad esempio ``en_GB``, ``en``, ecc.);
 
@@ -461,7 +461,7 @@ Come abbiamo visto, i file dei messaggi sono organizzati nei diversi locale che
 vanno a tradurre. I file dei messaggi possono anche essere organizzati in "domini".
 Quando si creano i file dei messaggi, il dominio è la prima parte del nome del file.
 Il dominio predefinito è ``messages``. Per esempio, supponiamo che, per organizzarle al meglio,
-le traduzioni sono state divise in tre diversi domini: ``messages``, ``admin``
+le traduzioni siano state divise in tre diversi domini: ``messages``, ``admin``
 e ``navigation``. La traduzione francese avrebbe i seguenti file
 per i messaggi:
 

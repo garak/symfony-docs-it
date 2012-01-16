@@ -41,7 +41,7 @@ esempi comuni:
 * Il *controllore C* gestisce l'invio di un form contatti. Legge le
   informazioni del form dalla richiesta, salva le informazioni del contatto nel
   database ed invia una email con le informazioni del contatto al webmaster. Infine,
-  crea un oggetto ``Response``che reindirizza il browser del client
+  crea un oggetto ``Response`` che reindirizza il browser del client
   alla pagina di ringraziamento del form contatti.
 
 .. index::

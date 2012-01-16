@@ -88,7 +88,7 @@ Il caricamento automatico di PHP può essere configurato tramite ``app/autoload.
     $loader->register();
 
 La classe `Symfony\\Component\\ClassLoader\\UniversalClassLoader` di Symfony2 è usata
-per auto-caricare i file che rispettano gli `standard`_  di interoperabilità  per i namespace
+per auto-caricare i file che rispettano gli `standard`_  di interoperabilità  per gli spazi dei nomi
 di PHP 5.3 oppure la `convenzione`_ dei nomi di PEAR per le classi. Come si può vedere,
 tutte le dipendenze sono sotto la cartella ``vendor/``, ma questa è solo una convenzione.
 Si possono inserire in qualsiasi posto, globalmente sul proprio server o localmente nei

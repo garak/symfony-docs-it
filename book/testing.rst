@@ -640,8 +640,8 @@ un file ``phpunit.xml`` per aggiustare la configurazione per la propria macchina
     file ``phpunit.xml``.
 
 Per impostazione predefinita, solo i test memorizzati nei bundle "standard" sono eseguiti
-dal comando ``phpunit`` (per "standard" si intendono i test sotto i namespace
-Vendor\\*Bundle\\Tests). Ma si possono facilmente aggiungere altri namespace. Per esempio,
+dal comando ``phpunit`` (per "standard" si intendono i test sotto gli spazi dei nomi
+Vendor\\*Bundle\\Tests). Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
 la configurazione seguente aggiunge i test per i bundle installati di terze parti:
 
 .. code-block:: xml
@@ -654,7 +654,7 @@ la configurazione seguente aggiunge i test per i bundle installati di terze part
         </testsuite>
     </testsuites>
 
-Per includere altri namespace nella copertura del codice, modificare anche la
+Per includere altri spazi dei nomi nella copertura del codice, modificare anche la
 sezione ``<filter>``:
 
 .. code-block:: xml

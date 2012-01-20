@@ -1,7 +1,8 @@
-Documentation Format
+Formato della documentazione
 ====================
 
-La documentazione di Symfony2 utilizza `reStructuredText`_ che utilizza come linguaggio di markup `Sphinx` _ per la generazione dell'output (HTML, PDF, ...).
+La documentazione di Symfony2 utilizza `reStructuredText`_ che utilizza come linguaggio di markup 
+`Sphinx`_ per la generazione dell'output (HTML, PDF, ...).
 
 reStructuredText
 ----------------
@@ -9,8 +10,8 @@ reStructuredText
 reStructuredText "is an easy-to-read, what-you-see-is-what-you-get plaintext
 markup syntax and parser system."
 
-Si può approfondire di più sulla sua sintassi leggengo i documenti esistenti di Symfony2 _ o leggendo la guida `reStructuredText Primer`_ disponibile sul sito ufficial di Sphinx.
-
+Si può imparare di più su questa sintassi leggendo `documents`_ si Symfony2
+oppure leggendo la `reStructuredText Primer`_ nel sito web di Sphinx.
 
 Se si ha dimestichezza con Markdown, bisogna fare attenzione alle cose simili, ma differenti: 
 * Le liste cominciano all'inizio della linea (non hanno bisogno di indentazione)
@@ -20,7 +21,7 @@ Sphinx
 ------
 
 Sphinx è un sistema di compilazione che aggiunge alcuni piacevoli strumenti  per creare documentazione da documenti reStructuredText. Come tale, essa aggiunge nuove direttive e
-interpreta ruoli di testo definiti nello standard reST ` markup`_. 
+interpreta ruoli di testo definiti nello standard reST `markup`_. 
 
 Syntax Highlighting
 ~~~~~~~~~~~~~~~~~~~
@@ -42,44 +43,44 @@ Se il vostro codice PHP comincia con ``<?php``, allora si avrà bisogno di utili
         <?php echo $this->foobar(); ?>
 
 .. note::
-   La lista dei linguaggi supportati è disponibile nel `sito Pygments`_.
+   La lista dei linguaggi supportati è disponibile nel `Pygments website`_.
 
-Configurazione Blocks
+Blocchi di configurazione
 ~~~~~~~~~~~~~~~~~~~~
 
 Ogni volta che si mostra una configurazione, per mostrarla in tutti i formati supportati  bisogna utilizzare la direttiva ``Configurazione-block`` (``PHP``, ``YAML``, and ``XML``):
 
 .. code-block:: rst
 
-    .. Configurazione-block::
+    .. configuration-block::
 
         .. code-block:: yaml
 
-            # Configurazione in YAML
+            # Configuration in YAML
 
         .. code-block:: xml
 
-            <!-- Configurazione in XML //-->
+            <!-- Configuration in XML //-->
 
         .. code-block:: php
 
-            // Configurazione in PHP
+            // Configuration in PHP
 
 Il precedente snippet reST mostra un blocco come di seguito:
 
-.. Configurazione-block::
+.. configuration-block::
 
     .. code-block:: yaml
 
-        # Configurazione in YAML
+        # Configuration in YAML
 
     .. code-block:: xml
 
-        <!-- Configurazione in XML //-->
+        <!-- Configuration in XML //-->
 
     .. code-block:: php
 
-        // Configurazione in PHP
+        // Configuration in PHP
 
 .. _reStructuredText:        http://docutils.sf.net/rst.html
 .. _Sphinx:                  http://sphinx.pocoo.org/

@@ -6,5 +6,5 @@ Contribuire alla documentazione
 
     panoramica
     formato
-    traduzion
+    traduzioni
     licenza

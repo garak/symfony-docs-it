@@ -2,13 +2,14 @@ Contributing to the Documentation
 =================================
 
 La documentazione è importante tanto quanto il codice. E segue esattamente gli stessi principi:
-DRY, tests, facilità di manutenzione, estensibilità, ottmizzazione, e refactoring
+DRY, tests, facilità di manutenzione, estensibilità, ottimizzazione, e refactoring
 solo per nominarne alcuni. E certamente, la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial, e molto altro.
 
 Contribuire
 ------------
 
-Prima di contribuire, è necessario famigliarizzare con il :doc:` formato del linguaggio di demarcazione` usato per la documentazione.
+Prima di contribuire, è necessario famigliarizzare con il :doc:`markup language <format>` 
+usato per la documentazione.
 
 La documentazione di Symfony 2 è ospitata da Git:
 
@@ -16,7 +17,7 @@ La documentazione di Symfony 2 è ospitata da Git:
 
     git://github.com/symfony/symfony-docs.git
 
-Se si vuole inviare una path, questo è il reposiory ufficiale della documentazione da clonare
+Se si vuole inviare una path, questo è il repository ufficiale della documentazione da clonare
 
 .. code-block:: bash
 
@@ -43,4 +44,4 @@ Passi:
 Traduzione
 -----------
 
-Leggere la documentazione :doc:`document <translations>`.
+Leggere la documentazione :doc:`document <\>`.

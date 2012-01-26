@@ -1,15 +1,30 @@
-Creare comandi per console/terminale
-====================================
+.. index::
+    single: Console; CLI
+    
+Il componente Console
+=====================
 
-Con Symfony2 viene distribuito un componente Console, che permette di creare
-comandi per terminale. I comandi da terminale possono essere utilizzati per 
-qualsiasi compito ripetitivo come i cronjob, le importazioni o altri gruppi di lavori.
+    Il componente Console semplifica la creazione di eleganti e testabili comandi
+    da terminale.
+
+Symfony2 viene distribuito con un componente Console che permette di creare
+comandi da terminale. I comandi da terminale possono essere utilizzati per qualsiasi
+lavoro ripetivo come i lavori di cron, le importazioni o lavori batch.
+
+Installazione
+-------------
+
+Il componente può essere installato in diversi modi:
+
+* Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
+* Installandolo via PEAR ( `pear.symfony.com/Console`);
+* Installandolo via Composer (`symfony/console` in Packagist).
 
 Creazione di comandi di base
 ----------------------------
 
 Per avere automaticamente a disposizione, sotto Symfony2, un comando a terminale, 
-si dovrà creare una cartella ``Command`` all'interno del proprio bundle dentro la quale 
+si crea una cartella ``Command`` all'interno del proprio bundle dentro la quale 
 si inserirà un file, con il suffisso ``Command.php``, per ogni comando che si voglia realizzare. 
 Ad esempio, per estendere l'``AcmeDemoBundle`` (disponibile in Symfony Standard Edition) con 
 un programma che porga il saluto dal terminale, si dovrà creare il file  ``SalutaCommand.php`` 
@@ -59,7 +74,7 @@ contenente il seguente codice::
 
     app/console demo:saluta Fabien
 
-Che andrà a scrivere nel terminale quello che segue:
+Il comando scriverà, nel terminale, quello che segue:
 
 .. code-block:: text
 
@@ -133,9 +148,9 @@ trattino come in ``-u``). Le opzioni sono *sempre* opzionali e possono accettare
 
 .. tip::
 
-	È anche possibile fare in modo che un'opzione possa *opzionalmente* accettare un valore (ad esempio
-	si potrebbe avere ``--urla`` o ``--urla=forte``). Le opzioni possono anche essere configurate per 
-	accettare array di valori.
+    È anche possibile fare in modo che un'opzione possa *opzionalmente* accettare un valore (ad esempio
+    si potrebbe avere ``--urla`` o ``--urla=forte``). Le opzioni possono anche essere configurate per 
+    accettare array di valori.
 
 Ad esempio, per specificare il numero di volte in cui il messaggio di 
 saluto sarà stampato, si può aggiungere la seguente opzione::
@@ -173,6 +188,25 @@ seguenti esempi funzioneranno correttamente:
     app/console demo:saluta Fabien --ripetizioni=5 --urla
     app/console demo:saluta Fabien --urla --ripetizioni=5
 
+Ci sono 4 possibili varianti per le opzioni:
+
+===========================  ==================================================================
+Opzione                      Value
+===========================  ==================================================================
+InputOption::VALUE_IS_ARRAY  Questa opzione accetta valori multipli
+InputOption::VALUE_NONE      Non accettare alcun valore per questa opzione (come in ``--urla``)
+InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5``)
+InputOption::VALUE_OPTIONAL  Il valore è opzionale
+===========================  ==================================================================
+
+È possibile combinare VALUE_IS_ARRAY con VALUE_REQUIRED o con VALUE_OPTIONAL nel seguente modo:
+
+.. code-block:: php
+
+    $this
+        // ...
+        ->addOption('ripetizioni', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Quante volte dovrà essere stampato il messaggio?', 1)
+        
 Richiedere informazioni all'utente
 ----------------------------------
 
@@ -207,6 +241,7 @@ test senza una reale interazione da terminale::
 
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
+    use Acme\DemoBundle\Command\SalutaCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
@@ -214,6 +249,7 @@ test senza una reale interazione da terminale::
         {
             // simula il Kernel o ne crea uno a seconda delle esigenze
             $application = new Application($kernel);
+            $application->add(new SalutaCommand());
 
             $comando = $application->find('demo:saluta');
             $testDelComando = new CommandTester($comando);

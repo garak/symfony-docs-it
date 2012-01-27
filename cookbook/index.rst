@@ -5,6 +5,7 @@ Ricettario
     :hidden:
 
     workflow/new_project_git
+    workflow/new_project_svn
 
     controller/error_pages
     controller/service

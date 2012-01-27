@@ -1,6 +1,7 @@
 * **Flusso di lavoro**
 
   * :doc:`/cookbook/workflow/new_project_git`
+  * :doc:`/cookbook/workflow/new_project_svn`
 
 * **Controllori**
 
@@ -21,9 +22,6 @@
 
 * **Interazione col database (Doctrine)**
 
-  * :doc:`/cookbook/doctrine/doctrine_fixtures`
-  * :doc:`/cookbook/doctrine/mongodb`
-  * :doc:`/cookbook/doctrine/migrations`
   * :doc:`/cookbook/doctrine/file_uploads`
   * :doc:`/cookbook/doctrine/common_extensions`
   * :doc:`/cookbook/doctrine/event_listeners_subscribers`
@@ -34,8 +32,10 @@
 
 * **Form e validazione**
 
-  * :doc:`/cookbook/form/simple_signup_form_with_mongodb`
   * :doc:`/cookbook/form/form_customization`
+  * :doc:`/cookbook/form/data_transformers`
+  * :doc:`/cookbook/form/dynamic_form_generation`
+  * :doc:`/cookbook/form/form_collections`
   * :doc:`/cookbook/form/create_custom_field_type`
   * :doc:`/cookbook/validation/custom_constraint`
   * (doctrine) :doc:`/cookbook/doctrine/file_uploads`
@@ -46,12 +46,15 @@
   * :doc:`/cookbook/configuration/external_parameters`
   * :doc:`/cookbook/service_container/factories`
   * :doc:`/cookbook/service_container/parentservices`
+  * :doc:`/cookbook/service_container/scopes`
+  * :doc:`/cookbook/service_container/tags`
   * :doc:`/cookbook/configuration/pdo_session_storage`
 
 * **Bundle**
 
   * :doc:`/cookbook/bundles/best_practices`
   * :doc:`/cookbook/bundles/inheritance`
+  * :doc:`/cookbook/bundles/override`
   * :doc:`/cookbook/bundles/extension`
 
 * **Email**
@@ -66,9 +69,11 @@
   * :doc:`/cookbook/testing/http_authentication`
   * :doc:`/cookbook/testing/insulating_clients`
   * :doc:`/cookbook/testing/profiling`
+  * :doc:`/cookbook/testing/doctrine`
 
 * **Sicurezza**
 
+  * :doc:`/cookbook/security/entity_provider`
   * :doc:`/cookbook/security/remember_me`
   * :doc:`/cookbook/security/voters`
   * :doc:`/cookbook/security/acl`
@@ -76,9 +81,9 @@
   * :doc:`/cookbook/security/force_https`
   * :doc:`/cookbook/security/form_login`
   * :doc:`/cookbook/security/securing_services`
-  * :doc:`/cookbook/security/entity_provider`
   * :doc:`/cookbook/security/custom_provider`
   * :doc:`/cookbook/security/custom_authentication_provider`
+  * :doc:`/cookbook/security/target_path`
 
 * **Cache**
 
@@ -86,15 +91,17 @@
 
 * **Template**
 
+  * :doc:`/cookbook/templating/global_variables`
   * :doc:`/cookbook/templating/PHP`
 
 * **Strumenti, log e interni**
 
-  * :doc:`/cookbook/tools/autoloader`
-  * :doc:`/cookbook/tools/finder`
-  * :doc:`/cookbook/console`
-  * :doc:`/cookbook/debugging`
   * :doc:`/cookbook/logging/monolog`
+  * :doc:`/cookbook/logging/monolog_email`
+
+* **Strumenti e interni**
+
+  * :doc:`/cookbook/debugging`
 
 * **Servizi web**
 

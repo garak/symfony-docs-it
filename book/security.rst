@@ -27,7 +27,7 @@ Il modo migliore per imparare è quello di vedere un esempio, vediamolo subito.
 Esempio di base: l'autenticazione HTTP
 --------------------------------------
 
-Il componente di sicurezza può essere configurato attraverso la configurazione dell'applicazione.
+Il componente della sicurezza può essere configurato attraverso la configurazione dell'applicazione.
 In realtà, per molte configurazioni standard di sicurezza basta solo usare la giusta
 configurazione. La seguente configurazione dice a Symfony di proteggere qualunque URL
 corrispondente a ``/admin/*`` e chiedere le credenziali all'utente  utilizzando l'autenticazione
@@ -845,18 +845,18 @@ quella vista nella sezione precedente. Per esempio, si supponga di avere un serv
 È possibile limitare l'uso di questa classe, non importa dove è stata utilizzata,
 per gli utenti che hanno un ruolo specifico.
 
-Per ulteriori informazioni su come utilizzare il componente di sicurezza per proteggere
+Per ulteriori informazioni su come utilizzare il componente della sicurezza per proteggere
 servizi e metodi diversi nell'applicazione, vedere :doc:`/cookbook/security/securing_services`.
 
 Access Control List (ACL): protezione dei singoli oggetti del database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Immaginare di stare progettando un sistema di blog, dove gli utenti possono commentare i
+Si immagini di progettare un sistema di blog, in cui gli utenti possono commentare i
 messaggi. Si vuole che un utente possa modificare i propri commenti, ma non
 quelli degli altri. Inoltre, come utente admin, si vuole essere in grado
 di modificare *tutti* i commenti.
 
-Il componente di sicurezza viene fornito con un sistema opzionale di access control list (ACL), 
+Il componente della sicurezza viene fornito con un sistema opzionale di access control list (ACL), 
 che è possibile utilizzare quando è necessario controllare l'accesso alle singole istanze
 di un oggetto nel sistema. *Senza* ACL, è possibile proteggere il sistema in modo che
 solo certi utenti possono modificare i commenti sui blog. Ma *con* ACL,
@@ -880,8 +880,8 @@ con l'insieme degli utenti. Quindi da dove proviene questa lista di utenti?
 
 In Symfony2, gli utenti possono arrivare da qualsiasi parte: un file di configurazione, una tabella
 di un database, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
-uno o più utenti nel sistema di autenticazione è noto come "user provider".
-Symfony2 viene fornito con i due user provider più diffusi; uno che
+uno o più utenti nel sistema di autenticazione è noto come "fornitore di utenti".
+Symfony2 viene fornito con i due fornitori utenti più diffusi; uno che
 carica gli utenti da un file di configurazione e uno che carica gli utenti da una tabella
 di un database.
 
@@ -935,12 +935,12 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
             ),
         ));
 
-Questo user provider è chiamato user provider "in-memory" , dal momento che gli utenti
-non vengono memorizzate da nessuna parte in un database. L'oggetto utente effettivo è fornito
+Questo fornitore utenti è chiamato "in-memory" , dal momento che gli utenti
+non sono memorizzati in un database. L'oggetto utente effettivo è fornito
 da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
 
 .. tip::
-    Qualsiasi user provider può caricare gli utenti direttamente dalla configurazione specificando    
+    Qualsiasi fornitore utenti può caricare gli utenti direttamente dalla configurazione, specificando    
     il parametro di configurazione ``users`` ed elencando gli utenti sotto di esso.
 
 .. caution::
@@ -964,7 +964,7 @@ Caricare gli utenti da un database
 ..................................
 
 Se si vuole caricare gli utenti tramite l'ORM Doctrine, si può farlo facilmente
-attraverso la creazione di una classe ``User`` e configurando il provider ``entity``.
+attraverso la creazione di una classe ``User`` e configurando il fornitore ``entity``.
 
 .. tip:
 
@@ -1008,7 +1008,7 @@ implementi questa interfaccia.
      nel proprio oggetto utente. Ciò è particolarmente importante se la classe ``User``
      ha una classe genitore con proprietà private.
 
-Quindi, configurare un user provider ``entity`` e farlo puntare alla classe
+Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
 ``User``:
 
 .. configuration-block::
@@ -1041,15 +1041,15 @@ Quindi, configurare un user provider ``entity`` e farlo puntare alla classe
             ),
         ));
 
-Con l'introduzione di questo nuovo provider, il sistema di autenticazione
+Con l'introduzione di questo nuovo fornitore, il sistema di autenticazione
 tenterà di caricare un oggetto ``User`` dal database, utilizzando il campo
 ``username`` di questa classe.
 
 .. note::
-    Questo esempio ha come unico scopo quello di mostrare l'idea di base dietro al provider
+    Questo esempio ha come unico scopo quello di mostrare l'idea di base dietro al fornitore
     ``entity``. Per un esempio completamente funzionante, vedere :doc:`/cookbook/security/entity_provider`.
 
-Per ulteriori informazioni sulla creazione di un proprio provider personalizzato (ad esempio se è necessario
+Per ulteriori informazioni sulla creazione di un proprio fornitore personalizzato (ad esempio se è necessario
 caricare gli utenti tramite un servizio web), vedere :doc:`/cookbook/security/custom_provider`.
 
 .. _book-security-encoding-user-password:
@@ -1218,14 +1218,14 @@ In un controllore, si può usare una scorciatoia:
     l'utente sia effettivamente autenticato, verificare il ruolo 
     ``IS_AUTHENTICATED_FULLY``.
 
-Utilizzare user provider multipli
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Utilizzare fornitori utenti multipli
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ogni meccanismo di autenticazione (ad esempio l'autenticazione HTTP, il form di login, ecc.)
-utilizza esattamente un user provider e, per impostazione predefinita, userà il primo user provider
+utilizza esattamente un fornitore utenti e, per impostazione predefinita, userà il primo fornitore
 dichiarato. Ma cosa succede se si desidera specificare alcuni utenti tramite configurazione
 e il resto degli utenti nel database? Questo è possibile attraverso la creazione di
-un nuovo provider, che li unisca:
+un nuovo fornitore, che li unisca:
 
 .. configuration-block::
 
@@ -1283,13 +1283,13 @@ un nuovo provider, che li unisca:
 
 Ora, tutti i meccanismi di autenticazione utilizzeranno il ``chain_provider``, dal momento che
 è il primo specificato. Il ``chain_provider``, a sua volta, tenta di caricare
-l'utente da entrambi i provider ``in_memory`` e ``user_db``.
+l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
 
 .. tip::
 
     Se no ci sono ragioni per separare gli utenti ``in_memory`` dagli
     utenti ``user_db``, è possibile ottenere ancora più facilmente questo risultato combinando
-    le due sorgenti in un unico provider:
+    le due sorgenti in un unico fornitore:
 
     .. configuration-block::
 
@@ -1336,7 +1336,7 @@ l'utente da entrambi i provider ``in_memory`` e ``user_db``.
 
 È anche possibile configurare il firewall o meccanismi di autenticazione individuali
 per utilizzare un provider specifico. Ancora una volta, a meno che un provider sia specificato esplicitamente,
-viene sempre utilizzato il primo provider:
+viene sempre utilizzato il primo fornitore:
 
 .. configuration-block::
 
@@ -1349,7 +1349,7 @@ viene sempre utilizzato il primo provider:
                     # ...
                     provider: user_db
                     http_basic:
-                        realm: "Secured Demo Area"
+                        realm: "Demo area sicura"
                         provider: in_memory
                     form_login: ~
 
@@ -1359,7 +1359,7 @@ viene sempre utilizzato il primo provider:
         <config>
             <firewall name="secured_area" pattern="^/" provider="user_db">
                 <!-- ... -->
-                <http-basic realm="Secured Demo Area" provider="in_memory" />
+                <http-basic realm="Demo area sicura" provider="in_memory" />
                 <form-login />
             </firewall>
         </config>
@@ -1382,11 +1382,11 @@ viene sempre utilizzato il primo provider:
         ));
 
 In questo esempio, se un utente cerca di accedere tramite autenticazione HTTP, il sistema di
-autenticazione utilizzerà lo user provider ``in_memory``. Ma se l'utente tenta di
-accedere tramite il form di login, sarà usato il provider ``user_db`` (in quanto
+autenticazione utilizzerà il fornitore utenti ``in_memory``. Ma se l'utente tenta di
+accedere tramite il form di login, sarà usato il fornitore ``user_db`` (in quanto
 è l'impostazione predefinita per il firewall).
 
-Per ulteriori informazioni su user provider e configurazione del firewall, vedere
+Per ulteriori informazioni su fornitori utenti e configurazione del firewall, vedere
 il :doc:`/reference/configuration/security`.
 
 Ruoli
@@ -1739,7 +1739,7 @@ Considerazioni finali
 ---------------------
 
 La sicurezza può essere un problema profondo e complesso nell'applicazione da risolvere in modo corretto.
-Per fortuna, il componente di sicurezza di Symfony segue un ben collaudato modello di
+Per fortuna, il componente della sicurezza di Symfony segue un ben collaudato modello di
 sicurezza basato su *autenticazione* e *autorizzazione*. L'autenticazione,
 che avviene sempre per prima, è gestita da un firewall il cui compito è quello di determinare
 l'identità degli utenti attraverso diversi metodi (ad esempio l'autenticazione HTTP,

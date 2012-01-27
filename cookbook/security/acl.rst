@@ -19,10 +19,10 @@ Symfony2, due approcci di base (non esaustivi) sono:
 - *Gestire la sicurezza nei metodi*: Di base, questo vuol dire mantenere un riferimento
   in ogni oggetto ``Comment`` a tutti gli utenti che vi hanno accesso, e quindi confrontare
   tali utenti con quello del ``Token``.
-- *Gestire la sicurezza con i ruoli*: In questo approccio, si aggiunger un ruolo per ogni
+- *Gestire la sicurezza con i ruoli*: In questo approccio, si aggiunge un ruolo per ogni
   oggetto ``Comment``, p.e. ``ROLE_COMMENT_1``, ``ROLE_COMMENT_2``, ecc.
 
-Entrambi gli approcci sono perfettamente validi. Tuttavia, accopiiano la logica di
+Entrambi gli approcci sono perfettamente validi. Tuttavia, accoppiano la logica di
 autorizzazione al proprio codice, il che li rende meno riutilizzabili altrove, e inoltre
 incrementano le difficoltà nei test unitari. D'altra parte, si potrebbero avere problemi
 di prestazioni, se molti utenti avessero accesso a un singolo oggetto del dominio.

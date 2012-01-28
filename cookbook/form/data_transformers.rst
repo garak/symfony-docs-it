@@ -134,7 +134,7 @@ quindi, creiamo il data transformer che effettua la vera e propria conversione::
         }
     }
 
-Infine, poichè abbiamo deciso di creare un campo di testo personalizzato che utilizza
+Infine, poiché abbiamo deciso di creare un campo di testo personalizzato che utilizza
 il data transformer, bisogna registrare il tipo nel service container, in modo che l'entity
 manager può essere automaticamente iniettato:
 

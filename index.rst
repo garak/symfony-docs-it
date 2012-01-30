@@ -36,7 +36,17 @@ Ricettario
 
     cookbook/index
 
-Leggere il :doc:`Ricettario </cookbook/index>`.
+Leggere il :doc:`ricettario </cookbook/index>`.
+
+Componenti
+----------
+
+.. toctree::
+    :hidden:
+
+    components/index
+
+Leggere la documentazione dei :doc:`componenti </components/index>`.
 
 Documenti di riferimento
 ------------------------

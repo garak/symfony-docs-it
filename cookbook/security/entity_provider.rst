@@ -158,8 +158,8 @@ configurazione.
 Autenticazione con utenti sul database
 --------------------------------------
 
-L'autenticzione di un utente tramite database, usando il livello della sicurezza di
-Symfony, è un gioco da ragazzi. Sta ttto nella configurazione
+L'autenticazione di un utente tramite database, usando il livello della sicurezza di
+Symfony, è un gioco da ragazzi. Sta tutto nella configurazione
 :doc:`SecurityBundle</reference/configuration/security>`, memorizzata nel file
 ``app/config/security.yml``.
 

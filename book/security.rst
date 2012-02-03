@@ -1,3 +1,6 @@
+.. index::
+   single: Sicurezza
+
 Sicurezza
 =========
 
@@ -591,7 +594,7 @@ vedere :doc:`/cookbook/security/form_login`.
             ),
 
     Inoltre, se il firewall *non* consente utenti anonimi, sarà
-    necessario creare un firewall speciale che consenta agli utenti anonimi la pagina
+    necessario creare un firewall speciale, che consenta agli utenti anonimi la pagina
     di login:
 
     .. configuration-block::
@@ -1001,6 +1004,13 @@ la classe utente personalizzata è che implementi l'interfaccia :class:`Symfony\
 Questo significa che il concetto di "utente" può essere qualsiasi cosa, purché
 implementi questa interfaccia.
 
+.. versionadded:: 2.1
+
+    In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
+    Se occorre ridefinire l'implementazione originale della logica di confronto,
+    implementare la nuova interfaccia
+    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`.
+
 .. note::
 
      L'oggetto utente verrà serializzato e salvato nella sessione durante le richieste,
@@ -1218,6 +1228,17 @@ In un controllore, si può usare una scorciatoia:
     l'utente sia effettivamente autenticato, verificare il ruolo 
     ``IS_AUTHENTICATED_FULLY``.
 
+In un template Twig, si può accedere a questo oggetto tramite la chiave ``app.user``,
+che richiama il metodo
+:method:`GlobalVariables::getUser()<Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables::getUser>`:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        <p>Nome utente: {{ app.user.username }}</p>
+
+
 Utilizzare fornitori utenti multipli
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1235,7 +1256,8 @@ un nuovo fornitore, che li unisca:
         security:
             providers:
                 chain_provider:
-                    providers: [in_memory, user_db]
+                    chain:
+                        providers: [in_memory, user_db]
                 in_memory:
                     users:
                         foo: { password: test }

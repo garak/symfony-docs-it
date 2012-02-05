@@ -1,19 +1,19 @@
-How to work with Multiple Entity Managers
-=========================================
+Come lavorare con gestori di entità multipli
+============================================
 
-You can use multiple entity managers in a Symfony2 application. This is
-necessary if you are using different databases or even vendors with entirely
-different sets of entities. In other words, one entity manager that connects
-to one database will handle some entities while another entity manager that
-connects to another database might handle the rest.
+Si possono usare gestori di entità multipli in un'applicazione Symfony2.
+Questo si rende necessario quando si usano diversi database o addirittura  venditori
+con insiemi di entità completamente differenti. In altre parole, un gestore di entità
+che si connette a un database gestirà alcune entità, mentre un altro gestore di entità
+che si connette a un altro database potrebbe gestire il resto.
 
 .. note::
 
-    Using multiple entity managers is pretty easy, but more advanced and not
-    usually required. Be sure you actually need multiple entity managers before
-    adding in this layer of complexity.
+    L'uso di molti gestori di entità è facile, ma più avanzato e solitamente non
+    richiesto. Ci si assicuri di avere effettivamente bisogno di gestori di entità
+    multipli, prima di aggiungere un tale livello di complessità.
 
-The following configuration code shows how you can configure two entity managers:
+La configurazione seguente mostra come configurare due gestori di entità:
 
 .. configuration-block::
 
@@ -33,20 +33,20 @@ The following configuration code shows how you can configure two entity managers
                         mappings:
                             AcmeCustomerBundle: ~
 
-In this case, you've defined two entity managers and called them ``default``
-and ``customer``. The ``default`` entity manager manages entities in the
-``AcmeDemoBundle`` and ``AcmeStoreBundle``, while the ``customer`` entity
-manager manages entities in the ``AcmeCustomerBundle``.
+In questo caso, sono stati definiti due gestori di entità, chiamati ``default``
+e ``customer``. Il gestore di entità ``default`` gestisce le entità in
+``AcmeDemoBundle`` e ``AcmeStoreBundle``, mentre il gestore di entità ``customer``
+gestisce le entità in ``AcmeCustomerBundle``.
 
-When working with multiple entity managers, you should be explicit about which
-entity manager you want. If you *do* omit the entity manager's name when
-asking for it, the default entity manager (i.e. ``default``) is returned::
+Lavorando con gestori di entità multipli, occorre esplicitare quale gestore di entità
+si vuole usare. Se si *omette* il nome del gestore di entità al momento della sua
+richiesta, verrà restituito il gestore di entità predefinito (cioè ``default``)::
 
     class UserController extends Controller
     {
         public function indexAction()
         {
-            // both return the "default" em
+            // entrambi restiuiscono "default"
             $em = $this->get('doctrine')->getEntityManager();
             $em = $this->get('doctrine')->getEntityManager('default');
             
@@ -54,6 +54,6 @@ asking for it, the default entity manager (i.e. ``default``) is returned::
         }
     }
 
-You can now use Doctrine just as you did before - using the ``default`` entity
-manager to persist and fetch entities that it manages and the ``customer``
-entity manager to persist and fetch its entities.
+Si può ora usare Doctrine come prima, usando il gestore di entità ``default`` per
+persistere e recuperare le entità da esso gestite e il gestore di entità
+``customer`` per persistere e recuperare le sue entità.

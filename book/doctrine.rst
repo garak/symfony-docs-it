@@ -283,12 +283,27 @@ Il comando si assicura che i getter e i setter siano generati per la classe
 getter e i setter solamente se non esistono (ovvero non sostituirà eventuali
 metodi già presenti).
 
-.. caution::
+.. sidebar:: Di più su ``doctrine:generate:entities``
+
+    Con il comando ``doctrine:generate:entities`` si può:
+
+        * generare getter e setter,
+
+        * generare classi repository configurate con l'annotazione
+            ``@ORM\Entity(repositoryClass="...")``,
+
+        * generare il costruttore appropriato per relazioni 1:n e n:m.
 
     Il comando ``doctrine:generate:entities`` salva una copia di backup del file
     originale ``Product.php``, chiamata ``Product.php~``. In alcuni casi, la presenza
     di questo file può causare un errore "Cannot redeclare class". Il file può
     essere rimosso senza problemi.
+
+    Si noti che non è *necessario* usare questo comando. Doctrine non si appoggia alla
+    generazione di codice. Come con le normali classi PHP, occorre solo assicurarsi
+    che le proprietà protected/private abbiano metodi getter e setter.
+    Questo comando è stato creato perché è una cosa comune da fare quando si usa
+    Doctrine.
 
 Si possono anche generare tutte le entità note (cioè ogni classe PHP con informazioni di
 mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
@@ -770,6 +785,10 @@ Metadata di mappatura delle relazioni
 Per correlare le entità ``Category`` e ``Product``, iniziamo creando una proprietà
 ``products`` nella classe ``Category``::
 
+.. configuration-block::
+
+    .. code-block:: php-annotations
+
     // src/Acme/StoreBundle/Entity/Category.php
     // ...
     use Doctrine\Common\Collections\ArrayCollection;
@@ -788,6 +807,19 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
             $this->products = new ArrayCollection();
         }
     }
+
+    .. code-block:: yaml
+
+        # src/Acme/StoreBundle/Resources/config/doctrine/Category.orm.yml
+        Acme\StoreBundle\Entity\Category:
+            type: entity
+            # ...
+            oneToMany:
+                products:
+                    targetEntity: Product
+                    mappedBy: category
+            # don't forget to init the collection in entity __construct() method
+
 
 Primo, poiché un oggetto ``Category`` sarà collegato a diversi oggetti ``Product``,
 una proprietà array ``products`` va aggiunta, per contenere questi oggetti ``Product``.
@@ -813,6 +845,10 @@ nell'applicazione che ogni ``Category`` contenga un array di oggetti
 Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un oggetto
 ``Category``, si deve aggiungere una proprietà ``$category`` alla classe ``Product``::
 
+.. configuration-block::
+
+    .. code-block:: php-annotations
+
     // src/Acme/StoreBundle/Entity/Product.php
     // ...
 
@@ -826,6 +862,20 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
          */
         protected $category;
     }
+
+    .. code-block:: yaml
+
+        # src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml
+        Acme\StoreBundle\Entity\Product:
+            type: entity
+            # ...
+            manyToOne:
+                category:
+                    targetEntity: Category
+                    inversedBy: products
+                    joinColumn:
+                        name: category_id
+                        referencedColumnName: id
 
 Infine, dopo aver aggiunto una nuova proprietà sia alla classe ``Category`` che a
 quella ``Product``, dire a Doctrine di generare i metodi mancanti getter e
@@ -1210,6 +1260,8 @@ Ogni campo può avere un insieme di opzioni da applicare. Le opzioni disponibili
 includono ``type`` (predefinito ``string``), ``name``, ``length``, ``unique``
 e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 
+.. configuration-block::
+
 .. code-block:: php-annotations
 
     /**
@@ -1227,6 +1279,23 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
      * @ORM\Column(name="email_address", unique="true", length="150")
      */
     protected $email;
+
+    .. code-block:: yaml
+
+        fields:
+            # Un campo stringa con lunghezza 255 che non può essere nullo
+            # (riflette i valori predefiniti per le opzioni "type", "length" e *nullable*)
+            # l'attributo type è necessario nelle definizioni yaml
+            name:
+                type: string
+
+            # Un campo stringa con lunghezza 150 che persiste su una colonna "email_address"
+            # e ha un vincolo di unicità.
+            email:
+                type: string
+                column: email_address
+                length: 150
+                unique: true
 
 .. note::
 

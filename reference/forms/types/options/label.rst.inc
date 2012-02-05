@@ -8,4 +8,4 @@ direttamente all'interno del template:
     
 .. code-block:: jinja
 
-    {{ render_label(form.name, 'Il tuo nome') }}
+    {{ form_label(form.name, 'Il tuo nome') }}

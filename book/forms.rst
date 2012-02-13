@@ -494,6 +494,19 @@ nella documentazione di ciascun tipo.
     In altre parole, l'opzione ``required`` è "bella", ma la vera validazione lato server
     dovrebbe *sempre* essere utilizzata.
 
+.. sidebar:: L'opzione ``label``
+
+    La label per il campo del form può essere impostata con l'opzione ``label``,
+    applicabile a qualsiasi campo::
+
+        ->add('dueDate', 'date', array(
+            'widget' => 'single_text',
+            'label'  => 'Due Date',
+        ))
+
+    La label per un campo può anche essere impostata nel template che rende il
+    form, vedere sotto.
+
 .. index::
    single: Form; Indovinare il tipo di campo
 
@@ -1497,7 +1510,7 @@ Saperne di più con il ricettario
 --------------------------------
 
 * :doc:`/cookbook/doctrine/file_uploads`
-* :doc:`Riferimento dei tipi di campo </reference/forms/types/file>`
+* :doc:`Riferimento del tipo di campo file</reference/forms/types/file>`
 * :doc:`Creare tipi di campo personalizzati </cookbook/form/create_custom_field_type>`
 * :doc:`/cookbook/form/form_customization`
 * :doc:`/cookbook/form/dynamic_form_generation`

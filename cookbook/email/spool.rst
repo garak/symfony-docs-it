@@ -4,12 +4,12 @@ Lo spool della posta
 Quando si utilizza ``SwiftmailerBundle`` per l'invio delle email da un'applicazione
 Symfony2, queste vengono inviate immediatamente. È però possibile evitare il 
 rallentamento dovuto dalla comunicazione tra ``Swiftmailer`` e  il servizio di
-trasporto delle mail che potrebbe mettere l'utente in attesa del caricamento della
-pagina durante l'invio. Per fare questo basta scegliere di mettere le mail 
+trasporto delle email che potrebbe mettere l'utente in attesa del caricamento della
+pagina durante l'invio. Per fare questo basta scegliere di mettere le email 
 in uno "spool" invece di spedirle direttamente. Questo vuol dire che ``Swiftmailer``
-non cerca di inviare le mail ma invece salva i messaggi in qualche posto come, ad
+non cerca di inviare le email ma invece salva i messaggi in qualche posto come, ad
 esempio, in un file. Un'altro processo potrebbe poi leggere lo spool e prendersi
-l'incarico di inviare le mail in esso contenute. Attualmente ``Swiftmailer`` supporta solo
+l'incarico di inviare le email in esso contenute. Attualmente ``Swiftmailer`` supporta solo
 lo spool tramite file.
 
 Per usare lo spool, si usa la seguente configurazione:
@@ -61,9 +61,9 @@ Per usare lo spool, si usa la seguente configurazione:
 
         path: %kernel.root_dir%/spool
 
-Fatto questo, quando un'applicazione invia una mail, questa non verrà inviata subito
-ma aggiunta allo spool. L'invio delle mail dallo spool viene fatto da un processo separato.
-Sarà un comando della console ad inviare i messaggi dallo spool:
+Fatto questo, quando un'applicazione invia un'email, questa non verrà inviata subito
+ma aggiunta allo spool. L'invio delle email dallo spool viene fatto da un processo separato.
+Sarà un comando della console a inviare i messaggi dallo spool:
 
 .. code-block:: bash
 

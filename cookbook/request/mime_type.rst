@@ -1,8 +1,8 @@
 .. index::
-   single: Request; Add a request format and mime type
+   single: Richiesta; Aggiungere un formato di richiesta e un tipo mime
 
-Registrare un nuovo formato della richiesta e un nuovo tipo mime
-================================================================
+Registrare un nuovo formato di richiesta e un nuovo tipo mime
+=============================================================
 
 Ogni ``Richiesta`` ha a un "formato" (come ``html``, ``json``), che viene usato
 per determinare il tipo di contenuto che dovrà essere restituito nell ``Risposta``.

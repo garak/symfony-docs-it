@@ -212,7 +212,7 @@ che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
         // si utilizza il nome originale del file ma è consigliabile
         // un processo di sanitizzazione almeno per evitare problemi di sicurezza
         
-        // move accetta come parametri la directory di destinazione ed il nome del filename
+        // move accetta come parametri la cartella di destinazione e il nome del filename
         // di destinazione verso cui spostare il file
         $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
 
@@ -223,8 +223,8 @@ che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
         $this->file = null;
     }
 
-Utilizzare le callback del ciclo di vita delle entità
------------------------------------------------------
+Utilizzare i callback del ciclo di vita delle entità
+----------------------------------------------------
 
 Anche se l'implementazione funziona, essa presenta un grave difetto: cosa succede
 se si verifica un problema mentre l'entità viene memorizzata? Il file potrebbe
@@ -237,7 +237,7 @@ se si verificasse un problema durante la memorizzazione dell'entità o se il fil
 potesse essere spostato, allora non dovrebbe suddere *niente*.
 
 Per fare questo è necessario spostare il file nello stesso momento in cui Doctrine
-memorizza l'entità sul database. Questo può essere fatto agganciandosi ad una callback
+memorizza l'entità sul database. Questo può essere fatto agganciandosi a un callback
 del ciclo di vita dell'entità::
 
     /**
@@ -248,7 +248,7 @@ del ciclo di vita dell'entità::
     {
     }
 
-Quindi rifattorizzare la classe ``Document`` per sfruttare i vantaggi delle callback::
+Quindi rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei callback::
 
     use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -312,8 +312,8 @@ l'entità viene eliminata.
 
 .. caution::
 
-    Le callback ``PreUpdate`` e ``PostUpdate`` scattano solamente se c'è una modifica
-    ad uno dei campi dell'entità memorizzata. Questo significa che se si modifica
+    I callback ``PreUpdate`` e ``PostUpdate`` scattano solamente se c'è una modifica
+    a uno dei campi dell'entità memorizzata. Questo significa che se si modifica
     solamente la proprietà ``$file`` questi eventi non verranno invocati dato che
     la proprietà in questione non viene memorizzata direttamente tramite Doctrine.
     Una soluzione potrebbe essere quella di utilizzare un campo ``updated`` memorizzato

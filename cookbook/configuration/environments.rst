@@ -1,5 +1,5 @@
 .. index::
-   single: Environments;
+   single: Ambienti;
 
 Come padroneggiare e creare nuovi ambienti
 ==========================================
@@ -14,7 +14,7 @@ semplice e ricco di informazioni, mentre l'ambiente ``prod`` dovrebbe usare un
 insieme di configurazioni che ottimizzino la velocità.
 
 .. index::
-   single: Environments; Configuration files
+   single: Ambienti; File di configurzione
 
 Ambienti differenti, differenti file di configurazione
 ------------------------------------------------------
@@ -122,7 +122,7 @@ parametro predefinito:
         ));
 
 .. index::
-   single: Environments; Executing different environments
+   single: Ambienti; Eseguire ambienti diversi
 
 Eseguire un'applicazione in ambienti differenti
 -----------------------------------------------
@@ -170,7 +170,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
    per il front controller, del tipo ``app_test.php``.
 
 .. index::
-   single: Configuration; Debug mode
+   single: Configurazione; Modalità debug 
 
 .. sidebar:: Modalità *debug*
 
@@ -180,7 +180,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
     debug configurata a ``true`` o a ``false. Questo modifica diversi aspetti dell'applicazione, come
     il fatto che gli errori vengano mostrati o se la cache debba essere ricreata dinamicamente
-    ad ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre
+    a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre
     configurata a ``true`` negli ambienti ``dev`` e ``test`` e a ``false`` per 
     l'ambiente ``prod``.
 
@@ -214,10 +214,10 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
             ));
 
 .. index::
-   single: Environments; Creating a new environment
+   single: Ambienti; Creare un nuovo ambiente
 
 Creare un nuovo ambiente
---------------------------
+------------------------
 
 Un'applicazione Symfony2 viene generata con tre ambienti preconfigurati per
 gestire la maggior parte dei casi. Ovviamente, visto che un ambiente non è nient'altro
@@ -309,7 +309,7 @@ Il nuovo ambiente sarà accessibile tramite::
         }
 
 .. index::
-   single: Environments; Cache directory
+   single: Ambienti; Cartella cache
 
 Gli ambienti e la cartella della cache
 --------------------------------------

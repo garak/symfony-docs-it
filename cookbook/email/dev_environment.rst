@@ -1,22 +1,22 @@
-Lavorare con le mail durante lo sviluppo
-========================================
+Lavorare con le email durante lo sviluppo
+=========================================
 
-Durante lo sviluppo di applicazioni che invino mail non sempre è 
-desiderabile che le mail vengano effettivamente inviate all'effettivo 
+Durante lo sviluppo di applicazioni che inviino email, non sempre è 
+desiderabile che le email vengano inviate all'effettivo 
 destinatario del messaggio. Se si utilizza ``SwiftmailerBundle`` con 
 Symfony2, è possibile evitarlo semplicemente modificano i parametri di 
 configurazione, senza modificare alcuna parte del codice. Ci sono due 
-possibili scelte quando si tratta di gestire le mail in fase di 
-sviluppo: (a) disabilitare del tutto l'invio delle mail o (b) inviare 
-tutte le mail ad uno specifico indirizzo.
+possibili scelte quando si tratta di gestire le email in fase di 
+sviluppo: (a) disabilitare del tutto l'invio delle email o (b) inviare 
+tutte le email a uno specifico indirizzo.
 
 Disabilitare l'invio
 --------------------
 
-È possibile disabilitare l'invio delle mail ponendo ``true`` nell'opzione
+È possibile disabilitare l'invio delle email, ponendo ``true`` nell'opzione
 ``disable_delivery``. Questa è la configurazione predefinita per l'ambiente test
 della distribuzione Standard. Facendo questa modifica nell'ambiente ``test`` 
-le mail non verranno inviate durante l'esecuzione dei test ma continueranno 
+le email non verranno inviate durante l'esecuzione dei test ma continueranno 
 ad essere inviate negli ambienti ``prod`` e ``dev``:
 
 .. configuration-block::
@@ -49,10 +49,10 @@ ad essere inviate negli ambienti ``prod`` e ``dev``:
 Se si preferisce disabilitare l'invio anche nell'ambiente ``dev``, basterà
 aggiungere la stessa configurazione nel file ``config_dev.yml``.
 
-Invio ad uno specifico indirizzo
---------------------------------
+Invio a uno specifico indirizzo
+-------------------------------
 
-È possibile anche scegliere di inviare le mail ad uno specifico indirizzo, invece
+È possibile anche scegliere di inviare le email a uno specifico indirizzo, invece
 che a quello effettivamente specificato nell'invio del messaggio. Ciò si può
 fare tramite l'opzione ``delivery_address``:
 
@@ -83,7 +83,7 @@ fare tramite l'opzione ``delivery_address``:
             'delivery_address'  => "dev@example.com",
         ));
 
-Supponiamo di inviare una mail a ``destinatario@example.com``.
+Supponiamo di inviare un'email a ``destinatario@example.com``.
 
 .. code-block:: php
 
@@ -100,13 +100,13 @@ Supponiamo di inviare una mail a ``destinatario@example.com``.
         return $this->render(...);
     }
 
-Nell'ambiente ``dev`` la mail verrà in realtà inviata a ``dev@example.com``.
-Swiftmailer aggiungerà un'ulteriore intestazione nella mail, ``X-Swift-To``, contenente
-l'indirizzo sostituito, così da poter vedere a chi sarebbe stata inviata la mail in realtà.
+Nell'ambiente ``dev``, l'email verrà in realtà inviata a ``dev@example.com``.
+Swiftmailer aggiungerà un'ulteriore intestazione nell'email, ``X-Swift-To``, contenente
+l'indirizzo sostituito, così da poter vedere a chi sarebbe stata inviata l'email in realtà.
 
 .. note::
 
-    Oltre alle mail inviate all'indirizzo ``to``, questa configurazione 
+    Oltre alle email inviate all'indirizzo ``to``, questa configurazione 
     blocca anche quelle inviate a qualsiasi indirizzo ``CC`` e ``BCC`. 
     Swiftmailer aggiungerà ulteriori intestazioni contenenti gli indirizzi 
     ignorati. Le intestazioni usate saranno ``X-Swift-Cc`` e ``X-Swift-Bcc`` 
@@ -115,13 +115,13 @@ l'indirizzo sostituito, così da poter vedere a chi sarebbe stata inviata la mai
 Visualizzazione tramite Web Debug Toolbar
 -----------------------------------------
 
-Utilizzando la Web Debug Toolbar è possibile visualizzare le mail inviate 
-durante la singola risposta nell'ambiente ``dev``. L'icona della mail 
+Utilizzando la Web Debug Toolbar è possibile visualizzare le email inviate 
+durante la singola risposta nell'ambiente ``dev``. L'icona dell'email 
 apparirà nella barra mostrando quante email sono state spedite. Cliccandoci 
 sopra, un report mostrerà il dettaglio delle email inviate.
 
-Se si invia una email e immediatamente si esegue un redirect ad un'altra pagina,
-la web debug toolbar non mostrerà ne l'icona delle mail ne alcun report
+Se si invia una email e immediatamente si esegue un redirect a un'altra pagina,
+la web debug toolbar non mostrerà né l'icona delle email né alcun report
 nella pagina finale.
 
 È però possibile, configurando a ``true`` l'opzione ``intercept_redirects`` nel 

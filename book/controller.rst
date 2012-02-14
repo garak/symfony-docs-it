@@ -23,7 +23,7 @@ Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mo
 
 L'obiettivo di un controllore è sempre lo stesso: creare e restituire un oggetto
 ``Response``. Lungo il percorso, potrebbe leggere le informazioni dalla richiesta, caricare una
-risorsa da un database, inviare una e-mail, o impostare informazioni sulla sessione dell'utente.
+risorsa da un database, inviare un'email, o impostare informazioni sulla sessione dell'utente.
 Ma in ogni caso, il controllore alla fine restituirà un oggetto ``Response``
 che verrà restituito al client.
 	

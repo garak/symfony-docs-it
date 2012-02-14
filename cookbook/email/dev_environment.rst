@@ -120,7 +120,7 @@ durante la singola risposta nell'ambiente ``dev``. L'icona dell'email
 apparirà nella barra mostrando quante email sono state spedite. Cliccandoci 
 sopra, un report mostrerà il dettaglio delle email inviate.
 
-Se si invia una email e immediatamente si esegue un redirect a un'altra pagina,
+Se si invia un'email e immediatamente si esegue un redirect a un'altra pagina,
 la web debug toolbar non mostrerà né l'icona delle email né alcun report
 nella pagina finale.
 

@@ -1,7 +1,7 @@
 Come configurare Monolog con errori per email
 =============================================
 
-Monolog_ può essere configurato per inviare una email quando accade un errore in
+Monolog_ può essere configurato per inviare un'email quando accade un errore in
 un'applicazione. La configurazione per farlo richiede alcuni gestori annidati,
 per evitare di ricevere troppe email. Questa configurazione appare complicata a
 prima vista, ma ogni gestore è abbastanza semplice, se visto

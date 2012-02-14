@@ -4,7 +4,7 @@ L'API stabile di Symfony2
 L'API stabile di Symfony2 è un sottoinsieme di tutti i metodi pubblici di Symfony2
 (componenti e bundle del nucloe) che condividono le seguenti proprietà:
 
-* Il namespace e il nome della classe non cambieranno;
+* Lo spazio dei nomi e il nome della classe non cambieranno;
 * Il nome del metodo non cambierà;
 * La firma del metodo (i tipi dei parametri e del valore restituito) non cambierà;
 * La semantica di quello che fa il metodo non cambierà;

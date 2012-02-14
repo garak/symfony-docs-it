@@ -10,6 +10,7 @@ dove possono essere tradotti e convertiti in base alle impostazioni internaziona
 lingua e paese). Per il testo, questo significa che ognuno viene avvolto con una funzione
 capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
 
+
     // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
 
@@ -324,10 +325,12 @@ di gusti.
 Creazione delle traduzioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+La creazione di file di traduzione è una parte importante della "localizzazione" (spesso abbreviata in `L10n`_).
 Ogni file è costituito da una serie di coppie id-traduzione per il dato dominio e
 locale. L'id è l'identificativo di una traduzione individuale e può
 essere il messaggio nel locale principale (ad es. "Symfony is great") dell'applicazione
 o un identificatore univoci (ad es. "symfony2.great" - vedere la barra laterale di seguito):
+
 
 .. configuration-block::
 
@@ -673,7 +676,7 @@ stesse nel messaggio originale e in quello tradotto.
 
 .. tip:
 
-    Essendo che le etichette sono opzionali, il traduttore non le utilizza (il traduttore
+    Essendo le etichette opzionali, il traduttore non le utilizza (il traduttore
     otterrà solo una stringa basata sulla sua posizione nella stringa).
 
 Intervallo di pluralizzazione esplicito
@@ -860,6 +863,8 @@ passi:
 * Gestire il locale dell'utente, che è memorizzato nella richiesta, ma può
   anche essere memorizzato nella sessione.
 
+.. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
+.. _`L10n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
 .. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
 .. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions

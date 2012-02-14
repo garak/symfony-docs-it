@@ -6,7 +6,7 @@ Usare PdoSessionStorage per salvare le sessioni nella base dati
 
 Normalmente, nella gestione delle sessioni, Symfony2 salva le relative informazioni
 all'interno di file. Solitamente, i siti web di dimensioni medio grandi utilizzano
-la base dati, invece dei file, per salvare i dati di sessione. Questo perchè le basi dati
+la basi dati, invece dei file, per salvare i dati di sessione. Questo perché le basi dati
 sono più semplici da utilizzare e sono più scalabili in ambienti multi-webserver.
 
 Symfony2 ha, al suo interno, una soluzione per l'archiviazione delle sessioni su base dati, chiamata

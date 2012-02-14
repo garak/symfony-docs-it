@@ -37,7 +37,7 @@ Cos'è un servizio?
 In parole povere, un :term:`servizio` è un qualsiasi oggetto PHP che esegue una sorta di
 compito "globale". È un nome volutamente generico utilizzato in informatica
 per descrivere un oggetto che è stato creato per uno scopo specifico (ad esempio spedire
-e-mail). Ogni servizio è utilizzato in tutta l'applicazione ogni volta che si ha bisogno
+email). Ogni servizio è utilizzato in tutta l'applicazione ogni volta che si ha bisogno
 delle funzionalità specifiche che fornisce. Non bisogna fare nulla di speciale
 per creare un servizio: è sufficiente scrivere una classe PHP con del codice che realizza
 un compito specifico. Congratulazioni, si è appena creato un servizio!

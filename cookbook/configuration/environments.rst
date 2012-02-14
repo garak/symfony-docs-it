@@ -296,7 +296,7 @@ Il nuovo ambiente sarà accessibile tramite::
 .. note::
    
    Alcuni ambienti, come il ``dev``, non dovrebbero mai essere accessibile su di
-   un server pubblico di produzione. Questo perchè alcuni ambienti, per facilitarne 
+   un server pubblico di produzione. Questo perché alcuni ambienti, per facilitarne 
    il debug, potrebbero fornire troppe informazioni relative all'infrastruttura
    sottostante l'applicazione. Per essere sicuri che questi ambienti non siano
    accessibili, il front controller è solitamente protetto dall'accesso da parte di

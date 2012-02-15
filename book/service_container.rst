@@ -1,5 +1,5 @@
 .. index::
-   single: Service Container
+   single: Contenitore di servizi
    single: Dependency Injection Container
 
 Contenitore di servizi
@@ -29,7 +29,7 @@ scrivere codice che è più riutilizzabile, testabile e disaccoppiato, semplicem
 il contenitore di servizi consente di scrivere facilmente del buon codice.
 
 .. index::
-   single: Service Container; What is a service?
+   single: Contenitore di servizi; Cos'è un servizio?
 
 Cos'è un servizio?
 ------------------
@@ -62,7 +62,7 @@ classi di servizi  è una nota best-practice della programmazione a oggetti. Que
 sono fondamentali per essere un buon sviluppatore in quasi tutti i linguaggi.
 
 .. index::
-   single: Service Container; What is?
+   single: Contenitore di servizi; Cos'è?
 
 Cos'è un contenitore di servizi?
 --------------------------------
@@ -89,7 +89,7 @@ dell'oggetto ``Mailer``. Cosa succederebbe se avessimo bisogno di cambiare il ``
 ogni posto in cui si crea un servizio ``Mailer`` e cambiarlo.
 
 .. index::
-   single: Service Container; Configuring services
+   single: Contenitore di servizi; Configurare i servizi
 
 Creare/Configurare servizi nel contenitore
 ------------------------------------------
@@ -263,7 +263,7 @@ secondo metodo, che è il metodo più flessibile e privilegiato per importare la
 di servizi in bundle di terze parti.
 
 .. index::
-   single: Service Container; imports
+   single: Contenitore di servizi; imports
 
 .. _service-container-imports-directive:
 
@@ -356,7 +356,7 @@ senza preoccuparsi in seguito, se si sposta ``AcmeHelloBundle`` in una cartella
 diversa.
 
 .. index::
-   single: Service Container; Extension configuration
+   single: Contenitore di servizi; Configurazione delle estensioni
 
 .. _service-container-extension-configuration:
 
@@ -462,7 +462,7 @@ disponibili per i  bundle del nucleo si possono trovare all'interno della :doc:`
    è gestita dall'estensione del contenitore dei servizi.
 
 .. index::
-   single: Service Container; Referencing services
+   single: Contenitore di servizi; Referenziare i servizi
 
 Referenziare (iniettare) servizi
 --------------------------------
@@ -808,7 +808,7 @@ nel framework.
     ``SwiftmailerBundle``, il quale registra il servizio ``mailer``.
 
 .. index::
-   single: Service Container; Advanced configuration
+   single: Contenitore di servizi; Configurazione avanzata
 
 Configurazioni avanzate del contenitore
 ---------------------------------------

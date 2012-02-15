@@ -792,7 +792,7 @@ speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
 .. index::
    single: Rotte; Controllori
-   single: Controller; Formato dei nomi delle stringhe
+   single: Controllore; Formato dei nomi delle stringhe
 
 .. _controller-string-syntax:
 

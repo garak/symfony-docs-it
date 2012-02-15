@@ -22,7 +22,9 @@ Template
 
 Un template è un semplice file testuale che può generare qualsiasi formato basato sul testo
 (HTML, XML, CSV, LaTeX ...). Il tipo più familiare di template è un template *PHP*, un
-file testuale analizzato da PHP che contiene un misto di testo e codice PHP::
+file testuale analizzato da PHP che contiene un misto di testo e codice PHP:
+
+.. code-block:: html+php
 
     <!DOCTYPE html>
     <html>
@@ -120,6 +122,7 @@ In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in 
     non logica di programmazione. Più si usa Twig, più se ne può apprezzare benefici e
     distinzione. E, ovviamente, essere amati da tutti i grafici
     del mondo.
+
     Twig può anche far cose che PHP non può fare, come una vera ereditarietà dei template
     (i template Twig compilano in classi PHP che ereditano tra di loro), controllo
     degli spazi vuoti, sandbox e inclusione di funzioni e filtri personalizzati, che
@@ -173,8 +176,7 @@ altro template. Funziona esattamente come per le classi PHP: l'ereditarietà dei
 consente di costruire un template "layout" di base, che contiene tutti gli elementi comuni
 del proprio sito, definiti come **blocchi** (li si pensi come "classi PHP con metodi base").
 Un template figlio può estendere un layout di base e sovrascrivere uno qualsiasi dei suoi
-blocchi (li si pensi come "sottoclassi PHP che sovrascrivono alcuni metodi della classe
-genitrice").
+blocchi (li si pensi come "sottoclassi PHP che sovrascrivono alcuni metodi della classe genitrice").
 
 Primo, costruire un file per il layout di base:
 
@@ -288,7 +290,9 @@ al motore dei template di valutare prima il template base, che imposta il
 layout e definisce i vari blocchi. Quindi viene reso il template figlio e i
 blocchi ``title`` e ``body`` del padre vengono rimpiazzati da quelli del figlio.
 A seconda del valore di ``blog_entries``, l'output potrebbe assomigliare a
-questo::
+questo:
+
+.. code-block:: html
 
     <!DOCTYPE html>
     <html>
@@ -362,8 +366,9 @@ Nomi e posizioni dei template
 Per impostazione predefinita, i template possono stare in una di queste posizioni:
 
 * ``app/Resources/views/``: La cartella ``views`` di un'applicazione può contenere
-  template di base a livello di applicazione (p.e.e i layout dell'applicazione), ma anche
-  template che sovrascrivono template di bundle (vedere :ref:`overriding-bundle-templates`);
+  template di base a livello di applicazione (p.e. i layout dell'applicazione), ma anche
+  template che sovrascrivono template di bundle (vedere
+:ref:`overriding-bundle-templates`);
 
 * ``percorso/bundle/Resources/views/``: Ogni bundle ha i suoi template, nella sua
   cartella ``Resources/views`` (e nelle sotto-cartelle). La maggior parte dei template è
@@ -616,7 +621,7 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
             {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
         </div>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
         ...
@@ -722,7 +727,7 @@ articoli:
           </a>
         {% endfor %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
         <?php foreach ($articles in $article): ?>
@@ -754,8 +759,7 @@ Collegare le risorse
 
 I template solitamente hanno anche riferimenti a immagini, Javascript, fogli di stile e
 altre risorse. Certamente, si potrebbe inserire manualmente il percorso a tali risorse
-(p.e. ``/images/logo.png``), ma Symfony2 fornisce un'opzione più dinamica, tramite la
-funzione ``assets`` di Twig:
+(p.e. ``/images/logo.png``), ma Symfony2 fornisce un'opzione più dinamica, tramite la funzione ``assets`` di Twig:
 
 .. configuration-block::
 
@@ -765,7 +769,7 @@ funzione ``assets`` di Twig:
 
         <link href="{{ asset('css/blog.css') }}" rel="stylesheet" type="text/css" />
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <img src="<?php echo $view['assets']->getUrl('images/logo.png') ?>" alt="Symfony!" />
 
@@ -854,6 +858,15 @@ il nuovo tag del foglio di stile nel blocco stesso. Ovviamente, poiché vogliamo
 aggiungere contenuto al blocco padre (e non *sostituirlo*), occorre usare la funzione
 ``parent()`` di Twig, per includere tutto ciò che sta nel blocco ``stylesheets``
 del template di base.
+
+Si possono anche includere risorse dalla cartella ``Resources/public`` del proprio bundle.
+Occorre poi eseguire il comando ``php app/console assets:install target [--symlink]``,
+che copia (o collega) i file nella posizione corretta (la posizione predefinita è sotto la
+cartella "web").
+
+.. code-block:: html+jinja
+
+   <link href="{{ asset('bundles/acmedemo/css/contact.css') }}" type="text/css" rel="stylesheet" />
 
 Il risultato finale è una pagina che include i fogli di stile ``main.css`` e
 ``contact.css``.

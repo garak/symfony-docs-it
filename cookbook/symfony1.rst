@@ -114,8 +114,8 @@ conteneva ciascuna classe. Nell'ambiente di produzione, questo causava la necess
 di dover pulire la cache quando una classe veniva aggiunta o spostata.
 
 In Symfony2, una nuova classe, ``UniversalClassLoader`` gestisce questo processo.
-L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso il
-namespace) deve corrispondere al percorso del file che contiene tale classe.
+L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso lo
+spazio dei nomi) deve corrispondere al percorso del file che contiene tale classe.
 Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di
 Symfony2:
 
@@ -132,11 +132,11 @@ Symfony2:
 
 Il file stesso risiede in
 ``vendor/bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
-Come si può vedere, la locazione del file segue il namespace della classe.
-Nello specifico, il namespace, ``Sensio\Bundle\FrameworkExtraBundle``, dice che la
+Come si può vedere, la locazione del file segue lo spazio dei nomi della classe.
+Nello specifico, lo spazio dei nomi ``Sensio\Bundle\FrameworkExtraBundle`` dice che la
 cartella in cui il file dovrebbe risiedere
 (``vendor/bundle/Sensio/Bundle/FrameworkExtraBundle``). Per questo motivo, nel file
-``app/autoload.php``, si dovrà configurare Symfony2 per cercare il namespace
+``app/autoload.php``, si dovrà configurare Symfony2 per cercare lo spazio dei nomi
 ``Sensio`` nella cartella ``vendor/bundle``:
 
 .. code-block:: php
@@ -151,21 +151,21 @@ cartella in cui il file dovrebbe risiedere
 
 Se il file *non* risiede in questa esatta locazione, si riceverà un errore
 ``Class "Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle" does not exist.``.
-In Symfony2, un errore "class does not exist" vuol dire che il namespace della
+In Symfony2, un errore "class does not exist" vuol dire che lo spazio dei nomi della
 classe e la locazione fisica del file non corrispondono. Fondamentalmente, Symfony2
 cerca in una specifica locazione quella classe, ma quella locazione non esiste
 (oppure contiene una classe diversa). Per poter auto-caricare una classe, non
 **è mai necessario pulire la cache** in Symfony2.
 
 Come già accennato, per poter far funzionare l'autoloader, esso deve sapere che
-il namespace ``Sensio`` risiede nella cartella ``vendor/bundles`` e che, per esempio,
-il namespace ``Doctrine`` risiede nella cartella ``vendor/doctrine/lib/``.
+lo spazio dei nomi ``Sensio`` risiede nella cartella ``vendor/bundles`` e che, per esempio,
+lo spazio dei nomi ``Doctrine`` risiede nella cartella ``vendor/doctrine/lib/``.
 Questa mappatura è interamente controllata dallo sviluppatore, tramite il file
 ``app/autoload.php``.
 
 Se si dà un'occhiata a ``HelloController`` nella Standard Edition di Symfony2, si
-vedrà che esso risiede nel namespace ``Acme\DemoBundle\Controller``. Anche qui,
-il namespace ``Acme`` non è definito in ``app/autoload.php``. Non occorre
+vedrà che esso risiede nello spazio dei nomi ``Acme\DemoBundle\Controller``. Anche qui,
+lo spazio dei nomi ``Acme`` non è definito in ``app/autoload.php``. Non occorre
 configurare esplicitamente la locazione dei bundle che risiedono nella cartella
 ``src/``. ``UniversalClassLoader`` è configurato per usare come locazione di
 riserva la cartella ``src/``, usando il suo metodo ``registerNamespaceFallbacks``:
@@ -208,7 +208,7 @@ volte, se si vuole creare una seconda applicazione, sarebbe meglio creare
 un altro progetto e condividere alcuni bundle tra essi.
 
 Se poi si ha bisogno di separare le caratteristiche di frontend e di backend
-di alcuni bundle, creare dei sotto-namespace per controller, delle sotto-cartelle
+di alcuni bundle, creare dei sotto-spazi per controller, delle sotto-cartelle
 per i template, configurazioni semantiche diverse, configurazioni di rotte
 separate e così via.
 

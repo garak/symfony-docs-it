@@ -9,6 +9,7 @@ Tag:
 * ``form.type_guesser``
 * ``kernel.cache_warmer``
 * ``kernel.event_listener``
+* ``kernel.event_subscriber``
 * ``monolog.logger``
 * ``monolog.processor``
 * ``templating.helper``
@@ -48,6 +49,8 @@ alias):
             ->addTag('templating.helper', array('alias' => 'alias_name'))
         ;
 
+.. _reference-dic-tags-twig-extension:
+
 Abilitare estensioni personalizzate in Twig
 -------------------------------------------
 
@@ -74,6 +77,38 @@ proprie configurazioni e taggarla con ``twig.extension``:
 
         $container
             ->register('twig.extension.your_extension_name', 'Fully\Qualified\Extension\Class\Name')
+            ->addTag('twig.extension')
+        ;
+
+Per informazioni su come creare la classe estensione di Twig, vedere la
+`documentazione di Twig`_ sull'argomento.
+
+Prima di scrivere la propria estensione, dare un'occhiata al
+`repository ufficiale di estensioni Twig`_ , che include tante estensioni
+utili. Per esempio, ``Intl`` e il suo filtro ``localizeddate``, che
+formatta una data a seconda del locale dell'utente. Anche queste estensioni ufficiali
+devono essere aggiunte come servizi:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            twig.extension.intl:
+                class: Twig_Extensions_Extension_Intl
+                tags:
+                    - { name: twig.extension }
+
+    .. code-block:: xml
+
+        <service id="twig.extension.intl" class="Twig_Extensions_Extension_Intl">
+            <tag name="twig.extension" />
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('twig.extension.intl', 'Twig_Extensions_Extension_Intl')
             ->addTag('twig.extension')
         ;
 
@@ -117,11 +152,58 @@ richiamato:
     negativo. Questo consente di assicurarsi che i propri ascoltatori siano sempre
     richiamati prima o dopo altri ascoltatori che ascoltano lo stesso evento.
 
+
+
+.. _dic-tags-kernel-event-subscriber:
+
+Abilitare sottoscrittori personalizzati
+---------------------------------------
+
+.. versionadded:: 2.1
+
+   La possibilità di aggiungere sottoscrittori di eventi al kernel è nuova nella 2.1.
+
+Per abilitare un sottoscrittore personalizzato, aggiungerlo come normale servizio in una
+delle proprie configurazioni, con il tag ``kernel.event_subscriber``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            kernel.subscriber.your_subscriber_name:
+                class: Fully\Qualified\Subscriber\Class\Name
+                tags:
+                    - { name: kernel.event_subscriber }
+
+    .. code-block:: xml
+
+        <service id="kernel.subscriber.your_subscriber_name" class="Fully\Qualified\Subscriber\Class\Name">
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('kernel.subscriber.your_subscriber_name', 'Fully\Qualified\Subscriber\Class\Name')
+            ->addTag('kernel.event_subscriber')
+        ;
+
+.. note::
+
+    Il servizio deve implementare l'interfaccia
+    :class:`Symfony\Component\EventDispatcher\EventSubscriberInterface`.
+
+.. note::
+
+    Se il servizio è creato da un factory, si **DEVE** impostare correttamente il
+    parametro ``class`` per questo tag, per far sì che funzioni correttamente.
+
 Abilitare motori di template personalizzati
 -------------------------------------------
 
 Per abilitare un motore di template personalizzato, aggiungerlo come normale servizio in
-una delle proprie configurazioni, taggarlo con ``templating.engine``:
+una delle proprie configurazioni, con il tag ``templating.engine``:
 
 .. configuration-block::
 
@@ -150,7 +232,7 @@ Abilitare caricatori di rotte personalizzati
 --------------------------------------------
 
 Per abilitare un caricatore personalizzato di rotte, aggiungerlo come normale servizio
-in una delle proprie configurazioni e taggarlo con ``routing.loader``:
+in una delle proprie configurazioni, con il tag ``routing.loader``:
 
 .. configuration-block::
 
@@ -189,7 +271,7 @@ inietta il logger in un servizio.
     .. code-block:: yaml
 
         services:
-            my_service:
+            mio_servizio:
                 class: Fully\Qualified\Loader\Class\Name
                 arguments: [@logger]
                 tags:
@@ -197,7 +279,7 @@ inietta il logger in un servizio.
 
     .. code-block:: xml
 
-        <service id="my_service" class="Fully\Qualified\Loader\Class\Name">
+        <service id="mio_servizio" class="Fully\Qualified\Loader\Class\Name">
             <argument type="service" id="logger" />
             <tag name="monolog.logger" channel="acme" />
         </service>
@@ -206,7 +288,7 @@ inietta il logger in un servizio.
 
         $definition = new Definition('Fully\Qualified\Loader\Class\Name', array(new Reference('logger'));
         $definition->addTag('monolog.logger', array('channel' => 'acme'));
-        $container->register('my_service', $definition);;
+        $container->register('mio_servizio', $definition);;
 
 .. note::
 
@@ -233,14 +315,14 @@ Si può aggiungere un processore globalmente:
     .. code-block:: yaml
 
         services:
-            my_service:
+            mio_servizio:
                 class: Monolog\Processor\IntrospectionProcessor
                 tags:
                     - { name: monolog.processor }
 
     .. code-block:: xml
 
-        <service id="my_service" class="Monolog\Processor\IntrospectionProcessor">
+        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
             <tag name="monolog.processor" />
         </service>
 
@@ -248,7 +330,7 @@ Si può aggiungere un processore globalmente:
 
         $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
         $definition->addTag('monolog.processor');
-        $container->register('my_service', $definition);
+        $container->register('mio_servizio', $definition);
 
 .. tip::
 
@@ -263,14 +345,14 @@ Si può anche aggiungere un processore per un gestore specifico, usando l'attrib
     .. code-block:: yaml
 
         services:
-            my_service:
+            mio_servizio:
                 class: Monolog\Processor\IntrospectionProcessor
                 tags:
                     - { name: monolog.processor, handler: firephp }
 
     .. code-block:: xml
 
-        <service id="my_service" class="Monolog\Processor\IntrospectionProcessor">
+        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
             <tag name="monolog.processor" handler="firephp" />
         </service>
 
@@ -278,7 +360,7 @@ Si può anche aggiungere un processore per un gestore specifico, usando l'attrib
 
         $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
         $definition->addTag('monolog.processor', array('handler' => 'firephp');
-        $container->register('my_service', $definition);
+        $container->register('mio_servizio', $definition);
 
 Si può anche aggiungere un processore per uno specifico canale di log, usando
 l'attributo ``channel``. Registrerà il processore solo per il canale di log
@@ -289,14 +371,14 @@ l'attributo ``channel``. Registrerà il processore solo per il canale di log
     .. code-block:: yaml
 
         services:
-            my_service:
+            mio_servizio:
                 class: Monolog\Processor\IntrospectionProcessor
                 tags:
                     - { name: monolog.processor, channel: security }
 
     .. code-block:: xml
 
-        <service id="my_service" class="Monolog\Processor\IntrospectionProcessor">
+        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
             <tag name="monolog.processor" channel="security" />
         </service>
 
@@ -304,9 +386,12 @@ l'attributo ``channel``. Registrerà il processore solo per il canale di log
 
         $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
         $definition->addTag('monolog.processor', array('channel' => 'security');
-        $container->register('my_service', $definition);
+        $container->register('mio_servizio', $definition);
 
 .. note::
 
     Non si possono usare entrambi gli attributi ``handler`` e ``channel`` per lo stesso
     tag, perché i gestori sono condivisi tra tutti i canali.
+
+..  _`documentazione di Twig`: http://twig.sensiolabs.org/doc/extensions.html
+..  _`repository ufficiale di estensioni Twig`: http://github.com/fabpot/Twig-extensions

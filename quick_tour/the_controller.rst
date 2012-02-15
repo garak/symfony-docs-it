@@ -141,8 +141,8 @@ la richiesta successiva::
 Ciò risulta utile quando occorre impostare un messaggio di successo, prima di rinviare
 l'utente a un'altra pagina (la quale mostrerà il messaggio).
 
-Mettere in sicurezza le risorse
--------------------------------
+Proteggere le risorse
+---------------------
 
 La Standard Edition di Symfony possiede una semplice configurazione di sicurezza, che
 soddisfa i bisogni più comuni:
@@ -160,9 +160,10 @@ soddisfa i bisogni più comuni:
 
         providers:
             in_memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                memory:
+                    users:
+                        user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                        admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
         firewalls:
             dev:

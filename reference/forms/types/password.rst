@@ -30,7 +30,7 @@ always_empty
 ~~~~~~~~~~~~
 
 **tipo**: ``booleano`` **predefinito**: ``true``
-`
+
 Se impostato a ``true``, il campo sarà reso *sempre* vuoto, anche se il campo
 corrispondente ha un valore. Quando impostato a ``false``, il campo password sarà
 reso con l'attributo ``value`` impostate all'effettivo valore.

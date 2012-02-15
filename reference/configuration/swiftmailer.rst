@@ -5,10 +5,10 @@ Configurazione di SwiftmailerBundle ("swiftmailer")
 ===================================================
 
 Questo riferimento è ancora provvisorio. Dovrebbe essere accurato, ma
-non sono pienamente coperate tutte le opzioni. Per un elenco completo delle
+non sono pienamente coperte tutte le opzioni. Per un elenco completo delle
 opzioni predefinite di configurazione, vedere `Configurazione`_
 
-La chiave ``swiftmailer`` configura l'integrazione di Symfony cn Swiftmailer,
+La chiave ``swiftmailer`` configura l'integrazione di Symfony con Swiftmailer,
 che si occupa di creare e spedire messaggi email.
 
 Configurazione
@@ -50,28 +50,28 @@ username
 
 **tipo**: ``stringa``
 
-Il nome utente quando si usa `smtp`` come trasporto.
+Il nome utente quando si usa ``smtp`` come trasporto.
 
 password
 ~~~~~~~~
 
 **tipo**: ``stringa``
 
-La password quando si usa `smtp`` come trasporto.
+La password quando si usa ``smtp`` come trasporto.
 
 host
 ~~~~
 
 **tipo**: ``stringa`` **predefinito**: ``localhost``
 
-L'host a cui connettersi quando si usa `smtp`` come trasporto.
+L'host a cui connettersi quando si usa ``smtp`` come trasporto.
 
 port
 ~~~~
 
 **tipo**: ``stringa`` **predefinito**: 25 o 465 (a seconda di `encryption`_)
 
-La porta quando si usa `smtp`` come trasporto. Predefinito 465 se ``encryption``
+La porta quando si usa ``smtp`` come trasporto. Predefinito 465 se ``encryption``
 è ``ssl``, 25 in caso contrario.
 
 encryption
@@ -79,7 +79,7 @@ encryption
 
 **tipo**: ``stringa``
 
-La modalità di criptazione quando si usa `smtp`` come trasporto. Valori validi
+La modalità di criptazione quando si usa ``smtp`` come trasporto. Valori validi
 sono ``tls``, ``ssl`` o ``null`` (che indica nessuna criptazione).
 
 auth_mode
@@ -87,7 +87,7 @@ auth_mode
 
 **tipo**: ``stringa``
 
-La modalità di autenticazione quando si usa `smtp`` come trasporto. Valori validi
+La modalità di autenticazione quando si usa ``smtp`` come trasporto. Valori validi
 sono ``plain``, ``login``, ``cram-md5`` o ``null``.
 
 spool
@@ -102,8 +102,7 @@ type
 
 Il metodo usato per memorizzare i messagi nello spool. Attualmente è supportato
 solo ``file``. Tuttavia, si dovrebbe poter creare uno spool personalizzato,
-creando un servizio di nome ``swiftmailer.spool.mio_spool`` e impostando questo
-valore a ``mio_spool``.
+creando un servizio di nome ``swiftmailer.spool.mio_spool`` e impostando questo valore a ``mio_spool``.
 
 path
 ....

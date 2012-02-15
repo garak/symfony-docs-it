@@ -191,7 +191,6 @@ notFoundMessage
 
 **tipo**: ``stringa`` **predefinito**: ``The file could not be found``
 
-
 Messaggio mostrato se non viene trovato alcun file nel percorso fornito. Questo
 errore può avvenire solo in caso di valore stringa, perché un oggetto ``File`` non
 può essere costruito con un percorso non valido.

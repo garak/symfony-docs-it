@@ -16,8 +16,8 @@ Chi ha già usato un framework per il web si troverà come a casa con Symfony2.
 Scaricare Symfony2
 ------------------
 
-Prima di tutto, verificare di avere almeno PHP 5.3.2 (o successivo) installato e configurato correttamente per funzionare con un server web,
-come Apache.
+Prima di tutto, verificare di avere almeno PHP 5.3.2 (o successivo) installato e
+configurato correttamente per funzionare con un server web, come Apache.
 
 Pronti? Iniziamo scaricando "`Symfony2 Standard Edition`_", una :term:`distribuzione`
 di Symfony preconfigurata per gli usi più comuni e che contiene anche del codice
@@ -111,7 +111,7 @@ i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati 
 .. image:: /images/quick_tour/hello_fabien.png
    :align: center
 
-Cosa sta accadendo? Dissezionamo l'URL:
+Cosa sta accadendo? Dissezioniamo l'URL:
 
 * ``app_dev.php``: È un :term:`front controller`. È l'unico punto di ingresso
   dell'applicazione e risponde a ogni richiesta dell'utente;
@@ -214,7 +214,7 @@ La classe ``WelcomeController`` estende la classe predefinita ``Controller``,
 che fornisce alcuni utili metodi scorciatoia, come il metodo
 :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::render`, che
 carica e rende un template (``AcmeDemoBundle:Welcome:index.html.twig``).
-Il vaore restituito è un oggetto risposta, popolato con il contenuto resto. Quindi,
+Il valore restituito è un oggetto risposta, popolato con il contenuto resto. Quindi,
 se ci sono nuove necessità, l'oggetto risposta può essere manipolato prima di essere
 inviato al browser::
 
@@ -307,7 +307,9 @@ reso il template ``AcmeDemoBundle:Demo:hello.html.twig`` (localizzato in
 Template
 ~~~~~~~~
 
-Il controllore rende il template ``src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig`` (oppure ``AcmeDemoBundle:Demo:hello.html.twig`` se si usa il nome logico):
+Il controllore rende il template
+``src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig`` (oppure
+``AcmeDemoBundle:Demo:hello.html.twig``, se si usa il nome logico):
 
 .. code-block:: jinja
 
@@ -329,12 +331,10 @@ Bundle
 
 Forse vi siete chiesti perché il termine :term:`bundle` viene usato così tante volte
 finora. Tutto il codice che si scrive per la propria applicazione è organizzato in
-bundle.
-Nel lingaggio di Symfony2, un bundle è un insieme strutturato di file (file
+bundle. Nel linguaggio di Symfony2, un bundle è un insieme strutturato di file (file
 PHP, fogli di stile, JavaScript, immagini, ...) che implementano una singola
 caratteristica (un blog, un forum, ...) e che può essere condivisa facilmente con
-altri sviluppatori.
-Finora abbiamo manipolato un solo bundle, ``AcmeDemoBundle``.
+altri sviluppatori. Finora abbiamo manipolato un solo bundle, ``AcmeDemoBundle``.
 Impareremo di più sui bundle nell'ultimo capitolo di questa guida.
 
 .. _quick-tour-big-picture-environments:
@@ -345,21 +345,21 @@ Lavorare con gli ambienti
 Ora che si possiede una migliore comprensione di come funziona Symfony2, è
 ora di dare un'occhiata più da vicino al fondo della pagina: si noterà
 una piccola barra con i logo di Symfony2 e di PHP. Questa barra è chiamata
-"Web Debug Toolbar" ed è il miglior amico dello sviluppatore.
+"barra di debug del web" ed è il miglior amico dello sviluppatore.
 
 .. image:: /images/quick_tour/web_debug_toolbar.png
    :align: center
 
 Ma quello che si vede all'inizio è solo la punta dell'iceberg: cliccando
-sullo strano numero esadecimale rivelerà un altro strumento di debug veramente
+sullo strano numero esadecimale, rivelerà un altro strumento di debug veramente
 utile di Symfony2: il profilatore.
 
 .. image:: /images/quick_tour/profiler.png
    :align: center
 
-Ovviamente questo strumento non deve essere mostrato quando si rilascia l'applicazione
-su un server di produzione. Per questo motivo si troverà un altro front controller (``app.php``) nella cartella ``web/``,
-ottimizzato per l'ambiente di produzione:
+Ovviamente, questo strumento non deve essere mostrato quando si rilascia l'applicazione
+su un server di produzione. Per questo motivo, si troverà un altro front controller (``app.php``)
+nella cartella ``web/``, ottimizzato per l'ambiente di produzione:
 
 .. code-block:: text
 
@@ -379,6 +379,15 @@ l'installazione sicura e avere URL più allettanti:
 .. code-block:: text
 
     http://localhost/demo/hello/Fabien
+
+.. note::
+
+    Si noti che i tre URL qui forniti sono solo **esempi** di come un URL potrebbe
+    apparire in produzione usando un front controller (con o senza
+    mod_rewrite). Se li si prova effettivamente in un'installazione base della
+    *Standard Edition di Symfony *, si otterrà un errore 404, perché
+    *AcmeDemoBundle* è abilitato solo in ambiente dev e le sue rotte importate
+    in *app/config/routing_dev.yml*.
 
 Per rendere l'ambiente di produzione più veloce possibile, Symfony2
 mantiene una cache sotto la cartella ``app/cache/``. Quando si fanno
@@ -403,7 +412,7 @@ da un'altra:
 
 L'ambiente ``dev`` (che carica il file di configurazione ``config_dev.yml``)
 importa il file globale ``config.yml`` e lo modifica, in questo caso,
-abilitando la Web Debug Toolbar.
+abilitando la barra di debug del web.
 
 Considerazioni finali
 ---------------------
@@ -412,7 +421,7 @@ Congratulazioni! Avete avuto il vostro primo assaggio di codice di Symfony2.
 Non era così difficile, vero? C'è ancora molto da esplorare, ma dovreste
 già vedere come Symfony2 rende veramente facile implementare siti web in modo
 migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossima
-sezione: ":doc:`La vista<the_view>`".
+sezione: ":doc:`la vista<the_view>`".
 
 .. _Symfony2 Standard Edition:      http://symfony.com/download
 .. _Symfony in 5 minuti:            http://symfony.com/symfony-in-five-minutes

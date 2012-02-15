@@ -5,6 +5,7 @@ Ricettario
     :hidden:
 
     workflow/new_project_git
+    workflow/new_project_svn
 
     controller/error_pages
     controller/service
@@ -26,6 +27,9 @@ Ricettario
     doctrine/custom_dql_functions
 
     form/form_customization
+    form/data_transformers
+    form/dynamic_form_generation
+    form/form_collections
     form/create_custom_field_type
     validation/custom_constraint
 
@@ -34,6 +38,7 @@ Ricettario
     service_container/factories
     service_container/parentservices
     service_container/scopes
+    service_container/tags
     configuration/pdo_session_storage
 
     bundles/best_practices
@@ -41,8 +46,8 @@ Ricettario
     bundles/override
     bundles/extension
 
-    email
-    gmail
+    email/email
+    email/gmail
     email/dev_environment
     email/spool
 
@@ -65,13 +70,13 @@ Ricettario
 
     cache/varnish
 
+    templating/global_variables
     templating/PHP
 
-    tools/autoloader
-    tools/finder
-    console
-    debugging
     logging/monolog
+    logging/monolog_email
+
+    debugging
 
     event_dispatcher/class_extension
     event_dispatcher/method_behavior

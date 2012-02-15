@@ -1,8 +1,8 @@
-Mettere in sicurezza servizi e metodi di un'applicazione
-========================================================
+Proteggere servizi e metodi di un'applicazione
+==============================================
 
 Nel capitolo sulla sicurezza, si può vedere come
-:ref:`mettere in sicurezza un controllore<book-security-securing-controller>`, richiedendo il
+:ref:`proteggere un controllore<book-security-securing-controller>`, richiedendo il
 servizio ``security.context`` dal contenitore di servizi e verificando il ruolo dell'utente attuale::
 
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -17,7 +17,7 @@ servizio ``security.context`` dal contenitore di servizi e verificando il ruolo 
         // ...
     }
 
-Si può anche mettere in sicurezza *qualsiasi* servizio in modo simile, iniettando in esso
+Si può anche proteggere *qualsiasi* servizio in modo simile, iniettando in esso
 il servizio ``security.context``. Per un'introduzione generale all'iniezione di dipendenze
 nei servizi, vedere il capitolo :doc:`/book/service_container` del libro. Per esempio,
 si supponga di avere una classe ``NewsletterManager``, che invia email, e di voler
@@ -139,12 +139,12 @@ di autenticarsi.
 Mettere i sicurezza i metodi con le annotazioni
 -----------------------------------------------
 
-Si possono anche mettere in sicurezza i metodi di un servizio tramite annotazioni, usando
+Si possono anche proteggere i metodi di un servizio tramite annotazioni, usando
 il bundle `JMSSecurityExtraBundle`_. Questo bundle è incluso nella
 Standard Edition di Symfony2.
 
 Per abilitare le annotazioni, :ref:`taggare<book-service-container-tags>`
-il servizio da mettere in sicurezza con il tag ``security.secure_service``
+il servizio da proteggere con il tag ``security.secure_service``
 (si può anche abilitare automaticamente la funzionalità per tutti i servizi, vedere i
 :ref:`dettagli<securing-services-annotations-sidebar>` più avanti):
 
@@ -214,7 +214,7 @@ Si possono ottenere gli stessi risultati usando le annotazioni::
     le annotazioni su metodi pubblici e protetti, non si possono usare su metodi
     privati o su metodi finali.
 
-Il bundle ``JMSSecurityExtraBundle`` consente anche di mettere in sicurezza i parametri e
+Il bundle ``JMSSecurityExtraBundle`` consente anche di proteggere i parametri e
 i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazione di
 `JMSSecurityExtraBundle`_.
 
@@ -222,7 +222,7 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
 
 .. sidebar:: Attivare le annotazioni per tutti i servizi
 
-    Quando si mettono in sicurezza i metodi di un servizio (come mostrato precedentemente),
+    Quando si proteggono i metodi di un servizio (come mostrato precedentemente),
     si può taggare ogni servizio individualmente oppure attivare la funzionalità per
     *tutti* i servizi. Per farlo, impostare l'opzione ``secure_all_services`` a
     ``true``:

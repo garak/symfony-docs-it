@@ -18,7 +18,6 @@ Documenti di riferimento
 
     constraints
     dic_tags
-    YAML
     requirements
 
 .. include:: /reference/map.rst.inc

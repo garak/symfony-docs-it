@@ -206,7 +206,7 @@ callback
 
 **tipo**: ``string|array|Closure``
 
-Un metodo callback cge può essere usato al posto dell'opzione `choices`_, per
+Un metodo callback che può essere usato, al posto dell'opzione `choices`_, per
 restituire l'array delle scelte. Vedere `Fornire le scelte con una funzione callback`_
 per maggiori dettagli sul suo utilizzo.
 

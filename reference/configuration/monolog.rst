@@ -19,7 +19,7 @@ Riferimento configurazione
                     bubble:              false
                     formatter:           my_formatter
                 main:
-                    type:                fingerscrossed
+                    type:                fingers_crossed
                     action_level:        WARNING
                     buffer_size:         30
                     handler:             custom
@@ -70,7 +70,7 @@ Riferimento configurazione
                 />
                 <monolog:handler
                     name="main"
-                    type="fingerscrossed"
+                    type="fingers_crossed"
                     action-level="warning"
                     handler="custom"
                 />

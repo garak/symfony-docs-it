@@ -283,15 +283,30 @@ Il comando si assicura che i getter e i setter siano generati per la classe
 getter e i setter solamente se non esistono (ovvero non sostituirà eventuali
 metodi già presenti).
 
-.. caution::
+.. sidebar:: Di più su ``doctrine:generate:entities``
+
+    Con il comando ``doctrine:generate:entities`` si può:
+
+        * generare getter e setter,
+
+        * generare classi repository configurate con l'annotazione
+            ``@ORM\Entity(repositoryClass="...")``,
+
+        * generare il costruttore appropriato per relazioni 1:n e n:m.
 
     Il comando ``doctrine:generate:entities`` salva una copia di backup del file
     originale ``Product.php``, chiamata ``Product.php~``. In alcuni casi, la presenza
     di questo file può causare un errore "Cannot redeclare class". Il file può
     essere rimosso senza problemi.
 
+    Si noti che non è *necessario* usare questo comando. Doctrine non si appoggia alla
+    generazione di codice. Come con le normali classi PHP, occorre solo assicurarsi
+    che le proprietà protected/private abbiano metodi getter e setter.
+    Questo comando è stato creato perché è una cosa comune da fare quando si usa
+    Doctrine.
+
 Si possono anche generare tutte le entità note (cioè ogni classe PHP con informazioni di
-mappatura di Doctrine) di un bundle o di un intero namespace:
+mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. code-block:: bash
 
@@ -309,7 +324,7 @@ Creare tabelle e schema del database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora si ha una classe ``Product`` usabile, con informazioni di mappatura che consentono
-a Doctrine di sapere esattamente come persisterlo. Ovviamente, non sia ha ancora la
+a Doctrine di sapere esattamente come persisterla. Ovviamente, non si ha ancora la
 corrispondente tabella ``product`` nel proprio database. Fortunatamente, Doctrine può
 creare automaticamente tutte le tabelle del database necessarie a ogni entità nota
 nella propria applicazione. Per farlo, eseguire:
@@ -334,7 +349,7 @@ nella propria applicazione. Per farlo, eseguire:
     possono essere eseguite sistematicamente sul proprio server di produzione, per
     poter tracciare e migrare il proprio schema di database in modo sicuro e affidabile.
 
-Il proprio database ora una tabella ``product`` pienamente funzionante, con le colonne
+Il proprio database ora ha una tabella ``product`` pienamente funzionante, con le colonne
 corrispondenti ai meta-dati specificati.
 
 Persistere gli oggetti nel database
@@ -364,7 +379,7 @@ del bundle:
         $em->persist($product);
         $em->flush();
 
-        return new Response('Created product id '.$product->getId());
+        return new Response('Creato prodotto con id '.$product->getId());
     }
 
 .. note::
@@ -480,7 +495,7 @@ recuperare facilmente oggetti in base a condizioni multiple::
 .. tip::
 
     Quando si rende una pagina, si può vedere il numero di query eseguite nell'angolo
-    inferiore destro della barra di web debug.
+    inferiore destro della barra di debug del web.
 
     .. image:: /images/book/doctrine_web_debug_toolbar.png
        :align: center
@@ -661,7 +676,7 @@ Classi repository personalizzate
 Nelle sezioni precedenti, si è iniziato costruendo e usando query più complesse da
 dentro un controllore. Per isolare, testare e riusare queste query, è una buona idea
 creare una classe repository personalizzata per la propria entità e aggiungere
-metodi cone la propria logica di query al suo interno.
+metodi, come la propria logica di query, al suo interno.
 
 Per farlo, aggiungere il nome della classe del repository alla propria definizione di mappatura.
 
@@ -703,7 +718,7 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
         </doctrine-mapping>
 
 Doctrine può generare la classe repository per noi, eseguendo lo stesso comando
-usato precedentemente per generare i metodi getter e setter mancanto:
+usato precedentemente per generare i metodi getter e setter mancanti:
 
 .. code-block:: bash
 
@@ -770,6 +785,10 @@ Metadata di mappatura delle relazioni
 Per correlare le entità ``Category`` e ``Product``, iniziamo creando una proprietà
 ``products`` nella classe ``Category``::
 
+.. configuration-block::
+
+    .. code-block:: php-annotations
+
     // src/Acme/StoreBundle/Entity/Category.php
     // ...
     use Doctrine\Common\Collections\ArrayCollection;
@@ -788,6 +807,19 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
             $this->products = new ArrayCollection();
         }
     }
+
+    .. code-block:: yaml
+
+        # src/Acme/StoreBundle/Resources/config/doctrine/Category.orm.yml
+        Acme\StoreBundle\Entity\Category:
+            type: entity
+            # ...
+            oneToMany:
+                products:
+                    targetEntity: Product
+                    mappedBy: category
+            # don't forget to init the collection in entity __construct() method
+
 
 Primo, poiché un oggetto ``Category`` sarà collegato a diversi oggetti ``Product``,
 una proprietà array ``products`` va aggiunta, per contenere questi oggetti ``Product``.
@@ -813,6 +845,10 @@ nell'applicazione che ogni ``Category`` contenga un array di oggetti
 Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un oggetto
 ``Category``, si deve aggiungere una proprietà ``$category`` alla classe ``Product``::
 
+.. configuration-block::
+
+    .. code-block:: php-annotations
+
     // src/Acme/StoreBundle/Entity/Product.php
     // ...
 
@@ -827,6 +863,20 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
         protected $category;
     }
 
+    .. code-block:: yaml
+
+        # src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml
+        Acme\StoreBundle\Entity\Product:
+            type: entity
+            # ...
+            manyToOne:
+                category:
+                    targetEntity: Category
+                    inversedBy: products
+                    joinColumn:
+                        name: category_id
+                        referencedColumnName: id
+
 Infine, dopo aver aggiunto una nuova proprietà sia alla classe ``Category`` che a
 quella ``Product``, dire a Doctrine di generare i metodi mancanti getter e
 setter:
@@ -837,7 +887,7 @@ setter:
 
 Ignoriamo per un momento i meta-dati di Doctrine. Abbiamo ora due classi, ``Category``
 e ``Product``, con una relazione naturale uno-a-molti. La classe ``Category``
-contiene un array di oggetti ``Product`` e l'ogetto ``Product`` può contenere un
+contiene un array di oggetti ``Product`` e l'oggetto ``Product`` può contenere un
 oggetto ``Category``. In altre parole, la classe è stata costruita in un modo che ha
 senso per le proprie necessità. Il fatto che i dati necessitino di essere persistiti
 su un database è sempre secondario.
@@ -1210,6 +1260,8 @@ Ogni campo può avere un insieme di opzioni da applicare. Le opzioni disponibili
 includono ``type`` (predefinito ``string``), ``name``, ``length``, ``unique``
 e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 
+.. configuration-block::
+
 .. code-block:: php-annotations
 
     /**
@@ -1227,6 +1279,23 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
      * @ORM\Column(name="email_address", unique="true", length="150")
      */
     protected $email;
+
+    .. code-block:: yaml
+
+        fields:
+            # Un campo stringa con lunghezza 255 che non può essere nullo
+            # (riflette i valori predefiniti per le opzioni "type", "length" e *nullable*)
+            # l'attributo type è necessario nelle definizioni yaml
+            name:
+                type: string
+
+            # Un campo stringa con lunghezza 150 che persiste su una colonna "email_address"
+            # e ha un vincolo di unicità.
+            email:
+                type: string
+                column: email_address
+                length: 150
+                unique: true
 
 .. note::
 
@@ -1267,7 +1336,7 @@ Alcuni task interessanti sono:
   
     php app/console doctrine:ensure-production-settings --env=prod
 
-* ``doctrine:mapping:import`` - conenste a Doctrine l'introspezione di un database
+* ``doctrine:mapping:import`` - consente a Doctrine l'introspezione di un database
   esistente e di creare quindi le informazioni di mappatura. Per ulteriori informazioni,
   vedere :doc:`/cookbook/doctrine/reverse_engineering`.
 

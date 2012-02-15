@@ -50,7 +50,7 @@ un ascoltatore potrebbe assomigliare a questo:
     public function onFooPostSend(FilterSendReturnValue $event)
     {
         $ret = $event->getReturnValue();
-        // modifica il valore originario di ``$ret``
+        // modifica il valore originario di $ret
 
         $event->setReturnValue($ret);
     }

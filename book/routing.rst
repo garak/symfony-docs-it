@@ -792,7 +792,7 @@ speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
 .. index::
    single: Rotte; Controllori
-   single: Controller; Formato dei nomi delle stringhe
+   single: Controllore; Formato dei nomi delle stringhe
 
 .. _controller-string-syntax:
 
@@ -930,7 +930,7 @@ essere fatto "importando" il file:
 .. note::
 
    Quando si importano le risorse in formato YAML, la chiave (ad esempio ``acme_hello``) non ha senso.
-   Basta essere sicuri che sia unica, in modo che nessun altra linea la sovrascriva.
+   Basta essere sicuri che sia unica, in modo che nessun'altra linea la sovrascriva.
 
 La chiave ``resource`` carica la data risorsa di rotte. In questo esempio
 la risorsa è il percorso completo di un file, dove la sintassi scorciatoia

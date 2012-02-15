@@ -30,12 +30,14 @@ Si supponga di avere un ``AcmeUserBundle`` con un entità ``User``, che ha un ca
 
         // Acme/UserBundle/Entity/User.php
         use Symfony\Component\Validator\Constraints as Assert;
-        use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
         use Doctrine\ORM\Mapping as ORM;
+
+        // NON dimenticare questa istruzione!!!
+        use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
         /**
          * @ORM\Entity
-         * @DoctrineAssert\UniqueEntity("email")
+         * @UniqueEntity("email")
          */
         class Author
         {
@@ -53,8 +55,24 @@ Si supponga di avere un ``AcmeUserBundle`` con un entità ``User``, che ha un ca
     .. code-block:: yaml
 
         # src/Acme/UserBundle/Resources/config/validation.yml
-        vincoli:
-            - UniqueEntity: email
+        Acme\UserBundle\Entity\Author:
+            constraints:
+                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+            properties:
+                email:
+                    - Email: ~
+
+    .. code-block:: xml
+
+        <class name="Acme\UserBundle\Entity\Author">
+            <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+                <option name="fields">email</option>
+                <option name="message">This email already exists.</option>
+            </constraint>
+             <property name="email">
+                <constraint name="Email" />
+            </property>
+        </class>
 
 Opzioni
 -------

@@ -142,7 +142,7 @@ Si possono usare questi ruoli, oltre a quelli espliciti, per controllare l'acces
 Si possono usare questi ruoli addizionali per affinare il controllo sugli accessi a parti
 di un sito. Per esempio, si potrebbe desiderare che l'utente sia in grado di vedere il
 suo account in ``/account`` se autenticato con cookie, ma che debba fornire le sue
-informazioni di accesso per poterlo modificare. Lo si può fare mettendo in sicurezza
+informazioni di accesso per poterlo modificare. Lo si può fare proteggendo
 specifiche azioni del controllore, usando questi ruoli. L'azione di modifica del
 controllore potrebbe essere messa in sicurezza usando il contesto del servizio. 
 

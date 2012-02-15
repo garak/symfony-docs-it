@@ -23,7 +23,7 @@ Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mo
 
 L'obiettivo di un controllore è sempre lo stesso: creare e restituire un oggetto
 ``Response``. Lungo il percorso, potrebbe leggere le informazioni dalla richiesta, caricare una
-risorsa da un database, inviare una e-mail, o impostare informazioni sulla sessione dell'utente.
+risorsa da un database, inviare un'email, o impostare informazioni sulla sessione dell'utente.
 Ma in ogni caso, il controllore alla fine restituirà un oggetto ``Response``
 che verrà restituito al client.
 	
@@ -41,7 +41,7 @@ esempi comuni:
 * Il *controllore C* gestisce l'invio di un form contatti. Legge le
   informazioni del form dalla richiesta, salva le informazioni del contatto nel
   database ed invia una email con le informazioni del contatto al webmaster. Infine,
-  crea un oggetto ``Response``che reindirizza il browser del client
+  crea un oggetto ``Response`` che reindirizza il browser del client
   alla pagina di ringraziamento del form contatti.
 
 .. index::
@@ -643,7 +643,7 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
     }
 
 Dopo l'elaborazione della richiesta, il controllore imposta un messaggio flash ``notice``
-e poi reindirizza. Il nome (``notice``) non è significativo - è solo quello che
+e poi reindirizza. Il nome (``notice``) non è significativo, è solo quello che
 si utilizza per identificare il tipo del messaggio.
 
 Nel template dell'azione successiva, il seguente codice può essere utilizzato per rendere

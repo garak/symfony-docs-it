@@ -64,6 +64,8 @@ Riferimento configurazione
                                 test_numeric: Acme\HelloBundle\DQL\NumericFunction
                             datetime_functions:
                                 test_datetime: Acme\HelloBundle\DQL\DatetimeFunction
+                        hydrators:
+                            custom: Acme\HelloBundle\Hydrators\CustomHydrator
                     em2:
                         # ...
 

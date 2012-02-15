@@ -93,7 +93,7 @@ query_builder
 
 Se specificato, è usato per cercare un sotto-insieme di opzioni (e il loro
 ordina) che dovrebbero essere usate per il campo. Il valore di questa opzione
-puà essere un oggetto ``QueryBuilder`` oppure una closure. Se su usa una closure,
+può essere un oggetto ``QueryBuilder`` oppure una closure. Se su usa una closure,
 dovrebbe accettare un singolo parametro, che è l'``EntityRepository``
 dell'entità.
 

@@ -100,7 +100,9 @@ Struttura
 
 * Usare stringhe maiuscole per le costanti, con parole separate da trattini bassi;
 
-* Definire una classe per file;
+* Definire una classe per file (non si applica a classi private di helper
+  che non devono essere istanziate dall'esterno e quindi esulano dallo
+  standard PSR-0);
 
 * Dichiarare le proprietà di una classe prima dei metodi;
 

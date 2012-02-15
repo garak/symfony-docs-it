@@ -510,8 +510,8 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
     cartella ``vendor/``.
 
     Grazie all'autoloader, non si avrà mai bisogno di usare le istruzioni ``include``
-    o ``require``. Al posto loro, Symfony2 usa il namespace di una classe per
-    determinare la sua locazione e includere automaticamente il file al posto
+    o ``require``. Al posto loro, Symfony2 usa lo spazio dei nomi di una classe per
+    determinare la sua posizione e includere automaticamente il file al posto
     nostro, nel momento in cui la classe è necessaria.
 
     L'autoloader è già configurato per cercare nella cartella ``src/``

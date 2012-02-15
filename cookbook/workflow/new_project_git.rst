@@ -77,42 +77,13 @@ di più su come configurare e sviluppare la propria applicazione.
     Symfony2 Standard Edition è distribuito con alcuni esempi di funzionamento. Per
     rimuovere il codice di esempio, seguire le istruzioni nel file `Readme di Standard Edition`_.
 
-Gestire le librerie dei venditori
----------------------------------
+.. _cookbook-managing-vendor-libraries:
 
-Ogni progetto Symfony usa un nutrito gruppo di librerie di "venditori" di terze parti.
+.. include:: _vendor_deps.rst.inc
 
-Per impostazione predefinita, tali librerie sono scaricate tramite lo script ``php bin/vendors install``.
-Tale script legge il file ``deps`` e scarica le librerie specificate nella cartella
-``vendor/``. Legge anche il file ``deps.lock``, facendo puntare ogni libreria al
-relativo commit di git.
-
-In questa preparazione, le librerie dei venditori non sono parte del proprio repository git,
-nemmeno come sotto-moduli. Ci si basa invece sui file ``deps`` e ``deps.lock`` e sullo
-script ``bin/vendors`` per gestire tutto. Questi file sono parte del proprio repository,
-quindi le versioni necessarie di ogni libreria di terze parti sono versionate in git
-e si può usare lo script per mantenere il proprio progetto
-aggiornato.
-
-Ogni volta che uno sviluppatore clona un progetto, deve eseguire lo script ``php bin/vendors install``
-per assicurarsi che tutte le necessarie librerie dei venditori siano scaricate.
-
-.. sidebar:: Aggiornare Symfony
-
-    Poiché Symfony non è altro che un gruppo di librerie di terze parti, controllate
-    interamente tramite i file ``deps`` e ``deps.lock``,
-    aggiornare Symfony significa semplicemente aggiornare ciascuno di questi file,
-    per far corrispondere il loro stato all'ultima versione di Symfony Standard Edition.
-
-    Ovviamente, se si aggiungono nuove voci a ``deps`` o a ``deps.lock``, ci si deve
-    assicurare di sostituire solo le parti originali (ovvero assicurarsi di non
-    cancellare nessuna delle voci personalizzate).
-
-.. caution::
-
-    C'è anche un comando ``php bin/vendors upgrade``, ma non ha niente a che fare con
-    l'aggiornamento del proprio progetto e probabilmente non si avrà mai bisogno di
-    usarlo.
+    Inoltre, se si vuole semplicemente aggiornare il file ``deps.lock`` con
+    ciò che è stato appena installato, si può eseguire ``php bin/vendors lock``,
+    per memorizzare gli appropriati identificatori SHA di git nel file ``deps.lock``.
 
 Venditori e sotto-moduli
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,7 +108,7 @@ pagare mensilmente.
 
 In alternativa, si può ospitare un proprio repository git su un qualsiasi server, creando
 un `repository privato`_ e usando quello. Una libreria che può aiutare in tal senso
-è `Gitosis`_.
+è `Gitolite`_.
 
 .. _`git`: http://git-scm.com/
 .. _`Symfony2 Standard Edition`: http://symfony.com/download
@@ -145,4 +116,4 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 .. _`sotto-moduli di git`: http://book.git-scm.com/5_submodules.html
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://progit.org/book/ch4-4.html
-.. _`Gitosis`: https://github.com/res0nat0r/gitosis
+.. _`Gitolite`: https://github.com/sitaramc/gitolite

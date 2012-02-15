@@ -10,6 +10,7 @@ dove possono essere tradotti e convertiti in base alle impostazioni internaziona
 lingua e paese). Per il testo, questo significa che ognuno viene avvolto con una funzione
 capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
 
+
     // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
 
@@ -154,7 +155,7 @@ Per tradurre il messaggio, Symfony2 utilizza un semplice processo:
 * Un catalogo di messaggi tradotti viene caricato dalle risorse di traduzione definite
   per il ``locale`` (ad es. ``fr_FR``). Vengono anche caricati i messaggi dal locale predefinito
   e aggiunti al catalogo, se non esistono già. Il risultato
-  finale è un grande "dizionario" di traduzioni. Vedere i `Cataloghi dei messaggi`_
+  finale è un grande "dizionario" di traduzioni. Vedere i `Cataloghi di messaggi`_
   per maggiori dettagli;
 
 * Se il messaggio si trova nel catalogo, viene restituita la traduzione. Se
@@ -286,14 +287,14 @@ Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
   trovarsi nella cartella ``Resources/translations/`` del bundle;
 
 * Per sovrascrivere eventuali traduzioni del bundle, posizionare i file con i messaggi
-  nella cartella``app/Resources/translations``.
+  nella cartella ``app/Resources/translations``.
 
 È importante anche il nome del file con le traduzioni, perché Symfony2 utilizza una convenzione
 per determinare i dettagli sulle traduzioni. Ogni file con i messaggi deve essere nominato
 secondo il seguente schema: ``domain.locale.loader``:
 
 * **domain**: Un modo opzionale per organizzare i messaggi in gruppi (ad esempio ``admin``,
-  ``navigazione`` o il predefinito ``messaggi``) - vedere `Uso dei domini per i messaggi`_;
+  ``navigation`` o il predefinito ``messages``) - vedere `Uso dei domini per i messaggi`_;
 
 * **locale**: Il locale per cui sono state scritte le traduzioni (ad esempio ``en_GB``, ``en``, ecc.);
 
@@ -324,10 +325,12 @@ di gusti.
 Creazione delle traduzioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+La creazione di file di traduzione è una parte importante della "localizzazione" (spesso abbreviata in `L10n`_).
 Ogni file è costituito da una serie di coppie id-traduzione per il dato dominio e
 locale. L'id è l'identificativo di una traduzione individuale e può
 essere il messaggio nel locale principale (ad es. "Symfony is great") dell'applicazione
 o un identificatore univoci (ad es. "symfony2.great" - vedere la barra laterale di seguito):
+
 
 .. configuration-block::
 
@@ -461,7 +464,7 @@ Come abbiamo visto, i file dei messaggi sono organizzati nei diversi locale che
 vanno a tradurre. I file dei messaggi possono anche essere organizzati in "domini".
 Quando si creano i file dei messaggi, il dominio è la prima parte del nome del file.
 Il dominio predefinito è ``messages``. Per esempio, supponiamo che, per organizzarle al meglio,
-le traduzioni sono state divise in tre diversi domini: ``messages``, ``admin``
+le traduzioni siano state divise in tre diversi domini: ``messages``, ``admin``
 e ``navigation``. La traduzione francese avrebbe i seguenti file
 per i messaggi:
 
@@ -673,7 +676,7 @@ stesse nel messaggio originale e in quello tradotto.
 
 .. tip:
 
-    Essendo che le etichette sono opzionali, il traduttore non le utilizza (il traduttore
+    Essendo le etichette opzionali, il traduttore non le utilizza (il traduttore
     otterrà solo una stringa basata sulla sua posizione nella stringa).
 
 Intervallo di pluralizzazione esplicito
@@ -860,6 +863,8 @@ passi:
 * Gestire il locale dell'utente, che è memorizzato nella richiesta, ma può
   anche essere memorizzato nella sessione.
 
+.. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
+.. _`L10n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
 .. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
 .. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions

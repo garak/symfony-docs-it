@@ -1,7 +1,7 @@
 .. index::
-   single: Emails
+   single: Email
 
-Come spedire una email
+Come spedire un'email
 =====================
 
 Spedire le email è un delle azioni classiche di ogni applicazione web ma 
@@ -93,12 +93,12 @@ Sono disponibili i seguenti parametri di configurazione:
 * ``disable_delivery``  (impostare a true per disabilitare completamente l'invio)
 
 L'invio delle email
-------------------
+-------------------
 
 Per lavorare con la libreria Swiftmailer dovrete creare, configurare e quindi 
 spedire oggetti di tipo ``Swift_Message``. Il "mailer" è il vero responsabile 
 dell'invio dei messaggi ed è accessibile tramite il servizio ``mailer``. 
-In generale, spedire una email è abbastanza intuitivo::
+In generale, spedire un'email è abbastanza intuitivo::
 
     public function indexAction($name)
     {

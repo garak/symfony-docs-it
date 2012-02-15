@@ -13,7 +13,7 @@ L'annotazione ``@Template`` associa un controllore con un nome di template::
      */
     public function showAction($id)
     {
-        // get the Post
+        // prendere il Post
         $post = ...;
 
         return array('post' => $post);
@@ -34,7 +34,7 @@ precedente, si può anche omettere il valore nell'annotazione::
      */
     public function showAction($id)
     {
-        // get the Post
+        // prendere il Post
         $post = ...;
 
         return array('post' => $post);

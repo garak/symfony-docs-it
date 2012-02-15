@@ -48,7 +48,7 @@ lo schema HTTP attraverso il requisito ``_scheme``:
 
 La configurazione sopra forza la rotta ``secure`` a utilizzare sempre HTTPS.
 
-Quando si genera l'URL `secure`` e se lo schema corrente è HTTP, Symfony
+Quando si genera l'URL ``secure`` e se lo schema corrente è HTTP, Symfony
 genererà automaticamente un URL assoluto con HTTPS come schema:
 
 .. code-block:: text

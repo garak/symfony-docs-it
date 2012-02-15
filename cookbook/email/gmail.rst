@@ -1,10 +1,10 @@
 .. index::
-   single: Emails; Gmail
+   single: Email; Gmail
 
-Come usare Gmail per l'invio delle mail
-=======================================
+Come usare Gmail per l'invio delle email
+========================================
 
-In fase di sviluppo, invece di utilizzare un normale server SMTP per l'invio delle mail, 
+In fase di sviluppo, invece di utilizzare un normale server SMTP per l'invio delle email, 
 potrebbe essere più semplice e pratico usare Gmail. Il bundle Swiftmailer ne rende 
 facilissimo l'utilizzo.
 
@@ -14,7 +14,7 @@ facilissimo l'utilizzo.
     crearne uno da usare appositamente per questo scopo.
 
 Nel file di configurazione dell'ambiente di sviluppo, si assegna al parametro ``transport`` 
-l'ozione ``gmail`` e ai parametri ``username`` e ``password le credenziali dell'account di Google:
+l'ozione ``gmail`` e ai parametri ``username`` e ``password`` le credenziali dell'account di Google:
 
 .. configuration-block::
 

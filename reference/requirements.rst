@@ -37,13 +37,14 @@ Opzionali
 * APC 3.0.17+ (o un'altra cache di opcode) deve essere installato
 * Impostazioni raccomandate di php.ini
 
-    * short_open_tags: off
-    * magic_quotes_gpc: off
-    * register_globals: off
-    * session.autostart: off
+    * ``short_open_tag = Off``
+    * ``magic_quotes_gpc = Off``
+    * ``register_globals = Off``
+    * ``session.autostart = Off``
     
 Doctrine
 --------
 
 Se si vuole usare Doctrine, bisogna avere PDO installato. Inoltre, bisogna avere
-installato il driver PDO per il database che si vuole utilizzare.
+installato il driver PDO per il database che si vuole
+utilizzare.

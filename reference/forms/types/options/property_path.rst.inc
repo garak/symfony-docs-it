@@ -9,3 +9,6 @@ Quando il form è inviato, il valore immesso è scritto nell'oggetto.
 Se si vuole sovrascrivere la proprietà che un campo legge e scrive,
 si può impostare l'opzione ``property_path``. Il suo valore predefinito è
 il nome del campo.
+
+Se si vuole che il campo sia ignorato in lettura o in scrittura dell'oggetto,
+si può impostare l'opzione ``property_path`` a ``false``

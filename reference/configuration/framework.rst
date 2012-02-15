@@ -90,6 +90,8 @@ caricati i servizi correlati ai test della propria applicazione (p.e. ``test.cli
 Questa impostazione dovrebbe essere presete nel proprio ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
+.. _reference-framework-form:
+
 form
 ~~~~
 
@@ -248,6 +250,8 @@ Configurazione predefinita completa
             secret:               ~ # Required
             ide:                  ~
             test:                 ~
+            default_locale:       en
+            trust_proxy_headers:  false
 
             # form configuration
             form:
@@ -283,7 +287,6 @@ Configurazione predefinita completa
             # session configuration
             session:
                 auto_start:           ~
-                default_locale:       en
                 storage_id:           session.storage.native
                 name:                 ~
                 lifetime:             86400

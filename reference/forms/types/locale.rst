@@ -16,7 +16,6 @@ dal codice del *paese* ISO3166 (p.e. ``it_IT`` per Italiano/Italia).
 
    Il locale dell'utente è indovinato tramite `Locale::getDefault()`_
 
-
 Diversamente dal tipo ``choice``, non occorre specificare l'opzione
 ``choices`` o ``choice_list``, perché il tipo di campo usa automaticamente la lista
 dei locale. Si *può* specificare una di queste opzioni manualmente, ma allora si

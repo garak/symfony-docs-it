@@ -102,8 +102,7 @@ type
 
 Il metodo usato per memorizzare i messagi nello spool. Attualmente è supportato
 solo ``file``. Tuttavia, si dovrebbe poter creare uno spool personalizzato,
-creando un servizio di nome ``swiftmailer.spool.mio_spool`` e impostando questo
-valore a ``mio_spool``.
+creando un servizio di nome ``swiftmailer.spool.mio_spool`` e impostando questo valore a ``mio_spool``.
 
 path
 ....

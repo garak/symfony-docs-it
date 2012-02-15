@@ -121,7 +121,7 @@ apparirà nella barra mostrando quante email sono state spedite. Cliccandoci
 sopra, un report mostrerà il dettaglio delle email inviate.
 
 Se si invia un'email e immediatamente si esegue un redirect a un'altra pagina,
-la web debug toolbar non mostrerà né l'icona delle email né alcun report
+la barra di debug del web non mostrerà né l'icona delle email né alcun report
 nella pagina finale.
 
 È però possibile, configurando a ``true`` l'opzione ``intercept_redirects`` nel 

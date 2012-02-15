@@ -99,7 +99,6 @@ propri progetti.
     Se si vuole approfondire l'argomento flessibilità dell'autoloader di Symfony2,
     si può leggere la ricetta ":doc:`/cookbook/tools/autoloader`".
 
-
 Capire il sistema dei bundle
 ----------------------------
 
@@ -163,10 +162,12 @@ XML o PHP. Si veda la configurazione predefinita:
 
     # app/config/config.yml
     imports:
-        - { resource: parameters.ini }
+        - { resource: parameters.yml }
         - { resource: security.yml }
 
     framework:
+        #esi:             ~
+        #translator:      { fallback: %locale% }
         secret:          %secret%
         charset:         UTF-8
         router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -174,8 +175,8 @@ XML o PHP. Si veda la configurazione predefinita:
         csrf_protection: true
         validation:      { enable_annotations: true }
         templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+        default_locale:  %locale%
         session:
-            default_locale: %locale%
             auto_start:     true
 
     # Configurazione di Twig
@@ -187,6 +188,8 @@ XML o PHP. Si veda la configurazione predefinita:
     assetic:
         debug:          %kernel.debug%
         use_controller: false
+        bundles:        [ ]
+        # java: /usr/bin/java
         filters:
             cssrewrite: ~
             # closure:
@@ -199,6 +202,7 @@ XML o PHP. Si veda la configurazione predefinita:
         dbal:
             driver:   %database_driver%
             host:     %database_host%
+            port:     %database_port%
             dbname:   %database_name%
             user:     %database_user%
             password: %database_password%
@@ -363,5 +367,5 @@ imparare diverse cose per padroneggiare Symfony2. Pronti per approfondire questi
 temi? Senza indugi, basta andare nella pagine del :doc:`libro</book/index>` e
 scegliere un argomento a piacere.
 
-.. _standard:    http://groups.google.com/group/php-standards/web/psr-0-final-proposal
-.. _convenzione: http://pear.php.net/
+.. _standard:     http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+.. _convenzione:  http://pear.php.net/

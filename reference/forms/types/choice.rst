@@ -101,6 +101,8 @@ questa interfaccia e fornisca le scelte.
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+
 Opzioni ereditate
 -----------------
 

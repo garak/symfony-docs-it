@@ -36,9 +36,20 @@ Preparazione
 
         # src/Acme/BlogBundle/Resources/config/validation.yml
         Acme\BlogBundle\Entity\Author:
-            vincoli:
+            constraints:
                 - Callback:
                     methods:   [isAuthorValid]
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <constraint name="Callback">
+                <option name="methods">
+                    <value>isAuthorValid</value>
+                </option>
+            </constraint>
+        </class>
 
     .. code-block:: php-annotations
 
@@ -107,7 +118,7 @@ Ogni metodo può avere uno dei seguenti formati:
 
             # src/Acme/BlogBundle/Resources/config/validation.yml
             Acme\BlogBundle\Entity\Author:
-                vincoli:
+                constraints:
                     - Callback:
                         methods:
                             -    [Acme\BlogBundle\MyStaticValidatorClass, isAuthorValid]

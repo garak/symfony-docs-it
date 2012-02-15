@@ -495,7 +495,7 @@ recuperare facilmente oggetti in base a condizioni multiple::
 .. tip::
 
     Quando si rende una pagina, si può vedere il numero di query eseguite nell'angolo
-    inferiore destro della barra di web debug.
+    inferiore destro della barra di debug del web.
 
     .. image:: /images/book/doctrine_web_debug_toolbar.png
        :align: center
@@ -676,7 +676,7 @@ Classi repository personalizzate
 Nelle sezioni precedenti, si è iniziato costruendo e usando query più complesse da
 dentro un controllore. Per isolare, testare e riusare queste query, è una buona idea
 creare una classe repository personalizzata per la propria entità e aggiungere
-metodi cone la propria logica di query al suo interno.
+metodi, come la propria logica di query, al suo interno.
 
 Per farlo, aggiungere il nome della classe del repository alla propria definizione di mappatura.
 
@@ -718,7 +718,7 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
         </doctrine-mapping>
 
 Doctrine può generare la classe repository per noi, eseguendo lo stesso comando
-usato precedentemente per generare i metodi getter e setter mancanto:
+usato precedentemente per generare i metodi getter e setter mancanti:
 
 .. code-block:: bash
 
@@ -887,7 +887,7 @@ setter:
 
 Ignoriamo per un momento i meta-dati di Doctrine. Abbiamo ora due classi, ``Category``
 e ``Product``, con una relazione naturale uno-a-molti. La classe ``Category``
-contiene un array di oggetti ``Product`` e l'ogetto ``Product`` può contenere un
+contiene un array di oggetti ``Product`` e l'oggetto ``Product`` può contenere un
 oggetto ``Category``. In altre parole, la classe è stata costruita in un modo che ha
 senso per le proprie necessità. Il fatto che i dati necessitino di essere persistiti
 su un database è sempre secondario.
@@ -1336,7 +1336,7 @@ Alcuni task interessanti sono:
   
     php app/console doctrine:ensure-production-settings --env=prod
 
-* ``doctrine:mapping:import`` - conenste a Doctrine l'introspezione di un database
+* ``doctrine:mapping:import`` - consente a Doctrine l'introspezione di un database
   esistente e di creare quindi le informazioni di mappatura. Per ulteriori informazioni,
   vedere :doc:`/cookbook/doctrine/reverse_engineering`.
 

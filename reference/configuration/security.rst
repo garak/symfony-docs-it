@@ -23,6 +23,9 @@ Ogni parte sarà spiegata nella prossima sezione.
 
             always_authenticate_before_granting: false
 
+            # se richiamare eraseCredentials sul token
+            erase_credentials: true
+
             # la strategia può essere: none, migrate, invalidate
             session_fixation_strategy: migrate
 
@@ -58,12 +61,12 @@ Ogni parte sarà spiegata nella prossima sezione.
                     id: my.custom.encoder.service.id
 
             providers:
-                memory:
-                    name: memory
-                    users:
-                        foo: { password: foo, roles: ROLE_USER }
-                        bar: { password: bar, roles: [ROLE_USER, ROLE_ADMIN] }
-                entity:
+                memory_provider_name:
+                    memory:
+                        users:
+                            foo: { password: foo, roles: ROLE_USER }
+                            bar: { password: bar, roles: [ROLE_USER, ROLE_ADMIN] }
+                entity_provider_name:
                     entity: { class: SecurityBundle:User, property: username }
 
             factories:
@@ -76,15 +79,15 @@ Ogni parte sarà spiegata nella prossima sezione.
                     access_denied_url: /foo/error403
                     access_denied_handler: some.service.id
                     entry_point: some.service.id
-                    provider: name
+                    provider: nome_di_un_provider_di_cui_sopra
                     context: name
                     stateless: false
                     x509:
-                        provider: name
+                        provider: nome_di_un_provider_di_cui_sopra
                     http_basic:
-                        provider: name
+                        provider: nome_di_un_provider_di_cui_sopra
                     http_digest:
-                        provider: name
+                        provider: nome_di_un_provider_di_cui_sopra
                     form_login:
                         check_path: /login_check
                         login_path: /login
@@ -100,7 +103,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                         username_parameter: _username
                         password_parameter: _password
                         csrf_parameter: _csrf_token
-                        csrf_page_id: form_login
+                        intention: authenticate
                         csrf_provider: my.csrf_provider.id
                         post_only: true
                         remember_me: false

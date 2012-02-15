@@ -643,7 +643,7 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
     }
 
 Dopo l'elaborazione della richiesta, il controllore imposta un messaggio flash ``notice``
-e poi reindirizza. Il nome (``notice``) non è significativo - è solo quello che
+e poi reindirizza. Il nome (``notice``) non è significativo, è solo quello che
 si utilizza per identificare il tipo del messaggio.
 
 Nel template dell'azione successiva, il seguente codice può essere utilizzato per rendere

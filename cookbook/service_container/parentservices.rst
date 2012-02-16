@@ -1,57 +1,57 @@
-How to Manage Common Dependencies with Parent Services
-======================================================
+Come gestire le dipendenza comuni con i servizi padre
+=====================================================
 
-As you add more functionality to your application, you may well start to have
-related classes that share some of the same dependencies. For example you
-may have a Newsletter Manager which uses setter injection to set its dependencies::
+Aggiungendo funzionalità all'applicazione si può arrivare ad un punto in cui
+classi tra loro collegate condividano alcune dipendenze. Si potrebbe avere, ad esempio,
+un Gestore Newsletter che usa un setter injection per configurare le proprie dipendenze::
 
     namespace Acme\HelloBundle\Mail;
 
     use Acme\HelloBundle\Mailer;
-    use Acme\HelloBundle\EmailFormatter;
+    use Acme\HelloBundle\FormattatoreMail;
 
-    class NewsletterManager
+    class GestoreNewsletter
     {
         protected $mailer;
-        protected $emailFormatter;
+        protected $formattatoreMail;
 
         public function setMailer(Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
 
-        public function setEmailFormatter(EmailFormatter $emailFormatter)
+        public function setFormattatoreMail(FormattatoreMail $formattatoreMail)
         {
-            $this->emailFormatter = $emailFormatter;
+            $this->formattatoreMail = $formattatoreMail;
         }
         // ...
     }
 
-and also a Greeting Card class which shares the same dependencies::
+ed una classe Cartolina che condivide le stesse dipendenze::
 
     namespace Acme\HelloBundle\Mail;
 
     use Acme\HelloBundle\Mailer;
-    use Acme\HelloBundle\EmailFormatter;
+    use Acme\HelloBundle\FormattatoreMail;
 
-    class GreetingCardManager
+    class GestoreCartoline
     {
         protected $mailer;
-        protected $emailFormatter;
+        protected $formattatoreMail;
 
         public function setMailer(Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
 
-        public function setEmailFormatter(EmailFormatter $emailFormatter)
+        public function setFormattatoreMail(FormattatoreMail $formattatoreMail)
         {
-            $this->emailFormatter = $emailFormatter;
+            $this->formattatoreMail = $formattatoreMail;
         }
         // ...
     }
 
-The service config for these classes would look something like this:
+La configurazione del servizio per queste classi sarà simile alla seguente:
 
 .. configuration-block::
 
@@ -60,55 +60,55 @@ The service config for these classes would look something like this:
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            newsletter_manager.class: Acme\HelloBundle\Mail\NewsletterManager
-            greeting_card_manager.class: Acme\HelloBundle\Mail\GreetingCardManager
+            gestore_newsletter.class: Acme\HelloBundle\Mail\GestoreNewsletter
+            gestore_cartoline.class: Acme\HelloBundle\Mail\GestoreCartoline
         services:
-            my_mailer:
+            mio_mailer:
                 # ...
-            my_email_formatter:
+            mio_formattatore_mail:
                 # ...
-            newsletter_manager:
-                class:     %newsletter_manager.class%
+            gestore_newsletter:
+                class:     %gestore_newsletter.class%
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [ setMailer, [ @mio_mailer ] ]
+                    - [ setFormattatoreMail, [ @mio_formattatore_mail] ]
 
-            greeting_card_manager:
-                class:     %greeting_card_manager.class%
+            gestore_cartoline:
+                class:     %gestore_cartoline.class%
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [ setMailer, [ @mio_mailer ] ]
+                    - [ setFormattatoreMail, [ @mio_formattatore_mail] ]
 
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Mail\NewsletterManager</parameter>
-            <parameter key="greeting_card_manager.class">Acme\HelloBundle\Mail\GreetingCardManager</parameter>
+            <parameter key="gestore_newsletter.class">Acme\HelloBundle\Mail\GestoreNewsletter</parameter>
+            <parameter key="gestore_cartoline.class">Acme\HelloBundle\Mail\GestoreCartoline</parameter>
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="mio_mailer" ... >
               <!-- ... -->
             </service>
-            <service id="my_email_formatter" ... >
+            <service id="mio_formattatore_mail" ... >
               <!-- ... -->
             </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
+            <service id="gestore_newsletter" class="%gestore_newsletter.class%">
                 <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
+                     <argument type="service" id="mio_mailer" />
                 </call>
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
+                <call method="setFormattatoreMail">
+                     <argument type="service" id="mio_formattatore_mail" />
                 </call>
             </service>
-            <service id="greeting_card_manager" class="%greeting_card_manager.class%">
+            <service id="gestore_cartoline" class="%gestore_cartoline.class%">
                 <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
+                     <argument type="service" id="mio_mailer" />
                 </call>
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
+                <call method="setFormattatoreMail">
+                     <argument type="service" id="mio_formattatore_mail" />
                 </call>
             </service>
         </services>
@@ -120,61 +120,61 @@ The service config for these classes would look something like this:
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Mail\NewsletterManager');
-        $container->setParameter('greeting_card_manager.class', 'Acme\HelloBundle\Mail\GreetingCardManager');
+        $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Mail\GestoreNewsletter');
+        $container->setParameter('gestore_cartoline.class', 'Acme\HelloBundle\Mail\GestoreCartoline');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
-        $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%'
+        $container->setDefinition('mio_mailer', ... );
+        $container->setDefinition('mio_formattatore_mail', ... );
+        $container->setDefinition('gestore_newsletter', new Definition(
+            '%gestore_newsletter.class%'
         ))->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
+            new Reference('mio_mailer')
+        ))->addMethodCall('setFormattatoreMail', array(
+            new Reference('mio_formattatore_mail')
         ));
-        $container->setDefinition('greeting_card_manager', new Definition(
-            '%greeting_card_manager.class%'
+        $container->setDefinition('gestore_cartoline', new Definition(
+            '%gestore_cartoline.class%'
         ))->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
+            new Reference('mio_mailer')
+        ))->addMethodCall('setFormattatoreMail', array(
+            new Reference('mio_formattatore_mail')
         ));
 
-There is a lot of repetition in both the classes and the configuration. This
-means that if you changed, for example, the ``Mailer`` of ``EmailFormatter``
-classes to be injected via the constructor, you would need to update the config
-in two places. Likewise if you needed to make changes to the setter methods
-you would need to do this in both classes. The typical way to deal with the
-common methods of these related classes would be to extract them to a super class::
+Ci sono molte ripetizioni sia nelle classi che nella configurazione. Quasto vuol dire
+che se qualcosa viene cambiato, ad esempio le classi ``Mailer`` o ``FormattatoreMail``
+che dovranno essere iniettate tramite il costruttore, sarà necessario modificare
+la configurazione in due posti. Altrettanto se si volesse modificare il metodo setter
+sarebbe necessario modificare entrambe le classi. Il tipico modo di gestire
+i metodi comuni di queste classi sarebbe quello di far si che estendano una comune super classe::
 
     namespace Acme\HelloBundle\Mail;
 
     use Acme\HelloBundle\Mailer;
-    use Acme\HelloBundle\EmailFormatter;
+    use Acme\HelloBundle\FormattatoreMail;
 
-    abstract class MailManager
+    abstract class GestoreMail
     {
         protected $mailer;
-        protected $emailFormatter;
+        protected $formattatoreMail;
 
         public function setMailer(Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
 
-        public function setEmailFormatter(EmailFormatter $emailFormatter)
+        public function setFormattatoreMail(EmailFormatter $formattatoreMail)
         {
-            $this->emailFormatter = $emailFormatter;
+            $this->formattatoreMail = $formattatoreMail;
         }
         // ...
     }
 
-The ``NewsletterManager`` and ``GreetingCardManager`` can then extend this
-super class::
+Le classi ``GestoreNewsletter`` e ``GestoreCartoline`` potranno estendere questa
+super classe::
 
     namespace Acme\HelloBundle\Mail;
 
-    class NewsletterManager extends MailManager
+    class GestoreNewsletter extends GestoreMail
     {
         // ...
     }
@@ -183,14 +183,14 @@ and::
 
     namespace Acme\HelloBundle\Mail;
 
-    class GreetingCardManager extends MailManager
+    class GestoreCartoline extends GestoreMail
     {
         // ...
     }
 
-In a similar fashion, the Symfony2 service container also supports extending
-services in the configuration so you can also reduce the repetition by specifying
-a parent for a service.
+Allo stesso modo, il contenitore di servizi di Symfony2 supporta la possibilità
+di estendere i servizi nella configurazione in modo da poter ridurre le ripetizioni
+specificando un serizio genitore.
 
 .. configuration-block::
 
@@ -199,56 +199,56 @@ a parent for a service.
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            newsletter_manager.class: Acme\HelloBundle\Mail\NewsletterManager
-            greeting_card_manager.class: Acme\HelloBundle\Mail\GreetingCardManager
-            mail_manager.class: Acme\HelloBundle\Mail\MailManager
+            gestore_newsletter.class: Acme\HelloBundle\Mail\GestoreNewsletter
+            gestore_cartoline.class: Acme\HelloBundle\Mail\GestoreCartoline
+            gestore_mail.class: Acme\HelloBundle\Mail\GestoreMail
         services:
-            my_mailer:
+            mio_mailer:
                 # ...
-            my_email_formatter:
+            mio_formattatore_mail:
                 # ...
-            mail_manager:
-                class:     %mail_manager.class%
+            gestore_mail:
+                class:     %gestore_mail.class%
                 abstract:  true
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [ setMailer, [ @mio_mailer ] ]
+                    - [ setFormattatoreMail, [ @mio_formattatore_mail] ]
             
-            newsletter_manager:
-                class:     %newsletter_manager.class%
-                parent: mail_manager
+            gestore_newsletter:
+                class:     %gestore_newsletter.class%
+                parent: gestore_mail
             
-            greeting_card_manager:
-                class:     %greeting_card_manager.class%
-                parent: mail_manager
+            gestore_cartoline:
+                class:     %gestore_cartoline.class%
+                parent: gestore_mail
             
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Mail\NewsletterManager</parameter>
-            <parameter key="greeting_card_manager.class">Acme\HelloBundle\Mail\GreetingCardManager</parameter>
-            <parameter key="mail_manager.class">Acme\HelloBundle\Mail\MailManager</parameter>
+            <parameter key="gestore_newsletter.class">Acme\HelloBundle\Mail\GestoreNewsletter</parameter>
+            <parameter key="gestore_cartoline.class">Acme\HelloBundle\Mail\GestoreCartoline</parameter>
+            <parameter key="gestore_mail.class">Acme\HelloBundle\Mail\GestoreMail</parameter>
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="mio_mailer" ... >
               <!-- ... -->
             </service>
-            <service id="my_email_formatter" ... >
+            <service id="mio_formattatore_mail" ... >
               <!-- ... -->
             </service>
-            <service id="mail_manager" class="%mail_manager.class%" abstract="true">
+            <service id="gestore_mail" class="%gestore_mail.class%" abstract="true">
                 <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
+                     <argument type="service" id="mio_mailer" />
                 </call>
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
+                <call method="setFormattatoreMail">
+                     <argument type="service" id="mio_formattatore_mail" />
                 </call>
             </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%" parent="mail_manager"/>
-            <service id="greeting_card_manager" class="%greeting_card_manager.class%" parent="mail_manager"/>
+            <service id="gestore_newsletter" class="%gestore_newsletter.class%" parent="gestore_mail"/>
+            <service id="gestore_cartoline" class="%gestore_cartoline.class%" parent="gestore_mail"/>
         </services>
 
     .. code-block:: php
@@ -258,59 +258,59 @@ a parent for a service.
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Mail\NewsletterManager');
-        $container->setParameter('greeting_card_manager.class', 'Acme\HelloBundle\Mail\GreetingCardManager');
-        $container->setParameter('mail_manager.class', 'Acme\HelloBundle\Mail\MailManager');
+        $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Mail\GestoreNewsletter');
+        $container->setParameter('gestore_cartoline.class', 'Acme\HelloBundle\Mail\GestoreCartoline');
+        $container->setParameter('gestore_mail.class', 'Acme\HelloBundle\Mail\GestoreMail');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
-        $container->setDefinition('mail_manager', new Definition(
-            '%mail_manager.class%'
+        $container->setDefinition('mio_mailer', ... );
+        $container->setDefinition('mio_formattatore_mail', ... );
+        $container->setDefinition('gestore_mail', new Definition(
+            '%gestore_mail.class%'
         ))->SetAbstract(
             true
         )->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
+            new Reference('mio_mailer')
+        ))->addMethodCall('setFormattatoreMail', array(
+            new Reference('mio_formattatore_mail')
         ));
-        $container->setDefinition('newsletter_manager', new DefinitionDecorator(
-            'mail_manager'
+        $container->setDefinition('gestore_newsletter', new DefinitionDecorator(
+            'gestore_mail'
         ))->setClass(
-            '%newsletter_manager.class%'
+            '%gestore_newsletter.class%'
         );
-        $container->setDefinition('greeting_card_manager', new DefinitionDecorator(
-            'mail_manager'
+        $container->setDefinition('gestore_cartoline', new DefinitionDecorator(
+            'gestore_mail'
         ))->setClass(
-            '%greeting_card_manager.class%'
+            '%gestore_cartoline.class%'
         );
 
-In this context, having a ``parent`` service implies that the arguments and
-method calls of the parent service should be used for the child services.
-Specifically, the setter methods defined for the parent service will be called
-when the child services are instantiated.
+In questo contesto, avere un servizio ``padre`` implica che gli argomenti e le
+chiamate dei metodi del servizio padre dovrebbero essere utilizzati per i servizi figli.
+Nello specifico, i metodi setter definiti nel servizio padre verranno chiamati
+quando i servizi figli saranno istanziati.
 
 .. note::
 
-   If you remove the ``parent`` config key, the services will still be instantiated
-   and they will still of course extend the ``MailManager`` class. The difference
-   is that omitting the ``parent`` config key will mean that the ``calls``
-   defined on the ``mail_manager`` service will not be executed when the
-   child services are instantiated.
+   Rimuovendo la chiave di configurazione ``parent`` i servizi verranno comunque istanziati
+   e estenderanno comunque la classe ``GestoreMail``. La differenza è che,
+   ommettendo la chiave di configurazione ``parent``, le ``chiamate`` definite nel
+   servizio ``gestore_mail non saranno eseguite quando i servizi figli
+   saranno istanziati.
 
-The parent class is abstract as it should not be directly instantiated. Setting
-it to abstract in the config file as has been done above will mean that it
-can only be used as a parent service and cannot be used directly as a service
-to inject and will be removed at compile time. In other words, it exists merely
-as a "template" that other services can use.
+La classe padre è astratta e dovrebbe essere istanziata direttamente. Configurandola
+come astratta nel file di configurazione, così come è stato fatto precedentemente, implica
+che potrà essere usata come servizio padre e che non potrà essere utilizzata direttamente
+come servizio da iniettare e verrà rimossa in fase di compilazione. In altre parole, esisterà
+semplicemente come un "template" che altri servizi potranno usare.
 
-Overriding Parent Dependencies
-------------------------------
+Override delle dipendenze della classe padre
+--------------------------------------------
 
-There may be times where you want to override what class is passed in for
-a dependency of one child service only. Fortunately, by adding the method
-call config for the child service, the dependencies set by the parent class
-will be overridden. So if you needed to pass a different dependency just
-to the ``NewsletterManager`` class, the config would look like this:
+Potrebbe succedere che sia preferibile fare l'override della classe passata
+come dipendenza di un servizio figlio. Fortunatamente, aggiungendo la configurazione
+della chiamata al metodo per il servizio figlio, le dipendenze configurate nella
+classe padre verranno sostituite. Perciò, nel caso si volesse passare una dipendenza diversa
+solo per la classe ``GestoreNewsletter``, la configurazione sarà simile alla seguente:
 
 .. configuration-block::
 
@@ -319,67 +319,67 @@ to the ``NewsletterManager`` class, the config would look like this:
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            newsletter_manager.class: Acme\HelloBundle\Mail\NewsletterManager
-            greeting_card_manager.class: Acme\HelloBundle\Mail\GreetingCardManager
-            mail_manager.class: Acme\HelloBundle\Mail\MailManager
+            gestore_newsletter.class: Acme\HelloBundle\Mail\GestoreNewsletter
+            gestore_cartoline.class: Acme\HelloBundle\Mail\GestoreCartoline
+            gestore_mail.class: Acme\HelloBundle\Mail\GestoreMail
         services:
-            my_mailer:
+            mio_mailer:
                 # ...
-            my_alternative_mailer:
+            mio_mailer_alternativo:
                 # ...
-            my_email_formatter:
+            mio_formattatore_mail:
                 # ...
-            mail_manager:
-                class:     %mail_manager.class%
+            gestore_mail:
+                class:     %gestore_mail.class%
                 abstract:  true
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [ setMailer, [ @mio_mailer ] ]
+                    - [ setFormattatoreMail, [ @mio_formattatore_mail] ]
             
-            newsletter_manager:
-                class:     %newsletter_manager.class%
-                parent: mail_manager
+            gestore_newsletter:
+                class:     %gestore_newsletter.class%
+                parent: gestore_mail
                 calls:
-                    - [ setMailer, [ @my_alternative_mailer ] ]
+                    - [ setMailer, [ @mio_mailer_alternativo ] ]
             
-            greeting_card_manager:
-                class:     %greeting_card_manager.class%
-                parent: mail_manager
+            gestore_cartoline:
+                class:     %gestore_cartoline.class%
+                parent: gestore_mail
             
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Mail\NewsletterManager</parameter>
-            <parameter key="greeting_card_manager.class">Acme\HelloBundle\Mail\GreetingCardManager</parameter>
-            <parameter key="mail_manager.class">Acme\HelloBundle\Mail\MailManager</parameter>
+            <parameter key="gestore_newsletter.class">Acme\HelloBundle\Mail\GestoreNewsletter</parameter>
+            <parameter key="gestore_cartoline.class">Acme\HelloBundle\Mail\GestoreCartoline</parameter>
+            <parameter key="gestore_mail.class">Acme\HelloBundle\Mail\GestoreMail</parameter>
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="mio_mailer" ... >
               <!-- ... -->
             </service>
-            <service id="my_alternative_mailer" ... >
+            <service id="mio_mailer_alternativo" ... >
               <!-- ... -->
             </service>
-            <service id="my_email_formatter" ... >
+            <service id="mio_formattatore_mail" ... >
               <!-- ... -->
             </service>
-            <service id="mail_manager" class="%mail_manager.class%" abstract="true">
+            <service id="gestore_mail" class="%gestore_mail.class%" abstract="true">
                 <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
+                     <argument type="service" id="mio_mailer" />
                 </call>
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
+                <call method="setFormattatoreMail">
+                     <argument type="service" id="mio_formattatore_mail" />
                 </call>
             </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%" parent="mail_manager">
+            <service id="gestore_newsletter" class="%gestore_newsletter.class%" parent="gestore_mail">
                  <call method="setMailer">
-                     <argument type="service" id="my_alternative_mailer" />
+                     <argument type="service" id="mio_mailer_alternativo" />
                 </call>
             </service>
-            <service id="greeting_card_manager" class="%greeting_card_manager.class%" parent="mail_manager"/>
+            <service id="gestore_cartoline" class="%gestore_cartoline.class%" parent="gestore_mail"/>
         </services>
 
     .. code-block:: php
@@ -389,69 +389,69 @@ to the ``NewsletterManager`` class, the config would look like this:
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Mail\NewsletterManager');
-        $container->setParameter('greeting_card_manager.class', 'Acme\HelloBundle\Mail\GreetingCardManager');
-        $container->setParameter('mail_manager.class', 'Acme\HelloBundle\Mail\MailManager');
+        $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Mail\GestoreNewsletter');
+        $container->setParameter('gestore_cartoline.class', 'Acme\HelloBundle\Mail\GestoreCartoline');
+        $container->setParameter('gestore_mail.class', 'Acme\HelloBundle\Mail\GestoreMail');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_alternative_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
-        $container->setDefinition('mail_manager', new Definition(
-            '%mail_manager.class%'
+        $container->setDefinition('mio_mailer', ... );
+        $container->setDefinition('mio_mailer_alternativo', ... );
+        $container->setDefinition('mio_formattatore_mail', ... );
+        $container->setDefinition('gestore_mail', new Definition(
+            '%gestore_mail.class%'
         ))->SetAbstract(
             true
         )->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
+            new Reference('mio_mailer')
+        ))->addMethodCall('setFormattatoreMail', array(
+            new Reference('mio_formattatore_mail')
         ));
-        $container->setDefinition('newsletter_manager', new DefinitionDecorator(
-            'mail_manager'
+        $container->setDefinition('gestore_newsletter', new DefinitionDecorator(
+            'gestore_mail'
         ))->setClass(
-            '%newsletter_manager.class%'
+            '%gestore_newsletter.class%'
         )->addMethodCall('setMailer', array(
-            new Reference('my_alternative_mailer')
+            new Reference('mio_mailer_alternativo')
         ));
-        $container->setDefinition('newsletter_manager', new DefinitionDecorator(
-            'mail_manager'
+        $container->setDefinition('gestore_newsletter', new DefinitionDecorator(
+            'gestore_mail'
         ))->setClass(
-            '%greeting_card_manager.class%'
+            '%gestore_cartoline.class%'
         );
 
-The ``GreetingCardManager`` will receive the same dependencies as before,
-but the ``NewsletterManager`` will be passed the ``my_alternative_mailer``
-instead of the ``my_mailer`` service.
+Il ``GestoreCartoline`` riceverà le stesse dipendenze di prima mentre al 
+``GestoreNewsletter`` verrà passato il ``mio_mailer_alternativo``
+invece del servizio ``mio_mailer``.
 
-Collections of Dependencies
----------------------------
+Collezioni di dipendenze
+------------------------
 
-It should be noted that the overridden setter method in the previous example
-is actually called twice - once per the parent definition and once per the
-child definition. In the previous example, that was fine, since the second
-``setMailer`` call replaces mailer object set by the first call.
+È da notare che il metodo setter di cui si è fatto l'override nel precedente esempio
+viene chiamato due volte:: una volta nella definizione del padre e una nella
+definizione del figlio. Nel precedente esempio, la cosa va bene, visto che la chiamata
+al secondo ``setMailer`` sostituisce l'oggetto mailer configurato nella prima chiamata.
 
-In some cases, however, this can be a problem. For example, if the overridden
-method call involves adding something to a collection, then two objects will
-be added to that collection. The following shows such a case, if the parent
-class looks like this::
+In alcuni casi, però, questo potrebbe creare problemi. Ad esempio, nel caso in cui
+il metodo per cui si fa l'override dovesse aggiungere qualcosa ad una collezione, 
+potrebbero essere aggiunti due oggetti alla collezione. Di seguito se ne può vedere
+un esempio::
 
     namespace Acme\HelloBundle\Mail;
 
     use Acme\HelloBundle\Mailer;
     use Acme\HelloBundle\EmailFormatter;
 
-    abstract class MailManager
+    abstract class GestoreMail
     {
-        protected $filters;
+        protected $filtri;
 
-        public function setFilter($filter)
+        public function setFiltro($filtro)
         {
-            $this->filters[] = $filter;
+            $this->filtri[] = $filtro;
         }
         // ...
     }
 
-If you had the following config:
+Se si avesse la seguente configurazione:
 
 .. configuration-block::
 
@@ -460,49 +460,49 @@ If you had the following config:
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            newsletter_manager.class: Acme\HelloBundle\Mail\NewsletterManager
-            mail_manager.class: Acme\HelloBundle\Mail\MailManager
+            gestore_newsletter.class: Acme\HelloBundle\Mail\GestoreNewsletter
+            gestore_mail.class: Acme\HelloBundle\Mail\GestoreMail
         services:
-            my_filter:
+            mio_filtro:
                 # ...
-            another_filter:
+            altro_filtro:
                 # ...
-            mail_manager:
-                class:     %mail_manager.class%
+            gestore_mail:
+                class:     %gestore_mail.class%
                 abstract:  true
                 calls:
-                    - [ setFilter, [ @my_filter ] ]
+                    - [ setFiltro, [ @mio_filtro ] ]
                     
-            newsletter_manager:
-                class:     %newsletter_manager.class%
-                parent: mail_manager
+            gestore_newsletter:
+                class:     %gestore_newsletter.class%
+                parent: gestore_mail
                 calls:
-                    - [ setFilter, [ @another_filter ] ]
+                    - [ setFiltro, [ @altro_filtro ] ]
             
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Mail\NewsletterManager</parameter>
-            <parameter key="mail_manager.class">Acme\HelloBundle\Mail\MailManager</parameter>
+            <parameter key="gestore_newsletter.class">Acme\HelloBundle\Mail\GestoreNewsletter</parameter>
+            <parameter key="gestore_mail.class">Acme\HelloBundle\Mail\GestoreMail</parameter>
         </parameters>
 
         <services>
-            <service id="my_filter" ... >
+            <service id="mio_filtro" ... >
               <!-- ... -->
             </service>
-            <service id="another_filter" ... >
+            <service id="altro_filtro" ... >
               <!-- ... -->
             </service>
-            <service id="mail_manager" class="%mail_manager.class%" abstract="true">
-                <call method="setFilter">
-                     <argument type="service" id="my_filter" />
+            <service id="gestore_mail" class="%gestore_mail.class%" abstract="true">
+                <call method="setFiltro">
+                     <argument type="service" id="mio_filtro" />
                 </call>
             </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%" parent="mail_manager">
-                 <call method="setFilter">
-                     <argument type="service" id="another_filter" />
+            <service id="gestore_newsletter" class="%gestore_newsletter.class%" parent="gestore_mail">
+                 <call method="setFiltro">
+                     <argument type="service" id="altro_filtro" />
                 </call>
             </service>
         </services>
@@ -514,29 +514,29 @@ If you had the following config:
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Mail\NewsletterManager');
-        $container->setParameter('mail_manager.class', 'Acme\HelloBundle\Mail\MailManager');
+        $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Mail\GestoreNewsletter');
+        $container->setParameter('gestore_mail.class', 'Acme\HelloBundle\Mail\GestoreMail');
 
-        $container->setDefinition('my_filter', ... );
-        $container->setDefinition('another_filter', ... );
-        $container->setDefinition('mail_manager', new Definition(
-            '%mail_manager.class%'
+        $container->setDefinition('mio_filtro', ... );
+        $container->setDefinition('altro_filtro', ... );
+        $container->setDefinition('gestore_mail', new Definition(
+            '%gestore_mail.class%'
         ))->SetAbstract(
             true
-        )->addMethodCall('setFilter', array(
-            new Reference('my_filter')
+        )->addMethodCall('setFiltro', array(
+            new Reference('mio_filtro')
         ));
-        $container->setDefinition('newsletter_manager', new DefinitionDecorator(
-            'mail_manager'
+        $container->setDefinition('gestore_newsletter', new DefinitionDecorator(
+            'gestore_mail'
         ))->setClass(
-            '%newsletter_manager.class%'
-        )->addMethodCall('setFilter', array(
-            new Reference('another_filter')
+            '%gestore_newsletter.class%'
+        )->addMethodCall('setFiltro', array(
+            new Reference('altro_filtro')
         ));
 
-In this example, the ``setFilter`` of the ``newsletter_manager`` service
-will be called twice, resulting in the ``$filters`` array containing both
-``my_filter`` and ``another_filter`` objects. This is great if you just want
-to add additional filters to the subclasses. If you want to replace the filters
-passed to the subclass, removing the parent setting from the config will 
-prevent the base class from calling to ``setFilter``.
+In questo caso il metodo ``setFiltro`` del servizio ``gestore_newsletter`` 
+verrebbe chiamato due volte cosa che produrrà, come risultato che l'array ``$filtri``
+conterrà sia l'oggetto ``mio_filtro`` che l'oggetto ``altro_filtro``. Il che va bene
+se l'obbiettivo è quello di avere più filtri nella sotto classe. Ma se si volesse sostituire
+il filtro passato alla sotto classe, la rimozione della configurazione della classe
+padre eviterà che la classe base chiami il metodo ``setFiltro``.

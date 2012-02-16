@@ -4,13 +4,13 @@ Usare il factory per creare servizi
 Il contenitore di servizi di Symfony2 mette a disposizione potenti strumenti
 per la creazione di oggetti, permettendo di specificare sia gli argomenti da passare
 al costruttore sia i metodi di chiamata che i parametri di configurazione. Alle volte, però,
-questo non è sufficiente per coprire tutti i requisiti per la creazione dei propri oggetti.
-In questi casi, è possibile usare un factory per la creazione di oggetti e avvisare
-il contenitore di servizi di chiamare uno specifico metodo nel factory invece che 
+questo non è sufficiente a soddisfare tutti i requisiti per la creazione dei propri oggetti.
+In questi casi, è possibile usare un factory per la creazione di oggetti e fare in modo che
+il contenitore di servizi chiami uno specifico metodo, nel factory, invece che 
 inizializzare direttamente l'oggetto.
 
 Supponiamo di avere un factory che configura e restituisce un oggetto
-NewsletterManager::
+GestoreNewsletter::
 
     namespace Acme\HelloBundle\Newsletter;
 
@@ -18,15 +18,15 @@ NewsletterManager::
     {
         public function get()
         {
-            $newsletterManager = new NewsletterManager();
+            $gestoreNewsletter = new GestoreNewsletter();
             
             // ...
             
-            return $newsletterManager;
+            return $gestoreNewsletter;
         }
     }
 
-Per rendere disponibile, in forma di servizio, l'oggetto ``NewsletterManager``, 
+Per rendere disponibile, in forma di servizio, l'oggetto ``GestoreNewsletter``, 
 è possibile configurare un contenitore di servizi in modo che usi la classe factory 
 ``NewsletterFactory``:
 
@@ -37,11 +37,11 @@ Per rendere disponibile, in forma di servizio, l'oggetto ``NewsletterManager``,
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
+            gestore_newsletter.class: Acme\HelloBundle\Newsletter\GestoreNewsletter
             newsletter_factory.class: Acme\HelloBundle\Newsletter\NewsletterFactory
         services:
-            newsletter_manager:
-                class:          %newsletter_manager.class%
+            gestore_newsletter:
+                class:          %gestore_newsletter.class%
                 factory_class:  %newsletter_factory.class%
                 factory_method: get 
 
@@ -50,13 +50,13 @@ Per rendere disponibile, in forma di servizio, l'oggetto ``NewsletterManager``,
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
+            <parameter key="gestore_newsletter.class">Acme\HelloBundle\Newsletter\GestoreNewsletter</parameter>
             <parameter key="newsletter_factory.class">Acme\HelloBundle\Newsletter\NewsletterFactory</parameter>
         </parameters>
 
         <services>
-            <service id="newsletter_manager" 
-                     class="%newsletter_manager.class%"
+            <service id="gestore_newsletter" 
+                     class="%gestore_newsletter.class%"
                      factory-class="%newsletter_factory.class%"
                      factory-method="get"
             />
@@ -68,11 +68,11 @@ Per rendere disponibile, in forma di servizio, l'oggetto ``NewsletterManager``,
         use Symfony\Component\DependencyInjection\Definition;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Newsletter\GestoreNewsletter');
         $container->setParameter('newsletter_factory.class', 'Acme\HelloBundle\Newsletter\NewsletterFactory');
 
-        $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%'
+        $container->setDefinition('gestore_newsletter', new Definition(
+            '%gestore_newsletter.class%'
         ))->setFactoryClass(
             '%newsletter_factory.class%'
         )->setFactoryMethod(
@@ -80,8 +80,8 @@ Per rendere disponibile, in forma di servizio, l'oggetto ``NewsletterManager``,
         );
 
 Quando si specifica la classe da utilizzarre come factory (tramite ``factory_class``)
-il metodo verrà chiamato staticamente. Per poter inizializzare il factory stesso e 
-e far si che il relativo metodo dell'oggetto sia chiamato (come nell'esempio), si
+il metodo verrà chiamato staticamente. Se il factory stesso dovesse essere istanziato
+e il relativo metodo dell'oggetto sia chiamato (come nell'esempio), si
 dovrà configurare il factory come servizio:
 
 .. configuration-block::
@@ -91,13 +91,13 @@ dovrà configurare il factory come servizio:
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
+            gestore_newsletter.class: Acme\HelloBundle\Newsletter\GestoreNewsletter
             newsletter_factory.class: Acme\HelloBundle\Newsletter\NewsletterFactory
         services:
             newsletter_factory:
                 class:            %newsletter_factory.class%
-            newsletter_manager:
-                class:            %newsletter_manager.class%
+            gestore_newsletter:
+                class:            %gestore_newsletter.class%
                 factory_service:  newsletter_factory
                 factory_method:   get 
 
@@ -106,14 +106,14 @@ dovrà configurare il factory come servizio:
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
+            <parameter key="gestore_newsletter.class">Acme\HelloBundle\Newsletter\GestoreNewsletter</parameter>
             <parameter key="newsletter_factory.class">Acme\HelloBundle\Newsletter\NewsletterFactory</parameter>
         </parameters>
 
         <services>
             <service id="newsletter_factory" class="%newsletter_factory.class%"/>
-            <service id="newsletter_manager" 
-                     class="%newsletter_manager.class%"
+            <service id="gestore_newsletter" 
+                     class="%gestore_newsletter.class%"
                      factory-service="newsletter_factory"
                      factory-method="get"
             />
@@ -125,14 +125,14 @@ dovrà configurare il factory come servizio:
         use Symfony\Component\DependencyInjection\Definition;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Newsletter\GestoreNewsletter');
         $container->setParameter('newsletter_factory.class', 'Acme\HelloBundle\Newsletter\NewsletterFactory');
 
         $container->setDefinition('newsletter_factory', new Definition(
             '%newsletter_factory.class%'
         ))
-        $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%'
+        $container->setDefinition('gestore_newsletter', new Definition(
+            '%gestore_newsletter.class%'
         ))->setFactoryService(
             'newsletter_factory'
         )->setFactoryMethod(
@@ -158,13 +158,13 @@ il metodo ``get``, del precedente esempio, accetti il servizio ``templating`` co
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
+            gestore_newsletter.class: Acme\HelloBundle\Newsletter\GestoreNewsletter
             newsletter_factory.class: Acme\HelloBundle\Newsletter\NewsletterFactory
         services:
             newsletter_factory:
                 class:            %newsletter_factory.class%
-            newsletter_manager:
-                class:            %newsletter_manager.class%
+            gestore_newsletter:
+                class:            %gestore_newsletter.class%
                 factory_service:  newsletter_factory
                 factory_method:   get
                 arguments:
@@ -175,14 +175,14 @@ il metodo ``get``, del precedente esempio, accetti il servizio ``templating`` co
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
+            <parameter key="gestore_newsletter.class">Acme\HelloBundle\Newsletter\GestoreNewsletter</parameter>
             <parameter key="newsletter_factory.class">Acme\HelloBundle\Newsletter\NewsletterFactory</parameter>
         </parameters>
 
         <services>
             <service id="newsletter_factory" class="%newsletter_factory.class%"/>
-            <service id="newsletter_manager" 
-                     class="%newsletter_manager.class%"
+            <service id="gestore_newsletter" 
+                     class="%gestore_newsletter.class%"
                      factory-service="newsletter_factory"
                      factory-method="get"
             >
@@ -196,14 +196,14 @@ il metodo ``get``, del precedente esempio, accetti il servizio ``templating`` co
         use Symfony\Component\DependencyInjection\Definition;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Newsletter\GestoreNewsletter');
         $container->setParameter('newsletter_factory.class', 'Acme\HelloBundle\Newsletter\NewsletterFactory');
 
         $container->setDefinition('newsletter_factory', new Definition(
             '%newsletter_factory.class%'
         ))
-        $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%',
+        $container->setDefinition('gestore_newsletter', new Definition(
+            '%gestore_newsletter.class%',
             array(new Reference('templating'))
         ))->setFactoryService(
             'newsletter_factory'

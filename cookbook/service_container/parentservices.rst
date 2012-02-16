@@ -1,9 +1,9 @@
-Come gestire le dipendenza comuni con i servizi padre
-=====================================================
+Gestire le dipendenza comuni con i servizi padre
+================================================
 
-Aggiungendo funzionalità all'applicazione si può arrivare ad un punto in cui
+Aggiungendo funzionalità alla propria applicazione, si può arrivare ad un punto in cui
 classi tra loro collegate condividano alcune dipendenze. Si potrebbe avere, ad esempio,
-un Gestore Newsletter che usa un setter injection per configurare le proprie dipendenze::
+un Gestore Newsletter che usa una setter injection per configurare le proprie dipendenze::
 
     namespace Acme\HelloBundle\Mail;
 
@@ -27,14 +27,14 @@ un Gestore Newsletter che usa un setter injection per configurare le proprie dip
         // ...
     }
 
-ed una classe Cartolina che condivide le stesse dipendenze::
+ed una classe BigliettoAuguri che condivide le stesse dipendenze::
 
     namespace Acme\HelloBundle\Mail;
 
     use Acme\HelloBundle\Mailer;
     use Acme\HelloBundle\FormattatoreMail;
 
-    class GestoreCartoline
+    class GestoreBigliettoAuguri
     {
         protected $mailer;
         protected $formattatoreMail;
@@ -61,7 +61,7 @@ La configurazione del servizio per queste classi sarà simile alla seguente:
         parameters:
             # ...
             gestore_newsletter.class: Acme\HelloBundle\Mail\GestoreNewsletter
-            gestore_cartoline.class: Acme\HelloBundle\Mail\GestoreCartoline
+            gestore_biglietto_auguri.class: Acme\HelloBundle\Mail\GestoreBigliettoAuguri
         services:
             mio_mailer:
                 # ...
@@ -73,8 +73,8 @@ La configurazione del servizio per queste classi sarà simile alla seguente:
                     - [ setMailer, [ @mio_mailer ] ]
                     - [ setFormattatoreMail, [ @mio_formattatore_mail] ]
 
-            gestore_cartoline:
-                class:     %gestore_cartoline.class%
+            gestore_biglietto_auguri:
+                class:     %gestore_biglietto_auguri.class%
                 calls:
                     - [ setMailer, [ @mio_mailer ] ]
                     - [ setFormattatoreMail, [ @mio_formattatore_mail] ]
@@ -85,7 +85,7 @@ La configurazione del servizio per queste classi sarà simile alla seguente:
         <parameters>
             <!-- ... -->
             <parameter key="gestore_newsletter.class">Acme\HelloBundle\Mail\GestoreNewsletter</parameter>
-            <parameter key="gestore_cartoline.class">Acme\HelloBundle\Mail\GestoreCartoline</parameter>
+            <parameter key="gestore_biglietto_auguri.class">Acme\HelloBundle\Mail\GestoreBigliettoAuguri</parameter>
         </parameters>
 
         <services>
@@ -103,7 +103,7 @@ La configurazione del servizio per queste classi sarà simile alla seguente:
                      <argument type="service" id="mio_formattatore_mail" />
                 </call>
             </service>
-            <service id="gestore_cartoline" class="%gestore_cartoline.class%">
+            <service id="gestore_biglietto_auguri" class="%gestore_biglietto_auguri.class%">
                 <call method="setMailer">
                      <argument type="service" id="mio_mailer" />
                 </call>
@@ -121,7 +121,7 @@ La configurazione del servizio per queste classi sarà simile alla seguente:
 
         // ...
         $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Mail\GestoreNewsletter');
-        $container->setParameter('gestore_cartoline.class', 'Acme\HelloBundle\Mail\GestoreCartoline');
+        $container->setParameter('gestore_biglietto_auguri.class', 'Acme\HelloBundle\Mail\GestoreBigliettoAuguri');
 
         $container->setDefinition('mio_mailer', ... );
         $container->setDefinition('mio_formattatore_mail', ... );
@@ -132,20 +132,20 @@ La configurazione del servizio per queste classi sarà simile alla seguente:
         ))->addMethodCall('setFormattatoreMail', array(
             new Reference('mio_formattatore_mail')
         ));
-        $container->setDefinition('gestore_cartoline', new Definition(
-            '%gestore_cartoline.class%'
+        $container->setDefinition('gestore_biglietto_auguri', new Definition(
+            '%gestore_biglietto_auguri.class%'
         ))->addMethodCall('setMailer', array(
             new Reference('mio_mailer')
         ))->addMethodCall('setFormattatoreMail', array(
             new Reference('mio_formattatore_mail')
         ));
 
-Ci sono molte ripetizioni sia nelle classi che nella configurazione. Quasto vuol dire
+Ci sono molte ripetizioni, sia nelle classi che nella configurazione. Quasto vuol dire
 che se qualcosa viene cambiato, ad esempio le classi ``Mailer`` o ``FormattatoreMail``
 che dovranno essere iniettate tramite il costruttore, sarà necessario modificare
-la configurazione in due posti. Altrettanto se si volesse modificare il metodo setter
+la configurazione in due posti. Allo stesso modo, se si volesse modificare il metodo setter,
 sarebbe necessario modificare entrambe le classi. Il tipico modo di gestire
-i metodi comuni di queste classi sarebbe quello di far si che estendano una comune super classe::
+i metodi comuni di queste classi sarebbe quello di far si che estendano una super classe comune::
 
     namespace Acme\HelloBundle\Mail;
 
@@ -169,7 +169,7 @@ i metodi comuni di queste classi sarebbe quello di far si che estendano una comu
         // ...
     }
 
-Le classi ``GestoreNewsletter`` e ``GestoreCartoline`` potranno estendere questa
+Le classi ``GestoreNewsletter`` e ``GestoreBigliettoAuguri`` potranno estendere questa
 super classe::
 
     namespace Acme\HelloBundle\Mail;
@@ -179,18 +179,18 @@ super classe::
         // ...
     }
 
-and::
+e::
 
     namespace Acme\HelloBundle\Mail;
 
-    class GestoreCartoline extends GestoreMail
+    class GestoreBigliettoAuguri extends GestoreMail
     {
         // ...
     }
 
 Allo stesso modo, il contenitore di servizi di Symfony2 supporta la possibilità
 di estendere i servizi nella configurazione in modo da poter ridurre le ripetizioni
-specificando un serizio genitore.
+specificando un serizio padre.
 
 .. configuration-block::
 
@@ -200,7 +200,7 @@ specificando un serizio genitore.
         parameters:
             # ...
             gestore_newsletter.class: Acme\HelloBundle\Mail\GestoreNewsletter
-            gestore_cartoline.class: Acme\HelloBundle\Mail\GestoreCartoline
+            gestore_biglietto_auguri.class: Acme\HelloBundle\Mail\GestoreBigliettoAuguri
             gestore_mail.class: Acme\HelloBundle\Mail\GestoreMail
         services:
             mio_mailer:
@@ -218,8 +218,8 @@ specificando un serizio genitore.
                 class:     %gestore_newsletter.class%
                 parent: gestore_mail
             
-            gestore_cartoline:
-                class:     %gestore_cartoline.class%
+            gestore_biglietto_auguri:
+                class:     %gestore_biglietto_auguri.class%
                 parent: gestore_mail
             
     .. code-block:: xml
@@ -228,7 +228,7 @@ specificando un serizio genitore.
         <parameters>
             <!-- ... -->
             <parameter key="gestore_newsletter.class">Acme\HelloBundle\Mail\GestoreNewsletter</parameter>
-            <parameter key="gestore_cartoline.class">Acme\HelloBundle\Mail\GestoreCartoline</parameter>
+            <parameter key="gestore_biglietto_auguri.class">Acme\HelloBundle\Mail\GestoreBigliettoAuguri</parameter>
             <parameter key="gestore_mail.class">Acme\HelloBundle\Mail\GestoreMail</parameter>
         </parameters>
 
@@ -248,7 +248,7 @@ specificando un serizio genitore.
                 </call>
             </service>
             <service id="gestore_newsletter" class="%gestore_newsletter.class%" parent="gestore_mail"/>
-            <service id="gestore_cartoline" class="%gestore_cartoline.class%" parent="gestore_mail"/>
+            <service id="gestore_biglietto_auguri" class="%gestore_biglietto_auguri.class%" parent="gestore_mail"/>
         </services>
 
     .. code-block:: php
@@ -259,7 +259,7 @@ specificando un serizio genitore.
 
         // ...
         $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Mail\GestoreNewsletter');
-        $container->setParameter('gestore_cartoline.class', 'Acme\HelloBundle\Mail\GestoreCartoline');
+        $container->setParameter('gestore_biglietto_auguri.class', 'Acme\HelloBundle\Mail\GestoreBigliettoAuguri');
         $container->setParameter('gestore_mail.class', 'Acme\HelloBundle\Mail\GestoreMail');
 
         $container->setDefinition('mio_mailer', ... );
@@ -278,10 +278,10 @@ specificando un serizio genitore.
         ))->setClass(
             '%gestore_newsletter.class%'
         );
-        $container->setDefinition('gestore_cartoline', new DefinitionDecorator(
+        $container->setDefinition('gestore_biglietto_auguri', new DefinitionDecorator(
             'gestore_mail'
         ))->setClass(
-            '%gestore_cartoline.class%'
+            '%gestore_biglietto_auguri.class%'
         );
 
 In questo contesto, avere un servizio ``padre`` implica che gli argomenti e le
@@ -293,14 +293,14 @@ quando i servizi figli saranno istanziati.
 
    Rimuovendo la chiave di configurazione ``parent`` i servizi verranno comunque istanziati
    e estenderanno comunque la classe ``GestoreMail``. La differenza è che,
-   ommettendo la chiave di configurazione ``parent``, le ``chiamate`` definite nel
-   servizio ``gestore_mail non saranno eseguite quando i servizi figli
+   omettendo la chiave di configurazione ``parent``, le ``chiamate`` definite nel
+   servizio ``gestore_mail`` non saranno eseguite quando i servizi figli
    saranno istanziati.
 
-La classe padre è astratta e dovrebbe essere istanziata direttamente. Configurandola
+La classe padre è astratta e dovrebbe essere istanziata direttamente. Configurarla
 come astratta nel file di configurazione, così come è stato fatto precedentemente, implica
 che potrà essere usata come servizio padre e che non potrà essere utilizzata direttamente
-come servizio da iniettare e verrà rimossa in fase di compilazione. In altre parole, esisterà
+come servizio da iniettare e che verrà rimossa in fase di compilazione. In altre parole, esisterà
 semplicemente come un "template" che altri servizi potranno usare.
 
 Override delle dipendenze della classe padre
@@ -320,7 +320,7 @@ solo per la classe ``GestoreNewsletter``, la configurazione sarà simile alla se
         parameters:
             # ...
             gestore_newsletter.class: Acme\HelloBundle\Mail\GestoreNewsletter
-            gestore_cartoline.class: Acme\HelloBundle\Mail\GestoreCartoline
+            gestore_biglietto_auguri.class: Acme\HelloBundle\Mail\GestoreBigliettoAuguri
             gestore_mail.class: Acme\HelloBundle\Mail\GestoreMail
         services:
             mio_mailer:
@@ -342,8 +342,8 @@ solo per la classe ``GestoreNewsletter``, la configurazione sarà simile alla se
                 calls:
                     - [ setMailer, [ @mio_mailer_alternativo ] ]
             
-            gestore_cartoline:
-                class:     %gestore_cartoline.class%
+            gestore_biglietto_auguri:
+                class:     %gestore_biglietto_auguri.class%
                 parent: gestore_mail
             
     .. code-block:: xml
@@ -352,7 +352,7 @@ solo per la classe ``GestoreNewsletter``, la configurazione sarà simile alla se
         <parameters>
             <!-- ... -->
             <parameter key="gestore_newsletter.class">Acme\HelloBundle\Mail\GestoreNewsletter</parameter>
-            <parameter key="gestore_cartoline.class">Acme\HelloBundle\Mail\GestoreCartoline</parameter>
+            <parameter key="gestore_biglietto_auguri.class">Acme\HelloBundle\Mail\GestoreBigliettoAuguri</parameter>
             <parameter key="gestore_mail.class">Acme\HelloBundle\Mail\GestoreMail</parameter>
         </parameters>
 
@@ -379,7 +379,7 @@ solo per la classe ``GestoreNewsletter``, la configurazione sarà simile alla se
                      <argument type="service" id="mio_mailer_alternativo" />
                 </call>
             </service>
-            <service id="gestore_cartoline" class="%gestore_cartoline.class%" parent="gestore_mail"/>
+            <service id="gestore_biglietto_auguri" class="%gestore_biglietto_auguri.class%" parent="gestore_mail"/>
         </services>
 
     .. code-block:: php
@@ -390,7 +390,7 @@ solo per la classe ``GestoreNewsletter``, la configurazione sarà simile alla se
 
         // ...
         $container->setParameter('gestore_newsletter.class', 'Acme\HelloBundle\Mail\GestoreNewsletter');
-        $container->setParameter('gestore_cartoline.class', 'Acme\HelloBundle\Mail\GestoreCartoline');
+        $container->setParameter('gestore_biglietto_auguri.class', 'Acme\HelloBundle\Mail\GestoreBigliettoAuguri');
         $container->setParameter('gestore_mail.class', 'Acme\HelloBundle\Mail\GestoreMail');
 
         $container->setDefinition('mio_mailer', ... );
@@ -415,10 +415,10 @@ solo per la classe ``GestoreNewsletter``, la configurazione sarà simile alla se
         $container->setDefinition('gestore_newsletter', new DefinitionDecorator(
             'gestore_mail'
         ))->setClass(
-            '%gestore_cartoline.class%'
+            '%gestore_biglietto_auguri.class%'
         );
 
-Il ``GestoreCartoline`` riceverà le stesse dipendenze di prima mentre al 
+Il ``GestoreBigliettoAuguri`` riceverà le stesse dipendenze di prima mentre al 
 ``GestoreNewsletter`` verrà passato il ``mio_mailer_alternativo``
 invece del servizio ``mio_mailer``.
 
@@ -426,19 +426,19 @@ Collezioni di dipendenze
 ------------------------
 
 È da notare che il metodo setter di cui si è fatto l'override nel precedente esempio
-viene chiamato due volte:: una volta nella definizione del padre e una nella
-definizione del figlio. Nel precedente esempio, la cosa va bene, visto che la chiamata
+viene chiamato due volte: una volta nella definizione del padre e una nella
+definizione del figlio. Nel precedente esempio la cosa va bene, visto che la chiamata
 al secondo ``setMailer`` sostituisce l'oggetto mailer configurato nella prima chiamata.
 
 In alcuni casi, però, questo potrebbe creare problemi. Ad esempio, nel caso in cui
 il metodo per cui si fa l'override dovesse aggiungere qualcosa ad una collezione, 
-potrebbero essere aggiunti due oggetti alla collezione. Di seguito se ne può vedere
+si potrebbero aggiungere due oggetti alla collezione. Di seguito se ne può vedere
 un esempio::
 
     namespace Acme\HelloBundle\Mail;
 
     use Acme\HelloBundle\Mailer;
-    use Acme\HelloBundle\EmailFormatter;
+    use Acme\HelloBundle\FormattatoreMail;
 
     abstract class GestoreMail
     {
@@ -451,7 +451,7 @@ un esempio::
         // ...
     }
 
-Se si avesse la seguente configurazione:
+Ipotizziamo di avere la seguente configurazione:
 
 .. configuration-block::
 

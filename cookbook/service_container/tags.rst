@@ -1,17 +1,17 @@
 .. index::
    single: Service Container; Tags
 
-Come utilizzare etichette nei servizi
-=====================================
+Come far si che i servizi usino le etichette
+============================================
 
 Molti dei servizi centrali di Symfony2 dipendono da etichette per capire quali servizi
 dovrebbero essere caricati, ricevere notifiche di eventi o per essere maneggiati in determinati modi.
 Ad esempio, Twig usa l'etichetta ``twig.extension`` per caricare ulteriori estensioni.
 
 Ma è possibile usare etichette anche nei propri bundle. Ad esempio nel caso in cui
-uno dei propri servi gestisca una collezione di un qualche genere o implementi una "catena" nella
-quale diverse strategie alternative vengono usate fino a che una non risulti efficace. In questo articolo si userà
-come esempio una "lista di trasporto" che è una collezione di classe che implementano ``\Swift_Transport``.
+uno dei propri servizi gestisca una collezione di un qualche genere o implementi una "lista" nella
+quale diverse strategie alternative vengono provate fino a che una non risulti efficace. In questo articolo si userà
+come esempio una "lista di trasporto" che è una collezione di classi che implementano ``\Swift_Transport``.
 Usando questa lista il mailer di Swift proverà diversi tipi di trasporto fino a che uno non abbia successo.
 Questo articolo si focalizza fondamentalmente sull'argomento della dependency injection.
 
@@ -73,7 +73,7 @@ Definire un servizio con etichette personalizzate
 -------------------------------------------------
 
 A questo punto si vuole che diverse classi di ``\Swift_Transport`` vengano
-istanziate e automaticamente aggiunte alla lista usando il metodo ``aggiungiTrasporto``.
+istanziate e automaticamente aggiunte alla lista, usando il metodo ``aggiungiTrasporto``.
 Come esempio si possono aggiungere i seguenti trasporti come servizi:
 
 .. configuration-block::
@@ -133,7 +133,7 @@ meccanismo è necessario definire un metodo ``build()`` nella classe ``AcmeMaile
     {
         public function build(ContainerBuilder $contenitore)
         {
-            parent::build($container);
+            parent::build($contenitore);
     
             $contenitore->addCompilerPass(new TransportCompilerPass());
         }
@@ -145,7 +145,7 @@ Creazione del ``CompilerPass``
 Si può notare che il metodo fa riferimento alla non ancora esistente classe ``TransportCompilerPass``.
 Questa classe dovrà fare in modo che tutti i servizi etichettat come ``acme_mailer.transport``
 vengano aggiunti alla classe ``ListaDiTrasporto`` tramite una chiamata al metodo
-``addTransport()``. La classe ``TransportCompilerPass`` sarà simile alla seguente::
+``aggiungiTrasporto()``. La classe ``TransportCompilerPass`` sarà simile alla seguente::
 
     namespace Acme\MailerBundle\DependencyInjection\Compiler;
     
@@ -164,7 +164,7 @@ vengano aggiunti alla classe ``ListaDiTrasporto`` tramite una chiamata al metodo
             $definizione = $contenitore->getDefinition('acme_mailer.lista_trasporto');
     
             foreach ($contenitore->findTaggedServiceIds('acme_mailer.transport') as $id => $attributi) {
-                $definizione->addMethodCall('addTransport', array(new Reference($id)));
+                $definizione->addMethodCall('aggiungiTrasporto', array(new Reference($id)));
             }
         }
     }
@@ -172,7 +172,7 @@ vengano aggiunti alla classe ``ListaDiTrasporto`` tramite una chiamata al metodo
 Il metodo ``process()`` controllo l'esistenza di un servizio ``acme_mailer.lista_trasporto``,
 quindi cerca tra tutti i servizi etichettati ``acme_mailer.transport``. Aggiunge
 alla definizione del servizio ``acme_mailer.lista_trasporto`` una chiamata a
-``addTransport()`` per ogni servizio "acme_mailer.transport" trovato.
+``aggiungiTrasporto()`` per ogni servizio "acme_mailer.transport" trovato.
 Il primo argomento di ognuna di queste chiamate sarà lo stesso servizio di trasporto
 della posta.
 
@@ -192,10 +192,10 @@ e si cerchi il metodo ``getTransportChainService()``. Dovrebbe essere simile al 
 
     protected function getAcmeMailer_ListaTrasportoService()
     {
-        $this->services['acme_mailer.lista_trasporto'] = $instance = new \Acme\MailerBundle\TransportChain();
+        $this->services['acme_mailer.lista_trasporto'] = $instance = new \Acme\MailerBundle\ListaDiTrasporto();
 
-        $instance->addTransport($this->get('acme_mailer.transport.smtp'));
-        $instance->addTransport($this->get('acme_mailer.transport.sendmail'));
+        $instance->aggiungiTrasporto($this->get('acme_mailer.transport.smtp'));
+        $instance->aggiungiTrasporto($this->get('acme_mailer.transport.sendmail'));
 
         return $instance;
     }

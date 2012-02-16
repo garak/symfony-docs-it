@@ -8,7 +8,7 @@ Per far girare Symfony2, il proprio sistema deve soddisfare un elenco di requisi
 Si può verificare facilmente se il proprio sistema passa tutti i requisiti, eseguendo
 ``web/config.php`` nella propria distribuzione di Symfony. Poiché la CLI spesso usa un
 file di configurazione ``php.ini`` diverso, è una buona idea verificare i requisiti
-tramite riga di comando, con:
+anche tramite riga di comando, con:
 
 .. code-block:: bash
 

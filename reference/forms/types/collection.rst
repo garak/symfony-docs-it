@@ -205,7 +205,7 @@ type
 
 Il tipo per ogni elemento dell'insieme (p.e. ``text``, ``choice``,
 ecc.). Per esempio, con un array di indirizzi email, si userebbe il tipo
-:doc`email</reference/forms/types/email>`. Se si vuole includere un insieme di
+:doc:`email</reference/forms/types/email>`. Se si vuole includere un insieme di
 un qualche altro form, creare una nuova istanza del tipo di form e passarlo
 in questa opzione.
 
@@ -215,7 +215,7 @@ options
 **tipo**: ``array`` **predefinito**: ``array()``
 
 L'array passato al tipo di form specificato nell'opzione `type`_.
-Per esempio, se si è usato il tipo :doc`choice</reference/forms/types/choice>`
+Per esempio, se si è usato il tipo :doc:`choice</reference/forms/types/choice>`
 come opzione `type`_ (p.e. per un insieme di menù a tendina), si dovrebbe
 passare almeno l'opzione ``choices`` al tipo sottostante::
 
@@ -257,7 +257,7 @@ allow_delete
 
 **tipo**: ``Booleano`` **predefinito**: ``false``
 
-Se``true``, se un elemento esistente non compare tra i dati inviati, sarà assente
+Se ``true``, se un elemento esistente non compare tra i dati inviati, sarà assente
 dall'array finale di elementi. Questo vuol dire che si può implementare un bottone
 "cancella" tramite JavaScript, che rimuove semplicemente un elemento del
 form dal DOM. Quando l'utente invia il form, l'assenza dai dati inviati implicherà

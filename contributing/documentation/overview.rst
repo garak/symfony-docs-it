@@ -1,67 +1,47 @@
-Contribuire alla documentazione
-===============================
+Contributing to the Documentation
+=================================
 
 La documentazione è importante tanto quanto il codice. E segue esattamente gli stessi principi:
-DRY, test, facilità di manutenzione, estensibilità, ottimizzazione e refactoring
-solo per nominarne alcuni. E certamente, la documentazione ha bug, errori di battitura,
-difficoltà di lettura dei tutorial, e molto altro.
+DRY, tests, facilità di manutenzione, estensibilità, ottimizzazione, e refactoring
+solo per nominarne alcuni. E certamente, la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial, e molto altro.
 
 Contribuire
 ------------
 
-Prima di contribuire, è necessario familiarizzare con il
-:doc:`formato del linguaggio di demarcazione<format>` usato per la documentazione.
+Prima di contribuire, è necessario famigliarizzare con il :doc:`markup language <format>` 
+usato per la documentazione.
 
-La documentazione di Symfony 2 è ospitata da GitHub:
+La documentazione di Symfony 2 è ospitata da Git:
 
 .. code-block:: bash
 
-    https://github.com/symfony/symfony-docs
+    git://github.com/symfony/symfony-docs.git
 
-Se si vuole inviare una patch, questo è il repository ufficiale della documentazione di
-cui fare il `fork`_:
+Se si vuole inviare una path, questo è il repository ufficiale della documentazione da clonare
 
 .. code-block:: bash
 
     $ git clone git://github.com/symfony/symfony-docs.git
 
-Quindi, creare un branch dedicato per i propri cambiamenti (per una migliore organizzazione):
-
-.. code-block:: bash
-
-    $ git checkout -b modifica_pippo_pluto
-
-Si possono ora fare le proprie modifiche direttamente su questo branch e committarle.
-Quando si è finito, fare push di questo branch sul *proprio* fork in GitHub e inviare
-una pull request. La pull request sarà tra il proprio branch ``modifica_pippo_pluto`` e
-il branch ``master`` di ``symfony-docs``.
-
-.. image:: /images/docs-pull-request.png
-   :align: center
-
-GitHub spiega in dettagli l'argomento `pull request`_.
-
 .. note::
-
-    La documentazione di Symfony2 è distribuita sotto :doc:`licenza <license>`
-    Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Unported.
+  La documentazione di Symfony2 è licenziata sotto Creative Commons
+  Attribution-Share Alike 3.0 Unported :doc:`License <license>`.
 
 Riportare una problematica
---------------------------
+------------------
 
-Il modo più semplice di contribuire è riportando una problematica: un errore di battitura,
-un errore grammaticale, un bug nel codice di esempio, e così via.
+The most easy contribution you can make is reporting issues: a typo, a grammar
+mistake, a bug in code example, a missing explanation, and so on.
+
+Il modo più semplice di contribuire è riportando una problematica: un errore di battitura, un errore grammaticale, un bug nel codice di esempio, e così via
 
 Passi:
 
-* Segnalare un bug attraverso il tracker dei bug;
+* Segnalare un bug attraverso il bug Tracker;
 
-* *(facoltativo)* Inviare una patch.
+* *(opzionale)* Inviare una patch.
 
 Traduzione
 -----------
 
-Leggere il capitolo sulle :doc:`traduzioni <translations>`.
-
-.. _`fork`: http://help.github.com/fork-a-repo/
-.. _`pull request`: http://help.github.com/pull-requests/
+Leggere la documentazione :doc:`document <\>`.

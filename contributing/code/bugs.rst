@@ -1,24 +1,24 @@
-Reporting a Bug
-===============
+Segnalare un bug
+================
 
 Se doveste incontrare un bug in Symfony2, vi chiediamo di riportarlo. Ci aiuta
 a rendere migliore Symfony2.
 
-.. attenzione::
+.. caution::
 
     Se pensate di aver trovato un problema di sicurezza, per favore, seguite
-    invece la :doc:`procedure <security>`.
+    invece la :doc:`procedura <security>`.
     
 
 Prima di inviare un bug:
 
- * Ricontrollare la `documentation`_ ufficiale per verificare che non si stia facendo 
+ * Ricontrollare la `documentazione`_ ufficiale per verificare che non si stia facendo 
    un uso scorretto del framework;
 
- * Chidere assistenza alla `users mailing-list`_ , al `forum`_ o al #symfony
-   `IRC channel`_ se non si è sicuri che sia effettivamente un bug.
+ * Chidere assistenza alla `lista degli utenti`_ , al `forum`_ o al
+   `canale IRC`_ #symfony, se non si è sicuri che sia effettivamente un bug.
 
-Se si hanno problemi ad identificare effettivamente il bug, riportarlo utilizzando
+Se si hanno problemi a identificare effettivamente il bug, segnalarlo utilizzando
 il bug `tracker`_ ufficiale seguendo alcune regole:
 
  * Utilizzare il campo titolo per descrivere chiaramente la problematica;
@@ -29,10 +29,10 @@ il bug `tracker`_ ufficiale seguendo alcune regole:
  * Fornire il maggior numero di dettagli possibile del proprio ambiente (OS, versione PHP
    versione di Symfony, extensioni abilitate)
 
- * *(optional)* Eventuali allegati :doc:`patch <patches>`.
+ * *(optional)* Eventuali :doc:`patch <patches>` allegate.
 
-.. _documentation: http://symfony.com/doc/2.0/
-.. _users mailing-list: http://groups.google.com/group/symfony-users
+.. _documentazione: http://symfony.com/doc/2.0/
+.. _lista degli utenti: http://groups.google.com/group/symfony-users
 .. _forum: http://forum.symfony-project.org/
-.. _IRC channel: irc://irc.freenode.net/symfony
+.. _canale IRC: irc://irc.freenode.net/symfony
 .. _tracker: https://github.com/symfony/symfony/issues

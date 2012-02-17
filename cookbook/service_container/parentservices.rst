@@ -140,7 +140,7 @@ La configurazione del servizio per queste classi sarà simile alla seguente:
             new Reference('mio_formattatore_mail')
         ));
 
-Ci sono molte ripetizioni, sia nelle classi che nella configurazione. Quasto vuol dire
+Ci sono molte ripetizioni, sia nelle classi che nella configurazione. Questo vuol dire
 che se qualcosa viene cambiato, ad esempio le classi ``Mailer`` o ``FormattatoreMail``
 che dovranno essere iniettate tramite il costruttore, sarà necessario modificare
 la configurazione in due posti. Allo stesso modo, se si volesse modificare il metodo setter,
@@ -190,7 +190,7 @@ e::
 
 Allo stesso modo, il contenitore di servizi di Symfony2 supporta la possibilità
 di estendere i servizi nella configurazione in modo da poter ridurre le ripetizioni
-specificando un serizio padre.
+specificando un servizio padre.
 
 .. configuration-block::
 

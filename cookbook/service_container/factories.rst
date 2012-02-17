@@ -79,7 +79,7 @@ Per rendere disponibile, in forma di servizio, l'oggetto ``GestoreNewsletter``,
             'get'
         );
 
-Quando si specifica la classe da utilizzarre come factory (tramite ``factory_class``)
+Quando si specifica la classe da utilizzare come factory (tramite ``factory_class``)
 il metodo verrà chiamato staticamente. Se il factory stesso dovesse essere istanziato
 e il relativo metodo dell'oggetto sia chiamato (come nell'esempio), si
 dovrà configurare il factory come servizio:

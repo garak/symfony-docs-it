@@ -1,7 +1,7 @@
 .. index::
-   single: Service Container; Tags
+   single: Contenitore di servizi; Tag
 
-Come far si che i servizi usino le etichette
+Come far sì che i servizi usino le etichette
 ============================================
 
 Molti dei servizi centrali di Symfony2 dipendono da etichette per capire quali servizi
@@ -13,7 +13,7 @@ uno dei propri servizi gestisca una collezione di un qualche genere o implementi
 quale diverse strategie alternative vengono provate fino a che una non risulti efficace. In questo articolo si userà
 come esempio una "lista di trasporto" che è una collezione di classi che implementano ``\Swift_Transport``.
 Usando questa lista il mailer di Swift proverà diversi tipi di trasporto fino a che uno non abbia successo.
-Questo articolo si focalizza fondamentalmente sull'argomento della dependency injection.
+Questo articolo si focalizza fondamentalmente sull'argomento dell'iniezione di dipendenze.
 
 Per iniziare si definisce la classe della ``ListaDiTrasporto``::
 

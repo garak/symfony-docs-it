@@ -339,7 +339,7 @@ In primo luogo, abilitare il form di login sotto il firewall:
             'form_login' => array(),
 
 Ora, quando il sistema di sicurezza inizia il processo di autenticazione,
-reindirizzerà l'utente alla form di login (``/login`` per impostazione predefinita). Implementare
+reindirizzerà l'utente al form di login (``/login`` per impostazione predefinita). Implementare
 visivamente il form di login è compito dello sviluppatore. In primo luogo, bisogna creare due rotte: una che
 visualizzerà il form di login (cioè ``/login``) e un'altra che gestirà
 l'invio del form di login (ad esempio ``/login_check``):

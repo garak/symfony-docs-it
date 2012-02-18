@@ -708,7 +708,7 @@ Imparare di più dal ricettario
 .. _`documentazione`:   http://www.doctrine-project.org/docs/mongodb_odm/1.0/en
 .. _`Quick Start`:      http://www.mongodb.org/display/DOCS/Quickstart
 .. _`Documentazione di base sulla mappatura`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/basic-mapping.html
-.. _`tipi MongoDB`: http://us.php.net/manual/en/mongo.types.php
+.. _`tipo MongoDB`: http://us.php.net/manual/en/mongo.types.php
 .. _`Documentazione sulla mappatura dei tipi`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/basic-mapping.html#doctrine-mapping-types
 .. _`Query Builder`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/query-builder-api.html
 .. _`Operatori condizionali`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/query-builder-api.html#conditional-operators

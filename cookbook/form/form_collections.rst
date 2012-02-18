@@ -11,11 +11,11 @@ questo Task, all'interno dello stesso form.
 
 .. note::
 
-    Con questa ricettaIn this entry, si assume di utilizzare Doctrine come
+    Con questa ricetta, si assume di utilizzare Doctrine come
     ORM. Se non si utilizza Doctrine (es. Propel o semplicemente
     una connessione a database), il tutto è pressapoco simile.
     
-    Se si utilizza Doctrine, si avrà la necessità di aggiungere metadata Doctrine,
+    Se si utilizza Doctrine, si avrà la necessità di aggiungere meta-dati Doctrine,
     includendo una relazione ``ManyToMany`` sulla colonna ``tags`` di Task.
 
 Iniziamo: supponiamo che ogni ``Task`` appartiene a più oggetti ``Tags``.
@@ -77,10 +77,10 @@ Ora, si crei una classe ``Tag``. Come è possibile verificare, un ``Task`` può 
 
 .. tip::
 
-    La proprietà ``name`` qui è pubblica, ma può esere facilmente protetta
+    La proprietà ``name`` qui è pubblica, ma può essere facilmente protetta
     o privata (ma in questo caso si avrebbe bisogno dei metodi ``getName`` e ``setName``).
 
-Si crei ora una classe di form cosicchè un oggetto ``Tag``
+Si crei ora una classe di form cosicché un oggetto ``Tag``
 può essere modificato dall'utente::
 
     // src/Acme/TaskBundle/Form/Type/TagType.php
@@ -144,7 +144,7 @@ il tipo di campo :doc:`collection</reference/forms/types/collection>`::
         }
     }
 
-Nel controller, è possibile inizializzare una nuova istanza di ``TaskType``::
+Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
 
     // src/Acme/TaskBundle/Controller/TaskController.php
     namespace Acme\TaskBundle\Controller;
@@ -161,7 +161,7 @@ Nel controller, è possibile inizializzare una nuova istanza di ``TaskType``::
         {
             $task = new Task();
             
-            // codice fittizio - è qui solo perchè il Task ha alcuni tag
+            // codice fittizio - è qui solo perché il Task ha alcuni tag
             // altrimenti, questo non è un esempio interessante
             $tag1 = new Tag()
             $tag1->name = 'tag1';
@@ -182,8 +182,8 @@ Nel controller, è possibile inizializzare una nuova istanza di ``TaskType``::
     }
 
 Il template corrispondente ora è abilitato a rendere entrambi i campi ``description``
-per il form dei task for the task form oltre tutti i forms ``TagType`` per ogni 
-che sono relazionati a questo ``Task``. Nel controller sottostante, viene aggiunto
+per il form dei task, oltre tutti i form ``TagType``
+che sono relazionati a questo ``Task``. Nel controllore sottostante, viene aggiunto
 del codice fittizio così da poterlo vedere in azione (dato che un ``Task`` non
 ha tags appena viene creato).
 
@@ -231,15 +231,15 @@ La collezione ``Tags``è acessibile tramite ``$task->getTags()``
 e può essere persistita nel database oppure utilizzata dove se ne ha bisogno.
 
 Finora, tutto ciò funziona bene, ma questo non permette di aggiungere nuovi dinamicamente 
-todos o eliminare todos esistenti. Quindi, la modifica dei todos esistenti funziona 
-bene ma ancora non si possono aggiungere nuovi todos.
+todo o eliminare todo esistenti. Quindi, la modifica dei todo esistenti funziona 
+bene ma ancora non si possono aggiungere nuovi todo.
 
 .. _cookbook-form-collections-new-prototype:
 
-Permettere "nuovi" todos con "prototipo"
------------------------------------------
+Permettere "nuovi" todo con "prototipo"
+---------------------------------------
 
-Permettere all'utente di inserire dinamicamente nuovi todos significa che abbiamo la necessità di
+Permettere all'utente di inserire dinamicamente nuovi todo significa che abbiamo la necessità di
 utilizzare Javascript. Precedentemente sono stati aggiunti due tags al nostro form nel controllore.
 Ora si ha la necessità che l'utente possa aggiungere diversi form di tag secondo le sue necessità direttamente dal browser.
 Questo può essere fatto attraverso un po' di Javascript.
@@ -247,7 +247,7 @@ Questo può essere fatto attraverso un po' di Javascript.
 La prima cosa di cui si ha bisogno è di far capire alla collezione di form che
 riceverà un numero indeterminato di tag. Finora sono stati aggiunti due tag e il form
 si aspetta di riceverne esattamente due, altrimenti verrà lanciato un errore:
-``Questo form non può contenere campi extra``. Per rendere flessibile il form, To make this flexible, we
+``Questo form non può contenere campi extra``. Per rendere flessibile il form,
 bisognerà aggiungere l'opzione ``allow_add`` alla collezione di campi::
 
     // ...
@@ -263,8 +263,8 @@ bisognerà aggiungere l'opzione ``allow_add`` alla collezione di campi::
         ));
     }
 
-Da notare che è stata aggiunto  ``'by_reference' => false``. Questo perchè This is because
-non si sta inviando una referenza ad un tag esistente ma piuttosto si sta creando we are not sending a reference to an existing tag but rather creating
+Da notare che è stata aggiunto  ``'by_reference' => false``. Questo perché
+non si sta inviando una referenza ad un tag esistente ma piuttosto si sta creando
 un nuovo tag quando si salva insieme il todo e i suoi tag.
 
 L'opzione ``allow_add`` effettua anche un'altra cosa. Aggiunge la proprietà ``data-prototype``
@@ -287,12 +287,12 @@ Ogni volta che viene cliccato dall'utente, verrà aggiunto un tag vuoto:
 
     $('.record_action').append('<li><a href="#" class="add_tag_link">Add a tag</a></li>');
 
-Inoltre, bisognerà includere un template che contenga il codice javascript necessario per aggiungere gli elemnti
+Inoltre, bisognerà includere un template che contenga il codice Javascript necessario per aggiungere gli elementi
 del form quando il link verrà premuto..
 
 .. note:
 
-    È meglio separare javascript in un file a sè stante piuttosto che
+    È meglio separare Javascript in un file a sé stante piuttosto che
     includerlo nell'HTML come viene fatto qui.
 
 Il codice può essere semplice:
@@ -318,7 +318,7 @@ Il codice può essere semplice:
     });
 
 Ora, ogni volta che un utente clicca sul link  ``Aggiungi un tag``, apparirà un nuovo
-form nella pagina. appear on the page. Il form lato server  è consapevole di tutto e non
+form nella pagina. Il form lato server  è consapevole di tutto e non
 si aspetterà nessuna specifica dimensione per la collezione ``Tag``. Tutti i tag
 verranno aggiunti creando un nuovo ``Todo`` salvandolo insieme ad esso.
 
@@ -326,8 +326,8 @@ Per ulteriori dettagli, guarda :doc:`collection form type reference</reference/f
 
 .. _cookbook-form-collections-remove:
 
-Permettere la rimozione di todos
-----------------------------
+Permettere la rimozione di todo
+-------------------------------
 
 Questa sezione non è ancora stata scritta, ma lo sarà presto. Se si è interessati
 a scrivere questa sezione, si guardi :doc:`/contributing/documentation/overview`.

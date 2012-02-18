@@ -2,66 +2,82 @@ Contribuire alla documentazione
 ===============================
 
 La documentazione è importante tanto quanto il codice. E segue esattamente gli stessi principi:
-DRY, test, facilità di manutenzione, estensibilità, ottimizzazione e refactoring
-solo per nominarne alcuni. E certamente, la documentazione ha bug, errori di battitura,
-difficoltà di lettura dei tutorial, e molto altro.
+DRY, tests, facilità di manutenzione, estensibilità, ottimizzazione, e refactoring
+solo per nominarne alcuni. E certamente la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial, e molto
+altro.
 
 Contribuire
-------------
+-----------
 
-Prima di contribuire, è necessario familiarizzare con il
-:doc:`formato del linguaggio di demarcazione<format>` usato per la documentazione.
+Prima di contribuire, è necessario famigliarizzare con il :doc:`linguaggio di markup<format>` 
+usato per la documentazione.
 
 La documentazione di Symfony 2 è ospitata da GitHub:
 
-.. code-block:: bash
+.. code-block:: text
 
     https://github.com/symfony/symfony-docs
 
-Se si vuole inviare una patch, questo è il repository ufficiale della documentazione di
-cui fare il `fork`_:
+Se si vuole inviare una patch, fare un `fork`_ del repository ufficiale su GitHub
+e fare un clone:
 
 .. code-block:: bash
 
-    $ git clone git://github.com/symfony/symfony-docs.git
+    git://github.com/symfony/symfony-docs.git
 
-Quindi, creare un branch dedicato per i propri cambiamenti (per una migliore organizzazione):
+A meno di non documentare una caratteristica aggiunta in Symfony 2.1, le modifiche
+vanno basate sul ramo 2.0, non sul ramo master. Per poterlo fare,
+eseguire un checkout del ramo 2.0 prima del prossimo passo:
 
 .. code-block:: bash
 
-    $ git checkout -b modifica_pippo_pluto
+    $ git checkout 2.0
 
-Si possono ora fare le proprie modifiche direttamente su questo branch e committarle.
-Quando si è finito, fare push di questo branch sul *proprio* fork in GitHub e inviare
-una pull request. La pull request sarà tra il proprio branch ``modifica_pippo_pluto`` e
-il branch ``master`` di ``symfony-docs``.
+
+Quindi, creare un ramo dedicato per le proprie modifiche (per questioni organizzative):
+
+.. code-block:: bash
+
+    $ git checkout -b miglioramenti_di_pippo_e_pluto
+
+Si possono ora eseguire le proprie modifiche in tale ramo. Quando si ha finito,
+fare il push di quest ramo nel *proprio* fork su GitHub e richiedere un pull.
+La richiesta di pull sarà tra il proprio ramo ``miglioramenti_di_pippo_e_pluto`` e
+il ramo ``master`` di ``symfony-docs``.
 
 .. image:: /images/docs-pull-request.png
    :align: center
 
-GitHub spiega in dettagli l'argomento `pull request`_.
+Se le proprie modifiche sono basate
+sul ramo 2.0, occorre seguire il collegamento di modifica del commit e cambiare
+il ramo base in @2.0:
+
+.. image:: /images/docs-pull-request-change-base.png
+   :align: center
+
+GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
 
 .. note::
 
-    La documentazione di Symfony2 è distribuita sotto :doc:`licenza <license>`
-    Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Unported.
+  La documentazione di Symfony2 è rilasciata sotto :doc:`licenza <license>`
+  Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Unported.
 
-Riportare una problematica
+Segnalare una problematica
 --------------------------
 
-Il modo più semplice di contribuire è riportando una problematica: un errore di battitura,
-un errore grammaticale, un bug nel codice di esempio, e così via.
+Il modo più semplice di contribuire è segnalando una problematica: un errore di battitura,
+un errore grammaticale, un bug nel codice di esempio, e così via
 
 Passi:
 
-* Segnalare un bug attraverso il tracker dei bug;
+* Segnalare un bug attraverso il bug Tracker;
 
-* *(facoltativo)* Inviare una patch.
+* *(opzionale)* Inviare una patch.
 
 Traduzione
------------
+----------
 
-Leggere il capitolo sulle :doc:`traduzioni <translations>`.
+Leggere la :doc:`documentazione <translations>` apposita.
 
 .. _`fork`: http://help.github.com/fork-a-repo/
-.. _`pull request`: http://help.github.com/pull-requests/
+.. _`richieste di pull`: http://help.github.com/pull-requests/

@@ -90,7 +90,7 @@ Impostare il informazioni utente con il nome e l'indirizzo email:
 
 .. tip::
 
-    Se siete nuovi a Git, vi raccomandiamo caldamente di leggere l'eccellente
+    Raccomandiamo caldamente a chi fosse nuovo di Git la lettura dell'eccellente
     libro gratuito `ProGit`_
 
 .. tip::

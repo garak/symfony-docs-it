@@ -1,5 +1,5 @@
 Formato della documentazione
-====================
+============================
 
 La documentazione di Symfony2 utilizza `reStructuredText`_ che utilizza come linguaggio di markup 
 `Sphinx`_ per la generazione dell'output (HTML, PDF, ...).
@@ -23,10 +23,10 @@ Sphinx
 Sphinx è un sistema di compilazione che aggiunge alcuni piacevoli strumenti  per creare documentazione da documenti reStructuredText. Come tale, essa aggiunge nuove direttive e
 interpreta ruoli di testo definiti nello standard reST `markup`_. 
 
-Syntax Highlighting
-~~~~~~~~~~~~~~~~~~~
+Colorazione della sintassi
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tutti i blocchi di codice utilizzano PHP come linguaggio di default. E possibile cambiarlo la direttiva ``code-block``:
+Tutti i blocchi di codice utilizzano PHP come linguaggio predefinito. È possibile cambiarlo con la direttiva ``code-block``:
 
 .. code-block:: rst
 
@@ -34,7 +34,7 @@ Tutti i blocchi di codice utilizzano PHP come linguaggio di default. E possibile
 
         { foo: bar, bar: { foo: bar, bar: baz } }
 
-Se il vostro codice PHP comincia con ``<?php``, allora si avrà bisogno di utilizzare ``html+php`` come pseudo-linguaggio:
+Se il proprio codice PHP comincia con ``<?php``, allora si avrà bisogno di utilizzare ``html+php`` come pseudo-linguaggio:
 
 .. code-block:: rst
 
@@ -46,7 +46,7 @@ Se il vostro codice PHP comincia con ``<?php``, allora si avrà bisogno di utili
    La lista dei linguaggi supportati è disponibile nel `Pygments website`_.
 
 Blocchi di configurazione
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ogni volta che si mostra una configurazione, per mostrarla in tutti i formati supportati  bisogna utilizzare la direttiva ``Configurazione-block`` (``PHP``, ``YAML``, and ``XML``):
 

@@ -2,18 +2,18 @@
    single: Form; Personalizzare la resa dei form
 
 Come personalizzare la resa dei form
-===============================
+====================================
 
 Symfony permette un'ampia varietà di modi per personalizzare la resa di un form.
 In questa guida, si apprenderà come personalizzare ogni possibile parte del
-form con il minimo sforzo possibile se si utilizza Twig o Php come
+form con il minimo sforzo possibile se si utilizza Twig o PHP come
 motore di template.
 
 Le basi della resa dei form
----------------------
+---------------------------
 
 Si ricordi che le label, gli errori e i widget HTML di un campo del form possono essere facilmente
-resi usando la funzione di twig ``form_row`` oppure il metodo dell'helper php
+resi usando la funzione di Twig ``form_row`` oppure il metodo dell'helper PHP
 ``row``:
 
 .. configuration-block::
@@ -48,7 +48,7 @@ resi usando la funzione di twig ``form_row`` oppure il metodo dell'helper php
 
 In entrambi i casi le label, gli errori e i widget HTML del form, sono resi utilizzando
 un set di markup che sono standard con Symfony. Per esempio, entrambi i
-templates sopra renderebbero:
+template sopra renderebbero:
 
 .. code-block:: html
 
@@ -80,7 +80,7 @@ form in generale, è disponibile :ref:`form-rendering-template`.
 .. _cookbook-form-customization-form-themes:
 
 Cosa sono i temi di un form?
----------------------
+----------------------------
 
 Symfony usa frammenti di form - un piccolo pezzo di template che rende semplicemente
 una parte di un form - per rendere ogni parte di un form - - la label del campo, gli errori
@@ -120,8 +120,8 @@ renders:
     <input type="number" id="form_age" name="form[age]" required="required" value="33" />
 
 Internamente, Symfony utilizza il frammento ``integer_widget``  per rendere il campo.
-Questo perchè il tipo di campo è ``integer`` e si vuole rendere il ``widget``
-(in contrapposizione alla sua ``label`` o ai sui ``errors``).
+Questo perché il tipo di campo è ``integer`` e si vuole rendere il ``widget``
+(in contrapposizione alla sua ``label`` o ai suoi ``errors``).
 
 In Twig per impostazione predefinita il blocco ``integer_widget`` dal template
 `form_div_layout.html.twig`.
@@ -169,20 +169,20 @@ Come è possibile vedere, questo frammento rende un altro frammento - ``field_wi
 
 Il punto è che il frammento detta l'output HTML di ogni parte del form. Per
 personalizzare l'output del form, è necessario soltanto identificare e sovrascrivere il frammento
-corretto. Un set di queste personalizzazionidi frammenti è conosciuto come "tema" di un form.
+corretto. Un set di queste personalizzazioni di frammenti è conosciuto come "tema" di un form.
 Quando viene reso un form, è possibile scegliere quale tema del form si vuole applicare.
 
 In Twig un tema è un singolo file di template e i frammente sono dei blocchi definiti
 in questo file.
 
-In PHP un tema è una cartella e i frammenti sono singoli files di template in
+In PHP un tema è una cartella e i frammenti sono singoli file di template in
 questa cartella.
 
 .. _cookbook-form-customization-sidebar:
 
 .. sidebar:: Conoscere quale blocco personalizzare
 
-    In questo esempio, ilnome del frammento personalizzato è ``integer_widget`` perchè
+    In questo esempio, il nome del frammento personalizzato è ``integer_widget`` perché
     si vuole sovrascrivere l'HTML del ``widget`` per tutti i tipi di campo ``integer``. Se
     si ha la necessità di personalizzare campi textarea, si deve personalizzare il widget ``textarea_widget``.
 
@@ -198,7 +198,7 @@ questa cartella.
     guarderà per prima cosa al tipo-specifico di frammento (es. ``text_errors``) prima 
     di ricadere sul nome del frammento del suo genitore, se non esiste (es. ``field_errors``).
 
-    Per maggiori informazioni su questo topic, si guardi :ref:`form-template-blocks`.
+    Per maggiori informazioni sull'argomento, si veda :ref:`form-template-blocks`.
 
 .. _cookbook-form-theming-methods:
 
@@ -210,7 +210,7 @@ in un tag ``div``. La chiave per fare questo è personalizzare
 il frammento ``integer_widget``.
 
 Temi del form in Twig
---------------------
+---------------------
 
 Per personalizzare il blocco dei campi del form in Twig, si hanno due possibilità su *dove*
 il blocco del form personalizzato può essere implementato:
@@ -228,7 +228,7 @@ Entrambi i metodi hanno lo stesso effetto ma sono consigliati per situazioni dif
 .. _cookbook-form-twig-theming-self:
 
 Metodo 1: Nello stesso template del form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Il modo più facile di personalizzare il blocco ``integer_widget`` è personalizzarlo
 direttamente nel template che è sta attualmente rendendo il form.
@@ -252,8 +252,8 @@ direttamente nel template che è sta attualmente rendendo il form.
         {{ form_row(form.age) }}
     {% endblock %}
 
-Utilizzando il tag speciale ``{% form_theme form _self %}``, Twig guarda nello looks inside
-stesso template per ogni blocco di form sovrascritto. Assumento che il campo
+Utilizzando il tag speciale ``{% form_theme form _self %}``, Twig guarda nello
+stesso template per ogni blocco di form sovrascritto. Assumendo che il campo
 ``form.age`` è un tipo di campo ``integer``, quando il suo widget è reso, verrà utilizzato
 il blocco personalizzato ``integer_widget``.
 
@@ -266,11 +266,11 @@ alcuni (o tutti) form nell'applicazione, si legga la prossima sezione.
 .. _cookbook-form-twig-separate-template:
 
 Metodo 2: In un template separato
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 È possibile scegliere di mettere il blocco del form personalizzato ``integer_widget`` in un
 interamente in un template separato. Il codice e il risultato finale sono gli stessi, ma
-ora è possibile riutilizzare la personalizzazione del formi in diversi templates:
+ora è possibile riutilizzare la personalizzazione del formi in diversi template:
 
 .. code-block:: html+jinja
 
@@ -295,14 +295,14 @@ dire a Symfony di utilizzare il template attraverso il tag ``form_theme``:
 
     {{ form_widget(form.age) }}
 
-Quando il widget ``form.age`` è reso, Symfony utilizzarà il blocco ``integer_widget``
+Quando il widget ``form.age`` è reso, Symfony utilizzerà il blocco ``integer_widget``
 dal nuovo template e il tag ``input`` sarà incorporato nel
 ``div`` specificato nel blocco personalizzato.
 
 .. _cookbook-form-php-theming:
 
 Temi del form in PHP
----------------------
+--------------------
 
 Quando si utilizza PHP come motore per i temi, l'unico metoro per personalizzare un frammento
 è di creare un nuovo file di tema - questo è simile al secondo metodo adottato per
@@ -319,7 +319,7 @@ per personalizzare il frammento ``integer_widget``.
         <?php echo $view['form']->renderBlock('field_widget', array('type' => isset($type) ? $type : "number")) ?>
     </div>
 
-Ora che è stato crearo il tema del form personalizzato, bisogna dire a Symfony
+Ora che è stato creato il tema del form personalizzato, bisogna dire a Symfony
 di utilizzarlo. Nel template dove viene attualmente reso il form,
 dire a Symfony di utilizzare il tema attraverso il metodo ``setTheme`` dell'helper:
 
@@ -338,7 +338,7 @@ elemento ``div``.
 .. _cookbook-form-twig-import-base-blocks:
 
 Referenziare blocchi di form (specifico per Twig)
---------------------------------------------------
+-------------------------------------------------
 
 Finora, per sovrascrivere un particolare blocco del form, il metodo migliore è copiare
 il blocco di default da  `form_div_layout.html.twig`_, incollarlo in un template differente,
@@ -349,9 +349,9 @@ Tutto ciò è semplice da fare, ma varia leggermente a seconda se le personalizz
 sono nello stesso template del form o in un template separato.
 
 Referenziare blocchi dall'interno dello stesso template del form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Importare i blocchi aggiungento un tag ``use`` nel template da dove si sta rendendo
+Importare i blocchi aggiungendo un tag ``use`` nel template da dove si sta rendendo
 il form:
 
 .. code-block:: jinja
@@ -359,7 +359,7 @@ il form:
     {% use 'form_div_layout.html.twig' with integer_widget as base_integer_widget %}
 
 Ora, quando sono importati i blocchi da `form_div_layout.html.twig`_, il
-blocco ``integer_widget`` è chiamato ``base_integer_widget``. Questo significa che quando This means that when
+blocco ``integer_widget`` è chiamato ``base_integer_widget``. Questo significa che quando
 viene ridefinito il blocco ``integer_widget``, è possibile referenziare il markup di default
 tramite ``base_integer_widget``:
 
@@ -372,7 +372,7 @@ tramite ``base_integer_widget``:
     {% endblock %}
 
 Referenziare blocchi base da un template esterno
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Se la personalizzazione è stata fatta su un template esterno, è possibile referenziare
 il blocco base utilizzando la funzione di Twig ``parent()``:
@@ -398,7 +398,7 @@ il blocco base utilizzando la funzione di Twig ``parent()``:
 .. _cookbook-form-global-theming:
 
 Personalizzare lo strato applicativo
---------------------------------------
+------------------------------------
 
 Se si vuole che una determinata personalizzazione del form sia globale nell'applicazione,
 è possibile realizzare ciò effettuando personalizzazioni del form in un template
@@ -592,11 +592,10 @@ file di template piuttosto che aggiungere un template come risorsa:
 Si osservi che la variabile ``$form`` nel codice sottostante è la variabile della vista form
 che è stata passata al template.
 
-
 Personalizzare un singolo campo
 ---------------------------------
 
-Finora, sono stati mostrati i vari modi per personalizzare l'ouput di un widget
+Finora, sono stati mostrati i vari modi per personalizzare l'output di un widget
 di tutti i tipi di campo testuali. Ma è anche possibile personalizzare singoli campi. Per esempio,
 si supponga di avere due campi di ``testo`` - ``first_name`` e ``last_name`` - ma
 si vuole personalizzare solo uno dei campi. Questo può essere fatto
@@ -685,8 +684,8 @@ Personalizzare l'output degli errori
 .. note::
    Il componente del form gestisce soltanto *come* gli errori di validazione vengono resi,
    e non gli attuali messaggi di errore di validazione. I messaggi d'errore
-   sono determinati dai vincoli di validazone applicati agli oggetti.
-   Per maggiori informazioni, si guardi il capitolo :doc:`validation</book/validation>`.
+   sono determinati dai vincoli di validazione applicati agli oggetti.
+   Per maggiori informazioni, si veda il capitolo :doc:`validazione</book/validation>`.
 
 Ci sono diversi modi di personalizzare come gli errori sono resi quando un
 form viene inviato con errori. I messaggi di errore per un campo sono resi
@@ -710,8 +709,8 @@ Di default, gli errori sono resi dentro una lista non ordinata:
         <li>Questo campo è obbligatorio</li>
     </ul>
 
-Per sovrascrivere come gli errori sono resi per *tutti* i campi, basta semplicemente copiare, incollare
-e personalizzare il frammento ``field_errors``.
+Per sovrascrivere come gli errori sono resi per *tutti* i campi, basta semplicemente copiare,
+incollare e personalizzare il frammento ``field_errors``.
 
 .. configuration-block::
 
@@ -799,7 +798,7 @@ classe all'elemento  ``div`` per ogni riga:
         </div>
 
 .. tip::
-    Si guardi :ref:`cookbook-form-theming-methods` per conoscere come applicare questa personalizzazione.
+    Si veda :ref:`cookbook-form-theming-methods` per conoscere come applicare questa personalizzazione.
 
 Aggiungere un asterisco "obbligatorio" alle label del campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -833,7 +832,7 @@ utilizzare le seguenti righe:
         {{ parent() }}
 
         {% if required %}
-            <span class="required" title="This field is required">*</span>
+            <span class="required" title="Questo campo è obbligatorio">*</span>
         {% endif %}
     {% endblock %}
 

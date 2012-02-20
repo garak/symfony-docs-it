@@ -305,7 +305,7 @@ Il codice può essere semplice:
         // prendi il data-prototype 
         var prototype = collectionHolder.attr('data-prototype');
         // Sostituisci '$$name$$' nell'html del prototype in the prototype's HTML 
-        // affichè sia un nummero basato sulla lunghezza corrente della collezione.
+        // affiché sia un nummero basato sulla lunghezza corrente della collezione.
         form = prototype.replace(/\$\$name\$\$/g, collectionHolder.children().length);
         // Visualizza il form nella pagina
         collectionHolder.append(form);

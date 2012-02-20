@@ -13,7 +13,7 @@ Installazione
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DomCrawler);
 * Installandolo via PEAR ( `pear.symfony.com/DomCrawler`);
-* Installandolo tramite Composer (`symfony/dom-crawler` on Packagist).
+* Installandolo via Composer (`symfony/dom-crawler` su Packagist).
 
 Utilizzo
 --------
@@ -21,7 +21,7 @@ Utilizzo
 La classe :class:`Symfony\\Component\\DomCrawler\\Crawler` mette a disposizione metodi
 per effettuare query e manipolare i documenti HTML e XML.
 
-Un'istranza di Crawler rappresenta un insieme (:phpclass:`SplObjectStorage`) di 
+Un'istanza di Crawler rappresenta un insieme (:phpclass:`SplObjectStorage`) di 
 oggetti :phpclass:`DOMElement`, che sono, in pratica, nodi facilmente 
 visitabili::
 
@@ -58,7 +58,7 @@ Filtrare i nodi
     internamente viene usato ``DOMXPath::query`` per eseguire le query XPath.
 
 La ricerca è anche più semplice se si è installato il componente ``CssSelector``.
-In questo modo è possibile usare lo stile JQuery per l'attraversamento::
+In questo modo è possibile usare lo stile jQuery per l'attraversamento::
 
     $crawler = $crawler->filter('body > p');
 
@@ -83,21 +83,21 @@ Accedere ai nodi tramite la loro posizione nella lista::
 
     $crawler->filter('body > p')->eq(0);
 
-Ottentere il primo o l'ultimo nodo della selezione::
+Ottenere il primo o l'ultimo nodo della selezione::
 
     $crawler->filter('body > p')->first();
     $crawler->filter('body > p')->last();
 
-Ottentere i nodi allo stesso livello della selezione attuale::
+Ottenere i nodi allo stesso livello della selezione attuale::
 
     $crawler->filter('body > p')->siblings();
 
-Ottentere i nodi, allo stesso livello, precedenti o successivi alla selezione attuale::
+Ottenere i nodi, allo stesso livello, precedenti o successivi alla selezione attuale::
 
     $crawler->filter('body > p')->nextAll();
     $crawler->filter('body > p')->previousAll();
 
-Ottentere tutti i nodi figlio o padre::
+Ottenere tutti i nodi figlio o padre::
 
     $crawler->filter('body')->children();
     $crawler->filter('body > p')->parents();
@@ -178,7 +178,7 @@ Collegamenti
 
 Per trovare un collegamento tramite il suo nome (o un'immagine cliccabile tramite il suo
 attributo ``alt``) si usa il metodo ``selectLink`` in un crawler esistente. La chiamata
-retituisce un'istanza di Crawler contenente il/i solo/i collegamento/i selezionato/i. La chiamata ``link()``
+restituisce un'istanza di Crawler contenente il/i solo/i collegamento/i selezionato/i. La chiamata ``link()``
 restituisce l'oggetto speciale :class:`Symfony\\Component\\DomCrawler\\Link`::
 
     $linksCrawler = $crawler->selectLink('Vai altrove...');
@@ -196,7 +196,7 @@ avere ulteriori informazioni relative al collegamento selezionato::
     // restituisce la URI che può essere utilizzata per effettuare nuove richieste
     $uri = $link->getUri();
 
-Il metodo ``getUri()`` è specialmente utile perchè pulisce il valore di ``href``
+Il metodo ``getUri()`` è specialmente utile perché pulisce il valore di ``href``
 e lo trasforma nel modo in cui dovrebbe realmente essere processato. Ad esempio, un collegamento
 del tipo ``href="#foo"`` restituirà la URI completa della pagina corrente con il suffisso ``#foo``.
 Il valore restituito da ``getUri()`` è sempre una URI completa sulla quale è 
@@ -208,7 +208,7 @@ I Form
 Un trattamento speciale è riservato anche ai form. È disponibile, in Crawler,
 un metodo ``selectButton()`` che restituisce un'altro Crawler relativo
 al pulsante (``input[type=submit]``, ``input[type=image]``, o ``button``) con
-il testo dato. Questo metodo è specialmente utile perchè può essere usato per restituire
+il testo dato. Questo metodo è specialmente utile perché può essere usato per restituire
 un oggetto :class:`Symfony\\Component\\DomCrawler\\Form` che rappresenta 
 il form all'interno del quale il pulsante è definito::
 
@@ -265,7 +265,7 @@ Per lavorare con i campi multi-dimensionali::
     ));
 
 Se questo è fantastico, il resto è anche meglio! L'oggetto ``Form`` permette di
-interagire con il form come se si usasse il borwser, slezionando i valori dei radio,
+interagire con il form come se si usasse il borwser, selezionando i valori dei radio,
 spuntando i checkbox e caricando file::
 
     $form['registrazione[nomeutente]']->setValue('fandisymfony');
@@ -283,7 +283,7 @@ spuntando i checkbox e caricando file::
     // può anche imitare l'upload di un file
     $form['registrazione[foto]']->upload('/percorso/al/file/lucas.jpg');
 
-A cosa serve tutto questo ? Se si stanno eseguendo i test interni, è possibile
+A cosa serve tutto questo? Se si stanno eseguendo i test interni, è possibile
 recuperare informazioni da tutti i form esattamente come se fossero stati inviati
 utilizzando i valori PHP::
 

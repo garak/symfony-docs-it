@@ -39,7 +39,7 @@ Uso
 La registrazione di :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader`
 è molto semplice::
 
-    require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    require_once '/percorso/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
     use Symfony\Component\ClassLoader\UniversalClassLoader;
 
@@ -53,8 +53,8 @@ La registrazione di :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoade
 Per un minimo guadagno di prestazioni, i percorsi delle classi possono essere memorizzati
 usando APC, registrando :class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader`::
 
-    require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
-    require_once '/path/to/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+    require_once '/percorso/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    require_once '/percorso/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
 
     use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 
@@ -101,7 +101,7 @@ o
 .. note::
 
     Alcune librerie richiedono anche che il loro percorso radice sia registrato
-    nell'include path di PHP (``set_include_path()``).
+    nell'include_path di PHP (``set_include_path()``).
 
 Le classi di un sotto-spazio dei nomi o di una sotto-gerarchia di PEAR possono essere
 cercate in un elenco di posizioni, per facilitare i venditori di un sotto-insieme di classi

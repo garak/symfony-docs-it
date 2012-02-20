@@ -27,7 +27,7 @@ Utilizzo
 La registrazione dell'autoloader
 :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` è semplice::
 
-    require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    require_once '/percorso/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
     use Symfony\Component\ClassLoader\UniversalClassLoader;
 
@@ -42,8 +42,8 @@ Per piccoli miglioramenti delle prestazioni, i percorsi delle classi possono ess
 in cache in memoria, usando APC o registrando
 :class:`Symfony\\Component\\ClassLoader\\ApcUniversalClassLoader`::
 
-    require_once '/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
-    require_once '/path/to/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+    require_once '/percorso/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    require_once '/percorso/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
 
     use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 

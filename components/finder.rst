@@ -14,12 +14,12 @@ Installazione
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Finder);
 * Installandolo via PEAR ( `pear.symfony.com/Finder`);
-* Installandolo tramite Composer (`symfony/finder` on Packagist).
+* Installandolo tramite Composer (`symfony/finder` su Packagist).
 
 Utilizzo
 --------
 
-La class :class:`Symfony\\Component\\Finder\\Finder` trova i file e/o le
+La classe :class:`Symfony\\Component\\Finder\\Finder` trova i file e/o le
 cartelle::
 
     use Symfony\Component\Finder\Finder;
@@ -30,7 +30,7 @@ cartelle::
     foreach ($finder as $file) {
         // Stampa il percorso assoluto
         print $file->getRealpath()."\n";
-        // Stampa il percorso relativo del file, ommettendo il nome del file stesso
+        // Stampa il percorso relativo del file, omettendo il nome del file stesso
         print $file->getRelativePath()."\n";
         // Stampa il percorso relativo del file
         print $file->getRelativePathname()."\n";
@@ -41,7 +41,7 @@ la quale estende :phpclass:`SplFileInfo` che mette a disposizione i metodi per
 poter lavorare con i percorsi relativi.
 
 Il precedente codice stampa, ricorsivamente, i nomi di tutti i file della
-cartella corrente. La classe Finder implementa il concetto di fluent interface, perciò tutti
+cartella corrente. La classe Finder implementa il concetto di interfaccia fluida, perciò tutti
 i metodi restituiscono un'istanza di Finder.
 
 .. tip::
@@ -73,7 +73,7 @@ Per cercare in diverse posizioni, è possibile concatenare diverse chiamate a
     $finder->in(__DIR__)->exclude('ruby');
 
 Visto che Finder utilizza gli iteratori di PHP, è possibile passargli qualsiasi
-URL che sia supportata da `protocol`_::
+URL che sia supportata dal `protocollo`_::
 
     $finder->in('ftp://example.com/pub/');
 
@@ -87,21 +87,21 @@ Funziona anche con flussi definiti dall'utente::
     $finder = new Finder();
     $finder->name('photos*')->size('< 100K')->date('since 1 hour ago');
     foreach ($finder->in('s3://bucket-name') as $file) {
-        // fai qualcosa
+        // fare qualcosa
 
         print $file->getFilename()."\n";
     }
 
 .. note::
 
-    Per approfondire l'argomento su come creare flussi personalizzati, si legga la documentazione di `Streams`_.
+    Per approfondire l'argomento su come creare flussi personalizzati, si legga la documentazione degli `stream`_.
 
 File o cartelle
 ~~~~~~~~~~~~~~~
 
-Il comportamento predefinito di Finder è quello di restituire file e cartelle; ma
+Il comportamento predefinito di Finder è quello di restituire file e cartelle, ma
 grazie ai metodi :method:`Symfony\\Component\\Finder\\Finder::files` e
-:method:`Symfony\\Component\\Finder\\Finder::directories` è possibile raffinare i risultati ::
+:method:`Symfony\\Component\\Finder\\Finder::directories`, è possibile raffinare i risultati::
 
     $finder->files();
 
@@ -130,7 +130,7 @@ Ordinamento
     Si noti che i metodi ``sort*``, per poter funzionare, richiedono tutti gli 
     elementi ricercati. In caso di iteratori molto grandi, l'ordinamento potrebbe risultare lento.
 
-È anche possibile definire algoritimi di ordinamento personalizzati grazie al metodo ``sort()``::
+È anche possibile definire algoritmi di ordinamento personalizzati grazie al metodo ``sort()``::
 
     $sort = function (\SplFileInfo $a, \SplFileInfo $b)
     {
@@ -147,7 +147,7 @@ Nomi dei file
 
     $finder->files()->name('*.php');
 
-Il metodo ``name()`` accetta, come parametri, globs, stringhe, o espressioni regolari::
+Il metodo ``name()`` accetta, come parametri, glob, stringhe, o espressioni regolari::
 
     $finder->files()->name('/\.php$/');
 
@@ -170,8 +170,8 @@ Si possono filtrare i file di dimensione compresa tra due valori incatenando le 
 È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, '<=',
 '=='.
 
-La dimensione può essere indicata usando l'indicazione in kilobytes (``k``, ``ki``),
-megabytes (``m``, ``mi``) o in gigabytes (``g``, ``gi``). Gli indicatori che terminano
+La dimensione può essere indicata usando l'indicazione in kilobyte (``k``, ``ki``),
+megabyte (``m``, ``mi``) o in gigabyte (``g``, ``gi``). Gli indicatori che terminano
 con ``i`` utilizzano l'appropriata versione ``2**n`` in accordo allo `standard IEC`_
 
 Data del file
@@ -219,6 +219,6 @@ Il file sarà escluso dal risultato della ricerca nel caso in cui la Closure res
 
 .. _strtotime:   http://www.php.net/manual/en/datetime.formats.php
 .. _Iterator:     http://www.php.net/manual/en/spl.iterators.php
-.. _protocol:     http://www.php.net/manual/en/wrappers.php
-.. _Streams:      http://www.php.net/streams
+.. _protocollo:   http://www.php.net/manual/en/wrappers.php
+.. _stream:       http://www.php.net/streams
 .. _standard IEC: http://physics.nist.gov/cuu/Units/binary.html

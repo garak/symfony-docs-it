@@ -721,20 +721,14 @@ del formato scelto:
 
         # app/config/config.yml
         imports:
-            - { resource: parameters.ini }
+            - { resource: parameters.yml }
             - { resource: security.yml }
         
         framework:
             secret:          %secret%
             charset:         UTF-8
             router:          { resource: "%kernel.root_dir%/config/routing.yml" }
-            form:            true
-            csrf_protection: true
-            validation:      { enable_annotations: true }
-            templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-            session:
-                default_locale: %locale%
-                auto_start:     true
+            # ...
 
         # Configurazione di Twig
         twig:
@@ -747,19 +741,13 @@ del formato scelto:
 
         <!-- app/config/config.xml -->
         <imports>
-            <import resource="parameters.ini" />
+            <import resource="parameters.yml" />
             <import resource="security.yml" />
         </imports>
         
         <framework:config charset="UTF-8" secret="%secret%">
             <framework:router resource="%kernel.root_dir%/config/routing.xml" />
-            <framework:form />
-            <framework:csrf-protection />
-            <framework:validation annotations="true" />
-            <framework:templating assets-version="SomeVersionScheme">
-                <framework:engine id="twig" />
-            </framework:templating>
-            <framework:session default-locale="%locale%" auto-start="true" />
+            <!-- ... -->
         </framework:config>
 
         <!-- Configurazione di Twig -->
@@ -769,23 +757,14 @@ del formato scelto:
 
     .. code-block:: php
 
-        $this->import('parameters.ini');
+        $this->import('parameters.yml');
         $this->import('security.yml');
 
         $container->loadFromExtension('framework', array(
             'secret'          => '%secret%',
             'charset'         => 'UTF-8',
             'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
-            'form'            => array(),
-            'csrf-protection' => array(),
-            'validation'      => array('annotations' => true),
-            'templating'      => array(
-                'engines' => array('twig'),
-                #'assets_version' => "SomeVersionScheme",
-            ),
-            'session' => array(
-                'default_locale' => "%locale%",
-                'auto_start'     => true,
+            // ...
             ),
         ));
 
@@ -823,6 +802,26 @@ specifiche saranno man mano approfondite.
     * *XML*: Più potente di YAML e supportato nell'autocompletamento dagli IDE;
 
     * *PHP*: Molto potente, ma meno leggibile dei formati di configurazione standard.
+
+Esportazione della configurazione predefinita
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+    Il comando ``config:dump-reference`` è stato aggiunto in Symfony 2.1
+
+Si può esportare la configurazione predefinita per un bundle in yaml sulla console, usando
+il comando ``config:dump-reference``. Ecco un esempio di esportazione della configurazione
+predefinita di FrameworkBundle:
+
+.. code-block:: text
+
+    app/console config:dump-reference FrameworkBundle
+
+.. note::
+
+    Vedere la ricetta :doc:`Come esporrre una configurazione semantica per un bundle</cookbook/bundles/extension>`
+    per informazioni sull'aggiunta di configurazioni per il proprio
+    bundle.
 
 .. index::
    single: Ambienti; Introduzione

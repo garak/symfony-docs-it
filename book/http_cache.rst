@@ -173,7 +173,10 @@ regolato tramite un insieme di opzioni impostabili sovrascrivendo il metodo
 ``getOptions()``::
 
     // app/AppCache.php
-    class AppCache extends Cache
+
+    use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
+
+    class AppCache extends HttpCache
     {
         protected function getOptions()
         {
@@ -326,8 +329,7 @@ Sia la gateway cache che la proxy cache sono considerate cache "condivise", perc
 il contenuto della cache è condiviso da più di un utente. Se una risposta specifica per un
 utente venisse per errore inserita in una cache condivisa, potrebbe successivamente essere
 restituita a diversi altri utenti. Si immagini se delle informazioni su un account
-venissero messe in cache e poi restituite a ogni utente successivo che richiede la
-sua pagina dell'account!
+venissero messe in cache e poi restituite a ogni utente successivo che richiede la sua pagina dell'account!
 
 Per gestire questa situazione, ogni risposta può essere impostata a pubblica o privata:
 
@@ -417,7 +419,8 @@ appoggiandosi a una cache per memorizzare e restituire risposte "fresche".
     una nuova versione di HTTP, ma per lo più chiarisce le specifiche HTTP
     originali. Anche l'organizzazione è migliore, essendo le specifiche separate in
     sette parti; tutto ciò che riguarda la cache HTTP si trova in due parti
-    dedicate (`P4 - Richieste condizionali`_ e `P6 - Cache: Browser e cache intermedie`_).
+    dedicate (`P4 - Richieste condizionali`_ e `P6 - Cache: Browser
+    e cache intermedie`_).
 
     Come sviluppatori web, dovremmo leggere tutti le specifiche. Possiedono un chiarezza e
     una potenza, anche dopo oltre dieci anni dalla creazione, inestimabili.
@@ -464,8 +467,10 @@ Il risultante header HTTP sarà simile a questo::
     Il metodo ``setExpires()`` converte automaticamente la data al fuso orario GMT,
     come richiesto dalle specifiche.
 
-L'header ``Expires`` soffre di due limitazioni. La prima è che gli orologi del server
-web e della cache (p.e. del browser) devono essere sincronizzati. La seconda è che le
+Si noti che, nelle versioni di HTTP precedenti alla 1.1, non era richiesto al server di origine di inviare
+l'header ``Date``. Di conseguenza, la cache (p.e. il browser) potrebbe aver bisogno di
+appoggiarsi all'orologio locale per valuare l'header ``Expires``, rendendo il calcolo del ciclo di vita
+vulnerabile a difformità di ore. L'header ``Expires`` soffre di un'altra limitazione: le
 specifiche stabiliscono che "i server HTTP/1.1 non dovrebbero inviare header ``Expires``
 oltre un anno nel futuro."
 
@@ -984,7 +989,8 @@ si usa la scadenza e si ha l'esigenza di invalidare una risorsa, vuol dire che s
 .. note::
 
     Essendo l'invalidazione un argomento specifico di ogni reverse proxy, se non ci si
-    preoccupa dell'invalidazione, si può cambiare reverse proxy senza cambiare alcuna parte del codice della propria applicazione.
+    preoccupa dell'invalidazione, si può cambiare reverse proxy senza cambiare alcuna parte del codice della propria 
+    applicazione.
 
 In realtà, ogni reverse proxy fornisce dei modi per pulire i dati in cache, ma
 andrebbero evitati, per quanto possibile. Il modo più standard è pulire la cache
@@ -1003,7 +1009,7 @@ metodo HTTP ``PURGE``::
             }
 
             $response = new Response();
-            if (!$this->store->purge($request->getUri())) {
+            if (!$this->getStore()->purge($request->getUri())) {
                 $response->setStatusCode(404, 'Not purged');
             } else {
                 $response->setStatusCode(200, 'Purged');

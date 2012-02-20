@@ -69,6 +69,32 @@ A questo punto, si ha un progetto Symfony2 pienamente funzionante e correttament
 copiato su git. Si può iniziare subito a sviluppare, inviando i commit delle
 modifiche al proprio repository git.
 
+.. tip::
+
+    Dopo aver eseguito il comando:
+    
+    .. code-block:: bash
+
+        $ php bin/vendors install
+
+    il progetto conterrà la cronologia completa di tutt i bundle e le
+    librerie definite nel file ``deps``. Potrebbero essere anche 100 MB!
+    Si possono cancellare le cartelle della cronologia di git con il comando seguente:
+
+    .. code-block:: bash
+
+        $ find vendor -name .git -type d | xargs rm -rf
+
+    Il comando cancella tutte le cartelle ``.git`` contenute nella cartella
+    ``vendor``.
+
+    Se successivamente si vogliono aggiornare i bundle definiti nel file ``deps``,
+    occorrerà installarli nuovamente:
+
+    .. code-block:: bash
+
+        $ php bin/vendors install --reinstall
+
 Si può continuare a seguire il capitolo :doc:`/book/page_creation` per imparare
 di più su come configurare e sviluppare la propria applicazione.
 

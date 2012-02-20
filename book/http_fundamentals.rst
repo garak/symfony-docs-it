@@ -143,8 +143,10 @@ Una lista completa può essere trovata nella pagina di Wikipedia
 Come la richiesta, una risposta HTTP contiene parti aggiuntive di informazioni, note come
 header. Per esempio, un importante header di risposta HTTP è ``Content-Type``. 
 Il corpo della risorsa stessa potrebbe essere restituito in molti formati diversi, inclusi
-HTML, XML o JSON, solo per nominarne alcuni. L'header ``Content-Type`` dice al client
-quale formato è restituito.
+HTML, XML o JSON, mentre l'header ``Content-Type`` usa i tipi di media di Internet, come ``text/html``, per
+dire al client quale formato è restituito. Ua lista di tipi di media comuni si può
+trovare sulla voce di Wikipedia
+`Lista di tipi di media comuni`_.
 
 Esistono molti altri header, alcuni dei quali molto potenti. Per esempio, alcuni
 header possono essere usati per creare un potente sistema di cache.
@@ -228,8 +230,18 @@ si hanno a portata di mano tutte le informazioni sulla richiesta::
     $request->query->get('pippo');
     $request->request->get('pluto');
 
+    // recupera le variabili SERVER
+    $request->server->get('HTTP_HOST');
+
     // recupera un'istanza di UploadedFile identificata da pippo
     $request->files->get('pippo');
+
+    // recupera il valore di un COOKIE
+    $request->cookies->get('PHPSESSID');
+
+    // recupera un header di risposta HTTP, con chiavi normalizzate e minuscole
+    $request->headers->get('host');
+    $request->headers->get('content_type');
 
     $request->getMethod();          // GET, POST, PUT, DELETE, HEAD
     $request->getLanguages();       // un array di lingue accettate dal client
@@ -238,6 +250,29 @@ Come bonus, la classe ``Request`` fa un sacco di lavoro in sottofondo, di cui no
 dovrà mai preoccupare. Per esempio, il metodo ``isSecure()`` verifica **tre**
 diversi valori in PHP che possono indicare se l'utente si stia connettendo o meno
 tramite una connessione sicura (cioè ``https``).
+
+.. sidebar:: ParameterBags e attributi di Request
+
+    Come visto in precedenza, le variabili ``$_GET`` e ``$_POST`` sono accessibili
+    rispettivamente
+    tramite le proprietà pubbliche ``query`` e ``request``. Entrambi questi oggetti
+    sono oggetti della classe :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`, che ha metodi come
+    :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::get`,
+    :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::has`,
+    :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all` e altri.
+    In effetti, ogni proprietò pubblica usata nell'esempio precedente è un'istanza
+    di ParameterBag.
+    
+    .. _book-fundamentals-attributes:
+    
+    La classe Request ha anche una proprietà pubblica ``attributes``, che contiene
+    dati speciali relativi a come l'applicazione funziona internamente. Per il
+    framework Symfony2, ``attributes`` contiene valori restituiti dalla rotta
+    corrispondente, come ``_controller``, ``id`` (se si ha un parametro ``{id}``),
+    e anche il nome della rotta stessa (``_route``). La proprietà
+    ``attributes`` è pensata apposta per essere un posto in cui preparare
+    e memorizzare informazioni sulla richiesta relative al contesto.
+
 
 Symfony fornisce anche una classe ``Response``: una semplice rappresentazione PHP di un
 messaggio di risposta HTTP. Questo consente alla propria applicazione di usare un'interfaccia
@@ -506,6 +541,7 @@ cielo come limite.
 .. _`Live HTTP Headers`: https://addons.mozilla.org/en-US/firefox/addon/3829/
 .. _`Elenco dei codici di stato HTTP`: http://it.wikipedia.org/wiki/Elenco_dei_codici_di_stato_HTTP
 .. _`Lista di header HTTP`: http://en.wikipedia.org/wiki/List_of_HTTP_header_fields
+.. _`Lista di tipi di media comuni`: http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types
 .. _`HttpFoundation`: https://github.com/symfony/HttpFoundation
 .. _`Routing`: https://github.com/symfony/Routing
 .. _`Form`: https://github.com/symfony/Form

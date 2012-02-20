@@ -725,7 +725,7 @@ esplicitamente:
 
         <?php echo $view['form']->label($form['task'], 'Task Description') ?>
 
-Infine, alcuni tipi di campi hanno opzioni di resa aggiuntive che possono essere passate
+Alcuni tipi di campi hanno opzioni di resa aggiuntive che possono essere passate
 al widget. Queste opzioni sono documentate con ogni tipo, ma un'opzione
 comune è ``attr``, che permette di modificare gli attributi dell'elemento form.
 Di seguito viene aggiunta la classe ``task_field`` al resa del campo
@@ -743,16 +743,43 @@ casella di testo:
             'attr' => array('class' => 'task_field'),
         )) ?>
 
+Se occorre rendere dei campi "a mano", si può accedere ai singoli valori dei campi,
+come ``id``, ``name`` e ``label``. Per esempio, per ottenere
+``id``:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {{ form.task.vars.id }}
+
+    .. code-block:: html+php
+
+        <?php echo $form['task']->get('id') ?>
+
+Per ottenere il valore usato per l'attributo nome dei campi del form, occorre usare
+il valore ``full_name``:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {{ form.task.vars.full_name }}
+
+    .. code-block:: html+php
+
+        <?php echo $form['task']->get('full_name') ?>
+
 Riferimento alle funzioni del template Twig
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Se si utilizza Twig, un riferimento completo alle funzioni di rendering è
+Se si utilizza Twig, un riferimento completo alle funzioni di resa è
 disponibile nel :doc:`manuale di riferimento</reference/forms/twig_reference>`.
 Leggendolo si può sapere tutto sugli helper disponibili e le opzioni
 che possono essere usate con ciascuno di essi.
 
 .. index::
-   single: Form; Creating form classes
+   single: Form; Creare classi form
 
 .. _book-form-creating-form-classes:
 
@@ -829,6 +856,25 @@ la scelta in ultima analisi, spetta a voi.
             );
         }
 
+.. tip::
+    
+    Quando si mappano form su oggetti, tutti i campi vengono mappati. Ogni campo nel
+    form che non esiste nell'oggetto mappato causerà il lancio di
+    un'eccezione.
+    
+    Nel caso in cui servano campi extra nel form (per esempio, un checkbox "accetto
+    i termini"), che non saranno mappati nell'oggetto sottostante,
+    occorre impostare l'opzione ``property_path`` a ``false``::
+    
+        public function buildForm(FormBuilder $builder, array $options)
+        {
+            $builder->add('task');
+            $builder->add('dueDate', null, array('property_path' => false));
+        }
+
+    Inoltre, se ci sono campi nel form che non sono inclusi nei dati inviati,
+    tali campi saranno impostati esplicitamente a ``null``.
+
 .. index::
    pair: Form; Doctrine
 
@@ -840,7 +886,7 @@ form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto orig
 tale, il tema della persistenza dell'oggetto ``Task`` nel database è interamente
 non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
 per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunto
-:ref:`mappare i metadata<book-doctrine-adding-mapping>`), allora il salvataggio
+:ref:`mappare i meta-dati<book-doctrine-adding-mapping>`), allora il salvataggio
 dopo l'invio di un form può essere fatto quando il form è valido::
 
     if ($form->isValid()) {
@@ -1498,7 +1544,7 @@ form HTML in modo che l'utente possa modificare i dati. Il secondo obiettivo di 
 prendere i dati inviati dall'utente e ri-applicarli all'oggetto.
 
 Ci sono altre cose da imparare sul potente mondo dei form, ad esempio
-come gestire :doc:`l'upload dei file con Doctrine
+come gestire :doc:`il caricamento di file con Doctrine
 </cookbook/doctrine/file_uploads>` o come creare un form dove un numero
 dinamico di sub-form possono essere aggiunti (ad esempio una todo list in cui è possibile continuare ad aggiungere
 più campi tramite Javascript prima di inviare). Vedere il ricettario per questi

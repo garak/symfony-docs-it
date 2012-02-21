@@ -633,7 +633,7 @@ comando ``help``. Per esempio, per ottenere dettagli sul task
 
 .. index::
    single: Configurazione; ODM MongoDB Doctrine
-   single: Doctrine; configurazione ODM MongoDB
+   single: Doctrine; Configurazione ODM MongoDB
 
 Configurazione
 --------------

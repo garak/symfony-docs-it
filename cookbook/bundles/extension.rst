@@ -90,8 +90,8 @@ Il secondo metodo ha diversi vantaggi:
     una retro-compatibilità. 
 
 .. index::
-   single: Bundle; Extension
-   single: Dependency Injection, Extension
+   single: Bundle; Estensione
+   single: Dependency Injection, Estensione
 
 Creare una classe Extension
 ---------------------------

@@ -173,7 +173,7 @@ L'architettura di Symfony è strutturata per corrispondere a questa realtà.
     risposta durante la navigazione è l'estensione `Live HTTP Headers`_ di Firefox.
 
 .. index::
-   single: Fondamenti di Symfony2; richieste e risposte
+   single: Fondamenti di Symfony2; Richieste e risposte
 
 Richieste e risposte in PHP
 ---------------------------

@@ -1,5 +1,5 @@
 .. index::
-   single: Environments; External Parameters
+   single: Ambienti; Parametri esterni
 
 Configurare parametri esterni nel contenitore dei servizi
 =========================================================

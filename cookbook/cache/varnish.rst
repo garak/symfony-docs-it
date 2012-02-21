@@ -11,7 +11,7 @@ contenuti in cache in modo veloce e include il supporto per :ref:`Edge Side
 Include<edge-side-includes>`.
 
 .. index::
-    single: Varnish; configurazione
+    single: Varnish; Configurazione
 
 Configurazione
 --------------

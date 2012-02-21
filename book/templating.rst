@@ -1046,7 +1046,7 @@ come si può immaginare, la cartella
 ``app/Resources/TwigBundle/views/Exception``.
 
 .. index::
-   single: Template; lo schema di ereditarietà a tre livelli
+   single: Template; Lo schema di ereditarietà a tre livelli
 
 Ereditarietà a tre livelli
 --------------------------

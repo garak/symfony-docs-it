@@ -81,7 +81,7 @@ Per usare questo caricatore, basta adattare il file ``autoloader.php`` come segu
     spazio dei nomi.
 
 .. index::
-   single: Prestazioni; file di avvio
+   single: Prestazioni; File di avvio
 
 Usare i file di avvio
 ---------------------

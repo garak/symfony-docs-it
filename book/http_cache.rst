@@ -475,8 +475,8 @@ specifiche stabiliscono che "i server HTTP/1.1 non dovrebbero inviare header ``E
 oltre un anno nel futuro."
 
 .. index::
-   single: Cache; Cache-Control header
-   single: HTTP headers; Cache-Control
+   single: Cache; Header Cache-Control
+   single: Header HTTP; Cache-Control
 
 Scadenza con l'header ``Cache-Control``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

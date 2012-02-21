@@ -1,5 +1,5 @@
 ﻿.. index::
-   single: Controller
+   single: Controllore
 
 Il controllore
 ==============
@@ -41,11 +41,11 @@ esempi comuni:
 * Il *controllore C* gestisce l'invio di un form contatti. Legge le
   informazioni del form dalla richiesta, salva le informazioni del contatto nel
   database ed invia una email con le informazioni del contatto al webmaster. Infine,
-  crea un oggetto ``Response`` che reindirizza il browser del client
+  crea un oggetto ``Response`` che rinvia il browser del client
   alla pagina di ringraziamento del form contatti.
 
 .. index::
-   single: Controller; Request-controller-response lifecycle
+   single: Controllore; Ciclo di vita richiesta-controllore-risposta
 
 Richieste, controllori, ciclo di vita della risposta
 ----------------------------------------------------
@@ -81,7 +81,7 @@ mappa un URL su un controllore (#2).
     del controllore principale dell'applicazione.
 
 .. index::
-   single: Controller; Simple example
+   single: Controllore; Semplice esempio
 
 Un semplice controllore
 -----------------------
@@ -135,7 +135,7 @@ Questo controllore è piuttosto semplice, ma vediamo di analizzarlo:
 * *linea 10*: Il controllore crea e restituisce un oggetto ``Response``.
 
 .. index::
-   single: Controller; Routes and controllers
+   single: Controllore; Rotte e controllori
 
 Mappare un URL in un controllore
 --------------------------------
@@ -192,7 +192,7 @@ vedere :ref:`controller-string-syntax`.
     Si può imparare molto di più sul sistema delle rotte leggendo il :doc:`Capitolo sulla rotte</book/routing>`.
 
 .. index::
-   single: Controller; Controller arguments
+   single: Controllore; Parametri del controllore
 
 .. _route-parameters-controller-arguments:
 
@@ -333,7 +333,7 @@ lavora con i form, ad esempio::
     }
 
 .. index::
-   single: Controller; Base controller class
+   single: Controllore; Classe base Controller
 
 La classe base del controllore
 ------------------------------
@@ -384,23 +384,23 @@ stessa.
     </cookbook/controller/service>`.
 
 .. index::
-   single: Controller; Common Tasks
+   single: Controllore; Attività comuni
 
 Attività comuni del controllore
 -------------------------------
 
 Anche se un controllore può fare praticamente qualsiasi cosa, la maggior parte dei controllori eseguiranno
-gli stessi compiti di base più volte. Questi compiti, come il reindirizzamento,
+gli stessi compiti di base più volte. Questi compiti, come il rinvio,
 l'inoltro, il rendere i template e l'accesso ai servizi del nucleo, sono molto semplici
 da gestire con Symfony2.
 
 .. index::
-   single: Controller; Redirecting
+   single: Controllore; Rinvio
 
-Reindirizzamento
-~~~~~~~~~~~~~~~~
+Rinvio
+~~~~~~
 
-Se si vuole reindirizzare l'utente a un'altra pagina, usare il metodo ``redirect()``::
+Se si vuole rinviare l'utente a un'altra pagina, usare il metodo ``redirect()``::
 
     public function indexAction()
     {
@@ -409,10 +409,10 @@ Se si vuole reindirizzare l'utente a un'altra pagina, usare il metodo ``redirect
 
 Il metodo ``generateUrl()`` è solo una funzione di supporto che genera l'URL
 per una determinata rotta. Per maggiori informazioni, vedere il capitolo
-:doc:`Routing </book/routing>`.
+:doc:`Rotte </book/routing>`.
 
-Per impostazione predefinita, il metodo ``redirect()`` esegue una redirezione 302 (temporanea). Per
-eseguire una redirezione 301 (permanente), modificare il secondo parametro::
+Per impostazione predefinita, il metodo ``redirect()`` esegue un rinvio 302 (temporaneo). Per
+eseguire un rinvio 301 (permanente), modificare il secondo parametro::
 
     public function indexAction()
     {
@@ -422,7 +422,7 @@ eseguire una redirezione 301 (permanente), modificare il secondo parametro::
 .. tip::
 
     Il metodo ``redirect()`` è semplicemente una scorciatoia che crea un oggetto ``Response``
-    specializzato nel reindirizzare l'utente. È equivalente a:
+    specializzato nel rinviare l'utente. È equivalente a:
 
     .. code-block:: php
 
@@ -431,10 +431,10 @@ eseguire una redirezione 301 (permanente), modificare il secondo parametro::
         return new RedirectResponse($this->generateUrl('homepage'));
 
 .. index::
-   single: Controller; Forwarding
+   single: Controllore; Inoltro
 
 Inoltro
-~~~~~~~~~~
+~~~~~~~
 
 Si può anche facilmente inoltrare internamente a un altro controllore con il metodo
 ``forward()``. Invece di redirigere il browser dell'utente, fa una sotto richiesta interna
@@ -486,7 +486,7 @@ valore di ogni variabile.
         ));
 
 .. index::
-   single: Controller; Rendering templates
+   single: Controllore; Rendere i template
 
 .. _controller-rendering-templates:
 
@@ -522,7 +522,7 @@ capitolo :doc:`Template </book/templating>`.
         $content = $templating->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
 
 .. index::
-   single: Controller; Accessing services
+   single: Controllore; Accedere ai servizi
 
 Accesso ad altri servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -549,8 +549,8 @@ di propri. Per elencare tutti i servizi disponibili, utilizzare il comando di co
 Per maggiori informazioni, vedere il capitolo :doc:`/book/service_container`.
 
 .. index::
-   single: Controller; Managing errors
-   single: Controller; 404 pages
+   single: Controllore; Gestire gli errori
+   single: Controllore; Pagine 404
 
 Gestire gli errori e le pagine 404
 ----------------------------------
@@ -585,8 +585,8 @@ Entrambe le pagine di errore possono essere personalizzate. Per ulteriori inform
 nel ricettario ":doc:`/cookbook/controller/error_pages`".
 
 .. index::
-   single: Controller; The session
-   single: Session
+   single: Controllore; La sessione
+   single: Sessione
 
 Gestione della sessione
 -----------------------
@@ -614,14 +614,14 @@ Questi attributi rimarranno sull'utente per il resto della sessione
 utente.
 
 .. index::
-   single Session; Flash messages
+   single Session; Messaggi flash
 
 Messaggi flash
 ~~~~~~~~~~~~~~
 
 È anche possibile memorizzare messaggi di piccole dimensioni che vengono memorizzati sulla sessione utente
 solo per una richiesta successiva. Ciò è utile quando si elabora un form:
-si desidera reindirizzare e avere un messaggio speciale mostrato sulla richiesta *successiva*.
+si desidera rinviare e avere un messaggio speciale mostrato sulla richiesta *successiva*.
 Questo tipo di messaggi sono chiamati messaggi "flash".
 
 Per esempio, immaginiamo che si stia elaborando un form inviato::
@@ -643,7 +643,7 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
     }
 
 Dopo l'elaborazione della richiesta, il controllore imposta un messaggio flash ``notice``
-e poi reindirizza. Il nome (``notice``) non è significativo, è solo quello che
+e poi rinvia. Il nome (``notice``) non è significativo, è solo quello che
 si utilizza per identificare il tipo del messaggio.
 
 Nel template dell'azione successiva, il seguente codice può essere utilizzato per rendere
@@ -672,7 +672,7 @@ Per come sono stati progettati, i messaggi flash sono destinati a vivere esattam
 è stato fatto in questo esempio.
 
 .. index::
-   single: Controller; Response object
+   single: Controllore; Oggetto Response
 
 L'oggetto Response
 ------------------
@@ -698,7 +698,7 @@ headers e il contenuto che viene inviato al client::
     a ``content-type`` o anche a ``content_type``.
 
 .. index::
-   single: Controller; Request object
+   single: Controllore; Oggetto Request 
 
 L'oggetto Request
 -----------------

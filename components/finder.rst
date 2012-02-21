@@ -107,12 +107,12 @@ grazie ai metodi :method:`Symfony\\Component\\Finder\\Finder::files` e
 
     $finder->directories();
 
-Per seguire i collegamenti è possibile utilizzare il metodo ``followLinks()``::
+Per seguire i collegamenti, è possibile utilizzare il metodo ``followLinks()``::
 
     $finder->files()->followLinks();
 
-Normalmente l'iteratore ignorerà i popolari file VCS. È possibile modificare questo
-comportamento grazie al metodo ``ignoreVCS()``::
+Normalmente l'iteratore ignorerà i file dei VCS più diffusi. È possibile modificare questo
+comportamento, grazie al metodo ``ignoreVCS()``::
 
     $finder->ignoreVCS(false);
 
@@ -130,7 +130,7 @@ Ordinamento
     Si noti che i metodi ``sort*``, per poter funzionare, richiedono tutti gli 
     elementi ricercati. In caso di iteratori molto grandi, l'ordinamento potrebbe risultare lento.
 
-È anche possibile definire algoritmi di ordinamento personalizzati grazie al metodo ``sort()``::
+È anche possibile definire algoritmi di ordinamento personalizzati, grazie al metodo ``sort()``::
 
     $sort = function (\SplFileInfo $a, \SplFileInfo $b)
     {
@@ -142,12 +142,12 @@ Ordinamento
 Nomi dei file
 ~~~~~~~~~~~~~
 
-È eseguire filtri sui nomi dei file utilizzando il metodo
+È possibile eseguire filtri sui nomi dei file, utilizzando il metodo
 :method:`Symfony\\Component\\Finder\\Finder::name`::
 
     $finder->files()->name('*.php');
 
-Il metodo ``name()`` accetta, come parametri, glob, stringhe, o espressioni regolari::
+Il metodo ``name()`` accetta, come parametri, glob, stringhe o espressioni regolari::
 
     $finder->files()->name('/\.php$/');
 
@@ -155,7 +155,7 @@ Il metodo ``notNames()`` viene invece usato per escludere i file che corrispondo
 
     $finder->files()->notName('*.rb');
 
-Dimensione del file
+Dimensione dei file
 ~~~~~~~~~~~~~~~~~~~
 
 Per filtrare i file in base alla dimensione, si usa il metodo
@@ -163,7 +163,7 @@ Per filtrare i file in base alla dimensione, si usa il metodo
 
     $finder->files()->size('< 1.5K');
 
-Si possono filtrare i file di dimensione compresa tra due valori incatenando le chiamate al metodo::
+Si possono filtrare i file di dimensione compresa tra due valori, concatenando le chiamate::
 
     $finder->files()->size('>= 1K')->size('<= 2K');
 
@@ -172,12 +172,12 @@ Si possono filtrare i file di dimensione compresa tra due valori incatenando le 
 
 La dimensione può essere indicata usando l'indicazione in kilobyte (``k``, ``ki``),
 megabyte (``m``, ``mi``) o in gigabyte (``g``, ``gi``). Gli indicatori che terminano
-con ``i`` utilizzano l'appropriata versione ``2**n`` in accordo allo `standard IEC`_
+con ``i`` utilizzano l'appropriata versione ``2**n``, in accordo allo `standard IEC`_
 
-Data del file
+Data dei file
 ~~~~~~~~~~~~~
 
-È possibile filtrare i file in base alla data dell'ultima modifica con il metodo
+È possibile filtrare i file in base alla data dell'ultima modifica, con il metodo
 :method:`Symfony\\Component\\Finder\\Finder::date`::
 
     $finder->date('since yesterday');
@@ -192,7 +192,7 @@ Profondità della ricerca
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Normalmente, Finder attraversa ricorsivamente tutte le cartelle. Per restringere la profondità
-dell'attraversamento si usa il metodo :method:`Symfony\\Component\\Finder\\Finder::depth`::
+dell'attraversamento, si usa il metodo :method:`Symfony\\Component\\Finder\\Finder::depth`::
 
     $finder->depth('== 0');
     $finder->depth('< 3');
@@ -200,7 +200,7 @@ dell'attraversamento si usa il metodo :method:`Symfony\\Component\\Finder\\Finde
 Filtri personalizzati
 ~~~~~~~~~~~~~~~~~~~~~
 
-È possibile definire filtri personalizzati grazie al metodo
+È possibile definire filtri personalizzati, grazie al metodo
 :method:`Symfony\\Component\\Finder\\Finder::filter`::
 
     $filtro_personalizzato = function (\SplFileInfo $file)

@@ -336,10 +336,10 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
   che rappresenta la configurazione dell'applicazione;
 
 * ``appdevUrlGenerator.php`` - la classe PHP generata a partire dalla configurazione
-  delle rotte e usata nella generazione delle URL;
+  delle rotte e usata nella generazione degli URL;
 
 * ``appdevUrlMatcher.php`` - la classe PHP utilizzata per ricercare le rotte: qui
-  è possibile vedere le espressioni regolari utilizzate per associare le URL in ingresso
+  è possibile vedere le espressioni regolari utilizzate per associare gli URL in ingresso
   con le rotte disponibili;
 
 * ``twig/`` - questa cartella contiene la cache dei template di Twig.

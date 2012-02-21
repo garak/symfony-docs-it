@@ -131,7 +131,7 @@ del report con il dettaglio delle email inviate.
 .. tip::
 
     Alternativamente è possibile aprire il profiler in seguito al redirect e
-    cercare la URL utilizzata nella richiesta precedente (e.g. ``/contatti/gestione``).
+    cercare l'URL utilizzato nella richiesta precedente (p.e. ``/contatti/gestione``).
     Questa funzionalità di ricerca del profiler permette di ottenere informazioni relative
     a qualsiasi richiesta pregressa.
 

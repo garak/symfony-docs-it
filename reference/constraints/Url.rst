@@ -50,13 +50,13 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid URL``
 
-Messaggio mostrato se the URL is invalid.
+Messaggio mostrato se l'URL non è valido.
 
 protocols
 ~~~~~~~~~
 
 **tipo**: ``array`` **predefinito**: ``array('http', 'https')``
 
-The protocols that will be considered to be valid. For example, if you also
-needed ``ftp://`` type URLs to be valid, you'd redefine the ``protocols``
-array, listing ``http``, ``https``, and also ``ftp``.
+I protocolli che saranno considerati validi. Per esempio, se occorre che anche
+gli URL ``ftp://`` siano validi, si può ridefinire l'array ``protocols``,
+elencando ``http``, ``https`` e ``ftp``.

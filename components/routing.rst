@@ -1,6 +1,6 @@
 .. index::
    single: Routing
-   single: Components; Routing
+   single: Componenti; Routing
 
 Il componente Routing
 =====================
@@ -72,9 +72,9 @@ Definire le rotte
 
 La definizione completa di una rotta può contenere fino a quattro parti:
 
-1. Il pattern per la URL della rotta. È questo il valore con il quale si confronta la URL passata al `RequestContext`.
-Può contenere diversi segnaposto (per esempio ``{sagnaposto}``)
-che possono abbinarsi a parti dinamiche della URL.
+1. Lo schema dell'URL della rotta. È questo il valore con il quale si confronta l'URL passato a `RequestContext`.
+Può contenere diversi segnaposto (per esempio ``{segnaposto}``)
+che possono abbinarsi a parti dinamiche dell'URL.
 
 2. Un array di valori base. Contiene un array di valori arbitrari
 che verranno restituiti quando la richiesta viene abbinata alla rotta.
@@ -163,11 +163,11 @@ componente :doc:`HttpFoundation<http_foundation>`, è possibile usarne la classe
     $context = new RequestContext();
     $context->fromRequest(Request::createFromGlobals());
 
-Generare una URL
-~~~~~~~~~~~~~~~~
+Generare un URL
+~~~~~~~~~~~~~~~
 
 Mentre la classe :class:`Symfony\\Component\\Routing\\Matcher\\UrlMatcher` cerca
-di trovare una rotta che sia adeguata ad una determinata richiesta, è anche possibile creare delle URL
+di trovare una rotta che sia adeguata ad una determinata richiesta, è anche possibile creare degli URL
 a partire da una determinata rotta::
 
     use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -186,7 +186,7 @@ a partire da una determinata rotta::
 
 .. note::
 
-    Se fosse stato definito il requisito dello ``_scheme``, verrebbe generata un URL assoluta
+    Se fosse stato definito il requisito dello ``_scheme``, verrebbe generata un URL assoluto
     nel caso in cui lo schema corrente :class:`Symfony\\Component\\Routing\\RequestContext`
     non fosse coerente con i requisiti.
 
@@ -272,7 +272,7 @@ caricare le rotte a partire dalle annotazioni delle classi. Questo articolo non
 tratterà i dettagli di queste classi.
 
 Il router tutto-in-uno
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
 La classe :class:`Symfony\\Component\\Routing\\Router` è un pacchetto tutto-in-uno
 che permette i usare rapidamente il componente Routing. Il costruttore si aspetta di ricevere

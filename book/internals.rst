@@ -380,6 +380,8 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla:
 .. index::
    single: Distributore di eventi
 
+.. _`book-internals-event-dispatcher`:
+
 Il distributore di eventi
 -------------------------
 
@@ -822,6 +824,12 @@ restituito dal metodo ``getSubscribedEvents``. Questo metodo restituisce un arra
 indicizzata per nomi di eventi e i cui valori sono o i nomi dei metodi da chiamare o
 array composti dal nome del metodo e da una priorità.
 
+.. tip::
+
+    Se si usa il framework MVC Symfony2, si possono registrare sottoscrittori tramite
+    la propria :ref:`configurazione <dic-tags-kernel-event-subscriber>`. Come bonus
+    aggiuntivo, gli oggetti sottoscrittori sono istanziati solo quando servono.
+
 .. index::
    single: Distributore di eventi; Bloccare il flusso degli eventi
 
@@ -1117,7 +1125,7 @@ può usare un matcher della richiesta:
             ),
         ));
 
-        // usa un matcher personalizzato, definito nel servizio "custom_matcher"
+        # usa un matcher personalizzato, definito nel servizio "custom_matcher"
         $container->loadFromExtension('framework', array(
             'profiler' => array(
                 'matcher' => array('service' => 'custom_matcher'),

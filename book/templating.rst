@@ -871,6 +871,45 @@ cartella "web").
 Il risultato finale è una pagina che include i fogli di stile ``main.css`` e
 ``contact.css``.
 
+Global Template Variables
+-------------------------
+
+During each request, Symfony2 will set a global template variable ``app``
+in both Twig and PHP template engines by default.  The ``app`` variable
+is a :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`
+instance which will give you access to some application specific variables
+automatically:
+
+* ``app.security`` - The security context.
+* ``app.user`` - The current user object.
+* ``app.request`` - The request object.
+* ``app.session`` - The session object.
+* ``app.environment`` - The current environment (dev, prod, etc).
+* ``app.debug`` - True if in debug mode. False otherwise.
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        <p>Username: {{ app.user.username }}</p>
+        {% if app.debug %}
+            <p>Request method: {{ app.request.method }}</p>
+            <p>Application Environment: {{ app.environment }}</p>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <p>Username: <?php echo $app->getUser()->getUsername() ?></p>
+        <?php if ($app->getDebug()): ?>
+            <p>Request method: <?php echo $app->getRequest()->getMethod() ?></p>
+            <p>Application Environment: <?php echo $app->getEnvironment() ?></p>
+        <?php endif; ?>
+
+.. tip::
+
+    You can add your own global template variables. See the cookbook example
+    on :doc:`Global Variables</cookbook/templating/global_variables>`.
+
 .. index::
    single: Template; Il servizio templating
 
@@ -1148,6 +1187,66 @@ in una stringa Javascript, usare il contesto ``js``:
    single: Template; Formati
 
 .. _template-formats:
+
+Debug
+-----
+
+.. versionadded:: 2.0.9
+    Questa caratteristica è disponibile da Twig ``1.5.x``, che è stato aggiunto
+    in Symfony 2.0.9.
+
+Quando si usa PHP, si può ricorrere a ``var_dump()``, se occorre trovare rapidamente il
+valore di una variabile passata. Può essere utile, per esempio, nel proprio controllore.
+Si può ottenere lo stesso risultato con Twig, usando l'estensione debug. Occorre
+abilitarla nella configurazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        services:
+            acme_hello.twig.extension.debug:
+                class:        Twig_Extension_Debug
+                tags:
+                     - { name: 'twig.extension' }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <services>
+            <service id="acme_hello.twig.extension.debug" class="Twig_Extension_Debug">
+                <tag name="twig.extension" />
+            </service>
+        </services>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $definition = new Definition('Twig_Extension_Debug');
+        $definition->addTag('twig.extension');
+        $container->setDefinition('acme_hello.twig.extension.debug', $definition);
+
+Si può quindi fare un dump dei parametri nei template, usando la funzione ``dump``:
+
+.. code-block:: html+jinja
+
+    {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
+
+    {{ dump(articles) }}
+
+    {% for article in articles %}
+        <a href="/article/{{ article.slug }}">
+            {{ article.title }}
+        </a>
+    {% endfor %}
+
+
+Il dump delle variabili avverrà solo se l'impostazione ``debug`` (in ``config.yml``)
+è ``true``. Questo vuol dire che, per impostazione predefinita, il dump avverrà in
+ambiente ``dev``, ma non in ``prod``.
 
 Formati di template
 -------------------

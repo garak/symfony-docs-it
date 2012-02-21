@@ -123,7 +123,7 @@ Se ci sono problemi, correggerli prima di proseguire.
         rm -rf app/logs/*
 
         sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
-        sudo chmod +a "tuonome allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+        sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
     **2. Usare ACL su un sistema che non supporta chmod +a**
 

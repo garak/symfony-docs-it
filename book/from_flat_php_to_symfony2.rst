@@ -438,7 +438,7 @@ dell'applicazione e per configurare l'autoloader:
 
     $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
     $loader->registerNamespaces(array(
-        'Symfony' => __DIR__.'/vendor/symfony/src',
+        'Symfony' => __DIR__.'/../vendor/symfony/src',
     ));
 
     $loader->register();
@@ -555,7 +555,7 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2:
                 ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
-            return $this->render('AcmeBlogBundle:Post:list.html.php', array('posts' => $posts));
+            return $this->render('AcmeBlogBundle:Blog:list.html.php', array('posts' => $posts));
         }
 
         public function showAction($id)
@@ -570,7 +570,7 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2:
                 throw $this->createNotFoundException();
             }
 
-            return $this->render('AcmeBlogBundle:Post:show.html.php', array('post' => $post));
+            return $this->render('AcmeBlogBundle:Blog:show.html.php', array('post' => $post));
         }
     }
 
@@ -686,7 +686,7 @@ da PHP puro a Symfony2 ci abbia migliorato la vita:
 
 Ma forse la parte migliore nell'usare Symfony2 è l'accesso all'intero insieme di
 **strumenti open source di alta qualità sviluppati dalla comunità di Symfony2**!
-Per ulteriori informazioni, si veda `Symfony2Bundles.org`_
+Si possono trovare dei buoni bundle su `KnpBundles.com`_
 
 Template migliori
 -----------------
@@ -745,7 +745,7 @@ Imparare di più con le ricette
 .. _`scaricare symfony`: http://symfony.com/download
 .. _`Routing`: https://github.com/symfony/Routing
 .. _`Templating`: https://github.com/symfony/Templating
-.. _`Symfony2Bundles.org`: http://symfony2bundles.org
+.. _`KnpBundles.com`: http://knpbundles.com/
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`Varnish`: http://www.varnish-cache.org
 .. _`PHPUnit`: http://www.phpunit.de

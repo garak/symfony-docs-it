@@ -6,7 +6,7 @@ Validazione
 
 La validazione è un compito molto comune nella applicazioni web. I dati inseriti nei form
 hanno bisogno di essere validati. I dati hanno bisogno di essere validati anche prima di
-essere inseriti in un database o passati a un web service.
+essere inseriti in una base dati o passati a un servizio web.
 
 Symfony2 ha un componente `Validator`_ , che rende questo compito facile e trasparente.
 Questo componente è bastato sulle `specifiche di validazione JSR303 Bean`_. Cosa?
@@ -230,7 +230,7 @@ di un form assomiglia al seguente, all'interno di un controllore::
             if ($form->isValid()) {
                 // validazionoe passata, fare qualcosa con l'oggetto $author
 
-                $this->redirect($this->generateUrl('...'));
+                return $this->redirect($this->generateUrl('...'));
             }
         }
 
@@ -665,7 +665,7 @@ si registra che quando aggiorna successivamente le sue informazioni:
         // src/Acme/BlogBundle/Entity/User.php
         namespace Acme\BlogBundle\Entity;
 
-        use Symfony\Component\Security\Core\User\UserInterface
+        use Symfony\Component\Security\Core\User\UserInterface;
         use Symfony\Component\Validator\Constraints as Assert;
 
         class User implements UserInterface

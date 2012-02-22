@@ -62,7 +62,7 @@ genererà automaticamente un URL assoluto con HTTPS come schema:
     # generates https://example.com/secure
 
 L'esigenza è anche quella di forzare le richieste in arrivo. Se si tenta di accedere
-al percorso ``/secure`` con HTTP, si verrà automaticamente reindirizzati allo
+al percorso ``/secure`` con HTTP, si verrà automaticamente rinviati allo
 stesso URL, ma con lo schema HTTPS.
 
 L'esempio precedente utilizza  ``https`` per ``_scheme``, ma si può anche forzare un

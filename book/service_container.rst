@@ -13,7 +13,7 @@ Il punto è che una moderna applicazione fa molte cose ed è organizzata
 in molti oggetti che gestiscono ogni attività.
 
 In questo capitolo si parlerà di un oggetto speciale PHP presente in Symfony2 che aiuta
-ad istanziare, organizzare e recuperare i tanti oggetti della propria applicazione.
+a istanziare, organizzare e recuperare i tanti oggetti della propria applicazione.
 Questo oggetto, chiamato contenitore di servizi, permetterà di standardizzare e
 centralizzare il modo in cui sono costruiti gli oggetti nell'applicazione. Il contenitore
 rende la vita più facile, è super veloce ed evidenzia un'architettura che
@@ -68,7 +68,7 @@ Cos'è un contenitore di servizi?
 --------------------------------
 
 Un :term:`contenitore di servizi` (o *contenitore di dependency injection*) è semplicemente
-un oggetto PHP che gestisce l'instanziazione di servizi (cioè gli oggetti).
+un oggetto PHP che gestisce l'istanza di servizi (cioè gli oggetti).
 Per esempio, supponiamo di avere una semplice classe PHP che spedisce messaggi email.
 Senza un contenitore di servizi, bisogna creare manualmente l'oggetto ogni volta che
 se ne ha bisogno:
@@ -81,7 +81,7 @@ se ne ha bisogno:
     $mailer->send('ryan@foobar.net', ... );
 
 Questo è abbastanza facile. La classe immaginaria ``Mailer`` permette di configurare
-il metodo utilizzato per inviare i messaggi emails (ad esempio ``sendmail``, ``smtp``, ecc).
+il metodo utilizzato per inviare i messaggi email (per esempio ``sendmail``, ``smtp``, ecc).
 Ma cosa succederebbe se volessimo utilizzare il servizio mailer da qualche altra parte? Certamente
 non si vorrebbe ripetere la configurazione del mailer *ogni* volta che si ha bisogno
 dell'oggetto ``Mailer``. Cosa succederebbe se avessimo bisogno di cambiare il ``transport`` da
@@ -139,7 +139,7 @@ essere specificata in YAML, XML o PHP:
 
 Un'istanza dell'oggetto ``Acme\HelloBundle\Mailer`` è ora disponibile tramite
 il contenitore di servizio. Il contenitore è disponibile in qualsiasi normale controllore di Symfony2
-in cui è possibile accedere ai servizi del contenitore  attravero il
+in cui è possibile accedere ai servizi del contenitore  attraverso il
 metodo scorciatoia ``get()``::
 
     class HelloController extends Controller
@@ -239,6 +239,64 @@ di alta qualità di terze parti utilizzeranno *sempre* perché rendono i servizi
 memorizzati nel contenitore più configurabili. Per i servizi della propria applicazione,
 tuttavia, potrebbe non essere necessaria la flessibilità dei parametri.
 
+Parametri array
+~~~~~~~~~~~~~~~
+
+I parametri non devono necessariamente essere semplici stringhe, possono anche essere
+array. Per il formato YAML, occorre usare l'attributo type="collection" per tutti i
+parametri che sono array.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        parameters:
+            my_mailer.gateways:
+                - mail1
+                - mail2
+                - mail3
+            my_multilang.language_fallback:
+                en:
+                    - en
+                    - fr
+                fr:
+                    - fr
+                    - en
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <parameters>
+            <parameter key="my_mailer.gateways" type="collection">
+                <parameter>mail1</parameter>
+                <parameter>mail2</parameter>
+                <parameter>mail3</parameter>
+            </parameter>
+            <parameter key="my_multilang.language_fallback" type="collection">
+                <parameter key="en" type="collection">
+                    <parameter>en</parameter>
+                    <parameter>fr</parameter>
+                </parameter>
+                <parameter key="fr" type="collection">
+                    <parameter>fr</parameter>
+                    <parameter>en</parameter>
+                </parameter>
+            </parameter>
+        </parameters>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container->setParameter('my_mailer.gateways', array('mail1', 'mail2', 'mail3'));
+        $container->setParameter('my_multilang.language_fallback',
+                                 array('en' => array('en', 'fr'),
+                                       'fr' => array('fr', 'en'),
+                                ));
+
+
 Importare altre risorse di configurazione del contenitore
 ---------------------------------------------------------
 
@@ -247,7 +305,7 @@ Importare altre risorse di configurazione del contenitore
     In questa sezione, si farà riferimento ai file di configurazione del servizio come *risorse*.
     Questo per sottolineare il fatto che, mentre la maggior parte delle risorse di configurazione
     saranno file (ad esempio YAML, XML, PHP), Symfony2 è così flessibile che la configurazione
-    potrebbe essere caricata da qualunque parte (ad esempio un databse o tramite un
+    potrebbe essere caricata da qualunque parte (per esempio in una base dati o tramite un
     servizio web esterno).
 
 Il contenitore dei servizi è costruito utilizzando una singola risorsa di configurazione
@@ -332,8 +390,7 @@ dell'applicazione.
 
         # app/config/config.yml
         imports:
-            hello_bundle:
-                resource: @AcmeHelloBundle/Resources/config/services.yml
+            - { resource: @AcmeHelloBundle/Resources/config/services.yml }
 
     .. code-block:: xml
 
@@ -387,7 +444,7 @@ con lo scopo di realizzare due cose:
 
 In altre parole, una estensione dei contenitore dei servizi configura i servizi per
 il bundle per voi. E, come si vedrà tra poco, l'estensione fornisce
-una interfaccia sensibile e ad alto livello per configurre il bundle.
+una interfaccia sensibile e ad alto livello per configurare il bundle.
 
 Si prenda il ``FrameworkBundle``, il bundle del nucleo del framework Symfony2, come
 esempio. La presenza del seguente codice nella configurazione dell'applicazione
@@ -568,8 +625,8 @@ dipendenze come opzionali (sarà discusso nella prossima sezione).
 L'utilizzo di riferimenti è uno strumento molto potente che permette di creare classi
 di servizi indipendenti con dipendenze ben definite. In questo esempio, il servizio ``newsletter_manager``
 ha bisogno del servizio ``my_mailer`` per poter funzionare. Quando si definisce
-questa dipendenza nel contenitore dei sevrvizi, il contenitore si prende cura di tutto
-il lavoro di istanziazione degli oggetti.
+questa dipendenza nel contenitore dei servizi, il contenitore si prende cura di tutto
+il lavoro di istanziare degli oggetti.
 
 Dipendenze opzionali: iniettare i setter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -797,7 +854,7 @@ La configurazione del contenitore dei servizi è semplice:
 
 Il servizio ``newsletter_manager`` ora ha accesso ai servizi del nucleo ``mailer``
 e ``templating``. Questo è un modo comune per creare servizi specifici
-all'applicazione in grado di sfruttare la potenza di numerosi servizi presenti
+all'applicazione, in grado di sfruttare la potenza di numerosi servizi presenti
 nel framework.
 
 .. tip::
@@ -836,8 +893,8 @@ parametro per un altro servizio.
 .. note::
 
     Se si utilizza un servizio privato come parametro per più di un altro servizio,
-    questo si tradurrà nell'utilizzo di due istanze diverse perché l'istanziazione
-    di un servizio privato è fatto in linea (ad esempio ``new PrivateFooBar()``).
+    questo si tradurrà nell'utilizzo di due istanze diverse perché l'istanza
+    di un servizio privato è fatta in linea (ad esempio ``new PrivateFooBar()``).
 
 In poche parole: Un servizio dovrà essere privato quando non si desidera accedervi
 direttamente dal codice.
@@ -874,11 +931,11 @@ sotto) per accedere a questo servizio (attraverso l'alias).
 
    I servizi per impostazione predefinita sono pubblici.
 
-Aliasing
-~~~~~~~~
+Alias
+~~~~~
 
 Quando nella propria applicazione si utilizzano bundle del nucleo o bundle di terze parti, si possono
-utilizzare scorciatoie per accedere ad alcuni servizi. Si può farlo mettendo un alias e
+utilizzare scorciatoie per accedere ad alcuni servizi. Si può farlo mettendo un alias e,
 inoltre, si può mettere l'alias anche su servizi non pubblici.
 
 .. configuration-block::
@@ -1006,4 +1063,4 @@ Imparare di più dal ricettario
 * :doc:`/cookbook/service_container/parentservices`
 * :doc:`/cookbook/controller/service`
 
-.. _`service-oriented architecture`: http://wikipedia.org/wiki/Service-oriented_architecture
+.. _`architettura orientata ai servizi`: http://it.wikipedia.org/wiki/Service-oriented_architecture

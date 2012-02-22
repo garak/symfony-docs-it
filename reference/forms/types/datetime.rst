@@ -53,10 +53,10 @@ input
 IL formato dei dati di *input*, cioè il formato in cui la data è memorizzata
 nell'oggetto sottostante. Valori validi sono:
 
-* ``string`` (e.g. ``2011-06-05 12:15:00``)
-* ``datetime`` (a ``DateTime`` object)
-* ``array`` (e.g. ``array(2011, 06, 05, 12, 15, 0)``)
-* ``timestamp`` (e.g. ``1307276100``)
+* ``string`` (p.e. ``2011-06-05 12:15:00``)
+* ``datetime`` (un oggetto ``DateTime``)
+* ``array`` (p.e. ``array(2011, 06, 05, 12, 15, 0)``)
+* ``timestamp`` (p.e. ``1307276100``)
 
 Il valore che arriva dal form sarà anche normalizzato in questo
 formato.

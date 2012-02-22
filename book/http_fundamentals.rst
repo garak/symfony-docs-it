@@ -394,7 +394,7 @@ Symfony segue lo stesso semplice schema per ogni richiesta:
 
 .. figure:: /images/request-flow.png
    :align: center
-   :alt: Symfony2 request flow
+   :alt: flusso della richiesta di Symfony2
 
    Le richieste in entrata sono interpretate dal routing e passate alle funzioni del
    controllore, che restituisce oggetti ``Response``.

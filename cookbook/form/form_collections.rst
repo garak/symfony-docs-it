@@ -320,7 +320,7 @@ Il codice può essere semplice:
 Ora, ogni volta che un utente clicca sul link  ``Aggiungi un tag``, apparirà un nuovo
 form nella pagina. Il form lato server  è consapevole di tutto e non
 si aspetterà nessuna specifica dimensione per la collezione ``Tag``. Tutti i tag
-verranno aggiunti creando un nuovo ``Todo`` salvandolo insieme ad esso.
+verranno aggiunti creando un nuovo ``Todo`` salvandolo insieme a esso.
 
 Per ulteriori dettagli, guarda :doc:`collection form type reference</reference/forms/types/collection>`.
 

@@ -134,7 +134,7 @@ quale controller dovrebbe essere eseguito. L'intero processo è il seguente:
 
 .. figure:: /images/request-flow.png
    :align: center
-   :alt: Symfony2 request flow
+   :alt: flusso della richiesta di Symfony2
 
    Lo strato delle rotte è uno strumento che traduce l'URL in ingresso in uno specifico
    controllore da eseguire.
@@ -555,8 +555,8 @@ rotta ``blog_show``.
     appropriato e dei requisiti intelligenti, si può realizzare qualsiasi cosa.
 
 Poiché i requisiti dei parametri sono espressioni regolari, la complessità
-e la flessibilità di ogni requisito dipende da come li si scrive. Si supponga che l'home page
-dell'applicazione sia disponibile in due diverse lingue, in base
+e la flessibilità di ogni requisito dipende da come li si scrive. Si supponga che la pagina
+iniziale dell'applicazione sia disponibile in due diverse lingue, in base
 all'URL:
 
 .. configuration-block::
@@ -680,7 +680,7 @@ essere realizzato con la seguente configurazione per le rotte:
         return $collection;
 
 Nonostante il fatto che queste due rotte abbiano schemi identici (``/contact``),
-la prima rotta corrisponderà solo a richieste GET e la secoda rotta corrisponderà
+la prima rotta corrisponderà solo a richieste GET e la seconda rotta corrisponderà
 solo a richieste POST. Questo significa che è possibile visualizzare il form e invia e inviarlo
 utilizzando lo stesso URL ma controllori distinti per le due azioni.
 
@@ -701,7 +701,7 @@ Esempio di rotte avanzate
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A questo punto, si ha tutto il necessario per creare una complessa struttura
-di rotte in Symfony. Quello che segue è u nesempio di quanto flessibile
+di rotte in Symfony. Quello che segue è un esempio di quanto flessibile
 può essere il sistema delle rotte:
 
 .. configuration-block::
@@ -750,7 +750,7 @@ può essere il sistema delle rotte:
 
         return $collection;
 
-Come si sarà visto, questa rotta verrà soddisfatta solo quando la porzione ``{culture}`` portion
+Come si sarà visto, questa rotta verrà soddisfatta solo quando la porzione ``{culture}``
 dell'URL è ``en`` o ``fr`` e se ``{year}`` è un numero. Questa
 rotta mostra anche come sia possibile utilizzare un punto tra i segnaposto al posto di
 una barra. Gli URL corrispondenti a questa rotta potrebbero essere del tipo:
@@ -1177,7 +1177,7 @@ Possono anche essere generati gli URL assoluti.
         </a>
 
 Riassunto
--------
+---------
 
 Il routing è un sistema per mappare l'URL delle richieste in arrivo in una funzione
 controllore che dovrebbe essere chiamata a processare la richiesta. Il tutto

@@ -2,7 +2,7 @@ L'API stabile di Symfony2
 =========================
 
 L'API stabile di Symfony2 è un sottoinsieme di tutti i metodi pubblici di Symfony2
-(componenti e bundle del nucloe) che condividono le seguenti proprietà:
+(componenti e bundle del nucleo) che condividono le seguenti proprietà:
 
 * Lo spazio dei nomi e il nome della classe non cambieranno;
 * Il nome del metodo non cambierà;
@@ -19,7 +19,7 @@ tutto ciò che non possiede esplicitamente il tag non fa parte dell'API stabile.
 
     Ogni bundle di terze parti dovrebbe a sua volta pubblicare la sua API stabile.
 
-A partire da Symfony 2.0, i seguenti componenti hanno un'API pubblica con tag:
+A partire da Symfony 2.0, i seguenti componenti hanno un tag API pubblico:
 
 * BrowserKit
 * ClassLoader

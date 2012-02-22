@@ -17,7 +17,7 @@ Disabilitare l'invio
 ``disable_delivery``. Questa è la configurazione predefinita per l'ambiente test
 della distribuzione Standard. Facendo questa modifica nell'ambiente ``test`` 
 le email non verranno inviate durante l'esecuzione dei test ma continueranno 
-ad essere inviate negli ambienti ``prod`` e ``dev``:
+a essere inviate negli ambienti ``prod`` e ``dev``:
 
 .. configuration-block::
 

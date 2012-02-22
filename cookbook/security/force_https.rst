@@ -1,4 +1,4 @@
-Come forzare HTTPS o HTTP per URL diverse
+Come forzare HTTPS o HTTP per URL diversi
 =========================================
 
 Si possono forzare aree del proprio sito a usare il protocollo ``HTTPS`` nella

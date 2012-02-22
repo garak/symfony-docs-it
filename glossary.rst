@@ -29,8 +29,8 @@ Glossario
    Front controller
         Un *front controller* è un piccolo script PHP che risiede nella cartella web del
         proprio progetto. Solitamente, *ogni* richiesta è gestita eseguendo lo stesso
-        front controller, il cui compito è quello di inizializzare l'applicazione Symfony.
-
+        front controller, il cui compito è quello di inizializzare l'applicazione
+        Symfony.
    
    Controllore
         Un *controllore* è una funzione PHP che ospita tutta la logica necessaria a
@@ -69,8 +69,8 @@ Glossario
         specifico di configurazione. La stessa applicazione può girare sulla stessa
         macchina usando una diversa configurazione, eseguendo l'applicazione in ambienti
         diversi. Questo è molto utile, perché consente a una singola applicazione di
-        avere un ambiente ``dev`` costruito per il debug e un ambiente ``prod`` ottimizzato
-        per la velocità.
+        avere un ambiente ``dev``, costruito per il debug, e un ambiente ``prod``,
+        ottimizzato per la velocità.
 
    Venditore
         Un *venditore* è un fornitore di librerie PHP e di bundle, incluso Symfony2
@@ -81,14 +81,14 @@ Glossario
 
    Acme
         *Acme* è un nome fittizio di azienda usato nei demo e nella documentazione di
-        Symfony. È usato come namespace in punti in cui normalmente andrebbe usato il
+        Symfony. È usato come spazio dei nomi in punti in cui normalmente andrebbe usato il
         nome della propria azienda (per esempio ``Acme\BlogBundle``).
 
    Azione
         Un'*azione* è una funzione o un metodo PHP eseguito, per esempio, quando
         una data rotta viene trovata. Il termine "azione" è sinonimo di *controllore*,
-        sebbene un controllore può anche riferirsi a un'intera classe che include molte
-        azioni. Si veda il :doc:`Capitolo sul controllore </book/controller>`.
+        sebbene un controllore possa anche riferirsi a un'intera classe che include molte
+        azioni. Si veda il :doc:`capitolo sul controllore </book/controller>`.
 
    Risorsa
         Una *risorsa* è un componente statico e non eseguibile di un'applicazione web,
@@ -106,14 +106,14 @@ Glossario
         In Symfony2, un *firewall* non ha a che fare con le reti. Definisce invece
         i meccanismi di autenticazione (ovvero gestisce il processo di determinazione
         dell'identità degli utenti), sia per l'intera applicazione che per le singole
-        parti di essa. Si vedano i capitoli :doc:`/book/security`.
-
+        parti di essa. Si vedano i capitoli
+       :doc:`/book/security`.
 
    YAML 
-        *YAML* è un acronimo ricorsivo che sta per "YAML Ain't a Markup Language". È un
+        *YAML* è un acronimo ricorsivo, che sta per "YAML Ain't a Markup Language". È un
         linguaggio di serializzazione dei dati leggero e umano, molto usato nei file
-        di configurazione di Symfony2. Si veda il capitolo :doc:`/reference/YAML`.
-
+        di configurazione di Symfony2. Si veda il capitolo
+        :doc:`/components/yaml`.
 
 
 .. _`architettura orientata ai servizi`: http://it.wikipedia.org/wiki/Service-oriented_architecture

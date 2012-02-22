@@ -7,7 +7,7 @@ Il controllore
 Un controllore è una funzione PHP da creare, che prende le informazioni dalla
 richiesta HTTP e dai costruttori e restituisce una risposta HTTP (come oggetto
 ``Response`` di Symfony2). La risposta potrebbe essere una pagina HTML, un documento XML,
-un array serializzato JSON, una immagine, una redirezione, un errore 404 o qualsiasi altra cosa
+un array serializzato JSON, una immagine, un rinvio, un errore 404 o qualsiasi altra cosa
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
 *propria applicazione* necessita per rendere il contenuto di una pagina.
 
@@ -39,9 +39,9 @@ esempi comuni:
   restituisce un oggetto ``Response`` con codice di stato 404.
 
 * Il *controllore C* gestisce l'invio di un form contatti. Legge le
-  informazioni del form dalla richiesta, salva le informazioni del contatto nel
-  database ed invia una email con le informazioni del contatto al webmaster. Infine,
-  crea un oggetto ``Response`` che rinvia il browser del client
+  informazioni del form dalla richiesta, salva le informazioni del contatto nella
+  base dati e invia una email con le informazioni del contatto al webmaster. Infine,
+  crea un oggetto ``Response``, che rinvia il browser del client
   alla pagina di ringraziamento del form contatti.
 
 .. index::
@@ -55,7 +55,7 @@ Il framework si occupa dei compiti ripetitivi ed infine esegue un
 controllore, che ospita il codice personalizzato dell'applicazione:
 
 #. Ogni richiesta è gestita da un singolo file con il controllore principale (ad esempio ``app.php``
-   o ``app_dev.php``) che è il bootstrap dell'applicazione;
+   o ``app_dev.php``) che inizializza l'applicazione;
 
 #. Il ``Router`` legge le informazioni dalla richiesta (ad esempio l'URI), trova
    una rotta che corrisponde a tali informazioni e legge il parametro ``_controller``
@@ -184,12 +184,12 @@ vedere :ref:`controller-string-syntax`.
 
     Questo esempio pone la configurazione delle rotte direttamente nella cartella ``app/config/``.
     Un modo migliore per organizzare le proprie rotte è quello di posizionare ogni rotta
-    nel bundle a cui appartiene. Per ulteriori informazioni si veda
+    nel bundle a cui appartiene. Per ulteriori informazioni, si veda
     :ref:`routing-include-external-resources`.
 
 .. tip::
 
-    Si può imparare molto di più sul sistema delle rotte leggendo il :doc:`Capitolo sulla rotte</book/routing>`.
+    Si può imparare molto di più sul sistema delle rotte leggendo il :doc:`capitolo sulle rotte</book/routing>`.
 
 .. index::
    single: Controllore; Parametri del controllore
@@ -258,8 +258,8 @@ Per questo il controllore può richiedere diversi parametri::
         // ...
     }
 
-Si noti che entrambe le variabili segnaposto (``{first_name}``, ``{last_name}``)
-così come la variabile predefinita ``color`` sono disponibili come parametri nel
+Si noti che entrambe le variabili segnaposto (``{first_name}``, ``{last_name}``),
+così come la variabile predefinita ``color``, sono disponibili come parametri nel
 controllore. Quando una rotta viene abbinata, le variabili segnaposto vengono unite
 con le ``impostazioni predefinite`` per creare un array che è disponibile al controllore.
 
@@ -268,10 +268,10 @@ in mente le seguenti linee guida mentre si sviluppa.
 
 * **L'ordine dei parametri del controllore non ha importanza**
 
-    Symfony è in grado di abbinare i nomi dei parametri delle rotte nei nomi delle variabili
-    dei metodi dei controllori. In altre parole, si vuole dire che
+    Symfony è in grado di abbinare i nomi dei parametri delle rotte e i nomi delle variabili
+    dei metodi dei controllori. In altre parole, vuol dire che
     il parametro ``{last_name}`` corrisponde al parametro ``$last_name``.
-    Gli parametri del controllore possono essere totalmente riordinati e continuare a funzionare
+    I parametri del controllore possono essere totalmente riordinati e continuare a funzionare
     perfettamente::
 
         public function indexAction($last_name, $color, $first_name)
@@ -281,7 +281,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
 * **Ogni parametro richiesto del controllore, deve corrispondere a uno dei parametri della rotta**
 
-    Il codice seguente genererebbe un ``RuntimeException`` perché non c'è nessun parametro ``foo``
+    Il codice seguente genererebbe un ``RuntimeException``, perché non c'è nessun parametro ``foo``
     definito nella rotta::
 
         public function indexAction($first_name, $last_name, $color, $foo)
@@ -289,7 +289,7 @@ in mente le seguenti linee guida mentre si sviluppa.
             // ..
         }
 
-    Rendere l'parametro facoltativo, metterebbe le cose a posto. Il seguente
+    Rendere l'parametro facoltativo metterebbe le cose a posto. Il seguente
     esempio non lancerebbe un'eccezione::
 
         public function indexAction($first_name, $last_name, $color, $foo = 'bar')
@@ -614,7 +614,7 @@ Questi attributi rimarranno sull'utente per il resto della sessione
 utente.
 
 .. index::
-   single Session; Messaggi flash
+   single Sessione; Messaggi flash
 
 Messaggi flash
 ~~~~~~~~~~~~~~
@@ -680,7 +680,7 @@ L'oggetto Response
 L'unico requisito per un controllore è restituire un oggetto ``Response``. La
 classe :class:`Symfony\\Component\\HttpFoundation\\Response` è una astrazione PHP
 sulla risposta HTTP - il messaggio testuale che contiene gli header HTTP
-headers e il contenuto che viene inviato al client::
+e il contenuto che viene inviato al client::
 
     // crea una semplice risposta con un codice di stato 200 (il predefinito)
     $response = new Response('Hello '.$name, 200);

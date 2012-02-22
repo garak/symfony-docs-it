@@ -251,7 +251,7 @@ possibili percorsi:
 
 #. Quando l'utente invia il form con dati validi, il form viene associato e
    si ha la possibilità di eseguire alcune azioni usando l'oggetto ``$task``
-   (ad esempio persistendo i dati nel database) prima di reindirizzare l'utente
+   (ad esempio persistendo i dati nel database) prima di rinviare l'utente
    a un'altra pagina (ad esempio una pagina "thank you" o "success").
 
 .. note::
@@ -539,7 +539,7 @@ al campo indovinato.
 .. caution::
 
     Se il form utilizza un gruppo specifico di validazione, la funzionalità che indovina il tipo di campo
-    prenderà ancora in considerazione *tutti* i vincoli di validazione quando andrà ad indovinare i
+    prenderà ancora in considerazione *tutti* i vincoli di validazione quando andrà a indovinare i
     tipi di campi (compresi i vincoli che non fanno parte del processo di convalida
     dei gruppi in uso).
 
@@ -640,7 +640,7 @@ Diamo uno sguardo a ogni parte:
 * ``form_rest(form)`` - Rende tutti i campi che non sono ancora stati resi.
   Di solito è una buona idea mettere una chiamata a questo helper in fondo
   a ogni form (nel caso in cui ci si è dimenticati di mostrare un campo o non ci si voglia annoiare
-  ad inserire manualmente i campi nascosti). Questo helper è utile anche per utilizzare
+  a inserire manualmente i campi nascosti). Questo helper è utile anche per utilizzare
   automaticamente i vantaggi della :ref:`protezione CSRF<forms-csrf>`.
   
 La maggior parte del lavoro viene fatto dall'helper ``form_row``, che rende

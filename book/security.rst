@@ -195,7 +195,7 @@ nega l'accesso all'utente (perché l'utente anonimo non ha il ruolo
 ``ROLE_ADMIN``), il firewall entra in azione e avvia il processo di autenticazione.
 Il processo di autenticazione dipende dal meccanismo di autenticazione in uso.
 Per esempio, se si sta utilizzando il metodo di autenticazione tramite form di login,
-l'utente verrà reindirizzato alla pagina di login. Se si utilizza l'autenticazione HTTP,
+l'utente verrà rinviato alla pagina di login. Se si utilizza l'autenticazione HTTP,
 all'utente sarà inviata una risposta HTTP 401 e verrà visualizzato una finestra del browser
 con nome utente e password.
 
@@ -232,7 +232,7 @@ un'autenticazione dell'utente tramite Twitter. Indipendentemente dal metodo di a
 il flusso di richiesta è sempre lo stesso:
 
 #. Un utente accede a una risorsa protetta;
-#. L'applicazione reindirizza l'utente al form di login;
+#. L'applicazione rinvia l'utente al form di login;
 #. L'utente invia le proprie credenziali (ad esempio nome utente / password);
 #. Il firewall autentica l'utente;
 #. L'utente autenticato riprova la richiesta originale.
@@ -242,7 +242,7 @@ il flusso di richiesta è sempre lo stesso:
     L'*esatto* processo in realtà dipende un po' da quale meccanismo di
     autenticazione si sta usando. Per esempio, quando si utilizza il form di login, l'utente
     invia le sue credenziali a un URL che elabora il form (ad esempio ``/login_check``)
-    e poi viene reindirizzato all'URL originariamente richiesto (ad esempio ``/admin/foo``).
+    e poi viene rinviato all'URL originariamente richiesto (ad esempio ``/admin/foo``).
     Ma con l'autenticazione HTTP, l'utente invia le proprie credenziali direttamente
     all'URL originale (ad esempio ``/admin/foo``) e poi la pagina viene restituita
     all'utente nella stessa richiesta (cioè senza rinvio).
@@ -265,7 +265,7 @@ poi proteggere l'accesso a determinate aree tramite i ruoli. Utilizzando l'auten
 si può sfruttare senza fatica il box nativo nome utente/password offerti da
 tutti i browser. Tuttavia, Symfony supporta nativamente molti meccanismi di autenticazione.
 Per i dettagli su ciascuno di essi, vedere il
-:doc:`Riferimento alla configurazione di sicurezza</reference/configuration/security>`.
+:doc:`Riferimento sulla configurazione di sicurezza</reference/configuration/security>`.
 
 In questa sezione, si potrà proseguire l'apprendimento, consentendo all'utente di autenticarsi
 attraverso un tradizionale form di login HTML.
@@ -339,7 +339,7 @@ In primo luogo, abilitare il form di login sotto il firewall:
             'form_login' => array(),
 
 Ora, quando il sistema di sicurezza inizia il processo di autenticazione,
-reindirizzerà l'utente al form di login (``/login`` per impostazione predefinita). Implementare
+rinvierà l'utente al form di login (``/login`` per impostazione predefinita). Implementare
 visivamente il form di login è compito dello sviluppatore. In primo luogo, bisogna creare due rotte: una che
 visualizzerà il form di login (cioè ``/login``) e un'altra che gestirà
 l'invio del form di login (ad esempio ``/login_check``):
@@ -397,7 +397,7 @@ l'invio del form di login (ad esempio ``/login_check``):
 
 Notare che il nome della rotta ``login`` non è importante. Quello che è importante
 è che l'URL della rotta (``/login``) corrisponda al valore di configurazione ``login_path``,
-in quanto è lì che il sistema di sicurezza reindirizzerà gli utenti che necessitano di
+in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di
 effettuare il login.
 
 Successivamente, creare il controllore che visualizzerà il form di login:
@@ -461,7 +461,7 @@ Infine, creare il template corrispondente:
             <input type="password" id="password" name="_password" />
 
             {#
-                Se si desidera controllare l'URL a cui l'utente viene reindirizzato in caso di successo (maggiori dettagli qui sotto)
+                Se si desidera controllare l'URL a cui l'utente viene rinviato in caso di successo (maggiori dettagli qui sotto)
                 <input type="hidden" name="_target_path" value="/account" />
             #}
 
@@ -483,7 +483,7 @@ Infine, creare il template corrispondente:
             <input type="password" id="password" name="_password" />
 
             <!--
-                Se si desidera controllare l'URL a cui l'utente viene reindirizzato in caso di successo (maggiori dettagli qui sotto)
+                Se si desidera controllare l'URL a cui l'utente viene rinviato in caso di successo (maggiori dettagli qui sotto)
                 <input type="hidden" name="_target_path" value="/account" />
             -->
 
@@ -510,19 +510,19 @@ rimanderà l'utente al form di login, dove sono visualizzati gli errori.
 Rivediamo l'intero processo:
 
 #. L'utente prova ad accedere a una risorsa protetta;
-#. Il firewall avvia il processo di autenticazione reindirizzando
+#. Il firewall avvia il processo di autenticazione rinviando
    l'utente al form di login (``/login``);
 #. La pagina ``/login`` rende il form di login, attraverso la rotta e il controllore
    creato in questo esempio;
 #. L'utente invia il form di login ``/login_check``;
 #. Il sistema di sicurezza intercetta la richiesta, verifica le credenziali inviate
-   dall'utente, autentica l'utente se sono corrette e se non lo sono
-   lo reinvia al form di login.
+   dall'utente, autentica l'utente se sono corrette e, se non lo sono,
+   lo rinvia al form di login.
 
-Per impostazione predefinita, se le credenziali inviate sono corrette, l'utente verrà reindirizzato
+Per impostazione predefinita, se le credenziali inviate sono corrette, l'utente verrà rinviato
 alla pagina originale che è stata richiesta  (ad esempio ``/admin/foo``). Se l'utente
-originariamente è andato direttamente alla pagina di login, sarà reindirizzato alla homepage.
-Questo comportamento può essere personalizzato, consentendo, ad esempio, di reindirizzare
+originariamente è andato direttamente alla pagina di login, sarà rinviato alla pagina iniziale.
+Questo comportamento può essere personalizzato, consentendo, ad esempio, di rinviare
 l'utente a un URL specifico.
 
 Per maggiori dettagli su questo e su come personalizzare in generale il processo di login con il form,
@@ -539,7 +539,7 @@ vedere :doc:`/cookbook/security/form_login`.
     In primo luogo, essere sicuri di aver definito correttamente le rotte 
     ``/login`` e ``/login_check`` e che corrispondano ai valori di configurazione
     ``login_path`` e ``check_path``. Un errore di configurazione qui può significare che si viene
-    reindirizzati a una pagina 404 invece che nella pagina di login, o che inviando
+    rinviati a una pagina 404 invece che nella pagina di login, o che inviando
     il form di login non succede nulla (continuando a vedere sempre il form
     di login).
 
@@ -770,8 +770,8 @@ Ecco un esempio di come si possa garantire questa rotta da intrusioni esterne:
 Protezione tramite canale
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Molto simile alla sicurezza basata su IP, richiedere l'uso di SSL è semplice come
-aggiungere una nuova voce access_control:
+Molto simile alla sicurezza basata su IP, richiedere l'uso di SSL è semplice, basta
+aggiungere la voce ``access_control``:
 
 .. configuration-block::
 
@@ -1479,7 +1479,7 @@ parametro di configurazione ``logout``:
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/security.yml
         security:
             firewalls:
                 secured_area:
@@ -1491,7 +1491,7 @@ parametro di configurazione ``logout``:
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/security.xml -->
         <config>
             <firewall name="secured_area" pattern="^/">
                 <!-- ... -->
@@ -1502,7 +1502,7 @@ parametro di configurazione ``logout``:
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
@@ -1514,8 +1514,8 @@ parametro di configurazione ``logout``:
         ));
 
 Una volta che questo viene configurato sotto il firewall, l'invio di un utente in ``/logout``
-(o qualunque debba essere il percorso), farà disconnettere
-l'utente corrente. L'utente sarà quindi inviato alla homepage (il valore definito
+(o qualunque debba essere il percorso) farà disconnettere
+l'utente corrente. L'utente sarà quindi inviato alla pagina iniziale (il valore definito
 dal parametro  ``target``). Entrambi i parametri di configurazione ``path`` e ``target``
 assumono come impostazione predefinita ciò che è specificato qui. In altre parole, se non è necessario personalizzarli,
 è possibile ometterli completamente e accorciare la configurazione:
@@ -1534,8 +1534,8 @@ assumono come impostazione predefinita ciò che è specificato qui. In altre par
 
         'logout' => array(),
 
-Si noti che *non* è necessario implementare un controllore per l'URL ``/logout``
-URL perché il firewall si occupa di tutto. Si può, tuttavia, creare
+Si noti che *non* è necessario implementare un controllore per l'URL ``/logout``,
+perché il firewall si occupa di tutto. Si può, tuttavia, creare
 una rotta da poter utilizzare per generare l'URL:
 
 .. configuration-block::
@@ -1570,7 +1570,7 @@ una rotta da poter utilizzare per generare l'URL:
 
         return $collection;
 
-Una volta che l'utente è stato disconnesso, viene rediretto al percorso
+Una volta che l'utente è stato disconnesso, viene rinviato al percorso
 definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per
 ulteriori informazioni sulla configurazione di logout, vedere il
 :doc:`Riferimento della configurazione di sicurezza</reference/configuration/security>`.

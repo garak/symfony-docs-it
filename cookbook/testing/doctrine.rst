@@ -78,7 +78,7 @@ caricare le entità::
             $this->_em = $this->_getTestEntityManager();
 
             $this->_em->getConfiguration()
-            	->setMetadataDriverImpl($metadataDriver);
+              ->setMetadataDriverImpl($metadataDriver);
 
             // consente di usare la sintassi AcmeProductBundle:Product
             $this->_em->getConfiguration()->setEntityNamespaces(array(
@@ -184,8 +184,8 @@ che rende tutto alquanto facile::
 
         public function setUp()
         {
-        	$kernel = static::createKernel();
-        	$kernel->boot();
+          $kernel = static::createKernel();
+          $kernel->boot();
             $this->_em = $kernel->getContainer()
                 ->get('doctrine.orm.entity_manager');
         }

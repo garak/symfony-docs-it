@@ -331,10 +331,10 @@ intero negli altri altri casi).
 
 .. note::
 
-	Nella maggior parte dei casi, non è una buona idea quella di eseguire 
-	un comando al di fuori del terminale. Innanzitutto perché l'output del 
-	comando è ottimizzato per il terminale. Ma, anche più importante, un comando 
-	è come un controllore: dovrebbe usare un modello per fare qualsiasi cosa e 
-	restituire informazioni all'utente. Perciò, invece di eseguire un comando
-	dal Web, sarebbe meglio provare a rifattorizzare il codice e spostare la logica
-	all'interno di una nuova classe.
+    Nella maggior parte dei casi, non è una buona idea quella di eseguire 
+    un comando al di fuori del terminale. Innanzitutto perché l'output del 
+    comando è ottimizzato per il terminale. Ma, anche più importante, un comando 
+    è come un controllore: dovrebbe usare un modello per fare qualsiasi cosa e 
+    restituire informazioni all'utente. Perciò, invece di eseguire un comando
+    dal Web, sarebbe meglio provare a rifattorizzare il codice e spostare la logica
+    all'interno di una nuova classe.

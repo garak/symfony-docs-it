@@ -200,9 +200,9 @@ ha tags appena viene creato).
         <h3>Tags</h3>
         <ul class="tags">
             {# itera per ogni tag esistente e rende solo il campo: nome #}
-			{% for tag in form.tags %}
-            	<li>{{ form_row(tag.name) }}</li>
-			{% endfor %}
+      {% for tag in form.tags %}
+              <li>{{ form_row(tag.name) }}</li>
+      {% endfor %}
         </ul>
 
         {{ form_rest(form) }}
@@ -215,9 +215,9 @@ ha tags appena viene creato).
 
         <h3>Tags</h3>
         <ul class="tags">
-			<?php foreach($form['tags'] as $tag): ?>
-            	<li><?php echo $view['form']->row($tag['name']) ?></li>
-			<?php endforeach; ?>
+      <?php foreach($form['tags'] as $tag): ?>
+              <li><?php echo $view['form']->row($tag['name']) ?></li>
+      <?php endforeach; ?>
         </ul>
 
         <?php echo $view['form']->rest($form) ?>

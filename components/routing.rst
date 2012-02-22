@@ -55,7 +55,7 @@ in modo tale da caricare il componente Routing::
 :class:`Symfony\\Component\\Routing\\RouteCollection`.
 
 Il metodo :method:`RouteCollection::add()<Symfony\\Component\\Routing\\RouteCollection::add>`
-prende due argomenti. Il primo è il nome della rotta, il secondo è un oggetto
+accetta due parametri. Il primo è il nome della rotta, il secondo è un oggetto
 :class:`Symfony\\Component\\Routing\\Route`, il cui costruttore si aspetta di ricevere
 un percorso URL e un array di variabili personalizzate. L'array di variabili personalizzate 
 può essere *qualsiasi cosa* che  abbia senso per l'applicazione e viene restituito

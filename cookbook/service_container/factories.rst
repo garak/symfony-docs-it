@@ -2,11 +2,11 @@ Usare il factory per creare servizi
 ===================================
 
 Il contenitore di servizi di Symfony2 mette a disposizione potenti strumenti
-per la creazione di oggetti, permettendo di specificare sia gli argomenti da passare
-al costruttore sia i metodi di chiamata che i parametri di configurazione. Alle volte, però,
+per la creazione di oggetti, permettendo di specificare sia i parametri da passare
+al costruttore, sia i metodi di chiamata, che i parametri di configurazione. Alle volte, però,
 questo non è sufficiente a soddisfare tutti i requisiti per la creazione dei propri oggetti.
 In questi casi, è possibile usare un factory per la creazione di oggetti e fare in modo che
-il contenitore di servizi chiami uno specifico metodo, nel factory, invece che 
+il contenitore di servizi chiami uno specifico metodo nel factory, invece che 
 inizializzare direttamente l'oggetto.
 
 Supponiamo di avere un factory che configura e restituisce un oggetto

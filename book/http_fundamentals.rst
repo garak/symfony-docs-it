@@ -310,7 +310,7 @@ mezzo. In altre parole, il vero lavoro consiste nello scrivere il codice che int
 l'informazione della richiesta e crea la risposta.
 
 La propria applicazione probabilmente fa molte cose, come inviare email, gestire invii di
-form, salvare dati in un database, rendere pagine HTML e proteggere contenuti. Come si
+form, salvare dati in un database, presentare pagine HTML e proteggere contenuti. Come si
 può gestire tutto questo e mantenere al contempo il proprio codice organizzato e
 mantenibile?
 
@@ -361,7 +361,7 @@ Restare organizzati
 ~~~~~~~~~~~~~~~~~~~
 
 Ma all'interno del nostro front controller, come possiamo sapere quale pagina debba essere
-resa e come poterla renderla in modo facile? In un modo o nell'altro, occorre verificare
+presentata e come poterla rappresentare in modo facile? In un modo o nell'altro, occorre verificare
 l'URI in entrata ed eseguire parti diverse di codice, a seconda di tale valore. Le cose
 possono peggiorare rapidamente:
 
@@ -382,7 +382,7 @@ possono peggiorare rapidamente:
     $response->send();
 
 La soluzione a questo problema può essere difficile. Fortunatamente, è *esattamente*
-quello che Symfony è studiato per fare.
+per questo che è stato progettato Symfony.
 
 Il flusso di un'applicazione Symfony
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -452,7 +452,7 @@ metodo PHP ``contactAction`` in una classe chiamata ``MainController``:
 
 In questo semplice esempio, il controllore semplicemente crea un oggetto ``Response``
 con il codice HTML "<h1>Contacttaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
-si imparerà come un controllore possa rendere dei template, consentendo al proprio codice
+si imparerà come un controllore possa presentare dei templates, consentendo al proprio codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose
 difficili: interagire col database, gestire l'invio di dati o l'invio di messaggi
@@ -464,8 +464,8 @@ Symfony2: costruire la propria applicazione, non i propri strumenti.
 Sappiamo dunque che lo scopo di un'applicazione è interpretare ogni richiesta in entrata
 e creare un'appropriata risposta. Al crescere di un'applicazione, diventa sempre più
 difficile mantenere il proprio codice organizzato e mantenibile. Invariabilmente, gli
-stessi complessi compiti continuano a presentarsi: persistere nel database, rendere e
-riusare template, gestire invii di form, inviare email, validare i dati degli utenti e
+stessi complessi compiti continuano a presentarsi: persistere nel database, presentare
+e riutilizzare template, gestire invii di form, inviare email, validare i dati degli utenti e
 gestire la sicurezza.
 
 La buona notizia è che nessuno di questi problemi è unico. Symfony fornisce un framework
@@ -500,7 +500,7 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 * `ClassLoader`_ Una libreria di autoloading che consente l'uso di classi PHP senza
   bisogno di usare manualmente ``require`` sui file che contengono tali classi;
 
-* `Templating`_ Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
+* `Templating`_ Un insieme di strumenti per presentare template, gestire l'ereditarietà dei
   template (p.e. un template è decorato con un layout) ed eseguire altri compiti
   comuni sui template;
 
@@ -510,14 +510,14 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 * `Translation`_ Un framework per tradurre stringhe nella propria applicazione.
 
 Tutti questi componenti sono disaccoppiati e possono essere usati in *qualsiasi* progetto
-PHP, indipendentemente dall'uso del framework Symfony2. Ogni parte di essi è stata
-realizzata per essere usata se necessario e sostituita in caso contrario.
+PHP, indipendentemente dall'uso del framework Symfony2. Ogni parte è fatta per essere usata
+in caso di bisogno e rimpiazzata quando necessario.
 
 La soluzione completa il *framework* Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Cos'*è* quindi il *framework* Symfony2? Il *framework* Symfony2 è una libreria PHP
-che esegue due compiti distinti:
+che assolve due compiti distinti:
 
 #. Fornisce una selezione di componenti (cioè i componenti di Symfony2) e
    librerie di terze parti (p.e. ``Swiftmailer`` per l'invio di email);

@@ -438,7 +438,7 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
 specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
 la stringa ``AcmeDemoBundle:Main:contact`` è una sintassi breve che punta a uno specifico
-metodo PHP ``contactAction`` in una classe chiaamta ``MainController``:
+metodo PHP ``contactAction`` in una classe chiamata ``MainController``:
 
 .. code-block:: php
 
@@ -464,7 +464,7 @@ Symfony2: costruire la propria applicazione, non i propri strumenti.
 Sappiamo dunque che lo scopo di un'applicazione è interpretare ogni richiesta in entrata
 e creare un'appropriata risposta. Al crescere di un'applicazione, diventa sempre più
 difficile mantenere il proprio codice organizzato e mantenibile. Invariabilmente, gli
-stessi complessi compiti continuano a presentarsi: persistere dai nel database, rendere e
+stessi complessi compiti continuano a presentarsi: persistere nel database, rendere e
 riusare template, gestire invii di form, inviare email, validare i dati degli utenti e
 gestire la sicurezza.
 
@@ -501,13 +501,13 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
   bisogno di usare manualmente ``require`` sui file che contengono tali classi;
 
 * `Templating`_ Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
-  template (p.e.e un template è decorato con un layout) ed eseguire altri compiti
+  template (p.e. un template è decorato con un layout) ed eseguire altri compiti
   comuni sui template;
 
 * `Security`_ - Una potente libreria per gestire tutti i tipi di sicurezza all'interno
   di un'applicazione;
 
-* `Translation`_ Unframework per tradurre stringhe nella propria applicazione.
+* `Translation`_ Un framework per tradurre stringhe nella propria applicazione.
 
 Tutti questi componenti sono disaccoppiati e possono essere usati in *qualsiasi* progetto
 PHP, indipendentemente dall'uso del framework Symfony2. Ogni parte di essi è stata

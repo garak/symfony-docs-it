@@ -260,7 +260,7 @@ tramite una connessione sicura (cioè ``https``).
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::get`,
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::has`,
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all` e altri.
-    In effetti, ogni proprietò pubblica usata nell'esempio precedente è un'istanza
+    In effetti, ogni proprietà pubblica usata nell'esempio precedente è un'istanza
     di ParameterBag.
     
     .. _book-fundamentals-attributes:

@@ -36,7 +36,7 @@ I test unitari consentono solo di tesare un metodo che costruisce una query.
 Preparazione
 ~~~~~~~~~~~~
 
-Inannzitutto, occorre aggiungere lo spazio dei nomi Doctrine\Tests al proprio autoloader::
+Inannzitutto, occorre aggiungere lo spazio dei nomi ``Doctrine\Tests`` al proprio autoloader::
 
     // app/autoload.php
     $loader->registerNamespaces(array(

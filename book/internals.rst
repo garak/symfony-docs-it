@@ -25,7 +25,7 @@ Il codice di Symfony2 è composto da diversi livelli indipendenti. Ogni livello
     indipendentemente, con l'aiuto della classe
     :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader` e
     del file ``src/autoload.php``. Leggere il :doc:`capitolo dedicato
-    </cookbook/tools/autoloader>` per maggiori informazioni.
+    </components/class_loader>` per maggiori informazioni.
 
 Il componente ``HttpFoundation``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

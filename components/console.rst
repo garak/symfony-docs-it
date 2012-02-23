@@ -68,6 +68,22 @@ contenente il seguente codice::
         }
     }
 
+You also need to create the file to run at the command line which creates
+an ``Application`` and adds commands to it:
+
+.. code-block::php
+
+    #!/usr/bin/env php
+    # app/console
+    <?php 
+
+    use Acme\DemoBundle\Command\GreetCommand;
+    use Symfony\Component\Console\Application;
+
+    $application = new Application();
+    $application->add(new GreetCommand);
+    $application->run();
+
 È possibile provare il programma nel modo seguente
 
 .. code-block:: bash
@@ -191,7 +207,7 @@ seguenti esempi funzioneranno correttamente:
 Ci sono 4 possibili varianti per le opzioni:
 
 ===========================  ==================================================================
-Opzione                      Value
+Opzione                      Valore
 ===========================  ==================================================================
 InputOption::VALUE_IS_ARRAY  Questa opzione accetta valori multipli
 InputOption::VALUE_NONE      Non accettare alcun valore per questa opzione (come in ``--urla``)
@@ -247,7 +263,6 @@ test senza una reale interazione da terminale::
     {
         public function testExecute()
         {
-            // simula il Kernel o ne crea uno a seconda delle esigenze
             $application = new Application($kernel);
             $application->add(new SalutaCommand());
 
@@ -265,40 +280,48 @@ Il metodo :method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDispla
 restituisce ciò che sarebbe stato mostrato durante una normale chiamata dal 
 terminale.
 
+Si può testare l'invio di argomenti e opzioni al comando, passandoli come
+array al metodo
+:method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay`::
+
+    use Symfony\Component\Console\Tester\CommandTester;
+    use Symfony\Bundle\FrameworkBundle\Console\Application;
+    use Acme\DemoBundle\Command\GreetCommand;
+
+    class ListCommandTest extends \PHPUnit_Framework_TestCase
+    {
+
+        //--
+
+        public function testNameIsOutput()
+        {
+            $application = new Application();
+            $application->add(new GreetCommand());
+
+            $command = $application->find('demo:saluta');
+            $commandTester = new CommandTester($command);
+            $commandTester->execute(
+                array('command' => $command->getName(), 'name' => 'Fabien')
+            );
+
+            $this->assertRegExp('/Fabien/', $commandTester->getDisplay());
+        }
+    }
+
 .. tip::
 
     È possibile testare un'intera applicazione da terminale utilizzando 
     :class:`Symfony\\Component\\Console\\Tester\\ApplicationTester`.
 
-Ottenere i servizi dal contenitore dei servizi
-----------------------------------------------
-
-Utilizzando la classe :class:`Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand` 
-come classe base per i comandi (al posto della meno evoluta 
-:class:`Symfony\Component\Console\Command\Command`) si ha la possibilità di accedere al 
-contenitore dei servizi. In altre parole, è possibile accedere a ogni servizio che sia stato 
-configurato. Ad esempio, è possibile estendere facilmente la precedente azione affinché sia traducibile::
-
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $nome = $input->getArgument('nome');
-        $traduttore = $this->getContainer()->get('translator');
-        if ($nome) {
-            $output->writeln($traduttore->trans('Ciao %nome%!', array('%nome%' => $nome)));
-        } else {
-            $output->writeln($traduttore->trans('Ciao!'));
-        }
-    }
-
 Richiamare un comando esistente
 -------------------------------
 
-Se un comando dipende da un'altro, che deve quindi essere eseguito per primo, invece 
-di costringere l'utente a ricordarsi l'ordina di esecuzione, è possibile richiamarlo 
-direttamente. Ciò risulta pratico anche nel caso si voglia creare dei "meta" comandi che 
-non facciano altro che eseguire gruppi di altri comandi (ad esempio, l'insieme di comandi
-da eseguire quando il codice del progetto viene modificato nel server di produzione: pulire
-la cache, generare i metodi proxy di Doctrine2, eseguire il dump delle risorse di Assetic, ...).
+Se un comando dipende da un altro, da eseguire prima, invece di chiedere all'utente
+di ricordare l'ordine di esecuzione, lo si può richiamare direttamente.
+Questo è utile anche quando si vuole creare un "meta" comando, che esegue solo una
+serie di altri comandi (per esempio, tutti i comandi necessari quando il codice
+del progetto è cambiato sui server di produzione: pulire la cache,
+genereare i proxy di Doctrine, esportare le risorse di Assetic, ...).
 
 Richiamare un comando da un altro è molto semplice::
 

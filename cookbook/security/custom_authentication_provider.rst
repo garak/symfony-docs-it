@@ -427,30 +427,35 @@ factory, con tag ``security.listener.factory``:
             </services>
         </container>
 
-.. versionadded:: 2.1
-    Prima della 2.1, il factory successivo veniva aggiunto tramite ``security.yml``.
+Ora, importare la configurazione del factory, tramite la chiave ``factories`` nella
+configurazione della sicurezza.
 
-Come ultimo passo, aggiungere il factory all'estensione della sicurezza nella classe del bundle.
+.. configuration-block::
 
-.. code-block:: php
+    .. code-block:: yaml
 
-    // src/Acme/DemoBundle/AcmeDemoBundle.php
-    namespace Acme\DemoBundle;
+        # app/config/security.yml
+        security:
+          factories:
+            - "%kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.yml"
 
-    use Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory;
-    use Symfony\Component\HttpKernel\Bundle\Bundle;
-    use Symfony\Component\DependencyInjection\ContainerBuilder;
+    .. code-block:: xml
 
-    class AcmeDemoBundle extends Bundle
-    {
-        public function build(ContainerBuilder $container)
-        {
-            parent::build($container);
+        <!-- app/config/security.xml -->
+        <config>
+            <factories>
+              "%kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.xml
+            </factories>
+        </config>
 
-            $extension = $container->getExtension('security');
-            $extension->addSecurityListenerFactory(new WsseFactory());
-        }
-    }
+    .. code-block:: php
+
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            'factories' => array(
+              "%kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.php"
+            ),
+        ));
 
 Abbiamo finito! Ora si possono definire le parti dell'applicazione sotto protezione WSSE.
 

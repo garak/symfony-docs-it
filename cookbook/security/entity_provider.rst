@@ -40,13 +40,6 @@ Per sintetizzare, i metodi setter e getter per ogni campo sono stati rimossi, in
 modo da focalizzarsi sui metodi più importanti, provenienti da
 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
-.. versionadded:: 2.1
-
-    In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
-    Se occorre sovrascrivere l'implementazione originale della logica di confronto,
-    implementare  la nuova interfaccia
-    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`.
-
 .. code-block:: php
 
     // src/Acme/UserBundle/Entity/User.php
@@ -107,6 +100,11 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
             return array('ROLE_USER');
         }
 
+        public function equals(UserInterface $user)
+        {
+            return $user->getUsername() === $this->username;
+        }
+
         public function eraseCredentials()
         {
         }
@@ -133,6 +131,11 @@ di Symfony, la classe entità deve implementare
 interfaccia costringe la classe a implementare i seguenti cinque metodi: ``getRoles()``,
 ``getPassword()``, ``getSalt()``, ``getUsername()``, ``eraseCredentials()``.
 Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
+
+Per dirla in modo semplice, il metodo ``equals()`` confronta il campo ``username``,
+ma è anche possibile eseguire ulteriori verifiche, a seconda della complessità del modello
+dei dati. D'altra parte, il metodo ``eraseCredentials()`` resta vuoto, perché in questa
+guida non ci interessa.
 
 Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL. Per dettagli sulla
 creazione delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-security-encoding-user-password`.

@@ -23,9 +23,6 @@ Ogni parte sarà spiegata nella prossima sezione.
 
             always_authenticate_before_granting: false
 
-            # se richiamare eraseCredentials sul token
-            erase_credentials: true
-
             # la strategia può essere: none, migrate, invalidate
             session_fixation_strategy: migrate
 
@@ -61,12 +58,12 @@ Ogni parte sarà spiegata nella prossima sezione.
                     id: my.custom.encoder.service.id
 
             providers:
-                memory_provider_name:
-                    memory:
-                        users:
-                            foo: { password: foo, roles: ROLE_USER }
-                            bar: { password: bar, roles: [ROLE_USER, ROLE_ADMIN] }
-                entity_provider_name:
+                memory:
+                    name: memory
+                    users:
+                        foo: { password: foo, roles: ROLE_USER }
+                        bar: { password: bar, roles: [ROLE_USER, ROLE_ADMIN] }
+                entity:
                     entity: { class: SecurityBundle:User, property: username }
 
             factories:

@@ -160,10 +160,9 @@ soddisfa i bisogni più comuni:
 
         providers:
             in_memory:
-                memory:
-                    users:
-                        user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                        admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                users:
+                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
         firewalls:
             dev:

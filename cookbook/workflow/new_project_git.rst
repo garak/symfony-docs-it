@@ -33,7 +33,7 @@ locale:
         /app/cache/*
         /app/logs/*
         /vendor/  
-        /app/config/parameters.yml
+        /app/config/parameters.ini
 
 4. Copiare ``app/config/parameters.yml`` in ``app/config/parameters.yml.dist``.
    Il file ``parameters.yml`` è ignorato da git (vedi sopra), quindi le impostazioni
@@ -106,10 +106,6 @@ di più su come configurare e sviluppare la propria applicazione.
 .. _cookbook-managing-vendor-libraries:
 
 .. include:: _vendor_deps.rst.inc
-
-    Inoltre, se si vuole semplicemente aggiornare il file ``deps.lock`` con
-    ciò che è stato appena installato, si può eseguire ``php bin/vendors lock``,
-    per memorizzare gli appropriati identificatori SHA di git nel file ``deps.lock``.
 
 Venditori e sotto-moduli
 ~~~~~~~~~~~~~~~~~~~~~~~~

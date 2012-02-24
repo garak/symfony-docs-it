@@ -128,17 +128,6 @@ le richieste ``http`` e ``https``. Se un URL inizia con ``https://`` o
 liste. Gli URL che iniziano con ``http://`` saranno aggiunti solo alla lista
 ``http``.
 
-.. versionadded:: 2.1
-
-    Diversamente dalla maggior parte dei blocchi di configurazione, i valori
-    successivi di ``assets_base_urls`` si sovrascriveranno a vicenda, invece di
-    essere fusi. Questo comportamento è stato scelto perché tipicamente gli
-    sviluppatori definiscono gli URL di base per ogni ambiente.
-    Dato che la maggior parte dei progetti tendono a ereditare le configurazioni
-    (cioè ``config_test.yml`` importa ``config_dev.yml``) e/o condividono una
-    configurazione comune di base (cioè ``config.yml``), la fusione potrebbe
-    produrre un insieme di URL di base per ambienti multipli.
-
 .. _ref-framework-assets-version:
 
 assets_version
@@ -250,7 +239,6 @@ Configurazione predefinita completa
             secret:               ~ # Required
             ide:                  ~
             test:                 ~
-            default_locale:       en
             trust_proxy_headers:  false
 
             # form configuration
@@ -287,6 +275,7 @@ Configurazione predefinita completa
             # session configuration
             session:
                 auto_start:           ~
+                default_locale:       en
                 storage_id:           session.storage.native
                 name:                 ~
                 lifetime:             86400

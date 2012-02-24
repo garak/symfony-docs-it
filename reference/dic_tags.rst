@@ -9,7 +9,6 @@ Tag:
 * ``form.type_guesser``
 * ``kernel.cache_warmer``
 * ``kernel.event_listener``
-* ``kernel.event_subscriber``
 * ``monolog.logger``
 * ``monolog.processor``
 * ``templating.helper``
@@ -151,53 +150,6 @@ richiamato:
     (probabilmente il metodo o gli attributi dell'evento), con un intero positivo oppure
     negativo. Questo consente di assicurarsi che i propri ascoltatori siano sempre
     richiamati prima o dopo altri ascoltatori che ascoltano lo stesso evento.
-
-
-
-.. _dic-tags-kernel-event-subscriber:
-
-Abilitare sottoscrittori personalizzati
----------------------------------------
-
-.. versionadded:: 2.1
-
-   La possibilità di aggiungere sottoscrittori di eventi al kernel è nuova nella 2.1.
-
-Per abilitare un sottoscrittore personalizzato, aggiungerlo come normale servizio in una
-delle proprie configurazioni, con il tag ``kernel.event_subscriber``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        services:
-            kernel.subscriber.your_subscriber_name:
-                class: Fully\Qualified\Subscriber\Class\Name
-                tags:
-                    - { name: kernel.event_subscriber }
-
-    .. code-block:: xml
-
-        <service id="kernel.subscriber.your_subscriber_name" class="Fully\Qualified\Subscriber\Class\Name">
-            <tag name="kernel.event_subscriber" />
-        </service>
-
-    .. code-block:: php
-
-        $container
-            ->register('kernel.subscriber.your_subscriber_name', 'Fully\Qualified\Subscriber\Class\Name')
-            ->addTag('kernel.event_subscriber')
-        ;
-
-.. note::
-
-    Il servizio deve implementare l'interfaccia
-    :class:`Symfony\Component\EventDispatcher\EventSubscriberInterface`.
-
-.. note::
-
-    Se il servizio è creato da un factory, si **DEVE** impostare correttamente il
-    parametro ``class`` per questo tag, per far sì che funzioni correttamente.
 
 Abilitare motori di template personalizzati
 -------------------------------------------

@@ -767,13 +767,13 @@ di testo* ed espressioni complesse:
 
 .. code-block:: jinja
 
-    {{ message | trans }}
+    {{ message|trans }}
 
-    {{ message | transchoice(5) }}
+    {{ message|transchoice(5) }}
 
-    {{ message | trans({'%name%': 'Fabien'}, "app") }}
+    {{ message|trans({'%name%': 'Fabien'}, "app") }}
 
-    {{ message | transchoice(5, {'%name%': 'Fabien'}, 'app') }}
+    {{ message|transchoice(5, {'%name%': 'Fabien'}, 'app') }}
 
 .. tip::
 
@@ -785,18 +785,18 @@ di testo* ed espressioni complesse:
 
     .. code-block:: jinja
 
-            {# il testo tradotto tra i tag non è mai escapizzato #}
+            {# il testo tradotto tra i tag non è mai sotto escape #}
             {% trans %}
                 <h3>foo</h3>
             {% endtrans %}
 
             {% set message = '<h3>foo</h3>' %}
 
-            {# una variabile tradotta attraverso un filtro è escapizzata per impostazione predefinita #}
-            {{ message | trans | raw }}
+            {# una variabile tradotta tramite filtro è sotto escape per impostazione predefinita #}
+            {{ message|trans|raw }}
 
-            {# le stringhe statiche non sono mai escapizzate #}
-            {{ '<h3>foo</h3>' | trans }}
+            {# le stringhe statiche non sono mai sotto escape #}
+            {{ '<h3>foo</h3>'|trans }}
 
 Template PHP
 ~~~~~~~~~~~~
@@ -831,7 +831,7 @@ locale da usare per la traduzione:
     );
 
     $this->get('translator')->trans(
-        '{0} There is no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
+        '{0} There are no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
         10,
         array('%count%' => 10),
         'messages',

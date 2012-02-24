@@ -105,7 +105,7 @@ la cartella ``Entity`` del proprio ``AcmeStoreBundle``::
         protected $description;
     }
 
-La classe, spesso chiamata "entità" (che vuol dire *una classe di base che contiene dati),
+La classe, spesso chiamata "entità" (che vuol dire *una classe di base che contiene dati*),
 è semplice e aiuta a soddisfare i requisiti di business di necessità di prodotti della
 propria applicazione. Questa classe non può ancora essere persistita in un database, è
 solo una semplice classe PHP.
@@ -287,12 +287,12 @@ metodi già presenti).
 
     Con il comando ``doctrine:generate:entities`` si può:
 
-        * generare getter e setter,
+    * generare getter e setter,
 
-        * generare classi repository configurate con l'annotazione
-            ``@ORM\Entity(repositoryClass="...")``,
+    * generare classi repository configurate con l'annotazione
+      ``@ORM\Entity(repositoryClass="...")``,
 
-        * generare il costruttore appropriato per relazioni 1:n e n:m.
+    * generare il costruttore appropriato per relazioni 1:n e n:m.
 
     Il comando ``doctrine:generate:entities`` salva una copia di backup del file
     originale ``Product.php``, chiamata ``Product.php~``. In alcuni casi, la presenza

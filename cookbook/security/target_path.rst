@@ -18,8 +18,7 @@ Per aggirare questo comportamento, occorre semplicemente estendere la classe
 
 Come prima cosa, sovrascrivere il parametro ``security.exception_listener.class`` nel
 proprio file di configurazione. Lo si può fare dalla propria configurazione principale
-(in `app/config`) oppure in un file di configurazione importato da un
-bundle:
+(in `app/config`) oppure in un file di configurazione importato da un bundle:
 
 .. configuration-block::
 

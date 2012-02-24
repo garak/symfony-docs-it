@@ -91,4 +91,14 @@ Lo stesso vale per i file delle rotte, della configurazione della validazione e 
     Se ci si riferisce alle risorse senza usare la scorciatoia @NomeBundle, non
     possono essere sovrascritte in tal modo.
 
+.. caution::
+
+   I file delle traduzioni non funzionano nel modo descritto sopra. Tutti i file
+   di traduzione sono raggruppati in un insieme di domini di "pool" (uno per ciascuno).
+   Symfony carica i file delle traduzioni prima dai bundle (nell'ordine in cui i bundle
+   sono inizializzati) e poi dalla cartella ``app/Resources``.
+   Se la stessa traduzione compare in più risorse, sarà applicata la traduzione
+   della risorsa caricata per ultima.
+
 .. _`FOSUserBundle`: https://github.com/friendsofsymfony/fosuserbundle
+

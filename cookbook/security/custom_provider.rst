@@ -230,7 +230,8 @@ Il valore inserito deve corrispondere al modo in cui le password sono state codi
 originariamente, alla creazione degli uenti (in qualsiasi modo siano stati creati).
 Quando un utente inserisce la sua password, la password viene concatenata con il valore
 del sale e quindi codificata con questo algoritmo, prima di confrontarla con la password
-restituita dal proprio metodo ``getPassword()``.
+restituita dal proprio metodo ``getPassword()``. Inoltre, a seconda delle proprie opzioni,
+la password può essere codificata più volte e poi codificata in base64.
 
 .. sidebar:: Specifiche sulle codifiche delle password
 
@@ -247,3 +248,18 @@ restituita dal proprio metodo ``getPassword()``.
     Questo va oltre lo scopo di questa ricetta, possiamo accennare che includerebbe la
     creazione di una sotto-classe di ``MessageDigestPasswordEncoder`` e la sovrascrittura
     del metodo ``mergePasswordAndSalt``.
+
+    Inoltre, per impostazione predefinita, l'hash è codificato più volte e poi codificato 
+    in base64. Per i dettagli, si veda `MessageDigestPasswordEncoder`_.
+    Se lo si vuole evitare, configurarlo in ``security.yml``:
+    
+    .. code-block:: yaml
+    
+        security:
+            encoders:
+                Acme\WebserviceUserBundle\Security\User\WebserviceUser:
+                    algorithm: sha512
+                    encode_as_base64: false
+                    iterations: 1
+
+.. _MessageDigestPasswordEncoder: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Security/Core/Encoder/MessageDigestPasswordEncoder.php

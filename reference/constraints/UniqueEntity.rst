@@ -99,4 +99,6 @@ em
 **tipo**: ``stringa``
 
 Nome del gestore di entità da usare per eseguire la query che determina
-l'unicità. Se lasciato vuoto, sarà usato il gestore di entità predefinito.
+l'unicità. Se lasciato vuoto, sarà determinato il gestore di entità corretto
+per questa classe. Per questo motivo, probabilmente non occorre usare questa
+opzione. 

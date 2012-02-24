@@ -464,7 +464,7 @@ Symfony2: costruire la propria applicazione, non i propri strumenti.
 Sappiamo dunque che lo scopo di un'applicazione è interpretare ogni richiesta in entrata
 e creare un'appropriata risposta. Al crescere di un'applicazione, diventa sempre più
 difficile mantenere il proprio codice organizzato e mantenibile. Invariabilmente, gli
-stessi complessi compiti continuano a presentarsi: persistere nel database, rendere e
+stessi complessi compiti continuano a presentarsi: persistere nella base dati, rendere e
 riusare template, gestire invii di form, inviare email, validare i dati degli utenti e
 gestire la sicurezza.
 

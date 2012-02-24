@@ -540,10 +540,9 @@ form viene reso.
             // ...
         ));
 
-
-Di default, il motore PHP utilizza un layout a *div* quando rende i form. Qualcuno,
+Per impostazione predefinita, il motore PHP utilizza un layout a *div* quando rende i form. Qualcuno,
 tuttavia, potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risorsa
-``FrameworkBundle:FormTable`` come layout:
+``FrameworkBundle:FormTable`` per il layout:
 
 .. configuration-block::
 

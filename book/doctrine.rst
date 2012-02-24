@@ -779,34 +779,34 @@ Doctrine stesso a creare la classe.
 Questo task genera l'entità ``Category``, con un campo ``id``,
 un campo ``name`` e le relative funzioni getter e setter.
 
-Metadata di mappatura delle relazioni
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Meta-dati di mappatura delle relazioni
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per correlare le entità ``Category`` e ``Product``, iniziamo creando una proprietà
-``products`` nella classe ``Category``::
+``products`` nella classe ``Category``:
 
 .. configuration-block::
 
     .. code-block:: php-annotations
 
-    // src/Acme/StoreBundle/Entity/Category.php
-    // ...
-    use Doctrine\Common\Collections\ArrayCollection;
-    
-    class Category
-    {
+        // src/Acme/StoreBundle/Entity/Category.php
         // ...
-        
-        /**
-         * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
-         */
-        protected $products;
+        use Doctrine\Common\Collections\ArrayCollection;
 
-        public function __construct()
+        class Category
         {
-            $this->products = new ArrayCollection();
+            // ...
+
+            /**
+             * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+             */
+            protected $products;
+
+            public function __construct()
+            {
+                $this->products = new ArrayCollection();
+            }
         }
-    }
 
     .. code-block:: yaml
 
@@ -818,11 +818,11 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
                 products:
                     targetEntity: Product
                     mappedBy: category
-            # don't forget to init the collection in entity __construct() method
+            # non dimenticare di inizializzare la collection nel metodo __construct() dell'entità
 
 
 Primo, poiché un oggetto ``Category`` sarà collegato a diversi oggetti ``Product``,
-una proprietà array ``products`` va aggiunta, per contenere questi oggetti ``Product``.
+va aggiutna una proprietà array ``products``, per contenere questi oggetti ``Product``.
 Di nuovo, non va fatto perché Doctrine ne abbia bisogno, ma perché ha senso
 nell'applicazione che ogni ``Category`` contenga un array di oggetti
 ``Product``.
@@ -843,25 +843,25 @@ nell'applicazione che ogni ``Category`` contenga un array di oggetti
    ``targetEntity``.
 
 Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un oggetto
-``Category``, si deve aggiungere una proprietà ``$category`` alla classe ``Product``::
+``Category``, si deve aggiungere una proprietà ``$category`` alla classe ``Product``:
 
 .. configuration-block::
 
     .. code-block:: php-annotations
 
-    // src/Acme/StoreBundle/Entity/Product.php
-    // ...
-
-    class Product
-    {
+        // src/Acme/StoreBundle/Entity/Product.php
         // ...
+
+        class Product
+        {
+            // ...
     
-        /**
-         * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
-         * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-         */
-        protected $category;
-    }
+            /**
+             * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+             * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+             */
+            protected $category;
+        }
 
     .. code-block:: yaml
 

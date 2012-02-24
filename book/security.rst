@@ -54,10 +54,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
 
             providers:
                 in_memory:
-                    memory:
-                        users:
-                            ryan:  { password: ryanpass, roles: 'ROLE_USER' }
-                            admin: { password: kitten, roles: 'ROLE_ADMIN' }
+                    users:
+                        ryan:  { password: ryanpass, roles: 'ROLE_USER' }
+                        admin: { password: kitten, roles: 'ROLE_ADMIN' }
 
             encoders:
                 Symfony\Component\Security\Core\User\User: plaintext
@@ -81,10 +80,8 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 </access-control>
 
                 <provider name="in_memory">
-                    <memory>
-                        <user name="ryan" password="ryanpass" roles="ROLE_USER" />
-                        <user name="admin" password="kitten" roles="ROLE_ADMIN" />
-                    </memory>
+                    <user name="ryan" password="ryanpass" roles="ROLE_USER" />
+                    <user name="admin" password="kitten" roles="ROLE_ADMIN" />
                 </provider>
 
                 <encoder class="Symfony\Component\Security\Core\User\User" algorithm="plaintext" />
@@ -109,11 +106,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
             ),
             'providers' => array(
                 'in_memory' => array(
-                    'memory' => array(
-                        'users' => array(
-                            'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
-                            'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
-                        ),
+                    'users' => array(
+                        'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
+                        'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
                     ),
                 ),
             ),
@@ -389,11 +384,8 @@ l'invio del form di login (ad esempio ``/login_check``):
 
     *Non* è necessario implementare un controllore per l'URL ``/login_check``
     perché il firewall catturerà ed elaborerà qualunque form inviato
-    a questo URL.
-
-.. versionadded:: 2.1
-    A partire da Symfony 2.1, si *devono* avere rotte configurate per i propri URL ``login_path``
-    (p.e. ``/login``) e ``check_path`` (p.e. ``/login_check``).
+    a questo URL. È facoltativo, ma utile, creare una rotta, in modo che la si possa
+    usare per generare l'URL di invio del form nel template del login.
 
 Notare che il nome della rotta ``login`` non è importante. Quello che è importante
 è che l'URL della rotta (``/login``) corrisponda al valore di configurazione ``login_path``,
@@ -903,10 +895,9 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
             # ...
             providers:
                 default_provider:
-                    memory:
-                        users:
-                            ryan:  { password: ryanpass, roles: 'ROLE_USER' }
-                            admin: { password: kitten, roles: 'ROLE_ADMIN' }
+                    users:
+                        ryan:  { password: ryanpass, roles: 'ROLE_USER' }
+                        admin: { password: kitten, roles: 'ROLE_ADMIN' }
 
     .. code-block:: xml
 
@@ -914,10 +905,8 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
         <config>
             <!-- ... -->
             <provider name="default_provider">
-                <memory>
-                    <user name="ryan" password="ryanpass" roles="ROLE_USER" />
-                    <user name="admin" password="kitten" roles="ROLE_ADMIN" />
-                </memory>
+                <user name="ryan" password="ryanpass" roles="ROLE_USER" />
+                <user name="admin" password="kitten" roles="ROLE_ADMIN" />
             </provider>
         </config>
 
@@ -928,11 +917,9 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
             // ...
             'providers' => array(
                 'default_provider' => array(
-                    'memory' => array(
-                        'users' => array(
-                            'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
-                            'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
-                        ),
+                    'users' => array(
+                        'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
+                        'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
                     ),
                 ),
             ),
@@ -1003,13 +990,6 @@ Per come è stato pensato il sistema di sicurezza, l'unico requisito per
 la classe utente personalizzata è che implementi l'interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 Questo significa che il concetto di "utente" può essere qualsiasi cosa, purché
 implementi questa interfaccia.
-
-.. versionadded:: 2.1
-
-    In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
-    Se occorre ridefinire l'implementazione originale della logica di confronto,
-    implementare la nuova interfaccia
-    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`.
 
 .. note::
 
@@ -1084,10 +1064,9 @@ fare come segue:
             # ...
             providers:
                 in_memory:
-                    memory:
-                        users:
-                            ryan:  { password: bb87a29949f3a1ee0559f8a57357487151281386, roles: 'ROLE_USER' }
-                            admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: 'ROLE_ADMIN' }
+                    users:
+                        ryan:  { password: bb87a29949f3a1ee0559f8a57357487151281386, roles: 'ROLE_USER' }
+                        admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: 'ROLE_ADMIN' }
 
             encoders:
                 Symfony\Component\Security\Core\User\User:
@@ -1101,10 +1080,8 @@ fare come segue:
         <config>
             <!-- ... -->
             <provider name="in_memory">
-                <memory>
-                    <user name="ryan" password="bb87a29949f3a1ee0559f8a57357487151281386" roles="ROLE_USER" />
-                    <user name="admin" password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620" roles="ROLE_ADMIN" />
-                </memory>
+                <user name="ryan" password="bb87a29949f3a1ee0559f8a57357487151281386" roles="ROLE_USER" />
+                <user name="admin" password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620" roles="ROLE_ADMIN" />
             </provider>
 
             <encoder class="Symfony\Component\Security\Core\User\User" algorithm="sha1" iterations="1" encode_as_base64="false" />
@@ -1117,11 +1094,9 @@ fare come segue:
             // ...
             'providers' => array(
                 'in_memory' => array(
-                    'memory' => array(
-                        'users' => array(
-                            'ryan' => array('password' => 'bb87a29949f3a1ee0559f8a57357487151281386', 'roles' => 'ROLE_USER'),
-                            'admin' => array('password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620', 'roles' => 'ROLE_ADMIN'),
-                        ),
+                    'users' => array(
+                        'ryan' => array('password' => 'bb87a29949f3a1ee0559f8a57357487151281386', 'roles' => 'ROLE_USER'),
+                        'admin' => array('password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620', 'roles' => 'ROLE_ADMIN'),
                     ),
                 ),
             ),
@@ -1211,16 +1186,6 @@ a questo:
         $user = $this->get('security.context')->getToken()->getUser();
     }
 
-In un controllore, si può usare una scorciatoia:
-
-.. code-block:: php
-
-    public function indexAction()
-    {
-        $user = $this->getUser();
-    }
-
-
 .. note::
 
     Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo
@@ -1256,8 +1221,7 @@ un nuovo fornitore, che li unisca:
         security:
             providers:
                 chain_provider:
-                    chain:
-                        providers: [in_memory, user_db]
+                    providers: [in_memory, user_db]
                 in_memory:
                     users:
                         foo: { password: test }
@@ -1269,10 +1233,8 @@ un nuovo fornitore, che li unisca:
         <!-- app/config/security.xml -->
         <config>
             <provider name="chain_provider">
-                <chain>
-                    <provider>in_memory</provider>
-                    <provider>user_db</provider>
-                </chain>
+                <provider>in_memory</provider>
+                <provider>user_db</provider>
             </provider>
             <provider name="in_memory">
                 <user name="foo" password="test" />
@@ -1288,9 +1250,7 @@ un nuovo fornitore, che li unisca:
         $container->loadFromExtension('security', array(
             'providers' => array(
                 'chain_provider' => array(
-                    'chain' => array(
-                        'providers' => array('in_memory', 'user_db'),
-                    ),
+                    'providers' => array('in_memory', 'user_db'),
                 ),
                 'in_memory' => array(
                     'users' => array(
@@ -1321,21 +1281,16 @@ l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
             security:
                 providers:
                     main_provider:
-                        memory:
-                            users:
-                                foo: { password: test }
-                        entity:
-                            class: Acme\UserBundle\Entity\User,
-                            property: username
+                        users:
+                            foo: { password: test }
+                        entity: { class: Acme\UserBundle\Entity\User, property: username }
 
         .. code-block:: xml
 
             <!-- app/config/security.xml -->
             <config>
                 <provider name=="main_provider">
-                    <memory>
-                        <user name="foo" password="test" />
-                    </memory>
+                    <user name="foo" password="test" />
                     <entity class="Acme\UserBundle\Entity\User" property="username" />
                 </provider>
             </config>
@@ -1346,10 +1301,8 @@ l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
             $container->loadFromExtension('security', array(
                 'providers' => array(
                     'main_provider' => array(
-                        'memory' => array(
-                            'users' => array(
-                                'foo' => array('password' => 'test'),
-                            ),
+                        'users' => array(
+                            'foo' => array('password' => 'test'),
                         ),
                         'entity' => array('class' => 'Acme\UserBundle\Entity\User', 'property' => 'username'),
                     ),

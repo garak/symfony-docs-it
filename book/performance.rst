@@ -47,12 +47,12 @@ Usare un autoloader con caches (p.e. ``ApcUniversalClassLoader``)
 
 Per impostazione predefinita, Symfony2 standard edition usa ``UniversalClassLoader``
 nel file `autoloader.php`_. Questo autoloader è facile da usare, perché troverà
-automaticamente ogni nuova classe inserita nelle cartella registrate.
+automaticamente ogni nuova classe inserita nelle cartella
+registrate.
 
 Sfortunatamente, questo ha un costo, perché il caricatore itera tutti gli spazi dei nomi
 configurati per trovare un particolare file, richiamando ``file_exists`` finché
 non trova il file cercato.
-
 
 La soluzione più semplice è mettere in cache la posizione di ogni classe, dopo che
 è stata trovata per la prima volta. Symfony dispone di una classe di caricamento,

@@ -403,43 +403,6 @@ buona pratica), allora si avrà bisogno di aggiungere quanto segue al metodo
 In entrambi i casi, *solo* il gruppo di validazione ``registration`` verrà
 utilizzato per validare l'oggetto sottostante.
 
-Gruppi basati su dati inseriti
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-   La possibilità di specificare un callback o una Closure in ``validation_groups``
-   è stata aggiunta nella versione 2.1
-
-Se si ha bisogno di una logica avanzata per determinare i gruppi di validazione (p.e.
-basandosi sui dati inseriti), si può impostare l'opzione ``validation_groups`` a
-un callback o a una ``Closure``::
-
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'validation_groups' => array('Acme\\AcmeBundle\\Entity\\Client', 'determineValidationGroups'),
-        );
-    }
-
-Questo richiamerà il metodo statico ``determineValidationGroups()`` della classe
-``Client``, dopo il bind del form ma prima dell'esecuzione della validazione.
-L'oggetto Form è passato come parametro del metodo (vedere l'esempio successivo).
-Si può anche definire l'intera logica con una Closure::
-
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'validation_groups' => function(FormInterface $form) {
-                $data = $form->getData();
-                if (Entity\Client::TYPE_PERSON == $data->getType()) {
-                    return array('person')
-                } else {
-                    return array('company');
-                }
-            },
-        );
-    }
-
 .. index::
    single: Form; Tipi di campo predefiniti
 

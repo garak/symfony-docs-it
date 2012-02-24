@@ -53,8 +53,7 @@ Sopra HttpFoundation c'è il componente :namespace:`Symfony\\Component\\HttpKern
 HttpKernel gestisce la parte dinamica di HTTP e incapsula in modo leggero
 le classi ``Request`` e ``Response``, per standardizzare il modo in cui sono gestite
 le richieste. Fornisce anche dei punti di estensione e degli strumenti che lo
-rendono il punto di partenza ideale per creare un framework web senza troppe
-sovrastrutture.
+rendono il punto di partenza ideale per creare un framework web senza troppe sovrastrutture.
 
 Opzionalmente, aggiunge anche configurabilità ed estensibilità, grazie al
 componente Dependency Injection e a un potente sistema di plugin (bundle).
@@ -64,7 +63,6 @@ componente Dependency Injection e a un potente sistema di plugin (bundle).
     Approfondimento sul componente :doc:`HttpKernel <kernel>`. Approfondimento
     sul componente :doc:`Dependency Injection </book/service_container>`
     e sui :doc:`Bundle </cookbook/bundles/best_practices>`.
-
 
 Il bundle ``FrameworkBundle``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,7 +98,8 @@ Per convertire una ``Request`` in una ``Response``, il kernel si appoggia a un
 "controllore". Un controllore può essere qualsiasi funzione o metodo PHP valido.
 
 Il kernel delega la scelta di quale controllore debba essere eseguito a un'implementazione
-di :class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface`::
+di
+:class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface`::
 
     public function getController(Request $request);
 
@@ -124,7 +123,8 @@ controllore (una stringa "classe::metodo", come
 Il metodo
 :method:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface::getArguments`
 restituisce un array di parametri da passare al controllore. L'implementazione
-predefinita risolve automaticamente i parametri, basandosi sugli attributi di ``Request``.
+predefinita risolve automaticamente i parametri, basandosi sugli attributi di
+``Request``.
 
 .. sidebar:: Parametri del controllore dai parametri della richiesta
 
@@ -823,12 +823,6 @@ Il distributore registrerà automaticamente il sottoscrittore per ciascun evento
 restituito dal metodo ``getSubscribedEvents``. Questo metodo restituisce un array
 indicizzata per nomi di eventi e i cui valori sono o i nomi dei metodi da chiamare o
 array composti dal nome del metodo e da una priorità.
-
-.. tip::
-
-    Se si usa il framework MVC Symfony2, si possono registrare sottoscrittori tramite
-    la propria :ref:`configurazione <dic-tags-kernel-event-subscriber>`. Come bonus
-    aggiuntivo, gli oggetti sottoscrittori sono istanziati solo quando servono.
 
 .. index::
    single: Distributore di eventi; Bloccare il flusso degli eventi

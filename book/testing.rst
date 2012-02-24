@@ -22,8 +22,7 @@ ha comunque un'eccellente `documentazione`_.
 
 Ogni test, sia esso unitario o funzionale, è una classe PHP,
 che dovrebbe trovarsi in una sotto-cartella `Tests/` del proprio bundle.
-Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con
-il seguente comando:
+Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con il seguente comando:
 
 .. code-block:: bash
 
@@ -725,7 +724,8 @@ un file ``phpunit.xml`` per aggiustare la configurazione per la propria macchina
 Per impostazione predefinita, solo i test memorizzati nei bundle "standard" sono eseguiti
 dal comando ``phpunit`` (per "standard" si intendono i test sotto gli spazi dei nomi
 Vendor\\*Bundle\\Tests). Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
-la configurazione seguente aggiunge i test per i bundle installati di terze parti:
+la configurazione seguente aggiunge i test per i bundle installati di terze
+parti:
 
 .. code-block:: xml
 
@@ -753,7 +753,6 @@ sezione ``<filter>``:
             </exclude>
         </whitelist>
     </filter>
-
 
 Imparare di più con le ricette
 ------------------------------

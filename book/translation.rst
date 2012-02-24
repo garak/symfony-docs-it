@@ -36,8 +36,7 @@ il processo ha diverse fasi comuni:
 3. Creare risorse di traduzione per ogni lingua supportata che traducano tutti
    i messaggio dell'applicazione;
 
-4. Determinare, impostare e gestire le impostazioni locali dell'utente per la richiesta e,
-   facoltativamente, sull'intera sessione.
+4. Determinare, impostare e gestire le impostazioni locali nella sessione.
 
 .. index::
    single: Traduzioni; Configurazione
@@ -81,8 +80,7 @@ esiste nel locale dell'utente.
     ``fr_FR``). Se non c'è, cerca una traduzione
     utilizzando il locale di ripiego.
 
-Il locale usato nelle traduzioni è quello memorizzato nella richiesta. Tipicamente,
-è impostato tramite un attributo ``_locale`` in una rotta (vedere :ref:`book-translation-locale-url`).
+Il locale usato nelle traduzioni è quello memorizzato nella sessione.
 
 .. index::
    single: Traduzioni; Traduzioni di base
@@ -149,8 +147,7 @@ Il processo di traduzione
 
 Per tradurre il messaggio, Symfony2 utilizza un semplice processo:
 
-* Viene determinato il ``locale`` dell'utente corrente, che è memorizzato nella richiesta
-  (o nella sessione, come ``_locale``);
+* Viene determinato il ``locale`` dell'utente corrente, che è memorizzato nella sessione;
 
 * Un catalogo di messaggi tradotti viene caricato dalle risorse di traduzione definite
   per il ``locale`` (ad es. ``fr_FR``). Vengono anche caricati i messaggi dal locale predefinito
@@ -488,13 +485,10 @@ Symfony2 cercherà ora il messaggio del locale dell'utente nel dominio
 Gestione del locale dell'utente
 -------------------------------
 
-Il locale dell'utente corrente è memorizzato nella richiesta ed è accessibile
-tramite l'oggetto ``request``:
+Il locale dell'utente corrente è memorizzato nella sessione ed è accessibile
+tramite il servizio ``session``:
 
 .. code-block:: php
-
-    // accesso all'oggetto requesta in un controllore
-    $request = $this->getRequest();
 
     $locale = $request->getLocale();
 
@@ -502,16 +496,6 @@ tramite l'oggetto ``request``:
 
 .. index::
    single: Traduzioni; Fallback e locale predefinito
-
-È anche possibile memorizzare il locale in sessione, invece che in ogni
-richiesta. Se lo si fa, ogni richiesta successiva avrà lo stesso locale.
-
-.. code-block:: php
-
-    $this->get('session')->set('_locale', 'en_US');
-
-Vedere la sezione :ref:`.. _book-translation-locale-url:` sotto,
-sull'impostazione del locale tramite rotte.
 
 Fallback e locale predefinito
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -529,27 +513,21 @@ definendo un ``default_locale`` per il servizio di sessione:
 
         # app/config/config.yml
         framework:
-            default_locale: en
+            session: { default_locale: en }
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:default-locale>en</framework:default-locale>
+            <framework:session default-locale="en" />
         </framework:config>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            'default_locale' => 'en',
+            'session' => array('default_locale' => 'en'),
         ));
-
-.. versionadded:: 2.1
-
-     Il parametro ``default_locale`` era originariamente definito sotto la chiave
-     ``sessiom``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
-     è ora impostato nella richiesta, invece che nella sessione.
 
 .. _book-translation-locale-url:
 
@@ -767,13 +745,13 @@ di testo* ed espressioni complesse:
 
 .. code-block:: jinja
 
-    {{ message | trans }}
+    {{ message|trans }}
 
-    {{ message | transchoice(5) }}
+    {{ message|transchoice(5) }}
 
-    {{ message | trans({'%name%': 'Fabien'}, "app") }}
+    {{ message|trans({'%name%': 'Fabien'}, "app") }}
 
-    {{ message | transchoice(5, {'%name%': 'Fabien'}, 'app') }}
+    {{ message|transchoice(5, {'%name%': 'Fabien'}, 'app') }}
 
 .. tip::
 
@@ -785,18 +763,18 @@ di testo* ed espressioni complesse:
 
     .. code-block:: jinja
 
-            {# il testo tradotto tra i tag non è mai escapizzato #}
+            {# il testo tradotto tra i tag non è mai sotto escape #}
             {% trans %}
                 <h3>foo</h3>
             {% endtrans %}
 
             {% set message = '<h3>foo</h3>' %}
 
-            {# una variabile tradotta attraverso un filtro è escapizzata per impostazione predefinita #}
-            {{ message | trans | raw }}
+            {# una variabile tradotta tramite filtro è sotto escape per impostazione predefinita #}
+            {{ message|trans|raw }}
 
-            {# le stringhe statiche non sono mai escapizzate #}
-            {{ '<h3>foo</h3>' | trans }}
+            {# le stringhe statiche non sono mai sotto escape #}
+            {{ '<h3>foo</h3>'|trans }}
 
 Template PHP
 ~~~~~~~~~~~~
@@ -831,7 +809,7 @@ locale da usare per la traduzione:
     );
 
     $this->get('translator')->trans(
-        '{0} There is no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
+        '{0} There are no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
         10,
         array('%count%' => 10),
         'messages',
@@ -845,7 +823,7 @@ La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 
-Riassunto
+Riepilogo
 ---------
 
 Con il componente Translation di Symfony2, la creazione e l'internazionalizzazione di applicazioni
@@ -860,8 +838,7 @@ passi:
   per la traduzione. Symfony2 scopre ed elabora ogni file perché i suoi nomi seguono
   una specifica convenzione;
 
-* Gestire il locale dell'utente, che è memorizzato nella richiesta, ma può
-  anche essere memorizzato nella sessione.
+* Gestire il locale dell'utente, che è memorizzato nella sessione.
 
 .. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`L10n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione

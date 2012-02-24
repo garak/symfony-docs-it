@@ -742,7 +742,7 @@ Imparare di più con le ricette
 * :doc:`/cookbook/controller/service`
 
 .. _`Doctrine`: http://www.doctrine-project.org
-.. _`scaricare symfony`: http://symfony.com/download
+.. _`scaricare Symfony`: http://symfony.com/download
 .. _`Routing`: https://github.com/symfony/Routing
 .. _`Templating`: https://github.com/symfony/Templating
 .. _`KnpBundles.com`: http://knpbundles.com/

@@ -110,14 +110,6 @@ l'utente è rinviato alla pagina predefinita, che è ``/`` (ovvero la homepage).
 modificare questo comportamento in diversi
 modi.
 
-.. note::
-
-    Come accennato, l'utente viene rinviato alla pagina che ha precedentemente
-    richiesto. A volte questo può causare problemi, per esempio se una richiesta AJAX
-    eseguita in background appare come ultimo URL visitato, rinviando quindi l'utente
-    in quell'URL. Per informazioni su come controllare questo comportamento, vedere
-    :doc:`/cookbook/security/target_path`.
-
 Cambiare la pagina predefinita
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -245,10 +237,6 @@ Se nessun URL è stato memorizzato in sessione, si potrebbe voler provare a usar
                 )),
             ),
         ));
-
-.. versionadded:: 2.1
-    Dalla 2.1, se il referer è uguale all'opzione ``login_path``, l'utente
-    sarà rinviato a ``default_target_path``.
 
 Controllare l'URL di rinvio da dentro un form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

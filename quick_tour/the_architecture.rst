@@ -162,12 +162,10 @@ XML o PHP. Si veda la configurazione predefinita:
 
     # app/config/config.yml
     imports:
-        - { resource: parameters.yml }
+        - { resource: parameters.ini }
         - { resource: security.yml }
 
     framework:
-        #esi:             ~
-        #translator:      { fallback: %locale% }
         secret:          %secret%
         charset:         UTF-8
         router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -175,8 +173,8 @@ XML o PHP. Si veda la configurazione predefinita:
         csrf_protection: true
         validation:      { enable_annotations: true }
         templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-        default_locale:  %locale%
         session:
+            default_locale: %locale%
             auto_start:     true
 
     # Configurazione di Twig
@@ -188,8 +186,6 @@ XML o PHP. Si veda la configurazione predefinita:
     assetic:
         debug:          %kernel.debug%
         use_controller: false
-        bundles:        [ ]
-        # java: /usr/bin/java
         filters:
             cssrewrite: ~
             # closure:
@@ -202,7 +198,6 @@ XML o PHP. Si veda la configurazione predefinita:
         dbal:
             driver:   %database_driver%
             host:     %database_host%
-            port:     %database_port%
             dbname:   %database_name%
             user:     %database_user%
             password: %database_password%

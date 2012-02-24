@@ -74,8 +74,7 @@ Il secondo metodo ha diversi vantaggi:
 * Fusione intelligente quando diversi file di configurazione (p.e. ``config_dev.yml``
   e ``config.yml``) sovrascrivono le proprie configurazioni a vicenda;
 
-* Validazione della configurazione (se si usa una
-  :ref:`classe di configurazione<cookbook-bundles-extension-config-class>`);
+* Validazione della configurazione (se si usa una :ref:`classe di configurazione<cookbook-bundles-extension-config-class>`);
 
 * auto-completamento nell'IDE quando si crea un XSD e lo sviluppatore usa XML.
 
@@ -243,8 +242,9 @@ sotto di esso, l'array in uscita sarà simile a questo::
         ),
     )
 
-L'ordine dei due array dipende da quale è stato definito prima. È compito di chi
-sviluppa il bundle, quindi, decidere in che modo tali configurazioni vadano fuse
+L'ordine dei due array dipende da quale è stato definito prima.
+
+È compito di chi sviluppa il bundle, quindi, decidere in che modo tali configurazioni vadano fuse
 insieme. Si potrebbe, per esempio, voler fare in modo che i valori successivi
 sovrascrivano quelli precedenti, oppure fonderli in qualche modo.
 
@@ -483,54 +483,6 @@ supporta nodi array, nodi "prototipo", validazione avanzata, normalizzazione spe
 XML e fusione avanzata. Il modo migliore per vederla in azione è guardare alcune classi
 Configuration del nucleo, come quella `FrameworkBundle`_ o di
 `TwigBundle`_.
-
-Esportare la configurazione predefinita
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-    Il comando ``config:dump-reference`` è stato aggiunto in Symfony 2.1
-
-Il comando ``config:dump-reference`` consente di mostrare nella console, in formato YAML,
-la configurazione predefinita di un bundle.
-
-Il comando funziona automaticamente solo se la configurazione del bundle si trova nella
-posizione standard (``MioBundle\DependencyInjection\Configuration``) e non ha un
-``__constructor()``. Se si ha qualcosa di diverso, la propria classe ``Extension``
-dovrà sovrascrivere il metodo ``Extension::getConfiguration()`` e restituire un'istanza
-di ``Configuration``.
-
-Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
-``->setInfo()`` e ``->setExample()``::
-
-    // src/Acme/HelloBundle/DependencyExtension/Configuration.php
-    namespace Acme\HelloBundle\DependencyInjection;
-
-    use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-    use Symfony\Component\Config\Definition\ConfigurationInterface;
-
-    class Configuration implements ConfigurationInterface
-    {
-        public function getConfigTreeBuilder()
-        {
-            $treeBuilder = new TreeBuilder();
-            $rootNode = $treeBuilder->root('acme_hello');
-
-            $rootNode
-                ->children()
-                    ->scalarNode('mio_tipo')
-                        ->defaultValue('bar')
-                        ->setInfo('cosa configura mio_tipo')
-                        ->setExample('impostazione di esempio')
-                    ->end()
-                ->end()
-            ;
-
-            return $treeBuilder;
-        }
-
-Il testo apparirà come commenti YAML nell'output del comando
-``config:dump-reference``.
-
 
 .. index::
    pair: Convenzione; Configuration

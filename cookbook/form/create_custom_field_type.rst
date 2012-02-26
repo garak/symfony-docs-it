@@ -1,19 +1,18 @@
 .. index::
-   single: Form; Tipo di campo personalizzatao
+   single: Form; Tipo di campo personalizzato
 
 Come creare un tipo di campo personalizzato di un form
 ======================================================
 
-Symfony è dotato di una serie di tipi di campi per la costruzione dei forms.
+Symfony è dotato di una serie di tipi di campi per la costruzione dei form.
 Tuttavia ci sono situazioni in cui è necessario realizzare un campo personalizzato
 per uno scopo specifico. Questa ricetta ipotizza che si abbia necessità 
 di un capo personalizzato che contenga il genere di una persona, 
-un nuovo campo basato su un campo di tipo scelta. Questa sezione spiega come il campo è definito, 
-come si può personalizzare il layout e, infine, 
+un nuovo campo basato su un campo di tipo scelta. Questa sezione spiega come il campo è definito, come si può personalizzare il layout e, infine, 
 come è possibile registrarlo per utilizzarlo nell'applicazione.
 
 Definizione del tipo di campo
------------------------
+-----------------------------
 
 Per creare il tipo di campo personalizzato, è necessario creare per prima la classe
 che rappresenta il campo. Nell'esempio proposto la classe che realizza il tipo di campo
@@ -52,58 +51,58 @@ i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo este
 
 .. tip::
 
-    La cartella di memorizzaione di questo file non è importante - la directory ``Form\Type``
+    La cartella di memorizzazione di questo file non è importante - la directory ``Form\Type``
     è solo una convenzione.
 
 Qui, il valore di ritorno del metodo ``getParent`` indica che che si sta
 estendendo il tipo di campo ``choice``. Questo significa che di default, sono ereditate
-tutte le logiche e il rendering di queto tipo di campo. Per vedere alcune logiche,
-controlla la classe `ChoiceType`_ class. Ci sono tre metodi che sono particolarmente
+tutte le logiche e la resa di queto tipo di campo. Per vedere alcune logiche,
+controlla la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
 importanti:
 
 * ``buildForm()`` - Ogni tipo di campo possiede un metodo ``buildForm``, che permette di
-  configurare e creare ogni campo/campi. Nota che questo è lo stesso metodo 
-  che è utilizzato per il setup  del *tuo* form, e qui funziona allo stesso.
+  configurare e creare ogni campo/campi. Notare che questo è lo stesso metodo 
+  che è utilizzato per la preparazione  del *proprio* form, e qui funziona allo stesso.
 
 * ``buildView()`` - Questo metodo è utilizzato per impostare le altre variabili che sono necessarie
-  per il rendering del campo nel template. Per esempio, nel tipo di campo `ChoiceType`_,
+  per la resa del campo nel template. Per esempio, nel tipo di campo `ChoiceType`_,
   la variabile ``multiple`` è impostata e utilizzata nel template  per impostare (o non 
-  impostare) l'attributo ``multiple`` nel campo ``select``. Riferisciti a `Creating a Template for the Field`_
+  impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creare un template per il campo`_
   per maggiori dettagli.
 
 * ``getDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form
   che possono essere utilizzate in ``buildForm()`` e ``buildView()``. Ci sono molte 
-  opzioni comuni a tutti i campi (vedi `FieldType`_), ma è possibile crearne altre,
+  opzioni comuni a tutti i campi (vedere `FieldType`_), ma è possibile crearne altre,
   quante sono necessarie.
 
 .. tip::
 
-    Se stai creando un campo che consiste di molti campi, assicurati  
+    Se si sta creando un campo che consiste di molti campi, assicurarsi  
     di impostare come "padre" un tipo come ``form`` o qualcos'altro che estenda ``form``.
-    Nello stesso modo, se necessiti di modificare la "vista" di ogni sottotipo 
-    che estende il tuo tipo, utilizza il metodo ``buildViewBottomUp()``.
+    Nello stesso modo, se occorre modificare la "vista" di ogni sottotipo 
+    che estende il proprio tipo, utilizzare il metodo ``buildViewBottomUp()``.
 
 Il metodo ``getName()`` restituisce un identificativo che dovrebbe essere unico
 all'interno dell'applicazione. Questo è usato in vari posti, ad esempio nel momento in cui 
-il tipo di form è renderizzato.
+il tipo di form è reso.
 
 L'obiettivo del nostro tipo di campo era di estendere il tipo choice per permettere la selezione
 del genere. Ciò si ottiene impostando in maniera fissa le ``choices`` con la lista
 dei generi.
 
-Creazione del Template per il campo
----------------------------------
+Creazione del template per il campo
+-----------------------------------
 
-Ogni campo è renderizzato da un template, che è determinato in
-parte dal valore del metodo ``getName()``. Per maggiori informazioni, guarda
+Ogni campo è reso da un template, che è determinato in
+parte dal valore del metodo ``getName()``. Per maggiori informazioni, vedere
 :ref:`cookbook-form-customization-form-themes`.
 
 In questo caso, dato che il campo padre è ``choice``, non è *necessario* fare
-altre attivita e il tipo di campo creato sarà automaticamente renderizzato come tipo ``choice``. 
+altre attività e il tipo di campo creato sarà automaticamente reso come tipo ``choice``. 
 Ma per avere un esempio più incisivo, supponiamo che il tipo di campo creato
-sia "expanded" (ad es. radio buttons o checkboxes, al posto di un campo select),
-vogliamo sempre il rendering del campo in un elemento ``ul``. Nel template del tuo form
-(vedi il link sopra per maggiori dettagli), crea un blocco ``gender_widget`` per gestire questo caso:
+sia "expanded" (ad es. radio button o checkbox, al posto di un campo select),
+vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del proprio form
+(vedere il link sopra per maggiori dettagli), creare un blocco ``gender_widget`` per gestire questo caso:
 
 .. code-block:: html+jinja
 
@@ -121,7 +120,7 @@ vogliamo sempre il rendering del campo in un elemento ``ul``. Nel template del t
             {% endfor %}
             </ul>
         {% else %}
-            {# just let the choice widget render the select tag #}
+            {# far rendere il tag select al widget choice #}
             {{ block('choice_widget') }}
         {% endif %}
     {% endspaceless %}
@@ -129,10 +128,10 @@ vogliamo sempre il rendering del campo in un elemento ``ul``. Nel template del t
 
 .. note::
 
-    Assicrati che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
+    Assicurarsu che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
     essere ``gender_widget``, in base al valore restituito da ``getName``.
-    Inoltre, il file principale di configurazione dovrebbe puntare al template custom del form
-    in modo che sia utilizzato per il rendering di tutti i forms.
+    Inoltre, il file principale di configurazione dovrebbe puntare al template personalizzato
+    del form, in modo che sia utilizzato per la resa di tutti i form.
 
     .. code-block:: yaml
 
@@ -143,10 +142,10 @@ vogliamo sempre il rendering del campo in un elemento ``ul``. Nel template del t
                 resources:
                     - 'AcmeDemoBundle:Form:fields.html.twig'
 
-Utilizzare il Tipo di Campo
---------------------
+Utilizzare il tipo di campo
+---------------------------
 
-Ora puoi utilizzare il tipo di campo immmediatamente, creando semplicemente una
+Ora si può utilizzare il tipo di campo immediatamente, creando semplicemente una
 nuova istanza del tipo in un form::
 
     // src/Acme/DemoBundle/Form/Type/AuthorType.php
@@ -165,12 +164,12 @@ nuova istanza del tipo in un form::
         }
     }
 
-Questo funziona perchè il ``GenderType()`` è veramente semplice. Cosa succede se
+Questo funziona perché il ``GenderType()`` è veramente semplice. Cosa succede se
 i valori del genere sono stati inseriti nella configurazione o nel database? La prossima
 sezione spiega come un tipo di campo più complesso può risolvere questa situazione.
 
-Creazione di un Tipo di Campo come Servizio
--------------------------------------
+Creazione di un tipo di campo come servizio
+-------------------------------------------
 
 Finora, questa spiegazione ha assunto che si ha un tipo di campo molto semplice.
 Ma se fosse necessario accedere alla configurazione o al database o a qualche altro
@@ -198,7 +197,7 @@ esempio, si supponga che i valori del genere siano memorizzati nella configurazi
         </parameters>
 
 Per utilizzare i parametri, è necessario definire il tipo di campo come un servizio, iniettando
-i valori dei parametri di ``genders`` come primo argomento del metodo
+i valori dei parametri di ``genders`` come primo parametro del metodo
 ``__construct``:
 
 .. configuration-block::
@@ -224,10 +223,10 @@ i valori dei parametri di ``genders`` come primo argomento del metodo
 
 .. tip::
 
-    Assicurati che il file dei servizi sia importato. Leggi :ref:`service-container-imports-directive`
+    Assicurarsi che il file dei servizi sia importato. Leggere :ref:`service-container-imports-directive`
     per dettagli.
 
-Assicurati che l'attributo ``alias`` di tags corrisponda al valore restituito
+Assicurarsi che l'attributo ``alias`` di tags corrisponda al valore restituito
 dal metodo ``getName`` definito precedentemente. Si vedrà l'importanza
 di questo nel momento in cui si utilizzerà il tipo di campo. Ma prima, si aggiunga al metodo ``__construct``
 di ``GenderType`` un parametro, che riceverà la configurazione di gender::
@@ -255,8 +254,8 @@ di ``GenderType`` un parametro, che riceverà la configurazione di gender::
         // ...
     }
 
-Benissimo! Il tipo ``GenderType`` è ora caricato con i parametri di configuarazione ed è
-registrato come servizio. In quanto nella configuarzione del servizio si utilizza nel ``form.type`` l'alias,
+Benissimo! Il tipo ``GenderType`` è ora caricato con i parametri di configurazione ed è
+registrato come servizio. In quanto nella configurazione del servizio si utilizza nel ``form.type`` l'alias,
 utilizzare il campo risulta molto semplice::
 
     // src/Acme/DemoBundle/Form/Type/AuthorType.php
@@ -273,8 +272,8 @@ utilizzare il campo risulta molto semplice::
         }
     }
 
-Nota che al posto di creare l'istanza di una nuova istanza, ora è possibile riferirsi al tipo di campo
-tramite l'alias utilizzato nella configurazione del servizio, ``gender``. Divertiti!
+Notare che al posto di creare l'istanza di una nuova istanza, ora è possibile riferirsi al tipo di campo
+tramite l'alias utilizzato nella configurazione del servizio, ``gender``.
 
 .. _`ChoiceType`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Extension/Core/Type/ChoiceType.php
 .. _`FieldType`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Extension/Core/Type/FieldType.php

@@ -1,5 +1,5 @@
 .. index::
-   single: Validation; Custom constraints
+   single: Validazione; Vincoli personalizzati
 
 Come creare vincoli di validazione personalizzati
 -------------------------------------------------

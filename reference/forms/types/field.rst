@@ -20,5 +20,3 @@ Il tipo ``field`` ha alcune opzioni predefinite:
 .. include:: /reference/forms/types/options/property_path.rst.inc
 
 .. include:: /reference/forms/types/options/attr.rst.inc
-
-.. include:: /reference/forms/types/options/translation_domain.rst.inc

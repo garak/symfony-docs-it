@@ -66,11 +66,11 @@ Creare il repository e copiarci i documenti in lingua inglese.
 
 Il team a questo punto può iniziare il processo di traduzione.
 
-Quando il team pensa che il repository sia in uno stato coerente e stabile (è tutto tradotto,
-oppure i documenti non tradotti saranno rimossi) il tema manager può fare richiesta che il
-repository sia aggiunto alla lista di quelli *master* ufficiali, inviando
-un'email a Fabien (fabien.potencier at symfony.com).
-
+Quando il team pensa che il repository sia in uno stato coerente e stabile (è tutto
+tradotto, oppure i documenti non tradotti sono stati rimossi dai toctree, che sono i
+file index.rst e map.rst.inc), il team manager può fare richiesta che il repository
+sia aggiunto alla lista di quelli *master* ufficiali, inviando un'email a Fabien
+(fabien.potencier at symfony.com).
 
 Manutenzione
 ------------

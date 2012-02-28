@@ -174,7 +174,7 @@ Configurazioni della mappatura
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 La definizione esplicita di tutte le entità mappate è l'unica configurazione
-necessaria per l'ORm e ci sono diverse opzioni di configurazione controllabili.
+necessaria per l'ORM e ci sono diverse opzioni di configurazione controllabili.
 La mappatura dispone delle seguenti opzioni di configurazione:
 
 * ``type`` Uno tra ``annotation``, ``xml``, ``yml``, ``php`` o ``staticphp``.
@@ -218,7 +218,7 @@ Configurazione Doctrine DBAL
     accettano, convertiti alla nomenclatura XML o YML di Symfony.
     Vedere la `documentazione DBAL`_ di Doctrine per maggiori informazioni.
 
-Oltre alle opzioni di Doctrine, ci sono alcune opzioni relative a Symfony, che
+Oltre alle opzioni di Doctrine, ci sono alcune opzioni relative a Symfony che
 si possono configurare. Il blocco seguente mostra tutte le voci di configurazione:
 
 .. configuration-block::

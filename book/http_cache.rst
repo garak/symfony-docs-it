@@ -963,7 +963,7 @@ accessi al minimo.
 L'helper ``render`` supporta due utili opzioni:
 
 * ``alt``: usato come attributo ``alt`` nel tag ESI, che consente di specificare
-un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
+  un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
 
 * ``ignore_errors``: se impostato a ``true``, un attributo ``onerror`` sarà aggiunto a
   ESI con il valore di ``continue``, a indicare che, in caso di fallimento, la

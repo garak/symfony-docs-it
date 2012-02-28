@@ -137,7 +137,7 @@ l'ORM risolve:
     doctrine:
         orm:
             auto_mapping: true
-            # the standard distribution overrides this to be true in debug, false otherwise
+            # la distribuzione standard sovrascrive a true in debug, false altrimenti
             auto_generate_proxy_classes: false
             proxy_namespace: Proxies
             proxy_dir: %kernel.cache_dir%/doctrine/orm/Proxies
@@ -178,7 +178,7 @@ necessaria per l'ORm e ci sono diverse opzioni di configurazione controllabili.
 La mappatura dispone delle seguenti opzioni di configurazione:
 
 * ``type`` Uno tra ``annotation``, ``xml``, ``yml``, ``php`` o ``staticphp``.
-  Specifica quale di tipo di metadati usa la mappatura.
+  Specifica quale di tipo di meta-dati usa la mappatura.
 
 * ``dir`` Percorso per la mappatura o per i file entità (a seconda del driver). Se
   questo percorso è relativo, si assume sia relativo alla radice dei bundle. Funziona
@@ -200,7 +200,7 @@ La mappatura dispone delle seguenti opzioni di configurazione:
 * ``is_bundle`` Questa opzione è un valore derivato da ``dir`` ed ha ``true`` come
   valore predefinito, se la cartella è fornita da una verifica con ``file_exists()``
   che restituisca ``false``. È ``false`` se la verifica restituisce ``true``. In
-  questo caso, un percorso assoluto  è stato specificato e i file dei metadati sono
+  questo caso, un percorso assoluto  è stato specificato e i file dei meta-dati sono
   probabilmente in una cartella fuori da un bundle.
 
 .. index::
@@ -215,7 +215,7 @@ Configurazione Doctrine DBAL
 .. note::
 
     DoctrineBundle supporta tutti i parametri che i driver predefiniti di Doctrine
-    acceettano, convertiti alla nomenclatura XML o YML di Symfony.
+    accettano, convertiti alla nomenclatura XML o YML di Symfony.
     Vedere la `documentazione DBAL`_ di Doctrine per maggiori informazioni.
 
 Oltre alle opzioni di Doctrine, ci sono alcune opzioni relative a Symfony, che
@@ -301,7 +301,7 @@ Il servizio ``database_connection`` fa sempre riferimento alla configurazione
 predefinita, che è la prima definita o l'unica configurata tramite il
 parametro ``default_connection``.
 
-Ogni connessione è anche accessibile tramite il servizio ``doctrine.dbal.[name]_connection``,
-in cui ``[name]`` è il nome della connessione.
+Ogni connessione è anche accessibile tramite il servizio ``doctrine.dbal.[nome]_connection``,
+in cui ``[nome]`` è il nome della connessione.
 
 .. _documentazione DBAL: http://www.doctrine-project.org/docs/dbal/2.0/en

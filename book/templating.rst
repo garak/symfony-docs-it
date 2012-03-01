@@ -1339,6 +1339,6 @@ Imparare di più con il ricettario
 .. _`KnpBundles.com`: http://knpbundles.com
 .. _`Cross Site Scripting`: http://it.wikipedia.org/wiki/Cross-site_scripting
 .. _`Escape dell'output`: http://twig.sensiolabs.org
-.. _`tag`: http://twig.sensiolabs.org/doc/templates.html#list-of-control-structures
-.. _`filtri`: http://twig.sensiolabs.org/doc/templates.html#list-of-built-in-filters
-.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/advanced.html
+.. _`tag`: http://twig.sensiolabs.org/doc/tags/index.html
+.. _`filtri`: http://twig.sensiolabs.org/doc/filters/index.html
+.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/extensions.html

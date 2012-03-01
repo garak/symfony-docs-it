@@ -82,23 +82,23 @@ form in generale, è disponibile :ref:`form-rendering-template`.
 Cosa sono i temi di un form?
 ----------------------------
 
-Symfony usa frammenti di form - un piccolo pezzo di template che rende semplicemente
-una parte di un form - per rendere ogni parte di un form - - la label del campo, gli errori
-campi di testo ``input``, tag ``select`` , ecc
+Symfony usa frammenti di form, piccoli pezzi di template che rendono semplicemente
+alcune parti, per rendere ogni parte di un form: la label del campo, gli errori,
+campi di testo ``input``, tag ``select``, ecc.
 
 I frammenti sono definiti come dei blocchi in Twig e come dei template in PHP.
 
-Un *tema* non è nient'altro che un set di frammenti che si vuole utilizzare quando
+Un *tema* non è nient'altro che un insieme di frammenti che si vuole utilizzare quando
 si rende un form. In altre parole, se si vuole personalizzare una parte della
 resa del form, è possibile importare un *tema* che contiene una personalizzazione
 del frammento appropriato del form.
 
-Symfony ha un tema di default (`form_div_layout.html.twig`_ in Twig e
-``FrameworkBundle:Form`` in PHP) che definisce tutti i frammenti necessari 
+Symfony ha un tema predefinito (`form_div_layout.html.twig`_ in Twig e
+``FrameworkBundle:Form`` in PHP), che definisce tutti i frammenti necessari 
 per rendere ogni parte di un form.
 
-Nella prossima sezione si potrà vedere come personalizzare un tema sovrascrivendo
-qualcuno o tutti dei suoi frammenti.
+Nella prossima sezione si potrà vedere come personalizzare un tema, sovrascrivendo
+qualcuno o tutti i suoi frammenti.
 
 Per esempio, quando è reso il widget di un campo ``integer``, è generato
 un campo ``input`` ``number``
@@ -113,13 +113,13 @@ un campo ``input`` ``number``
 
         <?php echo $view['form']->widget($form['age']) ?>
 
-renders:
+rende:
 
 .. code-block:: html
 
     <input type="number" id="form_age" name="form[age]" required="required" value="33" />
 
-Internamente, Symfony utilizza il frammento ``integer_widget``  per rendere il campo.
+Internamente, Symfony utilizza il frammento ``integer_widget`` per rendere il campo.
 Questo perché il tipo di campo è ``integer`` e si vuole rendere il ``widget``
 (in contrapposizione alla sua ``label`` o ai suoi ``errors``).
 
@@ -146,7 +146,7 @@ L'implementazione del frammento ``integer_widget`` sarà simile a:
 
         <?php echo $view['form']->renderBlock('field_widget', array('type' => isset($type) ? $type : "number")) ?>
 
-Come è possibile vedere, questo frammento rende un altro frammento - ``field_widget``:
+Come è possibile vedere, questo frammento rende un altro frammento: ``field_widget``:
 
 .. configuration-block::
 
@@ -304,8 +304,8 @@ dal nuovo template e il tag ``input`` sarà incorporato nel
 Temi del form in PHP
 --------------------
 
-Quando si utilizza PHP come motore per i temi, l'unico metoro per personalizzare un frammento
-è di creare un nuovo file di tema - questo è simile al secondo metodo adottato per
+Quando si utilizza PHP come motore per i temi, l'unico metodo per personalizzare un frammento
+è creare un nuovo file di tema, in modo simile al secondo metodo adottato per
 Twig.
 
 Bisogna nominare il file del tema dopo il frammento. Bisogna creare il file ``integer_widget.html.php``
@@ -596,10 +596,10 @@ Personalizzare un singolo campo
 
 Finora, sono stati mostrati i vari modi per personalizzare l'output di un widget
 di tutti i tipi di campo testuali. Ma è anche possibile personalizzare singoli campi. Per esempio,
-si supponga di avere due campi di ``testo`` - ``first_name`` e ``last_name`` - ma
-si vuole personalizzare solo uno dei campi. Questo può essere fatto
-personalizzando un frammento del quale il nome è una combinazione dell'attributo id del campo e
-del quale parte del campo viene personalizzato. Per esempio:
+si supponga di avere due campi di ``testo``, ``first_name`` e ``last_name``, ma
+si vuole personalizzare solo uno dei campi. LO si può fare
+personalizzando un frammento, in cui il nome è una combinazione dell'attributo id del campo e
+in cui parte del campo viene personalizzato. Per esempio:
 
 .. configuration-block::
 
@@ -629,8 +629,8 @@ del quale parte del campo viene personalizzato. Per esempio:
               echo $view['form']->renderBlock('field_widget') ?>
         </div>
 
-Qui, il frammento ``_product_name_widget`` definisce il template da utilizzaper per il
-campo del quale l' *id* è ``product_name`` (e il nome è ``product[name]``).
+Qui, il frammento ``_product_name_widget`` definisce il template da utilizzare per il
+campo del quale l'*id* è ``product_name`` (e il nome è ``product[name]``).
 
 .. tip::
 

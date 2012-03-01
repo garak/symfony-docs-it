@@ -51,7 +51,7 @@ i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo este
 
 .. tip::
 
-    La cartella di memorizzazione di questo file non è importante - la directory ``Form\Type``
+    La cartella di memorizzazione di questo file non è importante: la cartella ``Form\Type``
     è solo una convenzione.
 
 Qui, il valore di ritorno del metodo ``getParent`` indica che che si sta

@@ -61,7 +61,7 @@ Innanzitutto creare una semplice classe entità di Doctrine, su cui lavorare::
 
         protected function getUploadRootDir()
         {
-            // il percorso assoluto della directory dove i documenti caricati verranno salvati
+            // il percorso assoluto della cartella dove i documenti caricati verranno salvati
             return __DIR__.'/../../../../web/'.$this->getUploadDir();
         }
 

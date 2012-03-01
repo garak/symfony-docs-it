@@ -1,14 +1,14 @@
 Minimizzare i file JavaScript e i fogli di stile con YUI Compressor
 ===================================================================
 
-Yahoo! mette a disposizione un'eccellente strumento per minimizzare i file JavaScipt
+Yahoo! mette a disposizione un eccellente strumento per minimizzare i file JavaScipt
 e i fogli di stile, che così possono viaggiare più velocemente sulla rete: lo `YUI Compressor`_. 
 Grazie ad Assetic utilizzare questo strumento è semplicissimo.
 
 Scaricare il JAR di YUI Compressor
 ----------------------------------
 
-L'YUI Compresso è scritto in Java e viene distribuito in formato JAR. 
+L'YUI Compressor è scritto in Java e viene distribuito in formato JAR. 
 Si dovrà `scaricare il file JAR`_ e salvarlo in ``app/Resources/java/yuicompressor.jar``.
 
 Configurare i filtri per YUI
@@ -63,9 +63,9 @@ minimizzare, rispettivamente, i fogli di stile e i file JavaScript.
 Minimizzare le risorse
 ----------------------
 
-YUI Compressor è stato configurato ma, prima di poter vedere i risultati, è
+YUI Compressor è stato configurato, ma, prima di poter vedere i risultati, è
 necessario applicare i filtri alle risorse. Visto che le risorse fanno parte del 
-livello della vista, questo lavoro dovrà essere svolto nelle template:
+livello della vista, questo lavoro dovrà essere svolto nei template:
 
 .. configuration-block::
 
@@ -115,9 +115,9 @@ Disabilitare la minimizzazione in modalità debug
 
 I file JavaScript e i fogli di stile minimizzati sono difficili da leggere
 e ancora più difficili da correggere. Per questo motivo Assetic permette di disabilitare 
-determinati filtri  quando l'applicazione viene eseguita in modalità debug.
-Mettendo il prefisso punto interrogativo ``?`` al nome dei filtri si chiede 
-ad Assetic di applicarli solamente quando la modalità debug è spenta.
+determinati filtri quando l'applicazione viene eseguita in modalità debug.
+Mettendo il prefisso punto interrogativo ``?`` al nome dei filtri, si chiede 
+ad Assetic di applicarli solamente quando la modalità debug è inattiva.
 
 .. configuration-block::
 

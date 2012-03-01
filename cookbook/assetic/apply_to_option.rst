@@ -1,5 +1,5 @@
 Applicare i filtri di Assetic a file con specifiche estensioni
-================================================================
+==============================================================
 
 I filtri di Assetic possono essere applicati a singoli file, gruppi di file o anche, 
 come vedremo, a file che hanno una specifica estensione. Per mostrare 
@@ -45,7 +45,7 @@ I valori predefiniti sono ``/usr/bin/coffee`` e ``/usr/bin/node``:
 Filtrare un singolo file
 ------------------------
 
-In questo modo sarà possibile inserire un singolo file CoffeScript nel template 
+In questo modo sarà possibile inserire un singolo file CoffeScript nel template,
 come se fosse un normale JavaScript:
 
 .. configuration-block::
@@ -104,7 +104,7 @@ Uno dei grandi vantaggi nell'utilizzo di Assetic è quello di ridurre il numero
 di file di risorse, riducendo così le richieste HTTP. Per massimizzarne 
 i vantaggi, sarebbe utile combinare insieme *tutti* i file JavaScript e quelli CoffeeScript in uno unico, 
 visto che verranno tutti serviti come file JavaScript. Sfortunatamente non è possibile aggiungere 
-semplicemente un file JavaScript ai file precedenti per via del fatto che il file 
+semplicemente un file JavaScript ai file precedenti, per via del fatto che il file 
 JavaScript non supererebbe la compilazione di CoffeeScript.
 
 Questo problema può essere ovviato utilizzando l'opzione ``apply_to`` nella configurazione,
@@ -149,7 +149,7 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
         ));
 
 In questo modo non è più necessario specificare il filtro ``coffee`` nel template.
-È anche possibile elencare i normali file JavaScript i quali verranno combinati e restituiti 
+È anche possibile elencare i normali file JavaScript, i quali verranno combinati e restituiti 
 come un unico file JavaScript (e in modo tale che i soli file ``.coffee`` venagano elaborati
 dal filtro CoffeeScript):
 

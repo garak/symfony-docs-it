@@ -1,9 +1,8 @@
 NotNull
 =======
 
-Valida che un valore is not strictly equal to ``null``. To ensure that
-a value is simply not blank (not a blank string), see the  :doc:`/reference/constraints/NotBlank`
-constraint.
+Valida che un valore non sia esattamente uguale a ``null``. Per forzare un valore
+a non essere vuoto (stringa vuota), vedere il vincolo :doc:`/reference/constraints/NotBlank`.
 
 +----------------+-----------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
@@ -18,8 +17,8 @@ constraint.
 Uso di base
 -----------
 
-If you wanted to ensure that the ``firstName`` property of an ``Author`` class
-were not strictly equal to ``null``, you would:
+Se ci si vuole assicurare che la proprietà ``firstName`` di una classe ``Author`` non
+sia ``null``, si può fare come segue:
 
 .. configuration-block::
 
@@ -50,4 +49,4 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value should not be null``
 
-Messaggio mostrato se the value is ``null``.
+Messaggio mostrato se il valore è ``null``.

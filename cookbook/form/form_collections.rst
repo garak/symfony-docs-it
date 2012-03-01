@@ -161,7 +161,7 @@ Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
         {
             $task = new Task();
             
-            // codice fittizio - è qui solo perché il Task ha alcuni tag
+            // codice fittizio: è qui solo perché il Task ha alcuni tag
             // altrimenti, questo non è un esempio interessante
             $tag1 = new Tag()
             $tag1->name = 'tag1';

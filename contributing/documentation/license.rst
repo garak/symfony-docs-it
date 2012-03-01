@@ -17,20 +17,20 @@ Attribuzione - Condividi allo stesso modo 3.0 Unported.
   che essi avallino voi o il modo in cui voi usate l'opera;
 
 * *Condividi allo stesso modo* — Se si altera o trasforma quest'opera, o se la si
-   usa per crearne un'altra, si può distribuire l'opera risultante solo con una
-   licenza identica o equivalente a questa
+  usa per crearne un'altra, si può distribuire l'opera risultante solo con una
+  licenza identica o equivalente a questa
 
 **Prendendo atto che:**
 
 * *Rinuncia* — È possibile rinunciare a qualunque delle condizioni sopra descritte
-   se si ottiene l'autorizzazione dal detentore dei diritti;
+  se si ottiene l'autorizzazione dal detentore dei diritti;
 
 * *Pubblico dominio* — Nel caso in cui l'opera o qualunque delle sue componenti
-   siano nel pubblico dominio secondo la legge vigente, tale condizione non è in
-   alcun modo modificata dalla licenza;
+  siano nel pubblico dominio secondo la legge vigente, tale condizione non è in
+  alcun modo modificata dalla licenza;
 
 * *Altri diritti* — La licenza non ha effetto in nessun modo sui seguenti
-   diritti:
+  diritti:
 
     * Le eccezioni, libere utilizzazioni e le altre utilizzazioni consentite dalla
       legge sul diritto d'autore;
@@ -42,7 +42,7 @@ Attribuzione - Condividi allo stesso modo 3.0 Unported.
       dati personali.
 
 * *Nota* — Ogni volta che si usa o distribuisce quest'opera, si deve farlo secondo
-   i termini di questa licenza, che va comunicata con chiarezza.
+  i termini di questa licenza, che va comunicata con chiarezza.
 
 Questo è un riassunto in linguaggio accessibile a tutti del `Codice Legale (la licenza integrale)`_.
 

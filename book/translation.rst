@@ -288,33 +288,33 @@ Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
 È importante anche il nome del file con le traduzioni, perché Symfony2 utilizza una convenzione
 per determinare i dettagli sulle traduzioni. Ogni file con i messaggi deve essere nominato
-secondo il seguente schema: ``domain.locale.loader``:
+secondo il seguente schema: ``dominio.locale.caricatore``:
 
-* **domain**: Un modo opzionale per organizzare i messaggi in gruppi (ad esempio ``admin``,
+* **dominio**: Un modo opzionale per organizzare i messaggi in gruppi (ad esempio ``admin``,
   ``navigation`` o il predefinito ``messages``) - vedere `Uso dei domini per i messaggi`_;
 
 * **locale**: Il locale per cui sono state scritte le traduzioni (ad esempio ``en_GB``, ``en``, ecc.);
 
-* **loader**: Come Symfony2 dovrebbe caricare e analizzare il file (ad esempio ``xliff``,
+* **caricatore**: Come Symfony2 dovrebbe caricare e analizzare il file (ad esempio ``xliff``,
   ``php`` o ``yml``).
 
-Il loader può essere il nome di un qualunque loader registrato. Per impostazione predefinita, Symfony
-fornisce i seguenti loader:
+Il caricatore può essere il nome di un qualunque caricatore registrato. Per impostazione predefinita, Symfony
+fornisce i seguenti caricatori:
 
 * ``xliff``: file XLIFF;
 * ``php``:   file PHP;
 * ``yml``:  file YAML.
 
-La scelta di quali loader utilizzare è interamente a carico dello sviluppatore ed è una questione
+La scelta di quali caricatori utilizzare è interamente a carico dello sviluppatore ed è una questione
 di gusti.
 
 .. note::
 
-    È anche possibile memorizzare le traduzioni in un database o in qualsiasi altro storage,
+    È anche possibile memorizzare le traduzioni in una base dati  o in qualsiasi altro mezzo,
     fornendo una classe personalizzata che implementa
     l'interfaccia :class:`Symfony\\Component\\Translation\\Loader\\LoaderInterface`.
-    Vedere :doc:`Loader per le traduzioni personalizzati </cookbook/translation/custom_loader>`
-    di seguito per imparare a registrare loader personalizzati.
+    Vedere :doc:`Caricatori per le traduzioni personalizzati </cookbook/translation/custom_loader>`
+    di seguito per imparare a registrare caricatori personalizzati.
 
 .. index::
    single: Traduzioni; Creazione delle traduzioni

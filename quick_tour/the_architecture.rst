@@ -97,7 +97,7 @@ propri progetti.
 .. note::
 
     Se si vuole approfondire l'argomento flessibilità dell'autoloader di Symfony2,
-    si può leggere la ricetta ":doc:`/cookbook/tools/autoloader`".
+    si può leggere il capitolo ":doc:`/components/class_loader`".
 
 Capire il sistema dei bundle
 ----------------------------
@@ -106,7 +106,7 @@ Questa sezione è un'introduzione a una delle più grandi e
 potenti caratteristiche di Symfony2, il sistema dei :term:`bundle`.
 
 Un bundle è molto simile a un plugin in un altro software. Ma perché
-allora si chiama *bundle e non *plugin*? Perché *ogni cosa* è un bundle
+allora si chiama *bundle* e non *plugin*? Perché *ogni cosa* è un bundle
 in Symfony2, dalle caratteristiche del nucleo del framework al codice
 scritto per la propria applicazione. I bundle sono cittadini di prima classe in Symfony2.
 Essi forniscono la flessibilità di usare delle caratteristiche pre-costruite impacchettate

@@ -138,7 +138,7 @@ sono in quel file:
 
     # app/config/routing_dev.yml
     _welcome:
-            pattern:  /
+        pattern:  /
         defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
     _demo:
@@ -167,7 +167,7 @@ Controllori
 
 Il controllore è una funzione o un metodo PHP che gestisce le *richieste* in entrata
 e restituisce delle *risposte* (spesso codice HTML). Invece di usare variabili e
-funzioni globali di PHP (come ``$_GET`` or ``header()``) per gestire questi messaggi
+funzioni globali di PHP (come ``$_GET`` o ``header()``) per gestire questi messaggi
 HTTP, Symfony usa degli oggetti: :class:`Symfony\\Component\\HttpFoundation\\Request`
 e :class:`Symfony\\Component\\HttpFoundation\\Response`.  Il controllore più semplice
 possibile potrebbe creare la risposta a mano, basandosi sulla richiesta::
@@ -344,7 +344,7 @@ Lavorare con gli ambienti
 
 Ora che si possiede una migliore comprensione di come funziona Symfony2, è
 ora di dare un'occhiata più da vicino al fondo della pagina: si noterà
-una piccola barra con i logo di Symfony2 e di PHP. Questa barra è chiamata
+una piccola barra con il logo di Symfony2. Questa barra è chiamata
 "barra di debug del web" ed è il miglior amico dello sviluppatore.
 
 .. image:: /images/quick_tour/web_debug_toolbar.png
@@ -385,7 +385,7 @@ l'installazione sicura e avere URL più allettanti:
     Si noti che i tre URL qui forniti sono solo **esempi** di come un URL potrebbe
     apparire in produzione usando un front controller (con o senza
     mod_rewrite). Se li si prova effettivamente in un'installazione base della
-    *Standard Edition di Symfony *, si otterrà un errore 404, perché
+    *Standard Edition di Symfony*, si otterrà un errore 404, perché
     *AcmeDemoBundle* è abilitato solo in ambiente dev e le sue rotte importate
     in *app/config/routing_dev.yml*.
 
@@ -427,5 +427,5 @@ sezione: ":doc:`la vista<the_view>`".
 .. _Symfony in 5 minuti:            http://symfony.com/symfony-in-five-minutes
 .. _Separazione degli ambiti:       http://en.wikipedia.org/wiki/Separation_of_concerns
 .. _YAML:                           http://www.yaml.org/
-.. _annotazioni nei controllori:    http://bundles.symfony-reloaded.org/frameworkextrabundle/
+.. _annotazioni nei controllori:    /bundles/SensioFrameworkExtraBundle/index.html#annotazioni-per-i-controllori
 .. _Twig:                           http://twig.sensiolabs.org/

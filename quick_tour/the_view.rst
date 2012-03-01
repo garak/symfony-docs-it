@@ -37,7 +37,7 @@ variabili, ``page_title`` e ``navigation``, che dovrebbero essere passate al tem
     <!DOCTYPE html>
     <html>
         <head>
-            <title>My Webpage</title>
+            <title>La mia pagina web</title>
         </head>
         <body>
             <h1>{{ page_title }}</h1>
@@ -186,7 +186,7 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/index.html.twig #}
-    {% render "AcmeDemoBundle:Demo:fancy" with { 'name': name, 'color': 'green' } %}
+    {% render "AcmeDemoBundle:Demo:fancy" with { 'name': name, 'color': 'verde' } %}
 
 Qui la stringa ``AcmeDemoBundle:Demo:fancy`` si riferisce all'azione ``fancy``
 del controllore ``Demo``. I parametri (``name`` e ``color``) si comportano come
@@ -199,7 +199,7 @@ del tutto nuova) e sono rese disponibili al controllore::
     {
         public function fancyAction($name, $color)
         {
-            // create some object, based on the $color variable
+            // creare un oggetto, in base alla variabile $color
             $object = ...;
 
             return $this->render('AcmeDemoBundle:Demo:fancy.html.twig', array('name' => $name, 'object' => $object));
@@ -218,7 +218,7 @@ modo, tutti gli URL saranno facilmente aggiornati al cambiare della configurazio
 
 .. code-block:: html+jinja
 
-    <a href="{{ path('_demo_hello', { 'name': 'Thomas' }) }}">Greet Thomas!</a>
+    <a href="{{ path('_demo_hello', { 'name': 'Thomas' }) }}">Ciao Thomas!</a>
 
 La funzione  ``path()`` accetta come parametri un nome di rotta e un
 array di parametri. Il nome della rotta è la chiave principale sotto

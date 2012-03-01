@@ -361,11 +361,6 @@ accedere all'oggetto repository per una classe documento tramite::
 
 .. note::
 
-    The ``AcmeStoreBundle:Product`` string is a shortcut you can use anywhere
-    in Doctrine instead of the full class name of the document (i.e. ``Acme\StoreBundle\Document\Product``).
-    As long as your document lives under the ``Document`` namespace of your bundle,
-    this will work.
-
     La stringa ``AcmeStoreBundle:Product`` è una scorciatoia utilizzabile ovunque in
     Doctrine al posto del nome intero della classe dell'entità (cioè ``Acme\StoreBundle\Entity\Product``).
     Questo funzionerà finché i propri documenti rimarranno sotto lo spazio dei nomi ``Document``

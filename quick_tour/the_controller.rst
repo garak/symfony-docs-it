@@ -54,7 +54,7 @@ rotta::
         return array('name' => $name);
     }
 
-Ora il controller sarà richiamato per URL come /demo/hello/Fabien.xml`` o
+Ora il controller sarà richiamato per URL come ``/demo/hello/Fabien.xml`` o
 ``/demo/hello/Fabien.json``.
 
 La voce ``requirements`` definisce delle espressioni regolari che i segnaposto
@@ -62,8 +62,8 @@ devono soddisfare. In questo esempio, se si prova a richiedere la risorsa
 ``/demo/hello/Fabien.js``, si otterrà un errore 404, poiché essa non corrisponde al
 requisito di ``_format``.
 
-Redirect e forward
-------------------
+Rinvii e rimandi
+----------------
 
 Se si vuole rinviare l'utente a un'altra pagina, usare il metodo
 ``redirect()``::
@@ -111,8 +111,8 @@ Persistere i dati nella sessione
 --------------------------------
 
 Anche se il protocollo HTTP non ha stato, Symfony2 fornisce un bell'oggetto sessione,
-che rappresenta il client (sia esso una persona che usa un browser, un bot o un web
-service). Tra due richieste, Symfony2 memorizza gli attributi in un cooki, usando
+che rappresenta il client (sia esso una persona che usa un browser, un bot o un servizio
+web). Tra due richieste, Symfony2 memorizza gli attributi in un cookie, usando
 le sessioni native di PHP.
 
 Si possono memorizzare e recuperare informazioni dalla sessione in modo facile, da
@@ -133,7 +133,7 @@ Si possono anche memorizzare piccoli messaggi che saranno disponibili solo per
 la richiesta successiva::
 
     // memorizza un messaggio per la richiesta successiva (in un controllore)
-    $session->setFlash('notice', 'Congratulations, your action succeeded!');
+    $session->setFlash('notice', 'Congratulazioni, azione eseguita con successo!');
 
     // mostra il messaggio nella richiesta successiva (in un template)
     {{ app.session.flash('notice') }}

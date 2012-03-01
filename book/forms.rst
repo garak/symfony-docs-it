@@ -66,12 +66,12 @@ classe ``Task`` che rappresenta e memorizza i dati di una singola attività:
 
         php app/console generate:bundle --namespace=Acme/TaskBundle
 
-Questa classe è un "vecchio-semplice-oggetto-PHP" perché, finora, non ha nulla
-a che fare con Symfony o qualsiasi altra libreria. E 'semplicemente un normale oggetto PHP
+Questa classe è un "vecchio-semplice-oggetto-PHP", perché finora non ha nulla
+a che fare con Symfony o qualsiasi altra libreria. È semplicemente un normale oggetto PHP,
 che risolve un problema direttamente dentro la *propria* applicazione (cioè la necessità di
-raprpesentare un task nella propria applicazione). Naturalmente, alla fine di questo capitolo,
+rappresentare un task nella propria applicazione). Naturalmente, alla fine di questo capitolo,
 si sarà in grado di inviare dati all'istanza di un ``Task`` (tramite un form HTML), validare
-i suoi dati e persisterli nel database.
+i suoi dati e persisterli nella base dati.
 
 .. index::
    single: Form; Creare un form in un controllore
@@ -118,9 +118,9 @@ all'interno di un controllore::
    come costruire il form in una classe autonoma, metodo consigliato perché in questo modo
    il form diventa riutilizzabile.
 
-La creazione di un form richiede relativamente poco codice perché gli oggetti form di Symfony2
+La creazione di un form richiede relativamente poco codice, perché gli oggetti form di Symfony2
 sono costruiti con un "costruttore di form". Lo scopo del costruttore di form è quello di consentire
-di scrivere una semplice "ricetta" per il form  e fargli fare tutto il lavoro pesante della
+di scrivere una semplice "ricetta" per il form e fargli fare tutto il lavoro pesante della
 costruzione del form.
 
 In questo esempio sono stati aggiunti due campi al form, ``task`` e ``dueDate``,
@@ -885,9 +885,9 @@ L'obiettivo di un form è quello di tradurre i dati da un oggetto (ad esempio ``
 form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto originale. Come
 tale, il tema della persistenza dell'oggetto ``Task`` nel database è interamente
 non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
-per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunto
-:ref:`mappare i meta-dati<book-doctrine-adding-mapping>`), allora il salvataggio
-dopo l'invio di un form può essere fatto quando il form è valido::
+per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunta la
+:ref:`mappatura dei meta-dati<book-doctrine-adding-mapping>`), allora si può salvare 
+dopo l'invio di un form, quando il form stesso è valido::
 
     if ($form->isValid()) {
         $em = $this->getDoctrine()->getEntityManager();
@@ -1189,8 +1189,8 @@ sono 4 possibili *parti* di un form che possono essere rese:
 
 .. note::
 
-    In realtà ci sono altre 3 *parti* - ``rows``, ``rest`` e ``enctype`` -
-    ma raramente c'è la necessità di sovrascriverli.
+    In realtà ci sono altre 3 *parti* (``rows``, ``rest`` e ``enctype``),
+    ma raramente c'è la necessità di sovrascriverle.
 
 Conoscendo il tipo di campo (ad esempio ``textarea``) e che parte si vuole
 personalizzare (ad esempio ``widget``), si può costruire il nome del frammento che

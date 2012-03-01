@@ -489,7 +489,7 @@ template. Primo, creare il template che occorrerà riusare.
     .. code-block:: html+jinja
 
         {# src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.twig #}
-        <h1>{{ article.title }}</h1>
+        <h2>{{ article.title }}</h2>
         <h3 class="byline">by {{ article.authorName }}</h3>
 
         <p>
@@ -983,7 +983,7 @@ Sovrascrivere template dei bundle
 ---------------------------------
 
 La comunità di Symfony2 si vanta di creare e mantenere bundle di alta
-qualità (vedere `Symfony2Bundles.org`_) per un gran numero di diverse caratteristiche.
+qualità (vedere `KnpBundles.com`_) per un gran numero di diverse caratteristiche.
 Quando si usa un bundle di terze parti, probabilmente occorrerà sovrascrivere e
 personalizzare uno o più dei suoi template.
 
@@ -1336,9 +1336,9 @@ Imparare di più con il ricettario
 * :doc:`/cookbook/controller/error_pages`
 
 .. _`Twig`: http://twig.sensiolabs.org
-.. _`Symfony2Bundles.org`: http://symfony2bundles.org
+.. _`KnpBundles.com`: http://knpbundles.com
 .. _`Cross Site Scripting`: http://it.wikipedia.org/wiki/Cross-site_scripting
 .. _`Escape dell'output`: http://twig.sensiolabs.org
-.. _`tag`: http://twig.sensiolabs.org/doc/templates.html#list-of-control-structures
-.. _`filtri`: http://twig.sensiolabs.org/doc/templates.html#list-of-built-in-filters
-.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/advanced.html
+.. _`tag`: http://twig.sensiolabs.org/doc/tags/index.html
+.. _`filtri`: http://twig.sensiolabs.org/doc/filters/index.html
+.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/extensions.html

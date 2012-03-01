@@ -132,7 +132,7 @@ verrà reso come un unico tag `script`.
 
     Se si è nuovi con Assetic e si prova a utilizzare la propria applicazione nell'ambiente
     ``prod`` (utilizzando il controllore ``app.php``), probabilmente si vedrà
-    che tutti i CSS e JS sono interrotti. Non bisogna preoccuparsi! Accade di proposito.
+    che mancano tutti i CSS e JS. Non bisogna preoccuparsi! Accade di proposito.
     Per informazioni dettagliate sull'utilizzo di Assetic in ambiente `prod`, vedere :ref:`cookbook-assetic-dumping`.
 
 La combinazione dei file non si applica solo ai *propri* file. Si può anche utilizzare Assetic per
@@ -162,7 +162,7 @@ Filtri
 
 Una volta che vengono gestite da Assetic, è possibile applicare i filtri alle proprie risorse prima
 che siano servite. Questi includono filtri che comprimono l'output delle proprie risorse
-per ottenere file di dimensioni inferiori (e migliore ottimizzazione nel front-end). Altri filtri
+per ottenere file di dimensioni inferiori (e migliore ottimizzazione nel frontend). Altri filtri
 possono compilare i file JavaScript da file CoffeeScript e processare SASS in CSS.
 Assetic ha una lunga lista di filtri disponibili.
 
@@ -171,14 +171,14 @@ parti per fare il lavoro pesante. Questo significa che spesso si avrà la necess
 una libreria di terze parti per usare un filtro. Il grande vantaggio di usare Assetic
 per invocare queste librerie (invece di utilizzarle direttamente) è che invece
 di doverle eseguire manualmente dopo aver lavorato sui file, sarà Assetic
-a prendersene cura e rimuovendo del tutto questo punto dal processo di sviluppo
+a prendersene cura, rimuovendo del tutto questo punto dal processo di sviluppo
 e di pubblicazione.
 
 Per usare un filtro, è necessario specificarlo nella configurazione di Assetic.
-L'aggiunta di un filtro qui non significa che venga utilizzato - significa solo che è
+L'aggiunta di un filtro qui non significa che venga utilizzato: significa solo che è
 disponibile per l'uso.
 
-Per esempio per usare il compressore JavaScript YUI bisogna aggiungere la configurazione
+Per esempio, per usare il compressore JavaScript YUI bisogna aggiungere la configurazione
 seguente:
 
 .. configuration-block::
@@ -211,7 +211,7 @@ seguente:
             ),
         ));
 
-Ora, per *utilizzare* effettivamente il filtro su un gruppo di file JavaScript files, bisogna aggiungerlo
+Ora, per *utilizzare* effettivamente il filtro su un gruppo di file JavaScript, bisogna aggiungerlo
 nel template:
 
 .. configuration-block::
@@ -233,13 +233,13 @@ nel template:
         <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
-Una guida più dettagliata sulla configurazione e l'utilizzo dei filtri di Assetic oltre a
-dettagli della modalità di debug di Assetic possono essere trovati in :doc:`/cookbook/assetic/yuicompressor`.
+Una guida più dettagliata sulla configurazione e l'utilizzo dei filtri di Assetic, oltre a
+dettagli della modalità di debug di Assetic, si trova in :doc:`/cookbook/assetic/yuicompressor`.
 
 Controllare l'URL utilizzato
 ----------------------------
 
-Se lo si desidera è possibile controllare gli URL che produce Assetic. Questo è
+Se lo si desidera, è possibile controllare gli URL che produce Assetic. Questo è
 fatto dal template ed è relativo alla radice del documento pubblico:
 
 .. configuration-block::
@@ -299,7 +299,7 @@ nei sorgenti, è probabile che si veda qualcosa di questo tipo:
 
     <script src="/app_dev.php/js/abcd123.js"></script>
 
-Questo file in realtà **non** esiste, nè viene reso dinamicamente
+Questo file in realtà **non** esiste, né viene reso dinamicamente
 da Symfony (visto che i file di risorse sono nell'ambiente ``dev``).
 Lasciare generare a Symfony questi file dinamicamente in un ambiente di
 produzione sarebbe troppo lento.

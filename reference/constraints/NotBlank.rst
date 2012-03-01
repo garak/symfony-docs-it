@@ -1,9 +1,9 @@
 NotBlank
 ========
 
-Valida che un valore is not blank, defined as not equal to a blank string
-and also not equal to ``null``. To force that a value is simply not equal to
-``null``, see the :doc:`/reference/constraints/NotNull` constraint.
+Valida che un valore non sia vuoto, cioè sia diverso da una stringa vuota
+e anche diverso da ``null``. Per forzare un valore a essere solo diverso da
+``null``, vedere il vincolo :doc:`/reference/constraints/NotNull`.
 
 +----------------+------------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
@@ -18,8 +18,8 @@ and also not equal to ``null``. To force that a value is simply not equal to
 Uso di base
 -----------
 
-If you wanted to ensure that the ``firstName`` property of an ``Author`` class
-were not blank, you could do the following:
+Se ci si vuole assicurare che la proprietà ``firstName`` di una classe ``Author`` non
+sia vuota, si può fare come segue:
 
 .. configuration-block::
 
@@ -50,4 +50,4 @@ message
 
 **tipo**: ``stringa`` **predefinito**: ``This value should not be blank``
 
-Messaggio mostrato se the value is blank.
+Messaggio mostrato se il valore è vuoto.

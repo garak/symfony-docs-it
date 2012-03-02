@@ -1262,23 +1262,23 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 
 .. configuration-block::
 
-.. code-block:: php-annotations
+    .. code-block:: php-annotations
 
-    /**
-     * Un campo stringa con lunghezza 255 che non può essere nullo
-     * (riflette i valori predefiniti per le opzioni "type", "length" e *nullable*)
-     * 
-     * @ORM\Column()
-     */
-    protected $name;
+        /**
+         * Un campo stringa con lunghezza 255 che non può essere nullo
+         * (riflette i valori predefiniti per le opzioni "type", "length" e *nullable*)
+         * 
+         * @ORM\Column()
+         */
+        protected $name;
 
-    /**
-     * Un campo stringa con lunghezza 150 che persiste su una colonna "email_address"
-     * e ha un vincolo di unicità.
-     *
-     * @ORM\Column(name="email_address", unique="true", length="150")
-     */
-    protected $email;
+        /**
+         * Un campo stringa con lunghezza 150 che persiste su una colonna "email_address"
+         * e ha un vincolo di unicità.
+         *
+         * @ORM\Column(name="email_address", unique="true", length="150")
+         */
+        protected $email;
 
     .. code-block:: yaml
 

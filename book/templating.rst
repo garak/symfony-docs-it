@@ -368,7 +368,7 @@ Per impostazione predefinita, i template possono stare in una di queste posizion
 * ``app/Resources/views/``: La cartella ``views`` di un'applicazione può contenere
   template di base a livello di applicazione (p.e. i layout dell'applicazione), ma anche
   template che sovrascrivono template di bundle (vedere
-:ref:`overriding-bundle-templates`);
+  :ref:`overriding-bundle-templates`);
 
 * ``percorso/bundle/Resources/views/``: Ogni bundle ha i suoi template, nella sua
   cartella ``Resources/views`` (e nelle sotto-cartelle). La maggior parte dei template è

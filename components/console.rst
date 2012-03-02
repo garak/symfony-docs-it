@@ -131,7 +131,7 @@ La parte più interessante dei comandi è data dalla possibilità di mettere a d
 parametri e argomenti. Gli argomenti sono delle stringhe, separate da spazi, che seguono
 il nome stesso del comando. Devono essere inseriti in un ordine preciso e possono essere opzionali o 
 obbligatori. Ad esempio, per aggiungere un argomento opzionale ``cognome`` al precedente
-comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere:
+comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
 
     $this
         // ...
@@ -139,7 +139,7 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere:
         ->addArgument('cognome', InputArgument::OPTIONAL, 'Il tuo cognome?')
         // ...
 
-A qeusto punto si può accedere all'argomento ``cognome`` dal proprio codice::
+A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
 
     if ($cognome = $input->getArgument('cognome')) {
         $testo .= ' '.$cognome;

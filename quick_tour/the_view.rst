@@ -244,7 +244,7 @@ definiti nello schema della rotta::
     'name': 'Thomas' }) }}``.
 
 Includere risorse: immagini, JavaScript e fogli di stile
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Cosa sarebbe Internet senza immagini, JavaScript e fogli di stile?
 Symfony2 fornisce la funzione ``asset`` per gestirli facilmente.

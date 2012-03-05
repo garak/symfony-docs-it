@@ -4,7 +4,6 @@ _static/
 _templates/
 conf.py
 favicon.ico
-images
 rsync.sh
 
 

@@ -66,7 +66,6 @@ Ricettario
     security/entity_provider
     security/custom_provider
     security/custom_authentication_provider
-    security/target_path
 
     cache/varnish
 
@@ -76,6 +75,7 @@ Ricettario
     logging/monolog
     logging/monolog_email
 
+    console/console_command
     debugging
 
     event_dispatcher/class_extension

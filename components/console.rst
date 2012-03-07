@@ -23,23 +23,16 @@ Il componente può essere installato in diversi modi:
 Creazione di comandi di base
 ----------------------------
 
-Per avere automaticamente a disposizione, sotto Symfony2, un comando a terminale, 
-si crea una cartella ``Command`` all'interno del proprio bundle dentro la quale 
-si inserirà un file, con il suffisso ``Command.php``, per ogni comando che si voglia realizzare. 
-Ad esempio, per estendere l'``AcmeDemoBundle`` (disponibile in Symfony Standard Edition) con 
-un programma che porga il saluto dal terminale, si dovrà creare il file  ``SalutaCommand.php`` 
+Per creare un comando che porga il saluto dal terminale, creare il file  ``SalutaCommand.php``,
 contenente il seguente codice::
 
-    // src/Acme/DemoBundle/Command/GreetCommand.php
-    namespace Acme\DemoBundle\Command;
-
-    use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+    use Symfony\Component\Console\Command\Command;
     use Symfony\Component\Console\Input\InputArgument;
     use Symfony\Component\Console\Input\InputInterface;
     use Symfony\Component\Console\Input\InputOption;
     use Symfony\Component\Console\Output\OutputInterface;
 
-    class SalutaCommand extends ContainerAwareCommand
+    class SalutaCommand extends Command
     {
         protected function configure()
         {
@@ -255,20 +248,19 @@ di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTeste
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::
 
+    use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
-    use Symfony\Bundle\FrameworkBundle\Console\Application;
-    use Acme\DemoBundle\Command\SalutaCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
         public function testExecute()
         {
-            $application = new Application($kernel);
+            $application = new Application();
             $application->add(new SalutaCommand());
 
             $comando = $application->find('demo:saluta');
             $testDelComando = new CommandTester($comando);
-            $testDelComando->execute(array('command' => $comando->getFullName()));
+            $testDelComando->execute(array('command' => $comando->getName()));
 
             $this->assertRegExp('/.../', $testDelComando->getDisplay());
 
@@ -285,7 +277,7 @@ array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay`::
 
     use Symfony\Component\Console\Tester\CommandTester;
-    use Symfony\Bundle\FrameworkBundle\Console\Application;
+    use Symfony\Component\Console\Application;
     use Acme\DemoBundle\Command\GreetCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase

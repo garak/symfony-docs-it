@@ -208,7 +208,7 @@ Si utilizza il caricatore ``YamlFileLoader``, allora la definizione delle rotte 
 
 .. code-block:: yaml
 
-    # rotte.yml
+    # routes.yml
     rotta1:
         pattern: /pippo
         defaults: { controller: 'MioControllore::pippoAction' }
@@ -218,7 +218,7 @@ Si utilizza il caricatore ``YamlFileLoader``, allora la definizione delle rotte 
         defaults: { controller: 'MioControllore::pippoPlutoAction' }
 
 Per caricare questo file, è possibile usare il seguente codice.  Si presume che il file
-``rotte.yml`` sia nella stessa cartella in cui si trova i codice::
+``routes.yml`` sia nella stessa cartella in cui si trova i codice::
 
     use Symfony\Component\Config\FileLocator;
     use Symfony\Component\Routing\Loader\YamlFileLoader;
@@ -226,7 +226,7 @@ Per caricare questo file, è possibile usare il seguente codice.  Si presume che
     // controlla al'interno della cartella *corrente*
     $cercatore = new FileLocator(array(__DIR__));
     $caricatore = new YamlFileLoader($cercatore);
-    $collezione = $caricatore->load('rotte.yml');
+    $collezione = $caricatore->load('routes.yml');
 
 Oltre a :class:`Symfony\\Component\\Routing\\Loader\\YamlFileLoader` ci sono 
 altri due caricatori che funzionano nello stesso modo:
@@ -290,7 +290,7 @@ nello sfondo, qualora la si volesse utilizzare. Un semplice esempio di come sia 
 
     $router = new Router(
         new YamlFileLoader($cercatore),
-        "rotte.yml",
+        "routes.yml",
         array('cache_dir' => __DIR__.'/cache'),
         $contestoRichiesta,
     );

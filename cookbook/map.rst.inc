@@ -83,7 +83,6 @@
   * :doc:`/cookbook/security/securing_services`
   * :doc:`/cookbook/security/custom_provider`
   * :doc:`/cookbook/security/custom_authentication_provider`
-  * :doc:`/cookbook/security/target_path`
 
 * **Cache**
 
@@ -101,6 +100,7 @@
 
 * **Strumenti e interni**
 
+  * :doc:`/cookbook/console/console_command`
   * :doc:`/cookbook/debugging`
 
 * **Servizi web**

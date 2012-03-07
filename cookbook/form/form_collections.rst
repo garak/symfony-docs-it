@@ -173,7 +173,7 @@ Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
             
             $form = $this->createForm(new TaskType(), $task);
             
-            // fare qualche processo del form qui, in una richiesta POST
+            // processare in qualche modo il form, in una richiesta POST
             
             return $this->render('AcmeTaskBundle:Task:new.html.twig', array(
                 'form' => $form->createView(),
@@ -300,19 +300,19 @@ Il codice può essere semplice:
 .. code-block:: javascript
 
     function addTagForm() {
-        // Ottieni il div che detiene la collezione di tag
+        // Ottiene il div che detiene la collezione di tag
         var collectionHolder = $('#task_tags');
-        // prendi il data-prototype 
+        // prende il data-prototype 
         var prototype = collectionHolder.attr('data-prototype');
-        // Sostituisci '$$name$$' nell'html del prototype in the prototype's HTML 
+        // Sostituisce '$$name$$' nell'html del prototype in the prototype's HTML 
         // affiché sia un nummero basato sulla lunghezza corrente della collezione.
         form = prototype.replace(/\$\$name\$\$/g, collectionHolder.children().length);
         // Visualizza il form nella pagina
         collectionHolder.append(form);
     }
-    // Aggiungi il link per aggiungere ulteriori tag
+    // Aggiunge il link per aggiungere ulteriori tag
     $('.record_action').append('<li><a href="#" class="add_tag_link">Aggiungi un tag</a></li>');
-    // Quando il link viene premuto aggiunge un campo per immettere un nuovo tag
+    // Quando il link viene premuto, aggiunge un campo per immettere un nuovo tag
     $('a.jslink').click(function(event){
         addTagForm();
     });
@@ -330,4 +330,4 @@ Permettere la rimozione di todo
 -------------------------------
 
 Questa sezione non è ancora stata scritta, ma lo sarà presto. Se si è interessati
-a scrivere questa sezione, si guardi :doc:`/contributing/documentation/overview`.
+a scrivere questa sezione, si veda :doc:`/contributing/documentation/overview`.

@@ -1,4 +1,4 @@
-Documentazione Symfony2 
+Documentazione Symfony2
 =======================
 
 Giro rapido

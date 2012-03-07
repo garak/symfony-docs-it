@@ -1,10 +1,10 @@
 DoctrineFixturesBundle
 ======================
 
-Le fixture sono usate per caricare un insieme controllato di dati in un database. Tali
+Le fixture sono usate per caricare un insieme controllato di dati in una base dati. Tali
 dati possono essere usati per i test o potrebbero essere i dati iniziali necessari a una
 applicazione per essere eseguita. Symfony2 non ha un modo predefinito per gestire le
-fixture, ma Doctrine2 ha una libreria che aiuta a scrivere fixtture per
+fixture, ma Doctrine2 ha una libreria che aiuta a scrivere fixture per
 l':doc:`ORM</book/doctrine>` o per l':doc:`ODM</bundles/DoctrineMongoDBBundle/index>`.
 
 Configurazione
@@ -31,7 +31,7 @@ Aggiornare le librerie dei venditori:
 
     $ php bin/vendors install
 
-Se tutto ha funzioonato, si può ora trovare la libreria ``doctrine-fixtures`` sotto
+Se tutto ha funzionato, si può ora trovare la libreria ``doctrine-fixtures`` sotto
 ``vendor/doctrine-fixtures``.
 
 Registrare lo spazio dei nimi ``Doctrine\Common\DataFixtures`` in ``app/autoload.php``.
@@ -78,9 +78,9 @@ di bundle della propria applicazione.
 
 Per un bundle in ``src/Acme/HelloBundle``, le classi delle fixture dovrebbero stare
 in ``src/Acme/HelloBundle/DataFixtures/ORM`` oppure in
-``src/Acme/HelloBundle/DataFixtures/MongoDB``, rispetetivamente per ORM e ODM.
+``src/Acme/HelloBundle/DataFixtures/MongoDB``, rispettivamente per ORM e ODM.
 Questa guida ipotizza che si stia usando l'ORM, ma le fixture si possono aggiungere
-altrettanto facilemente usando l'ODM.
+altrettanto facilmente usando l'ODM.
 
 Si immagini di avere una classe ``User`` e di voler caricare un oggetto
 ``User``:
@@ -107,7 +107,7 @@ Si immagini di avere una classe ``User`` e di voler caricare un oggetto
     }
 
 In Doctrine2, le fixture sono semplici oggetti, in cui caricare dati tramite interazioni
-con le proprie entità, come si fa normalmente. Ciò conenste di creare esattamente le
+con le proprie entità, come si fa normalmente. Ciò consente di creare esattamente le
 fixture necessarie per la propria applicazione.
 
 Il limite più grosso in questo approccio è l'impossibilità di condividere oggetti tramite
@@ -141,13 +141,13 @@ Entrambi i comandi hanno delle opzioni:
 * ``--append`` - Usare questo flag per appendere dati, invece di cancellare e ricaricare
   i dati (la cancellazione è il comportamento predefinito);
 
-* ``--em=manager_name`` - Specifica manualmente l'entity manager da usare per caricare
+* ``--em=manager_name`` - Specifica manualmente il gestore di entità da usare per caricare
   i dati.
 
 .. note::
 
    Se si usa il comando ``doctrine:mongodb:fixtures:load``, sostituire l'opzione
-   ``--em=`` con ``--dm=``, per specificare manualmente il document manager.
+   ``--em=`` con ``--dm=``, per specificare manualmente il gestore di documenti.
 
 Un esempio completo potrebbe assomigliare a questo:
 
@@ -164,7 +164,7 @@ Per esempio, se si vuole caricare un oggetto ``User`` in una fixture e poi si vu
 farvi riferimento in un'altra fixture, per poter assegnare quell'utente a un
 determinato gruppo?
 
-La libreria delle fixture di Doctrine gestisce facilmente questa situaizone, consentendo
+La libreria delle fixture di Doctrine gestisce facilmente questa situazione, consentendo
 di specificare l'ordine in cui le fixture sono caricate.
 
 .. code-block:: php
@@ -264,7 +264,7 @@ possono essere riferiti successivamente tramite  i riferimenti ``admin-user`` e
 
 Questa fixture sarà ora eseguite nell'ordine del valore restituito dal metodo
 ``getOrder()``. Si può accedere a ogni oggetto impostato con il metodo ``setReference()``,
-ramite il metodo ``getReference()`` in classi fixture con un ordine più
+tramite il metodo ``getReference()`` in classi fixture con un ordine più
 alto.
 
 Le fixture consentono di creare ogni tipo di dato necessario, tramite la normale

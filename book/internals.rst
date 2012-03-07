@@ -60,9 +60,8 @@ componente Dependency Injection e a un potente sistema di plugin (bundle).
 
 .. seealso::
 
-    Approfondimento sul componente :doc:`HttpKernel <kernel>`. Approfondimento
-    sul componente :doc:`Dependency Injection </book/service_container>`
-    e sui :doc:`Bundle </cookbook/bundles/best_practices>`.
+    Approfondimento
+    sul componente :doc:`Dependency Injection </book/service_container>` e sui :doc:`Bundle </cookbook/bundles/best_practices>`.
 
 Il bundle ``FrameworkBundle``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -855,6 +854,8 @@ Ora, tutti gli ascoltatori di ``negozio.ordine`` che non sono ancora stati richi
 
 .. index::
    single: Profiler
+
+.. _internals-profiler:
 
 Profiler
 --------

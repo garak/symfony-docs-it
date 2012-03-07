@@ -313,8 +313,6 @@ di gusti.
     È anche possibile memorizzare le traduzioni in una base dati  o in qualsiasi altro mezzo,
     fornendo una classe personalizzata che implementa
     l'interfaccia :class:`Symfony\\Component\\Translation\\Loader\\LoaderInterface`.
-    Vedere :doc:`Caricatori per le traduzioni personalizzati </cookbook/translation/custom_loader>`
-    di seguito per imparare a registrare caricatori personalizzati.
 
 .. index::
    single: Traduzioni; Creazione delle traduzioni

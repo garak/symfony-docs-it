@@ -26,7 +26,7 @@ locale:
    (ovvero vicino al file ``deps``) e copiarvi le righe seguenti. I file corrispondenti
    a questi schemi saranno ignorati da git:
 
-    .. code-block:: text
+   .. code-block:: text
 
         /web/bundles/
         /app/bootstrap*
@@ -43,25 +43,25 @@ locale:
 
 5. Inizializzare il proprio repository git:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ git init
 
 6. Aggiungere tutti i file in git:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ git add .
 
 7. Creare un commit iniziale con il nuovo progetto:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ git commit -m "Commit iniziale"
 
 8. Infine, scaricare tutte le librerie dei venditori:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ php bin/vendors install
 

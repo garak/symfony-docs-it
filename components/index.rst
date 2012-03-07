@@ -2,7 +2,7 @@ I componenti
 ============
 
 .. toctree::
-   :maxdepth: 1
+    :hidden:
 
    class_loader
    console
@@ -14,3 +14,5 @@ I componenti
    process
    routing
    yaml
+
+.. include:: /components/map.rst.inc

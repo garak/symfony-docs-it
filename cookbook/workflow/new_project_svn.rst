@@ -52,13 +52,13 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 3. Eseguire il checkout del repository Subversion che ospiterà questo progetto. Supponiamo
    che sia ospitato su `Google code`_ e che si chiami ``mioprogetto``:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ svn checkout http://mioprogetto.googlecode.com/svn/trunk mioprogetto
 
 4. Copiare i file del progetto Symfony2 nella cartella di subversion:
 
-    .. code-block:: bash
+   .. code-block:: bash
 
         $ mv Symfony/* mioprogetto/
 
@@ -68,7 +68,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
    ciascuna macchina. Ciò implica l'uso della proprietà ``svn:ignore``, che consente
    di ignorare specifici file.
 
-    .. code-block:: bash
+   .. code-block:: bash
 
         $ cd mioprogetto/
         $ svn add --depth=empty app app/cache app/logs app/config web
@@ -85,7 +85,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
 6. Tutti gli altri file possono essere aggiunti al progetto:
 
-    .. code-block:: bash
+   .. code-block:: bash
 
         $ svn add --force .
         $ svn ci -m "aggiunta Symfony Standard 2.X.Y"
@@ -99,7 +99,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
 8. Infine, scaricare tutte le librerie dei venditori:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ php bin/vendors install
 

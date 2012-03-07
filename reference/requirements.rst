@@ -4,8 +4,8 @@
 Requisiti per far girare Symfony2
 =================================
 
-Per far girare Symfony2, il proprio sistema deve soddisfare un elenco di requisiti.
-Si può verificare facilmente se il proprio sistema passa tutti i requisiti, eseguendo
+Per far girare Symfony2, un sistema deve soddisfare un elenco di requisiti.
+Si può verificare facilmente se un sistema abbia tutti i requisiti, eseguendo
 ``web/config.php`` nella propria distribuzione di Symfony. Poiché la CLI spesso usa un
 file di configurazione ``php.ini`` diverso, è una buona idea verificare i requisiti
 anche tramite riga di comando, con:
@@ -20,6 +20,7 @@ Requisiti
 ---------
 
 * PHP deve essere almeno alla versione 5.3.2
+* Sqlite3 deve essere abilitato
 * JSON deve essere abilitato
 * ctype deve essere abilitato
 * php.ini deve avere l'impostazione date.timezone

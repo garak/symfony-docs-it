@@ -13,8 +13,8 @@ bundle, sia da un'applicazione che da altri bundle. Questo potrebbe includere:
 * Template
 * Rotte
 * Controllori
-* Servizi & Configurazione
-* Entità & mappatura di Entità
+* Servizi & configurazione
+* Entità & mappatura di entità
 * Form
 * Validazione
 

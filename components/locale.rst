@@ -9,9 +9,9 @@ Il componente Locale
 
 Viene fornito un rimpiazzo per le seguenti funzioni e classi:
 
-* :phpfunction:`intl_is_failure()`
-* :phpfunction:`intl_get_error_code()`
-* :phpfunction:`intl_get_error_message()`
+* :phpfunction:`intl_is_failure`
+* :phpfunction:`intl_get_error_code`
+* :phpfunction:`intl_get_error_message`
 * :phpclass:`Collator`
 * :phpclass:`IntlDateFormatter`
 * :phpclass:`Locale`

@@ -435,7 +435,7 @@ validazione, con i valori predefiniti e per la normalizzazione dei formati.
 Per sfruttare questo sistema, si creerà una classe ``Configuration`` e si costruirà
 un albero, che definisce la propria configurazione in tale classe::
 
-    // src/Acme/HelloBundle/DependencyExtension/Configuration.php
+    // src/Acme/HelloBundle/DependencyInjection/Configuration.php
     namespace Acme\HelloBundle\DependencyInjection;
 
     use Symfony\Component\Config\Definition\Builder\TreeBuilder;

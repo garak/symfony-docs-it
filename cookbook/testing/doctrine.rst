@@ -26,17 +26,17 @@ Poiché Symfony e Doctrine condividono lo stesso framework di test, è facile im
 test unitari nel proprio progetto Symfony. L'ORM ha il suo insieme di strumenti, che
 facilitano i test unitari e i mock di ogni cosa di cui si abbia bisogno, come una
 connessione, un gestore di entità, ecc. Usando i componenti dei test forniti da
-Dcotrine, con un po' di preparazione di base, si possono sfruttare gli strumenti di
+Doctrine, con un po' di preparazione di base, si possono sfruttare gli strumenti di
 Doctrine per testare i propri repository.
 
 Si tenga a mente che, se si vuole testare la reale esecuzione delle proprie query,
 occorrerà un test funzionale (vedere :ref:`cookbook-doctrine-repo-functional-test`).
-I test unitari consentono solo di tesare un metodo che costruisce una query.
+I test unitari consentono solo di testare un metodo che costruisce una query.
 
 Preparazione
 ~~~~~~~~~~~~
 
-Inannzitutto, occorre aggiungere lo spazio dei nomi ``Doctrine\Tests`` al proprio autoloader::
+Innanzitutto, occorre aggiungere lo spazio dei nomi ``Doctrine\Tests`` al proprio autoloader::
 
     // app/autoload.php
     $loader->registerNamespaces(array(

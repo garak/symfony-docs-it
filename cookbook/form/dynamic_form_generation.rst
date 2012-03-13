@@ -27,7 +27,7 @@ alla classe dei form::
         }
     }
 
-.. nota::
+.. note::
 
     Se questa particolare sezione di codice non è familiare,
     probabilmente è necessario tornare indietro e come prima cosa leggere il :doc:`capitolo sui form</book/forms>` 

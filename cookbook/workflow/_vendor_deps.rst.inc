@@ -1,6 +1,8 @@
 Gestire le librerie dei venditori con bin/vendors e deps
 --------------------------------------------------------
 
+### Come funziona?
+
 Ogni progetto Symfony usa un gruppo di librerie di "venditori". In un modo o
 nell'altro, lo scopo è scaricare tali file nella propria cartella ``vendor/``
 e, idealmente, avere un modo tranquillo per gestire l'esatta versione necessaria
@@ -47,3 +49,39 @@ Quindi, ogni volta che uno sviluppatore usa il progetto, deve eseguire lo script
     Questo comando è usato per congelare le versioni di tutte le librerie dei venditori,
     aggiornandole alle versioni specificate in ``deps`` e registrandole nel
     file ``deps.lock``.
+
+### Modificare le librerie dei venditori
+
+A volte, si ha bisogno di un ramo specifico, oppure di un tag o di un commit di una
+libreria. Lo si può impostare direttamente nel file ``deps``:
+
+.. code-block:: text
+
+    [AcmeAwesomeBundle]
+        git=http://github.com/johndoe/Acme/AwesomeBundle.git
+        target=/bundles/Acme/AwesomeBundle
+        version=una-versione-aggiornata
+
+* L'opzione``git`` imposta l'URL della libreria. Può essere anche un altro protocollo,
+  come ``http://`` o anche ``git://``. 
+
+* L'opzione ``target`` specifica dove starà il repository: i semplici bundle di Symfony
+  andrebbero sotto la cartella ``vendor/bundles/Acme``, altre librerie di terze parti
+  solitamente vanno in ``vendor/la-mia-libreria``. La cartella di destinazione è
+  predefinita su quest'ultima opzione, se non specificata.
+
+* L'opzione ``version`` consente di imposare una versione specifica. Si può usare un tag
+    (``version=origin/0.42``) o un ramo (``refs/remotes/origin/awesome-branch``).
+    Il valore predefinito è ``origin/HEAD``.
+
+### Flusso di aggiornamento
+
+Quando si esegue ``php bin/vendors install``, per ogni libreria, lo script verifica prima
+se esiste la cartella di installazione. 
+
+Se non esiste (e SOLO se non esiste), esegue un ``git clone``. 
+
+Quindi, esegue un ``git fetch origin`` e un ``git reset --hard la-mia-versione``. 
+
+Questo vuole dire che il repository sarà clonato una sola volta. Se si vuole eseguire una
+modifica sui remote di git, si DEVE cancellare l'intera cartella di destionazione, non solo il suo contenuto.

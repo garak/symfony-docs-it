@@ -1375,12 +1375,12 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 
 .. _`Doctrine`: http://www.doctrine-project.org/
 .. _`MongoDB`: http://www.mongodb.org/
-.. _`Documentazione di base sulla mappatura`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html
-.. _`Query Builder`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/query-builder.html
-.. _`Doctrine Query Language`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/dql-doctrine-query-language.html
-.. _`Documentazione sulla mappatura delle associazioni`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/association-mapping.html
+.. _`Documentazione di base sulla mappatura`: http://docs.doctrine-project.org/orm/en/2.1/reference/basic-mapping.html
+.. _`Query Builder`: http://docs.doctrine-project.org/orm/en/2.1/reference/query-builder.html
+.. _`Doctrine Query Language`: http://docs.doctrine-project.org/orm/en/2.1/reference/dql-doctrine-query-language.html
+.. _`Documentazione sulla mappatura delle associazioni`: http://docs.doctrine-project.org/orm/en/2.1/reference/association-mapping.html
 .. _`DateTime`: http://php.net/manual/en/class.datetime.php
-.. _`Documentazione sulla mappatura dei tipi`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#doctrine-mapping-types
-.. _`Documentazione sulla mappatura delle proprietà`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#property-mapping
-.. _`Documentazione sugli eventi del ciclo di vita`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/events.html#lifecycle-events
-.. _`Documentazione sulle parole riservate di SQL`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#quoting-reserved-words
+.. _`Documentazione sulla mappatura dei tipi`: http://docs.doctrine-project.org/orm/en/2.1/reference/basic-mapping.html#doctrine-mapping-types
+.. _`Documentazione sulla mappatura delle proprietà`: http://docs.doctrine-project.org/orm/en/2.1/reference/basic-mapping.html#property-mapping
+.. _`Documentazione sugli eventi del ciclo di vita`: http://docs.doctrine-project.org/orm/en/2.1/reference/events.html#lifecycle-events
+.. _`Documentazione sulle parole riservate di SQL`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/basic-mapping.html#quoting-reserved-words

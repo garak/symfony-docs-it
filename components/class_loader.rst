@@ -122,5 +122,5 @@ o uno dei suoi figli, l'autoloader cercherà prima le classi sotto la cartella
 ``Doctrine`` (l'ultima configurata), infine si arrenderà.
 In questo caso, l'ordine di registrazione è significativo.
 
-.. _standard: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+.. _standard: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
 .. _PEAR:     http://pear.php.net/manual/en/standards.php

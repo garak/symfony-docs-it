@@ -304,4 +304,4 @@ parametro ``default_connection``.
 Ogni connessione è anche accessibile tramite il servizio ``doctrine.dbal.[nome]_connection``,
 in cui ``[nome]`` è il nome della connessione.
 
-.. _documentazione DBAL: http://www.doctrine-project.org/docs/dbal/2.0/en
+.. _documentazione DBAL: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/index.html

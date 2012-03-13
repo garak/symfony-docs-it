@@ -518,6 +518,9 @@ disponibili per i  bundle del nucleo si possono trovare all'interno della :doc:`
    ``parameters``, ``services`` e ``imports``. Ogni altra direttiva
    è gestita dall'estensione del contenitore dei servizi.
 
+Se si vogliono esporre in modo amichevole le configurazioni dei propri bundle, leggere la ricetta
+":doc:`/cookbook/bundles/extensions`".
+
 .. index::
    single: Contenitore di servizi; Referenziare i servizi
 

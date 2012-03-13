@@ -1465,7 +1465,7 @@ ma ecco un breve esempio::
         // ...
     ;
 
-Ora, richiamando `$form->isValid()`, i vincoli impostati sono eseguiti sui dati
+Ora, richiamando `$form->bindRequest($request)`, i vincoli impostati sono eseguiti sui dati
 del form. Se si usa una classe form, sovrascrivere il metodo ``getDefaultOptions``
 per specificare l'opzione::
 

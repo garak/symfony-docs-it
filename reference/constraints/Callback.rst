@@ -80,14 +80,14 @@ questi errori vadano attribuiti::
 
         public function isAuthorValid(ExecutionContext $context)
         {
-            // somehow you have an array of "fake names"
+            // si ha in qualche modo un array di nomi fasulli
             $fakeNames = array();
 
-            // check if the name is actually a fake name
+            // verifica se il nome è in effetti un nome fasullo
             if (in_array($this->getFirstName(), $fakeNames)) {
                 $property_path = $context->getPropertyPath() . '.firstName';
                 $context->setPropertyPath($property_path);
-                $context->addViolation('This name sounds totally fake!', array(), null);
+                $context->addViolation('Questo nome sembra proprio fasullo!', array(), null);
             }
         }
 

@@ -221,7 +221,7 @@ Scalari
 La sintassi per gli scalari è simile a quella di PHP.
 
 Stringhe
-.......
+........
 
 .. code-block:: yaml
 

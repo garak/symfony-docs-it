@@ -189,7 +189,7 @@ Il comando sopra scambia automaticamente il codice con il ramo appena creato
 
 * Scrivere buoni messaggi di commit.
 
-.. suggerimento::
+.. tip::
 
     Un buon messaggio di commit è composto dal riepilogo nella (prima linea),
     opzionalmente seguito da una linea vuota e da una descrizione dettagliata.

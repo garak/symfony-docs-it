@@ -182,7 +182,7 @@ dell'applicazione:
     la sezione :ref:`routing-include-external-resources` per maggiori informazioni.
 
 Configurazione di base delle rotte
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Definire una rotta è semplice e una tipica applicazione avrà molte rotte.
 Una rotta di base è costituita da due parti: il ``pattern`` da confrontare e un

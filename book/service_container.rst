@@ -44,21 +44,21 @@ un compito specifico. Congratulazioni, si è appena creato un servizio!
 
 .. note::
 
-    Come regola generale, un oggetto PHP è u nservizio se viene utilizzato a livello globale
+    Come regola generale, un oggetto PHP è un servizio se viene utilizzato a livello globale
     nell'applicazione. Un singolo servizio ``Mailer`` è usato globalmente per inviare
     messaggi email mentre i molti oggetti ``Message`` che spedisce
     *non* sono servizi. Allo stesso modo, un oggetto ``Product`` non è un servizio,
     ma un oggetto che persiste oggetti ``Product`` su un database *è* un servizio.
 
 Qual'è il discorso allora? Il vantaggio dei "servizi" è
-che si comincia a pensare di semparare ogni "pezzo di funzionalità" dell'applicazione
+che si comincia a pensare di separare ogni "pezzo di funzionalità" dell'applicazione
 in una serie di servizi. Dal momento che ogni servizio fa solo un lavoro,
 si può facilmente accedere a ogni servizio e utilizzare le sue funzionalità ovunque
 ce ne sia bisogno. Ogni servizio può anche essere più facilmente testato e configurato essendo
 separato dalle altre funzionalità dell'applicazione. Questa idea
 si chiama `architettura orientata ai servizi`_ e non riguarda solo Symfony2
 o il PHP. Strutturare la propria applicazione con una serie di indipendenti
-classi di servizi  è una nota best-practice della programmazione a oggetti. Queste conoscenze
+classi di servizi è una nota best-practice della programmazione a oggetti. Queste conoscenze
 sono fondamentali per essere un buon sviluppatore in quasi tutti i linguaggi.
 
 .. index::

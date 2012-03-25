@@ -204,7 +204,7 @@ seguente riga:
 
     vendor/
 
-Ora la cartella dei venditori non sarà inviata in commi al controllo di sorgenti.
+Ora la cartella dei venditori non sarà inviata in commit al controllo di sorgenti.
 Questo è bene (anzi, benissimo!) perché quando qualcun altro clonerà o farà checkout
 del progetto, potrà semplicemente eseguire lo script ``php bin/vendors install`` per
 scaricare tutte le librerie dei venditori necessarie.

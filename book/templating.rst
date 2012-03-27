@@ -413,7 +413,7 @@ Questo dà la possibilità di sovrascrivere template di qualsiasi bundle.
 .. tip::
 
     Si spera che la sintassi dei nomi risulti familiare: è la stessa convenzione di
-    nomi usata per :ref:`controller-string-syntax`.
+    nomi usata per lo :ref:`controller-string-syntax`.
 
 Suffissi dei template
 ~~~~~~~~~~~~~~~~~~~~~
@@ -871,44 +871,44 @@ cartella "web").
 Il risultato finale è una pagina che include i fogli di stile ``main.css`` e
 ``contact.css``.
 
-Global Template Variables
--------------------------
+Variabili globali nei template
+------------------------------
 
-During each request, Symfony2 will set a global template variable ``app``
-in both Twig and PHP template engines by default.  The ``app`` variable
-is a :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`
-instance which will give you access to some application specific variables
-automatically:
+Durante ogni richiesta, Symfony2 imposta una variabile globale ``app``,
+sia nei template Twig che in quelli PHP. La variabile ``app``
+è un'istanza di :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`,
+che dà accesso automaticamente ad alcune variabili specifiche
+dell'applicazione:
 
-* ``app.security`` - The security context.
-* ``app.user`` - The current user object.
-* ``app.request`` - The request object.
-* ``app.session`` - The session object.
-* ``app.environment`` - The current environment (dev, prod, etc).
-* ``app.debug`` - True if in debug mode. False otherwise.
+* ``app.security`` - Il contesto della sicurezza.
+* ``app.user`` - L'oggetto dell'utente attuale.
+* ``app.request`` - L'oggetto richiesta.
+* ``app.session`` - L'oggetto sessione.
+* ``app.environment`` - L'ambiente attuale (dev, prod, ecc).
+* ``app.debug`` - True se in debug. False altrimenti.
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        <p>Username: {{ app.user.username }}</p>
+        <p>Nome utente: {{ app.user.username }}</p>
         {% if app.debug %}
-            <p>Request method: {{ app.request.method }}</p>
-            <p>Application Environment: {{ app.environment }}</p>
+            <p>Metodo richiesta: {{ app.request.method }}</p>
+            <p>Ambiente: {{ app.environment }}</p>
         {% endif %}
 
     .. code-block:: html+php
 
-        <p>Username: <?php echo $app->getUser()->getUsername() ?></p>
+        <p>Nome utente: <?php echo $app->getUser()->getUsername() ?></p>
         <?php if ($app->getDebug()): ?>
-            <p>Request method: <?php echo $app->getRequest()->getMethod() ?></p>
-            <p>Application Environment: <?php echo $app->getEnvironment() ?></p>
+            <p>Metodo richiesta: <?php echo $app->getRequest()->getMethod() ?></p>
+            <p>Ambiente: <?php echo $app->getEnvironment() ?></p>
         <?php endif; ?>
 
 .. tip::
 
-    You can add your own global template variables. See the cookbook example
-    on :doc:`Global Variables</cookbook/templating/global_variables>`.
+    Si possono aggiungere le proprie variabili globali ai template. Si veda la
+    ricetta :doc:`Variabili globali</cookbook/templating/global_variables>`.
 
 .. index::
    single: Template; Il servizio templating

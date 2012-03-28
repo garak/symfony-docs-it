@@ -97,8 +97,8 @@ predefinita. Si possono anche `aggiungere le proprie estensioni`_ a Twig, se nec
 
 .. tip::
 
-    È facile registrare un'estensione di Twig basta creare un nuovo servizio e
-    taggarlo con ``twig.extension`` :ref:`tag<book-service-container-tags>`.
+    È facile registrare un'estensione di Twig: basta creare un nuovo servizio e
+    assegnarli il :ref:`tag<book-service-container-tags>` ``twig.extension``.
 
 Come vedremo nella documentazione, Twig supporta anche le funzioni e si possono
 aggiungere facilmente nuove funzioni. Per esempio, di seguito viene usato un tag
@@ -1056,7 +1056,7 @@ Questo metodo funziona perfettamente con i tre diversi tipi di template
 di cui abbiamo appena parlato:
 
 * Creare un file ``app/Resources/views/base.html.twig`` che contenga il layout
-  principael per la propria applicazione (come nell'esempio precedente). Internamente,
+  principale per la propria applicazione (come nell'esempio precedente). Internamente,
   questo template si chiama ``::base.html.twig``;
 
 * Creare un template per ogni "sezione" del proprio sito. Per esempio, ``AcmeBlogBundle``

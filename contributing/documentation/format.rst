@@ -10,7 +10,7 @@ reStructuredText
 reStructuredText "is an easy-to-read, what-you-see-is-what-you-get plaintext
 markup syntax and parser system."
 
-Si può imparare di più su questa sintassi leggendo `documents`_ si Symfony2
+Si può imparare di più su questa sintassi leggendo i `documenti`_ di Symfony2
 oppure leggendo la `reStructuredText Primer`_ nel sito web di Sphinx.
 
 Se si ha dimestichezza con Markdown, bisogna fare attenzione alle cose simili, ma
@@ -153,7 +153,7 @@ Installare l'estensione configuration-block di Sphinx
 
 .. _reStructuredText:        http://docutils.sf.net/rst.html
 .. _Sphinx:                  http://sphinx.pocoo.org/
-.. _documents:               http://github.com/symfony/symfony-docs
+.. _documenti:               http://github.com/symfony/symfony-docs
 .. _reStructuredText Primer: http://sphinx.pocoo.org/rest.html
 .. _markup:                  http://sphinx.pocoo.org/markup/
 .. _sito di Pygments:        http://pygments.org/languages/

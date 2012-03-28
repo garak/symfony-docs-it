@@ -822,7 +822,7 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
 
 
 Primo, poiché un oggetto ``Category`` sarà collegato a diversi oggetti ``Product``,
-va aggiutna una proprietà array ``products``, per contenere questi oggetti ``Product``.
+va aggiunta una proprietà array ``products``, per contenere questi oggetti ``Product``.
 Di nuovo, non va fatto perché Doctrine ne abbia bisogno, ma perché ha senso
 nell'applicazione che ogni ``Category`` contenga un array di oggetti
 ``Product``.

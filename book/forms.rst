@@ -97,7 +97,7 @@ all'interno di un controllore::
         {
             // crea un task fornendo alcuni dati fittizi per questo esempio
             $task = new Task();
-            $task->setTask('Write a blog post');
+            $task->setTask('Scrivere un post sul blog');
             $task->setDueDate(new \DateTime('tomorrow'));
 
             $form = $this->createFormBuilder($task)
@@ -180,7 +180,7 @@ ciascun campo in modo da poter controllare la visualizzazione del form. Si impar
 a farlo nella sezione ":ref:`form-rendering-template`".
 
 Prima di andare avanti, notare come il campo input ``task`` reso ha il value
-della proprietà ``task`` dall'oggetto ``$task`` (ad esempio "Scrivi un post sul blog").
+della proprietà ``task`` dall'oggetto ``$task`` (ad esempio "Scrivere un post sul blog").
 Questo è il primo compito di un form: prendere i dati da un oggetto e tradurli
 in un formato adatto a essere reso in un form HTML.
 
@@ -188,8 +188,8 @@ in un formato adatto a essere reso in un form HTML.
 
    Il sistema dei form è abbastanza intelligente da accedere al valore della proprietà
    protetta ``task`` attraverso i metodi ``getTask()`` e ``setTask()`` della
-   classe ``Task``. A meno che una proprietà non sia pubblica, *deve* avere un metodo
-   "getter" e "setter" in modo che il componente form possa ottenere e mettere dati nella
+   classe ``Task``. A meno che una proprietà non sia privata, *deve* avere un metodo
+   "getter" e uno "setter", in modo che il componente form possa ottenere e mettere dati nella
    proprietà. Per una proprietà booleana, è possibile utilizzare un metodo "isser" (ad esempio
    ``isPublished()``) invece di un getter ad esempio ``getPublished()``).
 
@@ -220,7 +220,7 @@ controllore::
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-                // esegue alcune azioni, come ad esempio salvare il task nel database
+                // esegue alcune azioni, come ad esempio salvare il task nella base dati
 
                 return $this->redirect($this->generateUrl('task_success'));
             }
@@ -251,7 +251,7 @@ possibili percorsi:
 
 #. Quando l'utente invia il form con dati validi, il form viene associato e
    si ha la possibilità di eseguire alcune azioni usando l'oggetto ``$task``
-   (ad esempio persistendo i dati nel database) prima di rinviare l'utente
+   (ad esempio persistendo i dati nella base dati) prima di rinviare l'utente
    a un'altra pagina (ad esempio una pagina "thank you" o "success").
 
 .. note::
@@ -846,8 +846,8 @@ I form e Doctrine
 
 L'obiettivo di un form è quello di tradurre i dati da un oggetto (ad esempio ``Task``) a un
 form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto originale. Come
-tale, il tema della persistenza dell'oggetto ``Task`` nel database è interamente
-non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
+tale, il tema della persistenza dell'oggetto ``Task`` nella base dati  è del tutto
+scollegato dal discorso form. Ma, se la classe ``Task`` è stata configurata
 per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunta la
 :ref:`mappatura dei meta-dati<book-doctrine-adding-mapping>`), allora si può salvare 
 dopo l'invio di un form, quando il form stesso è valido::
@@ -1006,7 +1006,7 @@ sono utilizzati per costruire un'istanza di ``Category``, che viene poi impostat
 campo ``category`` dell'istanza ``Task``.
     
 L'istanza ``Category`` è accessibile naturalmente attraverso ``$task->getCategory()``
-e può essere memorizzata nel database o utilizzata quando serve.
+e può essere memorizzata nella base dati o utilizzata quando serve.
 
 Incorporare un insieme di form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1248,12 +1248,12 @@ per definire l'output del form.
 
         {% extends '::base.html.twig' %}
 
-        {# import "_self" as the form theme #}
+        {# importa "_self" come tema del form #}
         {% form_theme form _self %}
 
-        {# make the form fragment customization #}
+        {# personalizza il frammento del form #}
         {% block field_row %}
-            {# custom field row output #}
+            {# output personalizzato della riga del campo #}
         {% endblock field_row %}
 
         {% block content %}
@@ -1262,7 +1262,7 @@ per definire l'output del form.
             {{ form_row(form.task) }}
         {% endblock %}
 
-    Il tag ``{% form_theme form _self %}`` ai blocchi del form di essere personalizzati
+    Il tag ``{% form_theme form _self %}`` consente ai blocchi del form di essere personalizzati
     direttamente all'interno del template che utilizzerà tali personalizzazioni. Utilizzare
     questo metodo per creare velocemente personalizzazioni del form che saranno
     utilizzate solo in un singolo template.
@@ -1406,7 +1406,7 @@ array di dati inseriti. Lo si può fare in modo molto facile::
                 $data = $form->getData();
             }
         
-        // ... render the form
+        // ... rendere il form
     }
 
 Per impostazione predefinita, un form ipotizza che si voglia lavorare con array

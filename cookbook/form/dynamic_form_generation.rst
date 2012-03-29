@@ -39,9 +39,9 @@ da questa classe avrà lo stesso aspetto, indipendentemente se un nuovo prodotto
 oppure se un prodotto esistente sta per essere modificato (es. un prodotto ottenuto da database).
 
 Si supponga ora, di non voler abilitare l'utente alla modifica del campo 'nome' 
-una volta che l'oggetto è stato creato. Per fare ciò si può dare un'occhiata al :ref:`Event Dispatcher <book-internals-event-dispatcher>` 
-sistema che analizza l'oggetto e modifica il form basato sull'
-oggetto 'prodotto'. In questa voce, si imparerà come aggiungere questo livello di
+una volta che l'oggetto è stato creato. Per fare ciò si può dare un'occhiata al sistema :ref:`Event Dispatcher <book-internals-event-dispatcher>`,
+che analizza l'oggetto e modifica il form basato sull'
+oggetto 'prodotto'. In questa ricetta si imparerà come aggiungere questo livello di
 flessibilità ai form.
 
 .. _`cookbook-forms-event-subscriber`:
@@ -51,7 +51,7 @@ Aggiungere un evento sottoscrittore alla classe di un form
 
 Invece di aggiungere direttamente il widget "nome" tramite la  classe dei form ProductType 
 si deleghi la responsabilità di creare questo particolare campo
-ad un evento sottoscrittore::
+a un evento sottoscrittore::
 
     //src/Acme/DemoBundle/Form/ProductType.php
     namespace Acme\DemoBundle\Form

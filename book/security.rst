@@ -1050,9 +1050,9 @@ Codificare la password dell'utente
 Finora, per semplicità, tutti gli esempi hanno memorizzato le password dell'utente
 in formato testo (se tali utenti sono memorizzati in un file di configurazione o in
 un qualche database). Naturalmente, in un'applicazione reale, si consiglia per ragioni
-di sicurezza, di codificare le password degli utenti. Questo è facilmente realizzabile
-mappando la classe User in uno dei numerosi built-in "encoder". Per esempio,
-per memorizzare gli utenti in memoria, ma oscurare le lori password tramite ``sha1``,
+di sicurezza di codificare le password degli utenti. Questo è facilmente realizzabile,
+mappando la classe User in uno dei numerosi "encoder" disponibili. Per esempio,
+per memorizzare gli utenti in memoria, ma oscurare le loro password tramite ``sha1``,
 fare come segue:
 
 .. configuration-block::
@@ -1109,16 +1109,16 @@ fare come segue:
             ),
         ));
 
-Impostando le ``iterazioni`` a ``1`` e il ``encode_as_base64`` a false,
+Impostando ``iterations`` a ``1`` ed ``encode_as_base64`` a ``false``,
 è sufficiente eseguire una sola volta l'algoritmo ``sha1`` sulla password e senza
 alcuna codifica supplementare. È ora possibile calcolare l'hash della password a livello di codice
 (ad esempio ``hash('sha1', 'ryanpass')``) o tramite qualche strumento online come `functions-online.com`_
 
-Se si sta creando i propri utenti in modo dinamico (e memorizzarli in un database),
+Se si creano gli utenti in modo dinamico (e si memorizzano in una base dati),
 è possibile utilizzare algoritmi di hash ancora più complessi e poi contare su un oggetto
-encoder oggetto per aiutarti a codificare le password. Per esempio, supponiamo che l'oggetto
-User sia ``Acme\UserBundle\Entity\User`` (come nell'esempio precedente). In primo,
-configurare l'encoder per questo utente:
+encoder, per codificare le password. Per esempio, supponiamo che l'oggetto
+User sia ``Acme\UserBundle\Entity\User`` (come nell'esempio precedente). In primo luogo,
+configurare l'encoder per User:
 
 .. configuration-block::
 
@@ -1154,14 +1154,14 @@ configurare l'encoder per questo utente:
 In questo caso, si utilizza il più forte algoritmo ``sha512``. Inoltre, poiché
 si è semplicemente specificato l'algoritmo (``sha512``) come stringa, il sistema
 per impostazione predefinita farà l'hash 5000 volte in un riga e poi la codificherà
-in base64. In altre parole, la password è stata notevolmente offuscata in modo
-che l'hash della password non può essere decodificato (cioè non è possibile determinare la password
-dall'hash della password).
+in base64. In altre parole, la password è stata notevolmente offuscata, in modo
+che l'hash della password non possa essere decodificato (cioè non è possibile determinare la password
+partendo dal suo hash).
 
-Se si ha una qualche form di registrazione per gli utenti, è necessario essere in grado
+Se si ha un form di registrazione per gli utenti, è necessario essere in grado
 di determinare la password con hash, in modo che sia possibile impostarla per l'utente.
 Indipendentemente dall'algoritmo configurato per l'oggetto User, la password con hash
-può essere determinata nel seguente modo da un controllore:
+può essere determinata nel seguente modo, da dentro un controllore:
 
 .. code-block:: php
 
@@ -1210,7 +1210,7 @@ Utilizzare fornitori utenti multipli
 Ogni meccanismo di autenticazione (ad esempio l'autenticazione HTTP, il form di login, ecc.)
 utilizza esattamente un fornitore utenti e, per impostazione predefinita, userà il primo fornitore
 dichiarato. Ma cosa succede se si desidera specificare alcuni utenti tramite configurazione
-e il resto degli utenti nel database? Questo è possibile attraverso la creazione di
+e il resto degli utenti nella base dati? Questo è possibile attraverso la creazione di
 un nuovo fornitore, che li unisca:
 
 .. configuration-block::
@@ -1269,8 +1269,8 @@ l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
 
 .. tip::
 
-    Se no ci sono ragioni per separare gli utenti ``in_memory`` dagli
-    utenti ``user_db``, è possibile ottenere ancora più facilmente questo risultato combinando
+    Se non ci sono ragioni per separare gli utenti ``in_memory`` dagli
+    utenti ``user_db``, è possibile ottenere ancora più facilmente questo risultato, combinando
     le due sorgenti in un unico fornitore:
 
     .. configuration-block::

@@ -8,7 +8,7 @@ Le applicazioni web sono dinamiche. Non importa quanto efficiente possa essere
 la propria applicazione, ogni richiesta conterrà sempre overhead rispetto a quando
 si serve un file statico.
 
-Per la maggior parte delle applicazione, questo non è un problema. Symfony2 è
+Per la maggior parte delle applicazioni, questo non è un problema. Symfony2 è
 molto veloce e, a meno che non si stia facendo qualcosa di veramente molto pesante,
 ogni richiesta sarà gestita rapidamente, senza stressare troppo il server.
 
@@ -46,7 +46,7 @@ passi:
   e il client. Symfony2 fornisce impostazioni predefinite appropriate e una potente
   interfaccia per interagire con gli header di cache.
 
-* **Passo 3**: La :ref:`scadenza e validazione <http-expiration-validation>` HTTP sono
+* **Passo 3**: La :ref:`scadenza e la validazione <http-expiration-validation>` HTTP sono
   due modelli usati per determinare se il contenuto in cache è *fresco* (può
   essere riusato dalla cache) o *vecchio* (andrebbe rigenerato
   dall'applicazione):
@@ -669,7 +669,7 @@ uno schema semplice ed efficiente::
 
 Quando la ``Response`` non è stata modificata, ``isNotModified()`` imposta automaticamente
 il codice di stato della risposta a ``304``, rimuove il contenuto e rimuove alcuni header
-che no devono essere presenti in una risposta ``304`` (vedere
+che non devono essere presenti in una risposta ``304`` (vedere
 :method:`Symfony\\Component\\HttpFoundation\\Response::setNotModified`).
 
 .. index::

@@ -1,4 +1,4 @@
-Generare un controllore CRUD in base a un entità Doctrine
+Generare un controllore CRUD in base a un'entità Doctrine
 =========================================================
 
 Utilizzo
@@ -9,7 +9,7 @@ posta in un dato bundle. Questo controllore consente di eseguire le cinque opera
 base su un modello.
 
 * Elenco di tutte le righe,
-* Visualizzazioone di una riga data, identificata dalla sua chiave primaria,
+* Visualizzazione di una riga data, identificata dalla sua chiave primaria,
 * Creazione di una nuova riga,
 * Modifica di una riga esistente,
 * Cancellazione di una riga esistente.

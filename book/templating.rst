@@ -744,7 +744,7 @@ articoli:
 
         <a href="{{ url('_welcome') }}">Home</a>
 
-    Lo stesso si può fare nei template PH, passando un terzo parametro al metodo
+    Lo stesso si può fare nei template PHP, passando un terzo parametro al metodo
     ``generate()``:
 
     .. code-block:: php

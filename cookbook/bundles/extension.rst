@@ -132,7 +132,7 @@ del bundle con ``Extension``. Per esempio, la classe Extension di
 La presenza della classe precedente vuol dire che si può definire uno spazio dei nomi
 ``acme_hello`` in un qualsiasi file di configurazione. Lo spazio dei nomi ``acme_hello``
 viene dal nome della classe Extension, a cui è stata rimossa la parola ``Extension``
-e posto in minuscolo e con trattini bassi il resto del nome. In altre parole,,
+e posto in minuscolo e con trattini bassi il resto del nome. In altre parole,
 ``AcmeHelloExtension`` diventa ``acme_hello``.
 
 Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
@@ -190,8 +190,8 @@ Si prenda la seguente configurazione:
 
         # app/config/config.yml
         acme_hello:
-            foo: fooValue
-            bar: barValue
+            foo: valoreDiFoo
+            bar: valoreDiBar
 
     .. code-block:: xml
 
@@ -203,8 +203,8 @@ Si prenda la seguente configurazione:
             xmlns:acme_hello="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-            <acme_hello:config foo="fooValue">
-                <acme_hello:bar>barValue</acme_hello:bar>
+            <acme_hello:config foo="valoreDiFoo">
+                <acme_hello:bar>valoreDiBar</acme_hello:bar>
             </acme_hello:config>
 
         </container>
@@ -213,16 +213,16 @@ Si prenda la seguente configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('acme_hello', array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'foo' => 'valoreDiFoo',
+            'bar' => 'valoreDiBar',
         ));
 
 L'array passato al metodo ``load()`` sarà simile a questo::
 
     array(
         array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'foo' => 'valoreDiFoo',
+            'bar' => 'valoreDiBar',
         )
     )
 
@@ -233,12 +233,12 @@ sotto di esso, l'array in uscita sarà simile a questo::
 
     array(
         array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'foo' => 'valoreDiFoo',
+            'bar' => 'valoreDiBar',
         ),
         array(
-            'foo' => 'fooDevValue',
-            'baz' => 'newConfigEntry',
+            'foo' => 'valoreDevDiFoo',
+            'baz' => 'nuovaVoceDiConfig',
         ),
     )
 

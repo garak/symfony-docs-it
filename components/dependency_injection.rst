@@ -48,7 +48,7 @@ La si può registrare nel contenitore come servizio:
     $sc = new ContainerBuilder();
     $sc->register('mailer', 'Mailer');
 
-Si potrebbe migliorare la classe, per renderla più flessibile, sarebbe consentire
+Si potrebbe migliorare la classe, per renderla più flessibile, consentendo
 al contenitore di impostare il trasporto usato. Si può cambiare la classe, in modo
 che il trasporto sia passato al costruttore:
 

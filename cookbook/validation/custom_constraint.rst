@@ -108,7 +108,7 @@ validatore corretto::
 
 Come già detto, Symfony2 cercherà automaticamente una classe il cui nome
 sia uguale a quello del vincolo ma con il suffisso ``Validator``. Se il proprio
-validatore di vincoli è definito come servizio, è importante che si faccia l'override
-del metodo ``validatedBy()`` in modo tale che restituisca l'alias utilizzato
-nella definizione del servizio altrimenti Symfony2 non utilizzerà il servizio di validazione
+validatore di vincoli è definito come servizio, è importante che si sovrascriva
+il metodo ``validatedBy()``, in modo tale che restituisca l'alias utilizzato
+nella definizione del servizio, altrimenti Symfony2 non utilizzerà il servizio di validazione
 dei vincoli e istanzierà la classe senza che le dipendenze vengano iniettate.

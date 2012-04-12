@@ -3,7 +3,7 @@ Come gestire il caricamento di file con Doctrine
 
 La gestione del caricamento dei file tramite le entità di Doctrine non è diversa
 da qualsiasi altro tipo di caricamento. In altre parole si è liberi di spostare 
-il file nel controllore dopo aver gestito l'invio tramite una form. Per alcuni esempi
+il file nel controllore dopo aver gestito l'invio tramite un form. Per alcuni esempi
 in merito fare riferimento alla pagina :doc:`dedicata ai file type</reference/forms/types/file>`.
 
 Volendo è anche possibile integrare il caricamento del file nel ciclo di vita di

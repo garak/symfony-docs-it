@@ -2,8 +2,7 @@ Estensioni di Doctrine: Timestampable: Sluggable, Translatable, ecc.
 ====================================================================
 
 Doctrine2 è molto flessibile e la comunità ha già creato una serie di utili
-estensioni di Doctrine, per aiutare nei compiti più comuni relativi alle
-entità.
+estensioni di Doctrine, per aiutare nei compiti più comuni relativi alle entità.
 
 In paricolare, il bundle `DoctrineExtensionsBundle`_ fornisce integrazione con una
 libreria di estensioni, che offre i comportamenti `Sluggable`_, `Translatable`_,

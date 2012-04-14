@@ -821,6 +821,118 @@ La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 
+Tradurre i messaggi dei vincoli
+-------------------------------
+
+Il modo migliore per capire la traduzione dei vincoli è vederla in azione. Per iniziare,
+supponiamo di aver creato un caro vecchio oggetto PHP, che dobbiamo usare da qualche
+parte nella nostra applicazione:
+
+.. code-block:: php
+
+    // src/Acme/BlogBundle/Entity/Author.php
+    namespace Acme\BlogBundle\Entity;
+
+    class Author
+    {
+        public $name;
+    }
+
+Aggiungere i vincoli tramite uno dei metodi supportati. Impostare l'opzione del messaggio
+al testo sorgente della traduzione. Per esempio, per assicurarsi che la proprietà $name
+non sia vuota, aggiungere il seguente:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                name:
+                    - NotBlank: { message: "author.name.not_blank" }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\NotBlank(message = "author.name.not_blank")
+             */
+            public $name;
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="name">
+                    <constraint name="NotBlank">
+                        <option name="message">author.name.not_blank</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints\NotBlank;
+
+        class Author
+        {
+            public $name;
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('name', new NotBlank(array(
+                    'message' => 'author.name.not_blank'
+                )));
+            }
+        }
+
+Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei vincoli, tipicamente nella cartella
+``Resources/translations/`` del bundle. Vedere `Cataloghi di messaggi`_ per maggiori dettagli.
+
+.. configuration-block::
+
+    .. code-block:: xml
+
+        <!-- validators.fr.xliff -->
+        <?xml version="1.0"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en" datatype="plaintext" original="file.ext">
+                <body>
+                    <trans-unit id="1">
+                        <source>author.name.not_blank</source>
+                        <target>Inserire un nome per l'autore.</target>
+                    </trans-unit>
+                </body>
+            </file>
+        </xliff>
+
+    .. code-block:: php
+
+        // validators.fr.php
+        return array(
+            'author.name.not_blank' => 'Inserire un nome per l'autore.',
+        );
+
+    .. code-block:: yaml
+
+        # validators.fr.yml
+        author.name.not_blank: Inserire un nome per l'autore.
+
 Riepilogo
 ---------
 

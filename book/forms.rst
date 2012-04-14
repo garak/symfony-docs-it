@@ -528,12 +528,9 @@ i valori corretti di una serie di opzioni del campo.
   (vale a dire se il campo è ``nullable``). Questo è molto utile, perché la validazione
   lato client corrisponderà automaticamente alle vostre regole di validazione.   
 
-* ``min_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione
-  ``min_length`` può essere indovinata dai vincoli di validazione (se viene utilizzato
-  ``MinLength`` o ``Min``) o dai metadati Doctrine (tramite la lunghezza del campo).
-
-* ``max_length``: Similmente a ``min_length``, può anche essere indovinata la
-  lunghezza massima.
+* ``max_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione
+  ``max_length`` può essere indovinata dai vincoli di validazione (se viene utilizzato
+  ``MaxLength`` o ``Max``) o dai metadati Doctrine (tramite la lunghezza del campo).
 
 .. note::
 
@@ -1085,6 +1082,8 @@ rende il form:
 
         {% form_theme form 'AcmeTaskBundle:Form:fields.html.twig' %}
 
+        {% form_theme form 'AcmeTaskBundle:Form:fields.html.twig' 'AcmeTaskBundle:Form:fields2.html.twig' %}
+
         <form ...>
 
     .. code-block:: html+php
@@ -1093,6 +1092,8 @@ rende il form:
 
         <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form')) ?>
 
+        <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form', 'AcmeTaskBundle:Form')) ?>
+
         <form ...>
 
 Il tag ``form_theme`` (in Twig) "importa" i frammenti definiti nel dato
@@ -1100,6 +1101,13 @@ template e li usa quando deve rendere il form. In altre parole, quando la
 funzione ``form_row`` è successivamente chiamata in questo template, utilizzerà il
 blocco ``field_row`` dal tema personalizzato (al posto del blocco predefinito ``field_row``
 fornito con Symfony).
+
+Il tema personalizzato non deve necessariamente sovrascrivere tutti i blocchi. Quando viene
+reso un blocco non sovrascritto nel proprio tema personalizzato, il sistema dei temi userà
+il tema globale (definito a livello di bundle).
+
+Se sono forniti più temi personalizzati, saranno cercati nell'ordine fornito, prima
+di usare il tema globale.
 
 Per personalizzare una qualsiasi parte di un form, basta sovrascrivere il frammento
 appropriato. Sapere esattamente qual è il blocco o il file da sovrascrivere è l'oggetto

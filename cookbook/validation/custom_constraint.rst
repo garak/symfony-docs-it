@@ -19,9 +19,9 @@ i vincoli di :doc:`Url</reference/constraints/Url>` includono le proprietà
     /**
      * @Annotation
      */
-    class Url extends Constraint
+    class Protocol extends Constraint
     {
-        public $message = 'This value is not a valid URL';
+        public $message = 'Questo valore non è un protocollo valido';
         public $protocols = array('http', 'https', 'ftp', 'ftps');
     }
 
@@ -48,23 +48,33 @@ Symfony2, automaticamente, cercherà anche un'altra la classe, ``MioVincoloValid
 per effettuare la validazione vera e propria.
 
 Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio: ``isValid``.
-Si prenda, ad esempio, la classe ``NotBlankValidator``:
+Si prenda, ad esempio, la classe ``ProtocolValidator``:
 
 .. code-block:: php
 
-    class NotBlankValidator extends ConstraintValidator
+    namespace Symfony\Component\Validator\Constraints;
+    
+    use Symfony\Component\Validator\Constraint;
+    use Symfony\Component\Validator\ConstraintValidator;
+
+    class ProtocolValidator extends ConstraintValidator
     {
         public function isValid($value, Constraint $constraint)
         {
-            if (null === $value || '' === $value) {
-                $this->setMessage($constraint->message);
+            if (in_array($value, $constraint->protocols)) {
+                $this->setMessage($constraint->message, array('%protocols%' => $constraint->protocols));
 
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
+
+.. note::
+
+    Non dimenticare di richiamare ``setMessage`` per costruire un messaggio di errore quando
+    il valore non è valido.
 
 Validatori di vincoli con dipendenze
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

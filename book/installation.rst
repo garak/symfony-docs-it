@@ -22,6 +22,8 @@ Scaricare una distribuzione Symfony2
     Verificare innanzitutto di avere un server web (come Apache) installato
     e funzionante con PHP 5.3.2 o successivi. Per ulteriori informazioni sui 
     requisiti di Symfony2, si veda il :doc:`riferimento sui requisiti</reference/requirements>`.
+    Per informazioni sulla configurazionoe di uno specifico server web, vedere
+    la seguente documentazione: `Apache`_ | `Nginx`_ .
 
 Symfony2 ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
 includono le librerie del nucleo di Symfony2, una selezione di bundle utili e alcune
@@ -213,3 +215,5 @@ scaricare tutte le librerie dei venditori necessarie.
 .. _`http://symfony.com/download`: http://symfony.com/download
 .. _`Git`: http://git-scm.com/
 .. _`GitHub Bootcamp`: http://help.github.com/set-up-git-redirect
+.. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
+.. _`Nginx`: http://wiki.nginx.org/HttpCoreModule#root

@@ -62,9 +62,7 @@ contenente il seguente codice::
     }
 
 You also need to create the file to run at the command line which creates
-an ``Application`` and adds commands to it:
-
-.. code-block::php
+an ``Application`` and adds commands to it::
 
     #!/usr/bin/env php
     # app/console
@@ -116,6 +114,18 @@ l'output. Ad esempio::
 
     // testo nero su sfondo rosso
     $output->writeln('<error>pippo</error>');
+
+Si può definire un proprio stile, usando la classe
+:class:`Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle`::
+
+    $style = new OutputFormatterStyle('red', 'yellow', array('bold', 'blink'));
+    $output->getFormatter()->setStyle('fire', $style);
+    $output->writeln('<fire>foo</fire>');
+
+I colori di sfondo e di testo disponibili sono: ``black``, ``red``, ``green``,
+``yellow``, ``blue``, ``magenta``, ``cyan`` e ``white``.
+
+Le opzioni disponibili sono: ``bold``, ``underscore``, ``blink``, ``reverse`` e ``conceal``.
 
 Utilizzo degli argomenti nei comandi
 ------------------------------------

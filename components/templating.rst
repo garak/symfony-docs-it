@@ -31,6 +31,8 @@ convertire il nome di un template in un riferimento a un template, e di un caric
 (:class:`Symfony\\Component\\templating\\Loader\\LoaderInterface`), per trovare il
 template associato a un riferimento.
 
+.. code-block:: php
+
     use Symfony\Component\Templating\PhpEngine;
     use Symfony\Component\Templating\TemplateNameParser;
     use Symfony\Component\Templating\Loader\FilesystemLoader;
@@ -85,6 +87,8 @@ sotto-template, per impostare il suo template padre.
 
 Per usare l'ereditarietà dei template, l'helper :class:`Symfony\\Templating\\Helper\\SlotsHelper`
 deve essere registrato.
+
+.. code-block:: php
 
     use Symfony\Templating\Helper\SlotsHelper;
 

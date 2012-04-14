@@ -222,6 +222,15 @@ Il risultato finale è esattamente lo stesso di prima, la differenza è solo nel
 di dover cercare per parametri con questi nomi. Quando il contenitore è costruito,
 cerca il valore di ogni parametro e lo usa nella definizione del servizio.
 
+.. note::
+
+    Il simbolo di percentuale dentro a un parametro o argomento, come parte della stringa, deve subire
+    un escape con un ulteriore simbolo di percentuale:
+    
+    .. code-block:: xml
+
+        <argument type="string">http://symfony.com/?pippo=%%s&pluto=%%d</argument>
+
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
 I parametri, tuttavia, hanno diversi vantaggi:

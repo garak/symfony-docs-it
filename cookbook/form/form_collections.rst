@@ -192,7 +192,7 @@ Il template corrispondente ora è abilitato a rendere entrambi i campi ``descrip
 per il form dei task, oltre tutti i form ``TagType``
 che sono relazionati a questo ``Task``. Nel controllore sottostante, viene aggiunto
 del codice fittizio così da poterlo vedere in azione (dato che un ``Task`` non
-ha tags appena viene creato).
+ha tag, appena viene creato).
 
 .. configuration-block::
 
@@ -243,7 +243,7 @@ La collezione ``Tags``è acessibile tramite ``$task->getTags()``
 e può essere persistita nella base dati, oppure utilizzata dove necessario.
 
 Finora, tutto ciò funziona bene, ma questo non permette di aggiungere nuovi dinamicamente 
-todo o eliminare todo esistenti. Quindi, la modifica dei todo esistenti funziona 
+tag o eliminare tag esistenti. Quindi, la modifica dei tag esistenti funziona 
 bene, ma ancora non si possono aggiungere nuovi tag.
 
 .. _cookbook-form-collections-new-prototype:
@@ -279,11 +279,11 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
 Da notare che è stata aggiunto  ``'by_reference' => false``. Normalmente, il framework dei form
 modificherebbe i tag su un oggetto `Task`, *senza* effettivamente nemmeno
 richiamare `setTags`. Impostando :ref:`by_reference<reference-form-types-by-reference>`
-a `false`, `setTags` sarà richiamato. Questo sarà importante più afvanti, come 
+a `false`, `setTags` sarà richiamato. Questo sarà importante più avanti, come 
 vedremo.
 
 Oltre a dire al campo di accettare un numero qualsiasi di oggetti inviati, l'opzione
-``allow_add` rende anche disponibile una variabile "prototipo". Quest "prototipo" è un
+``allow_add` rende anche disponibile una variabile "prototipo". Questo "prototipo" è un
 piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi nuovo form
 "tag". Per renderlo, eseguire la seguente modifica nel template:
 
@@ -338,22 +338,22 @@ collegare l'evento "click" a tale collegamento, in modo da poter aggiungere un n
 
 .. code-block:: javascript
 
-    // Prendere il div che contiene la lista di tag
+    // Prende il div che contiene la lista di tag
     var collectionHolder = $('ul.tags');
 
-    // preparare un collegamento "aggiungere un tag"
+    // prepara un collegamento "aggiungere un tag"
     var $addTagLink = $('<a href="#" class="add_tag_link">Aggiungere un tag</a>');
     var $newLinkLi = $('<li></li>').append($addTagLink);
 
     jQuery(document).ready(function() {
-        // aggiungere l'ancora "aggiungere un tag" e il li all'ul dei tag
+        // aggiunge l'ancora "aggiungere un tag" e il li all'ul dei tag
         collectionHolder.append($newLinkLi);
 
         $addTagLink.on('click', function(e) {
-            // prevenire il "#" nell'URL
+            // previene il "#" nell'URL
             e.preventDefault();
 
-            // aggiungere un nuovo form tag (vedere il prossimo blocco di codice)
+            // aggiunge un nuovo form tag (vedere il prossimo blocco di codice)
             addTagForm();
         });
     });
@@ -393,7 +393,7 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
 
 .. sidebar:: Doctrine: relazioni a cascata e salvataggio del lato "opposto"
 
-    Per avere i nuovi tag salvati in Doctrine, occore considerare un paio di altri aspetti.
+    Per avere i nuovi tag salvati in Doctrine, occorre considerare un paio di altri aspetti.
     Primo, a meno di non iterare tutti i nuovi oggetti ``Tag`` e richiamare
     ``$em->persist($tag)`` su ciascuno, si riceverà un errore da
     Doctrine:
@@ -468,10 +468,10 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
 Permettere la rimozione di tag
 ------------------------------
 
-The next step is to allow the deletion of a particular item in the collection.
-The solution is similar to allowing tags to be added.
+Il passo successio è consentire la cancellazione di un deterimato elemento dell'elenco.
+La soluzione è simile a quella usata per consentire l'aggiunta di tag.
 
-Start by adding the ``allow_delete`` option in the form Type::
+Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::
     
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     // ...
@@ -488,34 +488,34 @@ Start by adding the ``allow_delete`` option in the form Type::
         ));
     }
 
-Templates Modifications
-~~~~~~~~~~~~~~~~~~~~~~~
+Modifiche ai template
+~~~~~~~~~~~~~~~~~~~~~
     
-The ``allow_delete`` option has one consequence: if an item of a collection 
-isn't sent on submission, the related data is removed from the collection
-on the server. The solution is thus to remove the form element from the DOM.
+L'opzione ``allow_delete`` ha una conseguenza: se un elemento dell'elenco non viene
+inviato, i dati relativi saranno rimossi dall'elenco. La soluzione quindi è quella di
+rimuovere l'elemento dal DOM.
 
-First, add a "delete this tag" link to each tag form:
+Primo, aggiungere un collegamento "eliminare questo tag" a ogni form tag:
 
 .. code-block:: javascript
 
     jQuery(document).ready(function() {
-        // add a delete link to all of the existing tag form li elements
+        // aggiunge un collegamento di eliminazione a ogni elemento tag esistente
         collectionHolder.find('li').each(function() {
             addTagFormDeleteLink($(this));
         });
     
-        // ... the rest of the block from above
+        // ... il resto del blocco visto in precedenza
     });
     
     function addTagForm() {
         // ...
         
-        // add a delete link to the new form
+        // aggiunge un collegamento di eliminazione al nuovo form
         addTagFormDeleteLink($newFormLi);
     }
 
-The ``addTagFormDeleteLink`` function will look something like this:
+La funzione ``addTagFormDeleteLink`` sarà simile a questa:
 
 .. code-block:: javascript
 
@@ -524,37 +524,37 @@ The ``addTagFormDeleteLink`` function will look something like this:
         $tagFormLi.append($removeFormA);
 
         $removeFormA.on('click', function(e) {
-            // prevent the link from creating a "#" on the URL
+            // previene il "#" nell'URL
             e.preventDefault();
 
-            // remove the li for the tag form
+            // rimuove l'elemento li per i form del tag
             $tagFormLi.remove();
         });
     }
 
-When a tag form is removed from the DOM and submitted, the removed ``Tag`` object
-will not be included in the collection passed to ``setTags``. Depending on
-your persistence layer, this may or may not be enough to actually remove
-the relationship between the removed ``Tag`` and ``Task`` object.
+Quando un form di un tag viene rimosso da DOM e inviato, l'oggetto ``Tag`` rimosso non
+sarà incluso nell'elenco passato a ``setTags``. A seconda del livello di persistenza
+usato, questo potrebbe essere o non essere sufficiente per rimuovere effettivamente la
+relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
 
-.. sidebar:: Doctrine: Ensuring the database persistence
+.. sidebar:: Doctrine: assicurare la persistenza nella base dati
 
-    When removing objects in this way, you may need to do a little bit more
-    work to ensure that the relationship between the Task and the removed Tag
-    is properly removed.
+    Quando si rimuovono gli oggetti in questo modo, potrebbe essere necessario un po' di
+    lavoro ulteriore per assicurare che la relazione tra il Task e il Tag rimosso sia
+    propriamente eliminata.
 
-    In Doctrine, you have two side of the relationship: the owning side and the
-    inverse side. Normally in this case you'll have a ManyToMany relation
-    and the deleted tags will disappear and persist correctly (adding new
-    tags also works effortlessly).
+    In Doctrine, si hanno due lati di una relazione: il lato di apparteneza e il lato
+    inverso. Normalmente, in questo caso si avrà una relazione ``ManyToMany`` e i tag
+    cancellati spariranno e saranno persistiti correttamente (e anche l'aggiunta di nuovi
+    tag funzionerà senza sforzi ulteriori).
 
-    But if you have an ``OneToMany`` relation or a ``ManyToMany`` with a
-    ``mappedBy`` on the Task entity (meaning Task is the "inverse" side),
-    you'll need to do more work for the removed tags to persist correctly.
-
-    In this case, you can modify the controller to remove the relationship
-    on the removed tag. This assumes that you have some ``editAction`` which
-    is handling the "update" of your Task::
+    Se invece si ha una relazione ``OneToMany``, o una ``ManyToMany`` con un
+    ``mappedBy`` sull'entità Task (e quindi Task è il lato inverso),
+    servirà del lavoro supplementare per persistere correttamente i tag rimossi.
+    
+    In questo caso, si può modificare il controllore per eliminare la relazione con il
+    tag rimosso. Si ipotizza che si abbia un'azione ``editAction``, che gestisce
+    l'aggiornamento del Task::
 
         // src/Acme/TaskBundle/Controller/TaskController.php
         // ...
@@ -568,7 +568,7 @@ the relationship between the removed ``Tag`` and ``Task`` object.
                 throw $this->createNotFoundException('No task found for is '.$id);
             }
 
-            // Create an array of the current Tag objects in the database
+            // Crea un array degli oggetti Tag attualmente nella base dati
             foreach ($task->getTags() as $tag) $originalTags[] = $tag;
           
             $editForm = $this->createForm(new TaskType(), $task);
@@ -578,7 +578,7 @@ the relationship between the removed ``Tag`` and ``Task`` object.
 
                 if ($editForm->isValid()) {
         
-                    // filter $originalTags to contain tags no longer present
+                    // filtra $originalTags per contenere i tag non più presenti
                     foreach ($task->getTags() as $tag) {
                         foreach ($originalTags as $key => $toDel) {
                             if ($toDel->getId() === $tag->getId()) {
@@ -587,36 +587,36 @@ the relationship between the removed ``Tag`` and ``Task`` object.
                         }
                     }
 
-                    // remove the relationship between the tag and the Task
+                    // rimuove la relazione tra tag e Task
                     foreach ($originalTags as $tag) {
-                        // remove the Task from the Tag
+                        // rimuove il Task dal Tag
                         $tag->getTasks()->removeElement($task);
     
-                        // if it were a ManyToOne relationship, remove the relationship like this
+                        // se ci fosse una relazione ManyToOne, rimuoverla in questo modo
                         // $tag->setTask(null);
                         
                         $em->persist($tag);
 
-                        // if you wanted to delete the Tag entirely, you can also do that
+                        // se si vuole eliminare del tutto il Tag, si può anche fare così
                         // $em->remove($tag);
                     }
 
                     $em->persist($task);
                     $em->flush();
 
-                    // redirect back to some edit page
+                    // ritorna a una pagina di modifica
                     return $this->redirect($this->generateUrl('task_edit', array('id' => $id)));
                 }
             }
             
-            // render some form template
+            // rendere un template del form
         }
 
-    As you can see, adding and removing the elements correctly can be tricky.
-    Unless you have a ManyToMany relationship where Task is the "owning" side,
-    you'll need to do extra work to make sure that the relationship is properly
-    updated (whether you're adding new tags or removing existing tags) on
-    each Tag object itself.
+    Come si può vedere, aggiungere e rimuovere correttamente gli elementi può non essere banale.
+    A meno che non si abbia una relazione ``ManyToMany`` in cui il Task è il lato di appartenenza,
+    occorrerà del lavoro ulteriore per assicurarsi che la relazione sia aggiornata
+    correttamente (si per l'aggiunta di nuovi tag che per la rimozione di tag esistenti)
+    per ogni oggetto Tag.
 
 
 .. _`lato di appartenenza e il lato inverso`: http://docs.doctrine-project.org/en/latest/reference/unitofwork-associations.html

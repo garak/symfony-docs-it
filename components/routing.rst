@@ -14,7 +14,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Routing);
-* Installandolo via PEAR ( `pear.symfony.com/Routing`);
+* Installandolo via PEAR (`pear.symfony.com/Routing`);
 * Installandolo via Composer (`symfony/routing` su Packagist).
 
 Utilizzo

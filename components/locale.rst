@@ -27,7 +27,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Locale);
-* Installarlo via PEAR ( `pear.symfony.com/Locale`);
+* Installarlo via PEAR (`pear.symfony.com/Locale`);
 * Installarlo via Composer (`symfony/locale` su Packagist).
 
 Uso

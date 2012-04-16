@@ -12,7 +12,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Process);
-* Installarlo via PEAR ( `pear.symfony.com/Process`);
+* Installarlo via PEAR (`pear.symfony.com/Process`);
 * Installarlo via Composer (`symfony/process` su Packagist).
 
 Uso

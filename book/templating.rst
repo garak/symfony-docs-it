@@ -759,7 +759,7 @@ Collegare le risorse
 
 I template solitamente hanno anche riferimenti a immagini, Javascript, fogli di stile e
 altre risorse. Certamente, si potrebbe inserire manualmente il percorso a tali risorse
-(p.e. ``/images/logo.png``), ma Symfony2 fornisce un'opzione più dinamica, tramite la funzione ``assets`` di Twig:
+(p.e. ``/images/logo.png``), ma Symfony2 fornisce un'opzione più dinamica, tramite la funzione ``asset`` di Twig:
 
 .. configuration-block::
 

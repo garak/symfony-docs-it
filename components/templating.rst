@@ -18,7 +18,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Templating);
-* Installarlo via PEAR ( `pear.symfony.com/Templating`);
+* Installarlo via PEAR (`pear.symfony.com/Templating`);
 * Installarlo via Composer (`symfony/templating` su Packagist).
 
 Uso
@@ -51,8 +51,8 @@ file `views/hello.php` e restituisce il testo di output.
     <!-- views/hello.php -->
     Hello, <?php echo $firstname ?>!
 
-Ereditarietà dei teemplate con gli slot
----------------------------------------
+Ereditarietà dei template con gli slot
+--------------------------------------
 
 L'ereditarietà dei template è pensata per condividere dei layout tra template diversi.
 
@@ -68,7 +68,7 @@ L'ereditarietà dei template è pensata per condividere dei layout tra template 
         </body>
     </html>
 
-Il :method:`Symfony\\Templating\\PhpEngine::extend` è richiamato nel
+Il metodo :method:`Symfony\\Templating\\PhpEngine::extend` è richiamato nel
 sotto-template, per impostare il suo template padre.
 
 .. code-block:: php

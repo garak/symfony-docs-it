@@ -13,7 +13,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Finder);
-* Installandolo via PEAR ( `pear.symfony.com/Finder`);
+* Installandolo via PEAR (`pear.symfony.com/Finder`);
 * Installandolo tramite Composer (`symfony/finder` su Packagist).
 
 Utilizzo

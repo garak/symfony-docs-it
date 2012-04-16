@@ -21,7 +21,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation);
-* Installarlo via PEAR ( `pear.symfony.com/HttpFoundation`);
+* Installarlo via PEAR (`pear.symfony.com/HttpFoundation`);
 * Installarlo via Composer (`symfony/http-foundation` su Packagist).
 
 Richiesta

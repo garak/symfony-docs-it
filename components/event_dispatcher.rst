@@ -49,7 +49,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher);
-* Installarlo via PEAR ( `pear.symfony.com/EventDispatcher`);
+* Installarlo via PEAR (`pear.symfony.com/EventDispatcher`);
 * Installarlo via Composer (`symfony/event-dispatcher` su Packagist).
 
 Uso
@@ -68,7 +68,7 @@ spesso contiene dei dati sull'evento distribuito.
    pair: Event Dispatcher; Convenzioni sui nomi
 
 Convenzioni sui nomi
---..................
+....................
 
 Il nome univoco dell'evento può essere una stringa qualsiasi, ma segue facoltativamente
 alcune semplici convenzioni di nomenclatura:
@@ -93,7 +93,8 @@ Nomi di eventi e oggetti Event
 
 Quando il distributore notifica gli ascoltatori, passa loro un oggetto ``Event``.
 La classe base ``Event`` è molto semplice: contiene un metodo per fermare la
-:ref:`propagazione degli eventi<event_dispatcher-event-propagation>`, non molto di più.
+:ref:`propagazione degli eventi<event_dispatcher-event-propagation>`, non molto
+di più.
 
 Spesso, i dati su uno specifico evento devono essere passati insieme all'oggetto
 ``Event``, in modo che gli ascoltatori ottengano le informazioni necessarie. Nel caso
@@ -345,17 +346,21 @@ quindi usare la dependency injection.
 
 Si può usare una constructor injection::
 
+    use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
     class Foo
     {
         protected $dispatcher = null;
 
-        public function __construct(EventDispatcher $dispatcher)
+        public function __construct(EventDispatcherInterface $dispatcher)
         {
             $this->dispatcher = $dispatcher;
         }
     }
 
 Oppure una setter injection::
+
+    use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
     class Foo
     {
@@ -371,20 +376,6 @@ La scelta tra i due alla fine è una questione di gusti. Alcuni preferiscono la
 constructor injection, perché gli oggetti sono inizializzati in pieno al momento
 della costruzione. Ma, quando si ha una lunga lista di dipendenza, usare la
 setter injection può essere il modo migliore, specialmente per le dipendenze opzionali.
-
-.. tip::
-
-    Se si usa la dependency injection come negli esempi sopra, si può usare il
-    `componente Dependency Injection di Symfony2`_ per gestire questi oggetti
-    in modo elegante.
-
-        .. code-block:: yaml
-
-            # src/Acme/HelloBundle/Resources/config/services.yml
-            services:
-                foo_service:
-                    class: Acme/HelloBundle/Foo/FooService
-                    arguments: [@event_dispatcher]
 
 .. index::
    single: Event Dispatcher; Sottoscrittori
@@ -416,12 +407,26 @@ Si consideri il seguente esempio di un sottoscrittore, che sottoscrive gli event
         static public function getSubscribedEvents()
         {
             return array(
-                'kernel.response' => 'onKernelResponse',
-                'negozio.ordine'  => 'onStoreOrder',
+                'kernel.response' => array(
+                    array('onKernelResponsePre', 10),
+                    array('onKernelResponseMid', 5),
+                    array('onKernelResponsePost', 0),
+                ),
+                'negozio.ordine'  => array('onStoreOrder', 0),
             );
         }
 
-        public function onKernelResponse(FilterResponseEvent $event)
+        public function onKernelResponsePre(FilterResponseEvent $event)
+        {
+            // ...
+        }
+
+        public function onKernelResponseMid(FilterResponseEvent $event)
+        {
+            // ...
+        }
+
+        public function onKernelResponsePost(FilterResponseEvent $event)
         {
             // ...
         }
@@ -448,7 +453,9 @@ sottoscrittore con il distributore, usare il metodo
 Il distributore registrerà automaticamente il sottoscrittore per ciascun evento
 restituito dal metodo ``getSubscribedEvents``. Questo metodo restituisce un array
 indicizzata per nomi di eventi e i cui valori sono o i nomi dei metodi da chiamare o
-array composti dal nome del metodo e da una priorità.
+array composti dal nome del metodo e da una priorità. L'esempio precedentemostra come
+registrare diversi metodi ascoltatori per lo stesso evento in un sottoscrittore e mostra
+anche come passare una priorità a ciascun metodo ascoltatore.
 
 .. index::
    single: Event Dispatcher; Bloccare il flusso degli eventi

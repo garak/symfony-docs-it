@@ -23,7 +23,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Yaml);
-* Installarlo via PEAR ( `pear.symfony.com/Yaml`);
+* Installarlo via PEAR (`pear.symfony.com/Yaml`);
 * Installarlo via Composer (`symfony/yaml` su Packagist).
 
 Perché?

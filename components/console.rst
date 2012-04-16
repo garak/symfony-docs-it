@@ -17,7 +17,7 @@ Installazione
 Il componente può essere installato in diversi modi:
 
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
-* Installandolo via PEAR ( `pear.symfony.com/Console`);
+* Installandolo via PEAR (`pear.symfony.com/Console`);
 * Installandolo via Composer (`symfony/console` in Packagist).
 
 Creazione di comandi di base

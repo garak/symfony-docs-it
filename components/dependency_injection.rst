@@ -200,7 +200,7 @@ Oltre a impostare servizi usando PHP, come sopra, si possono usare dei file di
 configurazione. Per poterlo fare, occorre installare anche il componente Config:
 
 * Usare il repository Git (https://github.com/symfony/Config);
-* Installarlo tramite PEAR ( `pear.symfony.com/Config`);
+* Installarlo tramite PEAR (`pear.symfony.com/Config`);
 * Installarlo tramite Composer (`symfony/config` on Packagist).
 
 Caricare un file di configurazione xml:

@@ -27,7 +27,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/ClassLoader);
-* Installarlo via PEAR ( `pear.symfony.com/ClassLoader`);
+* Installarlo via PEAR (`pear.symfony.com/ClassLoader`);
 * Installarlo via Composer (`symfony/class-loader` su Packagist).
 
 Uso

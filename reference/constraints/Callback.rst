@@ -85,9 +85,7 @@ questi errori vadano attribuiti::
 
             // check if the name is actually a fake name
             if (in_array($this->getFirstName(), $fakeNames)) {
-                $property_path = $context->getPropertyPath() . '.firstName';
-                $context->setPropertyPath($property_path);
-                $context->addViolation('This name sounds totally fake!', array(), null);
+                $context->addViolationAtSubPath('firstname', 'Questo nome  sembra proprio falso!', array(), null);
             }
         }
 

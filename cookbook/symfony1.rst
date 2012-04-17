@@ -87,9 +87,7 @@ un bundle. Con l'aiuto di un comando della console, la cartella ``Resources/publ
 di ogni bundle viene copiata o collegata alla cartella ``web/bundles/``.
 Questo consente di mantenere le risorse organizzate nel proprio bundle, ma ancora
 disponibili pubblicamente. Per assicurarsi che tutti i bundle siano disponibili,
-eseguire il seguente comando:
-
-.. code-block:: bash
+eseguire il seguente comando::
 
     php app/console assets:install web
 
@@ -117,9 +115,7 @@ In Symfony2, una nuova classe, ``UniversalClassLoader`` gestisce questo processo
 L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso lo
 spazio dei nomi) deve corrispondere al percorso del file che contiene tale classe.
 Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di
-Symfony2:
-
-.. code-block:: php
+Symfony2::
 
     namespace Sensio\Bundle\FrameworkExtraBundle;
 
@@ -146,7 +142,7 @@ cartella in cui il file dovrebbe risiedere
     // ...
     $loader->registerNamespaces(array(
         // ...
-        'Sensio'           => __DIR__.'/../vendor/bundles',
+        'Sensio'           => __DIR__.'/../vendor/sensio/framework-extra-bundle',
     ));
 
 Se il file *non* risiede in questa esatta locazione, si riceverà un errore
@@ -214,13 +210,12 @@ separate e così via.
 
 Ovviamente non c'è nulla di sbagliato ad avere più di un'applicazione nel proprio
 progetto, questa scelta è lasciata allo sviluppatore. Una seconda applicazione
-vorrebbe dire una nuova cartella, per esempio ``app2/``, con la stessa struttura
-di base della cartella ``app/``.
+vorrebbe dire una nuova cartella, per esempio ``app2/``, con la stessa struttura di base della cartella ``app/``.
 
 .. tip::
+
    Leggere la definizione di :term:`Progetto`, :term:`Applicazione` e
    :term:`Bundle` nel glossario.
- 
  
 Bundle e plugin
 ---------------
@@ -232,9 +227,8 @@ potente di un plugin, perché il nucleo stesso del framework Symfony2 è costitu
 da una serie di bundle. In Symfony2, i bundle sono cittadini di prima classe e sono
 così flessibili che il nucleo stesso è un bundle.
 
-In symfony1, un plugin deve essere abilitato nella classe ``ProjectConfiguration``:
-
-.. code-block:: php
+In symfony1, un plugin deve essere abilitato nella classe
+``ProjectConfiguration``::
 
     // config/ProjectConfiguration.class.php
     public function setup()
@@ -242,9 +236,7 @@ In symfony1, un plugin deve essere abilitato nella classe ``ProjectConfiguration
         $this->enableAllPluginsExcept(array(/* nomi dei plugin */));
     }
 
-In Symfony2, i bundle sono attivati nel kernel dell'applicazione:
-
-.. code-block:: php
+In Symfony2, i bundle sono attivati nel kernel dell'applicazione::
 
     // app/AppKernel.php
     public function registerBundles()
@@ -255,7 +247,7 @@ In Symfony2, i bundle sono attivati nel kernel dell'applicazione:
             // ...
             new Acme\DemoBundle\AcmeDemoBundle(),
         );
-        
+
         return $bundles;
     }
 
@@ -266,9 +258,7 @@ In symfony1, i file di configurazione ``routing.yml`` e ``app.yml`` sono
 caricati automaticamente all'interno di un plugin. In Symfony2, le rotte e le
 configurazioni dell'applicazioni all'interno di un bundle vanno incluse
 a mano. Per esempio, per inmcludere le rotte di un bundle chiamato ``AcmeDemoBundle``,
-si può fare nel seguente modo:
-
-.. code-block:: yaml
+si può fare nel seguente modo::
 
     # app/config/routing.yml
     _hello:
@@ -306,9 +296,7 @@ della propria configurazione:
     parameters:
         email.from_address: foo.bar@example.com
 
-Si può ora accedervi da un controllore, per esempio:
-
-.. code-block:: php
+Si può ora accedervi da un controllore, per esempio::
 
     public function helloAction($name)
     {

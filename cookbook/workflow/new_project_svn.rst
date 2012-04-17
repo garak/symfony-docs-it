@@ -97,18 +97,14 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
    prendere subito il progetto, copiare questo file in ``parameters.ini``, personalizzarlo
    e iniziare a sviluppare.
 
-8. Infine, scaricare tutte le librerie dei venditori:
-
-    .. code-block:: bash
-    
-        $ php bin/vendors install
+8. Infine, scaricare tutte le librerie dei venditori, eseguendo composer. Per maggiori dettagli,
+   vedere :ref:`installation-updating-vendors`.
 
 .. tip::
 
-    `git`_ deve essere installato per poter eseguire ``bin/vendors``, essendo il protocollo
-    usato per recuperare le librerie. Questo vuol dire che  ``git`` è usato solo come
-    strumento per poter scaricare le librerie nella cartella ``vendor/``.
-
+    Se ci si basa su versioni "dev", ci si può basare su git per installare
+    tali librerie, poiché non dispongono di archivi da scaricare.
+ 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante, memorizzato nel
 proprio repository Subversion. Si può iniziare lo sviluppo, con i commit verso
 il repository.

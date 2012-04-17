@@ -43,8 +43,8 @@ ora avere una cartella ``Symfony/``, come la seguente:
                         Controller/
                         Resources/
                         ...
-                vendor/
-                    symfony/
+            vendor/
+                symfony/
                 doctrine/
                 ...
             web/
@@ -58,7 +58,18 @@ ora avere una cartella ``Symfony/``, come la seguente:
 
     .. code-block:: bash
 
-        php bin/vendors install
+        curl -s http://getcomposer.org/installer | php
+
+    	php composer.phar install
+
+    Se non si ha ``curl`` installato, si può anche scaricare a mano ``installer``
+    da http://getcomposer.org/installer. Mettere il file nel progetto
+    ed eseguire:
+
+    .. code-block:: bash
+
+		php installer
+		php composer.phar install
 
 Verifica della configurazione
 -----------------------------
@@ -138,7 +149,7 @@ sono in quel file:
 
     # app/config/routing_dev.yml
     _welcome:
-            pattern:  /
+        pattern:  /
         defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
     _demo:
@@ -244,7 +255,8 @@ del template e fa riferimento al file
 dentro ``AcmeDemoBundle`` (localizzato in ``src/Acme/DemoBundle``). La sezione successiva
 sui bundle ne spiega l'utilità.
 
-Diamo ora un altro sguardo al file di configurazione delle rotte e cerchiamo la voce ``_demo``:
+Diamo ora un altro sguardo al file di configurazione delle rotte e cerchiamo la voce
+``_demo``:
 
 .. code-block:: yaml
 
@@ -397,8 +409,7 @@ controller di sviluppo (``app_dev.php``) mentre si lavora al progetto.
 
 Diversi :term:`ambienti<ambiente>` di una stessa applicazione differiscono
 solo nella loro configurazione.
-In effetti, una configurazione può ereditare
-da un'altra:
+In effetti, una configurazione può ereditare da un'altra:
 
 .. code-block:: yaml
 

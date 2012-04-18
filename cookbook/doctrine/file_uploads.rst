@@ -2,23 +2,23 @@ Come gestire il caricamento di file con Doctrine
 ================================================
 
 La gestione del caricamento dei file tramite le entità di Doctrine non è diversa
-da qualsiasi altro tipo di caricamento. In altre parole si è liberi di spostare 
-il file nel controllore dopo aver gestito l'invio tramite una form. Per alcuni esempi
-in merito fare riferimento alla pagina :doc:`dedicata ai file type</reference/forms/types/file>`.
+da qualsiasi altro tipo di caricamento. In altre parole, si è liberi di spostare 
+il file nel controllore dopo aver gestito l'invio tramite un form. Per alcuni esempi
+in merito fare riferimento alla pagina :doc:`dedicata al tipo file</reference/forms/types/file>`.
 
-Volendo è anche possibile integrare il caricamento del file nel ciclo di vita di
+Volendo, è anche possibile integrare il caricamento del file nel ciclo di vita di
 un'entità (creazione, modifica e cancellazione). In questo caso, nel momento
-in cui l'entità viene creata, modificata, o cancellata da Doctrine, il caricamento
+in cui l'entità viene creata, modificata o cancellata da Doctrine, il caricamento
 del file o il processo di rimozione verranno azionati automaticamente (senza dover
 fare nulla nel controllore);
 
-Per far funzionare tutto questo è necessario conoscere alcuni dettagli che verranno
+Per far funzionare tutto questo è necessario conoscere alcuni dettagli, che verranno
 analizzati in questa sezione del ricettario.
 
 Preparazione
 ------------
 
-Innanzitutto creare una semplice classe entità di Doctrine, su cui lavorare::
+Innanzitutto, creare una semplice classe entità di Doctrine, su cui lavorare::
 
     // src/Acme/DemoBundle/Entity/Document.php
     namespace Acme\DemoBundle\Entity;
@@ -67,22 +67,22 @@ Innanzitutto creare una semplice classe entità di Doctrine, su cui lavorare::
 
         protected function getUploadDir()
         {
-            // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+            // togliamo __DIR_ in modo da visualizzare correttamente nella vista il file caricato
             return 'uploads/documents';
         }
     }
 
 L'entità ``Document`` ha un nome che viene associato al file. La proprietà ``path``
-contiene il percorso relativo al file e viene memorizzata sul database. Il metodo
+contiene il percorso relativo al file e viene memorizzata nella base dati. Il metodo
 ``getAbsolutePath()`` è un metodo di supporto che restituisce il percorso assoluto
-al file mentre il ``getWebPath()`` è un altro metodo di supporto che restituisce
-il percorso web che può essere utilizzato nei template per collegare il file
+al file, mentre ``getWebPath()`` è un altro metodo di supporto che restituisce
+il percorso web, che può essere utilizzato nei template per collegare il file
 caricato.
 
 .. tip::
 
     Se non è già stato fatto, si consiglia la lettura della documentazione relativa
-    ai :doc:`file</reference/forms/types/file>` type per comprendere meglio come
+    al tipo :doc:`file</reference/forms/types/file>`, per comprendere meglio come
     funziona il caricamento di base.
 
 .. note::
@@ -91,7 +91,7 @@ caricato.
     (come nell'esempio proposto), assicurarsi di abilitare la validazione tramite
     annotazioni (confrontare :ref:`configurazione della validazione<book-validation-configuration>`).
 
-Per gestire il file attualmente caricato tramite il form utilizzare un campo
+Per gestire il file attualmente caricato tramite il form, utilizzare un campo
 ``file`` "virtuale". Per esempio, se si sta realizzando il form direttamente
 nel controller, potrebbe essere come il seguente::
 
@@ -181,7 +181,7 @@ Il controllore precedente memorizzerà automaticamente l'entità ``Document`` co
 il nome inviato, ma non farà nulla relativamente al file e la proprietà ``path``
 sarà vuota.
 
-Un modo semplice per gestire il caricamento del file è quello si spostarlo appena
+Un modo semplice per gestire il caricamento del file è quello di spostarlo appena
 prima che l'entità venga memorizzata, impostando la proprietà ``path`` in modo
 corretto. Iniziare invocando un nuovo metodo ``upload()``, che si creerà tra poco
 per gestire il caricamento del file, nella classe ``Document``::
@@ -197,7 +197,7 @@ per gestire il caricamento del file, nella classe ``Document``::
         $this->redirect('...');
     }
 
-Il metodo ``upload()`` sfrutterà l'oggetto :class:`Symfony\\Component\\HttpFoundation\\File\\UploadedFile`
+Il metodo ``upload()`` sfrutterà l'oggetto :class:`Symfony\\Component\\HttpFoundation\\File\\UploadedFile`,
 che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
 
     public function upload()
@@ -229,12 +229,12 @@ già essere stato spostato nella sua posizione finale anche se la proprietà
 ``path`` dell'entità non fosse stata impostata correttamente.
 
 Per evitare questo tipo di problemi, è necessario modificare l'implementazione in
-modo tale da rendere atomiche le azioni del database e dello spostamento del file:
+modo tale da rendere atomiche le azioni della base dati e dello spostamento del file:
 se si verificasse un problema durante la memorizzazione dell'entità, o se il file non
 potesse essere spostato, allora non dovrebbe succedere *niente*.
 
 Per fare questo, è necessario spostare il file nello stesso momento in cui Doctrine
-memorizza l'entità sul database. Questo può essere fatto agganciandosi a un callback
+memorizza l'entità nella base dati. Questo può essere fatto agganciandosi a un callback
 del ciclo di vita dell'entità::
 
     /**
@@ -279,7 +279,7 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
             
             // se si verifica un errore mentre il file viene spostato viene 
             // lanciata automaticamente un'eccezione da move(). Questo eviterà
-            // la memorizzazione dell'entità su database in caso di errore
+            // la memorizzazione dell'entità nella base dati in caso di errore
             $this->file->move($this->getUploadRootDir(), $this->path);
 
             unset($this->file);
@@ -303,7 +303,7 @@ l'entità viene eliminata.
 .. note::
 
     Le callback ``@ORM\PrePersist()`` e ``@ORM\PostPersist()`` scattano prima e
-    dopo la memorizzazione di un'entità sul database. Parallelamente le callback
+    dopo la memorizzazione di un'entità nella base dati. Parallelamente, le callback
     ``@ORM\PreUpdate()`` e ``@ORM\PostUpdate()`` vengono invocate quanto l'entità
     viene modificata.
 
@@ -354,7 +354,7 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
             }
 
             // qui si deve lanciare un'eccezione se il file non può essere spostato
-            // per fare in modo che l'entità non possa essere memorizzata a database
+            // per fare in modo che l'entità non possa essere memorizzata nella base dati
             $this->file->move($this->getUploadRootDir(), $this->id.'.'.$this->file->guessExtension());
 
             unset($this->file);

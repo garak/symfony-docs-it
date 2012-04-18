@@ -170,4 +170,4 @@ Il secondo comando genera tutti i getter e i setter per le proprietà delle clas
 ``BlogPost`` e ``BlogComment``. Le entità generate sono ora pronte per essere
 usate.
 
-.. _`documentazione sugli strumenti di Doctrine`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/tools.html#reverse-engineering
+.. _`documentazione sugli strumenti di Doctrine`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/tools.html#reverse-engineering

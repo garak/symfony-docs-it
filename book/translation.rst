@@ -316,8 +316,6 @@ di gusti.
     È anche possibile memorizzare le traduzioni in una base dati  o in qualsiasi altro mezzo,
     fornendo una classe personalizzata che implementa
     l'interfaccia :class:`Symfony\\Component\\Translation\\Loader\\LoaderInterface`.
-    Vedere :doc:`Caricatori per le traduzioni personalizzati </cookbook/translation/custom_loader>`
-    di seguito per imparare a registrare caricatori personalizzati.
 
 .. index::
    single: Traduzioni; Creazione delle traduzioni
@@ -556,7 +554,7 @@ definendo un ``default_locale`` per il servizio di sessione:
 Il locale e gli URL
 ~~~~~~~~~~~~~~~~~~~
 
-Dal momento che il locale dell'utente è memorizzato nella sessione, si può essere tentati
+Dal momento che si può memorizzare il locale dell'utente nella sessione, si può essere tentati
 di utilizzare lo stesso URL per visualizzare una risorsa in più lingue in base
 al locale dell'utente. Per esempio, ``http://www.example.com/contact`` può
 mostrare contenuti in inglese per un utente e in francese per un altro. Purtroppo
@@ -798,6 +796,18 @@ di testo* ed espressioni complesse:
             {# le stringhe statiche non sono mai sotto escape #}
             {{ '<h3>foo</h3>'|trans }}
 
+.. versionadded:: 2.1
+
+     Si può impostare il dominio di traduzione per un intero template Twig con un
+     singolo tag:
+
+     .. code-block:: jinja
+
+            {% trans_default_domain "app" %}
+
+     Notare che questo influenza solo il template attuale, non tutti i template "inclusi"
+     (in modo da evitare effetti collaterali).
+
 Template PHP
 ~~~~~~~~~~~~
 
@@ -817,7 +827,7 @@ l'helper ``translator``:
 Forzare il locale della traduzione
 ----------------------------------
 
-Quando si traduce un messaggio, Symfony2 utilizza il lodale della sessione utente
+Quando si traduce un messaggio, Symfony2 utilizza il locale della richiesta corrente
 o il locale ``fallback`` se necessario. È anche possibile specificare manualmente il
 locale da usare per la traduzione:
 
@@ -845,7 +855,118 @@ La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 
-Riassunto
+Tradurre i messaggi dei vincoli
+-------------------------------
+
+Il modo migliore per capire la traduzione dei vincoli è vederla in azione. Per iniziare,
+supponiamo di aver creato un caro vecchio oggetto PHP, che dobbiamo usare da qualche
+parte nella nostra applicazione:
+
+.. code-block:: php
+
+    // src/Acme/BlogBundle/Entity/Author.php
+    namespace Acme\BlogBundle\Entity;
+
+    class Author
+    {
+        public $name;
+    }
+
+Aggiungere i vincoli tramite uno dei metodi supportati. Impostare l'opzione del messaggio
+al testo sorgente della traduzione. Per esempio, per assicurarsi che la proprietà $name
+non sia vuota, aggiungere il seguente:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                name:
+                    - NotBlank: { message: "author.name.not_blank" }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\NotBlank(message = "author.name.not_blank")
+             */
+            public $name;
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="name">
+                    <constraint name="NotBlank">
+                        <option name="message">author.name.not_blank</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints\NotBlank;
+
+        class Author
+        {
+            public $name;
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('name', new NotBlank(array(
+                    'message' => 'author.name.not_blank'
+                )));
+            }
+        }
+
+Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei vincoli, tipicamente nella cartella ``Resources/translations/`` del bundle. Vedere `Cataloghi di messaggi`_ per maggiori dettagli.
+
+.. configuration-block::
+
+    .. code-block:: xml
+
+        <!-- validators.fr.xliff -->
+        <?xml version="1.0"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en" datatype="plaintext" original="file.ext">
+                <body>
+                    <trans-unit id="1">
+                        <source>author.name.not_blank</source>
+                        <target>Inserire un nome per l'autore.</target>
+                    </trans-unit>
+                </body>
+            </file>
+        </xliff>
+
+    .. code-block:: php
+
+        // validators.fr.php
+        return array(
+            'author.name.not_blank' => 'Inserire un nome per l'autore.',
+        );
+
+    .. code-block:: yaml
+
+        # validators.fr.yml
+        author.name.not_blank: Inserire un nome per l'autore.
+
+Riepilogo
 ---------
 
 Con il componente Translation di Symfony2, la creazione e l'internazionalizzazione di applicazioni

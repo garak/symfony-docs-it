@@ -22,6 +22,8 @@ Scaricare una distribuzione Symfony2
     Verificare innanzitutto di avere un server web (come Apache) installato
     e funzionante con PHP 5.3.2 o successivi. Per ulteriori informazioni sui 
     requisiti di Symfony2, si veda il :doc:`riferimento sui requisiti</reference/requirements>`.
+    Per informazioni sulla configurazione di uno specifico server web, vedere
+    la seguente documentazione: `Apache`_ | `Nginx`_ .
 
 Symfony2 ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
 includono le librerie del nucleo di Symfony2, una selezione di bundle utili e alcune
@@ -71,20 +73,40 @@ assomiglia a questa:
                 app.php
                 ...
 
+.. _installation-updating-vendors:
+
 Aggiornare i venditori
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Alla fine, se la scelta è caduta sull'archivio senza venditori, installare i
-venditori eseguendo dalla linea di comando la seguente istruzione:
+Passo 1: Ottenere `Composer`_ (il nuovo bellissimo sistema di pacchetti PHP)
 
 .. code-block:: bash
 
-    php bin/vendors install
+    curl -s http://getcomposer.org/installer | php
+
+Ci si assicuri di scaricare ``composer.phar`` nella stessa cartella in cui risiede
+il file ``composer.json`` (per impostazione predefinita, la radice del progetto
+Symfony).
+
+Passo 2: Installare i venditori
+
+.. code-block:: bash
+
+    php composer.phar install
 
 Questo comando scarica tutte le librerie dei venditori necessarie, incluso
-Symfony stesso, nella cartella ``vendor/``. Per ulteriori informazioni sulla
-gestione delle librerie di venditori di terze parti in Symfony2, si veda
-":ref:`cookbook-managing-vendor-libraries`".
+Symfony stesso, nella cartella ``vendor/``.
+
+.. note::
+
+	Se non si ha ``curl`` installato, si può anche scaricare il file ``installer``
+    a mano, da http://getcomposer.org/installer. Mettere il file nel progetto ed
+	eseguire:
+
+	.. code-block:: bash
+
+		php installer
+		php composer.phar install
 
 Configurazione
 ~~~~~~~~~~~~~~
@@ -206,10 +228,13 @@ seguente riga:
 
 Ora la cartella dei venditori non sarà inviata in commit al controllo di sorgenti.
 Questo è bene (anzi, benissimo!) perché quando qualcun altro clonerà o farà checkout
-del progetto, potrà semplicemente eseguire lo script ``php bin/vendors install`` per
+del progetto, potrà semplicemente eseguire lo script ``php composer.phar install`` per
 scaricare tutte le librerie dei venditori necessarie.
 
 .. _`abilitare il supporto ACL`: https://help.ubuntu.com/community/FilePermissions#ACLs
 .. _`http://symfony.com/download`: http://symfony.com/download
 .. _`Git`: http://git-scm.com/
 .. _`GitHub Bootcamp`: http://help.github.com/set-up-git-redirect
+.. _`Composer`: http://getcomposer.org/
+.. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
+.. _`Nginx`: http://wiki.nginx.org/HttpCoreModule#root

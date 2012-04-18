@@ -80,10 +80,10 @@ questi errori vadano attribuiti::
 
         public function isAuthorValid(ExecutionContext $context)
         {
-            // somehow you have an array of "fake names"
+            // si ha in qualche modo un array di nomi fasulli
             $fakeNames = array();
 
-            // check if the name is actually a fake name
+            // verifica se il nome è in effetti un nome fasullo
             if (in_array($this->getFirstName(), $fakeNames)) {
                 $context->addViolationAtSubPath('firstname', 'Questo nome  sembra proprio falso!', array(), null);
             }

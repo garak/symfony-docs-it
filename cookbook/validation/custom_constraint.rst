@@ -19,9 +19,9 @@ i vincoli di :doc:`Url</reference/constraints/Url>` includono le proprietà
     /**
      * @Annotation
      */
-    class Url extends Constraint
+    class Protocol extends Constraint
     {
-        public $message = 'This value is not a valid URL';
+        public $message = 'Questo valore non è un protocollo valido';
         public $protocols = array('http', 'https', 'ftp', 'ftps');
     }
 
@@ -48,23 +48,33 @@ Symfony2, automaticamente, cercherà anche un'altra la classe, ``MioVincoloValid
 per effettuare la validazione vera e propria.
 
 Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio: ``isValid``.
-Si prenda, ad esempio, la classe ``NotBlankValidator``:
+Si prenda, ad esempio, la classe ``ProtocolValidator``:
 
 .. code-block:: php
 
-    class NotBlankValidator extends ConstraintValidator
+    namespace Symfony\Component\Validator\Constraints;
+    
+    use Symfony\Component\Validator\Constraint;
+    use Symfony\Component\Validator\ConstraintValidator;
+
+    class ProtocolValidator extends ConstraintValidator
     {
         public function isValid($value, Constraint $constraint)
         {
-            if (null === $value || '' === $value) {
-                $this->setMessage($constraint->message);
+            if (in_array($value, $constraint->protocols)) {
+                $this->setMessage($constraint->message, array('%protocols%' => $constraint->protocols));
 
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
+
+.. note::
+
+    Non dimenticare di richiamare ``setMessage`` per costruire un messaggio di errore quando
+    il valore non è valido.
 
 Validatori di vincoli con dipendenze
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -108,7 +118,37 @@ validatore corretto::
 
 Come già detto, Symfony2 cercherà automaticamente una classe il cui nome
 sia uguale a quello del vincolo ma con il suffisso ``Validator``. Se il proprio
-validatore di vincoli è definito come servizio, è importante che si faccia l'override
-del metodo ``validatedBy()`` in modo tale che restituisca l'alias utilizzato
-nella definizione del servizio altrimenti Symfony2 non utilizzerà il servizio di validazione
+validatore di vincoli è definito come servizio, è importante che si sovrascriva
+il metodo ``validatedBy()``, in modo tale che restituisca l'alias utilizzato
+nella definizione del servizio, altrimenti Symfony2 non utilizzerà il servizio di validazione
 dei vincoli e istanzierà la classe senza che le dipendenze vengano iniettate.
+
+Validatore con vincolo di classe
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Oltre a validare la proprietà di una classe, un vincolo può avere visibilità su una classe,
+fornendo un bersaglio::
+
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
+
+In questo modo, il metodo ``isValid()`` del validatore accetta un oggetto come primo parametro::
+
+    class ProtocolClassValidator extends ConstraintValidator
+    {
+        public function isValid($protocol, Constraint $constraint)
+        {
+            if ($protocol->getFoo() != $protocol->getBar()) {
+
+                // lega il messaggio di errore alla proprietà foo
+                $this->context->addViolationAtSubPath('foo', $constraint->getMessage(), array(), null);
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+

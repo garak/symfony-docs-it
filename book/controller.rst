@@ -607,8 +607,8 @@ da qualsiasi controllore::
     // in un altro controllore per un'altra richiesta
     $foo = $session->get('foo');
 
-    // imposta il locale dell'utente
-    $session->setLocale('fr');
+    // usa un valore predefinito, se la chiave non esiste
+    $filters = $session->set('filters', array());
 
 Questi attributi rimarranno sull'utente per il resto della sessione
 utente.
@@ -634,7 +634,7 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
         if ($form->isValid()) {
             // fare una qualche elaborazione
 
-            $this->get('session')->setFlash('notice', 'Le modifiche sono state salvate!');
+            $this->get('session')->getFlashBag()->add('notice', 'Le modifiche sono state salvate!');
 
             return $this->redirect($this->generateUrl(...));
         }
@@ -653,19 +653,19 @@ il messaggio ``notice``:
 
     .. code-block:: html+jinja
 
-        {% if app.session.hasFlash('notice') %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
             <div class="flash-notice">
-                {{ app.session.flash('notice') }}
+                {{ flashMessage }}
             </div>
-        {% endif %}
+        {% endfor %}
 
     .. code-block:: php
-    
-        <?php if ($view['session']->hasFlash('notice')): ?>
+
+        <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
             <div class="flash-notice">
-                <?php echo $view['session']->getFlash('notice') ?>
+                <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>
-        <?php endif; ?>
+        <?php endforeach; ?>
 
 Per come sono stati progettati, i messaggi flash sono destinati a vivere esattamente per una richiesta (hanno la
 "durata di un flash"). Sono progettati per essere utilizzati in redirect esattamente come

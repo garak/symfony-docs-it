@@ -126,8 +126,8 @@ un qualsiasi controllore::
     // in un altro controllore per un'altra richiesta
     $foo = $session->get('foo');
 
-    // imposta la localizzazione dell'utente
-    $session->setLocale('fr');
+    // usa una valore predefinito se la chiave non esiste
+    $filters = $session->set('filters', array());
 
 Si possono anche memorizzare piccoli messaggi che saranno disponibili solo per
 la richiesta successiva::

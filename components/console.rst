@@ -17,29 +17,22 @@ Installazione
 Il componente può essere installato in diversi modi:
 
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
-* Installandolo via PEAR ( `pear.symfony.com/Console`);
+* Installandolo via PEAR (`pear.symfony.com/Console`);
 * Installandolo via Composer (`symfony/console` in Packagist).
 
 Creazione di comandi di base
 ----------------------------
 
-Per avere automaticamente a disposizione, sotto Symfony2, un comando a terminale, 
-si crea una cartella ``Command`` all'interno del proprio bundle dentro la quale 
-si inserirà un file, con il suffisso ``Command.php``, per ogni comando che si voglia realizzare. 
-Ad esempio, per estendere l'``AcmeDemoBundle`` (disponibile in Symfony Standard Edition) con 
-un programma che porga il saluto dal terminale, si dovrà creare il file  ``SalutaCommand.php`` 
+Per creare un comando che porga il saluto dal terminale, creare il file  ``SalutaCommand.php``,
 contenente il seguente codice::
 
-    // src/Acme/DemoBundle/Command/GreetCommand.php
-    namespace Acme\DemoBundle\Command;
-
-    use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+    use Symfony\Component\Console\Command\Command;
     use Symfony\Component\Console\Input\InputArgument;
     use Symfony\Component\Console\Input\InputInterface;
     use Symfony\Component\Console\Input\InputOption;
     use Symfony\Component\Console\Output\OutputInterface;
 
-    class SalutaCommand extends ContainerAwareCommand
+    class SalutaCommand extends Command
     {
         protected function configure()
         {
@@ -68,10 +61,8 @@ contenente il seguente codice::
         }
     }
 
-You also need to create the file to run at the command line which creates
-an ``Application`` and adds commands to it:
-
-.. code-block::php
+Occorre anche creare il file da eseguire in linea di comando, che crea
+una ``Application`` e vi aggiunge comandi::
 
     #!/usr/bin/env php
     # app/console
@@ -123,6 +114,18 @@ l'output. Ad esempio::
 
     // testo nero su sfondo rosso
     $output->writeln('<error>pippo</error>');
+
+Si può definire un proprio stile, usando la classe
+:class:`Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle`::
+
+    $style = new OutputFormatterStyle('red', 'yellow', array('bold', 'blink'));
+    $output->getFormatter()->setStyle('fire', $style);
+    $output->writeln('<fire>foo</fire>');
+
+I colori di sfondo e di testo disponibili sono: ``black``, ``red``, ``green``,
+``yellow``, ``blue``, ``magenta``, ``cyan`` e ``white``.
+
+Le opzioni disponibili sono: ``bold``, ``underscore``, ``blink``, ``reverse`` e ``conceal``.
 
 Utilizzo degli argomenti nei comandi
 ------------------------------------
@@ -255,20 +258,19 @@ di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTeste
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::
 
+    use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
-    use Symfony\Bundle\FrameworkBundle\Console\Application;
-    use Acme\DemoBundle\Command\SalutaCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
         public function testExecute()
         {
-            $application = new Application($kernel);
+            $application = new Application();
             $application->add(new SalutaCommand());
 
             $comando = $application->find('demo:saluta');
             $testDelComando = new CommandTester($comando);
-            $testDelComando->execute(array('command' => $comando->getFullName()));
+            $testDelComando->execute(array('command' => $comando->getName()));
 
             $this->assertRegExp('/.../', $testDelComando->getDisplay());
 
@@ -285,7 +287,7 @@ array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay`::
 
     use Symfony\Component\Console\Tester\CommandTester;
-    use Symfony\Bundle\FrameworkBundle\Console\Application;
+    use Symfony\Component\Console\Application;
     use Acme\DemoBundle\Command\GreetCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase

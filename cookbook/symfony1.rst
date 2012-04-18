@@ -45,7 +45,7 @@ alle applicazioni risiede in un bundle (pressappoco equivalente a un plugin di s
 e ogni bundle risiede, per impostazione predefinita, nella cartella ``src``. In questo
 modo, la cartella ``src`` è un po' come la cartella ``plugins`` di symfony1, ma molto
 più flessibile. Inoltre, mentre i *propri* bundle risiedono nella cartella ``src``, i
-bundle di terze parti possono risedere nella cartella ``vendor/bundles/``.
+bundle di terze parti risiederaano nella cartella ``vendor/``.
 
 Per avere un quadro più completo della cartella ``src/``, pensiamo a un'applicazione
 symfony1. Innanzitutto, parte del proprio codice probabilmente risiede in una o più
@@ -74,8 +74,8 @@ La cartella ``vendor/`` è essenzialmente equivalente alla cartella ``lib/vendor
 in symfony1, che era la cartella convenzionale per tutte le librerie di terze
 parti. Per impostazione predefinita, si troveranno le librerie di Symfony2 in
 questa cartella, insieme a diverse altre librerie indipendenti, come Doctrine2,
-Twig e Swiftmailer. I bundle di Symfony2 di terze parti solitamente risiedono
-in ``vendor/bundles/``.
+Twig e Swiftmailer. I bundle di Symfony2 di terze parti risiedono da qualche parte
+in ``vendor/``.
 
 La cartella ``web/``
 ~~~~~~~~~~~~~~~~~~~~
@@ -127,13 +127,13 @@ Symfony2::
         // ...
 
 Il file stesso risiede in
-``vendor/bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
+``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
 Come si può vedere, la locazione del file segue lo spazio dei nomi della classe.
 Nello specifico, lo spazio dei nomi ``Sensio\Bundle\FrameworkExtraBundle`` dice che la
 cartella in cui il file dovrebbe risiedere
-(``vendor/bundle/Sensio/Bundle/FrameworkExtraBundle``). Per questo motivo, nel file
+(``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/``). Per questo motivo, nel file
 ``app/autoload.php``, si dovrà configurare Symfony2 per cercare lo spazio dei nomi
-``Sensio`` nella cartella ``vendor/bundle``:
+``Sensio`` nella cartella ``vendor/sensio``:
 
 .. code-block:: php
 
@@ -155,7 +155,7 @@ cerca in una specifica locazione quella classe, ma quella locazione non esiste
 
 Come già accennato, per poter far funzionare l'autoloader, esso deve sapere che
 lo spazio dei nomi ``Sensio`` risiede nella cartella ``vendor/bundles`` e che, per esempio,
-lo spazio dei nomi ``Doctrine`` risiede nella cartella ``vendor/doctrine/lib/``.
+lo spazio dei nomi ``Doctrine`` risiede nella cartella ``vendor/doctrine/orm/lib/``.
 Questa mappatura è interamente controllata dallo sviluppatore, tramite il file
 ``app/autoload.php``.
 

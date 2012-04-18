@@ -22,8 +22,7 @@ ha comunque un'eccellente `documentazione`_.
 
 Ogni test, sia esso unitario o funzionale, è una classe PHP,
 che dovrebbe trovarsi in una sotto-cartella `Tests/` del proprio bundle.
-Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con
-il seguente comando:
+Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con il seguente comando:
 
 .. code-block:: bash
 
@@ -31,7 +30,7 @@ il seguente comando:
     $ phpunit -c app/
 
 L'opzione ``-c`` dice a PHPUnit di cercare nella cartella ``app/`` un file di configurazione.
-Chi fosee curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al file
+Chi fosse curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al file
 ``app/phpunit.xml.dist``.
 
 .. tip::
@@ -153,7 +152,7 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 
     Per eseguire i test funzionali, la classe ``WebTestCase`` inizializza il
     kernel dell'applicazione. Nella maggior parte dei casi, questo avviene in modo automatico.
-    Tuttavia, se il proprio kenerl si trova in una cartella non standard, occorre modificare
+    Tuttavia, se il proprio kernel si trova in una cartella non standard, occorre modificare
     il file ``phpunit.xml.dist`` e impostare nella variabile d'ambiente ``KERNEL_DIR`` la
     cartella del proprio kernel::
 
@@ -170,7 +169,7 @@ visitare il proprio sito::
 
     $crawler = $client->request('GET', '/demo/hello/Fabien');
 
-Il metodo ``request()`` (vedere :ref:`di più sil metodo della richiesta<book-testing-request-method-sidebar>`) restituisce un oggetto :class:`Symfony\\Component\\DomCrawler\\Crawler`,
+Il metodo ``request()`` (vedere :ref:`di più sul metodo della richiesta<book-testing-request-method-sidebar>`) restituisce un oggetto :class:`Symfony\\Component\\DomCrawler\\Crawler`,
 che può essere usato per selezionare elementi nella risposta, per cliccare su
 collegamenti e per inviare form.
 
@@ -315,7 +314,7 @@ file.
     Gli oggetti ``Link`` e ``Form`` nel crawler saranno approfonditi nella
     sezione :ref:`Crawler<book-testing-crawler>`, più avanti.
 
-Il metodo ``request()`` può anche essere usto per simulare direttamente l'invio di form
+Il metodo ``request()`` può anche essere usato per simulare direttamente l'invio di form
 o per eseguire richieste più complesse::
 
     // Invio diretto di form
@@ -345,7 +344,7 @@ o per eseguire richieste più complesse::
         array('photo' => $photo)
     );
 
-    // Eseguire richieste DELETE requests e passare header HTTP
+    // Eseguire richieste DELETE e passare header HTTP
     $client->request(
         'DELETE',
         '/post/12',
@@ -437,9 +436,9 @@ seguire i rinvii, usando il metodo ``followRedirect()``::
     $crawler = $client->followRedirect(false);
 
 Quando il client non segue i rinvvi, lo si può forzare con
-il metodo ``followRedirects()``::
+il metodo ``followRedirect()``::
 
-    $client->followRedirects();
+    $crawler = $client->followRedirect();
 
 .. index::
    single: Test; Crawler
@@ -723,9 +722,10 @@ un file ``phpunit.xml`` per aggiustare la configurazione per la propria macchina
     file ``phpunit.xml``.
 
 Per impostazione predefinita, solo i test memorizzati nei bundle "standard" sono eseguiti
-dal comando ``phpunit`` (per "standard" si intendono i test sotto gli spazi dei nomi
-Vendor\\*Bundle\\Tests). Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
-la configurazione seguente aggiunge i test per i bundle installati di terze parti:
+dal comando ``phpunit`` (per "standard" si intendono i test nelle cartelle
+``src/*/Bundle/Tests`` o ``src/*/Bundle/*Bundle/Tests``). Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
+la configurazione seguente aggiunge i test per i bundle installati di terze
+parti:
 
 .. code-block:: xml
 
@@ -737,7 +737,7 @@ la configurazione seguente aggiunge i test per i bundle installati di terze part
         </testsuite>
     </testsuites>
 
-Per includere altri spazi dei nomi nella copertura del codice, modificare anche la
+Per includere altre cartelle nella copertura del codice, modificare anche la
 sezione ``<filter>``:
 
 .. code-block:: xml
@@ -753,7 +753,6 @@ sezione ``<filter>``:
             </exclude>
         </whitelist>
     </filter>
-
 
 Imparare di più con le ricette
 ------------------------------

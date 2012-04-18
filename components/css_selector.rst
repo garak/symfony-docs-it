@@ -12,7 +12,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/CssSelector);
-* Installarlo via PEAR ( `pear.symfony.com/CssSelector`);
+* Installarlo via PEAR (`pear.symfony.com/CssSelector`);
 * Installarlo via Composer (`symfony/css-selector` su Packagist).
 
 Uso

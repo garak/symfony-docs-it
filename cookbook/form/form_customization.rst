@@ -247,7 +247,7 @@ direttamente nel template che è sta attualmente rendendo il form.
     {% endblock %}
 
     {% block content %}
-        {# render the form #}
+        {# rendere il form #}
 
         {{ form_row(form.age) }}
     {% endblock %}

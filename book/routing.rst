@@ -182,7 +182,7 @@ dell'applicazione:
     la sezione :ref:`routing-include-external-resources` per maggiori informazioni.
 
 Configurazione di base delle rotte
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Definire una rotta è semplice e una tipica applicazione avrà molte rotte.
 Una rotta di base è costituita da due parti: il ``pattern`` da confrontare e un
@@ -783,7 +783,7 @@ speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
 * ``_format``: Utilizzato per impostare il formato della richiesta (:ref:`per saperne di più<book-routing-format-param>`);
 
-* ``_locale``: Utilizzato per impostare il locale sulla sessione (:ref:`per saperne di più<book-translation-locale-url>`);
+* ``_locale``: Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più<book-translation-locale-url>`);
 
 .. tip::
 

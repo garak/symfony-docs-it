@@ -86,7 +86,7 @@ Symfony utilizza il seguente algoritmo per determinare quale template deve usare
     Per vedere l'elenco completo dei template di errore predefiniti, vedere la
     cartella ``Resources/views/Exception`` del ``TwigBundle``. In una
     installazione standard di Symfony2, il ``TwigBundle`` può essere trovato in
-    ``vendor/symfony/src/Symfony/Bundle/TwigBundle``. Spesso, il modo più semplice
+    ``vendor/symfony/src/symfony/symfony/Bundle/TwigBundle``. Spesso, il modo più semplice
     per personalizzare una pagina di errore è quello di copiarlo da ``TwigBundle`` in
     ``app/Resources/TwigBundle/views/Exception`` e poi modificarlo.
 

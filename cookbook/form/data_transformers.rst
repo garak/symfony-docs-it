@@ -44,7 +44,7 @@ un numero di rilascio che non esiste::
             $builder->appendClientTransformer($transformer);
         }
     
-        public function getDefaultOptions(array $options)
+        public function getDefaultOptions()
         {
             return array(
                 'invalid_message'=>'Il rilascio che cerchi non esiste.'

@@ -7,7 +7,7 @@ Contenitore di servizi
 
 Una moderna applicazione PHP è piena di oggetti. Un oggetto può facilitare la
 consegna dei messaggi di posta elettronica, mentre un altro può consentire di salvare le informazioni
-in un database. Nell'applicazione, è possibile creare un oggetto che gestisce
+in una base dati. Nell'applicazione, è possibile creare un oggetto che gestisce
 l'inventario dei prodotti, o un altro oggetto che elabora i dati da un'API di terze parti.
 Il punto è che una moderna applicazione fa molte cose ed è organizzata
 in molti oggetti che gestiscono ogni attività.
@@ -48,17 +48,17 @@ un compito specifico. Congratulazioni, si è appena creato un servizio!
     nell'applicazione. Un singolo servizio ``Mailer`` è usato globalmente per inviare
     messaggi email mentre i molti oggetti ``Message`` che spedisce
     *non* sono servizi. Allo stesso modo, un oggetto ``Product`` non è un servizio,
-    ma un oggetto che persiste oggetti ``Product`` su un database *è* un servizio.
+    ma un oggetto che persiste oggetti ``Product`` su una base dati *è* un servizio.
 
-Qual'è il discorso allora? Il vantaggio dei "servizi" è
+Qual è il discorso allora? Il vantaggio dei "servizi" è
 che si comincia a pensare di separare ogni "pezzo di funzionalità" dell'applicazione
 in una serie di servizi. Dal momento che ogni servizio fa solo un lavoro,
 si può facilmente accedere a ogni servizio e utilizzare le sue funzionalità ovunque
 ce ne sia bisogno. Ogni servizio può anche essere più facilmente testato e configurato essendo
 separato dalle altre funzionalità dell'applicazione. Questa idea
 si chiama `architettura orientata ai servizi`_ e non riguarda solo Symfony2
-o il PHP. Strutturare la propria applicazione con una serie di indipendenti
-classi di servizi è una nota best-practice della programmazione a oggetti. Queste conoscenze
+o il PHP. Strutturare la propria applicazione con una serie di classi indipendenti
+di servizi è una nota best practice della programmazione a oggetti. Queste conoscenze
 sono fondamentali per essere un buon sviluppatore in quasi tutti i linguaggi.
 
 .. index::
@@ -222,6 +222,15 @@ Il risultato finale è esattamente lo stesso di prima, la differenza è solo nel
 di dover cercare per parametri con questi nomi. Quando il contenitore è costruito,
 cerca il valore di ogni parametro e lo usa nella definizione del servizio.
 
+.. note::
+
+    Il simbolo di percentuale dentro a un parametro o argomento, come parte della stringa, deve subire
+    un escape con un ulteriore simbolo di percentuale:
+    
+    .. code-block:: xml
+
+        <argument type="string">http://symfony.com/?pippo=%%s&pluto=%%d</argument>
+
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
 I parametri, tuttavia, hanno diversi vantaggi:
@@ -232,10 +241,10 @@ I parametri, tuttavia, hanno diversi vantaggi:
 * i valori dei parametri possono essere utilizzati in molteplici definizioni di servizi;
 
 * la creazione di un servizio in un bundle (lo mostreremo a breve), usando i parametri
-  consente al servizio di essere facilmente personalizzabile nell'applicazione..
+  consente al servizio di essere facilmente personalizzabile nell'applicazione.
 
 La scelta di usare o non usare i parametri è personale. I bundle
-di alta qualità di terze parti utilizzeranno *sempre* perché rendono i servizi
+di alta qualità di terze parti li utilizzeranno *sempre*, perché rendono i servizi
 memorizzati nel contenitore più configurabili. Per i servizi della propria applicazione,
 tuttavia, potrebbe non essere necessaria la flessibilità dei parametri.
 
@@ -505,18 +514,21 @@ il ``FrameworkBundle`` usa le opzioni qui specificate per definire e configurare
 i servizi a esso specifici. Il bundle si occupa di creare tutte i necessari
 ``parameters`` e ``services`` per il contenitore dei servizi, pur consentendo
 di personalizzare facilmente gran parte della configurazione. Come bonus aggiuntivo, la maggior parte
-delle estensioni dei contenitori di servizi sono anche sufficientemente intelligenti da eseguire la validazione -
+delle estensioni dei contenitori di servizi sono anche sufficientemente intelligenti da eseguire la validazione,
 notificando le opzioni mancanti o con un tipo di dato sbagliato.
 
-Durante l'installazione o la configurazione di un bundle, consultare la documentazione del bundle per
-per vedere come devono essere installati e configurati i servizi per il bundle. Le opzioni
-disponibili per i  bundle del nucleo si possono trovare all'interno della :doc:`Guida di riferimento</reference/index>`.
+Durante l'installazione o la configurazione di un bundle, consultare la documentazione del bundle
+per vedere come devono essere installati e configurati i suoi servizi. Le opzioni
+disponibili per i  bundle del nucleo si possono trovare all'interno della :doc:`guida di riferimento</reference/index>`.
 
 .. note::
 
    Nativamente, il contenitore dei servizi riconosce solo le direttive
    ``parameters``, ``services`` e ``imports``. Ogni altra direttiva
    è gestita dall'estensione del contenitore dei servizi.
+
+Se si vogliono esporre in modo amichevole le configurazioni dei propri bundle, leggere la ricetta
+":doc:`/cookbook/bundles/extension`".
 
 .. index::
    single: Contenitore di servizi; Referenziare i servizi
@@ -896,7 +908,7 @@ parametro per un altro servizio.
     questo si tradurrà nell'utilizzo di due istanze diverse perché l'istanza
     di un servizio privato è fatta in linea (ad esempio ``new PrivateFooBar()``).
 
-In poche parole: Un servizio dovrà essere privato quando non si desidera accedervi
+In poche parole: un servizio dovrà essere privato quando non si desidera accedervi
 direttamente dal codice.
 
 Ecco un esempio:
@@ -979,21 +991,21 @@ che il servizio stesso venga caricato. Per farlo, è possibile utilizzare la dir
         services:
            foo:
              class: Acme\HelloBundle\Foo\Bar
-             file: %kernel.root_dir%/src/path/to/file/foo.php
+             file: %kernel.root_dir%/src/percorso/del/file/foo.php
 
     .. code-block:: xml
 
         <service id="foo" class="Acme\HelloBundle\Foo\Bar">
-            <file>%kernel.root_dir%/src/path/to/file/foo.php</file>
+            <file>%kernel.root_dir%/src/percorso/del/file/foo.php</file>
         </service>
 
     .. code-block:: php
 
         $definition = new Definition('Acme\HelloBundle\Foo\Bar');
-        $definition->setFile('%kernel.root_dir%/src/path/to/file/foo.php');
+        $definition->setFile('%kernel.root_dir%/src/percorso/del/file/foo.php');
         $container->setDefinition('foo', $definition);
 
-Notare che symfony chiamerà internamente la funzione PHP require_once
+Notare che symfony chiamerà internamente la funzione PHP require_once,
 il che significa che il file verrà incluso una sola volta per ogni richiesta.
 
 .. _book-service-container-tags:
@@ -1002,7 +1014,7 @@ I tag (``tags``)
 ~~~~~~~~~~~~~~~~
 
 Allo stesso modo con cui il post di un blog su web viene etichettato con cose
-tipo "Symfony" o "PHP", i servizi configurati nel contenitore possono anche loro
+tipo "Symfony" o "PHP", anche i servizi configurati nel contenitore possono 
 essere etichettati. Nel contenitore dei servizi, un tag implica che si intende
 utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
 
@@ -1031,7 +1043,7 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
 Il tag ``twig.extension`` è un tag speciale che ``TwigBundle`` utilizza
 durante la configurazione. Dando al servizio il tag ``twig.extension``,
 il bundle sa che il servizio ``foo.twig.extension`` dovrebbe essere registrato
-come estensione Twig con Twig. In altre parole, Twig cerca tutti i servizi etichettati
+come estensione Twig. In altre parole, Twig cerca tutti i servizi etichettati
 con ``twig.extension`` e li registra automaticamente come estensioni.
 
 I tag, quindi, sono un modo per dire a Symfony2 o a un altro bundle di terze parti che

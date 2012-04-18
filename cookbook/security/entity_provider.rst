@@ -40,13 +40,6 @@ Per sintetizzare, i metodi setter e getter per ogni campo sono stati rimossi, in
 modo da focalizzarsi sui metodi più importanti, provenienti da
 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
-.. versionadded:: 2.1
-
-    In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
-    Se occorre sovrascrivere l'implementazione originale della logica di confronto,
-    implementare  la nuova interfaccia
-    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`.
-
 .. code-block:: php
 
     // src/Acme/UserBundle/Entity/User.php
@@ -62,32 +55,32 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
      * @ORM\Table(name="acme_users")
      * @ORM\Entity(repositoryClass="Acme\UserBundle\Entity\UserRepository")
      */
-    class User implements UserInterface
+class User implements UserInterface
     {
         /**
-         * @ORM\Column(name="id", type="integer")
-         * @ORM\Id()
+         * @ORM\Column(type="integer")
+         * @ORM\Id
          * @ORM\GeneratedValue(strategy="AUTO")
          */
         private $id;
 
         /**
-         * @ORM\Column(name="username", type="string", length=25, unique=true)
+         * @ORM\Column(type="string", length=25, unique=true)
          */
         private $username;
 
         /**
-         * @ORM\Column(name="salt", type="string", length=40)
+         * @ORM\Column(type="string", length=32)
          */
         private $salt;
 
         /**
-         * @ORM\Column(name="password", type="string", length=40)
+         * @ORM\Column(type="string", length=40)
          */
         private $password;
 
         /**
-         * @ORM\Column(name="email", type="string", length=60, unique=true)
+         * @ORM\Column(type="string", length=60, unique=true)
          */
         private $email;
 
@@ -99,40 +92,83 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         public function __construct()
         {
             $this->isActive = true;
-            $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+            $this->salt = md5(uniqid(null, true));
         }
 
-        public function getRoles()
-        {
-            return array('ROLE_USER');
-        }
-
-        public function eraseCredentials()
-        {
-        }
-
+        /**
+         * @inheritDoc
+         */
         public function getUsername()
         {
             return $this->username;
         }
 
+        /**
+         * @inheritDoc
+         */
         public function getSalt()
         {
             return $this->salt;
         }
 
+        /**
+         * @inheritDoc
+         */
         public function getPassword()
         {
             return $this->password;
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function getRoles()
+        {
+            return array('ROLE_USER');
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function eraseCredentials()
+        {
         }
     }
 
 Per poter usare un'istanza della classe ``AcmeUserBundle:User`` nel livello della sicurezza
 di Symfony, la classe entità deve implementare
 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`. Questa
-interfaccia costringe la classe a implementare i seguenti cinque metodi: ``getRoles()``,
-``getPassword()``, ``getSalt()``, ``getUsername()``, ``eraseCredentials()``.
+interfaccia costringe la classe a implementare i seguenti cinque metodi:
+
+* ``getRoles()``,
+* ``getPassword()``,
+* ``getSalt()``,
+* ``getUsername()``,
+* ``eraseCredentials()``
+
 Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
+
+.. versionadded:: 2.1
+
+    In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
+    Se occorre sovrascrivere l'implementazione predefinita della logica di confronto,
+    implementare la nuova interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`
+    e implementare il metodo ``isEqualTo``.
+
+.. code-block:: php
+
+    // src/Acme/UserBundle/Entity/User.php
+
+    namespace Acme\UserBundle\Entity;
+
+    use Symfony\Component\Security\Core\User\EquatableInterface;
+
+    // ...
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return $this->username === $user->getUsername();
+    }
 
 Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL. Per dettagli sulla
 creazione delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-security-encoding-user-password`.

@@ -128,9 +128,9 @@ a questo:
 
 .. code-block:: html
 
-    <input type="email" id="form_emails_$$name$$" name="form[emails][$$name$$]" value="" />
+    <input type="email" id="form_emails___name__" name="form[emails][__name__]" value="" />
 
-Sostituendo ``$$name$$`` con un valore unico (p.e. ``2``),
+Sostituendo ``__name__`` con un valore unico (p.e. ``2``),
 si possono costruire e inserire nuovi campi HTML nel form.
 
 Usando jQuery, un semplic esempio assomiglierebbe a questo. Se si rendono i campi
@@ -171,10 +171,10 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 
                     // prende il template prototipo
                     var newWidget = emailList.attr('data-prototype');
-                    // sostiuisce "$$name$$" usato nell'id e il nome del prototipo
+                    // sostiuisce "__name__" usato nell'id e il nome del prototipo
                     // con un numero univoco per le email
                     // l'attributo finale assomiglia a name="contact[emails][2]"
-                    newWidget = newWidget.replace(/\$\$name\$\$/g, emailCount);
+                    newWidget = newWidget.replace(/__name__/g, emailCount);
                     emailCount++;
 
                     // crea un nuovo elemento nella lista e lo aggiunge
@@ -284,8 +284,8 @@ Questa opzione è utile quando si usa l'opzione `allow_add`_. Se ``true`` (e se
 anche `allow_add`_ è ``true``), sarà disponibile uno speciale attributo "prototype",
 in modo che si possa rendere nella pagina un "template" esempio di come ogni nuovo
 elemento dovrebbe apparire. L'attributo ``name`` dato a tale elemento è
-``$$name$$``. Questo consente l'aggiunta di un bottone "aggiungi" tramite JavaScript,
-che legge il prototipo, sostituisce ``$$name$$`` con un nome o numero univoco
+``__name__``. Questo consente l'aggiunta di un bottone "aggiungi" tramite JavaScript,
+che legge il prototipo, sostituisce ``__name__`` con un nome o numero univoco
 e lo rende all'interno del form. Quando inviato, sarà aggiunto all'array
 sottostante, grazie all'opzione `allow_add`_.
 

@@ -53,18 +53,15 @@ Sopra HttpFoundation c'è il componente :namespace:`Symfony\\Component\\HttpKern
 HttpKernel gestisce la parte dinamica di HTTP e incapsula in modo leggero
 le classi ``Request`` e ``Response``, per standardizzare il modo in cui sono gestite
 le richieste. Fornisce anche dei punti di estensione e degli strumenti che lo
-rendono il punto di partenza ideale per creare un framework web senza troppe
-sovrastrutture.
+rendono il punto di partenza ideale per creare un framework web senza troppe sovrastrutture.
 
 Opzionalmente, aggiunge anche configurabilità ed estensibilità, grazie al
 componente Dependency Injection e a un potente sistema di plugin (bundle).
 
 .. seealso::
 
-    Approfondimento sul componente :doc:`HttpKernel <kernel>`. Approfondimento
-    sul componente :doc:`Dependency Injection </book/service_container>`
-    e sui :doc:`Bundle </cookbook/bundles/best_practices>`.
-
+    Approfondimento
+    sul componente :doc:`Dependency Injection </book/service_container>` e sui :doc:`Bundle </cookbook/bundles/best_practices>`.
 
 Il bundle ``FrameworkBundle``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,7 +97,8 @@ Per convertire una ``Request`` in una ``Response``, il kernel si appoggia a un
 "controllore". Un controllore può essere qualsiasi funzione o metodo PHP valido.
 
 Il kernel delega la scelta di quale controllore debba essere eseguito a un'implementazione
-di :class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface`::
+di
+:class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface`::
 
     public function getController(Request $request);
 
@@ -124,7 +122,8 @@ controllore (una stringa "classe::metodo", come
 Il metodo
 :method:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface::getArguments`
 restituisce un array di parametri da passare al controllore. L'implementazione
-predefinita risolve automaticamente i parametri, basandosi sugli attributi di ``Request``.
+predefinita risolve automaticamente i parametri, basandosi sugli attributi di
+``Request``.
 
 .. sidebar:: Parametri del controllore dai parametri della richiesta
 
@@ -380,487 +379,17 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla:
 .. index::
    single: Distributore di eventi
 
-.. _`book-internals-event-dispatcher`:
-
 Il distributore di eventi
 -------------------------
 
-Il codice orientato agli oggetti è riuscito ad assicurare l'estensibilità del codice.
-Creando classi con responsabilità ben definite, il codice diventa più flessibile e
-lo sviluppatore può estendere le classi con delle sotto-classi, per modificare il loro
-comportamento. Ma se si vogliono condividere le modifiche con altri sviluppatori che
-hanno fatto a loro volta delle sotto-classi, l'ereditarietà inizia a diventare un problema.
-
-Consideriamo un esempio dal mondo reale, in cui si vuole fornire un sistema di plugin per
-il proprio progetto. Un plugin dovrebbe essere in grado di aggiungere metodi o di fare
-qualcosa prima o dopo che un altro metodo venga eseguito, senza interferire con altri
-plugin. Questo non è un problema facile da risolvere con l'ereditarietà singola, mentre
-l'ereditarietà multipla (ove possibile in PHP) ha i suoi difetti.
-
-Il distributore di eventi di Symfony2 implementa il pattern `Observer`_ in un modo semplice
-ed efficace, per rendere possibili tutte queste cose e per rendere i propri progetti
-veramente estensibili.
-
-Prendiamo un semplice esempio dal `componente HttpKernel di Symfony2`_. Una volta che
-un oggetto ``Response`` è stato creato, potrebbe essere utile consentire ad altri elementi
-del sistema di modificarlo (p.e. aggiungere degli header per la cache) prima che sia
-effettivamente usato. Per poterlo fare, il kernel di Symfony2 lancia un evento,
-``kernel.response``. Ecco come funziona:
-
-* Un *ascoltatore* (un oggetto PHP) dice all'oggetto *distributore* centrale che vuole
-  ascoltare l'evento ``kernel.response``;
-
-* A un certo punto, il kernel di Symfony2 dice all'oggetto *distributore* di distribuire
-  l'evento ``kernel.response``, passando con esso un oggetto ``Event``, che ha accesso
-  all'oggetto ``Response``;
-
-* Il distributore notifica a (cioè chiamat un metodo su) tutti gli ascoltatori dell'evento
-  ``kernel.response``, consentendo a ciascuno di essi di effettuare modifiche sull'oggetto
-  ``Response``.
-
-.. index::
-   single: Distributore di eventi; Eventi
-
-.. _event_dispatcher:
-
-Eventi
-~~~~~~
-
-Quando un evento viene distribuito, è identificato da un nome univoco (p.e.
-``kernel.response``), a cui un numero qualsiasi di ascoltatori può ascoltare. Inoltre,
-un'istanza di :class:`Symfony\\Component\\EventDispatcher\\Event` viene creata e
-passata a tutti gli ascoltatori. Come vedremo più avanti, l'oggetto stesso ``Event``
-spesso contiene dati sull'evento distribuito.
-
-.. index::
-   pair: Distributore di eventi; Convenzioni sui nomi
-
-Convenzioni sui nomi
-....................
-
-Il nome univoco di un evento può essere una stringa qualsiasi, ma segue facoltativamente
-alcune piccole convenzioni sui nomi:
-
-* usa solo lettere minuscole, numeri, punti (``.``) e sotto-linee (``_``);
-
-* ha un prefisso con uno spazio dei nomi, seguito da un punto (p.e. ``kernel.``);
-
-* finisce con un verbo che indichi l'azione che sta per essere eseguita (p.e.
-  ``request``).
-
-Ecco alcuni esempi di buoni nomi di eventi:
-
-* ``kernel.response``
-* ``form.pre_set_data``
-
-.. index::
-   single: Distributore di eventi; Sotto-classi evento
-
-Nomi di eventi e oggetti evento
-...............................
-
-Quando il distributore notifica agli ascoltatori, passa un oggetto ``Event`` a
-questi ultimi. La classe base ``Event`` è molto semplice: contiene un metodo
-per bloccare la :ref:`propagazione degli eventi<event_dispatcher-event-propagation>`,
-non molto di più.
-
-Spesso, occorre passare i dati su uno specifico evento insieme all'oggetto
-``Event``, in modo che gli ascoltatori abbiano le informazioni necessarie. Nel caso
-dell'evento ``kernel.response``, l'oggetto ``Event`` creato e passato a ciascun
-ascoltatore è in realtà di tipo
-:class:`Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent`, una sotto-classe
-dell'oggetto base ``Event``. Questa classe contiene metodi come ``getResponse`` e
-``setResponse``, che consentono agli ascoltatori di ottenere o anche sostituire
-l'oggetto ``Response``.
-
-La morale della storia è questa: quando si crea un ascoltatore di un evento, l'oggetto
-``Event`` passato all'ascoltatore potrebbe essere una speciale sotto-classe, che possiede
-ulteriori metodi per recuperare informazioni dall'evento e per rispondere
-a esso.
-
-Il distributore
-~~~~~~~~~~~~~~~
-
-Il distributore è l'oggetto centrale del sistema di distribuzione degli eventi. In
-generale, viene creato un solo distributore di eventi, che mantiene un registro di
-ascoltatori. Quando un evento viene distribuito tramite il distributore, esso notifica
-a tutti gli ascoltatori registrati con tale evento.
-
-.. code-block:: php
-
-    use Symfony\Component\EventDispatcher\EventDispatcher;
-
-    $dispatcher = new EventDispatcher();
-
-.. index::
-   single: Distributore di eventi; Ascoltatori
-
-Connettere gli ascoltatori
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Per trarre vantaggio da un evento esistente, occorre connettere un ascoltatore
-al distributore, in modo che possa essere notificato quando l'evento viene distribuito.
-Un chiamata al metodo ``addListener()`` del distributore associa una funzione PHP
-a un evento:
-
-.. code-block:: php
-
-    $listener = new AcmeListener();
-    $dispatcher->addListener('pippo.azione', array($listener, 'allAzionePippo'));
-
-Il metodo ``addListener()`` accetta fino a tre parametri:
-
-* Il nome dell'evento (stringa) che questo ascoltatore vuole ascoltare;
-
-* Una funzione PHP, che sarà notificata quando viene lanciato un evento che sta
-  ascoltando;
-
-* Un intero, opzionale, di priorità (più alto equivale a più importante), che determina
-  quando un ascoltatore viene avvisato, rispetto ad altri ascoltatori (il valore predefinito
-  è ``0``). Se due ascoltatori hanno la stessa priorità, sono eseguito nello stesso ordine
-  con cui sono stati aggiunti al distributore.
-
-.. note::
-
-    Una `funzione PHP`_ è una variabile PHP che può essere usata dalla funzione
-    ``call_user_func()`` e che restituisce ``true``, se passata alla funzione
-    ``is_callable()``. Può essere un'istanza di una ``\Closure``, una stringa che
-    rappresenta una funzione oppure un array che rappresenta un metodo di un oggetto
-    o di una classe.
-
-    Finora, abbiamo visto come oggetti PHP possano essere registrati come ascoltatori.
-    Si possono anche registrare `Closure`_ PHP come ascoltatori di eventi:
-
-    .. code-block:: php
-
-        use Symfony\Component\EventDispatcher\Event;
-
-        $dispatcher->addListener('pippo.azione', function (Event $event) {
-            // sarà eseguito quando l'evento pippo.azione viene distribuito
-        });
-
-Una volta che un ascoltatore è registrato con il distributore, esso aspetta fino a che
-l'evento non è notificato. Nell'esempio visto sopra, quando l'evento ``pippo.azione`` è
-distribuito, il distributore richiama il metodo ``AcmeListener::allAzionePippo`` e passa
-l'oggetto ``Event`` come unico parametro:
-
-.. code-block:: php
-
-    use Symfony\Component\EventDispatcher\Event;
-
-    class AcmeListener
-    {
-        // ...
-
-        public function allAzionePippo(Event $event)
-        {
-            // fare qualcosa
-        }
-    }
-
-.. tip::
-
-    Se si usa il framework MVC di Symfony2 MVC, gli ascoltatori possono essere
-    registrati tramite la :ref:`configurazione <dic-tags-kernel-event-listener>`. Come
-    bonus aggiuntivo, gli oggetti ascoltatori sono istanziati solo all'occorrenza.
-
-In alcuni casi, una sotto-classe speciale ``Event``, specifica dell'evento dato, viene
-passata all'ascoltatore. Questo dà accesso all'ascoltatore a informazioni speciali
-sull'evento. Leggere la documentazione o l'implementazione di ogni evento per
-determinare l'esatta istanza di ``Symfony\Component\EventDispatcher\Event``
-passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
-``Symfony\Component\HttpKernel\Event\FilterResponseEvent``:
-
-.. code-block:: php
-
-    use Symfony\Component\HttpKernel\Event\FilterResponseEvent
-
-    public function onKernelResponse(FilterResponseEvent $event)
-    {
-        $response = $event->getResponse();
-        $request = $event->getRequest();
-
-        // ...
-    }
-
-.. _event_dispatcher-closures-as-listeners:
-
-.. index::
-   single: Distributore di eventi; Creare e distribuire un evento
-
-Creare e distribuire un evento
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Oltre a registrare ascoltatori su eventi esistenti, si possono creare e lanciare
-eventi propri. Questo è utile quando si creano librerie di terze parti e anche
-quando si vogliono mantenere diversi componenti personalizzati nel proprio
-sistema flessibili e disaccoppiati.
-
-La classe statica ``Events``
-............................
-
-Si supponga di voler creare un nuovo evento, chiamato ``negozio.ordine``, distribuito
-ogni volta che un ordine viene creato dentro la propria applicazione. Per mantenere le
-cose organizzate, iniziamo a creare una classe ``StoreEvents`` all'interno della propria
-applicazione, che serve a definire e documentare il proprio evento:
-
-.. code-block:: php
-
-    namespace Acme\StoreBundle;
-
-    final class StoreEvents
-    {
-        /**
-         * L'evento negozio.ordine è lanciato ogni volta che un ordine viene creato
-         * nel sistema.
-         *
-         * L'ascoltatore dell'evento riceve un'istanza di Acme\StoreBundle\Event\FilterOrderEvent.
-         * 
-         *
-         * @var string
-         */
-        const onStoreOrder = 'negozio.ordine';
-    }
-
-Si noti che la class in realtà non fa nulla. Lo scopo della classe
-``StoreEvents`` è solo quello di essere un posto in cui le informazioni sugli eventi
-comuni possano essere centralizzate. Si noti che anche che una classe speciale
-``FilterOrderEvent`` sarà passata a ogni ascoltatore di questo evento.
-
-Creare un oggetto evento
-........................
-
-Più avanti, quando si distribuirà questo nuovo evento, si creerà un'istanza di ``Event``
-e la si passerà al distributore. Il distributore quindi passa questa stessa istanza
-a ciascuno degli ascoltatori dell'evento. Se non si ha bisogno di passare informazioni
-agli ascoltatori, si può usare la classe predefinita
-``Symfony\Component\EventDispatcher\Event``. Tuttavia, la maggior parte delle volte, si
-avrà bisogno di passare informazioni sull'evento a ogni ascoltatore. Per poterlo fare,
-si creerà una nuova classe, che estende
-``Symfony\Component\EventDispatcher\Event``.
-
-In questo esempio, ogni ascoltatore avrà bisogno di accedere a un qualche oggetto
-``Order``. Creare una classe ``Event`` che lo renda possibile:
-
-.. code-block:: php
-
-    namespace Acme\StoreBundle\Event;
-
-    use Symfony\Component\EventDispatcher\Event;
-    use Acme\StoreBundle\Order;
-
-    class FilterOrderEvent extends Event
-    {
-        protected $order;
-
-        public function __construct(Order $order)
-        {
-            $this->order = $order;
-        }
-
-        public function getOrder()
-        {
-            return $this->order;
-        }
-    }
-
-Ogni ascoltatore ora ha accesso all'oggetto ``Order``, tramite il metodo
-``getOrder``.
-
-Distribuire l'evento
-....................
-
-Il metodo :method:`Symfony\\Component\\EventDispatcher\\EventDispatcher::dispatch`
-notifica a tutti gli ascoltatori l'evento dato. Accetta due parametri: il nome
-dell'evento da distribuire e l'istanza di ``Event`` da passare a ogni ascoltatore
-di tale evento:
-
-.. code-block:: php
-
-    use Acme\StoreBundle\StoreEvents;
-    use Acme\StoreBundle\Order;
-    use Acme\StoreBundle\Event\FilterOrderEvent;
-
-    // l'ordine viene in qualche modo creato o recuperato
-    $order = new Order();
-    // ...
-
-    // creare FilterOrderEvent e distribuirlo
-    $event = new FilterOrderEvent($order);
-    $dispatcher->dispatch(StoreEvents::onStoreOrder, $event);
-
-Si noti che l'oggetto speciale ``FilterOrderEvent`` è creato e passato al
-metodo ``dispatch``. Ora ogni ascoltatore dell'evento ``negozio.ordino`` riceverà
-``FilterOrderEvent`` e avrà accesso all'oggetto ``Order``, tramite il metodo
-``getOrder``:
-
-.. code-block:: php
-
-    // una qualche classe ascoltatore che è stata registrata per onStoreOrder
-    use Acme\StoreBundle\Event\FilterOrderEvent;
-
-    public function onStoreOrder(FilterOrderEvent $event)
-    {
-        $order = $event->getOrder();
-        // fare qualcosa con l'ordine
-    }
-
-Passare l'oggetto distributore di eventi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Se si dà un'occhiata alla classe ``EventDispatcher``, si noterà che non agisce come un
-singleton (non c'è un metodo statico ``getInstance()``).
-Questa cosa è voluta, perché si potrebbe avere necessità di diversi distributori di eventi
-contemporanei in una singola richiesta PHP. Ma vuol dire anche che serve un modo per
-passare il distributore agli oggetti che hanno bisogno di connettersi o notificare eventi.
-
-Il modo migliore è iniettare l'oggetto distributore di eventi nei propri oggetti,
-quindi usare la dependency injection.
-
-Si può usare una constructor injection::
-
-    class Foo
-    {
-        protected $dispatcher = null;
-
-        public function __construct(EventDispatcher $dispatcher)
-        {
-            $this->dispatcher = $dispatcher;
-        }
-    }
-
-Oppure una setter injection::
-
-    class Foo
-    {
-        protected $dispatcher = null;
-
-        public function setEventDispatcher(EventDispatcher $dispatcher)
-        {
-            $this->dispatcher = $dispatcher;
-        }
-    }
-
-La scelta tra i due alla fine è una questione di gusti. Alcuni preferiscono la
-constructor injection, perché gli oggetti sono inizializzati in pieno al momento
-della costruzione. Ma, quando si ha una lunga lista di dipendenza, usare la
-setter injection può essere il modo migliore, specialmente per le dipendenze opzionali.
-
-.. tip::
-
-    Se si usa la dependency injection come negli esempi sopra, si può usare il
-    `componente Dependency Injection di Symfony2`_ per gestire questi oggetti
-    in modo elegante.
-
-        .. code-block:: yaml
-
-            # src/Acme/HelloBundle/Resources/config/services.yml
-            services:
-                foo_service:
-                    class: Acme/HelloBundle/Foo/FooService
-                    arguments: [@event_dispatcher]
-
-.. index::
-   single: Distributore di eventi; Sottoscrittori
-
-Usare i sottoscrittori
-~~~~~~~~~~~~~~~~~~~~~~
-
-Il modo più comune per ascoltare un evento è registrare un *ascoltatore* con il
-distributore. Questo ascoltatore può ascoltare uno o più eventi e viene
-notificato ogni volta che tali eventi sono distribuiti.
-
-Un altro modo per ascoltare gli eventi è tramite un *sottoscrittore*. Un sottoscrittore
-di eventi è una classe PHP che è in grado di dire al distributore esattamente quale
-evento dovrebbe sottoscrivere. Implementa l'interfaccia
-:class:`Symfony\\Component\\EventDispatcher\\EventSubscriberInterface`,
-che richiede un unico metodo statico, chiamato ``getSubscribedEvents``.
-Si consideri il seguente esempio di un sottoscrittore, che sottoscrive gli eventi
-``kernel.response`` e ``negozio.ordine``:
-
-.. code-block:: php
-
-    namespace Acme\StoreBundle\Event;
-
-    use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-    use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-
-    class StoreSubscriber implements EventSubscriberInterface
-    {
-        static public function getSubscribedEvents()
-        {
-            return array(
-                'kernel.response' => 'onKernelResponse',
-                'negozio.ordine'  => 'onStoreOrder',
-            );
-        }
-
-        public function onKernelResponse(FilterResponseEvent $event)
-        {
-            // ...
-        }
-
-        public function onStoreOrder(FilterOrderEvent $event)
-        {
-            // ...
-        }
-    }
-
-È molto simile a una classe ascoltatore, tranne che la classe stessa può
-dire al distributore quali eventi dovrebbe ascoltare. Per registrare un
-sottoscrittore con il distributore, usare il metodo
-:method:`Symfony\\Component\\EventDispatcher\\EventDispatcher::addSubscriber`
-:
-
-.. code-block:: php
-
-    use Acme\StoreBundle\Event\StoreSubscriber;
-
-    $subscriber = new StoreSubscriber();
-    $dispatcher->addSubscriber($subscriber);
-
-Il distributore registrerà automaticamente il sottoscrittore per ciascun evento
-restituito dal metodo ``getSubscribedEvents``. Questo metodo restituisce un array
-indicizzata per nomi di eventi e i cui valori sono o i nomi dei metodi da chiamare o
-array composti dal nome del metodo e da una priorità.
-
-.. tip::
-
-    Se si usa il framework MVC Symfony2, si possono registrare sottoscrittori tramite
-    la propria :ref:`configurazione <dic-tags-kernel-event-subscriber>`. Come bonus
-    aggiuntivo, gli oggetti sottoscrittori sono istanziati solo quando servono.
-
-.. index::
-   single: Distributore di eventi; Bloccare il flusso degli eventi
-
-.. _event_dispatcher-event-propagation:
-
-Bloccare il flusso e la propagazione degli eventi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In alcuni casi, potrebbe aver senso che un ascoltatore prevenga il richiamo di qualsiasi
-altro ascoltatore. In altre parole, l'ascoltatore deve poter essere in grado di dire al
-distributore di bloccare ogni propagazione dell'evento a futuri ascoltatori (cioè di non
-notificare più altri ascoltatori). Lo si può fare da dentro un ascoltatore, tramite il
-metodo :method:`Symfony\\Component\\EventDispatcher\\Event::stopPropagation`:
-
-
-.. code-block:: php
-
-   use Acme\StoreBundle\Event\FilterOrderEvent;
-
-   public function onStoreOrder(FilterOrderEvent $event)
-   {
-       // ...
-
-       $event->stopPropagation();
-   }
-
-Ora, tutti gli ascoltatori di ``negozio.ordine`` che non sono ancora stati richiamati
-*non* saranno richiamati.
+Event Dispatcher (distributore di eventi) è un componente, responsabile di gran parte
+della logica sottostante e del flusso dietro a una richiesta di Symfony. Per maggiori informazioni,
+vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher>`.
 
 .. index::
    single: Profiler
+
+.. _internals-profiler:
 
 Profiler
 --------
@@ -1140,8 +669,4 @@ Imparare di più dal ricettario
 * :doc:`/cookbook/event_dispatcher/class_extension`
 * :doc:`/cookbook/event_dispatcher/method_behavior`
 
-.. _Observer: http://it.wikipedia.org/wiki/Observer_pattern
-.. _`componente HttpKernel di Symfony2`: https://github.com/symfony/HttpKernel
-.. _Closure: http://php.net/manual/en/functions.anonymous.php
 .. _`componente Dependency Injection di Symfony2`: https://github.com/symfony/DependencyInjection
-.. _funzione PHP: http://php.net/manual/en/language.pseudo-types.php#language.types.callback

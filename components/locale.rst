@@ -9,9 +9,9 @@ Il componente Locale
 
 Viene fornito un rimpiazzo per le seguenti funzioni e classi:
 
-* :phpfunction:`intl_is_failure()`
-* :phpfunction:`intl_get_error_code()`
-* :phpfunction:`intl_get_error_message()`
+* :phpfunction:`intl_is_failure`
+* :phpfunction:`intl_get_error_code`
+* :phpfunction:`intl_get_error_message`
 * :phpclass:`Collator`
 * :phpclass:`IntlDateFormatter`
 * :phpclass:`Locale`
@@ -27,7 +27,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Locale);
-* Installarlo via PEAR ( `pear.symfony.com/Locale`);
+* Installarlo via PEAR (`pear.symfony.com/Locale`);
 * Installarlo via Composer (`symfony/locale` su Packagist).
 
 Uso

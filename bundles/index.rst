@@ -6,6 +6,7 @@ Bundle di Symfony SE
 
     SensioFrameworkExtraBundle/index
     SensioGeneratorBundle/index
+    JMSSecurityExtraBundle/index
     DoctrineFixturesBundle/index
     DoctrineMigrationsBundle/index
     DoctrineMongoDBBundle/index

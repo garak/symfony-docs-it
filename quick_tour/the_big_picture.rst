@@ -43,8 +43,8 @@ ora avere una cartella ``Symfony/``, come la seguente:
                         Controller/
                         Resources/
                         ...
-            vendor/
-                symfony/
+                vendor/
+                    symfony/
                 doctrine/
                 ...
             web/

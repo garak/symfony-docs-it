@@ -80,7 +80,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                     access_denied_handler: some.service.id
                     entry_point: some.service.id
                     provider: nome_di_un_provider_di_cui_sopra
-                    context: name
+                    context: nome
                     stateless: false
                     x509:
                         provider: nome_di_un_provider_di_cui_sopra

@@ -97,8 +97,8 @@ predefinita. Si possono anche `aggiungere le proprie estensioni`_ a Twig, se nec
 
 .. tip::
 
-    È facile registrare un'estensione di Twig basta creare un nuovo servizio e
-    taggarlo con ``twig.extension`` :ref:`tag<book-service-container-tags>`.
+    È facile registrare un'estensione di Twig: basta creare un nuovo servizio e
+    assegnarli il :ref:`tag<book-service-container-tags>` ``twig.extension``.
 
 Come vedremo nella documentazione, Twig supporta anche le funzioni e si possono
 aggiungere facilmente nuove funzioni. Per esempio, di seguito viene usato un tag
@@ -368,7 +368,7 @@ Per impostazione predefinita, i template possono stare in una di queste posizion
 * ``app/Resources/views/``: La cartella ``views`` di un'applicazione può contenere
   template di base a livello di applicazione (p.e. i layout dell'applicazione), ma anche
   template che sovrascrivono template di bundle (vedere
-:ref:`overriding-bundle-templates`);
+  :ref:`overriding-bundle-templates`);
 
 * ``percorso/bundle/Resources/views/``: Ogni bundle ha i suoi template, nella sua
   cartella ``Resources/views`` (e nelle sotto-cartelle). La maggior parte dei template è
@@ -413,7 +413,7 @@ Questo dà la possibilità di sovrascrivere template di qualsiasi bundle.
 .. tip::
 
     Si spera che la sintassi dei nomi risulti familiare: è la stessa convenzione di
-    nomi usata per :ref:`controller-string-syntax`.
+    nomi usata per lo :ref:`controller-string-syntax`.
 
 Suffissi dei template
 ~~~~~~~~~~~~~~~~~~~~~
@@ -634,6 +634,60 @@ Ogni volta che ci si trova ad aver bisogno di una variabile o di un pezzo di inf
 a cui non si ha accesso in un template, considerare di rendere un controllore.
 I controllori sono veloci da eseguire e promuovono buona organizzazione e riuso del codice.
 
+Contenuto asincrono con hinclude.js
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+    il supporto per hinclude.js è stato aggiunto in Symfony 2.1
+
+Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
+Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
+Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {% render '...:news' with {}, {'standalone': 'js'} %}
+
+    .. code-block:: php
+
+        <?php echo $view['actions']->render('...:news', array(), array('standalone' => 'js')) ?>
+
+.. note::
+
+   hinclude.js_ deve essere incluso nella pagina.
+
+Il contenuto predefinito (visibile durante il caricamento o senza JavaScript) può
+essere impostato in modo globale nella configurazione dell'applicazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        framework:
+            # ...
+            templating:
+                hinclude_default_template: AcmeDemoBundle::hinclude.html.twig
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <framework:config>
+            <framework:templating hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
+        </framework:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('framework', array(
+            // ...
+            'templating'      => array(
+                'hinclude_default_template' => array('AcmeDemoBundle::hinclude.html.twig'),
+            ),
+        ));
+
 .. index::
    single: Template; Collegare le pagine
 
@@ -744,7 +798,7 @@ articoli:
 
         <a href="{{ url('_welcome') }}">Home</a>
 
-    Lo stesso si può fare nei template PH, passando un terzo parametro al metodo
+    Lo stesso si può fare nei template PHP, passando un terzo parametro al metodo
     ``generate()``:
 
     .. code-block:: php
@@ -759,7 +813,7 @@ Collegare le risorse
 
 I template solitamente hanno anche riferimenti a immagini, Javascript, fogli di stile e
 altre risorse. Certamente, si potrebbe inserire manualmente il percorso a tali risorse
-(p.e. ``/images/logo.png``), ma Symfony2 fornisce un'opzione più dinamica, tramite la funzione ``assets`` di Twig:
+(p.e. ``/images/logo.png``), ma Symfony2 fornisce un'opzione più dinamica, tramite la funzione ``asset`` di Twig:
 
 .. configuration-block::
 
@@ -871,44 +925,44 @@ cartella "web").
 Il risultato finale è una pagina che include i fogli di stile ``main.css`` e
 ``contact.css``.
 
-Global Template Variables
--------------------------
+Variabili globali nei template
+------------------------------
 
-During each request, Symfony2 will set a global template variable ``app``
-in both Twig and PHP template engines by default.  The ``app`` variable
-is a :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`
-instance which will give you access to some application specific variables
-automatically:
+Durante ogni richiesta, Symfony2 imposta una variabile globale ``app``,
+sia nei template Twig che in quelli PHP. La variabile ``app``
+è un'istanza di :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`,
+che dà accesso automaticamente ad alcune variabili specifiche
+dell'applicazione:
 
-* ``app.security`` - The security context.
-* ``app.user`` - The current user object.
-* ``app.request`` - The request object.
-* ``app.session`` - The session object.
-* ``app.environment`` - The current environment (dev, prod, etc).
-* ``app.debug`` - True if in debug mode. False otherwise.
+* ``app.security`` - Il contesto della sicurezza.
+* ``app.user`` - L'oggetto dell'utente attuale.
+* ``app.request`` - L'oggetto richiesta.
+* ``app.session`` - L'oggetto sessione.
+* ``app.environment`` - L'ambiente attuale (dev, prod, ecc).
+* ``app.debug`` - True se in debug. False altrimenti.
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        <p>Username: {{ app.user.username }}</p>
+        <p>Nome utente: {{ app.user.username }}</p>
         {% if app.debug %}
-            <p>Request method: {{ app.request.method }}</p>
-            <p>Application Environment: {{ app.environment }}</p>
+            <p>Metodo richiesta: {{ app.request.method }}</p>
+            <p>Ambiente: {{ app.environment }}</p>
         {% endif %}
 
     .. code-block:: html+php
 
-        <p>Username: <?php echo $app->getUser()->getUsername() ?></p>
+        <p>Nome utente: <?php echo $app->getUser()->getUsername() ?></p>
         <?php if ($app->getDebug()): ?>
-            <p>Request method: <?php echo $app->getRequest()->getMethod() ?></p>
-            <p>Application Environment: <?php echo $app->getEnvironment() ?></p>
+            <p>Metodo richiesta: <?php echo $app->getRequest()->getMethod() ?></p>
+            <p>Ambiente: <?php echo $app->getEnvironment() ?></p>
         <?php endif; ?>
 
 .. tip::
 
-    You can add your own global template variables. See the cookbook example
-    on :doc:`Global Variables</cookbook/templating/global_variables>`.
+    Si possono aggiungere le proprie variabili globali ai template. Si veda la
+    ricetta :doc:`Variabili globali</cookbook/templating/global_variables>`.
 
 .. index::
    single: Template; Il servizio templating
@@ -1056,7 +1110,7 @@ Questo metodo funziona perfettamente con i tre diversi tipi di template
 di cui abbiamo appena parlato:
 
 * Creare un file ``app/Resources/views/base.html.twig`` che contenga il layout
-  principael per la propria applicazione (come nell'esempio precedente). Internamente,
+  principale per la propria applicazione (come nell'esempio precedente). Internamente,
   questo template si chiama ``::base.html.twig``;
 
 * Creare un template per ogni "sezione" del proprio sito. Per esempio, ``AcmeBlogBundle``
@@ -1334,6 +1388,7 @@ Imparare di più con il ricettario
 
 * :doc:`/cookbook/templating/PHP`
 * :doc:`/cookbook/controller/error_pages`
+* :doc:`/cookbook/templating/twig_extension`
 
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`KnpBundles.com`: http://knpbundles.com
@@ -1342,3 +1397,4 @@ Imparare di più con il ricettario
 .. _`tag`: http://twig.sensiolabs.org/doc/tags/index.html
 .. _`filtri`: http://twig.sensiolabs.org/doc/filters/index.html
 .. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/extensions.html
+.. _`hinclude.js`: http://mnot.github.com/hinclude/

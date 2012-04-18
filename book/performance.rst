@@ -47,12 +47,12 @@ Usare un autoloader con caches (p.e. ``ApcUniversalClassLoader``)
 
 Per impostazione predefinita, Symfony2 standard edition usa ``UniversalClassLoader``
 nel file `autoloader.php`_. Questo autoloader è facile da usare, perché troverà
-automaticamente ogni nuova classe inserita nelle cartella registrate.
+automaticamente ogni nuova classe inserita nelle cartella
+registrate.
 
 Sfortunatamente, questo ha un costo, perché il caricatore itera tutti gli spazi dei nomi
 configurati per trovare un particolare file, richiamando ``file_exists`` finché
 non trova il file cercato.
-
 
 La soluzione più semplice è mettere in cache la posizione di ogni classe, dopo che
 è stata trovata per la prima volta. Symfony dispone di una classe di caricamento,
@@ -64,7 +64,7 @@ Per usare questo caricatore, basta adattare il file ``autoloader.php`` come segu
 .. code-block:: php
 
     // app/autoload.php
-    require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+    require __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
 
     use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 
@@ -110,7 +110,7 @@ Si noti che ci sono due svantaggi nell'uso di un file di avvio:
 
 Se si usa Symfony2 Standard Edition, il file di avvio è ricostruito automaticamente
 dopo l'aggiornamento delle librerie dei venditori, tramite il comando
-``php bin/vendors install``.
+``php composer.phar install``.
 
 File di avvio e cache bytecode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,4 +123,4 @@ non c'è più ragione di usare un file di avvio.
 .. _`cache bytecode`: http://en.wikipedia.org/wiki/List_of_PHP_accelerators
 .. _`APC`: http://php.net/manual/en/book.apc.php
 .. _`autoloader.php`: https://github.com/symfony/symfony-standard/blob/master/app/autoload.php
-.. _`file di avvio`: https://github.com/sensio/SensioDistributionBundle/blob/master/Resources/bin/build_bootstrap.php
+.. _`file di avvio`: https://github.com/sensio/SensioDistributionBundle/blob/master/Composer/ScriptHandler.php

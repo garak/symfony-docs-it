@@ -424,7 +424,7 @@ fornito da Symfony. Un autoloader è uno strumento che rende possibile l'utilizz
 classi PHP senza includere esplicitamente il file che contiene la
 classe.
 
-Primo, `scaricare symfony`_ e metterlo in una cartella ``vendor/symfony/``.
+Primo, `scaricare symfony`_ e metterlo in una cartella ``vendor/symfony/symfony``.
 Poi, creare un file ``app/bootstrap.php``. Usarlo per il ``require`` dei due file
 dell'applicazione e per configurare l'autoloader:
 
@@ -434,11 +434,11 @@ dell'applicazione e per configurare l'autoloader:
     // bootstrap.php
     require_once 'model.php';
     require_once 'controllers.php';
-    require_once 'vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    require_once 'vendor/symfony/symonfy/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
     $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
     $loader->registerNamespaces(array(
-        'Symfony' => __DIR__.'/../vendor/symfony/src',
+        'Symfony' => __DIR__.'/../vendor/symfony/symfony/src',
     ));
 
     $loader->register();
@@ -742,7 +742,7 @@ Imparare di più con le ricette
 * :doc:`/cookbook/controller/service`
 
 .. _`Doctrine`: http://www.doctrine-project.org
-.. _`scaricare symfony`: http://symfony.com/download
+.. _`scaricare Symfony`: http://symfony.com/download
 .. _`Routing`: https://github.com/symfony/Routing
 .. _`Templating`: https://github.com/symfony/Templating
 .. _`KnpBundles.com`: http://knpbundles.com/

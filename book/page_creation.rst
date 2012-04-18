@@ -46,7 +46,11 @@ salutare. Per creare la pagina, seguiamo il semplice processo in due passi.
     La guida presume che Symfony2 sia stato già scaricato e il server web
     configurato. L'URL precedente presume che ``localhost`` punti alla cartella
     ``web`` del proprio nuovo progetto Symfony2. Per informazioni dettagliate su
-    questo processo, si veda :doc:`Installare Symfony2</book/installation>`.
+    questo processo, vedere la documentazione del server web usato.
+    Ecco le pagine di documentazione per alcuni server web:
+    
+    * Per il server Apache, fare riferimento alla `documentazione su DirectoryIndex di Apache`_.
+    * Per Nginx, fare riferimento alla `documentazione su HttpCoreModule di Nginx`_.
 
 Prima di iniziare: creare il bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

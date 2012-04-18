@@ -74,8 +74,7 @@ Il secondo metodo ha diversi vantaggi:
 * Fusione intelligente quando diversi file di configurazione (p.e. ``config_dev.yml``
   e ``config.yml``) sovrascrivono le proprie configurazioni a vicenda;
 
-* Validazione della configurazione (se si usa una
-  :ref:`classe di configurazione<cookbook-bundles-extension-config-class>`);
+* Validazione della configurazione (se si usa una :ref:`classe di configurazione<cookbook-bundles-extension-config-class>`);
 
 * auto-completamento nell'IDE quando si crea un XSD e lo sviluppatore usa XML.
 
@@ -133,7 +132,7 @@ del bundle con ``Extension``. Per esempio, la classe Extension di
 La presenza della classe precedente vuol dire che si può definire uno spazio dei nomi
 ``acme_hello`` in un qualsiasi file di configurazione. Lo spazio dei nomi ``acme_hello``
 viene dal nome della classe Extension, a cui è stata rimossa la parola ``Extension``
-e posto in minuscolo e con trattini bassi il resto del nome. In altre parole,,
+e posto in minuscolo e con trattini bassi il resto del nome. In altre parole,
 ``AcmeHelloExtension`` diventa ``acme_hello``.
 
 Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
@@ -191,8 +190,8 @@ Si prenda la seguente configurazione:
 
         # app/config/config.yml
         acme_hello:
-            foo: fooValue
-            bar: barValue
+            foo: valoreDiFoo
+            bar: valoreDiBar
 
     .. code-block:: xml
 
@@ -204,8 +203,8 @@ Si prenda la seguente configurazione:
             xmlns:acme_hello="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-            <acme_hello:config foo="fooValue">
-                <acme_hello:bar>barValue</acme_hello:bar>
+            <acme_hello:config foo="valoreDiFoo">
+                <acme_hello:bar>valoreDiBar</acme_hello:bar>
             </acme_hello:config>
 
         </container>
@@ -214,16 +213,16 @@ Si prenda la seguente configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('acme_hello', array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'foo' => 'valoreDiFoo',
+            'bar' => 'valoreDiBar',
         ));
 
 L'array passato al metodo ``load()`` sarà simile a questo::
 
     array(
         array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'foo' => 'valoreDiFoo',
+            'bar' => 'valoreDiBar',
         )
     )
 
@@ -234,17 +233,18 @@ sotto di esso, l'array in uscita sarà simile a questo::
 
     array(
         array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'foo' => 'valoreDiFoo',
+            'bar' => 'valoreDiBar',
         ),
         array(
-            'foo' => 'fooDevValue',
-            'baz' => 'newConfigEntry',
+            'foo' => 'valoreDevDiFoo',
+            'baz' => 'nuovaVoceDiConfig',
         ),
     )
 
-L'ordine dei due array dipende da quale è stato definito prima. È compito di chi
-sviluppa il bundle, quindi, decidere in che modo tali configurazioni vadano fuse
+L'ordine dei due array dipende da quale è stato definito prima.
+
+È compito di chi sviluppa il bundle, quindi, decidere in che modo tali configurazioni vadano fuse
 insieme. Si potrebbe, per esempio, voler fare in modo che i valori successivi
 sovrascrivano quelli precedenti, oppure fonderli in qualche modo.
 
@@ -435,7 +435,7 @@ validazione, con i valori predefiniti e per la normalizzazione dei formati.
 Per sfruttare questo sistema, si creerà una classe ``Configuration`` e si costruirà
 un albero, che definisce la propria configurazione in tale classe::
 
-    // src/Acme/HelloBundle/DependencyExtension/Configuration.php
+    // src/Acme/HelloBundle/DependencyInjection/Configuration.php
     namespace Acme\HelloBundle\DependencyInjection;
 
     use Symfony\Component\Config\Definition\Builder\TreeBuilder;

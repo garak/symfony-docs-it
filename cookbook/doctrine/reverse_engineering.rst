@@ -47,7 +47,7 @@ riga di un post tramite una chiave esterna.
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Prima di addentrarsi nella ricetta, ci si assicuri di aver configurato correttamente
-i propri parametri di connessione, nel file ``app/config/parameters.yml`` (o in qualsiasi
+i propri parametri di connessione, nel file ``app/config/parameters.ini`` (o in qualsiasi
 altro posto in cui la configurazione è memorizzata) e di aver inizializzato un bundle
 che possa ospitare le future classi entità. In questa guida, si ipotizza che esista
 un ``AcmeBlogBundle``, posto nella cartella
@@ -170,4 +170,4 @@ Il secondo comando genera tutti i getter e i setter per le proprietà delle clas
 ``BlogPost`` e ``BlogComment``. Le entità generate sono ora pronte per essere
 usate.
 
-.. _`documentazione sugli strumenti di Doctrine`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/tools.html#reverse-engineering
+.. _`documentazione sugli strumenti di Doctrine`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/tools.html#reverse-engineering

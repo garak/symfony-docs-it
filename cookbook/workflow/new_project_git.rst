@@ -35,11 +35,17 @@ locale:
         /vendor/  
         /app/config/parameters.ini
 
-4. Copiare ``app/config/parameters.yml`` in ``app/config/parameters.yml.dist``.
-   Il file ``parameters.yml`` è ignorato da git (vedi sopra), quindi le impostazioni
+.. tip::
+
+   Si potrebbe anche voler creare un file .gitignore, da usare su tutto il sistema,
+   nel qual caso, si possono trovare ulteriori informazioni qui: `Github .gitignore`_
+   In questo modo, si possono escludere i file e le cartelle usati più spesso dal proprio IDE per ogni progetto.
+
+4. Copiare ``app/config/parameters.ini`` in ``app/config/parameters.ini.dist``.
+   Il file ``parameters.ini`` è ignorato da git (vedi sopra), quindi le impostazioni
    specifiche della macchina, come le password del database, non saranno inviate. Creando
-   il file ``parameters.yml.dist``, i nuovi sviluppatori potranno clonare rapidamente il
-   progetto, copiando questo file in ``parameters.yml`` e personalizzandolo.
+   il file ``parameters.ini.dist``, i nuovi sviluppatori potranno clonare rapidamente il
+   progetto, copiando questo file in ``parameters.ini`` e personalizzandolo.
 
 5. Inizializzare il proprio repository git:
 

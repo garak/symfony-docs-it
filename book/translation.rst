@@ -793,7 +793,7 @@ l'helper ``translator``:
 Forzare il locale della traduzione
 ----------------------------------
 
-Quando si traduce un messaggio, Symfony2 utilizza il lodale della sessione utente
+Quando si traduce un messaggio, Symfony2 utilizza il locale della sessione utente
 o il locale ``fallback`` se necessario. È anche possibile specificare manualmente il
 locale da usare per la traduzione:
 
@@ -901,8 +901,7 @@ non sia vuota, aggiungere il seguente:
             }
         }
 
-Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei vincoli, tipicamente nella cartella
-``Resources/translations/`` del bundle. Vedere `Cataloghi di messaggi`_ per maggiori dettagli.
+Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei vincoli, tipicamente nella cartella ``Resources/translations/`` del bundle. Vedere `Cataloghi di messaggi`_ per maggiori dettagli.
 
 .. configuration-block::
 

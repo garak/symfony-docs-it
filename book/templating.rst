@@ -1334,6 +1334,7 @@ Imparare di più con il ricettario
 
 * :doc:`/cookbook/templating/PHP`
 * :doc:`/cookbook/controller/error_pages`
+* :doc:`/cookbook/templating/twig_extension`
 
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`KnpBundles.com`: http://knpbundles.com

@@ -29,7 +29,7 @@ libreria di venditore, senza dover in realtà inserirle nel *proprio*
 repository.
 
 Quindi, ogni volta che uno sviluppatore usa il progetto, deve eseguire lo script
-``php bin/vendors install``, per assicurarsi di avere tutt le librerie necessarie.
+``php bin/vendors install``, per assicurarsi di avere tutte le librerie necessarie.
 
 .. sidebar:: Aggiornare Symfony
 

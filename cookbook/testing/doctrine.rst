@@ -40,8 +40,9 @@ Innanzitutto, occorre aggiungere lo spazio dei nomi ``Doctrine\Tests`` al propri
 
     // app/autoload.php
     $loader->registerNamespaces(array(
-        //...
+        // ...
         'Doctrine\\Tests'                => __DIR__.'/../vendor/doctrine/tests',
+        // ...
     ));
 
 Poi, occorrerà preparare un gestore di entità in ogni test, in modo che Doctrine

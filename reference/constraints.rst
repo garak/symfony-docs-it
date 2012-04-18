@@ -38,9 +38,8 @@ Riferimento per i vincoli di validazione
    constraints/Image
 
    constraints/Callback
-   constraints/All
-   constraints/UserPassword
    constraints/Valid
+   constraints/All
 
 Il validatore è progettato per validare oggetto in base a *vincoli*.
 Nella vita reale, un vincolo potrebbe essere: "la torta non deve essere bruciata". In

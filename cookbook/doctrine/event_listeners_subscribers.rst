@@ -111,4 +111,4 @@ specifico di entità (p.e. un'entità ``Product``, ma non un'entità ``BlogPost`
 si dovrebbe verificare il nome della classe dell'entità nel proprio metodo
 (come precedentemente mostrato).
 
-.. _`The Event System`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/events.html
+.. _`The Event System`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/events.html

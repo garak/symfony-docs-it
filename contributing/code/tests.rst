@@ -7,7 +7,7 @@ tutti i test di Symfony2, per assicurarsi di non aver rotto nulla.
 PHPUnit
 -------
 
-Per eseguire i test di Symfony2, `installare`_ prima PHPUnit 3.6.4 o successivi.
+Per eseguire i test di Symfony2, `installare`_ prima PHPUnit 3.5.11 o successivi.
 
 .. code-block:: bash
 

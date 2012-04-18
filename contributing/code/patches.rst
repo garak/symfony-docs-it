@@ -79,7 +79,7 @@ il seguente software:
 
 * PHP versione 5.3.2 o superiore;
 
-* PHPUnit 3.6.4 o superiore.
+* PHPUnit 3.5.11 o superiore.
 
 Impostare il informazioni utente con il nome e l'indirizzo email:
 

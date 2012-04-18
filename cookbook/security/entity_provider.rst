@@ -58,29 +58,29 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
     class User implements UserInterface
     {
         /**
-         * @ORM\Column(name="id", type="integer")
-         * @ORM\Id()
+         * @ORM\Column(type="integer")
+         * @ORM\Id
          * @ORM\GeneratedValue(strategy="AUTO")
          */
         private $id;
 
         /**
-         * @ORM\Column(name="username", type="string", length=25, unique=true)
+         * @ORM\Column(type="string", length=25, unique=true)
          */
         private $username;
 
         /**
-         * @ORM\Column(name="salt", type="string", length=40)
+         * @ORM\Column(type="string", length=32)
          */
         private $salt;
 
         /**
-         * @ORM\Column(name="password", type="string", length=40)
+         * @ORM\Column(type="string", length=40)
          */
         private $password;
 
         /**
-         * @ORM\Column(name="email", type="string", length=60, unique=true)
+         * @ORM\Column(type="string", length=60, unique=true)
          */
         private $email;
 
@@ -92,44 +92,69 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         public function __construct()
         {
             $this->isActive = true;
-            $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+            $this->salt = md5(uniqid(null, true));
         }
 
-        public function getRoles()
-        {
-            return array('ROLE_USER');
-        }
-
-        public function equals(UserInterface $user)
-        {
-            return $user->getUsername() === $this->username;
-        }
-
-        public function eraseCredentials()
-        {
-        }
-
+        /**
+         * @inheritDoc
+         */
         public function getUsername()
         {
             return $this->username;
         }
 
+        /**
+         * @inheritDoc
+         */
         public function getSalt()
         {
             return $this->salt;
         }
 
+        /**
+         * @inheritDoc
+         */
         public function getPassword()
         {
             return $this->password;
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function getRoles()
+        {
+            return array('ROLE_USER');
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function eraseCredentials()
+        {
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function equals(UserInterface $user)
+        {
+            return $this->username === $user->getUsername();
         }
     }
 
 Per poter usare un'istanza della classe ``AcmeUserBundle:User`` nel livello della sicurezza
 di Symfony, la classe entità deve implementare
 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`. Questa
-interfaccia costringe la classe a implementare i seguenti cinque metodi: ``getRoles()``,
-``getPassword()``, ``getSalt()``, ``getUsername()``, ``eraseCredentials()``.
+interfaccia costringe la classe a implementare i seguenti sei metodi:
+
+* ``getUsername()``
+* ``getSalt()``
+* ``getPassword()``
+* ``getRoles()``
+* ``eraseCredentials()``
+* ``equals()``
+
 Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
 Per dirla in modo semplice, il metodo ``equals()`` confronta il campo ``username``,

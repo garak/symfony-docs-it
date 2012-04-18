@@ -22,7 +22,8 @@ Uso di base
 
 Si supponga di avere un ``AcmeUserBundle`` con un entità ``User``, che ha un campo
 ``email``. Si può usare il vincolo ``Unique`` per garantire che il campo
-``email`` rimanga unico tra tutti i vincoli della propria tabella degli utenti:
+``email`` rimanga unico tra tutti i vincoli della propria tabella degli
+utenti:
 
 .. configuration-block::
 
@@ -99,6 +100,4 @@ em
 **tipo**: ``stringa``
 
 Nome del gestore di entità da usare per eseguire la query che determina
-l'unicità. Se lasciato vuoto, sarà determinato il gestore di entità corretto
-per questa classe. Per questo motivo, probabilmente non occorre usare questa
-opzione. 
+l'unicità. Se lasciato vuoto, sarà determinato il gestore di entità predefinito.

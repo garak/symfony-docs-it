@@ -468,7 +468,7 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
 Permettere la rimozione di tag
 ------------------------------
 
-Il passo successio è consentire la cancellazione di un deterimato elemento dell'elenco.
+Il passo successivo è consentire la cancellazione di un deterimato elemento dell'elenco.
 La soluzione è simile a quella usata per consentire l'aggiunta di tag.
 
 Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::

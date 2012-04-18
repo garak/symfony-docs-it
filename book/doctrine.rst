@@ -44,21 +44,21 @@ Configurazione del database
 
 Prima di iniziare, occorre configurare le informazioni sulla connessione al
 database. Per convenzione, questa informazione solitamente è configurata in un
-file ``app/config/parameters.yml``:
+file ``app/config/parameters.ini``:
 
-.. code-block:: yaml
+.. code-block:: ini
 
-    # app/config/parameters.yml
-    parameters:
-        database_driver:   pdo_mysql
-        database_host:     localhost
-        database_name:     test_project
-        database_user:     root
-        database_password: password
+    ;app/config/parameters.ini
+    [parameters]
+        database_driver   = pdo_mysql
+        database_host     = localhost
+        database_name     = test_project
+        database_user     = root
+        database_password = password
 
 .. note::
 
-    La definizione della configurazione tramite ``parameters.yml`` è solo una convenzione.
+    La definizione della configurazione tramite ``parameters.ini`` è solo una convenzione.
     I parametri definiti in tale file sono riferiti dal file di configurazione principale
     durante le impostazioni iniziali di Doctrine:
     

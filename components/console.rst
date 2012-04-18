@@ -61,8 +61,8 @@ contenente il seguente codice::
         }
     }
 
-You also need to create the file to run at the command line which creates
-an ``Application`` and adds commands to it::
+Occorre anche creare il file da eseguire in linea di comando, che crea
+una ``Application`` e vi aggiunge comandi::
 
     #!/usr/bin/env php
     # app/console

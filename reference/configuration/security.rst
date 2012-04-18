@@ -76,15 +76,15 @@ Ogni parte sarà spiegata nella prossima sezione.
                     access_denied_url: /foo/error403
                     access_denied_handler: some.service.id
                     entry_point: some.service.id
-                    provider: nome_di_un_provider_di_cui_sopra
-                    context: name
+                    provider: nome
+                    context: nome
                     stateless: false
                     x509:
-                        provider: nome_di_un_provider_di_cui_sopra
+                        provider: nome
                     http_basic:
-                        provider: nome_di_un_provider_di_cui_sopra
+                        provider: nome
                     http_digest:
-                        provider: nome_di_un_provider_di_cui_sopra
+                        provider: nome
                     form_login:
                         check_path: /login_check
                         login_path: /login

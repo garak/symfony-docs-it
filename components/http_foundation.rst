@@ -378,139 +378,139 @@ astrae l'ingrato compito dietro una semplice API::
 Sessioni
 --------
 
-The Symfony2 HttpFoundation Component has a very powerful and flexible session
-subsystem which is designed to provide session management through a simple
-object-oriented interface using a variety of session storage drivers.
+Il componente HttpFoundation di Symfony2 ha un sotto-sistema per le sessioni molto potente
+e flessibile, progettato per fornire una gestione delle sessioni tramite una semplice
+interfaccia orientata agli oggetti, usando una varietà di driver per memorizzare la sessione.
 
 .. versionadded:: 2.1
-    The :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface` interface,
-    as well as a number of other changes, are new as of Symfony 2.1.
+    L'interfaccia :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface`,
+    insieme a molte altre modifiche, è stata aggiunta in Symfony 2.1.
 
-Sessions are used via the simple :class:`Symfony\\Component\\HttpFoundation\\Session\\Session`
-implementation of :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface` interface.
+Le sessioni sono usate tramite la semplice implementazione :class:`Symfony\\Component\\HttpFoundation\\Session\\Session`
+dell'interfaccia :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface`.
 
-Quick example::
+Un rapido esempio::
 
     use Symfony\Component\HttpFoundation\Session\Session;
 
     $session = new Session();
     $session->start();
 
-    // set and get session attributes
+    // imposta e ottiene attributi di sessione
     $session->set('name', 'Drak');
     $session->get('name');
 
-    // set flash messages
-    $session->getFlashBag()->add('notice', 'Profile updated');
+    // imposta messggi flash
+    $session->getFlashBag()->add('notice', 'Profilo aggiornato');
 
-    // retrieve messages
+    // recupera i messaggi
     foreach ($session->getFlashBag()->get('notice', array()) as $message) {
         echo "<div class='flash-notice'>$message</div>";
     }
 
-Session API
-~~~~~~~~~~~
+API delle sessioni
+~~~~~~~~~~~~~~~~~~
 
-The :class:`Symfony\\Component\\HttpFoundation\\Session\\Session` class implements
+La classe :class:`Symfony\\Component\\HttpFoundation\\Session\\Session` implementa
 :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface`.
 
-The :class:`Symfony\\Component\\HttpFoundation\\Session\\Session` has a simple API
-as follows divided into a couple of groups.
+La classe :class:`Symfony\\Component\\HttpFoundation\\Session\\Session` ha una semplice API,
+suddivisa in un paio di gruppi.
 
-Session workflow
+Flusso della sessione
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::start`:
-  Starts the session - do not use ``session_start()``.
+  Fa partire la sessione. Non usare ``session_start()``.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::migrate`:
-  Regenerates the session id - do not use ``session_regenerate_id()``.
-  This method can optionally change the lifetime of the new cookie that will
-  be emitted by calling this method.
+  Rigenera l'id di sessione. Non usare ``session_regenerate_id()``.
+  Questo metodo, facoltativamente, può cambiare la scadenza del nuovo cookie, che sarà
+  emesso alla chiamata di questo metodo.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::invalidate`:
-  Clears the session data and regenerates the session id do not use ``session_destroy()``.
-  This is basically a shortcut for ``clear()`` and ``migrate()``.
+  Pulisce i dati della sessione e rigenera la sessione. Non usare ``session_destroy()``.
+  Questo non è altro che una scorciatoia per ``clear()`` e ``migrate()``.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getId`: Gets the
-  session ID.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getId`: Restituisce
+  l'id della sessione.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setId`: Sets the
-  session ID.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setId`: Imposta
+  l'id della sessione.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getName`: Gets the
-  session name.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getName`: Restituisce
+  il nome della sessione.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setName`: Sets the
-  session name.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setName`: Imposta
+  il nome della sessione.
 
-Session attributes
+Attributi della sessione
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::set`:
-  Sets an attribute by key;
+  Imposta un attributo per chiave;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::get`:
-  Gets an attribute by key;
+  Restituisce un attributo per chiave;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::all`:
-  Gets all attributes as an array of key => value;
+  Restituisce tutti gli attributi, come array chiave => valore;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::has`:
-  Returns true if the attribute exists;
+  Restituisce ``true`` se l'attributo esiste;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::keys`:
-  Returns an array of stored attribute keys;
+  Restituisce un array di chiavi di attributi;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::replace`:
-  Sets multiple attributes at once: takes a keyed array and sets each key => value pair.
+  Imposta molti attributi contemporaneamente: accetta un array e imposta ogni coppia chiave => valore.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::remove`:
-  Deletes an attribute by key;
+  Cancella un attributo per chiave;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::clear`:
-  Clear all attributes;
+  Pulisce tutti gli attributi;
 
-The attributes are stored internally in an "Bag", a PHP object that acts like
-an array. A few methods exist for "Bag" management:
+Gli attributi sono memorizzati internamente in un "Bag", un oggetto PHP che agisce come
+un array. Ci sono alcuni metodi per la gestione del "Bag":
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::registerBag`:
-  Registers a :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface`
+  Registra una :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface`
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getBag`:
-  Gets a :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface` by
-  bag name.
+  Restituisce una :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface` per
+  nome del bag.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getFlashBag`:
-  Gets the :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`.
-  This is just a shortcut for convenience.
+  Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`.
+  Questa è solo una scorciatoia.
 
-Session meta-data
+Meta-dati della sessione
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag`:
-  Gets the :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\MetadataBag`
-  which contains information about the session.
+  Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\MetadataBag`,
+  che contiene informazioni sulla sessione.
 
-Save Handlers
-~~~~~~~~~~~~~
+Gestori del salvataggio
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The PHP session workflow has 6 possible operations that may occur.  The normal
-session follows `open`, `read`, `write` and `close`, with the possibility of
-`destroy` and `gc` (garbage collection which will expire any old sessions: `gc`
-is called randomly according to PHP's configuration and if called, it is invoked
-after the `open` operation).  You can read more about this at
+Il flusso della sessione di PHP ha sei possibili operazioni da eseguire. La sessione normale
+segue `open`, `read`, `write` e `close`, con la possibilità di
+`destroy` e `gc` (garbage collection, che fa scadere le vecchie sessioni: `gc`
+viene richiamato in modo casuale, secondo la configurazione di PHP, e, se richiamato, è
+invocato dopo l'operazione `open`). Si può approfondire l'argomento su
 `php.net/session.customhandler`_
 
 
-Native PHP Save Handlers
-~~~~~~~~~~~~~~~~~~~~~~~~
+Gestori del salvataggio nativi di PHP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-So-called 'native' handlers, are session handlers which are either compiled into
-PHP or provided by PHP extensions, such as PHP-Sqlite, PHP-Memcached and so on.
-The handlers are compiled and can be activated directly in PHP using
-`ini_set('session.save_handler', $name);` and are usually configured with
-`ini_set('session.save_path', $path);` and sometimes, a variety of other PHP
-`ini` directives.
+I gestori cosiddetti 'nativi' sono gestori di sessione che sono o compilati in
+PHP o forniti da estensioni di PHP, come PHP-Sqlite, PHP-Memcached e così via.
+I gestori sono compilato e possono essere attivati direttamente in PHP, usando
+`ini_set('session.save_handler', $nome);` e solitamente sono configurati con
+`ini_set('session.save_path', $percorso);` e, talvolta, diverse altre direttive
+`ini`.
 
-Symfony2 provides drivers for native handlers which are easy to configure, these are:
+Symfony2 fornisce driver per i gestori nativi, facili da configurare:
 
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeFileSessionHandler`;
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSqliteSessionHandler`;
@@ -518,7 +518,7 @@ Symfony2 provides drivers for native handlers which are easy to configure, these
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeMemcachedSessionHandler`;
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeRedisSessionHandler`;
 
-Example of use::
+Esempio di utilzzo::
 
     use Symfony\Component\HttpFoundation\Session\Session;
     use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
@@ -527,22 +527,22 @@ Example of use::
     $storage = new NativeSessionStorage(array(), new NativeMemcachedSessionHandler());
     $session = new Session($storage);
 
-Custom Save Handlers
-~~~~~~~~~~~~~~~~~~~~
+Gestori del salvataggio personalizzati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Custom handlers are those which completely replace PHP's built in session save
-handlers by providing six callback functions which PHP calls internally at
-various points in the session workflow.
+I gestori personalizzati sono quelli che sostituiscono completamente i gestori del salvataggio
+nativi di PHP, fornendo sei funzioni di callback, richiamate internamente da PHP in vari
+punti del flusso della sessione.
 
-Symfony2 HttpFoundation provides some by default and these can easily serve as
-examples if you wish to write your own.
+HttpFoundation di Symfony2 ne fornisce alcuni predefiniti, che possono facilmente servire
+da esempi, se se ne vuole scrivere uno.
 
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`;
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`;
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`;
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`;
 
-Example::
+Esempio::
 
     use Symfony\Component\HttpFoundation\Session\Session;
     use Symfony\Component\HttpFoundation\Session\Storage\SessionStorage;
@@ -551,193 +551,193 @@ Example::
     $storage = new NativeSessionStorage(array(), new PdoSessionHandler());
     $session = new Session($storage);
 
-Session Bags
-------------
+Bag della sessione
+------------------
 
-PHP's session management requires the use of the `$_SESSION` super-global,
-however, this interferes somewhat with code testability and encapsulation in a
-OOP paradigm. To help overcome this, Symfony2 uses 'session bags' linked to the
-session to encapsulate a specific dataset of 'attributes' or 'flash messages'.
+La gestione della sessione di PHP richiede l'uso della variabile super-globale `$_SESSION`,
+tuttavia questo interferisce in qualche modo con la testabilità del codice e con l'incapsulamento
+in un paradigma OOP. Per superare il problema, Symfony2 usa dei 'bag' di sessione, collegati
+alla sessione per incapsulare uno specifico insieme di 'attributi' o 'messaggi flash'.
 
-This approach also mitigates namespace pollution within the `$_SESSION`
-super-global because each bag stores all its data under a unique namespace.
-This allows Symfony2 to peacefully co-exist with other applications or libraries
-that might use the `$_SESSION` super-global and all data remains completely
-compatible with Symfony2's session management.
+Questo approccio mitiga anche l'inquinamento dello spazio dei nomi all'interno di `$_SESSION`,
+perché ogni bas memorizza i suoi dati sotto uno spazio dei nomi univoco.
+Questo consente a Symfony2 di coesistere in modo pacifico con altre applicazioni o librerie
+che potrebbero usare `$_SESSION`, mantenendo tutti i dati completamente compatibili
+con la gestione delle sessioni di Symfony2.
 
-Symfony2 provides 2 kinds of bags, with two separate implementations.
-Everything is written against interfaces so you may extend or create your own
-bag types if necessary.
+Symfony2 fornisce due tipi di bag, con due implementazioni separate.
+Ogni cosa è scritta su interfacce, quindi si può estendere o creare i propri tipi di
+bag, se necessario.
 
-:class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface` has
-the following API which is intended mainly for internal purposes:
+:class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface` ha la
+seguente API, intesa principalmente per scopi interni:
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getStorageKey`:
-  Returns the key which the bag will ultimately store its array under in `$_SESSION`.
-  Generally this value can be left at its default and is for internal use.
+  restituisce la chiave che il bag memorizzerà nell'array sotto `$_SESSION`.
+  In generale questo valore può essere lasciato al suo predefinito ed è per uso interno.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::initialize`:
-  This is called internally by Symfony2 session storage classes to link bag data
-  to the session.
+  richiamato internamente dalle classi memorizzazione della sessione di Symfony2 per collegare
+  i dati del bag alla sessione.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getName`:
-  Returns the name of the session bag.
+  Restituisce il nome del bag della sessione.
 
-Attributes
-~~~~~~~~~~
+Attributi
+~~~~~~~~~
 
-The purpose of the bags implementing the :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface`
-is to handle session attribute storage. This might include things like user ID,
-and remember me login settings or other user based state information.
+Lo scopo dei bag che implementano :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface`
+è gestire la memorizzazione degli attributi di sessione. Questo potrebbe includer cose come l'id utente,
+le impostazioni "ricordami" o altre informazioni basate sullo stato dell'utente.
 
 * :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBag`
-  This is the standard default implementation.
+  è l'implementazione standard predefinita.
 
 * :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\NamespacedAttributeBag`
-  This implementation allows for attributes to be stored in a structured namespace.
+  consente agli attributi di essere memorizzati in uno spazio dei nomi strutturato.
 
-Any plain `key => value` storage system is limited in the extent to which
-complex data can be stored since each key must be unique. You can achieve
-namespacing by introducing a naming convention to the keys so different parts of
-your application could operate without clashing. For example, `module1.foo` and
-`module2.foo`. However, sometimes this is not very practical when the attributes
-data is an array, for example a set of tokens. In this case, managing the array
-becomes a burden because you have to retrieve the array then process it and
-store it again::
+Qualsiasi sistema di memorizzazione `chiave => valore` è limitato riguardo alla complessità
+dei dati che possono essere memorizzati, perché ogni chiave deve essere univoca. Si può ottenere
+una sorta di spazio di nomi, introducendo una convenzione di nomi nelle chiavi, in modo che
+le varie parti dell'applicazioni possano operare senza interferenze. Per esempio, `modulo1.pippo`
+e `modulo2.pippo`. Tuttavia, a volte questo non è molto pratico quando gli attributi sono
+array, per esempio un insieme di token. In questo caso, gestire l'array diventa pesante,
+perché di deve recuperare l'array e poi processarlo e memorizzarlo di
+nuovo::
 
     $tokens = array('tokens' => array('a' => 'a6c1e0b6',
                                       'b' => 'f4a7b1f3'));
 
-So any processing of this might quickly get ugly, even simply adding a token to
-the array::
+Quindi ogni processamento può rapidamente diventare brutto, persino la semplice aggiunta
+di un token all'array::
 
     $tokens = $session->get('tokens');
     $tokens['c'] = $value;
     $session->set('tokens', $tokens);
 
-With structured namespacing, the the key can be translated to the array
-structure like this using a namespace character (defaults to `/`)::
+Con uno spazio di nomi strutturato, la chiave può essere tradotta nella struttura
+dell'array, usando un carattere che crei lo spazio dei nomi (predefinito a `/`)::
 
     $session->set('tokens/c', $value);
 
-This way you can easily access a key within the stored array directly and easily.
+In questo modo si può accedere facilmente a una chiave nell'array direttamente e facilmente.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface`
-has a simple API
+ha una semplice API
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::set`:
-  Sets an attribute by key;
+  Imposta un attributo per chiave;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::get`:
-  Gets an attribute by key;
+  Restituisce un attributo per chiave;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::all`:
-  Gets all attributes as an array of key => value;
+  Restituisce tutti gli attributi come array chiave => valore;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::has`:
-  Returns true if the attribute exists;
+  Restituisce ``true`` se l'attributo esiste;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::keys`:
-  Returns an array of stored attribute keys;
+  Restituisce un array di chiavi di attributi;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::replace`:
-  Sets multiple attributes at once: takes a keyed array and sets each key => value pair.
+  Imposta molti attributi contemporaneamente: accetta un array e imposta ogni coppia chiave => valore.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::remove`:
-  Deletes an attribute by key;
+  Cancella un attributo per chiave;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::clear`:
-  Clear the bag;
+  Pulisce il bag;
 
-Flash messages
+Messaggi flash
 ~~~~~~~~~~~~~~
 
-The purpose of the :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`
-is to provide a way of settings and retrieving messages on a per session basis.
-The usual workflow for flash messages would be set in an request, and displayed
-after a page redirect. For example, a user submits a form which hits an update
-controller, and after processing the controller redirects the page to either the
-updated page or an error page. Flash messages set in the previous page request
-would be displayed immediately on the subsequent page load for that session.
-This is however just one application for flash messages.
+Lo scopo di :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`
+è fornire un modo di impostare e recuperare messaggi basati sulla sessione.
+Il flusso dei messaggi flash di solito è impostarli in una richiesta e mostrarli dopo
+il rinvio di una pagina. Per esempio, un utente invia un form che esegue un controllore
+che aggiorna un dato e dopo il processo il controllore rinvia o alla pagina di
+aggiornamento o a quella di errore. I messaggi flash impostati nella pagina precedente
+sarebbero mostrati immediatamente nella pagina successiva.
+Tuttavia questa è solo una possibile applicazione per i messaggi flash.
 
 * :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\AutoExpireFlashBag`
-   This implementation messages set in one page-load will
-   be available for display only on the next page load. These messages will auto
-   expire regardless of if they are retrieved or not.
+   con questa implementazione, i messaggi impostati in una pagina saranno disponibili
+   per essere mostrati sono al caricamento della pagina successiva. Tali messaggi
+   scadranno automaticamente, che siano stati recuperati o meno.
 
 * :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBag`
-   In this implementation, messages will remain in the session until
-   they are explicitly retrieved or cleared. This makes it possible to use ESI
-   caching.
+   con questa implementazione, i messaggi rimarranno i sessione finché non saranno
+   esplicitamente recuperati o rimossi. Questo rende possibile l'utilizzo della
+   cache ESI.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`
-has a simple API
+ha una semplice API
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::add`:
-  Adds a flash message to the stack of specified type;
+  aggiunge un messaggio flash alla pila del tipo specificato;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::set`:
-  Sets flashes by type;  This method conveniently takes both singles messages as
-  a ``string`` or multiple messages in an ``array``.
+  imposta i flash per tipo. Questo metodo accetta sia messaggi singoli come stringa,
+  che messaggi multipli come array.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::get`:
-  Gets flashes by type and clears those flashes from the bag;
+  restituisce i flash per tipo e cancella tali flash dal bag;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::setAll`:
-  Sets all flashes, accepts a keyed array of arrays ``type => array(messages)``;
+  imposta tutti i flash, accetta un array di array con chiavi ``tipo => array(messaggi)``;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::all`:
-  Gets all flashes (as a keyed array of arrays) and clears the flashes from the bag;
+  restituisce tutti i flash (come array di array con chiavi) e cancella i flash dal bag;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::peek`:
-  Gets flashes by type (read only);
+  restituisce i flash per tipo (sola lettura);
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::peekAll`:
-  Gets all flashes (read only) as keyed array of arrays;
+  restituisce tutti i flash (sola lettura) come array di array con chiavi;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::has`:
-  Returns true if the type exists, false if not;
+  restituisce ``true`` se il tipo esiste, ``false`` altrimenti;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::keys`:
-  Returns an array of the stored flash types;
+  restituisce un array di tipi di flash memorizzati;
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::clear`:
-  Clears the bag;
+  pulisce il bag;
 
-For simple applications it is usually sufficient to have one flash message per
-type, for example a confirmation notice after a form is submitted. However,
-flash messages are stored in a keyed array by flash ``$type`` which means your
-application can issue multiple messages for a given type. This allows the API
-to be used for more complex messaging in your application.
+Solitamente, per applicazioni semplici basta avere un solo messaggio flash per
+tipo, per esempio una nota di conferma dopo l'invio di un form. Tuttavia,
+i messaggi flash sono memorizzati in un array per ``$type``, il che vuol dire che
+l'applicazione può inviare più messaggi di un dato tipo. Questo consente l'uso dell'API
+per messaggi più complessi.
 
-Examples of setting multiple flashes::
+Esempi di impostazioni di flash multipli::
 
     use Symfony\Component\HttpFoundation\Session\Session;
 
     $session = new Session();
     $session->start();
 
-    // add flash messages
-    $session->getFlashBag()->add('warning', 'Your config file is writable, it should be set read-only');
-    $session->getFlashBag()->add('error', 'Failed to update name');
-    $session->getFlashBag()->add('error', 'Another error');
+    // aggiunge i messaggi flash
+    $session->getFlashBag()->add('warning', 'Il file di config è scrivibile, dovrebbe essere in sola lettura');
+    $session->getFlashBag()->add('error', 'Aggiornamento del nome fallito');
+    $session->getFlashBag()->add('error', 'Un altro errore');
 
-Displaying the flash messages might look like this:
+Si potrebbero mostrare i messaggi in questo modo:
 
-Simple, display one type of message::
+Semplice, mostra un tipo di messaggio::
 
-    // display warnings
+    // mostra avvertimenti
     foreach ($session->getFlashBag()->get('warning', array()) as $message) {
         echo "<div class='flash-warning'>$message</div>";
     }
 
-    // display errors
+    // mostra errori
     foreach ($session->getFlashBag()->get('error', array()) as $message) {
         echo "<div class='flash-error'>$message</div>";
     }
 
-Compact method to process display all flashes at once::
+Metodo compatto per processare la visualizzazione di tutti i flash in un colpo solo::
 
     foreach ($session->getFlashBag()->all() as $type => $messages) {
         foreach ($messages as $message) {
@@ -745,42 +745,41 @@ Compact method to process display all flashes at once::
         }
     }
 
-Testability
+Testabilità
 -----------
 
-Symfony2 is designed from the ground up with code-testability in mind. In order
-to make your code which utilizes session easily testable we provide two separate
-mock storage mechanisms for both unit testing and functional testing.
+Symfony2 è progettato dalla base con la testabilità del codice in mente. Per rendere il
+proprio codice, che usa le sessioni, facilmente testabile, sono forniti due meccanismi
+diversi di mock della memorizzazione, per i test unitari e per i test funzionali.
 
-Testing code using real sessions is tricky because PHP's workflow state is global
-and it is not possible to have multiple concurrent sessions in the same PHP
-process.
+Il test del codice con sessioni vere è complicato, perché il flusso di stato di PHP è
+globale e non è possibile avere sessioni multiple concorrenti nello stesso processo
+PHP.
 
-The mock storage engines simulate the PHP session workflow without actually
-starting one allowing you to test your code without complications. You may also
-run multiple instances in the same PHP process.
+Il motore dei mock di memorizzazione simula il flusso della sessione di PHP senza
+effettivamente iniziarne una, consentendo il test del codice senza complicazioni. Si
+possono anche eseguire istanze multiple nello stesso processo PHP.
 
-The mock storage drivers do not read or write the system globals
-`session_id()` or `session_name()`. Methods are provided to simulate this if
-required:
+I driver dei mock di memorizzazione non leggono né scrivono `session_id()` e `session_name()`
+di sistema. Ci sono dei metodi per simularli, se necessario:
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::getId`: Gets the
-  session ID.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::getId`: restituisce
+  l'id di sessione.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::setId`: Sets the
-  session ID.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::setId`: imposta
+  l'id di sessione.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::getName`: Gets the
-  session name.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::getName`: restituisce
+  il nome della sessione.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::setName`: Sets the
-  session name.
+* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionStorageInterface::setName`: imposta
+  il nome della sessione.
 
-Unit Testing
+Test unitari
 ~~~~~~~~~~~~
 
-For unit testing where it is not necessary to persist the session, you should
-simply swap out the default storage engine with
+Per test unitari in cui non serve persistere la sessione, si dovrebbe semplicemente
+scambiare il sistema di memorizzazione predefinito con
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\MockArraySessionStorage`::
 
     use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -788,11 +787,11 @@ simply swap out the default storage engine with
 
     $session = new Session(new MockArraySessionStorage());
 
-Functional Testing
-~~~~~~~~~~~~~~~~~~
+Test funzionali
+~~~~~~~~~~~~~~~
 
-For functional testing where you may need to persist session data across
-separate PHP processes, simply change the storage engine to
+Per test funzionali in cui potrebbe servire persistere dati di sessione tra processi PHP
+separati, cambiare semplicemente il sistema di memorizzazione in
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\MockFileSessionStorage`::
 
     use Symfony\Component\HttpFoundation\Session\Session;
@@ -800,179 +799,179 @@ separate PHP processes, simply change the storage engine to
 
     $session = new Session(new MockFileSessionStorage());
 
-PHP 5.4 compatibility
-~~~~~~~~~~~~~~~~~~~~~
+Compatibilità con PHP 5.4
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since PHP 5.4.0, :phpclass:`SessionHandler` and :phpclass:`SessionHandlerInterface`
-are available. Symfony 2.1 provides forward compatibility for the :phpclass:`SessionHandlerInterface`
-so it can be used under PHP 5.3. This greatly improves inter-operability with other
-libraries.
+A partire da PHP 5.4.0, sono disponibili :phpclass:`SessionHandler` e
+:phpclass:`SessionHandlerInterface`. Symfony 2.1 fornisce compatibilità in avanti per
+:phpclass:`SessionHandlerInterface`, in modo che possa essere usata con PHP 5.3.
+Questo aumenta molto l'interoperabilità con altre
+librerie.
 
-:phpclass:`SessionHandler` is a special PHP internal class which exposes native save
-handlers to PHP user-space.
+:phpclass:`SessionHandler` è una classe interna speciale di PHP, che espone i gestori del
+salvataggio nativi nello user space di PHP. Per poter fornire una soluzione a chi usa
+PHP 5.4, Symfony2 ha una classe speciale, chiamata
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSessionHandler`,
+che sotto PHP 5.4 estende da `\SessionHandler` e sotto PHP 5.3 è solo una classe
+di base vuota. Questo dà alcune interessanti opportunità, per sfruttare le
+funzionalità di PHP 5.4, se disponibile.
 
-In order to provide a solution for those using PHP 5.4, Symfony2 has a special
-class called :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSessionHandler`
-which under PHP 5.4, extends from `\SessionHandler` and under PHP 5.3 is just a
-empty base class. This provides some interesting opportunities to leverage
-PHP 5.4 functionality if it is available.
+Proxy per il gestore del salvataggio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Save Handler Proxy
-~~~~~~~~~~~~~~~~~~
-
-There are two kinds of save handler class proxies which inherit from
+Ci sono due tpi di classi di proxy per il gestore del salvataggio, che ereditano da
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\AbstractProxy`:
-they are :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
-and :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`.
+sono :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
+e :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
-automatically injects storage handlers into a save handler proxy unless already
-wrapped by one.
+inietta automaticamente i gestori della memorizzazione in un proxy per il gestore del
+salvataggio, a meno che non ce ne sia giù uno che lo avvolge.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
-is used automatically under PHP 5.3 when internal PHP save handlers are specified
-using the `Native*SessionHandler` classes, while
+è usato automaticamente sotto PHP 5.3, quando i gestori del salvataggio interni di PHP
+vengono specificati tramite le classi `Native*SessionHandler` classes, mentre
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`
-will be used to wrap any custom save handlers, that implement :phpclass:`SessionHandlerInterface`.
+sarà usato per avvolgere qualsiasi gestore del salvataggio personalizzato, che implementi :phpclass:`SessionHandlerInterface`.
 
-Under PHP 5.4 and above, all session handlers implement :phpclass:`SessionHandlerInterface`
-including `Native*SessionHandler` classes which inherit from :phpclass:`SessionHandler`.
+Sotto PHP 5.4 e successivi, tutti i gestori di sessione implementano :phpclass:`SessionHandlerInterface`,
+incluse le classi `Native*SessionHandler` che ereditano da :phpclass:`SessionHandler`.
 
-The proxy mechanism allow you to get more deeply involved in session save handler
-classes. A proxy for example could be used to encrypt any session transaction
-without knowledge of the specific save handler.
+Il meccanismo del proxy consente di essere coinvolto in modo più approfondito nelle classi
+dei gestori del salvataggio. Un proxy, per esempio, può essere usato per criptare ogni
+transazione di una sessione, senza sapere nulla del gestore del salvataggio specifico.
 
-Configuring PHP Sessions
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-The :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
-can configure most of the PHP ini configuration directives which are documented
-at `php.net/session.configuration`_.
-
-To configure these setting, pass the keys (omitting the initial ``session.`` part
-of the key) as a key-value array to the ``$options`` constructor argument.
-Or set them via the
-:method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`
-method.
-
-For the sake of clarity, some key options are explained in this documentation.
-
-Session Cookie Lifetime
-~~~~~~~~~~~~~~~~~~~~~~~
-
-For security, session tokens are generally recommended to be sent as session cookies.
-You can configure the lifetime of session cookies by specifying the lifetime
-(in seconds) using the ``cookie_lifetime`` key in the constructor's ``$options``
-argument in :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`.
-
-Setting a ``cookie_lifetime`` to ``0`` will cause the cookie to live only as
-long as the browser remains open. Generally, ``cookie_lifetime`` would be set to
-a relatively large number of days, weeks or months. It is not uncommon to set
-cookies for a year or more depending on the application.
-
-Since session cookies are just a client-side token, they are less important in
-controlling the fine details of your security settings which ultimately can only
-be securely controlled from the server side.
-
-.. note::
-
-    The ``cookie_lifetime`` setting is the number of seconds the cookie should live
-    for, it is not a Unix timestamp. The resulting session cookie will be stamped
-    with an expiry time of ``time()``+``cookie_lifetime`` where the time is taken
-    from the server.
-
-Configuring Garbage Collection
+Configurare le sessioni di PHP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When a session opens, PHP will call the ``gc`` handler randomly according to the
-probability set by ``session.gc_probability`` / ``session.gc_divisor``. For
-example if these were set to ``5/100`` respectively, it would mean a probability
-of 5%. Similarly, ``3/4`` would mean a 3 in 4 chance of being called, i.e. 75%.
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage` può
+configurare la maggior parte delle direttive di php.ini documentate su
+`php.net/session.configuration`_.
 
-If the garbage collection handler is invoked, PHP will pass the value stored in
-the PHP ini directive ``session.gc_maxlifetime`. The meaning in this context is
-that any stored session that was saved more than ``maxlifetime`` ago should be
-deleted. This allows one to expire records based on idle time.
+Per configurare tali impostazioni, passare le chavi (omettendo la parte ``session.`` iniziale
+della chiave) come array chiave-valore al parametro ``$options`` del costruttore.
+Oppure impostarle tramite il metodo
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`
+.
 
-You can configure these settings by passing ``gc_probability``, ``gc_divisor``
-and ``gc_maxlifetime`` in an array to the constructor of
+Per ulteriore chiarezza, alcune chiavi di opzioni sono spiegate in questa documentazione.
+
+Scadenza del cookie di sessione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Per sicurezza, generalmente si raccomanda di inviare i token di sessione come cookie.
+SI può configurare la scadenza dei cookie di sessione, specificando il tempo
+(in secondi) usando la chiave ``cookie_lifetime`` nel parametro ``$options`` del
+costruttore di :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`.
+
+Impostare ``cookie_lifetime`` a ``0`` farà sì che il cookie durerà solo finché il
+browser non resta aperto. Generalmente, ``cookie_lifetime`` andrebbe impostato a
+un numero relativamente grande di giorni, settimane o mesi. Non è raro impostare i
+cookie per un anno o più, a seconda dell'applicazione.
+
+Essendo i cookie di sessione dei token esclusivamente lato client, sono meno importanti
+nel controllo dei dettagli rispetto alle impostazioni di sicurezza, che alla fine possono
+essere controllate con tranquillità solamente lato server.
+
+.. note::
+
+    L'impostazione ``cookie_lifetime`` è il numero di secondi per cui il cookie sarà
+    valido, non è un timestamp Unix. Il cookie di sessione risultante sarà emesso con
+    un tempo di scadenza di ``time()``+``cookie_lifetime``, con riferimento alla
+    data del server.
+
+Configurare il garbage collector
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Quando si apre una sessione, PHP richiamerà ``gc`` in modo casuale, in base alla
+probabilità impostata da ``session.gc_probability`` / ``session.gc_divisor``. Per
+esempio, se impostati rispettivamente a ``5/100``, risulterebbe in una probabilità
+del 5%. In modo simile, ``3/4`` vorrebbe dire 3 possibilità su 4 di essere richiamato,
+quindi il 75%.
+
+Se il garbage collector viene invocato, PHP passerà il valore memorizzato nella
+direttiva php.ini ``session.gc_maxlifetime`. Il significato in questo contesto è
+che ogni sessione memorizzata prima di ``maxlifetime`` secondi fa andrebbe
+cancellata. Questo consente di far scadere le sessioni in base al tempo di inattività.
+
+Si possono impostare queste impostazioni passando ``gc_probability``, ``gc_divisor``
+e ``gc_maxlifetime`` in un array al costruttore di
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
-or to the :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions()`
-method.
+o al metodo :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions()`
+.
 
-Session Lifetime
-~~~~~~~~~~~~~~~~
+Scadenza della sessione
+~~~~~~~~~~~~~~~~~~~~~~~
 
-When a new session is created, meaning Symfony2 issues a new session cookie
-to the client, the cookie will be stamped with an expiry time. This is
-calculated by adding the PHP runtime configuration value in
-``session.cookie_lifetime`` with the current server time.
-
-.. note::
-
-    PHP will only issue a cookie once. The client is expected to store that cookie
-    for the entire lifetime. A new cookie will only be issued when the session is
-    destroyed, the browser cookie is deleted, or the session ID is regenerated
-    using the ``migrate()`` or ``invalidate()`` methods of the ``Session`` class.
-
-    The initial cookie lifetime can be set by configuring ``NativeSessionStorage``
-    using the ``setOptions(array('cookie_lifetime' => 1234))`` method.
+Quando viene creata una nuova sessione, quindi quando Symfony2 invia un nuovo cookie di
+sessione al client, il cookie sarà emesso con un tempo di scadenza. Questo tempo è
+calcolato aggiungendo il valore di configurazione di PHP in
+``session.cookie_lifetime`` al tempo attuale del server.
 
 .. note::
 
-    A cookie lifetime of ``0`` means the cookie expire when the browser is closed.
+    PHP invierà un cookie una sola volta. Ci si aspetta che il client memorizzi tale
+    cookie per l'intero periodo. Sarà inviato un nuovo cookie solo quando la sessione
+    viene distrutta, il cookie viene cancellato dal browser oppure l'id della sessione
+    viene rigenerato, usando i metodi ``migrate()`` o ``invalidate()`` della classe ``Session``.
 
-Session Idle Time/Keep Alive
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Il tempo di scadenza iniziale del cookie può essere impostato configurando ``NativeSessionStorage``,
+    usando il metodo ``setOptions(array('cookie_lifetime' => 1234))``.
 
-There are often circumstances where you may want to protect, or minimize
-unauthorized use of a session when a user steps away from their terminal while
-logged in by destroying the session after a certain period of idle time. For
-example, it is common for banking applications to log the user out after just
-5 to 10 minutes of inactivity. Setting the cookie lifetime here is not
-appropriate because that can be manipulated by the client, so we must do the expiry
-on the server side. The easiest way is to implement this via garbage collection
-which runs reasonably frequently. The cookie ``lifetime`` would be set to a
-relatively high value, and the garbage collection ``maxlifetime`` would be set
-to destroy sessions at whatever the desired idle period is.
+.. note::
 
-The other option is to specifically checking if a session has expired after the
-session is started. The session can be destroyed as required. This method of
-processing can allow the expiry of sessions to be integrated into the user
-experience, for example, by displaying a message.
+    Un tempo di scadenza del cookie di ``0`` vuol dire che il cookie scadrà alla chiusura del browser.
 
-Symfony2 records some basic meta-data about each session to give you complete
-freedom in this area.
+Tempo di inattività della sessione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Session meta-data
-~~~~~~~~~~~~~~~~~
+Spesso, ci sono circostanze in cui si vuole proteggere l'uso della sessione oppure
+minimizzarne l'uso non autorizzato, quando un utente si allontana dalla sua postazione
+mentre è loggato, distruggendo la sessione dopo un certo periodo di inattività. Per
+esempio, solitamente le applicazioni delle banche buttano fuori l'utente dopo appena 5
+o 10 minuti di inattività. L'impostazione della scadenza del cookie, in questo caso, non
+è appropriata, perché potrebbe essere manipolata dal client, quindi occorre farlo
+scadere lato server. Il modo più facile di farlo è tramite il garbage collector, che viene
+eseguito con una frequenza ragionevole. Il ``lifetime`` del cookie andrebbe impostato a
+un valore relativamente alto e il ``maxlifetime`` del garbage collectore andrebbe impostato
+per distruggere le sessioni al periodo di inattività desiderato.
 
-Sessions are decorated with some basic meta-data to enable fine control over the
-security settings. The session object has a getter for the meta-data,
-:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag` which
-exposes an instance of :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\MetadataBag`::
+L'altra opzione è verificare specificatamente se una sessione sia scaduta dopo che
+la sessione parte. La sessione può essere distrutta, come richiesto. Questo metodo può
+consentire di integrare la scadenza delle sessioni nell'esperienza utente, per esempio,
+mostrando un messaggio.
+
+Symfony2 registra alcuni meta-dati di base su ogni sessione, per dare completa libertà
+in quest'area.
+
+Meta-dati di sessione
+~~~~~~~~~~~~~~~~~~~~~
+
+Le sessioni vengono decorate da alcuni meta-dati di base, per consentire maggior controllo
+sulle impostazioni di sicurezza. L'oggetto sessione ha un getter per i meta-dati,
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag`, che
+espone un'istanza di :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\MetadataBag`::
 
     $session->getMetadataBag()->getCreated();
     $session->getMetadataBag()->getLastUsed();
 
-Both methods return a Unix timestamp (relative to the server).
+Entrambi i metodi restituiscono un timestamp Unix (relativo al server).
 
-This meta-data can be used to explicitly expire a session on access, e.g.::
+Questi meta-dati possono essere usati per far scadere in modo espliciti una sessione all'accesso, p.e.::
 
     $session->start();
     if (time() - $session->getMetadataBag()->getLastUpdate() > $maxIdleTime) {
         $session->invalidate();
-        throw new SessionExpired(); // redirect to expired session page
+        throw new SessionExpired(); // rinvia alla pagina di sessione scaduta
     }
 
-It is also possible to tell what the ``cookie_lifetime`` was set to for a
-particular cookie by reading the ``getLifetime()`` method::
+Si può anche specificare a cosa è stato impostato ``cookie_lifetime`` per un determinato
+cookie, usando il metodo ``getLifetime()``::
 
     $session->getMetadataBag()->getLifetime();
 
-The expiry time of the cookie can be determined by adding the created
-timestamp and the lifetime.
+Il tempo di scadenza del cookie può essere determinato aggiungendo il timestamp creato
+e il lifetime.
 
 .. _`php.net/session.customhandler`: http://php.net/session.customhandler
 .. _`php.net/session.configuration`: http://php.net/session.configuration
-

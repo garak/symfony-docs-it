@@ -67,7 +67,9 @@ Grazie per includere il template completo nelle vostre proposte!
     e abilitare un singolo switch, per i test automatici. Nella propria richiesta di pull,
     invece di specificare "*Symfony2 tests pass: [yes|no]*", si può collegare
     l'`icona di stato di travis-ci.org`_. Per maggiori dettagli, vedere
-    `travis-ci.org Getting Started Guide`_.
+    `travis-ci.org Getting Started Guide`_. Lo si può fare in modo facile, cliccando sull'icona
+    della chiave inglese nella pagina del build di Travis. Prima selezionare il proprio ramo,
+    quindi copiare il codice markdown nella descrizione della propria richiesta di pull.
 
 Configurazione iniziale
 -----------------------

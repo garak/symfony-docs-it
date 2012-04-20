@@ -619,10 +619,10 @@ utente.
 Messaggi flash
 ~~~~~~~~~~~~~~
 
-È anche possibile memorizzare messaggi di piccole dimensioni che vengono memorizzati sulla sessione utente
-solo per una richiesta successiva. Ciò è utile quando si elabora un form:
+È anche possibile memorizzare messaggi di piccole dimensioni, all'interno della sessione dell'utente
+e solo per la richiesta successiva. Ciò è utile quando si elabora un form:
 si desidera rinviare e avere un messaggio speciale mostrato sulla richiesta *successiva*.
-Questo tipo di messaggi sono chiamati messaggi "flash".
+I messaggi di questo tipo sono chiamati messaggi "flash".
 
 Per esempio, immaginiamo che si stia elaborando un form inviato::
 

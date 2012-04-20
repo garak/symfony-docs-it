@@ -15,10 +15,11 @@ mostrati di seguito:
     .. code-block:: yaml
 
         # app/config/security.yml
+
         firewalls:
             main:
                 remember_me:
-                    key:      aSecretKey
+                    key:      %secret%
                     lifetime: 3600
                     path:     /
                     domain:   ~ # Defaults to the current domain from $_SERVER
@@ -26,13 +27,14 @@ mostrati di seguito:
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
+
         <config>
             <firewall>
                 <remember-me
-                    key="aSecretKey"
-                    lifetime="3600"
-                    path="/"
-                    domain="" <!-- Defaults to the current domain from $_SERVER -->
+                    key      = "%secret%"
+                    lifetime = "3600"
+                    path     = "/"
+                    domain   = "" <!-- Defaults to the current domain from $_SERVER -->
                 />
             </firewall>
         </config>
@@ -40,13 +42,14 @@ mostrati di seguito:
     .. code-block:: php
 
         // app/config/security.php
+
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('remember_me' => array(
-                    'key'                     => '/login_check',
-                    'lifetime'                => 3600,
-                    'path'                    => '/',
-                    'domain'                  => '', // Defaults to the current domain from $_SERVER
+                    'key'      => '%secret%',
+                    'lifetime' => 3600,
+                    'path'     => '/',
+                    'domain'   => '', // Defaults to the current domain from $_SERVER
                 )),
             ),
         ));
@@ -55,7 +58,8 @@ mostrati di seguito:
 "ricordami", perché non sempre è appropriata. Il modo usuale per farlo è l'aggiunta di un
 checkbox al form di login. Dando al checkbox il nome ``_remember_me``, il cookie sarà
 automaticamente impostato quando il checkbox è spuntato e l'utente entra. Quindi, il
-proprio form di login potrebbe alla fine assomigliare a questo:
+proprio form di login potrebbe alla fine assomigliare a
+questo:
 
 .. configuration-block::
 

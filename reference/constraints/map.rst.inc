@@ -56,5 +56,4 @@ Altri vincoli
 
 * :doc:`Callback </reference/constraints/Callback>`
 * :doc:`All </reference/constraints/All>`
-* :doc:`UserPassword </reference/constraints/UserPassword>`
 * :doc:`Valid </reference/constraints/Valid>`

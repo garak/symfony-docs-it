@@ -8,10 +8,10 @@ I componenti
     console
     css_selector
     dom_crawler
-    dependency_injection
-    event_dispatcher
+    dependency_injection/index
+    event_dispatcher/index
     finder
-    http_foundation
+    http_foundation/index
     locale
     process
     routing

@@ -62,7 +62,7 @@ libreria. Lo si può impostare direttamente nel file ``deps``:
         target=/bundles/Acme/AwesomeBundle
         version=una-versione-aggiornata
 
-* L'opzione``git`` imposta l'URL della libreria. Può essere anche un altro protocollo,
+* L'opzione ``git`` imposta l'URL della libreria. Può essere anche un altro protocollo,
   come ``http://`` o anche ``git://``. 
 
 * L'opzione ``target`` specifica dove starà il repository: i semplici bundle di Symfony
@@ -71,8 +71,8 @@ libreria. Lo si può impostare direttamente nel file ``deps``:
   predefinita su quest'ultima opzione, se non specificata.
 
 * L'opzione ``version`` consente di imposare una versione specifica. Si può usare un tag
-    (``version=origin/0.42``) o un ramo (``refs/remotes/origin/awesome-branch``).
-    Il valore predefinito è ``origin/HEAD``.
+  (``version=origin/0.42``) o un ramo (``refs/remotes/origin/awesome-branch``).
+  Il valore predefinito è ``origin/HEAD``.
 
 ### Flusso di aggiornamento
 

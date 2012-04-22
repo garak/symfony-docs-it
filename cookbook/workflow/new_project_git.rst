@@ -32,7 +32,7 @@ locale:
         /app/bootstrap*
         /app/cache/*
         /app/logs/*
-        /vendor/  
+        /vendor/
         /app/config/parameters.ini
 
 .. tip::
@@ -68,7 +68,7 @@ locale:
 8. Infine, scaricare tutte le librerie dei venditori:
 
    .. code-block:: bash
-    
+
         $ php bin/vendors install
 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante e correttamente
@@ -78,7 +78,7 @@ modifiche al proprio repository git.
 .. tip::
 
     Dopo aver eseguito il comando:
-    
+
     .. code-block:: bash
 
         $ php bin/vendors install
@@ -145,3 +145,4 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://progit.org/book/ch4-4.html
 .. _`Gitolite`: https://github.com/sitaramc/gitolite
+.. _`Github .gitignore`: http://help.github.com/ignore-files/

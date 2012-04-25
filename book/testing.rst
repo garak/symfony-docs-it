@@ -21,7 +21,8 @@ ha comunque un'eccellente `documentazione`_.
 
 Ogni test, sia esso unitario o funzionale, è una classe PHP,
 che dovrebbe trovarsi in una sotto-cartella `Tests/` del proprio bundle.
-Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con il seguente comando:
+Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con il seguente
+comando:
 
 .. code-block:: bash
 
@@ -29,7 +30,7 @@ Seguendo questa regola, si possono eseguire tutti i test della propria applicazi
     $ phpunit -c app/
 
 L'opzione ``-c`` dice a PHPUnit di cercare nella cartella ``app/`` un file di configurazione.
-Chi fosse curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al file
+Chi fosse curioso di conoscere le opzioni di PHPUnit può dare uno sguardo al file
 ``app/phpunit.xml.dist``.
 
 .. tip::
@@ -521,12 +522,13 @@ Il crawler può estrarre informazioni dai nodi::
     $crawler->text();
 
     // Estrae un array di attributi per tutti i nodi (_text restituisce il valore del nodo)
-    $crawler->extract(array('_text', 'href'));
+    // restituisce un array per ogni elemento nel crawler, ciascuno con valore e href
+    $info = $crawler->extract(array('_text', 'href'));
 
     // Esegue una funzione lambda per ogni nodo e restituisce un array di risultati
     $data = $crawler->each(function ($node, $i)
     {
-        return $node->getAttribute('href');
+        return $node->attr('href');
     });
 
 Collegamenti
@@ -539,8 +541,7 @@ Si possono selezionare collegamenti coi metodi di attraversamento, ma la scorcia
 
 Seleziona i collegamenti che contengono il testo dato, oppure le immagini cliccabili per
 cui l'attributi ``alt`` contiene il testo dato. Come gli altri metodi filtro, restituisce
-un altro oggetto
-``Crawler``.
+un altro oggetto ``Crawler``.
 
 Una volta selezionato un collegamento, si ha accesso a uno speciale oggetto ``Link``, che
 ha utili metodi specifici per i collegamenti (come ``getMethod()`` e

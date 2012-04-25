@@ -414,6 +414,7 @@ Successivamente, creare il controllore che visualizzerà il form di login:
                 $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
             } else {
                 $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+                $session->remove(SecurityContext::AUTHENTICATION_ERROR);
             }
 
             return $this->render('AcmeSecurityBundle:Security:login.html.twig', array(

@@ -21,7 +21,7 @@ Un semplice blog in PHP puro
 
 In questo capitolo, costruiremo un'applicazione blog usando solo PHP puro.
 Per iniziare, creiamo una singola pagina che mostra le voci del blog, che sono
-state memorizzate nel database. La scrittura in puro PHP è sporca e veloce:
+state memorizzate nella base dati. La scrittura in puro PHP è sporca e veloce:
 
 .. code-block:: html+php
 
@@ -58,7 +58,7 @@ state memorizzate nel database. La scrittura in puro PHP è sporca e veloce:
 Veloce da scrivere, rapido da eseguire e, al crescere dell'applicazione, impossibile
 da mantenere. Ci sono diversi problemi che occorre considerare:
 
-* **Niente verifica degli errori**: Che succede se la connessione al database fallisce?
+* **Niente verifica degli errori**: Che succede se la connessione alla base dati fallisce?
 
 * **Scarsa organizzazione**: Se l'applicazione cresce, questo singolo file diventerà
   sempre più immantenibile. Dove inserire il codice per gestire la compilazione di un
@@ -68,9 +68,9 @@ da mantenere. Ci sono diversi problemi che occorre considerare:
   riusare alcuna parte dell'applicazione per altre "pagine" del blog.
 
 .. note::
-    Un altro problema non menzionato è il fatto che il database è legato a MySQL.
+    Un altro problema non menzionato è il fatto che la base dati sia legata a MySQL.
     Sebbene non affrontato qui, Symfony2 integra in pieno `Doctrine`_,
-    una libreria dedicata all'astrazione e alla mappatura del database.
+    una libreria dedicata all'astrazione e alla mappatura delle basi dati.
 
 Cerchiamo di metterci al lavoro per risolvere questi e altri problemi.
 
@@ -129,7 +129,7 @@ che ricorrerà spesso, quale che sia il linguaggio o il framework scelto. Si rif
 semplicemente alla parte del *proprio* codice che processa l'input proveniente dall'utente
 e prepara la risposta.
 
-In questo caso, il nostro controllore prepara i dati estratti dal database e quindi include
+In questo caso, il nostro controllore prepara i dati estratti dalla base dati e quindi include
 un template, per presentare tali dati. Con il controllore isolato, è possibile cambiare
 facilmente *solo* il file template necessario per rendere le voci del blog in un
 qualche altro formato (p.e. ``list.json.php`` per il formato JSON). 
@@ -138,7 +138,7 @@ Isolare la logica dell'applicazione (il dominio)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Finora l'applicazione contiene una singola pagina. Ma se una seconda pagina avesse
-bisogno di usare la stessa connessione al database, o anche lo stesso array di post
+bisogno di usare la stessa connessione alla base dati, o anche lo stesso array di post
 del blog? Rifattorizziamo il codice in modo che il comportamento centrale e le funzioni
 di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``model.php``:
 
@@ -181,7 +181,7 @@ di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``
    organizzata, la maggior parte del codice che rappresenta la "logica di business"
    dovrebbe stare nel modello (invece che stare in un controllore). Diversamente da
    questo esempio, solo una parte (o niente) del modello riguarda effettivamente
-   l'accesso a un database.
+   l'accesso a una base dati.
  
 Il controllore (``index.php``) è ora molto semplice:
 
@@ -308,7 +308,7 @@ duplicazione di codice. Tuttavia, questa pagina introduce alcuni altri problemi,
 un framework può risolvere. Per esempio, un parametro ``id`` mancante o non valido
 causerà un errore nella pagina. Sarebbe meglio se facesse rendere una pagina 404,
 ma non possiamo ancora farlo in modo facile. Inoltre, avendo dimenticato di pulire
-il parametro ``id`` con la funzione ``mysql_real_escape_string()``, il database
+il parametro ``id`` con la funzione ``mysql_real_escape_string()``, la base dati
 è a rischio di attacchi di tipo SQL injection.
 
 Un altro grosso problema è che ogni singolo controllore deve includere il file
@@ -575,7 +575,7 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2:
     }
 
 I due controllori sono ancora leggeri. Ognuno usa la libreria ORM Doctrine per
-recuperare oggetti dal database e il componente ``Templating`` per rendere un template
+recuperare oggetti dalla base dati e il componente ``Templating`` per rendere un template
 e restituire un oggetto ``Response``. Il template della lista è ora un po' più
 semplice:
 

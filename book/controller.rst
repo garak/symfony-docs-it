@@ -23,7 +23,7 @@ Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mo
 
 L'obiettivo di un controllore è sempre lo stesso: creare e restituire un oggetto
 ``Response``. Lungo il percorso, potrebbe leggere le informazioni dalla richiesta, caricare una
-risorsa da un database, inviare un'email, o impostare informazioni sulla sessione dell'utente.
+risorsa da una base dati, inviare un'email, o impostare informazioni sulla sessione dell'utente.
 Ma in ogni caso, il controllore alla fine restituirà un oggetto ``Response``
 che verrà restituito al client.
 	
@@ -34,8 +34,8 @@ esempi comuni:
   della homepage di un sito.
 
 * Il *controllore B* legge il parametro ``slug`` da una richiesta per caricare un
-  blog da un database e creare un oggetto ``Response`` che visualizza
-  quel blog. Se lo ``slug`` non viene trovato nel database, crea e
+  blog da una base dati  e creare un oggetto ``Response`` che visualizza
+  quel blog. Se lo ``slug`` non viene trovato nella base dati, crea e
   restituisce un oggetto ``Response`` con codice di stato 404.
 
 * Il *controllore C* gestisce l'invio di un form contatti. Legge le
@@ -561,7 +561,7 @@ Se si sta estendendo la classe base del controllore, procedere come segue::
 
     public function indexAction()
     {
-        $product = // recuperare l'oggetto dal database
+        $product = // recuperare l'oggetto dalla base dati 
         if (!$product) {
             throw $this->createNotFoundException('Il prodotto non esiste');
         }
@@ -733,7 +733,7 @@ dal momento che non si vuole mettere il codice HTML nel controllore, è possibil
 il metodo ``render()`` per rendere e restituire il contenuto da un template.
 
 In altri capitoli, si vedrà come il controllore può essere usato per persistere e
-recuperare oggetti da un database, processare i form inviati, gestire la cache e
+recuperare oggetti da una base dati, processare i form inviati, gestire la cache e
 altro ancora.
 
 Imparare di più dal ricettario

@@ -557,7 +557,7 @@ Inserire controllori
 
 A volte occorre fare di più che includere semplici template. Si supponga di avere nel
 proprio layout una barra laterale, che contiene i tre articoli più recenti.
-Recuperare i tre articoli potrebbe implicare una query al database, o l'esecuzione
+Recuperare i tre articoli potrebbe implicare una query alla base dati o l'esecuzione
 di altra logica, che non si può fare dentro a un template.
 
 La soluzione è semplicemente l'inserimento del risultato di un intero controllore dal
@@ -572,7 +572,7 @@ articoli recenti:
     {
         public function recentArticlesAction($max = 3)
         {
-            // chiamare il database o altra logica per ottenere "$max" articoli recenti
+            // chiamare la base dati o altra logica per ottenere "$max" articoli recenti
             $articles = ...;
 
             return $this->render('AcmeArticleBundle:Article:recentList.html.twig', array('articles' => $articles));

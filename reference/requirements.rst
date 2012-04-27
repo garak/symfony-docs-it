@@ -47,5 +47,5 @@ Doctrine
 --------
 
 Se si vuole usare Doctrine, bisogna avere PDO installato. Inoltre, bisogna avere
-installato il driver PDO per il database che si vuole
+installato il driver PDO per la base dati che si vuole
 utilizzare.

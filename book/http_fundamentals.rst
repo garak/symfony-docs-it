@@ -310,7 +310,7 @@ mezzo. In altre parole, il vero lavoro consiste nello scrivere il codice che int
 l'informazione della richiesta e crea la risposta.
 
 La propria applicazione probabilmente fa molte cose, come inviare email, gestire invii di
-form, salvare dati in un database, rendere pagine HTML e proteggere contenuti. Come si
+form, salvare dati in una base dati, rendere pagine HTML e proteggere contenuti. Come si
 può gestire tutto questo e mantenere al contempo il proprio codice organizzato e
 mantenibile?
 
@@ -331,7 +331,7 @@ fosse un file fisico:
 Ci sono molti problemi con questo approccio, inclusa la flessibilità degli URL (che
 succede se si vuole cambiare ``blog.php`` con ``news.php`` senza rompere tutti i
 collegamenti?) e il fatto che ogni file *deve* includere manualmente alcuni file
-necessari, in modo che la sicurezza, le connessioni al database e l'aspetto del sito
+necessari, in modo che la sicurezza, le connessioni alla base dati e l'aspetto del sito
 possano rimanere coerenti.
 
 Una soluzione molto migliore è usare un :term:`front controller`: un unico file PHP
@@ -431,7 +431,7 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
 .. note::
 
-   L'esempio usa :doc:`YAML</reference/YAML>` per definire la configurazione delle rotte.
+   L'esempio usa :doc:`YAML</components/yaml>` per definire la configurazione delle rotte.
    La configurazione delle rotte può essere scritta anche in altri formati, come XML o
    PHP.
 
@@ -455,7 +455,7 @@ con il codice HTML "<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</b
 si imparerà come un controllore possa rendere dei template, consentendo al proprio codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose
-difficili: interagire col database, gestire l'invio di dati o l'invio di messaggi
+difficili: interagire con la base dati, gestire l'invio di dati o l'invio di messaggi
 email. 
 
 Symfony2: costruire la propria applicazione, non i propri strumenti.

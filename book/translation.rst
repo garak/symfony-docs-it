@@ -814,10 +814,10 @@ locale da usare per la traduzione:
         'fr_FR',
     );
 
-Tradurre contenuti da un database
----------------------------------
+Tradurre contenuti da una base dati 
+-----------------------------------
 
-La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine attraverso
+La traduzione del contenuto di una base dati dovrebbero essere gestite da Doctrine attraverso
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 

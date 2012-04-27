@@ -20,7 +20,7 @@
   * :doc:`/cookbook/assetic/jpeg_optimize`
   * :doc:`/cookbook/assetic/apply_to_option`
 
-* **Interazione col database (Doctrine)**
+* **Interazione con la base dati (Doctrine)**
 
   * :doc:`/cookbook/doctrine/file_uploads`
   * :doc:`/cookbook/doctrine/common_extensions`

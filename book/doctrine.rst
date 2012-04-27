@@ -40,7 +40,7 @@ lo persisteremo nella base dati e lo recupereremo da esso.
         php app/console generate:bundle --namespace=Acme/StoreBundle
 
 Configurazione dela base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prima di iniziare, occorre configurare le informazioni sulla connessione alla
 base dati. Per convenzione, questa informazione solitamente è configurata in un
@@ -321,7 +321,7 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
     interagire col proprio oggetto PHP.
 
 Creare tabelle e schema dela base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora si ha una classe ``Product`` usabile, con informazioni di mappatura che consentono
 a Doctrine di sapere esattamente come persisterla. Ovviamente, non si ha ancora la
@@ -353,7 +353,7 @@ La propria base dati ora ha una tabella ``product`` pienamente funzionante, con 
 corrispondenti ai meta-dati specificati.
 
 Persistere gli oggetti nella base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora che l'entità ``Product`` è stata mappata alla corrispondente tabella ``product``,
 si è pronti per persistere i dati nella base dati. Da dentro un controllore, è
@@ -426,7 +426,7 @@ sezione, si vedrà come Doctrine sia abbastanza intelligente da usare una query
     :doc:`/bundles/DoctrineFixturesBundle/index`.
 
 Recuperare oggetti dala base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Recuperare un oggetto dala base dati è ancora più facile. Per esempio,
 supponiamo di aver configurato una rotta per mostrare uno specifico ``Product``,

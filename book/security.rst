@@ -844,8 +844,8 @@ per gli utenti che hanno un ruolo specifico.
 Per ulteriori informazioni su come utilizzare il componente della sicurezza per proteggere
 servizi e metodi diversi nell'applicazione, vedere :doc:`/cookbook/security/securing_services`.
 
-Access Control List (ACL): protezione dei singoli oggetti del database
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Access Control List (ACL): protezione dei singoli oggetti della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si immagini di progettare un sistema di blog, in cui gli utenti possono commentare i
 messaggi. Si vuole che un utente possa modificare i propri commenti, ma non
@@ -875,11 +875,11 @@ e una password). Il compito del sistema di autenticazione è quello di soddisfar
 con l'insieme degli utenti. Quindi da dove proviene questa lista di utenti?
 
 In Symfony2, gli utenti possono arrivare da qualsiasi parte: un file di configurazione, una tabella
-di un database, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
+di una base dati, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
 uno o più utenti nel sistema di autenticazione è noto come "fornitore di utenti".
 Symfony2 viene fornito con i due fornitori utenti più diffusi; uno che
 carica gli utenti da un file di configurazione e uno che carica gli utenti da una tabella
-di un database.
+di una base dati.
 
 Definizione degli utenti in un file di configurazione
 .....................................................
@@ -927,7 +927,7 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
         ));
 
 Questo fornitore utenti è chiamato "in-memory" , dal momento che gli utenti
-non sono memorizzati in un database. L'oggetto utente effettivo è fornito
+non sono memorizzati in una base dati. L'oggetto utente effettivo è fornito
 da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
 
 .. tip::
@@ -947,12 +947,12 @@ da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
             - { name: user-name, password: pass, roles: 'ROLE_USER' }
 
 Per i siti più piccoli, questo metodo è semplice e veloce da configurare. Per sistemi più
-complessi, si consiglia di caricare gli utenti dal database.
+complessi, si consiglia di caricare gli utenti dalla base dati.
 
 .. _book-security-user-entity:
 
-Caricare gli utenti da un database
-..................................
+Caricare gli utenti da una base dati 
+....................................
 
 Se si vuole caricare gli utenti tramite l'ORM Doctrine, si può farlo facilmente
 attraverso la creazione di una classe ``User`` e configurando il fornitore ``entity``.
@@ -964,7 +964,7 @@ attraverso la creazione di una classe ``User`` e configurando il fornitore ``ent
     su GitHub.
 
 Con questo approccio, bisogna prima creare la propria classe ``User``, che
-sarà memorizzata nel database.
+sarà memorizzata nella base dati.
 
 .. code-block:: php
 
@@ -1033,7 +1033,7 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
         ));
 
 Con l'introduzione di questo nuovo fornitore, il sistema di autenticazione
-tenterà di caricare un oggetto ``User`` dal database, utilizzando il campo
+tenterà di caricare un oggetto ``User`` dalla base dati, utilizzando il campo
 ``username`` di questa classe.
 
 .. note::
@@ -1050,7 +1050,7 @@ Codificare la password dell'utente
 
 Finora, per semplicità, tutti gli esempi hanno memorizzato le password dell'utente
 in formato testo (se tali utenti sono memorizzati in un file di configurazione o in
-un qualche database). Naturalmente, in un'applicazione reale, si consiglia per ragioni
+una qualche base dati). Naturalmente, in un'applicazione reale, si consiglia per ragioni
 di sicurezza di codificare le password degli utenti. Questo è facilmente realizzabile,
 mappando la classe User in uno dei numerosi "encoder" disponibili. Per esempio,
 per memorizzare gli utenti in memoria, ma oscurare le loro password tramite ``sha1``,

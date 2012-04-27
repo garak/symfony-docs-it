@@ -10,8 +10,8 @@ di entità e un po' di altre cose, come una connessione.
 
 Per testare i propri repository, ci sono due opzioni diverse:
 
-1) **Test funzionali**: includono l'uso di una vera connessione al database, con veri
-   oggetti del database. Sono facili da preparare e possono testare tutto, ma sono lenti
+1) **Test funzionali**: includono l'uso di una vera connessione alla base dati, con veri
+   oggetti della base dati. Sono facili da preparare e possono testare tutto, ma sono lenti
    da eseguire. Vedere :ref:`cookbook-doctrine-repo-functional-test`.
 
 2) **Test unitari**: i test unitari sono più veloci da eseguire e più precisi su

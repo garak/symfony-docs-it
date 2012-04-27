@@ -7,7 +7,7 @@ Tipo di campo entity
 Un campo speciale ``choice`` pensato per caricare opzioni da un'entità Doctrine.
 Per esempio, se si ha un'entità ``Category``, si può usare questo campo
 per mostrare un campo ``select`` di tutti, o di alcuni, oggetti ``Category``
-presi dal database.
+presi dalla base dati.
 
 +---------------+---------------------------------------------------------------------+
 | Reso come     | possono essere vari tag (vedere :ref:`forms-reference-choice-tags`) |
@@ -41,7 +41,7 @@ del campo choice::
         'class' => 'AcmeHelloBundle:User',
     ));
 
-In questo caso, tutti gli oggetti ``User`` saranno caricati dal database e resti come
+In questo caso, tutti gli oggetti ``User`` saranno caricati dalla base dati e resi come
 un tag ``select``, dei radio o una serie di checkbox (a seconda dei valori di
 ``multiple`` ed ``expanded``).
 

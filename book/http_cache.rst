@@ -641,8 +641,8 @@ uno schema semplice ed efficiente::
     {
         // Prende l'informazione minima per calcolare
         // l'ETag o o il valore di Last-Modified
-        // (in base alla Request, i dati sono recuperati da un
-        // database o da una memoria chiave-valore, per esempio)
+        // (in base alla Request, i dati sono recuperati da una
+        // base dati o da una memoria chiave-valore, per esempio)
         $article = // ...
 
         // crea una Response con un ETag e/o un header Last-Modified

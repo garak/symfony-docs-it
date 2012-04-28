@@ -853,7 +853,7 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
     
     {# ... #}
 
-Nel template figlio, basta sovrascrivere il blocco ``stylesheets`` ed inserire
+Nel template figlio, basta sovrascrivere il blocco ``stylesheets`` e inserire
 il nuovo tag del foglio di stile nel blocco stesso. Ovviamente, poiché vogliamo
 aggiungere contenuto al blocco padre (e non *sostituirlo*), occorre usare la funzione
 ``parent()`` di Twig, per includere tutto ciò che sta nel blocco ``stylesheets``

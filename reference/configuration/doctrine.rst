@@ -197,7 +197,7 @@ La mappatura dispone delle seguenti opzioni di configurazione:
   corti e semplici, da usare nelle query DQL o per l'accesso al Repository. Quando
   si usa un bundle, l'alias predefinito è il nome del bundle.
 
-* ``is_bundle`` Questa opzione è un valore derivato da ``dir`` ed ha ``true`` come
+* ``is_bundle`` Questa opzione è un valore derivato da ``dir`` e ha ``true`` come
   valore predefinito, se la cartella è fornita da una verifica con ``file_exists()``
   che restituisca ``false``. È ``false`` se la verifica restituisce ``true``. In
   questo caso, un percorso assoluto  è stato specificato e i file dei meta-dati sono

@@ -51,7 +51,7 @@ Richieste, controllori, ciclo di vita della risposta
 ----------------------------------------------------
 
 Ogni richiesta gestita da un progetto Symfony2 passa attraverso lo stesso semplice ciclo di vita.
-Il framework si occupa dei compiti ripetitivi ed infine esegue un
+Il framework si occupa dei compiti ripetitivi e infine esegue un
 controllore, che ospita il codice personalizzato dell'applicazione:
 
 #. Ogni richiesta è gestita da un singolo file con il controllore principale (ad esempio ``app.php``

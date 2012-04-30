@@ -98,8 +98,8 @@ form
 csrf_protection
 ~~~~~~~~~~~~~~~
 
-sessioni
-~~~~~~~~
+session
+~~~~~~~
 
 lifetime
 ........
@@ -108,8 +108,8 @@ lifetime
 
 Determina il tempo di scadeza della sessione, in secondi.
 
-template
-~~~~~~~~
+templating
+~~~~~~~~~~
 
 assets_base_urls
 ................

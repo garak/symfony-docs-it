@@ -122,7 +122,7 @@ Convenzioni sui nomi
 
 * Usare caratteri alfanumerici e trattini bassi per i nomi di file;
 
-* Non dimenticare di dare un'occhiata al documento più prolisso sulle :doc:`convenzioni`,
+* Non dimenticare di dare un'occhiata al documento più prolisso sulle :doc:`conventions`,
   per considerazioni più soggettive sulla nomenclatura.
 
 Documentazione

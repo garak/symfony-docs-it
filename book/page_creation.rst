@@ -424,7 +424,7 @@ creazione e alla resa delle pagine in Symfony2. Abbiamo anche già iniziato a ve
 come i progetti Symfony2 siano strutturati e organizzati. Alla fine di questa sezione,
 sapremo dove cercare e inserire i vari tipi di file, e perché.
 
-Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`application`
+Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`applicazione`
 Symfony ha la stessa struttura di cartelle raccomandata:
 
 * ``app/``: Questa cartella contiene la configurazione dell'applicazione;

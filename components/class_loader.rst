@@ -33,9 +33,6 @@ Si può installare il componente in molti modi diversi:
 Uso
 ---
 
-.. versionadded:: 2.1
-   Il metodo ``useIncludePath`` è stato aggiunto in Symfony 2.1.
-
 La registrazione di :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader`
 è molto semplice::
 
@@ -45,8 +42,7 @@ La registrazione di :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoade
 
     $loader = new UniversalClassLoader();
 
-    // Si può cercare in include_path come ultima risorsa.
-    $loader->useIncludePath(true);
+    // registrare spazi di nomi e prefissi qui, vedere sotto
 
     $loader->register();
 

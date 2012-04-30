@@ -335,46 +335,6 @@ Per rinviare il client a un altro URL, si può usare la classe
 
     $response = new RedirectResponse('http://example.com/');
 
-Flusso di risposta
-~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-    Il supporto per i flussi di risposte è stato aggiunto in Symfony 2.1.
-
-La classe :class:`Symfony\\Component\\HttpFoundation\\StreamedResponse` consente
-di inviare flussi di risposte al client. Il contenuto della risposta viene
-rappresentato da un callable PHP, invece che da una stringa::
-
-    use Symfony\Component\HttpFoundation\StreamedResponse;
-
-    $response = new StreamedResponse();
-    $response->setCallback(function () {
-        echo 'Ciao mondo';
-        flush();
-        sleep(2);
-        echo 'Ciao mondo';
-        flush();
-    });
-    $response->send();
-
-Scaricare file
-~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-    Il metodo ``makeDisposition`` è stato aggiunto in Symfony 2.1.
-
-Quando si carica un file, occorre aggiungere un header ``Content-Disposition`` alla
-risposta. Sebbene la creazione di questo header per scaricamenti di base sia facile,
-l'uso di nomi di file non ASCII è più complesso. Il metodo
-:method:`:Symfony\\Component\\HttpFoundation\\Response:makeDisposition`
-astrae l'ingrato compito dietro una semplice API::
-
-    use Symfony\\Component\\HttpFoundation\\ResponseHeaderBag;
-
-    $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'foo.pdf');
-
-    $response->headers->set('Content-Disposition', $d);
-
 Sessione
 --------
 

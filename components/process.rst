@@ -61,14 +61,3 @@ Se si vuole eseguire del codice PHP in isolamento, usare invece
         <?php echo 'Ciao mondo'; ?>
     EOF);
     $process->run();
-
-.. versionadded:: 2.1
-    La classe ``ProcessBuilder`` è stata aggiunta nella 2.1.
-
-Per far funzionare meglio il proprio codice su tutte le piattaforme, potrebbe essere
-preferibile usare la classe :class:`Symfony\\Component\\Process\\ProcessBuilder`::
-
-    use Symfony\Component\Process\ProcessBuilder;
-
-    $builder = new ProcessBuilder(array('ls', '-lsa'));
-    $builder->getProcess()->run();

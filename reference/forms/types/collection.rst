@@ -82,7 +82,6 @@ Un metodo molto più flessibile sarebbe questo:
         <?php echo $view['form']->errors($form['emails']) ?>
         
         <ul>
-        {% for emailField in form.emails %}
         <?php foreach ($form['emails'] as $emailField): ?>
             <li>
                 <?php echo $view['form']->errors($emailField) ?>
@@ -328,5 +327,7 @@ error_bubbling
 **tipo**: ``Booleano`` **predefinito**: ``true``
 
 .. include:: /reference/forms/types/options/_error_bubbling_body.rst.inc
+
+.. _reference-form-types-by-reference:
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc

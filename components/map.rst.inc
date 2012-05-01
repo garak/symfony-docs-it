@@ -13,6 +13,7 @@
 * **Il componente Dependency Injection**
 
   * :doc:`/components/dependency_injection/introduction`
+  * :doc:`/components/dependency_injection/definitions`
 
 * **Il componente Event Dispatcher**
 

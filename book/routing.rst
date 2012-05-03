@@ -75,7 +75,7 @@ per l'utilizzo nel controllore (proseguire nella lettura).
 Il parametro ``_controller`` è una chiave speciale che dice a Symfony quale controllore
 dovrebbe essere eseguito quando un URL corrisponde a questa rotta. La stringa ``_controller``
 è detta :ref:`nome logico<controller-string-syntax>`. Segue un
-pattern che punta a un specifico classe e metodo PHP:
+pattern che punta ad uno specifico metodo di una classe PHP:
 
 .. code-block:: php
 
@@ -318,7 +318,7 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
 
         return $collection;
 
-Finora, questa rotta è il più semplice possibile: non contiene segnaposto
+Finora, questa rotta è la più semplice possibile: non contiene segnaposto
 e corrisponde solo all'esatto URL ``/blog``. Ma cosa succede se si ha bisogno di questa rotta
 per supportare l'impaginazione, dove ``/blog/2`` visualizza la seconda pagina dell'elenco post
 del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
@@ -477,7 +477,7 @@ alla prima rotta (``blog``) restituendo il valore senza senso ``my-blog-post``
 per il parametro ``{page}``.
 
 +--------------------+-------+-----------------------+
-| URL                | rotta | paramettri            |
+| URL                | rotta | parametri             |
 +====================+=======+=======================+
 | /blog/2            | blog  | {page} = 2            |
 +--------------------+-------+-----------------------+
@@ -539,7 +539,7 @@ Come risultato, un URL tipo ``/blog/my-blog-post`` ora verrà correttamente abbi
 rotta ``blog_show``.
 
 +--------------------+-----------+-----------------------+
-| URL                | rotta     | paramettri            |
+| URL                | rotta     | parametri             |
 +====================+===========+=======================+
 | /blog/2            | blog      | {page} = 2            |
 +--------------------+-----------+-----------------------+
@@ -681,7 +681,7 @@ essere realizzato con la seguente configurazione per le rotte:
 
 Nonostante il fatto che queste due rotte abbiano schemi identici (``/contact``),
 la prima rotta corrisponderà solo a richieste GET e la seconda rotta corrisponderà
-solo a richieste POST. Questo significa che è possibile visualizzare il form e invia e inviarlo
+solo a richieste POST. Questo significa che è possibile visualizzare il form e inviarlo
 utilizzando lo stesso URL ma controllori distinti per le due azioni.
 
 .. note::
@@ -1086,7 +1086,7 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
         }
     }
 
-In una sezione successiva, si imparerà a generare URL da tempalte interni.
+In una sezione successiva, si imparerà a generare URL dall'interno di un template.
 
 .. tip::
 

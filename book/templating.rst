@@ -323,7 +323,7 @@ usato al suo posto il valore del template padre. Il contenuto di un tag ``{% blo
 in un template padre è sempre usato come valore predefinito.
 
 Si possono usare tanti livelli di ereditarietà quanti se ne desiderano. Nella prossima
-sezione, sarà spiegato un modello comuni a tre livelli di ereditarietà, insieme al modo
+sezione, sarà spiegato un modello comune a tre livelli di ereditarietà, insieme al modo
 in cui i template sono organizzati in un progetto Symfony2.
 
 Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da tenere a mente:
@@ -630,7 +630,7 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
             <?php echo $view['actions']->render('AcmeArticleBundle:Article:recentArticles', array('max' => 3)) ?>
         </div>
 
-Ogni volta che ci si trova ad aver bisogno di una variabile o di un pezzo di inforamzione
+Ogni volta che ci si trova ad aver bisogno di una variabile o di un pezzo di informazione
 a cui non si ha accesso in un template, considerare di rendere un controllore.
 I controllori sono veloci da eseguire e promuovono buona organizzazione e riuso del codice.
 
@@ -694,7 +694,7 @@ essere impostato in modo globale nella configurazione dell'applicazione:
 Collegare le pagine
 ~~~~~~~~~~~~~~~~~~~
 
-Creare collegamenti alle altre pagine nella propria applicazioni è uno dei lavori più
+Creare collegamenti alle altre pagine della propria applicazione è uno dei lavori più
 comuni per un template. Invece di inserire a mano URL nei template, usare la funzione
 ``path`` di Twig (o l'helper ``router`` in PHP)  per generare URL basati sulla
 configurazione delle rotte. Più avanti, se si vuole modificare l'URL di una particolare

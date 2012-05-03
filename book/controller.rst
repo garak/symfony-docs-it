@@ -289,7 +289,7 @@ in mente le seguenti linee guida mentre si sviluppa.
             // ..
         }
 
-    Rendere l'parametro facoltativo metterebbe le cose a posto. Il seguente
+    Rendere il parametro facoltativo metterebbe le cose a posto. Il seguente
     esempio non lancerebbe un'eccezione::
 
         public function indexAction($first_name, $last_name, $color, $foo = 'bar')

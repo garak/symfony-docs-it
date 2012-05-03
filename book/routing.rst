@@ -75,7 +75,7 @@ per l'utilizzo nel controllore (proseguire nella lettura).
 Il parametro ``_controller`` è una chiave speciale che dice a Symfony quale controllore
 dovrebbe essere eseguito quando un URL corrisponde a questa rotta. La stringa ``_controller``
 è detta :ref:`nome logico<controller-string-syntax>`. Segue un
-pattern che punta ad uno specifico metodo di una classe PHP:
+pattern che punta a uno specifico metodo di una classe PHP:
 
 .. code-block:: php
 

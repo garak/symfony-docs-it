@@ -19,7 +19,7 @@ con un database.
     Se si preferisce l'uso di query grezze, lo si può fare facilmente, come spiegato
     nella ricetta ":doc:`/cookbook/doctrine/dbal`".
 
-    Si possono anche persistere dati su `MongoDB`_ usando la libreria ORM Doctrine. Per
+    Si possono anche persistere dati su `MongoDB`_ usando la libreria ODM Doctrine. Per
     ulteriori informazioni, leggere la documentazione
     ":doc:`/bundles/DoctrineMongoDBBundle/index`".
 
@@ -585,7 +585,7 @@ fare come segue::
     $products = $query->getResult();
 
 Se ci si trova a proprio agio con SQL, DQL dovrebbe sembrare molto naturale. La
-maggiore differenze è che occorre pensare in termini di "oggetti" invece che di
+maggiore differenza è che occorre pensare in termini di "oggetti" invece che di
 righe di database. Per questa ragione, si cerca *da* ``AcmeStoreBundle:Product``
 e poi si usa ``p`` come suo alias.
 
@@ -903,8 +903,8 @@ colonna ``category_id`` della tabella ``product``.
 .. image:: /images/book/doctrine_image_2.png
    :align: center
 
-I meta-dati della proprietà ``$products`` dell'oggetto ``Category`` è meno
-importante e dicono semplicemente a Doctrine di cercare la proprietà ``Product.category``
+I meta-dati della proprietà ``$products`` dell'oggetto ``Category`` sono meno
+importanti e dicono semplicemente a Doctrine di cercare la proprietà ``Product.category``
 per sapere come mappare la relazione.
 
 Prima di continuare, accertarsi di dire a Doctrine di aggiungere la nuova tabella

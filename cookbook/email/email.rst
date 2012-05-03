@@ -28,7 +28,7 @@ di reinventare la ruota, una soluzione per l'invio di email è l'uso di
 Configurazione
 --------------
 
-Prima di utilizzare Swiftmailer, assicuratevi di includerne la configurazione. 
+Prima di utilizzare Swiftmailer, assicurarsi di includerne la configurazione. 
 L'unico parametro obbligatorio della configurazione è il parametro ``transport``:
 
 .. configuration-block::
@@ -95,7 +95,7 @@ Sono disponibili i seguenti parametri di configurazione:
 L'invio delle email
 -------------------
 
-Per lavorare con la libreria Swiftmailer dovrete creare, configurare e quindi 
+Per lavorare con la libreria Swiftmailer occorre creare, configurare e quindi 
 spedire oggetti di tipo ``Swift_Message``. Il "mailer" è il vero responsabile 
 dell'invio dei messaggi ed è accessibile tramite il servizio ``mailer``. 
 In generale, spedire un'email è abbastanza intuitivo::

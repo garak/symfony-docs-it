@@ -106,7 +106,7 @@ lifetime
 
 **tipo**: ``integer`` **predefinito**: ``86400``
 
-Determina il tempo di scadeza della sessione, in secondi.
+Determina il tempo di scadenza della sessione, in secondi.
 
 templating
 ~~~~~~~~~~

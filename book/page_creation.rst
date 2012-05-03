@@ -424,7 +424,7 @@ creazione e alla resa delle pagine in Symfony2. Abbiamo anche già iniziato a ve
 come i progetti Symfony2 siano strutturati e organizzati. Alla fine di questa sezione,
 sapremo dove cercare e inserire i vari tipi di file, e perché.
 
-Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`application`
+Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`applicazione`
 Symfony ha la stessa struttura di cartelle raccomandata:
 
 * ``app/``: Questa cartella contiene la configurazione dell'applicazione;
@@ -532,7 +532,7 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
     Tipicamente, l'unica volta in cui si avrà bisogno di preoccuparsi del file
     ``app/autoload.php`` sarà al momento di includere nuove librerie di terze
     parti nella cartella ``vendor/``. Per maggiori informazioni sull'autoload,
-    vedere :doc:`Come auto-caricare le classi</cookbook/tools/autoloader>`.
+    vedere :doc:`Come auto-caricare le classi</components/class_loader>`.
 
 La cartella dei sorgenti (``src``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -704,7 +704,7 @@ mantenere il codice coerente tra tutti i bundle di Symfony2. Si dia un'occhiata 
 Un bundle può essere grande o piccolo, come la caratteristica che implementa. Contiene
 solo i file che occorrono e niente altro.
 
-Andando avanti nel libro, si imparerà come persistere gli oggetti in un database,
+Andando avanti nel libro, si imparerà come persistere gli oggetti in una base dati,
 creare e validare form, creare traduzioni per la propria applicazione, scrivere
 test e molto altro. Ognuno di questi ha il suo posto e il suo ruolo dentro il
 bundle.

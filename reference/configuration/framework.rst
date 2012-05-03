@@ -98,18 +98,19 @@ form
 csrf_protection
 ~~~~~~~~~~~~~~~
 
-sessioni
-~~~~~~~~
+session
+~~~~~~~
 
 lifetime
 ........
 
 **tipo**: ``integer`` **predefinito**: ``86400``
 
-Determina il tempo di scadeza della sessione, in secondi.
+Determina il tempo di scadenza della sessione, in secondi. Per impostazione predefinita,
+sarà ``0``, che vuol dire che il cookie vale per il tempo della sessione del browser.
 
-template
-~~~~~~~~
+templating
+~~~~~~~~~~
 
 assets_base_urls
 ................
@@ -127,17 +128,6 @@ le richieste ``http`` e ``https``. Se un URL inizia con ``https://`` o
 è `protocol-relative`_ (cioè inizia con `//`), sarà aggiunto a entrambe le
 liste. Gli URL che iniziano con ``http://`` saranno aggiunti solo alla lista
 ``http``.
-
-.. versionadded:: 2.1
-
-    Diversamente dalla maggior parte dei blocchi di configurazione, i valori
-    successivi di ``assets_base_urls`` si sovrascriveranno a vicenda, invece di
-    essere fusi. Questo comportamento è stato scelto perché tipicamente gli
-    sviluppatori definiscono gli URL di base per ogni ambiente.
-    Dato che la maggior parte dei progetti tendono a ereditare le configurazioni
-    (cioè ``config_test.yml`` importa ``config_dev.yml``) e/o condividono una
-    configurazione comune di base (cioè ``config.yml``), la fusione potrebbe
-    produrre un insieme di URL di base per ambienti multipli.
 
 .. _ref-framework-assets-version:
 
@@ -250,7 +240,6 @@ Configurazione predefinita completa
             secret:               ~ # Required
             ide:                  ~
             test:                 ~
-            default_locale:       en
             trust_proxy_headers:  false
 
             # form configuration
@@ -268,7 +257,7 @@ Configurazione predefinita completa
             profiler:
                 only_exceptions:      false
                 only_master_requests:  false
-                dsn:                  sqlite:%kernel.cache_dir%/profiler.db
+                dsn:                  "sqlite:%kernel.cache_dir%/profiler.db"
                 username:
                 password:
                 lifetime:             86400
@@ -287,9 +276,10 @@ Configurazione predefinita completa
             # session configuration
             session:
                 auto_start:           ~
+                default_locale:       en
                 storage_id:           session.storage.native
                 name:                 ~
-                lifetime:             86400
+                lifetime:             0
                 path:                 ~
                 domain:               ~
                 secure:               ~
@@ -334,7 +324,7 @@ Configurazione predefinita completa
             # annotation configuration
             annotations:
                 cache:                file
-                file_cache_dir:       %kernel.cache_dir%/annotations
+                file_cache_dir:       "%kernel.cache_dir%/annotations"
                 debug:                true
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2

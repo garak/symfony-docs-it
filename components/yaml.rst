@@ -342,7 +342,7 @@ Un file YAML è usato raramente per descrivere semplici scalari. La maggior part
 volte, descrive un insieme. Un insieme può essere una sequenza o una mappatura di
 elementi. Sia le sequenze che le mappature sono convertite in array PHP.
 
-Le sequenze usano un trattino, seguito da uno spazio (``- ``):
+Le sequenze usano un trattino, seguito da uno spazio:
 
 .. code-block:: yaml
 

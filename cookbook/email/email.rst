@@ -4,14 +4,14 @@
 Come spedire un'email
 =====================
 
-Spedire le email è un delle azioni classiche di ogni applicazione web ma 
+Spedire le email è un delle azioni classiche di ogni applicazione web, ma 
 rappresenta anche l'origine di potenziali problemi e complicazioni. Invece 
 di reinventare la ruota, una soluzione per l'invio di email è l'uso di 
 ``SwiftmailerBundle``, il quale sfrutta la potenza della libreria `Swiftmailer`_ .
 
 .. note::
 
-    Non dimenticatevi di abilitare il bundle all'interno del kernel prima di utilizzarlo::
+    Non dimenticare di abilitare il bundle all'interno del kernel prima di utilizzarlo::
 
         public function registerBundles()
         {
@@ -28,7 +28,7 @@ di reinventare la ruota, una soluzione per l'invio di email è l'uso di
 Configurazione
 --------------
 
-Prima di utilizzare Swiftmailer, assicuratevi di includerne la configurazione. 
+Prima di utilizzare Swiftmailer, assicurarsi di includerne la configurazione. 
 L'unico parametro obbligatorio della configurazione è il parametro ``transport``:
 
 .. configuration-block::
@@ -78,13 +78,13 @@ i messaggi debbano essere inoltrati.
 
 Sono disponibili i seguenti parametri di configurazione:
 
-* ``transport``         (``smtp``, ``mail``, ``sendmail``, o ``gmail``)
+* ``transport``         (``smtp``, ``mail``, ``sendmail`` o ``gmail``)
 * ``username``
 * ``password``
 * ``host``
 * ``port``
-* ``encryption``        (``tls``, o ``ssl``)
-* ``auth_mode``         (``plain``, ``login``, o ``cram-md5``)
+* ``encryption``        (``tls`` o ``ssl``)
+* ``auth_mode``         (``plain``, ``login`` o ``cram-md5``)
 * ``spool``
 
   * ``type`` (come accodare i messaggi: attualmente solo l'opzione ``file`` è supportata)
@@ -95,7 +95,7 @@ Sono disponibili i seguenti parametri di configurazione:
 L'invio delle email
 -------------------
 
-Per lavorare con la libreria Swiftmailer dovrete creare, configurare e quindi 
+Per lavorare con la libreria Swiftmailer occorre creare, configurare e quindi 
 spedire oggetti di tipo ``Swift_Message``. Il "mailer" è il vero responsabile 
 dell'invio dei messaggi ed è accessibile tramite il servizio ``mailer``. 
 In generale, spedire un'email è abbastanza intuitivo::
@@ -126,8 +126,8 @@ questo argomento dettagliatamente nel capitolo sulla `Creazione di Messaggi`_ .
     email grazie Symfony2:
 
     * :doc:`gmail`
-    * :doc:`email/dev_environment`
-    * :doc:`email/spool`
+    * :doc:`dev_environment`
+    * :doc:`spool`
 
 .. _`Swiftmailer`: http://www.swiftmailer.org/
 .. _`Creazione di Messaggi`: http://swiftmailer.org/docs/messages

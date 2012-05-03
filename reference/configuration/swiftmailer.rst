@@ -40,7 +40,7 @@ transport
 Il metodo di trasporto usato per inviare le email. Valori validi:
 
 * smtp
-* gmail (vedere :doc:`/cookbook/gmail`)
+* gmail (vedere :doc:`/cookbook/email/gmail`)
 * mail
 * sendmail
 * null (lo stesso che impostare `disable_delivery`_ a ``true``)
@@ -186,11 +186,11 @@ Configurazione predefinita completa
             auth_mode:            ~
             spool:
                 type:                 file
-                path:                 %kernel.cache_dir%/swiftmailer/spool
+                path:                 "%kernel.cache_dir%/swiftmailer/spool"
             sender_address:       ~
             antiflood:
                 threshold:            99
                 sleep:                0
             delivery_address:     ~
             disable_delivery:     ~
-            logging:              %kernel.debug%
+            logging:              "%kernel.debug%"

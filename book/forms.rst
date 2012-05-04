@@ -4,7 +4,7 @@
 Form
 =====
 
-L'utilizzo dei form HTML è uno degli utilizzi più comuni e stimolanti per
+L'utilizzo dei form HTML è uno delle attività più comuni e stimolanti per
 uno sviluppatore web. Symfony2 integra un componente Form che permette di gestire
 facilmente i form. Con l'aiuto di questo capitolo si potrà creare da zero un form complesso,
 e imparare le caratteristiche più importanti della libreria dei form.
@@ -646,7 +646,7 @@ Diamo uno sguardo a ogni parte:
 La maggior parte del lavoro viene fatto dall'helper ``form_row``, che rende
 l'etichetta, gli errori e i widget HTML del form di ogni campo all'interno di un tag ``div``
 per impostazione predefinita. Nella sezione :ref:`form-theming`, si apprenderà come l'output
-di ``form_row`` possa essere personalizzato su diversi levelli.
+di ``form_row`` possa essere personalizzato su diversi livelli.
 
 .. tip::
 
@@ -1299,7 +1299,7 @@ per definire l'output del form.
             {{ form_row(form.task) }}
         {% endblock %}
 
-    Il tag ``{% form_theme form _self %}`` ai blocchi del form di essere personalizzati
+    Il tag ``{% form_theme form _self %}`` consente ai blocchi del form di essere personalizzati
     direttamente all'interno del template che utilizzerà tali personalizzazioni. Utilizzare
     questo metodo per creare velocemente personalizzazioni del form che saranno
     utilizzate solo in un singolo template.
@@ -1439,11 +1439,11 @@ array di dati inseriti. Lo si può fare in modo molto facile::
             if ($request->getMethod() == 'POST') {
                 $form->bindRequest($request);
 
-                // data is an array with "name", "email", and "message" keys
+                // data è un array con "name", "email", e "message" come chiavi
                 $data = $form->getData();
             }
         
-        // ... render the form
+        // ... rende il form
     }
 
 Per impostazione predefinita, un form ipotizza che si voglia lavorare con array
@@ -1539,7 +1539,7 @@ Considerazioni finali
 
 Ora si è a conoscenza di tutti i mattoni necessari per costruire form complessi e
 funzionali per la propria applicazione. Quando si costruiscono form, bisogna tenere presente che
-il primo gol di un form è quello di tradurre i dati da un oggetto (``Task``) a un
+il primo obiettivo di un form è quello di tradurre i dati da un oggetto (``Task``) a un
 form HTML in modo che l'utente possa modificare i dati. Il secondo obiettivo di un form è quello di
 prendere i dati inviati dall'utente e ri-applicarli all'oggetto.
 

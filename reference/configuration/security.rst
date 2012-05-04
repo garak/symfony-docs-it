@@ -69,9 +69,6 @@ Ogni parte sarà spiegata nella prossima sezione.
                 entity_provider_name:
                     entity: { class: SecurityBundle:User, property: username }
 
-            factories:
-                MyFactory: %kernel.root_dir%/../src/Acme/DemoBundle/Resources/config/security_factories.xml
-
             firewalls:
                 somename:
                     pattern: .*
@@ -114,7 +111,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                         lifetime: 3600 # in seconds
                         path: /foo
                         domain: somedomain.foo
-                        secure: true
+                        secure: false
                         httponly: true
                         always_remember_me: false
                         remember_me_parameter: _remember_me

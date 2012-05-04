@@ -100,7 +100,7 @@ Symfony stesso, nella cartella ``vendor/``.
 .. note::
 
 	Se non si ha ``curl`` installato, si può anche scaricare il file ``installer``
-    a mano, da http://getcomposer.org/installer. Mettere il file nel progetto ed
+  a mano, da http://getcomposer.org/installer. Mettere il file nel progetto ed
 	eseguire:
 
 	.. code-block:: bash

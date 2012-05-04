@@ -18,19 +18,19 @@ l'integrazione di altri componenti correlati:
 .. configuration-block::
 
     .. code-block:: yaml
-    
+
         framework:
             # ...
             form:            true
 
     .. code-block:: xml
-    
+
         <framework:config>
             <framework:form />
         </framework:config>
 
     .. code-block:: php
-    
+
         $container->loadFromExtension('framework', array(
             // ...
             'form'            => true,
@@ -462,15 +462,12 @@ metodo ``load()``, per fondere la propria configurazione e forzare la validazion
 viene passata un'opzione che non sia ``my_type``, l'utente sarà avvisato con un'eccezione
 del passaggio di un'opzione non supportata::
 
-    use Symfony\Component\Config\Definition\Processor;
-    // ...
-
     public function load(array $configs, ContainerBuilder $container)
     {
-        $processor = new Processor();
         $configuration = new Configuration();
-        $config = $processor->processConfiguration($configuration, $configs);
-    
+
+        $config = $this->processConfiguration($configuration, $configs);
+
         // ...
     }
 

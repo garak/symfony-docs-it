@@ -154,7 +154,7 @@ relative alla richiesta attuale. Con questa classe, tramite il suo costruttore,
 
 È possibile passare i valori della variabile ``$_SERVER`` per popolare
 :class:`Symfony\\Component\\Routing\\RequestContext`. Ma se si utilizza il
-componente :doc:`HttpFoundation<http_foundation>`, è possibile usarne la classe
+componente :doc:`HttpFoundation</components/http_foundation/index>`, è possibile usarne la classe
 :class:`Symfony\\Component\\HttpFoundation\\Request` per riempire la
 :class:`Symfony\\Component\\Routing\\RequestContext` con una scorciatoia::
 

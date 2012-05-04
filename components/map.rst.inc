@@ -18,6 +18,8 @@
 * **Il componente Event Dispatcher**
 
   * :doc:`/components/event_dispatcher/introduction`
+  * :doc:`/components/event_dispatcher/container_aware_dispatcher`
+  * :doc:`/components/event_dispatcher/generic_event`
 
 * **Il componente DOM Crawler**
 
@@ -30,6 +32,7 @@
 * **Il componente HTTP Foundation**
 
   * :doc:`/components/http_foundation/introduction`
+  * :doc:`/components/http_foundation/sessions`
 
 * **Il componente Locale**
 

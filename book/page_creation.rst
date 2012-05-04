@@ -727,17 +727,17 @@ del formato scelto:
         imports:
             - { resource: parameters.yml }
             - { resource: security.yml }
-        
+
         framework:
-            secret:          %secret%
+            secret:          "%secret%"
             charset:         UTF-8
             router:          { resource: "%kernel.root_dir%/config/routing.yml" }
             # ...
 
         # Configurazione di Twig
         twig:
-            debug:            %kernel.debug%
-            strict_variables: %kernel.debug%
+            debug:            "%kernel.debug%"
+            strict_variables: "%kernel.debug%"
 
         # ...
 
@@ -748,7 +748,7 @@ del formato scelto:
             <import resource="parameters.yml" />
             <import resource="security.yml" />
         </imports>
-        
+
         <framework:config charset="UTF-8" secret="%secret%">
             <framework:router resource="%kernel.root_dir%/config/routing.xml" />
             <!-- ... -->
@@ -820,6 +820,12 @@ predefinita di FrameworkBundle:
 .. code-block:: text
 
     app/console config:dump-reference FrameworkBundle
+
+Si può anche usare l'alias dell'estensione (voce di configurazione):
+
+.. code-block:: text
+
+    app/console config:dump-reference framework
 
 .. note::
 
@@ -987,3 +993,5 @@ applicazioni.
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`bundle di terze parti`: http://symfony2bundles.org/
 .. _`Symfony Standard Edition`: http://symfony.com/download
+.. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/2.0/mod/mod_dir.html
+.. _`documentazione su HttpCoreModule di Nginx`: http://wiki.nginx.org/HttpCoreModule#location

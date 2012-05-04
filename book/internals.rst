@@ -230,7 +230,8 @@ aggiungere il seguente codice all'inizio del proprio metodo ascoltatore::
 .. tip::
 
     Se non si ha familiarità con il distributore di eventi di Symfony2, leggere prima
-    la sezione :ref:`event_dispatcher`.
+    la
+    :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>.
 
 .. index::
    single: Evento; kernel.request
@@ -384,7 +385,7 @@ Il distributore di eventi
 
 Event Dispatcher (distributore di eventi) è un componente, responsabile di gran parte
 della logica sottostante e del flusso dietro a una richiesta di Symfony. Per maggiori informazioni,
-vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher>`.
+vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
 
 .. index::
    single: Profiler

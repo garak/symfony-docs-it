@@ -12,6 +12,7 @@ Libro
     routing
     templating
     doctrine
+    propel
     testing
     validation
     forms

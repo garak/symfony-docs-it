@@ -30,7 +30,7 @@ comando:
     $ phpunit -c app/
 
 L'opzione ``-c`` dice a PHPUnit di cercare nella cartella ``app/`` un file di configurazione.
-Chi fosse curioso di conoscere le opzioni di PHPUnit può dare uno sguardo al file
+Chi fosse curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al file
 ``app/phpunit.xml.dist``.
 
 .. tip::
@@ -408,13 +408,13 @@ il comando ``container:debug``.
 
 .. tip::
 
-    Se l'informazione che occorre verificare è disponibile nel profiler, si usi
+    Se l'informazione che occorre verificare è disponibile nel profilatore, si usi
     invece quest'ultimo.
 
 Accedere ai dati del profilatore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A ogni richiesta, il profiler di Symfony raccoglie e memorizza molti dati, che
+A ogni richiesta, il profilatore di Symfony raccoglie e memorizza molti dati, che
 riguardano la gestione interna della richiesta stessa. Per esempio, il profilatore
 può essere usato per verificare che una data pagina esegua meno di un certo numero
 di query alla base dati.
@@ -574,7 +574,7 @@ Il metodo ``selectButton()`` può selezionare i tag ``button`` e i tag ``input``
 
 * Il valore dell'attributo ``id`` o ``name`` per i tag ``button``.
 
-Quando si a un nodo che rappresenta un bottone, richiamare il metodo ``form()`` per
+Quando si ha un nodo che rappresenta un bottone, richiamare il metodo ``form()`` per
 ottenere un'istanza ``Form`` per il form, che contiene il nodo bottone.
 
     $form = $buttonCrawlerNode->form();
@@ -639,9 +639,9 @@ Configurazione dei test
 -----------------------
 
 Il client usato dai test funzionali crea un kernel che gira in uno speciale
-ambiente ``test``. Sicomme Symfonu carica ``app/config/config_test.yml``
+ambiente ``test``. Siccome Symfony carica ``app/config/config_test.yml``
 in ambiente ``test``, si possono modificare le impostazioni della propria
-applicazione sperificatamente per i test.
+applicazione specificatamente per i test.
 
 Per esempio, swiftmailer è configurato in modo predefinito per *non* inviare le email
 in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione

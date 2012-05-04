@@ -17,7 +17,7 @@ lo persisteremo nella base dati e lo recuperemo nuovamente.
 
 .. sidebar:: Codice insieme all'esempio
 
-    Se si vuole seguire il codice di questo capitolo, creare un an
+    Se si vuole seguire il codice di questo capitolo, creare un
     ``AcmeStoreBundle``, tramite: ``php app/console generate:bundle
     --namespace=Acme/StoreBundle``.
 
@@ -240,8 +240,8 @@ economico al più costoso. Da dentro un controllore, fare come segue::
         ->orderByPrice()
         ->find();
 
-Un una sola riga, si ottengono i prodotti cercati in modo orientato agli oggetti. Non
-serve perdere con SQL o simili, Symfony2 offre una programmazione completamente orientata
+In una sola riga, si ottengono i prodotti cercati in modo orientato agli oggetti. Non
+serve perdere tempo con SQL o simili, Symfony2 offre una programmazione completamente orientata
 agli oggetti e Propel rispetta la stessa filosofia, fornendo un incredibile livello di
 astrazione.
 
@@ -269,7 +269,7 @@ Ma si noti che Propel genera diversi metodi per noi e un semplice
 Relazioni/associazioni
 ----------------------
 
-Si supponga che tutti i prodotti dell'applicazione appartengano a un delle categorie.
+Si supponga che tutti i prodotti dell'applicazione appartengano a una delle categorie.
 In questo caso, occorrerà un oggetto ``Category`` e un modo per correlare un oggetto
 ``Product`` a un oggetto ``Category``.
 
@@ -408,7 +408,7 @@ Propel fornisce i seguenti hook:
 
 * ``preInsert()`` codice eseguito prima dell'inserimento di un nuovo oggetto
 * ``postInsert()`` codice eseguito dopo l'inserimento di un nuovo oggetto
-* ``preUpdate()`` codice eseguito prima l'aggiornamento di un oggetto esistente
+* ``preUpdate()`` codice eseguito prima dell'aggiornamento di un oggetto esistente
 * ``postUpdate()`` codice eseguito dopo l'aggiornamento di un oggetto esistente
 * ``preSave()`` codice eseguito prima di salvare un oggetto (nuovo o esistente)
 * ``postSave()`` codice eseguito dopo il salvataggio di un oggetto (nuovo o esistente)

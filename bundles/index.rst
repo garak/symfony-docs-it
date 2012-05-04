@@ -1,5 +1,5 @@
-Bundle di Symfony SE
-====================
+Bundle di Symfony standard edition
+==================================
 
 .. toctree::
     :hidden:

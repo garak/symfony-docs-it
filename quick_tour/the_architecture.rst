@@ -293,7 +293,7 @@ Per i template, il nome logico ``AcmeDemoBundle:Welcome:index.html.twig`` è
 convertito al percorso del file ``src/Acme/DemoBundle/Resources/views/Welcome/index.html.twig``.
 I template diventano ancora più interessanti quando si realizza che i file non
 hanno bisogno di essere memorizzati su filesystem. Si possono facilmente
-memorizzare, per esempio, in una tabella di database.
+memorizzare, per esempio, in una tabella di una base dati.
 
 Estendere i bundle
 ..................

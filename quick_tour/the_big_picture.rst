@@ -101,7 +101,7 @@ Capire i fondamenti
 
 Uno degli obiettivi principali di un framework è quello di assicurare la `Separazione degli ambiti`_.
 Ciò mantiene il proprio codice organizzato e consente alla propria applicazione di
-evolvere facilmente nel tempo, evitando il miscuglio di chiamate al database, tag HTML
+evolvere facilmente nel tempo, evitando il miscuglio di chiamate alla base dati, tag HTML
 e logica di business nello stesso script. Per raggiungere questo obiettivo con Symfony,
 occorre prima imparare alcuni termini e concetti fondamentali.
 

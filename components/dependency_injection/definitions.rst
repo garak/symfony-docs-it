@@ -63,13 +63,6 @@ Classe
 Quella vista sopra è la classe di una definizione, questa è la classe dell'oggetto
 restituito quando si richiede un servizio dal contenitore.
 
-Si potrebbe voler cambiare la classe usata da una definizione, se per esempio ci fosse
-una funzionalità che può essere usata solo se esiste il servizio di un altro bundle,
-allora si potrebbe avere una classe che fa uso di questo altro servizio e una che non
-ne fa uso. Quest'ultima potrebbe essere usata per il servizio e allora quella con
-funzionalità extra potrebbe essere scambiata, usando un passo di compilazione, se
-l'altro servizio è disponibile.
-
 Per trovare quale classe sia impostata per una definizione::
 
     $definition->getClass();

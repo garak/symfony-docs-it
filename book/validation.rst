@@ -228,7 +228,7 @@ di un form assomiglia al seguente, all'interno di un controllore::
             $form->bindRequest($request);
 
             if ($form->isValid()) {
-                // validazionoe passata, fare qualcosa con l'oggetto $author
+                // validazione passata, fare qualcosa con l'oggetto $author
 
                 return $this->redirect($this->generateUrl('...'));
             }
@@ -317,7 +317,7 @@ Configurazione dei vincoli
 Alcuni vincoli, come :doc:`NotBlank</reference/constraints/NotBlank>`, sono
 semplici, mentre altri, come :doc:`Choice</reference/constraints/Choice>`, hanno
 diverse opzioni di configurazione disponibili. Supponiamo che la classe ``Author``
-abbia un'altra proprietà, ``gender``, che possa valore solo "M" oppure
+abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
 "F":
 
 .. configuration-block::

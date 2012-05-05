@@ -152,7 +152,7 @@ o URL.
 Firewall (autenticazione)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Quando un utente effettua una richiesta a un URL che è protetta da un firewall, viene attivato
+Quando un utente effettua una richiesta a un URL che è protetto da un firewall, viene attivato
 il sistema di sicurezza. Il compito del firewall è quello di determinare se
 l'utente deve o non deve essere autenticato e se deve autenticarsi, rimandare una risposta
 all'utente, avviando il processo di autenticazione.
@@ -252,7 +252,7 @@ il flusso di richiesta è sempre lo stesso:
 
 .. tip::
 
-    Più avanti si imparerà che in Symfony2 *qualunque cosa* può essere protetto, tra cui
+    Più avanti si imparerà che in Symfony2 *qualunque cosa* può essere protetta, tra cui
     controllori specifici, oggetti, o anche metodi PHP.
 
 .. _book-security-form-login:
@@ -262,7 +262,7 @@ Utilizzo di un form di login tradizionale
 
 Finora, si è visto come proteggere l'applicazione con un firewall e
 poi proteggere l'accesso a determinate aree tramite i ruoli. Utilizzando l'autenticazione HTTP,
-si può sfruttare senza fatica il box nativo nome utente/password offerti da
+si può sfruttare senza fatica il box nativo nome utente/password offerto da
 tutti i browser. Tuttavia, Symfony supporta nativamente molti meccanismi di autenticazione.
 Per i dettagli su ciascuno di essi, vedere il
 :doc:`Riferimento sulla configurazione di sicurezza</reference/configuration/security>`.
@@ -520,7 +520,7 @@ Rivediamo l'intero processo:
    lo rinvia al form di login.
 
 Per impostazione predefinita, se le credenziali inviate sono corrette, l'utente verrà rinviato
-alla pagina originale che è stata richiesta  (ad esempio ``/admin/foo``). Se l'utente
+alla pagina originale che è stata richiesta (ad esempio ``/admin/foo``). Se l'utente
 originariamente è andato direttamente alla pagina di login, sarà rinviato alla pagina iniziale.
 Questo comportamento può essere personalizzato, consentendo, ad esempio, di rinviare
 l'utente a un URL specifico.
@@ -1072,7 +1072,7 @@ in formato testo (se tali utenti sono memorizzati in un file di configurazione o
 un qualche database). Naturalmente, in un'applicazione reale, si consiglia per ragioni
 di sicurezza, di codificare le password degli utenti. Questo è facilmente realizzabile
 mappando la classe User in uno dei numerosi built-in "encoder". Per esempio,
-per memorizzare gli utenti in memoria, ma oscurare le lori password tramite ``sha1``,
+per memorizzare gli utenti in memoria, ma oscurare le loro password tramite ``sha1``,
 fare come segue:
 
 .. configuration-block::
@@ -1139,10 +1139,10 @@ Impostando le ``iterazioni`` a ``1`` e il ``encode_as_base64`` a false,
 alcuna codifica supplementare. È ora possibile calcolare l'hash della password a livello di codice
 (ad esempio ``hash('sha1', 'ryanpass')``) o tramite qualche strumento online come `functions-online.com`_
 
-Se si sta creando i propri utenti in modo dinamico (e memorizzarli in un database),
+Se si stanno creando i propri utenti in modo dinamico (memorizzandoli in un database),
 è possibile utilizzare algoritmi di hash ancora più complessi e poi contare su un oggetto
-encoder oggetto per aiutarti a codificare le password. Per esempio, supponiamo che l'oggetto
-User sia ``Acme\UserBundle\Entity\User`` (come nell'esempio precedente). In primo,
+encoder che aiuti a codificare le password. Per esempio, supponiamo che l'oggetto
+User sia ``Acme\UserBundle\Entity\User`` (come nell'esempio precedente). In primo luogo,
 configurare l'encoder per questo utente:
 
 .. configuration-block::
@@ -1200,7 +1200,7 @@ può essere determinata nel seguente modo da un controllore:
 Recuperare l'oggetto User
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Dopo l'autenticazione, si può accedere all'oggetto ``User`` per l 'utente corrente
+Dopo l'autenticazione, si può accedere all'oggetto ``User`` per l'utente corrente
 tramite il servizio ``security.context``. Da dentro un controllore, assomiglierà
 a questo:
 
@@ -1309,7 +1309,7 @@ l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
 
 .. tip::
 
-    Se no ci sono ragioni per separare gli utenti ``in_memory`` dagli
+    Se non ci sono ragioni per separare gli utenti ``in_memory`` dagli
     utenti ``user_db``, è possibile ottenere ancora più facilmente questo risultato combinando
     le due sorgenti in un unico fornitore:
 

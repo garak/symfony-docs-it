@@ -5,3 +5,4 @@ Dependency Injection
     :maxdepth: 2
 
     introduction
+    definitions

@@ -22,8 +22,8 @@ capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
     Il termine *locale* si riferisce all'incirca al linguaggio dell'utente e al paese.
     Può essere qualsiasi stringa che l'applicazione utilizza poi per gestire le traduzioni
     e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare
-    il codice di *lingua* ISO639-1, un carattere di sottolineatura (``_``), poi il codice di *paese* ISO3166
-    (per esempio ``fr_FR`` per francese / Francia).
+    il codice di *lingua* ISO639-1, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
+    (per esempio ``fr_FR`` per francese/Francia).
 
 In questo capitolo, si imparerà a preparare un'applicazione per supportare più
 locale e poi a creare le traduzioni per più locale. Nel complesso,
@@ -278,16 +278,24 @@ filesystem e vengono trovate da Symfony grazie ad alcune convenzioni.
 .. index::
    single: Traduzioni; Sedi per le traduzioni e convenzioni sui nomi
 
-Sedi per le traduzioni e convenzioni sui nomi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Posti per le traduzioni e convenzioni sui nomi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
+Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due posti:
 
-* Per i messaggi trovati in un bundle, i corrispondenti file con i messaggi dovrebbero
-  trovarsi nella cartella ``Resources/translations/`` del bundle;
+* la cartella ``<kernel root directory>/Resources/translations``;
 
-* Per sovrascrivere eventuali traduzioni del bundle, posizionare i file con i messaggi
-  nella cartella ``app/Resources/translations``.
+* la cartella ``<kernel root directory>/Resources/<bundle name>/translations``;
+
+* la cartella ``Resources/translations/`` del bundle.
+
+I posti sono elencati in ordine di priorità. Quindi, si possono sovrascrivere i
+messaggi di traduzione di un bundle in una qualsiasi delle due cartelle superiori.
+
+Il meccanismo di priorità si basa sulle chiavi: occoore dichiarare solamente le chiavi
+da sovrascrivere in un file di messaggi a priorià superiore. Se una chiave non viene trovata
+in un file di messaggi, il traduttore si appoggerà automaticamente ai file di messaggi
+a priorità inferiore.
 
 È importante anche il nome del file con le traduzioni, perché Symfony2 utilizza una convenzione
 per determinare i dettagli sulle traduzioni. Ogni file con i messaggi deve essere nominato
@@ -508,7 +516,7 @@ richiesta. Se lo si fa, ogni richiesta successiva avrà lo stesso locale.
 
     $this->get('session')->set('_locale', 'en_US');
 
-Vedere la sezione :ref:`.. _book-translation-locale-url:` sotto,
+Vedere la sezione :ref:`book-translation-locale-url` sotto,
 sull'impostazione del locale tramite rotte.
 
 Fallback e locale predefinito
@@ -855,6 +863,8 @@ La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 
+.. _book-translation-constraint-messages:
+
 Tradurre i messaggi dei vincoli
 -------------------------------
 
@@ -989,3 +999,5 @@ passi:
 .. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
 .. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
 .. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions
+.. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

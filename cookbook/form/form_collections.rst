@@ -283,7 +283,7 @@ a `false`, `setTags` sarà richiamato. Questo sarà importante più avanti, come
 vedremo.
 
 Oltre a dire al campo di accettare un numero qualsiasi di oggetti inviati, l'opzione
-``allow_add` rende anche disponibile una variabile "prototipo". Questo "prototipo" è un
+``allow_add`` rende anche disponibile una variabile "prototipo". Questo "prototipo" è un
 piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi nuovo form
 "tag". Per renderlo, eseguire la seguente modifica nel template:
 

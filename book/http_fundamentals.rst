@@ -431,7 +431,7 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
 .. note::
 
-   L'esempio usa :doc:`YAML</components/YAML>` per definire la configurazione delle rotte.
+   L'esempio usa :doc:`YAML</components/yaml>` per definire la configurazione delle rotte.
    La configurazione delle rotte può essere scritta anche in altri formati, come XML o
    PHP.
 

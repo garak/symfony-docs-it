@@ -117,3 +117,4 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://progit.org/book/ch4-4.html
 .. _`Gitolite`: https://github.com/sitaramc/gitolite
+.. _`Github .gitignore`: http://help.github.com/ignore-files/

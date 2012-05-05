@@ -205,7 +205,7 @@ Ora renderemo il fornitore utenti disponibile come servizio.
 Modificare ``security.yml``
 ---------------------------
 
-È tutto in ``/app/config/security.yml``r. Aggiungere il fornitore di utenti alla
+È tutto in ``/app/config/security.yml``. Aggiungere il fornitore di utenti alla
 lista di fornitori nella sezione "security". Scegliere un nome per il fornitore di utenti
 (p.e. "webservice") e menzionare l'id del servizio appena definito.
 

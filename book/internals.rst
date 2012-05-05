@@ -231,7 +231,7 @@ aggiungere il seguente codice all'inizio del proprio metodo ascoltatore::
 
     Se non si ha familiarità con il distributore di eventi di Symfony2, leggere prima
     la
-    :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>.
+    :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
 
 .. index::
    single: Evento; kernel.request

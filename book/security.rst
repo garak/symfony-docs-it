@@ -147,7 +147,7 @@ o URL.
 Firewall (autenticazione)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Quando un utente effettua una richiesta a un URL che è protetta da un firewall, viene attivato
+Quando un utente effettua una richiesta a un URL che è protetto da un firewall, viene attivato
 il sistema di sicurezza. Il compito del firewall è quello di determinare se
 l'utente deve o non deve essere autenticato e se deve autenticarsi, rimandare una risposta
 all'utente, avviando il processo di autenticazione.
@@ -247,8 +247,8 @@ il flusso di richiesta è sempre lo stesso:
 
 .. tip::
 
-    Più avanti si imparerà che in Symfony2 *qualunque cosa* può essere protetto, tra cui
-    controllori specifici, oggetti, o anche metodi PHP.
+    Più avanti si imparerà che in Symfony2 *qualunque cosa* può essere protetta, tra cui
+    controllori specifici, oggetti o anche metodi PHP.
 
 .. _book-security-form-login:
 
@@ -513,7 +513,7 @@ Rivediamo l'intero processo:
    lo rinvia al form di login.
 
 Per impostazione predefinita, se le credenziali inviate sono corrette, l'utente verrà rinviato
-alla pagina originale che è stata richiesta  (ad esempio ``/admin/foo``). Se l'utente
+alla pagina originale che è stata richiesta (ad esempio ``/admin/foo``). Se l'utente
 originariamente è andato direttamente alla pagina di login, sarà rinviato alla pagina iniziale.
 Questo comportamento può essere personalizzato, consentendo, ad esempio, di rinviare
 l'utente a un URL specifico.
@@ -1176,7 +1176,7 @@ può essere determinata nel seguente modo, da dentro un controllore:
 Recuperare l'oggetto User
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Dopo l'autenticazione, si può accedere all'oggetto ``User`` per l 'utente corrente
+Dopo l'autenticazione, si può accedere all'oggetto ``User`` per l'utente corrente
 tramite il servizio ``security.context``. Da dentro un controllore, assomiglierà
 a questo:
 

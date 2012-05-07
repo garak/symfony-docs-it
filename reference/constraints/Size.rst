@@ -61,7 +61,7 @@ Opzioni
 min
 ~~~
 
-**tipo**: ``intero`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``intero`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è il valore minimo. La validazione fallirà se il
 valore dato è **inferiore** a questo valore.
@@ -69,7 +69,7 @@ valore dato è **inferiore** a questo valore.
 max
 ~~~
 
-**tipo**: ``intero`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``intero`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è il valore massimo. La validazione fallirà se il
 valore dato è **superiore** a questo valore.

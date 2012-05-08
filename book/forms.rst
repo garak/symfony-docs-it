@@ -565,12 +565,9 @@ i valori corretti di una serie di opzioni del campo.
   (vale a dire se il campo è ``nullable``). Questo è molto utile, perché la validazione
   lato client corrisponderà automaticamente alle vostre regole di validazione.   
 
-* ``min_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione
-  ``min_length`` può essere indovinata dai vincoli di validazione (se viene utilizzato
-  ``MinLength`` o ``Min``) o dai metadati Doctrine (tramite la lunghezza del campo).
-
-* ``max_length``: Similmente a ``min_length``, può anche essere indovinata la
-  lunghezza massima.
+* ``max_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione
+  ``max_length`` può essere indovinata dai vincoli di validazione (se viene utilizzato
+  ``MaxLength``) o dai meta-dati Doctrine (tramite la lunghezza del campo).
 
 .. note::
 
@@ -651,11 +648,11 @@ di ``form_row`` possa essere personalizzato su diversi livelli.
 .. tip::
 
     Si può accedere ai dati attuali del form tramite ``form.vars.value``:
-    
+
     .. configuration-block::
 
         .. code-block:: jinja
-        
+
             {{ form.vars.value.task }}
 
         .. code-block:: html+php
@@ -849,7 +846,7 @@ la scelta in ultima analisi, spetta a voi.
     buona idea specificare esplicitamente l'opzione ``data_class`` aggiungendo
     il codice seguente alla classe del tipo di form::
 
-        public function getDefaultOptions(array $options)
+        public function getDefaultOptions()
         {
             return array(
                 'data_class' => 'Acme\TaskBundle\Entity\Task',
@@ -857,15 +854,15 @@ la scelta in ultima analisi, spetta a voi.
         }
 
 .. tip::
-    
+
     Quando si mappano form su oggetti, tutti i campi vengono mappati. Ogni campo nel
     form che non esiste nell'oggetto mappato causerà il lancio di
     un'eccezione.
-    
+
     Nel caso in cui servano campi extra nel form (per esempio, un checkbox "accetto
     i termini"), che non saranno mappati nell'oggetto sottostante,
     occorre impostare l'opzione ``property_path`` a ``false``::
-    
+
         public function buildForm(FormBuilder $builder, array $options)
         {
             $builder->add('task');
@@ -981,7 +978,7 @@ creare una classe di form in modo che l'oggetto ``Category`` possa essere modifi
             $builder->add('name');
         }
 
-        public function getDefaultOptions(array $options)
+        public function getDefaultOptions()
         {
             return array(
                 'data_class' => 'Acme\TaskBundle\Entity\Category',
@@ -1122,6 +1119,8 @@ rende il form:
 
         {% form_theme form 'AcmeTaskBundle:Form:fields.html.twig' %}
 
+        {% form_theme form 'AcmeTaskBundle:Form:fields.html.twig' 'AcmeTaskBundle:Form:fields2.html.twig' %}
+
         <form ...>
 
     .. code-block:: html+php
@@ -1129,6 +1128,8 @@ rende il form:
         <!-- src/Acme/TaskBundle/Resources/views/Default/new.html.php -->
 
         <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form')) ?>
+
+        <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form', 'AcmeTaskBundle:Form')) ?>
 
         <form ...>
 
@@ -1138,9 +1139,29 @@ funzione ``form_row`` è successivamente chiamata in questo template, utilizzer�
 blocco ``field_row`` dal tema personalizzato (al posto del blocco predefinito ``field_row``
 fornito con Symfony).
 
+Non è necessario che il tema personalizzato sovrascriva tutti i blocchi. Quando viene reso un blocco
+non sovrascrritto nel tema personalizzato, il mtotore dei temi userà il
+tema globale (definito a livello di bundle).
+
+Se vengono forniti più temi personalizzati, saranno analizzati nell'ordine elencato,
+prima di usare il tema globale.
+
 Per personalizzare una qualsiasi parte di un form, basta sovrascrivere il frammento
 appropriato. Sapere esattamente qual è il blocco o il file da sovrascrivere è l'oggetto
 della sezione successiva.
+
+.. versionadded:: 2.1
+   Una sintassi  alternativa di Twig per ``form_theme`` è stata introdotta nella 2.1. Accetta
+   qualsiasi espressione Twig valida (la differenza più evidente è quando si usa un array
+   con temi multipli).
+
+   .. code-block:: html+jinja
+
+       {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
+
+       {% form_theme form with 'AcmeTaskBundle:Form:fields.html.twig' %}
+
+       {% form_theme form with ['AcmeTaskBundle:Form:fields.html.twig', 'AcmeTaskBundle:Form:fields2.html.twig'] %}
 
 Per una trattazione più ampia, vedere :doc:`/cookbook/form/form_customization`.
 
@@ -1385,8 +1406,8 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad e
     class TaskType extends AbstractType
     {
         // ...
-    
-        public function getDefaultOptions(array $options)
+
+        public function getDefaultOptions()
         {
             return array(
                 'data_class'      => 'Acme\TaskBundle\Entity\Task',
@@ -1396,14 +1417,14 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad e
                 'intention'       => 'task_item',
             );
         }
-        
+
         // ...
     }
 
 Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a ``false``.
 Le personalizzazioni possono essere fatte anche a livello globale nel progetto. Per ulteriori informazioni,
 vedere la sezione
-:ref:`riferimento della configurazione dei form </reference-frameworkbundle-forms>`.
+:ref:`riferimento della configurazione dei form <reference-framework-form>`.
 
 .. note::
 
@@ -1435,15 +1456,15 @@ array di dati inseriti. Lo si può fare in modo molto facile::
             ->add('email', 'email')
             ->add('message', 'textarea')
             ->getForm();
-        
+
             if ($request->getMethod() == 'POST') {
                 $form->bindRequest($request);
 
                 // data è un array con "name", "email", e "message" come chiavi
                 $data = $form->getData();
             }
-        
-        // ... rende il form
+
+        // ... rendere il form
     }
 
 Per impostazione predefinita, un form ipotizza che si voglia lavorare con array
@@ -1518,13 +1539,13 @@ per specificare l'opzione::
     {
         // ...
 
-        public function getDefaultOptions(array $options)
+        public function getDefaultOptions()
         {
             $collectionConstraint = new Collection(array(
                 'name' => new MinLength(5),
                 'email' => new Email(array('message' => 'Invalid email address')),
             ));
-        
+
             return array('validation_constraint' => $collectionConstraint);
         }
     }

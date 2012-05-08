@@ -67,7 +67,7 @@ importanti:
 * ``buildView()`` - Questo metodo è utilizzato per impostare le altre variabili che sono necessarie
   per la resa del campo nel template. Per esempio, nel tipo di campo `ChoiceType`_,
   la variabile ``multiple`` è impostata e utilizzata nel template  per impostare (o non 
-  impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creare un template per il campo`_
+  impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creazione del template per il campo`_
   per maggiori dettagli.
 
 * ``getDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form

@@ -28,7 +28,7 @@ WSSE è molto utile per proteggere i servizi web, siano essi SOAP o
 REST.
 
 C'è molta buona documentazione su `WSSE`_, ma questo articolo non approfondirà
-il protocollo di sicurezza, quando il modo in cui un protocollo personalizzato
+il protocollo di sicurezza, quanto il modo in cui un protocollo personalizzato
 possa essere aggiunto alla propria applicazione Symfony2. La base di WSSE è la
 verifica degli header di richiesta tramite credenziali criptate, con l'uso di
 un timestamp e di `nonce`_, e la verifica dell'utente richiesto tramite un digest

@@ -324,14 +324,14 @@ o per eseguire richieste più complesse::
     use Symfony\Component\HttpFoundation\File\UploadedFile;
 
     $photo = new UploadedFile(
-        '/path/to/photo.jpg',
+        '/percorso/di/photo.jpg',
         'photo.jpg',
         'image/jpeg',
         123
     );
     // oppure
     $photo = array(
-        'tmp_name' => '/path/to/photo.jpg',
+        'tmp_name' => '/percorso/di/photo.jpg',
         'name' => 'photo.jpg',
         'type' => 'image/jpeg',
         'size' => 123,
@@ -621,7 +621,7 @@ tipo::
     $form['like_symfony']->tick();
 
     // Caricare un file
-    $form['photo']->upload('/path/to/lucas.jpg');
+    $form['photo']->upload('/percorso/di/lucas.jpg');
 
 .. tip::
 

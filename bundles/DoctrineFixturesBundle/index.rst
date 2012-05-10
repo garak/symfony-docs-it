@@ -135,7 +135,7 @@ per l'ODM) di ogni bundle ed eseguirà ogni classe che implementa
 
 Entrambi i comandi hanno delle opzioni:
 
-* ``--fixtures=/path/to/fixture`` - Usare questa opzione per specificare manualmente
+* ``--fixtures=/percorso/di/fixture`` - Usare questa opzione per specificare manualmente
   la cartella in cui le classi delle fixture vanno caricate;
 
 * ``--append`` - Usare questo flag per appendere dati, invece di cancellare e ricaricare

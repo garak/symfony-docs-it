@@ -92,7 +92,7 @@ comando ``status``:
         >> Configuration Source:                               manually configured
         >> Version Table Name:                                 migration_versions
         >> Migrations Namespace:                               Application\Migrations
-        >> Migrations Directory:                               /path/to/project/app/DoctrineMigrations
+        >> Migrations Directory:                               /percorso/del/progetto/app/DoctrineMigrations
         >> Current Version:                                    0
         >> Latest Version:                                     0
         >> Executed Migrations:                                0
@@ -106,7 +106,7 @@ al posto nostro.
 .. code-block:: bash
 
     php app/console doctrine:migrations:generate
-    Generated new migration class to "/path/to/project/app/DoctrineMigrations/Version20100621140655.php"
+    Generated new migration class to "/percorso/del/progetto/app/DoctrineMigrations/Version20100621140655.php"
 
 Aprendo la classe migrazione appena generata, si vedrà qualcosa di simile a
 questo::
@@ -142,7 +142,7 @@ da eseguire:
        >> Configuration Source:                               manually configured
        >> Version Table Name:                                 migration_versions
        >> Migrations Namespace:                               Application\Migrations
-       >> Migrations Directory:                               /path/to/project/app/DoctrineMigrations
+       >> Migrations Directory:                               /percorso/del/progetto/app/DoctrineMigrations
        >> Current Version:                                    0
        >> Latest Version:                                     2010-06-21 14:06:55 (20100621140655)
        >> Executed Migrations:                                0

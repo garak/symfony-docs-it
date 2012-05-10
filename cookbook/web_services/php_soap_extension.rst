@@ -86,7 +86,7 @@ WSDL può essere recuperato tramite ``/soap?wsdl``.
     {
         public function indexAction()
         {
-            $server = new \SoapServer('/path/to/hello.wsdl');
+            $server = new \SoapServer('/percorso/di/hello.wsdl');
             $server->setObject($this->get('hello_service'));
             
             $response = new Response();

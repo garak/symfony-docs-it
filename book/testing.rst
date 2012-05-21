@@ -252,7 +252,7 @@ XML/HTML::
 .. index::
    single: Test; Asserzioni
 
-.. sidebar: Useful Assertions
+.. sidebar:: Asserzioni utili
 
     Per iniziare più rapidamente, ecco una lista delle asserzioni
     più utili e comuni::
@@ -260,10 +260,10 @@ XML/HTML::
         // Asserire che la risposta corrisponda al selettore CSS dato.
         $this->assertTrue($crawler->filter('h2.subtitle')->count() > 0);
 
-        // Assert that there are exactly 4 h2 tags on the page
+        // Asserire che ci sono esattamente 4 tag h2 nella pagina
         $this->assertEquals(4, $crawler->filter('h2')->count());
 
-        // Assert the the "Content-Type" header is "application/json"
+        // Asserire che il "Content-Type" header sia "application/json"
         $this->assertTrue($client->getResponse()->headers->contains('Content-Type', 'application/json'));
 
         // Asserire che la risposta corrisponda a un'espressione regolare.

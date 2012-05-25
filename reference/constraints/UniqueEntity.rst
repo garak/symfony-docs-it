@@ -49,7 +49,7 @@ utenti:
              * @Assert\Email()
              */
             protected $email;
-
+            
             // ...
         }
 
@@ -85,7 +85,13 @@ fields
 
 Questa opzione obbligatoria è il campo (o la lista di campi) per cui l'entità deve essere
 unica. Per esempio, si può specificare che i campi email e nome nell'esempio
-precedente debbano essere unici.
+in un unico vincolo ``UniqueEntity``, ci si assicurerà che la combinazione di valori
+sia univoca (cioè che due utenti possano avere la stessa email,
+purché non abbiano anche lo stesso nome).
+
+Se servono due campi che siano individualmente univoci (p.e. un'emila univoca *e*
+un nome utente univoco), usare due voci ``UniqueEntity``,
+ciascuna con un singolo campo.
 
 message
 ~~~~~~~

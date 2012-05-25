@@ -485,7 +485,8 @@ A causa dei limiti dell'header ``Expires``, la maggior parte delle volte si user
 al suo posto l'header ``Cache-Control``. Si ricordi che l'header ``Cache-Control``
 è usato per specificare molte differenti direttive di cache. Per la scadenza, ci
 sono due direttive, ``max-age`` e ``s-maxage``.  La prima è usata da tutte le cache,
-mentre la seconda viene considerata solo dalla cache condivise::
+mentre la seconda viene considerata solo dalla cache
+condivise::
 
     // Imposta il numero di secondi dopo cui la risposta
     // non dovrebbe più essere considerata fresca
@@ -545,8 +546,7 @@ generato e impostato dalla propria applicazione, quindi si può dire, per esempi
 la risorsa ``/about`` che è in cache sia aggiornata con ciò che la propria
 applicazione restituirebbe. Un ``ETag`` è come un'impronta digitale ed è usato per
 confrontare rapidamente se due diverse versioni di una risorsa siano equivalenti.
-Come le impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazioni
-della stessa risorsa.
+Come le impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazioni della stessa risorsa.
 
 Vediamo una semplice implementazione, che genera l'ETag come un md5 del
 contenuto::
@@ -1000,7 +1000,10 @@ Ecco come si può configurare il reverse proxy di Symfony2 per supportare il
 metodo HTTP ``PURGE``::
 
     // app/AppCache.php
-    class AppCache extends Cache
+
+    use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
+
+    class AppCache extends HttpCache
     {
         protected function invalidate(Request $request)
         {

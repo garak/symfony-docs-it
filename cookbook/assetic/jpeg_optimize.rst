@@ -1,3 +1,6 @@
+.. index::
+   single: Assetic; Ottimizzazione delle immagini
+
 Usare Assetic per l'ottimizzazione delle immagini con le funzioni di Twig
 =========================================================================
 

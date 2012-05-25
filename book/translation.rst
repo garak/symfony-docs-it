@@ -22,7 +22,7 @@ capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
     Il termine *locale* si riferisce all'incirca al linguaggio dell'utente e al paese.
     Può essere qualsiasi stringa che l'applicazione utilizza poi per gestire le traduzioni
     e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare
-    il codice di *lingua* ISO639-1, un carattere di sottolineatura (``_``), poi il codice di *paese* ISO3166
+    il codice di *lingua* `ISO639-1`_, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
     (per esempio ``fr_FR`` per francese / Francia).
 
 In questo capitolo, si imparerà a preparare un'applicazione per supportare più
@@ -821,6 +821,8 @@ La traduzione del contenuto di una base dati dovrebbero essere gestite da Doctri
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 
+.. _book-translation-constraint-messages:
+
 Tradurre i messaggi dei vincoli
 -------------------------------
 
@@ -954,3 +956,5 @@ passi:
 .. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
 .. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
 .. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions
+.. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

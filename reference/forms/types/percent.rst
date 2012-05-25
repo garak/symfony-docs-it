@@ -22,6 +22,8 @@ Questo campo aggiunge un simbolo di percentuale,  "``%``", dopo l'input.
 | ereditate     | - `label`_                                                            |
 |               | - `read_only`_                                                        |
 |               | - `error_bubbling`_                                                   |
+|               | - `invalid_message`_                                                  |
+|               | - `invalid_message_parameters`_                                       |
 +---------------+-----------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/field>`                            |
 +---------------+-----------------------------------------------------------------------+
@@ -72,3 +74,6 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc

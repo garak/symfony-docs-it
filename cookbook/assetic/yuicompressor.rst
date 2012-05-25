@@ -1,3 +1,6 @@
+.. index::
+   single: Assetic; YUI Compressor
+
 Minimizzare i file JavaScript e i fogli di stile con YUI Compressor
 ===================================================================
 
@@ -134,6 +137,17 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
             array('?yui_js')) as $url): ?>
         <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
+
+
+.. tip::
+
+    Invece di aggiungere il filtro ai tag degli asset, lo si può abilitare globalmente,
+    aggiungendo l'attributo ``apply-to`` alla configurazione del filtro, per esempio
+    nel filtro yui_js ``apply_to: "\.js$"``. Per avere un unico filtro applicato
+    in produzione, aggiungerlo al file config_prod invece che al file comune
+    config. Per dettagli sull'applicazione dei filtri per estensione di file,
+    vedere :ref:`cookbook-assetic-apply-to`.
+
 
 .. _`YUI Compressor`: http://developer.yahoo.com/yui/compressor/
 .. _`scaricare il file JAR`: http://yuilibrary.com/downloads/#yuicompressor

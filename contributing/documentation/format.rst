@@ -148,8 +148,18 @@ Installare l'estensione configuration-block di Sphinx
     sys.path.append(os.path.abspath('_exts'))
     
     # ...
-    # add configurationblock to the list of extensions
-    extensions = ['configurationblock']
+    # add the extensions to the list of extensions
+    extensions = [..., 'sensio.sphinx.refinclude', 'sensio.sphinx.configurationblock', 'sensio.sphinx.phpcode']
+
+    # enable highlighting for PHP code not between ``<?php ... ?>`` by default
+    lexers['php'] = PhpLexer(startinline=True)
+    lexers['php-annotations'] = PhpLexer(startinline=True)
+
+    # use PHP as the primary domain
+    primary_domain = 'php'
+    
+    # set url for API links
+    api_url = 'http://api.symfony.com/master/%s'
 
 .. _reStructuredText:        http://docutils.sf.net/rst.html
 .. _Sphinx:                  http://sphinx.pocoo.org/

@@ -30,6 +30,9 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 |                          | - `data_timezone`_                                                          |
 |                          | - `user_timezone`_                                                          |
 +--------------------------+-----------------------------------------------------------------------------+
+| Opzioni                  | - `invalid_message`_                                                        |
+| ereditate                | - `invalid_message_parameters`_                                             |
++--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | ``field`` (se testo), ``form`` altrimenti                                   |
 +--------------------------+-----------------------------------------------------------------------------+
 | Classe                   | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\DateType`          |
@@ -100,6 +103,8 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
 
 .. include:: /reference/forms/types/options/days.rst.inc
 
+.. _reference-forms-type-date-format:
+
 .. include:: /reference/forms/types/options/date_format.rst.inc
 
 .. include:: /reference/forms/types/options/date_pattern.rst.inc
@@ -107,3 +112,12 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
+
+Opzioni ereditate
+-----------------
+
+Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc

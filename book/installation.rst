@@ -136,8 +136,13 @@ Se ci sono problemi, correggerli prima di proseguire.
 
     .. code-block:: bash
 
-        sudo setfacl -R -m u:www-data:rwx -m u:tuonome:rwx app/cache app/logs
-        sudo setfacl -dR -m u:www-data:rwx -m u:tuonome:rwx app/cache app/logs
+        sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+        sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+
+    Si noti che non tutti i server web girano con utente ``www-data``. Occorre verificare
+    quale sia l'utente con cui gira il server web e inserirlo al posto di ``www-data``.
+    Lo si può verificare nella lista dei processi, verificando con quale utente stiano girando
+    i processi del server web.
 
     **3. Senza usare ACL**
 

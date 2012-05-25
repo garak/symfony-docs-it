@@ -1,4 +1,4 @@
-Dependency Injection
+﻿Dependency Injection
 ====================
 
 .. toctree::
@@ -6,3 +6,7 @@ Dependency Injection
 
     introduction
     definitions
+    compilation
+    factories
+    parentservices
+

@@ -144,7 +144,7 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 
             $crawler = $client->request('GET', '/demo/hello/Fabien');
 
-            $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+            $this->assertGreaterThan(0, $crawler->filter('html:contains("Hello Fabien")')->count());
         }
     }
 
@@ -433,12 +433,12 @@ Quando una richiesta restituisce una risposta di rinvio, il client la segue auto
 Se si vuole esaminare la rispostsa prima del rinvio, si può forzare il client a non
 seguire i rinvii, usando il metodo ``followRedirect()``::
 
-    $crawler = $client->followRedirect(false);
+    $crawler = $client->followRedirect();
 
 Quando il client non segue i rinvvi, lo si può forzare con
 il metodo ``followRedirect()``::
 
-    $crawler = $client->followRedirect();
+    $client->followRedirects();
 
 .. index::
    single: Test; Crawler

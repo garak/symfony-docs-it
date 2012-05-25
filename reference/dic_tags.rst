@@ -1,24 +1,60 @@
 I tag della dependency injection
 ================================
 
-Tag:
+I tag della dependency injection sono piccole stringhe, che si possono applicare a un servizio
+per "marcarlo" per essere usato in un modo speciale. Per esempio, se si ha un servizio
+che si vuole registrare come ascoltatore di uno degli eventi del nucleo di Symfony,
+lo si può marcare con il tag ``kernel.event_listener``.
 
-* ``data_collector``
-* ``form.type``
-* ``form.type_extension``
-* ``form.type_guesser``
-* ``kernel.cache_warmer``
-* ``kernel.event_listener``
-* ``monolog.logger``
-* ``monolog.processor``
-* ``templating.helper``
-* ``routing.loader``
-* ``translation.loader``
-* ``twig.extension``
-* ``validator.initializer``
+Di seguito si trovano informazioni su tutti i tag disponibili in Symfony2:
 
-Abilitare helper di template personalizzati in PHP 
---------------------------------------------------
++-----------------------------------+---------------------------------------------------------------------------+
+| Nome tag                          | Utilizzo                                                                  |
++-----------------------------------+---------------------------------------------------------------------------+
+| `data_collector`_                 | Creare una classe che raccolga dati personalizzati per il profilatore     |
++-----------------------------------+---------------------------------------------------------------------------+
+| `form.type`_                      | Creare un tipo di campo personalizzato per i form                         |
++-----------------------------------+---------------------------------------------------------------------------+
+| `form.type_extension`_            | Creare un "form extension" personalizzato                                 |
++-----------------------------------+---------------------------------------------------------------------------+
+| `form.type_guesser`_              | Aggiungere logica per "form type guessing"                                |
++-----------------------------------+---------------------------------------------------------------------------+
+| `kernel.cache_warmer`_            | Registrareu un servizio da richiamare durante il cache warming            |
++-----------------------------------+---------------------------------------------------------------------------+
+| `kernel.event_listener`_          | Ascoltare diversi eventi/hook in Symfony                               |
++-----------------------------------+---------------------------------------------------------------------------+
+| `monolog.logger`_                 | Log con un canale di log personalizzato                                     |
++-----------------------------------+---------------------------------------------------------------------------+
+| `monolog.processor`_              | Aggiunta di un processore personalizzato per i log                                        |
++-----------------------------------+---------------------------------------------------------------------------+
+| `routing.loader`_                 | Registrare un servizio personalizzato che carica rotte                               |
++-----------------------------------+---------------------------------------------------------------------------+
+| `security.voter`_                 | Aggiunta di un votante alla logica di autorizzazione di Symfony                       |
++-----------------------------------+---------------------------------------------------------------------------+
+| `security.remember_me_aware`_     | Consentire il "ricorami" nell'autenticazione                                       |
++-----------------------------------+---------------------------------------------------------------------------+
+| `security.listener.factory`_      | Necessario quando si cre un sistema di autenticazione personalizzato                    |
++-----------------------------------+---------------------------------------------------------------------------+
+| `swiftmailer.plugin`_             | Registre un plugin di SwiftMailer                                      |
++-----------------------------------+---------------------------------------------------------------------------+
+| `templating.helper`_              | Rendere il servizio disponibile nei template PHP                              |
++-----------------------------------+---------------------------------------------------------------------------+
+| `translation.loader`_             | Registrare un servizio che carica traduzioni                       |
++-----------------------------------+---------------------------------------------------------------------------+
+| `twig.extension`_                 | Registrare un'estensione di Twig                                          |
++-----------------------------------+---------------------------------------------------------------------------+
+| `validator.constraint_validator`_ | Creare un vincolo di validazione                              |
++-----------------------------------+---------------------------------------------------------------------------+
+| `validator.initializer`_          | Registrare un servizio che inizializza oggetti prima della validazione             |
++-----------------------------------+---------------------------------------------------------------------------+
+
+data_collector
+--------------
+
+**Scopo**: creare a class that collects custom data for the profiler
+
+For details on creating your own custom data collection, read the cookbook
+article: :doc:`/cookbook/profiler/data_collector`.
 
 Per abilitare un helper di template personalizzato, aggiungerlo come normale servizio in
 una delle proprie configurazioni, taggarlo con ``templating.helper`` e definire un

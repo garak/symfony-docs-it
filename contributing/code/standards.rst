@@ -9,6 +9,9 @@ segue le stesse linee guida.
 Ricordare che il vantaggio principale degli standard è che ogni pezzo di codice
 sembra familiare, non è che questo o quello siano più o meno leggibili.
 
+Symfony segue gli standard definiti nei documenti the PSR-0, PSR-1 e
+PSR-2.
+
 Poiché un'immagine (o un po' di codice) vale più di mille parole, ecco un
 breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
@@ -61,44 +64,18 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 Struttura
 ---------
 
-* Non usare mai gli short tag (`<?`);
-
-* Non terminare i file delle classi con il tag di chiusura `?>`;
-
-* Indentare con quattro spazi (mai con le tabulazioni);
-
-* Usare il carattere linefeed (`0x0A`) per terminare le righe;
-
 * Aggiungere un singolo spazio dopo ogni virgola delimitatrice;
 
-* Non mettere spazi dopo una parentesi chiusa e prima di una aperta;
-
 * Aggiungere un singolo spazio intorno agli operatori (`==`, `&&`, ...);
-
-* Aggiungere un singolo spazio prima di aprire le parentesi di una struttura di controllo 
-  (`if`, `else`, `for`, `while`, ...);
 
 * Aggiungere una riga vuota prima delle istruzioni `return`, a meno che non siano soli 
   dentro una struttura di controllo (come un `if`);
 
-* Non aggiungere spazi finali in fondo alle righe;
-
-* Usare le parentesi graffe per indicare una struttura di controllo, indipendentemente
-  dal numero di istruzioni contenute;
-
-* Inserire le parentesi graffe su una nuova riga per classi, metodi e
-  funzioni;
-
-* Separare le istruzioni condizionali (`if`, `else`, ...) e la parentesi graffa di
-  apertura con un singolo spazio e senza nuove righe;
+* Usare le parentesi graffe per le strutture di controllo, indipendentemente dal numero
+  di istruzioni contenute;
 
 * Dichiarare esplicitamente la visibilità di classi, metodi e proprietà (non usare
   `var`);
-
-* Usare le costanti native di PHP in minuscolo: `false`, `true` e `null`. Lo
-  stesso per `array()`;
-
-* Usare stringhe maiuscole per le costanti, con parole separate da trattini bassi;
 
 * Definire una classe per file (non si applica a classi private di helper
   che non devono essere istanziate dall'esterno e quindi esulano dallo

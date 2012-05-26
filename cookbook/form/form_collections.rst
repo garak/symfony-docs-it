@@ -239,12 +239,28 @@ Quando l'utente invia il form, i dati inviati per i campi di ``Tags``
 sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``,che viene poi
 impostato sul campo ``tag`` dell'istanza ``Task``.
 
-La collezione ``Tags``è acessibile tramite ``$task->getTags()``
-e può essere persistita nella base dati, oppure utilizzata dove necessario.
+L'insieme ``Tags``è acessibile tramite ``$task->getTags()``
+e può essere persistito nella base dati, oppure utilizzato. dove necessario.
 
 Finora, tutto ciò funziona bene, ma questo non permette di aggiungere nuovi dinamicamente 
 tag o eliminare tag esistenti. Quindi, la modifica dei tag esistenti funziona 
 bene, ma ancora non si possono aggiungere nuovi tag.
+
+.. caution::
+
+    In questa ricetta, includiamo un solo insieme, ma non si è limitati
+    a questo. Si possono anche includere insiemi innestati, in quanti livelli
+    si desidera. Ma, se si usa Xdebug durante lo sviluppo, si potrebbe ricevere
+    l'errore ``Maximum function nesting level of '100' reached, aborting!``.
+    Questo a casua dell'impostazione ``xdebug.max_nesting_level`` di PHP setting, che
+    ha come valore predefinito ``100``.
+
+    Questa direttiva limita la ricorsione a 100 chiamate, che potrebbe non bastare per
+    la resa del form nel template, se si rende l'intero form in una volta
+    sola (p.e. con ``form_widget(form)``). Per risolvere, si può impostare la direttiva
+    a un valore più alto (tramite il file ini di PHP o tramite :phpfunction:`ini_set`,
+    per esempio in ``app/autoload.php``) opure si può rendere ogni campo del form a mano,
+    usando ``form_row``.
 
 .. _cookbook-form-collections-new-prototype:
 

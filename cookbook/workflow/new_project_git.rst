@@ -85,7 +85,13 @@ modifiche al proprio repository git.
 
     il progetto conterrà la cronologia completa di tutt i bundle e le
     librerie definite nel file ``deps``. Potrebbero essere anche 100 MB!
-    Si possono cancellare le cartelle della cronologia di git con il comando seguente:
+    Si possono salvare le versioni attuali di tutte le dipedendeze con il comando:    
+
+    .. code-block:: bash
+
+        $ php bin/vendors lock
+
+    quindi si possono cancellare le cartelle della cronologia di git con il comando seguente:
 
     .. code-block:: bash
 

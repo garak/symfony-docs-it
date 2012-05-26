@@ -63,11 +63,14 @@ base HTTP (cioè il classico vecchio box nome utente/password):
 
     .. code-block:: xml
 
-        <!-- app/config/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <!-- app/config/security.xml -->
 
             <config>
                 <firewall name="secured_area" pattern="^/">
@@ -255,6 +258,15 @@ il flusso di richiesta è sempre lo stesso:
 Utilizzo di un form di login tradizionale
 -----------------------------------------
 
+.. tip::
+
+    In quest sezione, si imparerà come creare un form di login di base, che continua a usare
+    gli utenti inseriti manualmente nel file ``security.yml``.
+
+    Per caricare utenti da una base dati, si legga :doc:`/cookbook/security/entity_provider`.
+    Leggendo quell'articolo e questa sezione, si può creare un form di login completo,
+    che carichi utenti da una base dati.
+
 Finora, si è visto come proteggere l'applicazione con un firewall e
 poi proteggere l'accesso a determinate aree tramite i ruoli. Utilizzando l'autenticazione HTTP,
 si può sfruttare senza fatica il box nativo nome utente/password offerti da
@@ -283,11 +295,14 @@ In primo luogo, abilitare il form di login sotto il firewall:
 
     .. code-block:: xml
 
-        <!-- app/config/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <!-- app/config/security.xml -->
 
             <config>
                 <firewall name="secured_area" pattern="^/">

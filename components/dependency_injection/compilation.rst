@@ -31,9 +31,12 @@ compilate. Questo può essere molto potente, ma non necessario nell'uso quotidia
 Il passo di compilatore deve avere il metodo ``process``, che viene passato al contenitore
 che si sta compilando::
 
-    public function process(ContainerBuilder $container)
+    class CustomCompilerPass
     {
-       //--
+        public function process(ContainerBuilder $container)
+        {
+           //--
+        }
     }
 
 Si possono manipolare parametri e definizioni del contenitore, usando i metodi descritti
@@ -41,6 +44,17 @@ in :doc:`/components/dependency_injection/definitions`. Un cosa che si fa solita
 un passo di compilatore è la ricerca di tutti i servizi con determinato tag, in modo
 da poterli processare in quealche modo o collegarli dinamicamente in qualche
 altro servizio.
+
+Registrare un passo di compilatore
+----------------------------------
+
+Occorre registrare il proprio passo di compilatore con il contenitore. Il suo metodo ``process``
+sarà richiamato quando il contenitore viene compilato::
+
+    use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+    $container = new ContainerBuilder();
+    $container->addCompilerPass(new CustomCompilerPass);
 
 Gestire la configurazione con le estensioni
 -------------------------------------------

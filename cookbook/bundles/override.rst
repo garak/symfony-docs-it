@@ -4,21 +4,55 @@
 Come sovrascrivere parti di un bundle
 =====================================
 
-Questo articolo non è ancora stato scritto, ma lo sarà presto. Se qualcuno fosse
-interessato a scriverlo, veda :doc:`/contributing/documentation/overview`.
+Questa ricetta è un riferimento veloce su come sovrascrivere le varie parti di un
+bundle di terze parti.
 
-Questo argomento dovrebbe mostrare come sovrascrivere ciascuna parte di un
-bundle, sia da un'applicazione che da altri bundle. Questo potrebbe includere:
+Template
+--------
 
-* Template
-* Rotte
-* Controllori
-* Servizi & configurazione
-* Entità & mappatura di entità
-* Form
-* Validazione
+Per informazioni su come sovrascrivere i template, vedere
+* :ref:`overriding-bundle-templates`.
+* :doc:`/cookbook/bundles/inheritance`
 
-In alcuni casi, si potrebbe parlare di best practice che un bundle deve usare
-per fare in modo che certe parti siano sovrascrivibili (o facilmente sovrascrivibili).
-Si potrebbe anche parlare di come alcune parti *non* siano effettivamente sovrascrivibili,
-mostrando l'approccio migliore per risolvere il problema.
+Rotte
+-----
+
+Le rotte non sono mai importate automaticamente in Symfony2. Se si vogliono includere rotte
+da un bundle, occorre importarle manualmente da qualche parte nella
+propria applicazione (p.e. ``app/config/routing.yml``).
+
+Il modo migliore per "sovrascrivere" le rotte di un bundle è quello di non importarle
+affatto. Invece di importare le rotte di un bundle di terze parti, meglio copiare
+il file delle rotte nella propria applicazione, modificarlo e importare quello.
+
+Controllori
+-----------
+
+Ipotizzando che un bundle di terze parti usi controllori che non siano servizi (che
+è quasi sempre il caso), si possono facilmente sovrascrivere tramite l'ereditarietà
+dei bundle. Per maggiori informazioni, vedere :doc:`/cookbook/bundles/inheritance`.
+
+Servizi & configurazione
+------------------------
+
+In corso...
+
+Entità & mappature
+------------------
+
+In corso...
+
+Form
+----
+
+In corso...
+
+Meta-dati di validazione
+------------------------
+
+In corso...
+
+Traduzioni
+----------
+
+In corso...

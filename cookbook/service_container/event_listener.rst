@@ -75,3 +75,36 @@ tag:
     Questo valore può essere da -255 a 255 e gli ascoltatori saranno eseguiti con un ordine
     basato sulla loro priorità. Questo è utile quando occorre assicurarsi che un ascoltatore
     sia eseguito prima di un altro.
+
+Eventi richiesta, verifica dei tipi
+-----------------------------------
+
+Una singola page può eseguire diverse richieste (una principale, quindi molte
+sotto-richieste), per questo, quando si ha a che are con l'evento
+``KernelEvents::REQUEST``, si potrebbe voler verificare il tipo di richiesta. Lo si
+può fare facilmente, come segue::
+
+    // src/Acme/DemoBundle/Listener/AcmeRequestListener.php
+    namespace Acme\DemoBundle\Listener;
+
+    use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+    use Symfony\Component\HttpKernel\HttpKernel;
+
+    class AcmeRequestListener
+    {
+        public function onKernelRequest(GetResponseEvent $event)
+        {
+            if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
+                // non fare niente se non si è nella richiesta principale
+                return;
+            }
+
+            // il proprio codice
+        }
+    }
+
+.. tip::
+
+    Sono disponibili due tipi di richiesta nell'interfaccia :class:`Symfony\\Component\\HttpKernel\\HttpKernelInterface`:
+    ``HttpKernelInterface::MASTER_REQUEST`` e
+    ``HttpKernelInterface::SUB_REQUEST``.

@@ -31,31 +31,37 @@ un numero di rilascio che non esiste::
 
     class IssueSelectorType extends AbstractType
     {
+        /**
+         * @var ObjectManager
+         */
         private $om;
-    
+
+        /**
+         * @param ObjectManager $om
+         */
         public function __construct(ObjectManager $om)
         {
             $this->om = $om;
         }
-    
+
         public function buildForm(FormBuilder $builder, array $options)
         {
             $transformer = new IssueToNumberTransformer($this->om);
             $builder->appendClientTransformer($transformer);
         }
-    
+
         public function getDefaultOptions(array $options)
         {
             return array(
                 'invalid_message'=>'Il rilascio che cerchi non esiste.'
             );
         }
-    
+
         public function getParent(array $options)
         {
             return 'text';
         }
-    
+
         public function getName()
         {
             return 'issue_selector';
@@ -92,42 +98,67 @@ un numero di rilascio che non esiste::
 quindi, creiamo il data transformer che effettua la vera e propria conversione::
 
     // src/Acme/TaskBundle/Form/DataTransformer/IssueToNumberTransformer.php
+
     namespace Acme\TaskBundle\Form\DataTransformer;
-    
-    use Symfony\Component\Form\Exception\TransformationFailedException;
+
     use Symfony\Component\Form\DataTransformerInterface;
+    use Symfony\Component\Form\Exception\TransformationFailedException;
     use Doctrine\Common\Persistence\ObjectManager;
-    
+    use Acme\TaskBundle\Entity\Issue;
+
     class IssueToNumberTransformer implements DataTransformerInterface
     {
+        /**
+         * @var ObjectManager
+         */
         private $om;
 
+        /**
+         * @param ObjectManager $om
+         */
         public function __construct(ObjectManager $om)
         {
             $this->om = $om;
         }
 
-        // trasforma l'oggetto Rilascio in una stringa
-        public function transform($val)
+        /**
+         * trasforma l'oggetto Rilascio in una stringa
+         *
+         * @param  Issue|null $issue
+         * @return string
+         */
+        public function transform($issue)
         {
-            if (null === $val) {
-                return '';
+            if (null === $issue) {
+                return "";
             }
 
-            return $val->getNumber();
+            return $issue->getNumber();
         }
 
-        // trasforma il numero rilascio in un oggetto rilascio
-        public function reverseTransform($val)
+        /**
+         * trasforma il numero rilascio in un oggetto rilascio
+         *
+         * @param  string $number
+         * @return Issue|null
+         * @throws TransformationFailedException if object (issue) is not found.
+         */
+        public function reverseTransform($number)
         {
-            if (!$val) {
+            if (!$number) {
                 return null;
             }
 
-            $issue = $this->om->getRepository('AcmeTaskBundle:Issue')->findOneBy(array('number' => $val));
+            $issue = $this->om
+                ->getRepository('AcmeTaskBundle:Issue')
+                ->findOneBy(array('number' => $number))
+            ;
 
             if (null === $issue) {
-                throw new TransformationFailedException(sprintf('Un rilascio con numero %s non esiste', $val));
+                throw new TransformationFailedException(sprintf(
+                    'Un rilascio con numero %s non esiste!',
+                    $number
+                ));
             }
 
             return $issue;
@@ -144,14 +175,14 @@ manager può essere automaticamente iniettato:
 
         services:
             acme_demo.type.issue_selector:
-                class: Acme\TaskBundle\Form\IssueSelectorType
+                class: Acme\TaskBundle\Form\Type\IssueSelectorType
                 arguments: ["@doctrine.orm.entity_manager"]
                 tags:
                     - { name: form.type, alias: issue_selector }
 
     .. code-block:: xml
-    
-        <service id="acme_demo.type.issue_selector" class="Acme\TaskBundle\Form\IssueSelectorType">
+
+        <service id="acme_demo.type.issue_selector" class="Acme\TaskBundle\Form\Type\IssueSelectorType">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <tag name="form.type" alias="issue_selector" />
         </service>
@@ -159,21 +190,23 @@ manager può essere automaticamente iniettato:
 Ora è possibile aggiungere il tipo al form dal suo alias come segue::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
-    
+
     namespace Acme\TaskBundle\Form\Type;
-    
+
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilder;
-    
+
     class TaskType extends AbstractType
     {
         public function buildForm(FormBuilder $builder, array $options)
         {
-            $builder->add('task');
-            $builder->add('dueDate', null, array('widget' => 'single_text'));
-            $builder->add('issue', 'issue_selector');
+            $builder
+                ->add('task')
+                ->add('dueDate', null, array('widget' => 'single_text'));
+                ->add('issue', 'issue_selector')
+            ;
         }
-    
+
         public function getName()
         {
             return 'task';

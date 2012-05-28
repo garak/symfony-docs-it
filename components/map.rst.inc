@@ -14,6 +14,10 @@
 
   * :doc:`/components/dependency_injection/introduction`
   * :doc:`/components/dependency_injection/definitions`
+  * :doc:`/components/dependency_injection/compilation`
+  * :doc:`/components/dependency_injection/tags`
+  * :doc:`/components/dependency_injection/factories`
+  * :doc:`/components/dependency_injection/parentservices`
 
 * **Il componente Event Dispatcher**
 

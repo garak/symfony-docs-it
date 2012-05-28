@@ -6,4 +6,4 @@ Conenitore di servizi
 
     event_listener
     scopes
-    tags
+    compiler_passes

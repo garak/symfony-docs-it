@@ -249,7 +249,9 @@ con le sue opzioni Per informazioni sui tipi disponibili, vedere la sezione
     se il proprio nome di classe entità è ``Group``, allora il nome predefinito della
     tabella sarà ``group``, che causerà un errore SQL in alcuni sistemi di basi dati.
     Vedere la `Documentazione sulle parole riservate di SQL`_ per sapere come fare
-    correttamente escape di tali nomi.
+    correttamente escape di tali nomi. In alternativa, se si può scegliere liberamente il proprio schema,
+    basta mappare su un diverso nome di tabella o di colonna. Si veda la documentazione di
+    Doctrine `Persistent classes`_ e `Property Mapping`_.
 
 .. note::
 
@@ -1375,12 +1377,14 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 
 .. _`Doctrine`: http://www.doctrine-project.org/
 .. _`MongoDB`: http://www.mongodb.org/
-.. _`Documentazione di base sulla mappatura`: http://docs.doctrine-project.org/orm/en/2.1/reference/basic-mapping.html
-.. _`Query Builder`: http://docs.doctrine-project.org/orm/en/2.1/reference/query-builder.html
-.. _`Doctrine Query Language`: http://docs.doctrine-project.org/orm/en/2.1/reference/dql-doctrine-query-language.html
-.. _`Documentazione sulla mappatura delle associazioni`: http://docs.doctrine-project.org/orm/en/2.1/reference/association-mapping.html
+.. _`Documentazione di base sulla mappatura`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/basic-mapping.html
+.. _`Query Builder`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/query-builder.html
+.. _`Doctrine Query Language`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/dql-doctrine-query-language.html
+.. _`Documentazione sulla mappatura delle associazioni`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/association-mapping.html
 .. _`DateTime`: http://php.net/manual/en/class.datetime.php
-.. _`Documentazione sulla mappatura dei tipi`: http://docs.doctrine-project.org/orm/en/2.1/reference/basic-mapping.html#doctrine-mapping-types
-.. _`Documentazione sulla mappatura delle proprietà`: http://docs.doctrine-project.org/orm/en/2.1/reference/basic-mapping.html#property-mapping
-.. _`Documentazione sugli eventi del ciclo di vita`: http://docs.doctrine-project.org/orm/en/2.1/reference/events.html#lifecycle-events
+.. _`Documentazione sulla mappatura dei tipi`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/basic-mapping.html#doctrine-mapping-types
+.. _`Documentazione sulla mappatura delle proprietà`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/basic-mapping.html#property-mapping
+.. _`Documentazione sugli eventi del ciclo di vita`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/events.html#lifecycle-events
 .. _`Documentazione sulle parole riservate di SQL`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/basic-mapping.html#quoting-reserved-words
+.. _`Persistent classes`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/basic-mapping.html#persistent-classes
+.. _`Property Mapping`: http://docs.doctrine-project.org/projects/doctrine-orm/en/2.1/reference/basic-mapping.html#property-mapping

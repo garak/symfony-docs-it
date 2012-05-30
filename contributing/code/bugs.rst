@@ -1,7 +1,7 @@
 Segnalare un bug
 ================
 
-Se si dovesse un bug in Symfony2, chiediamo di segnalarlo. Ciò aiuta
+Se si dovesse trovare un bug in Symfony2, chiediamo di segnalarlo. Ciò aiuta
 a rendere migliore Symfony2.
 
 .. caution::

@@ -14,10 +14,10 @@ anche tramite riga di comando, con:
 
     php app/check.php
 
-Di seguito la lista dei requisiti e dei requisiti opzionali.
+Di seguito la lista dei requisiti obbligatori e di quelli facoltativi.
 
-Requisiti
----------
+Obbligatori
+-----------
 
 * PHP deve essere almeno alla versione 5.3.2
 * Sqlite3 deve essere abilitato
@@ -25,8 +25,8 @@ Requisiti
 * ctype deve essere abilitato
 * php.ini deve avere l'impostazione date.timezone
 
-Opzionali
----------
+Facoltativi
+-----------
 
 * Occorre avere il modulo PHP-XML installato
 * Occorre avere almeno la versione 2.6.21 di libxml
@@ -38,11 +38,11 @@ Opzionali
 * APC 3.0.17+ (o un'altra cache di opcode) deve essere installato
 * Impostazioni raccomandate di php.ini
 
-    * ``short_open_tag = Off``
-    * ``magic_quotes_gpc = Off``
-    * ``register_globals = Off``
-    * ``session.autostart = Off``
-    
+  * ``short_open_tag = Off``
+  * ``magic_quotes_gpc = Off``
+  * ``register_globals = Off``
+  * ``session.autostart = Off``
+
 Doctrine
 --------
 

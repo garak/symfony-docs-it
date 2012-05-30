@@ -4,8 +4,7 @@ Altre risorse
 Per poter seguire quello che succede nella comunità, si possono trovare utili
 le seguenti risorse:
 
-
- * Elenco di `pull request`_ aperte
+ * Elenco di `richieste di pull`_ aperte
  * Elenco di `commit`_ recenti
  * Elenco di `bug e miglioramenti`_ aperti
  * Elenco di `bundle`_ open source 

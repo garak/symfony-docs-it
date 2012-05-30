@@ -24,7 +24,7 @@ Per poter usare un sistema di rotte di base, sono necessari tre elementi:
 
 * Una :class:`Symfony\\Component\\Routing\\RouteCollection`, che contiene la definizione delle rotte (un'istanza della classe :class:`Symfony\\Component\\Routing\\Route`)
 * Un :class:`Symfony\\Component\\Routing\\RequestContext`, che contiene informazioni relative alla richiesta
-* Un :class:`Symfony\\Component\\Routing\\Matcher\\UrlMatcher`, che associa la richiesta ad una singola rotta
+* Un :class:`Symfony\\Component\\Routing\\Matcher\\UrlMatcher`, che associa la richiesta a una singola rotta
 
 Il seguente esempio assume che l'autoloader sia già stato configurato 
 in modo tale da caricare il componente Routing::
@@ -51,7 +51,7 @@ in modo tale da caricare il componente Routing::
     creando problemi con l'abbinamento alla rotta. Un semplice modo per risolvere
     il problema è usare il componente HTTPFoundation come spiegato in :ref:`below<components-routing-http-foundation>`.
 
-È possibile aggiungere un numero qualsiasi di rotte ad una classe
+È possibile aggiungere un numero qualsiasi di rotte a una classe
 :class:`Symfony\\Component\\Routing\\RouteCollection`.
 
 Il metodo :method:`RouteCollection::add()<Symfony\\Component\\Routing\\RouteCollection::add>`
@@ -167,7 +167,7 @@ Generare un URL
 ~~~~~~~~~~~~~~~
 
 Mentre la classe :class:`Symfony\\Component\\Routing\\Matcher\\UrlMatcher` cerca
-di trovare una rotta che sia adeguata ad una determinata richiesta, è anche possibile creare degli URL
+di trovare una rotta che sia adeguata a una determinata richiesta, è anche possibile creare degli URL
 a partire da una determinata rotta::
 
     use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -193,7 +193,7 @@ a partire da una determinata rotta::
 Caricare le rotte da un file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Si è visto come sia semplice aggiungere rotte ad una collezione direttamente tramite
+Si è visto come sia semplice aggiungere rotte a una collezione direttamente tramite
 PHP. Ma è anche possibile caricare le rotte da diversi tipi di file differenti.
 
 Il componente del Routing contiene diverse classi di caricamento, ognuna delle quali

@@ -221,7 +221,7 @@ Creare un nuovo ambiente
 
 Un'applicazione Symfony2 viene generata con tre ambienti preconfigurati per
 gestire la maggior parte dei casi. Ovviamente, visto che un ambiente non è nient'altro
-che una stringa  che corrisponde ad un insieme di configurazioni, creare un nuovo
+che una stringa  che corrisponde a un insieme di configurazioni, creare un nuovo
 ambiente è abbastanza semplice.
 
 Supponiamo, per esempio, di voler misurare le prestazioni dell'applicazione

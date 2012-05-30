@@ -2,9 +2,9 @@ Contribuire alla documentazione
 ===============================
 
 La documentazione è importante tanto quanto il codice. E segue esattamente gli stessi principi:
-DRY, tests, facilità di manutenzione, estensibilità, ottimizzazione, e refactoring
-solo per nominarne alcuni. E certamente la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial, e molto
-altro.
+DRY, test, facilità di manutenzione, estensibilità, ottimizzazione e refactoring,
+solo per nominarne alcuni. E certamente la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial
+e molto altro.
 
 Contribuire
 -----------

@@ -24,7 +24,7 @@ dell'evento ``kernel.request`` emesso dal kernel di Symfony. L'evento ``kernel.r
 e permette di modificare l' oggetto richiesta.
 
 Si crea una classe simile alla seguente, sostituendo i percorsi in modo che
-puntino ad un bundle del proprio progetto::
+puntino a un bundle del proprio progetto::
 
     // src/Acme/DemoBundle/RequestListener.php
     namespace Acme\DemoBundle;

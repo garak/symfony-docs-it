@@ -1071,8 +1071,8 @@ parametri aggiuntivi (oltre al solo ``name`` del parametro).
 Imparare di più dal ricettario
 ------------------------------
 
-* :doc:`/cookbook/service_container/factories`
-* :doc:`/cookbook/service_container/parentservices`
+* :doc:`/components/dependency_injection/factories`
+* :doc:`/components/dependency_injection/parentservices`
 * :doc:`/cookbook/controller/service`
 
 .. _`architettura orientata ai servizi`: http://it.wikipedia.org/wiki/Service-oriented_architecture

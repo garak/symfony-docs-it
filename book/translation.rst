@@ -671,7 +671,7 @@ quattro diversi intervalli: esattamente ``0``, esattamente ``1``, ``2-19`` e ``2
 e superiori.
 
 È inoltre possibile combinare le regole matematiche e le regole standard. In questo caso, se
-il numero non corrisponde ad un intervallo specifico, le regole standard hanno
+il numero non corrisponde a un intervallo specifico, le regole standard hanno
 effetto dopo aver rimosso le regole esplicite::
 
     '{0} There is no apples|[20,Inf] There are many apples|There is one apple|a_few: There are %count% apples'

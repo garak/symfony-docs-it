@@ -1,31 +1,31 @@
 Formato della documentazione
 ============================
 
-La documentazione di Symfony2 utilizza `reStructuredText`_ che utilizza come linguaggio di markup 
+La documentazione di Symfony2 utilizza `reStructuredText`_, che usa come linguaggio di markup 
 `Sphinx`_ per la generazione dell'output (HTML, PDF, ...).
 
 reStructuredText
 ----------------
 
-reStructuredText "is an easy-to-read, what-you-see-is-what-you-get plaintext
-markup syntax and parser system."
+reStructuredText "è un sistema di analisi e una sintassi a marcatori facilmente
+leggibile, in testo semplice e WYSIWYG".
 
 Si può imparare di più su questa sintassi leggendo i `documenti`_ di Symfony2
-oppure leggendo la `reStructuredText Primer`_ nel sito web di Sphinx.
+oppure leggendo `reStructuredText Primer`_ nel sito web di Sphinx.
 
 Se si ha dimestichezza con Markdown, bisogna fare attenzione alle cose simili, ma
 differenti: 
 
-* Le liste cominciano all'inizio della linea (non hanno bisogno di indentazione)
+* Le liste cominciano all'inizio della riga (non hanno bisogno di indentazione)
 
-* I blocchi di codice utilizzano le doppie apici (````come queste````).
+* I blocchi di codice utilizzano i doppi apici (````come questi````).
 
 Sphinx
 ------
 
-Sphinx è un sistema di compilazione che aggiunge alcuni piacevoli strumenti  per creare documentazione da documenti reStructuredText.
-Come tale, essa aggiunge nuove direttive e
-interpreta ruoli di testo definiti nello standard reST `markup`_. 
+Sphinx è un sistema di compilazione che aggiunge alcuni piacevoli strumenti per creare documentazione da documenti reStructuredText.
+Come tale, aggiunge nuove direttive e
+interpreta ruoli di testo definiti nel `markup`_ standard reST . 
 
 Colorazione della sintassi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +73,7 @@ direttiva ``configuration-block`` (``PHP``, ``YAML`` e
 
         .. code-block:: php
 
-            // Configuration in PHP
+            // Configurazione in PHP
 
 Il precedente snippet reST mostra un blocco come di seguito:
 
@@ -89,7 +89,7 @@ Il precedente snippet reST mostra un blocco come di seguito:
 
     .. code-block:: php
 
-        // Configuration in PHP
+        // Configurazione in PHP
 
 Ecco la lista dei formati attualmente supportati:
 

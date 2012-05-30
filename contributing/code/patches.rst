@@ -20,7 +20,7 @@ software:
 Configurare Git
 ~~~~~~~~~~~~~~~
 
-Impostare le informazioni utente con il proprio nome reale e il prorio indirizzo di posta elettronica:
+Impostare le informazioni utente con il proprio nome reale e il proprio indirizzo di posta elettronica:
 
 .. code-block:: bash
 
@@ -58,11 +58,11 @@ Impostare le informazioni utente con il proprio nome reale e il prorio indirizzo
 Ottenere il codice sorgente di Symfony
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ottnere il codice sorgente di Symfony:
+Ottenere il codice sorgente di Symfony:
 
 * Creare un account su `GitHub`_ ed entrare;
 
-* Forkare il `repository di Symfony2 `_ (cliccando sul bottone "Fork");
+* Forkare il `repository di Symfony2`_ (cliccando sul bottone "Fork");
 
 * Dopo che l'azione "hardcore forking" è stata completata, clonare il proprio fork in locale
   (creerà una cartella `symfony`):
@@ -146,7 +146,7 @@ Lavorare sulla propria patch
 È possibile lavorare sul codice quanto si vuole e committare tanto quanto si vuole; ma bisogna tenere a mente le
 seguenti indicazioni:
 
-* Seguire gli :doc:`standards <standards>` del codice (utilizzare `git diff --check` per
+* Seguire gli :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
   controllare i spazi alla fine);
 
 * Aggiungere test unitari per provare che il bug è stato fissato per mostrare che
@@ -170,7 +170,7 @@ seguenti indicazioni:
 .. tip::
 
     Si possono verificare gli standard del codice eseguente il seguente
-    [script](https://github.com/fabpot/Symfony-CS-Fixer/raw/master/symfony-cs-fixer.phar):
+    [script](http://cs.sensiolabs.org/get/php-cs-fixer.phar) [src](https://github.com/fabpot/PHP-CS-Fixer):
 
     .. code-block:: bash
 

@@ -1,13 +1,13 @@
 Segnalazione di un problema di sicurezza
 ========================================
 
-Si è trovato un problema di sicurezza in Symfony2? Non utilizzare la lista o il bug
+Si è trovato un problema di sicurezza in Symfony2? Non utilizzare la lista o il 
 tracker. Tutte le questioni di sicurezza devono essere inviate a **security [at]
 symfony-project.com**. Le email inviate a questo indirizzo verranno inoltrate al
 team di sviluppo principale di Symfony .
 
-Per ogni reposrt, prima si cercherà di confermare la vulnerabilità. Quando
-confermata, il team di sviluppo lavorerà ad una soluzione seguendo questi passi:
+Per ogni report, prima si cercherà di confermare la vulnerabilità. Quando
+confermata, il team di sviluppo lavorerà a una soluzione seguendo questi passi:
 
 1. Inviare un riconoscimento al segnalatore;
 2. Lavorare su una patch;
@@ -19,4 +19,4 @@ confermata, il team di sviluppo lavorerà ad una soluzione seguendo questi passi
 .. note::
 
     Nel periodo in cui si lavora alla risoluzione della patch, si prega di non rivelare
-    pubblicamente la problematica.
+    pubblicamente il problema.

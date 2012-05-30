@@ -1,35 +1,34 @@
 Segnalare un bug
 ================
 
-Se doveste incontrare un bug in Symfony2, vi chiediamo di riportarlo. Ci aiuta
+Se si dovesse un bug in Symfony2, chiediamo di segnalarlo. Ciò aiuta
 a rendere migliore Symfony2.
 
 .. caution::
 
-    Se pensate di aver trovato un problema di sicurezza, per favore, seguite
+    Se si ritiene di aver trovato un problema di sicurezza, si prega di seguire
     invece la :doc:`procedura <security>`.
-    
 
 Prima di inviare un bug:
 
  * Ricontrollare la `documentazione`_ ufficiale per verificare che non si stia facendo 
    un uso scorretto del framework;
 
- * Chidere assistenza alla `lista degli utenti`_ , al `forum`_ o al
+ * Chiedere assistenza alla `lista degli utenti`_ , al `forum`_ o al
    `canale IRC`_ #symfony, se non si è sicuri che sia effettivamente un bug.
 
 Se si hanno problemi a identificare effettivamente il bug, segnalarlo utilizzando
-il bug `tracker`_ ufficiale seguendo alcune regole:
+il `tracker`_ ufficiale, seguendo alcune regole di base:
 
- * Utilizzare il campo titolo per descrivere chiaramente la problematica;
+ * Utilizzare il campo titolo per descrivere chiaramente il problema;
 
- * Descrivere gli step necessari per riprodurre il bug anche con dei piccoli 
-   esempi di codice (fornire il test unitario per replicare il bug è il massimo)
+ * Descrivere i passi necessari per riprodurre il bug, anche con brevi 
+   esempi di codice (fornire un test unitario per replicare il bug è il modo migliore)
 
- * Fornire il maggior numero di dettagli possibile del proprio ambiente (OS, versione PHP
-   versione di Symfony, extensioni abilitate)
+ * Fornire il maggior numero di dettagli possibile sul proprio ambiente (sistema operativo, versione di PHP
+   versione di Symfony, extensioni abilitate, ...)
 
- * *(optional)* Eventuali :doc:`patch <patches>` allegate.
+ * *(facoltativo)* Allegare una :doc:`patch <patches>`.
 
 .. _documentazione: http://symfony.com/doc/2.0/
 .. _lista degli utenti: http://groups.google.com/group/symfony-users

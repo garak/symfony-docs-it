@@ -20,7 +20,7 @@ Dipendenze (opzionali)
 ----------------------
 
 Per eseguire tutti i test, inclusi quelli che hanno dipendenze esterne,
-Symfony2 deve poterle scaricare. Per impostazione predefinita, sono
+Symfony2 deve poterli scaricare. Per impostazione predefinita, sono
 auto-caricati dalla cartella `vendor/` (vedere
 `autoload.php.dist`).
 

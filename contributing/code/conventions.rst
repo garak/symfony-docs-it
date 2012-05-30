@@ -2,10 +2,10 @@ Convenzioni
 ===========
 
 La documentazione :doc:`standards` descrive gli standard del codice per i progetti Symfony2 e
-per i bundle interni e di terze parti. Tale documento descrive gli standard e le convenzioni
-utilizzate nel nucleo del framework per renderlo più
-coerente e prevedibile.
-
+per i bundle interni e di terze parti. Tale documento descrive gli standard e le convenzioni del
+codice utilizzate nel nucleo del framework per renderlo più coerente e prevedibile.
+L'utilizzo nel proprio codice è incoraggiato, ma non
+obbligatorio.
 
 Nomi dei metodi
 ---------------
@@ -37,7 +37,7 @@ tratti di una relazione principale:
 * una Console di ``Input`` ha molti argomenti e molte opzioni. Non c'e una
   relazione principaleThere is no "main" e quindi questa convezione non è applicata
 
-Per le relazioni per le quali non si può applicare la naming convention bisogna
+Per le relazioni per le quali non si può applicare la convenzione, bisogna
 invece seguire i seguenti metodi (dove ``XXX`` è il nome della cosa relazionata ):
 
 +----------------------+-------------------+
@@ -72,7 +72,7 @@ invece seguire i seguenti metodi (dove ``XXX`` è il nome della cosa relazionata
 
 .. note::
 
-    Mentre "setXXX" e "replaceXXX" sono molto simili, c'e una differenza:
-    "setXXX" può sostituire o aggiungere nuovi elemento alla relazione.
-    "replaceXXX" d'altra parte espressamente limitata ad aggiungere nuove
-    elementi e inoltre dovrebbe lanciare eccezioni in quei casi.
+    Pur essendo "setXXX" e "replaceXXX" molto simili, c'e una differenza:
+    "setXXX" può sostituire o aggiungere nuovi elementi alla relazione.
+    A "replaceXXX", invece, è espressamente vietato aggiungere nuove
+    elementi, ma la maggior parte solleva un'eccezione in questi casi.

@@ -7,14 +7,14 @@ traduzione.
 Contribuire
 -----------
 
-Prima di tutto, bisogna diventare familiari con il :doc:`linguaggio di markup<format>` usato dalla documentazione
+Prima di tutto, bisogna diventare familiari con il :doc:`linguaggio di markup<format>` usato dalla
+documentazione
 
-Successivamente, iscriversi alla `lista Symfony docs`, per poter 
+Successivamente, iscriversi alla `lista Symfony docs`_, per poter 
 collaborare.
 
 Infine, trovare il repository *master* per il linguaggio per il quale si vuole contribuire.
-Di seguito la lista dei principali
-repository *master*:
+Di seguito la lista dei principali repository *master*:
 
 * *Inglese*:  http://github.com/symfony/symfony-docs
 * *Francese*:   https://github.com/gscorpio/symfony-docs-fr
@@ -37,12 +37,12 @@ Se si vuole aiutare nella traduzione di alcuni documenti nella propria lingua o 
 processo da seguire per far parte del team: 
 
 * Presentarsi sulla `lista Symfony docs`_;
-* *(opzionale)* Chiedere su quali documenti si puo lavorare;
+* *(facoltativo)* Chiedere su quali documenti si può lavorare;
 * Forkare il repository *master* della propria lingua (cliccare  il bottone
-  "Fork" nella pagina di Github);
+  "Fork" nella pagina di GitHub);
 * Tradurre qualche documento;
 * Fare una richiesta di pull (cliccare sul bottone "Pull Request" della propria pagina di
-  Github);
+  GitHub);
 * Il team manager accetta le modifiche e ne fa il merge nel repository
   principale;
 * La documentazione sul sito è aggiornata ogni notte dal repository
@@ -56,21 +56,21 @@ Aggiungere una nuova lingua
 Questa sezione fornisce alcune guide per iniziare la traduzione di Symfony2 per una nuova
 lingua.
 
-Iniziare la trduzione in una nuova lingua comporta molto lavoro, è necessario parlarne sulla
+Iniziare la traduzione in una nuova lingua comporta molto lavoro, è necessario parlarne sulla
 `lista Symfony docs`_ e trovare altre persone che diano supporto.
 
 Quando il team è pronto, nominare un manager; Quest'ultimo sarà il responsabile del repository
 *master*.
 
-Creare il repository e copiarci i documenti in lingua inglese.
+Creare il repository e copiarci i documenti in lingua *inglese*.
 
 Il team a questo punto può iniziare il processo di traduzione.
 
-Quando il team pensa che il repository sia in uno stato coerente e stabile (è tutto
+Quando il team ritiene che il repository sia in uno stato coerente e stabile (è tutto
 tradotto, oppure i documenti non tradotti sono stati rimossi dai toctree, che sono i
 file index.rst e map.rst.inc), il team manager può fare richiesta che il repository
 sia aggiunto alla lista di quelli *master* ufficiali, inviando un'email a Fabien
-(fabien.potencier at symfony.com).
+(fabien at symfony.com).
 
 Manutenzione
 ------------

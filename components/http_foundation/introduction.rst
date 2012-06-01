@@ -52,7 +52,7 @@ queste informazioni tramite varie proprietà pubbliche:
 
 * ``cookies``: equivalente di ``$_COOKIE``;
 
-* ``attributes``: non ha equivalenti, è usato dall'applicazione per memorizzare alrti dati (vedere :ref:`sotto<component-foundation-attributes>`)
+* ``attributes``: non ha equivalenti, è usato dall'applicazione per memorizzare altri dati (vedere :ref:`sotto<component-foundation-attributes>`)
 
 * ``files``: equivalente di ``$_FILE``;
 

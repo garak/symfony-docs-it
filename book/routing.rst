@@ -1114,7 +1114,7 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
 
     L'host che viene usato quando si genera un URL assoluto è l'host
     dell'oggetto ``Request`` corrente. Questo viene rilevato automaticamente in base
-    alle informazioni sul server fornite da PHP. Quando si generano URL assolute per
+    alle informazioni sul server fornite da PHP. Quando si generano URL assoluti per
     script che devono essere eseguiti da riga di comando, sarà necessario impostare manualmente l'host
     desiderato sull'oggetto ``Request``:
     
@@ -1129,16 +1129,16 @@ Generare URL con query string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Il metodo ``generate`` accetta un array di valori jolly per generare l'URI.
-Ma se si passano quelli extra, saranno aggiunti all'URI come query string::
+Ma se si passano valori extra, saranno aggiunti all'URI come query string::
 
     $router->generate('blog', array('page' => 2, 'category' => 'Symfony'));
     // /blog/2?category=Symfony
 
 Generare URL da un template
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Il luogo più comune per generare un URL è all'interno di un template quando si creano i collegamenti
-tra le varie pagine dell'applicazione. Questo viene fatto esattamente come prima, ma utilizzando
+Il luogo più comune per generare un URL è all'interno di un template, quando si creano i collegamenti
+tra le varie pagine dell'applicazione. Lo si fa come prima, ma utilizzando
 una funzione helper per i template:
 
 .. configuration-block::
@@ -1155,7 +1155,7 @@ una funzione helper per i template:
             Read this blog post.
         </a>
 
-Possono anche essere generati gli URL assoluti.
+Possono anche essere generati URL assoluti.
 
 .. configuration-block::
 
@@ -1171,7 +1171,7 @@ Possono anche essere generati gli URL assoluti.
             Read this blog post.
         </a>
 
-Riassunto
+Riepilogo
 ---------
 
 Il routing è un sistema per mappare l'URL delle richieste in arrivo in una funzione

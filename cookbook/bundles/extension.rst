@@ -7,7 +7,7 @@ Come esporre una configurazione semantica per un bundle
 
 Se si apre il file di configurazione della propria applicazione (di solito ``app/config/config.yml``),
 si vedranno un certo numero di "spazi di nomi" di configurazioni, come ``framework``,
-``twig`` e ``doctrine``. Ciasucno di questi configura uno specifico bundle, consentendo di
+``twig`` e ``doctrine``. Ciascuno di questi configura uno specifico bundle, consentendo di
 configurare cose ad alto livello e quindi lasciando al bundle tutte le modifiche complesse
 e di basso livello.
 
@@ -57,9 +57,9 @@ Quando si crea un bundle, si hanno due scelte sulla gestione della configurazion
     specificatamente. Lo sviluppatore del bundle deve quindi analizzare tale
     configurazione e caricare i servizi all'interno di una classe "Extension". Con
     questo metodo, non si avrà bisogno di importare alcuna risorsa di configurazione
-    dall'appplicazione principale: la classe Extension può gestire tutto.
+    dall'applicazione principale: la classe Extension può gestire tutto.
 
-La seconda opzione, di cui parleremo, è molto più flessibili, ma richiede anche
+La seconda opzione, di cui parleremo, è molto più flessibile, ma richiede anche
 più tempo di preparazione. Se si ci sta chiedendo quale metodo scegliere,
 probabilmente è una buona idea partire col primo metodo, poi cambiare al secondo,
 se se ne ha necessità.

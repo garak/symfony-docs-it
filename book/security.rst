@@ -260,7 +260,7 @@ Utilizzo di un form di login tradizionale
 
 .. tip::
 
-    In quest sezione, si imparerà come creare un form di login di base, che continua a usare
+    In questa sezione, si imparerà come creare un form di login di base, che continua a usare
     gli utenti inseriti manualmente nel file ``security.yml``.
 
     Per caricare utenti da una base dati, si legga :doc:`/cookbook/security/entity_provider`.
@@ -269,7 +269,7 @@ Utilizzo di un form di login tradizionale
 
 Finora, si è visto come proteggere l'applicazione con un firewall e
 poi proteggere l'accesso a determinate aree tramite i ruoli. Utilizzando l'autenticazione HTTP,
-si può sfruttare senza fatica il box nativo nome utente/password offerti da
+si può sfruttare senza fatica il box nativo nome utente/password offerto da
 tutti i browser. Tuttavia, Symfony supporta nativamente molti meccanismi di autenticazione.
 Per i dettagli su ciascuno di essi, vedere il
 :doc:`Riferimento sulla configurazione di sicurezza</reference/configuration/security>`.

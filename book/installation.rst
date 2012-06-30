@@ -108,6 +108,26 @@ Symfony stesso, nella cartella ``vendor/``.
 		php installer
 		php composer.phar install
 
+.. tip::
+
+	Quando si esegue ``php composer.phar install`` o ``php composer.phar update``, composer eseguirà
+	dei comandi post installazione/aggiornamento per cpulire la cache e installare le risorse. Per impostazione predefinita,
+    le risorse saranno copiate nella cartella ``web``. Per creare collegamenti simbolici invece di copiare le risorse, si può
+    aggiungere una voce nel nodo ``extra`` del file composer.json con chiave ``symfony-assets-install``
+	e valore ``symlink``:
+	
+	.. code-block:: json
+	
+	    "extra": {
+	        "symfony-app-dir": "app",
+	        "symfony-web-dir": "web",
+	        "symfony-assets-install": "symlink"
+	    }
+		
+	Passando ``relative`` invece di ``symlink`` a symfony-assets-install, il comando genererà
+	collegamenti relativi.	
+		
+
 Configurazione
 ~~~~~~~~~~~~~~
 
@@ -158,6 +178,11 @@ Se ci sono problemi, correggerli prima di proseguire.
 
         sudo setfacl -R -m u:www-data:rwx -m u:tuonome:rwx app/cache app/logs
         sudo setfacl -dR -m u:www-data:rwx -m u:tuonome:rwx app/cache app/logs
+
+    Notare che non tutti i server web giranot come utente ``www-data``. Occorre verificare
+    quale utente sia usato dal server web e inserirlo al posto di ``www-data``.
+    Lo si può verificare dalla lista dei processi, cercando quale utente stia eseguendo
+    il processo del server web.
 
     **3. Senza usare ACL**
 
@@ -231,10 +256,10 @@ Questo è bene (anzi, benissimo!) perché quando qualcun altro clonerà o farà 
 del progetto, potrà semplicemente eseguire lo script ``php composer.phar install`` per
 scaricare tutte le librerie dei venditori necessarie.
 
-.. _`abilitare il supporto ACL`: https://help.ubuntu.com/community/FilePermissions#ACLs
+.. _`abilitare il supporto ACL`: https://help.ubuntu.com/community/FilePermissionsACLs
 .. _`http://symfony.com/download`: http://symfony.com/download
 .. _`Git`: http://git-scm.com/
 .. _`GitHub Bootcamp`: http://help.github.com/set-up-git-redirect
 .. _`Composer`: http://getcomposer.org/
 .. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
-.. _`Nginx`: http://wiki.nginx.org/HttpCoreModule#root
+.. _`Nginx`: http://wiki.nginx.org/Symfony

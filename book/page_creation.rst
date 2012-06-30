@@ -689,6 +689,10 @@ mantenere il codice coerente tra tutti i bundle di Symfony2. Si dia un'occhiata 
 
 * ``Controller/`` contiene i controllori del (p.e. ``HelloController.php``);
 
+* ``DependencyInjection/`` contiene alcune estensioni di classi,
+  che possono importare configurazioni di servizi, registrare passi di compilatore o altro
+  (tale cartella non è indispensabile);
+
 * ``Resources/config/`` ospita la configurazione, compresa la configurazione delle
   rotte (p.e. ``routing.yml``);
 

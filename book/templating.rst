@@ -562,9 +562,7 @@ di altra logica, che non si può fare dentro a un template.
 
 La soluzione è semplicemente l'inserimento del risultato di un intero controllore dal
 proprio template. Primo, creare un controllore che rende un certo numero di
-articoli recenti:
-
-.. code-block:: php
+articoli recenti::
 
     // src/Acme/ArticleBundle/Controller/ArticleController.php
 
@@ -973,15 +971,11 @@ Configurare e usare il servizio ``templating``
 Il cuore del sistema dei template di Symfony2 è il motore dei template.
 L'oggetto speciale ``Engine`` è responsabile della resa dei template e della
 restituzione del loro contenuto. Quando si rende un template in un controllore,
-per esempio, si sta in realtà usando il servizio del motore dei template. Per esempio:
-
-.. code-block:: php
+per esempio, si sta in realtà usando il servizio del motore dei template. Per esempio::
 
     return $this->render('AcmeArticleBundle:Article:index.html.twig');
 
-equivale a
-
-.. code-block:: php
+equivale a:
 
     $engine = $this->container->get('templating');
     $content = $engine->render('AcmeArticleBundle:Article:index.html.twig');
@@ -1084,6 +1078,11 @@ Questo vuol dire che ogni template di bundle può essere sovrascritto, inserendo
 nella sotto-cartella ``app/Resources``
 appropriata.
 
+.. note::
+
+    Si possono anche sovrascrivere template da dentro un bundle usando l'ereditarietà
+    dei bundle. Per maggiori informazioni, veder :doc:`/cookbook/bundles/inheritance`.
+
 .. _templating-overriding-core-templates:
 
 .. index::
@@ -1173,7 +1172,7 @@ o consentire a un utente malintenzionato di eseguire un attacco `Cross Site Scri
 
         Ciao {{ name }}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         Ciao <?php echo $name ?>
 
@@ -1321,9 +1320,7 @@ non è effettivamente resto in modo diverso in base al suo formato.
 
 In molti casi, si potrebbe voler consentire a un singolo controllore di rendere
 formati diversi, in base al "formato di richiesta". Per questa ragione, una
-soluzione comune è fare come segue:
-
-.. code-block:: php
+soluzione comune è fare come segue::
 
     public function indexAction()
     {
@@ -1363,9 +1360,7 @@ Il motore dei template in Symfony è un potente strumento, che può essere usato
 volta che occorre generare contenuto relativo alla presentazione in HTML, XML o altri
 formati. Sebbene i template siano un modo comune per generare contenuti in un
 controllore, i loro utilizzo non è obbligatorio. L'oggetto ``Response`` restituito da
-un controllore può essere creato con o senza l'uso di un template:
-
-.. code-block:: php
+un controllore può essere creato con o senza l'uso di un template::
 
     // crea un oggetto Response il cui contenuto è il template reso
     $response = $this->render('AcmeArticleBundle:Article:index.html.twig');

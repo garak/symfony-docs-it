@@ -64,11 +64,14 @@ base HTTP (cioè il classico vecchio box nome utente/password):
 
     .. code-block:: xml
 
-        <!-- app/config/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <!-- app/config/security.xml -->
 
             <config>
                 <firewall name="secured_area" pattern="^/">
@@ -253,12 +256,21 @@ il flusso di richiesta è sempre lo stesso:
 .. tip::
 
     Più avanti si imparerà che in Symfony2 *qualunque cosa* può essere protetta, tra cui
-    controllori specifici, oggetti, o anche metodi PHP.
+    controllori specifici, oggetti o anche metodi PHP.
 
 .. _book-security-form-login:
 
 Utilizzo di un form di login tradizionale
 -----------------------------------------
+
+.. tip::
+
+    In questa sezione, si imparerà come creare un form di login di base, che continua a usare
+    gli utenti inseriti manualmente nel file ``security.yml``.
+
+    Per caricare utenti da una base dati, si legga :doc:`/cookbook/security/entity_provider`.
+    Leggendo quell'articolo e questa sezione, si può creare un form di login completo,
+    che carichi utenti da una base dati.
 
 Finora, si è visto come proteggere l'applicazione con un firewall e
 poi proteggere l'accesso a determinate aree tramite i ruoli. Utilizzando l'autenticazione HTTP,
@@ -288,11 +300,14 @@ In primo luogo, abilitare il form di login sotto il firewall:
 
     .. code-block:: xml
 
-        <!-- app/config/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <!-- app/config/security.xml -->
 
             <config>
                 <firewall name="secured_area" pattern="^/">
@@ -404,7 +419,7 @@ Successivamente, creare il controllore che visualizzerà il form di login:
 
 .. code-block:: php
 
-    // src/Acme/SecurityBundle/Controller/Main;
+    // src/Acme/SecurityBundle/Controller/SecurityController.php;
     namespace Acme\SecurityBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -422,6 +437,7 @@ Successivamente, creare il controllore che visualizzerà il form di login:
                 $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
             } else {
                 $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+                $session->remove(SecurityContext::AUTHENTICATION_ERROR);
             }
 
             return $this->render('AcmeSecurityBundle:Security:login.html.twig', array(
@@ -465,7 +481,7 @@ Infine, creare il template corrispondente:
                 <input type="hidden" name="_target_path" value="/account" />
             #}
 
-            <input type="submit" name="login" />
+            <button type="submit">login</button>
         </form>
 
     .. code-block:: html+php
@@ -874,19 +890,19 @@ Nelle sezioni precedenti, si è appreso come sia possibile proteggere diverse ri
 richiedendo una serie di *ruoli* per una risorsa. In questa sezione, esploreremo
 l'altro lato delle autorizzazioni: gli utenti.
 
-Da dove provengono utenti? (*User Provider*)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Da dove provengono gli utenti? (*User Provider*)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Durante l'autenticazione, l'utente invia un insieme di credenziali (di solito un nome utente
 e una password). Il compito del sistema di autenticazione è quello di soddisfare queste credenziali 
 con l'insieme degli utenti. Quindi da dove proviene questa lista di utenti?
 
 In Symfony2, gli utenti possono arrivare da qualsiasi parte: un file di configurazione, una tabella
-di un database, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
+di una base dati, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
 uno o più utenti nel sistema di autenticazione è noto come "fornitore di utenti".
 Symfony2 viene fornito con i due fornitori utenti più diffusi; uno che
 carica gli utenti da un file di configurazione e uno che carica gli utenti da una tabella
-di un database.
+di una base dati.
 
 Definizione degli utenti in un file di configurazione
 .....................................................
@@ -939,7 +955,7 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
         ));
 
 Questo fornitore utenti è chiamato "in-memory" , dal momento che gli utenti
-non sono memorizzati in un database. L'oggetto utente effettivo è fornito
+non sono memorizzati in una base dati. L'oggetto utente effettivo è fornito
 da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
 
 .. tip::
@@ -959,12 +975,12 @@ da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
             - { name: user-name, password: pass, roles: 'ROLE_USER' }
 
 Per i siti più piccoli, questo metodo è semplice e veloce da configurare. Per sistemi più
-complessi, si consiglia di caricare gli utenti dal database.
+complessi, si consiglia di caricare gli utenti dalla base dati.
 
 .. _book-security-user-entity:
 
-Caricare gli utenti da un database
-..................................
+Caricare gli utenti da una base dati 
+....................................
 
 Se si vuole caricare gli utenti tramite l'ORM Doctrine, si può farlo facilmente
 attraverso la creazione di una classe ``User`` e configurando il fornitore ``entity``.

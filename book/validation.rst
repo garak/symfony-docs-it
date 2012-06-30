@@ -457,6 +457,12 @@ Se non si è sicuri di come specificare un'opzione, verificare la documentazione
 per il vincolo relativo, oppure andare sul sicuro passando sempre un array di opzioni
 (il primo metodo mostrato sopra).
 
+Traduzione dei messaggi dei vincoli
+-----------------------------------
+
+Per informazioni sulla traduzione dei messaggi dei vincoli, vedere
+:ref:`book-translation-constraint-messages`.
+
 .. index::
    single: Validazione; Obiettivi dei vincoli
 

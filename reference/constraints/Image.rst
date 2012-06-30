@@ -154,6 +154,8 @@ mimeTypesMessage
 
 **tipo**: ``stringa`` **predefinito**: ``This file is not a valid image``
 
+Si può trovare una lista di tipi mime esistenti sul `sito web di IANA`_
+
 .. versionadded:: 2.1
     Tutte le opzioni min/max width/height sono state aggiunte in Symfony 2.1.
 
@@ -225,3 +227,5 @@ minHeightMessage
 **tipo**: ``string`` **predefinito**: ``The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px``
 
 Il messaggio di errore se l'altezza dell'immagine è inferiore a `maxHeight`_.
+
+.. _`sito web di IANA`: http://www.iana.org/assignments/media-types/index.html

@@ -104,6 +104,10 @@ Questo è l'obiettivo delle rotte di Symfony2: mappare l'URL di una richiesta in
 controllore. Lungo la strada, si impareranno tutti i trucchi per mappare facilmente
 anche gli URL più complessi. 
 
+.. versionadded:: 2.1
+    Da Symfony 2.1, il componente Routing accetta anche valori Unicode nelle
+    rotte, come: /Жени/
+
 .. index::
    single: Rotte; Sotto il cofano
 

@@ -14,6 +14,8 @@ verificarne l'accuratezza.
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | - `type`_                                                              |
 |               | - `options`_                                                           |
+|               | - `first_options`_                                                     |
+|               | - `second_options`_                                                    |
 |               | - `first_name`_                                                        |
 |               | - `second_name`_                                                       |
 +---------------+------------------------------------------------------------------------+
@@ -35,6 +37,8 @@ Esempio di utilizzo
         'type' => 'password',
         'invalid_message' => 'Le password devono combaciare.',
         'options' => array('label' => 'Password'),
+        'first_options'  => array('label' => 'Password'),
+        'second_options' => array('label' => 'Ripetere Password'),
     ));
 
 Dopo un invio di form con successo, il valore inserito in entrambi i campi "password"
@@ -79,6 +83,35 @@ parole, queste opzioni personalizzano i singoli campi.
 Per esempio, se l'opzione ``type`` è ``password``, questo array potrebbe contenere
 le opzioni ``always_empty`` o ``required``, che sono opzioni supportate
 dal tipo di campo ``password``.
+
+first_options
+~~~~~~~~~~~~~
+
+**tipo**: ``array`` **predefinito**: ``array()``
+
+.. versionadded:: 2.1
+    L'opzione ``first_options`` è nuova in Symfony 2.1.
+
+Ulteriori opzioni (saranno fuse in `options`) da passare
+*solo* al primo campo. Particolarmente utile per personalizzare la
+label::
+
+    $builder->add('password', 'repeated', array(
+        'first_options'  => array('label' => 'Password'),
+        'second_options' => array('label' => 'Ripetere Password'),
+    ));
+
+second_options
+~~~~~~~~~~~~~~
+
+**tipo**: ``array`` **predefinito**: ``array()``
+
+.. versionadded:: 2.1
+     L'opzione  ``second_options`` è nuova in Symfony 2.1.
+
+Ulteriori opzioni (saranno fuse in `options`) da passare
+*solo* al secondo campo. Particolarmente utile per personalizzare la
+label (vedere `first_options`_).
 
 first_name
 ~~~~~~~~~~

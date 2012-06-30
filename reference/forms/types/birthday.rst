@@ -29,6 +29,8 @@ ma con valori predefiniti più appropriati per l'opzione `years`_. L'opzione
 |                          | - `pattern`_                                                                                                             |
 |                          | - `data_timezone`_                                                                                                       |
 |                          | - `user_timezone`_                                                                                                       |
+|                          | - `invalid_message`_                                                                                                     |
+|                          | - `invalid_message_parameters`_                                                                                          |
 +--------------------------+--------------------------------------------------------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`date</reference/forms/types/date>`                                                                                 |
 +--------------------------+--------------------------------------------------------------------------------------------------------------------------+
@@ -66,3 +68,10 @@ Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/date>`:
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
+
+Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/field>`:
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+

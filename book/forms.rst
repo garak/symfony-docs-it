@@ -4,7 +4,7 @@
 Form
 =====
 
-L'utilizzo dei form HTML è uno delle attività più comuni e stimolanti per
+L'utilizzo dei form HTML è una delle attività più comuni e stimolanti per
 uno sviluppatore web. Symfony2 integra un componente Form che permette di gestire
 facilmente i form. Con l'aiuto di questo capitolo si potrà creare da zero un form complesso,
 e imparare le caratteristiche più importanti della libreria dei form.
@@ -391,13 +391,15 @@ si avrà bisogno di specificare quelle/i gruppi di convalida deve usare il form:
 
 Se si stanno creando :ref:`classi per i form<book-form-creating-form-classes>` (una
 buona pratica), allora si avrà bisogno di aggiungere quanto segue al metodo
-``getDefaultOptions()``::
+``setDefaultOptions()``::
 
-    public function getDefaultOptions()
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'validation_groups' => array('registration')
-        );
+        ));
     }
 
 In entrambi i casi, *solo* il gruppo di validazione ``registration`` verrà
@@ -414,11 +416,13 @@ Se si ha bisogno di una logica avanzata per determinare i gruppi di validazione 
 basandosi sui dati inseriti), si può impostare l'opzione ``validation_groups`` a
 un callback o a una ``Closure``::
 
-    public function getDefaultOptions(array $options)
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'validation_groups' => array('Acme\\AcmeBundle\\Entity\\Client', 'determineValidationGroups'),
-        );
+        ));
     }
 
 Questo richiamerà il metodo statico ``determineValidationGroups()`` della classe
@@ -426,9 +430,12 @@ Questo richiamerà il metodo statico ``determineValidationGroups()`` della class
 L'oggetto Form è passato come parametro del metodo (vedere l'esempio successivo).
 Si può anche definire l'intera logica con una Closure::
 
-    public function getDefaultOptions(array $options)
+    use Symfony\Component\Form\FormInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'validation_groups' => function(FormInterface $form) {
                 $data = $form->getData();
                 if (Entity\Client::TYPE_PERSON == $data->getType()) {
@@ -437,7 +444,7 @@ Si può anche definire l'intera logica con una Closure::
                     return array('company');
                 }
             },
-        );
+        ));
     }
 
 .. index::
@@ -567,7 +574,7 @@ i valori corretti di una serie di opzioni del campo.
 
 * ``max_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione
   ``max_length`` può essere indovinata dai vincoli di validazione (se viene utilizzato
-  ``MaxLength``) o dai meta-dati Doctrine (tramite la lunghezza del campo).
+  ``MaxLength`` o ``Max``) o dai meta-dati Doctrine (tramite la lunghezza del campo).
 
 .. note::
 
@@ -577,7 +584,7 @@ i valori corretti di una serie di opzioni del campo.
 Se si desidera modificare uno dei valori indovinati, è possibile sovrascriverlo
 passando l'opzione nell'array di opzioni del campo::
 
-    ->add('task', null, array('min_length' => 4))
+    ->add('task', null, array('max_length' => 4))
 
 .. index::
    single: Form; Rendere un form in un template
@@ -795,11 +802,11 @@ che ospiterà la logica per la costruzione del form task:
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
 
     class TaskType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('task');
             $builder->add('dueDate', null, array('widget' => 'single_text'));
@@ -846,11 +853,13 @@ la scelta in ultima analisi, spetta a voi.
     buona idea specificare esplicitamente l'opzione ``data_class`` aggiungendo
     il codice seguente alla classe del tipo di form::
 
-        public function getDefaultOptions()
+        use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class' => 'Acme\TaskBundle\Entity\Task',
-            );
+            ));
         }
 
 .. tip::
@@ -863,7 +872,9 @@ la scelta in ultima analisi, spetta a voi.
     i termini"), che non saranno mappati nell'oggetto sottostante,
     occorre impostare l'opzione ``property_path`` a ``false``::
 
-        public function buildForm(FormBuilder $builder, array $options)
+        use Symfony\Component\Form\FormBuilderInterface;
+
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('task');
             $builder->add('dueDate', null, array('property_path' => false));
@@ -871,6 +882,10 @@ la scelta in ultima analisi, spetta a voi.
 
     Inoltre, se ci sono campi nel form che non sono inclusi nei dati inviati,
     tali campi saranno impostati esplicitamente a ``null``.
+
+    Si può accedere ai dati del campo in un controllore con::
+
+        $form->get('dueDate')->getData();
 
 .. index::
    pair: Form; Doctrine
@@ -887,7 +902,7 @@ per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunta
 dopo l'invio di un form, quando il form stesso è valido::
 
     if ($form->isValid()) {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($task);
         $em->flush();
 
@@ -969,20 +984,21 @@ creare una classe di form in modo che l'oggetto ``Category`` possa essere modifi
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class CategoryType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('name');
         }
 
-        public function getDefaultOptions()
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class' => 'Acme\TaskBundle\Entity\Category',
-            );
+            ));
         }
 
         public function getName()
@@ -998,7 +1014,9 @@ all'oggetto ``TaskType``, il cui tipo è un'istanza della nuova classe
 
 .. code-block:: php
 
-    public function buildForm(FormBuilder $builder, array $options)
+    use Symfony\Component\Form\FormBuilderInterface;
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // ...
 
@@ -1040,7 +1058,7 @@ sono utilizzati per costruire un'istanza di ``Category``, che viene poi impostat
 campo ``category`` dell'istanza ``Task``.
     
 L'istanza ``Category`` è accessibile naturalmente attraverso ``$task->getCategory()``
-e può essere memorizzata nel database o utilizzata quando serve.
+e può essere memorizzata nella base dati o utilizzata quando serve.
 
 Incorporare un insieme di form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1140,7 +1158,7 @@ blocco ``field_row`` dal tema personalizzato (al posto del blocco predefinito ``
 fornito con Symfony).
 
 Non è necessario che il tema personalizzato sovrascriva tutti i blocchi. Quando viene reso un blocco
-non sovrascrritto nel tema personalizzato, il mtotore dei temi userà il
+non sovrascrritto nel tema personalizzato, il sistema dei temi userà il
 tema globale (definito a livello di bundle).
 
 Se vengono forniti più temi personalizzati, saranno analizzati nell'ordine elencato,
@@ -1325,6 +1343,12 @@ per definire l'output del form.
     questo metodo per creare velocemente personalizzazioni del form che saranno
     utilizzate solo in un singolo template.
 
+    .. caution::
+    
+        La funzionalità ``{% form_theme form _self %}`` funziona *solo*
+        se un template estende un altro. Se un template non estende, occorre
+        far puntare ``form_theme`` a un template separato.
+
 PHP
 ...
 
@@ -1403,19 +1427,21 @@ che tutti i campi non resi vengano visualizzati.
 
 Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad esempio::
 
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
     class TaskType extends AbstractType
     {
         // ...
 
-        public function getDefaultOptions()
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class'      => 'Acme\TaskBundle\Entity\Task',
                 'csrf_protection' => true,
                 'csrf_field_name' => '_token',
                 // una chiave univoca per generare il token
                 'intention'       => 'task_item',
-            );
+            ));
         }
 
         // ...
@@ -1531,6 +1557,7 @@ per specificare l'opzione::
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
     use Symfony\Component\Validator\Constraints\Email;
     use Symfony\Component\Validator\Constraints\MinLength;
     use Symfony\Component\Validator\Constraints\Collection;
@@ -1539,14 +1566,16 @@ per specificare l'opzione::
     {
         // ...
 
-        public function getDefaultOptions()
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $collectionConstraint = new Collection(array(
                 'name' => new MinLength(5),
                 'email' => new Email(array('message' => 'Invalid email address')),
             ));
 
-            return array('validation_constraint' => $collectionConstraint);
+            $resolver->setDefaults(array(
+                'validation_constraint' => $collectionConstraint
+            ));
         }
     }
 

@@ -2,9 +2,9 @@ Contribuire alla documentazione
 ===============================
 
 La documentazione è importante tanto quanto il codice. E segue esattamente gli stessi principi:
-DRY, tests, facilità di manutenzione, estensibilità, ottimizzazione, e refactoring
-solo per nominarne alcuni. E certamente la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial, e molto
-altro.
+DRY, test, facilità di manutenzione, estensibilità, ottimizzazione e refactoring,
+solo per nominarne alcuni. E certamente la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial
+e molto altro.
 
 Contribuire
 -----------
@@ -33,7 +33,6 @@ eseguire un checkout del ramo 2.0 prima del prossimo passo:
 
     $ git checkout 2.0
 
-
 Quindi, creare un ramo dedicato per le proprie modifiche (per questioni organizzative):
 
 .. code-block:: bash
@@ -48,9 +47,8 @@ il ramo ``master`` di ``symfony-docs``.
 .. image:: /images/docs-pull-request.png
    :align: center
 
-Se le proprie modifiche sono basate
-sul ramo 2.0, occorre seguire il collegamento di modifica del commit e cambiare
-il ramo base in @2.0:
+Se le proprie modifiche sono basate sul ramo 2.0, occorre seguire il collegamento di modifica del commit
+e cambiare il ramo base in @2.0:
 
 .. image:: /images/docs-pull-request-change-base.png
    :align: center
@@ -61,6 +59,14 @@ GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
 
   La documentazione di Symfony2 è rilasciata sotto :doc:`licenza <license>`
   Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Unported.
+
+.. tip::
+
+    Le modifiche appaiono sul sito symfony.com website non oltre 15 minuti
+    dopo il merge della richiesta di pull nella documentazione. Si può verificare
+    se le proprie modifiche non abbiano introdotto problemi di markup, guardando la
+    pagina `Errori di build della documentazione`_ (aggiornata ogni notte alle 3,
+    quando il server ricostruisce la documentazione).
 
 Segnalare una problematica
 --------------------------
@@ -81,3 +87,4 @@ Leggere la :doc:`documentazione <translations>` apposita.
 
 .. _`fork`: http://help.github.com/fork-a-repo/
 .. _`richieste di pull`: http://help.github.com/pull-requests/
+.. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors

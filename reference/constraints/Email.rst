@@ -9,6 +9,7 @@ forzato a stringa, prima di essere validato.
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                        |
 |                | - `checkMX`_                                                        |
+|                | - `checkHost`_                                                      |
 +----------------+---------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Email`          |
 +----------------+---------------------------------------------------------------------+
@@ -83,4 +84,14 @@ checkMX
 Se ``true``, sarà usata la funzione `checkdnsrr`_ di PHP per verificare la validità
 del record MX dell'host dell'email fornita.
 
-.. _`checkdnsrr`: http://www.php.net/manual/en/function.checkdnsrr.php
+checkHost
+~~~~~~~~~
+
+.. versionadded:: 2.1
+    L'opzione ``checkHost`` è stata aggiunta in Symfony 2.1
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se `true`, sarà usata la funzione :phpfunction:`checkdnsrr` di PHP per verificare
+la validità del recordo MX *o* del record A *o* del record AAAA dell'host
+dell'email data.

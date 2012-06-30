@@ -31,22 +31,44 @@ I test necessitano delle seguenti librerie di terze parti:
 * Twig
 * Monolog
 
-Per installarle tutte, eseguire lo script `vendors`:
+Per installarle tutte, usare `Composer`_:
+
+Passo 1: installare `Composer`_
 
 .. code-block:: bash
 
-    $ php vendors.php install
+    curl -s http://getcomposer.org/installer | php
+
+Assicurasi di scaricare ``composer.phar`` nella stessa cartella in cui si trova
+il file ``composer.json``.
+
+Passo 2: installare i venditori
+
+.. code-block:: bash
+
+    $ php composer.phar --dev install
 
 .. note::
 
     Si noti che lo script ha bisogno di tempo per terminare.
+
+.. note::
+
+    Se non si ha ``curl`` installato, si può anche scaricare a mano il file ``installer``
+    da http://getcomposer.org/installer. Mettere tale file nel progetto ed
+    eseguirlo:
+
+    .. code-block:: bash
+
+        $ php installer
+        $ php composer.phar --dev install
 
 Dopo l'installazione, si possono aggiornare i venditori alle loro ultime versioni, con
 il comando seguente:
 
 .. code-block:: bash
 
-    $ php vendors.php update
+    $ php composer.phar --dev update
 
 Esecuzione
 ----------
@@ -87,3 +109,4 @@ un browser.
     dipendenze installate.
 
 .. _installare: http://www.phpunit.de/manual/current/en/installation.html
+.. _`Composer`: http://getcomposer.org/

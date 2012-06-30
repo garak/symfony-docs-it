@@ -1,3 +1,7 @@
+.. index::
+   single: Controllore; Personalizzare le pagine di errore
+   single: Pagine di errore
+
 ﻿Come personalizzare le pagine di errore
 =======================================
 

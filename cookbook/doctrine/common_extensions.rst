@@ -1,3 +1,6 @@
+.. index::
+   single: Doctrine; Estensioni comuni
+
 Estensioni di Doctrine: Timestampable: Sluggable, Translatable, ecc.
 ====================================================================
 

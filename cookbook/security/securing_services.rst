@@ -1,3 +1,7 @@
+.. index::
+   single: Sicurezza; Proteggere un servizio
+   single: Sicurezza; Proteggere un metodo
+
 Proteggere servizi e metodi di un'applicazione
 ==============================================
 

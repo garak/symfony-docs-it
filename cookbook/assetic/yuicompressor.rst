@@ -27,6 +27,7 @@ con YUI Compressor:
 
         # app/config/config.yml
         assetic:
+            # java: "/usr/bin/java"
             filters:
                 yui_css:
                     jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
@@ -49,6 +50,7 @@ con YUI Compressor:
 
         // app/config/config.php
         $container->loadFromExtension('assetic', array(
+            // 'java' => '/usr/bin/java',
             'filters' => array(
                 'yui_css' => array(
                     'jar' => '%kernel.root_dir%/Resources/java/yuicompressor.jar',
@@ -58,6 +60,11 @@ con YUI Compressor:
                 ),
             ),
         ));
+
+.. note::
+
+    Gli utenti Windows ricordino di aggiornare la configurazione con il percorso corretto di java. 
+    Quello predefinito in Windows7 x64 bit è ``C:\Program Files (x86)\Java\jre6\bin\java.exe``.
 
 Dall'applicazione si ha ora accesso a due nuovi filtri di Assetic:
 ``yui_css`` e ``yui_js``. Questi filtri utilizzeranno YUI Compressor per

@@ -1,3 +1,6 @@
+.. index::
+   single: Doctrine; Funzioni DQL personalizzate
+
 Registrare funzioni DQL personalizzate
 ======================================
 

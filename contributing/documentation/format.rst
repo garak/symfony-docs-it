@@ -147,18 +147,22 @@ Installare l'estensione configuration-block di Sphinx
     # ...
     sys.path.append(os.path.abspath('_exts'))
     
+    # aggiunge PhpLexer
+    from sphinx.highlighting import lexers
+    from pygments.lexers.web import PhpLexer
+    
     # ...
-    # add the extensions to the list of extensions
+    # aggiunge le estensioni alla lista di estensioni
     extensions = [..., 'sensio.sphinx.refinclude', 'sensio.sphinx.configurationblock', 'sensio.sphinx.phpcode']
 
-    # enable highlighting for PHP code not between ``<?php ... ?>`` by default
+    # abilita la colorazione per il codice PHP non compreso tra ``<?php ... ?>``
     lexers['php'] = PhpLexer(startinline=True)
     lexers['php-annotations'] = PhpLexer(startinline=True)
 
-    # use PHP as the primary domain
+    # usa PHP come dominio primario
     primary_domain = 'php'
     
-    # set url for API links
+    # imposta url per collegamenti alle API
     api_url = 'http://api.symfony.com/master/%s'
 
 .. _reStructuredText:        http://docutils.sf.net/rst.html

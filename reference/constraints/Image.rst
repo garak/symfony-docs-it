@@ -19,7 +19,12 @@ mimeTypes
 
 **tipo**: ``array`` o ``stringa`` **predefinito**: un array di tipi mime jpg, gif e png
 
+Si può trovare una lista di tipi mime esistenti sul `sito web di IANA`_
+
 mimeTypesMessage
 ~~~~~~~~~~~~~~~~
 
 **tipo**: ``stringa`` **predefinito**: ``This file is not a valid image``
+
+
+.. _`sito web di IANA`: http://www.iana.org/assignments/media-types/index.html

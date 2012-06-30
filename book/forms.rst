@@ -835,6 +835,10 @@ la scelta in ultima analisi, spetta a voi.
     Inoltre, se ci sono campi nel form che non sono inclusi nei dati inviati,
     tali campi saranno impostati esplicitamente a ``null``.
 
+    Si può accedere ai dati del campo in un controllore con::
+
+        $form->get('dueDate')->getData();
+
 .. index::
    pair: Form; Doctrine
 
@@ -1274,6 +1278,12 @@ per definire l'output del form.
     direttamente all'interno del template che utilizzerà tali personalizzazioni. Utilizzare
     questo metodo per creare velocemente personalizzazioni del form che saranno
     utilizzate solo in un singolo template.
+
+    .. caution::
+    
+        La funzionalità ``{% form_theme form _self %}`` funziona *solo*
+        se un template estende un altro. Se un template non estende, occorre
+        far puntare ``form_theme`` a un template separato.
 
 PHP
 ...

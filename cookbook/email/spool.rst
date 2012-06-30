@@ -1,3 +1,6 @@
+.. index::
+   single: Emails; Spool
+
 Lo spool della posta
 ====================
 

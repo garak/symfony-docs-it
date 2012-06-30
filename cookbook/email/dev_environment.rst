@@ -1,3 +1,6 @@
+.. index::
+   single: Email; In sviluppo
+
 Lavorare con le email durante lo sviluppo
 =========================================
 

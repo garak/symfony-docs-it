@@ -9,8 +9,8 @@ segue le stesse linee guida.
 Ricordare che il vantaggio principale degli standard è che ogni pezzo di codice
 sembra familiare, non è che questo o quello siano più o meno leggibili.
 
-Symfony segue gli standard definiti nei documenti the PSR-0, PSR-1 e
-PSR-2.
+Symfony segue gli standard definiti nei documenti `PSR-0`_, `PSR-1`_ e
+`PSR-2`_.
 
 Poiché un'immagine (o un po' di codice) vale più di mille parole, ecco un
 breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
@@ -30,32 +30,40 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
     namespace Acme;
 
-    class Foo
+    class FooBar
     {
         const SOME_CONST = 42;
 
-        private $foo;
+        private $fooBar;
 
         /**
-         * @param string $dummy Some argument description
+         * @param string $dummy Una descrizione del parametro
          */
         public function __construct($dummy)
         {
-            $this->foo = $this->transform($dummy);
+            $this->fooBar = $this->transform($dummy);
         }
 
         /**
-         * @param string $dummy Some argument description
-         * @return string|null Transformed input
+         * @param string $dummy Una descrizione del parametro
+         * @return string|null Input trasformato
          */
-        private function transform($dummy)
+        private function transformText($dummy, $options = array())
         {
+            $mergedOptions = array_merge($options, array(
+                'some_default' => 'values',
+            ));
+
             if (true === $dummy) {
                 return;
             }
             if ('string' === $dummy) {
-                $dummy = substr($dummy, 0, 5);
-            }
+                if ('values' === $mergedOptions['some_default']) {
+                    $dummy = substr($dummy, 0, 5);
+                } else {
+                    $dummy = ucwords($dummy);
+                }
+            } 
 
             return $dummy;
         }
@@ -73,9 +81,6 @@ Struttura
 
 * Usare le parentesi graffe per le strutture di controllo, indipendentemente dal numero
   di istruzioni contenute;
-
-* Dichiarare esplicitamente la visibilità di classi, metodi e proprietà (non usare
-  `var`);
 
 * Definire una classe per file (non si applica a classi private di helper
   che non devono essere istanziate dall'esterno e quindi esulano dallo
@@ -116,3 +121,7 @@ Licenza
 
 * Symfony è rilasciato sotto licenza MIT e il blocco della licenza deve essere presente
   in cima a ogni file PHP, prima dello spazio dei nomi.
+
+.. _`PSR-0`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+.. _`PSR-1`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+.. _`PSR-2`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md

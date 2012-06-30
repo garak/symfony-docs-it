@@ -521,6 +521,15 @@ capitolo :doc:`Template </book/templating>`.
         $templating = $this->get('templating');
         $content = $templating->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
 
+.. note::
+
+    Si possono anche rendere template in ulterioi sotto-cartelle, ma si faccia attenzione
+    a evitare l'errore di rendere la struttura delle cartelle eccessivamente
+    elaborata::
+
+        $templating->render('AcmeHelloBundle:Hello/Greetings:index.html.twig', array('name' => $name));
+        // viene reso index.html.twig trovato in Resources/views/Hello/Greetings
+
 .. index::
    single: Controllore; Accedere ai servizi
 

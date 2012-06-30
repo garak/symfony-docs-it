@@ -1,3 +1,6 @@
+.. index::
+   single: Flusso di lavoro; Git
+
 Come creare e memorizzare un progetto Symfony2 in git
 =====================================================
 

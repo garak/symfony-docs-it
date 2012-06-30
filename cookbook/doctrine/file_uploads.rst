@@ -1,3 +1,7 @@
+.. index::
+   single: Doctrine; Caricamento di file
+
+
 Come gestire il caricamento di file con Doctrine
 ================================================
 

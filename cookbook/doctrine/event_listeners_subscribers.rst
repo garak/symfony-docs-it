@@ -1,3 +1,6 @@
+.. index::
+   single: Doctrine; Ascoltatori e sottoscrittori di eventi
+
 .. _doctrine-event-config:
 
 Registrare ascoltatori e sottoscrittori di eventi

@@ -1,3 +1,6 @@
+.. index::
+   single: Flusso di lavoro; Subversion
+
 Come creare e memorizzare un progetto Symfony2 in Subversion
 ============================================================
 

@@ -1,3 +1,7 @@
+.. index::
+   single: Dependency Injection; Passi di compilatore
+   single: Contenitore di servizi; Passi di compilatore
+
 Come lavorare con i passi di compilatore nei bundle
 ===================================================
 

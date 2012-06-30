@@ -34,7 +34,7 @@ Aggiornare le librerie dei venditori:
 Se tutto ha funzionato, si può ora trovare la libreria ``doctrine-fixtures`` sotto
 ``vendor/doctrine-fixtures``.
 
-Registrare lo spazio dei nimi ``Doctrine\Common\DataFixtures`` in ``app/autoload.php``.
+Registrare lo spazio dei nomi ``Doctrine\Common\DataFixtures`` in ``app/autoload.php``.
 
 .. code-block:: php
 

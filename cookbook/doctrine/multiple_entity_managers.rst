@@ -1,3 +1,6 @@
+.. index::
+   single: Doctrine; Gestori di entità multipli
+
 Come lavorare con gestori di entità multipli
 ============================================
 

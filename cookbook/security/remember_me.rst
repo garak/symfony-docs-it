@@ -1,3 +1,6 @@
+.. index::
+   single: Sicurezza; "Ricordami"
+
 Come aggiungere la funzionalità "ricordami" al login
 ====================================================
 
@@ -19,7 +22,7 @@ mostrati di seguito:
         firewalls:
             main:
                 remember_me:
-                    key:      %secret%
+                    key:      "%secret%"
                     lifetime: 3600
                     path:     /
                     domain:   ~ # Defaults to the current domain from $_SERVER

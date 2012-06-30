@@ -1,3 +1,6 @@
+.. index::
+   single: Log; Invio di errori per email
+
 Come configurare Monolog con errori per email
 =============================================
 
@@ -95,7 +98,7 @@ email:
                     members: [streamed, buffered]
                 streamed:
                     type:  stream
-                    path:  %kernel.logs_dir%/%kernel.environment%.log
+                    path:  "%kernel.logs_dir%/%kernel.environment%.log"
                     level: debug
                 buffered:
                     type:    buffer
@@ -149,7 +152,7 @@ email:
             </monolog:config>
         </container>
 
-Qui è stato usato il gestore ``group``, per inviare i messaggi ai due membri del gruppo,
+Qui è stato usato il gestore ``group`` per inviare i messaggi ai due membri del gruppo,
 il gestore ``buffered`` e il gestore ``stream``. I messaggi saranno ora sia
 scritti sul log che inviati per email.
 

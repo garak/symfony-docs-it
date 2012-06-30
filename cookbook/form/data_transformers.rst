@@ -1,3 +1,6 @@
+.. index::
+   single: Form; Data transformer
+
 Utilizzare i data transformer
 =============================
 

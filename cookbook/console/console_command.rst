@@ -1,3 +1,6 @@
+.. index::
+   single: Console; Creare comandi
+
 Come creare un comando di console
 =================================
 

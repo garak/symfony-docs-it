@@ -1,3 +1,6 @@
+.. index::
+   single: Assetic; Applicare filtri
+
 Applicare i filtri di Assetic a file con specifiche estensioni
 ==============================================================
 

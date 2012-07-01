@@ -1,3 +1,6 @@
+.. index::
+   single: Assetic; Introduzione
+
 Come usare Assetic per la gestione delle risorse
 ================================================
 

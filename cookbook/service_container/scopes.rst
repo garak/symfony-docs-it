@@ -1,3 +1,6 @@
+.. index::
+   single: Dependency Injection; Scope
+
 Come lavorare con gli scope
 ===========================
 

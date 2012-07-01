@@ -12,62 +12,161 @@ Riferimento configurazione
         doctrine:
             dbal:
                 default_connection:   default
+                types:
+                    # Un insieme di tipi personalizzati
+                    # Esempio
+                    some_custom_type:
+                        class:                Acme\HelloBundle\MioTipoPersonalizzato
+                        commented:            true
+
                 connections:
                     default:
                         dbname:               database
-                        host:                 localhost
-                        port:                 1234
-                        user:                 user
-                        password:             secret
-                        driver:               pdo_mysql
-                        driver_class:         MyNamespace\MyDriverImpl
-                        options:
-                            foo: bar
-                        path:                 %kernel.data_dir%/data.sqlite
-                        memory:               true
-                        unix_socket:          /tmp/mysql.sock
-                        wrapper_class:        MyDoctrineDbalConnectionWrapper
-                        charset:              UTF8
-                        logging:              %kernel.debug%
-                        platform_service:     MyOwnDatabasePlatformService
-                        mapping_types:
-                            enum: string
-                    conn1:
-                        # ...
-                types:
-                    custom: Acme\HelloBundle\MyCustomType
-            orm:
-                auto_generate_proxy_classes:    false
-                proxy_namespace:                Proxies
-                proxy_dir:                      %kernel.cache_dir%/doctrine/orm/Proxies
-                default_entity_manager:         default # The first defined is used if not set
-                entity_managers:
+
+                    # Un insieme di nomi di connessioni (p.e. default, conn2, ecc.)
                     default:
-                        # The name of a DBAL connection (the one marked as default is used if not set)
-                        connection:                     conn1
-                        mappings: # Required
-                            AcmeHelloBundle: ~
-                        class_metadata_factory_name:    Doctrine\ORM\Mapping\ClassMetadataFactory
-                        # All cache drivers have to be array, apc, xcache or memcache
-                        metadata_cache_driver:          array
-                        query_cache_driver:             array
+                        dbname:               ~
+                        host:                 localhost
+                        port:                 ~
+                        user:                 root
+                        password:             ~
+                        charset:              ~
+                        path:                 ~
+                        memory:               ~
+
+                        # Il socket unix da usare per MySQL
+                        unix_socket:          ~
+
+                        # True per usare una connessione persistente per il driver ibm_db2
+                        persistent:           ~
+
+                        # Protocollo da usare per il driver ibm_db2 (se omesso, TCPIP)
+                        protocol:             ~
+
+                        # True per usare dbname come nome di servizio invece di SID per Oracle
+                        service:              ~
+
+                        # Modalità di sessione da usare per il driver oci8
+                        sessionMode:          ~
+
+                        # True per usare un pool di server con il driver oci8
+                        pooled:               ~
+
+                        # Configurazione di MultipleActiveResultSets per il driver pdo_sqlsrv
+                        MultipleActiveResultSets:  ~
+                        driver:               pdo_mysql
+                        platform_service:     ~
+                        logging:              %kernel.debug%
+                        profiling:            %kernel.debug%
+                        driver_class:         ~
+                        wrapper_class:        ~
+                        options:
+                            # array di opzioni
+                            key:                  []
+                        mapping_types:
+                            # array di tipi di mappature
+                            name:                 []
+                        slaves:
+
+                            # insieme di nomi di connessioni slave (p.e. slave1, slave2)
+                            slave1:
+                                dbname:               ~
+                                host:                 localhost
+                                port:                 ~
+                                user:                 root
+                                password:             ~
+                                charset:              ~
+                                path:                 ~
+                                memory:               ~
+
+                                # Il socket unix da usare per MySQL
+                                unix_socket:          ~
+
+                                # True per usare una connessione persistente per il driver ibm_db2
+                                persistent:           ~
+
+                                # Protocollo da usare per il driver ibm_db2 (se omesso, TCPIP)
+                                protocol:             ~
+
+                                # True per usare dbname come nome di servizio invece di SID per Oracle
+                                service:              ~
+
+                                # Modalità di sessione da usare per il driver oci8
+                                sessionMode:          ~
+
+                                # True per usare un pool di server con il driver oci8
+                                pooled:               ~
+
+                                # Configurazione di MultipleActiveResultSets per il driver pdo_sqlsrv
+                                MultipleActiveResultSets:  ~
+
+            orm:
+                default_entity_manager:  ~
+                auto_generate_proxy_classes:    false
+                proxy_dir:            %kernel.cache_dir%/doctrine/orm/Proxies
+                proxy_namespace:                Proxies
+                # cercare la classe "ResolveTargetEntityListener" per una ricetta a riguardo
+                resolve_target_entities: []
+                entity_managers:
+                    # Un insieme di nomi di gestori di entità (p.e. un_em, un_atrlo_em)
+                    some_em:
+                        query_cache_driver:
+                            type:                 array # Obbligatorio
+                            host:                 ~
+                            port:                 ~
+                            instance_class:       ~
+                            class:                ~
+                        metadata_cache_driver:
+                            type:                 array # Obbligatorio
+                            host:                 ~
+                            port:                 ~
+                            instance_class:       ~
+                            class:                ~
                         result_cache_driver:
-                            type:           memcache
-                            host:           localhost
-                            port:           11211
-                            instance_class: Memcache
-                            class:          Doctrine\Common\Cache\MemcacheCache
-                        dql:
-                            string_functions:
-                                test_string: Acme\HelloBundle\DQL\StringFunction
-                            numeric_functions:
-                                test_numeric: Acme\HelloBundle\DQL\NumericFunction
-                            datetime_functions:
-                                test_datetime: Acme\HelloBundle\DQL\DatetimeFunction
+                            type:                 array # Obbligatorio
+                            host:                 ~
+                            port:                 ~
+                            instance_class:       ~
+                            class:                ~
+                        connection:           ~
+                        class_metadata_factory_name:    Doctrine\ORM\Mapping\ClassMetadataFactory
+                        default_repository_class:  Doctrine\ORM\EntityRepository
+                        auto_mapping:         false
                         hydrators:
-                            custom: Acme\HelloBundle\Hydrators\CustomHydrator
-                    em2:
-                        # ...
+
+                            # An array of hydrator names
+                            hydrator_name:                 []
+                        mappings:
+                            # An array of mappings, which may be a bundle name or something else
+                            mapping_name:
+                                mapping:              true
+                                type:                 ~
+                                dir:                  ~
+                                alias:                ~
+                                prefix:               ~
+                                is_bundle:            ~
+                        dql:
+                            # un insieme di funzioni stringa
+                            string_functions:
+                                # esempio
+                                # test_string: Acme\HelloBundle\DQL\StringFunction
+
+                            # un insieme di funzioni numeriche
+                            numeric_functions:
+                                # esempio
+                                # test_numeric: Acme\HelloBundle\DQL\NumericFunction
+
+                            # un insieme di funzioni datetime
+                            datetime_functions:
+                                # esempio
+                                # test_datetime: Acme\HelloBundle\DQL\DatetimeFunction
+
+                        # Registra filtri SQL nel gestore di entità
+                        filters:
+                            # Un array di filtri
+                            some_filter:
+                                class:                ~ # Obbligatorio
+                                enabled:              false
 
     .. code-block:: xml
 
@@ -163,7 +262,9 @@ L'esempio seguente mostra una panoramica delle configurazioni di cache:
         orm:
             auto_mapping: true
             metadata_cache_driver: apc
-            query_cache_driver: xcache
+            query_cache_driver:
+                type: service
+                id: my_doctrine_common_cache_service
             result_cache_driver:
                 type: memcache
                 host: localhost

@@ -115,7 +115,7 @@ templating
 assets_base_urls
 ................
 
-**predefinito**: ``{ http: [], https: [] }``
+**predefinito**: ``{ http: [], ssl: [] }``
 
 Questa opzione consente di definire URL di base da usare per i riferimenti alle risorse
 nelle pagine ``http`` e ``https``. Si può fornire un valore stringa al posto di un
@@ -128,6 +128,16 @@ le richieste ``http`` e ``https``. Se un URL inizia con ``https://`` o
 è `protocol-relative`_ (cioè inizia con `//`), sarà aggiunto a entrambe le
 liste. Gli URL che iniziano con ``http://`` saranno aggiunti solo alla lista
 ``http``.
+
+.. versionadded:: 2.1
+
+    Diversamente dalla maggior parte dei blocchi di configurazione, i valori successivi di ``assets_base_urls``
+    si sovrascrivono a vicenda invece di essere fusi. È stato scelto questo comportamento
+    perché solitamente gli sviluppatori definiscono URL di base per ogni ambiente.
+    Dato che la maggior parte dei progetti tende a ereditare configurazioni
+    (p.e. ``config_test.yml`` importa ``config_dev.yml``) e/o condividere una configurazione
+    comune di base (p.e. ``config.yml``), la fusione avrebbe portato a un insieme di URL di base
+    per ambienti multipli.
 
 .. _ref-framework-assets-version:
 
@@ -235,93 +245,119 @@ Configurazione predefinita completa
 
         framework:
 
-            # general configuration
+            # configurazione generale
             charset:              ~
-            secret:               ~ # Required
+            trust_proxy_headers:  false
+            secret:               ~ # Obbligatorio
             ide:                  ~
             test:                 ~
-            trust_proxy_headers:  false
+            default_locale:       en
 
-            # form configuration
+            # configurazione dei form
             form:
                 enabled:              true
             csrf_protection:
                 enabled:              true
                 field_name:           _token
 
-            # esi configuration
+            # configurazione di esi
             esi:
                 enabled:              true
 
-            # profiler configuration
+            # configurazione del profilatore
             profiler:
                 only_exceptions:      false
                 only_master_requests:  false
-                dsn:                  "sqlite:%kernel.cache_dir%/profiler.db"
+                dsn:                  file:%kernel.cache_dir%/profiler
                 username:
                 password:
                 lifetime:             86400
                 matcher:
                     ip:                   ~
-                    path:                 ~
+
+                    # usare il formato urldecoded
+                    path:                 ~ # Esempio: ^/percorso della risorsa/
                     service:              ~
 
-            # router configuration
+            # configurazione delle rotte
             router:
-                resource:             ~ # Required
+                resource:             ~ # Obbligatorio
                 type:                 ~
                 http_port:            80
                 https_port:           443
 
-            # session configuration
+            # configurazione della sessione
             session:
-                auto_start:           ~
-                default_locale:       en
+                auto_start:           false
                 storage_id:           session.storage.native
+                handler_id:           session.handler.native_file
                 name:                 ~
-                lifetime:             0
+                cookie_lifetime:      ~
+                cookie_path:          ~
+                cookie_domain:        ~
+                cookie_secure:        ~
+                cookie_httponly:      ~
+                gc_divisor:           ~
+                gc_probability:       ~
+                gc_maxlifetime:       ~
+                save_path:            %kernel.cache_dir%/sessions
+
+                # DEPRECATO! Usare: cookie_lifetime
+                lifetime:             ~
+
+                # DEPRECATO! Usare: cookie_path
                 path:                 ~
+
+                # DEPRECATO! Usare: cookie_domain
                 domain:               ~
+
+                # DEPRECATO! Usare: cookie_secure
                 secure:               ~
+
+                # DEPRECATO! Usare: cookie_httponly
                 httponly:             ~
 
-            # templating configuration
+            # configurazione dei template
             templating:
                 assets_version:       ~
-                assets_version_format:  "%%s?%%s"
+                assets_version_format:  %%s?%%s
+                hinclude_default_template:  ~
+                form:
+                    resources:
+
+                        # Predefinito:
+                        - FrameworkBundle:Form
                 assets_base_urls:
                     http:                 []
                     ssl:                  []
                 cache:                ~
-                engines:              # Required
-                form:
-                    resources:        [FrameworkBundle:Form]
+                engines:              # Obbligatorio
 
-                    # Example:
+                    # Esempio:
                     - twig
                 loaders:              []
                 packages:
 
-                    # Prototype
-                    name:
+                    # Un insieme di nomi di pacchetti
+                    nome_di_un_pacchetto:
                         version:              ~
-                        version_format:       ~
+                        version_format:       %%s?%%s
                         base_urls:
                             http:                 []
                             ssl:                  []
 
-            # translator configuration
+            # configurazione della traduzione
             translator:
                 enabled:              true
                 fallback:             en
 
-            # validation configuration
+            # configurazione della validazione
             validation:
                 enabled:              true
                 cache:                ~
                 enable_annotations:   false
 
-            # annotation configuration
+            # configurazione delle annotazioni
             annotations:
                 cache:                file
                 file_cache_dir:       "%kernel.cache_dir%/annotations"

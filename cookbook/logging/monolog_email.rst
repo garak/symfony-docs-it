@@ -1,3 +1,6 @@
+.. index::
+   single: Log; Inviare errori per email
+
 Come configurare Monolog con errori per email
 =============================================
 
@@ -95,7 +98,7 @@ email:
                     members: [streamed, buffered]
                 streamed:
                     type:  stream
-                    path:  %kernel.logs_dir%/%kernel.environment%.log
+                    path:  "%kernel.logs_dir%/%kernel.environment%.log"
                     level: debug
                 buffered:
                     type:    buffer

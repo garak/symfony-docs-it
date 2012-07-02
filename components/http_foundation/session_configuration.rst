@@ -2,48 +2,48 @@
    single: HTTP
    single: HttpFoundation, Sessioni
 
-Configuring Sessions and Save Handlers
-======================================
+Configurare sessioni e gestori di salvataggio
+=============================================
 
-This section deals with how to configure session management and fine tune it
-to your specific needs. This documentation covers save handlers, which
-store and retrieve session data, and configuring session behaviour.
+Questa sezione tratta la configurazione della gestione della sessione e la messa a punto
+secondo esigenze specifiche. Questa documentazione copre alcuni gestori, che memorizzano
+e recuperano dati di sessione, e la configurazione del comportamento della sessione.
 
-Save Handlers
-~~~~~~~~~~~~~
+Gestori del salvataggio
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The PHP session workflow has 6 possible operations that may occur.  The normal
-session follows `open`, `read`, `write` and `close`, with the possibility of
-`destroy` and `gc` (garbage collection which will expire any old sessions: `gc`
-is called randomly according to PHP's configuration and if called, it is invoked
-after the `open` operation).  You can read more about this at
+Il flusso della sessione di PHP ha sei possibili operazioni da eseguire. La sessione normale
+segue `open`, `read`, `write` e `close`, con la possibilità di
+`destroy` e `gc` (garbage collection, che fa scadere le vecchie sessioni: `gc`
+viene richiamato in modo casuale, secondo la configurazione di PHP, e, se richiamato, è
+invocato dopo l'operazione `open`). Si può approfondire l'argomento su
 `php.net/session.customhandler`_
 
 
-Native PHP Save Handlers
-------------------------
+Gestori del salvataggio nativi di PHP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-So-called 'native' handlers, are save handlers which are either compiled into
-PHP or provided by PHP extensions, such as PHP-Sqlite, PHP-Memcached and so on.
+I gestori cosiddetti 'nativi' sono gestori di sessione che sono o compilati in
+PHP o forniti da estensioni di PHP, come PHP-Sqlite, PHP-Memcached e così via.
 
-All native save handlers are internal to PHP and as such, have no public facing API.
-They must be configured by PHP ini directives, usually ``session.save_path`` and
-potentially other driver specific directives. Specific details can be found in
-docblock of the ``setOptions()`` method of each class.
+Tutti i gestori di salvataggio nativi sono interni a PHP e quindi non hanno API pubbliche.
+Vanno configurati tramite direttive ni, solitamente ``session.save_path``, e
+potenzialmente altre direttive specifiche. Si possono trovare altri dettagli nei docblock
+dei metodi ``setOptions()`` di ciascuna classe.
 
-While native save handlers can be activated by directly using
-``ini_set('session.save_handler', $name);``, Symfony2 provides a convenient way to
-activate these in the same way as custom handlers.
+Sebbene i gestori di salvataggio nativi possano essere attivati direttamente, usando
+``ini_set('session.save_handler', $nome);``, Symfony2 fornisce un modo conveniente
+per attivarrli nello stesso modo dei gestori personalizzati.
 
-Symfony2 provides drivers for the following native save handlers:
+Symfony2 fornisce driver per i gestori nativi, facili da configurare:
 
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeFileSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSqliteSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeMemcacheSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeMemcachedSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeRedisSessionHandler`
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeFileSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSqliteSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeMemcacheSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeMemcachedSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeRedisSessionHandler`;
 
-Example usage::
+Esempio di utilzzo::
 
     use Symfony\Component\HttpFoundation\Session\Session;
     use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
@@ -54,32 +54,32 @@ Example usage::
 
 .. note::
 
-    With the exception of the ``files`` handler which is built into PHP and always available,
-    the availability of the other handlers depends on those PHP extensions being active at runtime.
+    Con l'eccezione del gestore ``files``, nativo di PHP e sempre disponibile,
+    la disponibilità di altri gestore dipende da quali estensioni PHP sono attive a runtime.
 
 .. note::
 
-    Native save handlers provide a quick solution to session storage, however, in complex systems
-    where you need more control, custom save handlers may provide more freedom and flexibility.
-    Symfony2 provides several implementations which you may further customise as required.
+    I gestori di salvataggio nativi forniscono una soluzione rapida alla memorizzazione di sessioni, tuttavia
+    in sistemi complessi, in cui occorre maggior controllo, i gestori di salvataggio personalizzati possono fornire più
+    libertà e flessibilità. Symfony2 fornisce varie implementazioni, personalizzabili a piacimento.
 
 
-Custom Save Handlers
---------------------
+Gestori di salvataggio personalizzati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Custom handlers are those which completely replace PHP's built in session save
-handlers by providing six callback functions which PHP calls internally at
-various points in the session workflow.
+I gestori personalizzati sono quelli che sostituiscono completamente i gestori del salvataggio
+nativi di PHP, fornendo sei funzioni di callback, richiamate internamente da PHP in vari
+punti del flusso della sessione.
 
-Symfony2 HttpFoundation provides some by default and these can easily serve as
-examples if you wish to write your own.
+HttpFoundation di Symfony2 ne fornisce alcuni predefiniti, che possono facilmente servire
+da esempi, se se ne vuole scrivere uno.
 
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`;
 
-Example usage::
+Esempio::
 
     use Symfony\Component\HttpFoundation\Session\Session;
     use Symfony\Component\HttpFoundation\Session\Storage\SessionStorage;
@@ -89,178 +89,178 @@ Example usage::
     $session = new Session($storage);
 
 
-Configuring PHP Sessions
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-The :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
-can configure most of the PHP ini configuration directives which are documented
-at `php.net/session.configuration`_.
-
-To configure these setting, pass the keys (omitting the initial ``session.`` part
-of the key) as a key-value array to the ``$options`` constructor argument.
-Or set them via the
-:method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`
-method.
-
-For the sake of clarity, some key options are explained in this documentation.
-
-Session Cookie Lifetime
-~~~~~~~~~~~~~~~~~~~~~~~
-
-For security, session tokens are generally recommended to be sent as session cookies.
-You can configure the lifetime of session cookies by specifying the lifetime
-(in seconds) using the ``cookie_lifetime`` key in the constructor's ``$options``
-argument in :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`.
-
-Setting a ``cookie_lifetime`` to ``0`` will cause the cookie to live only as
-long as the browser remains open. Generally, ``cookie_lifetime`` would be set to
-a relatively large number of days, weeks or months. It is not uncommon to set
-cookies for a year or more depending on the application.
-
-Since session cookies are just a client-side token, they are less important in
-controlling the fine details of your security settings which ultimately can only
-be securely controlled from the server side.
-
-.. note::
-
-    The ``cookie_lifetime`` setting is the number of seconds the cookie should live
-    for, it is not a Unix timestamp. The resulting session cookie will be stamped
-    with an expiry time of ``time()``+``cookie_lifetime`` where the time is taken
-    from the server.
-
-Configuring Garbage Collection
+Configurare le sessioni di PHP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When a session opens, PHP will call the ``gc`` handler randomly according to the
-probability set by ``session.gc_probability`` / ``session.gc_divisor``. For
-example if these were set to ``5/100`` respectively, it would mean a probability
-of 5%. Similarly, ``3/4`` would mean a 3 in 4 chance of being called, i.e. 75%.
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage` può
+configurare la maggior parte delle direttive di php.ini documentate su
+`php.net/session.configuration`_.
 
-If the garbage collection handler is invoked, PHP will pass the value stored in
-the PHP ini directive ``session.gc_maxlifetime`. The meaning in this context is
-that any stored session that was saved more than ``maxlifetime`` ago should be
-deleted. This allows one to expire records based on idle time.
+Per configurare tali impostazioni, passare le chavi (omettendo la parte ``session.`` iniziale
+della chiave) come array chiave-valore al parametro ``$options`` del costruttore.
+Oppure impostarle tramite il metodo
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`
+.
 
-You can configure these settings by passing ``gc_probability``, ``gc_divisor``
-and ``gc_maxlifetime`` in an array to the constructor of
+Per ulteriore chiarezza, alcune chiavi di opzioni sono spiegate in questa documentazione.
+
+Scadenza del cookie di sessione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Per sicurezza, generalmente si raccomanda di inviare i token di sessione come cookie.
+SI può configurare la scadenza dei cookie di sessione, specificando il tempo
+(in secondi) usando la chiave ``cookie_lifetime`` nel parametro ``$options`` del
+costruttore di :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`.
+
+Impostare ``cookie_lifetime`` a ``0`` farà sì che il cookie durerà solo finché il
+browser non resta aperto. Generalmente, ``cookie_lifetime`` andrebbe impostato a
+un numero relativamente grande di giorni, settimane o mesi. Non è raro impostare i
+cookie per un anno o più, a seconda dell'applicazione.
+
+Essendo i cookie di sessione dei token esclusivamente lato client, sono meno importanti
+nel controllo dei dettagli rispetto alle impostazioni di sicurezza, che alla fine possono
+essere controllate con tranquillità solamente lato server.
+
+.. note::
+
+    L'impostazione ``cookie_lifetime`` è il numero di secondi per cui il cookie sarà
+    valido, non è un timestamp Unix. Il cookie di sessione risultante sarà emesso con
+    un tempo di scadenza di ``time()``+``cookie_lifetime``, con riferimento alla
+    data del server.
+
+Configurare il garbage collector
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Quando si apre una sessione, PHP richiamerà ``gc`` in modo casuale, in base alla
+probabilità impostata da ``session.gc_probability`` / ``session.gc_divisor``. Per
+esempio, se impostati rispettivamente a ``5/100``, risulterebbe in una probabilità
+del 5%. In modo simile, ``3/4`` vorrebbe dire 3 possibilità su 4 di essere richiamato, quindi il 75%.
+
+Se il garbage collector viene invocato, PHP passerà il valore memorizzato nella
+direttiva php.ini ``session.gc_maxlifetime`. Il significato in questo contesto è
+che ogni sessione memorizzata prima di ``maxlifetime`` secondi fa andrebbe
+cancellata. Questo consente di far scadere le sessioni in base al tempo di inattività.
+
+Si possono impostare queste impostazioni passando ``gc_probability``, ``gc_divisor``
+e ``gc_maxlifetime`` in un array al costruttore di
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
-or to the :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`
-method.
+o al metodo :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions()`
+.
 
-Session Lifetime
-~~~~~~~~~~~~~~~~
+Scadenza della sessione
+~~~~~~~~~~~~~~~~~~~~~~~
 
-When a new session is created, meaning Symfony2 issues a new session cookie
-to the client, the cookie will be stamped with an expiry time. This is
-calculated by adding the PHP runtime configuration value in
-``session.cookie_lifetime`` with the current server time.
-
-.. note::
-
-    PHP will only issue a cookie once. The client is expected to store that cookie
-    for the entire lifetime. A new cookie will only be issued when the session is
-    destroyed, the browser cookie is deleted, or the session ID is regenerated
-    using the ``migrate()`` or ``invalidate()`` methods of the ``Session`` class.
-
-    The initial cookie lifetime can be set by configuring ``NativeSessionStorage``
-    using the ``setOptions(array('cookie_lifetime' => 1234))`` method.
+Quando viene creata una nuova sessione, quindi quando Symfony2 invia un nuovo cookie di
+sessione al client, il cookie sarà emesso con un tempo di scadenza. Questo tempo è
+calcolato aggiungendo il valore di configurazione di PHP in
+``session.cookie_lifetime`` al tempo attuale del server.
 
 .. note::
 
-    A cookie lifetime of ``0`` means the cookie expire when the browser is closed.
+    PHP invierà un cookie una sola volta. Ci si aspetta che il client memorizzi tale
+    cookie per l'intero periodo. Sarà inviato un nuovo cookie solo quando la sessione
+    viene distrutta, il cookie viene cancellato dal browser oppure l'id della sessione
+    viene rigenerato, usando i metodi ``migrate()`` o ``invalidate()`` della classe ``Session``.
 
-Session Idle Time/Keep Alive
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Il tempo di scadenza iniziale del cookie può essere impostato configurando ``NativeSessionStorage``,
+    usando il metodo ``setOptions(array('cookie_lifetime' => 1234))``.
 
-There are often circumstances where you may want to protect, or minimize
-unauthorized use of a session when a user steps away from their terminal while
-logged in by destroying the session after a certain period of idle time. For
-example, it is common for banking applications to log the user out after just
-5 to 10 minutes of inactivity. Setting the cookie lifetime here is not
-appropriate because that can be manipulated by the client, so we must do the expiry
-on the server side. The easiest way is to implement this via garbage collection
-which runs reasonably frequently. The cookie ``lifetime`` would be set to a
-relatively high value, and the garbage collection ``maxlifetime`` would be set
-to destroy sessions at whatever the desired idle period is.
+.. note::
 
-The other option is to specifically checking if a session has expired after the
-session is started. The session can be destroyed as required. This method of
-processing can allow the expiry of sessions to be integrated into the user
-experience, for example, by displaying a message.
+    Un tempo di scadenza del cookie di ``0`` vuol dire che il cookie scadrà alla chiusura del browser.
 
-Symfony2 records some basic meta-data about each session to give you complete
-freedom in this area.
+Tempo di inattività della sessione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Session meta-data
-~~~~~~~~~~~~~~~~~
+Spesso, ci sono circostanze in cui si vuole proteggere l'uso della sessione oppure
+minimizzarne l'uso non autorizzato, quando un utente si allontana dalla sua postazione
+mentre è loggato, distruggendo la sessione dopo un certo periodo di inattività. Per
+esempio, solitamente le applicazioni delle banche buttano fuori l'utente dopo appena 5
+o 10 minuti di inattività. L'impostazione della scadenza del cookie, in questo caso, non
+è appropriata, perché potrebbe essere manipolata dal client, quindi occorre farlo
+scadere lato server. Il modo più facile di farlo è tramite il garbage collector, che viene
+eseguito con una frequenza ragionevole. Il ``lifetime`` del cookie andrebbe impostato a
+un valore relativamente alto e il ``maxlifetime`` del garbage collectore andrebbe impostato
+per distruggere le sessioni al periodo di inattività desiderato.
 
-Sessions are decorated with some basic meta-data to enable fine control over the
-security settings. The session object has a getter for the meta-data,
-:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag` which
-exposes an instance of :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\MetadataBag`::
+L'altra opzione è verificare specificatamente se una sessione sia scaduta dopo che
+la sessione parte. La sessione può essere distrutta, come richiesto. Questo metodo può
+consentire di integrare la scadenza delle sessioni nell'esperienza utente, per esempio,
+mostrando un messaggio.
+
+Symfony2 registra alcuni meta-dati di base su ogni sessione, per dare completa libertà
+in quest'area.
+
+Meta-dati di sessione
+~~~~~~~~~~~~~~~~~~~~~
+
+Le sessioni vengono decorate da alcuni meta-dati di base, per consentire maggior controllo
+sulle impostazioni di sicurezza. L'oggetto sessione ha un getter per i meta-dati,
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag`, che
+espone un'istanza di :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\MetadataBag`::
 
     $session->getMetadataBag()->getCreated();
     $session->getMetadataBag()->getLastUsed();
 
-Both methods return a Unix timestamp (relative to the server).
+Entrambi i metodi restituiscono un timestamp Unix (relativo al server).
 
-This meta-data can be used to explicitly expire a session on access, e.g.::
+Questi meta-dati possono essere usati per far scadere in modo espliciti una sessione all'accesso, p.e.::
 
     $session->start();
     if (time() - $session->getMetadataBag()->getLastUpdate() > $maxIdleTime) {
         $session->invalidate();
-        throw new SessionExpired(); // redirect to expired session page
+        throw new SessionExpired(); // rinvia alla pagina di sessione scaduta
     }
 
-It is also possible to tell what the ``cookie_lifetime`` was set to for a
-particular cookie by reading the ``getLifetime()`` method::
+Si può anche specificare a cosa è stato impostato ``cookie_lifetime`` per un determinato
+cookie, usando il metodo ``getLifetime()``::
 
     $session->getMetadataBag()->getLifetime();
 
-The expiry time of the cookie can be determined by adding the created
-timestamp and the lifetime.
+Il tempo di scadenza del cookie può essere determinato aggiungendo il timestamp creato
+e il lifetime.
 
-PHP 5.4 compatibility
-~~~~~~~~~~~~~~~~~~~~~
+Compatibilità con PHP 5.4
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since PHP 5.4.0, :phpclass:`SessionHandler` and :phpclass:`SessionHandlerInterface`
-are available. Symfony 2.1 provides forward compatibility for the :phpclass:`SessionHandlerInterface`
-so it can be used under PHP 5.3. This greatly improves inter-operability with other
-libraries.
+A partire da PHP 5.4.0, sono disponibili :phpclass:`SessionHandler` e
+:phpclass:`SessionHandlerInterface`. Symfony 2.1 fornisce compatibilità in avanti per
+:phpclass:`SessionHandlerInterface`, in modo che possa essere usata con PHP 5.3.
+Questo aumenta molto l'interoperabilità con altre
+librerie.
 
-:phpclass:`SessionHandler` is a special PHP internal class which exposes native save
-handlers to PHP user-space.
+:phpclass:`SessionHandler` è una classe interna speciale di PHP, che espone i gestori del
+salvataggio nativi nello user space di PHP. Per poter fornire una soluzione a chi usa
+PHP 5.4, Symfony2 ha una classe speciale, chiamata
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSessionHandler`,
+che sotto PHP 5.4 estende da `\SessionHandler` e sotto PHP 5.3 è solo una classe
+di base vuota. Questo dà alcune interessanti opportunità, per sfruttare le
+funzionalità di PHP 5.4, se disponibile.
 
-In order to provide a solution for those using PHP 5.4, Symfony2 has a special
-class called :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSessionHandler`
-which under PHP 5.4, extends from `\SessionHandler` and under PHP 5.3 is just a
-empty base class. This provides some interesting opportunities to leverage
-PHP 5.4 functionality if it is available.
+Proxy per il gestore del salvataggio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Save Handler Proxy
-~~~~~~~~~~~~~~~~~~
-
-There are two kinds of save handler class proxies which inherit from
+Ci sono due tpi di classi di proxy per il gestore del salvataggio, che ereditano da
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\AbstractProxy`:
-they are :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
-and :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`.
+sono :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
+e :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
-automatically injects storage handlers into a save handler proxy unless already
-wrapped by one.
+inietta automaticamente i gestori della memorizzazione in un proxy per il gestore del
+salvataggio, a meno che non ce ne sia giù uno che lo avvolge.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
-is used automatically under PHP 5.3 when internal PHP save handlers are specified
-using the `Native*SessionHandler` classes, while
+è usato automaticamente sotto PHP 5.3, quando i gestori del salvataggio interni di PHP
+vengono specificati tramite le classi `Native*SessionHandler` classes, mentre
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`
-will be used to wrap any custom save handlers, that implement :phpclass:`SessionHandlerInterface`.
+sarà usato per avvolgere qualsiasi gestore del salvataggio personalizzato, che implementi :phpclass:`SessionHandlerInterface`.
 
-Under PHP 5.4 and above, all session handlers implement :phpclass:`SessionHandlerInterface`
-including `Native*SessionHandler` classes which inherit from :phpclass:`SessionHandler`.
+Sotto PHP 5.4 e successivi, tutti i gestori di sessione implementano :phpclass:`SessionHandlerInterface`,
+incluse le classi `Native*SessionHandler` che ereditano da :phpclass:`SessionHandler`.
 
-The proxy mechanism allow you to get more deeply involved in session save handler
-classes. A proxy for example could be used to encrypt any session transaction
-without knowledge of the specific save handler.
+Il meccanismo del proxy consente di essere coinvolto in modo più approfondito nelle classi
+dei gestori del salvataggio. Un proxy, per esempio, può essere usato per criptare ogni
+transazione di una sessione, senza sapere nulla del gestore del salvataggio specifico.
 
 .. _`php.net/session.customhandler`: http://php.net/session.customhandler
 .. _`php.net/session.configuration`: http://php.net/session.configuration

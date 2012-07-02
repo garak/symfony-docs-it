@@ -88,20 +88,21 @@ può essere modificato dall'utente::
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class TagType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('name');
         }
 
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class' => 'Acme\TaskBundle\Entity\Tag',
-            );
+            ));
         }
 
         public function getName()
@@ -121,22 +122,23 @@ il tipo di campo :doc:`collection</reference/forms/types/collection>`::
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class TaskType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('description');
 
             $builder->add('tags', 'collection', array('type' => new TagType()));
         }
 
-        public function getDefaultOptions()
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'data_class' => 'Acme\TaskBundle\Entity\Task',
-            );
+            ));
         }
 
         public function getName()
@@ -239,12 +241,28 @@ Quando l'utente invia il form, i dati inviati per i campi di ``Tags``
 sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``,che viene poi
 impostato sul campo ``tag`` dell'istanza ``Task``.
 
-La collezione ``Tags``è acessibile tramite ``$task->getTags()``
-e può essere persistita nella base dati, oppure utilizzata dove necessario.
+L'insieme ``Tags``è acessibile tramite ``$task->getTags()``
+e può essere persistito nella base dati, oppure utilizzato. dove necessario.
 
 Finora, tutto ciò funziona bene, ma questo non permette di aggiungere nuovi dinamicamente 
 tag o eliminare tag esistenti. Quindi, la modifica dei tag esistenti funziona 
 bene, ma ancora non si possono aggiungere nuovi tag.
+
+.. caution::
+
+    In questa ricetta, includiamo un solo insieme, ma non si è limitati
+    a questo. Si possono anche includere insiemi innestati, in quanti livelli
+    si desidera. Ma, se si usa Xdebug durante lo sviluppo, si potrebbe ricevere
+    l'errore ``Maximum function nesting level of '100' reached, aborting!``.
+    Questo a casua dell'impostazione ``xdebug.max_nesting_level`` di PHP setting, che
+    ha come valore predefinito ``100``.
+
+    Questa direttiva limita la ricorsione a 100 chiamate, che potrebbe non bastare per
+    la resa del form nel template, se si rende l'intero form in una volta
+    sola (p.e. con ``form_widget(form)``). Per risolvere, si può impostare la direttiva
+    a un valore più alto (tramite il file ini di PHP o tramite :phpfunction:`ini_set`,
+    per esempio in ``app/autoload.php``) opure si può rendere ogni campo del form a mano,
+    usando ``form_row``.
 
 .. _cookbook-form-collections-new-prototype:
 
@@ -265,7 +283,9 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     // ...
     
-    public function buildForm(FormBuilder $builder, array $options)
+    use Symfony\Component\Form\FormBuilderInterface;
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('description');
 
@@ -478,8 +498,9 @@ Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::
     
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     // ...
+    use Symfony\Component\Form\FormBuilderInterface;
     
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('description');
 
@@ -564,7 +585,7 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
 
         public function editAction($id, Request $request)
         {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $task = $em->getRepository('AcmeTaskBundle:Task')->find($id);
     
             if (!$task) {

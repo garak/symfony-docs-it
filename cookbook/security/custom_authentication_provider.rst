@@ -28,7 +28,7 @@ WSSE è molto utile per proteggere i servizi web, siano essi SOAP o
 REST.
 
 C'è molta buona documentazione su `WSSE`_, ma questo articolo non approfondirà
-il protocollo di sicurezza, quanto il modo in cui un protocollo personalizzato
+il protocollo di sicurezza, quando il modo in cui un protocollo personalizzato
 possa essere aggiunto alla propria applicazione Symfony2. La base di WSSE è la
 verifica degli header di richiesta tramite credenziali criptate, con l'uso di
 un timestamp e di `nonce`_, e la verifica dell'utente richiesto tramite un digest
@@ -61,6 +61,14 @@ al nostro fornitore di autenticazione.
         public $created;
         public $digest;
         public $nonce;
+        
+        public function __construct(array $roles = array())
+        {
+            parent::__construct($roles);
+            
+            // If the user has roles, consider it authenticated
+            $this->setAuthenticated(count($roles) > 0);
+        }
 
         public function getCredentials()
         {
@@ -397,40 +405,10 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
         ));
 
 Ora che i servizi sono stati definiti, diciamo al contesto della sicurezza del
-factory. I factory devono essere inclusi in un singolo file di configurazione,
-mentre stiamo scrivendo. Quindi, iniziamo creando il file con il servizio
-factory, con tag ``security.listener.factory``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/Acme/DemoBundle/Resources/config/security_factories.yml
-        services:
-            security.authentication.factory.wsse:
-                class:  Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory
-                tags:
-                    - { name: security.listener.factory }
-
-    .. code-block:: xml
-
-        <!-- src/Acme/DemoBundle/Resources/config/security_factories.xml -->
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-                <service id="security.authentication.factory.wsse"
-                  class="Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory" public="false">
-                    <tag name="security.listener.factory" />
-                </service>
-            </services>
-        </container>
+factory. 
 
 .. versionadded:: 2.1
     Prima della 2.1, il factory successivo veniva aggiunto tramite ``security.yml``.
-
-Come ultimo passo, aggiungere il factory all'estensione della sicurezza nella classe del bundle.
 
 .. code-block:: php
 

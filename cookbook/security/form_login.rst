@@ -1,3 +1,6 @@
+.. index::
+   single: Sicurezza; Personalizzazione del form di login
+
 Come personalizzare il form di login
 ====================================
 

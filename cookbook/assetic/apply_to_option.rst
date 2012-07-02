@@ -100,6 +100,8 @@ Filtrare file multpili
 Tutti i file verranno restituiti e compilati in un unico, regolare file 
 JavaScript.
 
+.. _cookbook-assetic-apply-to:
+
 Filtrare in base all'estensione del file
 ----------------------------------------
 

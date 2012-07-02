@@ -6,3 +6,8 @@ Dependency Injection
 
     introduction
     definitions
+    compilation
+    tags
+    factories
+    parentservices
+

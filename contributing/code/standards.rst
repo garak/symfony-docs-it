@@ -9,6 +9,9 @@ segue le stesse linee guida.
 Ricordare che il vantaggio principale degli standard è che ogni pezzo di codice
 sembra familiare, non è che questo o quello siano più o meno leggibili.
 
+Symfony segue gli standard definiti nei documenti `PSR-0`_, `PSR-1`_ e
+`PSR-2`_.
+
 Poiché un'immagine (o un po' di codice) vale più di mille parole, ecco un
 breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
@@ -27,32 +30,40 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
     namespace Acme;
 
-    class Foo
+    class FooBar
     {
         const SOME_CONST = 42;
 
-        private $foo;
+        private $fooBar;
 
         /**
-         * @param string $dummy Some argument description
+         * @param string $dummy Una descrizione del parametro
          */
         public function __construct($dummy)
         {
-            $this->foo = $this->transform($dummy);
+            $this->fooBar = $this->transform($dummy);
         }
 
         /**
-         * @param string $dummy Some argument description
-         * @return string|null Transformed input
+         * @param string $dummy Una descrizione del parametro
+         * @return string|null Input trasformato
          */
-        private function transform($dummy)
+        private function transformText($dummy, $options = array())
         {
+            $mergedOptions = array_merge($options, array(
+                'some_default' => 'values',
+            ));
+
             if (true === $dummy) {
                 return;
             }
             if ('string' === $dummy) {
-                $dummy = substr($dummy, 0, 5);
-            }
+                if ('values' === $mergedOptions['some_default']) {
+                    $dummy = substr($dummy, 0, 5);
+                } else {
+                    $dummy = ucwords($dummy);
+                }
+            } 
 
             return $dummy;
         }
@@ -61,44 +72,15 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 Struttura
 ---------
 
-* Non usare mai gli short tag (`<?`);
-
-* Non terminare i file delle classi con il tag di chiusura `?>`;
-
-* Indentare con quattro spazi (mai con le tabulazioni);
-
-* Usare il carattere linefeed (`0x0A`) per terminare le righe;
-
 * Aggiungere un singolo spazio dopo ogni virgola delimitatrice;
 
-* Non mettere spazi dopo una parentesi chiusa e prima di una aperta;
-
 * Aggiungere un singolo spazio intorno agli operatori (`==`, `&&`, ...);
-
-* Aggiungere un singolo spazio prima di aprire le parentesi di una struttura di controllo 
-  (`if`, `else`, `for`, `while`, ...);
 
 * Aggiungere una riga vuota prima delle istruzioni `return`, a meno che non siano soli 
   dentro una struttura di controllo (come un `if`);
 
-* Non aggiungere spazi finali in fondo alle righe;
-
-* Usare le parentesi graffe per indicare una struttura di controllo, indipendentemente
-  dal numero di istruzioni contenute;
-
-* Inserire le parentesi graffe su una nuova riga per classi, metodi e
-  funzioni;
-
-* Separare le istruzioni condizionali (`if`, `else`, ...) e la parentesi graffa di
-  apertura con un singolo spazio e senza nuove righe;
-
-* Dichiarare esplicitamente la visibilità di classi, metodi e proprietà (non usare
-  `var`);
-
-* Usare le costanti native di PHP in minuscolo: `false`, `true` e `null`. Lo
-  stesso per `array()`;
-
-* Usare stringhe maiuscole per le costanti, con parole separate da trattini bassi;
+* Usare le parentesi graffe per le strutture di controllo, indipendentemente dal numero
+  di istruzioni contenute;
 
 * Definire una classe per file (non si applica a classi private di helper
   che non devono essere istanziate dall'esterno e quindi esulano dallo
@@ -139,3 +121,7 @@ Licenza
 
 * Symfony è rilasciato sotto licenza MIT e il blocco della licenza deve essere presente
   in cima a ogni file PHP, prima dello spazio dei nomi.
+
+.. _`PSR-0`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+.. _`PSR-1`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+.. _`PSR-2`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md

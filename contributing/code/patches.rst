@@ -4,190 +4,178 @@ Inviare una patch
 Una patch è il modo migliore per rimediare a un bug e per proporre dei miglioramenti
 a Symfony2
 
-Lista di controllo
-------------------
+Passo 1: preparare l'ambiente
+-----------------------------
 
-Lo scopo della lista di controllo è assicurare che i contributi possano essere valutati
-senza il bisogno di domande e risposte continue e assicurare che i contributi possano
-essere inclusi in Symfony2 il più rapidamente possibile.
+Installare il software
+----------------------
 
-Le richieste di pull vanno prefissate con il nome del componente o del bundle a cui
-si riferiscono.
-
-.. code-block:: text
-
-    [Componente] breve titolo descrittivo.
-
-Un esempio potrebbe essere simile a questo:
-
-.. code-block:: text
-
-    [Form] Aggiunta del tipo di campo selectbox.
-
-.. tip::
-
-    Si prega di aggiungere "[WIP]" al titolo, se la proposta non è ancora completa
-    oppure se i test sono incompleti o non passano.
-
-Tutte le richieste di pull devono includere il seguente template nella descrizione
-della richiesta:
-
-.. code-block:: text
-
-    Bug fix: [yes|no]
-    Feature addition: [yes|no]
-    Backwards compatibility break: [yes|no]
-    Symfony2 tests pass: [yes|no]
-    Fixes the following tickets: [lista separata da virgole di ticket risolti]
-    Todo: [lista di todo in corso]
-
-Un esempio di proposta potrebbe essere il seguente:
-
-.. code-block:: text
-
-    Bug fix: no
-    Feature addition: yes
-    Backwards compatibility break: no
-    Symfony2 tests pass: yes
-    Fixes the following tickets: -
-    Todo: -
-
-Grazie per includere il template completo nelle vostre proposte!
-
-.. tip::
-
-    Tutte le aggiunte di caratteristiche vanno inviate al ramo "master", mentre
-    tutti i bug risolti vanno inviati al più vecchio ramo ancora attivo. Inoltre,
-    le proposte non devono, di norma, infrangere la retro-compatibilità.
-
-.. tip::
-
-    Per fare in modo che il proprio ramo sia automaticamente testato, si può aggiungere
-    il proprio fork a `travis-ci.org`_. Basta entrare con l'account usato su github.com e
-    e abilitare un singolo switch, per i test automatici. Nella propria richiesta di pull,
-    invece di specificare "*Symfony2 tests pass: [yes|no]*", si può collegare
-    l'`icona di stato di travis-ci.org`_. Per maggiori dettagli, vedere
-    `travis-ci.org Getting Started Guide`_.
-
-Configurazione iniziale
------------------------
-
-Prima di lavorare su Symfony2, configurare il proprio ambiente con 
-il seguente software:
+Prima di lavorare con Symfony2, preparare l'ambiente con il seguente
+software:
 
 * Git;
+* PHP versione 5.3.2 o successive;
+* PHPUnit 3.5.11 o successivi.
 
-* PHP versione 5.3.2 o superiore;
+Configurare Git
+~~~~~~~~~~~~~~~
 
-* PHPUnit 3.6.4 o superiore.
-
-Impostare il informazioni utente con il nome e l'indirizzo email:
+Impostare le informazioni utente con il proprio nome reale e il proprio indirizzo di posta elettronica:
 
 .. code-block:: bash
 
-    $ git config --global user.name "Il mio nome"
-    $ git config --global user.email mia_emil@example.com
+    $ git config --global user.name "Il proprio nome"
+    $ git config --global user.email la_propria_email@example.com
 
 .. tip::
 
-    Raccomandiamo caldamente a chi fosse nuovo di Git la lettura dell'eccellente
-    libro gratuito `ProGit`_
+    Si raccomanda caldamente a chi fosse nuovo la lettura del libro `ProGit`_,
+    eccellente e libero.
 
 .. tip::
 
-    Utenti Windows: installando Git, l'installazione chiederà cosa fare con i fine
-    riga e suggerità di sostituire Lf con CRLF. Questa impostazione è sbagliata,
-    se si vuole contribuire a Symfony! La scelta migliore è il metodo "as-is",
-    perché git converitrà i fine riga in quelli del repository.
-    Se Git è già stato installato, si può verificare il valore dell'impostazione,
-    scrivendo:
+    Utenti di Windows: quando si installa Git, l'installazione chiederà cosa fare con
+    i fine riga, suggerendo di sostituire Lf con CRLF. Questa impostazine è sbagliata,
+    se si vuole contribuire a Symfony! Impostare il metodo "as-is" come scelta
+    migliore, così git convertirà i fine riga con quelli nel
+    repository. Se git è già stato installato, si può verificare questa impostazione
+    con:
 
     .. code-block:: bash
 
         $ git config core.autocrlf
 
-    Questo comando resituirà "false", "input" o "true", dove "true" e "false" sono
-    i valori sbagliati. Si può modificare il valore, scrivendo:
+    Restituirà "false", "input" o "true", dove "true" e "false" sono i
+    valori sbagliati. Impostare nuovamente con:
 
     .. code-block:: bash
 
         $ git config --global core.autocrlf input
 
     Sostituire --global con --local se si vuole impostare solo per il repository
-    attivo
+    attivo.
 
-Recuperare il codice sorgente di Symfony2:
+Ottenere il codice sorgente di Symfony
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Creare un account su `GitHub`_ ed eseguire l'autenticazione;
+Ottenere il codice sorgente di Symfony:
 
-* Forkare il `repository di Symfony2`_: cliccare sul bottone "fork";
+* Creare un account su `GitHub`_ ed entrare;
 
-* Dopo aver completato il fork, clonare il proprio fork localmente
-  (questo creerà una cartella `symfony`)
+* Forkare il `repository di Symfony2`_ (cliccando sul bottone "Fork");
+
+* Dopo che l'azione "hardcore forking" è stata completata, clonare il proprio fork in locale
+  (creerà una cartella `symfony`):
 
 .. code-block:: bash
 
       $ git clone git@github.com:USERNAME/symfony.git
 
-* Aggiungere il repository di upstream come ``remote``:
+* Aggiungere il repository upstream come ``remote``:
 
 .. code-block:: bash
 
       $ cd symfony
       $ git remote add upstream git://github.com/symfony/symfony.git
 
-Ora che Symfony2 è installato, verificate che tutti i test unitari passino
-per il vostro ambiente come spiegato nel capitolo :doc:`document <tests>`.
+Verificare che i test passino
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Lavorare su una patch
----------------------
+Ora che Symfony2 è installato, verifcare che tutti i test unitari passino nel proprio
+ambiente, come spiegato nel :doc:`documento <tests>` dedicato.
 
-Ogni volta che si desidera lavorare su una patch per un bug o per un
-miglioramento, è necessario creare uno specifico ramo.
+Passo 2: lavorare su una patch
+------------------------------
 
-Il ramo deve essere basato sul ramo `master` se si vuole aggiungere una nuova
-funzionalità. Ma se si vuole fissare un bug, utilizzare le vecchie versioni ma
-mantenute versioni Symfony nelle quali appare il bug (come `2.0`).
+La licenza
+~~~~~~~~~~
 
-Creare il ramo dell'argomento con il seguente comando:
+Prima di iniziare, occorre sapere che tutte le patch da inviare devono essere rilasciate
+sotto *licenza MIT*, a meno che non sia specificato diversamente nel proprio
+codice.
+
+Scegliere il ramo giusto
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Prima di lavorare su una patch, è necessario individuare il ramo giusto. Il ramo deve
+essere basato sul ramo `master` se si vuole aggiungere una nuova
+funzionalità. Ma se si vuole risolvere un bug, utilizzare le versioni vecchie (ma ancora
+mantenute) di Symfony nelle quali appare il bug (come `2.1`).
+
+.. tip::
+
+    Tutti i bug risolti in rami di manutenzione sono inseriti anche i rami più recenti,
+    su base regolare. Per esempio, se si invia una patch
+    per il ramo `2.1`, la patch sarà applicata anche sul ramo
+    `master`.
+
+Creare un ramo
+~~~~~~~~~~~~~~
+
+Ogni volta che si vuole lavorare su una patch per un bug o un miglioramento, creare
+un ramo:
 
 .. code-block:: bash
 
     $ git checkout -b NOME_RAMO master
 
-Oppure, se si vuole fornire il fix di un bug per il ramo 2.0, occorre prima tracciare
-localmente il ramo remoto `2.0`:
+Oppure, se si vuole risolvere un bug per il ramo 2.1, tracciare il ramo `2.1` remoto
+in locale:
 
 .. code-block:: bash
 
-    $ git checkout -t origin/2.0
+    $ git checkout -t origin/2.1
 
-Si può quindi creare un nuovo ramo dal 2.0, per lavorare sul fix del bug:
+Quindi creare un nuovo ramo dal ramo `2.1`:
 
 .. code-block:: bash
 
-    $ git checkout -b NOME_RAMO 2.0
+    $ git checkout -b NOME_RAMO 2.1
 
 .. tip::
 
-    Usare un nome descrittivo per il ramo (`ticket_XXX` dove `XXX` è il 
-    numero del ticket è una buona convezione per il fix del bug)
+    Usare un nome descrittivo per il proprio ramo (`ticket_XXX` dove `XXX` è il
+    numero di ticket è una buona convenzione per i bug).
 
-Il comando sopra scambia automaticamente il codice con il ramo appena creato
-(per verificare in quale ramo ci si trovi eseguire il comando `git branch`)
+I comandi precedenti porteranno automaticamente sul ramo appena creato
+(verificare il ramo su cui si sta lavorando con `git branch`).
 
-È possibile lavorare sul codice quanto si vuole e committare tanto quanto si vuole; ma bisogna tenere a mente le seguenti indicazioni:
+Lavorare sulla propria patch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Seguire gli :doc:`standards <standards>` del codice (utilizzare `git diff --check` per
+È possibile lavorare sul codice quanto si vuole e committare tanto quanto si vuole; ma bisogna tenere a mente le
+seguenti indicazioni:
+
+* Seguire gli :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
   controllare i spazi alla fine);
 
 * Aggiungere test unitari per provare che il bug è stato fissato per mostrare che
   la funzionalità è effettivamente funzionante;
 
+* Sforzarsi di non infrangere la retro-compatibilità (se lo si deve fare, provare a fornire
+  un livello di compatibilità che supporti il vecchio modo), le patch che infrangono la
+  retro-compatbilità hanno meno probabilità di essere accettate;
+
 * Fare commit separati e atomici (utilizzare le funzionalità di `git rebase` 
   per ottenere uno storico chiaro e pulito);
 
+* Comprimere i commit irrilevanti, che sistemano solamente gli standard di codice o gli errori
+  di battitura;
+
+* Non sistemare mai gli standard nel codice esistente, perché rende più difficoltosa la
+  revisione del codice;
+
 * Scrivere buoni messaggi di commit.
+
+.. tip::
+
+    Si possono verificare gli standard del codice eseguente il seguente
+    [script](http://cs.sensiolabs.org/get/php-cs-fixer.phar) [src](https://github.com/fabpot/PHP-CS-Fixer):
+
+    .. code-block:: bash
+
+        $ cd /path/to/symfony/src
+        $ php symfony-cs-fixer.phar fix . Symfony20Finder
 
 .. tip::
 
@@ -198,8 +186,25 @@ Il comando sopra scambia automaticamente il codice con il ramo appena creato
     Utilizzare un verbo (``fixed ...``, ``added ...``, ...) per iniziare e non
     utilizzare il punto finale.
 
-Inviare una patch
-------------------
+Preparare la propria patch
+--------------------------
+
+Quando la proprià patch non riguarda la sistemazione di un bug (quando si aggiunge una nuova
+caratteristica o se ne cambia una, per esempio), occorre includere quello che segue:
+
+* Una spiegazione delle modifiche nel file (o nei file) CHANGELOG rilevante;
+
+* Una spiegazione di come aggiornare un'applicazione esistente, nel file (o nei file)
+  UPGRADE rilevante, se le modifiche infrangono la retro-compatibilità.
+
+Passo 3: inviare la propria patch
+---------------------------------
+
+Quando si ritiene la propria patch pronta per l'invio, seguire i passi
+seguenti.
+
+Fare un rebase
+~~~~~~~~~~~~~~
 
 Prima di inviare una patch, aggiornare il proprio ramo (necessario se passa del 
 tempo tra il checkout e il commit delle nuove funzionalità)
@@ -214,12 +219,11 @@ tempo tra il checkout e il commit delle nuove funzionalità)
 
 .. tip::
 
-    Sostituire `master` con `2.0` se si sta lavorando sul fix di un bug
+    Sostituire `master` con `2.1` se si sta lavorando sulla risoluzione di un bug
 
 Quando si esegue il comando ``rebase``, potrebbe essere necessario risolvere
-conflitti dovuti all'unione del codice. Il comando ``git status`` metterà in mostra
-i file non ancora uniti (*unmerged* ). Risolvere tutti i conflitti e continuare con 
-il rebase
+conflitti. Il comando ``git status`` metterà in mostra
+i file non ancora uniti (*unmerged* ). Risolvere tutti i conflitti e continuare con il rebase:
 
 .. code-block:: bash
 
@@ -232,10 +236,18 @@ Verificare che tutti i test stiano ancora passando e inviare gli sviluppi nel ra
 
     $ git push origin NOME_RAMO
 
-A questo punto è possibile discutere della patch nella `lista dev`_ o effettuare
-direttamente una richiesta di pull (deve essere eseguita nel repository ``symfony/symfony``).
-Per facilitare il lavoro del team di sviluppo principale, includere sempre nella richiesta di pull
-un messaggio con i componenti modificati, come di seguito:
+Richiedere un pull
+~~~~~~~~~~~~~~~~~~
+
+Si può ora eseguire una richiesta di pull sul repository ``symfony/symfony`` su Github.
+
+.. tip::
+
+    Si faccia attenzione a puntare la richiesta di pull verso ``symfony:2.1``, se si vuole
+    che la risoluzione del bug riceva un pull basato sul ramo 2.1.
+
+Per facilitare il lavoro, includere sempre i componenti modificati nel messaggio di
+richiesta di pull, come in:
 
 .. code-block:: text
 
@@ -244,17 +256,54 @@ un messaggio con i componenti modificati, come di seguito:
 
 .. tip::
 
-    Si faccia attenzione a puntare la richiesta di pull a ``symfony:2.0``, se si vuole
-    che il team faccia il pull del fix di un bug sul ramo 2.0.
+    Si prega di usare un titolo con "[WIP]", se la proposta non è ancora completa o se
+    i test sono incompleti o non passano ancora.
 
-Se si decide di inviare un'email alla lista, non dimenticare di 
-inserire l'URL del ramo (``https://github.com/USERNAME/symfony.git
-NOME_RAMO``) oppure l'URL della richiesta di pull.
+La descrizione della richiesta di pull deve includere la seguente lista, per assicurare
+che i contributi siano rivisti senza continui giri di feedback e che quindi possano
+essere inclusi in Symfony il prima possibile:
+
+.. code-block:: text
+
+    Bug fix: [yes|no]
+    Feature addition: [yes|no]
+    Backwards compatibility break: [yes|no]
+    Symfony2 tests pass: [yes|no]
+    Fixes the following tickets: [lista separata da virgole di ticket risolti]
+    Todo: [lista di todo in corso]
+    License of the code: MIT
+    Documentation PR: [Riferimento alla PR di documentazione, se presente]
+
+Un esempio di proposta potrebbe essere il seguente:
+
+.. code-block:: text
+
+    Bug fix: no
+    Feature addition: yes
+    Backwards compatibility break: no
+    Symfony2 tests pass: yes
+    Fixes the following tickets: #12, #43
+    Todo: -
+    License of the code: MIT
+    Documentation PR: symfony/symfony-docs#123
+
+Nella descrizione della richiesta di pull, dare quanti più dettagli possibile sulle
+proprie modifiche (non esitare a fornire esempi di codice per illustrare il punto). Se
+la richiesta di pull aggiunge nuove caratteristiche o ne modifica di esistenti,
+spiegare le ragioni delle modifiche. La descrizione della richiesta di pull aiuta la
+revisione del codice e serve da riferimento nel momento del merge (la descrizione della
+richiesta di pull e tutti i commenti associati sono parte del messaggio di commit del
+merge).
+
+Oltre alla richiesta di pull sul codice, si deve inviare anche una richiesta di pull
+al `repository della documentazione`_, per aggiornare la documentazione relativa.
+
+Rielaborare una patch
+~~~~~~~~~~~~~~~~~~~~~
 
 Dipendentemente dal riscontro della lista o attraverso la richiesta di pull su 
-Github, potrebbe essere necessario rielaborare la patch. Prima di re-inserire la path,
-eseguire il rebase con il ramo master, ma non unire attraverso il merge; e forzare il push
-nell'origin:
+Github, potrebbe essere necessario rielaborare la patch. Prima di re-inserire la patch,
+eseguire il rebase con il ramo master, ma non unire attraverso il merge; e forzare il push nell'origin:
 
 .. code-block:: bash
 
@@ -263,16 +312,16 @@ nell'origin:
 
 .. note::
 
-    Tutte le patch che si rilasciano devono essere sotto licenza MIT a meno che
-    non sia esplicitato diversamente nel codice.
+    Quando si fa un ``push --force``, specificare sempre il nome del ramo in modo esplicito,
+    per evitare complicazioni con altri rami del repository (``--force`` dice a git che si
+    vogliono veramente complicare le cose, quindi va usato con cautela).
 
-Tutti i bug risolti uniti nei rami di manutenzione sono anche uniti nei più
-recenti rami. Per esempio se si invia una patch per il ramo `2.0`, la patch sarà
-applicata dal team di sviluppo principale nel ramo master.
+Spesso, i moderatori richiederanno una compressione dei commit. Questo vuol dire che si
+convertiranno molti commit in uno solo. Per farlo, usare il comando ``rebase``:
 
 .. code-block:: bash
 
-    $ git rebase -i head~3
+    $ git rebase -i HEAD~3
     $ git push -f origin NOME_RAMO
 
 Il numero 3 deve essere uguale al numero di commit nel proprio ramo. Dopo aver scritto
@@ -290,15 +339,16 @@ Quando si salva, git inizierà il rebase e, in caso di successo, chiederà di mo
 il messaggio di commit, che come predefinito è una lista di messaggi di commit di tutti
 i commit. Dopo aver finito, eseguire il push.
 
-.. note::
+.. tip::
 
-    Tutte le patch da inviare devono essere rilasciate sotto licenza MIT,
-    a meno che non sia specificato diversamente nel codice.
-
-Tutti i merge di fix di bug nei rami di manutenzione subiscono merge anche nei rami
-più recente, regolarmente. Per esempio, se si propone una patch per il ramo `2.0`,
-la patch sarà applicata dal team anche al ramo
-`master`.
+    Per fare in modo che il proprio ramo sia automaticamente testato, si può aggiungere
+    il proprio fork a `travis-ci.org`_. Basta entrare con l'account usato su github.com e
+    e abilitare un singolo switch, per i test automatici. Nella propria richiesta di pull,
+    invece di specificare "*Symfony2 tests pass: [yes|no]*", si può collegare
+    l'`icona di stato di travis-ci.org`_. Per maggiori dettagli, vedere
+    `travis-ci.org Getting Started Guide`_. Lo si può fare in modo facile, cliccando sull'icona
+    della chiave inglese nella pagina del build di Travis. Prima selezionare il proprio ramo,
+    quindi copiare il codice markdown nella descrizione della propria richiesta di pull.
 
 .. _ProGit:              http://progit.org/
 .. _GitHub:              https://github.com/signup/free
@@ -307,3 +357,4 @@ la patch sarà applicata dal team anche al ramo
 .. _travis-ci.org:       http://travis-ci.org
 .. _`icona di stato di travis-ci.org`: http://about.travis-ci.org/docs/user/status-images/
 .. _`travis-ci.org Getting Started Guide`: http://about.travis-ci.org/docs/user/getting-started/
+.. _`repository della documentazione`:     https://github.com/symfony/symfony-docs

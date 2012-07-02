@@ -1,3 +1,6 @@
+.. index::
+   single: Yaml
+
 Il componente YAML
 ==================
 

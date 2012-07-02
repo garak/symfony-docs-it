@@ -26,6 +26,8 @@ Creazione di comandi di base
 Per creare un comando che porga il saluto dal terminale, creare il file  ``SalutaCommand.php``,
 contenente il seguente codice::
 
+    namespace Acme\DemoBundle\Command;
+
     use Symfony\Component\Console\Command\Command;
     use Symfony\Component\Console\Input\InputArgument;
     use Symfony\Component\Console\Input\InputInterface;

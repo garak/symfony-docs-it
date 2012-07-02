@@ -1,3 +1,7 @@
+.. index::
+   single: Sicurezza; Proteggere un servizio
+   single: Sicurezza; Proteggere un metodo
+
 Proteggere servizi e metodi di un'applicazione
 ==============================================
 
@@ -238,11 +242,14 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
 
         .. code-block:: xml
 
-            <!-- app/config/config.xml -->
-            <srv:container xmlns="http://symfony.com/schema/dic/security"
+            <?xml version="1.0" ?>
+
+            <container xmlns="http://symfony.com/schema/dic/services"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:srv="http://symfony.com/schema/dic/services"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+                xmlns:acme_hello="http://www.example.com/symfony/schema/"
+                xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+
+                <!-- app/config/config.xml -->
 
                 <jms_security_extra secure_controllers="true" secure_all_services="true" />
 

@@ -301,3 +301,11 @@ nello sfondo, qualora la si volesse utilizzare. Un semplice esempio di come sia 
     Se si utilizza la cache, il componente Routing compilerà nuove classi che saranno
     salvate in ``cache_dir``. Questo significa che lo script deve avere i permessi di scrittura
     nella cartella indicata.
+
+.. versionadded:: 2.1
+
+    Da Symfony 2.1, il componente Routing acetta anche valori Unicode
+    nelle rotte, come questo::
+
+        $routes->add('rotta_unicode', new Route('/Жени'));
+

@@ -155,6 +155,26 @@ Il metodo ``notNames()`` viene invece usato per escludere i file che corrispondo
 
     $finder->files()->notName('*.rb');
 
+File Contents
+~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+   I metodi ``contains()`` e ``notContains()`` sono stati
+   introdotti nella versione 2.1.
+
+Restringere i file per contenuto con il metodo
+:method:`Symfony\\Component\\Finder\\Finder::contains`::
+
+    $finder->files()->contains('lorem ipsum');
+
+Il metodo ``contains()`` accetta stringhe o espressioni regolari::
+
+    $finder->files()->contains('/lorem\s+ipsum$/i');
+
+Il metodo ``notContains()`` esclude file che contengono lo schema dato::
+
+    $finder->files()->notContains('dolor sit amet');
+
 Dimensione dei file
 ~~~~~~~~~~~~~~~~~~~
 
@@ -169,6 +189,9 @@ Si possono filtrare i file di dimensione compresa tra due valori, concatenando l
 
 È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, '<=',
 '=='.
+
+.. versionadded:: 2.1
+   L'operatore ``!=`` è stato aggiunto nella versione 2.1.
 
 La dimensione può essere indicata usando l'indicazione in kilobyte (``k``, ``ki``),
 megabyte (``m``, ``mi``) o in gigabyte (``g``, ``gi``). Gli indicatori che terminano

@@ -1,3 +1,7 @@
+.. index::
+   single: Doctrine; Caricamento di file
+
+
 Come gestire il caricamento di file con Doctrine
 ================================================
 
@@ -151,7 +155,7 @@ Il controllore seguente mostra come gestire l'intero processo::
         if ($this->getRequest()->getMethod() === 'POST') {
             $form->bindRequest($this->getRequest());
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
 
                 $em->persist($document);
                 $em->flush();
@@ -300,9 +304,21 @@ La classe ora ha tutto quello che serve: genera un nome di file univoco prima
 della memorizzazione, sposta il file dopo la memorizzazione, rimuove il file se
 l'entità viene eliminata.
 
+Ora che lo spostamento del file è gestito atomicamente dall'entità, la chiamata
+a ``$document->upload()`` andrebbe tolta dal controllore::
+
+    if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($document);
+        $em->flush();
+
+        $this->redirect('...');
+    }
+
 .. note::
 
-    Le callback ``@ORM\PrePersist()`` e ``@ORM\PostPersist()`` scattano prima e
+    I callback ``@ORM\PrePersist()`` e ``@ORM\PostPersist()`` scattano prima e
     dopo la memorizzazione di un'entità nella base dati. Parallelamente, le callback
     ``@ORM\PreUpdate()`` e ``@ORM\PostUpdate()`` vengono invocate quanto l'entità
     viene modificata.
@@ -314,8 +330,7 @@ l'entità viene eliminata.
     solamente la proprietà ``$file``, questi eventi non verranno invocati, dato che
     la proprietà in questione non viene memorizzata direttamente tramite Doctrine.
     Una soluzione potrebbe essere quella di utilizzare un campo ``updated`` memorizzato
-    tramite Doctrine, da modificare manualmente in caso di necessità per la
-    sostituzione del file.
+    tramite Doctrine, da modificare manualmente in caso di necessità per la sostituzione del file.
 
 Usare ``id`` come nome del file
 -------------------------------
@@ -332,6 +347,9 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
      */
     class Document
     {
+        // una proprietà usata temporaneamente durante la cancellazione
+        private $filenameForRemove;
+
         /**
          * @ORM\PrePersist()
          * @ORM\PreUpdate()
@@ -355,9 +373,18 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
 
             // qui si deve lanciare un'eccezione se il file non può essere spostato
             // per fare in modo che l'entità non possa essere memorizzata nella base dati
+            // cosa che viene fatta da move()
             $this->file->move($this->getUploadRootDir(), $this->id.'.'.$this->file->guessExtension());
 
             unset($this->file);
+        }
+
+        /**
+         * @ORM\PreRemove()
+         */
+        public function storeFilenameForRemove()
+        {
+            $this->filenameForRemove = $this->getAbsolutePath();
         }
 
         /**
@@ -365,8 +392,8 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
          */
         public function removeUpload()
         {
-            if ($file = $this->getAbsolutePath()) {
-                unlink($file);
+            if ($this->filenameForRemove) {
+                unlink($this->filenameForRemove);
             }
         }
 
@@ -375,3 +402,8 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
             return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->id.'.'.$this->path;
         }
     }
+
+Si noterà che in questo caso occorre un po' più di lavoro per poter rimuovere
+il file. Prima che sia rimosso, si deve memorizzare il percorso del file
+(perché dipende dall'id). Quindi, una volta che l'oggetto è completamente rimosso
+dalla base dati, si può cancellare il file in sicurezza (dentro ``PostRemove``).

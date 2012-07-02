@@ -45,8 +45,8 @@ La si può registrare nel contenitore come servizio:
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-    $sc = new ContainerBuilder();
-    $sc->register('mailer', 'Mailer');
+    $container = new ContainerBuilder();
+    $container->register('mailer', 'Mailer');
 
 Si potrebbe migliorare la classe, per renderla più flessibile, consentendo
 al contenitore di impostare il trasporto usato. Si può cambiare la classe, in modo
@@ -72,9 +72,9 @@ Si può quindi impostare la scelta del trasporto nel contenitore:
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-    $sc = new ContainerBuilder();
-    $sc->register('mailer', 'Mailer')
-        ->addArgument('sendmail'));
+    $container = new ContainerBuilder();
+    $container->register('mailer', 'Mailer')
+        ->addArgument('sendmail');
 
 La classe ora è molto più flessibile, perché la scelta del trasporto è stata
 separata dall'implementazione e posta nel contenitore.
@@ -89,10 +89,10 @@ il costruttore del servizio ``Mailer``:
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-    $sc = new ContainerBuilder();
-    $sc->setParameter('mailer.transport', 'sendmail');
-    $sc->register('mailer', 'Mailer')
-        ->addArgument('%mailer.transport%'));
+    $container = new ContainerBuilder();
+    $container->setParameter('mailer.transport', 'sendmail');
+    $container->register('mailer', 'Mailer')
+        ->addArgument('%mailer.transport%');
 
 Ora che il servizio ``mailer`` è nel contenitore, lo si può iniettare come 
 dipendenza di altre classi. Se si ha una classe ``NewsletterManager`` come
@@ -121,14 +121,14 @@ Allora la si può registrare come servizio e passarle il servizio ``mailer``:
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Reference;
 
-    $sc = new ContainerBuilder();
+    $container = new ContainerBuilder();
 
-    $sc->setParameter('mailer.transport', 'sendmail');
-    $sc->register('mailer', 'Mailer')
-        ->addArgument('%mailer.transport%'));
+    $container->setParameter('mailer.transport', 'sendmail');
+    $container->register('mailer', 'Mailer')
+        ->addArgument('%mailer.transport%');
 
-    $sc->register('newsletter_manager', 'NewsletterManager')
-        ->addArgument(new Reference('mailer'));
+    $container->register('newsletter_manager', 'NewsletterManager')
+        ->addArgument(new Reference('mailer');
 
 Se ``NewsletterManager`` non richiedesse ``Mailer`` e l'iniezione fosse quindi
 solamente opzionale, la si potrebbe passare usando un setter:
@@ -157,14 +157,14 @@ Se comunque lo si volesse fare, il contenitore può richiamare il metodo setter:
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Reference;
 
-    $sc = new ContainerBuilder();
+    $container = new ContainerBuilder();
 
-    $sc->setParameter('mailer.transport', 'sendmail');
-    $sc->register('mailer', 'Mailer')
-        ->addArgument('%mailer.transport%'));
+    $container->setParameter('mailer.transport', 'sendmail');
+    $container->register('mailer', 'Mailer')
+        ->addArgument('%mailer.transport%');
 
-    $sc->register('newsletter_manager', 'NewsletterManager')
-        ->addMethodCall('setMailer', new Reference('mailer'));
+    $container->register('newsletter_manager', 'NewsletterManager')
+        ->addMethodCall('setMailer', new Reference('mailer');
 
 Si può quindi ottenere il servizio ``newsletter_manager`` dal contenitore,
 in questo modo:
@@ -174,11 +174,11 @@ in questo modo:
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Reference;
 
-    $sc = new ContainerBuilder();
+    $container = new ContainerBuilder();
 
     //--
 
-    $newsletterManager = $sc->get('newsletter_manager');
+    $newsletterManager = $container->get('newsletter_manager');
 
 Evitare che il proprio codice dipenda dal contenitore
 -----------------------------------------------------
@@ -211,7 +211,7 @@ Caricare un file di configurazione xml:
     use Symfony\Component\Config\FileLocator;
     use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-    $sc = new ContainerBuilder();
+    $container = new ContainerBuilder();
     $loader = new XmlFileLoader($container, new FileLocator(__DIR__));
     $loader->load('services.xml');
 
@@ -223,7 +223,7 @@ Caricare un file di configurazione yaml:
     use Symfony\Component\Config\FileLocator;
     use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-    $sc = new ContainerBuilder();
+    $container = new ContainerBuilder();
     $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
     $loader->load('services.yml');
 
@@ -239,9 +239,9 @@ I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file 
             mailer.transport: sendmail
 
         services:
-            my_mailer:
+            mailer:
                 class:     Mailer
-                arguments: [@mailer]
+                arguments: [%mailer.transport%]
             newsletter_manager:
                 class:     NewsletterManager
                 calls:
@@ -272,16 +272,10 @@ I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file 
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $sc->setParameter('mailer.transport', 'sendmail');
-        $sc->register('mailer', 'Mailer')
-           ->addArgument('%mailer.transport%'));
+        $container->setParameter('mailer.transport', 'sendmail');
+        $container->register('mailer', 'Mailer')
+           ->addArgument('%mailer.transport%');
 
-        $sc->register('newsletter_manager', 'NewsletterManager')
-           ->addMethodCall('setMailer', new Reference('mailer'));
+        $container->register('newsletter_manager', 'NewsletterManager')
+           ->addMethodCall('setMailer', new Reference('mailer');
 
-
-Imprare di più dalle ricette
-----------------------------
-
-* :doc:`/cookbook/service_container/factories`
-* :doc:`/cookbook/service_container/parentservices`

@@ -1,3 +1,6 @@
+.. index::
+   single: Doctrine; Gestori di entità multipli
+
 Come lavorare con gestori di entità multipli
 ============================================
 
@@ -46,7 +49,7 @@ richiesta, verrà restituito il gestore di entità predefinito (cioè ``default`
     {
         public function indexAction()
         {
-            // entrambi restiuiscono "default"
+            // entrambi restiuiscono il gestore "default"
             $em = $this->get('doctrine')->getEntityManager();
             $em = $this->get('doctrine')->getEntityManager('default');
             

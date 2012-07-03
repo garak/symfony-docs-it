@@ -29,7 +29,7 @@ Si supponga di avere un factory che configura e restituisce un nuovo oggetto
 
 Per rendere l'oggetto ``NewsletterManager`` disponibile come servizio, si può configurare 
 il contenitore di servizi per usare la classe factory
-``NewsletterFactory`:
+``NewsletterFactory``:
 
 .. configuration-block::
 

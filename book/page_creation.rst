@@ -292,7 +292,7 @@ HTML dentro al controllore, meglio rendere un template:
         {
             return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
 
-            // render a PHP template instead
+            // rende invece un template PHP
             // return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
         }
     }
@@ -733,7 +733,7 @@ del formato scelto:
             - { resource: security.yml }
         
         framework:
-            secret:          %secret%
+            secret:          "%secret%"
             charset:         UTF-8
             router:          { resource: "%kernel.root_dir%/config/routing.yml" }
             form:            true
@@ -741,13 +741,13 @@ del formato scelto:
             validation:      { enable_annotations: true }
             templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
             session:
-                default_locale: %locale%
+                default_locale: "%locale%"
                 auto_start:     true
 
         # Configurazione di Twig
         twig:
-            debug:            %kernel.debug%
-            strict_variables: %kernel.debug%
+            debug:            "%kernel.debug%"
+            strict_variables: "%kernel.debug%"
 
         # ...
 

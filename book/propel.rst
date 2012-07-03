@@ -18,8 +18,11 @@ lo persisteremo nella base dati e lo recuperemo nuovamente.
 .. sidebar:: Codice insieme all'esempio
 
     Se si vuole seguire il codice di questo capitolo, creare un
-    ``AcmeStoreBundle``, tramite: ``php app/console generate:bundle
-    --namespace=Acme/StoreBundle``.
+    ``AcmeStoreBundle``, tramite:
+    
+    .. code-block:: bash
+
+        php app/console generate:bundle --namespace=Acme/StoreBundle
 
 Configurare la base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -236,7 +239,7 @@ Si immagini di voler cercare prodotti che costino più di 19.99, ordinati dal pi
 economico al più costoso. Da dentro un controllore, fare come segue::
 
     $products = \Acme\StoreBundle\Model\ProductQuery::create()
-        ->filterByPrice(19.99, \Criteria::GREATER_THAN)
+        ->filterByPrice(array('min' => 19.99))
         ->orderByPrice()
         ->find();
 
@@ -255,7 +258,7 @@ classe ``ProductQuery``::
         public function filterByExpensivePrice()
         {
             return $this
-                ->filterByPrice(1000, \Criteria::GREATER_THAN);
+                ->filterByPrice(array('min' => 1000))
         }
     }
 

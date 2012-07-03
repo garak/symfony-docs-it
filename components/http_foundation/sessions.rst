@@ -2,8 +2,8 @@
    single: HTTP
    single: HttpFoundation, Sessioni
 
-Gestione della session
-======================
+Gestione della sessione
+=======================
 
 Il componente HttpFoundation di Symfony2 ha un sotto-sistema per le sessioni molto potente
 e flessibile, progettato per fornire una gestione delle sessioni tramite una semplice
@@ -37,16 +37,16 @@ Un rapido esempio::
 
 .. note::
 
-    Symfony sessions are designed to replace several native PHP funtions.
-    Applications should avoid using ``session_start()``, ``session_regenerate_id()``,
-    ``session_id()``, ``session_name()``, and ``session_destroy()`` and instead
-    use the APIs in the following section.
+    Le sessioni di Symfony sono pensate per sostituire diverse funzioni native di PHP.
+    Le applicazioni devono evitare l'uso di ``session_start()``, ``session_regenerate_id()``,
+    ``session_id()``, ``session_name()`` e ``session_destroy()``, usando invece
+    le API della sezione seguente.
 
 .. warning::
 
-    Symfony sessions are incompatible with PHP ini directive ``session.auto_start = 1``
-    This directive should be turned off in ``php.ini``, in the webserver directives or
-    in ``.htaccess``.
+    Le sessioni di Symfony sono incompatibili con la direttiva ini di PHP ``session.auto_start = 1``.
+    Tale direttiva andrebbe disattivata in ``php.ini``, nelle direttive del server web
+    o in ``.htaccess``.
 
 API delle sessioni
 ~~~~~~~~~~~~~~~~~~

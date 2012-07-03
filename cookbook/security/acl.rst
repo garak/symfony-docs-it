@@ -192,13 +192,14 @@ permessi di base:
         ->add('delete')
         ->add('undelete')
     ;
-    $mask = $builder->get(); // int(15)
+    $mask = $builder->get(); // int(29)
 
 Questa maschera può quindi essere usata per assegnare all'utente i permessi di base
 aggiunti in precedenza:
 
 .. code-block:: php
 
-    $acl->insertObjectAce(new UserSecurityIdentity('johannes'), $mask);
+    $identity = new UserSecurityIdentity('johannes', 'Acme\UserBundle\Entity\User');
+    $acl->insertObjectAce($identity, $mask);
 
 Ora l'utente ha il permesso di vedere, modificare, cancellare e ripristinare gli oggetti.

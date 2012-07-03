@@ -221,8 +221,7 @@ impostato a ``5``, il percorso della risorsa sarà ``/images/logo.png?version=5`
 
     Alcuni CDN non sopportano la spaccatura della cache tramie stringa della query,
     quindi si rende necessario l'inserimento della versione nel vero percorso della risorsa.
-    Fortunatamente, ``assets_version_format`` non è limitato alla produzionoe di stringhe
-    di query con versioni.
+    Fortunatamente, ``assets_version_format`` non è limitato alla produzione di stringhe di query con versioni.
 
     Lo schema riceve il percorso originale della risorsa e la versione come primo e
     secondo parametro, rispettivamente. Poiché il percorso della risorsa è un parametro,

@@ -18,8 +18,11 @@ lo persisteremo nella base dati e lo recuperemo nuovamente.
 .. sidebar:: Codice insieme all'esempio
 
     Se si vuole seguire il codice di questo capitolo, creare un
-    ``AcmeStoreBundle``, tramite: ``php app/console generate:bundle
-    --namespace=Acme/StoreBundle``.
+    ``AcmeStoreBundle``, tramite:
+    
+    .. code-block:: bash
+
+        php app/console generate:bundle --namespace=Acme/StoreBundle
 
 Configurare la base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,16 +31,16 @@ Prima di iniziare, occorre configurare le informazioni sulla connessione alla
 base dati. Per convenzione, questa informazione solitamente è configurata in un
 file ``app/config/parameters.ini``:
 
-.. code-block:: ini
+.. code-block:: yaml
 
-    ;app/config/parameters.ini
-    [parameters]
-        database_driver   = mysql
-        database_host     = localhost
-        database_name     = test_project
-        database_user     = root
-        database_password = password
-        database_charset  = UTF8
+    # app/config/parameters.yml
+    parameters:
+        database_driver:   mysql
+        database_host:     localhost
+        database_name:     test_project
+        database_user:     root
+        database_password: password
+        database_charset:  UTF8
 
 .. note::
 
@@ -255,7 +258,7 @@ classe ``ProductQuery``::
         public function filterByExpensivePrice()
         {
             return $this
-                ->filterByPrice(1000, \Criteria::GREATER_THAN);
+                ->filterByPrice(array('min' => 1000))
         }
     }
 

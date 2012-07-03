@@ -9,7 +9,6 @@ a rendere migliore Symfony2.
     Se pensate di aver trovato un problema di sicurezza, per favore, seguite
     invece la :doc:`procedura <security>`.
     
-
 Prima di inviare un bug:
 
  * Ricontrollare la `documentazione`_ ufficiale per verificare che non si stia facendo 

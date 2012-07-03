@@ -2,7 +2,6 @@ UserPassword
 ============
 
 .. versionadded:: 2.1
-
    Questo vincolo è stato aggiunto nella versione 2.1.
 
 Valida che un valore inserito sia uguale alla password dell'utente attualmente
@@ -44,7 +43,7 @@ dell'utente:
             properties:
                 oldPassword:
                     - UserPassword:
-                        message: "Wrong value for your current password"
+                        message: "Password attuale sbagliata"
 
     .. code-block:: php-annotations
 
@@ -57,7 +56,7 @@ dell'utente:
        {
            /**
             * @Assert\UserPassword(
-            *     message = "Wrong value for your current password"
+            *     message = "Password attuale sbagliata"
             * )
             */
             protected $oldPassword;

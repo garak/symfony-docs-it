@@ -41,7 +41,7 @@ Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle d
         defaults: { _controller: AcmeDemoBundle:Demo:hello }
             
 
-Ora generaio le regole **url_rewrite**:
+Ora generiamo le regole di **url_rewrite**:
     
 .. code-block:: bash
 
@@ -51,7 +51,7 @@ Il risultato dovrebbe essere simile a questo:
 
 .. code-block:: apache
 
-    # skip "real" requests
+    # salta le richieste "reali"
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule .* - [QSA,L]
 
@@ -67,7 +67,7 @@ esempio dovrebbe risultare in questo modo:
     <IfModule mod_rewrite.c>
         RewriteEngine On
 
-        # skip "real" requests
+        # salta le richieste "reali"
         RewriteCond %{REQUEST_FILENAME} -f
         RewriteRule .* - [QSA,L]
 

@@ -18,5 +18,4 @@ confermata, il team di sviluppo lavorerà ad una soluzione seguendo questi passi
 
 .. note::
 
-    Nel periodo in cui si lavora alla risoluzione della patch, si prega di non rivelare
-    pubblicamente la problematica.
+   Mentre la patch è in corso di lavorazione, si prega di non rivelare pubblicamente la problematica.

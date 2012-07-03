@@ -19,6 +19,7 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 |               | - `expanded`_                                                                 |
 |               | - `preferred_choices`_                                                        |
 |               | - `empty_value`_                                                              |
+|               | - `empty_data`_                                                               |
 +---------------+-------------------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                                 |
 | ereditate     | - `label`_                                                                    |

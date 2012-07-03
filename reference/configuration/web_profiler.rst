@@ -13,11 +13,11 @@ Configurazione completa predefinita
 
         web_profiler:
             
-            # mostra informazioni secondarie per rendere la barra più corta
+            # DEPRECATO, non è più utile e può essere rimosso senza problemi
             verbose:             true
 
-            # mostra la barra di web debug in fondo alle pagine con un riassunto delle info del profiler
+            # mostra la barra di web debug in fondo alle pagine con un riassunto delle info del profilatore
             toolbar:             false
+            position:             bottom
+            intercept_redirects:  false
 
-            # dà la possibilità di guardare i dati raccolti prima di seguire il rinvio
-            intercept_redirects: false

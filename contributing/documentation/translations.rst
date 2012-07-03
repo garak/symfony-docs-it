@@ -7,14 +7,14 @@ traduzione.
 Contribuire
 -----------
 
-Prima di tutto, bisogna diventare familiari con il :doc:`linguaggio di markup<format>` usato dalla documentazione
+Prima di tutto, bisogna diventare familiari con il :doc:`linguaggio di markup<format>` usato dalla
+documentazione.
 
 Successivamente, iscriversi alla `lista Symfony docs`, per poter 
 collaborare.
 
 Infine, trovare il repository *master* per il linguaggio per il quale si vuole contribuire.
-Di seguito la lista dei principali
-repository *master*:
+Di seguito la lista dei repository *master* ufficiali:
 
 * *Inglese*:  http://github.com/symfony/symfony-docs
 * *Francese*:   https://github.com/gscorpio/symfony-docs-fr
@@ -24,6 +24,7 @@ repository *master*:
 * *Rumeno*: http://github.com/sebio/symfony-docs-ro
 * *Russo*:  http://github.com/avalanche123/symfony-docs-ru
 * *Spagnolo*:  https://github.com/gitnacho/symfony-docs-es
+* *Turco*:  https://github.com/symfony-tr/symfony-docs-tr
 
 .. note::
 

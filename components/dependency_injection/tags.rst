@@ -157,3 +157,100 @@ il contenitore viene compilato::
 
     $container = new ContainerBuilder();
     $container->addCompilerPass(new TransportCompilerPass);
+
+Aggiungere altri attributi ai tag
+---------------------------------
+
+A volte occorrono informazioni aggiuntive su ogni servizio che ha un certo tag.
+Per esempio, si potrebbe voler aggiungere un alias a ogni TransportChain.
+
+Per iniziare, cambiare la classe ``TransportChain``::
+
+    class TransportChain
+    {
+        private $transports;
+
+        public function __construct()
+        {
+            $this->transports = array();
+        }
+
+        public function addTransport(\Swift_Transport $transport, $alias)
+        {
+            $this->transports[$alias] = $transport;
+        }
+
+        public function getTransport($alias)
+        {
+            if (array_key_exists($alias, $this->transports)) {
+               return $this->transports[$alias];
+            }
+            else {
+               return null;
+            }
+        }
+    }
+
+Come si può vedere, al richiamo di ``addTransport``, non prende solo un oggetto
+``Swift_Transport``, ma anche una stringa alias per il trasporto. Quindi, come si può
+fare in modo che ogni servizio di trasporto fornisca anche un alias?
+
+Per rispondere, cambiare la dichiarazione del servizio:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme_mailer.transport.smtp:
+                class: \Swift_SmtpTransport
+                arguments:
+                    - %mailer_host%
+                tags:
+                    -  { name: acme_mailer.transport, alias: foo }
+            acme_mailer.transport.sendmail:
+                class: \Swift_SendmailTransport
+                tags:
+                    -  { name: acme_mailer.transport, alias: bar }
+        
+
+    .. code-block:: xml
+
+        <service id="acme_mailer.transport.smtp" class="\Swift_SmtpTransport">
+            <argument>%mailer_host%</argument>
+            <tag name="acme_mailer.transport" alias="foo" />
+        </service>
+
+        <service id="acme_mailer.transport.sendmail" class="\Swift_SendmailTransport">
+            <tag name="acme_mailer.transport" alias="bar" />
+        </service>
+        
+Si noti che è stata aggiunta una chiave generica ``alias`` al tag. Per usarla
+effettivamente, aggiornare il compilatore::
+
+    use Symfony\Component\DependencyInjection\ContainerBuilder;
+    use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+    use Symfony\Component\DependencyInjection\Reference;
+
+    class TransportCompilerPass implements CompilerPassInterface
+    {
+        public function process(ContainerBuilder $container)
+        {
+            if (false === $container->hasDefinition('acme_mailer.transport_chain')) {
+                return;
+            }
+
+            $definition = $container->getDefinition('acme_mailer.transport_chain');
+
+            foreach ($container->findTaggedServiceIds('acme_mailer.transport') as $id => $tagAttributes) {
+                foreach ($tagAttributes as $attributes) {
+                    $definition->addMethodCall('addTransport', array(new Reference($id), $attributes["alias"]));
+                }
+            }
+        }
+    }
+
+La parte più strana è la variabile ``$attributes``. Poiché si può usare lo stesso tag
+più volte sullo stesso servizio (p.e. in teoria si potrebbe assegnare il
+tag ``acme_mailer.transport`` allo stesso servizio cinque volte, ``$attributes``
+è un array di informazioni sul tag per ciascun tag su tale servizio.

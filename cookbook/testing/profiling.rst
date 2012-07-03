@@ -28,10 +28,10 @@ predefinita in ambiente ``test``)::
             // Check that the profiler is enabled
             if ($profile = $client->getProfile()) {
                 // verificare il numero di richieste
-                $this->assertTrue($profile->getCollector('db')->getQueryCount() < 10);
+                $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount());
 
                 // verifica il tempo speso nel framework
-                $this->assertTrue( $profile->getCollector('timer')->getTime() < 0.5);
+                $this->assertLessThan(0.5, $profile->getCollector('timer')->getTime());
             }
         }
     }
@@ -40,8 +40,9 @@ Se un test fallisce a causa dei dati di profilazione (per esempio, troppe query 
 si potrebbe voler usare il profilatore web per analizzare la richiesta, dopo che i test
 sono finiti. È facile, basta inserire il token nel messaggio di errore::
 
-    $this->assertTrue(
-        $profile->get('db')->getQueryCount() < 30,
+    $this->assertLessThan(
+        30,
+        $profile->get('db')->getQueryCount(),
         sprintf('Verifica che ci siano meno di 30 query (token %s)', $profile->getToken())
     );
 

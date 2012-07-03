@@ -2,7 +2,8 @@ NotNull
 =======
 
 Valida che un valore non sia esattamente uguale a ``null``. Per forzare un valore
-a non essere vuoto (stringa vuota), vedere il vincolo :doc:`/reference/constraints/NotBlank`.
+a non essere vuoto (stringa vuota), vedere il vincolo
+:doc:`/reference/constraints/NotBlank`.
 
 +----------------+-----------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |

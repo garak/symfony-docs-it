@@ -88,7 +88,7 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
         function vote(TokenInterface $token, $object, array $attributes)
         {
             $request = $this->container->get('request');
-            if (in_array($this->request->getClientIp(), $this->blacklistedIp)) {
+            if (in_array($request->getClientIp(), $this->blacklistedIp)) {
                 return VoterInterface::ACCESS_DENIED;
             }
 
@@ -181,7 +181,7 @@ configurazione della propria applicazione con il codice seguente.
         # app/config/security.yml
         security:
             access_decision_manager:
-                # Strategy can be: affirmative, unanimous or consensus
+                # la strategia piò essere: affirmative, unanimous o consensus
                 strategy: unanimous
 
 Ecco fatto! Ora, nella decisione sull'accesso di un utente, il nuovo votante negherà

@@ -153,9 +153,12 @@ il kernel della cache::
 
     $kernel = new AppKernel('prod', false);
     $kernel->loadClassCache();
-    // wrap the default AppKernel with the AppCache one
+    // inserisce AppKernel all'interno di AppCache
     $kernel = new AppCache($kernel);
-    $kernel->handle(Request::createFromGlobals())->send();
+    $request = Request::createFromGlobals();
+    $response = $kernel->handle($request);
+    $response->send();
+    $kernel->terminate($request, $response);
 
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
 le risposte della propria applicazione e restituendole al client.

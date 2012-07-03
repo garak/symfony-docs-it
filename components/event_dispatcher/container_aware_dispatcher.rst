@@ -1,5 +1,5 @@
 .. index::
-   single: Event Dispatcher; Container Aware; Dependency Injection; DIC
+   single: Distributore di eventi; Consapevolezza del contenitore; Dependency Injection; DIC
 
 Il distributore consapevole del contenitore
 ===========================================

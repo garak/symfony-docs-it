@@ -3,10 +3,10 @@ Un quadro generale
 
 Volete provare Symfony2 avendo a disposizione solo dieci minuti? Questa prima
 parte di questa guida è stata scritta appositamente: spiega come
-partire subito con Symfony2, mostrando la struttura di un semplice progetto
-già pronto.
+partire subito con Symfony2, mostrando la struttura di un semplice progetto già pronto.
 
-Chi ha già usato un framework per il web si troverà come a casa con Symfony2.
+Chi ha già usato un framework per il web si troverà come a casa con Symfony2. Altrimenti,
+benvenuti in un nuovo mondo per sviluppare applicazioni web!
 
 .. tip::
 
@@ -60,7 +60,7 @@ ora avere una cartella ``Symfony/``, come la seguente:
 
         curl -s http://getcomposer.org/installer | php
 
-    	php composer.phar install
+        php composer.phar install
 
     Se non si ha ``curl`` installato, si può anche scaricare a mano ``installer``
     da http://getcomposer.org/installer. Mettere il file nel progetto
@@ -68,8 +68,8 @@ ora avere una cartella ``Symfony/``, come la seguente:
 
     .. code-block:: bash
 
-		php installer
-		php composer.phar install
+    php installer
+    php composer.phar install
 
 Verifica della configurazione
 -----------------------------
@@ -170,8 +170,8 @@ eseguito. Nella prossima sezione, si imparerà esattamente quello che significa.
     ma Symfony2 supporta nativamente anche XML, PHP e le annotazioni.
     I diversi formati sono compatibili e possono essere usati alternativamente
     in un'applicazione. Inoltre, le prestazioni dell'applicazione non dipendono
-    dal formato scelto, perché tutto viene messo in cache alla prima richiesta.
-
+    dal formato scelto, perché tutto viene messo in cache alla prima
+    richiesta.
 
 Controllori
 ~~~~~~~~~~~
@@ -193,8 +193,8 @@ possibile potrebbe creare la risposta a mano, basandosi sulla richiesta::
 
     Symfony2 abbraccia le specifiche HTTP, che sono delle regole che governano
     tutte le comunicazioni sul web. Si legga il capitolo ":doc:`/book/http_fundamentals`"
-    del libro per sapere di più sull'argomento e sulle sue potenzialità.
-
+    del libro per sapere di più sull'argomento e sulle sue
+    potenzialità.
 
 Symfony2 sceglie il controllore basandosi sul valore ``_controller`` della configurazione
 delle rotte: ``AcmeDemoBundle:Welcome:index``. Questa stringa è il *nome logico* del
@@ -270,8 +270,7 @@ Symfony2 può leggere e importare informazioni sulle rotte da diversi file, scri
 in YAML, XML, PHP o anche inseriti in annotazioni PHP. Qui, il *nome logico*
 del file è ``@AcmeDemoBundle/Controller/DemoController.php`` e si riferisce al file
 ``src/Acme/DemoBundle/Controller/DemoController.php``.
-In questo file, le rotte sono
-definite come annotazioni sui metodi delle azioni::
+In questo file, le rotte sono definite come annotazioni sui metodi delle azioni::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -405,7 +404,8 @@ Per rendere l'ambiente di produzione più veloce possibile, Symfony2
 mantiene una cache sotto la cartella ``app/cache/``. Quando si fanno
 delle modifiche al codice o alla configurazione, occorre rimuovere
 a mano i file in cache. Per questo si dovrebbe sempre usare il front
-controller di sviluppo (``app_dev.php``) mentre si lavora al progetto.
+controller di sviluppo (``app_dev.php``) mentre si lavora al
+progetto.
 
 Diversi :term:`ambienti<ambiente>` di una stessa applicazione differiscono
 solo nella loro configurazione.
@@ -438,5 +438,5 @@ sezione: ":doc:`la vista<the_view>`".
 .. _Symfony in 5 minuti:            http://symfony.com/symfony-in-five-minutes
 .. _Separazione degli ambiti:       http://en.wikipedia.org/wiki/Separation_of_concerns
 .. _YAML:                           http://www.yaml.org/
-.. _annotazioni nei controllori:    /bundles/SensioFrameworkExtraBundle/index.html#annotazioni-per-i-controllori
+.. _annotazioni nei controllori:    http://symfony.com/it/doc/current/bundles/SensioFrameworkExtraBundle/index.html#annotazioni-per-i-controllori
 .. _Twig:                           http://twig.sensiolabs.org/

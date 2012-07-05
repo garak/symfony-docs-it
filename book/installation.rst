@@ -99,34 +99,34 @@ Symfony stesso, nella cartella ``vendor/``.
 
 .. note::
 
-	Se non si ha ``curl`` installato, si può anche scaricare il file ``installer``
-  a mano, da http://getcomposer.org/installer. Mettere il file nel progetto ed
-	eseguire:
+    Se non si ha ``curl`` installato, si può anche scaricare il file ``installer``
+    a mano, da http://getcomposer.org/installer. Mettere il file nel progetto ed
+    eseguire:
 
-	.. code-block:: bash
+    .. code-block:: bash
 
-		php installer
-		php composer.phar install
+        php installer
+        php composer.phar install
 
 .. tip::
 
-	Quando si esegue ``php composer.phar install`` o ``php composer.phar update``, composer eseguirà
-	dei comandi post installazione/aggiornamento per cpulire la cache e installare le risorse. Per impostazione predefinita,
-  le risorse saranno copiate nella cartella ``web``. Per creare collegamenti simbolici invece di copiare le risorse, si può
-  aggiungere una voce nel nodo ``extra`` del file composer.json con chiave ``symfony-assets-install``
-	e valore ``symlink``:
-	
-	.. code-block:: json
-	
-	    "extra": {
-	        "symfony-app-dir": "app",
-	        "symfony-web-dir": "web",
-	        "symfony-assets-install": "symlink"
-	    }
-		
-	Passando ``relative`` invece di ``symlink`` a symfony-assets-install, il comando genererà
-	collegamenti relativi.	
-		
+    Quando si esegue ``php composer.phar install`` o ``php composer.phar update``, composer eseguirà
+    dei comandi post installazione/aggiornamento per cpulire la cache e installare le risorse. Per impostazione predefinita,
+    le risorse saranno copiate nella cartella ``web``. Per creare collegamenti simbolici invece di copiare le risorse, si può
+    aggiungere una voce nel nodo ``extra`` del file composer.json con chiave ``symfony-assets-install``
+    e valore ``symlink``:
+    
+    .. code-block:: json
+    
+        "extra": {
+            "symfony-app-dir": "app",
+            "symfony-web-dir": "web",
+            "symfony-assets-install": "symlink"
+        }
+        
+    Passando ``relative`` invece di ``symlink`` a symfony-assets-install, il comando genererà
+    collegamenti relativi.    
+        
 
 Configurazione
 ~~~~~~~~~~~~~~

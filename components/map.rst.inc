@@ -14,6 +14,10 @@
 
   * :doc:`/components/dependency_injection/introduction`
   * :doc:`/components/dependency_injection/definitions`
+  * :doc:`/components/dependency_injection/compilation`
+  * :doc:`/components/dependency_injection/tags`
+  * :doc:`/components/dependency_injection/factories`
+  * :doc:`/components/dependency_injection/parentservices`
 
 * **Il componente Event Dispatcher**
 
@@ -25,6 +29,10 @@
 
   * :doc:`/components/dom_crawler`
 
+* **Il ocmponente Filesystem**
+
+  * :doc:`/components/filesystem`
+
 * **Il componente Finder**
 
   * :doc:`/components/finder`
@@ -33,6 +41,8 @@
 
   * :doc:`/components/http_foundation/introduction`
   * :doc:`/components/http_foundation/sessions`
+  * :doc:`/components/http_foundation/session_configuration`
+  * :doc:`/components/http_foundation/session_testing`
 
 * **Il componente Locale**
 

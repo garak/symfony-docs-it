@@ -18,7 +18,7 @@ Vincoli stringhe
 * :doc:`Email </reference/constraints/Email>`
 * :doc:`MinLength </reference/constraints/MinLength>`
 * :doc:`MaxLength </reference/constraints/MaxLength>`
-* :doc:`SizeLength </reference/constraints/SizeLength>`
+* :doc:`Size </reference/constraints/Size>`
 * :doc:`Url </reference/constraints/Url>`
 * :doc:`Regex </reference/constraints/Regex>`
 * :doc:`Ip </reference/constraints/Ip>`
@@ -28,7 +28,7 @@ Vincoli numerici
 
 * :doc:`Max </reference/constraints/Max>`
 * :doc:`Min </reference/constraints/Min>`
-* :doc:`Size </reference/constraints/Size>`
+* :doc:`Range </reference/constraints/Range>`
 
 Vincoli date
 ~~~~~~~~~~~~
@@ -46,6 +46,7 @@ Vincoli di insiemi
 * :doc:`Language </reference/constraints/Language>`
 * :doc:`Locale </reference/constraints/Locale>`
 * :doc:`Country </reference/constraints/Country>`
+* :doc:`Size </reference/constraints/Size>`
 
 Vincoli di file
 ~~~~~~~~~~~~~~~

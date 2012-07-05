@@ -193,9 +193,9 @@ variabile con un "segnaposto":
         new Response($t);
     }
 
-Symfony2 cercherà ora una traduzione del messaggio raw (``Hello %name%``)
+Symfony2 cercherà ora una traduzione del messaggio di base (``Hello %name%``)
 e *poi* sostituirà i segnaposto con i loro valori. La creazione di una traduzione
-è fatta esattamente come prima:
+viene fatta esattamente come prima:
 
 .. configuration-block::
 
@@ -228,9 +228,9 @@ e *poi* sostituirà i segnaposto con i loro valori. La creazione di una traduzio
 
 .. note::
 
-    Il segnaposto può assumere qualsiasi forma visto che il messaggio è ricostruito
+    Il segnaposto può assumere qualsiasi forma, visto che il messaggio è ricostruito
     utilizzando la `funzione strtr`_ di PHP. Tuttavia, la notazione ``%var%`` è
-    richiesta quando si traduce utilizzando i template Twig e in generale è una 
+    obbligatoria quando si traduce nei template Twig e in generale è una 
     convenzione che è consigliato seguire.
 
 Come si è visto, la creazione di una traduzione è un processo in due fasi:

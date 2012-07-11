@@ -196,9 +196,9 @@ variabile con un "segnaposto":
         new Response($t);
     }
 
-Symfony2 cercherà ora una traduzione del messaggio raw (``Hello %name%``)
+Symfony2 cercherà ora una traduzione del messaggio di base (``Hello %name%``)
 e *poi* sostituirà i segnaposto con i loro valori. La creazione di una traduzione
-è fatta esattamente come prima:
+viene fatta esattamente come prima:
 
 .. configuration-block::
 
@@ -233,7 +233,7 @@ e *poi* sostituirà i segnaposto con i loro valori. La creazione di una traduzio
 
     Il segnaposto può assumere qualsiasi forma visto che il messaggio è ricostruito
     utilizzando la `funzione strtr`_ di PHP. Tuttavia, la notazione ``%var%`` è
-    richiesta quando si traduce utilizzando i template Twig e in generale è una 
+    obbligatoria quando si traduce nei template Twig e in generale è una 
     convenzione che è consigliato seguire.
 
 Come si è visto, la creazione di una traduzione è un processo in due fasi:
@@ -278,10 +278,10 @@ filesystem e vengono trovate da Symfony grazie ad alcune convenzioni.
 .. index::
    single: Traduzioni; Sedi per le traduzioni e convenzioni sui nomi
 
-Posti per le traduzioni e convenzioni sui nomi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sedi per le traduzioni e convenzioni sui nomi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due posti:
+Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
 * la cartella ``<kernel root directory>/Resources/translations``;
 
@@ -701,7 +701,7 @@ quattro diversi intervalli: esattamente ``0``, esattamente ``1``, ``2-19`` e ``2
 e superiori.
 
 È inoltre possibile combinare le regole matematiche e le regole standard. In questo caso, se
-il numero non corrisponde ad un intervallo specifico, le regole standard hanno
+il numero non corrisponde a un intervallo specifico, le regole standard hanno
 effetto dopo aver rimosso le regole esplicite::
 
     '{0} There is no apples|[20,Inf] There are many apples|There is one apple|a_few: There are %count% apples'
@@ -856,10 +856,10 @@ locale da usare per la traduzione:
         'fr_FR',
     );
 
-Tradurre contenuti da un database
----------------------------------
+Tradurre contenuti da una base dati 
+-----------------------------------
 
-La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine attraverso
+La traduzione del contenuto di una base dati dovrebbero essere gestite da Doctrine attraverso
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 

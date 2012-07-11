@@ -34,6 +34,13 @@ Impostare le informazioni utente con il proprio nome reale e il proprio indirizz
 
 .. tip::
 
+    Se il proprio IDE crea dei file di configurazione dentro la cartella del progetto,
+    si può usare il file globale ``.gitignore`` (per tutti i progetti) o il file
+    ``.git/info/exclude`` (per progetto) per ignorarli. Vedere la
+    [documentazione di Github](https://help.github.com/articles/ignoring-files)
+
+.. tip::
+
     Utenti di Windows: quando si installa Git, l'installazione chiederà cosa fare con
     i fine riga, suggerendo di sostituire Lf con CRLF. Questa impostazine è sbagliata,
     se si vuole contribuire a Symfony! Impostare il metodo "as-is" come scelta

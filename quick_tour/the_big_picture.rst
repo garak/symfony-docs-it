@@ -3,10 +3,10 @@ Un quadro generale
 
 Volete provare Symfony2 avendo a disposizione solo dieci minuti? Questa prima
 parte di questa guida è stata scritta appositamente: spiega come
-partire subito con Symfony2, mostrando la struttura di un semplice progetto
-già pronto.
+partire subito con Symfony2, mostrando la struttura di un semplice progetto già pronto.
 
-Chi ha già usato un framework per il web si troverà come a casa con Symfony2.
+Chi ha già usato un framework per il web si troverà come a casa con Symfony2. Altrimenti,
+benvenuti in un nuovo mondo per sviluppare applicazioni web!
 
 .. tip::
 
@@ -18,6 +18,24 @@ Scaricare Symfony2
 
 Prima di tutto, verificare di avere almeno PHP 5.3.2 (o successivo) installato e
 configurato correttamente per funzionare con un server web, come Apache.
+
+.. tip::
+   
+    Se si ha PHP 5.4, si può usare il server web incluso. Il server web incluso
+    andrebbe usato solo durante lo sviluppo, ma può aiutare a iniziare un
+    progetto in modo rapido e facile.
+
+    Usare questo comando per lanciare il server:
+    
+    .. code-block:: bash
+
+        php -S localhost:80 -t /percorso/di/www
+
+    dove "/percorso/di/www" è il percorso di una cartella sulla propria macchina in cui
+    si estrarrà Symfony, in modo tale che l'URL dell'applicazione sia
+    "http://localhost/Symfony/app_dev.php". Si può estrarre prima Symfony
+    e quindi far partire il server direttamente nella cartella "web" di Symfony stesso.
+    Se si fa in questo modo, l'URL dell'applicazione sarà "http://localhost/app_dev.php".
 
 Pronti? Iniziamo scaricando "`Symfony2 Standard Edition`_", una :term:`distribuzione`
 di Symfony preconfigurata per gli usi più comuni e che contiene anche del codice

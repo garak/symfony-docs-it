@@ -18,6 +18,7 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
     namespace Acme\DemoBundle\Listener;
 
     use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+    use Symfony\Component\HttpFoundation\Response;
 
     class AcmeExceptionListener
     {
@@ -28,6 +29,7 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
             $message = 'My Error says: ' . $exception->getMessage();
             
             // Personalizza l'oggetto risposta per mostrare i dettagli sull'eccezione
+            $response = new Response();            
             $response->setContent($message);
             $response->setStatusCode($exception->getStatusCode());
             

@@ -24,12 +24,10 @@ Per avere la propria funzionalità personalizzata, occorre prima di tutto creare
 Extension. Come esempio, creeremo un filtro per i prezzi, che formatta un dato numero::
 
     // src/Acme/DemoBundle/Twig/AcmeExtension.php
-
     namespace Acme\DemoBundle\Twig;
 
     use Twig_Extension;
     use Twig_Filter_Method;
-    use Twig_Function_Method;
 
     class AcmeExtension extends Twig_Extension
     {

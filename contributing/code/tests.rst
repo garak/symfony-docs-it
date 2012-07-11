@@ -87,6 +87,15 @@ se i test sono rotti per colpa di una propria modifica.
 
 .. tip::
 
+    Se si vuole testare un singolo componente, scriverne il percorso dopo il comando `phpunit`,
+    p.e.:
+
+    .. code-block:: bash
+
+        $ phpunit src/Symfony/Component/Finder/
+
+.. tip::
+
     Eseguire i test prima di applicare le proprie modifiche, per assicurarsi che girino
     correttamente con la propria configurazione.
 

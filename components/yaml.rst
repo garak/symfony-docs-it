@@ -126,15 +126,22 @@ Quando si carica un file YAML, a volte è meglio usare il metodo involucro
 
 Il metodo statico :method:`Symfony\\Component\\Yaml\\Yaml::parse` prende una stringa YAML
 o un file contenente YAML. Internamente, richiama il metodo
-:method:`Symfony\\Component\\Yaml\\Parser::parse`, ma con alcuni bonus
-aggiuntivi:
+:method:`Symfony\\Component\\Yaml\\Parser::parse`, ma migliora gli errori, nel
+caso qualcosa vada stroto, aggiungendo il nome del file al messaggio.
 
-* Esegue il file YAML come se fosse un file PHP, quindi si possono inserire comandi PHP
-  nei file YAML;
+Eseguire PHP dentro i file YAML
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Quando un file non può essere analizzato, aggiunge automaticamente il nome del file al
-  messaggio di errore, semplificando il debug, quando l'applicazione sta caricando
-  numerosi file YAML.
+.. versionadded:: 2.1
+    Il metodo ``Yaml::enablePhpParsing()`` è nuovo in Symfony 2.1. Prima della 2.1,
+    PHP era *sempre* eseguito al richiamo della funzione ``parse()``.
+
+Per impostazione predefinita, se si inserisce codice PHP in un file YAML, non sarà analizzato.
+Se si vuole che PHP sia analizzato, occorre richiamare ``Yaml::enablePhpParsing()``
+prima dell'analisi del file, per attivare tale modalità. Se si vuole consentire codice
+PHP in un singolo file YAML, assicurarsi di disabilitare l'analisi PHP dopo l'analisi
+del singolo file, richiamando ``Yaml::$enablePhpParsing = false;`` (``$enablePhpParsing``
+è una proprietà pubblica).
 
 Scrivere file YAML
 ~~~~~~~~~~~~~~~~~~

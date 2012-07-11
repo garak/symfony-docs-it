@@ -8,8 +8,8 @@ Il termine "internazionalizzazione" si riferisce al processo di astrazione delle
 e altri pezzi specifici dell'applicazione che variano in base al locale, in uno strato
 dove possono essere tradotti e convertiti in base alle impostazioni internazionali dell'utente (ad esempio
 lingua e paese). Per il testo, questo significa che ognuno viene avvolto con una funzione
-capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
-
+capace di tradurre il testo (o "messaggio") nella lingua
+dell'utente::
 
     // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
@@ -552,7 +552,6 @@ definendo un ``default_locale`` per il servizio di sessione:
         ));
 
 .. versionadded:: 2.1
-
      Il parametro ``default_locale`` era originariamente definito sotto la chiave
      ``sessiom``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
      è ora impostato nella richiesta, invece che nella sessione.
@@ -805,7 +804,6 @@ di testo* ed espressioni complesse:
             {{ '<h3>foo</h3>'|trans }}
 
 .. versionadded:: 2.1
-
      Si può impostare il dominio di traduzione per un intero template Twig con un
      singolo tag:
 

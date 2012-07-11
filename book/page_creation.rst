@@ -209,8 +209,6 @@ sul metodo ``indexAction`` di una classe PHP chiamata
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
 
-    use Symfony\Component\HttpFoundation\Response;
-
     class HelloController
     {
     }
@@ -225,8 +223,10 @@ Creare il metodo ``indexAction``, che Symfony2 eseguirà quando la rotta ``hello
 corrisposta::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
+    namespace Acme\HelloBundle\Controller;
 
-    // ...
+    use Symfony\Component\HttpFoundation\Response;
+
     class HelloController
     {
         public function indexAction($name)
@@ -734,7 +734,6 @@ del formato scelto:
 
         framework:
             secret:          "%secret%"
-            charset:         UTF-8
             router:          { resource: "%kernel.root_dir%/config/routing.yml" }
             # ...
 
@@ -753,7 +752,7 @@ del formato scelto:
             <import resource="security.yml" />
         </imports>
 
-        <framework:config charset="UTF-8" secret="%secret%">
+        <framework:config secret="%secret%">
             <framework:router resource="%kernel.root_dir%/config/routing.xml" />
             <!-- ... -->
         </framework:config>
@@ -770,7 +769,6 @@ del formato scelto:
 
         $container->loadFromExtension('framework', array(
             'secret'          => '%secret%',
-            'charset'         => 'UTF-8',
             'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
             // ...
             ),

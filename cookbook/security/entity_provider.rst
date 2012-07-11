@@ -43,7 +43,6 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
 .. code-block:: php
 
     // src/Acme/UserBundle/Entity/User.php
-
     namespace Acme\UserBundle\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
@@ -149,7 +148,6 @@ interfaccia costringe la classe a implementare i seguenti cinque metodi:
 Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
 .. versionadded:: 2.1
-
     In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
     Se occorre sovrascrivere l'implementazione predefinita della logica di confronto,
     implementare la nuova interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`
@@ -275,7 +273,6 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
 .. code-block:: php
 
     // src/Acme/UserBundle/Entity/User.php
-
     namespace Acme\Bundle\UserBundle\Entity;
 
     // ...
@@ -333,7 +330,6 @@ Il codice successivo mostra l'implementazione di
 ``UserRepository``::
 
     // src/Acme/UserBundle/Entity/UserRepository.php
-
     namespace Acme\UserBundle\Entity;
 
     use Symfony\Component\Security\Core\User\UserInterface;
@@ -429,7 +425,6 @@ Poiché un gruppo è anche un ruolo, il precedente metodo ``getRoles()`` ora res
 l'elenco dei gruppi correlati::
 
     // src/Acme/UserBundle/Entity/User.php
-
     namespace Acme\Bundle\UserBundle\Entity;
 
     use Doctrine\Common\Collections\ArrayCollection;
@@ -519,7 +514,6 @@ fare un join dei gruppi correlati nel metodo ``UserRepository::loadUserByUsernam
 In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una sola query::
 
     // src/Acme/UserBundle/Entity/UserRepository.php
-
     namespace Acme\Bundle\UserBundle\Entity;
 
     // ...

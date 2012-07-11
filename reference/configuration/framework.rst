@@ -15,7 +15,6 @@ sessioni, traduzione, form, validazione, rotte e altro.
 Configurazione
 --------------
 
-* `charset`_
 * `secret`_
 * `ide`_
 * `test`_
@@ -30,14 +29,6 @@ Configurazione
     * `assets_base_urls`_
     * `assets_version`_
     * `assets_version_format`_
-
-charset
-~~~~~~~
-
-**tipo**: ``stringa`` **predefinito**: ``UTF-8``
-
-Il set di caratteri usato nel framework. Diventa il parametro del contenitore
-di servizi di nome ``kernel.charset``.
 
 secret
 ~~~~~~
@@ -130,7 +121,6 @@ liste. Gli URL che iniziano con ``http://`` saranno aggiunti solo alla lista
 ``http``.
 
 .. versionadded:: 2.1
-
     Diversamente dalla maggior parte dei blocchi di configurazione, i valori successivi di ``assets_base_urls``
     si sovrascrivono a vicenda invece di essere fusi. È stato scelto questo comportamento
     perché solitamente gli sviluppatori definiscono URL di base per ogni ambiente.
@@ -245,7 +235,6 @@ Configurazione predefinita completa
         framework:
 
             # configurazione generale
-            charset:              ~
             trust_proxy_headers:  false
             secret:               ~ # Obbligatorio
             ide:                  ~

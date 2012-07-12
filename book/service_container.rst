@@ -496,15 +496,15 @@ invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundl
 
 Quando viene analizzata la configurazione, il contenitore cerca un'estensione che
 sia in grado di gestire la direttiva di configurazione ``framework``. L'estensione in questione,
-che vive nel ``FrameworkBundle``, viene invocata e la configurazione del servizio
-per il ``FrameworkBundle`` viene caricata. Se si rimuove del tutto la chiave ``framework``
+che si trova in ``FrameworkBundle``, viene invocata e la configurazione del servizio
+per ``FrameworkBundle`` viene caricata. Se si rimuove del tutto la chiave ``framework``
 dal file di configurazione dell'applicazione, i servizi del nucleo di Symfony2
 non vengono caricati. Il punto è che è tutto sotto controllo: il framework Symfony2
 non contiene nessuna magia e non esegue nessuna azione su cui non si abbia
 il controllo.
 
 Naturalmente è possibile fare molto di più della semplice "attivazione" dell'estensione
-del contenitore dei servizi del ``FrameworkBundle``. Ogni estensione consente facilmente
+del contenitore dei servizi di ``FrameworkBundle``. Ogni estensione consente facilmente
 di personalizzare il bundle, senza preoccuparsi di come i servizi interni siano
 definiti.
 

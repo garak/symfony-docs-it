@@ -1132,7 +1132,7 @@ etichette, ecc.) è definito in un tema base, che in Twig è una raccolta
 di blocchi e in PHP una collezione di file template.
 
 In Twig, ogni blocco necessario è definito in un singolo file template (`form_div_layout.html.twig`_)
-che vive all'interno di `Twig Bridge`_. Dentro questo file, è possibile ogni blocco
+che si trova all'interno di `Twig Bridge`_. Dentro questo file, è possibile ogni blocco
 necessario alla resa del form e ogni tipo predefinito di campo.
 
 In PHP, i frammenti sono file template individuali. Per impostazione predefinita sono posizionati

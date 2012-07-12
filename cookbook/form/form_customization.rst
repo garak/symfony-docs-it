@@ -341,7 +341,7 @@ Referenziare blocchi di form (specifico per Twig)
 -------------------------------------------------
 
 Finora, per sovrascrivere un particolare blocco del form, il metodo migliore è copiare
-il blocco di default da  `form_div_layout.html.twig`_, incollarlo in un template differente,
+il blocco predefinito da  `form_div_layout.html.twig`_, incollarlo in un template differente,
 e personalizzarlo. In molti casi, è possibile evitare di fare questo referenziando
 il blocco di base quando lo si personalizza.
 
@@ -360,7 +360,7 @@ il form:
 
 Ora, quando sono importati i blocchi da `form_div_layout.html.twig`_, il
 blocco ``integer_widget`` è chiamato ``base_integer_widget``. Questo significa che quando
-viene ridefinito il blocco ``integer_widget``, è possibile referenziare il markup di default
+viene ridefinito il blocco ``integer_widget``, è possibile referenziare il markup predefinito
 tramite ``base_integer_widget``:
 
 .. code-block:: html+jinja
@@ -763,7 +763,7 @@ a un singolo campo) sono resi separatamente, di solito all'inizio del form:
 Per personalizzare *solo* il markup utilizzato per questi errori, si segue la stesa strada
 de codice sopra ma verrà chiamato il blocco ``form_errors`` (Twig) / il file ``form_errors.html.php``
 (PHP). Ora, quando sono resi gli errori per il ``form``, i frammenti
-personalizzati verranno utilizzati al posto dei ``field_errors`` di default.
+personalizzati verranno utilizzati al posto dei ``field_errors`` predefinito.
 
 Personalizzare una "riga del form"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

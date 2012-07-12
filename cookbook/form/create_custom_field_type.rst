@@ -55,8 +55,8 @@ i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo este
     è solo una convenzione.
 
 Qui, il valore di ritorno del metodo ``getParent`` indica che che si sta
-estendendo il tipo di campo ``choice``. Questo significa che di default, sono ereditate
-tutte le logiche e la resa di queto tipo di campo. Per vedere alcune logiche,
+estendendo il tipo di campo ``choice``. Questo significa che, per impostazione predefinita, sono ereditate
+tutte le logiche e la resa di questo tipo di campo. Per vedere alcune logiche,
 controlla la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
 importanti:
 

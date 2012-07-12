@@ -7,7 +7,7 @@
 
 Quando in Symfony2 viene lanciata una qualsiasi eccezione, l'eccezione viene catturata all'interno
 della classe ``Kernel`` ed eventualmente inoltrata a un controllore speciale,
-``TwigBundle:Exception:show`` per la gestione. Questo controllore, che vive
+``TwigBundle:Exception:show`` per la gestione. Questo controllore, che si trova
 all'interno del core ``TwigBundle``, determina quale template di errore visualizzare e
 il codice di stato che dovrebbe essere impostato per la data eccezione.
 

@@ -14,7 +14,7 @@ capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
     // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
 
-    // il testo può essere tradotto nella lingua dell'utente finale o per impostazione predefinita in inglese
+    // il testo può essere tradotto nella lingua dell'utente finale o restare in inglese
     echo $translator->trans('Hello World');
 
 .. note::
@@ -25,7 +25,7 @@ capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
     il codice di *lingua* `ISO639-1`_, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
     (per esempio ``fr_FR`` per francese / Francia).
 
-In questo capitolo, si imparerà a preparare un'applicazione per supportare più
+In questo capitolo si imparerà a preparare un'applicazione per supportare più
 locale e poi a creare le traduzioni per più locale. Nel complesso,
 il processo ha diverse fasi comuni:
 

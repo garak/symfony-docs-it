@@ -14,7 +14,7 @@ dell'utente::
     // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
 
-    // il testo può essere tradotto nella lingua dell'utente finale o per impostazione predefinita in inglese
+    // il testo può essere tradotto nella lingua dell'utente finale o restare in inglese
     echo $translator->trans('Hello World');
 
 .. note::
@@ -22,10 +22,10 @@ dell'utente::
     Il termine *locale* si riferisce all'incirca al linguaggio dell'utente e al paese.
     Può essere qualsiasi stringa che l'applicazione utilizza poi per gestire le traduzioni
     e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare
-    il codice di *lingua* ISO639-1, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
+    il codice di *lingua* `ISO639-1`_, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
     (per esempio ``fr_FR`` per francese/Francia).
 
-In questo capitolo, si imparerà a preparare un'applicazione per supportare più
+In questo capitolo si imparerà a preparare un'applicazione per supportare più
 locale e poi a creare le traduzioni per più locale. Nel complesso,
 il processo ha diverse fasi comuni:
 

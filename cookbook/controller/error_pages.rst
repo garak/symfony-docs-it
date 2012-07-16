@@ -2,7 +2,7 @@
    single: Controllore; Personalizzare le pagine di errore
    single: Pagine di errore
 
-﻿Come personalizzare le pagine di errore
+Come personalizzare le pagine di errore
 =======================================
 
 Quando in Symfony2 viene lanciata una qualsiasi eccezione, l'eccezione viene catturata all'interno

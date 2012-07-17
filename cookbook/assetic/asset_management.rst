@@ -278,12 +278,12 @@ fatto dal template ed è relativo alla radice del documento pubblico:
 Copiare i file delle risorse
 ----------------------------
 
-Nell'ambiente ``dev``, Assetic genera persorsi a file CSS
-e JavaScript che non esistono fisicamente sul computer. Ma vengono resi comunque
-perché un controllore interno di Symfony apre i file e restituisce indietro il
+Nell'ambiente ``dev``, Assetic genera percorsi a file CSS
+e JavaScript che non esistono fisicamente sul computer. Ma vengono resi comunque,
+perché un controllore interno di Symfony apre i file e ne restituisce il
 contenuto (dopo aver eseguito eventuali filtri).
 
-Questo tipo di pubblicazione dinamica delle risorse che sono state elaborate, è ottima perché significa
+Questo tipo di pubblicazione dinamica delle risorse elaborate è ottima, perché significa
 che si può immediatamente vedere il nuovo stato di tutti i file delle risorse modificate.
 È anche un male, perché può essere molto lento. Se si stanno usando molti filtri,
 potrebbe essere addirittura frustrante.
@@ -349,7 +349,7 @@ la seguente modifica nel file ``config_dev.yml``:
             'use_controller' => false,
         ));
 
-Poi, dato che Symfony non generà più queste risorse dinamicamente,
+Poi, dato che Symfony non genererà più queste risorse dinamicamente,
 bisognerà copiarle manualmente. Per fare ciò, eseguire il seguente comando:
 
 .. code-block:: bash

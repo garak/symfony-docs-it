@@ -355,7 +355,7 @@ o per eseguire richieste più complesse::
 
 Infine, ma non meno importante, si può forzare l'esecuzione di ogni richiesta
 nel suo processo PHP, per evitare effetti collaterali quando si lavora con molti
-client nello stess script::
+client nello stesso script::
 
     $client->insulate();
 
@@ -397,12 +397,12 @@ Accesso al contenitore
 
 È caldamente raccomandato che un test funzionale testi solo la risposta. Ma
 sotto alcune rare circostanze, si potrebbe voler accedere ad alcuni oggetti
-interni, per scrivere asserzioni. In questi casi, si può accedere al dependency
-injection container::
+interni, per scrivere asserzioni. In questi casi, si può accedere al contenitore
+di dipendenze::
 
     $container = $client->getContainer();
 
-Attenzione, perché questo non funziona se si isola il client o se si usa un
+Attenzione, perché ciò non funziona se si isola il client o se si usa un
 livello HTTP. Per un elenco di servizi disponibili nell'applicazione, usare
 il comando ``container:debug``.
 
@@ -430,12 +430,12 @@ Rinvii
 ~~~~~~
 
 Quando una richiesta restituisce una risposta di rinvio, il client la segue automaticamente.
-Se si vuole esaminare la rispostsa prima del rinvio, si può forzare il client a non
+Se si vuole esaminare la risposta prima del rinvio, si può forzare il client a non
 seguire i rinvii, usando il metodo ``followRedirect()``::
 
     $crawler = $client->followRedirect();
 
-Quando il client non segue i rinvvi, lo si può forzare con
+Quando il client non segue i rinvii, lo si può forzare con
 il metodo ``followRedirect()``::
 
     $client->followRedirects();

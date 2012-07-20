@@ -81,7 +81,7 @@ checkMX
 
 **tipo**: ``booleano`` **predefinito**: ``false``
 
-Se ``true``, sarà usata la funzione `checkdnsrr`_ di PHP per verificare la validità
+Se ``true``, sarà usata la funzione :phpfunction:`checkdnsrr` di PHP per verificare la validità
 del record MX dell'host dell'email fornita.
 
 checkHost

@@ -1026,8 +1026,8 @@ appropriata.
 
 .. note::
 
-    Si possono anche sovrascrivere template da dentro un bundle, usando
-    l'ereditarietà dei bundle. Per maggiorin informazioni. vedere :doc:`/cookbook/bundles/inheritance`.
+    Si possono anche sovrascrivere template da dentro un bundle, usando l'ereditarietà
+    dei bundle. Per maggiori informazioni, vedere :doc:`/cookbook/bundles/inheritance`.
 
 .. _templating-overriding-core-templates:
 

@@ -7,7 +7,7 @@ Come personalizzare le pagine di errore
 
 Quando in Symfony2 viene lanciata una qualsiasi eccezione, l'eccezione viene catturata all'interno
 della classe ``Kernel`` ed eventualmente inoltrata a un controllore speciale,
-``TwigBundle:Exception:show`` per la gestione. Questo controllore, che si trova
+``TwigBundle:Exception:show``, per la gestione. Questo controllore, che si trova
 all'interno di ``TwigBundle``, determina quale template di errore visualizzare e
 il codice di stato che dovrebbe essere impostato per la data eccezione.
 
@@ -23,7 +23,7 @@ controllo si vuole avere:
 .. tip::
 
     La personalizzazione della gestione delle eccezioni in realtà è molto più potente
-    di quanto scritto qua. Viene lanciato un evento interno, ``kernel.exception``,
+    di quanto scritto qui. Viene lanciato un evento interno, ``kernel.exception``,
     che permette un controllo completo sulla gestione delle eccezioni. Per maggiori
     informazioni, vedere :ref:`kernel-kernel.exception`.
 
@@ -32,7 +32,7 @@ template, si può semplicemente utilizzare il metodo standard per sovrascrivere 
 esistono all'interno di un bundle. Per maggiori informazioni, vedere
 :ref:`overriding-bundle-templates`.
 
-Ad esempio, per sovrascrivere il template di errore predefinito che mostrato
+Ad esempio, per sovrascrivere il template di errore predefinito che è mostrato
 all'utente finale, creare un nuovo template posizionato in
 ``app/Resources/TwigBundle/views/Exception/error.html.twig``:
 

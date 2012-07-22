@@ -1,7 +1,7 @@
 Il controllore
 ==============
 
-Ancora qui, dopo le prime due parti? State diventano dei Symfony2-dipendenti!
+Ancora qui, dopo le prime due parti? State diventando dei Symfony2-dipendenti!
 Senza ulteriori indugi, scopriamo cosa sono in grado di fare i controllori.
 
 Usare i formati

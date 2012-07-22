@@ -388,34 +388,34 @@ della logica sottostante e del flusso dietro a una richiesta di Symfony. Per mag
 vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
 
 .. index::
-   single: Profiler
+   single: Profilatore
 
 .. _internals-profiler:
 
-Profiler
---------
+Profilatore
+-----------
 
-Se abilitato, il profiler di Symfony2 raccoglie informazioni utili su ogni richiesta
+Se abilitato, il profilatore di Symfony2 raccoglie informazioni utili su ogni richiesta
 fatta alla propria applicazione e le memorizza per analisi successive. L'uso del
-profiler in ambienti di sviluppo aiuta il debug del proprio codice e a migliorare le
+profilatore in ambienti di sviluppo aiuta il debug del proprio codice e a migliorare le
 prestazioni. Lo si può usare anche in ambienti di produzione, per approfondire i
 problemi che si presentano.
 
-Raramente si avrà a che fare direttamente con il profiler, visto che Symfony2 fornisce
-strumenti di visualizzazione, come la barra di web debug e il profiler web. Se si usa
-Symfony2 Standard Edition, il profiler, la barra di web debug e il profiler
+Raramente si avrà a che fare direttamente con il profilatore, visto che Symfony2 fornisce
+strumenti di visualizzazione, come la barra di web debug e il profilatore web. Se si usa
+Symfony2 Standard Edition, il profilatore, la barra di web debug e il profilatore
 web sono già configurati con impostazioni appropriate.
 
 .. note::
 
-    Il profiler raccoglie informazioni per tutte le richieste (richieste semplici,
+    Il profilatore raccoglie informazioni per tutte le richieste (richieste semplici,
     rinvii, eccezioni, richieste Ajax, richieste ESI) e per tutti i metodi e formati
     HTTP. Questo vuol dire che per un singolo URL si possono avere diversi dati di
     profile associati (uno per ogni coppia richiesta/risposta
     esterna).
 
 .. index::
-   single: Profiler; Visualizzazione
+   single: Profilatore; Visualizzazione
 
 Visualizzare i dati di profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -429,30 +429,30 @@ accesso immediato a moltissime informazioni utili, quando qualcosa non
 funziona come ci si aspetta.
 
 Se il riassunto fornito dalla barra di web debug non basta, cliccare sul
-collegamento del token (una stringa di 13 caratteri casuali) per accedere al profiler web.
+collegamento del token (una stringa di 13 caratteri casuali) per accedere al profilatore web.
 
 .. note::
 
-    Se il token non è cliccabile, vuol dire che le rotte del profiler non sono state
+    Se il token non è cliccabile, vuol dire che le rotte del profilatore non sono state
     registrate (vedere sotto per le informazioni sulla configurazione).
 
-Analizzare i dati di profile con il profiler web
+Analizzare i dati di profile con il profilatore web
 ................................................
 
-Il profiler web è uno strumento di visualizzazione per i dati di profile, che può
+Il profilatore web è uno strumento di visualizzazione per i dati di profile, che può
 essere usato in sviluppo per il debug del codice e l'aumento delle prestazioni. Ma lo
 si può anche usare per approfondire problemi occorsi in produzione. Espone tutte le
-informazioni raccolte dal profiler in un'interfaccia web.
+informazioni raccolte dal profilatore in un'interfaccia web.
 
 .. index::
-   single: Profiler; Usare il servizio del profiler
+   single: Profilatore; Usare il servizio del profilatore
 
 Accedere alle informazioni di profile
 .....................................
 
 Non occorre usare il visualizzatore predefinito per accedere alle informazioni di
 profile. Ma come si possono recuperare informazioni di profile per una specifica
-richiesta, dopo che è accaduta? Quando il profiler memorizza i dati su una richiesta, vi
+richiesta, dopo che è accaduta? Quando il profilatore memorizza i dati su una richiesta, vi
 associa anche un token. Questo token è disponibile nell'header HTTP ``X-Debug-Token``
 della risposta::
 
@@ -462,7 +462,7 @@ della risposta::
 
 .. tip::
 
-    Quando il profiler è abiliato, ma non lo è la barra di web debug, oppure quando si
+    Quando il profilatore è abiliato, ma non lo è la barra di web debug, oppure quando si
     vuole il token di una richiesta Ajax, usare uno strumento come Firebug per ottenere
     il valore dell'header HTTP ``X-Debug-Token``.
 
@@ -489,24 +489,24 @@ ha generato le informazioni, usare i metodi ``export()`` e
     $profiler->import($data);
 
 .. index::
-   single: Profiler; Visualizzare
+   single: Profilatore; Visualizzare
 
 Configurazione
 ..............
 
 La configurazione predefinita di Symfony2 ha delle impostazioni adeguate per il
-profiler, la barra di web debug e il profiler web. Ecco per esempio
+profilatore, la barra di web debug e il profilatore web. Ecco per esempio
 la configurazione per l'ambiente di sviluppo:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # load the profiler
+        # carica il profilatore
         framework:
             profiler: { only_exceptions: false }
 
-        # enable the web profiler
+        # abilita il profilatore web 
         web_profiler:
             toolbar: true
             intercept_redirects: true
@@ -517,12 +517,12 @@ la configurazione per l'ambiente di sviluppo:
         <!-- xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler" -->
         <!-- xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> -->
 
-        <!-- load the profiler -->
+        <!-- carica il profilatore -->
         <framework:config>
             <framework:profiler only-exceptions="false" />
         </framework:config>
 
-        <!-- enable the web profiler -->
+        <!-- abilita il profilatore web -->
         <webprofiler:config
             toolbar="true"
             intercept-redirects="true"
@@ -531,22 +531,22 @@ la configurazione per l'ambiente di sviluppo:
 
     .. code-block:: php
 
-        // carica il profiler
+        // carica il profilatore
         $container->loadFromExtension('framework', array(
             'profiler' => array('only-exceptions' => false),
         ));
 
-        // abilita il profiler web
+        // abilita il profilatore web
         $container->loadFromExtension('web_profiler', array(
             'toolbar' => true,
             'intercept-redirects' => true,
             'verbose' => true,
         ));
 
-Quando ``only-exceptions`` è impostato a ``true``, il profiler raccoglie dati solo
+Quando ``only-exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
 quando l'applicazione solleva un'eccezione.
 
-Quando ``intercept-redirects`` è impostata ``true``, il profiler web intercetta i
+Quando ``intercept-redirects`` è impostata ``true``, il profilatore web intercetta i
 rinvii e dà l'opportunità di guardare i dati raccolti, prima di seguire il
 rinvio.
 
@@ -554,7 +554,7 @@ Quando ``verbose`` è impostato a ``true``, la barra di web debug mostra diverse
 informazioni. L'impostazione ``verbose`` a ``false`` nasconde alcune informazioni
 secondarie, per rendere la barra più corta.
 
-Se si abilita il profiler web, occorre anche montare le rotte del profiler:
+Se si abilita il profilatore web, occorre anche montare le rotte del profilatore:
 
 .. configuration-block::
 
@@ -572,7 +572,7 @@ Se si abilita il profiler web, occorre anche montare le rotte del profiler:
 
         $collection->addCollection($loader->import("@WebProfilerBundle/Resources/config/routing/profiler.xml"), '/_profiler');
 
-Poiché il profiler aggiunge un po' di sovraccarico, probabilmente lo si abiliterà solo
+Poiché il profilatore aggiunge un po' di sovraccarico, probabilmente lo si abiliterà solo
 in alcune circostanze in ambiente di produzione. L'impostazione ``only-exceptions``
 limita il profile alle pagine 500, ma che succede se si vogliono più informazioni quando
 il client ha uno specifico indirizzo IP, oppure per una parte limitata del sito? Si
@@ -582,12 +582,12 @@ può usare un matcher della richiesta:
 
     .. code-block:: yaml
 
-        # abilita il profiler solo per richieste provenienti dalla rete 192.168.0.0
+        # abilita il profilatore solo per richieste provenienti dalla rete 192.168.0.0
         framework:
             profiler:
                 matcher: { ip: 192.168.0.0/24 }
 
-        # abilita il profiler solo per gli URL /admin
+        # abilita il profilatore solo per gli URL /admin
         framework:
             profiler:
                 matcher: { path: "^/admin/" }
@@ -604,14 +604,14 @@ può usare un matcher della richiesta:
 
     .. code-block:: xml
 
-        <!-- abilita il profiler solo per richieste provenienti dalla rete 192.168.0.0 -->
+        <!-- abilita il profilatore solo per richieste provenienti dalla rete 192.168.0.0 -->
         <framework:config>
             <framework:profiler>
                 <framework:matcher ip="192.168.0.0/24" />
             </framework:profiler>
         </framework:config>
 
-        <!-- abilita il profiler solo per gli URL /admin -->
+        <!-- abilita il profilatore solo per gli URL /admin -->
         <framework:config>
             <framework:profiler>
                 <framework:matcher path="^/admin/" />
@@ -634,14 +634,14 @@ può usare un matcher della richiesta:
 
     .. code-block:: php
 
-        // abilita il profiler solo per richieste provenienti dalla rete 192.168.0.0
+        // abilita il profilatore solo per richieste provenienti dalla rete 192.168.0.0
         $container->loadFromExtension('framework', array(
             'profiler' => array(
                 'matcher' => array('ip' => '192.168.0.0/24'),
             ),
         ));
 
-        // abilita il profiler solo per gli URL /admin
+        // abilita il profilatore solo per gli URL /admin
         $container->loadFromExtension('framework', array(
             'profiler' => array(
                 'matcher' => array('path' => '^/admin/'),

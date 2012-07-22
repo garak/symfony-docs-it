@@ -504,7 +504,7 @@ recuperare facilmente oggetti in base a condizioni multiple::
        :scale: 50
        :width: 350
 
-    Cliccando sull'icona, si aprirà il profiler, che mostrerà il numero esatto
+    Cliccando sull'icona, si aprirà il profilatore, che mostrerà il numero esatto
     di query eseguite.
 
 Aggiornare un oggetto

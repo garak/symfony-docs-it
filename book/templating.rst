@@ -1019,7 +1019,7 @@ nell':doc:`Appendice: configurazione</reference/configuration/framework>`.
 
 .. note::
 
-   Il motore ``twig`` è obbligatorio per poter usare il webprofiler (così come
+   Il motore ``twig`` è obbligatorio per poter usare il profilatore web (così come
    molti altri bundle di terze parti).
 
 .. index::

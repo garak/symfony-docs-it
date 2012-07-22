@@ -557,7 +557,7 @@ Inserire controllori
 
 A volte occorre fare di più che includere semplici template. Si supponga di avere nel
 proprio layout una barra laterale, che contiene i tre articoli più recenti.
-Recuperare i tre articoli potrebbe implicare una query al database, o l'esecuzione
+Recuperare i tre articoli potrebbe implicare una query alla base dati o l'esecuzione
 di altra logica, che non si può fare dentro a un template.
 
 La soluzione è semplicemente l'inserimento del risultato di un intero controllore dal
@@ -570,7 +570,7 @@ articoli recenti::
     {
         public function recentArticlesAction($max = 3)
         {
-            // chiamare il database o altra logica per ottenere "$max" articoli recenti
+            // chiamare la base dati o altra logica per ottenere "$max" articoli recenti
             $articles = ...;
 
             return $this->render('AcmeArticleBundle:Article:recentList.html.twig', array('articles' => $articles));
@@ -905,7 +905,7 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
     
     {# ... #}
 
-Nel template figlio, basta sovrascrivere il blocco ``stylesheets`` ed inserire
+Nel template figlio, basta sovrascrivere il blocco ``stylesheets`` e inserire
 il nuovo tag del foglio di stile nel blocco stesso. Ovviamente, poiché vogliamo
 aggiungere contenuto al blocco padre (e non *sostituirlo*), occorre usare la funzione
 ``parent()`` di Twig, per includere tutto ciò che sta nel blocco ``stylesheets``
@@ -1080,8 +1080,8 @@ appropriata.
 
 .. note::
 
-    Si possono anche sovrascrivere template da dentro un bundle usando l'ereditarietà
-    dei bundle. Per maggiori informazioni, veder :doc:`/cookbook/bundles/inheritance`.
+    Si possono anche sovrascrivere template da dentro un bundle, usando l'ereditarietà
+    dei bundle. Per maggiori informazioni, vedere :doc:`/cookbook/bundles/inheritance`.
 
 .. _templating-overriding-core-templates:
 

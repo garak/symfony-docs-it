@@ -52,7 +52,7 @@ all'utente finale, creare un nuovo template posizionato in
 
 .. tip::
 
-    Non bisogna preoccuparsi, se non hai familiarità con Twig. Twig è un semplice, potente
+    Non bisogna preoccuparsi, se non si ha familiarità con Twig. Twig è un semplice, potente
     e opzionale motore per i template che si integra con ``Symfony2``. Per maggiori
     informazioni su Twig vedere :doc:`/book/templating`.
 

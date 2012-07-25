@@ -1,5 +1,5 @@
-Profiler
-========
+Profilatore
+===========
 
 .. toctree::
     :maxdepth: 2

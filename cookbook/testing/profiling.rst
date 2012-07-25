@@ -25,7 +25,7 @@ predefinita in ambiente ``test``)::
             // Scrivere asserzioni sulla risposta
             // ...
 
-            // Check that the profiler is enabled
+            // Verifica che il profilatore sia abilitato
             if ($profile = $client->getProfile()) {
                 // verificare il numero di richieste
                 $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount());

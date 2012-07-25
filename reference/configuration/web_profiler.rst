@@ -16,7 +16,7 @@ Configurazione completa predefinita
             # mostra informazioni secondarie per rendere la barra più corta
             verbose:             true
 
-            # mostra la barra di web debug in fondo alle pagine con un riassunto delle info del profiler
+            # mostra la barra di web debug in fondo alle pagine con un riassunto delle info del profilatore
             toolbar:             false
 
             # dà la possibilità di guardare i dati raccolti prima di seguire il rinvio

@@ -234,25 +234,25 @@ Configurazione predefinita completa
 
         framework:
 
-            # general configuration
+            # configurazione generale
             charset:              ~
             secret:               ~ # Required
             ide:                  ~
             test:                 ~
             trust_proxy_headers:  false
 
-            # form configuration
+            # configurazione form 
             form:
                 enabled:              true
             csrf_protection:
                 enabled:              true
                 field_name:           _token
 
-            # esi configuration
+            # configurazione esi
             esi:
                 enabled:              true
 
-            # profiler configuration
+            # configurazione profilatore
             profiler:
                 only_exceptions:      false
                 only_master_requests:  false
@@ -265,14 +265,14 @@ Configurazione predefinita completa
                     path:                 ~
                     service:              ~
 
-            # router configuration
+            # configurazione rotte
             router:
                 resource:             ~ # Required
                 type:                 ~
                 http_port:            80
                 https_port:           443
 
-            # session configuration
+            # configurazione sessioni
             session:
                 auto_start:           ~
                 default_locale:       en
@@ -284,7 +284,7 @@ Configurazione predefinita completa
                 secure:               ~
                 httponly:             ~
 
-            # templating configuration
+            # configurazione template
             templating:
                 assets_version:       ~
                 assets_version_format:  "%%s?%%s"
@@ -292,16 +292,16 @@ Configurazione predefinita completa
                     http:                 []
                     ssl:                  []
                 cache:                ~
-                engines:              # Required
+                engines:              # Obbligatorio
                 form:
                     resources:        [FrameworkBundle:Form]
 
-                    # Example:
+                    # Esempio:
                     - twig
                 loaders:              []
                 packages:
 
-                    # Prototype
+                    # Prototipo
                     name:
                         version:              ~
                         version_format:       ~
@@ -309,18 +309,18 @@ Configurazione predefinita completa
                             http:                 []
                             ssl:                  []
 
-            # translator configuration
+            # configurazione traduttore
             translator:
                 enabled:              true
                 fallback:             en
 
-            # validation configuration
+            # configurazione validazione
             validation:
                 enabled:              true
                 cache:                ~
                 enable_annotations:   false
 
-            # annotation configuration
+            # configurazione annotazioni
             annotations:
                 cache:                file
                 file_cache_dir:       %kernel.cache_dir%/annotations

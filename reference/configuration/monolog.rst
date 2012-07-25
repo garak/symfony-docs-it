@@ -84,6 +84,6 @@ Riferimento configurazione
 
 .. note::
 
-    Quando il profiler è abilitato, viene aggiunto un gestore per memorizzare i messaggi
-    di log nel profiler. Il profiler usa il nome "debug", quindi il nome è riservato e
+    Quando il profilatore è abilitato, viene aggiunto un gestore per memorizzare i messaggi
+    di log nel profilatore. Il profilatore usa il nome "debug", quindi il nome è riservato e
     non può essere usato nella configurazione.

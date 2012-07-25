@@ -52,7 +52,7 @@ La configurazione predefinita è la seguente:
 
     .. code-block:: php
 
-        // load the profiler
+        // carica il profilatore
         $container->loadFromExtension('sensio_framework_extra', array(
             'router'  => array('annotations' => true),
             'request' => array('converters' => true),

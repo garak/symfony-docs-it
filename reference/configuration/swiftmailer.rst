@@ -167,7 +167,7 @@ logging
 **tipo**: ``booleano`` **predefinito**: ``%kernel.debug%``
 
 Se ``true``, il raccoglitore di dati di Symfony sarà attivato per Swiftmailer e
-le informazioni saranno disponibili nel profiler.
+le informazioni saranno disponibili nel profilatore.
 
 Configurazione predefinita completa
 -----------------------------------

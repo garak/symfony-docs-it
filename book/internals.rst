@@ -436,8 +436,8 @@ collegamento del token (una stringa di 13 caratteri casuali) per accedere al pro
     Se il token non è cliccabile, vuol dire che le rotte del profilatore non sono state
     registrate (vedere sotto per le informazioni sulla configurazione).
 
-Analizzare i dati di profile con il profilatore web
-................................................
+Analizzare i dati di profilo con il profilatore web
+...................................................
 
 Il profilatore web è uno strumento di visualizzazione per i dati di profile, che può
 essere usato in sviluppo per il debug del codice e l'aumento delle prestazioni. Ma lo
@@ -447,11 +447,11 @@ informazioni raccolte dal profilatore in un'interfaccia web.
 .. index::
    single: Profilatore; Usare il servizio del profilatore
 
-Accedere alle informazioni di profile
+Accedere alle informazioni di profilo
 .....................................
 
 Non occorre usare il visualizzatore predefinito per accedere alle informazioni di
-profile. Ma come si possono recuperare informazioni di profile per una specifica
+profilo. Ma come si possono recuperare informazioni di profilo per una specifica
 richiesta, dopo che è accaduta? Quando il profilatore memorizza i dati su una richiesta, vi
 associa anche un token. Questo token è disponibile nell'header HTTP ``X-Debug-Token``
 della risposta::
@@ -477,7 +477,7 @@ Usare il metodo ``find()`` per accedere ai token, in base a determinati criteri:
     // gli ultimi 10 token per richieste locali
     $tokens = $container->get('profiler')->find('127.0.0.1', '', 10);
 
-Se si vogliono manipolare i dati di profile su macchine diverse da quella che
+Se si vogliono manipolare i dati di profilo su macchine diverse da quella che
 ha generato le informazioni, usare i metodi ``export()`` e
 ``import()``::
 

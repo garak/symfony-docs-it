@@ -1,7 +1,7 @@
 MaxLength
 =========
 
-Valida che la lulnghezza di una stringa non sia superiore al limite dato.
+Valida che la lunghezza di una stringa non sia superiore al limite dato.
 
 +----------------+-------------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                   |

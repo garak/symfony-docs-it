@@ -1,7 +1,7 @@
 MinLength
 =========
 
-Valida che la lulnghezza di una stringa sia almeno pari al limite dato.
+Valida che la lunghezza di una stringa sia almeno pari al limite dato.
 
 +----------------+-------------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                   |

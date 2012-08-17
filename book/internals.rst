@@ -411,13 +411,13 @@ web sono già configurati con impostazioni appropriate.
     Il profilatore raccoglie informazioni per tutte le richieste (richieste semplici,
     rinvii, eccezioni, richieste Ajax, richieste ESI) e per tutti i metodi e formati
     HTTP. Questo vuol dire che per un singolo URL si possono avere diversi dati di
-    profile associati (uno per ogni coppia richiesta/risposta
+    profilo associati (uno per ogni coppia richiesta/risposta
     esterna).
 
 .. index::
    single: Profilatore; Visualizzazione
 
-Visualizzare i dati di profile
+Visualizzare i dati di profilo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Usare la barra di web debug
@@ -439,7 +439,7 @@ collegamento del token (una stringa di 13 caratteri casuali) per accedere al pro
 Analizzare i dati di profilo con il profilatore web
 ...................................................
 
-Il profilatore web è uno strumento di visualizzazione per i dati di profile, che può
+Il profilatore web è uno strumento di visualizzazione per i dati di profilo, che può
 essere usato in sviluppo per il debug del codice e l'aumento delle prestazioni. Ma lo
 si può anche usare per approfondire problemi occorsi in produzione. Espone tutte le
 informazioni raccolte dal profilatore in un'interfaccia web.
@@ -574,7 +574,7 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
 
 Poiché il profilatore aggiunge un po' di sovraccarico, probabilmente lo si abiliterà solo
 in alcune circostanze in ambiente di produzione. L'impostazione ``only-exceptions``
-limita il profile alle pagine 500, ma che succede se si vogliono più informazioni quando
+limita il profilo alle pagine 500, ma che succede se si vogliono più informazioni quando
 il client ha uno specifico indirizzo IP, oppure per una parte limitata del sito? Si
 può usare un matcher della richiesta:
 

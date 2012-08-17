@@ -171,7 +171,7 @@ Un bundle deve avere una suite di test scritta con PHPUnit e posta sotto la cart
 * La suite di test deve essere eseguibile con un semplice comando ``phpunit``, eseguito da
   un'applicazione di esempio;
 * I test funzionali vanno usati solo per testare la risposta e alcune informazioni di
-  profile, se se ne hanno;
+  profilo, se se ne hanno;
 * La copertura del codice deve essere almeno del 95%.
 
 .. note::

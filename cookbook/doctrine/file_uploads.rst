@@ -319,8 +319,8 @@ a ``$document->upload()`` andrebbe tolta dal controllore::
 .. note::
 
     I callback ``@ORM\PrePersist()`` e ``@ORM\PostPersist()`` scattano prima e
-    dopo la memorizzazione di un'entità nella base dati. Parallelamente, le callback
-    ``@ORM\PreUpdate()`` e ``@ORM\PostUpdate()`` vengono invocate quanto l'entità
+    dopo la memorizzazione di un'entità nella base dati. Parallelamente, i callback
+    ``@ORM\PreUpdate()`` e ``@ORM\PostUpdate()`` sono invocati quanto l'entità
     viene modificata.
 
 .. caution::

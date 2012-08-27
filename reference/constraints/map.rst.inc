@@ -42,11 +42,11 @@ Vincoli di insiemi
 
 * :doc:`Choice </reference/constraints/Choice>`
 * :doc:`Collection </reference/constraints/Collection>`
+* :doc:`Count </reference/constraints/Count>`
 * :doc:`UniqueEntity </reference/constraints/UniqueEntity>`
 * :doc:`Language </reference/constraints/Language>`
 * :doc:`Locale </reference/constraints/Locale>`
 * :doc:`Country </reference/constraints/Country>`
-* :doc:`Size </reference/constraints/Size>`
 
 Vincoli di file
 ~~~~~~~~~~~~~~~

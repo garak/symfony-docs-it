@@ -2,6 +2,13 @@
 
   * :doc:`/components/class_loader`
 
+* :doc:`/components/config/index`
+
+  * :doc:`/components/config/introduction`
+  * :doc:`/components/config/resources`
+  * :doc:`/components/config/caching`
+  * :doc:`/components/config/definition`
+
 * **Il componente Console**
 
   * :doc:`/components/console`
@@ -13,6 +20,7 @@
 * **Il componente Dependency Injection**
 
   * :doc:`/components/dependency_injection/introduction`
+  * :doc:`/components/dependency_injection/types`
   * :doc:`/components/dependency_injection/definitions`
   * :doc:`/components/dependency_injection/compilation`
   * :doc:`/components/dependency_injection/tags`

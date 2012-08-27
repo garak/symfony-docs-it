@@ -377,6 +377,15 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla:
         // $event->setException($exception);
     }
 
+.. note::
+
+    Poiché Symfony assicura che il codice di stato della risposta sia impostato nel
+    modo più appropriato a seconda dell'eccezione, impostare lo stato nella risposta non
+    funziona. Se si vuole sovrascrivere il codice di stato (che non andrebbe fatto senza
+    buone ragioni), impostare l'header ``X-Status-Code``::
+
+        return new Response('Error', 404 /* ignorato */, array('X-Status-Code' => 200));
+
 .. index::
    single: Distributore di eventi
 
@@ -510,7 +519,6 @@ la configurazione per l'ambiente di sviluppo:
         web_profiler:
             toolbar: true
             intercept_redirects: true
-            verbose: true
 
     .. code-block:: xml
 
@@ -549,10 +557,6 @@ quando l'applicazione solleva un'eccezione.
 Quando ``intercept-redirects`` è impostata ``true``, il profilatore web intercetta i
 rinvii e dà l'opportunità di guardare i dati raccolti, prima di seguire il
 rinvio.
-
-Quando ``verbose`` è impostato a ``true``, la barra di web debug mostra diverse
-informazioni. L'impostazione ``verbose`` a ``false`` nasconde alcune informazioni
-secondarie, per rendere la barra più corta.
 
 Se si abilita il profilatore web, occorre anche montare le rotte del profilatore:
 

@@ -115,6 +115,11 @@ alternate ``odd`` e ``even``:
 
 In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in PHP.
 
+.. tip::
+
+    Se si sceglie di non usare Twig e lo si disabilita, si dovrà implementare
+    un proprio gestore di eccezioni, tramite l'evento ``kernel.exception``.
+
 .. sidebar:: Perché Twig?
 
     I template di Twig sono pensati per essere semplici e non considerano i tag PHP. Questo
@@ -123,12 +128,11 @@ In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in 
     distinzione. E, ovviamente, essere amati da tutti i grafici
     del mondo.
 
-    Twig può anche far cose che PHP non può fare, come una vera ereditarietà dei template
-    (i template Twig compilano in classi PHP che ereditano tra di loro), controllo
-    degli spazi vuoti, sandbox e inclusione di funzioni e filtri personalizzati, che
-    hanno effetti solo sui template. Twig possiede poche caratteristiche che rendono la
-    scrittura di template più facile e concisa. Si prenda il seguente esempio,
-    che combina un ciclo con un'istruzione logica ``if``:
+    Twig può anche far cose che PHP non può fare, come il controllo degli spazi vuoti, sandbox
+    e inclusione di funzioni e filtri personalizzati, che hanno effetti solo sui template.
+    Twig possiede poche caratteristiche che rendono la scrittura di template più
+    facile e concisa. Si prenda il seguente esempio, che combina un ciclo con un'istruzione
+    logica ``if``:
     
     .. code-block:: html+jinja
     
@@ -496,7 +500,7 @@ template. Primo, creare il template che occorrerà riusare.
           {{ article.body }}
         </p>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.php -->
         <h2><?php echo $article->getTitle() ?></h2>
@@ -613,7 +617,8 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
     .. code-block:: html+jinja
 
         {# app/Resources/views/base.html.twig #}
-        ...
+
+        {# ... #}
 
         <div id="sidebar">
             {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
@@ -622,7 +627,8 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
     .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
-        ...
+
+        {# ... #}
 
         <div id="sidebar">
             <?php echo $view['actions']->render('AcmeArticleBundle:Article:recentArticles', array('max' => 3)) ?>
@@ -1043,7 +1049,8 @@ renderlo specifico per la nostra applicazione. Analizzando il controllore
 
     public function indexAction()
     {
-        $blogs = // logica per recuperare i blog
+        // logica per recuperare i blog
+        $blogs = ...;
 
         $this->render('AcmeBlogBundle:Blog:index.html.twig', array('blogs' => $blogs));
     }
@@ -1058,6 +1065,11 @@ Per sovrascrivere il template del bundle, basta copiare il file ``index.html.twi
 dal bundle a ``app/Resources/AcmeBlogBundle/views/Blog/index.html.twig``
 (la cartella ``app/Resources/AcmeBlogBundle`` non esiste ancora, quindi occorre
 crearla). Ora si può personalizzare il template.
+
+.. caution::
+
+    Se si aggiunge un template in una nuova posizione, *potrebbe* essere necessario pulire
+    la cache (``php app/console cache:clear``), anche in modalità debug.
 
 Questa logica si applica anche ai template base dei bundle. Supponiamo che ogni
 template in ``AcmeBlogBundle`` erediti da un template base chiamato
@@ -1287,7 +1299,6 @@ Si può quindi fare un dump dei parametri nei template, usando la funzione ``dum
 .. code-block:: html+jinja
 
     {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
-
     {{ dump(articles) }}
 
     {% for article in articles %}

@@ -16,26 +16,9 @@ benvenuti in un nuovo mondo per sviluppare applicazioni web!
 Scaricare Symfony2
 ------------------
 
-Prima di tutto, verificare di avere almeno PHP 5.3.2 (o successivo) installato e
-configurato correttamente per funzionare con un server web, come Apache.
-
-.. tip::
-   
-    Se si ha PHP 5.4, si può usare il server web incluso. Il server web incluso
-    andrebbe usato solo durante lo sviluppo, ma può aiutare a iniziare un
-    progetto in modo rapido e facile.
-
-    Usare questo comando per lanciare il server:
-    
-    .. code-block:: bash
-
-        php -S localhost:80 -t /percorso/di/www
-
-    dove "/percorso/di/www" è il percorso di una cartella sulla propria macchina in cui
-    si estrarrà Symfony, in modo tale che l'URL dell'applicazione sia
-    "http://localhost/Symfony/app_dev.php". Si può estrarre prima Symfony
-    e quindi far partire il server direttamente nella cartella "web" di Symfony stesso.
-    Se si fa in questo modo, l'URL dell'applicazione sarà "http://localhost/app_dev.php".
+Prima di tutto, verificare di aver installato e configurato correttamente un server web,
+come Apache con la versione più recente di PHP (si raccomandano PHP 5.3.8 o
+successivi) .
 
 Pronti? Iniziamo scaricando "`Symfony2 Standard Edition`_", una :term:`distribuzione`
 di Symfony preconfigurata per gli usi più comuni e che contiene anche del codice
@@ -76,18 +59,27 @@ ora avere una cartella ``Symfony/``, come la seguente:
 
     .. code-block:: bash
 
-        curl -s http://getcomposer.org/installer | php
+        $ composer.phar create-project symfony/framework-standard-edition path/to/install
 
-        php composer.phar install
+        # rimuove la cronologia di Git
+        $ rm -rf .git
 
-    Se non si ha ``curl`` installato, si può anche scaricare a mano ``installer``
-    da http://getcomposer.org/installer. Mettere il file nel progetto
-    ed eseguire:
+.. tip::
+   
+    Se si ha PHP 5.4, si può usare il server web incluso:
 
     .. code-block:: bash
 
-    php installer
-    php composer.phar install
+        # verifica la configurazione di PHP CLI
+        $ php ./app/check.php
+
+        # esegue il server web incluso
+        $ php ./app/console server:run
+
+    Quindi l'URL dell'applicazione sarà "http://localhost:8000/app_dev.php"
+
+    Il server web incluso andrebbe usato solo durante lo sviluppo, ma può
+    aiutare a iniziare unprogetto in modo rapido e facile.
 
 Verifica della configurazione
 -----------------------------
@@ -98,7 +90,18 @@ il seguente URL per avviare la diagnosi sulla propria macchina:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/config.php
+    http://localhost/config.php
+
+.. note::
+
+    Tutti gli URL di esempio ipotizzano che Symfony sia stato scaricato e decompresso
+    direttamente nella cartella radice del server web. Se le istruzioni precedenti sono
+    state seguite e la cartella `Symfony` decompressa nella cartella radice del web, aggiungere
+    `/Symfony/web` dopo `localhost` per tutti gli URL visti:
+
+    .. code-block:: text
+
+        http://localhost/Symfony/web/config.php
 
 Se ci sono dei problemi, correggerli. Si potrebbe anche voler modificare la propria
 configurazione, seguendo le raccomandazioni fornite. Quando è tutto a posto,
@@ -107,7 +110,7 @@ la prima "vera" pagina di Symfony2:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/app_dev.php/
+    http://localhost/app_dev.php/
 
 Symfony2 dovrebbe congratularsi per il duro lavoro svolto finora!
 
@@ -135,7 +138,7 @@ i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati 
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/app_dev.php/demo/hello/Fabien
+    http://localhost/app_dev.php/demo/hello/Fabien
 
 .. image:: /images/quick_tour/hello_fabien.png
    :align: center

@@ -408,7 +408,8 @@ l'invio del form di login (ad esempio ``/login_check``):
 
 .. versionadded:: 2.1
     A partire da Symfony 2.1, si *devono* avere rotte configurate per i propri URL ``login_path``
-    (p.e. ``/login``) e ``check_path`` (p.e. ``/login_check``).
+    (p.e. ``/login``), ``check_path`` (p.e. ``/login_check``) e ``logout``
+    (p.e. ``/logout``, vedere `Logout`_).
 
 Notare che il nome della rotta ``login`` non è importante. Quello che è importante
 è che l'URL della rotta (``/login``) corrisponda al valore di configurazione ``login_path``,
@@ -822,8 +823,8 @@ l'autorizzazione dall'interno di un controllore:
 
 .. code-block:: php
 
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     // ...
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
@@ -841,6 +842,7 @@ che può proteggere il controllore utilizzando le annotazioni:
 
 .. code-block:: php
 
+    // ...
     use JMS\SecurityExtraBundle\Annotation\Secure;
 
     /**
@@ -1021,7 +1023,6 @@ Questo significa che il concetto di "utente" può essere qualsiasi cosa, purché
 implementi questa interfaccia.
 
 .. versionadded:: 2.1
-
     In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
     Se occorre ridefinire l'implementazione originale della logica di confronto,
     implementare la nuova interfaccia
@@ -1553,6 +1554,11 @@ assumono come impostazione predefinita ciò che è specificato qui. In altre par
 Si noti che *non* è necessario implementare un controllore per l'URL ``/logout``,
 perché il firewall si occupa di tutto. Si può, tuttavia, creare
 una rotta da poter utilizzare per generare l'URL:
+
+.. warning::
+
+    Da Symfony 2.1, *occorre* avere una rotta che corrisponda al percorso di
+    logout. Senza tale rotta, il logut non funzionerà.
 
 .. configuration-block::
 

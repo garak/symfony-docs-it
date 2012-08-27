@@ -56,6 +56,8 @@ seguente:
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -85,6 +87,7 @@ seguente:
 
         // src/Acme/BlogBundle/Entity/Author.php
 
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -118,9 +121,9 @@ semplice esempio dall'interno di un controllore:
 
 .. code-block:: php
 
+    // ...
     use Symfony\Component\HttpFoundation\Response;
     use Acme\BlogBundle\Entity\Author;
-    // ...
 
     public function indexAction()
     {
@@ -174,7 +177,6 @@ Dentro al template, si può stampare la lista di errori, come necessario:
     .. code-block:: html+jinja
 
         {# src/Acme/BlogBundle/Resources/views/Author/validate.html.twig #}
-
         <h3>L'autore ha i seguenti errori</h3>
         <ul>
         {% for error in errors %}
@@ -185,7 +187,6 @@ Dentro al template, si può stampare la lista di errori, come necessario:
     .. code-block:: html+php
 
         <!-- src/Acme/BlogBundle/Resources/views/Author/validate.html.php -->
-
         <h3>L'autore ha i seguenti errori</h3>
         <ul>
         <?php foreach ($errors as $error): ?>
@@ -214,10 +215,10 @@ violazioni dei vincoli sull'oggetto sono convertite in oggetti ``FieldError``,
 che possono essere facilmente mostrati con il proprio form. Il tipico flusso dell'invio
 di un form assomiglia al seguente, all'interno di un controllore::
 
+    // ...
     use Acme\BlogBundle\Entity\Author;
     use Acme\BlogBundle\Form\AuthorType;
     use Symfony\Component\HttpFoundation\Request;
-    // ...
 
     public function updateAction(Request $request)
     {
@@ -370,6 +371,8 @@ abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -406,6 +409,8 @@ essere specificata in tal modo.
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -437,6 +442,8 @@ essere specificata in tal modo.
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\Choice;
 
@@ -502,6 +509,8 @@ avere almeno 3 caratteri.
     .. code-block:: php-annotations
 
         // Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -526,6 +535,8 @@ avere almeno 3 caratteri.
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
         use Symfony\Component\Validator\Constraints\MinLength;
@@ -571,6 +582,8 @@ restituire ``true``:
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -598,6 +611,8 @@ restituire ``true``:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\True;
 

@@ -56,6 +56,8 @@ file ``app/config/parameters.yml``:
         database_user:     root
         database_password: password
 
+    # ...
+
 .. note::
 
     La definizione della configurazione tramite ``parameters.yml`` è solo una convenzione.
@@ -64,6 +66,7 @@ file ``app/config/parameters.yml``:
     
     .. code-block:: yaml
     
+        # app/config/config.yml
         doctrine:
             dbal:
                 driver:   %database_driver%
@@ -77,6 +80,32 @@ file ``app/config/parameters.yml``:
     memorizzare configurazioni di basi dati (o altre informazioni sensibili) fuori dal
     proprio progetto, come per esempio dentro la configurazione di Apache. Per
     ulteriori informazioni, vedere :doc:`/cookbook/configuration/external_parameters`.
+
+.. sidebar:: Setting Up The Database
+
+    Uno sbaglio che anche programmatori esperti commettono all'inizio di un progetto Symfony2
+    è dimenticare di impostare charset e collation nella base dati,
+    finendo con collation di tipo latin, che sono predefinite la maggior parte delle volte.
+    Lo si potrebbe fare anche solo all'inizio, ma spesso si dimenticat che lo si
+   può fare anche durante lo sviluppo, in modo abbastanza semplice:
+
+    .. code-block:: bash
+
+        $ app/console doctrine:database:drop --force
+        $ app/console doctrine:database:create
+
+    Non c'è modo di configurare tali valori predefiniti in Doctrine, che prova a essere
+    il più agnostico possibile in termini di configurazione di ambienti. Un modo per risolvere
+    la questione è usare dei valori definiti a livello di server.
+
+    Impostare UTF8 come predefinito in MySQL è semplice, basta aggiungere poche righe 
+    al file di configurazione (solitamente ``my.cnf``):
+
+    .. code-block:: ini
+    
+        [mysqld]
+        collation-server = utf8_general_ci
+        character-set-server = utf8    
 
 Ora che Doctrine ha informazioni sulla base dati, si può fare in modo che crei la
 base dati al posto nostro:
@@ -366,9 +395,10 @@ del bundle:
     :linenos:
 
     // src/Acme/StoreBundle/Controller/DefaultController.php
+
+    // ...
     use Acme\StoreBundle\Entity\Product;
     use Symfony\Component\HttpFoundation\Response;
-    // ...
     
     public function createAction()
     {
@@ -710,6 +740,7 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
     .. code-block:: xml
 
         <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
+
         <!-- ... -->
         <doctrine-mapping>
 
@@ -792,6 +823,7 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
     .. code-block:: php-annotations
 
         // src/Acme/StoreBundle/Entity/Category.php
+
         // ...
         use Doctrine\Common\Collections\ArrayCollection;
 
@@ -852,6 +884,7 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
     .. code-block:: php-annotations
 
         // src/Acme/StoreBundle/Entity/Product.php
+
         // ...
 
         class Product
@@ -928,10 +961,10 @@ Salvare le entità correlate
 Vediamo ora il codice in azione. Immaginiamo di essere dentro un controllore::
 
     // ...
+
     use Acme\StoreBundle\Entity\Category;
     use Acme\StoreBundle\Entity\Product;
     use Symfony\Component\HttpFoundation\Response;
-    // ...
 
     class DefaultController extends Controller
     {
@@ -1057,8 +1090,7 @@ Ovviamente, se si sa in anticipo di aver bisogno di accedere a entrambi gli ogge
 si può evitare la seconda query, usando una join nella query originale. Aggiungere
 il seguente metodo alla classe ``ProductRepository``::
 
-    // src/Acme/StoreBundle/Repository/ProductRepository.php
-    
+    // src/Acme/StoreBundle/Repository/ProductRepository.php 
     public function findOneByIdJoinedToCategory($id)
     {
         $query = $this->getEntityManager()
@@ -1143,7 +1175,7 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
     .. code-block:: php-annotations
 
         /**
-         * @ORM\prePersist
+         * @ORM\PrePersist
          */
         public function setCreatedValue()
         {
@@ -1162,6 +1194,7 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
     .. code-block:: xml
 
         <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
+
         <!-- ... -->
         <doctrine-mapping>
 

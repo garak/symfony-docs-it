@@ -56,19 +56,22 @@ non trova il file cercato.
 
 La soluzione più semplice è mettere in cache la posizione di ogni classe, dopo che
 è stata trovata per la prima volta. Symfony dispone di una classe di caricamento,
-``ApcUniversalClassLoader``, che estende ``UniversalClassLoader`` e memorizza le
-posizioni delle classi in APC.
+:class:`Symfony\\Component\\ClassLoader\\ApcClassLoader`, che estende fa esattamente questo. Per poterla usare,
+basta adattare il front controller. Se si usa la Standard Distribution, il codice dovrebbe essere
+già presente, ma commentato::
 
-Per usare questo caricatore, basta adattare il file ``autoloader.php`` come segue:
+    // app.php
+    // ...
 
-.. code-block:: php
+    $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
-    // app/autoload.php
-    require __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+    // Usa APC per aumentare le prestazioni dell'auto-caricamento
+    // Cambiare 'sf2' con il prefisso desiderato, per prevenire conflitti di chiavi con altre applicazioni
+    /*
+    $loader = new ApcClassLoader('sf2', $loader);
+    $loader->register(true);
+    */
 
-    use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
-
-    $loader = new ApcUniversalClassLoader('some caching unique prefix');
     // ...
 
 .. note::

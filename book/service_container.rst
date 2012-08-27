@@ -546,6 +546,7 @@ capace a inviare messaggi email, quindi verrà usato all'interno di ``Newsletter
 per gestire la spedizione effettiva dei messaggi. Questa classe potrebbe essere
 qualcosa del genere::
 
+    // src/Acme/HelloBundle/Newsletter/NewsletterManager.php
     namespace Acme\HelloBundle\Newsletter;
 
     use Acme\HelloBundle\Mailer;
@@ -919,23 +920,11 @@ Quello che segue è un elenco dei tag disponibili con i bundle del nucleo di Sym
 Ognuno di essi ha un differente effetto sul servizio e molti tag richiedono
 parametri aggiuntivi (oltre al solo ``name`` del parametro).
 
-* assetic.filter
-* assetic.templating.php
-* data_collector
-* form.field_factory.guesser
-* kernel.cache_warmer
-* kernel.event_listener
-* monolog.logger
-* routing.loader
-* security.listener.factory
-* security.voter
-* templating.helper
-* twig.extension
-* translation.loader
-* validator.constraint_validator
+Per una lista completa dei tag disponibili in Symfony, dare un'occhiata
+a :doc:`/reference/dic_tags`.
 
-Imparare di più dal ricettario
-------------------------------
+Saperne di più
+--------------
 
 * :doc:`/components/dependency_injection/compilation`
 * :doc:`/components/dependency_injection/definitions`

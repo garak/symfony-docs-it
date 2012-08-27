@@ -984,6 +984,9 @@ fondamentali:
 * la **configurazione** per ciascun bundle risiede nella cartella ``app/config`` e
   può essere specificata in YAML, XML o PHP;
 
+* la **configuratione dell'applicazione** globale si trova nella cartella
+  ``app/config``;
+
 * ogni **ambiente** è accessibile tramite un diverso front controller (p.e.
   ``app.php`` e ``app_dev.php``) e carica un diverso file di configurazione.
 

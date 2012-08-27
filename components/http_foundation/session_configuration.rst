@@ -35,21 +35,17 @@ Sebbene i gestori di salvataggio nativi possano essere attivati direttamente, us
 ``ini_set('session.save_handler', $nome);``, Symfony2 fornisce un modo conveniente
 per attivarrli nello stesso modo dei gestori personalizzati.
 
-Symfony2 fornisce driver per i gestori nativi, facili da configurare:
+Symfony2 fornisce driver per i gestori nativi, come per esempio:
 
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeFileSessionHandler`;
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSqliteSessionHandler`;
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeMemcacheSessionHandler`;
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeMemcachedSessionHandler`;
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeRedisSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeFileSessionHandler`
 
 Esempio di utilzzo::
 
     use Symfony\Component\HttpFoundation\Session\Session;
     use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-    use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeMemcachedSessionHandler;
+    use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 
-    $storage = new NativeSessionStorage(array(), new NativeMemcachedSessionHandler());
+    $storage = new NativeSessionStorage(array(), new NativeFileSessionHandler());
     $session = new Session($storage);
 
 .. note::

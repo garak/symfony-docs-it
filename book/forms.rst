@@ -147,7 +147,6 @@ helper per i form:
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
-
         <form action="{{ path('task_new') }}" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
 
@@ -157,7 +156,6 @@ helper per i form:
     .. code-block:: html+php
 
         <!-- src/Acme/TaskBundle/Resources/views/Default/new.html.php -->
-
         <form action="<?php echo $view['router']->generate('task_new') ?>" method="post" <?php echo $view['form']->enctype($form) ?> >
             <?php echo $view['form']->widget($form) ?>
 
@@ -217,7 +215,7 @@ controllore::
             ->getForm();
 
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
+            $form->bind($request);
 
             if ($form->isValid()) {
                 // esegue alcune azioni, come ad esempio salvare il task nella base dati
@@ -228,6 +226,11 @@ controllore::
 
         // ...
     }
+
+.. versionadded:: 2.1
+    Il metodo ``bind`` è stato resto più flessibile  in Symfony 2.1. Ora accetta i dati
+    grezzi del client (come prima) o un oggetto Request di Symfony. È da preferire al
+    metodo deprecato ``bindRequest``.
 
 Ora, quando si invia il form, il controllore associa i dati inviati al
 form, che traduce nuovamente i dati alle proprietà ``task`` e ``dueDate``
@@ -318,9 +321,7 @@ valido.
             </property>
             <property name="dueDate">
                 <constraint name="NotBlank" />
-                <constraint name="Type">
-                    <value>\DateTime</value>
-                </constraint>
+                <constraint name="Type">\DateTime</constraint>
             </property>
         </class>
 
@@ -386,8 +387,7 @@ si avrà bisogno di specificare quelle/i gruppi di convalida deve usare il form:
 
     $form = $this->createFormBuilder($users, array(
         'validation_groups' => array('registration'),
-    ))->add(...)
-    ;
+    ))->add(...);
 
 Se si stanno creando :ref:`classi per i form<book-form-creating-form-classes>` (una
 buona pratica), allora si avrà bisogno di aggiungere quanto segue al metodo
@@ -602,7 +602,6 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
-
         <form action="{{ path('task_new') }}" method="post" {{ form_enctype(form) }}>
             {{ form_errors(form) }}
 
@@ -616,8 +615,7 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 
     .. code-block:: html+php
 
-        <!-- // src/Acme/TaskBundle/Resources/views/Default/newAction.html.php -->
-
+        <!-- src/Acme/TaskBundle/Resources/views/Default/newAction.html.php -->
         <form action="<?php echo $view['router']->generate('task_new') ?>" method="post" <?php echo $view['form']->enctype($form) ?>>
             <?php echo $view['form']->errors($form) ?>
 
@@ -798,7 +796,6 @@ che ospiterà la logica per la costruzione del form task:
 .. code-block:: php
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
-
     namespace Acme\TaskBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
@@ -831,7 +828,7 @@ task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore u
 
     public function newAction()
     {
-        $task = // ...
+        $task = ...;
         $form = $this->createForm(new TaskType(), $task);
 
         // ...
@@ -1024,7 +1021,18 @@ all'oggetto ``TaskType``, il cui tipo è un'istanza della nuova classe
     }
 
 I campi di ``CategoryType`` ora possono essere resi accanto a quelli
-della classe ``TaskType``. Rendere i campi di ``Category`` allo stesso modo
+della classe ``TaskType``. Per attivare la validazione su CategoryType, aggiungere
+l'opzione ``cascade_validation`::
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Acme\TaskBundle\Entity\Category',
+            'cascade_validation' => true,
+        ));
+    }
+
+Rendere i campi di ``Category`` allo stesso modo
 dei campi ``Task`` originali:
 
 .. configuration-block::
@@ -1103,7 +1111,6 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Form/fields.html.twig #}
-
         {% block field_row %}
         {% spaceless %}
             <div class="form_row">
@@ -1117,7 +1124,6 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
     .. code-block:: html+php
 
         <!-- src/Acme/TaskBundle/Resources/views/Form/field_row.html.php -->
-
         <div class="form_row">
             <?php echo $view['form']->label($form, $label) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -1134,7 +1140,6 @@ rende il form:
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Default/new.html.twig #}
-
         {% form_theme form 'AcmeTaskBundle:Form:fields.html.twig' %}
 
         {% form_theme form 'AcmeTaskBundle:Form:fields.html.twig' 'AcmeTaskBundle:Form:fields2.html.twig' %}
@@ -1144,7 +1149,6 @@ rende il form:
     .. code-block:: html+php
 
         <!-- src/Acme/TaskBundle/Resources/views/Default/new.html.php -->
-
         <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form')) ?>
 
         <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form', 'AcmeTaskBundle:Form')) ?>
@@ -1283,7 +1287,6 @@ della configurazione dell'applicazione:
     .. code-block:: yaml
 
         # app/config/config.yml
-
         twig:
             form:
                 resources:
@@ -1293,7 +1296,6 @@ della configurazione dell'applicazione:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <twig:config ...>
                 <twig:form>
                     <resource>AcmeTaskBundle:Form:fields.html.twig</resource>
@@ -1304,7 +1306,6 @@ della configurazione dell'applicazione:
     .. code-block:: php
 
         // app/config/config.php
-
         $container->loadFromExtension('twig', array(
             'form' => array('resources' => array(
                 'AcmeTaskBundle:Form:fields.html.twig',
@@ -1361,7 +1362,6 @@ con la configurazione dell'applicazione:
     .. code-block:: yaml
 
         # app/config/config.yml
-
         framework:
             templating:
                 form:
@@ -1373,7 +1373,6 @@ con la configurazione dell'applicazione:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <framework:config ...>
             <framework:templating>
                 <framework:form>
@@ -1386,7 +1385,6 @@ con la configurazione dell'applicazione:
     .. code-block:: php
 
         // app/config/config.php
-
         $container->loadFromExtension('framework', array(
             'templating' => array('form' =>
                 array('resources' => array(
@@ -1484,7 +1482,7 @@ array di dati inseriti. Lo si può fare in modo molto facile::
             ->getForm();
 
             if ($request->getMethod() == 'POST') {
-                $form->bindRequest($request);
+                $form->bind($request);
 
                 // data è un array con "name", "email", e "message" come chiavi
                 $data = $form->getData();

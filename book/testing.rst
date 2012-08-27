@@ -653,6 +653,7 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
     .. code-block:: yaml
 
         # app/config/config_test.yml
+
         # ...
 
         swiftmailer:
@@ -670,6 +671,7 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
     .. code-block:: php
 
         // app/config/config_test.php
+
         // ...
 
         $container->loadFromExtension('swiftmailer', array(
@@ -758,6 +760,8 @@ sezione ``<filter>``:
 Imparare di più con le ricette
 ------------------------------
 
+* :doc:`/components/dom_crawler`
+* :doc:`/components/css_selector`
 * :doc:`/cookbook/testing/http_authentication`
 * :doc:`/cookbook/testing/insulating_clients`
 * :doc:`/cookbook/testing/profiling`

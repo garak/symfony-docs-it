@@ -63,7 +63,7 @@ di Mark Nottingham.
 
 .. index::
    single: Cache; Proxy
-   single: Cache; Reverse Proxy
+   single: Cache; Reverse proxy
    single: Cache; Gateway
 
 .. _gateway-caches:
@@ -144,7 +144,6 @@ Per abilitare la cache, modificare il codice di un front controller, per usare
 il kernel della cache::
 
     // web/app.php
-
     require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
     require_once __DIR__.'/../app/AppCache.php';
@@ -176,7 +175,6 @@ regolato tramite un insieme di opzioni impostabili sovrascrivendo il metodo
 ``getOptions()``::
 
     // app/AppCache.php
-
     use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
     class AppCache extends HttpCache
@@ -558,6 +556,7 @@ contenuto::
     {
         $response = $this->render('MyBundle:Main:index.html.twig');
         $response->setETag(md5($response->getContent()));
+        $response->setPublic(); // make sure the response is public/cacheable
         $response->isNotModified($this->getRequest());
 
         return $response;
@@ -609,7 +608,14 @@ necessari per calcolare la rappresentazione della risorsa come valore dell'heade
         $date = $authorDate > $articleDate ? $authorDate : $articleDate;
 
         $response->setLastModified($date);
-        $response->isNotModified($this->getRequest());
+        // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
+        $response->setPublic();
+
+        if ($response->isNotModified($this->getRequest())) {
+            return $response;
+        }
+
+        // fare qualcosa per popolare la risposta con il contenuto completo
 
         return $response;
     }
@@ -653,15 +659,18 @@ uno schema semplice ed efficiente::
         $response->setETag($article->computeETag());
         $response->setLastModified($article->getPublishedAt());
 
+        // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
+        $response->setPublic();
+
         // Verifica che la Response non sia modificata per la Request data
         if ($response->isNotModified($this->getRequest())) {
             // restituisce subito la Response 304
             return $response;
         } else {
-            // qui fa più lavoro, come recuperare altri dati
+            // qui fare qualcosa, come recuperare altri dati
             $comments = // ...
             
-            // o rende un template con la $response già iniziata
+            // o rendere un template con la $response già iniziata
             return $this->render(
                 'MyBundle:MyController:article.html.twig',
                 array('article' => $article, 'comments' => $comments),
@@ -779,6 +788,7 @@ poiché è l'unico utile nel contesto di Akamaï:
 
 .. code-block:: html
 
+    <!doctype html>
     <html>
         <body>
             Del contenuto
@@ -847,6 +857,7 @@ indipendentemente dal resto della pagina.
     public function indexAction()
     {
         $response = $this->render('MyBundle:MyController:index.html.twig');
+        // imposta il tempo massimo condiviso, il che rende la risposta pubblica
         $response->setSharedMaxAge(600);
 
         return $response;

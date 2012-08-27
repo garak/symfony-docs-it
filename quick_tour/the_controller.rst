@@ -17,6 +17,8 @@ Modificare il file ``routing.yml`` e aggiungere un formato ``_format``, con valo
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+    // ...
+
     /**
      * @Route("/hello/{name}", defaults={"_format"="xml"}, name="_demo_hello")
      * @Template()
@@ -44,6 +46,8 @@ rotta::
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+    // ...
 
     /**
      * @Route("/hello/{name}.{_format}", defaults={"_format"="html"}, requirements={"_format"="html|xml|json"}, name="_demo_hello")

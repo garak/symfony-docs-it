@@ -16,7 +16,7 @@ Riferimento per i vincoli di validazione
    constraints/Email
    constraints/MinLength
    constraints/MaxLength
-   constraints/Size
+   constraints/Length
    constraints/Url
    constraints/Regex
    constraints/Ip
@@ -31,6 +31,7 @@ Riferimento per i vincoli di validazione
 
    constraints/Choice
    constraints/Collection
+   constraints/Count
    constraints/UniqueEntity
    constraints/Language
    constraints/Locale

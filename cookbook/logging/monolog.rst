@@ -52,6 +52,7 @@ consente di loggare facilmente i messaggi in molti modi.
 
     .. code-block:: yaml
 
+        # app/config/config*.yml
         monolog:
             handlers:
                 syslog:
@@ -123,6 +124,7 @@ Il proprio formattatore deve implementare
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         services:
             my_formatter:
                 class: Monolog\Formatter\JsonFormatter
@@ -205,10 +207,12 @@ usando un processore.
         }
     }
 
+
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         services:
             monolog.formatter.session_request:
                 class: Monolog\Formatter\LineFormatter

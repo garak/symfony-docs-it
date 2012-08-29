@@ -55,9 +55,7 @@ come se fosse un normale JavaScript:
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
-            filter='coffee'
-        %}
+        {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee' filter='coffee' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
@@ -83,8 +81,7 @@ Filtrare file multpili
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
-            filter='coffee'
-        %}
+            filter='coffee' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
@@ -164,8 +161,7 @@ dal filtro CoffeeScript):
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
-                       '@AcmeFooBundle/Resources/public/js/regolare.js'
-        %}
+                       '@AcmeFooBundle/Resources/public/js/regolare.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 

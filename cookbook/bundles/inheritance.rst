@@ -32,6 +32,11 @@ come "genitore" del proprio bundle::
 Con questa semplice modifica, si possono ora sovrascrivere diverse parti di ``FOSUserBundle``,
 semplicemente creando un file con lo stesso nome.
 
+.. note::
+
+    A dispetto del nome del metodo, non c'è una relatzione genitore/figlio tra i
+    bundle, è solo un modo per estendere e sovrascrivere un bundle esistente.
+
 Sovrascrivere i controllori
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -51,8 +56,7 @@ bundle e cambiarne le funzionalità::
         {
             $response = parent::registerAction();
             
-            // do custom stuff
-            
+            // ... fare qualcosa
             return $response;
         }
     }

@@ -22,6 +22,7 @@ newsletter che usa un setter per impostare le sue dipendenze::
         {
             $this->emailFormatter = $emailFormatter;
         }
+
         // ...
     }
 
@@ -41,6 +42,7 @@ e poi dei biglietti di auguri, con una classe che condivide alcune dipendenze::
         {
             $this->emailFormatter = $emailFormatter;
         }
+
         // ...
     }
 
@@ -151,6 +153,7 @@ classi correlate sarebbe estrarli in una classe superiore::
         {
             $this->emailFormatter = $emailFormatter;
         }
+
         // ...
     }
 
@@ -418,6 +421,7 @@ genitore è::
         {
             $this->filters[] = $filter;
         }
+
         // ...
     }
 

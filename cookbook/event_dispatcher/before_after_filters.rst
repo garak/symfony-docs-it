@@ -97,6 +97,7 @@ Occorre quindi creare un ascoltatore di eventi, che conterrà la logica che si v
 eseguire prima dei controllori. Se non si ha familiarità con gli ascoltatori di
 eventi, si possono ottenere maggiori informazioni su :doc:`/cookbook/service_container/event_listener`::
 
+    // src/Acme/DemoBundle/EventListener/BeforeListener.php
     namespace Acme\DemoBundle\EventListener;
 
     use Acme\DemoBundle\Controller\TokenAuthenticatedController;
@@ -107,7 +108,7 @@ eventi, si possono ottenere maggiori informazioni su :doc:`/cookbook/service_con
     {
         private $tokens;
 
-        public function __contruct($tokens)
+        public function __construct($tokens)
         {
             $this->tokens = $tokens;
         }
@@ -154,6 +155,7 @@ sia richiamato appena prima l'esecuzione di ogni controllore:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml (or inside your services.xml) -->
         <service id="demo.tokens.action_listener" class="Acme\DemoBundle\EventListener\BeforeListener">
             <argument>%tokens%</argument>
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
@@ -161,6 +163,7 @@ sia richiamato appena prima l'esecuzione di ogni controllore:
 
     .. code-block:: php
 
+        // app/config/config.php (or inside your services.php)
         use Symfony\Component\DependencyInjection\Definition;
 
         $listener = new Definition('Acme\DemoBundle\EventListener\BeforeListener', array('%tokens%'));

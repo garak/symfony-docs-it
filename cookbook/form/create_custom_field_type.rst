@@ -20,7 +20,7 @@ sarà chiamata `GenderType` e il file sarà salvato nella cartella default conte
 i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo estenda
 :class:`Symfony\\Component\\Form\\AbstractType`::
 
-    # src/Acme/DemoBundle/Form/Type/GenderType.php
+    // src/Acme/DemoBundle/Form/Type/GenderType.php
     namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
@@ -107,7 +107,6 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
 .. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
-
     {% block gender_widget %}
     {% spaceless %}
         {% if expanded %}
@@ -136,7 +135,6 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
     .. code-block:: yaml
 
         # app/config/config.yml
-
         twig:
             form:
                 resources:
@@ -152,11 +150,11 @@ nuova istanza del tipo in un form::
     namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
     
     class AuthorType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('gender_code', new GenderType(), array(
                 'empty_value' => 'Choose a gender',
@@ -231,7 +229,7 @@ dal metodo ``getName`` definito precedentemente. Si vedrà l'importanza
 di questo nel momento in cui si utilizzerà il tipo di campo. Ma prima, si aggiunga al metodo ``__construct``
 di ``GenderType`` un parametro, che riceverà la configurazione di gender::
 
-    # src/Acme/DemoBundle/Form/Type/GenderType.php
+    // src/Acme/DemoBundle/Form/Type/GenderType.php
     namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -250,7 +248,7 @@ di ``GenderType`` un parametro, che riceverà la configurazione di gender::
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $resolver->setDefaults(array(
-                'data_class' => $this->genderChoices
+                'choices' => $this->genderChoices,
             ));
         }
         

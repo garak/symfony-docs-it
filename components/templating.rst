@@ -1,5 +1,6 @@
 .. index::
    single: Templating
+   single: Componenti; Templating
 
 Il componente Templating
 ========================
@@ -91,6 +92,7 @@ deve essere registrato::
     $view->set(new SlotsHelper());
 
     // Recupera l'oggetto $page
+    $page = ...;
 
     echo $view->render('page.php', array('page' => $page));
 

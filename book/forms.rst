@@ -1022,7 +1022,7 @@ all'oggetto ``TaskType``, il cui tipo è un'istanza della nuova classe
 
 I campi di ``CategoryType`` ora possono essere resi accanto a quelli
 della classe ``TaskType``. Per attivare la validazione su CategoryType, aggiungere
-l'opzione ``cascade_validation`::
+l'opzione ``cascade_validation``::
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {

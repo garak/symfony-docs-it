@@ -80,6 +80,7 @@ passo con il contenitore, per controllare in quale posizione vada il passo:
 Per esempio, per eseguire il proprio passo dopo i passi di rimozione predefiniti::
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
+    use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
     $container = new ContainerBuilder();
     $container->addCompilerPass(new CustomCompilerPass, PassConfig::TYPE_AFTER_REMOVING);
@@ -152,7 +153,7 @@ dell'esportazione::
         $container = new MyCachedContainer();
     } else {
         $container = new ContainerBuilder();
-        //--
+        // ...
         $container->compile();
 
         $dumper = new PhpDumper($container);
@@ -160,11 +161,13 @@ dell'esportazione::
     }
 
 Si otterrà la velocità del contenitore compilato in PHP con la facilità di usare file di
-configurazione. Nell'esempio precedente, occorrerà pulire il contenitore in cache ogni
-volta che si fa una modifica. L'aggiunta di una variabile che determini se si è in
-modalità di debug consente di mantenere la velocità del contenitore in cache
-in produzione, mantenendo una configurazione aggiornata durante lo sviluppo
-dell'applicazione::
+configurazione. Inoltre, esportare il contenitore in questo modo ottimizza ulteriormente
+i servizi creati dal contenitore.
+
+Nell'esempio precedente, occorrerà pulire il contenitore in cache ogni volta
+che si fa una modifica. L'aggiunta di una variabile che determini se si è in
+modalità di debug consente di mantenere la velocità del contenitore in cache in
+produzione, mantenendo una configurazione aggiornata durante lo sviluppo dell'applicazione::
 
     // ...
 
@@ -186,3 +189,44 @@ dell'applicazione::
         }
     }
 
+Si può fare un ulteriore miglioramento solo ricompilando il contenitore in modalità
+debug quando le modifiche sono state fatte alla sua configurazione, piuttosto che a ogni
+richiesta. Lo si può fare mettendo in cache i file risorse usati per configurare
+il contenitore, come descritto nella documentazione del componente config,
+":doc:`/components/config/caching`".
+
+Non occorre calcolare quali file mettere in cache, perché il costruttore del contenitore
+tiene traccia di tutte le risorse usate per configurarlo, non solo dei file di configurazione,
+ma anche le classi estensione e i passi di compilatore. Ciò significa che qualsiasi
+modifica a uno di tali file invaliderà la cache e farà scattare la ricostruzione
+del contenitore. Basta chiedere al contenitore queste risorse e usarle
+come meta dati per la cache::
+
+    // ...
+
+    // imposta $isDebug in base a qualcosa nel progetto
+
+    $file = __DIR__ .'/cache/container.php';
+    $containerConfigCache = new ConfigCache($file, $isDebug);
+
+    if (!$containerConfigCache->isFresh()) {
+        $containerBuilder = new ContainerBuilder();
+        //--
+        $containerBuilder->compile();
+
+        $dumper = new PhpDumper($containerBuilder);
+        $containerConfigCache->write(
+            $dumper->dump(array('class' => 'MyCachedContainer')),
+            $containerBuilder->getResources()
+        );
+    }
+
+    require_once $file;
+    $container = new MyCachedContainer();
+
+Ora il contenitore in cache esportato viene usato indipendentemente dalla modalità di debug.
+La differenza è che ``ConfigCache`` è impostato a debug con il secondo parametro del suo
+costruttore. QUando la cache non è in debug, sarà sempre usato il contenitore in cache, se
+esiste. In debug, viene scritto un file aggiuntivo di meta dati, con i timestamp di
+tutti i file risorsa. Vengono poi verificate eventuali modifiche dei file, nel caso in cui
+la cache debba essere considerata vecchia.

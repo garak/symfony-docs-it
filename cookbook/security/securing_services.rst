@@ -9,8 +9,8 @@ Nel capitolo sulla sicurezza, si può vedere come
 :ref:`proteggere un controllore<book-security-securing-controller>`, richiedendo il
 servizio ``security.context`` dal contenitore di servizi e verificando il ruolo dell'utente attuale::
 
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     // ...
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
@@ -30,6 +30,7 @@ Prima di aggiungere la sicurezza, la classe assomiglia a qualcosa del genere:
 
 .. code-block:: php
 
+    // src/Acme/HelloBundle/Newsletter/NewsletterManager.php
     namespace Acme\HelloBundle\Newsletter;
 
     class NewsletterManager

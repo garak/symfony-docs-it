@@ -33,6 +33,7 @@ singolarmente.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -75,12 +76,12 @@ Esso logga ogni cosa, inclusi i messaggi sotto il livello di azione. Il livello
 Il gestore ``buffered`` mantiene tutti i messaggi per una richiesta e quindi li passa
 al gestore annidato in un colpo. Se non si usa questo gestore, ogni messaggio sarà
 inviato separatamente. Viene quindi passato al gestore ``swift``. Questo gestore è
-quello che tratta effettivamente l'invio della email con gli errori. Le sue impostazioni
-sono semplici: gli indirizzi di mittente e destinatario e l'oggetto.
+quello che si occupa effettivamente dell'invio della email con gli errori. Le
+sue impostazioni sono semplici: gli indirizzi di mittente e destinatario e
+l'oggetto.
 
 Si possono combinare questi gestori con altri gestori, in modo che gli errori siano
-comunque loggati sul server, oltre che inviati per
-email:
+comunque loggati sul server, oltre che inviati per email:
 
 .. configuration-block::
 
@@ -112,6 +113,7 @@ email:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"

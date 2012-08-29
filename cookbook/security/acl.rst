@@ -85,19 +85,24 @@ Creare una ACL e aggiungere un ACE
 
 .. code-block:: php
 
+    // src/Acme/DemoBundle/Controller/BlogController.php
+    namespace Acme\DemoBundle\Controller;
+
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
     use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
     use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
+    class BlogController
+    {
     // ...
     
-    // BlogController.php
     public function addCommentAction(Post $post)
     {
         $comment = new Comment();
 
-        // preparazione di $form e collegamento dei dati
-        // ...
+        // ... preparazione di $form e collegamento dei dati
 
         if ($form->isValid()) {
             $entityManager = $this->get('doctrine.orm.default_entity_manager');
@@ -118,6 +123,7 @@ Creare una ACL e aggiungere un ACE
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
             $aclProvider->updateAcl($acl);
         }
+    }
     }
 
 In questo pezzo di codice ci sono alcune importanti decisioni implementative.
@@ -147,7 +153,14 @@ Verifica dell'accesso
 
 .. code-block:: php
 
-    // BlogController.php
+    // src/Acme/DemoBundle/Controller/BlogController.php
+
+    // ...
+
+    class BlogController
+    {
+        // ...
+
     public function editCommentAction(Comment $comment)
     {
         $securityContext = $this->get('security.context');

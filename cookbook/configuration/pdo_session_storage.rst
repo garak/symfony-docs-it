@@ -18,9 +18,8 @@ proprio formato di configurazione):
     In Symfony2.1 sono stati leggermenti modificati classe e spazio dei nomi. Ora si può
     trovare la classe `PdoSessionStorage` nello spazio dei nomi `Session\\Storage`:
     ``Symfony\Component\HttpFoundation\Session\Storage\PdoSessionStorage``. Si noti inoltre
-    che il secondo e il terzo parametro del costruttore della classe hanno cambiato
-    ordine. Più avanti, si noterà che ``%session.storage.options%`` e ``%pdo.db_options%``
-    si sono scambiati di posto.
+    che in Symfony 2.1 va configurato ``handler_id`` e non ``storage_id``, come in Symfony2.0.
+    Più avanti, si noterà che ``%session.storage.options%``non è più usato.
 
 .. configuration-block::
 
@@ -30,7 +29,7 @@ proprio formato di configurazione):
         framework:
             session:
                 # ...
-                storage_id:     session.storage.pdo
+                handler_id:     session.handler.pdo
 
         parameters:
             pdo.db_options:
@@ -47,15 +46,15 @@ proprio formato di configurazione):
                     user:     utente_db
                     password: password_db
 
-            session.storage.pdo:
-                class:     Symfony\Component\HttpFoundation\Session\Storage\PdoSessionStorage
-                arguments: [@pdo, %pdo.db_options%, %session.storage.options%]
+            session.handler.pdo:
+                class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+                arguments: [@pdo, %pdo.db_options%]
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:session storage-id="session.storage.pdo" lifetime="3600" auto-start="true"/>
+            <framework:session handler-id="session.handler.pdo" lifetime="3600" auto-start="true"/>
         </framework:config>
 
         <parameters>
@@ -74,24 +73,23 @@ proprio formato di configurazione):
                 <argument>password_db</argument>
             </service>
 
-            <service id="session.storage.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\PdoSessionStorage">
+            <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
                 <argument type="service" id="pdo" />
                 <argument>%pdo.db_options%</argument>
-                <argument>%session.storage.options%</argument>
             </service>
         </services>
 
     .. code-block:: php
 
-        // app/config/config.yml
+        // app/config/config.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->loadFromExtension('framework', array(
             // ...
             'session' => array(
-                // ...
-                'storage_id' => 'session.storage.pdo',
+                ...,
+                'handler_id' => 'session.handler.pdo',
             ),
         ));
 
@@ -103,18 +101,17 @@ proprio formato di configurazione):
         ));
 
         $pdoDefinition = new Definition('PDO', array(
-            'mysql:dbname=db_sessione',
-            'utente_db',
-            'password_db',
+            'mysql:dbname=mydatabase',
+            'myuser',
+            'mypassword',
         ));
         $container->setDefinition('pdo', $pdoDefinition);
 
-        $storageDefinition = new Definition('Symfony\Component\HttpFoundation\Session\Storage\PdoSessionStorage', array(
+        $storageDefinition = new Definition('Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler', array(
             new Reference('pdo'),
             '%pdo.db_options%',
-            '%session.storage.options%',
         ));
-        $container->setDefinition('session.storage.pdo', $storageDefinition);
+        $container->setDefinition('session.handler.pdo', $storageDefinition);
 
 * ``db_table``: Nome della tabella, nella base dati, per le sessioni
 * ``db_id_col``: Nome della colonna id della tabella delle sessioni (VARCHAR(255) o maggiore)
@@ -151,7 +148,7 @@ connessione di parameter.ini, richiamandone la configurazione della base dati:
             <argument>%database_password%</argument>
         </service>
 
-    .. code-block:: xml
+    .. code-block:: php
 
         $pdoDefinition = new Definition('PDO', array(
             'mysql:dbname=%database_name%',

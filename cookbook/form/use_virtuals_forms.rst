@@ -25,7 +25,7 @@ Per esempio, si immagini di avere due entità, ``Company`` e ``Customer``::
 
 .. code-block:: php
 
-    // src/Acme/HelloBundle/Entity/Company.php
+    // src/Acme/HelloBundle/Entity/Customer.php
     namespace Acme\HelloBundle\Entity;
 
     class Customer
@@ -58,8 +58,7 @@ Iniziamo creando ``CompanyType`` e ``CustomerType``::
         {
             $builder
                 ->add('name', 'text')
-                ->add('website', 'text')
-            ;
+                ->add('website', 'text');
         }
     }
 
@@ -76,8 +75,7 @@ Iniziamo creando ``CompanyType`` e ``CustomerType``::
         {
             $builder
                 ->add('firstName', 'text')
-                ->add('lastName', 'text')
-            ;
+                ->add('lastName', 'text');
         }
     }
 
@@ -88,6 +86,7 @@ località::
     namespace Acme\HelloBundle\Form\Type;
 
     use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class LocationType extends AbstractType
     {
@@ -97,8 +96,14 @@ località::
                 ->add('address', 'textarea')
                 ->add('zipcode', 'text')
                 ->add('city', 'text')
-                ->add('country', 'text')
-            ;
+                ->add('country', 'text');
+        }
+
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
+        {
+            $resolver->setDefaults(array(
+                'virtual' => true
+            ));
         }
 
         public function getName()
@@ -121,7 +126,9 @@ Vediamo il risultato::
     // CompanyType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('foo', new LocationType());
+        $builder->add('foo', new LocationType(), array(
+            'data_class' => 'Acme\HelloBundle\Entity\Company'
+        ));
     }
 
 .. code-block:: php
@@ -129,7 +136,9 @@ Vediamo il risultato::
     // CustomerType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('bar', new LocationType());
+        $builder->add('bar', new LocationType(), array(
+            'data_class' => 'Acme\HelloBundle\Entity\Customer'
+        ));
     }
 
 Con l'opzione ``virtual`` impostata a ``false`` (predefinito), il componente Form

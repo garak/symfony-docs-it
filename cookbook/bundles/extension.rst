@@ -103,6 +103,8 @@ del bundle con ``Extension``. Per esempio, la classe Extension di
 ``AcmeHelloBundle`` si chiamerebbe ``AcmeHelloExtension``::
 
     // Acme/HelloBundle/DependencyInjection/AcmeHelloExtension.php
+    namespace Acme\HelloBundle\DependencyInjection;
+
     use Symfony\Component\HttpKernel\DependencyInjection\Extension;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -155,8 +157,8 @@ Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
            <acme_hello:config />
-           ...
 
+           <!-- ... -->
         </container>
 
     .. code-block:: php
@@ -528,7 +530,6 @@ Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
 Il testo apparirà come commenti YAML nell'output del comando
 ``config:dump-reference``.
 
-
 .. index::
    pair: Convenzione; Configuration
 
@@ -549,6 +550,7 @@ automaticamente da Symfony2. In caso contrario, sovrascrivere il metodo
 :method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build` nel proprio
 bundle::
 
+    // ...
     use Acme\HelloBundle\DependencyInjection\UnconventionalExtensionClass;
 
     class AcmeHelloBundle extends Bundle

@@ -1,5 +1,6 @@
 .. index::
    single: DomCrawler
+   single: Componenti; DomCrawler
 
 Il componente DomCrawler
 ========================
@@ -28,6 +29,7 @@ visitabili::
     use Symfony\Component\DomCrawler\Crawler;
 
     $html = <<<'HTML'
+    <!DOCTYPE html>
     <html>
         <body>
             <p class="messaggio">Ciao Mondo!</p>

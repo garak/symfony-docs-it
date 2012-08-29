@@ -42,6 +42,12 @@ Un rapido esempio::
     ``session_id()``, ``session_name()`` e ``session_destroy()``, usando invece
     le API della sezione seguente.
 
+.. note::
+
+    Pur essendo raccomandato di far partire esplicitamente una sessione, alcune sessioni
+    in effetti partiranno su richiesta, nel caso in cui venga eseguita una richiesta di
+    leggere o scrivere dati di sessione.
+
 .. warning::
 
     Le sessioni di Symfony sono incompatibili con la direttiva ini di PHP ``session.auto_start = 1``.

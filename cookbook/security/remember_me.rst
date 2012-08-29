@@ -18,7 +18,6 @@ mostrati di seguito:
     .. code-block:: yaml
 
         # app/config/security.yml
-
         firewalls:
             main:
                 remember_me:
@@ -30,7 +29,6 @@ mostrati di seguito:
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-
         <config>
             <firewall>
                 <remember-me
@@ -45,7 +43,6 @@ mostrati di seguito:
     .. code-block:: php
 
         // app/config/security.php
-
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('remember_me' => array(
@@ -158,8 +155,8 @@ Nel seguente esempio, l'azione è consentita solo se l'utente ha il ruolo
 
 .. code-block:: php
 
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException
     // ...
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException
 
     public function editAction()
     {

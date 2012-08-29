@@ -1,5 +1,6 @@
 .. index::
     single: Dependency Injection
+    single: Componenti; DependencyInjection
 
 Il componente Dependency Injection
 ==================================
@@ -197,11 +198,7 @@ Impostare il contenitore con file di configurazione
 ---------------------------------------------------
 
 Oltre a impostare servizi usando PHP, come sopra, si possono usare dei file di
-configurazione. Per poterlo fare, occorre installare anche il componente Config:
-
-* Usare il repository Git (https://github.com/symfony/Config);
-* Installarlo tramite PEAR (`pear.symfony.com/Config`);
-* Installarlo tramite Composer (`symfony/config` on Packagist).
+configurazione. Per poterlo fare, occorre installare anche :doc:`il componente Config</components/config/introduction>`:
 
 Caricare un file di configurazione xml:
 
@@ -226,6 +223,11 @@ Caricare un file di configurazione yaml:
     $container = new ContainerBuilder();
     $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
     $loader->load('services.yml');
+
+.. note::
+
+    Se si vogliono caricare file di configurazione YAML, occorrerà installare
+    anche :doc:`il componente YAML</components/yaml>`.
 
 I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file di configurazione:
 

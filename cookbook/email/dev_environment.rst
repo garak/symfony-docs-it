@@ -150,8 +150,11 @@ del report con il dettaglio delle email inviate.
 
         <!-- app/config/config_dev.xml -->
 
-        <!-- xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler" -->
-        <!-- xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> -->
+        <!-- 
+            xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler"
+            xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler 
+            http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> 
+        -->
 
         <webprofiler:config
             intercept-redirects="true"

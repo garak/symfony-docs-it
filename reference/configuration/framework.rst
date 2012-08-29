@@ -18,6 +18,7 @@ Configurazione
 * `secret`_
 * `ide`_
 * `test`_
+* `trust_proxy_headers`_
 * `form`_
     * enabled
 * `csrf_protection`_
@@ -80,6 +81,17 @@ Se questo parametro di configurazione è presente e non è ``false``, saranno
 caricati i servizi correlati ai test della propria applicazione (p.e. ``test.client``).
 Questa impostazione dovrebbe essere presete nel proprio ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
+
+trust_proxy_headers
+~~~~~~~~~~~~~~~~~~~
+
+**tipo**: ``booleano``
+
+Configura se gli header HTTP (come ``HTTP_X_FORWARDED_FOR``, ``X_FORWARDED_PROTO`` e
+``X_FORWARDED_HOST``) siano affidabili indicazioni per una connessione SSL. L'impostazione
+predefinita è ``false`` e quindi solo le connessioni SSL_HTTPS sono considerate sicure.
+
+Si dovrebbe abilitare questa impostazione se l'applicazione è dietro un reverse proxy.
 
 .. _reference-framework-form:
 
@@ -273,6 +285,8 @@ Configurazione predefinita completa
                 type:                 ~
                 http_port:            80
                 https_port:           443
+                # se false, sarà generato un URL vuoto se una rotta manca dei parametri obbligatori
+                strict_requirements:  %kernel.debug%
 
             # configurazione della sessione
             session:

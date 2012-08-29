@@ -66,8 +66,8 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
             dbal:
                 driver    pdo_mysql
                 dbname:   symfony2_project
-                user:     %utente.database%
-                password: %password.database%
+                user:     %database.user%
+                password: %database.password%
 
     .. code-block:: xml
 
@@ -78,8 +78,8 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
             <doctrine:dbal
                 driver="pdo_mysql"
                 dbname="progetto_symfony2"
-                user="%utente.database%"
-                password="%password.database%"
+                user="%database.user%"
+                password="%database.password%"
             />
         </doctrine:config>
 
@@ -88,8 +88,8 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
         $container->loadFromExtension('doctrine', array('dbal' => array(
             'driver'   => 'pdo_mysql',
             'dbname'   => 'progetto_symfony2',
-            'user'     => '%utente.database%',
-            'password' => '%password.database%',
+            'user'     => '%database.user%',
+            'password' => '%database.password%',
         ));
 
 Costanti
@@ -104,8 +104,7 @@ e definirne il tipo come ``constant``.
         <?xml version="1.0" encoding="UTF-8"?>
 
         <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        >
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <parameters>
                 <parameter key="valore.costante.globale" type="constant">COSTANTE_GLOBALE</parameter>
@@ -120,7 +119,7 @@ e definirne il tipo come ``constant``.
     
     .. code-block:: yaml
     
-        // app/config/config.yml
+        # app/config/config.yml
         imports:
             - { resource: parametri.xml }
 
@@ -164,7 +163,6 @@ di una base dati per Drupal in un contenitore di servizi symfony.
 .. code-block:: php
 
     // app/config/parameters.php
-
     include_once('/percorso/al/sito/drupal/default/settings.php');
     $container->setParameter('url.database.drupal', $db_url);
 

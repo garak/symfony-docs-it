@@ -50,6 +50,8 @@ rende il template ``index.html.php``::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
 
+    // ...
+
     public function indexAction($name)
     {
         return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));

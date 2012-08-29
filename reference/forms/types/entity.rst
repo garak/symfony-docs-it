@@ -14,6 +14,7 @@ presi dal database.
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `class`_                                                          |
 |               | - `property`_                                                       |
+|               | - `group_by`_                                                       |
 |               | - `query_builder`_                                                  |
 |               | - `em`_                                                             |
 +---------------+---------------------------------------------------------------------+
@@ -85,6 +86,17 @@ property
 La proprietà da usare per mostrare le entità come testi nell'elemento HTML.
 Se lasciata vuota, gli oggetti saranno formattati come stringhe, quindi
 occorre avere un metodo ``__toString()``.
+
+group_by
+~~~~~~~~
+
+**tipo**: ``stringa``
+
+Il percorso di proprietà (p.e. ``author.name``) usato per organizzare le scelte
+disponibili in gruppi. Funziona solo se reso come tag select e lo fa
+aggiungendo tag optgroup tra le opzioni. Le scelte che non restituiscono un
+valore per questo percorso di proprietà sono rese direttamete sotto il tag
+select, senza optgroup.
 
 query_builder
 ~~~~~~~~~~~~~

@@ -27,7 +27,7 @@ I metodi in tale interfaccia vanno quindi deifniti nella classe utente personali
 
 Vediamola in azione::
 
-    // src/Acme/WebserviceUserBundle/Security/User.php
+    // src/Acme/WebserviceUserBundle/Security/User/WebserviceUser.php
     namespace Acme\WebserviceUserBundle\Security\User;
 
     use Symfony\Component\Security\Core\User\UserInterface;
@@ -130,7 +130,8 @@ Ecco un esempio di come potrebbe essere::
             // supponiamo che restituisca un array, oppure false se non trova utenti
 
             if ($userData) {
-                // $password = '...';
+                $password = '...';
+
                 // ...
 
                 return new WebserviceUser($username, $password, $salt, $roles)

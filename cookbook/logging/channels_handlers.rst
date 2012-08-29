@@ -81,6 +81,16 @@ Si può specificare la configurazione in molte forme:
         type:     exclusive # Include tutto, tranne quelli elencati sotto
         elements: [ pippo, pluto ]
 
+Creare il proprio canale
+------------------------
+
+Si può cambiare il canale usato da monolog su un servizio alla volta. Lo si può fare
+aggiungendo il tag ``monolog.logger`` a un servizio e specificando quale canale il
+servizio dovrebbe usare per i log. In questo modo, il logger iniettato in questo
+servizio viene preconfigurarto per usare il canale specificato.
+
+Per maggiori informazioni, incluso un esempio completo, leggere ":ref:`dic_tags-monolog`",
+nella sezione di riferimento sui tag della dependency injection.
 
 Imparare di più con il ricettario
 ---------------------------------

@@ -6,7 +6,12 @@ per "marcarlo" per essere usato in un modo speciale. Per esempio, se si ha un se
 che si vuole registrare come ascoltatore di uno degli eventi del nucleo di Symfony,
 lo si può marcare con il tag ``kernel.event_listener``.
 
-Di seguito si trovano informazioni su tutti i tag disponibili in Symfony2:
+Si possono approfondire i tag leggendo la sezione ":ref:`book-service-container-tags`"
+del capitolo sul contenitore di servizi.
+
+Di seguito si trovano informazioni su tutti i tag disponibili in Symfony2. Potrebbero
+esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui. Per esempio,
+AsseticBundle ha molti tag, non elencati qui.
 
 +-----------------------------------+---------------------------------------------------------------------------+
 | Nome tag                          | Utilizzo                                                                  |
@@ -129,9 +134,8 @@ form.type_guesser
 **Scopo**: Aggiungere la propria logica per "indovinare" il tipo di form
 
 Questo tag consente di aggiungere la propria logica al processo per
-:ref:`indovinare<book-forms-field-guessing>` il form. Per impostazione predefinita,
-il form viene indovinato dagli "indovini", in base ai meta-dati di validazione e ai
-meta-dati di Doctrine (se si usa Doctrine).
+:ref:`indovinare<book-forms-field-guessing>` il form. Per impostazione predefinita, il form
+viene indovinato dagli "indovini", in base ai meta-dati di validazione e ai meta-dati di Doctrine (se si usa Doctrine).
 
 Per aggiungere i propri indovini, creare una classe che implementi l'interfaccia
 :class:`Symfony\\Component\\Form\\FormTypeGuesserInterface`. Quindi, assegnare al
@@ -145,10 +149,11 @@ kernel.cache_warmer
 
 **Scopo**: Registrare un servizio da richiamare durante il processo di preparazione della cache
 
-Ogni volta che si richiama ``cache:warmup`` o ``cache:clear``, la cache viene preparata
-(a meno che non si passi ``--no-warmup`` a ``cache:clear``). Lo scopo è di
-inizializzare ogni cache necessaria all'applicazione e prevenire un "cache hit", cioè una
-generazione dinamica della cache, da parte del primo utente.
+Ogni volta che si richiama il task ``cache:warmup`` o ``cache:clear``, la cache viene
+preparata (a meno che non si passi ``--no-warmup`` a ``cache:clear``). Lo scopo è di
+inizializzare ogni cache necessaria all'applicazione e prevenire un "cache hit",
+cioè una generazione dinamica della cache, da parte del primo
+utente.
 
 Per registrare il proprio preparatore di cache, creare innanzitutto un servizio che implementi
 l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerInterface`::
@@ -220,6 +225,87 @@ Per un esempio completo di questo ascoltatore, leggere la ricetta
 Per altri esempi pratici di un ascoltatore del nucleo, vedere la ricetta
 :doc:`/cookbook/request/mime_type`.
 
+Riferimenti sugli ascoltatori del nucleo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Quando si aggiungono i propri ascoltatori, potrebbe essere utile conoscere gli altri
+ascoltatori del nucleo di Symfony e le loro priorità.
+
+.. note::
+
+    Tutti gli ascoltatori qui elencati potrebbero non ascoltare, a seconda di ambiente,
+    impostazioni e bundle. Inoltre, bundle di terze parti potrebbero aggiungere altri
+    ascoltatori, non elencati qui.
+
+kernel.request
+..............
+
++-------------------------------------------------------------------------------------------+-----------+
+| Nome della classe dell'ascoltatore                                                        | Priorità  |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | 1024      |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\TestSessionListener`             | 192       |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\SessionListener`                 | 128       |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\RouterListener`                    | 32        |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\LocaleListener`                    | 16        |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Component\\Security\\Http\\Firewall`                                     | 8         |
++-------------------------------------------------------------------------------------------+-----------+
+
+kernel.controller
+.................
+
++-------------------------------------------------------------------------------------------+----------+
+| Nome della classe dell'ascoltatore                                                        | Priorità  |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Bundle\\FrameworkBundle\\DataCollector\\RequestDataCollector`            | 0        |
++-------------------------------------------------------------------------------------------+----------+
+
+kernel.response
+...............
+
++-------------------------------------------------------------------------------------------+----------+
+| Nome della classe dell'ascoltatore                                                        | Priorità  |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`                       | 0        |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener`                  | 0        |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Bundle\\SecurityBundle\\EventListener\\ResponseListener`                 | 0        |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | -100     |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\TestSessionListener`             | -128     |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener`       | -128     |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\StreamedResponseListener`          | -1024    |
++-------------------------------------------------------------------------------------------+----------+
+
+kernel.exception
+................
+
++-------------------------------------------------------------------------------------------+----------+
+| Nome della classe dell'ascoltatore                                                        | Priorità  |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | 0        |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`                 | -128     |
++-------------------------------------------------------------------------------------------+----------+
+
+kernel.terminate
+................
+
++-------------------------------------------------------------------------------------------+----------+
+| Nome della classe dell'ascoltatore                                                        | Priorità  |
++-------------------------------------------------------------------------------------------+----------+
+| :class:`Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener`           | 0        |
++-------------------------------------------------------------------------------------------+----------+
+
 .. _dic-tags-kernel-event-subscriber:
 
 kernel.event_subscriber
@@ -228,7 +314,6 @@ kernel.event_subscriber
 **Scopo**: Sottoscrivere un insieme di vari eventi/hhok in Symfony
 
 .. versionadded:: 2.1
-
    La possibilità di aggiungere sottoscrittori di eventi del kernle è nuova nella 2.1.
 
 Per abilitare un sottoscrittore personalizzato, aggiungerlo come normale servizio in una delle

@@ -87,7 +87,7 @@ file ``app/config/parameters.yml``:
     è dimenticare di impostare charset e collation nella base dati,
     finendo con collation di tipo latin, che sono predefinite la maggior parte delle volte.
     Lo si potrebbe fare anche solo all'inizio, ma spesso si dimenticat che lo si
-   può fare anche durante lo sviluppo, in modo abbastanza semplice:
+    può fare anche durante lo sviluppo, in modo abbastanza semplice:
 
     .. code-block:: bash
 

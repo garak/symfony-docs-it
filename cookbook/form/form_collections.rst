@@ -201,6 +201,7 @@ ha tag, appena viene creato).
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Task/new.html.twig #}
+
         {# ... #}
 
         <form action="..." method="POST" {{ form_enctype(form) }}>
@@ -222,6 +223,7 @@ ha tag, appena viene creato).
     .. code-block:: html+php
 
         <!-- src/Acme/TaskBundle/Resources/views/Task/new.html.php -->
+
         <!-- ... -->
 
         <form action="..." method="POST" ...>
@@ -281,6 +283,7 @@ si aspetta di riceverne esattamente due, altrimenti verrà lanciato un errore:
 bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
+
     // ...
     
     use Symfony\Component\Form\FormBuilderInterface;
@@ -431,6 +434,10 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
     
         .. code-block:: php-annotations
 
+            // src/Acme/TaskBundle/Entity/Task.php
+
+            // ...
+
             /**
              * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
              */
@@ -460,6 +467,7 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
     è impostato a ``false``::
     
         // src/Acme/TaskBundle/Entity/Task.php
+
         // ...
 
         public function setTags(ArrayCollection $tags)
@@ -474,6 +482,7 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
     Dentro ``Tag``, assicurarsi di avere un metodo ``addTask``::
 
         // src/Acme/TaskBundle/Entity/Tag.php
+
         // ...
 
         public function addTask(Task $task)
@@ -497,6 +506,7 @@ La soluzione è simile a quella usata per consentire l'aggiunta di tag.
 Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::
     
     // src/Acme/TaskBundle/Form/Type/TaskType.php
+
     // ...
     use Symfony\Component\Form\FormBuilderInterface;
     
@@ -581,6 +591,7 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     l'aggiornamento del Task::
 
         // src/Acme/TaskBundle/Controller/TaskController.php
+
         // ...
 
         public function editAction($id, Request $request)
@@ -591,6 +602,8 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
             if (!$task) {
                 throw $this->createNotFoundException('No task found for is '.$id);
             }
+
+            $originalTags = array();
 
             // Crea un array degli oggetti Tag attualmente nella base dati
             foreach ($task->getTags() as $tag) $originalTags[] = $tag;

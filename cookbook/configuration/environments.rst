@@ -36,6 +36,7 @@ della classe ``AppKernel``:
 .. code-block:: php
 
     // app/AppKernel.php
+
     // ...
     
     class AppKernel extends Kernel
@@ -63,7 +64,6 @@ ottenuto facilmente e in modo trasparente:
 
         imports:
             - { resource: config.yml }
-
         # ...
 
     .. code-block:: xml
@@ -71,13 +71,11 @@ ottenuto facilmente e in modo trasparente:
         <imports>
             <import resource="config.xml" />
         </imports>
-
         <!-- ... -->
 
     .. code-block:: php
 
         $loader->import('config.php');
-
         // ...
 
 Per condividere una configurazione comune, i file di configurazione di ogni ambiente
@@ -108,8 +106,7 @@ parametro predefinito:
 
         <webprofiler:config
             toolbar="true"
-            # ...
-        />
+            ... />
 
     .. code-block:: php
 
@@ -118,7 +115,7 @@ parametro predefinito:
 
         $container->loadFromExtension('web_profiler', array(
             'toolbar' => true,
-            // ..
+            ...,
         ));
 
 .. index::
@@ -196,7 +193,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
 
             doctrine:
                dbal:
-                   logging:  %kernel.debug%
+                   logging:  "%kernel.debug%"
                    # ...
 
         .. code-block:: xml
@@ -208,9 +205,9 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
             $container->loadFromExtension('doctrine', array(
                 'dbal' => array(
                     'logging'  => '%kernel.debug%',
-                    // ...
+                    ...,
                 ),
-                // ...
+                ...
             ));
 
 .. index::
@@ -237,7 +234,6 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
     .. code-block:: yaml
 
         # app/config/config_benchmark.yml
-
         imports:
             - { resource: config_prod.yml }
 
@@ -247,7 +243,6 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
     .. code-block:: xml
 
         <!-- app/config/config_benchmark.xml -->
-
         <imports>
             <import resource="config_prod.xml" />
         </imports>
@@ -258,8 +253,7 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
 
     .. code-block:: php
 
-        // app/config/config_benchmark.php
-        
+        // app/config/config_benchmark.php     
         $loader->import('config_prod.php')
 
         $container->loadFromExtension('framework', array(

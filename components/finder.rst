@@ -1,5 +1,6 @@
 .. index::
    single: Finder
+   single: Componenti; Finder
 
 Il componente Finder
 ====================
@@ -30,8 +31,10 @@ cartelle::
     foreach ($finder as $file) {
         // Stampa il percorso assoluto
         print $file->getRealpath()."\n";
+
         // Stampa il percorso relativo del file, omettendo il nome del file stesso
         print $file->getRelativePath()."\n";
+
         // Stampa il percorso relativo del file
         print $file->getRelativePathname()."\n";
     }
@@ -239,6 +242,25 @@ Il metodo ``filter()`` prende una Closure come argomento. Per ogni file che corr
 la Closure viene chiamata passandogli il file come un'istanza di :class:`Symfony\\Component\\Finder\\SplFileInfo`.
 Il file sarà escluso dal risultato della ricerca nel caso in cui la Closure restituisca
 ``false``.
+
+Leggere il contenuto dei file restituiti
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+   Il metodo ``getContents()`` è stato introdotto nella versione 2.1.
+
+Il contenuto dei file restituiti può essere letto con
+:method:`Symfony\\Component\\Finder\\SplFileInfo::getContents`::
+
+    use Symfony\Component\Finder\Finder;
+
+    $finder = new Finder();
+    $finder->files()->in(__DIR__);
+
+    foreach ($finder as $file) {
+        $contents = $file->getContents();
+        ...
+    }
 
 .. _strtotime:   http://www.php.net/manual/en/datetime.formats.php
 .. _Iterator:     http://www.php.net/manual/en/spl.iterators.php

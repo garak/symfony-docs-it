@@ -1,8 +1,8 @@
 .. index::
-   single: Form; Data transformer
+   single: Form; Trasformatori di dati
 
-Utilizzare i data transformer
-=============================
+Utilizzare i trasformatori di dati
+==================================
 
 Spesso si avrà la necessità di trasformare i dati che l'utente ha immesso in un form in
 qualcosa di diverso da utilizzare nel programma. Tutto questo si potrebbe fare manualmente nel
@@ -11,106 +11,33 @@ controllore, ma nel caso in cui si volesse utilizzare il form in posti diversi?
 Supponiamo di avere una relazione uno-a-uno tra Task e Issue, per esempio un Task può avere una
 Issue associata. Avere una casella di riepilogo con la lista di tuttr le issue può portare a
 una casella di riepilogo molto lunga, nella quale risulterà impossibile cercare qualcosa. Si vorrebbe, piuttosto,
-aggiungere un campo di testo nel quale l'utente può semplicemente inserire il numero della issue. Nel
-controllore si può convertire questo numero di issue in un task ed eventualmente aggiungere
-errori al form, se non è stato trovato, ma questo non è il modo migliore di procedere.
+aggiungere un campo di testo nel quale l'utente può semplicemente inserire il numero della issue.
 
-Sarebbe meglio se questa issue fosse cercata automaticamente e convertita in un
-oggetto Issue, in modo da poterlo utilizzare nell'azione. In questi casi entrano in gioco i data transformer.
+Lo si potrebbe fare nel controllore, ma non è la soluzione migliore.
+Sarebbe meglio se questa issue fosse cercata automaticamente e convertita in un oggetto Issue.
+In questi casi entrano in gioco i trasformatori di dati.
 
-Come prima cosa, bisogna creare un form che abbia un data transformer collegato che,
-dato un numero, ritorni un oggetto Issue: il tipo selettore di issue. Eventualmente sarà semplicemente 
-un campo di testo, dato che la configurazione dei campi che estendono è impostata come campo di testo, nel quale
-si potrà inserire il numero di issue. Il campo di testo farà comparire un errore se verrà inserito
-un numero di issue che non esiste::
+Creare il trasformer
+--------------------
 
-    // src/Acme/TaskBundle/Form/Type/IssueSelectorType.php
-    namespace Acme\TaskBundle\Form\Type;
-    
-    use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilderInterface;
-    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-    use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
-    use Doctrine\Common\Persistence\ObjectManager;
-
-    class IssueSelectorType extends AbstractType
-    {
-        /**
-         * @var ObjectManager
-         */
-        private $om;
-    
-        /**
-         * @param ObjectManager $om
-         */
-        public function __construct(ObjectManager $om)
-        {
-            $this->om = $om;
-        }
-    
-        public function buildForm(FormBuilderInterface $builder, array $options)
-        {
-            $transformer = new IssueToNumberTransformer($this->om);
-            $builder->addViewTransformer($transformer);
-        }
-    
-        public function getParent()
-        {
-            return 'text';
-        }
-    
-        public function getName()
-        {
-            return 'issue_selector';
-        }
-    }
-
-.. tip::
-
-    È possibile utilizzare i transformer senza necessariamente creare un nuovo form
-    personalizzato invocando la funzione ``appendClientTransformer`` su qualsiasi field builder::
-
-        use Symfony\Component\Form\FormBuilderInterface;
-        use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
-
-        class TaskType extends AbstractType
-        {
-            public function buildForm(FormBuilderInterface $builder, array $options)
-            {
-                // ...
-            
-                // si assume che l'entity manager è stato passato come opzione
-                $entityManager = $options['em'];
-                $transformer = new IssueToNumberTransformer($entityManager);
-
-                // utilizza un campo di testo ma trasforma il testo in un oggetto issue
-                $builder
-                    ->add('issue', 'text')
-                    ->addViewTransformer($transformer)
-                ;
-            }
-            
-            // ...
-        }
-
-quindi, creiamo il data transformer che effettua la vera e propria conversione::
+Come prima cosa, creare una classe `IssueToNumberTransformer`, che sarà responsabile
+della conversione da numero di issue a oggetto Issue e viceversa::
 
     // src/Acme/TaskBundle/Form/DataTransformer/IssueToNumberTransformer.php
-
     namespace Acme\TaskBundle\Form\DataTransformer;
-    
+
     use Symfony\Component\Form\DataTransformerInterface;
     use Symfony\Component\Form\Exception\TransformationFailedException;
     use Doctrine\Common\Persistence\ObjectManager;
     use Acme\TaskBundle\Entity\Issue;
-    
+
     class IssueToNumberTransformer implements DataTransformerInterface
     {
         /**
          * @var ObjectManager
          */
         private $om;
-
+    
         /**
          * @param ObjectManager $om
          */
@@ -118,9 +45,9 @@ quindi, creiamo il data transformer che effettua la vera e propria conversione::
         {
             $this->om = $om;
         }
-
+    
         /**
-         * Trasforma un oggetto (issue) in una stringa (number)
+         * Transforms an object (issue) to a string (number).
          *
          * @param  Issue|null $issue
          * @return string
@@ -129,13 +56,13 @@ quindi, creiamo il data transformer che effettua la vera e propria conversione::
         {
             if (null === $issue) {
                 return "";
-            }
-
+        }
+    
             return $issue->getNumber();
         }
-
+    
         /**
-         * Trasforma una  stringa (number) in un oggetto (issue).
+         * Transforms a string (number) to an object (issue).
          *
          * @param  string $number
          * @return Issue|null
@@ -154,7 +81,7 @@ quindi, creiamo il data transformer che effettua la vera e propria conversione::
 
             if (null === $issue) {
                 throw new TransformationFailedException(sprintf(
-                    'Non esiste una issue con numero "%s"!',
+                    'An issue with number "%s" does not exist!',
                     $number
                 ));
             }
@@ -163,9 +90,191 @@ quindi, creiamo il data transformer che effettua la vera e propria conversione::
         }
     }
 
-Infine, poiché abbiamo deciso di creare un campo di testo personalizzato che utilizza
-il data transformer, bisogna registrare il tipo nel service container, in modo che l'entity
-manager può essere automaticamente iniettato:
+.. tip::
+
+    Se si vuole che sia create una nuova issue all'inserimento di un numero non trovato, si
+    può crearne l'istanza invece di lanciare ``TransformationFailedException``.
+
+Usare il trasformatore
+----------------------
+
+Dopo aver creato il trasformatore, basta aggiungerlo al campo issue in
+un form.
+
+    Si possono anche usare i trasformatori senza creare un nuovo tipo di form,
+    richiamando ``addModelTransformer`` (o ``addViewTransformer``, vedere
+    `Trasformatore per modelli e viste`_) sul builder di un campo::
+
+        use Symfony\Component\Form\FormBuilderInterface;
+        use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
+
+        class TaskType extends AbstractType
+        {
+            public function buildForm(FormBuilderInterface $builder, array $options)
+            {
+                // ...
+            
+                // si assume che l'entity manager è stato passato come opzione
+                $entityManager = $options['em'];
+                $transformer = new IssueToNumberTransformer($entityManager);
+
+                // aggiunge un normal campo test, ma vi aggiunge il trasformatori
+                $builder->add(
+                    $builder->create('issue', 'text')
+                        ->addModelTransformer($transformer)
+                );
+            }
+            
+            // ...
+        }
+
+Questo esempio richiede il passaggio del gestore di entità come opzione, al momento
+di creare il form. Successivamente, si vedrà come si può creare un tipo di campo
+``issue`` personalizzato, per evitare di doverlo fare nel controllore::
+
+    $taskForm = $this->createForm(new TaskType(), $task, array(
+        'em' => $this->getDoctrine()->getEntityManager(),
+    ));
+
+Ecco fatto! L'utente sarà in grado di inserire un numero di isse nel campo di
+testo e di vederlo trasformato in un oggetto Issue. Questo vuol dire che,
+dopo l'invio del form, il framrwork passerà un vero oggetto Issue
+a ``Task::setIssue()`` e non un numero di issue.
+
+Se la issue non viene trovata, sarà creato un errore per il campo, con un messaggio
+controllabile dall'opzione del campo ``invalid_message``.
+
+.. caution::
+
+    Notare che l'aggiunta di un trasformatore richiede l'uso di una sintassi leggermente più
+    complessa, durante l'aggiunta del campo. Quello che segue è *errato*, perché il trasformatore
+    sarebbe applicato all'intero form, invece che solo a un campo::
+
+        // QUESTO NON VA BENE: IL TRASFORMATORE SARÀ APPLICATO ALL'INTERO FORM
+        // vedere l'esempio precedente per il codice corretto
+        $builder->add('issue', 'text')
+            ->addModelTransformer($transformer);
+
+Trasformatore per modelli e viste
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+    Nomi e metodi dei trasformatori sono cambiati in Symfony 2.1.
+    ``prependNormTransformer`` è diventato ``addModelTransformer`` e ``appendClientTransformer``
+    è diventato ``addViewTransformer``.
+
+Nell'esempio precedente, il trasformatore è stato usato come trasformatore di modello.
+Infatti, ci sono due diversi tipi di trasformatori e tre diversi tipi di
+dati sottostanti.
+
+In un form, i tre diversi tipi di dati sono:
+
+1) **Dati di modello** - sono i dati nel formato usato dall'applicazione
+(p.e. un oggetto ``Issue``). Richiamando ``Form::getData`` o ``Form::setData``, 
+si ha a che fare con dati di "modello".
+
+2) **Dati normali** - la versione normalizzata dei dati, solitamente gli stessi dati
+del "modello" (ma non nel nostro esempio). Solitamente non sono usati
+direttamente.
+
+3) **Dati di vista** - il formato usato per riempire i campi stessi del form.
+È anche il formato in cui l'utente invierà i dati. Quando si richiama
+``Form::bind($data)``, ``$data`` + nel formato di dati "vista".
+
+I due diversi tipi di trasformatori aiutano a convertire da e per ciascuno di questi
+tipi di dati:
+
+**Trasformatori di modello**:
+    - ``transform``: "dati modello" => "dati normali"
+    - ``reverseTransform``: "dati normali" => "dati modello"
+
+**Trasformatori di vista**:
+    - ``transform``: "dati normali" => "dati vista"
+    - ``reverseTransform``: "dati vista" => "dati normali"
+
+A seconda della situazione, occorrerà un tasformatore diverso.
+
+Per usare un trasformatore di vista, richiamare ``addViewTransformer``.
+
+Perché abbiamo usato i trasformatori di modello?
+------------------------------------------------
+
+Nel nostro esempio, il campo è di tipo ``text`` e ci aspettiamo sempre che un campo testo
+sia in formato semplice e scalare, nei formati "normale" e "vista". Per tale
+ragione, il trasformatore più adeguato era il trasformatore "modello"
+(che converte da/a formato *normale*, il numero di issue, al formato *modello*,
+l'oggetto Issue.
+
+La differenza tra i trasformatori è sottile, si dovrebbe sempre pensare quali
+dati "normali" un campo dovrebbe avere realmente. Per esempio, i dati
+"normali" per un campo ``text`` sono stringhe, ma c'è un oggetto ``DateTime``
+per un campo ``date``.
+
+Usare i trasformatori in un tipo di campo personalizzato
+--------------------------------------------------------
+
+Nell'esempio precedente, abbiamo applicato i trasformatori a un normale campo ``text``.
+È stato facile, ma con due svantaggi:
+
+1) Si deve sempre ricordare di applicare i trasformatori ogni volta che si aggiunge un campo
+per i numeri di isssue
+
+2) Ci si deve preoccupare di passare l'opzione ``em`` ogni volta che si crea un form
+che usi i trasformatori.
+
+Per questi motivi, si potrebbe scegliere di :doc:`creare un tipo di campo personalizzato</cookbook/form/create_custom_field_type>`.
+Prima di tutto, creare una classe::
+
+    // src/Acme/TaskBundle/Form/Type/IssueSelectorType.php
+    namespace Acme\TaskBundle\Form\Type;
+
+    use Symfony\Component\Form\AbstractType;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    
+    class IssueSelectorType extends AbstractType
+    {
+        /**
+         * @var ObjectManager
+         */
+        private $om;
+
+        /**
+         * @param ObjectManager $om
+         */
+        public function __construct(ObjectManager $om)
+        {
+            $this->om = $om;
+        }
+
+        public function buildForm(FormBuilderInterface $builder, array $options)
+        {
+            $transformer = new IssueToNumberTransformer($this->om);
+            $builder->addModelTransformer($transformer);
+            }
+
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
+        {
+            $resolver->setDefaults(array(
+                'invalid_message' => 'The selected issue does not exist',
+            ));
+        }
+
+        public function getParent()
+        {
+            return 'text';
+            }
+
+        public function getName()
+        {
+            return 'issue_selector';
+        }
+    }
+
+Quindi, registrare il proprio tipo come servizio, con il tag ``form.type``, in modo che sia
+riconosciuto come tipo di campo personalizzato:
 
 .. configuration-block::
 
@@ -185,10 +294,10 @@ manager può essere automaticamente iniettato:
             <tag name="form.type" alias="issue_selector" />
         </service>
 
-Ora è possibile aggiungere il tipo al form dal suo alias come segue::
+Ora, ogni volta che serve il tipo ``issue_selector``,
+è molto facile::
 
-    // src/Acme/TaskBundle/Form/Type/TaskType.php
-    
+    // src/Acme/TaskBundle/Form/Type/TaskType.php   
     namespace Acme\TaskBundle\Form\Type;
     
     use Symfony\Component\Form\AbstractType;
@@ -201,8 +310,7 @@ Ora è possibile aggiungere il tipo al form dal suo alias come segue::
             $builder
                 ->add('task')
                 ->add('dueDate', null, array('widget' => 'single_text'));
-                ->add('issue', 'issue_selector')
-            ;
+                ->add('issue', 'issue_selector');
         }
     
         public function getName()
@@ -211,11 +319,3 @@ Ora è possibile aggiungere il tipo al form dal suo alias come segue::
         }
     }
 
-Ora sarà molto facile in qualsiasi punto dell'applicazione, usare questo
-tipo selettore per selezionare una issue da un numero. Tutto questo, senza aggiungere nessuna logica 
-al controllore.
-
-Se si vuole creare una nuova issue quando viene inserito un numero di issue sconosciuto,
-è possibile istanziarlo piuttosto che lanciare l'eccezione TransformationFailedException e
-inoltre persiste nel proprio entity manager se il task non ha opzioni di cascata
-per la issue.

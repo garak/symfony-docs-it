@@ -1,11 +1,11 @@
 L'architettura
 ==============
 
-Sei il mio eroe! Chi avrebbe pensato che tu fossi ancora qui dopo le prime
+Sei un eroe! Chi avrebbe pensato che tu fossi ancora qui dopo le prime
 tre parti? I tuoi sforzi saranno presto ricompensati. Le prime tre parti
 non danno uno sguardo approfondito all'architettura del framework. Poiché
-essa rende unico Symfony2 nel panorama dei framework, vediamo in cosa consiste.
-
+essa rende unico Symfony2 nel panorama dei framework, vediamo in cosa
+consiste.
 
 Capire la struttura delle cartelle
 ----------------------------------
@@ -167,57 +167,56 @@ XML o PHP. Si veda la configurazione predefinita:
 
     framework:
         #esi:             ~
-        #translator:      { fallback: %locale% }
-        secret:          %secret%
-        charset:         UTF-8
+        #translator:      { fallback: "%locale%" }
+        secret:          "%secret%"
         router:          { resource: "%kernel.root_dir%/config/routing.yml" }
         form:            true
         csrf_protection: true
         validation:      { enable_annotations: true }
         templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-        default_locale:  %locale%
+        default_locale:  "%locale%"
         session:
             auto_start:     true
 
     # Configurazione di Twig
     twig:
-        debug:            %kernel.debug%
-        strict_variables: %kernel.debug%
+        debug:            "%kernel.debug%"
+        strict_variables: "%kernel.debug%"
 
     # Configurazione di Assetic
     assetic:
-        debug:          %kernel.debug%
+        debug:          "%kernel.debug%"
         use_controller: false
         bundles:        [ ]
         # java: /usr/bin/java
         filters:
             cssrewrite: ~
             # closure:
-            #     jar: %kernel.root_dir%/java/compiler.jar
+            #     jar: "%kernel.root_dir%/java/compiler.jar"
             # yui_css:
-            #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+            #     jar: "%kernel.root_dir%/java/yuicompressor-2.4.2.jar"
 
     # Configurazione di Doctrine
     doctrine:
         dbal:
-            driver:   %database_driver%
-            host:     %database_host%
-            port:     %database_port%
-            dbname:   %database_name%
-            user:     %database_user%
-            password: %database_password%
+            driver:   "%database_driver%"
+            host:     "%database_host%"
+            port:     "%database_port%"
+            dbname:   "%database_name%"
+            user:     "%database_user%"
+            password: "%database_password%"
             charset:  UTF8
 
         orm:
-            auto_generate_proxy_classes: %kernel.debug%
+            auto_generate_proxy_classes: "%kernel.debug%"
             auto_mapping: true
 
     # Configurazione di Swiftmailer
     swiftmailer:
-        transport: %mailer_transport%
-        host:      %mailer_host%
-        username:  %mailer_user%
-        password:  %mailer_password%
+        transport: "%mailer_transport%"
+        host:      "%mailer_host%"
+        username:  "%mailer_user%"
+        password:  "%mailer_password%"
 
     jms_security_extra:
         secure_controllers:  true
@@ -250,7 +249,7 @@ aggiungere alcuni strumenti di debug:
         handlers:
             main:
                 type:  stream
-                path:  %kernel.logs_dir%/%kernel.environment%.log
+                path:  "%kernel.logs_dir%/%kernel.environment%.log"
                 level: debug
             firephp:
                 type:  firephp

@@ -21,8 +21,7 @@ nell'applicazione:
 
     .. code-block:: php
 
-        <script src="<?php echo $view['assets']->getUrl('js/script.js') ?>"
-                type="text/javascript" />
+        <script src="<?php echo $view['assets']->getUrl('js/script.js') ?>" type="text/javascript" />
 
 Ma *con* Assetic, è possibile manipolare queste risorse nel modo che si preferisce (o
 caricarle da qualunque parte) prima di servirli. Questo significa che si può:
@@ -45,9 +44,7 @@ provenire da varie fonti come quelle all'interno di un bundle:
 
     .. code-block:: html+jinja
 
-        {% javascripts
-            '@AcmeFooBundle/Resources/public/js/*'
-        %}
+        {% javascripts '@AcmeFooBundle/Resources/public/js/*' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
@@ -67,16 +64,15 @@ provenire da varie fonti come quelle all'interno di un bundle:
 
         .. code-block:: html+jinja
 
-            {% stylesheets
-                '@AcmeFooBundle/Resources/public/css/*'
-            %}
+            {% stylesheets '@AcmeFooBundle/Resources/public/css/*' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
 
         .. code-block:: html+php
 
             <?php foreach ($view['assetic']->stylesheets(
-                array('@AcmeFooBundle/Resources/public/css/*')) as $url): ?>
+                                                 array('@AcmeFooBundle/Resources/public/css/*')
+                                             ) as $url): ?>
             <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
             <?php endforeach; ?>
 
@@ -113,8 +109,7 @@ come un unico file:
         {% javascripts
             '@AcmeFooBundle/Resources/public/js/*'
             '@AcmeBarBundle/Resources/public/js/form.js'
-            '@AcmeBarBundle/Resources/public/js/calendar.js'
-        %}
+            '@AcmeBarBundle/Resources/public/js/calendar.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
@@ -147,8 +142,7 @@ combinare risorse di terze parti (come jQuery) con i propri, in un singolo file:
 
         {% javascripts
             '@AcmeFooBundle/Resources/public/js/thirdparty/jquery.js'
-            '@AcmeFooBundle/Resources/public/js/*'
-        %}
+            '@AcmeFooBundle/Resources/public/js/*' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
@@ -221,10 +215,7 @@ nel template:
 
     .. code-block:: html+jinja
 
-        {% javascripts
-            '@AcmeFooBundle/Resources/public/js/*'
-            filter='yui_js'
-        %}
+        {% javascripts '@AcmeFooBundle/Resources/public/js/*' filter='yui_js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
@@ -249,10 +240,7 @@ fatto dal template ed è relativo alla radice del documento pubblico:
 
     .. code-block:: html+jinja
 
-        {% javascripts
-            '@AcmeFooBundle/Resources/public/js/*'
-            output='js/compiled/main.js'
-        %}
+        {% javascripts '@AcmeFooBundle/Resources/public/js/*' output='js/compiled/main.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
@@ -373,10 +361,7 @@ una cartella separata (ad esempio ``/js/compiled``), per mantenere ordinate le c
 
     .. code-block:: html+jinja
 
-        {% javascripts
-            '@AcmeFooBundle/Resources/public/js/*'
-            output='js/compiled/main.js'
-        %}
+        {% javascripts '@AcmeFooBundle/Resources/public/js/*' output='js/compiled/main.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 

@@ -80,15 +80,16 @@ pattern che punta a uno specifico metodo di una classe PHP:
 .. code-block:: php
 
     // src/Acme/BlogBundle/Controller/BlogController.php
-    
     namespace Acme\BlogBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     class BlogController extends Controller
     {
         public function showAction($slug)
         {
-            $blog = // usare la variabile $slug per interrogare il database
+            // usare la variabile $slug per interrogare la base dati
+            $blog = ...;
             
             return $this->render('AcmeBlogBundle:Blog:show.html.twig', array(
                 'blog' => $blog,
@@ -824,8 +825,8 @@ Il controllore potrebbe essere simile a questo:
 .. code-block:: php
 
     // src/Acme/BlogBundle/Controller/BlogController.php
-    
     namespace Acme\BlogBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     
     class BlogController extends Controller
@@ -1129,7 +1130,7 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     
     .. code-block:: php
     
-        $request->headers->set('HOST', 'www.example.com');
+        $router->getContext()->setHost('www.example.com');
 
 .. index::
    single: Rotte; Generare URL in un template

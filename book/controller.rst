@@ -94,8 +94,8 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
     :linenos:
 
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
+
     use Symfony\Component\HttpFoundation\Response;
 
     class HelloController
@@ -208,8 +208,8 @@ passati a tale metodo:
 
     <?php
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     class HelloController extends Controller
@@ -349,8 +349,8 @@ Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificar
 .. code-block:: php
 
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Response;
 
@@ -570,7 +570,8 @@ Se si sta estendendo la classe base del controllore, procedere come segue::
 
     public function indexAction()
     {
-        $product = // recuperare l'oggetto dalla base dati 
+        // recuperare l'oggetto dalla base dati 
+        $product = ...;
         if (!$product) {
             throw $this->createNotFoundException('Il prodotto non esiste');
         }

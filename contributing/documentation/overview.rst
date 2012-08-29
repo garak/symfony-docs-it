@@ -19,11 +19,11 @@ La documentazione di Symfony 2 è ospitata da GitHub:
     https://github.com/symfony/symfony-docs
 
 Se si vuole inviare una patch, fare un `fork`_ del repository ufficiale su GitHub
-e fare un clone:
+e quindi un clone del proprio fork:
 
 .. code-block:: bash
 
-    git://github.com/symfony/symfony-docs.git
+    $ git clone git://github.com/TUONOME/symfony-docs.git
 
 A meno di non documentare una caratteristica aggiunta in Symfony 2.1, le modifiche
 vanno basate sul ramo 2.0, non sul ramo master. Per poterlo fare,
@@ -68,6 +68,63 @@ GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
     pagina `Errori di build della documentazione`_ (aggiornata ogni notte alle 3,
     quando il server ricostruisce la documentazione).
 
+Standard
+--------
+
+Per aiutare il più possibile il lettore e per creare esempi di codice che sembrino
+familiari, seguire queste regole:
+
+* Il code segue gli :doc:`standard di codice di Symfony</contributing/code/standards>`
+  e gli `standard di codice di Twig`_;
+* Ogni riga dovrebbe interrompersi dopo che la prima parola attraversa la
+  72esima colonna (quindi con la maggior parte delle righe tra 72 e 78 caratteri);
+* Quando si omettono righe di codice, porre ``...`` in un commento nel punto
+  di omissione. I commenti sono: ``// ...`` (php), ``# ...`` (yaml/bash), ``{# ... #}``
+  (twig), ``<!-- ... -->`` (xml/html), ``; ...`` (ini), ``...`` (testo);
+* Quando si omette una parte di riga, p.e. il valore di una variabile, porre ``...`` (senza commenti)
+  nel punto di omissione;
+* Descrizione del codice omesso (facoltativa):
+  se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``
+  se si omette parte di una riga: la descrizione può essere posta prima della riga;
+* Se utile, un ``codeblock`` dovrebbe iniziare con un commento contenente il nome del
+  file nel blocco di codce. Inserire una riga vuota dopo il commento, a meno che la riga
+  successiva non sia anch'essa un commento;
+* Inserire il simbolo ``$`` all'inizio di ogni riga di bash;
+* Preferire la scorciatoia ``::`` a ``.. code-block:: php`` per iniziare un codice di
+  blocco PHP.
+
+Un esempio::
+
+    // src/Foo/Bar.php
+
+    // ...
+    class Bar
+    {
+        // ...
+
+        public function foo($bar)
+        {
+            // imposta foo al valore di bar
+            $foo = ...;
+
+            // ... verifica se $bar ha il valore corretto
+
+            return $foo->baz($bar, ...);
+        }
+    }
+
+.. note::
+
+    * In Yaml, mettere uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
+      tranne che in Twig (p.e. ``{'ciao' : 'valore'}``).
+    * Un array è parte di una riga, non una riga completa. Quindi non usare
+      ``// ...`` ma ``...,`` (la virgola fa parte degli standard di codice)::
+
+        array(
+            'un valore',
+            ...,
+        )
+
 Segnalare una problematica
 --------------------------
 
@@ -83,8 +140,9 @@ Passi:
 Traduzione
 ----------
 
-Leggere la :doc:`documentazione <translations>` apposita.
+Leggere la :doc:`documentazione <translations>`.
 
 .. _`fork`: http://help.github.com/fork-a-repo/
 .. _`richieste di pull`: http://help.github.com/pull-requests/
 .. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors
+.. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html

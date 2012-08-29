@@ -45,18 +45,50 @@ Lavorando con gestori di entità multipli, occorre esplicitare quale gestore di 
 si vuole usare. Se si *omette* il nome del gestore di entità al momento della sua
 richiesta, verrà restituito il gestore di entità predefinito (cioè ``default``)::
 
+    # Usa solo le mappature predefinite ("default")
+    php app/console doctrine:schema:update --force
+
+    # Usa solo le mappature personalizzate ("customer")
+    php app/console doctrine:schema:update --force --em=customer
+
+Se si *omette* il nome del gestore di entità quando lo si richiede,
+viene restituite il gestore predefinito (cioè ``default``)::
+
     class UserController extends Controller
     {
         public function indexAction()
         {
             // entrambi restiuiscono il gestore "default"
-            $em = $this->get('doctrine')->getEntityManager();
-            $em = $this->get('doctrine')->getEntityManager('default');
+            $em = $this->get('doctrine')->getManager();
+            $em = $this->get('doctrine')->getManager('default');
             
-            $customerEm =  $this->get('doctrine')->getEntityManager('customer');
+            $customerEm =  $this->get('doctrine')->getManager('customer');
         }
     }
 
 Si può ora usare Doctrine come prima, usando il gestore di entità ``default`` per
 persistere e recuperare le entità da esso gestite e il gestore di entità
 ``customer`` per persistere e recuperare le sue entità.
+
+Lo stesso principio si applica alle chiamate ai repository::
+
+    class UserController extends Controller
+    {
+        public function indexAction()
+        {
+            // Recupera un repository gestito da "default"
+            $products = $this->get('doctrine')
+                             ->getRepository('AcmeStoreBundle:Product')
+                             ->findAll();
+
+            // Esplicita la richiesta a "default"
+            $products = $this->get('doctrine')
+                             ->getRepository('AcmeStoreBundle:Product', 'default')
+                             ->findAll();
+
+            // Recupera un repository gestito da "customer"
+            $customers = $this->get('doctrine')
+                              ->getRepository('AcmeCustomerBundle:Customer', 'customer')
+                              ->findAll();
+        }
+    }

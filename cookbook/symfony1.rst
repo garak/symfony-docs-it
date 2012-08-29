@@ -128,6 +128,7 @@ Symfony2::
     class SensioFrameworkExtraBundle extends Bundle
     {
         // ...
+    }
 
 Il file stesso risiede in
 ``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
@@ -144,7 +145,7 @@ cartella in cui il file dovrebbe risiedere
 
     // ...
     $loader->registerNamespaces(array(
-        // ...
+        ...,
         'Sensio'           => __DIR__.'/../vendor/sensio/framework-extra-bundle',
     ));
 
@@ -247,7 +248,7 @@ In Symfony2, i bundle sono attivati nel kernel dell'applicazione::
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            // ...
+            ...,
             new Acme\DemoBundle\AcmeDemoBundle(),
         );
 

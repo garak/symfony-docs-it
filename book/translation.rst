@@ -928,6 +928,7 @@ non sia vuota, aggiungere il seguente:
 
         // src/Acme/BlogBundle/Entity/Author.php
 
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -949,7 +950,7 @@ Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei
 
     .. code-block:: xml
 
-        <!-- validators.fr.xliff -->
+        <!-- validators.it.xliff -->
         <?xml version="1.0"?>
         <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
             <file source-language="en" datatype="plaintext" original="file.ext">
@@ -964,14 +965,14 @@ Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei
 
     .. code-block:: php
 
-        // validators.fr.php
+        // validators.it.php
         return array(
             'author.name.not_blank' => 'Inserire un nome per l'autore.',
         );
 
     .. code-block:: yaml
 
-        # validators.fr.yml
+        # validators.it.yml
         author.name.not_blank: Inserire un nome per l'autore.
 
 Riepilogo

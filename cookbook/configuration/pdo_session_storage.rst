@@ -19,7 +19,7 @@ proprio formato di configurazione):
     trovare la classe `PdoSessionStorage` nello spazio dei nomi `Session\\Storage`:
     ``Symfony\Component\HttpFoundation\Session\Storage\PdoSessionStorage``. Si noti inoltre
     che in Symfony 2.1 va configurato ``handler_id`` e non ``storage_id``, come in Symfony2.0.
-    Più avanti, si noterà che ``%session.storage.options%``non è più usato.
+    Più avanti, si noterà che ``%session.storage.options%`` non è più usato.
 
 .. configuration-block::
 

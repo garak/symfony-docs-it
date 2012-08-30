@@ -7,15 +7,15 @@ Come generare dinamicamente form usando gli eventi form
 Prima di addentrarci nella generazione dinamica dei form, diamo un'occhiata veloce 
 alla classe dei form::
 
-    //src/Acme/DemoBundle/Form/ProductType.php
-    namespace Acme\DemoBundle\Form
+    // src/Acme/DemoBundle/Form/Type/ProductType.php
+    namespace Acme\DemoBundle\Form\Type;
 
-    use Symfony\Component\Form\AbstractType
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\AbstractType;
+    use Symfony\Component\Form\FormBuilderInterface;
     
     class ProductType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('nome');
             $builder->add('prezzo');
@@ -39,9 +39,9 @@ da questa classe avrà lo stesso aspetto, indipendentemente se un nuovo prodotto
 oppure se un prodotto esistente sta per essere modificato (es. un prodotto ottenuto da database).
 
 Si supponga ora, di non voler abilitare l'utente alla modifica del campo 'nome' 
-una volta che l'oggetto è stato creato. Per fare ciò si può dare un'occhiata al sistema :ref:`Event Dispatcher <book-internals-event-dispatcher>`,
+una volta che l'oggetto è stato creato. Lo si può fare grazie al componente :ref:`Event Dispatcher </components/event_dispatcher/introduction>`,
 che analizza l'oggetto e modifica il form basato sull'
-oggetto 'prodotto'. In questa ricetta si imparerà come aggiungere questo livello di
+oggetto prodotto. In questa ricetta si imparerà come aggiungere questo livello di
 flessibilità ai form.
 
 .. _`cookbook-forms-event-subscriber`:
@@ -53,16 +53,16 @@ Invece di aggiungere direttamente il widget "nome" tramite la  classe dei form P
 si deleghi la responsabilità di creare questo particolare campo
 a un evento sottoscrittore::
 
-    //src/Acme/DemoBundle/Form/ProductType.php
-    namespace Acme\DemoBundle\Form
+    // src/Acme/DemoBundle/Form/Type/ProductType.php
+    namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
     use Acme\DemoBundle\Form\EventListener\AddNameFieldSubscriber;
 
     class ProductType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $subscriber = new AddNameFieldSubscriber($builder->getFormFactory());
             $builder->addEventSubscriber($subscriber);

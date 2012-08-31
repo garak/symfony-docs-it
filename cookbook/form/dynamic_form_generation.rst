@@ -39,7 +39,7 @@ da questa classe avrà lo stesso aspetto, indipendentemente se un nuovo prodotto
 oppure se un prodotto esistente sta per essere modificato (es. un prodotto ottenuto da database).
 
 Si supponga ora, di non voler abilitare l'utente alla modifica del campo 'nome' 
-una volta che l'oggetto è stato creato. Lo si può fare grazie al componente :ref:`Event Dispatcher </components/event_dispatcher/introduction>`,
+una volta che l'oggetto è stato creato. Lo si può fare grazie al componente :doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
 che analizza l'oggetto e modifica il form basato sull'
 oggetto prodotto. In questa ricetta si imparerà come aggiungere questo livello di
 flessibilità ai form.
@@ -128,7 +128,7 @@ potrebbe essere simile a questo::
 
             // controlla se l'oggetto Prodotto è nuovo
             if (!$data->getId()) {
-                $form->add($this->factory->createNamed('text', 'name'));
+                $form->add($this->factory->createNamed('nome', 'text'));
             }
         }
     }

@@ -87,7 +87,7 @@ certe dimensioni, aggiungere il seguente:
         class Author
         {
             /**
-             * @Assert\File(
+             * @Assert\Image(
              *     minWidth = 200,
              *     maxWidth = 400,
              *     minHeight = 200,
@@ -102,7 +102,7 @@ certe dimensioni, aggiungere il seguente:
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
         <class name="Acme\BlogBundle\Entity\Author">
             <property name="headshot">
-                <constraint name="File">
+                <constraint name="Image">
                     <option name="minWidth">200</option>
                     <option name="maxWidth">400</option>
                     <option name="minHeight">200</option>
@@ -117,7 +117,7 @@ certe dimensioni, aggiungere il seguente:
         // ...
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\File;
+        use Symfony\Component\Validator\Constraints\Image;
 
         class Author
         {
@@ -125,7 +125,7 @@ certe dimensioni, aggiungere il seguente:
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('headshot', new File(array(
+                $metadata->addPropertyConstraint('headshot', new Image(array(
                     'minWidth' => 200,
                     'maxWidth' => 400,
                     'minHeight' => 200,
@@ -147,14 +147,14 @@ aggiunge diverse altre opzioni:
 mimeTypes
 ~~~~~~~~~
 
-**tipo**: ``array`` o ``stringa`` **predefinito**: un array di tipi mime jpg, gif e png
+**tipo**: ``array`` o ``stringa`` **predefinito**: ``image/*``
+
+Una lista di tipi mime è disponibile sul `sito web di IANA`_
 
 mimeTypesMessage
 ~~~~~~~~~~~~~~~~
 
 **tipo**: ``stringa`` **predefinito**: ``This file is not a valid image``
-
-Si può trovare una lista di tipi mime esistenti sul `sito web di IANA`_
 
 .. versionadded:: 2.1
     Tutte le opzioni min/max width/height sono state aggiunte in Symfony 2.1.
@@ -228,4 +228,4 @@ minHeightMessage
 
 Il messaggio di errore se l'altezza dell'immagine è inferiore a `maxHeight`_.
 
-.. _`sito web di IANA`: http://www.iana.org/assignments/media-types/index.html
+.. _`sito web di IANA`: http://www.iana.org/assignments/media-types/image/index.html

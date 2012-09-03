@@ -366,7 +366,7 @@ Il file YAML qui sopra equivale al seguente codice PHP:
 
     array('PHP', 'Perl', 'Python');
 
-Le mappature usano un due punti, seguito da uno spazio (``: ``) per marcare ogni coppia chiave/valore:
+Le mappature usano un due punti, seguito da uno spazio (``:`` ) per marcare ogni coppia chiave/valore:
 
 .. code-block:: yaml
 

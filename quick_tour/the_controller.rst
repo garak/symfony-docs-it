@@ -137,13 +137,15 @@ Si possono anche memorizzare piccoli messaggi che saranno disponibili solo per
 la richiesta successiva::
 
     // memorizza un messaggio per la richiesta successiva (in un controllore)
-    $session->setFlash('notice', 'Congratulazioni, azione eseguita con successo!');
+    $session->getFlashBag()->set('notice', 'Congratulazioni, azione eseguita con successo!');
 
     // mostra il messaggio nella richiesta successiva (in un template)
-    {{ app.session.flash('notice') }}
+    {{ app.session.flashBag.get('notice') }}
 
 Ciò risulta utile quando occorre impostare un messaggio di successo, prima di rinviare
-l'utente a un'altra pagina (la quale mostrerà il messaggio).
+l'utente a un'altra pagina (la quale mostrerà il messaggio). Si noti che l'uso di
+``has()`` al posto di ``get()`` fa sì che il messaggio non venga cancellato o quindi rimanga
+disponibile per le richieste successive.
 
 Proteggere le risorse
 ---------------------

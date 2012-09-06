@@ -1,42 +1,42 @@
 .. index::
    single: Event Dispatcher
 
-How to setup before and after Filters
-=====================================
+Come impostare filtri prima e dopo
+==================================
 
-It is quite common in web application development to need some logic to be
-executed just before or just after your controller actions acting as filters 
-or hooks.
+È molto comune, durante lo sviluppo di un'applicazione web, aver bisogno di eseguire un
+po' di logica subito prima o subito dopo che l'azione di un controllore abbia agito da
+filtro o da hook.
 
-In Symfony1, this was achieved with the preExecute and postExecute methods,
-most major frameworks have similar methods but there is no such thing in Symfony2.
-The good news is that there is a much better way to interfere the
-Request -> Response process using the EventDispatcher component.
+In Symfony1 lo si poteva fare con i metodi preExecute e postExecute e ci sono metodi
+simili in molti grossi framework, ma non in Symfony2.
+La buona notizia è che c'è un modo molto migliore per intervenire nel processo
+richiesta/risposta, usando il componente EventDispatcher.
 
-Token validation Example
-------------------------
+Esempio di validazione di un token
+----------------------------------
 
-Imagine that you need to develop an API where some controllers are public
-but some others are restricted to one or some clients. For these private features,
-you might provide a token to your clients to identify themselves.
+Si immagini di dover sviluppare un'API in cui alcuni controllori sono pubblici e altri
+sono riservati a uno o più client. Per queste caratteristiche private, si potrebbe
+voler fornire un token ai clienti, in modo che si possano autenticare.
 
-So, before executing your controller action, you need to check if the action
-is restricted or not. And if it is restricted, you need to validate the provided
-token.
+Quindi, prima di eseguire l'azione del controllore, occorre verificare se l'azione
+sia riservata o meno. Se lo è, occorre validare il token
+fornito.
 
 .. note::
 
-    Please note that for simplicity in the recipe, tokens will be defined
-    in config and neither database setup nor authentication provider via
-    the Security component will be used.
+    Si noti che per semplicità, in questa ricetta i token saranno definiti nella
+    configurazione. Non saranno usate basi di dati né un fornitore di autenticazione
+    tramite il componente della sicurezza.
 
-Creating a before filter with a controller.request event
---------------------------------------------------------
+Creare un pre-filtro con un evento controller.request
+-----------------------------------------------------
 
-Basic Setup
-~~~~~~~~~~~
+Impostazioni di base
+~~~~~~~~~~~~~~~~~~~~
 
-You can add basic token configuration using ``config.yml`` and the parameters key:
+Si puà aggiungere una configurazione di base per il token, usando ``config.yml`` e i parametri:
 
 .. configuration-block::
 
@@ -66,37 +66,38 @@ You can add basic token configuration using ``config.yml`` and the parameters ke
             'client2' => 'pass2'
         ));
 
-Tag Controllers to be checked
------------------------------
+Controllori da verificare
+-------------------------
 
-A ``kernel.controller`` listener gets notified on every request, right before
-the controller is executed. First, you need some way to identify if the controller
-that matches the request needs token validation.
+Un ascoltatore ``kernel.controller`` riceve una notifica a ogni richiesta, appena prima
+dell'esecuzione del controllore. Occorre innanzitutto un qualche modo per verificare se
+il controllore corrispondente alla richiesta abbia bisogno di validare il token.
 
-A clean and easy way is to create an empty interface and make the controllers
-implement it::
+Un modo semplice e pulito è quello di creare un'interfaccia vuota e farla implementare
+ai controllori::
 
     namespace Acme\DemoBundle\Controller;
 
     interface TokenAuthenticatedController
     {
-        // Nothing here
+        // Niente
     }
 
-A controller that implements this interface simply looks like this::
+Un controllore che implementa tale interfaccia assomiglia a questo::
 
     class FooController implements TokenAuthenticatedController
     {
-        // Your actions that need authentication
+        // Le azioni che necessitano di autenticazione
     }
 
-Creating an Event Listener
---------------------------
+Creare un ascoltatore di eventi
+-------------------------------
 
-Next, you'll need to create an event listener, which will hold the logic
-that you want executed before your controllers. If you're not familiar with
-event listeners, you can learn more about them at :doc:`/cookbook/service_container/event_listener`::
+Occorre quindi creare un ascoltatore di eventi, che conterrà la logica che si vuole
+eseguire prima dei controllori. Se non si ha familiarità con gli ascoltatori di
+eventi, si possono ottenere maggiori informazioni su :doc:`/cookbook/service_container/event_listener`::
 
+    // src/Acme/DemoBundle/EventListener/BeforeListener.php
     namespace Acme\DemoBundle\EventListener;
 
     use Acme\DemoBundle\Controller\TokenAuthenticatedController;
@@ -107,7 +108,7 @@ event listeners, you can learn more about them at :doc:`/cookbook/service_contai
     {
         private $tokens;
 
-        public function __contruct($tokens)
+        public function __construct($tokens)
         {
             $this->tokens = $tokens;
         }
@@ -117,8 +118,8 @@ event listeners, you can learn more about them at :doc:`/cookbook/service_contai
             $controller = $event->getController();
 
             /*
-             * $controller passed can be either a class or a Closure. This is not usual in Symfony2 but it may happen.
-             * If it is a class, it comes in array format
+             * $controller passato può essere una classe o una Closure. Non è frequente in Symfony2 ma può accadere.
+             * Se è una classe, è in formato array
              */
             if (!is_array($controller)) {
                 return;
@@ -127,24 +128,24 @@ event listeners, you can learn more about them at :doc:`/cookbook/service_contai
             if($controller[0] instanceof TokenAuthenticatedController) {
                 $token = $event->getRequest()->get('token');
                 if (!in_array($token, $this->tokens)) {
-                    throw new AccessDeniedHttpException('This action needs a valid token!');
+                    throw new AccessDeniedHttpException('Questa azione ha bisogno di un token valido!');
                 }
             }
         }
     }
 
-Registering the Listener
+Registrare l'ascoltatore
 ------------------------
 
-Finally, register your listener as a service and tag it as an event listener.
-By listening on ``kernel.controller``, you're telling Symfony that you want
-your listener to be called just before any controller is executed:
+Infine, registrare l'ascoltatore come servizio e assegnargli il tag di ascoltatore di eventi.
+Ascoltando ``kernel.controller``, si sta dicendo a  Symfony che si vuole che l'ascoltatore
+sia richiamato appena prima l'esecuzione di ogni controllore:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # app/config/config.yml (or inside or your services.yml)
+        # app/config/config.yml (oppure dentro services.yml)
         services:
             demo.tokens.action_listener:
               class: Acme\DemoBundle\EventListener\BeforeListener
@@ -154,6 +155,7 @@ your listener to be called just before any controller is executed:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml (or inside your services.xml) -->
         <service id="demo.tokens.action_listener" class="Acme\DemoBundle\EventListener\BeforeListener">
             <argument>%tokens%</argument>
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
@@ -161,6 +163,7 @@ your listener to be called just before any controller is executed:
 
     .. code-block:: php
 
+        // app/config/config.php (or inside your services.php)
         use Symfony\Component\DependencyInjection\Definition;
 
         $listener = new Definition('Acme\DemoBundle\EventListener\BeforeListener', array('%tokens%'));

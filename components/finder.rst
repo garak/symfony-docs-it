@@ -1,5 +1,6 @@
 .. index::
    single: Finder
+   single: Componenti; Finder
 
 Il componente Finder
 ====================
@@ -30,8 +31,10 @@ cartelle::
     foreach ($finder as $file) {
         // Stampa il percorso assoluto
         print $file->getRealpath()."\n";
+
         // Stampa il percorso relativo del file, omettendo il nome del file stesso
         print $file->getRelativePath()."\n";
+
         // Stampa il percorso relativo del file
         print $file->getRelativePathname()."\n";
     }

@@ -209,8 +209,6 @@ sul metodo ``indexAction`` di una classe PHP chiamata
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
 
-    use Symfony\Component\HttpFoundation\Response;
-
     class HelloController
     {
     }
@@ -225,8 +223,10 @@ Creare il metodo ``indexAction``, che Symfony2 eseguirà quando la rotta ``hello
 corrisposta::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
+    namespace Acme\HelloBundle\Controller;
 
-    // ...
+    use Symfony\Component\HttpFoundation\Response;
+
     class HelloController
     {
         public function indexAction($name)
@@ -980,6 +980,9 @@ fondamentali:
 
 * la **configurazione** per ciascun bundle risiede nella cartella ``app/config`` e
   può essere specificata in YAML, XML o PHP;
+
+* la **configuratione dell'applicazione** globale si trova nella cartella
+  ``app/config``;
 
 * ogni **ambiente** è accessibile tramite un diverso front controller (p.e.
   ``app.php`` e ``app_dev.php``) e carica un diverso file di configurazione.

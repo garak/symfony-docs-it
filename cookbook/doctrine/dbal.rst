@@ -8,20 +8,20 @@ Come usare il livello DBAL di Doctrine
 
     Questo articolo riguarda il livello DBAL di Doctrine. Di solito si lavora con il livello
     dell'ORM di Doctrine, che è un livello più astratto e usa il DBAL dietro le
-    quinte, per comunicare con il database. Per saperne di più sull'ORM
+    quinte, per comunicare con la base dati. Per saperne di più sull'ORM
     di Docrine, si veda ":doc:`/book/doctrine`".
 
-Il livello di astrazione del database (Database Abstraction Layer o DBAL) di `Doctrine`_
+Il livello di astrazione della base dati (Database Abstraction Layer o DBAL) di `Doctrine`_
 è un livello posto sopra `PDO`_ e offre un'API intuitiva e flessibile per comunicare
-con i database relazionali più diffusi. In altre parole, la libreria DBAL
-facilita l'esecuzione delle query ed esegue altre azioni sul database.
+con le basi dati relazionali più diffuse. In altre parole, la libreria DBAL
+facilita l'esecuzione delle query ed esegue altre azioni sulla base dati.
 
 .. tip::
 
     Leggere la documentazione di Doctrine `DBAL Documentation`_ per conoscere tutti i dettagli
     e le capacità della libreria DBAL di Doctrine.
 
-Per iniziare, configurare i parametri di connessione al database:
+Per iniziare, configurare i parametri di connessione alla base dati:
 
 .. configuration-block::
 
@@ -134,9 +134,9 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
 Registrare tipi di mappatura personalizzati in SchemaTool
 ---------------------------------------------------------
 
-SchemaTool è usato per ispezionare il database per confrontare lo schema. Per assolvere
+SchemaTool è usato per ispezionare la base dati per confrontare lo schema. Per assolvere
 a questo compito, ha bisogno di sapere quale tipo di mappatura deve essere usato
-per ogni tipo di database. Se ne possono registrare di nuovi attraverso la configurazione.
+per ogni tipo di base dati. Se ne possono registrare di nuovi attraverso la configurazione.
 
 Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
 ``string``:

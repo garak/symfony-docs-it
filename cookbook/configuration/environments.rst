@@ -6,7 +6,7 @@ Come padroneggiare e creare nuovi ambienti
 
 Ogni applicazione è la combinazione di codice e di un insieme di configurazioni
 che determinano come il codice dovrà lavorare. La configurazione può definire
-il database da utilizzare, cosa dovrà essere messo in cache e cosa non, o quanto
+la base dati da utilizzare, cosa dovrà essere messo in cache e cosa non, o quanto
 esaustivi dovranno essere i log. In Symfony2, l'idea di ambiente è quella di
 eseguire il codice, utilizzando differenti configurazioni. Per esempio,
 l'ambiente ``dev`` dovrebbe usare una configurazione che renda lo sviluppo

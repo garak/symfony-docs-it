@@ -1,28 +1,28 @@
 .. index::
    single: Config
-   single: Components; Config
+   single: Componenti; Config
 
-The Config Component
+Il componente Config
 ====================
 
-Introduction
+Introduzione
 ------------
 
-The Config Component provides several classes to help you find, load, combine,
-autofill and validate configuration values of any kind, whatever their source
-may be (Yaml, XML, INI files, or for instance a database).
+Il componente Config fornisce diverse classi che aiutano a trovare, caricare, combinare,
+riempire e validare valori di configurazione di ogni tipo, indipendentemente dal tipo
+di sorgente (file Yaml, XML o INI, oppure ad esempio una base dati).
 
-Installation
-------------
+Installazione
+-------------
 
-You can install the component in many different ways:
+Si può installare il componente in molti modi diversi:
 
-* Use the official Git repository (https://github.com/symfony/Config);
-* Install it via PEAR ( `pear.symfony.com/Config`);
-* Install it via Composer (`symfony/config` on Packagist).
+* Usare il repository ufficiale su Git (https://github.com/symfony/Config);
+* Installarlo via PEAR (`pear.symfony.com/Config`);
+* Installarlo via Composer (`symfony/config` su Packagist).
 
-Sections
---------
+Sezioni
+-------
 
 * :doc:`/components/config/resources`
 * :doc:`/components/config/caching`

@@ -67,7 +67,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
 5. Impostiamo ora le regole di ignore. Non tutto *andrebbe* memorizzato nel
    repository subversion. Alcuni file (come la cache) sono generati e altri
-   (come la configurazione del database) devono essere personalizzati su
+   (come la configurazione della base dati) devono essere personalizzati su
    ciascuna macchina. Ciò implica l'uso della proprietà ``svn:ignore``, che consente
    di ignorare specifici file.
 
@@ -95,7 +95,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
 7. Copiare ``app/config/parameters.yml`` su ``app/config/parameters.yml.dist``.
    Il file ``parameters.ini`` è ignorato da svn (vedere sopra) in modo che le
-   impostazioni delle singole macchine, come le password del database, non siano
+   impostazioni delle singole macchine, come le password della base dati, non siano
    inserite. Creando il file ``parameters.ini.dist``, i nuovi sviluppatori possono
    prendere subito il progetto, copiare questo file in ``parameters.ini``, personalizzarlo
    e iniziare a sviluppare.

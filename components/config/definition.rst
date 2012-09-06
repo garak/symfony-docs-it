@@ -1,19 +1,19 @@
 .. index::
-   single: Config; Define and process configuration values
+   single: Config; Definire e processare valori di configurazione
 
-Define and process configuration values
-=======================================
+Definire e processare valori di configurazione
+==============================================
 
-Validate configuration values
------------------------------
+Validare i valori di configurazione
+-----------------------------------
 
-After loading configuration values from all kinds of resources, the values
-and their structure can be validated using the "Definition" part of the Config
-Component. Configuration values are usually expected to show some kind of
-hierarchy. Also, values should be of a certain type, be restricted in number
-or be one of a given set of values. For example, the following configuration
-(in Yaml) shows a clear hierarchy and some validation rules that should be
-applied to it (like: "the value for ``auto_connect`` must be a boolean value"):
+Dopo aver caricato i valori di configurazione da ogni tipo di risorsa, i valori e
+le loro strutture possono essere validati, usando la parte "Definition" del componente
+Config. Solitamente ci si aspetta che i valori di configurazione mostrino un qualche tipo
+di gerarchia. Inoltre, i valori dovrebbero essere di un certo tipo, ristretti in numero
+o all'interno di un determinato insieme di valori. Per esempio, la configurazione seguente
+(in Yaml) mostra una chiara gerarchia e alcune regole di validazione che vi andrebbero
+applicate (come: "il valore per ``auto_connect`` deve essere booleano"):
 
 .. code-block:: yaml
 
@@ -32,20 +32,20 @@ applied to it (like: "the value for ``auto_connect`` must be a boolean value"):
             username: user
             password: pass
 
-When loading multiple configuration files, it should be possible to merge
-and overwrite some values. Other values should not be merged and stay as
-they are when first encountered. Also, some keys are only available when
-another key has a specific value (in the sample configuration above: the
-``memory`` key only makes sense when the ``driver`` is ``sqlite``).
+Quando si caricano diversi file di configurazione, dovrebbe essere possibile
+fondere e sovrascrivere alcuni valori. Gli altri valori non vanno fusi e devono
+rimanere come prima. Inoltre, alcune chiavi sono disponibili solo quando un
+altra chiave ha uno specifico valore (nell'esempio precedente: la chiave
+``memory`` ha senso solo quando ``driver`` è ``sqlite``).
 
-Define a hierarchy of configuration values using the TreeBuilder
-----------------------------------------------------------------
+Definire una gerarchia di valori di configurazione con TreeBuilder
+------------------------------------------------------------------
 
-All the rules concerning configuration values can be defined using the
+Tutte le regole relative ai valori di configurazione possono essere definite tramite
 :class:`Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder`.
 
-A :class:`Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder` instance
-should be returned from a custom ``Configuration`` class which implements the
+Un'istanza di :class:`Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder`
+va restituita da una classe personalizzata ``Configuration``, che implementa
 :class:`Symfony\\Component\\Config\\Definition\\ConfigurationInterface`::
 
     namespace Acme\DatabaseConfiguration;
@@ -60,21 +60,21 @@ should be returned from a custom ``Configuration`` class which implements the
             $treeBuilder = new TreeBuilder();
             $rootNode = $treeBuilder->root('database');
 
-            // ... add node definitions to the root of the tree
+            // ... aggiungere definizioni di nodi alla radice dell'albero
 
             return $treeBuilder;
         }
     }
 
-Add node definitions to the tree
---------------------------------
+Aggiungere definizioni di nodi all'albero
+-----------------------------------------
 
-Variable nodes
+Nodi variabili
 ~~~~~~~~~~~~~~
 
-A tree contains node definitions which can be layed out in a semantic way.
-This means, using indentation and the fluent notation, it is possible to
-reflect the real structure of the configuration values::
+Un albero contiene definizioni di nodi, che possono essere stratificati in modo semantico.
+Questo vuol dire che, usando l'indentazione e la notazione fluida, è possibile
+riflettere la reale struttura dei valori di configurazione::
 
     $rootNode
         ->children()
@@ -87,15 +87,15 @@ reflect the real structure of the configuration values::
         ->end()
     ;
 
-The root node itself is an array node, and has children, like the boolean
-node ``auto_connect`` and the scalar node ``default_connection``. In general:
-after defining a node, a call to ``end()`` takes you one step up in the hierarchy.
+Lo stesso nodo radice è un nodo array e ha dei figli, come il nodo booleano
+``auto_connect`` e il nodo scalare ``default_connection``. In generale:
+dopo aver definito un nodo, una chiamata ``end()`` porta un gradino in alto nella gerarchia.
 
-Array nodes
-~~~~~~~~~~~
+Nodi array
+~~~~~~~~~~
 
-It is possible to add a deeper level to the hierarchy, by adding an array
-node. The array node itself, may have a pre-defined set of variable nodes:
+Si può aggiungere un livello ulteriore alla gerarchia, aggiungendo un nodo
+array. Il nodo array stesso potrebbe avere un insieme predefinito di nodi variabili:
 
 .. code-block:: php
 
@@ -108,7 +108,7 @@ node. The array node itself, may have a pre-defined set of variable nodes:
         ->end()
     ;
 
-Or you may define a prototype for each node inside an array node:
+Oppure si può definire un prototipo per ogni nodo dentro un nodo array:
 
 .. code-block:: php
 
@@ -125,23 +125,23 @@ Or you may define a prototype for each node inside an array node:
         ->end()
     ;
 
-A prototype can be used to add a definition which may be repeated many times
-inside the current node. According to the prototype definition in the example
-above, it is possible to have multiple connection arrays (containing a ``driver``,
-``host``, etc.).
+Si può usare un prototipo per aggiungere una definizione, che potrebbe essere ripetuta
+molte volte dentro il nodo corrente. In base alla definizione del prototipo nell'esempio
+precedente, è possibile avere molte array di connessione (contenenti ``driver``,
+``host``, ecc.).
 
-Array node options
-~~~~~~~~~~~~~~~~~~
+Opzioni dei nodi array
+~~~~~~~~~~~~~~~~~~~~~~
 
-Before defining the children of an array node, you can provide options like:
+Prima di definire i figli di un nodo array, si possono fornire opzioni, come:
 
 ``useAttributeAsKey()``
-    Provide the name of a child node, whose value should be used as the key in the resulting array
+    Fornisce il nome di un nodo figlio, i cui valori sono usati come chiavi nell'array risultante
 ``requiresAtLeastOneElement()``
-    There should be at least one element in the array (works only when ``isRequired()`` is also
-    called).
+    Dovrebbe esserci almeno un elemento nell'array (funziona solo se viene richiamato anche
+    ``isRequired()``).
 
-An example of this:
+Un esempio:
 
 .. code-block:: php
 
@@ -159,23 +159,23 @@ An example of this:
         ->end()
     ;
 
-Default and required values
----------------------------
+Valori predefiniti e obbligatori
+--------------------------------
 
-For all node types, it is possible to define default values and replacement
-values in case a node
-has a certain value:
+Per tutti i tipi di nodo, è possibile definire valori predefiniti e valori di
+rimpiazzo nel caso in cui un nodo
+abbia un determinato valore:
 
 ``defaultValue()``
-    Set a default value
+    Imposta un valore predefinito
 ``isRequired()``
-    Must be defined (but may be empty)
+    Deve essere definito (ma può essere vuoto)
 ``cannotBeEmpty()``
-    May not contain an empty value
+    Non può contenere un valore vuoto
 ``default*()``
-    (``null``, ``true``, ``false``), shortcut for ``defaultValue()``
+    (``null``, ``true``, ``false``), scorciatoia per ``defaultValue()``
 ``treat*Like()``
-    (``null``, ``true``, ``false``), provide a replacement value in case the value is ``*.``
+    (``null``, ``true``, ``false``), fornisce un valore di rimpiazzo in caso in cui il valore sia ``*.``
 
 .. code-block:: php
 
@@ -198,27 +198,27 @@ has a certain value:
         ->end()
     ;
 
-Merging options
----------------
+Opzioni di fusione
+------------------
 
-Extra options concerning the merge process may be provided. For arrays:
+Si possono fornire opzioni aggiuntive sul processo di fusione. Per gli array:
 
 ``performNoDeepMerging()``
-    When the value is also defined in a second configuration array, don’t
-    try to merge an array, but overwrite it entirely
+    Quando il valore è definito anche in un altro array di configurazione, non
+    provare a fondere un array, ma sovrascrivilo completamente
 
-For all nodes:
+Per tutti i nodi:
 
 ``cannotBeOverwritten()``
-    don’t let other configuration arrays overwrite an existing value for this node
+    non consentire che altri array di configurazione sovrascrivano il valore di questo nodo
 
-Validation rules
-----------------
+Regole di validazione
+---------------------
 
-More advanced validation rules can be provided using the
-:class:`Symfony\\Component\\Config\\Definition\\Builder\\ExprBuilder`. This
-builder implements a fluent interface for a well-known control structure.
-The builder is used for adding advanced validation rules to node definitions, like::
+Si possono fornire regole di validazione avanzata, usando
+:class:`Symfony\\Component\\Config\\Definition\\Builder\\ExprBuilder`. Questa classe
+implementa un'interfaccia fluida per una struttura di controllo nota.
+Si può usare per aggiungere regole di validazione avanzate alle definizioni dei nodi, come::
 
     $rootNode
         ->arrayNode('connection')
@@ -234,8 +234,8 @@ The builder is used for adding advanced validation rules to node definitions, li
         ->end()
     ;
 
-A validation rule always has an "if" part. You can specify this part in the
-following ways:
+Una regola di validazione ha sempre una parte "if". Si può specificare tale parte
+nel modo seguente:
 
 - ``ifTrue()``
 - ``ifString()``
@@ -245,26 +245,26 @@ following ways:
 - ``ifNotInArray()``
 - ``always()``
 
-A validation rule also requires a "then" part:
+Una regola di validazione richiede anche una parte "then":
 
 - ``then()``
 - ``thenEmptyArray()``
 - ``thenInvalid()``
 - ``thenUnset()``
 
-Usually, "then" is a closure. Its return value will be used as a new value
-for the node, instead
-of the node's original value.
+Di solito, "then" è una closure. Il suo valore di ritorno sarà usato come nuovo valore
+del nodo, al posto del valore
+originale del nodo.
 
-Processing configuration values
--------------------------------
+Processare i valori di configurazione
+-------------------------------------
 
-The :class:`Symfony\\Component\\Config\\Definition\\Processor` uses the tree
-as it was built using the :class:`Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder`
-to process multiple arrays of configuration values that should be merged.
-If any value is not of the expected type, is mandatory and yet undefined,
-or could not be validated in some other way, an exception will be thrown.
-Otherwise the result is a clean array of configuration values::
+La classe :class:`Symfony\\Component\\Config\\Definition\\Processor` usa l'albero,
+costruito usando :class:`Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder`,
+per processare molteplici array di valori di configurazione da fondere.
+Se un valore non è del tipo atteso, è obbligatorio e non ancora definito oppure non può
+essere validato in altri modi, sarà lanciata un'eccezione.
+Altrimenti, il risultato è un array pulito di valori di configurazione::
 
     use Symfony\Component\Yaml\Yaml;
     use Symfony\Component\Config\Definition\Processor;

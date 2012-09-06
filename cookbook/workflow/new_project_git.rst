@@ -46,7 +46,7 @@ locale:
 
 4. Copiare ``app/config/parameters.yml`` in ``app/config/parameters.yml.dist``.
    Il file ``parameters.yml`` è ignorato da git (vedi sopra), quindi le impostazioni
-   specifiche della macchina, come le password del database, non saranno inviate. Creando
+   specifiche della macchina, come le password della base dati, non saranno inviate. Creando
    il file ``parameters.yml.dist``, i nuovi sviluppatori potranno clonare rapidamente il
    progetto, copiando questo file in ``parameters.yml`` e personalizzandolo.
 

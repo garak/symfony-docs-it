@@ -892,7 +892,7 @@ I form e Doctrine
 
 L'obiettivo di un form è quello di tradurre i dati da un oggetto (ad esempio ``Task``) a un
 form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto originale. Come
-tale, il tema della persistenza dell'oggetto ``Task`` nel database è interamente
+tale, il tema della persistenza dell'oggetto ``Task`` nella base dati è interamente
 non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
 per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunta la
 :ref:`mappatura dei meta-dati<book-doctrine-adding-mapping>`), allora si può salvare 

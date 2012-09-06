@@ -16,13 +16,14 @@ collaborare.
 Infine, trovare il repository *master* per il linguaggio per il quale si vuole contribuire.
 Di seguito la lista dei repository *master* ufficiali:
 
-* *Inglese*:  http://github.com/symfony/symfony-docs
+* *Inglese*:  https://github.com/symfony/symfony-docs
 * *Francese*:   https://github.com/gscorpio/symfony-docs-fr
 * *Italiano*:  https://github.com/garak/symfony-docs-it
 * *Giapponese*: https://github.com/symfony-japan/symfony-docs-ja
-* *Polacco*:   http://github.com/ampluso/symfony-docs-pl
-* *Rumeno*: http://github.com/sebio/symfony-docs-ro
-* *Russo*:  http://github.com/avalanche123/symfony-docs-ru
+* *Polacco*:   https://github.com/ampluso/symfony-docs-pl
+* *Portoghese (Brasile)*:  https://github.com/andreia/symfony-docs-pt-BR
+* *Rumeno*: https://github.com/sebio/symfony-docs-ro
+* *Russo*:  https://github.com/avalanche123/symfony-docs-ru
 * *Spagnolo*:  https://github.com/gitnacho/symfony-docs-es
 * *Turco*:  https://github.com/symfony-tr/symfony-docs-tr
 

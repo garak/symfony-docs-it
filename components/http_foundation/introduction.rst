@@ -1,6 +1,7 @@
 .. index::
    single: HTTP
    single: HttpFoundation
+   single: Componenti; HttpFoundation
 
 Il componente HttpFoundation
 ============================

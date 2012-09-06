@@ -20,8 +20,8 @@ specifica che si vuole mostrare, come secondo parametro.
     {{ form_label(form.name) }}
 
     {# Le seguenti due sintassi sono equivalenti #}
-    {{ form_label(form.name, 'Your Name', { 'attr': {'class': 'foo'} }) }}
-    {{ form_label(form.name, null, { 'label': 'Your name', 'attr': {'class': 'foo'} }) }}
+    {{ form_label(form.name, 'Il tuo nome', {'label_attr': {'class': 'foo'}}) }}
+    {{ form_label(form.name, null, {'label': 'Il tuo nome', 'label_attr': {'class': 'foo'}}) }}
 
 form_errors(form.name)
 ----------------------
@@ -60,7 +60,7 @@ del campo.
 .. code-block:: jinja
 
     {# rende la riga di un campo, ma con label "pippo" #}
-    {{ form_row(form.name, { 'label': 'pippo' }) }}
+    {{ form_row(form.name, {'label': 'pippo'}) }}
 
 Il secondo parametro di ``form_row`` è un array di variabili. I template forniti
 in Symfony consentono solo di sovrascrivere la label come mostrato nell'esempio

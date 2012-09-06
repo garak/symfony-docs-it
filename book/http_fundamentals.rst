@@ -128,7 +128,7 @@ questa:
     Content-Type: text/html
 
     <html>
-      <!-- HTML for the xkcd comic -->
+      <!-- ... HTML for the xkcd comic -->
     </html>
 
 La risposta HTTP contiene la risorsa richiesta (il contenuto HTML, in questo caso).
@@ -368,7 +368,6 @@ possono peggiorare rapidamente:
 .. code-block:: php
 
     // index.php
-
     $request = Request::createFromGlobals();
     $path = $request->getPathInfo(); // l'URL richiesto
 
@@ -484,12 +483,14 @@ possono essere usate in *qualsiasi* progetto PHP. Queste librerie, chiamate
 *componenti di Symfony2*, contengono qualcosa di utile per quasi ogni situazione,
 comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 
-* `HttpFoundation`_ - Contiene le classi ``Request`` e ``Response``, insieme ad altre
-  classi per gestire sessioni e caricamenti di file;
+* :doc:`HttpFoundation</components/http_foundation/introduction>` - Contiene le classi
+  ``Request`` e ``Response``, insieme ad altre  classi per gestire sessioni
+  e caricamenti di file;
 
-* `Routing`_ - Sistema di rotte potente e veloce, che consente di mappare uno specifico
-  URI (p.e. ``/contact``) ad alcune informazioni su come tale richiesta andrebbe gestita
-  (p.e. eseguendo il metodo ``contactAction()``);
+* :doc:`Routing</components/routing>` - Sistema di rotte potente e veloce, che
+  consente di mappare uno specifico  URI (p.e. ``/contact``) ad alcune informazioni
+  su come tale richiesta andrebbe gestita  (p.e. eseguendo il metodo
+  ``contactAction()``);
 
 * `Form`_ - Un framework completo e flessibile per creare form e gestire invii di
   dati;
@@ -497,10 +498,11 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 * `Validator`_ Un sistema per creare regole sui dati e quindi validarli, sia che i dati
   inviati dall'utente seguano o meno tali regole;
 
-* `ClassLoader`_ Una libreria di autoloading che consente l'uso di classi PHP senza
-  bisogno di usare manualmente ``require`` sui file che contengono tali classi;
+* :doc:`ClassLoader</components/class_loader>` Una libreria di autoloading che consente
+  l'uso di classi PHP senza bisogno di usare manualmente ``require`` sui file
+  che contengono tali classi;
 
-* `Templating`_ Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
+* :doc:`Templating</components/templating>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
   template (p.e. un template è decorato con un layout) ed eseguire altri compiti
   comuni sui template;
 
@@ -525,28 +527,24 @@ che esegue due compiti distinti:
 #. Fornisce una pratica configurazione e una libreria "collante", che lega insieme tutti
    i pezzi.
 
-Lo scopo del framework è integrare molti strumenti indipendenti, per fornire un'esperienza
-coerente allo sviluppatore. Anche il framework stesso è un bundle (cioè un plugin) che
-può essere configurato o sostituito interamente.
+Lo scopo del framework è integrare molti strumenti indipendenti, per fornire
+un'esperienza coerente allo sviluppatore. Anche il framework stesso è
+un bundle (cioè un plugin) che può essere configurato o sostituito
+interamente.
 
-Symfony2 fornisce un potente insieme di strumenti per sviluppare rapidamente applicazioni
-web, senza imposizioni sulla propria applicazione. Gli utenti normali possono iniziare
-velocemente a sviluppare usando una distribuzione di Symfony2, che fornisce uno scheletro
-di progetto con configurazioni predefinite ragionevoli. Gli utenti avanzati hanno il
-cielo come limite.
+Symfony2 fornisce un potente insieme di strumenti per sviluppare rapidamente applicazioni web,
+senza imposizioni sulla propria applicazione. Gli utenti normali possono iniziare velocemente
+a sviluppare usando una distribuzione di Symfony2, che fornisce uno scheletro di progetto
+con configurazioni predefinite ragionevoli. Gli utenti avanzati hanno il cielo come limite.
 
 .. _`xkcd`: http://xkcd.com/
 .. _`RFC HTTP 1.1`: http://www.w3.org/Protocols/rfc2616/rfc2616.html
 .. _`HTTP Bis`: http://datatracker.ietf.org/wg/httpbis/
-.. _`Live HTTP Headers`: https://addons.mozilla.org/en-US/firefox/addon/3829/
+.. _`Live HTTP Headers`: https://addons.mozilla.org/en-US/firefox/addon/live-http-headers/
 .. _`Elenco dei codici di stato HTTP`: http://it.wikipedia.org/wiki/Elenco_dei_codici_di_stato_HTTP
 .. _`Lista di header HTTP`: http://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 .. _`Lista di tipi di media comuni`: http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types
-.. _`HttpFoundation`: https://github.com/symfony/HttpFoundation
-.. _`Routing`: https://github.com/symfony/Routing
 .. _`Form`: https://github.com/symfony/Form
 .. _`Validator`: https://github.com/symfony/Validator
-.. _`ClassLoader`: https://github.com/symfony/ClassLoader
-.. _`Templating`: https://github.com/symfony/Templating
 .. _`Security`: https://github.com/symfony/Security
 .. _`Translation`: https://github.com/symfony/Translation

@@ -30,18 +30,18 @@ alla classe dei form::
 .. note::
 
     Se questa particolare sezione di codice non è familiare,
-    probabilmente è necessario tornare indietro e come prima cosa leggere il :doc:`capitolo sui form</book/forms>`,
+    probabilmente è necessario tornare indietro e come prima cosa leggere il :doc:`capitolo sui form</book/forms>` 
     prima di andare avanti.
 
-Si assuma per un momento che questo form utilizzi una classe immaginaria "prodotto".
-Questa ha solo due attributi rilevanti ("nome" e "prezzo"). Il form generato 
+Si assuma per un momento che questo form utilizzi una classe immaginaria "prodotto"
+questa ha solo due attributi rilevanti ("nome" e "prezzo"). Il form generato 
 da questa classe avrà lo stesso aspetto, indipendentemente se un nuovo prodotto sta per essere creato
-oppure se un prodotto esistente sta per essere modificato (come un prodotto ottenuto da una base dati).
+oppure se un prodotto esistente sta per essere modificato (es. un prodotto ottenuto da database).
 
-Si supponga ora di non voler abilitare l'utente alla modifica del campo 'nome',
-una volta che l'oggetto è stato creato. Per fare ciò, si può dare un'occhiata al sistema :ref:`Event Dispatcher <book-internals-event-dispatcher>`,
-che analizza l'oggetto e modifica il form basato sull'oggetto
-'prodotto'. In questa ricetta si imparerà come aggiungere questo livello di
+Si supponga ora, di non voler abilitare l'utente alla modifica del campo 'nome' 
+una volta che l'oggetto è stato creato. Lo si può fare grazie al componente :doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
+che analizza l'oggetto e modifica il form basato sull'
+oggetto prodotto. In questa ricetta si imparerà come aggiungere questo livello di
 flessibilità ai form.
 
 .. _`cookbook-forms-event-subscriber`:
@@ -76,7 +76,7 @@ a un evento sottoscrittore::
     }
 
 L'evento sottoscrittore è passato dall'oggetto FormFactory nel suo costruttore, quindi
-il nuovo sottoscrittore è in grado di creare il widget del form, una volta che 
+il nuovo sottoscrittore è in grado di creare il widget del form una volta che 
 viene notificata dall'evento inviato durante la creazione del form.
 
 .. _`cookbook-forms-inside-subscriber-class`:
@@ -84,8 +84,8 @@ viene notificata dall'evento inviato durante la creazione del form.
 Dentro la classe dell'evento sottoscrittore
 -------------------------------------------
 
-L'obiettivo è di creare un campo "nome" *solo* se l'oggetto prodotto sottostante
-è nuovo (cioè non è stato persistito nella base dati). Basandosi su questo, l'sottoscrittore
+L'obiettivo è di creare un campo "nome" *solo* se l'oggetto Prodotto sottostante
+è nuovo (es. non è stato persistito nel database). Basandosi su questo, l'sottoscrittore
 potrebbe essere simile a questo::
 
     // src/Acme/DemoBundle/Form/EventListener/AddNameFieldSubscriber.php
@@ -128,7 +128,7 @@ potrebbe essere simile a questo::
 
             // controlla se l'oggetto Prodotto è nuovo
             if (!$data->getId()) {
-                $form->add($this->factory->createNamed('text', 'name'));
+                $form->add($this->factory->createNamed('nome', 'text'));
             }
         }
     }
@@ -147,7 +147,7 @@ in quello che si può trovare tra i diversi eventi dei form disponibili.
 
 Anche se in questo esempio si potrebbe utilizzare l'evento ``form.set_data`` o anche l'evento ``form.post_set_data``,
 utilizzando ``form.pre_set_data`` si garantisce che 
-i dati saranno ottenuti dall'oggetto ``Event``, che non è stato modificato
+i dati saranno ottenuti dall'oggetto ``Event`` che non è stato modificato
 da nessun altro sottoscrittore o ascoltatore. Questo perché ``form.pre_set_data`` 
 passa all'oggetto `DataEvent`_ invece dell'oggetto `FilterDataEvent`_ passato dall'evento
 ``form.set_data``. `DataEvent`_, a differenza del suo figlio `FilterDataEvent`_, 

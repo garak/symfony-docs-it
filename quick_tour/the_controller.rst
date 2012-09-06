@@ -17,6 +17,8 @@ Modificare il file ``routing.yml`` e aggiungere un formato ``_format``, con valo
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+    // ...
+
     /**
      * @Route("/hello/{name}", defaults={"_format"="xml"}, name="_demo_hello")
      * @Template()

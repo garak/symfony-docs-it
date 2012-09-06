@@ -128,8 +128,8 @@ corrispondenti alle proprietà ``task`` e ``dueDate`` della classe ``Task``.
 È stato anche assegnato un "tipo" ciascuno (ad esempio ``text``, ``date``), che, tra
 le altre cose, determina quale tag form HTML viene utilizzato per tale campo.
 
-Symfony2 ha molti tipi predefiniti che verranno trattati a breve
-(see :ref:`book-forms-type-reference`).
+Symfony2 ha molti tipi predefiniti, che verranno trattati a breve
+(vedere :ref:`book-forms-type-reference`).
 
 .. index::
   single: Form; Visualizzazione di base nel template

@@ -103,7 +103,7 @@ Dichiarare il votante come servizio
 -----------------------------------
 
 Per iniettare il votante nel livello della sicurezza, dobbiamo dichiararlo come servizio
-e taggarlo come "security.voter":
+e assegnargli il tag "security.voter":
 
 .. configuration-block::
 

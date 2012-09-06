@@ -325,20 +325,20 @@ configurazioni e assegnarli il tag ``kernel.event_subscriber``:
 
         services:
             kernel.subscriber.your_subscriber_name:
-                class: Fully\Qualified\Subscriber\Class\Name
+                class: Nome\Pienamente\QUalificato\Classe\Subscriber
                 tags:
                     - { name: kernel.event_subscriber }
 
     .. code-block:: xml
 
-        <service id="kernel.subscriber.your_subscriber_name" class="Fully\Qualified\Subscriber\Class\Name">
+        <service id="kernel.subscriber.your_subscriber_name" class="Nome\Pienamente\QUalificato\Classe\Subscriber">
             <tag name="kernel.event_subscriber" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('kernel.subscriber.your_subscriber_name', 'Fully\Qualified\Subscriber\Class\Name')
+            ->register('kernel.subscriber.your_subscriber_name', 'Nome\Pienamente\QUalificato\Classe\Subscriber')
             ->addTag('kernel.event_subscriber')
         ;
 
@@ -368,24 +368,24 @@ quando si inietta il logger in un servizio.
     .. code-block:: yaml
 
         services:
-            my_service:
-                class: Fully\Qualified\Loader\Class\Name
+            mio_servizio:
+                class: Nome\Pienamente\QUalificato\Classe\Loader
                 arguments: [@logger]
                 tags:
                     - { name: monolog.logger, channel: acme }
 
     .. code-block:: xml
 
-        <service id="my_service" class="Fully\Qualified\Loader\Class\Name">
+        <service id="mio_servizio" class="Nome\Pienamente\QUalificato\Classe\Loader">
             <argument type="service" id="logger" />
             <tag name="monolog.logger" channel="acme" />
         </service>
 
     .. code-block:: php
 
-        $definition = new Definition('Fully\Qualified\Loader\Class\Name', array(new Reference('logger'));
+        $definition = new Definition('Nome\Pienamente\QUalificato\Classe\Loader', array(new Reference('logger'));
         $definition->addTag('monolog.logger', array('channel' => 'acme'));
-        $container->register('my_service', $definition);;
+        $container->register('mio_servizio', $definition);;
 
 .. note::
 
@@ -414,14 +414,14 @@ Si può aggiungere un processore globalmente:
     .. code-block:: yaml
 
         services:
-            my_service:
+            mio_servizio:
                 class: Monolog\Processor\IntrospectionProcessor
                 tags:
                     - { name: monolog.processor }
 
     .. code-block:: xml
 
-        <service id="my_service" class="Monolog\Processor\IntrospectionProcessor">
+        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
             <tag name="monolog.processor" />
         </service>
 
@@ -429,7 +429,7 @@ Si può aggiungere un processore globalmente:
 
         $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
         $definition->addTag('monolog.processor');
-        $container->register('my_service', $definition);
+        $container->register('mio_servizio', $definition);
 
 .. tip::
 
@@ -444,14 +444,14 @@ Si può anche aggiungere un processore per un gestore specifico, usando l'attrib
     .. code-block:: yaml
 
         services:
-            my_service:
+            mio_servizio:
                 class: Monolog\Processor\IntrospectionProcessor
                 tags:
                     - { name: monolog.processor, handler: firephp }
 
     .. code-block:: xml
 
-        <service id="my_service" class="Monolog\Processor\IntrospectionProcessor">
+        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
             <tag name="monolog.processor" handler="firephp" />
         </service>
 
@@ -459,7 +459,7 @@ Si può anche aggiungere un processore per un gestore specifico, usando l'attrib
 
         $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
         $definition->addTag('monolog.processor', array('handler' => 'firephp');
-        $container->register('my_service', $definition);
+        $container->register('mio_servizio', $definition);
 
 Si può anche aggiungere un processore per uno specifico canale di log, usando
 l'attributo ``channel``. Il seguente registrerà il processore solo per il canale di log
@@ -470,14 +470,14 @@ l'attributo ``channel``. Il seguente registrerà il processore solo per il canal
     .. code-block:: yaml
 
         services:
-            my_service:
+            mio_servizio:
                 class: Monolog\Processor\IntrospectionProcessor
                 tags:
                     - { name: monolog.processor, channel: security }
 
     .. code-block:: xml
 
-        <service id="my_service" class="Monolog\Processor\IntrospectionProcessor">
+        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
             <tag name="monolog.processor" channel="security" />
         </service>
 
@@ -485,7 +485,7 @@ l'attributo ``channel``. Il seguente registrerà il processore solo per il canal
 
         $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
         $definition->addTag('monolog.processor', array('channel' => 'security');
-        $container->register('my_service', $definition);
+        $container->register('mio_servizio', $definition);
 
 .. note::
 
@@ -506,20 +506,20 @@ una configurazione e assegnargli il tag ``routing.loader``:
 
         services:
             routing.loader.your_loader_name:
-                class: Fully\Qualified\Loader\Class\Name
+                class: Nome\Pienamente\QUalificato\Classe\Loader
                 tags:
                     - { name: routing.loader }
 
     .. code-block:: xml
 
-        <service id="routing.loader.your_loader_name" class="Fully\Qualified\Loader\Class\Name">
+        <service id="routing.loader.your_loader_name" class="Nome\Pienamente\QUalificato\Classe\Loader">
             <tag name="routing.loader" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('routing.loader.your_loader_name', 'Fully\Qualified\Loader\Class\Name')
+            ->register('routing.loader.your_loader_name', 'Nome\Pienamente\QUalificato\Classe\Loader')
             ->addTag('routing.loader')
         ;
 
@@ -589,20 +589,20 @@ template):
 
         services:
             templating.helper.il mio_helper:
-                class: Fully\Qualified\Helper\Class\Name
+                class: Nome\Pienamente\QUalificato\Classe\Helper
                 tags:
                     - { name: templating.helper, alias: nome_alias }
 
     .. code-block:: xml
 
-        <service id="templating.helper.il mio_helper" class="Fully\Qualified\Helper\Class\Name">
+        <service id="templating.helper.il mio_helper" class="Nome\Pienamente\QUalificato\Classe\Helper">
             <tag name="templating.helper" alias="nome_alias" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('templating.helper.il mio_helper', 'Fully\Qualified\Helper\Class\Name')
+            ->register('templating.helper.il mio_helper', 'Nome\Pienamente\QUalificato\Classe\Helper')
             ->addTag('templating.helper', array('alias' => 'nome_alias'))
         ;
 
@@ -693,20 +693,20 @@ configurazione e assegnargli il tag ``twig.extension``:
 
         services:
             twig.extension.your_extension_name:
-                class: Fully\Qualified\Extension\Class\Name
+                class: Nome\Pienamente\QUalificato\Classe\Extension
                 tags:
                     - { name: twig.extension }
 
     .. code-block:: xml
 
-        <service id="twig.extension.your_extension_name" class="Fully\Qualified\Extension\Class\Name">
+        <service id="twig.extension.your_extension_name" class="Nome\Pienamente\QUalificato\Classe\Extension">
             <tag name="twig.extension" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('twig.extension.your_extension_name', 'Fully\Qualified\Extension\Class\Name')
+            ->register('twig.extension.your_extension_name', 'Nome\Pienamente\QUalificato\Classe\Extension')
             ->addTag('twig.extension')
         ;
 

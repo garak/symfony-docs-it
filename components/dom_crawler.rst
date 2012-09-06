@@ -272,7 +272,7 @@ spuntando i checkbox e caricando file::
 
     $form['registrazione[nomeutente]']->setValue('fandisymfony');
 
-    // cambia segno di spunta ad un checkbox
+    // cambia segno di spunta a un checkbox
     $form['registrazione[termini]']->tick();
     $form['registrazione[termini]']->untick();
 
@@ -308,7 +308,7 @@ direttamente::
 
     use Goutte\Client;
 
-    // crea una richiesta ad un sito esterno
+    // crea una richiesta a un sito esterno
     $client = new Client();
     $crawler = $client->request('GET', 'https://github.com/login');
 

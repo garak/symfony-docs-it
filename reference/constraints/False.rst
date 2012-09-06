@@ -20,7 +20,7 @@ Vedere anche :doc:`True <True>`.
 Uso di base
 -----------
 
-Il vincolo ``False`` può essere applicato ad una proprietà o a un metodo "getter",
+Il vincolo ``False`` può essere applicato a una proprietà o a un metodo "getter",
 ma è usato più comunemente nel secondo caso. Per esempio, si supponga di voler
 garantire che una proprietà ``state`` *non* sia in un array dinamico
 ``invalidStates``. Per prima cosa, creare un metodo "getter"::

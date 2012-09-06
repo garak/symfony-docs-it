@@ -148,8 +148,8 @@ Si possono anche proteggere i metodi di un servizio tramite annotazioni, usando
 il bundle `JMSSecurityExtraBundle`_. Questo bundle è incluso nella
 Standard Edition di Symfony2.
 
-Per abilitare le annotazioni, :ref:`taggare<book-service-container-tags>`
-il servizio da proteggere con il tag ``security.secure_service``
+Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags>`
+``security.secure_service`` al servizio da proteggere
 (si può anche abilitare automaticamente la funzionalità per tutti i servizi, vedere i
 :ref:`dettagli<securing-services-annotations-sidebar>` più avanti):
 
@@ -228,7 +228,7 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
 .. sidebar:: Attivare le annotazioni per tutti i servizi
 
     Quando si proteggono i metodi di un servizio (come mostrato precedentemente),
-    si può taggare ogni servizio individualmente oppure attivare la funzionalità per
+    si possono assegnare tag a ogni servizio individualmente oppure attivare la funzionalità per
     *tutti* i servizi. Per farlo, impostare l'opzione ``secure_all_services`` a
     ``true``:
 

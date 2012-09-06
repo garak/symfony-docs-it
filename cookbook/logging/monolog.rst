@@ -1,8 +1,8 @@
 .. index::
    single: Log
 
-Come usare Monologo per scrivere log
-====================================
+Come usare Monolog per scrivere log
+===================================
 
 Monolog_ è una libreria di log per PHP 5.3 usata da Symfony2. È
 ispirata dalla libreria LogBook di Python.
@@ -16,7 +16,7 @@ gestori per scrivere i log (i gestori possono essere condivisi).
 .. tip::
 
     Quando si inietta il logger in un servizio, si può
-    :ref:`usar un canale personalizzato<dic_tags-monolog>` per vedere facilmente
+    :ref:`usare un canale personalizzato<dic_tags-monolog>` per vedere facilmente
     quale parte dell'applicazione ha loggato il messaggio.
 
 Il gestore di base è ``StreamHandler``, che scrive log in un flusso
@@ -26,15 +26,15 @@ Il gestore di base è ``StreamHandler``, che scrive log in un flusso
 Monolog dispone anche di un potente gestore per il log in ambiente di
 produzione: ``FingersCrossedHandler``. Esso consente di memorizzare i
 messaggi in un buffer e di loggarli solo se un messaggio raggiunge il livello
-di azione (ERROR, nella configurazione fornita con la standard
-edition) girando i messaggi a un altro gestore.
+di azione (ERROR, nella configurazione fornita con la Standard
+Edition) girando i messaggi a un altro gestore.
 
 Per loggare un messaggio, basta prendere il servizio logger dal contenitore, nel
-proprio controllore::
+controllore::
 
     $logger = $this->get('logger');
-    $logger->info('Abbiamo preso il logger');
-    $logger->err('C'è stato un errore');
+    $logger->info('Abbiamo ottenuto il logger');
+    $logger->err('Si è verificato un errore');
 
 .. tip::
 

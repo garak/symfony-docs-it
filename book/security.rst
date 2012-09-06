@@ -869,8 +869,8 @@ per gli utenti che hanno un ruolo specifico.
 Per ulteriori informazioni su come utilizzare il componente della sicurezza per proteggere
 servizi e metodi diversi nell'applicazione, vedere :doc:`/cookbook/security/securing_services`.
 
-Access Control List (ACL): protezione dei singoli oggetti del database
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Access Control List (ACL): protezione dei singoli oggetti della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si immagini di progettare un sistema di blog, in cui gli utenti possono commentare i
 messaggi. Si vuole che un utente possa modificare i propri commenti, ma non
@@ -994,7 +994,7 @@ attraverso la creazione di una classe ``User`` e configurando il fornitore ``ent
     su GitHub.
 
 Con questo approccio, bisogna prima creare la propria classe ``User``, che
-sarà memorizzata nel database.
+sarà memorizzata nella base dati.
 
 .. code-block:: php
 
@@ -1069,7 +1069,7 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
         ));
 
 Con l'introduzione di questo nuovo fornitore, il sistema di autenticazione
-tenterà di caricare un oggetto ``User`` dal database, utilizzando il campo
+tenterà di caricare un oggetto ``User`` dalla base dati, utilizzando il campo
 ``username`` di questa classe.
 
 .. note::
@@ -1085,12 +1085,12 @@ Codificare la password dell'utente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Finora, per semplicità, tutti gli esempi hanno memorizzato le password dell'utente
-in formato testo (se tali utenti sono memorizzati in un file di configurazione o in
-un qualche database). Naturalmente, in un'applicazione reale, si consiglia per ragioni
+in formato testuale (se tali utenti sono memorizzati in un file di configurazione o in
+una base dati). Naturalmente, in un'applicazione reale si consiglia, per ragioni
 di sicurezza, di codificare le password degli utenti. Questo è facilmente realizzabile
-mappando la classe User in uno dei numerosi built-in "encoder". Per esempio,
-per memorizzare gli utenti in memoria, ma oscurare le loro password tramite ``sha1``,
-fare come segue:
+mappando la classe User in uno dei numerosi "encoder" disponibili. Per esempio,
+per salvare gli utenti in memoria, ma oscurare le loro password tramite ``sha1``,
+si può fare come segue:
 
 .. configuration-block::
 
@@ -1151,14 +1151,14 @@ fare come segue:
             ),
         ));
 
-Impostando le ``iterazioni`` a ``1`` e il ``encode_as_base64`` a false,
-è sufficiente eseguire una sola volta l'algoritmo ``sha1`` sulla password e senza
+Impostando ``iterations`` a ``1`` ed ``encode_as_base64`` a ``false``,
+viene eseguito una sola volta l'algoritmo ``sha1`` sulla password, senza
 alcuna codifica supplementare. È ora possibile calcolare l'hash della password a livello di codice
 (ad esempio ``hash('sha1', 'ryanpass')``) o tramite qualche strumento online come `functions-online.com`_
 
-Se si stanno creando i propri utenti in modo dinamico (memorizzandoli in un database),
+Se si stanno creando i propri utenti in modo dinamico (memorizzandoli in una base dati),
 è possibile utilizzare algoritmi di hash ancora più complessi e poi contare su un oggetto
-encoder che aiuti a codificare le password. Per esempio, supponiamo che l'oggetto
+encoder, che aiuti a codificare le password. Per esempio, supponiamo che l'oggetto
 User sia ``Acme\UserBundle\Entity\User`` (come nell'esempio precedente). In primo luogo,
 configurare l'encoder per questo utente:
 
@@ -1195,15 +1195,15 @@ configurare l'encoder per questo utente:
 
 In questo caso, si utilizza il più forte algoritmo ``sha512``. Inoltre, poiché
 si è semplicemente specificato l'algoritmo (``sha512``) come stringa, il sistema
-per impostazione predefinita farà l'hash 5000 volte in un riga e poi la codificherà
+per impostazione predefinita farà l'hash della password 5000 volte di seguito e poi la codificherà
 in base64. In altre parole, la password è stata notevolmente offuscata in modo
-che l'hash della password non può essere decodificato (cioè non è possibile determinare la password
-dall'hash della password).
+che il suo hash non possa essere decodificato (cioè non è possibile determinare la password
+partendo dal suo hash).
 
-Se si ha una qualche form di registrazione per gli utenti, è necessario essere in grado
-di determinare la password con hash, in modo che sia possibile impostarla per l'utente.
-Indipendentemente dall'algoritmo configurato per l'oggetto User, la password con hash
-può essere determinata nel seguente modo da un controllore:
+Se si ha un form di registrazione per gli utenti, è necessario essere in grado
+di determinare l'hash della password, in modo che sia possibile impostarla per l'utente.
+Indipendentemente dall'algoritmo configurato per l'oggetto User, l'hash della password
+può essere determinato nel seguente modo da un controllore:
 
 .. code-block:: php
 
@@ -1262,7 +1262,7 @@ Utilizzare fornitori utenti multipli
 Ogni meccanismo di autenticazione (ad esempio l'autenticazione HTTP, il form di login, ecc.)
 utilizza esattamente un fornitore utenti e, per impostazione predefinita, userà il primo fornitore
 dichiarato. Ma cosa succede se si desidera specificare alcuni utenti tramite configurazione
-e il resto degli utenti nel database? Questo è possibile attraverso la creazione di
+e il resto degli utenti nella base dati? Questo è possibile attraverso la creazione di
 un nuovo fornitore, che li unisca:
 
 .. configuration-block::

@@ -7,7 +7,7 @@ symfony-project.com**. Le email inviate a questo indirizzo verranno inoltrate al
 team di sviluppo principale di Symfony .
 
 Per ogni reposrt, prima si cercherà di confermare la vulnerabilità. Quando
-confermata, il team di sviluppo lavorerà ad una soluzione seguendo questi passi:
+confermata, il team di sviluppo lavorerà a una soluzione seguendo questi passi:
 
 1. Inviare un riconoscimento al segnalatore;
 2. Lavorare su una patch;

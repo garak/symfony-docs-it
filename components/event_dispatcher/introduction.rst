@@ -1,5 +1,6 @@
 .. index::
    single: Event Dispatcher
+   single: Componenti; EventDispatcher
 
 Il componente Event Dispatcher
 ==============================

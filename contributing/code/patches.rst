@@ -37,7 +37,7 @@ Impostare le informazioni utente con il proprio nome reale e il proprio indirizz
     Se il proprio IDE crea dei file di configurazione dentro la cartella del progetto,
     si può usare il file globale ``.gitignore`` (per tutti i progetti) o il file
     ``.git/info/exclude`` (per progetto) per ignorarli. Vedere la
-    [documentazione di Github](https://help.github.com/articles/ignoring-files)
+    `documentazione di Github`_.
 
 .. tip::
 
@@ -177,7 +177,8 @@ seguenti indicazioni:
 .. tip::
 
     Si possono verificare gli standard del codice eseguente il seguente
-    [script](http://cs.sensiolabs.org/get/php-cs-fixer.phar) [src](https://github.com/fabpot/PHP-CS-Fixer):
+    `script <http://cs.sensiolabs.org/get/php-cs-fixer.phar>`_
+    (`sorgente <https://github.com/fabpot/PHP-CS-Fixer>`_):
 
     .. code-block:: bash
 
@@ -359,6 +360,7 @@ i commit. Dopo aver finito, eseguire il push.
 
 .. _ProGit:              http://progit.org/
 .. _GitHub:              https://github.com/signup/free
+.. _`documentazione di Github`: https://help.github.com/articles/ignoring-files
 .. _repository di Symfony2: https://github.com/symfony/symfony
 .. _lista dev:           http://groups.google.com/group/symfony-devs
 .. _travis-ci.org:       http://travis-ci.org

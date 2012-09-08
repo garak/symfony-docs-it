@@ -10,51 +10,36 @@ l':doc:`ORM</book/doctrine>` o per l':doc:`ODM</bundles/DoctrineMongoDBBundle/in
 Configurazione
 --------------
 
-Se non si è ancora configurata la libreria `Doctrine Data Fixtures`_ con Symfony2,
-seguire questi tre passi.
+Le fixture di Doctrine sono mantenute in `DoctrineFixturesBundle`_. Il bundle usa
+la libreria `Doctrine Data Fixtures`_.
 
-Se si usa la Standard Distribution, aggiungere al proprio file
-``deps``:
+Seguire questi passi per installare bundle e libreria nella  Standard Edition.
+Aggiungere al proprio file ``composer.json``:
 
-.. code-block:: text
+.. code-block:: json
 
-    [doctrine-fixtures]
-        git=http://github.com/doctrine/data-fixtures.git
-
-    [DoctrineFixturesBundle]
-        git=http://github.com/symfony/DoctrineFixturesBundle.git
-        target=/bundles/Symfony/Bundle/DoctrineFixturesBundle
+    {
+        "require": {
+            "doctrine/doctrine-fixtures-bundle": "dev-master"
+        }
+    }
 
 Aggiornare le librerie dei venditori:
 
 .. code-block:: bash
 
-    $ php bin/vendors install
+    $ php composer.phar update
 
-Se tutto ha funzionato, si può ora trovare la libreria ``doctrine-fixtures`` sotto
-``vendor/doctrine-fixtures``.
+Se tutto ha funzionato, si può ora trovare ``DoctrineFixturesBundle`` sotto
+``vendor/doctrine/doctrine-fixtures-bundle``.
 
-Registrare lo spazio dei nomi ``Doctrine\Common\DataFixtures`` in ``app/autoload.php``.
+.. note::
 
-.. code-block:: php
+    ``DoctrineFixturesBundle`` installa
+    `Doctrine Data Fixtures`_ library. La libreria si può trovare
+    sotto ``vendor/doctrine/data-fixtures``.
 
-    // ...
-    $loader->registerNamespaces(array(
-        // ...
-        'Doctrine\\Common\\DataFixtures' => __DIR__.'/../vendor/doctrine-fixtures/lib',
-        'Doctrine\\Common' => __DIR__.'/../vendor/doctrine-common/lib',
-        // ...
-    ));
-
-.. caution::
-
-    Assicurarsi di registrare il nuovo spazio dei nomi *prima* di ``Doctrine\Common``.
-    In caso contrario, Symfony cercherà le classi delle fixture nella cartella
-    ``Doctrine\Common``. L'autoloader di Symfony cerca sempre una classe nella cartella
-    del primo spazio dei nomi corrispondente, quindi spazi dei nomi più specifici vanno
-    sempre messi prima.
-
-Infine, registrare il bundle ``DoctrineFixturesBundle`` in ``app/AppKernel.php``.
+Registrare infine ``DoctrineFixturesBundle`` in ``app/AppKernel.php``.
 
 .. code-block:: php
 
@@ -63,7 +48,7 @@ Infine, registrare il bundle ``DoctrineFixturesBundle`` in ``app/AppKernel.php``
     {
         $bundles = array(
             // ...
-            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             // ...
         );
         // ...
@@ -88,14 +73,19 @@ Si immagini di avere una classe ``User`` e di voler caricare un oggetto
 .. code-block:: php
 
     // src/Acme/HelloBundle/DataFixtures/ORM/LoadUserData.php
+
     namespace Acme\HelloBundle\DataFixtures\ORM;
 
     use Doctrine\Common\DataFixtures\FixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
     use Acme\HelloBundle\Entity\User;
 
     class LoadUserData implements FixtureInterface
     {
-        public function load($manager)
+        /**
+         * {@inheritDoc}
+         */
+        public function load(ObjectManager $manager)
         {
             $userAdmin = new User();
             $userAdmin->setUsername('admin');
@@ -174,11 +164,15 @@ di specificare l'ordine in cui le fixture sono caricate.
 
     use Doctrine\Common\DataFixtures\AbstractFixture;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
     use Acme\HelloBundle\Entity\User;
 
     class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     {
-        public function load($manager)
+        /**
+         * {@inheritDoc}
+         */
+        public function load(ObjectManager $manager)
         {
             $userAdmin = new User();
             $userAdmin->setUsername('admin');
@@ -190,6 +184,9 @@ di specificare l'ordine in cui le fixture sono caricate.
             $this->addReference('admin-user', $userAdmin);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public function getOrder()
         {
             return 1; // ordine in cui le fixture saranno caricate
@@ -204,15 +201,20 @@ e farla caricare dopo ``LoadUserData`` restituendo l'ordine
 .. code-block:: php
 
     // src/Acme/HelloBundle/DataFixtures/ORM/LoadGroupData.php
+
     namespace Acme\HelloBundle\DataFixtures\ORM;
 
     use Doctrine\Common\DataFixtures\AbstractFixture;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
     use Acme\HelloBundle\Entity\Group;
 
     class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
     {
-        public function load($manager)
+        /**
+         * {@inheritDoc}
+         */
+        public function load(ObjectManager $manager)
         {
             $groupAdmin = new Group();
             $groupAdmin->setGroupName('admin');
@@ -223,6 +225,9 @@ e farla caricare dopo ``LoadUserData`` restituendo l'ordine
             $this->addReference('admin-group', $groupAdmin);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public function getOrder()
         {
             return 2; // ordine in cui le fixture saranno caricate
@@ -238,15 +243,20 @@ possono essere riferiti successivamente tramite  i riferimenti ``admin-user`` e
 .. code-block:: php
 
     // src/Acme/HelloBundle/DataFixtures/ORM/LoadUserGroupData.php
+
     namespace Acme\HelloBundle\DataFixtures\ORM;
 
     use Doctrine\Common\DataFixtures\AbstractFixture;
     use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+    use Doctrine\Common\Persistence\ObjectManager;
     use Acme\HelloBundle\Entity\UserGroup;
 
     class LoadUserGroupData extends AbstractFixture implements OrderedFixtureInterface
     {
-        public function load($manager)
+        /**
+         * {@inheritDoc}
+         */
+        public function load(ObjectManager $manager)
         {
             $userGroupAdmin = new UserGroup();
             $userGroupAdmin->setUser($manager->merge($this->getReference('admin-user')));
@@ -256,6 +266,9 @@ possono essere riferiti successivamente tramite  i riferimenti ``admin-user`` e
             $manager->flush();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public function getOrder()
         {
             return 3;
@@ -286,6 +299,7 @@ quando si verifica:
 .. code-block:: php
 
     // src/Acme/HelloBundle/DataFixtures/ORM/LoadUserData.php
+
     namespace Acme\HelloBundle\DataFixtures\ORM;
 
     use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -295,32 +309,50 @@ quando si verifica:
 
     class LoadUserData implements FixtureInterface, ContainerAwareInterface
     {
+        /**
+         * @var ContainerInterface
+         */
         private $container;
 
+        /**
+         * {@inheritDoc}
+         */
         public function setContainer(ContainerInterface $container = null)
         {
             $this->container = $container;
         }
 
-        public function load($manager)
+        /**
+         * {@inheritDoc}
+         */
+        public function load(ObjectManager $manager)
         {
-            $userAdmin = new User();
-            $userAdmin->setUsername('admin');
-            $userAdmin->setSalt(md5(time()));
+            $user = new User();
+            $user->setUsername('admin');
+            $user->setSalt(md5(uniqid()));
 
-            $encoder = $this->container->get('security.encoder_factory')->getEncoder($userAdmin);
-            $userAdmin->setPassword($encoder->encodePassword('test', $userAdmin->getSalt()));
+            $encoder = $this->container
+                ->get('security.encoder_factory')
+                ->getEncoder($user)
+            ;
+            $user->setPassword($encoder->encodePassword('secret', $user->getSalt()));
 
-            $manager->persist($userAdmin);
+            $manager->persist($user);
             $manager->flush();
         }
     }
 
-Come si può vedere, occorre solo aggiungere ``ContainerAwareInterface`` alla classe e
-poi creare un nuovo metodo ``setContainer()``, che implementi tale interfaccia.
-Prima che la fixture sia eseguita, Symfony richiamerà il metodo ``setContainer()``
+Come si può vedere, occorre solo aggiungere :class:`Symfony\\Component\\DependencyInjection\\ContainerAwareInterface`
+alla classe e poi creare un nuovo metodo :method:`Symfony\\Component\\DependencyInjection\\ContainerInterface::setContainer`,
+che implementi tale interfaccia. Prima che la fixture sia eseguita, Symfony
+richiamerà il metodo :method:`Symfony\\Component\\DependencyInjection\\ContainerInterface::setContainer`
 automaticamente. Se si memorizza il contenitore come proprietà della classe, come
 mostrato sopra, vi si può accedere nel metodo ``load()``.
 
-.. _`Doctrine Data Fixtures`: https://github.com/doctrine/data-fixtures
+.. note::
 
+    Chi è troppo pigro per implementare il metodo :method:`Symfony\\Component\\DependencyInjection\\ContainerInterface::setContainer`
+    può estendere la propria classe con :class:`Symfony\\Component\\DependencyInjection\\ContainerAware`.
+
+.. _DoctrineFixturesBundle: https://github.com/doctrine/DoctrineFixturesBundle
+.. _`Doctrine Data Fixtures`: https://github.com/doctrine/data-fixtures

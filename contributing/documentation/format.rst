@@ -119,6 +119,50 @@ Ecco la lista dei formati attualmente supportati:
 | php-annotations | Annotazioni |
 +-----------------+-------------+
 
+Collegamenti
+~~~~~~~~~~~~
+
+Per aggiungere collegamenti ad altre pagine nei documenti, usare la seguente sintassi:
+
+.. code-block:: rst
+
+    :doc:`/percorso/dellA/pagina`
+
+Usando il percorso e il nome del file della pagina senza estensione, per esempio:
+
+.. code-block:: rst
+
+    :doc:`/book/controller`
+
+    :doc:`/components/event_dispatcher/introduction`
+
+    :doc:`/cookbook/configuration/environments`
+
+Il testo del collegamento sarà il titolo principale del documento collegato. Si può
+anche specificare un testo alternativo per il collegamento:
+
+.. code-block:: rst
+
+    :doc:`Spool di email</cookbook/email/spool>`
+
+Si possono anche aggiungere collegamenti alla documentazione delle API:
+
+.. code-block:: rst
+
+    :class:`Symfony\\Component\\Routing\\Matcher\\ApacheUrlMatcher`
+
+    :method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build`
+
+e alla documentazione di PHP:
+
+.. code-block:: rst
+
+    :phpclass:`SimpleXMLElement`
+
+    :phpmethod:`DateTime::createFromFormat`
+
+    :phpfunction:`iterator_to_array`
+
 Test della documentazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -1,5 +1,6 @@
 .. index::
     single: Console; CLI
+    single: Componenti; Console
     
 Il componente Console
 =====================
@@ -142,7 +143,6 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
         // ...
         ->addArgument('nome', InputArgument::REQUIRED, 'Chi vuoi salutare?')
         ->addArgument('cognome', InputArgument::OPTIONAL, 'Il tuo cognome?')
-        // ...
 
 A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
 
@@ -154,8 +154,8 @@ Il comando potrà essere utilizzato in uno qualsiasi dei seguenti modi:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien
-    app/console demo:saluta Fabien Potencier
+    $ app/console demo:saluta Fabien
+    $ app/console demo:saluta Fabien Potencier
 
 Utilizzo delle opzioni nei comandi
 ----------------------------------
@@ -193,9 +193,8 @@ l'impostazione ``--ripetizioni``:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien
-
-    app/console demo:saluta Fabien --ripetizioni=5
+    $ app/console demo:saluta Fabien
+    $ app/console demo:saluta Fabien --ripetizioni=5
 
 Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
 il suo valore predefinito è ``1`` (l'ultimo argomento di ``addOption``). Nel secondo esempio, il
@@ -206,8 +205,8 @@ seguenti esempi funzioneranno correttamente:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien --ripetizioni=5 --urla
-    app/console demo:saluta Fabien --urla --ripetizioni=5
+    $ app/console demo:saluta Fabien --ripetizioni=5 --urla
+    $ app/console demo:saluta Fabien --urla --ripetizioni=5
 
 Ci sono 4 possibili varianti per le opzioni:
 
@@ -262,6 +261,7 @@ test senza una reale interazione da terminale::
 
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
+    use Acme\DemoBundle\Command\SalutaCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
@@ -288,14 +288,13 @@ Si può testare l'invio di argomenti e opzioni al comando, passandoli come
 array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay`::
 
-    use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Component\Console\Application;
+    use Symfony\Component\Console\Tester\CommandTester;
     use Acme\DemoBundle\Command\GreetCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
-
-        //--
+        // ...
 
         public function testNameIsOutput()
         {

@@ -15,7 +15,48 @@ esempio, in un file. Un'altro processo potrebbe poi leggere lo spool e prendersi
 l'incarico di inviare le email in esso contenute. Attualmente ``Swiftmailer`` supporta solo
 lo spool tramite file.
 
-Per usare lo spool, si usa la seguente configurazione:
+Spool in memoria
+----------------
+
+Se si usa lo spool per memorizzare email in memoria, saranno inviate subito prima del
+termine del kernel. Questo vuol dire che le email sono inviate solamente se l'intera
+richiesta viene eseguita, senza eccezioni o errori non gestiti. Per configurare
+swiftmailer con l'opzione memory, usare la seguente configurazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        swiftmailer:
+            # ...
+            spool: { type: memory }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+
+        <!--
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+        -->
+
+        <swiftmailer:config>
+             <swiftmailer:spool type="memory" />
+        </swiftmailer:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('swiftmailer', array(
+             ...,
+            'spool' => array('type' => 'memory')
+        ));
+        
+Spool in un file
+----------------
+
+Per usare lo spool con un file, usare la seguente configurazione:
 
 .. configuration-block::
 

@@ -6,7 +6,7 @@ I componenti
 
     class_loader
     config/index
-    console
+    console/index
     css_selector
     dom_crawler
     dependency_injection/index

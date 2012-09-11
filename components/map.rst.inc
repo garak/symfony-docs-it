@@ -9,9 +9,10 @@
   * :doc:`/components/config/caching`
   * :doc:`/components/config/definition`
 
-* **Il componente Console**
+* :doc:`/components/console/index`
 
-  * :doc:`/components/console`
+  * :doc:`/components/console/introduction`
+  * :doc:`/components/console/usage`
 
 * **Il componente CSS Selector**
 

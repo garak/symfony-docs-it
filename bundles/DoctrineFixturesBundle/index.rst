@@ -35,8 +35,8 @@ Se tutto ha funzionato, si può ora trovare ``DoctrineFixturesBundle`` sotto
 
 .. note::
 
-    ``DoctrineFixturesBundle`` installa
-    `Doctrine Data Fixtures`_ library. La libreria si può trovare
+    ``DoctrineFixturesBundle`` installa la libreria
+    `Doctrine Data Fixtures`_. Si può trovare tale libreria
     sotto ``vendor/doctrine/data-fixtures``.
 
 Registrare infine ``DoctrineFixturesBundle`` in ``app/AppKernel.php``.

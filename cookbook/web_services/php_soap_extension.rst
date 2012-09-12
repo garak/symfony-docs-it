@@ -22,6 +22,7 @@ SOAP funziona espondendo i metodi di un oggetto PHP a un'entità esterna
 servizio SOAP. In questo caso, il servizio SOAP consentirà al client di richiamare
 un metodo chiamto ``hello``,  che invia un'email::
 
+    // src/Acme/SoapBundle/HelloService.php
     namespace Acme\SoapBundle;
 
     class HelloService

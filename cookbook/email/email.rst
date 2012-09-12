@@ -16,7 +16,7 @@ di reinventare la ruota, una soluzione per l'invio di email è l'uso di
         public function registerBundles()
         {
             $bundles = array(
-                // ...
+                ...,
                 new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             );
 
@@ -130,4 +130,4 @@ questo argomento dettagliatamente nel capitolo sulla `Creazione di Messaggi`_ .
     * :doc:`spool`
 
 .. _`Swiftmailer`: http://www.swiftmailer.org/
-.. _`Creazione di Messaggi`: http://swiftmailer.org/docs/messages
+.. _`Creazione di Messaggi`: http://swiftmailer.org/docs/messages.html

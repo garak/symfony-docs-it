@@ -13,7 +13,7 @@ Per esempio, il componente Routing di Symfony consente di caricare tutte le rott
 di esportare un matcher di UL o un generatore di URL, basati su tali rotte. In questo
 caso, quando una delle risorse viene modificata (e si sta lavorando in un ambiente di
 sviluppo), il file generato va invalidato e rigenerato.
-Si può ottenere questo risutlato usando la classe
+Si può ottenere questo risultato usando la classe
 :class:`Symfony\\Component\\Config\\ConfigCache`.
 
 L'esempio successivo mostra come raccogliere le risorse e generare un codice, basato
@@ -31,7 +31,7 @@ la cache può dirci se è ancora fresca o se i suoi contenuti vanno rigenerati::
     $userMatcherCache = new ConfigCache($cachePath, true);
 
     if (!$userMatcherCache->isFresh()) {
-        // inserire un array di percorsi per il file 'utenti.yml' file paths
+        // inserire un array di percorsi per il file 'utenti.yml'
         $yamlUserFiles = ...;
 
         $resources = array();

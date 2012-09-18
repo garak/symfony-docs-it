@@ -2,7 +2,7 @@ Date
 ====
 
 Valida che un valore sia una data valida, cioà o un oggetto ``DateTime`` o
-una strina (o un oggetto che possa essere forzato a stringa) che segue un formato
+una stringa (o un oggetto che possa essere forzato a stringa) che segue un formato
 valido YYYY-MM-DD.
 
 +----------------+--------------------------------------------------------------------+

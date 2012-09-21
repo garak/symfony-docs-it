@@ -64,6 +64,10 @@
 
 * **Il componente Routing**
 
+* **Il componente Serializer**
+
+  * :doc:`/components/serializer`
+
   * :doc:`/components/routing`
 
 * **Il componente Templating**

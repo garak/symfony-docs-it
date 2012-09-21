@@ -56,10 +56,10 @@ Validazione
 
 Una delle caratteristiche fondamentali del campo ``repeated`` è la validazione interna
 (non occorre fare nulla per impostarla), che forza i due campi ad avere valori
-combacianti. Se i due campi non combaciani, sarà mostrato un errore
+combacianti. Se i due campi non combaciano, sarà mostrato un errore
 all'utente.
 
-si può usare l'opzione ``invalid_message`` per personalizzare l'errore che sarà
+Si può usare l'opzione ``invalid_message`` per personalizzare l'errore che sarà
 mostrato quando i due campi non combaciano.
 
 Opzioni del campo

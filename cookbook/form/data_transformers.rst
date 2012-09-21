@@ -9,7 +9,7 @@ qualcosa di diverso da utilizzare nel programma. Tutto questo si potrebbe fare m
 controllore, ma nel caso in cui si volesse utilizzare il form in posti diversi?
 
 Supponiamo di avere una relazione uno-a-uno tra Task e Issue, per esempio un Task può avere una
-Issue associata. Avere una casella di riepilogo con la lista di tuttr le issue può portare a
+Issue associata. Avere una casella di riepilogo con la lista di tutte le issue può portare a
 una casella di riepilogo molto lunga, nella quale risulterà impossibile cercare qualcosa. Si vorrebbe, piuttosto,
 aggiungere un campo di testo nel quale l'utente può semplicemente inserire il numero della issue.
 
@@ -17,8 +17,8 @@ Lo si potrebbe fare nel controllore, ma non è la soluzione migliore.
 Sarebbe meglio se questa issue fosse cercata automaticamente e convertita in un oggetto Issue.
 In questi casi entrano in gioco i trasformatori di dati.
 
-Creare il trasformer
---------------------
+Creare il trasformatore
+-----------------------
 
 Come prima cosa, creare una classe `IssueToNumberTransformer`, che sarà responsabile
 della conversione da numero di issue a oggetto Issue e viceversa::
@@ -56,7 +56,7 @@ della conversione da numero di issue a oggetto Issue e viceversa::
         {
             if (null === $issue) {
                 return "";
-        }
+            }
     
             return $issue->getNumber();
         }
@@ -114,11 +114,11 @@ un form.
             {
                 // ...
             
-                // si assume che l'entity manager è stato passato come opzione
+                // si assume che il gestore di entità sia stato passato come opzione
                 $entityManager = $options['em'];
                 $transformer = new IssueToNumberTransformer($entityManager);
 
-                // aggiunge un normal campo test, ma vi aggiunge il trasformatori
+                // aggiunge un normale campo testuale, ma vi aggiunge il trasformatore
                 $builder->add(
                     $builder->create('issue', 'text')
                         ->addModelTransformer($transformer)
@@ -136,9 +136,9 @@ di creare il form. Successivamente, si vedrà come si può creare un tipo di cam
         'em' => $this->getDoctrine()->getEntityManager(),
     ));
 
-Ecco fatto! L'utente sarà in grado di inserire un numero di isse nel campo di
+Ecco fatto! L'utente sarà in grado di inserire un numero di issue nel campo di
 testo e di vederlo trasformato in un oggetto Issue. Questo vuol dire che,
-dopo l'invio del form, il framrwork passerà un vero oggetto Issue
+dopo l'invio del form, il framework passerà un vero oggetto Issue
 a ``Task::setIssue()`` e non un numero di issue.
 
 Se la issue non viene trovata, sarà creato un errore per il campo, con un messaggio
@@ -253,7 +253,7 @@ Prima di tutto, creare una classe::
         {
             $transformer = new IssueToNumberTransformer($this->om);
             $builder->addModelTransformer($transformer);
-            }
+        }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
@@ -265,7 +265,7 @@ Prima di tutto, creare una classe::
         public function getParent()
         {
             return 'text';
-            }
+        }
 
         public function getName()
         {

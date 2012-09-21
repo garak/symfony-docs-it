@@ -1312,6 +1312,26 @@ Il dump delle variabili avverrà solo se l'impostazione ``debug`` (in ``config.y
 è ``true``. Questo vuol dire che, per impostazione predefinita, il dump avverrà in
 ambiente ``dev``, ma non in ``prod``.
 
+Verifica sintattica
+-------------------
+
+.. versionadded:: 2.1
+    Il comando ``twig:lint`` è stato aggiunto in Symfony 2.1
+
+Si possono cercare eventuali errori di sintassi nei template Twig, usando il comando
+``twig:lint``:
+
+.. code-block:: bash
+
+    # Verifica per nome del file:
+    $ php app/console twig:lint src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig
+
+    # oppure per cartella:
+    $ php app/console twig:lint src/Acme/ArticleBundle/Resources/views
+
+    # oppure per bundle:
+    $ php app/console twig:lint @AcmeArticleBundle
+
 Formati di template
 -------------------
 
@@ -1399,8 +1419,8 @@ Imparare di più con il ricettario
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`KnpBundles.com`: http://knpbundles.com
 .. _`Cross Site Scripting`: http://it.wikipedia.org/wiki/Cross-site_scripting
-.. _`Escape dell'output`: http://twig.sensiolabs.org
+.. _`Escape dell'output`: http://twig.sensiolabs.org/doc/api.html#escaper-extension
 .. _`tag`: http://twig.sensiolabs.org/doc/tags/index.html
 .. _`filtri`: http://twig.sensiolabs.org/doc/filters/index.html
-.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/extensions.html
+.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`hinclude.js`: http://mnot.github.com/hinclude/

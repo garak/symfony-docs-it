@@ -338,8 +338,13 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 
 * ``twig/`` - questa cartella contiene la cache dei template di Twig.
 
+.. note::
+
+    Si possono cambiare facilmente posizione e nome della cartella. Per maggiori informazioni,
+    si legga la ricetta :doc:`/cookbook/configuration/override_dir_structure`.
+
 
 Approfondimenti
 ---------------
 
-Si legga l'articolo :doc:`/cookbook/configuration/external_parameters`.
+Si legga la ricetta :doc:`/cookbook/configuration/external_parameters`.

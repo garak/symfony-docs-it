@@ -62,6 +62,11 @@ Distribution:
 
     php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony
 
+.. tip::
+
+    Per una versione esatta, sostituire `2.1.x-dev` con l'ultima versione di Symfony
+    (p.e. 2.1.2). Per detaggli, si veda la `pagina di installazione di Symfony`_
+
 Questo comando può richiedere diversti minuti, mentre Composer scarica la Standard
 Distribution e tutte le librerie dei venditori necessarie. Quando avrà finito,
 si dovrebbe avere una cartella simile a questa:
@@ -109,6 +114,12 @@ uno dei seguenti comandi (sostituire ``###`` con il vero nome del file):
 
 Se si è optato per la versione senza venditori, occorerà leggere la 
 prossima sezione.
+
+.. note::
+
+    Si può facilmente modificare la struttura predefinita di cartelle. Si veda
+    :doc:`/cookbook/configuration/override_dir_structure` per maggiori
+    informazioni.
 
 .. _installation-updating-vendors:
 
@@ -313,3 +324,4 @@ scaricare tutte le librerie dei venditori necessarie.
 .. _`scaricare Composer`: http://getcomposer.org/download/
 .. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
 .. _`Nginx`: http://wiki.nginx.org/Symfony
+.. _`pagina di installazione di Symfony`:    http://symfony.com/download

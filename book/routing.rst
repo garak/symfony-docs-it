@@ -105,10 +105,6 @@ Questo è l'obiettivo delle rotte di Symfony2: mappare l'URL di una richiesta in
 controllore. Lungo la strada, si impareranno tutti i trucchi per mappare facilmente
 anche gli URL più complessi. 
 
-.. versionadded:: 2.1
-    Da Symfony 2.1, il componente Routing accetta anche valori Unicode nelle
-    rotte, come: /Жени/
-
 .. index::
    single: Rotte; Sotto il cofano
 
@@ -1054,7 +1050,18 @@ il nome della rotta dopo il comando:
 
 .. code-block:: bash
 
-    php app/console router:debug article_show
+    $ php app/console router:debug article_show
+
+.. versionadded:: 2.1
+    Il comando ``router:match`` è stato aggiunto in Symfony 2.1
+
+Si può verificare quale rotta, se esiste, corrisponda a un percorso, usando il comando
+``router:match``:
+
+.. code-block:: bash
+
+    $ php app/console router:match /articles/en/2012/article.rss
+    Route "article_show" matches
 
 .. index::
    single: Rotte; Generazione di URL

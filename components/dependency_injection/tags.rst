@@ -158,6 +158,12 @@ il contenitore viene compilato::
     $container = new ContainerBuilder();
     $container->addCompilerPass(new TransportCompilerPass);
 
+.. note::
+
+    I passi di compilatore sono registrati in modo diverso, se si usa il framework
+    completo. Vedere :doc:`cookbook/service_container/compiler_passes`
+    per maggiori dettagli.
+
 Aggiungere altri attributi ai tag
 ---------------------------------
 
@@ -186,7 +192,7 @@ Per iniziare, cambiare la classe ``TransportChain``::
                return $this->transports[$alias];
             }
             else {
-               return null;
+               return;
             }
         }
     }

@@ -275,6 +275,12 @@ sarà richiamato quando il contenitore viene compilato::
     $container = new ContainerBuilder();
     $container->addCompilerPass(new CustomCompilerPass);
 
+.. note::
+
+    I passi di compilatore sono registrati in modo diverso, se si usa il
+    framework completo, si veda :doc:`cookbook/service_container/compiler_passes`
+    per maggiori dettagli.
+
 Controllare l'ordine dei passi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -418,3 +424,8 @@ costruttore. QUando la cache non è in debug, sarà sempre usato il contenitore 
 esiste. In debug, viene scritto un file aggiuntivo di meta dati, con i timestamp di
 tutti i file risorsa. Vengono poi verificate eventuali modifiche dei file, nel caso in cui
 la cache debba essere considerata vecchia.
+
+.. note::
+
+    Nel framework completo, compilazione e messa in cache del contenitore sono
+    eseguite automaticamente.

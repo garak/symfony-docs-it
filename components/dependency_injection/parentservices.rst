@@ -236,6 +236,7 @@ genitore per un servizio.
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\DefinitionDecorator;
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
@@ -283,6 +284,12 @@ come astratta nel file di configurazione, come fatto sopra, vuol dire che potrà
 usata come servizio genitore e non direttamente come servizio da iniettare e che sarà
 rimossa durante la compilazione. In altre parole, esiste puramente come "template" per
 altri servizi.
+
+.. note::
+
+   Per poter risolvere dipendenze dei genitori, ``ContainerBuilder`` deve essere
+   precedentemente compilato. Si veda :doc:`/components/dependency_injection/compilation` 
+   per maggiori dettagli.
 
 Sovrascrivere le dipendenze del genitore
 ----------------------------------------
@@ -364,6 +371,7 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\DefinitionDecorator;
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
@@ -482,6 +490,7 @@ Se si ha la seguente configurazione:
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\DefinitionDecorator;
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...

@@ -64,6 +64,9 @@ ora avere una cartella ``Symfony/``, come la seguente:
         # rimuove la cronologia di Git
         $ rm -rf .git
 
+    Per una versione esatta, sostituire `2.1.x-dev` con l'ultima versione di Symfony
+    (p.e. 2.1.2). Per dettagli, si veda la `pagina di installazione di Symfony`_
+
 .. tip::
    
     Se si ha PHP 5.4, si può usare il server web incluso:
@@ -461,3 +464,4 @@ sezione: ":doc:`la vista<the_view>`".
 .. _YAML:                           http://www.yaml.org/
 .. _annotazioni nei controllori:    http://symfony.com/it/doc/current/bundles/SensioFrameworkExtraBundle/index.html#annotazioni-per-i-controllori
 .. _Twig:                           http://twig.sensiolabs.org/
+.. _`pagina di installazione di Symfony`: http://symfony.com/download

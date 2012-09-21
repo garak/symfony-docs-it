@@ -923,6 +923,29 @@ parametri aggiuntivi (oltre al solo ``name`` del parametro).
 Per una lista completa dei tag disponibili in Symfony, dare un'occhiata
 a :doc:`/reference/dic_tags`.
 
+Debug dei servizi
+-----------------
+
+Si può sapere quali servizi sono registrati nel contenitore, usando la
+console. Per mostrare tutti i servizi e le relative classi, eseguire:
+
+.. code-block:: bash
+
+    $ php app/console container:debug
+
+Vengono mostrati solo i servizi pubblici, ma si possono vedere anche quelli privati:
+
+.. code-block:: bash
+
+    $ php app/console container:debug --show-private
+
+Si possono ottenere informazioni più dettagliate su un singolo servizio, specificando
+il suo id:
+
+.. code-block:: bash
+
+    $ php app/console container:debug my_mailer
+
 Saperne di più
 --------------
 

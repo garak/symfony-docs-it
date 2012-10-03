@@ -137,7 +137,8 @@ eseguire con:
 
 .. code-block:: bash
 
-    $ php app/console d:s Fabien
+    $ php app/console d:g Fabien
 
-Se si sceglie un comando troppo breve e quindi ambiguo, non verrà eseguito alcun comando,
+Se si sceglie un comando troppo breve e quindi ambiguo (cioè più di un comando
+corrisponde), non verrà eseguito alcun comando,
 ma verranno mostrati dei sugerrimenti sui possibili comandi da eseguire.

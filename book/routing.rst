@@ -179,8 +179,10 @@ dell'applicazione:
 .. tip::
 
     Anche se tutte le rotte sono caricate da un singolo file, è una pratica comune
-    includere ulteriori risorse di rotte all'interno del file. Vedere
-    la sezione :ref:`routing-include-external-resources` per maggiori informazioni.
+    includere ulteriori risorse di rotte all'interno del file. Per farlo, basta indicare nel
+    file di routing principale quale file esterni debbano essere inclusi.
+    Vedere la sezione :ref:`routing-include-external-resources` per maggiori
+    informazioni.
 
 Configurazione di base delle rotte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

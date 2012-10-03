@@ -34,6 +34,7 @@ in modo tale da caricare il componente Routing::
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Route;
 
+    $route = new Route('/pippo', array('controller' => 'MioControllore'))
     $rotte = new RouteCollection();
     $rotte->add('nome_rotta', new Route('/pippo', array('controller' => 'MioControllore')));
 
@@ -97,7 +98,11 @@ Si prenda la seguente rotta, che combina diversi dei concetti esposti::
    // ...
 
    $parametri = $abbinatore->match('/archivio/2012-01');
-   // array('controller' => 'mostraArchivio', 'mese' => 2012-01'', '_route' => '...')
+   // array(
+   //     'controller' => 'mostraArchivio',
+   //     'mese' => 2012-01',
+   //     '_route' => ...
+   //  )
 
    $parametri = $abbinatore->match('/archivio/pippo');
    // lancia una ResourceNotFoundException
@@ -115,16 +120,23 @@ requisiti speciali:
 La rotta seguente, per esempio, accetterà le sole richieste a /pippo che siano
 eseguite con metodo POST e con connessione sicura::
 
-   $rotta = new Route('/pippo', array('_method' => 'post', '_scheme' => 'https' ));
+   $rotta = new Route(
+       '/pippo',
+       array(),
+       array('_method' => 'post', '_scheme' => 'https' )
+   );
 
 .. tip::
     
     Per creare una corrispondenza che trovi tutte le url che inizino con un determinato percorso e
     terminino con un suffisso arbitrario, è possibile usare la seguente definizione::
         
-        $rotta = new Route('/inizio/{suffisso}', array('suffisso' => ''), array('suffisso' => '.*'));
+        $rotta = new Route(
+            '/inizio/{suffisso}',
+            array('suffisso' => ''),
+            array('suffisso' => '.*')
+        );
     
-
 Usare i prefissi
 ~~~~~~~~~~~~~~~~
 
@@ -136,10 +148,14 @@ requisiti predefiniti e opzioni predefinite per tutte le rotte di un sotto alber
     $radiceCollezione = new RouteCollection();
 
     $subCollezione = new RouteCollection();
-    $subCollezione->add( /*...*/ );
-    $subCollezione->add( /*...*/ );
+    $subCollezione->add(...);
+    $subCollezione->add(...);
 
-    $radiceCollezione->addCollection($subCollezione, '/prefisso', array('_scheme' => 'https'));
+    $radiceCollezione->addCollection(
+         $subCollezione,
+         '/prefisso',
+         array('_scheme' => 'https')
+    );
 
 Configurare i parametri della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,7 +164,14 @@ Configurare i parametri della richiesta
 relative alla richiesta attuale. Con questa classe, tramite il suo costruttore,
 è possibile definire tutti i parametri di una richiesta HTTP::
 
-    public function __construct($baseUrl = '', $method = 'GET', $host = 'localhost', $scheme = 'http', $httpPort = 80, $httpsPort = 443)
+    public function __construct(
+        $baseUrl = '',
+        $method = 'GET',
+        $host = 'localhost',
+        $scheme = 'http',
+        $httpPort = 80,
+        $httpsPort = 443
+    )
 
 .. _components-routing-http-foundation:
 
@@ -242,7 +265,10 @@ il nome del file php che restituirà una :class:`Symfony\\Component\\Routing\\Ro
     use Symfony\Component\Routing\Route;
 
     $collezione = new RouteCollection();
-    $collezione->add('nome_rotta', new Route('/pippo', array('controller' => 'ControlloreEsempio')));
+    $collezione->add(
+        'nome_rotta',
+        new Route('/pippo', array('controller' => 'ControlloreEsempio'))
+    );
     // ...
 
     return $collezione;
@@ -278,7 +304,13 @@ La classe :class:`Symfony\\Component\\Routing\\Router` è un pacchetto tutto-in-
 che permette i usare rapidamente il componente Routing. Il costruttore si aspetta di ricevere
 l'istanza di un caricatore, un percorso per la definizione della rotta principale e alcuni altri parametri::
 
-    public function __construct(LoaderInterface $loader, $resource, array $options = array(), RequestContext $context = null, array $defaults = array());
+    public function __construct(
+        LoaderInterface $loader,
+        $resource,
+        array $options = array(),
+        RequestContext $context = null,
+        array $defaults = array()
+    );
 
 Tramite l'opzione ``cache_dir`` è possibile abilitare la cache delle rotte (cioè se si fornisce
 un percorso) o disabilitarla (se viene configurata a ``null``). La cache è realizzata automaticamente

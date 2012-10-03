@@ -106,8 +106,7 @@ nel controller, potrebbe essere come il seguente::
         $form = $this->createFormBuilder($document)
             ->add('name')
             ->add('file')
-            ->getForm()
-        ;
+            ->getForm();
 
         // ...
     }

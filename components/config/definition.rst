@@ -149,8 +149,8 @@ Un esempio:
         ->arrayNode('parameters')
             ->isRequired()
             ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('name')
             ->prototype('array')
-                ->useAttributeAsKey('name')
                 ->children()
                     ->scalarNode('name')->isRequired()->end()
                     ->scalarNode('value')->isRequired()->end()
@@ -211,6 +211,168 @@ Per tutti i nodi:
 
 ``cannotBeOverwritten()``
     non consentire che altri array di configurazione sovrascrivano il valore di questo nodo
+
+Aggiunta di sezioni
+-------------------
+
+Se occorre validare una configurazione complessa, l'albero potrebbe diventare
+troppo grande, si potrebbe quindi volerlo separare in sezioni. Lo si può fare
+creando una sezione come nodo separato e quindi aggiungendola all'albero
+principale con ``append()``::
+
+    public function getConfigTreeBuilder()
+    {
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('database');
+
+        $rootNode
+            ->arrayNode('connection')
+                ->children()
+                    ->scalarNode('driver')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
+                    ->scalarNode('host')
+                        ->defaultValue('localhost')
+                    ->end()
+                    ->scalarNode('username')->end()
+                    ->scalarNode('password')->end()
+                    ->booleanNode('memory')
+                        ->defaultFalse()
+                    ->end()
+                ->end()
+                ->append($this->addParametersNode())
+            ->end()
+        ;
+
+        return $treeBuilder;
+    }
+
+    public function addParametersNode()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('parameters');
+
+        $node
+            ->isRequired()
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('name')
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('name')->isRequired()->end()
+                    ->scalarNode('value')->isRequired()->end()
+                ->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+Questo è utile per evitare di ripetersi, nel caso in cui si abbiano sezioni
+della configurazione ripetute in posti diversi.
+
+Normalizzazione
+---------------
+
+Prima di essere processati, i file di configurazione vengono normalizzati, quindi fusi
+e infine si usa l'albero per validare l'array risultante. Il processo di
+normalizzazione si usa per rimuovere alcune differenze risultati dai vari formati
+di configurazione, soprattutto tra Yaml e XML.
+
+Il separatore usato nelle chiavi è tipicamente ``_`` in Yaml e ``-`` in XML. Per
+esempio, ``auto_connect`` in Yaml e ``auto-connect``. La normalizzazione rende
+entrambi ``auto_connect``.
+
+Un'altra differenza tra Yaml e XML è il modo in cui sono rappresentati array
+di dati. In Yaml si può avere:
+
+.. code-block:: yaml
+
+    twig:
+        extensions: ['twig.extension.pippo', 'twig.extension.pluto']
+
+e in XML:
+
+.. code-block:: xml
+
+    <twig:config>
+        <twig:extension>twig.extension.pippo</twig:extension>
+        <twig:extension>twig.extension.pluto</twig:extension>
+    </twig:config>
+
+La normalizzazione rimuove tale differenza, pluralizzando la chiave usata
+in XML. Si può specificare se si vuole una chiave pluralizzata in tal modo con
+``fixXmlConfig()``::
+
+    $rootNode
+        ->fixXmlConfig('extension')
+        ->children()
+            ->arrayNode('extensions')
+                ->prototype('scalar')->end()
+            ->end()
+        ->end()
+    ;
+
+Se la pluralizzazione è irregolare, si può specificare il pluare da usare,
+come secondo parametro::
+
+    $rootNode
+        ->fixXmlConfig('uovo', 'uova')
+        ->children()
+            ->arrayNode('uova')
+        ->end()
+    ;
+
+Oltre a sistemare queste cose, ``fixXmlConfig`` si assicura che i singoli elementi xml
+siano modificati in array. Quindi si potrebbe avere:
+
+.. code-block:: xml
+
+    <connection>default</connection>
+    <connection>extra</connection>
+
+e a volte solo:
+
+.. code-block:: xml
+
+    <connection>default</connection>
+
+Per impostazione predefinita, ``connection`` sarebbe un array nel primo caso e una stringa
+nel secondo, rendendo difficile la validazione. Ci si può assicurare che sia sempre
+un array con ``fixXmlConfig``.
+
+Se necessario, si può controllare ulteriormente il processo di normalizzazione. Per esempio,
+si potrebbe voler consentire che una stringa sia impostata e usata come chiave particolare o che
+che molte chiavi siano impostate in modo esplicito. Quindi, se tutto tranne id è facoltativo,
+in questa configurazione:
+
+.. code-block:: yaml
+
+    connection:
+        name: my_mysql_connection
+        host: localhost
+        driver: mysql
+        username: user
+        password: pass
+
+si può consentire anche il seguente:
+
+.. code-block:: yaml
+
+    connection: my_mysql_connection
+
+Cambiando un valore stringa in un array associativo con ``name`` come chiave::
+
+    $rootNode
+        ->arrayNode('connection')
+           ->beforeNormalization()
+               ->ifString()
+               ->then(function($v) { return array('name'=> $v); })
+           ->end()
+           ->scalarValue('name')->isRequired()
+           // ...
+        ->end()
+    ;
 
 Regole di validazione
 ---------------------
@@ -278,3 +440,4 @@ Altrimenti, il risultato è un array pulito di valori di configurazione::
     $processor = new Processor();
     $configuration = new DatabaseConfiguration;
     $processedConfiguration = $processor->processConfiguration($configuration, $configs);
+

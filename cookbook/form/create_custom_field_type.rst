@@ -14,10 +14,10 @@ come è possibile registrarlo per utilizzarlo nell'applicazione.
 Definizione del tipo di campo
 -----------------------------
 
-Per creare il tipo di campo personalizzato, è necessario creare per prima la classe
-che rappresenta il campo. Nell'esempio proposto la classe che realizza il tipo di campo
-sarà chiamata `GenderType` e il file sarà salvato nella cartella default contenente
-i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo estenda
+Per creare il tipo di campo personalizzato, è necessario creare prima la classe
+che rappresenta il campo. Nell'esempio proposto, la classe che realizza il tipo di campo
+sarà chiamata `GenderType` e il file sarà salvato nella cartella predefinita contenente
+i campi del form, che è ``<NomeBundle>\Form\Type``. Assicurarsi che il campo estenda
 :class:`Symfony\\Component\\Form\\AbstractType`::
 
     // src/Acme/DemoBundle/Form/Type/GenderType.php
@@ -32,8 +32,8 @@ i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo este
         {
             $resolver->setDefaults(array(
                 'choices' => array(
-                    'm' => 'Male',
-                    'f' => 'Female',
+                    'm' => 'Maschio',
+                    'f' => 'Femmina',
                 )
             ));
         }

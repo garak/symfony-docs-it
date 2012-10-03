@@ -61,18 +61,18 @@ Innanzitutto, occorre configurare la connessione al sistema ACL da usare:
 
 .. note::
 
-    Il sistema ACL richiede almeno una connessione di Doctrine configurata.
-    Tuttavia, questo non significa che si debba usare Doctrine per mappare
-    i propri oggetti del dominio. Si può usare qualsiasi mapper si desideri per i propri
-    oggetti, sia esso l'ORM Doctrine, l'ODM Mongo, Propel o anche SQL puro, la scelta
-    è lasciata allo sviluppatore.
+    Il sistema ACL richiede almeno una connessione di Doctrine configurata o nel DBAL (usabile
+    senza interventi) o con MongoDB (usabile con `MongoDBAclBundle`_). Tuttavia, questo non
+    significa che si debba usare Doctrine per mappare i propri oggetti del dominio. Si può usare
+    qualsiasi mapper si desideri per i propri oggetti, sia esso l'ORM Doctrine, l'ODM Mongo, Propel o anche
+    SQL puro, la scelta è lasciata allo sviluppatore.
 
 Dopo aver configurato la connessione, occorre importare la struttura del database.
 Fortunatamente, c'è un task per farlo. Basta eseguire il comando seguente:
 
-.. code-block:: text
+.. code-block:: bash
 
-    php app/console init:acl
+    $ php app/console init:acl
 
 Iniziare
 --------
@@ -161,18 +161,18 @@ Verifica dell'accesso
     {
         // ...
 
-    public function editCommentAction(Comment $comment)
-    {
-        $securityContext = $this->get('security.context');
-
-        // verifica per l'accesso in modifica
-        if (false === $securityContext->isGranted('EDIT', $comment))
+        public function editCommentAction(Comment $comment)
         {
-            throw new AccessDeniedException();
-        }
+            $securityContext = $this->get('security.context');
 
-        // recuperare l'oggetto commento e fare le modifiche
-        // ...
+            // verifica per l'accesso in modifica
+            if (false === $securityContext->isGranted('EDIT', $comment))
+            {
+                throw new AccessDeniedException();
+            }
+
+            // recuperare l'oggetto commento e fare le modifiche
+        }
     }
 
 In questo esempio, verifichiamo se l'utente abbia il permesso ``EDIT``.
@@ -216,3 +216,5 @@ aggiunti in precedenza:
     $acl->insertObjectAce($identity, $mask);
 
 Ora l'utente ha il permesso di vedere, modificare, cancellare e ripristinare gli oggetti.
+
+.. _`MongoDBAclBundle`: https://github.com/IamPersistent/MongoDBAclBundle

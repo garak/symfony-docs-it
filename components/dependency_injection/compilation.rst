@@ -366,6 +366,7 @@ produzione, mantenendo una configurazione aggiornata durante lo sviluppo dell'ap
     // ...
 
     // impostare $isDebug in base a una logica del progetto
+    $isDebug = ...;
 
     $file = __DIR__ .'/cache/container.php';
 
@@ -377,7 +378,7 @@ produzione, mantenendo una configurazione aggiornata durante lo sviluppo dell'ap
         // ...
         $container->compile();
 
-        if(!$isDebug) 
+        if (!$isDebug) {
             $dumper = new PhpDumper($container);
             file_put_contents($file, $dumper->dump(array('class' => 'MyCachedContainer')));
         }
@@ -399,6 +400,7 @@ come meta dati per la cache::
     // ...
 
     // imposta $isDebug in base a qualcosa nel progetto
+    $isDebug = ...;
 
     $file = __DIR__ .'/cache/container.php';
     $containerConfigCache = new ConfigCache($file, $isDebug);

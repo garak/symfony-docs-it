@@ -222,11 +222,11 @@ di un form assomiglia al seguente, all'interno di un controllore::
 
     public function updateAction(Request $request)
     {
-        $author = new Acme\BlogBundle\Entity\Author();
+        $author = new Author();
         $form = $this->createForm(new AuthorType(), $author);
 
-        if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
 
             if ($form->isValid()) {
                 // validazione passata, fare qualcosa con l'oggetto $author
@@ -269,7 +269,7 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:validation enable_annotations="true" />
+            <framework:validation enable-annotations="true" />
         </framework:config>
 
     .. code-block:: php

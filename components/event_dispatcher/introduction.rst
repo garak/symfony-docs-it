@@ -164,7 +164,7 @@ Il metodo ``addListener()`` accetta fino a tre parametri:
         use Symfony\Component\EventDispatcher\Event;
 
         $dispatcher->addListener('pipo.action', function (Event $event) {
-            // sarò eseguito quando l'evento pippo.actiion sarà distribuito
+            // sarà eseguito quando l'evento pippo.action sarà distribuito
         });
 
 Una volta registrato un evento sul distributore, esso aspetterà finché l'evento non

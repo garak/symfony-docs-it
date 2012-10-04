@@ -22,6 +22,8 @@ contenitore, ulteriori passi sono usati per ottimizzare la configurazione, prima
 messa in cache. Per esempio, vengono rimossi i servizi privati e i servizi astratti, e
 vengono risolti gli alias.
 
+.. _components-dependency-injection-extension:
+
 Gestire la configurazione con le estensioni
 -------------------------------------------
 
@@ -238,6 +240,8 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
     Invece, si deve usare un passo di compilatore, che funziona con il contenitore
     dopo che le estensioni sono state processate.
 
+.. _components-dependency-injection-compiler-passes:
+
 Creare un passo di compilatore
 ------------------------------
 
@@ -306,6 +310,8 @@ Per esempio, per eseguire il proprio passo dopo i passi di rimozione predefiniti
 
     $container = new ContainerBuilder();
     $container->addCompilerPass(new CustomCompilerPass, PassConfig::TYPE_AFTER_REMOVING);
+
+.. _components-dependency-injection-dumping:
 
 Esportare la configurazione per le prestazioni
 ----------------------------------------------

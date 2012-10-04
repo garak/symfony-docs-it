@@ -91,6 +91,20 @@ Lo stesso nodo radice è un nodo array e ha dei figli, come il nodo booleano
 ``auto_connect`` e il nodo scalare ``default_connection``. In generale:
 dopo aver definito un nodo, una chiamata ``end()`` porta un gradino in alto nella gerarchia.
 
+Tipo di nodo
+~~~~~~~~~~~~
+
+Si può validare il tipo di un valore fornito, usando l'appropriata definizione
+di nodo. I tipi di nodo disponibili sono:
+
+* scalare
+* booleano
+* array
+* variabile (nessuna validazione)
+
+e sono creati con ``node($nome, $tipo)`` o con i relativi metodi scorciatoia
+``xxxxNode($nome)``.
+
 Nodi array
 ~~~~~~~~~~
 

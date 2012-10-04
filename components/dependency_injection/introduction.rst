@@ -177,7 +177,7 @@ in questo modo:
 
     $container = new ContainerBuilder();
 
-    //--
+    // ...
 
     $newsletterManager = $container->get('newsletter_manager');
 
@@ -193,6 +193,8 @@ difficile riusare la classe altrove.
 
 A un certo punto si avrà la necessità di ottenere un servizio dal contenitore,
 ma lo si dovrebbe fare il meno possibile e all'inizio della propria applicazione.
+
+.. _components-dependency-injection-loading-config:
 
 Impostare il contenitore con file di configurazione
 ---------------------------------------------------

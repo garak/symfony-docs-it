@@ -214,7 +214,7 @@ controllore::
             ->add('dueDate', 'date')
             ->getForm();
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->isMethod('POST')) {
             $form->bind($request);
 
             if ($form->isValid()) {
@@ -1111,7 +1111,7 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
     .. code-block:: html+jinja
 
         {# src/Acme/TaskBundle/Resources/views/Form/fields.html.twig #}
-        {% block field_row %}
+        {% block form_row %}
         {% spaceless %}
             <div class="form_row">
                 {{ form_label(form) }}
@@ -1119,11 +1119,11 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
                 {{ form_widget(form) }}
             </div>
         {% endspaceless %}
-        {% endblock field_row %}
+        {% endblock form_row %}
 
     .. code-block:: html+php
 
-        <!-- src/Acme/TaskBundle/Resources/views/Form/field_row.html.php -->
+        <!-- src/Acme/TaskBundle/Resources/views/Form/form_row.html.php -->
         <div class="form_row">
             <?php echo $view['form']->label($form, $label) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -1220,15 +1220,15 @@ corrisponde al campo *type* che viene reso (es. ``textarea``, ``checkbox``,
 rendendo (es. ``label``, ``widget``, ``errors``, ecc). Per impostazione predefinita, ci
 sono 4 possibili *parti* di un form che possono essere rese:
 
-+-------------+-------------------------+-------------------------------------------------------------+
-| ``label``   | (es. ``field_label``)   | rende l'etichetta dei campi                                 |
-+-------------+-------------------------+-------------------------------------------------------------+
-| ``widget``  | (es. ``field_widget``)  | rende la rappresentazione HTML dei campi                    |
-+-------------+-------------------------+-------------------------------------------------------------+
-| ``errors``  | (es. ``field_errors``)  | rende gli errori dei campi                                  |
-+-------------+-------------------------+-------------------------------------------------------------+
-| ``row``     | (es. ``field_row``)     | rende l'intera riga del campo (etichetta, widget ed errori) |
-+-------------+-------------------------+-------------------------------------------------------------+
++-------------+------------------------+-------------------------------------------------------------+
+| ``label``   | (es. ``form_label``)   | rende l'etichetta dei campi                                 |
++-------------+------------------------+-------------------------------------------------------------+
+| ``widget``  | (es. ``form_widget``)  | rende la rappresentazione HTML dei campi                    |
++-------------+------------------------+-------------------------------------------------------------+
+| ``errors``  | (es. ``form_errors``)  | rende gli errori dei campi                                  |
++-------------+------------------------+-------------------------------------------------------------+
+| ``row``     | (es. ``form_row``)     | rende l'intera riga del campo (etichetta, widget ed errori) |
++-------------+------------------------+-------------------------------------------------------------+
 
 .. note::
 
@@ -1329,9 +1329,9 @@ per definire l'output del form.
         {% form_theme form _self %}
 
         {# make the form fragment customization #}
-        {% block field_row %}
+        {% block form_row %}
             {# custom field row output #}
-        {% endblock field_row %}
+        {% endblock form_row %}
 
         {% block content %}
             {# ... #}
@@ -1481,7 +1481,7 @@ array di dati inseriti. Lo si può fare in modo molto facile::
             ->add('message', 'textarea')
             ->getForm();
 
-            if ($request->getMethod() == 'POST') {
+            if ($request->isMethod('POST')) {
                 $form->bind($request);
 
                 // data è un array con "name", "email", e "message" come chiavi

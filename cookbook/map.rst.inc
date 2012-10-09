@@ -28,6 +28,7 @@
 
   * :doc:`/cookbook/console/console_command`
   * :doc:`/cookbook/console/usage`
+  * :doc:`/cookbook/console/generating_urls`
 
 * :doc:`/cookbook/controller/index`
 
@@ -132,6 +133,7 @@
   * :doc:`/cookbook/testing/insulating_clients`
   * :doc:`/cookbook/testing/profiling`
   * :doc:`/cookbook/testing/doctrine`
+  * :doc:`/cookbook/testing/bootstrap`
 
 * :doc:`/cookbook/validation/index`
 

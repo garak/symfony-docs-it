@@ -592,7 +592,7 @@ usato come parte della logica di processamento dell'ascoltatore::
         }
     }
 
-.. _Observer: http://en.wikipedia.org/wiki/Observer_pattern
+.. _Observer: http://it.wikipedia.org/wiki/Observer_pattern
 .. _`componente HttpKernel di Symfony2`: https://github.com/symfony/HttpKernel
 .. _Closure: http://php.net/manual/en/functions.anonymous.php
 .. _callable PHP: http://www.php.net/manual/en/language.pseudo-types.php#language.types.callback

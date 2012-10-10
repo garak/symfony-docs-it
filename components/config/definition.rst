@@ -453,5 +453,8 @@ Altrimenti, il risultato è un array pulito di valori di configurazione::
 
     $processor = new Processor();
     $configuration = new DatabaseConfiguration;
-    $processedConfiguration = $processor->processConfiguration($configuration, $configs);
+    $processedConfiguration = $processor->processConfiguration(
+        $configuration,
+        $configs)
+    ;
 

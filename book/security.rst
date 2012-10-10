@@ -1276,8 +1276,9 @@ un nuovo fornitore, che li unisca:
                     chain:
                         providers: [in_memory, user_db]
                 in_memory:
-                    users:
-                        foo: { password: test }
+                    memory:
+                        users:
+                            foo: { password: test }
                 user_db:
                     entity: { class: Acme\UserBundle\Entity\User, property: username }
 
@@ -1292,7 +1293,9 @@ un nuovo fornitore, che li unisca:
                 </chain>
             </provider>
             <provider name="in_memory">
-                <user name="foo" password="test" />
+                <memory>
+                    <user name="foo" password="test" />
+                </memory>
             </provider>
             <provider name="user_db">
                 <entity class="Acme\UserBundle\Entity\User" property="username" />
@@ -1310,8 +1313,10 @@ un nuovo fornitore, che li unisca:
                     ),
                 ),
                 'in_memory' => array(
-                    'users' => array(
-                        'foo' => array('password' => 'test'),
+                    'memory' => array(
+                        'users' => array(
+                            'foo' => array('password' => 'test'),
+                        ),
                     ),
                 ),
                 'user_db' => array(

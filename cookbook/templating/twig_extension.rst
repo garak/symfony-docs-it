@@ -26,15 +26,12 @@ Extension. Come esempio, creeremo un filtro per i prezzi, che formatta un dato n
     // src/Acme/DemoBundle/Twig/AcmeExtension.php
     namespace Acme\DemoBundle\Twig;
 
-    use Twig_Extension;
-    use Twig_Filter_Method;
-
-    class AcmeExtension extends Twig_Extension
+    class AcmeExtension extends \Twig_Extension
     {
         public function getFilters()
         {
             return array(
-                'price' => new Twig_Filter_Method($this, 'priceFilter'),
+                'price' => new \Twig_Filter_Method($this, 'priceFilter'),
             );
         }
         
@@ -121,6 +118,6 @@ Saperne di più
 Per approfondire le estensioni di Twig, si può vedere la `documentazione sulle estensioni di Twig`_.
      
 .. _`repository ufficiale delle estensioni Twig`: http://github.com/fabpot/Twig-extensions
-.. _`documentazione sulle estensioni di Twig`: http://twig.sensiolabs.org/doc/extensions.html
-.. _`variabili globali`: http://twig.sensiolabs.org/doc/extensions.html#globals
-.. _`funzioni`: http://twig.sensiolabs.org/doc/extensions.html#functions
+.. _`documentazione sulle estensioni di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
+.. _`variabili globali`: http://twig.sensiolabs.org/doc/advanced.html#id1
+.. _`funzioni`: http://twig.sensiolabs.org/doc/advanced.html#id2

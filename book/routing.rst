@@ -1020,6 +1020,12 @@ invece di ``/hello/{name}``:
 La stringa ``/admin`` ora verrà preposta allo schema di ogni rotta
 caricata dalla nuova risorsa delle rotte.
 
+.. tip::
+
+    Si possono anche definire le rotte tramite annotazioni. Vedere la
+    :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/routing>`
+    per scoprire come.
+
 .. index::
    single: Rotte; Debug
 
@@ -1100,7 +1106,7 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
         }
     }
 
-In una sezione successiva, si imparerà a generare URL dall'interno di un template.
+In una delle prossime sezioni, si imparerà a generare URL dall'interno di un template.
 
 .. tip::
 
@@ -1135,7 +1141,7 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     dell'oggetto ``Request`` corrente. Questo viene rilevato automaticamente in base
     alle informazioni sul server fornite da PHP. Quando si generano URL assolute per
     script che devono essere eseguiti da riga di comando, sarà necessario impostare manualmente l'host
-    desiderato sull'oggetto ``Request``:
+    desiderato sull'oggetto ``RequestContext``:
     
     .. code-block:: php
     
@@ -1174,7 +1180,7 @@ una funzione helper per i template:
             Read this blog post.
         </a>
 
-Possono anche essere generati gli URL assoluti.
+Possono anche essere generati URL assoluti.
 
 .. configuration-block::
 

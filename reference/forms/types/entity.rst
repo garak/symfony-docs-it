@@ -40,11 +40,14 @@ del campo choice::
 
     $builder->add('users', 'entity', array(
         'class' => 'AcmeHelloBundle:User',
+        'property' => 'username',
     ));
 
 In questo caso, tutti gli oggetti ``User`` saranno caricati dal database e resti come
 un tag ``select``, dei radio o una serie di checkbox (a seconda dei valori di
 ``multiple`` ed ``expanded``).
+Se l'oggetto entità manca del metodo ``__toString()``, occorre passare l'opzione
+``property``.
 
 Usare una query personalizzata per le entità
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

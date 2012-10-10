@@ -827,7 +827,7 @@ utilizzare le seguenti righe:
 
     {% extends 'form_div_layout.html.twig' %}
 
-    {% block field_label %}
+    {% block form_label %}
         {{ parent() }}
 
         {% if required %}
@@ -840,14 +840,17 @@ template originale:
 
 .. code-block:: html+php
 
-    <!-- field_label.html.php -->
+    <!-- form_label.html.php -->
 
     <!-- contenuto originale -->
-    <label for="<?php echo $view->escape($id) ?>" <?php foreach($attr as $k => $v) { printf('%s="%s" ', $view->escape($k), $view->escape($v)); } ?>><?php echo $view->escape($view['translator']->trans($label)) ?></label>
+    <?php if ($required) { $label_attr['class'] = trim((isset($label_attr['class']) ? $label_attr['class'] : '').' required'); } ?>
+    <?php if (!$compound) { $label_attr['for'] = $id; } ?>
+    <?php if (!$label) { $label = $view['form']->humanize($name); } ?>
+    <label <?php foreach ($label_attr as $k => $v) { printf('%s="%s" ', $view->escape($k), $view->escape($v)); } ?>><?php echo $view->escape($view['translator']->trans($label, array(), $translation_domain)) ?></label>
 
     <!-- personalizzazione -->
     <?php if ($required) : ?>
-        <span class="required" title="Questo campo è obbligatorio">*</span>
+        <span class="required" title="This field is required">*</span>
     <?php endif ?>
 
 .. tip::
@@ -863,10 +866,10 @@ form, basta modificare il tag ``use`` e aggiungere le seguenti righe:
 
 .. code-block:: html+jinja
 
-    {% use 'form_div_layout.html.twig' with field_widget as base_field_widget %}
+    {% use 'form_div_layout.html.twig' with form_widget_simple as base_form_widget_simple %}
 
-    {% block field_widget %}
-        {{ block('base_field_widget') }}
+    {% block form_widget_simple %}
+        {{ block('base_form_widget_simple') }}
 
         {% if help is defined %}
             <span class="help">{{ help }}</span>
@@ -880,7 +883,7 @@ utilizzare le seguenti righe:
 
     {% extends 'form_div_layout.html.twig' %}
 
-    {% block field_widget %}
+    {% block form_widget_simple %}
         {{ parent() }}
 
         {% if help is defined %}
@@ -893,13 +896,13 @@ template originale:
 
 .. code-block:: html+php
 
-    <!-- field_widget.html.php -->
+    <!-- form_widget_simple.html.php -->
 
     <!-- contenuto originale -->
     <input
-        type="<?php echo isset($type) ? $view->escape($type) : "text" ?>"
-        value="<?php echo $view->escape($value) ?>"
-        <?php echo $view['form']->renderBlock('attributes') ?>
+        type="<?php echo isset($type) ? $view->escape($type) : 'text' ?>"
+        <?php if (!empty($value)): ?>value="<?php echo $view->escape($value) ?>"<?php endif ?>
+        <?php echo $view['form']->block($form, 'widget_attributes') ?>
     />
 
     <!-- Personalizzazione -->

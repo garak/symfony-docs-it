@@ -1,5 +1,6 @@
 .. index::
    pair: Autoloader; Configurazione
+   single: Componenti; ClassLoader
 
 Il componente ClassLoader
 =========================
@@ -45,10 +46,10 @@ La registrazione di :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoade
 
     $loader = new UniversalClassLoader();
 
-    // registrare qui spazi di nomi e prefissi (vedere sotto)
-
     // Si può cercare in include_path come ultima risorsa.
     $loader->useIncludePath(true);
+
+    // ... registrare qui spazi di nomi e prefissi (vedere sotto)
 
     $loader->register();
 

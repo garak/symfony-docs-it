@@ -61,7 +61,10 @@ Un'estensione molto semplice potrebbe solo caricare file di configurazione nel c
     {
         public function load(array $configs, ContainerBuilder $container)
         {
-            $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+            $loader = new XmlFileLoader(
+                $container,
+                new FileLocator(__DIR__.'/../Resources/config')
+            );
             $loader->load('services.xml');
         }
 
@@ -225,7 +228,10 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.xml');
 
         if ($config['advanced']) {
@@ -309,7 +315,10 @@ Per esempio, per eseguire il proprio passo dopo i passi di rimozione predefiniti
     use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
     $container = new ContainerBuilder();
-    $container->addCompilerPass(new CustomCompilerPass, PassConfig::TYPE_AFTER_REMOVING);
+    $container->addCompilerPass(
+        new CustomCompilerPass,
+        PassConfig::TYPE_AFTER_REMOVING
+    );
 
 .. _components-dependency-injection-dumping:
 
@@ -357,7 +366,10 @@ dell'esportazione::
         $container->compile();
 
         $dumper = new PhpDumper($container);
-        file_put_contents($file, $dumper->dump(array('class' => 'MyCachedContainer')));
+        file_put_contents(
+            $file,
+            $dumper->dump(array('class' => 'MyCachedContainer'))
+        );
     }
 
 Si otterrà la velocità del contenitore compilato in PHP con la facilità di usare file di
@@ -386,7 +398,10 @@ produzione, mantenendo una configurazione aggiornata durante lo sviluppo dell'ap
 
         if (!$isDebug) {
             $dumper = new PhpDumper($container);
-            file_put_contents($file, $dumper->dump(array('class' => 'MyCachedContainer')));
+            file_put_contents(
+                $file,
+                $dumper->dump(array('class' => 'MyCachedContainer'))
+            );
         }
     }
 

@@ -7,11 +7,11 @@ Lo spool della posta
 Quando si utilizza ``SwiftmailerBundle`` per l'invio delle email da un'applicazione
 Symfony2, queste vengono inviate immediatamente. È però possibile evitare il 
 rallentamento dovuto dalla comunicazione tra ``Swiftmailer`` e  il servizio di
-trasporto delle email che potrebbe mettere l'utente in attesa del caricamento della
-pagina durante l'invio. Per fare questo basta scegliere di mettere le email 
-in uno "spool" invece di spedirle direttamente. Questo vuol dire che ``Swiftmailer``
-non cerca di inviare le email ma invece salva i messaggi in qualche posto come, ad
-esempio, in un file. Un'altro processo potrebbe poi leggere lo spool e prendersi
+trasporto delle email, che potrebbe mettere l'utente in attesa del caricamento della
+pagina durante l'invio. Per fare questo, basta scegliere di mettere le email 
+in uno "spool", invece di spedirle direttamente. Questo vuol dire che ``Swiftmailer``
+non cercherà di inviare le email, ma invece salverà i messaggi in qualche posto, come ad
+esempio in un file. Un altro processo potrebbe poi leggere lo spool e prendersi
 l'incarico di inviare le email in esso contenute. Attualmente ``Swiftmailer`` supporta solo
 lo spool tramite file.
 
@@ -21,7 +21,7 @@ Spool in memoria
 Se si usa lo spool per memorizzare email in memoria, saranno inviate subito prima del
 termine del kernel. Questo vuol dire che le email sono inviate solamente se l'intera
 richiesta viene eseguita, senza eccezioni o errori non gestiti. Per configurare
-swiftmailer con l'opzione memory, usare la seguente configurazione:
+Swiftmailer con l'opzione memory, usare la seguente configurazione:
 
 .. configuration-block::
 

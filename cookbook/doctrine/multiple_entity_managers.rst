@@ -23,6 +23,26 @@ La configurazione seguente mostra come configurare due gestori di entità:
     .. code-block:: yaml
 
         doctrine:
+            dbal:
+                default_connection:   default
+                connections:
+                    default:
+                        driver:   %database_driver%
+                        host:     %database_host%
+                        port:     %database_port%
+                        dbname:   %database_name%
+                        user:     %database_user%
+                        password: %database_password%
+                        charset:  UTF8
+                    customer:
+                        driver:   %database_driver2%
+                        host:     %database_host2%
+                        port:     %database_port2%
+                        dbname:   %database_name2%
+                        user:     %database_user2%
+                        password: %database_password2%
+                        charset:  UTF8
+
             orm:
                 default_entity_manager:   default
                 entity_managers:
@@ -39,20 +59,37 @@ La configurazione seguente mostra come configurare due gestori di entità:
 In questo caso, sono stati definiti due gestori di entità, chiamati ``default``
 e ``customer``. Il gestore di entità ``default`` gestisce le entità in
 ``AcmeDemoBundle`` e ``AcmeStoreBundle``, mentre il gestore di entità ``customer``
-gestisce le entità in ``AcmeCustomerBundle``.
+gestisce le entità in ``AcmeCustomerBundle``. Sono state definite anche due
+connessioni, una per ogni gestore di entità.
 
-Lavorando con gestori di entità multipli, occorre esplicitare quale gestore di entità
-si vuole usare. Se si *omette* il nome del gestore di entità al momento della sua
-richiesta, verrà restituito il gestore di entità predefinito (cioè ``default``)::
+.. note::
 
-    # Usa solo le mappature predefinite ("default")
-    php app/console doctrine:schema:update --force
+    Lavorando con più connessioni e gestori di enttià, si dovrebbe esplicitare
+    la configurazione desiderata. Se si *omette* il nome della connessione
+    o del gestore di entità, verrà usato quello predefinito (cioè ``default``).
 
-    # Usa solo le mappature personalizzate ("customer")
-    php app/console doctrine:schema:update --force --em=customer
+Lavorando con connessioni multiple, per creare i database::
+
+.. code-block:: bash
+
+    # Usa solo la connessione "default"
+    $ php app/console doctrine:database:create
+
+    # Usa solo la connessione "customer"
+    $ php app/console doctrine:database:create --connection=customer
+
+Lavorando con gestori di entità multipli, per aggiornare lo schema::
+
+.. code-block:: bash
+
+    # Usa solo la mappatura "default"
+    $ php app/console doctrine:schema:update --force
+
+    # Usa solo la mappatura "customer"
+    $ php app/console doctrine:schema:update --force --em=customer
 
 Se si *omette* il nome del gestore di entità quando lo si richiede,
-viene restituite il gestore predefinito (cioè ``default``)::
+si otterrà il gestore di entità predefinito (cioè ``default``)::
 
     class UserController extends Controller
     {

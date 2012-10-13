@@ -1251,14 +1251,15 @@ forniti con Symfony. Quindi dove sono gli errori di un campo textarea che deve e
 
 La risposta è: nel frammento ``field_errors``. Quando Symfony rende gli errori
 per un tipo textarea, prima cerca un frammento ``textarea_errors``, poi cerca
-un frammento ``field_errors``. Ogni tipo di campo ha un tipo *genitore*
-(il tipo genitore di ``textarea`` è ``field``) e Symfony utilizza il
-frammento per il tipo del genitore se il frammento di base non esiste.
+un frammento ``form_errors``. Ogni tipo di campo ha un tipo *genitore*
+(il tipo genitore di ``textarea`` è ``text``) e Symfony utilizza il
+frammento per il tipo del genitore se il frammento di base non
+esiste.
 
 Quindi, per ignorare gli errori dei *soli* campi ``textarea``, copiare il
-frammento ``field_errors``, rinominarlo in ``textarea_errors`` e personalizzrlo. Per
+frammento ``form_errors``, rinominarlo in ``textarea_errors`` e personalizzrlo. Per
 sovrascrivere la resa degli errori predefiniti di *tutti* i campi, copiare e personalizzare
-direttamente il frammento ``field_errors``.
+direttamente il frammento ``form_errors``.
 
 .. tip::
 

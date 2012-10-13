@@ -208,10 +208,10 @@ I Form
 ......
 
 Un trattamento speciale è riservato anche ai form. È disponibile, in Crawler,
-un metodo ``selectButton()`` che restituisce un'altro Crawler relativo
+un metodo ``selectButton()`` che restituisce un altro Crawler relativo
 al pulsante (``input[type=submit]``, ``input[type=image]``, o ``button``) con
 il testo dato. Questo metodo è specialmente utile perché può essere usato per restituire
-un oggetto :class:`Symfony\\Component\\DomCrawler\\Form` che rappresenta 
+un oggetto :class:`Symfony\\Component\\DomCrawler\\Form`, che rappresenta 
 il form all'interno del quale il pulsante è definito::
 
     $form = $crawler->selectButton('Valida')->form();

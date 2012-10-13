@@ -75,7 +75,6 @@ Flusso della sessione
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::invalidate`:
   Pulisce i dati della sessione e rigenera la sessione. Non usare ``session_destroy()``.
-  Questo non è altro che una scorciatoia per ``clear()`` e ``migrate()``.
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getId`: Restituisce
   l'id della sessione.

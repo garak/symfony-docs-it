@@ -44,3 +44,21 @@ eseguire i compiti più comuni.
     che sarà usato in progetti diversi. Quindi, anche non specificando i propri
     controllori come servizi, probabilmente si vedrà questo aspetto in diversi bundle
     open source di Symfony2.
+
+Uso delle rotte con annotazioni
+-------------------------------
+
+Quando si usano le annotazioni per le rotte, con un controllore definito come
+servizio, occorre specificare il servizio stesso, come segue::
+
+    /**
+     * @Route("/blog", service="mio_bundle.annot_controller")
+     * @Cache(expires="tomorrow")
+     */
+    class AnnotController extends Controller
+    {
+    }
+
+In questo esempio, ``mio_bundle.annot_controller`` dovrebbe essere l'id dell'istanza di
+``AnnotController`` definita nel contenitore di servizi. La documentazione si trova
+nel capitolo :doc:`/bundles/SensioFrameworkExtraBundle/annotations/routing`.

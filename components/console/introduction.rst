@@ -42,8 +42,17 @@ contenente il seguente codice::
             $this
                 ->setName('demo:saluta')
                 ->setDescription('Saluta qualcuno')
-                ->addArgument('nome', InputArgument::OPTIONAL, 'Chi vuoi salutare?')
-                ->addOption('urla', null, InputOption::VALUE_NONE, 'Se impostato, il saluto verrà urlato con caratteri maiuscoli')
+                ->addArgument(
+                    'nome',
+                    InputArgument::OPTIONAL,
+                    'Chi vuoi salutare?'
+                )
+                ->addOption(
+                    'urla',
+                     null,
+                     InputOption::VALUE_NONE,
+                     'Se impostato, il saluto verrà urlato con caratteri maiuscoli'
+                )
             ;
         }
 
@@ -141,8 +150,16 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
 
     $this
         // ...
-        ->addArgument('nome', InputArgument::REQUIRED, 'Chi vuoi salutare?')
-        ->addArgument('cognome', InputArgument::OPTIONAL, 'Il tuo cognome?')
+        ->addArgument(
+            'nome',
+            InputArgument::REQUIRED,
+            'Chi vuoi salutare?'
+        )
+        ->addArgument(
+            'cognome',
+            InputArgument::OPTIONAL,
+            'Il tuo cognome?'
+        )
 
 A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
 
@@ -178,7 +195,13 @@ saluto sarà stampato, si può aggiungere la seguente opzione::
 
     $this
         // ...
-        ->addOption('ripetizioni', null, InputOption::VALUE_REQUIRED, 'Quante volte dovrà essere stampato il messaggio?', 1)
+        ->addOption(
+            'ripetizioni',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Quante volte dovrà essere stampato il messaggio?',
+            1
+        );
 
 Ora è possibile usare l'opzione per stampare più volte il messaggio:
 
@@ -225,7 +248,13 @@ InputOption::VALUE_OPTIONAL  Il valore è opzionale
 
     $this
         // ...
-        ->addOption('ripetizioni', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Quante volte dovrà essere stampato il messaggio?', 1)
+        ->addOption(
+            'ripetizioni',
+            null,
+            InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+            'Quante volte dovrà essere stampato il messaggio?',
+            1
+        );
         
 Richiedere informazioni all'utente
 ----------------------------------
@@ -236,7 +265,11 @@ prima di effettuare realmente una determinata azione. In questo caso si dovrà a
 il seguente codice al comando::
 
     $dialogo = $this->getHelperSet()->get('dialog');
-    if (!$dialogo->askConfirmation($output, '<question>Vuoi proseguire con questa azione?</question>', false)) {
+    if (!$dialogo->askConfirmation(
+            $output,
+            '<question>Vuoi proseguire con questa azione?</question>',
+            false
+        )) {
         return;
     }
 
@@ -249,7 +282,11 @@ fornisca alcun input.
 se volessimo conoscere il nome di qualcosa, potremmo fare nel seguente modo::
 
     $dialogo = $this->getHelperSet()->get('dialog');
-    $nome = $dialogo->ask($output, 'Insersci il nome del widget', 'pippo');
+    $nome = $dialogo->ask(
+        $output,
+        'Insersci il nome del widget',
+        'pippo'
+     );
 
 Testare i comandi
 -----------------

@@ -1,5 +1,6 @@
 .. index::
    single: Locale
+   single: Componenti; Locale
 
 Il componente Locale
 ====================

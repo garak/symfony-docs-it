@@ -1,5 +1,5 @@
 .. index::
-   single: Bundle; Best Practice
+   single: Bundle; Best practice
 
 Struttura del bundle e best practice
 ====================================
@@ -263,6 +263,7 @@ L'utente finale può fornire valori in qualsiasi file di configurazione:
 
     .. code-block:: ini
 
+        ; app/config/config.ini
         [parameters]
         acme_hello.email.from = fabien@example.com
 
@@ -283,4 +284,4 @@ Imparare di più dal ricettario
 
 * :doc:`/cookbook/bundles/extension`
 
-.. _standard: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+.. _standards: http://symfony.com/PSR0

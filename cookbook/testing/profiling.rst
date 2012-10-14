@@ -23,7 +23,6 @@ predefinita in ambiente ``test``)::
             $crawler = $client->request('GET', '/hello/Fabien');
 
             // Scrivere asserzioni sulla risposta
-            // ...
 
             // Verifica che il profilatore sia abilitato
             if ($profile = $client->getProfile()) {

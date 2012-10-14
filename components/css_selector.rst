@@ -1,5 +1,6 @@
 .. index::
    single: CSS Selector
+   single: Componenti; CssSelector
 
 Il componente CssSelector
 =========================

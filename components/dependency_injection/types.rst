@@ -224,3 +224,4 @@ simile a quella da setter, ma con importanti problemi ulteriori:
 Tuttavia, è utile conoscere questa possibilità del contenitore di servizi,
 specialmente se si lavora con codice fuori dal proprio controllo, come in
 librerie di terze parti, che usino proprietà pubbliche per le proprie dipendenze.
+

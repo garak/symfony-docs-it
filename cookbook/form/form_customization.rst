@@ -925,4 +925,28 @@ Per rendere un messaggio di aiuto sotto al campo, passare nella variabile ``help
 .. tip::
     Si veda :ref:`cookbook-form-theming-methods` per sapere come applicare questa configurazione.
 
-.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+Usare le variabili nei Form
+---------------------------
+
+La maggior parte delle funzioni disponibili per rendere le varie parti di un form (p.e.
+il widget form, la label del form, etcc.) consentono anche di eseguire direttamente alcune
+personalizzazioni. Si veda l'esempio seguente:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {# rende un widget, ma con classe "pippo" #}
+        {{ form_widget(form.name, { 'attr': {'class': 'pippo'} }) }}
+
+    .. code-block:: php
+
+        <!-- rende un widget, ma con classe "pippo" -->
+        <?php echo $view['form']->widget($form['name'], array('attr' => array(
+            'class' => 'pippo',
+        ))) ?>
+
+L'array passato come secondo parametro contiene delle variabili del form. Per maggiori
+dettagli su questo concetto in Twig, vedere :ref:`twig-reference-form-variables`.
+
+.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

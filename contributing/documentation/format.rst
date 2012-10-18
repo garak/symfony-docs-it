@@ -149,6 +149,8 @@ Si possono anche aggiungere collegamenti alla documentazione delle API:
 
 .. code-block:: rst
 
+    :namespace:`Symfony\\Component\\BrowserKit`
+
     :class:`Symfony\\Component\\Routing\\Matcher\\ApacheUrlMatcher`
 
     :method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build`

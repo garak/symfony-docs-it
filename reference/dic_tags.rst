@@ -771,5 +771,5 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`repository ufficiale delle estensioni di Twig`: http://github.com/fabpot/Twig-extensions
-.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.0/src/Symfony/Component/HttpKernel/KernelEvents.php
+.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html

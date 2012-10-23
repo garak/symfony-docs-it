@@ -104,8 +104,8 @@ schema e costruire le relative classi entità, eseguendo i seguenti comandi.
 
 .. code-block:: bash
 
-    php app/console doctrine:mapping:import AcmeBlogBundle annotation
-    php app/console doctrine:generate:entities AcmeBlogBundle
+    $ php app/console doctrine:mapping:import AcmeBlogBundle annotation
+    $ php app/console doctrine:generate:entities AcmeBlogBundle
 
 Il primo comando genera le classi delle entità con annotazioni, ma ovviamente
 si può cambiare il parametro ``annotation`` in ``xml`` o ``yml``.

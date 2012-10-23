@@ -145,7 +145,7 @@ della classe è ``Bundle\HelloBundle\Controller\HelloController``.
 Tutte le classi e i file devono seguire gli :doc:`standard di codice
 </contributing/code/standards>` di Symfony2.
 
-Alcune classi vanno viste solo come facciati e devono essere più corte possibile, come
+Alcune classi vanno viste solo come facciate e devono essere più corte possibile, come
 comandi, helper, ascoltatori e controllori.
 
 Le classi che si connettono al distributore di eventi devono avere come suffisso
@@ -284,4 +284,4 @@ Imparare di più dal ricettario
 
 * :doc:`/cookbook/bundles/extension`
 
-.. _standards: http://symfony.com/PSR0
+.. _standard: http://symfony.com/PSR0

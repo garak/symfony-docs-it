@@ -63,7 +63,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
                             - MaxLength:
                                 limit:   100
                                 message: Your short bio is too long!
-                    allowMissingfields: true
+                    allowMissingFields: true
 
     .. code-block:: php-annotations
 
@@ -84,7 +84,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
              *             )
              *         }
              *     },
-             *     allowMissingfields = true
+             *     allowMissingFields = true
              * )
              */
              protected $profileData = array(

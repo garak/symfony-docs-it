@@ -57,7 +57,7 @@ Il modo più semplice di renderlo è tutto insieme:
 
     .. code-block:: php
     
-        <?php echo $view['form']->row($form['emails]) ?>
+        <?php echo $view['form']->row($form['emails']) ?>
 
 Un metodo molto più flessibile sarebbe questo:
 

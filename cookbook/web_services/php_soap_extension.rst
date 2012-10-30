@@ -22,8 +22,8 @@ SOAP funziona espondendo i metodi di un oggetto PHP a un'entità esterna
 servizio SOAP. In questo caso, il servizio SOAP consentirà al client di richiamare
 un metodo chiamto ``hello``,  che invia un'email::
 
-    // src/Acme/SoapBundle/HelloService.php
-    namespace Acme\SoapBundle;
+    // src/Acme/SoapBundle/Services/HelloService.php
+    namespace Acme\SoapBundle\Services;
 
     class HelloService
     {
@@ -61,14 +61,14 @@ per costruire un oggetto ``HelloService`` in modo appropriato:
         # app/config/config.yml    
         services:
             hello_service:
-                class: Acme\DemoBundle\Services\HelloService
+                class: Acme\SoapBundle\Services\HelloService
                 arguments: [@mailer]
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <services>
-         <service id="hello_service" class="Acme\DemoBundle\Services\HelloService">
+         <service id="hello_service" class="Acme\SoapBundle\Services\HelloService">
           <argument type="service" id="mailer"/>
          </service>
         </services>
@@ -82,6 +82,7 @@ WSDL può essere recuperato tramite ``/soap?wsdl``.
     namespace Acme\SoapBundle\Controller;
     
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Component\HttpFoundation\Response;
 
     class HelloServiceController extends Controller 
     {
@@ -115,7 +116,7 @@ Di seguito un esempio che richiama il servizio, usando un client `NuSOAP`_. Ques
 presume che ``indexAction`` nel controllore visto sopra sia accessibile tramite la rotta
 ``/soap``::
 
-    $client = new \soapclient('http://example.com/app.php/soap?wsdl', true);
+    $client = new \Soapclient('http://example.com/app.php/soap?wsdl', true);
     
     $result = $client->call('hello', array('name' => 'Scott'));
 
@@ -174,7 +175,7 @@ Di seguito, un esempio di WSDL
     </definitions>
 
 
-.. _`PHP SOAP`:            http://php.net/manual/en/book.soap.php
+.. _`PHP SOAP`:            http://php.net/manual/it/book.soap.php
 .. _`NuSOAP`:              http://sourceforge.net/projects/nusoap
-.. _`buffer dell'output`:  http://php.net/manual/en/book.outcontrol.php
+.. _`buffer dell'output`:  http://php.net/manual/it/book.outcontrol.php
 .. _`Zend SOAP`:           http://framework.zend.com/manual/en/zend.soap.server.html

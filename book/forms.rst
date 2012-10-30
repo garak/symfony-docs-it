@@ -64,7 +64,7 @@ classe ``Task`` che rappresenta e memorizza i dati di una singola attività:
 
    .. code-block:: bash
 
-        php app/console generate:bundle --namespace=Acme/TaskBundle
+        $ php app/console generate:bundle --namespace=Acme/TaskBundle
 
 Questa classe è un "vecchio-semplice-oggetto-PHP", perché finora non ha nulla
 a che fare con Symfony o qualsiasi altra libreria. È semplicemente un normale oggetto PHP,
@@ -439,7 +439,7 @@ Si può anche definire l'intera logica con una Closure::
             'validation_groups' => function(FormInterface $form) {
                 $data = $form->getData();
                 if (Entity\Client::TYPE_PERSON == $data->getType()) {
-                    return array('person')
+                    return array('person');
                 } else {
                     return array('company');
                 }
@@ -1022,12 +1022,12 @@ all'oggetto ``TaskType``, il cui tipo è un'istanza della nuova classe
 
 I campi di ``CategoryType`` ora possono essere resi accanto a quelli
 della classe ``TaskType``. Per attivare la validazione su CategoryType, aggiungere
-l'opzione ``cascade_validation``::
+l'opzione ``cascade_validation`` a ``TaskType``::
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Acme\TaskBundle\Entity\Category',
+            'data_class' => 'Acme\TaskBundle\Entity\Task',
             'cascade_validation' => true,
         ));
     }
@@ -1541,9 +1541,9 @@ ma ecco un breve esempio::
         'email' => new Email(array('message' => 'Invalid email address')),
     ));
 
-    // creare un form, senza valori predefiniti, e passarlo all'opzione constraint
+    // creare un form, senza valori predefiniti, e passarlo all'opzione constraints
     $form = $this->createFormBuilder(null, array(
-        'validation_constraint' => $collectionConstraint,
+        'constraints' => $collectionConstraint,
     ))->add('email', 'email')
         // ...
     ;
@@ -1573,7 +1573,7 @@ per specificare l'opzione::
             ));
 
             $resolver->setDefaults(array(
-                'validation_constraint' => $collectionConstraint
+                'constraints' => $collectionConstraint
             ));
         }
     }

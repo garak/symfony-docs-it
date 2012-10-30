@@ -22,7 +22,7 @@ lo persisteremo nella base dati e lo recuperemo nuovamente.
     
     .. code-block:: bash
 
-        php app/console generate:bundle --namespace=Acme/StoreBundle
+        $ php app/console generate:bundle --namespace=Acme/StoreBundle
 
 Configurare la base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,23 +52,23 @@ file ``app/config/parameters.ini``:
 
         propel:
             dbal:
-                driver:     %database_driver%
-                user:       %database_user%
-                password:   %database_password%
-                dsn:        %database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%
+                driver:     "%database_driver%"
+                user:       "%database_user%"
+                password:   "%database_password%"
+                dsn:        "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
 
 Ora che Propel ha informazioni sulla base dati, si può fare in modo che crei la
 base dati al posto nostro:
 
 .. code-block:: bash
 
-    php app/console propel:database:create
+    $ php app/console propel:database:create
 
 .. note::
 
     In questo esempio, si ha una sola connessione configurata, di nome ``default``. Se
     si vogliono configurare più connessioni, leggere la sezione `configurazione di
-    PropelBundle <working-with-symfony2.html#project_configuration>`_.
+    PropelBundle <Working With Symfony2 - Configuration>`_.
 
 Creare una classe del modello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,7 +104,7 @@ Dopo aver creato ``schema.xml``, generare il modello, eseguendo:
 
 .. code-block:: bash
 
-    php app/console propel:model:build
+    $ php app/console propel:model:build
 
 Questo comando genera ogni classe del modello, per sviluppare rapidamente la propria
 applicazione, nella cartella ``Model/`` di ``AcmeStoreBundle``.
@@ -119,9 +119,8 @@ per ciascun modello dell'applicazione. Per farlo, eseguire:
 
 .. code-block:: bash
 
-    php app/console propel:sql:build
-
-    php app/console propel:sql:insert --force
+    $ php app/console propel:sql:build
+    $ php app/console propel:sql:insert --force
 
 La base dati ora ha una tabella ``product``, con colonne corrispondenti allo
 schema creato in precedenza.
@@ -140,9 +139,10 @@ facile. Aggiungere il seguente metodo a ``DefaultController`` del
 bundle::
 
     // src/Acme/StoreBundle/Controller/DefaultController.php
+
+    // ...
     use Acme\StoreBundle\Model\Product;
     use Symfony\Component\HttpFoundation\Response;
-    // ...
 
     public function createAction()
     {
@@ -172,6 +172,7 @@ Recuperare oggetti dalla base dati è anche più semplice. Per esempio, si suppo
 di aver configurato una rotta per mostrare uno specifico ``Product``, in base al
 valore del suo ``id``::
     
+    // ...
     use Acme\StoreBundle\Model\ProductQuery;
     
     public function showAction($id)
@@ -192,6 +193,7 @@ Aggiornare un oggetto
 Una volta recuperato un oggetto con Propel, aggiornarlo è facile. Si supponga di avere
 una rotta che mappi l'id di un prodotto all'azione di aggiornamento di un controllore::
     
+    // ...
     use Acme\StoreBundle\Model\ProductQuery;
     
     public function updateAction($id)
@@ -251,8 +253,7 @@ astrazione.
 Se si vogliono riutilizzare delle query, si possono aggiungere i propri metodi alla
 classe ``ProductQuery``::
 
-    // src/Acme/StoreBundle/Model/ProductQuery.php
-    
+    // src/Acme/StoreBundle/Model/ProductQuery.php   
     class ProductQuery extends BaseProductQuery
     {
         public function filterByExpensivePrice()
@@ -311,9 +312,8 @@ dato esistente.
 
 .. code-block:: bash
 
-    php app/console propel:migration:generate-diff
-
-    php app/console propel:migration:migrate
+    $ php app/console propel:migration:generate-diff
+    $ php app/console propel:migration:migrate
 
 La base dati è stata aggiornata, si può continuare nella scrittura dell'applicazione.
 
@@ -326,7 +326,6 @@ Vediamo ora un po' di codice in azione. Immaginiamo di essere dentro un controll
     use Acme\StoreBundle\Model\Category;
     use Acme\StoreBundle\Model\Product;
     use Symfony\Component\HttpFoundation\Response;
-    // ...
     
     class DefaultController extends Controller
     {
@@ -432,6 +431,7 @@ Comandi
 Leggere la sezione dedicata ai `comandi Propel in Symfony2`_.
 
 .. _`Working With Symfony2`: http://www.propelorm.org/cookbook/symfony2/working-with-symfony2.html#installation
+.. _`Working With Symfony2 - Configuration`: http://www.propelorm.org/cookbook/symfony2/working-with-symfony2.html#configuration
 .. _`Relationships`: http://www.propelorm.org/documentation/04-relationships.html
 .. _`Behaviors reference`: http://www.propelorm.org/documentation/#behaviors_reference
 .. _`comandi Propel in Symfony2`: http://www.propelorm.org/cookbook/symfony2/working-with-symfony2#commands

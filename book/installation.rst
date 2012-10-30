@@ -47,7 +47,7 @@ curl installato, è facile:
 
 .. code-block:: bash
 
-    curl -s https://getcomposer.org/installer | php
+    $ curl -s https://getcomposer.org/installer | php
 
 .. note::
 
@@ -60,7 +60,7 @@ Distribution:
 
 .. code-block:: bash
 
-    php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony
 
 .. tip::
 
@@ -139,7 +139,7 @@ Passo 1: Ottenere `Composer`_ (il nuovo bellissimo sistema di pacchetti PHP)
 
 .. code-block:: bash
 
-    curl -s http://getcomposer.org/installer | php
+    $ curl -s http://getcomposer.org/installer | php
 
 Ci si assicuri di scaricare ``composer.phar`` nella stessa cartella in cui risiede
 il file ``composer.json`` (per impostazione predefinita, la radice del progetto
@@ -149,7 +149,7 @@ Passo 2: Installare i venditori
 
 .. code-block:: bash
 
-    php composer.phar install
+    $ php composer.phar install
 
 Questo comando scarica tutte le librerie dei venditori necessarie, incluso
 Symfony stesso, nella cartella ``vendor/``.
@@ -162,8 +162,8 @@ Symfony stesso, nella cartella ``vendor/``.
 
     .. code-block:: bash
 
-        php installer
-        php composer.phar install
+        $ php installer
+        $ php composer.phar install
 
 .. tip::
 
@@ -198,7 +198,7 @@ seguente URL per la verifica della configurazione:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/config.php
+    http://localhost/config.php
 
 Se ci sono problemi, correggerli prima di proseguire.
 

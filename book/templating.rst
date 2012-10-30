@@ -128,16 +128,17 @@ In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in 
     distinzione. E, ovviamente, essere amati da tutti i grafici
     del mondo.
 
-    Twig può anche far cose che PHP non può fare, come il controllo degli spazi vuoti, sandbox
-    e inclusione di funzioni e filtri personalizzati, che hanno effetti solo sui template.
-    Twig possiede poche caratteristiche che rendono la scrittura di template più
-    facile e concisa. Si prenda il seguente esempio, che combina un ciclo con un'istruzione
-    logica ``if``:
+    Twig può anche far cose che PHP non può fare, come il controllo degli spazi vuoti, sandbox,
+    escape automatico o contestualizzato e inclusione di funzioni e filtri personalizzati,
+    che hanno effetti solo sui template. Twig possiede poche caratteristiche, che rendono la
+    scrittura di template più facile e concisa. Si prenda il seguente esempio, che combina un
+    ciclo con un'istruzione logica
+    ``if``:
     
     .. code-block:: html+jinja
     
         <ul>
-            {% for user in users %}
+            {% for user in users if user.active %}
                 <li>{{ user.username }}</li>
             {% else %}
                 <li>Nessun utente trovato</li>
@@ -222,7 +223,7 @@ Primo, costruire un file per il layout di base:
             </head>
             <body>
                 <div id="sidebar">
-                    <?php if ($view['slots']->has('sidebar'): ?>
+                    <?php if ($view['slots']->has('sidebar')): ?>
                         <?php $view['slots']->output('sidebar') ?>
                     <?php else: ?>
                         <ul>
@@ -527,7 +528,7 @@ Includere questo template da un altro template è semplice:
             {% endfor %}
         {% endblock %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/Article/list.html.php -->
         <?php $view->extend('AcmeArticleBundle::layout.html.php') ?>
@@ -594,10 +595,10 @@ Il template ``recentList`` è molto semplice:
           </a>
         {% endfor %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
-        <?php foreach ($articles in $article): ?>
+        <?php foreach ($articles as $article): ?>
             <a href="/article/<?php echo $article->getSlug() ?>">
                 <?php echo $article->getTitle() ?>
             </a>
@@ -739,7 +740,7 @@ Per collegare la pagina, usare la funzione ``path`` di Twig e riferirsi alla rot
 
         <a href="{{ path('_welcome') }}">Home</a>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <a href="<?php echo $view['router']->generate('_welcome') ?>">Home</a>
 
@@ -805,7 +806,7 @@ articoli:
     Lo stesso si può fare nei template PHP, passando un terzo parametro al metodo
     ``generate()``:
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <a href="<?php echo $view['router']->generate('_welcome', array(), true) ?>">Home</a>
 
@@ -901,7 +902,7 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
 .. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Contact/contact.html.twig #}
-    {# extends '::base.html.twig' #}
+    {% extends '::base.html.twig' %}
 
     {% block stylesheets %}
         {{ parent() }}

@@ -69,7 +69,7 @@ questo capitolo), eseguire il seguente comando e seguire le istruzioni su scherm
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
+    $ php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
 
 Dietro le quinte, viene creata una cartella per il bundle in ``src/Acme/HelloBundle``.
 Inoltre viene aggiunta automaticamente una riga al file ``app/AppKernel.php``, in modo
@@ -105,7 +105,7 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
     .. code-block:: yaml
 
         # app/config/routing.yml
-        AcmeHelloBundle:
+        acme_hello:
             resource: "@AcmeHelloBundle/Resources/config/routing.yml"
             prefix:   /
 
@@ -261,7 +261,7 @@ applicazione dovrebbe salutare:
     
     .. code-block:: bash
 
-        php app/console cache:clear --env=prod --no-debug
+        $ php app/console cache:clear --env=prod --no-debug
 
 Un terzo passo, facoltativo ma comune, del processo è quello di creare un template.
 

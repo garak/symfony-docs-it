@@ -48,10 +48,10 @@ contenente il seguente codice::
                     'Chi vuoi salutare?'
                 )
                 ->addOption(
-                    'urla',
-                     null,
-                     InputOption::VALUE_NONE,
-                     'Se impostato, il saluto verrà urlato con caratteri maiuscoli'
+                   'urla',
+                   null,
+                   InputOption::VALUE_NONE,
+                   'Se impostato, il saluto verrà urlato con caratteri maiuscoli'
                 )
             ;
         }
@@ -401,3 +401,9 @@ intero negli altri altri casi).
     restituire informazioni all'utente. Perciò, invece di eseguire un comando
     dal Web, sarebbe meglio provare a rifattorizzare il codice e spostare la logica
     all'interno di una nuova classe.
+
+Sapene di più
+-------------
+
+* :doc:`/components/console/usage`
+* :doc:`/components/console/single_command_tool`

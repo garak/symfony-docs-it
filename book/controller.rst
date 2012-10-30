@@ -276,7 +276,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($last_name, $color, $first_name)
         {
-            // ..
+            // ...
         }
 
 * **Ogni parametro richiesto del controllore, deve corrispondere a uno dei parametri della rotta**
@@ -286,7 +286,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $last_name, $color, $foo)
         {
-            // ..
+            // ...
         }
 
     Rendere il parametro facoltativo metterebbe le cose a posto. Il seguente
@@ -294,7 +294,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $last_name, $color, $foo = 'bar')
         {
-            // ..
+            // ...
         }
 
 * **Non tutti i parametri delle rotte devono essere parametri del controllore**
@@ -304,7 +304,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $color)
         {
-            // ..
+            // ...
         }
 
 .. tip::
@@ -328,7 +328,7 @@ lavora con i form, ad esempio::
     {
         $form = $this->createForm(...);
         
-        $form->bindRequest($request);
+        $form->bind($request);
         // ...
     }
 
@@ -553,7 +553,7 @@ di propri. Per elencare tutti i servizi disponibili, utilizzare il comando di co
 
 .. code-block:: bash
 
-    php app/console container:debug
+    $ php app/console container:debug
 
 Per maggiori informazioni, vedere il capitolo :doc:`/book/service_container`.
 

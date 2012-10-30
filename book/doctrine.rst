@@ -307,7 +307,7 @@ Fortunatamente, Doctrine può farlo al posto nostro, basta eseguire:
 
 .. code-block:: bash
 
-    php app/console doctrine:generate:entities Acme/StoreBundle/Entity/Product
+    $ php app/console doctrine:generate:entities Acme/StoreBundle/Entity/Product
 
 Il comando si assicura che i getter e i setter siano generati per la classe
 ``Product``. È un comando sicuro, lo si può eseguire diverse volte: genererà i
@@ -341,8 +341,8 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. code-block:: bash
 
-    php app/console doctrine:generate:entities AcmeStoreBundle
-    php app/console doctrine:generate:entities Acme
+    $ php app/console doctrine:generate:entities AcmeStoreBundle
+    $ php app/console doctrine:generate:entities Acme
 
 .. note::
 
@@ -362,7 +362,7 @@ nella propria applicazione. Per farlo, eseguire:
 
 .. code-block:: bash
 
-    php app/console doctrine:schema:update --force
+    $ php app/console doctrine:schema:update --force
 
 .. tip::
 
@@ -755,7 +755,7 @@ usato precedentemente per generare i metodi getter e setter mancanti:
 
 .. code-block:: bash
 
-    php app/console doctrine:generate:entities Acme
+    $ php app/console doctrine:generate:entities Acme
 
 Quindi, aggiungere un nuovo metodo, chiamato ``findAllOrderedByName()``, alla classe
 repository appena generata. Questo metodo cercherà tutte le entità ``Product``,
@@ -807,7 +807,7 @@ Doctrine stesso a creare la classe.
 
 .. code-block:: bash
 
-    php app/console doctrine:generate:entity --entity="AcmeStoreBundle:Category" --fields="name:string(255)"
+    $ php app/console doctrine:generate:entity --entity="AcmeStoreBundle:Category" --fields="name:string(255)"
 
 Questo task genera l'entità ``Category``, con un campo ``id``,
 un campo ``name`` e le relative funzioni getter e setter.
@@ -918,7 +918,7 @@ setter:
 
 .. code-block:: bash
 
-    php app/console doctrine:generate:entities Acme
+    $ php app/console doctrine:generate:entities Acme
 
 Ignoriamo per un momento i meta-dati di Doctrine. Abbiamo ora due classi, ``Category``
 e ``Product``, con una relazione naturale uno-a-molti. La classe ``Category``
@@ -1350,7 +1350,7 @@ console senza parametri:
 
 .. code-block:: bash
 
-    php app/console
+    $ php app/console
 
 Verrà mostrata una lista dei comandi disponibili, molti dei quali iniziano
 col prefisso ``doctrine:``. Si possono trovare maggiori informazioni eseguendo il

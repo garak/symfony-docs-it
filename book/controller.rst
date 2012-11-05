@@ -202,11 +202,8 @@ I parametri delle rotte come parametri del controllore
 Si è già appreso che il parametro ``AcmeHelloBundle:Hello:index`` di ``_controller``
 fa riferimento a un metodo ``HelloController::indexAction()`` che si trova all'interno di un
 bundle ``AcmeHelloBundle``. La cosa più interessante è che i parametri vengono
-passati a tale metodo:
+passati a tale metodo::
 
-.. code-block:: php
-
-    <?php
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
 
@@ -344,9 +341,7 @@ l'accesso a qualsiasi risorsa che potrebbe essere necessaria. Estendendo questa 
 è possibile usufruire di numerosi metodi helper.
 
 Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificare
-``HelloController`` per estenderla:
-
-.. code-block:: php
+``HelloController`` per estenderla::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
@@ -380,8 +375,7 @@ stessa.
 
 .. note::
 
-    È inoltre possibile definire i :doc:`Controllori come servizi
-    </cookbook/controller/service>`.
+    È inoltre possibile definire i :doc:`controllori come servizi</cookbook/controller/service>`.
 
 .. index::
    single: Controllore; Attività comuni
@@ -422,9 +416,7 @@ eseguire un rinvio 301 (permanente), modificare il secondo parametro::
 .. tip::
 
     Il metodo ``redirect()`` è semplicemente una scorciatoia che crea un oggetto ``Response``
-    specializzato nel rinviare l'utente. È equivalente a:
-
-    .. code-block:: php
+    specializzato nel rinviare l'utente. È equivalente a::
 
         use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -448,7 +440,7 @@ e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'ogget
             'color' => 'green'
         ));
 
-        // modifica ulteriormente la risposta o ritorna direttamente
+        // ... modificare ulteriormente la risposta o restituirla direttamente
         
         return $response;
     }
@@ -671,7 +663,7 @@ il messaggio ``notice``:
 
     .. code-block:: php
 
-        <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
+        <?php foreach ($view['session']->getFlash('notice') as $message): ?>
             <div class="flash-notice">
                 <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>
@@ -693,7 +685,7 @@ sulla risposta HTTP - il messaggio testuale che contiene gli header HTTP
 e il contenuto che viene inviato al client::
 
     // crea una semplice risposta con un codice di stato 200 (il predefinito)
-    $response = new Response('Hello '.$name, 200);
+    $response = new Response('Ciao '.$name, 200);
     
     // crea una risposta JSON con un codice di stato 200
     $response = new Response(json_encode(array('name' => $name)));

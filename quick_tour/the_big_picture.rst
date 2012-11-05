@@ -117,7 +117,7 @@ la prima "vera" pagina di Symfony2:
 
 Symfony2 dovrebbe congratularsi per il duro lavoro svolto finora!
 
-.. image:: /images/quick_tour/welcome.jpg
+.. image:: /images/quick_tour/welcome.png
    :align: center
 
 Capire i fondamenti
@@ -392,20 +392,25 @@ utile di Symfony2: il profilatore.
 .. image:: /images/quick_tour/profiler.png
    :align: center
 
+.. note::
+
+    Si possono ottenere rapidamente maggiori informazioni posizionando il cursore sopra gli elementi
+    della barra di debug del web.
+
 Ovviamente, questo strumento non deve essere mostrato quando si rilascia l'applicazione
 su un server di produzione. Per questo motivo, si troverà un altro front controller (``app.php``)
 nella cartella ``web/``, ottimizzato per l'ambiente di produzione:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/app.php/demo/hello/Fabien
+    http://localhost/app.php/demo/hello/Fabien
 
 Se si usa Apache con ``mod_rewrite`` abilitato, si può anche omettere la
 parte ``app.php`` dell'URL:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/demo/hello/Fabien
+    http://localhost/demo/hello/Fabien
 
 Infine, ma non meno importante, sui server di produzione si dovrebbe far
 puntare la cartella radice del web alla cartella ``web/``,per rendere

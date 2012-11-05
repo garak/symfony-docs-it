@@ -13,8 +13,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DomCrawler);
-* Installandolo via PEAR (`pear.symfony.com/DomCrawler`);
-* Installandolo via Composer (`symfony/dom-crawler` su Packagist).
+* Installandolo via Composer (``symfony/dom-crawler`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -192,17 +191,16 @@ restituisce l'oggetto speciale :class:`Symfony\\Component\\DomCrawler\\Link`::
 L'oggetto :class:`Symfony\\Component\\DomCrawler\\Link` ha diversi utili metodi per
 avere ulteriori informazioni relative al collegamento selezionato::
 
-    // restituisce il valore di href
-    $href = $link->getRawUri();
-
     // restituisce la URI che può essere utilizzata per effettuare nuove richieste
     $uri = $link->getUri();
 
-Il metodo ``getUri()`` è specialmente utile perché pulisce il valore di ``href``
-e lo trasforma nel modo in cui dovrebbe realmente essere processato. Ad esempio, un collegamento
-del tipo ``href="#foo"`` restituirà la URI completa della pagina corrente con il suffisso ``#foo``.
-Il valore restituito da ``getUri()`` è sempre una URI completa sulla quale è 
-possibile eseguire lavori.
+.. note::
+
+    Il metodo ``getUri()`` è specialmente utile perché pulisce il valore di ``href`` e
+    lo trasforma nel modo in cui dovrebbe realmente essere processato. Ad esempio, un collegamento
+    del tipo ``href="#foo"`` restituirà l'URI completo della pagina corrente
+    con il suffisso ``#foo``. Il valore restituito da ``getUri()`` è sempre un URI completo,
+    sul quale è possibile lavorare.
 
 I Form
 ......
@@ -230,7 +228,7 @@ metodi che permettono di lavorare con i form:
 
 Il metodo :method:`Symfony\\Component\\DomCrawler\\Form::getUri` fa più che
 restituire il mero attributo ``action`` del form. Se il metodo del form è
-GET, allora, imitando il comportamento del borwser, restituirà l'attributo
+GET, allora, imitando il comportamento del browser, restituirà l'attributo
 dell'azione seguito da una stringa di tutti i valori del form.
 
 È possibile impostare e leggere virtualmente i valori nel form::
@@ -267,7 +265,7 @@ Per lavorare con i campi multi-dimensionali::
     ));
 
 Se questo è fantastico, il resto è anche meglio! L'oggetto ``Form`` permette di
-interagire con il form come se si usasse il borwser, selezionando i valori dei radio,
+interagire con il form come se si usasse il browser, selezionando i valori dei radio,
 spuntando i checkbox e caricando file::
 
     $form['registrazione[nomeutente]']->setValue('fandisymfony');
@@ -321,3 +319,4 @@ direttamente::
     $crawler = $client->submit($form);
 
 .. _`Goutte`: https://github.com/fabpot/goutte
+.. _Packagist: https://packagist.org/packages/symfony/dom-crawler

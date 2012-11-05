@@ -27,13 +27,13 @@ state memorizzate nella base dati. La scrittura in puro PHP è sporca e veloce:
 
     <?php
     // index.php
-
     $link = mysql_connect('localhost', 'mioutente', 'miapassword');
     mysql_select_db('blog_db', $link);
 
     $result = mysql_query('SELECT id, title FROM post', $link);
     ?>
 
+    <!DOCTYPE html>
     <html>
         <head>
             <title>Lista dei post</title>
@@ -54,6 +54,7 @@ state memorizzate nella base dati. La scrittura in puro PHP è sporca e veloce:
 
     <?php
     mysql_close($link);
+    ?>
 
 Veloce da scrivere, rapido da eseguire e, al crescere dell'applicazione, impossibile
 da mantenere. Ci sono diversi problemi che occorre considerare:
@@ -62,12 +63,14 @@ da mantenere. Ci sono diversi problemi che occorre considerare:
 
 * **Scarsa organizzazione**: Se l'applicazione cresce, questo singolo file diventerà
   sempre più immantenibile. Dove inserire il codice per gestire la compilazione di un
-  form? Come validare i dati? Dove mettere il codice per inviare delle email?
+  form? Come validare i dati? Dove mettere il codice per inviare delle
+  email?
 
 * **Difficoltà nel riusare il codice**: Essendo tutto in un solo file, non c'è modo di
   riusare alcuna parte dell'applicazione per altre "pagine" del blog.
 
 .. note::
+
     Un altro problema non menzionato è il fatto che la base dati è legata a MySQL.
     Sebbene non affrontato qui, Symfony2 integra in pieno `Doctrine`_,
     una libreria dedicata all'astrazione e alla mappatura della base dati.
@@ -84,7 +87,6 @@ dell'applicazione dal codice che prepara la "presentazione" in HTML:
 
     <?php
     // index.php
-
     $link = mysql_connect('localhost', 'mioutente', 'miapassword');
     mysql_select_db('blog_db', $link);
 
@@ -105,6 +107,7 @@ essenzialmente un file HTML che usa una sintassi PHP per template:
 
 .. code-block:: html+php
 
+    <!DOCTYPE html>
     <html>
         <head>
             <title>Lista dei post</title>
@@ -123,11 +126,10 @@ essenzialmente un file HTML che usa una sintassi PHP per template:
         </body>
     </html>
 
-Per convenzione, il file che contiene tutta la logica dell'applicazione, cioè
-``index.php``, è noto come "controllore". Il termine :term:`controllore` è una parola
-che ricorrerà spesso, quale che sia il linguaggio o il framework scelto. Si riferisce
-semplicemente alla parte del *proprio* codice che processa l'input proveniente dall'utente
-e prepara la risposta.
+Per convenzione, il file che contiene tutta la logica dell'applicazione, cioè ``index.php``,
+è noto come "controllore". Il termine :term:`controllore` è una parola che ricorrerà
+spesso, quale che sia il linguaggio o il framework scelto. Si riferisce semplicemente
+alla parte del *proprio* codice che processa l'input proveniente dall'utente e prepara la risposta.
 
 In questo caso, il nostro controllore prepara i dati estratti dalla base dati e quindi include
 un template, per presentare tali dati. Con il controllore isolato, è possibile cambiare
@@ -146,7 +148,6 @@ di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``
 
     <?php
     // model.php
-
     function open_database_connection()
     {
         $link = mysql_connect('localhost', 'mioutente', 'miapassword');
@@ -211,6 +212,7 @@ questo aspetto, creando un nuovo file ``layout.php``:
 .. code-block:: html+php
 
     <!-- templates/layout.php -->
+    <!DOCTYPE html>
     <html>
         <head>
             <title><?php echo $title ?></title>
@@ -263,7 +265,7 @@ un singolo risultato del blog a partire da un id dato::
     {
         $link = open_database_connection();
 
-        $id = mysql_real_escape_string($id);
+        $id = intval($id);
         $query = 'SELECT date, title, body FROM post WHERE id = '.$id;
         $result = mysql_query($query);
         $row = mysql_fetch_assoc($result);
@@ -434,7 +436,7 @@ dell'applicazione e per configurare l'autoloader:
     // bootstrap.php
     require_once 'model.php';
     require_once 'controllers.php';
-    require_once 'vendor/symfony/symonfy/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    require_once 'vendor/symfony/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
     $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
     $loader->registerNamespaces(array(
@@ -466,9 +468,9 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
     $request = Request::createFromGlobals();
 
     $uri = $request->getPathInfo();
-    if ($uri == '/') {
+    if ('/' == $uri) {
         $response = list_action();
-    } elseif ($uri == '/show' && $request->query->has('id')) {
+    } elseif ('/show' == $uri && $request->query->has('id')) {
         $response = show_action($request->query->get('id'));
     } else {
         $html = '<html><body><h1>Pagina non trovata</h1></body></html>';
@@ -537,21 +539,18 @@ si potrebbero almeno utilizzare i componenti `Routing`_  e `Templating`_, che gi
 risolvono questi problemi.
 
 Invece di risolvere nuovamente problemi comuni, si può lasciare a Symfony2 il compito di
-occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2:
+occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
 
-.. code-block:: html+php
-
-    <?php
     // src/Acme/BlogBundle/Controller/BlogController.php
-
     namespace Acme\BlogBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     class BlogController extends Controller
     {
         public function listAction()
         {
-            $posts = $this->get('doctrine')->getEntityManager()
+            $posts = $this->get('doctrine')->getManager()
                 ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
@@ -561,12 +560,13 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2:
         public function showAction($id)
         {
             $post = $this->get('doctrine')
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AcmeBlogBundle:Post')
-                ->find($id);
+                ->find($id)
+            ;
             
             if (!$post) {
-                // cause the 404 page not found to be displayed
+                // mostra la pagina 404 page not found
                 throw $this->createNotFoundException();
             }
 
@@ -602,6 +602,7 @@ Il layout è quasi identico:
 .. code-block:: html+php
 
     <!-- app/Resources/views/layout.html.php -->
+    <!DOCTYPE html>
     <html>
         <head>
             <title><?php echo $view['slots']->output('title', 'Titolo predefinito') ?></title>
@@ -634,11 +635,8 @@ Una configurazione delle rotte fornisce tali informazioni in un formato leggibil
 Ora che Symfony2 gestisce tutti i compiti più comuni, il front controller è
 semplicissimo. E siccome fa così poco, non si avrà mai bisogno di modificarlo una
 volta creato (e se si usa una distribuzione di Symfony2, non servirà nemmeno
-crearlo!):
+crearlo!)::
 
-.. code-block:: html+php
-
-    <?php
     // web/app.php
     require_once __DIR__.'/../app/bootstrap.php';
     require_once __DIR__.'/../app/AppKernel.php';
@@ -699,8 +697,8 @@ Prendiamo per esempio il template della lista, scritto in Twig:
 .. code-block:: html+jinja
 
     {# src/Acme/BlogBundle/Resources/views/Blog/list.html.twig #}
-
     {% extends "::layout.html.twig" %}
+
     {% block title %}Lista dei post{% endblock %}
 
     {% block body %}
@@ -747,5 +745,5 @@ Imparare di più con le ricette
 .. _`Templating`: https://github.com/symfony/Templating
 .. _`KnpBundles.com`: http://knpbundles.com/
 .. _`Twig`: http://twig.sensiolabs.org
-.. _`Varnish`: http://www.varnish-cache.org
+.. _`Varnish`: https://www.varnish-cache.org/
 .. _`PHPUnit`: http://www.phpunit.de

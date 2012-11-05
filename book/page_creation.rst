@@ -667,7 +667,7 @@ uno scheletro di base per un bundle:
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/TestBundle
+    $ php app/console generate:bundle --namespace=Acme/TestBundle
 
 Lo scheletro del bundle è generato con controllore, template e rotte, tutti
 personalizzabili. Approfondiremo più avanti la linea di comando di
@@ -871,9 +871,11 @@ richiamare invece il front controller ``prod``:
 Essendo l'ambiente ``prod`` ottimizzato per la velocità, la configurazione, le
 rotte e i template Twig sono compilato in classi in puro PHP e messi in cache.
 Per vedere delle modifiche in ambiente ``prod``, occorrerà pulire tali file
-in cache e consentire che siano ricostruiti::
+in cache e consentire che siano ricostruiti:
 
-    php app/console cache:clear --env=prod --no-debug
+.. code-block:: bash
+
+    $ php app/console cache:clear --env=prod --no-debug
 
 .. note::
 

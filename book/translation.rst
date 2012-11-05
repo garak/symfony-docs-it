@@ -94,9 +94,7 @@ La traduzione del testo è fatta attraverso il servizio ``translator``
 (:class:`Symfony\\Component\\Translation\\Translator`). Per tradurre un blocco
 di testo (chiamato *messaggio*), usare il metodo
 :method:`Symfony\\Component\\Translation\\Translator::trans`. Supponiamo,
-ad esempio, che stiamo traducendo un semplice messaggio all'interno del controllore:
-
-.. code-block:: php
+ad esempio, che stiamo traducendo un semplice messaggio all'interno del controllore::
 
     public function indexAction()
     {
@@ -170,9 +168,7 @@ del catalogo dei messaggi e la restituisce (se esiste).
 Segnaposto per i messaggi
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A volte, un messaggio contiene una variabile deve essere tradotta:
-
-.. code-block:: php
+A volte, un messaggio contiene una variabile deve essere tradotta::
 
     public function indexAction($name)
     {
@@ -185,9 +181,7 @@ Tuttavia, la creazione di una traduzione per questa stringa è impossibile, poic
 proverà a cercare il messaggio esatto, includendo le parti con le variabili
 (per esempio "Ciao Ryan" o "Ciao Fabien"). Invece di scrivere una traduzione
 per ogni possibile iterazione della variabile ``$name``, si può sostituire la
-variabile con un "segnaposto":
-
-.. code-block:: php
+variabile con un "segnaposto"::
 
     public function indexAction($name)
     {
@@ -227,7 +221,7 @@ viene fatta esattamente come prima:
     .. code-block:: yaml
 
         # messages.fr.yml
-        'Hello %name%': Hello %name%
+        'Hello %name%': Bonjour %name%
 
 .. note::
 
@@ -259,6 +253,8 @@ di messaggi è come un dizionario di traduzioni per uno specifico locale. Ad
 esempio, il catalogo per il locale ``fr_FR`` potrebbe contenere la seguente
 traduzione:
 
+.. code-block:: text
+
     Symfony2 is Great => J'aime Symfony2
 
 È compito dello sviluppatore (o traduttore) di una applicazione
@@ -273,7 +269,7 @@ filesystem e vengono trovate da Symfony grazie ad alcune convenzioni.
     
     .. code-block:: bash
     
-        php app/console cache:clear
+        $ php app/console cache:clear
 
 .. index::
    single: Traduzioni; Sedi per le traduzioni e convenzioni sui nomi
@@ -380,9 +376,7 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
 .. sidebar:: Utilizzare messaggi reali o parole chiave
 
     Questo esempio mostra le due diverse filosofie nella creazione di
-    messaggi che dovranno essere tradotti:
-
-    .. code-block:: php
+    messaggi che dovranno essere tradotti::
 
         $t = $translator->trans('Symfony2 is great');
 
@@ -479,9 +473,7 @@ per i messaggi:
 * ``navigation.fr.xliff``
 
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
-è necessario specificare il dominio come terzo parametro di ``trans()``:
-
-.. code-block:: php
+è necessario specificare il dominio come terzo parametro di ``trans()``::
 
     $this->get('translator')->trans('Symfony2 is great', array(), 'admin');
 
@@ -495,9 +487,7 @@ Gestione del locale dell'utente
 -------------------------------
 
 Il locale dell'utente corrente è memorizzato nella richiesta ed è accessibile
-tramite l'oggetto ``request``:
-
-.. code-block:: php
+tramite l'oggetto ``request``::
 
     // accesso all'oggetto requesta in un controllore
     $request = $this->getRequest();
@@ -600,7 +590,7 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
             '_controller' => 'AcmeDemoBundle:Contact:index',
             '_locale'     => 'en',
         ), array(
-            '_locale'     => 'en|fr|de'
+            '_locale'     => 'en|fr|de',
         )));
 
         return $collection;
@@ -635,9 +625,7 @@ tutte le forme come una stringa separata da un pipe (``|``)::
     'There is one apple|There are %count% apples'
 
 Per tradurre i messaggi pluralizzati, utilizzare il
-metodo :method:`Symfony\\Component\\Translation\\Translator::transChoice`:
-
-.. code-block:: php
+metodo :method:`Symfony\\Component\\Translation\\Translator::transChoice`::
 
     $t = $this->get('translator')->transChoice(
         'There is one apple|There are %count% apples',
@@ -743,7 +731,7 @@ aiutare nella traduzione di messaggi con *blocchi statici di testo*:
     {% trans %}Hello %name%{% endtrans %}
 
     {% transchoice count %}
-        {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+        {0} There are no apples|{1} There is one apple|]1,Inf] There are %count% apples
     {% endtranschoice %}
 
 Il tag ``transchoice`` ottiene automaticamente la variabile ``%count%`` dal
@@ -835,9 +823,7 @@ Forzare il locale della traduzione
 
 Quando si traduce un messaggio, Symfony2 utilizza il locale della richiesta corrente
 o il locale ``fallback`` se necessario. È anche possibile specificare manualmente il
-locale da usare per la traduzione:
-
-.. code-block:: php
+locale da usare per la traduzione::
 
     $this->get('translator')->trans(
         'Symfony2 is great',
@@ -846,7 +832,7 @@ locale da usare per la traduzione:
         'fr_FR',
     );
 
-    $this->get('translator')->trans(
+    $this->get('translator')->transChoice(
         '{0} There are no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
         10,
         array('%count%' => 10),
@@ -868,9 +854,7 @@ Tradurre i messaggi dei vincoli
 
 Il modo migliore per capire la traduzione dei vincoli è vederla in azione. Per iniziare,
 supponiamo di aver creato un caro vecchio oggetto PHP, che dobbiamo usare da qualche
-parte nella nostra applicazione:
-
-.. code-block:: php
+parte nella nostra applicazione::
 
     // src/Acme/BlogBundle/Entity/Author.php
     namespace Acme\BlogBundle\Entity;
@@ -939,7 +923,7 @@ non sia vuota, aggiungere il seguente:
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('name', new NotBlank(array(
-                    'message' => 'author.name.not_blank'
+                    'message' => 'author.name.not_blank',
                 )));
             }
         }

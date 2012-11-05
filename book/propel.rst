@@ -396,8 +396,7 @@ Per aggiungere un hook, basta aggiungere un nuovo metodo alla classe::
 
     // src/Acme/StoreBundle/Model/Product.php
     
-    // ...
-    
+    // ...   
     class Product extends BaseProduct
     {
         public function preInsert(\PropelPDO $con = null)

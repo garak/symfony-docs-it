@@ -75,9 +75,7 @@ per l'utilizzo nel controllore (proseguire nella lettura).
 Il parametro ``_controller`` è una chiave speciale che dice a Symfony quale controllore
 dovrebbe essere eseguito quando un URL corrisponde a questa rotta. La stringa ``_controller``
 è detta :ref:`nome logico<controller-string-syntax>`. Segue un
-pattern che punta a uno specifico metodo di una classe PHP:
-
-.. code-block:: php
+pattern che punta a uno specifico metodo di una classe PHP::
 
     // src/Acme/BlogBundle/Controller/BlogController.php
     namespace Acme\BlogBundle\Controller;
@@ -818,9 +816,7 @@ Per esempio, se ``_controller`` ha valore ``AcmeBlogBundle:Blog:show`` significa
 | AcmeBlogBundle | BlogController         | showAction      |
 +----------------+------------------------+-----------------+
 
-Il controllore potrebbe essere simile a questo:
-
-.. code-block:: php
+Il controllore potrebbe essere simile a questo::
 
     // src/Acme/BlogBundle/Controller/BlogController.php
     namespace Acme\BlogBundle\Controller;
@@ -854,9 +850,7 @@ Parametri delle rotte e parametri del controllore
 -------------------------------------------------
 
 I parametri delle rotte (ad esempio ``{slug}``) sono particolarmente importanti perché
-ciascuno è reso disponibile come parametro al metodo del controllore:
-
-.. code-block:: php
+ciascuno è reso disponibile come parametro al metodo del controllore::
 
     public function showAction($slug)
     {
@@ -1092,9 +1086,7 @@ bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
 
 Per generare un URL, è necessario specificare il nome della rotta (ad esempio ``blog_show``)
 ed eventuali caratteri jolly (ad esempio ``slug = my-blog-post``) usati nello schema  per
-questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilmente:
-
-.. code-block:: php
+questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilmente::
 
     class MainController extends Controller
     {
@@ -1128,9 +1120,7 @@ Generare URL assoluti
 
 Per impostazione predefinita, il router genera URL relativi (ad esempio ``/blog``). Per generare
 un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
-``generate()``:
-
-.. code-block:: php
+``generate()``::
 
     $router->generate('blog_show', array('slug' => 'my-blog-post'), true);
     // http://www.example.com/blog/my-blog-post
@@ -1141,9 +1131,7 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     dell'oggetto ``Request`` corrente. Questo viene rilevato automaticamente in base
     alle informazioni sul server fornite da PHP. Quando si generano URL assolute per
     script che devono essere eseguiti da riga di comando, sarà necessario impostare manualmente l'host
-    desiderato sull'oggetto ``RequestContext``:
-    
-    .. code-block:: php
+    desiderato sull'oggetto ``RequestContext``::
     
         $router->getContext()->setHost('www.example.com');
 

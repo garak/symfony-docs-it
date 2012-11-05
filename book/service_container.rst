@@ -71,9 +71,7 @@ Un :term:`contenitore di servizi` (o *contenitore di dependency injection*) è s
 un oggetto PHP che gestisce l'istanza di servizi (cioè gli oggetti).
 Per esempio, supponiamo di avere una semplice classe PHP che spedisce messaggi email.
 Senza un contenitore di servizi, bisogna creare manualmente l'oggetto ogni volta che
-se ne ha bisogno:
-
-.. code-block:: php
+se ne ha bisogno::
 
     use Acme\HelloBundle\Mailer;
 
@@ -186,7 +184,7 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
 
         services:
             my_mailer:
-                class:        %my_mailer.class%
+                class:        "%my_mailer.class%"
                 arguments:    [%my_mailer.transport%]
 
     .. code-block:: xml
@@ -358,7 +356,7 @@ non esistono, crearle.
 
         services:
             my_mailer:
-                class:        %my_mailer.class%
+                class:        "%my_mailer.class%"
                 arguments:    [%my_mailer.transport%]
 
     .. code-block:: xml
@@ -489,7 +487,7 @@ invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundl
             'form'            => array(),
             'csrf-protection' => array(),
             'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
-            // ...
+            ...,
         ));
 
 Quando viene analizzata la configurazione, il contenitore cerca un'estensione che
@@ -592,7 +590,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@my_mailer]
 
     .. code-block:: xml
@@ -679,7 +677,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 calls:
                     - [ setMailer, [ @my_mailer ] ]
 
@@ -744,7 +742,7 @@ esiste e in caso contrario non farà nulla:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@?my_mailer]
 
     .. code-block:: xml
@@ -778,9 +776,7 @@ esiste e in caso contrario non farà nulla:
 
 In YAML, la speciale sintassi ``@?`` dice al contenitore dei servizi che la dipendenza
 è opzionale. Naturalmente, ``NewsletterManager`` deve essere scritto per
-consentire una dipendenza opzionale:
-
-.. code-block:: php
+consentire una dipendenza opzionale::
 
         public function __construct(Mailer $mailer = null)
         {
@@ -843,7 +839,7 @@ La configurazione del contenitore dei servizi è semplice:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@mailer, @templating]
 
     .. code-block:: xml
@@ -877,8 +873,8 @@ nel framework.
 
 .. _book-service-container-tags:
 
-I tag (``tags``)
-~~~~~~~~~~~~~~~~
+I tag
+~~~~~
 
 Allo stesso modo con cui il post di un blog su web viene etichettato con cose
 tipo "Symfony" o "PHP", anche i servizi configurati nel contenitore possono 

@@ -416,9 +416,7 @@ Notare che il nome della rotta ``login`` non è importante. Quello che è import
 in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di
 effettuare il login.
 
-Successivamente, creare il controllore che visualizzerà il form di login:
-
-.. code-block:: php
+Successivamente, creare il controllore che visualizzerà il form di login::
 
     // src/Acme/SecurityBundle/Controller/SecurityController.php;
     namespace Acme\SecurityBundle\Controller;
@@ -819,9 +817,7 @@ Proteggere un controllore
 
 Proteggere l'applicazione basandosi su schemi di URL è semplice, ma in
 alcuni casi può non essere abbastanza granulare. Quando necessario, si può facilmente forzare
-l'autorizzazione dall'interno di un controllore:
-
-.. code-block:: php
+l'autorizzazione dall'interno di un controllore::
 
     // ...
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -838,9 +834,7 @@ l'autorizzazione dall'interno di un controllore:
 .. _book-security-securing-controller-annotations:
 
 È anche possibile scegliere di installare e utilizzare l'opzionale ``JMSSecurityExtraBundle``,
-che può proteggere il controllore utilizzando le annotazioni:
-
-.. code-block:: php
+che può proteggere il controllore utilizzando le annotazioni::
 
     // ...
     use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -1010,7 +1004,7 @@ sarà memorizzata nella base dati.
     class User implements UserInterface
     {
         /**
-         * @ORM\Column(type="string", length="255")
+         * @ORM\Column(type="string", length=255)
          */
         protected $username;
 
@@ -1203,9 +1197,7 @@ partendo dal suo hash).
 Se si ha un form di registrazione per gli utenti, è necessario essere in grado
 di determinare l'hash della password, in modo che sia possibile impostarla per l'utente.
 Indipendentemente dall'algoritmo configurato per l'oggetto User, l'hash della password
-può essere determinato nel seguente modo da un controllore:
-
-.. code-block:: php
+può essere determinato nel seguente modo da un controllore::
 
     $factory = $this->get('security.encoder_factory');
     $user = new Acme\UserBundle\Entity\User();
@@ -1219,9 +1211,7 @@ Recuperare l'oggetto User
 
 Dopo l'autenticazione, si può accedere all'oggetto ``User`` per l'utente corrente
 tramite il servizio ``security.context``. Da dentro un controllore, assomiglierà
-a questo:
-
-.. code-block:: php
+a questo::
 
     public function indexAction()
     {
@@ -1254,6 +1244,10 @@ che richiama il metodo
     .. code-block:: html+jinja
 
         <p>Nome utente: {{ app.user.username }}</p>
+
+    .. code-block:: html+php
+
+        <p>Nome utente: <?php echo $app->getUser()->getUsername() ?></p>
 
 
 Utilizzare fornitori utenti multipli
@@ -1695,9 +1689,13 @@ facilmente, attivando l'ascoltatore ``switch_user`` del firewall:
 Per passare a un altro utente, basta aggiungere una stringa query all'URL corrente,
 con il parametro ``_switch_user`` e il nome utente come valore :
 
+.. code-block:: text
+
     http://example.com/indirizzo?_switch_user=thomas
 
 Per tornare indietro all'utente originale, usare il nome utente speciale ``_exit``:
+
+.. code-block:: text
 
     http://example.com/indirizzo?_switch_user=_exit
 
@@ -1715,7 +1713,7 @@ maggiore sicurezza, è anche possibile modificare il nome del parametro della qu
         security:
             firewalls:
                 main:
-                    // ...
+                    # ...
                     switch_user: { role: ROLE_ADMIN, parameter: _want_to_be_this_user }
 
     .. code-block:: xml
@@ -1734,7 +1732,7 @@ maggiore sicurezza, è anche possibile modificare il nome del parametro della qu
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main'=> array(
-                    // ...
+                    ...,
                     'switch_user' => array('role' => 'ROLE_ADMIN', 'parameter' => '_want_to_be_this_user'),
                 ),
             ),

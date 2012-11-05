@@ -655,7 +655,6 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
         # app/config/config_test.yml
 
         # ...
-
         swiftmailer:
             disable_delivery: true
 
@@ -664,7 +663,6 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
         <!-- app/config/config_test.xml -->
         <container>
             <!-- ... -->
-
             <swiftmailer:config disable-delivery="true" />
         </container>
 
@@ -673,7 +671,6 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
         // app/config/config_test.php
 
         // ...
-
         $container->loadFromExtension('swiftmailer', array(
             'disable_delivery' => true
         ));
@@ -745,6 +742,7 @@ sezione ``<filter>``:
 
 .. code-block:: xml
 
+    <!-- ... -->
     <filter>
         <whitelist>
             <directory>../src</directory>
@@ -757,8 +755,8 @@ sezione ``<filter>``:
         </whitelist>
     </filter>
 
-Imparare di più con le ricette
-------------------------------
+Saperne di più
+--------------
 
 * :doc:`/components/dom_crawler`
 * :doc:`/components/css_selector`

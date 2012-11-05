@@ -355,7 +355,9 @@ Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da te
 
         {% block sidebar %}
             <h3>Sommario</h3>
-            ...
+
+            {# ... #}
+
             {{ parent() }}
         {% endblock %}
 
@@ -570,7 +572,6 @@ proprio template. Primo, creare un controllore che rende un certo numero di
 articoli recenti::
 
     // src/Acme/ArticleBundle/Controller/ArticleController.php
-
     class ArticleController extends Controller
     {
         public function recentArticlesAction($max = 3)
@@ -620,7 +621,6 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
         {# app/Resources/views/base.html.twig #}
 
         {# ... #}
-
         <div id="sidebar">
             {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
         </div>
@@ -629,8 +629,7 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
 
         <!-- app/Resources/views/base.html.php -->
 
-        {# ... #}
-
+        <!-- ... -->
         <div id="sidebar">
             <?php echo $view['actions']->render('AcmeArticleBundle:Article:recentArticles', array('max' => 3)) ?>
         </div>
@@ -876,7 +875,7 @@ di stile e i Javascript che occorrerano al sito:
 
 .. code-block:: html+jinja
 
-    {# 'app/Resources/views/base.html.twig' #}
+    {# app/Resources/views/base.html.twig #}
     <html>
         <head>
             {# ... #}
@@ -1015,7 +1014,7 @@ dell'applicazione:
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            // ...
+            ...,
             'templating'      => array(
                 'engines' => array('twig'),
             ),

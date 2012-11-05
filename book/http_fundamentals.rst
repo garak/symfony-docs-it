@@ -179,11 +179,8 @@ Richieste e risposte in PHP
 ---------------------------
 
 Dunque, come interagire con la "richiesta" e creare una "risposta" quando
-si usa PHP? In realtà, PHP astrae un po' l'intero processo:
+si usa PHP? In realtà, PHP astrae un po' l'intero processo::
 
-.. code-block:: php
-
-    <?php
     $uri = $_SERVER['REQUEST_URI'];
     $pippo = $_GET['pippo'];
 
@@ -363,9 +360,7 @@ Restare organizzati
 Ma all'interno del nostro front controller, come possiamo sapere quale pagina debba essere
 resa e come poterla renderla in modo facile? In un modo o nell'altro, occorre verificare
 l'URI in entrata ed eseguire parti diverse di codice, a seconda di tale valore. Le cose
-possono peggiorare rapidamente:
-
-.. code-block:: php
+possono peggiorare rapidamente::
 
     // index.php
     $request = Request::createFromGlobals();
@@ -422,11 +417,33 @@ Senza entrare troppo in dettaglio, vediamo questo processo in azione. Supponiamo
 di voler aggiungere una pagina ``/contact`` alla nostra applicazione Symfony. Primo,
 iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle rotte:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    contact:
-        pattern:  /contact
-        defaults: { _controller: AcmeDemoBundle:Main:contact }
+    .. code-block:: yaml
+
+        # app/config/routing.yml
+        contact:
+            pattern:  /contact
+            defaults: { _controller: AcmeDemoBundle:Main:contact }
+
+    .. code-block:: xml
+
+        <route id="contact" pattern="/contact">
+            <default key="_controller">AcmeBlogBundle:Main:contact</default>
+        </route>
+
+    .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+        use Symfony\Component\Routing\Route;
+
+        $collection = new RouteCollection();
+        $collection->add('contact', new Route('/contact', array(
+            '_controller' => 'AcmeBlogBundle:Main:contact',
+        )));
+
+        return $collection;
 
 .. note::
 
@@ -437,10 +454,9 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
 specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
 la stringa ``AcmeDemoBundle:Main:contact`` è una sintassi breve che punta a uno specifico
-metodo PHP ``contactAction`` in una classe chiamata ``MainController``:
+metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
-.. code-block:: php
-
+    // src/Acme/DemoBundle/Controller/MainController.php
     class MainController
     {
         public function contactAction()
@@ -449,8 +465,9 @@ metodo PHP ``contactAction`` in una classe chiamata ``MainController``:
         }
     }
 
-In questo semplice esempio, il controllore semplicemente crea un oggetto ``Response``
-con il codice HTML "<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
+In questo semplice esempio, il controllore semplicemente crea un oggetto
+:class:`Symfony\\Component\\HttpFoundation\\Response` con il codice HTML
+"<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
 si imparerà come un controllore possa rendere dei template, consentendo al proprio codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose
@@ -518,11 +535,11 @@ realizzata per essere usata se necessario e sostituita in caso contrario.
 La soluzione completa il *framework* Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Cos'*è* quindi il *framework* Symfony2? Il *framework* Symfony2 è una libreria PHP
+Cos'*è* quindi il *framework* Symfony2? Il *framework Symfony2* è una libreria PHP
 che esegue due compiti distinti:
 
 #. Fornisce una selezione di componenti (cioè i componenti di Symfony2) e
-   librerie di terze parti (p.e. ``Swiftmailer`` per l'invio di email);
+   librerie di terze parti (p.e. `Swiftmailer`_ per l'invio di email);
 
 #. Fornisce una pratica configurazione e una libreria "collante", che lega insieme tutti
    i pezzi.
@@ -548,3 +565,4 @@ con configurazioni predefinite ragionevoli. Gli utenti avanzati hanno il cielo c
 .. _`Validator`: https://github.com/symfony/Validator
 .. _`Security`: https://github.com/symfony/Security
 .. _`Translation`: https://github.com/symfony/Translation
+.. _`Swiftmailer`: http://swiftmailer.org/

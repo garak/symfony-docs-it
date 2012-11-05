@@ -24,9 +24,7 @@ Creazione di un form semplice
 Supponiamo che si stia costruendo un semplice applicazione "elenco delle cose da fare" che dovrà
 visualizzare le "attività". Poiché gli utenti avranno bisogno di modificare e creare attività, sarà
 necessario costruire un form. Ma prima di iniziare, si andrà a vedere la generica
-classe ``Task`` che rappresenta e memorizza i dati di una singola attività:
-
-.. code-block:: php
+classe ``Task`` che rappresenta e memorizza i dati di una singola attività::
 
     // src/Acme/TaskBundle/Entity/Task.php
     namespace Acme\TaskBundle\Entity;
@@ -791,9 +789,7 @@ Creare classi per i form
 Come si è visto, un form può essere creato e utilizzato direttamente in un controllore.
 Tuttavia, una pratica migliore è quella di costruire il form in una apposita classe
 PHP, che può essere riutilizzata in qualsiasi punto dell'applicazione. Creare una nuova classe
-che ospiterà la logica per la costruzione del form task:
-
-.. code-block:: php
+che ospiterà la logica per la costruzione del form task::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -817,9 +813,7 @@ che ospiterà la logica per la costruzione del form task:
 
 Questa nuova classe contiene tutte le indicazioni necessarie per creare il form
 task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore univoco per questo
-"tipo" di form). Può essere usato per costruire rapidamente un oggetto form nel controllore:
-
-.. code-block:: php
+"tipo" di form). Può essere usato per costruire rapidamente un oggetto form nel controllore::
 
     // src/Acme/TaskBundle/Controller/DefaultController.php
 
@@ -1135,7 +1129,7 @@ funzione ``form_row``. Per dire al componente form di utilizzare il nuovo framme
 ``field_row`` definito sopra, aggiungere il codice seguente all'inizio del template che
 rende il form:
 
-.. configuration-block:: php
+.. configuration-block::
 
     .. code-block:: html+jinja
 
@@ -1509,9 +1503,7 @@ un array.
 .. tip::
 
     Si può anche accedere ai valori POST ("name", in questo caso) direttamente tramite
-    l'oggetto `Request`, in questo modo:
-
-    .. code-block:: php
+    l'oggetto `Request`, in questo modo::
 
         $this->get('request')->request->get('name');
 

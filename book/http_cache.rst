@@ -171,8 +171,9 @@ le risposte della propria applicazione e restituendole al client.
         error_log($kernel->getLog());
 
 L'oggetto ``AppCache`` una una configurazione predefinita adeguata, ma può essere
-regolato tramite un insieme di opzioni impostabili sovrascrivendo il metodo
-``getOptions()``::
+regolato tramite un insieme di opzioni impostabili sovrascrivendo il
+metodo
+:method:`Symfony\\Bundle\\FrameworkBundle\\HttpCache\\HttpCache::getOptions`::
 
     // app/AppCache.php
     use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
@@ -459,7 +460,9 @@ come parametro::
 
     $response->setExpires($date);
 
-Il risultante header HTTP sarà simile a questo::
+Il risultante header HTTP sarà simile a questo:
+
+.. code-block:: text
 
     Expires: Thu, 01 Mar 2011 16:00:00 GMT
 
@@ -497,7 +500,9 @@ condivise::
     $response->setSharedMaxAge(600);
 
 L'header ``Cache-Control`` avrebbe il seguente formato (potrebbe contenere
-direttive aggiuntive)::
+direttive aggiuntive):
+
+.. code-block:: text
 
     Cache-Control: max-age=600, s-maxage=600
 
@@ -562,9 +567,10 @@ contenuto::
         return $response;
     }
 
-Il metodo ``Response::isNotModified()`` confronta l'``ETag`` inviato con la
-``Request`` con quello impostato nella ``Response``. Se i due combaciano, il
-metodo imposta automaticamente il codice di stato della ``Response`` a 304.
+Il metodo :method:`Symfony\\Component\\HttpFoundation\\Response::isNotModified`
+confronta l'``ETag`` inviato con la ``Request`` con quello impostato nella
+``Response``. Se i due combaciano, il metodo imposta automaticamente il codice
+di stato della ``Response`` a 304.
 
 Questo algoritmo è abbastanza semplice e molto generico, ma occorre creare
 l'intera ``Response`` prima di poter calcolare l'ETag, che non è ottimale.
@@ -652,7 +658,7 @@ uno schema semplice ed efficiente::
         // l'ETag o o il valore di Last-Modified
         // (in base alla Request, i dati sono recuperati da una
         // base dati o da una memoria chiave-valore, per esempio)
-        $article = // ...
+        $article = ...;
 
         // crea una Response con un ETag e/o un header Last-Modified
         $response = new Response();
@@ -668,7 +674,7 @@ uno schema semplice ed efficiente::
             return $response;
         } else {
             // qui fare qualcosa, come recuperare altri dati
-            $comments = // ...
+            $comments = ...;
             
             // o rendere un template con la $response già iniziata
             return $this->render(
@@ -706,7 +712,9 @@ In questo caso, occorre mettere in cache sia una versione compressa che una non 
 della risposta di un particolare URI e restituirle in base al valore ``Accept-Encoding``
 della richiesta. Lo si può fare usando l'header di risposta ``Vary``, che è una lista
 separata da virgole dei diversi header i cui valori causano rappresentazioni diverse
-della risorsa richiesta::
+della risorsa richiesta:
+
+.. code-block:: text
 
     Vary: Accept-Encoding, User-Agent
 
@@ -788,15 +796,15 @@ poiché è l'unico utile nel contesto di Akamaï:
 
 .. code-block:: html
 
-    <!doctype html>
+    <!DOCTYPE html>
     <html>
         <body>
-            Del contenuto
+            <!-- ... del contenuto -->
 
             <!-- Inserisce qui il contenuto di un'altra pagina -->
             <esi:include src="http://..." />
 
-            Dell'altro contenuto
+            <!-- ... dell'altro contenuto -->
         </body>
     </html>
 
@@ -1015,6 +1023,7 @@ metodo HTTP ``PURGE``::
 
     // app/AppCache.php
 
+    // ...
     use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
     class AppCache extends HttpCache

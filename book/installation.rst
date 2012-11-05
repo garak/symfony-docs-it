@@ -248,9 +248,7 @@ Se ci sono problemi, correggerli prima di proseguire.
     o da tutti (a seconda che gli utenti di server web e linea di comando siano
     o meno nello stesso gruppo). Per poterlo fare, inserire la riga seguente
     all'inizio dei file ``app/console``, ``web/app.php`` e
-    ``web/app_dev.php``:
-
-    .. code-block:: php
+    ``web/app_dev.php``::
 
         umask(0002); // Imposta i permessi a 0775
 

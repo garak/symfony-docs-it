@@ -38,7 +38,7 @@ di abilitarlo nel file di configurazione della propria applicazione:
     .. code-block:: php
 
         $container->loadFromExtension('framework', array(
-            // ...
+            ...,
             'templating'      => array(
                 'engines' => array('twig', 'php'),
             ),
@@ -54,7 +54,24 @@ rende il template ``index.html.php``::
 
     public function indexAction($name)
     {
-        return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
+        return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+    }
+
+Si può anche usare la scorciatoia :doc:`/bundles/SensioFrameworkExtraBundle/annotations/view`
+per rendere il template ``AcmeHelloBundle:Hello:index.html.php``::
+
+    // src/Acme/HelloBundle/Controller/HelloController.php
+
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+    // ...
+
+    /**
+     * @Template(engine="php")
+     */
+    public function indexAction($name)
+    {
+        return array('name' => $name);
     }
 
 .. index::
@@ -219,10 +236,10 @@ controllore ``Hello``::
     {
         public function fancyAction($name, $color)
         {
-            // crear un oggettom basato sulla variabile $color
+            // creare un oggetto basato sulla variabile $color
             $object = ...;
 
-            return $this->render('HelloBundle:Hello:fancy.html.php', array('name' => $name, 'object' => $object));
+            return $this->render('AcmeHelloBundle:Hello:fancy.html.php', array('name' => $name, 'object' => $object));
         }
 
         // ...

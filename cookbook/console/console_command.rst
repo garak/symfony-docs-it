@@ -4,7 +4,7 @@
 Come creare un comando di console
 =================================
 
-La pagina Console della sezione dei componenti (:doc:`/components/console`) spiega
+La pagina Console della sezione dei componenti (:doc:`/components/console/introduction`) spiega
 come creare un comando di console. Questa ricetta spiega invece le differenze
 nella creazione di comandi di console con il framework Symfony2.
 

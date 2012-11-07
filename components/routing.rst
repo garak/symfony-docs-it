@@ -49,7 +49,7 @@ in modo tale da caricare il componente Routing::
     Particolare attenzione va data al'utilizzo di ``$_SERVER['REQUEST_URI']``,
     perché potrebbe contenere qualsiasi parametro della richiesta inserito nel'URL
     creando problemi con l'abbinamento alla rotta. Un semplice modo per risolvere
-    il problema è usare il componente HTTPFoundation come spiegato in :ref:`below<components-routing-http-foundation>`.
+    il problema è usare il componente HTTPFoundation come spiegato :ref:`sotto<components-routing-http-foundation>`.
 
 È possibile aggiungere un numero qualsiasi di rotte a una classe
 :class:`Symfony\\Component\\Routing\\RouteCollection`.

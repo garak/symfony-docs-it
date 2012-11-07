@@ -288,7 +288,7 @@ sarà richiamato quando il contenitore viene compilato::
 .. note::
 
     I passi di compilatore sono registrati in modo diverso, se si usa il
-    framework completo, si veda :doc:`cookbook/service_container/compiler_passes`
+    framework completo, si veda :doc:`/cookbook/service_container/compiler_passes`
     per maggiori dettagli.
 
 Controllare l'ordine dei passi

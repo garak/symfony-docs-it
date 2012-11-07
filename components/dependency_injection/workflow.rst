@@ -24,7 +24,7 @@ Lavorare con il contenitore in cache
 Il kernel verifica se c'è una versione in cache del contenitore, prima di
 costruirlo. ``HttpKernel`` ha un'impostazione di debug, per cui la versione in cache
 viene usata se tale impostazione vale ``false``. Se invece debug è ``true``, il kernel
-:doc:`verifica se la configurazione è fresca<components/config/caching>` e,
+:doc:`verifica se la configurazione è fresca</components/config/caching>` e,
 se lo è, la versione in cache è quella del contenitore. Se non lo è, il contenitore viene
 costruito a partire dalla configurazione a livello di applicazione e da quella dei
 bundle.
@@ -51,11 +51,11 @@ Configurazione a livello di bundle
 
 Per convenzione, ogni bundle contiene una classe Extension, nella cartella
 ``DependencyInjection`` del bundle stesso. Queste classi vengono registrare da ``ContainerBuilder``,
-al boot del kernel. Quando ``ContainerBuilder`` viene :doc:`compilato<components/dependency-injection/compilation>`,
+al boot del kernel. Quando ``ContainerBuilder`` viene :doc:`compilato<components/dependency_injection/compilation>`,
 la configurazione a livello di applicazione rilevante per l'estensione del bundle viene
 passata alla classe Extension, che solitamente carica anche i propri file di configurazione, tipicamente
 dalla cartella ``Resources/config`` del bundle. La configurazione a livello di applicazione
-è solitamente processata con un :doc:`oggetto Configuration<components/config/definition>`, anch'esso
+è solitamente processata con un :doc:`oggetto Configuration</components/config/definition>`, anch'esso
 memorizzato nella cartella ``DependencyInjection`` del bundle.
 
 Passi di compilatore per consentire interazioni tra bundle

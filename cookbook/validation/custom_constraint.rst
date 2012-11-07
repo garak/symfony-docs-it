@@ -14,7 +14,7 @@ Creare la classe Constraint
 
 Innanzitutto, occorre creare una classe Constraint, che estenda :class:`Symfony\\Component\\Validator\\Constraint`::
 
-    // src/Acme/DemoBundle/Validator/constraints/ContainsAlphanumeric.php
+    // src/Acme/DemoBundle/Validator/Constraints/ContainsAlphanumeric.php
     namespace Acme\DemoBundle\Validator\Constraints;
     
     use Symfony\Component\Validator\Constraint;

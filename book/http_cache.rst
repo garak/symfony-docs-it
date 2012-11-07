@@ -272,9 +272,8 @@ gli header di cache HTTP nella risposta.
 
     Si tenga a mente che "HTTP" non è altro che il linguaggio (un semplice linguaggio
     testuale) usato dai client web (p.e. i browser) e i server web per comunicare
-    tra loro. Quando parliamo di cache HTTP, parliamo della parte di tale linguaggio
-    che consente a client e server di scambiarsi informazioni riguardo alla
-    cache.
+    tra loro. La cache HTTP è la parte di tale linguaggio che consente a client
+    e server di scambiarsi informazioni riguardo alla cache.
 
 HTTP specifica quattro header di cache per la risposta di cui ci occupiamo:
 
@@ -307,9 +306,9 @@ Ogni pezzo di informazione è separato da una virgola:
      Cache-Control: max-age=3600, must-revalidate
 
 Symfony fornisce un'astrazione sull'header ``Cache-Control``, per rendere la sua
-creazione più gestibile:
+creazione più gestibile::
 
-.. code-block:: php
+    // ...
 
     $response = new Response();
 

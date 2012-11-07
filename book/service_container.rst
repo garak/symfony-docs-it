@@ -163,7 +163,8 @@ molti servizi. I servizi che non vengono mai utilizzati non sono mai costruite.
 Come bonus aggiuntivo, il servizio ``Mailer`` è creato una sola volta e
 ogni volta che si chiede per il servizio viene restituita la stessa istanza. Questo è quasi sempre
 il comportamento di cui si ha bisogno (è più flessibile e potente), ma si imparerà
-più avanti come configurare un servizio che ha istanze multiple.
+come configurare un servizio che ha istanze multiple nella ricetta
+":doc:`/cookbook/service_container/scopes`".
 
 .. _book-service-container-parameters:
 

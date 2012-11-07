@@ -301,7 +301,7 @@ Il valore restituito dal controllore è accessibile tramite il metodo
 
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
-        $val = $event->getReturnValue();
+        $val = $event->getControllerResult();
         $response = new Response();
 
         // ... personalizzare in qualche modo la risposta dal valore restituito

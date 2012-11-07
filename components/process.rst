@@ -13,8 +13,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Process);
-* Installarlo via PEAR (`pear.symfony.com/Process`);
-* Installarlo via Composer (`symfony/process` su Packagist).
+* Installarlo via Composer (``symfony/process`` su `Packagist`_).
 
 Uso
 ---
@@ -60,7 +59,8 @@ Se si vuole eseguire del codice PHP in isolamento, usare invece
 
     $process = new PhpProcess(<<<EOF
         <?php echo 'Ciao mondo'; ?>
-    EOF);
+    EOF
+    );
     $process->run();
 
 .. versionadded:: 2.1
@@ -74,3 +74,4 @@ preferibile usare la classe :class:`Symfony\\Component\\Process\\ProcessBuilder`
     $builder = new ProcessBuilder(array('ls', '-lsa'));
     $builder->getProcess()->run();
 
+.. _Packagist: https://packagist.org/packages/symfony/process

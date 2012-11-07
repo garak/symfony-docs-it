@@ -36,7 +36,8 @@ Esempio di utilizzo
     $builder->add('password', 'repeated', array(
         'type' => 'password',
         'invalid_message' => 'Le password devono combaciare.',
-        'options' => array('label' => 'Password'),
+        'options' => array('attr' => array('class' => 'password-field')),
+        'required' => true,
         'first_options'  => array('label' => 'Password'),
         'second_options' => array('label' => 'Ripetere Password'),
     ));

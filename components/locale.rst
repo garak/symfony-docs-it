@@ -28,8 +28,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Locale);
-* Installarlo via PEAR (`pear.symfony.com/Locale`);
-* Installarlo via Composer (`symfony/locale` su Packagist).
+* Installarlo via Composer (``symfony/locale`` su `Packagist`_).
 
 Uso
 ---
@@ -68,3 +67,4 @@ La classe :class:`Symfony\\Component\\Locale\\Locale` arricchisce la classe nati
     $icuVersion = Locale::getIcuVersion();
     $icuDataVersion = Locale::getIcuDataVersion();
 
+.. _Packagist: https://packagist.org/packages/symfony/locale

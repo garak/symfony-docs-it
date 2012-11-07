@@ -17,8 +17,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DependencyInjection);
-* Installandolo via PEAR ( `pear.symfony.com/DependencyInjection`);
-* Installandolo via Composer (`symfony/dependency-injection` su Packagist).
+* Installandolo via Composer (``symfony/dependency-injection`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -283,3 +282,4 @@ I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file 
         $container->register('newsletter_manager', 'NewsletterManager')
            ->addMethodCall('setMailer', new Reference('mailer');
 
+.. _Packagist: https://packagist.org/packages/symfony/dependency-injection

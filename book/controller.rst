@@ -507,6 +507,12 @@ capitolo :doc:`Template </book/templating>`.
 
 .. tip::
 
+    Si può anche evitare di richiamare il metodo ``render``, usando l'annotazione ``@Template``.
+    Si veda la :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/view>`
+    per maggiori dettagli.
+
+.. tip::
+
     Il metodo ``renderView`` è una scorciatoia per utilizzare direttamente il servizio
     ``templating``. Il servizio ``templating`` può anche essere utilizzato in modo diretto::
     
@@ -632,7 +638,7 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
     {
         $form = $this->createForm(...);
 
-        $form->bindRequest($this->getRequest());
+        $form->bind($this->getRequest());
         if ($form->isValid()) {
             // fare una qualche elaborazione
 

@@ -268,7 +268,7 @@ prima "vera" pagina di Symfony2:
 
 Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto finora!
 
-.. image:: /images/quick_tour/welcome.jpg
+.. image:: /images/quick_tour/welcome.png
 
 Iniziare lo sviluppo
 --------------------

@@ -28,8 +28,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Serializer);
-* Installarlo via PEAR (`pear.symfony.com/Serializer`);
-* Installarlo via Composer (`symfony/serializer` su Packagist).
+* Installarlo via Composer (``symfony/serializer`` su `Packagist`_).
 
 Uso
 ---
@@ -129,3 +128,4 @@ tramite annotazioni (oltre che YML, XML e PHP), integrazione con l'ORM di Doctri
 e gestione di altri casi complessi (p.e. riferimenti circolari).
 
 .. _`JMSSerializationBundle`: https://github.com/schmittjoh/JMSSerializerBundle
+.. _Packagist: https://packagist.org/packages/symfony/serializer

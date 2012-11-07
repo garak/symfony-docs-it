@@ -29,7 +29,7 @@ una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
         Acme\BlogBundle\Entity\Author:
             properties:
                 firstName:
-                    - Null: ~
+                    - 'Null': ~
 
     .. code-block:: php-annotations
 

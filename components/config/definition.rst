@@ -100,6 +100,7 @@ di nodo. I tipi di nodo disponibili sono:
 * scalare
 * booleano
 * array
+* enum (nuovo in 2.1)
 * variabile (nessuna validazione)
 
 e sono creati con ``node($nome, $tipo)`` o con i relativi metodi scorciatoia

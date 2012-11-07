@@ -14,8 +14,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Finder);
-* Installandolo via PEAR (`pear.symfony.com/Finder`);
-* Installandolo tramite Composer (`symfony/finder` su Packagist).
+* Installandolo tramite Composer (``symfony/finder`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -162,8 +161,7 @@ File Contents
 ~~~~~~~~~~~~~
 
 .. versionadded:: 2.1
-   I metodi ``contains()`` e ``notContains()`` sono stati
-   introdotti nella versione 2.1.
+   I metodi ``contains()`` e ``notContains()`` sono stati introdotti nella versione 2.1.
 
 Restringere i file per contenuto con il metodo
 :method:`Symfony\\Component\\Finder\\Finder::contains`::
@@ -190,8 +188,8 @@ Si possono filtrare i file di dimensione compresa tra due valori, concatenando l
 
     $finder->files()->size('>= 1K')->size('<= 2K');
 
-È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, '<=',
-'=='.
+È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, ``<=``,
+``==``, ``!=``.
 
 .. versionadded:: 2.1
    L'operatore ``!=`` è stato aggiunto nella versione 2.1.
@@ -229,14 +227,14 @@ Filtri personalizzati
 È possibile definire filtri personalizzati, grazie al metodo
 :method:`Symfony\\Component\\Finder\\Finder::filter`::
 
-    $filtro_personalizzato = function (\SplFileInfo $file)
+    $filtro = function (\SplFileInfo $file)
     {
         if (strlen($file) > 10) {
             return false;
         }
     };
 
-    $finder->files()->filter($filtro_personalizzato);
+    $finder->files()->filter($filtro);
 
 Il metodo ``filter()`` prende una Closure come argomento. Per ogni file che corrisponde ai criteri,
 la Closure viene chiamata passandogli il file come un'istanza di :class:`Symfony\\Component\\Finder\\SplFileInfo`.
@@ -267,3 +265,4 @@ Il contenuto dei file restituiti può essere letto con
 .. _protocollo:   http://www.php.net/manual/en/wrappers.php
 .. _stream:       http://www.php.net/streams
 .. _standard IEC: http://physics.nist.gov/cuu/Units/binary.html
+.. _Packagist:    https://packagist.org/packages/symfony/finder

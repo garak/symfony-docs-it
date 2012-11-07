@@ -14,8 +14,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Routing);
-* Installandolo via PEAR (`pear.symfony.com/Routing`);
-* Installandolo via Composer (`symfony/routing` su Packagist).
+* Installandolo via Composer (``symfony/routing`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -333,3 +332,5 @@ nello sfondo, qualora la si volesse utilizzare. Un semplice esempio di come sia 
     Se si utilizza la cache, il componente Routing compilerà nuove classi che saranno
     salvate in ``cache_dir``. Questo significa che lo script deve avere i permessi di scrittura
     nella cartella indicata.
+
+.. _Packagist: https://packagist.org/packages/symfony/routing

@@ -25,6 +25,11 @@ e quindi un clone del proprio fork:
 
     $ git clone git://github.com/TUONOME/symfony-docs.git
 
+Coerentemente con il codice sorgente di Symfony, il repository della documentazione è suddiviso in
+tre rami: ``2.0`` per il rilascio Symfony 2.0.x, ``2.1`` per il
+rilascio Symfony 2.1.x e ``master`` come ramo di sviluppo per i
+rilasci futuri.
+
 A meno di non documentare una caratteristica aggiunta in Symfony 2.1, le modifiche
 vanno basate sul ramo 2.0, non sul ramo master. Per poterlo fare,
 eseguire un checkout del ramo 2.0 prima del prossimo passo:
@@ -52,6 +57,11 @@ e cambiare il ramo base in @2.0:
 
 .. image:: /images/docs-pull-request-change-base.png
    :align: center
+
+.. note::
+
+  Tutte le modifiche fatte nel ramo 2.0 subiranno un merge nel 2.1, che a sua volta subirà
+  un merge nel ramo master, per il prossimo rilascio, su base settimanale.
 
 GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
 
@@ -142,7 +152,7 @@ Traduzione
 
 Leggere la :doc:`documentazione <translations>`.
 
-.. _`fork`: http://help.github.com/fork-a-repo/
-.. _`richieste di pull`: http://help.github.com/pull-requests/
+.. _`fork`: http://help.github.com/articles/fork-a-repo
+.. _`richieste di pull`: http://help.github.com/articles/using-pull-requests
 .. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors
 .. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html

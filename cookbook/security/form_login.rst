@@ -106,12 +106,13 @@ Si può modificare il posto in cui il form di login rinvia dopo un login eseguit
 successo, usando le varie opzioni di configurazione. Per impostazione predefinita, il
 form rinvierà all'URL richiesto dall'utente (cioè l'URL che ha portato al form di login).
 Per esempio, se l'utente ha richiesto ``http://www.example.com/admin/post/18/edit``,
-sarà successivamente rimandato indietro a ``http://www.example.com/admin/post/18/edit``,
-dopo il login. Questo grazie alla memorizzazione in sessione dell'URL richiesto. Se non
+sarà successivamente rimandato indietro a
+``http://www.example.com/admin/post/18/edit``, dopo il login.
+Questo grazie alla memorizzazione in sessione dell'URL richiesto. Se non
 c'è alcun URL in sessione (forse l'utente ha richiesto direttamente la pagina di login),
-l'utente è rinviato alla pagina predefinita, che è ``/`` (ovvero la homepage). Si può
-modificare questo comportamento in diversi
-modi.
+l'utente è rinviato alla pagina predefinita, che
+è ``/`` (ovvero la homepage). Si può modificare questo comportamento
+in diversi modi.
 
 .. note::
 
@@ -157,7 +158,7 @@ non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    // ...
+                    ...,
                     'default_target_path' => '/admin',
                 )),
             ),
@@ -201,7 +202,7 @@ senza considerare l'URL richiesta prima del login, impostando l'opzione
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    // ...
+                    ...,
                     'always_use_default_target_path' => true,
                 )),
             ),
@@ -243,7 +244,7 @@ Se nessun URL è stato memorizzato in sessione, si potrebbe voler provare a usar
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    // ...
+                    ...,
                     'use_referer' => true,
                 )),
             ),
@@ -283,7 +284,7 @@ definito in una rotta ``account``, fare come segue:
 
     .. code-block:: html+php
 
-        <?php // src/Acme/SecurityBundle/Resources/views/Security/login.html.php ?>
+        <!-- src/Acme/SecurityBundle/Resources/views/Security/login.html.php -->
         <?php if ($error): ?>
             <div><?php echo $error->getMessage() ?></div>
         <?php endif; ?>
@@ -376,7 +377,7 @@ configurazione seguente:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    // ...
+                    ...,
                     'failure_path' => login_failure,
                 )),
             ),

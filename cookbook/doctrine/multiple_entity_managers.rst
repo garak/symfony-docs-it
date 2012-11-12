@@ -68,7 +68,7 @@ connessioni, una per ogni gestore di entità.
     la configurazione desiderata. Se si *omette* il nome della connessione
     o del gestore di entità, verrà usato quello predefinito (cioè ``default``).
 
-Lavorando con connessioni multiple, per creare i database::
+Lavorando con connessioni multiple, per creare le basi dati::
 
 .. code-block:: bash
 

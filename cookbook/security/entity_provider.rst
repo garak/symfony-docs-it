@@ -206,7 +206,6 @@ saranno poi verificate sulla nostra entità ``User``, nel database:
     .. code-block:: yaml
 
         # app/config/security.yml
-
         security:
             encoders:
                 Acme\UserBundle\Entity\User:
@@ -278,10 +277,10 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
     // ...
     use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-    // ...
     class User implements AdvancedUserInterface
     {
         // ...
+
         public function isAccountNonExpired()
         {
             return true;
@@ -428,8 +427,8 @@ l'elenco dei gruppi correlati::
     namespace Acme\Bundle\UserBundle\Entity;
 
     use Doctrine\Common\Collections\ArrayCollection;
-
     // ...
+
     class User implements AdvancedUserInterface
     {
         /**
@@ -458,6 +457,7 @@ importante da notare è che la classe entità ``AcmeUserBundle:Group`` implement
 :class:`Symfony\\Component\\Security\\Core\\Role\\RoleInterface`, che la obbliga ad avere
 un metodo ``getRole()``::
 
+    // src/Acme/Bundle/UserBundle/Entity/Group.php
     namespace Acme\Bundle\UserBundle\Entity;
 
     use Symfony\Component\Security\Core\Role\RoleInterface;
@@ -529,8 +529,7 @@ In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una 
                 ->where('u.username = :username OR u.email = :email')
                 ->setParameter('username', $username)
                 ->setParameter('email', $username)
-                ->getQuery()
-            ;
+                ->getQuery();
 
             // ...
         }

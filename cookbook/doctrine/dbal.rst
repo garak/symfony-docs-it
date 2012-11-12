@@ -145,7 +145,7 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
             dbal:
                 connections:
                     default:
-                        // Other connections parameters
+                        // altri parametri di connessione
                         mapping_types:
                             enum: string
 

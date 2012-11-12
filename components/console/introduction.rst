@@ -287,6 +287,38 @@ se volessimo conoscere il nome di qualcosa, potremmo fare nel seguente modo::
         'pippo'
      );
 
+Porre domande e validare le risposte
+------------------------------------
+
+Si possono porre facilmente domande e validare le risposte, con i metodi a disposizione::
+
+    $dialog = $this->getHelperSet()->get('dialog');
+
+    $validator = function ($value) {
+        if ('' === trim($value)) {
+            throw new \Exception('Il valore non deve essere vuoto');
+        }
+
+        return $value;
+    }
+
+    $password = $dialog->askAndValidate(
+        $output,
+        'Inserire il nome del widget',
+        $validator,
+        20,
+        'pippo'
+    );
+
+Il callback di validazione può essere una qualsiasi funzione richiamabile da PHP e il
+quarto parametro di :method:`Symfony\\Component\\Console\\Helper::askAndValidate` è il numero
+massimo di tentativi, impostabile a ``false`` (valore predefinito) per tentativi
+illimitati. Il quinto parametro è il valore predefinito.
+
+Il callback deve lanciare un'eccezione in caso di valori non accettabili. Si noti che
+il callback **deve** restituire un valore. Il valore può essere modificato dal
+callback (sarà restituito modificato dall'helper).
+
 Testare i comandi
 -----------------
 

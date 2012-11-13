@@ -29,7 +29,7 @@ se lo è, la versione in cache è quella del contenitore. Se non lo è, il conte
 costruito a partire dalla configurazione a livello di applicazione e da quella dei
 bundle.
 
-Leggere :ref:`esportare la configurazione per le prestazioni</components-dependency-injection-dumping>`
+Leggere :ref:`esportare la configurazione per le prestazioni<components-dependency-injection-dumping>`
 per maggiori dettagli.
 
 Configurazione a livello di applicazione
@@ -40,7 +40,7 @@ Vengono caricati più file e quindi fusi, quando le estensioni vengono processat
 consente di avere configurazioni diverse per ambienti diversi, p.e. dev, prod, ecc.
 
 Questi file contengono parametri e servici, che sono caricati direttamente nel
-contenitore, come in :ref:`impostare il contenitore con file di configurazione</components-dependency-injection-loading-config>`.
+contenitore, come in :ref:`impostare il contenitore con file di configurazione<components-dependency-injection-loading-config>`.
 Contengono anche configurazioni che sono processate da estensioni, come in
 :ref:`gestire la configurazione con le estensioni</components-dependency-injection-extension>`.
 Sono considerate configurazioni di bundle, perché ogni bundle contiene una classe
@@ -61,7 +61,7 @@ memorizzato nella cartella ``DependencyInjection`` del bundle.
 Passi di compilatore per consentire interazioni tra bundle
 ----------------------------------------------------------
 
-I :ref:`passi di compilatore</components-dependency-injection-compiler-passes>` sono
+I :ref:`passi di compilatore<components-dependency-injection-compiler-passes>` sono
 usati per consentire interazioni tra diversi bundle, poiché non possono influire
 a vicenda sulla configurazione nelle classi estensione. Uno degli usi principali è
 il processamento dei servizi con tag, consentendo ai bundle di registrare servizi che

@@ -169,7 +169,7 @@ il contenitore viene compilato::
 .. note::
 
     I passi di compilatore sono registrati in modo diverso, se si usa il framework
-    completo. Vedere :doc:`cookbook/service_container/compiler_passes`
+    completo. Vedere :doc:`/cookbook/service_container/compiler_passes`
     per maggiori dettagli.
 
 Aggiungere altri attributi ai tag

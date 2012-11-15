@@ -21,33 +21,33 @@ Riferimento di configurazione del form di login
             firewalls:
                 main:
                     form_login:
-                        # the user is redirected here when he/she needs to login
+                        # l'utente è rinviato qui quando deve entrare
                         login_path:                     /login
 
-                        # if true, forward the user to the login form instead of redirecting
+                        # se true, fa un forward al form di login invece di un rinvio
                         use_forward:                    false
 
-                        # submit the login form here
+                        # percorso del submit del form di login
                         check_path:                     /login_check
 
-                        # by default, the login form *must* be a POST, not a GET
+                        # se il form debba essere solo in POST
                         post_only:                      true
 
-                        # login success redirecting options (read further below)
+                        # opzioni dopo un login riuscito (vedere anche più avanti)
                         always_use_default_target_path: false
                         default_target_path:            /
                         target_path_parameter:          _target_path
                         use_referer:                    false
 
-                        # login failure redirecting options (read further below)
+                        # opzioni dopo un login fallito (vedere anche più avanti)
                         failure_path:                   null
                         failure_forward:                false
 
-                        # field names for the username and password fields
+                        # nomi dei campi per utente e password
                         username_parameter:             _username
                         password_parameter:             _password
 
-                        # csrf token options
+                        # opzioni csrf
                         csrf_parameter:                 _csrf_token
                         intention:                      authenticate
 

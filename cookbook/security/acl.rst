@@ -96,34 +96,34 @@ Creare una ACL e aggiungere un ACE
 
     class BlogController
     {
-    // ...
-    
-    public function addCommentAction(Post $post)
-    {
-        $comment = new Comment();
+        // ...
 
-        // ... preparazione di $form e collegamento dei dati
+        public function addCommentAction(Post $post)
+        {
+            $comment = new Comment();
 
-        if ($form->isValid()) {
-            $entityManager = $this->get('doctrine.orm.default_entity_manager');
-            $entityManager->persist($comment);
-            $entityManager->flush();
+            // ... preparazione di $form e collegamento dei dati
 
-            // creazione dell'ACL
-            $aclProvider = $this->get('security.acl.provider');
-            $objectIdentity = ObjectIdentity::fromDomainObject($comment);
-            $acl = $aclProvider->createAcl($objectIdentity);
+            if ($form->isValid()) {
+                $entityManager = $this->get('doctrine.orm.default_entity_manager');
+                $entityManager->persist($comment);
+                $entityManager->flush();
 
-            // recupero dell'identità di sicurezza dell'utente attuale
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
-            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+                // creazione dell'ACL
+                $aclProvider = $this->get('security.acl.provider');
+                $objectIdentity = ObjectIdentity::fromDomainObject($comment);
+                $acl = $aclProvider->createAcl($objectIdentity);
 
-            // l'utente può accedere
-            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-            $aclProvider->updateAcl($acl);
+                // recupero dell'identità di sicurezza dell'utente attuale
+                $securityContext = $this->get('security.context');
+                $user = $securityContext->getToken()->getUser();
+                $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+                // l'utente può accedere
+                $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+                $aclProvider->updateAcl($acl);
+            }
         }
-    }
     }
 
 In questo pezzo di codice ci sono alcune importanti decisioni implementative.
@@ -171,7 +171,7 @@ Verifica dell'accesso
                 throw new AccessDeniedException();
             }
 
-            // recuperare l'oggetto commento e fare le modifiche
+            // ... recuperare l'oggetto commento e fare le modifiche
         }
     }
 

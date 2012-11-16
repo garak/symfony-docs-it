@@ -155,15 +155,15 @@ sia richiamato appena prima l'esecuzione di ogni controllore:
         # app/config/config.yml (oppure dentro services.yml)
         services:
             demo.tokens.action_listener:
-                class: Acme\DemoBundle\EventListener\BeforeAndAfterListener
-              arguments: [ %tokens% ]
-              tags:
+                class: Acme\DemoBundle\EventListener\TokenListener
+                arguments: [ %tokens% ]
+                tags:
                     - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
     .. code-block:: xml
 
         <!-- app/config/config.xml (or inside your services.xml) -->
-        <service id="demo.tokens.action_listener" class="Acme\DemoBundle\EventListener\BeforeAndAfterListener">
+        <service id="demo.tokens.action_listener" class="Acme\DemoBundle\EventListener\TokenListener">
             <argument>%tokens%</argument>
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
@@ -173,7 +173,7 @@ sia richiamato appena prima l'esecuzione di ogni controllore:
         // app/config/config.php (or inside your services.php)
         use Symfony\Component\DependencyInjection\Definition;
 
-        $listener = new Definition('Acme\DemoBundle\EventListener\BeforeAndAfterListener', array('%tokens%'));
+        $listener = new Definition('Acme\DemoBundle\EventListener\TokenListener', array('%tokens%'));
         $listener->addTag('kernel.event_listener', array('event' => 'kernel.controller', 'method' => 'onKernelController'));
         $container->setDefinition('demo.tokens.action_listener', $listener);
 

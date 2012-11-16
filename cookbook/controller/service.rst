@@ -62,3 +62,4 @@ servizio, occorre specificare il servizio stesso, come segue::
 In questo esempio, ``mio_bundle.annot_controller`` dovrebbe essere l'id dell'istanza di
 ``AnnotController`` definita nel contenitore di servizi. La documentazione si trova
 nel capitolo :doc:`/bundles/SensioFrameworkExtraBundle/annotations/routing`.
+

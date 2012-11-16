@@ -334,7 +334,7 @@ esportando e mettendo in cache la configurazione risultante. ``PhpDumper`` rende
 facile l'esportazione del contenitore compilato::
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
-    use Symfony\Component\DependencyInjection\Dumper\PhpDumper
+    use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
     $file = __DIR__ .'/cache/container.php';
 

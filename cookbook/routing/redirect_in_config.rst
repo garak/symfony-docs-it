@@ -26,15 +26,15 @@ La configurazione sarà simile a questa:
             path: /app
             permanent: true
 
-Il bundle ``AppBundle`` deve essere registrato per gestire tutte le richieste ad ``/app``.
-
-Configuriamo una rotta per il percorso ``/`` e lo facciamo gestire a :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController`.
-Questo controllore offre due metodi per rinviare le richieste:
-
-* ``redirect`` rinvia a un'altra *rotta*. Occorre fornire il parametro ``route``
-  con il *nome* della rotta a cui si vuole rinviare.
+In questo esempio, configuriamo una rotta per il percorso ``/`` e lo facciamo gestire a :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController`.
+Questo controllore standard di Symfony offre due azioni
+per rinviare le richieste:
 
 * ``urlRedirect`` rinvia a un altro *percorso*. Occorre fornire il parametro ``path``
   con il percorso della risorsa a cui si vuole rinviare.
 
-The ``permanent`` switch tells both methods to issue a 301 HTTP status code.
+* ``redirect`` rinvia a un'altra *rotta*. Occorre fornire il parametro ``route``
+  con il *nome* della rotta a cui si vuole rinviare.
+
+Il parametro ``permanent`` dice a entrambi i metodi di inviare un codice di stato HTTP ``301``
+invece del codice di stato predefinito ``302``.

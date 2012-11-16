@@ -313,14 +313,10 @@ La mappatura dispone delle seguenti opzioni di configurazione:
 Configurazione Doctrine DBAL
 ----------------------------
 
-.. note::
-
-    DoctrineBundle supporta tutti i parametri che i driver predefiniti di Doctrine
-    accettano, convertiti alla nomenclatura XML o YML di Symfony.
-    Vedere la `documentazione DBAL`_ di Doctrine per maggiori informazioni.
-
-Oltre alle opzioni di Doctrine, ci sono alcune opzioni relative a Symfony che
-si possono configurare. Il blocco seguente mostra tutte le voci di configurazione:
+DoctrineBundle supporta tutti i parametri che i driver predefiniti di Doctrine
+accettano, convertiti alla nomenclatura XML o YML di Symfony.
+Vedere la `documentazione DBAL`_ di Doctrine per maggiori informazioni.
+Il blocco seguente mostra tutte le voci di configurazione:
 
 .. configuration-block::
 
@@ -334,12 +330,15 @@ si possono configurare. Il blocco seguente mostra tutte le voci di configurazion
                 user:                 user
                 password:             secret
                 driver:               pdo_mysql
+                # opzione driverClass di DBAL
                 driver_class:         MyNamespace\MyDriverImpl
+                # opzione driverOptions di DBAL
                 options:
                     foo: bar
                 path:                 "%kernel.data_dir%/data.sqlite"
                 memory:               true
                 unix_socket:          /tmp/mysql.sock
+                # the DBAL wrapperClass option
                 wrapper_class:        MyDoctrineDbalConnectionWrapper
                 charset:              UTF8
                 logging:              "%kernel.debug%"
@@ -348,6 +347,8 @@ si possono configurare. Il blocco seguente mostra tutte le voci di configurazion
                     enum: string
                 types:
                     custom: Acme\HelloBundle\MyCustomType
+                # opzione keepSlave di DBAL
+                keep_slave:           false
 
     .. code-block:: xml
 

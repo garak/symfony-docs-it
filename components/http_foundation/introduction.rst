@@ -214,6 +214,21 @@ dice se la richiesta contiene una sessione, che sia stata fatta partire in una d
 richieste
 precedenti.
 
+Accedere ai dati degli header `Accept-*`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si può accedere facilmente ai dati di base estratti dagli header ``Accept-*``
+usando i seguenti metodi:
+
+* :method:`Symfony\\Component\\HttpFoundation\\Request::getAcceptableContentTypes`:
+  restituisce la lista dei tipi di contenuto accettati, ordinata per qualità discendente;
+
+* :method:`Symfony\\Component\\HttpFoundation\\Request::getLanguages`:
+  restituisce la lista delle lingue accettate, ordinata per qualità discendente
+
+* :method:`Symfony\\Component\\HttpFoundation\\Request::getCharsets`:
+  restituisce la lista dei charset accettati, ordinata per qualità discendente
+
 Accedere ad altri dati
 ~~~~~~~~~~~~~~~~~~~~~~
 

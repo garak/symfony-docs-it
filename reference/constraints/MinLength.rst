@@ -1,6 +1,12 @@
 MinLength
 =========
 
+.. caution::
+
+    Questo vincolo è deprecato dalla versione 2.1 e sarà rimosso
+    in Symfony 2.3. Usare :doc:`/reference/constraints/Length` con opzione ``min``
+    al suo posto.
+
 Valida che la lunghezza di una stringa sia almeno pari al limite dato.
 
 +----------------+-------------------------------------------------------------------------+
@@ -26,7 +32,7 @@ Uso di base
         Acme\BlogBundle\Entity\Blog:
             properties:
                 firstName:
-                    - MinLength: { limit: 3, message: "Your name must have at least {{ limit}} characters." }
+                    - MinLength: { limit: 3, message: "Your name must have at least {{ limit }} characters." }
 
     .. code-block:: php-annotations
 
@@ -38,7 +44,7 @@ Uso di base
             /**
              * @Assert\MinLength(
              *     limit=3,
-             *     message="Your name must have at least {{ limit}} characters."
+             *     message="Your name must have at least {{ limit }} characters."
              * )
              */
             protected $summary;
@@ -51,7 +57,7 @@ Uso di base
             <property name="summary">
                 <constraint name="MinLength">
                     <option name="limit">3</option>
-                    <option name="message">Your name must have at least {{ limit}} characters.</option>
+                    <option name="message">Your name must have at least {{ limit }} characters.</option>
                 </constraint>
             </property>
         </class>

@@ -487,15 +487,15 @@ nella documentazione di ciascun tipo.
     L'opzione più comune è l'opzione ``required``, che può essere applicata a
     qualsiasi campo. Per impostazione predefinita, l'opzione ``required`` è impostata a ``true`` e questo significa
     che i browser che interpretano l'HTML5 applicheranno la validazione lato client se il campo
-    viene lasciato vuoto. Se non si desidera questo comportamento, impostare l'opzione
-    ``required`` del campo a ``false`` o :ref:`disabilitare la validazione HTML5<book-forms-html5-validation-disable>`.
+    viene lasciato vuoto. Se non si desidera questo comportamento, impostare l'opzione ``required``
+    del campo a ``false`` o :ref:`disabilitare la validazione HTML5<book-forms-html5-validation-disable>`.
 
     Si noti inoltre che l'impostazione dell'opzione ``required`` a ``true`` **non**
     farà applicare la validazione lato server. In altre parole, se un
     utente invia un valore vuoto per il campo (sia con un browser vecchio
     o un servizio web, per esempio), sarà accettata come valore valido a meno 
     che si utilizzi il vincolo di validazione ``NotBlank`` o ``NotNull``.
- 
+
     In altre parole, l'opzione ``required`` è "bella", ma la vera validazione lato server
     dovrebbe *sempre* essere utilizzata.
 
@@ -1550,7 +1550,7 @@ per specificare l'opzione::
     use Symfony\Component\Form\FormBuilder;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
     use Symfony\Component\Validator\Constraints\Email;
-    use Symfony\Component\Validator\Constraints\MinLength;
+    use Symfony\Component\Validator\Constraints\Length;
     use Symfony\Component\Validator\Constraints\Collection;
 
     class ContactType extends AbstractType
@@ -1560,7 +1560,7 @@ per specificare l'opzione::
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $collectionConstraint = new Collection(array(
-                'name' => new MinLength(5),
+                'name' => new Length(array("min" => 5)),
                 'email' => new Email(array('message' => 'Invalid email address')),
             ));
 

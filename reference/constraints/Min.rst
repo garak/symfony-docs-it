@@ -1,6 +1,12 @@
 Min
 ===
 
+.. caution::
+
+    Questo vincolo è deprecato dalla versione 2.1 e sarà rimosso
+    in Symfony 2.3. Usare :doc:`/reference/constraints/Range` con opzione ``min``
+    al suo posto.
+
 Valida che un dato numero sia *maggiore* di un numero minimo.
 
 +----------------+--------------------------------------------------------------------+

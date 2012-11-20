@@ -42,7 +42,7 @@ consente di avere configurazioni diverse per ambienti diversi, p.e. dev, prod, e
 Questi file contengono parametri e servici, che sono caricati direttamente nel
 contenitore, come in :ref:`impostare il contenitore con file di configurazione<components-dependency-injection-loading-config>`.
 Contengono anche configurazioni che sono processate da estensioni, come in
-:ref:`gestire la configurazione con le estensioni</components-dependency-injection-extension>`.
+:ref:`gestire la configurazione con le estensioni<components-dependency-injection-extension>`.
 Sono considerate configurazioni di bundle, perché ogni bundle contiene una classe
 an Extension.
 

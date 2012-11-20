@@ -50,13 +50,15 @@ un'istanza di ``Address`` nella proprietà ``$address``.
                     - NotBlank: ~
                 zipCode:
                     - NotBlank: ~
-                    - MaxLength: 5
+                    - Length:
+                        max: 5
 
         Acme\HelloBundle\Author:
             properties:
                 firstName:
                     - NotBlank: ~
-                    - MinLength: 4
+                    - Length:
+                        min: 4
                 lastName:
                     - NotBlank: ~
 
@@ -69,14 +71,18 @@ un'istanza di ``Address`` nella proprietà ``$address``.
             </property>
             <property name="zipCode">
                 <constraint name="NotBlank" />
-                <constraint name="MaxLength">5</constraint>
+                <constraint name="Length">
+                    <option name="max">5</option>
+                </constraint>
             </property>
         </class>
 
         <class name="Acme\HelloBundle\Author">
             <property name="firstName">
                 <constraint name="NotBlank" />
-                <constraint name="MinLength">4</constraint>
+                <constraint name="Length">
+                    <option name="min">4</option>
+                </constraint>
             </property>
             <property name="lastName">
                 <constraint name="NotBlank" />
@@ -97,7 +103,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
 
             /**
              * @Assert\NotBlank
-             * @Assert\MaxLength(5)
+             * @Assert\Length(max = "5")
              */
             protected $zipCode;
         }
@@ -107,7 +113,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
         {
             /**
              * @Assert\NotBlank
-             * @Assert\MinLength(4)
+             * @Assert\Length(min = "4")
              */
             protected $firstName;
 
@@ -124,7 +130,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
         // src/Acme/HelloBundle/Address.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MaxLength;
+        use Symfony\Component\Validator\Constraints\Length;
         
         class Address
         {
@@ -136,14 +142,16 @@ un'istanza di ``Address`` nella proprietà ``$address``.
             {
                 $metadata->addPropertyConstraint('street', new NotBlank());
                 $metadata->addPropertyConstraint('zipCode', new NotBlank());
-                $metadata->addPropertyConstraint('zipCode', new MaxLength(5));
+                $metadata->addPropertyConstraint(
+                    'zipCode',
+                    new Length(array("max" => 5)));
             }
         }
 
         // src/Acme/HelloBundle/Author.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MinLength;
+        use Symfony\Component\Validator\Constraints\Length;
         
         class Author
         {
@@ -156,7 +164,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('firstName', new NotBlank());
-                $metadata->addPropertyConstraint('firstName', new MinLength(4));
+                $metadata->addPropertyConstraint('firstName', new Length(array("min" => 4)));
                 $metadata->addPropertyConstraint('lastName', new NotBlank());
             }
         }

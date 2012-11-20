@@ -30,13 +30,14 @@ dell'array:
                 favoriteColors:
                     - All:
                         - NotBlank:  ~
-                        - MinLength: 5
+                        - Length:
+                            min: 5
 
     .. code-block:: php-annotations
 
        // src/Acme/UserBundle/Entity/User.php
        namespace Acme\UserBundle\Entity;
-
+       
        use Symfony\Component\Validator\Constraints as Assert;
 
        class User
@@ -44,7 +45,7 @@ dell'array:
            /**
             * @Assert\All({
             *     @Assert\NotBlank
-            *     @Assert\MinLength(5),
+            *     @Assert\Length(min = "5"),
             * })
             */
             protected $favoriteColors = array();

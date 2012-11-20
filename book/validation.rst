@@ -501,7 +501,8 @@ avere almeno 3 caratteri.
             properties:
                 firstName:
                     - NotBlank: ~
-                    - MinLength: 3
+                    - Length:
+                        min: 3
 
     .. code-block:: php-annotations
 
@@ -514,7 +515,7 @@ avere almeno 3 caratteri.
         {
             /**
              * @Assert\NotBlank()
-             * @Assert\MinLength(3)
+             * @Assert\Length(min = "3")
              */
             private $firstName;
         }
@@ -525,7 +526,9 @@ avere almeno 3 caratteri.
         <class name="Acme\BlogBundle\Entity\Author">
             <property name="firstName">
                 <constraint name="NotBlank" />
-                <constraint name="MinLength">3</constraint>
+                <constraint name="Length">
+                    <option name="min">3</option>
+                </constraint>
             </property>
         </class>
 
@@ -536,7 +539,7 @@ avere almeno 3 caratteri.
         // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MinLength;
+        use Symfony\Component\Validator\Constraints\Length;
 
         class Author
         {
@@ -545,7 +548,9 @@ avere almeno 3 caratteri.
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('firstName', new NotBlank());
-                $metadata->addPropertyConstraint('firstName', new MinLength(3));
+                $metadata->addPropertyConstraint(
+                    'firstName',
+                    new Length(array("min" => 3)));
             }
         }
 
@@ -674,9 +679,10 @@ si registra che quando aggiorna successivamente le sue informazioni:
                     - Email: { groups: [registration] }
                 password:
                     - NotBlank: { groups: [registration] }
-                    - MinLength: { limit: 7, groups: [registration] }
+                    - Length: { min: 7, groups: [registration] }
                 city:
-                    - MinLength: 2
+                    - Length:
+                        min: 2
 
     .. code-block:: php-annotations
 
@@ -695,12 +701,12 @@ si registra che quando aggiorna successivamente le sue informazioni:
 
             /**
             * @Assert\NotBlank(groups={"registration"})
-            * @Assert\MinLength(limit=7, groups={"registration"})
+            * @Assert\Length(min=7, groups={"registration"})
             */
             private $password;
 
             /**
-            * @Assert\MinLength(2)
+            * @Assert\Length(min = "2")
             */
             private $city;
         }
@@ -722,15 +728,17 @@ si registra che quando aggiorna successivamente le sue informazioni:
                         <value>registration</value>
                     </option>
                 </constraint>
-                <constraint name="MinLength">
-                    <option name="limit">7</option>
+                <constraint name="Length">
+                    <option name="min">7</option>
                     <option name="groups">
                         <value>registration</value>
                     </option>
                 </constraint>
             </property>
             <property name="city">
-                <constraint name="MinLength">7</constraint>
+                <constraint name="Length">
+                    <option name="min">7</option>
+                </constraint>
             </property>
         </class>
 
@@ -742,7 +750,7 @@ si registra che quando aggiorna successivamente le sue informazioni:
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\Email;
         use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MinLength;
+        use Symfony\Component\Validator\Constraints\Length;
 
         class User
         {
@@ -755,12 +763,14 @@ si registra che quando aggiorna successivamente le sue informazioni:
                 $metadata->addPropertyConstraint('password', new NotBlank(array(
                     'groups' => array('registration'),
                 )));
-                $metadata->addPropertyConstraint('password', new MinLength(array(
-                    'limit'  => 7,
-                    'groups' => array('registration'),
+                $metadata->addPropertyConstraint('password', new Length(array(
+                    'min'  => 7,
+                    'groups' => array('registration')
                 )));
 
-                $metadata->addPropertyConstraint('city', new MinLength(3));
+                $metadata->addPropertyConstraint(
+                    'city',
+                    Length(array("min" => 3)));
             }
         }
 
@@ -795,7 +805,7 @@ assomiglia a questo::
 
     use Symfony\Component\Validator\Constraints\Email;
     // ...
-    
+
     public function addEmailAction($email)
     {
         $emailConstraint = new Email();

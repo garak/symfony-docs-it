@@ -1,6 +1,12 @@
 MaxLength
 =========
 
+.. caution::
+
+    Questo vincolo è deprecato dalla versione 2.1 e sarà rimosso
+    in Symfony 2.3. Usare :doc:`/reference/constraints/Length` con opzione ``max``
+    al suo posto.
+
 Valida che la lunghezza di una stringa non sia superiore al limite dato.
 
 +----------------+-------------------------------------------------------------------------+

@@ -19,6 +19,7 @@
 * :doc:`/cookbook/configuration/index`
 
   * :doc:`/cookbook/configuration/environments`
+  * :doc:`/cookbook/configuration/override_dir_structure`
   * :doc:`/cookbook/configuration/external_parameters`
   * :doc:`/cookbook/configuration/pdo_session_storage`
   * :doc:`/cookbook/configuration/apache_router`
@@ -26,6 +27,8 @@
 * **Comandi da console**
 
   * :doc:`/cookbook/console/console_command`
+  * :doc:`/cookbook/console/usage`
+  * :doc:`/cookbook/console/generating_urls`
 
 * :doc:`/cookbook/controller/index`
 
@@ -68,6 +71,7 @@
   * :doc:`/cookbook/form/dynamic_form_generation`
   * :doc:`/cookbook/form/form_collections`
   * :doc:`/cookbook/form/create_custom_field_type`
+  * :doc:`/cookbook/form/create_form_type_extension`
   * :doc:`/cookbook/form/use_virtuals_forms`
   * (validazione) :doc:`/cookbook/validation/custom_constraint`
   * (doctrine) :doc:`/cookbook/doctrine/file_uploads`
@@ -127,6 +131,7 @@
   * :doc:`/cookbook/testing/insulating_clients`
   * :doc:`/cookbook/testing/profiling`
   * :doc:`/cookbook/testing/doctrine`
+  * :doc:`/cookbook/testing/bootstrap`
 
 * :doc:`/cookbook/validation/index`
 
@@ -140,3 +145,5 @@
 
   * :doc:`/cookbook/workflow/new_project_git`
   * :doc:`/cookbook/workflow/new_project_svn`
+
+* :doc:`/cookbook/deployment-tools`

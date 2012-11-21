@@ -1,4 +1,4 @@
-* **Il componente Class Loader**
+* **Class Loader**
 
   * :doc:`/components/class_loader`
 
@@ -9,15 +9,17 @@
   * :doc:`/components/config/caching`
   * :doc:`/components/config/definition`
 
-* **Il componente Console**
+* :doc:`/components/console/index`
 
-  * :doc:`/components/console`
+  * :doc:`/components/console/introduction`
+  * :doc:`/components/console/usage`
+  * :doc:`/components/console/single_command_tool`
 
-* **Il componente CSS Selector**
+* **CSS Selector**
 
   * :doc:`/components/css_selector`
 
-* **Il componente Dependency Injection**
+* :doc:`/components/dependency_injection/index`
 
   * :doc:`/components/dependency_injection/introduction`
   * :doc:`/components/dependency_injection/types`
@@ -27,39 +29,44 @@
   * :doc:`/components/dependency_injection/factories`
   * :doc:`/components/dependency_injection/parentservices`
   * :doc:`/components/dependency_injection/advanced`
+  * :doc:`/components/dependency_injection/workflow`
 
-* **Il componente Event Dispatcher**
-
-  * :doc:`/components/event_dispatcher/introduction`
-
-* **Il componente DOM Crawler**
+* **DOM Crawler**
 
   * :doc:`/components/dom_crawler`
 
-* **Il componente Finder**
+* :doc:`/components/event_dispatcher/index`
+
+  * :doc:`/components/event_dispatcher/introduction`
+
+* **Finder**
 
   * :doc:`/components/finder`
 
-* **Il componente HTTP Foundation**
+* :doc:`/components/http_foundation/index`
 
   * :doc:`/components/http_foundation/introduction`
 
-* **Il componente Locale**
+* **Locale**
 
   * :doc:`/components/locale`
 
-* **Il componente Process**
+* **Process**
 
   * :doc:`/components/process`
 
-* **Il componente Routing**
+* **Routing**
 
   * :doc:`/components/routing`
 
-* **Il componente Templating**
+* **Serializer**
+
+  * :doc:`/components/serializer`
+
+* **Templating**
 
   * :doc:`/components/templating`
 
-* **Il componente YAML**
+* **YAML**
 
   * :doc:`/components/yaml`

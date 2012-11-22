@@ -4,7 +4,7 @@
 Come spedire un'email
 =====================
 
-Spedire le email è una delle azioni classiche di ogni applicazione web, ma 
+Spedire email è una delle azioni classiche di ogni applicazione web, ma 
 rappresenta anche l'origine di potenziali problemi e complicazioni. Invece 
 di reinventare la ruota, una soluzione per l'invio di email è l'uso di 
 ``SwiftmailerBundle``, il quale sfrutta la potenza della libreria `Swiftmailer`_.
@@ -49,8 +49,8 @@ L'unico parametro obbligatorio della configurazione è il parametro ``transport`
         <!-- app/config/config.xml -->
 
         <!--
-        xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-        http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config
@@ -87,13 +87,13 @@ Sono disponibili i seguenti parametri di configurazione:
 * ``auth_mode``         (``plain``, ``login`` o ``cram-md5``)
 * ``spool``
 
-  * ``type`` (come accodare i messaggi: attualmente solo l'opzione ``file`` è supportata)
+  * ``type`` (come accodare i messaggi: sono supportate le opzioni ``file`` e ``memory``, vedere :doc:`/cookbook/email/spool`)
   * ``path`` (dove salvare i messaggi)
 * ``delivery_address``  (indirizzo email dove spedire TUTTE le email)
 * ``disable_delivery``  (impostare a true per disabilitare completamente l'invio)
 
-L'invio delle email
--------------------
+Invio delle email
+-----------------
 
 Per lavorare con la libreria Swiftmailer occorre creare, configurare e quindi 
 spedire oggetti di tipo ``Swift_Message``. Il "mailer" è il vero responsabile 
@@ -129,5 +129,5 @@ questo argomento dettagliatamente nel capitolo sulla `creazione di messaggi`_ .
     * :doc:`dev_environment`
     * :doc:`spool`
 
-.. _`Swiftmailer`: http://www.swiftmailer.org/
+.. _`Swiftmailer`: http://swiftmailer.org/
 .. _`creazione di messaggi`: http://swiftmailer.org/docs/messages.html

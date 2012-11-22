@@ -295,6 +295,7 @@ con le sue opzioni Per informazioni sui tipi disponibili, vedere la sezione
          * @IgnoreAnnotation("fn")
          */
         class Product
+        // ...
 
 Generare getter e setter
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -477,6 +478,13 @@ in base al valore del suo ``id``::
         // ... fare qualcosa, come passare l'oggetto $product a un template
     }
 
+.. tip::
+
+    Si può ottenere lo stesso risultato senza scrivere codice usando
+    la scorciatoia ``@ParamConverter``. Vedere la
+    :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/converters>`
+    per maggiori dettagli.
+
 Quando si cerca un particolare tipo di oggetto, si usa sempre quello che è noto
 come il suo "repository". Si può pensare a un repository come a una classe PHP il cui
 unico compito è quello di aiutare nel recuperare entità di una certa classe. Si può
@@ -609,11 +617,11 @@ Si immagini di voler cercare dei prodotti, ma solo quelli che costino più di
 ``19.99``, ordinati dal più economico al più caro. Da dentro un controllore,
 fare come segue::
 
-    $em = $this->getDoctrine()->getEntityManager();
+    $em = $this->getDoctrine()->getManager();
     $query = $em->createQuery(
         'SELECT p FROM AcmeStoreBundle:Product p WHERE p.price > :price ORDER BY p.price ASC'
     )->setParameter('price', '19.99');
-    
+
     $products = $query->getResult();
 
 Se ci si trova a proprio agio con SQL, DQL dovrebbe sembrare molto naturale. La
@@ -637,7 +645,7 @@ oggetto, si può usare invece il metodo ``getSingleResult()``::
     
         $query = $em->createQuery('SELECT ...')
             ->setMaxResults(1);
-        
+
         try {
             $product = $query->getSingleResult();
         } catch (\Doctrine\Orm\NoResultException $e) {
@@ -655,7 +663,7 @@ documentazione ufficiale di Doctrine `Doctrine Query Language`_.
     Si prenda nota del metodo ``setParameter()``. Lavorando con Doctrine,
     è sempre una buona idea impostare ogni valore esterno come "segnaposto",
     come è stato fatto nella query precedente:
-    
+
     .. code-block:: text
 
         ... WHERE p.price > :price ...
@@ -691,7 +699,7 @@ la scrittura dei nomi dei metodi. Da dentro un controllore::
         ->setParameter('price', '19.99')
         ->orderBy('p.price', 'ASC')
         ->getQuery();
-    
+
     $products = $query->getResult();
 
 L'oggetto ``QueryBuilder`` contiene tutti i metodi necessari per costruire la
@@ -886,11 +894,10 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
         // src/Acme/StoreBundle/Entity/Product.php
 
         // ...
-
         class Product
         {
             // ...
-    
+
             /**
              * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
              * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
@@ -972,18 +979,18 @@ Vediamo ora il codice in azione. Immaginiamo di essere dentro un controllore::
         {
             $category = new Category();
             $category->setName('Prodotti principali');
-            
+
             $product = new Product();
             $product->setName('Pippo');
             $product->setPrice(19.99);
             // correlare questo prodotto alla categoria
             $product->setCategory($category);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->persist($product);
             $em->flush();
-            
+
             return new Response(
                 'Creati prodotto con id: '.$product->getId().' e categoria con id: '.$category->getId()
             );
@@ -1009,7 +1016,7 @@ alla sua ``Category`` correlata::
             ->find($id);
 
         $categoryName = $product->getCategory()->getName();
-        
+
         // ...
     }
 
@@ -1036,7 +1043,7 @@ Si può anche cercare nella direzione opposta::
             ->find($id);
 
         $products = $category->getProducts();
-    
+
         // ...
     }
 
@@ -1099,7 +1106,7 @@ il seguente metodo alla classe ``ProductRepository``::
                 JOIN p.category c
                 WHERE p.id = :id'
             )->setParameter('id', $id);
-        
+
         try {
             return $query->getSingleResult();
         } catch (\Doctrine\ORM\NoResultException $e) {
@@ -1117,7 +1124,7 @@ Ora si può usare questo metodo nel proprio controllore per cercare un oggetto
             ->findOneByIdJoinedToCategory($id);
 
         $category = $product->getCategory();
-    
+
         // ...
     }    
 
@@ -1366,9 +1373,9 @@ Alcuni task interessanti sono:
 * ``doctrine:ensure-production-settings`` - verifica se l'ambiente attuale
   sia configurato efficientemente per la produzione. Dovrebbe essere sempre
   eseguito nell'ambiente ``prod``:
-  
+
   .. code-block:: bash
-  
+
       $ php app/console doctrine:ensure-production-settings --env=prod
 
 * ``doctrine:mapping:import`` - consente a Doctrine l'introspezione di una base dati

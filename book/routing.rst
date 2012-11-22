@@ -88,7 +88,7 @@ pattern che punta a uno specifico metodo di una classe PHP::
         {
             // usare la variabile $slug per interrogare la base dati
             $blog = ...;
-            
+
             return $this->render('AcmeBlogBundle:Blog:show.html.twig', array(
                 'blog' => $blog,
             ));
@@ -414,6 +414,11 @@ corrispondenza, dando al parametro ``page`` il valore ``2``. Perfetto.
 +---------+------------+
 | /blog/2 | {page} = 2 |
 +---------+------------+
+
+.. tip::
+
+    Le rotte con parametri facoltativi alla fine non avranno corrispondenza da richieste
+    con barra finale (p.e. ``/blog/`` non corrisponderà, ``/blog`` invece sì).
 
 .. index::
    single: Rotte; Requisiti
@@ -822,7 +827,7 @@ Il controllore potrebbe essere simile a questo::
     namespace Acme\BlogBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-    
+
     class BlogController extends Controller
     {
         public function showAction($slug)
@@ -1174,7 +1179,7 @@ Possono anche essere generati URL assoluti.
 
     .. code-block:: html+jinja
 
-        <a href="{{ url('blog_show', { 'slug': 'my-blog-post' }) }}">
+        <a href="{{ url('blog_show', {'slug': 'my-blog-post'}) }}">
           Read this blog post.
         </a>
 

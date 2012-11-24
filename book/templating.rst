@@ -14,6 +14,12 @@ riusati per restituire del contenuto all'utente, popolare corpi di email e altro
 Si impareranno scorciatoie, modi intelligenti di estendere template e come riusare
 il codice di un template
 
+.. note::
+
+    La resa dei template è spiegata nel capitolo relativo al :ref:`controllore <controller-rendering-templates>`
+    del libro.
+
+
 .. index::
    single: Template; Cos'è un template?
 
@@ -90,7 +96,7 @@ renderla:
 
 .. code-block:: jinja
 
-    {{ title | upper }}
+    {{ title|upper }}
 
 Twig ha una lunga lista di `tag`_ e `filtri`_, disponibili in maniera
 predefinita. Si possono anche `aggiungere le proprie estensioni`_ a Twig, se necessario.
@@ -108,9 +114,9 @@ alternate ``odd`` e ``even``:
 .. code-block:: html+jinja
 
     {% for i in 0..10 %}
-      <div class="{{ cycle(['odd', 'even'], i) }}">
-        <!-- un po' di codice HTML -->
-      </div>
+        <div class="{{ cycle(['odd', 'even'], i) }}">
+          <!-- un po' di codice HTML -->
+        </div>
     {% endfor %}
 
 In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in PHP.
@@ -136,7 +142,7 @@ In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in 
     ``if``:
     
     .. code-block:: html+jinja
-    
+
         <ul>
             {% for user in users if user.active %}
                 <li>{{ user.username }}</li>
@@ -212,7 +218,7 @@ Primo, costruire un file per il layout di base:
             </body>
         </html>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
         <!DOCTYPE html>
@@ -269,7 +275,7 @@ Un template figlio potrebbe assomigliare a questo:
             {% endfor %}
         {% endblock %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/BlogBundle/Resources/views/Blog/index.html.php -->
         <?php $view->extend('::base.html.php') ?>
@@ -500,7 +506,7 @@ template. Primo, creare il template che occorrerà riusare.
         <h3 class="byline">by {{ article.authorName }}</h3>
 
         <p>
-          {{ article.body }}
+            {{ article.body }}
         </p>
 
     .. code-block:: html+php
@@ -510,7 +516,7 @@ template. Primo, creare il template che occorrerà riusare.
         <h3 class="byline">by <?php echo $article->getAuthorName() ?></h3>
 
         <p>
-          <?php echo $article->getBody() ?>
+            <?php echo $article->getBody() ?>
         </p>
 
 Includere questo template da un altro template è semplice:
@@ -591,9 +597,9 @@ Il template ``recentList`` è molto semplice:
 
         {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
         {% for article in articles %}
-          <a href="/article/{{ article.slug }}">
-              {{ article.title }}
-          </a>
+            <a href="/article/{{ article.slug }}">
+                {{ article.title }}
+            </a>
         {% endfor %}
 
     .. code-block:: html+php
@@ -780,9 +786,9 @@ articoli:
 
         {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
         {% for article in articles %}
-          <a href="{{ path('article_show', { 'slug': article.slug }) }}">
-              {{ article.title }}
-          </a>
+            <a href="{{ path('article_show', {'slug': article.slug}) }}">
+                {{ article.title }}
+            </a>
         {% endfor %}
 
     .. code-block:: html+php
@@ -905,10 +911,10 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
 
     {% block stylesheets %}
         {{ parent() }}
-        
+
         <link href="{{ asset('/css/contact.css') }}" type="text/css" rel="stylesheet" />
     {% endblock %}
-    
+
     {# ... #}
 
 Nel template figlio, basta sovrascrivere il blocco ``stylesheets`` e inserire
@@ -981,7 +987,7 @@ per esempio, si sta in realtà usando il servizio del motore dei template. Per e
 
     return $this->render('AcmeArticleBundle:Article:index.html.twig');
 
-equivale a:
+equivale a::
 
     $engine = $this->container->get('templating');
     $content = $engine->render('AcmeArticleBundle:Article:index.html.twig');
@@ -1015,7 +1021,7 @@ dell'applicazione:
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             ...,
-            'templating'      => array(
+            'templating' => array(
                 'engines' => array('twig'),
             ),
         ));
@@ -1128,32 +1134,32 @@ di cui abbiamo appena parlato:
   avrebbe un template di nome ``AcmeBlogBundle::layout.html.twig``, che contiene solo
   elementi specifici alla sezione blog;
 
-    .. code-block:: html+jinja
+  .. code-block:: html+jinja
 
-        {# src/Acme/BlogBundle/Resources/views/layout.html.twig #}
-        {% extends '::base.html.twig' %}
+      {# src/Acme/BlogBundle/Resources/views/layout.html.twig #}
+      {% extends '::base.html.twig' %}
 
-        {% block body %}
-            <h1>Applicazione blog</h1>
+      {% block body %}
+          <h1>Applicazione blog</h1>
 
-            {% block content %}{% endblock %}
-        {% endblock %}
+          {% block content %}{% endblock %}
+      {% endblock %}
 
 * Creare i singoli template per ogni pagina, facendo estendere il template della sezione
   appropriata. Per esempio, la pagina "index" avrebbe un nome come
   ``AcmeBlogBundle:Blog:index.html.twig`` e mostrerebbe la lista dei post del blog.
 
-    .. code-block:: html+jinja
+  .. code-block:: html+jinja
 
-        {# src/Acme/BlogBundle/Resources/views/Blog/index.html.twig #}
-        {% extends 'AcmeBlogBundle::layout.html.twig' %}
+      {# src/Acme/BlogBundle/Resources/views/Blog/index.html.twig #}
+      {% extends 'AcmeBlogBundle::layout.html.twig' %}
 
-        {% block content %}
-            {% for entry in blog_entries %}
-                <h2>{{ entry.title }}</h2>
-                <p>{{ entry.body }}</p>
-            {% endfor %}
-        {% endblock %}
+      {% block content %}
+          {% for entry in blog_entries %}
+              <h2>{{ entry.title }}</h2>
+              <p>{{ entry.body }}</p>
+          {% endfor %}
+      {% endblock %}
 
 Si noti che questo template estende il template di sezione (``AcmeBlogBundle::layout.html.twig``),
 che a sua volte estende il layout base dell'applicazione (``::base.html.twig``).

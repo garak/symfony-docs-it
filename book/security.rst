@@ -1596,6 +1596,8 @@ definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per
 ulteriori informazioni sulla configurazione di logout, vedere il
 :doc:`Riferimento della configurazione di sicurezza</reference/configuration/security>`.
 
+.. _book-security-template:
+
 Controllare l'accesso nei template
 ----------------------------------
 
@@ -1627,17 +1629,17 @@ Verifica dell'accesso nei controllori
 -------------------------------------
 
 Quando si vuole verificare se l'utente corrente abbia un ruolo nel controllore, usare
-il metodo ``isGranted`` del contesto di sicurezza:
-
-.. code-block:: php
+il metodo :method:`Symfony\\Component\\Security\\Core\\SecurityContext::isGranted`
+del contesto di sicurezza::
 
     public function indexAction()
     {
         // mostrare contenuti diversi agli utenti admin
         if($this->get('security.context')->isGranted('ADMIN')) {
-            // caricare qui contenuti di amministrazione
+            // ... caricare qui contenuti di amministrazione
         }
-        // caricare qui altri contenuti normali 
+
+        // ... caricare qui altri contenuti normali 
     }
 
 .. note::
@@ -1811,7 +1813,7 @@ Saperne di più con il ricettario
 * :doc:`/cookbook/security/remember_me`
 
 .. _`componente della sicurezza`: https://github.com/symfony/Security
-.. _`JMSSecurityExtraBundle`: https://github.com/schmittjoh/JMSSecurityExtraBundle
+.. _`JMSSecurityExtraBundle`: http://jmsyst.com/bundles/JMSSecurityExtraBundle/1.2
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/en/class.serializable.php
 .. _`functions-online.com`: http://www.functions-online.com/sha1.html

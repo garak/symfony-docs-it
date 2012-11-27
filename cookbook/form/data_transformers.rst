@@ -37,7 +37,7 @@ della conversione da numero di issue a oggetto Issue e viceversa::
          * @var ObjectManager
          */
         private $om;
-    
+
         /**
          * @param ObjectManager $om
          */
@@ -45,7 +45,7 @@ della conversione da numero di issue a oggetto Issue e viceversa::
         {
             $this->om = $om;
         }
-    
+
         /**
          * Transforms an object (issue) to a string (number).
          *
@@ -57,10 +57,10 @@ della conversione da numero di issue a oggetto Issue e viceversa::
             if (null === $issue) {
                 return "";
             }
-    
+
             return $issue->getNumber();
         }
-    
+
         /**
          * Transforms a string (number) to an object (issue).
          *
@@ -113,7 +113,7 @@ un form.
             public function buildForm(FormBuilderInterface $builder, array $options)
             {
                 // ...
-            
+
                 // si assume che il gestore di entità sia stato passato come opzione
                 $entityManager = $options['em'];
                 $transformer = new IssueToNumberTransformer($entityManager);
@@ -124,7 +124,24 @@ un form.
                         ->addModelTransformer($transformer)
                 );
             }
-            
+
+            public function setDefaultOptions(OptionsResolverInterface $resolver)
+            {
+                $resolver->setDefaults(array(
+                    'data_class' => 'Acme\TaskBundle\Entity\Task',
+                ));
+
+                $resolver->setRequired(array(
+                    'em',
+                ));
+
+                $resolver->setAllowedTypes(array(
+                    'em' => 'Doctrine\Common\Persistence\ObjectManager',
+                ));
+
+                // ...
+            }
+
             // ...
         }
 
@@ -233,7 +250,7 @@ Prima di tutto, creare una classe::
     use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
     use Doctrine\Common\Persistence\ObjectManager;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-    
+
     class IssueSelectorType extends AbstractType
     {
         /**
@@ -288,7 +305,7 @@ riconosciuto come tipo di campo personalizzato:
                     - { name: form.type, alias: issue_selector }
 
     .. code-block:: xml
-    
+
         <service id="acme_demo.type.issue_selector" class="Acme\TaskBundle\Form\Type\IssueSelectorType">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <tag name="form.type" alias="issue_selector" />
@@ -297,12 +314,12 @@ riconosciuto come tipo di campo personalizzato:
 Ora, ogni volta che serve il tipo ``issue_selector``,
 è molto facile::
 
-    // src/Acme/TaskBundle/Form/Type/TaskType.php   
+    // src/Acme/TaskBundle/Form/Type/TaskType.php
     namespace Acme\TaskBundle\Form\Type;
-    
+
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
-    
+
     class TaskType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
@@ -312,7 +329,7 @@ Ora, ogni volta che serve il tipo ``issue_selector``,
                 ->add('dueDate', null, array('widget' => 'single_text'));
                 ->add('issue', 'issue_selector');
         }
-    
+
         public function getName()
         {
             return 'task';

@@ -138,6 +138,18 @@ I colori di sfondo e di testo disponibili sono: ``black``, ``red``, ``green``,
 
 Le opzioni disponibili sono: ``bold``, ``underscore``, ``blink``, ``reverse`` e ``conceal``.
 
+Si possono anche impostare colori e opzioni dentro il tag::
+
+    // testo verde
+    $output->writeln('<fg=green>pippo</fg=green>');
+
+    // testo nero su sfondo ciano
+    $output->writeln('<fg=black;bg=cyan>pippo</fg=black;bg=cyan>');
+
+    // testo grassetto su sfondo giallo
+    $output->writeln('<bg=yellow;options=bold>pippo</bg=yellow;options=bold>');
+
+
 Utilizzo degli argomenti nei comandi
 ------------------------------------
 

@@ -16,6 +16,8 @@ Documenti di riferimento
     forms/types
     forms/twig_reference
 
+    twig_reference
+
     constraints
     dic_tags
     requirements

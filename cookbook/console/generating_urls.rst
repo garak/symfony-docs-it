@@ -19,6 +19,9 @@ o per comando.
 Configurare il contesto della richiesta globalmente
 ---------------------------------------------------
 
+.. versionadded:: 2.1
+    I parametri ``host`` e ``scheme`` sono disponibili da Symfony 2.1
+
 Per configurare il contesto della richiesta, usato dal generatore di URL, si possono
 ridefinire i parametri che usa come valori predefiniti, per cambiare l'host
 (localhost) e lo schema (http) predefiniti. Si noti che ciò non impatta sugli URL

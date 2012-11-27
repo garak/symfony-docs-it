@@ -67,6 +67,12 @@ Distribution:
     Per una versione esatta, sostituire `2.1.x-dev` con l'ultima versione di Symfony
     (p.e. 2.1.2). Per detaggli, si veda la `pagina di installazione di Symfony`_
 
+.. tip::
+
+    Per scaricare i file dei venditori più veclocemente e senza cartelle non necessarie
+    (p.e. "Tests"), aggiungere l'opzione ``--prefer-dist`` alla fine di ogni comando di
+    Composer.
+
 Questo comando può richiedere diversti minuti, mentre Composer scarica la Standard
 Distribution e tutte le librerie dei venditori necessarie. Quando avrà finito,
 si dovrebbe avere una cartella simile a questa:

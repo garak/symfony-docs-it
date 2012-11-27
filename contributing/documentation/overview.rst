@@ -84,10 +84,12 @@ Standard
 Per aiutare il più possibile il lettore e per creare esempi di codice che sembrino
 familiari, seguire queste regole:
 
-* Il code segue gli :doc:`standard di codice di Symfony</contributing/code/standards>`
+* Il codice segue gli :doc:`standard di codice di Symfony</contributing/code/standards>`
   e gli `standard di codice di Twig`_;
 * Ogni riga dovrebbe interrompersi dopo che la prima parola attraversa la
   72esima colonna (quindi con la maggior parte delle righe tra 72 e 78 caratteri);
+* Per evitare le barre orizzontali sui blocchi di codici, si preferisce interrompere una riga
+  se va oltre l'85esimo carattere;
 * Quando si omettono righe di codice, porre ``...`` in un commento nel punto
   di omissione. I commenti sono: ``// ...`` (php), ``# ...`` (yaml/bash), ``{# ... #}``
   (twig), ``<!-- ... -->`` (xml/html), ``; ...`` (ini), ``...`` (testo);
@@ -102,6 +104,7 @@ familiari, seguire queste regole:
 * Inserire il simbolo ``$`` all'inizio di ogni riga di bash;
 * Preferire la scorciatoia ``::`` a ``.. code-block:: php`` per iniziare un codice di
   blocco PHP.
+* Meglio usare la seconda persona plurale rispetto alla prima.
 
 Un esempio::
 

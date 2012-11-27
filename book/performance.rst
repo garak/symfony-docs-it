@@ -54,11 +54,24 @@ Sfortunatamente, questo ha un costo, perché il caricatore itera tutti gli spazi
 configurati per trovare un particolare file, richiamando ``file_exists`` finché
 non trova il file cercato.
 
-La soluzione più semplice è mettere in cache la posizione di ogni classe, dopo che
-è stata trovata per la prima volta. Symfony dispone di una classe di caricamento,
-:class:`Symfony\\Component\\ClassLoader\\ApcClassLoader`, che estende fa esattamente questo. Per poterla usare,
-basta adattare il front controller. Se si usa la Standard Distribution, il codice dovrebbe essere
-già presente, ma commentato::
+La soluzione più semplice è dire a Composer di costruire una "mappa di classi" (cioè un
+grosso array con le posizioni di tutte le classi). Lo si può fare da
+linea di comando e potrebbe diventare parte del proprio processo di deploy::
+
+.. code-block:: bash
+
+    php composer.phar dump-autoload --optimize
+
+Internamente, costruire un grosso array di mappature delle classi in ``vendor/composer/autoload_namespaces.php``.
+
+Cache dell'autoloader con APC
+-----------------------------
+
+Un'altra soluzione è mettere in cache la posizione di ogni classe, dopo che è stata trovata
+per la prima volta. Symfony disponse di una classe, :class:`Symfony\\Component\\ClassLoader\\ApcClassLoader`,
+che si occupa proprio di questo. Per usarla, basta adattare il file del front controller.
+Se si usa la Standard Distribution, il codice è già disponibile nel file, ma
+commentato::
 
     // app.php
     // ...

@@ -42,6 +42,7 @@ Definire l'estensione del tipo form
 Il primo passo consiste nel creare la classe dell'estensione. Chiamamola
 ``ImageTypeExtension``. Per convenzione, le estensioni dei form di solito si
 pongono nella cartella ``Form\Extension`` di un bundle.
+
 Quando si crea un'estensione, si può implementare l'interfaccia
 :class:`Symfony\\Component\\Form\\FormTypeExtensionInterface`
 o estendere la classe :class:`Symfony\\Component\\Form\\AbstractTypeExtension`.
@@ -103,20 +104,20 @@ serve è dichiararla come servizio, usando il tag
 
         services:
             acme_demo_bundle.image_type_extension:
-                class: Acme\DemoBundle\Form\Type\ImageTypeExtension
+                class: Acme\DemoBundle\Form\Extension\ImageTypeExtension
                 tags:
                     - { name: form.type_extension, alias: file }
 
     .. code-block:: xml
 
-        <service id="acme_demo_bundle.image_type_extension" class="Acme\DemoBundle\Form\Type\ImageTypeExtension">
+        <service id="acme_demo_bundle.image_type_extension" class="Acme\DemoBundle\Form\Extension\ImageTypeExtension">
             <tag name="form.type_extension" alias="file" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('acme_demo_bundle.image_type_extension', 'Acme\DemoBundle\Form\Type\ImageTypeExtension')
+            ->register('acme_demo_bundle.image_type_extension', 'Acme\DemoBundle\Form\Extension\ImageTypeExtension')
             ->addTag('form.type_extension', array('alias' => 'file'));
 
 La chiave ``alias`` del tag è il tipo di campo a cui l'estensione va applicata.
@@ -185,7 +186,6 @@ nella vista::
     namespace Acme\DemoBundle\Form\Extension;
 
     use Symfony\Component\Form\AbstractTypeExtension;
-    use Symfony\Component\Form\FormBuilder;
     use Symfony\Component\Form\FormView;
     use Symfony\Component\Form\FormInterface;
     use Symfony\Component\Form\Util\PropertyPath;
@@ -218,14 +218,20 @@ nella vista::
          *
          * @param \Symfony\Component\Form\FormView $view
          * @param \Symfony\Component\Form\FormInterface $form
+         * @param array $options
          */
-        public function buildView(FormView $view, FormInterface $form)
+        public function buildView(FormView $view, FormInterface $form, array $options)
         {
             if (array_key_exists('image_path', $options)) {
                 $parentData = $form->getParent()->getData();
 
-                $propertyPath = new PropertyPath($options['image_path']);
-                $imageUrl = $propertyPath->getValue($parentData);
+                if (null !== $parentData) {
+                    $propertyPath = new PropertyPath($options['image_path']);
+                    $imageUrl = $propertyPath->getValue($parentData);
+                } else {
+                     $imageUrl = null;
+                }
+
                 // imposta una variabile "image_url", che sarà disponibile quando si rende questo campo
                 $view->set('image_url', $imageUrl);
             }

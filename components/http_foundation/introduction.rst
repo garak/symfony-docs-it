@@ -390,6 +390,49 @@ astrae l'ingrato compito dietro una semplice API::
 
     $response->headers->set('Content-Disposition', $d);
 
+.. _component-http-foundation-json-response:
+
+Creare una rispota JSON
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Si può creare qualsiasi tipo di rispsota tramite la classe
+:class:`Symfony\\Component\\HttpFoundation\\Response`, impostando il contenuto
+e gli header corretti. Una risposta JSON può essere come questa::
+
+    use Symfony\Component\HttpFoundation\Response;
+    
+    $response = new Response();
+    $response->setContent(json_encode(array(
+        'data' => 123
+    )));
+    $response->headers->set('Content-Type', 'application/json');
+
+.. versionadded:: 2.1
+    La classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse` è stata aggiunta in Symfony 2.1.
+
+C'è anche un'utile classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
+che può rendere le cose ancora più semplici::
+
+    use Symfony\Component\HttpFoundation\JsonResponse;
+
+    $response = new JsonResponse();
+    $response->setContent(array(
+        'data' => 123
+    ));
+
+Il risultato è una codifica dell'array di dati in JSON, con header ``Content-Type`` impostato
+a ``application/json``. Se si usa JSONP, si può impostare la funziona di callback
+a cui i dati vanno passati::
+
+    $response->setCallback('handleResponse');
+
+In tal caso, l'header ``Content-Type`` sarà ``text/javascript`` e il
+contenuto della risposta sarà come questo:
+
+.. code-block:: javascript
+
+    handleResponse({'data': 123});
+
 Sessioni
 --------
 

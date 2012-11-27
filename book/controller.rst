@@ -441,7 +441,7 @@ e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'ogget
         ));
 
         // ... modificare ulteriormente la risposta o restituirla direttamente
-        
+
         return $response;
     }
 
@@ -515,7 +515,7 @@ capitolo :doc:`Template </book/templating>`.
 
     Il metodo ``renderView`` è una scorciatoia per utilizzare direttamente il servizio
     ``templating``. Il servizio ``templating`` può anche essere utilizzato in modo diretto::
-    
+
         $templating = $this->get('templating');
         $content = $templating->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
 
@@ -704,6 +704,11 @@ e il contenuto che viene inviato al client::
     utili metodi per leggere e modificare gli header ``Response``. I
     nomi degli header sono normalizzati in modo che l'utilizzo di ``Content-Type`` sia equivalente
     a ``content-type`` o anche a ``content_type``.
+
+.. tip::
+
+    C'è anche una classe speciale :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
+    che aiuta a restituire risposte JSON. Vedere :ref:`component-http-foundation-json-response`.
 
 .. index::
    single: Controllore; Oggetto Request 

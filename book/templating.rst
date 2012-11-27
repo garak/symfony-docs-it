@@ -701,6 +701,8 @@ essere impostato in modo globale nella configurazione dell'applicazione:
 .. index::
    single: Template; Collegare le pagine
 
+.. _book-templating-pages:
+
 Collegare le pagine
 ~~~~~~~~~~~~~~~~~~~
 
@@ -817,6 +819,8 @@ articoli:
 
 .. index::
    single: Template; Collegare le risorse
+
+.. _book-templating-assets:
 
 Collegare le risorse
 ~~~~~~~~~~~~~~~~~~~~

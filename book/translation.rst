@@ -720,6 +720,8 @@ Traduzioni nei template
 La maggior parte delle volte, la traduzione avviene nei template. Symfony2 fornisce un supporto
 nativo sia per i template Twig che per i template PHP.
 
+.. _book-translation-twig:
+
 Template Twig
 ~~~~~~~~~~~~~
 

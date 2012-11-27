@@ -9,6 +9,8 @@ per rendere i form. Ci sono diverse funzioni disponibili e ognuna è responsabil
 della resa di diverse parti di un form (p.e. label, errori, widget,
 eccetera).
 
+.. _reference-forms-twig-label:
+
 form_label(form.name, label, variables)
 ---------------------------------------
 
@@ -26,6 +28,8 @@ specifica che si vuole mostrare, come secondo parametro.
 Vedere ":ref:`twig-reference-form-variables`" per saperne di più sul parametro
 ``variables``.
 
+.. _reference-forms-twig-errors:
+
 form_errors(form.name)
 ----------------------
 
@@ -37,6 +41,8 @@ Renders any errors for the given field.
 
     {# rende tutti gli errori "globali" #}
     {{ form_errors(form) }}
+
+.. _reference-forms-twig-widget:
 
 form_widget(form.name, variables)
 ---------------------------------
@@ -59,6 +65,8 @@ rendendo molti campi contemporaneamente (p.e. ``form_widget(form)``).
 Vedere ":ref:`twig-reference-form-variables`" per saperne di più sul parametro
 ``variables``.
 
+.. _reference-forms-twig-row:
+
 form_row(form.name, variables)
 ------------------------------
 
@@ -77,6 +85,8 @@ precedente.
 Vedere ":ref:`twig-reference-form-variables`" per saperne di più sul parametro
 ``variables``.
 
+.. _reference-forms-twig-rest:
+
 form_rest(form, variables)
 --------------------------
 
@@ -88,6 +98,8 @@ dimenticati.
 .. code-block:: jinja
 
     {{ form_rest(form) }}
+
+.. _reference-forms-twig-enctype:
 
 form_enctype(form)
 ------------------
@@ -168,5 +180,6 @@ quali opzioni sono disponibili.
 
         {# **non** funziona, le variabili non sono ricorsive #}
         {{ form_widget(form, { 'attr': {'class': 'pippo'} }) }}
+
 
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

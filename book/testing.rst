@@ -227,17 +227,18 @@ XML/HTML::
 
         request(
             $method,
-            $uri, 
-            array $parameters = array(), 
-            array $files = array(), 
-            array $server = array(), 
-            $content = null, 
+            $uri,
+            array $parameters = array(),
+            array $files = array(),
+            array $server = array(),
+            $content = null,
             $changeHistory = true
         )
 
     L'array ``server`` contiene i valori grezzi che ci si aspetta di trovare normalmente
-    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP
-    `Content-Type` e `Referer`, passare i seguenti::
+    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP `Content-Type`,
+    `Referer` e `X-Requested-With', passare i seguenti (ricordare il
+    prefisso `HTTP_` per gli header non standard)::
 
         $client->request(
             'GET',
@@ -245,8 +246,9 @@ XML/HTML::
             array(),
             array(),
             array(
-                'CONTENT_TYPE' => 'application/json',
-                'HTTP_REFERER' => '/foo/bar',
+                'CONTENT_TYPE'          => 'application/json',
+                'HTTP_REFERER'          => '/foo/bar',
+                'HTTP_X-Requested-With' => 'XMLHttpRequest',
             )
         );
 

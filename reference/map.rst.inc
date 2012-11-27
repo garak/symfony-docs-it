@@ -20,6 +20,8 @@
   * :doc:`Riferimenti dei vincoli di validazione </reference/constraints>`
   * :doc:`Riferimenti delle funzioni dei template di Twig </reference/forms/twig_reference>`
 
+* :doc:`Riferimenti sulle estensioni Twig (form, filtri, tag, ecc.)</reference/twig_reference>`
+
 * **Altre aree**
 
   * :doc:`/reference/dic_tags`

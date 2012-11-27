@@ -54,7 +54,7 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
      * @ORM\Table(name="acme_users")
      * @ORM\Entity(repositoryClass="Acme\UserBundle\Entity\UserRepository")
      */
-    class User implements UserInterface
+    class User implements UserInterface, \Serializable
     {
         /**
          * @ORM\Column(type="integer")
@@ -132,6 +132,26 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         public function eraseCredentials()
         {
         }
+
+        /**
+         * @see \Serializable::serialize()
+         */
+        public function serialize()
+        {
+            return serialize(array(
+                $this->id,
+            ));
+        }
+
+        /**
+         * @see \Serializable::unserialize()
+         */
+        public function unserialize($serialized)
+        {
+            list (
+                $this->id,
+            ) = unserialize($serialized);
+        }
     }
 
 Per poter usare un'istanza della classe ``AcmeUserBundle:User`` nel livello della sicurezza
@@ -167,6 +187,15 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
     {
         return $this->username === $user->getUsername();
     }
+
+.. note::
+
+    L'interfaccia :phpclass:`Serializable` e i suoi metodi ``serialize`` e ``unserialize``
+    sono stati aggiunti per consentire alla classe ``User`` di essere serializzata
+    nella sessione. Questo potrebbe essere necessario o meno, a seconda della propria configurazione,
+    ma probabilmente è una buona idea. Solo ``id`` ha bisogno di essere serializzato,
+    perché il metodo :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
+    ricarica l'utente a ogni richiesta, usando ``id``.
 
 Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL. Per dettagli sulla
 creazione delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-security-encoding-user-password`.
@@ -272,7 +301,7 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
 .. code-block:: php
 
     // src/Acme/UserBundle/Entity/User.php
-    namespace Acme\Bundle\UserBundle\Entity;
+    namespace Acme\UserBundle\Entity;
 
     // ...
     use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -424,12 +453,12 @@ Poiché un gruppo è anche un ruolo, il precedente metodo ``getRoles()`` ora res
 l'elenco dei gruppi correlati::
 
     // src/Acme/UserBundle/Entity/User.php
-    namespace Acme\Bundle\UserBundle\Entity;
+    namespace Acme\UserBundle\Entity;
 
     use Doctrine\Common\Collections\ArrayCollection;
     // ...
 
-    class User implements AdvancedUserInterface
+    class User implements AdvancedUserInterface, \Serializable
     {
         /**
          * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
@@ -448,6 +477,26 @@ l'elenco dei gruppi correlati::
         {
             return $this->groups->toArray();
         }
+
+        /**
+         * @see \Serializable::serialize()
+         */
+        public function serialize()
+        {
+            return serialize(array(
+                $this->id,
+            ));
+        }
+
+        /**
+         * @see \Serializable::unserialize()
+         */
+        public function unserialize($serialized)
+        {
+            list (
+                $this->id,
+            ) = unserialize($serialized);
+        }
     }
 
 La classe entità ``AcmeUserBundle:Group`` definisce tre campi di tabella (``id``,
@@ -458,7 +507,7 @@ importante da notare è che la classe entità ``AcmeUserBundle:Group`` implement
 un metodo ``getRole()``::
 
     // src/Acme/Bundle/UserBundle/Entity/Group.php
-    namespace Acme\Bundle\UserBundle\Entity;
+    namespace Acme\UserBundle\Entity;
 
     use Symfony\Component\Security\Core\Role\RoleInterface;
     use Doctrine\Common\Collections\ArrayCollection;
@@ -514,7 +563,7 @@ fare un join dei gruppi correlati nel metodo ``UserRepository::loadUserByUsernam
 In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una sola query::
 
     // src/Acme/UserBundle/Entity/UserRepository.php
-    namespace Acme\Bundle\UserBundle\Entity;
+    namespace Acme\UserBundle\Entity;
 
     // ...
 

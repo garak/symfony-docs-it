@@ -4,9 +4,10 @@ I componenti
 .. toctree::
     :hidden:
 
+    using_components
     class_loader
     config/index
-    console
+    console/index
     css_selector
     dom_crawler
     dependency_injection/index
@@ -15,7 +16,8 @@ I componenti
     http_foundation/index
     locale
     process
-    routing
+    routing/index
+    serializer
     templating
     yaml
 

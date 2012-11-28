@@ -20,7 +20,8 @@ verifica se disponi dei privilegi per eseguire una certa azione.
 .. image:: /images/book/security_authentication_authorization.png
    :align: center
 
-Il modo migliore per imparare è quello di vedere un esempio, vediamolo subito.
+Il modo migliore per imparare è quello di vedere un esempio, iniziamo proteggendo
+l'applicazione con l'autenticazione base HTTP.
 
 .. note::
 
@@ -1308,9 +1309,9 @@ un nuovo fornitore, che li unisca:
                 ),
                 'in_memory' => array(
                     'memory' => array(
-                        'users' => array(
-                            'foo' => array('password' => 'test'),
-                        ),
+                       'users' => array(
+                           'foo' => array('password' => 'test'),
+                       ),
                     ),
                 ),
                 'user_db' => array(
@@ -1387,7 +1388,7 @@ viene sempre utilizzato il primo fornitore:
                     # ...
                     provider: user_db
                     http_basic:
-                        realm: "Demo area sicura"
+                        realm: "Demo area protetta"
                         provider: in_memory
                     form_login: ~
 
@@ -1397,7 +1398,7 @@ viene sempre utilizzato il primo fornitore:
         <config>
             <firewall name="secured_area" pattern="^/" provider="user_db">
                 <!-- ... -->
-                <http-basic realm="Demo area sicura" provider="in_memory" />
+                <http-basic realm="Demo area protetta" provider="in_memory" />
                 <form-login />
             </firewall>
         </config>
@@ -1700,6 +1701,24 @@ Per tornare indietro all'utente originale, usare il nome utente speciale ``_exit
 .. code-block:: text
 
     http://example.com/indirizzo?_switch_user=_exit
+
+Mentre impersona, all'utente viene fornito un ruolo speciale, chiamato
+``ROLE_PREVIOUS_ADMIN``. In un template, per esempio, si può usare tale ruolo
+per mostrare un collegamento per tornare all'utente precedente:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+            <a href="{{ path('homepage', {_switch_user: '_exit'}) }}">Tornare all'utente precedente</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted('ROLE_PREVIOUS_ADMIN')): ?>
+            <a href="<?php echo $view['router']->generate('homepage', array('_switch_user' => '_exit') ?>">Tornare all'utente precedente</a>
+        <?php endif; ?>
 
 Naturalmente, questa funzionalità deve essere messa a disposizione di un piccolo gruppo di utenti.
 Per impostazione predefinita, l'accesso è limitato agli utenti che hanno il ruolo ``ROLE_ALLOWED_TO_SWITCH``.

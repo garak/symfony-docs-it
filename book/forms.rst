@@ -186,8 +186,12 @@ in un formato adatto a essere reso in un form HTML.
    protetta ``task`` attraverso i metodi ``getTask()`` e ``setTask()`` della
    classe ``Task``. A meno che una proprietà non sia privata, *deve* avere un metodo
    "getter" e uno "setter", in modo che il componente form possa ottenere e mettere dati nella
-   proprietà. Per una proprietà booleana, è possibile utilizzare un metodo "isser" (ad esempio
-   ``isPublished()``) invece di un getter ad esempio ``getPublished()``).
+   proprietà. Per una proprietà booleana, è possibile utilizzare un metodo "isser" o "hasser"
+   (per esempio ``isPublished()`` o ``hasReminder``) invece di un getter (per esempio
+   ``getPublished()`` o ``getReminder()``).
+
+   .. versionadded:: 2.1
+        Il supporto per i metodi "hasser" è stato aggiunto in Symfony 2.1.
 
 .. index::
   single: Form; Gestione dell'invio del form
@@ -236,7 +240,7 @@ dell'oggetto ``$task``. Tutto questo avviene attraverso il metodo ``bindRequest(
 
 .. note::
 
-    Appena viene chiamata ``bindRequest()``, i dati inviati vengono immediatamente
+    Appena viene chiamata ``bind()``, i dati inviati vengono immediatamente
     trasferiti all'oggetto sottostante. Questo avviene indipendentemente dal fatto che
     i dati sottostanti siano validi o meno.
     

@@ -777,6 +777,12 @@ una barra. Gli URL corrispondenti a questa rotta potrebbero essere del tipo:
     per ciascun valore di ``_format``. Il parametro ``_format`` è un modo molto potente
     per rendere lo stesso contenuto in formati diversi.
 
+.. note::
+
+    A volte si desidera che alcune parti delle rotte siano configurabili in modo globale.
+    Symfony2.1 fornisce un modo per poterlo fare, sfruttando i parametri del contenitore di
+    servizi. Si può approfondire in ":doc:`/cookbook/routing/service_container_parameters`.
+
 Parametri speciali per le rotte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1113,7 +1119,7 @@ In una delle prossime sezioni, si imparerà a generare URL dall'interno di un te
     
     .. code-block:: javascript
     
-        var url = Routing.generate('blog_show', { "slug": 'my-blog-post});
+        var url = Routing.generate('blog_show', {"slug": 'my-blog-post});
 
     Per ultetiori informazioni, vedere la documentazione del bundle.
 
@@ -1137,7 +1143,7 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     alle informazioni sul server fornite da PHP. Quando si generano URL assolute per
     script che devono essere eseguiti da riga di comando, sarà necessario impostare manualmente l'host
     desiderato sull'oggetto ``RequestContext``::
-    
+
         $router->getContext()->setHost('www.example.com');
 
 .. index::

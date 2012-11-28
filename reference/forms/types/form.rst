@@ -19,6 +19,8 @@ su tutti i campi:
 
 .. include:: /reference/forms/types/options/trim.rst.inc
 
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
 .. include:: /reference/forms/types/options/property_path.rst.inc
 
 .. include:: /reference/forms/types/options/attr.rst.inc

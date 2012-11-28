@@ -37,7 +37,7 @@ all'inizio della stringa:
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-
+        
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -70,7 +70,7 @@ personalizzato:
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-
+        
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -94,10 +94,10 @@ pattern
 **tipo**: ``stringa`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è l'espressione regolare a cui il valore inserito deve
-corrispondere. Per impostazione predefinita, il validatore fallisce se la stringa
-inserita *non* corrisponde a questa espressione regolare (tramite la funzione `preg_match`_
-di PHP). Se tuttavia `match`_ è ``false``, la validazione fallisce se la stringa inserita
-corrisponde a questo schema.
+corrispondere. Per impostazione predefinita, il validatore fallisce se la stringa inserita
+*non* corrisponde a questa espressione regolare (tramite la funzione :phpfunction:`preg_match` di PHP).
+Se tuttavia `match`_ è ``false``, la validazione fallisce se la stringa inserita
+*corrisponde* a questo schema.
 
 match
 ~~~~~
@@ -115,5 +115,3 @@ message
 **tipo**: ``stringa`` **predefinito**: ``This value is not valid``
 
 Messaggio mostrato se il validatore fallisce.
-
-.. _`preg_match`: http://php.net/manual/en/function.preg-match.php

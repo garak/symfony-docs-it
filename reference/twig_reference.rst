@@ -17,6 +17,9 @@ Ci sono anche alcuni tag nei bundle, non elencati qui.
 Funzioni
 --------
 
+.. versionadded:: 2.1
+    Le funzioni ``csrf_token``, ``logout_path`` e ``logout_url`` sono state aggiunte in Symfony2.1
+
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | Sintassi della funzione                            | Uso                                                                                        |
 +====================================================+============================================================================================+
@@ -28,29 +31,32 @@ Funzioni
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``form_enctype(form)``                             | Renderà l'attributo obbligatorio ``enctype="multipart/form-data"`` in un                   |
 |                                                    | form con almeno un campo di caricamento di file, maggiori informazioni in                  |
-|                                                    | :ref:`the Twig Form reference<reference-forms-twig-enctype>`.                              |
+|                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-enctype>`.                          |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``form_widget(form, variables = {})``              | Renderà un intero form o un widget specifico di un campo,                                  |
-|                                                    | maggiori informazioni in :ref:`the Twig Form reference<reference-forms-twig-widget>`.      |
+|                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-widget>`.  |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``form_errors(form)``                              | Renderà gli errori per un dato campo o gli errori "globali",                               |
-|                                                    | maggiori informazioni in :ref:`the Twig Form reference<reference-forms-twig-errors>`.      |
+|                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-errors>`.  |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``form_label(form, label = null, variables = {})`` | Renderà la label di un dato campo, maggiori informazioni in                                |
-|                                                    | :ref:`the Twig Form reference<reference-forms-twig-label>`.                                |
+|                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-label>`.                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``form_row(form, variables = {})``                 | Renderà la riga (label, errori e widget del campo) del dato campo,                         |
-|                                                    | maggiori informazioni in :ref:`the Twig Form reference<reference-forms-twig-row>`.         |
+|                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-row>`.     |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``form_rest(form, variables = {})``                | Renderà tutti i campi non ancora resi, maggiori informazioni in                            |
-|                                                    | :ref:`the Twig Form reference<reference-forms-twig-rest>`.                                 |
+|                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-rest>`.                             |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``_form_is_choice_group(label)``                   | Restituirà ``true`` se la label è un gruppo di scelta.                                     |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``_form_is_choice_selected(form, choice)``         | Restituirà ``true`` se la scelta data è selezionata.                                       |
+| ``csrf_token(intention)``                          | Renderà un token CSRF. Funzione da usare se si vuole protezione CSRF senza                 |
+|                                                    | creaew un form                                                                             |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``is_granted(role, object = null, field = null)``  | Restituirà ``true`` se l'utente attuale ha il ruolo richiesto, maggiori                    |
 |                                                    | informazioni in ":ref:`book-security-template`"                                            |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``logout_path(key)``                               | Genererà l'URL relativo per il logout del firewall dato                                    |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``logout_url(key)``                                | Equivalente a ``logout_path(...)``, ma genererà un URL assoluto                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``path(name, parameters = {})``                    | Restituisce l'URL relativo per la rotta data, maggiori informazioni in                     |
 |                                                    | ":ref:`book-templating-pages`".                                                            |
@@ -61,9 +67,15 @@ Funzioni
 Filtri
 ------
 
+.. versionadded:: 2.1
+    Il filtro ``humanize`` è stato aggiunto in Symfony2.1
+
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | Sintassi del filtro                                                             | Uso                                                               |
 +=================================================================================+===================================================================+
+| ``text|humanize``                                                               | Rende un nome tecnico leggibile umanamente (sostituendo i         |
+|                                                                                 | trattini bassi con spazi e mettendo la stringa in maiuscolo)      |
++---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``text|trans(arguments = {}, domain = 'messages', locale = null)``              | Tradurrà il testo nella lingua attuale, maggiori                  |
 |                                                                                 | informazioni in :ref:`book-translation-twig`.                     |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
@@ -114,6 +126,18 @@ Tag
 | ...                                               | informazioni in :ref:`book-translation-twig`                      |
 | ``{% endtranschoice %}``                          |                                                                   |
 +---------------------------------------------------+-------------------------------------------------------------------+
+
+Test
+----
+
+.. versionadded:: 2.1
+    Il test ``selectedchoice`` è stato aggiunto in Symfony2.1
+
++---------------------------------------------------+------------------------------------------------------------------------------+
+| Sintassi del test                                 | Uso                                                                          |
++===================================================+==============================================================================+
+| ``selectedchoice(choice, selectedValue)``         | Restituirà ``true`` se la scelta è selezionata per il vaore dato             |
++---------------------------------------------------+------------------------------------------------------------------------------+
 
 Variabili globali
 -----------------

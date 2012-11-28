@@ -553,8 +553,7 @@ applicazione restituirebbe. Un ``ETag`` è come un'impronta digitale ed è usato
 confrontare rapidamente se due diverse versioni di una risorsa siano equivalenti. Come le
 impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazioni della stessa risorsa.
 
-Vediamo una semplice implementazione, che genera l'ETag come un md5 del
-contenuto::
+Vediamo una semplice implementazione, che genera l'ETag come un md5 del contenuto::
 
     public function indexAction()
     {
@@ -674,7 +673,7 @@ uno schema semplice ed efficiente::
         } else {
             // qui fare qualcosa, come recuperare altri dati
             $comments = ...;
-            
+
             // o rendere un template con la $response già iniziata
             return $this->render(
                 'MyBundle:MyController:article.html.twig',

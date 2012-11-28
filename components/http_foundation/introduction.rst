@@ -38,7 +38,14 @@ con
 che è quasi equivalente al più verboso, ma anche più flessibile,
 :method:`Symfony\\Component\\HttpFoundation\\Request::__construct`::
 
-    $request = new Request($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
+    $request = new Request(
+        $_GET,
+        $_POST,
+        array(),
+        $_COOKIE,
+        $_FILES,
+        $_SERVER
+    );
 
 Accedere ai dati della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -184,7 +191,11 @@ Simulare una richiesta
 Invece di creare una richiesta basata sulle variabili di PHP, si può anche simulare
 una richiesta::
 
-    $request = Request::create('/hello-world', 'GET', array('name' => 'Fabien'));
+    $request = Request::create(
+        '/hello-world',
+        'GET',
+        array('name' => 'Fabien')
+    );
 
 Il metodo :method:`Symfony\\Component\\HttpFoundation\\Request::create`
 crea una richiesta in base a path info, un metodo e alcuni parametri (i parametri
@@ -208,11 +219,11 @@ Accedere alla sessione
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Se si ha una sessione allegata alla richiesta, vi si può accedere tramite il metodo
-:method:`Symfony\\Component\\HttpFoundation\\Request::getSession`. Il metodo
+:method:`Symfony\\Component\\HttpFoundation\\Request::getSession`. Il
+metodo
 :method:`Symfony\\Component\\HttpFoundation\\Request::hasPreviousSession`
 dice se la richiesta contiene una sessione, che sia stata fatta partire in una delle
-richieste
-precedenti.
+richieste precedenti.
 
 Accedere ai dati degli header `Accept-*`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -245,7 +256,11 @@ e un array di header HTTP::
 
     use Symfony\Component\HttpFoundation\Response;
 
-    $response = new Response('Contenuto', 200, array('content-type' => 'text/html'));
+    $response = new Response(
+        'Contenuto',
+        200,
+        array('content-type' => 'text/html')
+    );
 
 Queste informazioni possono anche essere manipolate dopo la creazione di Response::
 
@@ -400,7 +415,7 @@ Si può creare qualsiasi tipo di rispsota tramite la classe
 e gli header corretti. Una risposta JSON può essere come questa::
 
     use Symfony\Component\HttpFoundation\Response;
-    
+
     $response = new Response();
     $response->setContent(json_encode(array(
         'data' => 123

@@ -504,7 +504,7 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
   ``Request`` e ``Response``, insieme ad altre  classi per gestire sessioni
   e caricamenti di file;
 
-* :doc:`Routing</components/routing>` - Sistema di rotte potente e veloce, che
+* :doc:`Routing</components/routing/introduction>` - Sistema di rotte potente e veloce, che
   consente di mappare uno specifico  URI (p.e. ``/contact``) ad alcune informazioni
   su come tale richiesta andrebbe gestita  (p.e. eseguendo il metodo
   ``contactAction()``);

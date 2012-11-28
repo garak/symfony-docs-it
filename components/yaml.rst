@@ -27,8 +27,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Yaml);
-* Installarlo via PEAR (`pear.symfony.com/Yaml`);
-* Installarlo via Composer (`symfony/yaml` su Packagist).
+* :doc:`Installarlo via Composer</components/using_components>` (``symfony/yaml`` su `Packagist`_).
 
 Perché?
 -------
@@ -123,7 +122,7 @@ Quando si carica un file YAML, a volte è meglio usare il metodo involucro
 
     use Symfony\Component\Yaml\Yaml;
 
-    $loader = Yaml::parse('/percorso/del/file.yml');
+    $yaml = Yaml::parse('/percorso/del/file.yml');
 
 Il metodo statico :method:`Symfony\\Component\\Yaml\\Yaml::parse` prende una stringa YAML
 o un file contenente YAML. Internamente, richiama il metodo
@@ -154,7 +153,10 @@ corrispondente rappresentazione YAML:
 
     use Symfony\Component\Yaml\Dumper;
 
-    $array = array('foo' => 'bar', 'bar' => array('foo' => 'bar', 'bar' => 'baz'));
+    $array = array(
+        'foo' => 'bar',
+        'bar' => array('foo' => 'bar', 'bar' => 'baz')
+    );
 
     $dumper = new Dumper();
 
@@ -236,11 +238,11 @@ Stringhe
 
 .. code-block:: yaml
 
-    Una stringain YAML
+    Una stringa in YAML
 
 .. code-block:: yaml
 
-    'Una string in YAML tra apici singoli'
+    'Una stringa in YAML tra apici singoli'
 
 .. tip::
 
@@ -252,7 +254,7 @@ Stringhe
 
 .. code-block:: yaml
 
-    "Una string in YAML tra apici doppi\n"
+    "Una stringa in YAML tra apici doppi\n"
 
 Gli apici sono utili quando una stringa inizia o finisce con uno o più spazi
 significativi.
@@ -480,3 +482,4 @@ Si possono aggiungere commenti in YAML, usando come prefisso un cancelletto (``#
     indentazione in base al livello di annidamento di un insieme.
 
 .. _YAML: http://yaml.org/
+.. _Packagist: https://packagist.org/packages/symfony/yaml

@@ -189,7 +189,8 @@ non supporta i collegamenti simbolici, c'è un terzo parametro booleano::
 
     // crea un collegamento simbolico
     $fs->symlink('/percorso/della/sorgente', '/percorso/della/destinazione');
-    // duplica la cartella sorgente, se il filesystem non supporta i collegamenti simbolici
+    // duplica la cartella sorgente, se il filesystem
+    // non supporta i collegamenti simbolici
     $fs->symlink('/percorso/della/sorgente', '/percorso/della/destinazione', true);
 
 makePathRelative
@@ -198,7 +199,10 @@ makePathRelative
 Restituisce il percorso relativo di una cartella, data un'altra::
 
     // restituisce '../'
-    $fs->makePathRelative('/var/lib/symfony/src/Symfony/', '/var/lib/symfony/src/Symfony/Component');
+    $fs->makePathRelative(
+        '/var/lib/symfony/src/Symfony/',
+        '/var/lib/symfony/src/Symfony/Component'
+    );
     // restituisce 'videos'
     $fs->makePathRelative('/tmp', '/tmp/videos');
 

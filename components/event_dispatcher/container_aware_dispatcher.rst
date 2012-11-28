@@ -62,7 +62,10 @@ dove il primo parametro è l'ID del servizio sottoscrittore e il secondo
 parametro è il nome della classe del servizio (che deve implementare
 :class:`Symfony\\Component\\EventDispatcher\\EventSubscriberInterface`), come segue::
 
-    $dispatcher->addSubscriberService('kernel.store_subscriber', 'StoreSubscriber');
+    $dispatcher->addSubscriberService(
+        'kernel.store_subscriber',
+        'StoreSubscriber'
+    );
 
 ``EventSubscriberInterface`` sarà esattamente come ci si può aspettare::
 

@@ -42,7 +42,9 @@ Quando si usa il componente ClassLoader, il codice seguente basta a fornire l'es
     if (!function_exists('intl_get_error_code')) {
         require __DIR__.'/percorso/src/Symfony/Component/Locale/Resources/stubs/functions.php';
 
-        $loader->registerPrefixFallbacks(array(__DIR__.'/percorso/src/Symfony/Component/Locale/Resources/stubs'));
+        $loader->registerPrefixFallbacks(
+            array(__DIR__.'/percorso/src/Symfony/Component/Locale/Resources/stubs')
+        );
     }
 
 La classe :class:`Symfony\\Component\\Locale\\Locale` arricchisce la classe nativa :phpclass:`Locale` con caratteristiche aggiuntive:

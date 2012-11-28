@@ -22,8 +22,6 @@ risposta HTTP.
 Symfony2 segue questa filosofia e fornisce strumenti e convenzioni per mantenere la propria
 applicazione organizzata, man mano che cresce in utenti e in complessità.
 
-Sembra abbastanza semplice? Approfondiamo!
-
 .. index::
    single: Creazione di pagine; Esempio
 
@@ -258,7 +256,7 @@ applicazione dovrebbe salutare:
     
     Se si ottiene un errore, è probabilmente perché occorre pulire la cache,
     eseguendo:
-    
+
     .. code-block:: bash
 
         $ php app/console cache:clear --env=prod --no-debug
@@ -998,7 +996,7 @@ della sua architettura e la potenza che dà nello sviluppo rapido di
 applicazioni.
 
 .. _`Twig`: http://twig.sensiolabs.org
-.. _`bundle di terze parti`: http://symfony2bundles.org/
+.. _`bundle di terze parti`: http://knpbundles.com
 .. _`Symfony Standard Edition`: http://symfony.com/download
 .. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/2.0/mod/mod_dir.html
 .. _`documentazione su HttpCoreModule di Nginx`: http://wiki.nginx.org/HttpCoreModule#location

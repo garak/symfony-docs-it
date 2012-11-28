@@ -305,7 +305,10 @@ Esempi di impostazioni di flash multipli::
     $session->start();
 
     // aggiunge i messaggi flash
-    $session->getFlashBag()->add('warning', 'Il file di config è scrivibile, dovrebbe essere in sola lettura');
+    $session->getFlashBag()->add(
+        'warning',
+        'Il file di config è scrivibile, dovrebbe essere in sola lettura'
+    );
     $session->getFlashBag()->add('error', 'Aggiornamento del nome fallito');
     $session->getFlashBag()->add('error', 'Un altro errore');
 

@@ -121,7 +121,10 @@ Accedere al valore dell'attributo del primo nodo della selezione attuale::
 
 Estrarre l'attributo e/o il valore di un nodo da una lista di nodi::
 
-    $attributes = $crawler->filterXpath('//body/p')->extract(array('_text', 'class'));
+    $attributes = $crawler
+        ->filterXpath('//body/p')
+        ->extract(array('_text', 'class'))
+    ;
 
 .. note::
 
@@ -242,7 +245,8 @@ dell'azione seguito da una stringa di tutti i valori del form.
     // restituisce un array di valori in un array "semplice", come in precedenza
     $values = $form->getValues();
 
-    // restituisce i valori come li vedrebbe PHP con "registrazione" come array
+    // restituisce i valori come li vedrebbe PHP
+    // con "registrazione" come array
     $values = $form->getPhpValues();
 
 Per lavorare con i campi multi-dimensionali::
@@ -318,5 +322,5 @@ direttamente::
     // invia il form
     $crawler = $client->submit($form);
 
-.. _`Goutte`: https://github.com/fabpot/goutte
+.. _`Goutte`:  https://github.com/fabpot/goutte
 .. _Packagist: https://packagist.org/packages/symfony/dom-crawler

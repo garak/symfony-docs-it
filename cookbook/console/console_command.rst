@@ -60,7 +60,27 @@ Ora il comando sarà automaticamente disponibile:
 
 .. code-block:: bash
 
-    app/console demo:greet Fabien
+    $ app/console demo:greet Fabien
+
+Getting Services from the Service Container
+-------------------------------------------
+
+Usando :class:`Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand`
+come classe base per il comando (al posto della più basica
+:class:`Symfony\\Component\\Console\\Command\\Command`), si ha accesso al contenitore
+di servizi. In altre parole, si ha accesso a qualsiasi servizio configurato.
+Per esempio, si può facilmente estendere il task per essere traducibile::
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $name = $input->getArgument('name');
+        $translator = $this->getContainer()->get('translator');
+        if ($name) {
+            $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
+        } else {
+            $output->writeln($translator->trans('Hello!'));
+        }
+    }
 
 Testare i comandi
 -----------------
@@ -90,22 +110,31 @@ al posto di :class:`Symfony\\Component\\Console\\Application`::
         }
     }
 
-Ottenere servizi dal contenitore di servizi
--------------------------------------------
+Per poter usare il contenitore in modo completo per i test della console,
+si può estendere il test da
+:class:`Symfony\Bundle\FrameworkBundle\Test\WebTestCase`::
 
-Usando :class:`Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand` 
-come classe base per il comando (al posto della più basica
-:class:`Symfony\\Component\\Console\\Command\\Command`), si ha accesso al contenitore
-di servizi. In altre parole, si ha accesso a ogni servizio configurato.
-Per esempio, si può estendere facilmente il task per essere traducibile::
+    use Symfony\Component\Console\Tester\CommandTester;
+    use Symfony\Bundle\FrameworkBundle\Console\Application;
+    use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+    use Acme\DemoBundle\Command\GreetCommand;
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    class ListCommandTest extends WebTestCase
     {
-        $name = $input->getArgument('name');
-        $translator = $this->getContainer()->get('translator');
-        if ($name) {
-            $output->writeln($translator->trans('Ciao %name%!', array('%name%' => $name)));
-        } else {
-            $output->writeln($translator->trans('Ciao!'));
+        public function testExecute()
+        {
+            $kernel = $this->createKernel();
+            $kernel->boot();
+
+            $application = new Application($kernel);
+            $application->add(new GreetCommand());
+
+            $command = $application->find('demo:greet');
+            $commandTester = new CommandTester($command);
+            $commandTester->execute(array('command' => $command->getName()));
+
+            $this->assertRegExp('/.../', $commandTester->getDisplay());
+
+            // ...
         }
     }

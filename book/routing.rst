@@ -1090,7 +1090,10 @@ una rotta + parametri di nuovo in un URL. I metodi
 bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
 
     $params = $router->match('/blog/my-blog-post');
-    // array('slug' => 'my-blog-post', '_controller' => 'AcmeBlogBundle:Blog:show')
+    // array(
+    //     'slug' => 'my-blog-post',
+    //     '_controller' => 'AcmeBlogBundle:Blog:show',
+    // )
 
     $uri = $router->generate('blog_show', array('slug' => 'my-blog-post'));
     // /blog/my-blog-post
@@ -1103,9 +1106,12 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
     {
         public function showAction($slug)
         {
-          // ...
+            // ...
 
-          $url = $this->get('router')->generate('blog_show', array('slug' => 'my-blog-post'));
+            $url = $this->get('router')->generate(
+                'blog_show',
+                array('slug' => 'my-blog-post')
+            );
         }
     }
 
@@ -1116,10 +1122,13 @@ In una delle prossime sezioni, si imparerà a generare URL dall'interno di un te
     Se la propria applicazione usa richieste AJAX, si potrebbe voler
     generare URL in JavaScript, che siano basate sulla propria configurazione delle rotte.
     Usando `FOSJsRoutingBundle`_, lo si può fare:
-    
+
     .. code-block:: javascript
-    
-        var url = Routing.generate('blog_show', {"slug": 'my-blog-post});
+
+        var url = Routing.generate(
+            'blog_show',
+            {"slug": 'my-blog-post'}
+        );
 
     Per ultetiori informazioni, vedere la documentazione del bundle.
 

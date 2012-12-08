@@ -12,7 +12,7 @@ alla classe dei form::
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
-    
+
     class ProductType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
@@ -91,20 +91,20 @@ potrebbe essere simile a questo::
     // src/Acme/DemoBundle/Form/EventListener/AddNameFieldSubscriber.php
     namespace Acme\DemoBundle\Form\EventListener;
 
-    use Symfony\Component\Form\Event\DataEvent;
+    use Symfony\Component\Form\FormEvent;
+    use Symfony\Component\Form\FormEvents;
     use Symfony\Component\Form\FormFactoryInterface;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-    use Symfony\Component\Form\FormEvents;
 
     class AddNameFieldSubscriber implements EventSubscriberInterface
     {
         private $factory;
-        
+
         public function __construct(FormFactoryInterface $factory)
         {
             $this->factory = $factory;
         }
-        
+
         public static function getSubscribedEvents()
         {
             // Indica al dispacher che si vuole ascoltare l'evento form.pre_set_data
@@ -116,7 +116,7 @@ potrebbe essere simile a questo::
         {
             $data = $event->getData();
             $form = $event->getForm();
-            
+
             // Dutante la creazione del form, setData è chiamata con parametri null
             // dal costruttore di FormBuilder. Si è interessati a quando 
             // setData è invocato con l'oggetto Entity attuale (se è nuovo,
@@ -145,20 +145,16 @@ La riga ``FormEvents::PRE_SET_DATA`` viene attualmente risolta nella stringa ``f
 La `classe FormEvents`_ ha uno scopo organizzativo. Ha una posizione centralizzata
 in quello che si può trovare tra i diversi eventi dei form disponibili.
 
-Anche se in questo esempio si potrebbe utilizzare l'evento ``form.set_data`` o anche l'evento ``form.post_set_data``,
+Anche se in questo esempio si potrebbe utilizzare l'evento ``form.post_set_data``,
 utilizzando ``form.pre_set_data`` si garantisce che 
 i dati saranno ottenuti dall'oggetto ``Event`` che non è stato modificato
-da nessun altro sottoscrittore o ascoltatore. Questo perché ``form.pre_set_data`` 
-passa all'oggetto `DataEvent`_ invece dell'oggetto `FilterDataEvent`_ passato dall'evento
-``form.set_data``. `DataEvent`_, a differenza del suo figlio `FilterDataEvent`_, 
-non ha il metodo setData().
+da nessun altro sottoscrittore o ascoltatore, perché ``form.pre_set_data`` è
+il primo evento distribuito.
 
 .. note::
 
     È possibile consultare la lista completa degli eventi del form tramite la `classe FormEvents`_, 
     nel bundle dei form.
 
-.. _`DataEvent`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Event/DataEvent.php
 .. _`classe FormEvents`: https://github.com/symfony/Form/blob/master/FormEvents.php
 .. _`classe Form`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Form.php
-.. _`FilterDataEvent`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Event/FilterDataEvent.php

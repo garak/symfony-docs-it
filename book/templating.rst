@@ -532,7 +532,9 @@ Includere questo template da un altro template è semplice:
             <h1>Articoli recenti<h1>
 
             {% for article in articles %}
-                {% include 'AcmeArticleBundle:Article:articleDetails.html.twig' with {'article': article} %}
+                {% include 'AcmeArticleBundle:Article:articleDetails.html.twig'
+                       with {'article': article}
+                %}
             {% endfor %}
         {% endblock %}
 
@@ -582,10 +584,14 @@ articoli recenti::
     {
         public function recentArticlesAction($max = 3)
         {
-            // chiamare la base dati o altra logica per ottenere "$max" articoli recenti
+            // chiamare la base dati o altra logica
+            // per ottenere "$max" articoli recenti
             $articles = ...;
 
-            return $this->render('AcmeArticleBundle:Article:recentList.html.twig', array('articles' => $articles));
+            return $this->render(
+                'AcmeArticleBundle:Article:recentList.html.twig',
+                array('articles' => $articles)
+            );
         }
     }
 
@@ -815,7 +821,11 @@ articoli:
 
     .. code-block:: html+php
 
-        <a href="<?php echo $view['router']->generate('_welcome', array(), true) ?>">Home</a>
+        <a href="<?php echo $view['router']->generate(
+            '_welcome',
+            array(),
+            true
+        ) ?>">Home</a>
 
 .. index::
    single: Template; Collegare le risorse
@@ -1062,7 +1072,10 @@ renderlo specifico per la nostra applicazione. Analizzando il controllore
         // logica per recuperare i blog
         $blogs = ...;
 
-        $this->render('AcmeBlogBundle:Blog:index.html.twig', array('blogs' => $blogs));
+        $this->render(
+            'AcmeBlogBundle:Blog:index.html.twig',
+            array('blogs' => $blogs)
+        );
     }
 
 Quando viene reso ``AcmeBlogBundle:Blog:index.html.twig``, Symfony2 cerca il template
@@ -1366,7 +1379,7 @@ soluzione comune è fare come segue::
     public function indexAction()
     {
         $format = $this->getRequest()->getRequestFormat();
-    
+
         return $this->render('AcmeBlogBundle:Blog:index.'.$format.'.twig');
     }
 

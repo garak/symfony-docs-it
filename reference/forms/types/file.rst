@@ -14,7 +14,7 @@ Il tipo ``file`` rappresenta un input per caricare file.
 |               | - `read_only`_                                                      |
 |               | - `error_bubbling`_                                                 |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/field>`                           |
+| Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType`  |
 +---------------+---------------------------------------------------------------------+
@@ -47,7 +47,7 @@ usata per spotare il file ``attachment`` in una posizione permanente:
 
         if ($form->isValid()) {
             $someNewFilename = ...
-        
+
             $form['attachment']->getData()->move($dir, $someNewFilename);
 
             // ...

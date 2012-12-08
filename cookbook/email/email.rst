@@ -106,7 +106,12 @@ In generale, spedire un'email è abbastanza intuitivo::
             ->setSubject('Hello Email')
             ->setFrom('mittente@example.com')
             ->setTo('destinatario@example.com')
-            ->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('nome' => $nome)))
+            ->setBody(
+                $this->renderView(
+                    'HelloBundle:Hello:email.txt.twig',
+                    array('nome' => $nome)
+                )
+            )
         ;
         $this->get('mailer')->send($messaggio);
 

@@ -324,7 +324,7 @@ lavora con i form, ad esempio::
     public function updateAction(Request $request)
     {
         $form = $this->createForm(...);
-        
+
         $form->bind($request);
         // ...
     }
@@ -370,7 +370,7 @@ stessa.
 
     Estendere la classe base è *opzionale* in Symfony; essa contiene utili
     scorciatoie ma niente di obbligatorio. È inoltre possibile estendere
-    ``Symfony\Component\DependencyInjection\ContainerAware``. L'oggetto
+    :class:`Symfony\Component\DependencyInjection\ContainerAware`. L'oggetto
     service container sarà quindi accessibile tramite la proprietà ``container``.
 
 .. note::
@@ -472,10 +472,13 @@ valore di ogni variabile.
     ``Response``::
     
         $httpKernel = $this->container->get('http_kernel');
-        $response = $httpKernel->forward('AcmeHelloBundle:Hello:fancy', array(
-            'name'  => $name,
-            'color' => 'green',
-        ));
+        $response = $httpKernel->forward(
+            'AcmeHelloBundle:Hello:fancy',
+            array(
+                'name'  => $name,
+                'color' => 'green',
+            )
+        );
 
 .. index::
    single: Controllore; Rendere i template
@@ -490,14 +493,20 @@ che è responsabile di generare il codice HTML (o un altro formato) per il contr
 Il metodo ``renderView()`` rende un template e restituisce il suo contenuto. Il
 contenuto di un template può essere usato per creare un oggetto ``Response``::
 
-    $content = $this->renderView('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+    $content = $this->renderView(
+        'AcmeHelloBundle:Hello:index.html.twig',
+        array('name' => $name)
+    );
 
     return new Response($content);
 
 Questo può anche essere fatto in un solo passaggio con il metodo ``render()``, che
 restituisce un oggetto ``Response`` contenente il contenuto di un template::
 
-    return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+    return $this->render(
+        'AcmeHelloBundle:Hello:index.html.twig',
+        array('name' => $name)
+    );
 
 In entrambi i casi, verrà reso il template ``Resources/views/Hello/index.html.twig`` presente
 all'interno di ``AcmeHelloBundle``.
@@ -517,7 +526,10 @@ capitolo :doc:`Template </book/templating>`.
     ``templating``. Il servizio ``templating`` può anche essere utilizzato in modo diretto::
 
         $templating = $this->get('templating');
-        $content = $templating->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+        $content = $templating->render(
+            'AcmeHelloBundle:Hello:index.html.twig',
+            array('name' => $name)
+        );
 
 .. note::
 
@@ -525,7 +537,10 @@ capitolo :doc:`Template </book/templating>`.
     a evitare l'errore di rendere la struttura delle cartelle eccessivamente
     elaborata::
 
-        $templating->render('AcmeHelloBundle:Hello/Greetings:index.html.twig', array('name' => $name));
+        $templating->render(
+            'AcmeHelloBundle:Hello/Greetings:index.html.twig',
+            array('name' => $name)
+        );
         // viene reso index.html.twig trovato in Resources/views/Hello/Greetings
 
 .. index::
@@ -692,7 +707,7 @@ e il contenuto che viene inviato al client::
 
     // crea una semplice risposta con un codice di stato 200 (il predefinito)
     $response = new Response('Ciao '.$name, 200);
-    
+
     // crea una risposta JSON con un codice di stato 200
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');

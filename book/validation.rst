@@ -450,7 +450,10 @@ essere specificata in tal modo.
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('gender', new Choice(array('M', 'F')));
+                $metadata->addPropertyConstraint(
+                    'gender',
+                    new Choice(array('M', 'F'))
+                );
             }
         }
 
@@ -813,17 +816,20 @@ assomiglia a questo::
         $emailConstraint->message = 'Invalid email address';
 
         // usa il validatore per validare il valore
-        $errorList = $this->get('validator')->validateValue($email, $emailConstraint);
+        $errorList = $this->get('validator')->validateValue(
+            $email,
+            $emailConstraint
+        );
 
         if (count($errorList) == 0) {
             // è un indirizzo email valido, fare qualcosa
         } else {
             // *non* è un indirizzo email valido
             $errorMessage = $errorList[0]->getMessage()
-            
+
             // fare qualcosa con l'errore
         }
-        
+
         // ...
     }
 

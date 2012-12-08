@@ -14,7 +14,8 @@ dell'utente::
     // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
 
-    // il testo può essere tradotto nella lingua dell'utente finale o restare in inglese
+    // il testo può essere tradotto nella lingua dell'utente finale o
+    // restare in inglese
     echo $translator->trans('Hello World');
 
 .. note::
@@ -185,7 +186,10 @@ variabile con un "segnaposto"::
 
     public function indexAction($name)
     {
-        $t = $this->get('translator')->trans('Hello %name%', array('%name%' => $name));
+        $t = $this->get('translator')->trans(
+            'Hello %name%',
+            array('%name%' => $name)
+        );
 
         new Response($t);
     }
@@ -266,9 +270,9 @@ filesystem e vengono trovate da Symfony grazie ad alcune convenzioni.
     Ogni volta che si crea una *nuova* risorsa di traduzione (o si installa un pacchetto
     che include una risorsa di traduzione), assicurarsi di cancellare la cache in modo
     che Symfony possa scoprire la nuova risorsa di traduzione:
-    
+
     .. code-block:: bash
-    
+
         $ php app/console cache:clear
 
 .. index::
@@ -613,7 +617,15 @@ La pluralizzazione dei messaggi è un argomento un po' difficile, perché le reg
 esempio, questa è la rappresentazione matematica delle regole di pluralizzazione
 russe::
 
-    (($number % 10 == 1) && ($number % 100 != 11)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
+    (($number % 10 == 1) && ($number % 100 != 11))
+        ? 0
+        : ((($number % 10 >= 2)
+            && ($number % 10 <= 4)
+            && (($number % 100 < 10)
+            || ($number % 100 >= 20)))
+                ? 1
+                : 2
+    );
 
 Come si può vedere, in russo si possono avere tre diverse forme plurali, ciascuna
 dato un indice di 0, 1 o 2. Per ciascuna forma il plurale è diverso e
@@ -681,7 +693,7 @@ c'è bisogno di più controllo o si vuole una traduzione diversa per casi specif
 ``0``, o   quando il conteggio è negativo, ad esempio). In tali casi, è possibile
 utilizzare espliciti intervalli matematici::
 
-    '{0} There is no apples|{1} There is one apple|]1,19] There are %count% apples|[20,Inf] There are many apples'
+    '{0} There are no apples|{1} There is one apple|]1,19] There are %count% apples|[20,Inf] There are many apples'
 
 Gli intervalli seguono la notazione `ISO 31-11`_. La suddetta stringa specifica
 quattro diversi intervalli: esattamente ``0``, esattamente ``1``, ``2-19`` e ``20``
@@ -831,7 +843,7 @@ locale da usare per la traduzione::
         'Symfony2 is great',
         array(),
         'messages',
-        'fr_FR',
+        'fr_FR'
     );
 
     $this->get('translator')->transChoice(
@@ -839,7 +851,7 @@ locale da usare per la traduzione::
         10,
         array('%count%' => 10),
         'messages',
-        'fr_FR',
+        'fr_FR'
     );
 
 Tradurre contenuti da una base dati 
@@ -982,7 +994,7 @@ passi:
 .. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`L10n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
-.. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
+.. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals
 .. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions
 .. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
 .. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

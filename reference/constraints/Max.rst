@@ -75,6 +75,4 @@ invalidMessage
 **tipo**: ``stringa`` **predefinito**: ``This value should be a valid number``
 
 Messaggio mostrato se il valore sottostante non è un numero (in base alla funzione
-`is_numeric`_ di PHP).
-
-.. _`is_numeric`: http://www.php.net/manual/en/function.is-numeric.php
+:phpfunction:`is_numeric` di PHP).

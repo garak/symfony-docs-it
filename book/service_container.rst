@@ -565,10 +565,14 @@ qualcosa del genere::
 Senza utilizzare il contenitore di servizi, si può creare abbastanza facilmente
 un nuovo ``NewsletterManager`` dentro a un controllore::
 
+    use Acme\HelloBundle\Newsletter\NewsletterManager;
+
+    // ...
+
     public function sendNewsletterAction()
     {
         $mailer = $this->get('my_mailer');
-        $newsletter = new Acme\HelloBundle\Newsletter\NewsletterManager($mailer);
+        $newsletter = new NewsletterManager($mailer);
         // ...
     }
 
@@ -603,7 +607,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -618,9 +622,12 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter(
+            'newsletter_manager.class',
+            'Acme\HelloBundle\Newsletter\NewsletterManager'
+        );
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
             array(new Reference('my_mailer'))
@@ -691,7 +698,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -708,9 +715,12 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter(
+            'newsletter_manager.class',
+            'Acme\HelloBundle\Newsletter\NewsletterManager'
+        );
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%'
         ))->addMethodCall('setMailer', array(
@@ -751,7 +761,7 @@ esiste e in caso contrario non farà nulla:
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -767,12 +777,18 @@ esiste e in caso contrario non farà nulla:
         use Symfony\Component\DependencyInjection\ContainerInterface;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter(
+            'newsletter_manager.class',
+            'Acme\HelloBundle\Newsletter\NewsletterManager'
+        );
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
-            array(new Reference('my_mailer', ContainerInterface::IGNORE_ON_INVALID_REFERENCE))
+            array(new Reference(
+                'my_mailer',
+                ContainerInterface::IGNORE_ON_INVALID_REFERENCE
+            ))
         ));
 
 In YAML, la speciale sintassi ``@?`` dice al contenitore dei servizi che la dipendenza

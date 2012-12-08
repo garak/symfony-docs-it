@@ -288,10 +288,16 @@ HTML dentro al controllore, meglio rendere un template:
     {
         public function indexAction($name)
         {
-            return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+            return $this->render(
+                'AcmeHelloBundle:Hello:index.html.twig',
+                array('name' => $name)
+            );
 
-            // render a PHP template instead
-            // return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+            // rende invece un template PHP
+            // return $this->render(
+            //     'AcmeHelloBundle:Hello:index.html.php',
+            //     array('name' => $name)
+            // );
         }
     }
 
@@ -903,7 +909,9 @@ di conigurazione scelti::
     // app/AppKernel.php
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(
+            __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
+        );
     }
 
 Sappiamo già che l'estensione ``.yml`` può essere cambiata in ``.xml`` o

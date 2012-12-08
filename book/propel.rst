@@ -174,17 +174,19 @@ valore del suo ``id``::
     
     // ...
     use Acme\StoreBundle\Model\ProductQuery;
-    
+
     public function showAction($id)
     {
         $product = ProductQuery::create()
             ->findPk($id);
-    
+
         if (!$product) {
-            throw $this->createNotFoundException('Nessun prodotto trovato con id '.$id);
+            throw $this->createNotFoundException(
+                'Nessun prodotto trovato con id '.$id
+            );
         }
-    
-        // fare qualcosa, come passare l'oggetto $product a un template
+
+        // ... fare qualcosa, come passare l'oggetto $product a un template
     }
 
 Aggiornare un oggetto
@@ -195,19 +197,21 @@ una rotta che mappi l'id di un prodotto all'azione di aggiornamento di un contro
     
     // ...
     use Acme\StoreBundle\Model\ProductQuery;
-    
+
     public function updateAction($id)
     {
         $product = ProductQuery::create()
             ->findPk($id);
-    
+
         if (!$product) {
-            throw $this->createNotFoundException('Nessun prodotto trovato con id '.$id);
+            throw $this->createNotFoundException(
+                'Nessun prodotto trovato con id '.$id
+            );
         }
-    
+
         $product->setName('Nuovo nome del prodotto!');
         $product->save();
-    
+
         return $this->redirect($this->generateUrl('homepage'));
     }
 
@@ -227,12 +231,12 @@ La cancellazione di un oggetto è molto simile, ma richiede una chiamata al meto
 
 Cercare gli oggetti
 -------------------
-    
+
 Propel fornisce delle classi ``Query``, per eseguire query, semplici o complesse,
 senza sforzo::
-    
+
     \Acme\StoreBundle\Model\ProductQuery::create()->findPk($id);
-    
+
     \Acme\StoreBundle\Model\ProductQuery::create()
         ->filterByName('Pippo')
         ->findOne();
@@ -253,7 +257,7 @@ astrazione.
 Se si vogliono riutilizzare delle query, si possono aggiungere i propri metodi alla
 classe ``ProductQuery``::
 
-    // src/Acme/StoreBundle/Model/ProductQuery.php   
+    // src/Acme/StoreBundle/Model/ProductQuery.php
     class ProductQuery extends BaseProductQuery
     {
         public function filterByExpensivePrice()
@@ -287,13 +291,13 @@ Si inizi aggiungendo la definizione di ``category`` al file ``schema.xml``:
             <column name="name" type="varchar" primaryString="true" size="100" />
             <column name="price" type="decimal" />
             <column name="description" type="longvarchar" />
-    
+
             <column name="category_id" type="integer" />
             <foreign-key foreignTable="category">
                 <reference local="category_id" foreign="id" />
             </foreign-key>
         </table>
-    
+
         <table name="category">
             <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
             <column name="name" type="varchar" primaryString="true" size="100" />
@@ -326,23 +330,23 @@ Vediamo ora un po' di codice in azione. Immaginiamo di essere dentro un controll
     use Acme\StoreBundle\Model\Category;
     use Acme\StoreBundle\Model\Product;
     use Symfony\Component\HttpFoundation\Response;
-    
+
     class DefaultController extends Controller
     {
         public function createProductAction()
         {
             $category = new Category();
             $category->setName('Prodotti principali');
-    
+
             $product = new Product();
             $product->setName('Pippo');
             $product->setPrice(19.99);
             // mette in relazione questo prodotto alla categoria
             $product->setCategory($category);
-    
+
             // salva tutto
             $product->save();
-    
+
             return new Response(
                 'Creato prodotto con id: '.$product->getId().' e categoria con id: '.$category->getId()
             );
@@ -363,15 +367,15 @@ relativa::
 
     // ...
     use Acme\StoreBundle\Model\ProductQuery;
-    
+
     public function showAction($id)
     {
         $product = ProductQuery::create()
             ->joinWithCategory()
             ->findPk($id);
-    
+
         $categoryName = $product->getCategory()->getName();
-    
+
         // ...
     }
 
@@ -395,8 +399,8 @@ inserito, aggiornato, cancellato, eccetera).
 Per aggiungere un hook, basta aggiungere un nuovo metodo alla classe::
 
     // src/Acme/StoreBundle/Model/Product.php
-    
-    // ...   
+
+    // ...
     class Product extends BaseProduct
     {
         public function preInsert(\PropelPDO $con = null)
@@ -429,8 +433,8 @@ Comandi
 
 Leggere la sezione dedicata ai `comandi Propel in Symfony2`_.
 
-.. _`Working With Symfony2`: http://www.propelorm.org/cookbook/symfony2/working-with-symfony2.html#installation
-.. _`Working With Symfony2 - Configuration`: http://www.propelorm.org/cookbook/symfony2/working-with-symfony2.html#configuration
-.. _`Relationships`: http://www.propelorm.org/documentation/04-relationships.html
-.. _`Behaviors reference`: http://www.propelorm.org/documentation/#behaviors_reference
-.. _`comandi Propel in Symfony2`: http://www.propelorm.org/cookbook/symfony2/working-with-symfony2#commands
+.. _`Working With Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#installation
+.. _`Working With Symfony2 - Configuration`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#configuration
+.. _`Relationships`: http://propelorm.org/documentation/04-relationships.html
+.. _`Behaviors reference`: http://propelorm.org/documentation/#behaviors_reference
+.. _`comandi Propel in Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2#commands

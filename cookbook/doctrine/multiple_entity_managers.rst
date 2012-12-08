@@ -98,7 +98,7 @@ si otterrà il gestore di entità predefinito (cioè ``default``)::
             // entrambi restiuiscono il gestore "default"
             $em = $this->get('doctrine')->getManager();
             $em = $this->get('doctrine')->getManager('default');
-            
+
             $customerEm =  $this->get('doctrine')->getManager('customer');
         }
     }
@@ -115,17 +115,20 @@ Lo stesso principio si applica alle chiamate ai repository::
         {
             // Recupera un repository gestito da "default"
             $products = $this->get('doctrine')
-                             ->getRepository('AcmeStoreBundle:Product')
-                             ->findAll();
+                ->getRepository('AcmeStoreBundle:Product')
+                ->findAll()
+            ;
 
             // Esplicita la richiesta a "default"
             $products = $this->get('doctrine')
-                             ->getRepository('AcmeStoreBundle:Product', 'default')
-                             ->findAll();
+                ->getRepository('AcmeStoreBundle:Product', 'default')
+                ->findAll()
+            ;
 
             // Recupera un repository gestito da "customer"
             $customers = $this->get('doctrine')
-                              ->getRepository('AcmeCustomerBundle:Customer', 'customer')
-                              ->findAll();
+                ->getRepository('AcmeCustomerBundle:Customer', 'customer')
+                ->findAll()
+            ;
         }
     }

@@ -53,7 +53,7 @@ chiamata ``Calculator``, nella cartella ``Utility/`` del proprio bundle::
 
     // src/Acme/DemoBundle/Utility/Calculator.php
     namespace Acme\DemoBundle\Utility;
-    
+
     class Calculator
     {
         public function add($a, $b)
@@ -145,7 +145,10 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 
             $crawler = $client->request('GET', '/demo/hello/Fabien');
 
-            $this->assertGreaterThan(0, $crawler->filter('html:contains("Hello Fabien")')->count());
+            $this->assertGreaterThan(
+                0,
+                $crawler->filter('html:contains("Hello Fabien")')->count()
+            );
         }
     }
 
@@ -217,7 +220,10 @@ Oppure, testare direttamente il contenuto della risposta, se si vuole solo asser
 il contenuto debba contenere del testo o se la risposta non è un documento
 XML/HTML::
 
-    $this->assertRegExp('/Hello Fabien/', $client->getResponse()->getContent());
+    $this->assertRegExp(
+        '/Hello Fabien/',
+        $client->getResponse()->getContent()
+    );
 
 .. _book-testing-request-method-sidebar:
 
@@ -260,14 +266,23 @@ XML/HTML::
     Per iniziare più rapidamente, ecco una lista delle asserzioni
     più utili e comuni::
 
-        // Asserire che la risposta corrisponda al selettore CSS dato.
-        $this->assertTrue($crawler->filter('h2.subtitle')->count() > 0);
+        // Asserire che ci sia almeno un tag h2
+        // con la classe "subtitle"
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('h2.subtitle')->count()
+        );
 
         // Asserire che ci sono esattamente 4 tag h2 nella pagina
         $this->assertEquals(4, $crawler->filter('h2')->count());
 
         // Asserire che il "Content-Type" header sia "application/json"
-        $this->assertTrue($client->getResponse()->headers->contains('Content-Type', 'application/json'));
+        $this->assertTrue(
+            $client->getResponse()->headers->contains(
+                'Content-Type',
+                'application/json'
+            )
+        );
 
         // Asserire che la risposta corrisponda a un'espressione regolare.
         $this->assertRegExp('/pippo/', $client->getResponse()->getContent());
@@ -277,10 +292,15 @@ XML/HTML::
         // Asserire che il codice di stato della risposta sia 404
         $this->assertTrue($client->getResponse()->isNotFound());
         // Asserire uno specifico codice di stato 200
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(
+            200,
+            $client->getResponse()->getStatusCode()
+        );
 
         // Asserire che il codice di stato della risposta sia un rinvio a /demo/contact
-        $this->assertTrue($client->getResponse()->isRedirect('/demo/contact'));
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/demo/contact')
+        );
         // o verificare semplicemente che la risposta sia un rinvio
         $this->assertTrue($client->getResponse()->isRedirect());
 
@@ -524,13 +544,16 @@ Il crawler può estrarre informazioni dai nodi::
     // Restituisce il valore del nodo del primo nodo
     $crawler->text();
 
-    // Estrae un array di attributi per tutti i nodi (_text restituisce il valore del nodo)
-    $crawler->extract(array('_text', 'href'));
+    // Estrae un array di attributi per tutti i nodi
+    // (_text restituisce il valore del nodo)
+    // restituisce un array per ogni elemento nel crawler,
+    // ciascuno con value e href
+    $info = $crawler->extract(array('_text', 'href'));
 
     // Esegue una funzione lambda per ogni nodo e restituisce un array di risultati
     $data = $crawler->each(function ($node, $i)
     {
-        return $node->getAttribute('href');
+        return $node->attr('href');
     });
 
 Collegamenti
@@ -543,8 +566,7 @@ Si possono selezionare collegamenti coi metodi di attraversamento, ma la scorcia
 
 Seleziona i collegamenti che contengono il testo dato, oppure le immagini cliccabili per
 cui l'attributi ``alt`` contiene il testo dato. Come gli altri metodi filtro, restituisce
-un altro oggetto
-``Crawler``.
+un altro oggetto ``Crawler``.
 
 Una volta selezionato un collegamento, si ha accesso a uno speciale oggetto ``Link``, che
 ha utili metodi specifici per i collegamenti (come ``getMethod()`` e

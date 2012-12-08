@@ -55,23 +55,29 @@ Innanzitutto, creare una semplice classe entità di Doctrine, su cui lavorare::
 
         public function getAbsolutePath()
         {
-            return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+            return null === $this->path
+                ? null
+                : $this->getUploadRootDir().'/'.$this->path;
         }
 
         public function getWebPath()
         {
-            return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+            return null === $this->path
+                ? null
+                : $this->getUploadDir().'/'.$this->path;
         }
 
         protected function getUploadRootDir()
         {
-            // il percorso assoluto della cartella dove i documenti caricati verranno salvati
+            // il percorso assoluto della cartella dove i
+            // documenti caricati verranno salvati
             return __DIR__.'/../../../../web/'.$this->getUploadDir();
         }
 
         protected function getUploadDir()
         {
-            // togliamo __DIR_ in modo da visualizzare correttamente nella vista il file caricato
+            // togliamo __DIR_ in modo da visualizzare
+            // correttamente nella vista il file caricato
             return 'uploads/documents';
         }
     }
@@ -151,15 +157,15 @@ Il controllore seguente mostra come gestire l'intero processo::
             ->getForm()
         ;
 
-        if ($this->getRequest()->getMethod() === 'POST') {
-            $form->bindRequest($this->getRequest());
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->bind($this->getRequest());
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
 
                 $em->persist($document);
                 $em->flush();
 
-                $this->redirect($this->generateUrl('...'));
+                $this->redirect($this->generateUrl(...));
             }
         }
 
@@ -213,8 +219,12 @@ che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
         // si utilizza il nome originale del file ma è consigliabile
         // un processo di sanitizzazione almeno per evitare problemi di sicurezza
         
-        // move accetta come parametri la cartella di destinazione e il nome del file di destinazione
-        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+        // move accetta come parametri la cartella di destinazione
+        // e il nome del file di destinazione
+        $this->file->move(
+            $this->getUploadRootDir(),
+            $this->file->getClientOriginalName()
+        );
 
         // impostare la proprietà del percorso al nome del file dove è stato salvato il file
         $this->path = $this->file->getClientOriginalName();
@@ -266,7 +276,8 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
         {
             if (null !== $this->file) {
                 // fare qualsiasi cosa si voglia per generare un nome univoco
-                $this->path = uniqid().'.'.$this->file->guessExtension();
+                $filename = sha1(uniqid(mt_rand(), true));
+                $this->path = $filename.'.'.$this->file->guessExtension();
             }
         }
 
@@ -279,7 +290,7 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
             if (null === $this->file) {
                 return;
             }
-            
+
             // se si verifica un errore mentre il file viene spostato viene 
             // lanciata automaticamente un'eccezione da move(). Questo eviterà
             // la memorizzazione dell'entità nella base dati in caso di errore
@@ -312,7 +323,7 @@ a ``$document->upload()`` andrebbe tolta dal controllore::
         $em->persist($document);
         $em->flush();
 
-        $this->redirect('...');
+        $this->redirect(...);
     }
 
 .. note::
@@ -373,7 +384,10 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
             // qui si deve lanciare un'eccezione se il file non può essere spostato
             // per fare in modo che l'entità non possa essere memorizzata nella base dati
             // cosa che viene fatta da move()
-            $this->file->move($this->getUploadRootDir(), $this->id.'.'.$this->file->guessExtension());
+            $this->file->move(
+                $this->getUploadRootDir(),
+                $this->id.'.'.$this->file->guessExtension()
+            );
 
             unset($this->file);
         }
@@ -398,7 +412,9 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
 
         public function getAbsolutePath()
         {
-            return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->id.'.'.$this->path;
+            return null === $this->path
+                ? null
+                : $this->getUploadRootDir().'/'.$this->id.'.'.$this->path;
         }
     }
 

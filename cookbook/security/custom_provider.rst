@@ -65,7 +65,7 @@ Vediamola in azione::
         public function getUsername()
         {
             return $this->username;
-        }   
+        }
 
         public function eraseCredentials()
         {
@@ -135,9 +135,9 @@ Ecco un esempio di come potrebbe essere::
                 // ...
 
                 return new WebserviceUser($username, $password, $salt, $roles)
-            } else {
-                throw new UsernameNotFoundException(sprintf('Nome utente "%s" non trovato.', $username));
             }
+
+            throw new UsernameNotFoundException(sprintf('Nome utente "%s" non trovato.', $username));
         }
 
         public function refreshUser(UserInterface $user)
@@ -167,29 +167,29 @@ Ora renderemo il fornitore utenti disponibile come servizio.
         # src/Acme/WebserviceUserBundle/Resources/config/services.yml
         parameters:
             webservice_user_provider.class: Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider
-            
+
         services:
             webservice_user_provider:
-                class: %webservice_user_provider.class%
-    
+                class: "%webservice_user_provider.class%"
+
     .. code-block:: xml
 
         <!-- src/Acme/WebserviceUserBundle/Resources/config/services.xml -->
         <parameters>
             <parameter key="webservice_user_provider.class">Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider</parameter>
         </parameters>
- 
+
         <services>
             <service id="webservice_user_provider" class="%webservice_user_provider.class%"></service>
         </services>
-        
+
     .. code-block:: php
-    
+
         // src/Acme/WebserviceUserBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
-        
+
         $container->setParameter('webservice_user_provider.class', 'Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider');
-        
+
         $container->setDefinition('webservice_user_provider', new Definition('%webservice_user_provider.class%');
 
 .. tip::
@@ -241,7 +241,7 @@ la password può essere codificata più volte e poi codificata in base64.
     nulla, la password inserita è semplicemente codificata con l'algoritmo specificato
     in ``security.yml``. Se invece il sale *è* fornito, il seguente valore viene creato e
     *poi* codificato tramite l'algoritmo:
-    
+
         ``$password.'{'.$salt.'}';``
 
     Se gli utenti esterni hanno password con sali diversi, occorre un po' di lavoro in
@@ -253,9 +253,9 @@ la password può essere codificata più volte e poi codificata in base64.
     Inoltre, per impostazione predefinita, l'hash è codificato più volte e poi codificato 
     in base64. Per i dettagli, si veda `MessageDigestPasswordEncoder`_.
     Se lo si vuole evitare, configurarlo in ``security.yml``:
-    
+
     .. code-block:: yaml
-    
+
         security:
             encoders:
                 Acme\WebserviceUserBundle\Security\User\WebserviceUser:

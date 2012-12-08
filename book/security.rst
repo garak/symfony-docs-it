@@ -250,7 +250,7 @@ il flusso di richiesta è sempre lo stesso:
     Ma con l'autenticazione HTTP, l'utente invia le proprie credenziali direttamente
     all'URL originale (ad esempio ``/admin/foo``) e poi la pagina viene restituita
     all'utente nella stessa richiesta (cioè senza rinvio).
-    
+
     Questo tipo di idiosincrasie non dovrebbe causare alcun problema, ma è
     bene tenerle a mente.
 
@@ -434,17 +434,22 @@ Successivamente, creare il controllore che visualizzerà il form di login::
 
             // verifica di eventuali errori
             if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-                $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+                $error = $request->attributes->get(
+                    SecurityContext::AUTHENTICATION_ERROR
+                );
             } else {
                 $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
                 $session->remove(SecurityContext::AUTHENTICATION_ERROR);
             }
 
-            return $this->render('AcmeSecurityBundle:Security:login.html.twig', array(
-                // ultimo nome utente inserito
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                'error'         => $error,
-            ));
+            return $this->render(
+                'AcmeSecurityBundle:Security:login.html.twig',
+                array(
+                    // ultimo nome utente inserito
+                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'error'         => $error,
+                )
+            );
         }
     }
 

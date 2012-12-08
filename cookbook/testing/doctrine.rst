@@ -39,7 +39,10 @@ che rende tutto alquanto facile::
         {
             static::$kernel = static::createKernel();
             static::$kernel->boot();
-            $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
+            $this->em = static::$kernel->getContainer()
+                ->get('doctrine')
+                ->getManager()
+            ;
         }
 
         public function testSearchByCategoryName()

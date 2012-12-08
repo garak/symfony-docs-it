@@ -63,9 +63,9 @@ file ``app/config/parameters.yml``:
     La definizione della configurazione tramite ``parameters.yml`` è solo una convenzione.
     I parametri definiti in tale file sono riferiti dal file di configurazione principale
     durante le impostazioni iniziali di Doctrine:
-    
+
     .. code-block:: yaml
-    
+
         # app/config/config.yml
         doctrine:
             dbal:
@@ -109,10 +109,10 @@ base dati al posto nostro:
     al file di configurazione (solitamente ``my.cnf``):
 
     .. code-block:: ini
-    
+
         [mysqld]
         collation-server = utf8_general_ci
-        character-set-server = utf8    
+        character-set-server = utf8
 
 Creare una classe entità
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,7 +122,7 @@ Senza nemmeno pensare a Doctrine o alle basi dati, già sappiamo di aver bisogno
 un oggetto ``Product`` che rappresenti questi prodotti. Creare questa classe dentro
 la cartella ``Entity`` del proprio ``AcmeStoreBundle``::
 
-    // src/Acme/StoreBundle/Entity/Product.php    
+    // src/Acme/StoreBundle/Entity/Product.php
     namespace Acme\StoreBundle\Entity;
 
     class Product
@@ -143,9 +143,9 @@ solo una semplice classe PHP.
 
     Una volta imparati i concetti dietro a Doctrine, si può fare in modo che Doctrine
     crei questa classe entità al posto nostro:
-    
+
     .. code-block:: bash
-        
+
         $ php app/console doctrine:generate:entity --entity="AcmeStoreBundle:Product" --fields="name:string(255) price:float description:text"
 
 .. index::
@@ -170,12 +170,6 @@ la configurazione che dice esattamente a Doctrine come la classe ``Product`` e l
 proprietà debbano essere *mappate* sula base dati. Questi meta-dati possono essere specificati
 in diversi formati, inclusi YAML, XML o direttamente dentro la classe ``Product``,
 tramite annotazioni:
-
-.. note::
-
-    Un bundle può accettare un solo formato di definizione dei meta-dati. Per esempio, non
-    è possibile mischiare definizioni di meta-dati in YAML con definizioni tramite
-    annotazioni.
 
 .. configuration-block::
 
@@ -252,6 +246,12 @@ tramite annotazioni:
                 <field name="description" column="description" type="text" />
             </entity>
         </doctrine-mapping>
+
+.. note::
+
+    Un bundle può accettare un solo formato di definizione dei meta-dati. Per esempio, non
+    è possibile mischiare definizioni di meta-dati in YAML con definizioni tramite
+    annotazioni.
 
 .. tip::
 
@@ -400,7 +400,7 @@ del bundle:
     // ...
     use Acme\StoreBundle\Entity\Product;
     use Symfony\Component\HttpFoundation\Response;
-    
+
     public function createAction()
     {
         $product = new Product();
@@ -470,9 +470,11 @@ in base al valore del suo ``id``::
         $product = $this->getDoctrine()
             ->getRepository('AcmeStoreBundle:Product')
             ->find($id);
-        
+
         if (!$product) {
-            throw $this->createNotFoundException('Nessun prodotto trovato per l\'id '.$id);
+            throw $this->createNotFoundException(
+                'Nessun prodotto trovato per l\'id '.$id
+            );
         }
 
         // ... fare qualcosa, come passare l'oggetto $product a un template
@@ -557,7 +559,9 @@ di avere una rotta che mappi un id di prodotto a un'azione di aggiornamento in u
         $product = $em->getRepository('AcmeStoreBundle:Product')->find($id);
 
         if (!$product) {
-            throw $this->createNotFoundException('Nessun prodotto trovato per l\'id '.$id);
+            throw $this->createNotFoundException(
+                'Nessun prodotto trovato per l\'id '.$id
+            );
         }
 
         $product->setName('Nome del nuovo prodotto!');
@@ -642,7 +646,7 @@ oggetto, si può usare invece il metodo ``getSingleResult()``::
     in un blocco try-catch, per assicurarsi che sia restituito un solo risultato
     (nel caso in cui sia possibile che siano restituiti più
     risultati)::
-    
+
         $query = $em->createQuery('SELECT ...')
             ->setMaxResults(1);
 
@@ -1058,7 +1062,7 @@ In questo caso succedono le stesse cose: prima si cerca un singolo oggetto
     Questo "lazy load" è possibile perché, quando necessario, Doctrine restituisce
     un oggetto "proxy" al posto del vero oggetto. Guardiamo di nuovo l'esempio
     precedente::
-    
+
         $product = $this->getDoctrine()
             ->getRepository('AcmeStoreBundle:Product')
             ->find($id);
@@ -1308,8 +1312,9 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 
         /**
          * Un campo stringa con lunghezza 255 che non può essere nullo
-         * (riflette i valori predefiniti per le opzioni "type", "length" e *nullable*)
-         * 
+         * (riflette i valori predefiniti per le opzioni "type", "length"
+         * e *nullable*)
+         *
          * @ORM\Column()
          */
         protected $name;

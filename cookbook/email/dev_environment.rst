@@ -35,8 +35,8 @@ a essere inviate negli ambienti ``prod`` e ``dev``:
         <!-- app/config/config_test.xml -->
 
         <!--
-        xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-        http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config
@@ -72,8 +72,8 @@ fare tramite l'opzione ``delivery_address``:
         <!-- app/config/config_dev.xml -->
 
         <!--
-        xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-        http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config
@@ -96,7 +96,12 @@ Supponiamo di inviare un'email a ``destinatario@example.com``.
             ->setSubject('Email di saluto')
             ->setFrom('mittente@example.com')
             ->setTo('destinatario@example.com')
-            ->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('name' => $name)))
+            ->setBody(
+                $this->renderView(
+                    'HelloBundle:Hello:email.txt.twig',
+                    array('name' => $name)
+                )
+            )
         ;
         $this->get('mailer')->send($message);
 
@@ -150,10 +155,10 @@ del rapporto con il dettaglio delle email inviate.
 
         <!-- app/config/config_dev.xml -->
 
-        <!-- 
+        <!--
             xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler"
-            xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler 
-            http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> 
+            xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler
+            http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd">
         -->
 
         <webprofiler:config

@@ -38,7 +38,7 @@ nella classe ``AppKernel`` dell'applicazione::
 
         public function getCacheDir()
         {
-            return $this->rootDir.'/'.$this->environment.'/cache/';
+            return $this->rootDir.'/'.$this->environment.'/cache';
         }
     }
 
@@ -69,7 +69,7 @@ con la sola differenza che occorre sovrascrivere il metodo
 
         public function getLogDir()
         {
-            return $this->rootDir.'/'.$this->environment.'/logs/';
+            return $this->rootDir.'/'.$this->environment.'/logs';
         }
     }
 
@@ -108,7 +108,7 @@ necesario modificare i percorsi nei file::
         # ...
         assetic:
             # ...
-            read_from: %kernel.root_dir%/../../public_html
+            read_from: "%kernel.root_dir%/../../public_html"
 
     Ora basta eseguire nuovamente il dump delle risorse e l'applicazione dovrebbe
     funzionare:

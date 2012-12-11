@@ -252,10 +252,11 @@ Creare un passo di compilatore
 ------------------------------
 
 Si possono anche creare e registrare i propri passi di compilatore con il contenitore.
-Per creare un passo di compilatore, si deve implementare
-:class:`Symfony\\Component\\DependencyInjection\\Compiler\\CompilerPassInterface`. Il
-compilatore offre la possibilità di manipolare le definizioni del servizio che sono state
-compilate. Questo può essere molto potente, ma non necessario nell'uso quotidiano.
+Per creare un passo di compilatore, si deve implementare l'interfaccia
+:class:`Symfony\\Component\\DependencyInjection\\Compiler\\CompilerPassInterface`.
+Il compilatore offre la possibilità di manipolare le definizioni del servizio che sono state
+compilate. Questo può essere molto potente, ma non necessario nell'uso
+quotidiano.
 
 Il passo di compilatore deve avere il metodo ``process``, che viene passato al contenitore
 che si sta compilando::

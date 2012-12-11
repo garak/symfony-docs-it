@@ -107,12 +107,15 @@ Mappa predefinita dei permessi
 +------------------+----------------------------+-----------------------------+
 | EDIT             | Se è consentito modificare | EDIT, OPERATOR, MASTER      |
 |                  | l'oggetto del dominio      | o OWNER                     |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | CREATE           | Se è consentito creare     | CREATE, OPERATOR, MASTER    |
 |                  | l'oggetto del dominio      | o  OWNER                    |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | DELETE           | Se è consentito eliminare  | DELETE, OPERATOR, MASTER    |
 |                  | l'oggetto del dominio      | o  OWNER                    |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | UNDELETE         | Se è consentito            | UNDELETE, OPERATOR, MASTER  |
 |                  | ripristinare un precedente | o OWNER                     |
@@ -120,6 +123,7 @@ Mappa predefinita dei permessi
 +------------------+----------------------------+-----------------------------+
 | OPERATOR         | Se è consentito eseguire   | OPERATOR, MASTER o OWNER    |
 |                  | tutte le azioni precedenti |                             |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | MASTER           | Se è consentito eseguire   | MASTER o OWNER              |
 |                  | tutte le azioni precedenti |                             |
@@ -135,19 +139,14 @@ Mappa predefinita dei permessi
 |                  | master e owner             |                             |
 +------------------+----------------------------+-----------------------------+
 
-
-
-
-
 Attributi dei permessi o maschere di bit dei permessi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Gli attributi sono usati da ``AccessDecisionManager``, così come i ruoli sono
-attributi usati da ``AccessDecisionManager``. Spesso, tali attributi
-rappresentano di f atto un aggregato di maschere di bit. Le maschere di bit, d'altro
+attributi usati da ``AccessDecisionManager``. Spesso, tali attributi rappresentano di
+fatto un aggregato di maschere di bit. Le maschere di bit, d'altro
 canto, sono usate internamente dal sistema ACL  per memorizzare in modo efficiente i
-permessi degli utenti sul database e verificare gli accessi, usando operazioni di bit
-molto veloci.
+permessi degli utenti sul database e verificare gli accessi, usando operazioni di bit molto veloci.
 
 Estensibilità
 ~~~~~~~~~~~~~

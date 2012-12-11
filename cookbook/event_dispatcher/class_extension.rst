@@ -109,8 +109,7 @@ Quindi, creare una classe che ascolterà l'evento ``pippo.metodo_non_trovato`` e
             // i parametri del metodo 'pluto'
             $arguments = $event->getArguments();
 
-            // fare qualcosa
-            // ...
+            // ... fare qualcosa
 
             // impostare il valore restituito
             $event->setReturnValue($someValue);
@@ -123,4 +122,4 @@ di ``Pluto`` con l'evento ``pippo.metodo_non_trovato``:
 .. code-block:: php
 
     $pluto = new Pluto();
-    $dispatcher->addListener('pippo.metodo_non_trovato', $pluto);
+    $dispatcher->addListener('pippo.metodo_non_trovato', array($pluto, 'onPippoMethodIsNotFound'));

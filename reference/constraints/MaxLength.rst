@@ -82,8 +82,6 @@ charset
 
 **tipo**: ``charset`` **predefinito**: ``UTF-8``
 
-Se l'estensione "mbstring" di PHP è installata, sarà usata la funzione `mb_strlen`_ di
+Se l'estensione "mbstring" di PHP è installata, sarà usata la funzione :phpfunction:`mb_strlen` di
 PHP per calcolare la lunghezza della stringa. Il valore dell'opzione ``charset``
 è passato come secondo parametro a tale funzione.
-
-.. _`mb_strlen`: http://php.net/manual/en/function.mb-strlen.php

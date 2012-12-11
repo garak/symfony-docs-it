@@ -192,8 +192,8 @@ Si prenda la seguente configurazione:
 
         # app/config/config.yml
         acme_hello:
-            foo: valoreDiFoo
-            bar: valoreDiBar
+            pippo: valoreDiPippo
+            pluto: valoreDiPluto
 
     .. code-block:: xml
 
@@ -205,8 +205,8 @@ Si prenda la seguente configurazione:
             xmlns:acme_hello="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-            <acme_hello:config foo="valoreDiFoo">
-                <acme_hello:bar>valoreDiBar</acme_hello:bar>
+            <acme_hello:config pippo="valoreDiPippo">
+                <acme_hello:pluto>valoreDiPluto</acme_hello:pluto>
             </acme_hello:config>
 
         </container>
@@ -215,16 +215,16 @@ Si prenda la seguente configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('acme_hello', array(
-            'foo' => 'valoreDiFoo',
-            'bar' => 'valoreDiBar',
+            'pippo' => 'valoreDiPippo',
+            'pluto' => 'valoreDiPluto',
         ));
 
 L'array passato al metodo ``load()`` sarà simile a questo::
 
     array(
         array(
-            'foo' => 'valoreDiFoo',
-            'bar' => 'valoreDiBar',
+            'pippo' => 'valoreDiPippo',
+            'pluto' => 'valoreDiPluto',
         )
     )
 
@@ -235,11 +235,11 @@ sotto di esso, l'array in uscita sarà simile a questo::
 
     array(
         array(
-            'foo' => 'valoreDiFoo',
-            'bar' => 'valoreDiBar',
+            'pippo' => 'valoreDiPippo',
+            'pluto' => 'valoreDiPluto',
         ),
         array(
-            'foo' => 'valoreDevDiFoo',
+            'pippo' => 'valoreDevDiPippo',
             'baz' => 'nuovaVoceDiConfig',
         ),
     )
@@ -344,7 +344,7 @@ parametro:
 Ma perché definire un parametro vuoto e poi passarlo al proprio servizio?
 La risposa è che si imposterà questo parametro nella propria classe Extension, in base
 ai valori di configurazione in entrata. Si supponga, per esempio, di voler consentire
-all'utente di definire questa opzione *type* sotto una chiave di nome ``my_type``.
+all'utente di definire questa opzione *type* sotto una chiave di nome ``mio_tipo``.
 Aggiungere al metodo ``load()`` il codice seguente::
 
     public function load(array $configs, ContainerBuilder $container)
@@ -354,15 +354,15 @@ Aggiungere al metodo ``load()`` il codice seguente::
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        if (!isset($config['my_type'])) {
-            throw new \InvalidArgumentException('The "my_type" option must be set');
+        if (!isset($config['mio_tipo'])) {
+            throw new \InvalidArgumentException('The "mio_tipo" option must be set');
         }
 
-        $container->setParameter('acme_hello.my_service_type', $config['my_type']);
+        $container->setParameter('acme_hello.my_service_type', $config['mio_tipo']);
     }
 
 L'utente ora è in grado di configurare effettivamente il servizio, specificando il
-valore di configurazione ``my_type``:
+valore di configurazione ``mio_tipo``:
 
 .. configuration-block::
 
@@ -370,7 +370,7 @@ valore di configurazione ``my_type``:
 
         # app/config/config.yml
         acme_hello:
-            my_type: foo
+            mio_tipo: pippo
             # ...
 
     .. code-block:: xml
@@ -383,7 +383,7 @@ valore di configurazione ``my_type``:
             xmlns:acme_hello="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-            <acme_hello:config my_type="foo">
+            <acme_hello:config mio_tipo="pippo">
                 <!-- ... -->
             </acme_hello:config>
 
@@ -393,7 +393,7 @@ valore di configurazione ``my_type``:
 
         // app/config/config.php
         $container->loadFromExtension('acme_hello', array(
-            'my_type' => 'foo',
+            'mio_tipo' => 'pippo',
             // ...
         ));
 
@@ -452,16 +452,16 @@ un albero, che definisce la propria configurazione in tale classe::
 
             $rootNode
                 ->children()
-                    ->scalarNode('my_type')->defaultValue('bar')->end()
-                ->end()
-            ;
+                ->scalarNode('mio_tipo')->defaultValue('pluto')->end()
+                ->end();
 
             return $treeBuilder;
         }
+    }
 
 Questo è un esempio *molto* semplice, ma si può ora usare questa classe nel proprio
 metodo ``load()``, per fondere la propria configurazione e forzare la validazione. Se
-viene passata un'opzione che non sia ``my_type``, l'utente sarà avvisato con un'eccezione
+viene passata un'opzione che non sia ``mio_tipo``, l'utente sarà avvisato con un'eccezione
 del passaggio di un'opzione non supportata::
 
     public function load(array $configs, ContainerBuilder $container)
@@ -492,11 +492,12 @@ Esportare la configurazione predefinita
 Il comando ``config:dump-reference`` consente di mostrare nella console, in formato YAML,
 la configurazione predefinita di un bundle.
 
-Il comando funziona automaticamente solo se la configurazione del bundle si trova nella
-posizione standard (``MioBundle\DependencyInjection\Configuration``) e non ha un
-``__constructor()``. Se si ha qualcosa di diverso, la propria classe ``Extension``
-dovrà sovrascrivere il metodo ``Extension::getConfiguration()`` e restituire un'istanza
-di ``Configuration``.
+Il comando funziona automaticamente solo se la configurazione del bundle si trova nella posizione standard
+(``MioBundle\DependencyInjection\Configuration``) e non ha un
+``__constructor()``. Se si ha qualcosa di diverso, la propria classe
+``Extension`` dovrà sovrascrivere il metodo
+``Extension::getConfiguration()`` e restituire un'istanza di
+``Configuration``.
 
 Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
 ``->setInfo()`` e ``->setExample()``::
@@ -517,7 +518,7 @@ Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
             $rootNode
                 ->children()
                     ->scalarNode('mio_tipo')
-                        ->defaultValue('bar')
+                        ->defaultValue('pluto')
                         ->setInfo('cosa configura mio_tipo')
                         ->setExample('impostazione di esempio')
                     ->end()

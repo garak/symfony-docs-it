@@ -11,6 +11,7 @@ sezione dei componenti ":doc:`/components/dependency_injection/compilation`".
 Per registrare un passo di compilatore da un bundle, occorre aggiungerlo al metodo di
 costruzione della classe di definizione del bundle::
 
+    // src/Acme/MailerBundle/AcmeMailerBundle.php
     namespace Acme\MailerBundle;
 
     use Symfony\Component\HttpKernel\Bundle\Bundle;

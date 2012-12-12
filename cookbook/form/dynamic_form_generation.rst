@@ -35,8 +35,8 @@ alla classe dei form::
 
 Si assuma per un momento che questo form utilizzi una classe immaginaria "prodotto"
 questa ha solo due attributi rilevanti ("nome" e "prezzo"). Il form generato 
-da questa classe avrà lo stesso aspetto, indipendentemente se un nuovo prodotto sta per essere creato
-oppure se un prodotto esistente sta per essere modificato (es. un prodotto ottenuto da database).
+da questa classe avrà lo stesso aspetto, indipendentemente se sta per essere creato un nuovo prodotto
+oppure se sta per essere modificato un prodotto esistente (cioè un prodotto ottenuto da base dati).
 
 Si supponga ora, di non voler abilitare l'utente alla modifica del campo 'nome' 
 una volta che l'oggetto è stato creato. Lo si può fare grazie al componente :doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
@@ -85,7 +85,7 @@ Dentro la classe dell'evento sottoscrittore
 -------------------------------------------
 
 L'obiettivo è di creare un campo "nome" *solo* se l'oggetto Prodotto sottostante
-è nuovo (es. non è stato persistito nel database). Basandosi su questo, l'sottoscrittore
+è nuovo (cioè non è stato persistito nella base dati). Basandosi su questo, l'sottoscrittore
 potrebbe essere simile a questo::
 
     // src/Acme/DemoBundle/Form/EventListener/AddNameFieldSubscriber.php

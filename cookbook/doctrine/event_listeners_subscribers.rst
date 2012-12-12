@@ -11,7 +11,7 @@ qualcosa nel sistema. Per lo sviluppatore, significa la possibilità di creare
 :doc:`servizi</book/service_container>` arbitrari e dire a Doctrine di notificare
 questi oggetti ogni volta che accade una certa azione (p.e. ``prePersist``).
 Questo può essere utile, per esempio, per creare un indice di ricerca indipendente
-ogni volta che un oggetto viene salvato nel database.
+ogni volta che un oggetto viene salvato nella base dati.
 
 Doctrine defininsce due tipi di oggetti che possono ascoltare eventi:
 ascoltatori e sottoscrittori. Sono simili tra loro, ma gli ascoltatori sono leggermente

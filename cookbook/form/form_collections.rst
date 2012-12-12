@@ -13,7 +13,7 @@ questo Task, all'interno dello stesso form.
 
     Con questa ricetta, si assume di utilizzare Doctrine come
     ORM. Se non si utilizza Doctrine (es. Propel o semplicemente
-    una connessione a database), il tutto è pressapoco simile. Ci sono solo alcune parti
+    una connessione a base dati), il tutto è pressapoco simile. Ci sono solo alcune parti
     di questa guida che si occupano effettivamente di "persistenza".
 
     Se si utilizza Doctrine, si avrà la necessità di aggiungere meta-dati Doctrine,

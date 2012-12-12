@@ -11,7 +11,7 @@ Symfony quindi verifica che la password di tale utente sia corretta e genera
 un token di sicurezza, in modo che l'utente resti autenticato per la sessione corrente.
 Symfony dispone di due fornitori utenti predefiniti, "in_memory" e "entity".
 In questa ricetta, vedremo come poter creare il poprio fornitore utenti, che potrebbe
-essere utile se gli utenti accedono tramite un database personalizzato, un file, oppure
+essere utile se gli utenti accedono tramite una base dati personalizzata, un file, oppure
 (come mostrato in questo esempio) tramite un servizio web.
 
 Creare una classe utente

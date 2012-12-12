@@ -58,7 +58,7 @@ Scrivere semplici fixture
 -------------------------
 
 Le fixture di Doctrine2 sono classi PHP, in cui si possono creare oggetti e persisterli
-nel database. Come tutte le classi in Symfony2, le fixture dovrebbero stare all'interno
+nella base dati. Come tutte le classi in Symfony2, le fixture dovrebbero stare all'interno
 di bundle della propria applicazione.
 
 Per un bundle in ``src/Acme/HelloBundle``, le classi delle fixture dovrebbero stare
@@ -291,8 +291,8 @@ In alcuni casi occorre accedere ad alcuni servizi, per caricare le fixture.
 Symfony2 rende il processo molto facile: il contenitore sarà iniettato in tutte le classi
 fixture che implementano :class:`Symfony\\Component\\DependencyInjection\\ContainerAwareInterface`.
 
-Riscriviamo la prima fixture per codificare la password, prima che sia memorizzata nel
-database (una buona pratica). Userà il factory encoder per codificare la password,
+Riscriviamo la prima fixture per codificare la password, prima che sia memorizzata nella
+base dati (una buona pratica). Userà il factory encoder per codificare la password,
 assicurando che sia codificata nello stesso modo usato dal componente security 
 quando si verifica:
 

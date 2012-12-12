@@ -163,14 +163,14 @@ nuova istanza del tipo in un form::
     }
 
 Questo funziona perché il ``GenderType()`` è veramente semplice. Cosa succede se
-i valori del genere sono stati inseriti nella configurazione o nel database? La prossima
+i valori del genere sono stati inseriti nella configurazione o nella base dati? La prossima
 sezione spiega come un tipo di campo più complesso può risolvere questa situazione.
 
 Creazione di un tipo di campo come servizio
 -------------------------------------------
 
 Finora, questa spiegazione ha assunto che si ha un tipo di campo molto semplice.
-Ma se fosse necessario accedere alla configurazione o al database o a qualche altro
+Ma se fosse necessario accedere alla configurazione o alla base dati o a qualche altro
 servizio, è necessario registrare il tipo di campo come servizio. Per
 esempio, si supponga che i valori del genere siano memorizzati nella configurazione:
 

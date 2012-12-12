@@ -11,7 +11,7 @@ di base coinvolte nel processo di autenticazione e come implementare un
 fornitore di autenticazione personalizzato. Poiché autenticazione e autorizzazione
 sono concetti separati, questa estensione sarà agnostica rispetto al fornitore
 di utenti e funzionerà con il fornitore di utenti della propria applicazione, sia
-esso basato sulla memoria, su un database o su qualsiasi altro supporto scelto.
+esso basato sulla memoria, su una base dati o su qualsiasi altro supporto scelto.
 
 WSSE
 ----

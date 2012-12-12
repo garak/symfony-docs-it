@@ -159,7 +159,7 @@ Aggiungere informazioni di mappatura
 Doctrine consente di lavorare con le basi dati in un modo molto più interessante rispetto
 al semplice recupero di righe da tabelle basate su colonne in un array. Invece, Doctrine
 consente di persistere interi *oggetti* sula base dati e di recuperare interi oggetti
-dala base dati. Funziona mappando una classe PHP su una tabella di base dati e le
+dalla base dati. Funziona mappando una classe PHP su una tabella di base dati e le
 proprietà della classe PHP sulle colonne della tabella:
 
 .. image:: /images/book/doctrine_image_1.png
@@ -427,7 +427,7 @@ Analizziamo questo esempio:
 
 * **riga 13** Questa riga recupera l'oggetto *gestore di entità* di Doctrine,
   responsabile della gestione del processo di persistenza e del recupero di
-  oggetti dala base dati;
+  oggetti dalla base dati;
 
 * **riga 14** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto
   ``$product``. Questo non fa (ancora) eseguire una query sula base dati.
@@ -458,10 +458,10 @@ sezione, si vedrà come Doctrine sia abbastanza intelligente da usare una query
     nel proprio progetto (le cosiddette "fixture"). Per informazioni, vedere
     :doc:`/bundles/DoctrineFixturesBundle/index`.
 
-Recuperare oggetti dala base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Recuperare oggetti dalla base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Recuperare un oggetto dala base dati è ancora più facile. Per esempio,
+Recuperare un oggetto dalla base dati è ancora più facile. Per esempio,
 supponiamo di aver configurato una rotta per mostrare uno specifico ``Product``,
 in base al valore del suo ``id``::
 
@@ -591,7 +591,7 @@ La cancellazione di un oggetto è molto simile, ma richiede una chiamata al meto
     $em->flush();
 
 Come ci si potrebbe aspettare, il metodo ``remove()`` rende noto a Doctrine che si
-vorrebbe rimuovere la data entità dala base dati. Tuttavia, la query ``DELETE`` non viene
+vorrebbe rimuovere la data entità dalla base dati. Tuttavia, la query ``DELETE`` non viene
 realmente eseguita finché non si richiama il metodo ``flush()``.
 
 .. _`book-doctrine-queries`:

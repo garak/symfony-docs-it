@@ -67,7 +67,7 @@ Innanzitutto, occorre configurare la connessione al sistema ACL da usare:
     qualsiasi mapper si desideri per i propri oggetti, sia esso l'ORM Doctrine, l'ODM Mongo, Propel o anche
     SQL puro, la scelta è lasciata allo sviluppatore.
 
-Dopo aver configurato la connessione, occorre importare la struttura del database.
+Dopo aver configurato la connessione, occorre importare la struttura della base dati.
 Fortunatamente, c'è un task per farlo. Basta eseguire il comando seguente:
 
 .. code-block:: bash
@@ -141,7 +141,7 @@ stiamo consentendo l'accesso come proprietario del commento all'utente corrente.
 La costante ``MaskBuilder::MASK_OWNER`` è un intero predefinito; non ci si deve
 preoccupare, perché il costruttore di maschere astrae la maggior parte dei dettagli tecnici,
 ma usando questa tecnica si possono memorizzare molti permessi diversi in una singola riga
-di database, che fornisce un considerevole vantaggio in termini di prestazioni.
+di base dati, che fornisce un considerevole vantaggio in termini di prestazioni.
 
 .. tip::
 

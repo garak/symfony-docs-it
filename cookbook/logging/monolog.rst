@@ -55,7 +55,7 @@ consente di loggare facilmente i messaggi in molti modi.
         # app/config/config*.yml
         monolog:
             handlers:
-                syslog:
+                applog:
                     type: stream
                     path: /var/log/symfony.log
                     level: error
@@ -66,7 +66,9 @@ consente di loggare facilmente i messaggi in molti modi.
                 file:
                     type: stream
                     level: debug
-
+                syslog:
+                    type: syslog
+                    level: error
     .. code-block:: xml
 
         <container xmlns="http://symfony.com/schema/dic/services"
@@ -77,7 +79,7 @@ consente di loggare facilmente i messaggi in molti modi.
 
             <monolog:config>
                 <monolog:handler
-                    name="syslog"
+                    name="applog"
                     type="stream"
                     path="/var/log/symfony.log"
                     level="error"
@@ -92,6 +94,11 @@ consente di loggare facilmente i messaggi in molti modi.
                     name="file"
                     type="stream"
                     level="debug"
+                />
+                <monolog:handler
+                    name="syslog"
+                    type="syslog"
+                    level="error"
                 />
             </monolog:config>
         </container>
@@ -229,7 +236,7 @@ usando un processore.
             handlers:
                 main:
                     type: stream
-                    path: %kernel.logs_dir%/%kernel.environment%.log
+                    path: "%kernel.logs_dir%/%kernel.environment%.log"
                     level: debug
                     formatter: monolog.formatter.session_request
 

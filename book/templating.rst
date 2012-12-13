@@ -14,6 +14,12 @@ riusati per restituire del contenuto all'utente, popolare corpi di email e altro
 Si impareranno scorciatoie, modi intelligenti di estendere template e come riusare
 il codice di un template
 
+.. note::
+
+    La resa dei template è spiegata nel capitolo relativo al :ref:`controllore <controller-rendering-templates>`
+    del libro.
+
+
 .. index::
    single: Template; Cos'è un template?
 
@@ -108,12 +114,17 @@ alternate ``odd`` e ``even``:
 .. code-block:: html+jinja
 
     {% for i in 0..10 %}
-      <div class="{{ cycle(['odd', 'even'], i) }}">
-        <!-- un po' di codice HTML -->
-      </div>
+        <div class="{{ cycle(['odd', 'even'], i) }}">
+          <!-- un po' di codice HTML -->
+        </div>
     {% endfor %}
 
 In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in PHP.
+
+.. tip::
+
+    If you *do* choose to not use Twig and you disable it, you'll need to implement
+    your own exception handler via the ``kernel.exception`` event.
 
 .. sidebar:: Perché Twig?
 
@@ -131,9 +142,9 @@ In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in 
     che combina un ciclo con un'istruzione logica ``if``:
     
     .. code-block:: html+jinja
-    
+
         <ul>
-            {% for user in users %}
+            {% for user in users if user.active %}
                 <li>{{ user.username }}</li>
             {% else %}
                 <li>Nessun utente trovato</li>
@@ -207,7 +218,7 @@ Primo, costruire un file per il layout di base:
             </body>
         </html>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
         <!DOCTYPE html>
@@ -218,7 +229,7 @@ Primo, costruire un file per il layout di base:
             </head>
             <body>
                 <div id="sidebar">
-                    <?php if ($view['slots']->has('sidebar'): ?>
+                    <?php if ($view['slots']->has('sidebar')): ?>
                         <?php $view['slots']->output('sidebar') ?>
                     <?php else: ?>
                         <ul>
@@ -350,7 +361,9 @@ Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da te
 
         {% block sidebar %}
             <h3>Sommario</h3>
-            ...
+
+            {# ... #}
+
             {{ parent() }}
         {% endblock %}
 
@@ -519,11 +532,13 @@ Includere questo template da un altro template è semplice:
             <h1>Articoli recenti<h1>
 
             {% for article in articles %}
-                {% include 'AcmeArticleBundle:Article:articleDetails.html.twig' with {'article': article} %}
+                {% include 'AcmeArticleBundle:Article:articleDetails.html.twig'
+                       with {'article': article}
+                %}
             {% endfor %}
         {% endblock %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/Article/list.html.php -->
         <?php $view->extend('AcmeArticleBundle::layout.html.php') ?>
@@ -565,15 +580,18 @@ proprio template. Primo, creare un controllore che rende un certo numero di
 articoli recenti::
 
     // src/Acme/ArticleBundle/Controller/ArticleController.php
-
     class ArticleController extends Controller
     {
         public function recentArticlesAction($max = 3)
         {
-            // chiamare la base dati o altra logica per ottenere "$max" articoli recenti
+            // chiamare la base dati o altra logica
+            // per ottenere "$max" articoli recenti
             $articles = ...;
 
-            return $this->render('AcmeArticleBundle:Article:recentList.html.twig', array('articles' => $articles));
+            return $this->render(
+                'AcmeArticleBundle:Article:recentList.html.twig',
+                array('articles' => $articles)
+            );
         }
     }
 
@@ -585,12 +603,12 @@ Il template ``recentList`` è molto semplice:
 
         {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
         {% for article in articles %}
-          <a href="/article/{{ article.slug }}">
-              {{ article.title }}
-          </a>
+            <a href="/article/{{ article.slug }}">
+                {{ article.title }}
+            </a>
         {% endfor %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
         <?php foreach ($articles in $article): ?>
@@ -613,8 +631,8 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
     .. code-block:: html+jinja
 
         {# app/Resources/views/base.html.twig #}
-        ...
 
+        {# ... #}
         <div id="sidebar">
             {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
         </div>
@@ -622,8 +640,8 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
     .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
-        ...
 
+        <!-- ... -->
         <div id="sidebar">
             <?php echo $view['actions']->render('AcmeArticleBundle:Article:recentArticles', array('max' => 3)) ?>
         </div>
@@ -634,6 +652,8 @@ I controllori sono veloci da eseguire e promuovono buona organizzazione e riuso 
 
 .. index::
    single: Template; Collegare le pagine
+
+.. _book-templating-pages:
 
 Collegare le pagine
 ~~~~~~~~~~~~~~~~~~~
@@ -720,9 +740,9 @@ articoli:
 
         {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
         {% for article in articles %}
-          <a href="{{ path('article_show', { 'slug': article.slug }) }}">
-              {{ article.title }}
-          </a>
+            <a href="{{ path('article_show', {'slug': article.slug}) }}">
+                {{ article.title }}
+            </a>
         {% endfor %}
 
     .. code-block:: html+php
@@ -745,12 +765,18 @@ articoli:
     Lo stesso si può fare nei template PHP, passando un terzo parametro al metodo
     ``generate()``:
 
-    .. code-block:: php
+    .. code-block:: html+php
 
-        <a href="<?php echo $view['router']->generate('_welcome', array(), true) ?>">Home</a>
+        <a href="<?php echo $view['router']->generate(
+            '_welcome',
+            array(),
+            true
+        ) ?>">Home</a>
 
 .. index::
    single: Template; Collegare le risorse
+
+.. _book-templating-assets:
 
 Collegare le risorse
 ~~~~~~~~~~~~~~~~~~~~
@@ -815,7 +841,7 @@ di stile e i Javascript che occorrerano al sito:
 
 .. code-block:: html+jinja
 
-    {# 'app/Resources/views/base.html.twig' #}
+    {# app/Resources/views/base.html.twig #}
     <html>
         <head>
             {# ... #}
@@ -841,14 +867,14 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
 .. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Contact/contact.html.twig #}
-    {# extends '::base.html.twig' #}
+    {% extends '::base.html.twig' %}
 
     {% block stylesheets %}
         {{ parent() }}
-        
+
         <link href="{{ asset('/css/contact.css') }}" type="text/css" rel="stylesheet" />
     {% endblock %}
-    
+
     {# ... #}
 
 Nel template figlio, basta sovrascrivere il blocco ``stylesheets`` e inserire
@@ -989,9 +1015,13 @@ renderlo specifico per la nostra applicazione. Analizzando il controllore
 
     public function indexAction()
     {
-        $blogs = // logica per recuperare i blog
+        // logica per recuperare i blog
+        $blogs = ...;
 
-        $this->render('AcmeBlogBundle:Blog:index.html.twig', array('blogs' => $blogs));
+        $this->render(
+            'AcmeBlogBundle:Blog:index.html.twig',
+            array('blogs' => $blogs)
+        );
     }
 
 Quando viene reso ``AcmeBlogBundle:Blog:index.html.twig``, Symfony2 cerca il template
@@ -1004,6 +1034,11 @@ Per sovrascrivere il template del bundle, basta copiare il file ``index.html.twi
 dal bundle a ``app/Resources/AcmeBlogBundle/views/Blog/index.html.twig``
 (la cartella ``app/Resources/AcmeBlogBundle`` non esiste ancora, quindi occorre
 crearla). Ora si può personalizzare il template.
+
+.. caution::
+
+    Se si aggiunge un template in una nuova posizione, *potrebbe* essere necessario pulire
+    la cache (``php app/console cache:clear``), anche in modalità debug.
 
 Questa logica si applica anche ai template base dei bundle. Supponiamo che ogni
 template in ``AcmeBlogBundle`` erediti da un template base chiamato
@@ -1032,7 +1067,7 @@ appropriata.
 .. _templating-overriding-core-templates:
 
 .. index::
-    single; Template; Sovrascrivere template di eccezioni
+    single: Template; Sovrascrivere template di eccezioni
 
 Sovrascrivere template del nucleo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1062,16 +1097,16 @@ di cui abbiamo appena parlato:
   avrebbe un template di nome ``AcmeBlogBundle::layout.html.twig``, che contiene solo
   elementi specifici alla sezione blog;
 
-    .. code-block:: html+jinja
+  .. code-block:: html+jinja
 
-        {# src/Acme/BlogBundle/Resources/views/layout.html.twig #}
-        {% extends '::base.html.twig' %}
+      {# src/Acme/BlogBundle/Resources/views/layout.html.twig #}
+      {% extends '::base.html.twig' %}
 
-        {% block body %}
-            <h1>Applicazione blog</h1>
+      {% block body %}
+          <h1>Applicazione blog</h1>
 
-            {% block content %}{% endblock %}
-        {% endblock %}
+          {% block content %}{% endblock %}
+      {% endblock %}
 
 * Creare i singoli template per ogni pagina, facendo estendere il template della sezione
   appropriata. Per esempio, la pagina "index" avrebbe un nome come
@@ -1118,7 +1153,7 @@ o consentire a un utente malintenzionato di eseguire un attacco `Cross Site Scri
 
         Ciao {{ name }}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         Ciao <?php echo $name ?>
 
@@ -1233,7 +1268,6 @@ Si può quindi fare un dump dei parametri nei template, usando la funzione ``dum
 .. code-block:: html+jinja
 
     {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
-
     {{ dump(articles) }}
 
     {% for article in articles %}
@@ -1271,7 +1305,7 @@ soluzione comune è fare come segue::
     public function indexAction()
     {
         $format = $this->getRequest()->getRequestFormat();
-    
+
         return $this->render('AcmeBlogBundle:Blog:index.'.$format.'.twig');
     }
 
@@ -1334,7 +1368,7 @@ Imparare di più con il ricettario
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`KnpBundles.com`: http://knpbundles.com
 .. _`Cross Site Scripting`: http://it.wikipedia.org/wiki/Cross-site_scripting
-.. _`Escape dell'output`: http://twig.sensiolabs.org
+.. _`Escape dell'output`: http://twig.sensiolabs.org/doc/api.html#escaper-extension
 .. _`tag`: http://twig.sensiolabs.org/doc/tags/index.html
 .. _`filtri`: http://twig.sensiolabs.org/doc/filters/index.html
-.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/extensions.html
+.. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension

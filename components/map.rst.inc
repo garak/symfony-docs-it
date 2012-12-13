@@ -1,3 +1,5 @@
+* :doc:`/components/using_components`
+
 * **Class Loader**
 
   * :doc:`/components/class_loader`
@@ -55,9 +57,9 @@
 
   * :doc:`/components/process`
 
-* **Routing**
+* :doc:`/components/routing/index`
 
-  * :doc:`/components/routing`
+  * :doc:`/components/routing/introduction`
 
 * **Serializer**
 

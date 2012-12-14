@@ -22,12 +22,12 @@ Configurazione predefinita completa
             node:                 /usr/bin/node
             ruby:                 /usr/bin/ruby
             sass:                 /usr/bin/sass
-            # An key-value pair of any number of named elements
+            # Una coppia chiave-valore di un numero di elementi
             variables:
                 some_name:                 []
             bundles:
 
-                # Defaults (all currently registered bundles):
+                # Predefiniti (tutti i bundle attualmente registrati):
                 - FrameworkBundle
                 - SecurityBundle
                 - TwigBundle
@@ -37,18 +37,18 @@ Configurazione predefinita completa
                 - AsseticBundle
                 - ...
             assets:
-                # An array of named assets (e.g. some_asset, some_other_asset)
+                # Un array di risorse (p.e. una_risorsa, un_altra_risorsa)
                 some_asset:
                     inputs:               []
                     filters:              []
                     options:
-                        # A key-value array of options and values
+                        # Un array chiave-valore di opzioni e valori
                         some_option_name: []
             filters:
 
-                # An array of named filters (e.g. some_filter, some_other_filter)
+                # Un array di filtri (p.e. un_filtro, un_altro_filtro)
                 some_filter:                 []
             twig:
                 functions:
-                    # An array of named functions (e.g. some_function, some_other_function)
+                    # Un array di funzioni (p.e. una_funzione, un_altra_funzione)
                     some_function:                 []

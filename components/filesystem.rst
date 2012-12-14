@@ -113,12 +113,12 @@ l'ora attuale. Si può impostare un'ora diversa con il secondo parametro. Il ter
 Chown
 ~~~~~
 
-Chown is used to change the owner of a file. The third argument is a boolean
-recursive option::
+Chown è usato per cambiare il proprietario di un file. Il terzo parametro è un booleano per
+un'opzione ricorsiva::
 
-    // set the owner of the lolcat video to www-data
+    // imposta il proprietario del video lolcat a www-data
     $fs->chown('lolcat.mp4', 'www-data');
-    // change the owner of the video directory recursively
+    // cambia il proprietario della cartella video ricorsivamente
     $fs->chown('/video', 'www-data', true);
 
 .. note::
@@ -129,12 +129,12 @@ recursive option::
 Chgrp
 ~~~~~
 
-Chgrp is used to change the group of a file. The third argument is a boolean
-recursive option::
+Chgrp è usato per cambiare il gruppo di un file. Il terzo parametro è un booleano per
+un'opzione ricorsiva::
 
-    // set the group of the lolcat video to nginx
+    // imposta il gruppo del video lolcat a nginx
     $fs->chgrp('lolcat.mp4', 'nginx');
-    // change the group of the video directory recursively
+    // cambia il gruppo della cartella video ricorsivamente
     $fs->chgrp('/video', 'nginx', true);
 
 

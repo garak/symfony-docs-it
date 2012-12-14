@@ -174,7 +174,7 @@ Symfony stesso, nella cartella ``vendor/``.
 .. tip::
 
     Quando si esegue ``php composer.phar install`` o ``php composer.phar update``,
-    composer eseguirà dei comandi post installazione/aggiornamento per cpulire la cache
+    composer eseguirà dei comandi post installazione/aggiornamento per pulire la cache
     e installare le risorse. Per impostazione predefinita, le risorse saranno copiate nella cartella ``web``.
     Per creare collegamenti simbolici invece di copiare le risorse, si può
     aggiungere una voce nel nodo ``extra`` del file composer.json con chiave ``symfony-assets-install``

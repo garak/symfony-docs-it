@@ -59,6 +59,20 @@ fare come segue:
              protected $firstName;
         }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\EventBundle\Entity\Participant">
+            <property name="firstName">
+                <constraint name="Length">
+                    <option name="min">2</option>
+                    <option name="max">50</option>
+                    <option name="minMessage">Your first name must be at least {{ limit }} characters length</option>
+                    <option name="maxMessage">Your first name cannot be longer than than {{ limit }} characters length</option>
+                </constraint>
+            </property>
+        </class>
+
 Opzioni
 -------
 

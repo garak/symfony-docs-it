@@ -1,5 +1,5 @@
 .. index::
-   single: Routing; _method
+   single: Rotte; _method
 
 Usare i metodi HTTP oltre a GET e POST nelle rotte
 ==================================================

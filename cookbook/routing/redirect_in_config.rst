@@ -1,5 +1,5 @@
 .. index::
-   single: Routing; Configurare un rinvio a un'altra rotta senza controllori ad hoc
+   single: Rotte; Configurare un rinvio a un'altra rotta senza controllori ad hoc
 
 Configurare un rinvio a un'altra rotta senza controllori ad hoc
 ===============================================================

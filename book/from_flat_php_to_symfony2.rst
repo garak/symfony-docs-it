@@ -426,28 +426,30 @@ fornito da Symfony. Un autoloader è uno strumento che rende possibile l'utilizz
 classi PHP senza includere esplicitamente il file che contiene la
 classe.
 
-Primo, `scaricare symfony`_ e metterlo in una cartella ``vendor/symfony/symfony``.
-Poi, creare un file ``app/bootstrap.php``. Usarlo per il ``require`` dei due file
-dell'applicazione e per configurare l'autoloader:
+Nella cartella radice, creare un file ``composer.json`` con il seguente
+contenuto:
 
-.. code-block:: html+php
+.. code-block:: json
 
-    <?php
-    // bootstrap.php
-    require_once 'model.php';
-    require_once 'controllers.php';
-    require_once 'vendor/symfony/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    {
+        "require": {
+            "symfony/symfony": "2.1.*"
+        },
+        "autoload": {
+            "files": ["model.php","controller.php"]
+        }
+    }
+    
+Quindi, `scaricare Composer`_ ed eseguire il seguente comando, che scaricherà Symfony
+in una cartella `vendor/`:
 
-    $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
-    $loader->registerNamespaces(array(
-        'Symfony' => __DIR__.'/../vendor/symfony/symfony/src',
-    ));
+.. code-block:: bash
 
-    $loader->register();
+    $ php composer.phar install
 
-Questo dice all'autoloader dove sono le classi ``Symfony``. In questo modo, si può
-iniziare a usare le classi di Symfony senza usare l'istruzione ``require`` per i file
-che le contengono.
+Oltre a scaricare le dipendenza, Composer genera un file ``vendor/autoload.php``,
+che si occupa di auto-caricare tutti i file del framework Symfony, nonché dei
+file menzionati nella sezione autoload di ``composer.json``.
 
 Una delle idee principali della filosofia di Symfony è che il compito principale di
 un'applicazione sia quello di interpretare ogni richiesta e restituire una risposta. A
@@ -460,7 +462,7 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
 
     <?php
     // index.php
-    require_once 'app/bootstrap.php';
+    require_once 'vendor/bootstrap.php';
 
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -587,7 +589,7 @@ semplice:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/BlogBundle/Resources/views/Blog/list.html.php --> 
+    <!-- src/Acme/BlogBundle/Resources/views/Blog/list.html.php -->
     <?php $view->extend('::layout.html.php') ?>
 
     <?php $view['slots']->set('title', 'List of Posts') ?>
@@ -752,7 +754,7 @@ Imparare di più con le ricette
 * :doc:`/cookbook/controller/service`
 
 .. _`Doctrine`: http://www.doctrine-project.org
-.. _`scaricare Symfony`: http://symfony.com/download
+.. _`scaricare Composer`: http://getcomposer.org/download/
 .. _`Routing`: https://github.com/symfony/Routing
 .. _`Templating`: https://github.com/symfony/Templating
 .. _`KnpBundles.com`: http://knpbundles.com/

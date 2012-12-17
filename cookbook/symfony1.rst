@@ -92,7 +92,7 @@ Questo consente di mantenere le risorse organizzate nel proprio bundle, ma ancor
 disponibili pubblicamente. Per assicurarsi che tutti i bundle siano disponibili,
 eseguire il seguente comando::
 
-    php app/console assets:install web
+    $ php app/console assets:install web
 
 .. note::
 
@@ -114,7 +114,7 @@ gigantesco array. Questo array diceva a symfony1 esattamente quale file
 conteneva ciascuna classe. Nell'ambiente di produzione, questo causava la necessità
 di dover pulire la cache quando una classe veniva aggiunta o spostata.
 
-In Symfony2, una nuova classe, ``UniversalClassLoader`` gestisce questo processo.
+In Symfony2, uno strumento chiamato `Composer`_ gestisce questo processo.
 L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso lo
 spazio dei nomi) deve corrispondere al percorso del file che contiene tale classe.
 Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di
@@ -135,19 +135,8 @@ Il file stesso risiede in
 Come si può vedere, la locazione del file segue lo spazio dei nomi della classe.
 Nello specifico, lo spazio dei nomi ``Sensio\Bundle\FrameworkExtraBundle`` dice che la
 cartella in cui il file dovrebbe risiedere
-(``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/``). Per questo motivo, nel file
-``app/autoload.php``, si dovrà configurare Symfony2 per cercare lo spazio dei nomi
-``Sensio`` nella cartella ``vendor/sensio``:
-
-.. code-block:: php
-
-    // app/autoload.php
-
-    // ...
-    $loader->registerNamespaces(array(
-        ...,
-        'Sensio'           => __DIR__.'/../vendor/sensio/framework-extra-bundle',
-    ));
+(``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/``).
+Composer quindi può cercare il file nella specifica posizione e caricarlo molto velocemente.
 
 Se il file *non* risiede in questa esatta locazione, si riceverà un errore
 ``Class "Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle" does not exist.``.
@@ -160,24 +149,24 @@ cerca in una specifica locazione quella classe, ma quella locazione non esiste
 Come già accennato, per poter far funzionare l'autoloader, esso deve sapere che
 lo spazio dei nomi ``Sensio`` risiede nella cartella ``vendor/bundles`` e che, per esempio,
 lo spazio dei nomi ``Doctrine`` risiede nella cartella ``vendor/doctrine/orm/lib/``.
-Questa mappatura è interamente controllata dallo sviluppatore, tramite il file
-``app/autoload.php``.
+Questa mappatura è interamente controllata da Composer. Ogni
+libreria di terze parti caricata tramite composer ha le sue impostazioni definite
+e Composer si occupa di tutto al posto nostro.
+
+Per poter funzionare, tutte le librerie di terze parti usate nel progetto devono
+essere definite nel file ``composer.json``.
 
 Se si dà un'occhiata a ``HelloController`` nella Standard Edition di Symfony2, si
 vedrà che esso risiede nello spazio dei nomi ``Acme\DemoBundle\Controller``. Anche qui,
-lo spazio dei nomi ``Acme`` non è definito in ``app/autoload.php``. Non occorre
-configurare esplicitamente la locazione dei bundle che risiedono nella cartella
-``src/``. ``UniversalClassLoader`` è configurato per usare come locazione di
-riserva la cartella ``src/``, usando il suo metodo ``registerNamespaceFallbacks``:
+``AcmeBundle`` non è definito nel file ``composer.json``. I file vengono comunque caricati
+automaticamente. Questo perché si può dire a Composer di auto-caricare i file da
+cartelle specifiche, senza definire dipendenze:
 
-.. code-block:: php
+.. code-block:: yaml
 
-    // app/autoload.php
-
-    // ...
-    $loader->registerNamespaceFallbacks(array(
-        __DIR__.'/../src',
-    ));
+    "autoload": {
+        "psr-0": { "": "src/" }
+    }
 
 Uso della console
 -----------------
@@ -237,7 +226,7 @@ In symfony1, un plugin deve essere abilitato nella classe
     // config/ProjectConfiguration.class.php
     public function setup()
     {
-        $this->enableAllPluginsExcept(array(/* nomi dei plugin */));
+        $this->enableAllPluginsExcept(array(... nomi dei plugin));
     }
 
 In Symfony2, i bundle sono attivati nel kernel dell'applicazione::
@@ -312,3 +301,4 @@ per configurare oggetti da usare. Per maggiori informazioni, vedere il capitolo
 intitolato ":doc:`/book/service_container`".
 
 .. _`Symfony2 Standard`: https://github.com/symfony/symfony-standard
+.. _`Composer`: http://getcomposer.org

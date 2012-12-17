@@ -398,7 +398,7 @@ cartella ``app``:
             </head>
             <body>
                 <?php $view['slots']->output('_content') ?>
-                <?php $view['slots']->output('stylesheets') ?>
+                <?php $view['slots']->output('javascripts') ?>
             </body>
         </html>
 
@@ -533,11 +533,6 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
         Percorso:
             src/Acme/HelloBundle/Controller/HelloController.php
 
-    Tipicamente, l'unica volta in cui si avrà bisogno di preoccuparsi del file
-    ``app/autoload.php`` sarà al momento di includere nuove librerie di terze
-    parti nella cartella ``vendor/``. Per maggiori informazioni sull'autoload,
-    vedere :doc:`Come auto-caricare le classi</components/class_loader>`.
-
 La cartella dei sorgenti (``src``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -609,7 +604,6 @@ dalla propria applicazione (inclusi i bundle del nucleo di Symfony).
 
    Un bundle può stare *ovunque*, purché possa essere auto-caricato (tramite
    l'autoloader configurato in ``app/autoload.php``).
-
 Creare un bundle
 ~~~~~~~~~~~~~~~~
 

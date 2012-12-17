@@ -6,7 +6,7 @@ Installare e usare i componenti di Symfony2
 ===========================================
 
 Se si inizia un nuovo progetto (o se si ha già un progetto) che userà
-uno o più componenti, il modo più semplice per integrare tutto è con Composer.
+uno o più componenti, il modo più semplice per integrare tutto è con `Composer`_.
 Composer è abbastanza intelligente da scaricare i componenti necessari e occuparsi
 del caricamento automatico, in modo che si può iniziare a usare immediatamente le librerie.
 
@@ -33,13 +33,15 @@ essere necessario modificare la versione (p.e. ``2.1.1`` o ``2.2.*``).
 
 Si possono cercare nomi e versioni dei componenti su `packagist.org`_.
 
-**3.** Scaricare le librerie dei venditori e generare il file ``vendor/autoload.php``:
+**3.** `Installare composer`_, se non è già presente sul proprio sistema: 
+
+**4.** Scaricare le librerie dei venditori e generare il file ``vendor/autoload.php``:
 
 .. code-block:: bash
 
     $ php composer.phar install
 
-**4.** Scrivere il proprio codice:
+**5.** Scrivere il proprio codice:
 
 Una volta che Composer ha scaricato i componenti, basterà includere il
 file ``vendor/autoload.php`` generato da Composer stesso. Tale file si
@@ -48,6 +50,7 @@ immediatamente::
 
         // File: src/script.php
 
+        // cambiare il percorso in quello della cartella "vendor/", relativamente a questo file
         require_once '../vendor/autoload.php';
 
         use Symfony\Component\Finder\Finder;
@@ -93,4 +96,6 @@ specifica dei componenti per saperne di più sul loro uso.
 
 Buon divertimento!
 
+.. _Composer: http://getcomposer.org
+.. _Installare composer: http://getcomposer.org/download/
 .. _packagist.org: https://packagist.org/

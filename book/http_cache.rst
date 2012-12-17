@@ -126,7 +126,7 @@ cache dei primi due tipi. Queste cache sono fuori dal nostro controllo, ma seguo
 le indicazioni di cache HTTP impostate nella risposta.
 
 .. index::
-   single: Cache; 
+   single: Cache; Reverse proxy di Symfony2
 
 .. _`symfony-gateway-cache`:
 
@@ -619,7 +619,7 @@ necessari per calcolare la rappresentazione della risorsa come valore dell'heade
             return $response;
         }
 
-        // fare qualcosa per popolare la risposta con il contenuto completo
+        // ... fare qualcosa per popolare la risposta con il contenuto completo
 
         return $response;
     }

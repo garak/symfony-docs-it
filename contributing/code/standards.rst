@@ -15,7 +15,7 @@ Symfony segue gli standard definiti nei documenti `PSR-0`_, `PSR-1`_ e
 Poiché un'immagine (o un po' di codice) vale più di mille parole, ecco un
 breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
-.. code-block:: php
+.. code-block:: php+html
 
     <?php
 
@@ -108,7 +108,11 @@ Convenzioni sui nomi
 
 * Usare gli spazi dei nomi per tutte le classi;
 
-* Aggiungere il suffisso `Interface` alle interfacce;
+* Le classi astratte spesso hanno prefisso ``Abstract``;
+
+* Aggiungere il suffisso ``Interface`` alle interfacce;
+
+* Aggiungere il suffisso ``Trait`` ai trait;
 
 * Usare caratteri alfanumerici e trattini bassi per i nomi di file;
 

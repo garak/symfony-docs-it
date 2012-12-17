@@ -14,8 +14,8 @@ Prima di lavorare con Symfony2, preparare l'ambiente con il seguente
 software:
 
 * Git;
-* PHP versione 5.3.2 o successive;
-* PHPUnit 3.5.11 o successivi.
+* PHP versione 5.3.3 o successive;
+* PHPUnit 3.6.4 o successivi.
 
 Configurare Git
 ~~~~~~~~~~~~~~~
@@ -267,6 +267,9 @@ richiesta di pull, come in:
     Si prega di usare un titolo con "[WIP]", se la proposta non è ancora completa o se
     i test sono incompleti o non passano ancora.
 
+Descrizione della richiesta di pull
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 La descrizione della richiesta di pull deve includere la seguente lista, per assicurare
 che i contributi siano rivisti senza continui giri di feedback e che quindi possano
 essere inclusi in Symfony il prima possibile:
@@ -358,12 +361,12 @@ i commit. Dopo aver finito, eseguire il push.
     della chiave inglese nella pagina del build di Travis. Prima selezionare il proprio ramo,
     quindi copiare il codice markdown nella descrizione della propria richiesta di pull.
 
-.. _ProGit:                                http://progit.org/
+.. _ProGit:                                http://git-scm.com/book
 .. _GitHub:                                https://github.com/signup/free
 .. _`documentazione di Github`:            https://help.github.com/articles/ignoring-files
 .. _repository di Symfony2:                https://github.com/symfony/symfony
 .. _lista dev:                             http://groups.google.com/group/symfony-devs
-.. _travis-ci.org:                         http://travis-ci.org
+.. _travis-ci.org:                         https://travis-ci.org/
 .. _`icona di stato di travis-ci.org`:     http://about.travis-ci.org/docs/user/status-images/
 .. _`travis-ci.org Getting Started Guide`: http://about.travis-ci.org/docs/user/getting-started/
 .. _`repository della documentazione`:     https://github.com/symfony/symfony-docs

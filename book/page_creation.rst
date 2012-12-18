@@ -604,6 +604,7 @@ dalla propria applicazione (inclusi i bundle del nucleo di Symfony).
 
    Un bundle può stare *ovunque*, purché possa essere auto-caricato (tramite
    l'autoloader configurato in ``app/autoload.php``).
+
 Creare un bundle
 ~~~~~~~~~~~~~~~~
 

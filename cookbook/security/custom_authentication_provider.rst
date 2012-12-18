@@ -106,7 +106,6 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
     use Symfony\Component\Security\Core\Exception\AuthenticationException;
     use Symfony\Component\Security\Core\SecurityContextInterface;
     use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
-    use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
     use Acme\DemoBundle\Security\Authentication\Token\WsseUserToken;
 
     class WsseListener implements ListenerInterface
@@ -124,35 +123,35 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
         {
             $request = $event->getRequest();
 
-            if ($request->headers->has('x-wsse')) {
-
-                $wsseRegex = '/UsernameToken Username="([^"]+)", PasswordDigest="([^"]+)", Nonce="([^"]+)", Created="([^"]+)"/';
-
-                if (preg_match($wsseRegex, $request->headers->get('x-wsse'), $matches)) {
-                    $token = new WsseUserToken();
-                    $token->setUser($matches[1]);
-
-                    $token->digest   = $matches[2];
-                    $token->nonce    = $matches[3];
-                    $token->created  = $matches[4];
-
-                    try {
-                        $returnValue = $this->authenticationManager->authenticate($token);
-
-                        if ($returnValue instanceof TokenInterface) {
-                            return $this->securityContext->setToken($returnValue);
-                        } else if ($returnValue instanceof Response) {
-                            return $event->setResponse($returnValue);
-                        }
-                    } catch (AuthenticationException $e) {
-                        // si potrebbe loggare qualcosa in questo punto
-                    }
-                }
+            $wsseRegex = '/UsernameToken Username="([^"]+)", PasswordDigest="([^"]+)", Nonce="([^"]+)", Created="([^"]+)"/';
+            if (!$request->headers->has('x-wsse') || 1 !== preg_match($wsseRegex, $request->headers->get('x-wsse'), $matches)) {
+                return;
             }
 
-            $response = new Response();
-            $response->setStatusCode(403);
-            $event->setResponse($response);
+            $token = new WsseUserToken();
+            $token->setUser($matches[1]);
+
+            $token->digest   = $matches[2];
+            $token->nonce    = $matches[3];
+            $token->created  = $matches[4];
+
+            try {
+                $authToken = $this->authenticationManager->authenticate($token);
+
+                $this->securityContext->setToken($authToken);
+            } catch (AuthenticationException $failed) {
+                // ... si potrebbe loggare qualcosa in questo punto
+
+                // Per negare l'autenticazione, pulire il token. L'utente sarà rinviato alla pagina di login.
+                // $this->securityContext->setToken(null);
+                // return;
+
+                // Negare l'autenticazione con una risposta HTTP '403 Forbidden'
+                $response = new Response();
+                $response->setStatusCode(403);
+                $event->setResponse($response);
+
+            }
         }
     }
 
@@ -245,8 +244,7 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
 
 .. note::
 
-    L'interfaccia
-    :class:`Symfony\\Component\\Security\\Core\\Authentication\\Provider\\AuthenticationProviderInterface`
+    L'interfaccia :class:`Symfony\\Component\\Security\\Core\\Authentication\\Provider\\AuthenticationProviderInterface`
     richiede un metodo ``authenticate`` sul token dell'utente e un metodo ``supports``,
     che dice al gestore di autenticazione se usare o meno questo fornitore per il token
     dato. In caso di più fornitori, il gestore di autenticazione passerà al fornitore
@@ -259,7 +257,8 @@ Abbiamo creato un token personalizzato, un ascoltatore personalizzato e un forni
 personalizzato. Ora dobbiamo legarli insieme. Come rendere disponibile il fornitore
 alla configurazione della sicurezza? La risposta è: usando un ``factory``. Un factory
 è quando ci si aggancia al componente della sicurezza, dicendogli il nome del proprio
-provider e qualsiasi opzione di configurazione disponibile per esso. Prima di tutto, occorre creare una classe che implementi
+provider e qualsiasi opzione di configurazione disponibile per esso. Prima di tutto,
+occorre creare una classe che implementi
 :class:`Symfony\\Bundle\\SecurityBundle\\DependencyInjection\\Security\\Factory\\SecurityFactoryInterface`.
 
 .. code-block:: php
@@ -300,7 +299,8 @@ provider e qualsiasi opzione di configurazione disponibile per esso. Prima di tu
         }
 
         public function addConfiguration(NodeDefinition $node)
-        {}
+        {
+        }
     }
 
 L'interfaccia :class:`Symfony\\Bundle\\SecurityBundle\\DependencyInjection\\Security\\Factory\\SecurityFactoryInterface`
@@ -465,15 +465,14 @@ Occorre innanzitutto modificare ``WsseFactory`` e definire la nuova opzione nel 
 
     class WsseFactory implements SecurityFactoryInterface
     {
-        # ...
+        // ...
 
         public function addConfiguration(NodeDefinition $node)
         {
           $node
             ->children()
-              ->scalarNode('lifetime')->defaultValue(300)
-            ->end()
-          ;
+            ->scalarNode('lifetime')->defaultValue(300)
+            ->end();
         }
     }
 
@@ -493,10 +492,10 @@ fornitore di autenticazione.
                 ->setDefinition($providerId,
                   new DefinitionDecorator('wsse.security.authentication.provider'))
                 ->replaceArgument(0, new Reference($userProvider))
-                ->replaceArgument(2, $config['lifetime'])
-            ;
+                ->replaceArgument(2, $config['lifetime']);
             // ...
         }
+
         // ...
     }
 

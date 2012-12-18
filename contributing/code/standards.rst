@@ -15,7 +15,7 @@ Symfony segue gli standard definiti nei documenti `PSR-0`_, `PSR-1`_ e
 Poiché un'immagine (o un po' di codice) vale più di mille parole, ecco un
 breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
-.. code-block:: php+html
+.. code-block:: html+php
 
     <?php
 

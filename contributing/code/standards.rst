@@ -108,11 +108,15 @@ Convenzioni sui nomi
 
 * Usare gli spazi dei nomi per tutte le classi;
 
-* Le classi astratte spesso hanno prefisso ``Abstract``;
+* Aggiungere il prefisso ``Abstract`` alle classi astratte. Si noti che alcune vecchie classi di Symfony2
+  non seguono questa convenzione e non sono state rinominate per questioni di retro-compatibilità.
+  Tuttavia, tutte le nuove classi astratte devono seguire questa convenzione;
 
 * Aggiungere il suffisso ``Interface`` alle interfacce;
 
 * Aggiungere il suffisso ``Trait`` ai trait;
+
+* Aggiungere il suffisso ``Exception`` alle eccezioni;
 
 * Usare caratteri alfanumerici e trattini bassi per i nomi di file;
 

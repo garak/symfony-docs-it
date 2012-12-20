@@ -108,10 +108,6 @@ Ecco la lista dei formati attualmente supportati:
 +-----------------+-------------+
 | html+jinja      | Twig        |
 +-----------------+-------------+
-| jinja+html      | Twig        |
-+-----------------+-------------+
-| php+html        | PHP         |
-+-----------------+-------------+
 | html+php        | PHP         |
 +-----------------+-------------+
 | ini             | INI         |
@@ -126,7 +122,7 @@ Per aggiungere collegamenti ad altre pagine nei documenti, usare la seguente sin
 
 .. code-block:: rst
 
-    :doc:`/percorso/dellA/pagina`
+    :doc:`/percorso/della/pagina`
 
 Usando il percorso e il nome del file della pagina senza estensione, per esempio:
 
@@ -161,7 +157,7 @@ e alla documentazione di PHP:
 
     :phpclass:`SimpleXMLElement`
 
-    :phpmethod:`DateTime::createFromFormat`
+    `DateTime::createFromFormat`_
 
     :phpfunction:`iterator_to_array`
 
@@ -174,16 +170,16 @@ Per fare un test della documentazione, prima di un commit:
 
  * Eseguire la `preparazione rapida di Sphinx`_;
 
- * Installare l'estensione configuration-block di Sphinx (vedere sotto);
+ * Installare le estensioni di Sphinx (vedere sotto);
 
  * Eseguire ``make html`` e controllare l'HTML generato nella cartella ``build``.
 
-Installare l'estensione configuration-block di Sphinx
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Installare le estensioni di Sphinx
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- * Scaricare l'estensione dal repository `configuration-block`_
+ * Scaricare l'estensione dal repository dei `sorgenti`_
   
- * Copiare il file ``configurationblock.py`` nella cartella ``_exts`` della propria
+ * Copiare la cartella ``sensio`` nella cartella ``_exts`` della propria
    cartella dei sorgenti (in cui si trova ``conf.py``)
    
  * Aggiungere le righe seguenti al file ``conf.py``:
@@ -211,11 +207,12 @@ Installare l'estensione configuration-block di Sphinx
     # imposta url per collegamenti alle API
     api_url = 'http://api.symfony.com/master/%s'
 
-.. _reStructuredText:        http://docutils.sf.net/rst.html
-.. _Sphinx:                  http://sphinx.pocoo.org/
+.. _reStructuredText:        http://docutils.sourceforge.net/rst.html
+.. _Sphinx:                  http://sphinx-doc.org/
 .. _documenti:               http://github.com/symfony/symfony-docs
-.. _reStructuredText Primer: http://sphinx.pocoo.org/rest.html
-.. _markup:                  http://sphinx.pocoo.org/markup/
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+.. _markup:                  http://sphinx-doc.org/markup/
 .. _sito di Pygments:        http://pygments.org/languages/
-.. _configuration-block:     https://github.com/fabpot/sphinx-php
-.. _preparazione rapida di Sphinx:  http://sphinx.pocoo.org/tutorial.html#setting-up-the-documentation-sources
+.. _sorgenti:                https://github.com/fabpot/sphinx-php
+.. _preparazione rapida di Sphinx:  http://sphinx-doc.org/tutorial.html#setting-up-the-documentation-sources
+.. _`DateTime::createFromFormat`: http://php.net/manual/en/datetime.createfromformat.php

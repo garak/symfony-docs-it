@@ -6,7 +6,7 @@ di Symfony (In cui "Symfony" è il codice ospitato nel `repository Git`_ ``symfo
 
 
 Segnalare un problema di sicurezza
-==================================
+----------------------------------
 
 Se si è trovato un problema di sicurezza in Symfony, non utilizzare la
 lista o il bug tracker e non diffonderlo pubblicamente. Tutte le questioni di

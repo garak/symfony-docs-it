@@ -53,7 +53,7 @@ Riferimento configurazione
                     to_email:             ~
                     subject:              ~
                     email_prototype:
-                        id:     ~ # Obbligatorio (se si usa email_prototype)
+                        id:                   ~ # Obbligatorio (se si usa email_prototype)
                         factory-method:       ~
                     channels:
                         type:                 ~

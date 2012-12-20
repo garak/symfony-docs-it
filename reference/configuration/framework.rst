@@ -107,7 +107,7 @@ session
 lifetime
 ........
 
-**tipo**: ``integer`` **predefinito**: ``86400``
+**tipo**: ``integer`` **predefinito**: ``0``
 
 Determina il tempo di scadenza della sessione, in secondi. Per impostazione predefinita,
 sarà ``0``, che vuol dire che il cookie vale per il tempo della sessione del browser.

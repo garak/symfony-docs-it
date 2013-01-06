@@ -655,7 +655,7 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     Come si può vedere, aggiungere e rimuovere correttamente gli elementi può non essere banale.
     A meno che non si abbia una relazione ``ManyToMany`` in cui il Task è il lato di appartenenza,
     occorrerà del lavoro ulteriore per assicurarsi che la relazione sia aggiornata
-    correttamente (si per l'aggiunta di nuovi tag che per la rimozione di tag esistenti)
+    correttamente (sia per l'aggiunta di nuovi tag che per la rimozione di tag esistenti)
     per ogni oggetto Tag.
 
 

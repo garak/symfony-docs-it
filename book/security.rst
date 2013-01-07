@@ -755,14 +755,16 @@ Protezione tramite IP
 ~~~~~~~~~~~~~~~~~~~~~
 
 In certe situazioni può succedere di limitare l'accesso a una data
-rotta basata su IP. Questo è particolarmente rilevante nel caso di :ref:`Edge Side Includes<edge-side-includes>`
-(ESI), per esempio, che utilizzano una rotta chiamata "_internal". Quando
-viene utilizzato ESI, è richiesta la rotta interna dal gateway della cache per abilitare
-diverse opzioni di cache per le sottosezioni all'interno di una determinata pagina. Queste rotte
-fornite con il prefisso ^/_internal per impostazione predefinita nell'edizione standard di Symfony (assumendo
-di aver scommentato queste linee dal file delle rotte).
+rotta basata su IP. Questo è particolarmente rilevante nel caso di
+:ref:`Edge Side Includes<edge-side-includes>` (ESI), per esempio. Quando ESI è
+abilitato, si raccomanda di proteggere l'accesso agli URL ESI. Infatti, alcuni ESI
+possono contenere contenuti privati, come informazioni sull'utente attuale. Per
+prevenire un accesso diretto a tali risorse inserendo direttamnte l'URL nel browser,
+la rotta ESI deve essere protetta e resa visibile solo dalla cache del reverse
+proxy.
 
-Ecco un esempio di come si possa garantire questa rotta da intrusioni esterne:
+Ecco un esempio di come si possano garantire tutte le rotte ESI che iniziano per
+un certo prefisso, ``/esi``, da intrusioni esterne:
 
 .. configuration-block::
 
@@ -772,21 +774,23 @@ Ecco un esempio di come si possa garantire questa rotta da intrusioni esterne:
         security:
             # ...
             access_control:
-                - { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+                - { path: ^/esi, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
 
     .. code-block:: xml
 
             <access-control>
-                <rule path="^/_internal" role="IS_AUTHENTICATED_ANONYMOUSLY" ip="127.0.0.1" />
+                <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY" ip="127.0.0.1" />
             </access-control>
 
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/_internal', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
+                array('path' => '^/esi', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
             ),
 
 .. _book-security-securing-channel:
+
+.. include:: /book/_security-2012-6431.rst.inc
 
 Protezione tramite canale
 ~~~~~~~~~~~~~~~~~~~~~~~~~

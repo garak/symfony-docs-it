@@ -90,7 +90,9 @@ un bundle. Con l'aiuto di un comando della console, la cartella ``Resources/publ
 di ogni bundle viene copiata o collegata alla cartella ``web/bundles/``.
 Questo consente di mantenere le risorse organizzate nel proprio bundle, ma ancora
 disponibili pubblicamente. Per assicurarsi che tutti i bundle siano disponibili,
-eseguire il seguente comando::
+eseguire il seguente comando:
+
+.. code-block:: bash
 
     $ php app/console assets:install web
 
@@ -174,14 +176,14 @@ Uso della console
 In symfony1, la console è nella cartella radice del progetto ed è chiamata
  ``symfony``:
 
-.. code-block:: text
+.. code-block:: bash
 
     php symfony
 
 In Symfony2, la console è ora nella sotto-cartella ``app`` ed è chiamata
 ``console``:
 
-.. code-block:: text
+.. code-block:: bash
 
     php app/console
 
@@ -251,7 +253,9 @@ In symfony1, i file di configurazione ``routing.yml`` e ``app.yml`` sono
 caricati automaticamente all'interno di un plugin. In Symfony2, le rotte e le
 configurazioni dell'applicazioni all'interno di un bundle vanno incluse
 a mano. Per esempio, per inmcludere le rotte di un bundle chiamato ``AcmeDemoBundle``,
-si può fare nel seguente modo::
+si può fare nel seguente modo:
+
+.. code-block:: yaml
 
     # app/config/routing.yml
     _hello:

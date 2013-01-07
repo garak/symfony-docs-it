@@ -283,9 +283,9 @@ Sedi per le traduzioni e convenzioni sui nomi
 
 Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
-* la cartella ``<kernel root directory>/Resources/translations``;
+* la cartella ``<radice>/Resources/translations``;
 
-* la cartella ``<kernel root directory>/Resources/<bundle name>/translations``;
+* la cartella ``<radice>/Resources/<bundle>/translations``;
 
 * la cartella ``Resources/translations/`` del bundle.
 

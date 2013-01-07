@@ -641,26 +641,28 @@ Il proprio metodo ``load`` ha la responsabilità di restituire un
 
 Registrare il caricatore come servizio e assegnargli il tag ``translation.loader``:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    services:
-        main.translation.my_custom_loader:
-            class: Acme\MainBundle\Translation\MyCustomLoader
-            tags:
-                - { name: translation.loader, alias: bin }
+    .. code-block:: yaml
 
-.. code-block:: xml
+        services:
+            main.translation.my_custom_loader:
+                class: Acme\MainBundle\Translation\MyCustomLoader
+                tags:
+                    - { name: translation.loader, alias: bin }
 
-    <service id="main.translation.my_custom_loader" class="Acme\MainBundle\Translation\MyCustomLoader">
-        <tag name="translation.loader" alias="bin" />
-    </service>
+    .. code-block:: xml
 
-.. code-block:: php
+        <service id="main.translation.my_custom_loader" class="Acme\MainBundle\Translation\MyCustomLoader">
+            <tag name="translation.loader" alias="bin" />
+        </service>
 
-    $container
-        ->register('main.translation.my_custom_loader', 'Acme\MainBundle\Translation\MyCustomLoader')
-        ->addTag('translation.loader', array('alias' => 'bin'))
-    ;
+    .. code-block:: php
+
+        $container
+            ->register('main.translation.my_custom_loader', 'Acme\MainBundle\Translation\MyCustomLoader')
+            ->addTag('translation.loader', array('alias' => 'bin'))
+        ;
 
 L'opzione ``alias`` è obbligatoria e molto importante: definisce il "suffisso" del file
 che sarà usato per i file risorsa che usano questo caricatore. Per esempio, si

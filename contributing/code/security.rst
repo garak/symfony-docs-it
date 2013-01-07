@@ -21,7 +21,8 @@ confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi pas
 
 1. Inviare un riconoscimento al segnalatore;
 2. Lavorare su una patch;
-3. Scrivere un annuncio sul `blog`_ di Symfony, che descriva la vulnerabilità.
+3. Ottenere un identificatore CVE da mitre.org;
+4. Scrivere un annuncio sul `blog`_ di Symfony, che descriva la vulnerabilità.
    Tale post dovrebbe contenere le seguenti informazioni:
 
    * un titolo che includa sempre la stringa "Security release";
@@ -29,13 +30,14 @@ confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi pas
    * le versioni afflitte;
    * i possibili exploit;
    * come applicare patch/aggiornamenti/workaround alle applicazioni afflitte;
+   * l'identificatore CVE;
    * riconoscimenti.
-4. Inviare patch e annuncio al segnalante per una revisione;
-5. Applicare la patch a tutte le versioni di Symfony in manutenzione;
-6. Pacchettizzare nuove versioni per tutte le versioni afflitte;
-7. Pubblicare il post sul `blog`_ ufficiale di Symfony (va anche aggiunti alla
+5. Inviare patch e annuncio al segnalante per una revisione;
+6. Applicare la patch a tutte le versioni di Symfony in manutenzione;
+7. Pacchettizzare nuove versioni per tutte le versioni afflitte;
+8. Pubblicare il post sul `blog`_ ufficiale di Symfony (va anche aggiunti alla
    categoria "`Security Advisories`_");
-8. Aggiornare la lista degli avvisi di sicurezza (vedere sotto).
+9. Aggiornare la lista degli avvisi di sicurezza (vedere sotto).
 
 .. note::
 
@@ -52,6 +54,7 @@ Bollettini di sicurezza
 Questa sezione elenca le vulnerabilità di sicurezza che sono state risolte in Symfony,
 partendo da Symfony 1.0.0:
 
+* 20 dicembre 2012: `Security release: Symfony 2.0.20 and 2.1.5 <http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released>`_  (`CVE-2012-6431 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6431>`_ and `CVE-2012-6432 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6432>`_)
 * 29 novembre 2012: `Security release: Symfony 2.0.19 and 2.1.4 <http://symfony.com/blog/security-release-symfony-2-0-19-and-2-1-4>`_
 * 25 novembre 2012: `Security release: symfony 1.4.20 released  <http://symfony.com/blog/security-release-symfony-1-4-20-released>`_
 * 28 agosto 2012: `Security Release: Symfony 2.0.17 released <http://symfony.com/blog/security-release-symfony-2-0-17-released>`_

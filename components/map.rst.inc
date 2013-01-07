@@ -16,6 +16,7 @@
   * :doc:`/components/console/introduction`
   * :doc:`/components/console/usage`
   * :doc:`/components/console/single_command_tool`
+  * :doc:`/components/console/helpers/index`
 
 * **CSS Selector**
 
@@ -73,6 +74,13 @@
 * **Serializer**
 
   * :doc:`/components/serializer`
+
+* :doc:`/components/security/index`
+
+  * :doc:`/components/security/introduction`
+  * :doc:`/components/security/firewall`
+  * :doc:`/components/security/authentication`
+  * :doc:`/components/security/authorization`
 
 * **Templating**
 

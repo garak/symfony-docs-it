@@ -18,6 +18,7 @@ I componenti
     locale
     process
     routing/index
+    security/index
     serializer
     templating
     yaml

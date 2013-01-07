@@ -400,9 +400,12 @@ un esempio:
         // Prendere data-prototype, come spiegato in precedenze
         var prototype = collectionHolder.attr('data-prototype');
 
-        // Sostituire '$$name$$' nel prototipo, per essere invece un
-        // numero, basato sulla lunghezza attuale dell'elenco.
-        var newForm = prototype.replace(/\$\$name\$\$/g, collectionHolder.children().length);
+        // contare gli input nel form (p.e. 2), usarlo come nuovo indice (p.e. 2)
+        var newIndex = collectionHolder.find(':input').length;
+
+        // Sostituire '__name__' nell'HTML del prototipo per essere
+        // invece un numero basato su quanti elementi ci sono
+        var newForm = prototype.replace(/__name__/g, newIndex);
 
         // Mostrare il form nella pagina, dentro un li, prima del collegamento "Aggiungere un tag"
         var $newFormLi = $('<li></li>').append(newForm);
@@ -425,7 +428,8 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
     ``$em->persist($tag)`` su ciascuno, si riceverà un errore da
     Doctrine:
 
-        A new entity was found through the relationship 'Acme\TaskBundle\Entity\Task#tags' that was not configured to cascade persist operations for entity...
+        A new entity was found through the relationship `Acme\TaskBundle\Entity\Task#tags`
+        that was not configured to cascade persist operations for entity...
 
     Per risolverlo, si può scegliere una "cascata" per persistere automaticamente l'operazione
     dall'oggetto  ``Task`` a ogni tag correlato. Per farlo, aggiungere l'opzione ``cascade``

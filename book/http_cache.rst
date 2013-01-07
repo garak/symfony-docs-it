@@ -881,11 +881,44 @@ Symfony2 usa l'helper ``render`` per configurare i tag ESI:
 
     .. code-block:: jinja
 
-        {% render '...:news' with {}, {'standalone': true} %}
+        {% render url('latest_news', { 'max': 5 }), {'standalone': true} %}
 
     .. code-block:: php
 
-        <?php echo $view['actions']->render('...:news', array(), array('standalone' => true)) ?>
+        <?php echo $view['actions']->render(
+            $view['router']->generate('latest_news', array('max' => 5), true),
+            array('standalone' => true)
+        ) ?>
+
+.. include:: /book/_security-2012-6431.rst.inc
+
+Il tag ``render`` accetta un url assoluto dell'azione inclusa. Questo vuol dire
+che occorre definire una nuova rotta per il controllore che si sta includendo:
+
+.. code-block:: yaml
+
+    # app/config/routing.yml
+    latest_news:
+        pattern:      /esi/latest-news/{max}
+        defaults:     { _controller: AcmeNewsBundle:News:news }
+        requirements: { max: \d+ }
+
+.. caution::
+
+    A meno che non si voglia che tale URL sia accessibile esternamente, si deve
+    usare il firewall di Symfony per proteggerlo (consentendo l'accesso agli
+    IP del proprio reverse proxy). Vedere la sezione :ref:`Protezione per IP<book-security-securing-ip>`
+    del :doc:`capitolo sulla sicurezza </book/security>` per maggiori informazioni
+    su come poterlo fare.
+
+.. tip::
+
+    Il modo milgiore è montare tutti gli url ESI su un solo prefisso (p.e.
+    ``/esi``) a scelta. Questo approccio ha due vantaggi. Primo, facilita
+    la gestione degli url ESI, perché si possono identificare facilmente le rotte usate per ESI.
+    Secondo, facilita la gestione della sicurezza, perché si possono proteggere tutti gli url che iniziano
+    con lo stesso prefisso più facilmente rispetto a url individuali. Vedere
+    la nota precedente per maggiori dettagli su come proteggere gli URL ESI.
 
 Impostando ``standalone`` a ``true``, si dice a Symfony2 che l'azione andrebbe
 resa come tag ESI. Ci si potrebbe chiedere perché usare un helper invece di usare
@@ -912,7 +945,7 @@ dalla pagina principale.
 
 .. code-block:: php
 
-    public function newsAction()
+    public function newsAction($max)
     {
       // ...
 
@@ -921,52 +954,6 @@ dalla pagina principale.
 
 Con ESI, la cache dell'intera pagina sarà valida per 600 secondi, mentre il
 componente delle news avrà una cache che dura per soli 60 secondi.
-
-Un requisito di ESI, tuttavia, è che l'azione inclusa sia accessibile tramite
-un URL, in modo che il gateway cache possa recuperarla indipendentemente dal
-resto della pagina. Ovviamente, un URL non può essere accessibile se non ha una rotta
-che punti a esso. Symfony2 si occupa di questo tramite una rotta e un controllore
-generici. Per poter far funzionare i tag include di ESI, occorre definire la rotta
-``_internal``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/routing.yml
-        _internal:
-            resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-            prefix:   /_internal
-
-    .. code-block:: xml
-
-        <!-- app/config/routing.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <import resource="@FrameworkBundle/Resources/config/routing/internal.xml" prefix="/_internal" />
-        </routes>
-
-    .. code-block:: php
-
-        // app/config/routing.php
-        use Symfony\Component\Routing\RouteCollection;
-        use Symfony\Component\Routing\Route;
-
-        $collection->addCollection($loader->import('@FrameworkBundle/Resources/config/routing/internal.xml', '/_internal'));
-
-        return $collection;
-
-.. tip::
-
-    Poiché questa rotta consente l'accesso a tutte le azioni tramite URL, si potrebbe
-    volerla proteggere usando il firewall di Symfony2 (consentendo l'accesso al range di
-    IP del proprio reverse proxy). Vedere la sezione 
-    :ref:`Sicurezza tramite IP<book-security-securing-ip>` del
-    :doc:`Capitolo sulla sicurezza </book/security>` per maggiori informazioni.
 
 Un grosso vantaggio di questa strategia di cache è che si può rendere la propria
 applicazione tanto dinamica quanto necessario e, allo stesso tempo, mantenere gli

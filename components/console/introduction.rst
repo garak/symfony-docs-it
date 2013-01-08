@@ -108,6 +108,8 @@ Il cui risultato sarà::
 
     CIAO FABIEN
 
+.. _components-console-coloring:
+
 Colorare l'output
 ~~~~~~~~~~~~~~~~~
 
@@ -244,14 +246,14 @@ seguenti esempi funzioneranno correttamente:
 
 Ci sono 4 possibili varianti per le opzioni:
 
-===========================  ==================================================================
+===========================  =============================================================================================
 Opzione                      Valore
-===========================  ==================================================================
-InputOption::VALUE_IS_ARRAY  Questa opzione accetta valori multipli
+===========================  =============================================================================================
+InputOption::VALUE_IS_ARRAY  Questa opzione accetta valori multipli (p.e. ``--dir=/pippo --dir=/pluto``)
 InputOption::VALUE_NONE      Non accettare alcun valore per questa opzione (come in ``--urla``)
-InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5``)
-InputOption::VALUE_OPTIONAL  Il valore è opzionale
-===========================  ==================================================================
+InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5``), ò'opzione stessa è comunque facoltativa
+InputOption::VALUE_OPTIONAL  L'opzione può avere un valore o meno (p.e. ``urla`` o ``urla=forte``)
+===========================  =============================================================================================
 
 È possibile combinare VALUE_IS_ARRAY con VALUE_REQUIRED o con VALUE_OPTIONAL nel seguente modo:
 
@@ -266,70 +268,15 @@ InputOption::VALUE_OPTIONAL  Il valore è opzionale
             'Quante volte dovrà essere stampato il messaggio?',
             1
         );
-        
-Richiedere informazioni all'utente
-----------------------------------
 
-Nel creare comandi è possibile richiedere ulteriori informazioni dagli utenti 
-rivolgendo loro domande. Ad esempio, si potrbbe richiedere la conferma 
-prima di effettuare realmente una determinata azione. In questo caso si dovrà aggiungere 
-il seguente codice al comando::
+Helper di console
+-----------------
 
-    $dialogo = $this->getHelperSet()->get('dialog');
-    if (!$dialogo->askConfirmation(
-            $output,
-            '<question>Vuoi proseguire con questa azione?</question>',
-            false
-        )) {
-        return;
-    }
+Il componente Console contiene anche una serie di "helper", vari piccoli strumenti
+in gradi di aiutare con diversi compiti:
 
-In questo modo, all'utente verrà chiesto se vuole "proseguire con questa azione" e, a meno che 
-la risposta non sia ``y``, l'azione non verrà eseguita. Il terzo argomento di 
-``askConfirmation`` è il valore predefinito da restituire nel caso in cui l'utente non 
-fornisca alcun input.
-
-È possibile rivolgere domande che prevedano risposte più complesse di un semplice si/no. Ad esempio, 
-se volessimo conoscere il nome di qualcosa, potremmo fare nel seguente modo::
-
-    $dialogo = $this->getHelperSet()->get('dialog');
-    $nome = $dialogo->ask(
-        $output,
-        'Insersci il nome del widget',
-        'pippo'
-     );
-
-Porre domande e validare le risposte
-------------------------------------
-
-Si possono porre facilmente domande e validare le risposte, con i metodi a disposizione::
-
-    $dialog = $this->getHelperSet()->get('dialog');
-
-    $validator = function ($value) {
-        if ('' === trim($value)) {
-            throw new \Exception('Il valore non deve essere vuoto');
-        }
-
-        return $value;
-    }
-
-    $password = $dialog->askAndValidate(
-        $output,
-        'Inserire il nome del widget',
-        $validator,
-        20,
-        'pippo'
-    );
-
-Il callback di validazione può essere una qualsiasi funzione richiamabile da PHP e il
-quarto parametro di :method:`Symfony\\Component\\Console\\Helper::askAndValidate` è il numero
-massimo di tentativi, impostabile a ``false`` (valore predefinito) per tentativi
-illimitati. Il quinto parametro è il valore predefinito.
-
-Il callback deve lanciare un'eccezione in caso di valori non accettabili. Si noti che
-il callback **deve** restituire un valore. Il valore può essere modificato dal
-callback (sarà restituito modificato dall'helper).
+* :doc:`/components/console/helpers/dialoghelper`: interactively ask the user for information
+* :doc:`/components/console/helpers/formatterhelper`: customize the output colorization
 
 Testare i comandi
 -----------------

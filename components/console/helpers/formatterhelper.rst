@@ -1,8 +1,8 @@
 .. index::
     single: Helper della console; Helper Formatter
 
- Helper Formatter
-=================
+Helper Formatter
+================
 
 L'helper Formatter fornisce funzioni per formattare l'output con colori.
 Si possono fare cose più avanzate con questo helper rispetto a

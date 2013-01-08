@@ -20,7 +20,7 @@ Installazione
 Il componente può essere installato in diversi modi:
 
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Security);
-* Installandolo via Composer (``symfony/security`` in `Packagist`_).
+* Installandolo :doc:`tramite Composer</components/using_components>` (`symfony/security`_ in Packagist).
 
 Sezioni
 -------

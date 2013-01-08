@@ -85,7 +85,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                     chain:
                         providers:            []
 
-            firewalls:            # Obblifatorio
+            firewalls:            # Obbligatorio
                 # Esempi:
                 somename:
                     pattern: .*

@@ -103,22 +103,37 @@ Ogni parte sarà spiegata nella prossima sezione.
                     http_digest:
                         provider: nome_di_un_provider_di_cui_sopra
                     form_login:
+                        # invia il form di login qui
                         check_path: /login_check
+
+                        # l'utente viene rinviato qui se deve fare login
                         login_path: /login
+
+                        # se true, rimanda l'utente al login invece di rinviarlo
                         use_forward: false
+
+                        # opzioni per un login effettuato con successo (vedere sotto)
                         always_use_default_target_path: false
                         default_target_path: /
                         target_path_parameter: _target_path
                         use_referer: false
-                        failure_path: /foo
+
+                        # opzioni per un login fallito (vedere sotto)
+                        failure_path: /pippo
                         failure_forward: false
                         failure_handler: id.di.un.servizio
                         success_handler: id.di.un.servizio
+
+                        # nomi dei campi per username e password
                         username_parameter: _username
                         password_parameter: _password
+
+                        # opzioni token csrf
                         csrf_parameter: _csrf_token
                         intention: authenticate
                         csrf_provider: my.csrf_provider.id
+
+                        # il login deve essere in POST, non in GET
                         post_only: true
                         remember_me: false
                     remember_me:
@@ -196,6 +211,8 @@ Configurazione del form di login
 
 Quando si usa l'ascoltatore di autenticazione ``form_login`` dietro un firewall,
 ci sono diverse opzioni comuni per configurare l'esoerienza del form di login:
+
+Per dettagli ulteriori, vedere :doc:`/cookbook/security/form_login`.
 
 Il form e il processo di login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

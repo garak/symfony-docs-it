@@ -619,12 +619,47 @@ Il template ``recentList`` è molto semplice:
 
 .. note::
 
-    Si noti che abbiamo barato e inserito a mano l'URL dell'articolo in questo esempio
+    Si noti che l'URL dell'articolo è stato inserito a mano in questo esempio
     (p.e. ``/article/*slug*``). Questa non è una buona pratica. Nella prossima sezione,
     vedremo come farlo correttamente.
 
-Per includere il controllore, occorrerà fare riferimento a esso usando la sintassi
-standard per i controllori (cioè **bundle**:**controllore**:**azione**):
+Anche se questo controllore sarà usato solo internamente, occorrerà
+creare una rotta che punti al controllore:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        latest_articles:
+            pattern:  /articles/latest/{max}
+            defaults: { _controller: AcmeArticleBundle:Article:recentArticles }
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="latest_articles" pattern="/articles/latest/{max}">
+                <default key="_controller">AcmeArticleBundle:Article:recentArticles</default>
+            </route>
+        </routes>
+
+    .. code-block:: php
+
+        use Symfony\Component\Routing\RouteCollection;
+        use Symfony\Component\Routing\Route;
+
+        $collection = new RouteCollection();
+        $collection->add('latest_articles', new Route('/articles/latest/{max}', array(
+            '_controller' => 'AcmeArticleBundle:Article:recentArticles',
+        )));
+
+        return $collection;
+
+Per includere il controllore, occorrerà farvi riferimento con un url assoluto:
 
 .. configuration-block::
 
@@ -634,7 +669,7 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
 
         {# ... #}
         <div id="sidebar">
-            {% render "AcmeArticleBundle:Article:recentArticles" with {'max': 3} %}
+            {% render url('latest_articles', { 'max': 3 }) %}
         </div>
 
     .. code-block:: html+php
@@ -643,8 +678,12 @@ standard per i controllori (cioè **bundle**:**controllore**:**azione**):
 
         <!-- ... -->
         <div id="sidebar">
-            <?php echo $view['actions']->render('AcmeArticleBundle:Article:recentArticles', array('max' => 3)) ?>
+            <?php echo $view['actions']->render(
+                $view['router']->generate('latest_articles', array('max' => 3), true)
+            ) ?>
         </div>
+
+.. include:: /book/_security-2012-6431.rst.inc
 
 Ogni volta che ci si trova ad aver bisogno di una variabile o di un pezzo di informazione
 a cui non si ha accesso in un template, considerare di rendere un controllore.
@@ -664,11 +703,14 @@ Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
 
     .. code-block:: jinja
 
-        {% render '...:news' with {}, {'standalone': 'js'} %}
+        {% render url('...'), {'standalone': 'js'} %}
 
     .. code-block:: php
 
-        <?php echo $view['actions']->render('...:news', array(), array('standalone' => 'js')) ?>
+        <?php echo $view['actions']->render(
+            $view['router']->generate('...'),
+            array('standalone' => 'js')
+        ) ?>
 
 .. note::
 
@@ -1049,7 +1091,7 @@ nell':doc:`Appendice: configurazione</reference/configuration/framework>`.
    molti altri bundle di terze parti).
 
 .. index::
-    single; Template; Sovrascrivere template
+    single: Template; Sovrascrivere template
 
 .. _overriding-bundle-templates:
 

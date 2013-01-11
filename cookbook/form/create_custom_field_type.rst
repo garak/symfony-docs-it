@@ -7,7 +7,7 @@ Come creare un tipo di campo personalizzato di un form
 Symfony è dotato di una serie di tipi di campi per la costruzione dei form.
 Tuttavia ci sono situazioni in cui è necessario realizzare un campo personalizzato
 per uno scopo specifico. Questa ricetta ipotizza che si abbia necessità 
-di un capo personalizzato che contenga il genere di una persona, 
+di un campo personalizzato che contenga il genere di una persona, 
 un nuovo campo basato su un campo di tipo scelta. Questa sezione spiega come il campo è definito, come si può personalizzare il layout e, infine, 
 come è possibile registrarlo per utilizzarlo nell'applicazione.
 
@@ -57,7 +57,7 @@ i campi del form, che è ``<NomeBundle>\Form\Type``. Assicurarsi che il campo es
 Qui, il valore di ritorno del metodo ``getParent`` indica che che si sta
 estendendo il tipo di campo ``choice``. Questo significa che, per impostazione predefinita, sono ereditate
 tutte le logiche e la resa di questo tipo di campo. Per vedere alcune logiche,
-controlla la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
+guardare la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
 importanti:
 
 * ``buildForm()`` - Ogni tipo di campo possiede un metodo ``buildForm``, che permette di
@@ -79,8 +79,8 @@ importanti:
 
     Se si sta creando un campo che consiste di molti campi, assicurarsi  
     di impostare come "padre" un tipo come ``form`` o qualcos'altro che estenda ``form``.
-    Nello stesso modo, se occorre modificare la "vista" di ogni sottotipo 
-    che estende il proprio tipo, utilizzare il metodo ``buildViewBottomUp()``.
+    Inoltre, se occorre modificare la "vista" di ogni sottotipo 
+    che estende il proprio tipo, utilizzare il metodo ``finishView()``.
 
 Il metodo ``getName()`` restituisce un identificativo che dovrebbe essere unico
 all'interno dell'applicazione. Questo è usato in vari posti, ad esempio nel momento in cui 
@@ -127,7 +127,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
 
 .. note::
 
-    Assicurarsu che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
+    Assicurarsi che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
     essere ``gender_widget``, in base al valore restituito da ``getName``.
     Inoltre, il file principale di configurazione dovrebbe puntare al template personalizzato
     del form, in modo che sia utilizzato per la resa di tutti i form.
@@ -204,7 +204,7 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
 
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
-            form.type.gender:
+            acme_demo.form.type.gender:
                 class: Acme\DemoBundle\Form\Type\GenderType
                 arguments:
                     - "%genders%"
@@ -214,7 +214,7 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
     .. code-block:: xml
 
         <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
-        <service id="form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
+        <service id="acme_demo.form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
             <argument>%genders%</argument>
             <tag name="form.type" alias="gender" />
         </service>

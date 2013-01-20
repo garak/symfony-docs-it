@@ -50,6 +50,14 @@ all'utente finale, creare un nuovo template posizionato in
     </body>
     </html>
 
+.. caution::
+
+    **Non si deve** usare ``is_granted`` nelle pagine di erroe (o nei layout usati
+    dalle pagine di errore), perché il router gira prima del firewall. Se
+    il router lancia un'eccezione (per esempio, quando la rotta non
+    esiste), l'uso di ``is_granted`` lancerà un'ulteriore eccezione. Si
+    può usare ``is_granted`` in modo sicuro con ``{% if app.security and is_granted('...') %}``.
+
 .. tip::
 
     Non bisogna preoccuparsi, se non si ha familiarità con Twig. Twig è un semplice, potente

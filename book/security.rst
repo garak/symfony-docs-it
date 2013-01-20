@@ -696,6 +696,12 @@ schema di URL. Si è già visto questo nel primo esempio di questo capitolo,
 dove tutto ciò a cui corrisponde lo schema di espressione regolare  ``^/admin`` richiede
 il ruolo ``ROLE_ADMIN``.
 
+.. caution::
+
+    La piena comprensione del funzionamento di ``access_control`` è **molto** importante
+    per far sì che la propria applicaizone sia veramente sicura. Si veda :ref:`security-book-access-control-explanation`
+    più avanti per informazioni dettagliate.
+
 È possibile definire tanti schemi di URL quanti ne occorrono, ciascuno è un'espressione regolare.
 
 .. configuration-block::
@@ -736,18 +742,122 @@ il ruolo ``ROLE_ADMIN``.
     simbolo ``^``) corrisponderebbe correttamente a ``/admin/foo``, ma corrisponderebbe anche a URL
     come ``/foo/admin``.
 
-Per ogni richiesta in arrivo, Symfony2 cerca di trovare una regola per il controllo dell'accesso
-che corrisponde (la prima vince). Se l'utente non è ancora autenticato, viene avviato
-il processo di autenticazione (cioè viene data all'utente la possibilità di fare login). Tuttavia,
-*se* l'utente è autenticato ma non ha il ruolo richiesto, viene lanciata
-un'eccezione :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`,
-che è possibile gestire e trasformare in una simpatica pagina di errore "accesso negato"
-per l'utente. Vedere :doc:`/cookbook/controller/error_pages` per
-maggiori informazioni.
+.. _security-book-access-control-explanation:
 
-Poiché Symfony utilizza la prima regola di controllo accesso trovata, un URL del tipo ``/admin/users/new``
-corrisponderà alla prima regola e richiederà solo il ruolo ``ROLE_SUPER_ADMIN``.
-Qualunque URL tipo ``/admin/blog`` corrisponderà alla seconda regola e richiederà ``ROLE_ADMIN``.
+Capire come funziona ``access_control``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Per ogni richiesta in arrivo, Symfony2 verifica ogni voce di ``access_control``
+per trovarne *una* che corrisponda alla richiesta attuale. Se ne trova una corrispondente,
+si ferma, quindi solo la **prima** voce di ``access_control`` corrispondente
+verrà usata per garantire l'accesso.
+
+Ogni ``access_control`` ha varie opzioni che configurano varie
+cose: (a) :ref:`se la richiesta in arrivo deve corrispondere a questa voce di controllo di accesso<security-book-access-control-matching-options>`
+e (b) :ref:`una volta corrisposta, se alcune restrizioni di accesso debbano essere applicate<security-book-access-control-enforcement-options>`:
+
+.. _security-book-access-control-matching-options:
+
+**(a) Opzioni di corrispondenza**
+
+Symfony2 crea un'istanza di :class:`Symfony\\Component\\HttpFoundation\\RequestMatcher`
+per ogni voce di ``access_control``, che determina se un dato controllo di accesso
+vada usato o meno su questa richiesta. Le seguenti opzioni di ``access_control``
+sono usate per le corrispondenze:
+
+* ``path``
+* ``ip``
+* ``host``
+* ``methods``
+
+Si prende il seguente ``access_control`` come esempio:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+            access_control:
+                - { path: ^/user, roles: ROLE_USER_IP, ip: 127.0.0.1 }
+                - { path: ^/user, roles: ROLE_USER_HOST, host: symfony.com }
+                - { path: ^/user, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
+                - { path: ^/user, roles: ROLE_USER }
+
+    .. code-block:: xml
+
+            <access-control>
+                <rule path="^/user" role="ROLE_USER_IP" ip="127.0.0.1" />
+                <rule path="^/user" role="ROLE_USER_HOST" host="symfony.com" />
+                <rule path="^/user" role="ROLE_USER_METHOD" method="POST, PUT" />
+                <rule path="^/user" role="ROLE_USER" />
+            </access-control>
+
+    .. code-block:: php
+
+            'access_control' => array(
+                array('path' => '^/user', 'role' => 'ROLE_USER_IP', 'ip' => '127.0.0.1'),
+                array('path' => '^/user', 'role' => 'ROLE_USER_HOST', 'host' => 'symfony.com'),
+                array('path' => '^/user', 'role' => 'ROLE_USER_METHOD', 'method' => 'POST, PUT'),
+                array('path' => '^/user', 'role' => 'ROLE_USER'),
+            ),
+
+Per ogni richiesta in arrivo, Symfony2 deciderà quale ``access_control``
+usare in base a URI, indirizzo IP del client, nome host in arrivo,
+metodo della richiestsa. Si ricordi, viene usata la prima regola corrispondnete e,
+se ``ip``, ``host`` o ``method`` non sono specificati per una voce, ``access_control``
+corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
+
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| **URI**         | **IP**      | **HOST**    | **METHOD** | ``access_control``             | Why?                                                        |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 127.0.0.1   | example.com | GET        | rule #1 (``ROLE_USER_IP``)     | The URI matches ``path`` and the IP matches ``ip``.         |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 127.0.0.1   | symfony.com | GET        | rule #1 (``ROLE_USER_IP``)     | The ``path`` and ``ip`` still match. This would also match  |
+|                 |             |             |            |                                | the ``ROLE_USER_HOST`` entry, but *only* the **first**      |
+|                 |             |             |            |                                | ``access_control`` match is used.                           |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | symfony.com | GET        | rule #2 (``ROLE_USER_HOST``)   | The ``ip`` doesn't match the first rule, so the second      |
+|                 |             |             |            |                                | rule (which matches) is used.                               |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | symfony.com | POST       | rule #2 (``ROLE_USER_HOST``)   | The second rule still matches. This would also match the    |
+|                 |             |             |            |                                | third rule (``ROLE_USER_METHOD``), but only the **first**   |
+|                 |             |             |            |                                | matched ``access_control`` is used.                         |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | example.com | POST       | rule #3 (``ROLE_USER_METHOD``) | The ``ip`` and ``host`` don't match the first two entries,  |
+|                 |             |             |            |                                | but the third - ``ROLE_USER_METHOD`` - matches and is used. |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | example.com | GET        | rule #4 (``ROLE_USER``)        | The ``ip``, ``host`` and ``method`` prevent the first       |
+|                 |             |             |            |                                | three entries from matching. But since the URI matches the  |
+|                 |             |             |            |                                | ``path`` pattern of the ``ROLE_USER`` entry, it is used.    |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/foo``        | 127.0.0.1   | symfony.com | POST       | matches no entries             | This doesn't match any ``access_control`` rules, since its  |
+|                 |             |             |            |                                | URI doesn't match any of the ``path`` values.               |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+
+.. _security-book-access-control-enforcement-options:
+
+**(b) Controllo dell'accesso**
+
+Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
+*applica* restrizioni di accesso in base alle opzioni ``roles`` e
+``requires_channel``:
+
+* ``role`` Se l'utente non ha il ruolo fornito, l'accesso viene negato
+  (internamente, viene lanciata
+  :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`);
+
+* ``requires_channel`` Se il canale della richiesta in arrivo (p.e. ``http``)
+  non corrisponde a questo valore (p.e. ``https``), l'utente sarà rinviato
+  (p.e. rinviato da ``http`` a ``https``, o viceversa).
+
+.. tip::
+
+    In caso di accesso negato, il sistema proverà ad autenticare l'utente, se non lo è
+    già (p.e. rinviare l'utente alla pagina di login). Se l'utente è già
+    entrato, verrà mostrata la pagina di errore 403 "access denied". Si veda
+    :doc:`/cookbook/controller/error_pages` per ulteriori informazioni.
 
 .. _book-security-securing-ip:
 
@@ -775,28 +885,51 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
             # ...
             access_control:
                 - { path: ^/esi, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+                - { path: ^/esi, roles: ROLE_NO_ACCESS }
 
     .. code-block:: xml
 
             <access-control>
                 <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY" ip="127.0.0.1" />
+                <rule path="^/esi" role="ROLE_NO_ACCESS" />
             </access-control>
 
     .. code-block:: php
 
             'access_control' => array(
                 array('path' => '^/esi', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
+                array('path' => '^/esi', 'role' => 'ROLE_NO_ACCESS'),
             ),
 
-.. _book-security-securing-channel:
+Ecco come funziona quando il percorso è ``/esi/qualcosa`` dall'IP
+``10.0.0.1``:
+
+* La prima regola di controllo di accesso non corrisponde e viene ignorata, perché ``path``
+  corrisponde, ma ``ip`` no;
+
+* La seconda regola di controllo di accesso non corrisponde (essendoci solo
+  ``path``, che corrisponde): non avendo l'utente il ruolo ``ROLE_NO_ACCESS``,
+  perché non definito, l'accesso è negato (il ruolo ``ROLE_NO_ACCESS`` può
+  essere qualsiasi cosa che non sia un ruolo esistente, serve solo come espediente
+  per negare sempre l'accesso).
+
+Se ora la stessa richiesta arriva da ``127.0.0.1``:
+
+* Ora, la prima regola di controllo di accesso corrisponde sia per ``path`` che
+  per ``ip``: l'accesso è consentito, perché l'utente ha sempre il ruolo
+  ``IS_AUTHENTICATED_ANONYMOUSLY``.
+
+* La seconda regola di accesso non viene esaminata, perché la prima corrispondeva.
 
 .. include:: /book/_security-2012-6431.rst.inc
+
+.. _book-security-securing-channel:
 
 Protezione tramite canale
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Molto simile alla sicurezza basata su IP, richiedere l'uso di SSL è semplice, basta
-aggiungere la voce ``access_control``:
+Si può anche richiedere di accedere a un URL tramite SSL, basta
+usare la voce aggiungere il parametro ``requires_channel`` in una voce ``access_control``:
 
 .. configuration-block::
 

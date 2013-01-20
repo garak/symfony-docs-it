@@ -130,11 +130,13 @@ password è valida::
     use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
     $userProvider = new InMemoryUserProvider(
-        array('admin' => array(
-            // password is "foo"
-            'password' => '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==',
-            'roles' => array('ROLE_ADMIN'),
-        ),
+        array(
+            'admin' => array(
+                // la password è "foo"
+                'password' => '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==',
+                'roles' => array('ROLE_ADMIN'),
+            ),
+        )
     );
 
     // per alcuni controlli ulteriori: account abilitato, bloccato, scaduto, ecc.?

@@ -53,21 +53,25 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
 
     .. code-block:: yaml
 
-        properties:
-            profileData:
-                - Collection:
-                    fields:
-                        personal_email: Email
-                        short_bio:
-                            - NotBlank
-                            - Length:
-                                max:   100
-                                maxMessage: Your short bio is too long!
-                    allowMissingFields: true
+        # src/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                profileData:
+                    - Collection:
+                        fields:
+                            personal_email: Email
+                            short_bio:
+                                - NotBlank
+                                - Length:
+                                    max:   100
+                                    maxMessage: Your short bio is too long!
+                        allowMissingFields: true
 
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -119,10 +123,10 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\Collection;
-        use Symfony\Component\Validator\Constraints\Email;
-        use Symfony\Component\Validator\Constraints\Length;
+        use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
@@ -130,12 +134,13 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('profileData', new Collection(array(
+                $metadata->addPropertyConstraint('profileData', new Assert\Collection(array(
                     'fields' => array(
-                        'personal_email' => new Email(),
+                        'personal_email' => new Assert\Email(),
                         'lastName' => array(
-                            new NotBlank(),
-                            new Length(array("max" => 100)),
+                            new Assert\NotBlank(),
+                            new Assert\Length(array("max" => 100)),
+                        ),
                     ),
                     'allowMissingFields' => true,
                 )));

@@ -18,7 +18,16 @@ Installazione
 Il componente può essere installato in diversi modi:
 
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
-* Installandolo via Composer (``symfony/console`` in `Packagist`_).
+* Installandolo :doc:`via Composer</components/using_components>` (``symfony/console`` in `Packagist`_).
+
+.. note::
+
+    Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
+    disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
+    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
+    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
+
+    Per abilitare il supporto ai colori ANSI su Windows, si può installare `ANSICON`_.
 
 Creazione di comandi di base
 ----------------------------
@@ -399,3 +408,4 @@ Sapene di più
 * :doc:`/components/console/single_command_tool`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
+.. _ANSICON: http://adoxa.3eeweb.com/ansicon/

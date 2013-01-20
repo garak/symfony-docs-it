@@ -574,9 +574,9 @@ i valori corretti di una serie di opzioni del campo.
   (vale a dire se il campo è ``nullable``). Questo è molto utile, perché la validazione
   lato client corrisponderà automaticamente alle vostre regole di validazione.   
 
-* ``max_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione
-  ``max_length`` può essere indovinata dai vincoli di validazione (se viene utilizzato
-  ``MaxLength`` o ``Max``) o dai meta-dati Doctrine (tramite la lunghezza del campo).
+* ``max_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione ``max_length``
+  può essere indovinata dai vincoli di validazione (se viene utilizzato ``Length`` o
+  ``Range``) o dai meta-dati Doctrine (tramite la lunghezza del campo).
 
 .. note::
 
@@ -1519,67 +1519,53 @@ Aggiungere la validazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 L'ultima parte mancante è la validazione. Solitamente, quando si richiama ``$form->isValid()``,
-l'oggetto viene validato dalla lettura dei vincoli applicati alla classe.
-Ma senza una classe, come si possono aggiungere vincoli ai dati del
+l'oggetto viene validato dalla lettura dei vincoli applicati alla
+classe. Se il form è legato a un oggetto (cioè se si sta usando l'opzione ``data_class``
+o passando un oggetto al form), questo è quasi sempre l'approccio
+desiderato. Vedere :doc:`/book/validation` per maggiori dettagli.
+
+.. _form-option-constraints:
+
+Ma se il form non è legato a un oggetto e invece si sta recuperando un semplice array
+di dati inviati, come si possono aggiungere vincoli al
 form?
 
 La risposta è: impostare i vincoli in modo autonomo e passarli al proprio form.
 L'approccio generale è spiegato meglio nel :ref:`capitolo sulla validazione<book-validation-raw-values>`,
-ma ecco un breve esempio::
+ma ecco un breve esempio:
 
-    // importare gli spazi dei nomi all'inizio della classe
-    use Symfony\Component\Validator\Constraints\Email;
-    use Symfony\Component\Validator\Constraints\MinLength;
-    use Symfony\Component\Validator\Constraints\Collection;
+.. versionadded:: 2.1
+   L'opzione ``constraints``, che accetta un singolo  vincolo o un array
+   di vincoli (prima della 2.1, l'opzione era chiamata ``validation_constraint``
+   e accettava solo un singolo vincolo) è nuova in Symfony 2.1.
+   
+.. code-block:: php
 
-    $collectionConstraint = new Collection(array(
-        'name' => new MinLength(5),
-        'email' => new Email(array('message' => 'Invalid email address')),
-    ));
+    use Symfony\Component\Validator\Constraints\Length;
+    use Symfony\Component\Validator\Constraints\NotBlank;
 
-    // creare un form, senza valori predefiniti, e passarlo all'opzione constraints
-    $form = $this->createFormBuilder(null, array(
-        'constraints' => $collectionConstraint,
-    ))->add('email', 'email')
-        // ...
+    $builder
+       ->add('firstName', 'text', array(
+           'constraints' => new Length(array('min' => 3)),
+       ))
+       ->add('lastName', 'text', array(
+           'constraints' => array(
+               new NotBlank(),
+               new Length(array('min' => 3)),
+           ),
+       ))
     ;
 
-Ora, richiamando `$form->isValid()`, i vincoli impostati sono eseguiti sui dati
-del form. Se si usa una classe form, sovrascrivere il metodo ``getDefaultOptions``
-per specificare l'opzione::
+.. tip::
 
-    namespace Acme\TaskBundle\Form\Type;
+    Se si usano i gruppi di validazione, occorre fare riferimento al gruppo
+    ``Default`` quando si crea il form, oppure impostare il gruppo corretto
+    nel vincolo che si sta aggiungendo.
 
-    use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
-    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-    use Symfony\Component\Validator\Constraints\Email;
-    use Symfony\Component\Validator\Constraints\Length;
-    use Symfony\Component\Validator\Constraints\Collection;
+.. code-block:: php
 
-    class ContactType extends AbstractType
-    {
-        // ...
+    new NotBlank(array('groups' => array('create', 'update'))
 
-        public function setDefaultOptions(OptionsResolverInterface $resolver)
-        {
-            $collectionConstraint = new Collection(array(
-                'name' => new Length(array("min" => 5)),
-                'email' => new Email(
-                    array('message' => 'Invalid email address')
-                ),
-            ));
-
-            $resolver->setDefaults(array(
-                'constraints' => $collectionConstraint
-            ));
-        }
-    }
-
-Si possiede ora la flessibilità di creare form, con validazione, che restituiscano
-array di dati, invece di oggetti. In molti casi, è meglio (e sicuramente più
-robusto) legare il form a un oggetto. Ma questo è un bell'approccio per form
-più semplici. 
 
 Considerazioni finali
 ---------------------

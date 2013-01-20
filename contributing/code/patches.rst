@@ -292,7 +292,6 @@ Un esempio di proposta potrebbe essere il seguente:
     Bug fix: no
     Feature addition: yes
     Backwards compatibility break: no
-    Symfony2 tests pass: yes
     Fixes the following tickets: #12, #43
     Todo: -
     License of the code: MIT
@@ -349,17 +348,6 @@ e dell'ultimo commit e sostituirla con la parola "squash", o anche solo "s".
 Quando si salva, git inizierà il rebase e, in caso di successo, chiederà di modificare
 il messaggio di commit, che come predefinito è una lista di messaggi di commit di tutti
 i commit. Dopo aver finito, eseguire il push.
-
-.. tip::
-
-    Per fare in modo che il proprio ramo sia automaticamente testato, si può aggiungere
-    il proprio fork a `travis-ci.org`_. Basta entrare con l'account usato su github.com e
-    e abilitare un singolo switch, per i test automatici. Nella propria richiesta di pull,
-    invece di specificare "*Symfony2 tests pass: [yes|no]*", si può collegare
-    l'`icona di stato di travis-ci.org`_. Per maggiori dettagli, vedere
-    `travis-ci.org Getting Started Guide`_. Lo si può fare in modo facile, cliccando sull'icona
-    della chiave inglese nella pagina del build di Travis. Prima selezionare il proprio ramo,
-    quindi copiare il codice markdown nella descrizione della propria richiesta di pull.
 
 .. _ProGit:                                http://git-scm.com/book
 .. _GitHub:                                https://github.com/signup/free

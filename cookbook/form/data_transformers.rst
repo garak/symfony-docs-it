@@ -184,6 +184,9 @@ Nell'esempio precedente, il trasformatore è stato usato come trasformatore di m
 Infatti, ci sono due diversi tipi di trasformatori e tre diversi tipi di
 dati sottostanti.
 
+.. image:: /images/cookbook/form/DataTransformersTypes.png
+   :align: center
+
 In un form, i tre diversi tipi di dati sono:
 
 1) **Dati di modello** - sono i dati nel formato usato dall'applicazione

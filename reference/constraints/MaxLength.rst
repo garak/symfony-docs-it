@@ -37,6 +37,8 @@ Uso di base
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Blog.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Blog
@@ -53,10 +55,28 @@ Uso di base
         <class name="Acme\BlogBundle\Entity\Blog">
             <property name="summary">
                 <constraint name="MaxLength">
-                    <value>100</value>
+                    <option name="limit">100</option>
                 </constraint>
             </property>
         </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Blog.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Blog
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('summary', new Assert\MaxLength(array(
+                    'limit' => 100,
+                )));
+            }
+        }
 
 Opzioni
 -------

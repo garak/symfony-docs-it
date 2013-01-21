@@ -569,7 +569,7 @@ ogni vento ha il suo oggetto evento:
 .. _component-http-kernel-event-table:
 
 +-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| **Nome**          | **Costante**``KernelEvents``  | **Parametro passato all'ascoltatore**                                               |
+| **Nome**          | **Costante** ``KernelEvents`` | **Parametro passato all'ascoltatore**                                               |
 +-------------------+-------------------------------+-------------------------------------------------------------------------------------+
 | kernel.request    | ``KernelEvents::REQUEST``     | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent`                    |
 +-------------------+-------------------------------+-------------------------------------------------------------------------------------+

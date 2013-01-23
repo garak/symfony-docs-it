@@ -136,7 +136,7 @@ Test
 +---------------------------------------------------+------------------------------------------------------------------------------+
 | Sintassi del test                                 | Uso                                                                          |
 +===================================================+==============================================================================+
-| ``selectedchoice(choice, selectedValue)``         | Restituirà ``true`` se la scelta è selezionata per il vaore dato             |
+| ``selectedchoice(choice, selectedValue)``         | Restituirà ``true`` se la scelta è selezionata per il valore dato            |
 +---------------------------------------------------+------------------------------------------------------------------------------+
 
 Variabili globali

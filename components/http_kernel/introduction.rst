@@ -589,7 +589,94 @@ ogni vento ha il suo oggetto evento:
 Un esempio funzionante
 ----------------------
 
-(traduzione da finire...)
+Quando si usa il componente HttpKernel, si è liberi di connettere qualsiasi ascoltatore
+agli eventi del nuvlce e di usare qualsiasi risolutore di controllori che implementi
+:class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface`.
+Tuttavia, il componente HttpKernel dispone di alcuni ascoltatori predefiniti e di un
+ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
+
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpKernel\HttpKernel;
+    use Symfony\Component\EventDispatcher\EventDispatcher;
+    use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+    use Symfony\Component\Routing\RouteCollection;
+    use Symfony\Component\Routing\Route;
+    use Symfony\Component\Routing\Matcher\UrlMatcher;
+    use Symfony\Component\Routing\RequestContext;
+
+    $routes = new RouteCollection();
+    $routes->add('hello', new Route('/hello/{name}', array('_controller' =>
+        function (Request $request) {
+            return new Response(sprintf("Ciao %s", $request->get('name')));
+        }
+    )));
+
+    $request = Request::createFromGlobals();
+
+    $matcher = new UrlMatcher($routes, new RequestContext());
+
+    $dispatcher = new EventDispatcher();
+    $dispatcher->addSubscriber(new RouterListener($matcher));
+
+    $resolver = new ControllerResolver();
+    $kernel = new HttpKernel($dispatcher, $resolver);
+
+    $response = $kernel->handle($request);
+    $response->send();
+
+    $kernel->terminate($request, $response);
+
+Sotto-richieste
+---------------
+
+Oltre alla richiesta "principale", inviata a ``HttpKernel::handle``,
+si possono anche inviare delle cosiddette "sotto-richieste". Una sotto-richiesta assomiglia e
+si comporta come ogni altra richiesta, ma tipicamente serve a rendere solo una breve porzione
+di una pagina, invece di una pagina completa. Solitamente si fanno sotto-richieste da un
+controllore (o forse da dentro a un template, che viene reso da un
+controllore).
+
+.. image:: /images/components/http_kernel/sub-request.png
+   :align: center
+
+Per eseguire una sotto-richiesta, usare ``HttpKernel::handle``, ma cambiando il secondo
+parametro, come segue::
+
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpKernel\HttpKernelInterface;
+
+    // ...
+
+    // creare qualche altra richiesta a mano, come necessario
+    $request = new Request();
+    // per resempio, si potrebbe impostare a mano _controller
+    $request->attributes->add('_controller', '...');
+
+    $response = $kernel->handle($request, HttpKernelInterface::SUB_REQUEST);
+    // fare qualcosa con questa risposta
+
+Questo crea un altro ciclo richiesta-risposta, in cui la nuova ``Request`` è
+trasformata in una ``Response``. L'unica differenza interna è che alcuni
+ascoltatori (p.e. security) possono intervenire solo per la richiesta principale. A ggni
+ascoltatore viene passata una sotto-classe di :class:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent`,
+il cui metodo :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequestType`
+può essere usato per capire se la richiesta corrente sia una richiesta principale o  una sotto-richiesta.
+
+Per esempio, un ascoltatore che deve agire solo sulla richiesta principale può
+assomigliare a questo::
+
+    use Symfony\Component\HttpKernel\HttpKernelInterface;
+    // ...
+
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+            return;
+        }
+        
+        // ...
+    }
 
 .. _Packagist: https://packagist.org/packages/symfony/http-kernel
 .. _reflection: http://php.net/manual/en/book.reflection.php

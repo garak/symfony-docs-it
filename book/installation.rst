@@ -69,7 +69,7 @@ Distribution:
 
 .. tip::
 
-    Per scaricare i file dei venditori più veclocemente e senza cartelle non necessarie
+    Per scaricare i file dei venditori più velocemente e senza cartelle non necessarie
     (p.e. "Tests"), aggiungere l'opzione ``--prefer-dist`` alla fine di ogni comando di
     Composer.
 

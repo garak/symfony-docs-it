@@ -91,7 +91,9 @@ un'istanza di ``Address`` nella proprietà ``$address``.
 
     .. code-block:: php-annotations
 
-        // src/Acme/HelloBundle/Address.php
+        // src/Acme/HelloBundle/Entity/Address.php
+        namespace Acme\HelloBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Address
@@ -108,7 +110,9 @@ un'istanza di ``Address`` nella proprietà ``$address``.
             protected $zipCode;
         }
 
-        // src/Acme/HelloBundle/Author.php
+        // src/Acme/HelloBundle/Entity/Author.php
+        namespace Acme\HelloBundle\Entity;
+
         class Author
         {
             /**
@@ -127,7 +131,9 @@ un'istanza di ``Address`` nella proprietà ``$address``.
 
     .. code-block:: php
 
-        // src/Acme/HelloBundle/Address.php
+        // src/Acme/HelloBundle/Entity/Address.php
+        namespace Acme\HelloBundle\Entity;
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
         use Symfony\Component\Validator\Constraints\Length;
@@ -148,7 +154,9 @@ un'istanza di ``Address`` nella proprietà ``$address``.
             }
         }
 
-        // src/Acme/HelloBundle/Author.php
+        // src/Acme/HelloBundle/Entity/Author.php
+        namespace Acme\HelloBundle\Entity;
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
         use Symfony\Component\Validator\Constraints\Length;

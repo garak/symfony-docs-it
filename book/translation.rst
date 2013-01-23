@@ -754,8 +754,8 @@ solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
 
 .. tip::
 
-    Se in una stringa è necessario usare il carattere percentuale (``%``), escapizzarlo
-    raddoppiandolo: ``{% trans %}Percent: %percent%%%{% endtrans %}``
+    Se in una stringa è necessario usare il carattere percentuale (``%``), occorre un escape
+    con raddoppio: ``{% trans %}Percent: %percent%%%{% endtrans %}``
 
 È inoltre possibile specificare il dominio del messaggio e passare alcune variabili aggiuntive:
 
@@ -787,7 +787,7 @@ di testo* ed espressioni complesse:
     Utilizzare i tag di traduzione o i filtri ha lo stesso effetto, ma con
     una sottile differenza: l'escape automatico dell'output è applicato solo alle
     variabili tradotte utilizzando un filtro. In altre parole, se è necessario
-    essere sicuri che la variabile tradotta *non* venga escapizzata, è necessario
+    essere sicuri che la variabile tradotta *non* subisca un escape, è necessario
     applicare il filtro raw dopo il filtro di traduzione:
 
     .. code-block:: jinja

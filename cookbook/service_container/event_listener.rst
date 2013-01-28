@@ -93,8 +93,8 @@ tag:
 Eventi richiesta, verifica dei tipi
 -----------------------------------
 
-Una singola page può eseguire diverse richieste (una principale, quindi molte
-sotto-richieste), per questo, quando si ha a che are con l'evento
+Una singola pagina può eseguire diverse richieste (una principale e poi diverse
+sotto-richieste); per questo, quando si ha a che fare con l'evento
 ``KernelEvents::REQUEST``, si potrebbe voler verificare il tipo di richiesta. Lo si
 può fare facilmente, come segue::
 

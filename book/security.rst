@@ -657,8 +657,8 @@ vedere :doc:`/cookbook/security/form_login`.
     Quindi, assicurarsi che l'URL ``check_path`` (ad esempio ``/login_check``)
     sia dietro al firewall che si sta usando per il form di login (in questo esempio,
     l'unico firewall fa passare *tutti* gli URL, includendo ``/login_check``). Se
-    ``/login_check`` non corrisponde a nessun firewall, si riceverà un ``Impossibile
-    trovare il controllore per il percorso "/login_check"`` dell'eccezione.
+    ``/login_check`` non corrisponde a nessun firewall, si riceverà un'eccezione
+    ``Unable to find the controller for path "/login_check"``.
 
     **4. Più firewall non condividono il contesto di sicurezza**
 
@@ -810,7 +810,7 @@ se ``ip``, ``host`` o ``method`` non sono specificati per una voce, ``access_con
 corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
 
 +-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
-| **URI**         | **IP**      | **HOST**    | **METHOD** | ``access_control``             | Perché?                                                     |
+| **URI**         | **IP**      | **HOST**    | **METODO** | ``access_control``             | Perché?                                                     |
 +-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
 | ``/admin/user`` | 127.0.0.1   | example.com | GET        | regola #1 (``ROLE_USER_IP``)   | L'URI corrisponde a ``path`` e l'IP a ``ip``.               |
 +-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+

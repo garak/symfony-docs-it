@@ -1045,6 +1045,8 @@ per esempio, si sta in realtà usando il servizio del motore dei template. Per e
 
 equivale a::
 
+    use Symfony\Component\HttpFoundation\Response;
+
     $engine = $this->container->get('templating');
     $content = $engine->render('AcmeArticleBundle:Article:index.html.twig');
 

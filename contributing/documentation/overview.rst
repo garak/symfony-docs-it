@@ -46,22 +46,26 @@ Quindi, creare un ramo dedicato per le proprie modifiche (per questioni organizz
 
 Si possono ora eseguire le proprie modifiche in tale ramo. Quando si ha finito,
 fare il push di quest ramo nel *proprio* fork su GitHub e richiedere un pull.
-La richiesta di pull sarà tra il proprio ramo ``miglioramenti_di_pippo_e_pluto`` e
-il ramo ``master`` di ``symfony-docs``.
+
+Richiedere un pull
+~~~~~~~~~~~~~~~~~~
+
+Seguend l'esempio, la richiesta di pull sarà tra il proprio ramo
+``miglioramenti_di_pippo_e_pluto`` e il ramo ``master`` di ``symfony-docs``.
 
 .. image:: /images/docs-pull-request.png
    :align: center
 
-Se le proprie modifiche sono basate sul ramo 2.0, occorre seguire il collegamento di modifica del commit
-e cambiare il ramo base in @2.0:
+Se le proprie modifiche sono basate sul ramo 2.0, occorre cambiare il
+ramo base in 2.0 sulla pagina di anteprima:
 
 .. image:: /images/docs-pull-request-change-base.png
    :align: center
 
 .. note::
 
-  Tutte le modifiche fatte nel ramo 2.0 subiranno un merge nel 2.1, che a sua volta subirà
-  un merge nel ramo master, per il prossimo rilascio, su base settimanale.
+  Tutte le modifiche fatte nel ramo 2.0 subiranno un merge nei rami più nuovi
+  (cioè 2.1, master, ecc.) per il prossimo rilascio, su base settimanale.
 
 GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
 
@@ -70,13 +74,71 @@ GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
   La documentazione di Symfony2 è rilasciata sotto :doc:`licenza <license>`
   Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Unported.
 
+Formato della richiesta di pull
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A meno di non risolvere errori di battitura, la descrizione della richiesta di pull deve
+includere la seguente lista, per assicurare che il contributo possa essere rivisto
+senza cicli inutili di feedback e che il proprio contributo possa essere incluso
+nella documentazione il prima possibile:
+
+.. code-block:: text
+
+    | Q             | A
+    | ------------- | ---
+    | Doc fix?      | [yes|no]
+    | New docs?     | [yes|no] (PR # su symfony/symfony, se applicabile)
+    | Applies to    | [numero di versione di Symfony a cui si applica]
+    | Fixed tickets | [lista separata da virgole di ticket risolti dalla PR]
+
+Un esempio di invio potrebbe essere come il seguente:
+
+.. code-block:: text
+
+    | Q             | A
+    | ------------- | ---
+    | Doc fix?      | yes
+    | New docs?     | yes (symfony/symfony#2500)
+    | Applies to    | all (or 2.1+)
+    | Fixed tickets | #1075
+
 .. tip::
 
-    Le modifiche appaiono sul sito symfony.com website non oltre 15 minuti
+    Serve un po' di pazienza. Le modifiche appaiono sul sito symfony.com tra i 15 minuti e alcuni giorni
     dopo il merge della richiesta di pull nella documentazione. Si può verificare
     se le proprie modifiche non abbiano introdotto problemi di markup, guardando la
     pagina `Errori di build della documentazione`_ (aggiornata ogni notte alle 3,
     quando il server ricostruisce la documentazione).
+
+Documentare nuove caratteristiche o modifiche di comportamenti
+--------------------------------------------------------------
+
+Se si sta documentando una nuova caratteristica o una modifica fatta in
+Symfony2, si deve precedere la descrizione con un tag ``.. versionadded:: 2.X``
+e una brave descrizione:
+
+.. code-block:: text
+
+    .. versionadded:: 2.2
+        Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
+
+    Si può anche fare una domanda e nascondere la risposta. Questo è particolarmente...
+
+Se si sta documentando una modifica di comportamento, potrebbe essere di aiuto descrivere *brevemente*
+il modo in cui il comportamento è cambiato.
+
+.. code-block:: text
+
+    .. versionadded:: 2.2
+        La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
+        Symfony 2.2. In precedenza, veniva usato il tag ``{% include %}``.
+
+Ogni volta che viene rilasciata una nuova versione minore di Symfony2 (p.e. 2.3, 2.4, ecc.),
+viene creato un nuovo ramo della documentazione, partendo dal ramo ``master``.
+A questo punto, tutti i tag ``versionadded`` per versioni di Symfony2 che hanno raggiunto il
+fine vita saranno rimossi. Per esempio, se Symfony 2.5 fosse rilasciato
+oggi e se il 2.2 avesse raggiunto il suo fine vita, il tag ``versionadded`` 2.2
+sarebbe rimosso dal nuovo ramo 2.5.
 
 Standard
 --------

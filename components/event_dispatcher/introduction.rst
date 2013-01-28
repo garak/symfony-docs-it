@@ -418,7 +418,7 @@ metodo :method:`Symfony\\Component\\EventDispatcher\\Event::stopPropagation`
 Ora, tutti gli ascoltatori di ``negozio.ordine`` che non sono ancora stati richiamati
 *non* saranno richiamati.
 
-Si può indidividuare se un evento è stato fermato, usando il metodo
+Si può individuare se un evento è stato fermato, usando il metodo
 :method:`Symfony\\Component\\EventDispatcher\\Event::isStoppedPropagation`,
 che restituisce un booleano::
 
@@ -436,13 +436,13 @@ Eventi e ascolatori consapevoli del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.1
-    L'oggetto ``Event`` contiene un riferimento al distributore che lo invoca da Symfony 2.1
+    L'oggetto ``Event`` contiene un riferimento al distributore che lo invoca, da Symfony 2.1
 
 ``EventDispatcher`` inietta sempre un riferimento a sé stesso nell'evento passato.
 Questo vuol dire che tutti gli ascoltatori hanno accesso diretto all'oggetto
 ``EventDispatcher`` notificante, tramite il metodo
 :method:`Symfony\\Component\\EventDispatcher\\Event::getDispatcher`
-dell'oggetto ``Event`` passat .
+dell'oggetto ``Event`` passato.
 
 Questo può portare ad applicazioni avanzate per ``EventDispatcher``, incluse la
 possibilità per gli ascoltatori di distribuire altri eventi, il concatenamento degli eventi o anche il

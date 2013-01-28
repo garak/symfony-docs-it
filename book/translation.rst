@@ -97,6 +97,9 @@ di testo (chiamato *messaggio*), usare il metodo
 :method:`Symfony\\Component\\Translation\\Translator::trans`. Supponiamo,
 ad esempio, che stiamo traducendo un semplice messaggio all'interno del controllore::
 
+    // ...
+    use Symfony\Component\HttpFoundation\Response;
+
     public function indexAction()
     {
         $t = $this->get('translator')->trans('Symfony2 is great');
@@ -171,6 +174,9 @@ Segnaposto per i messaggi
 
 A volte, un messaggio contiene una variabile deve essere tradotta::
 
+    // ...
+    use Symfony\Component\HttpFoundation\Response;
+
     public function indexAction($name)
     {
         $t = $this->get('translator')->trans('Hello '.$name);
@@ -184,6 +190,9 @@ proverà a cercare il messaggio esatto, includendo le parti con le variabili
 per ogni possibile iterazione della variabile ``$name``, si può sostituire la
 variabile con un "segnaposto"::
 
+    // ...
+    use Symfony\Component\HttpFoundation\Response;
+
     public function indexAction($name)
     {
         $t = $this->get('translator')->trans(
@@ -191,7 +200,7 @@ variabile con un "segnaposto"::
             array('%name%' => $name)
         );
 
-        new Response($t);
+        return new Response($t);
     }
 
 Symfony2 cercherà ora una traduzione del messaggio di base (``Hello %name%``)
@@ -794,16 +803,14 @@ di testo* ed espressioni complesse:
 
             {# il testo tradotto tra i tag non è mai sotto escape #}
             {% trans %}
-                <h3>foo</h3>
+                <h3>pippo</h3>
             {% endtrans %}
 
             {% set message = '<h3>foo</h3>' %}
 
             {# una variabile tradotta tramite filtro è sotto escape per impostazione predefinita #}
             {{ message|trans|raw }}
-
-            {# le stringhe statiche non sono mai sotto escape #}
-            {{ '<h3>foo</h3>'|trans }}
+            {{ '<h3>pluto</h3>'|trans|raw }}
 
 .. versionadded:: 2.1
      Si può impostare il dominio di traduzione per un intero template Twig con un

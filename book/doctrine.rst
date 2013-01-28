@@ -315,6 +315,12 @@ Il comando si assicura che i getter e i setter siano generati per la classe
 getter e i setter solamente se non esistono (ovvero non sostituirà eventuali
 metodi già presenti).
 
+.. caution::
+
+    Si tenga a mente che il generatore di entità di Doctrine produce semplici getter e setter. 
+    Si dovrebbero controllare le entità generate e sistemare getter e setter per adattarli
+    alle proprie necessità.
+
 .. sidebar:: Di più su ``doctrine:generate:entities``
 
     Con il comando ``doctrine:generate:entities`` si può:

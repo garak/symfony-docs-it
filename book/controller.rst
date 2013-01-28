@@ -493,6 +493,8 @@ che è responsabile di generare il codice HTML (o un altro formato) per il contr
 Il metodo ``renderView()`` rende un template e restituisce il suo contenuto. Il
 contenuto di un template può essere usato per creare un oggetto ``Response``::
 
+    use Symfony\Component\HttpFoundation\Response;
+
     $content = $this->renderView(
         'AcmeHelloBundle:Hello:index.html.twig',
         array('name' => $name)
@@ -705,7 +707,9 @@ classe :class:`Symfony\\Component\\HttpFoundation\\Response` è una astrazione P
 sulla risposta HTTP - il messaggio testuale che contiene gli header HTTP
 e il contenuto che viene inviato al client::
 
-    // crea una semplice risposta con un codice di stato 200 (il predefinito)
+    use Symfony\Component\HttpFoundation\Response;
+
+    // crea una semplice risposta JSON con un codice di stato 200 (predefinito)
     $response = new Response('Ciao '.$name, 200);
 
     // crea una risposta JSON con un codice di stato 200

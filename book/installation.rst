@@ -214,13 +214,29 @@ Se ci sono problemi, correggerli prima di proseguire.
     scrivibili sia dal server web che dall'utente della linea di comando. Su sistemi
     UNIX, se l'utente del server web è diverso da quello della linea di comando,
     si possono eseguire i seguenti comandi una sola volta sul proprio progetto, per
-    assicurarsi che i permessi siano impostati correttamente. Cambiare ``www-data``
-    con l'utente del server web e ``tuonome`` con l'utente della linea di comando:
+    assicurarsi che i permessi siano impostati correttamente.
+
+    **Si noti che non tutti i server web girano con lo stesso utenteo** ``www-data`` usato negli esempi
+    di seguito. Verificare con quale utente gira *il proprio* server web e usare quello
+    al posto di ``www-data``.
+
+    Su sistemi di tipo UNIX, lo si può fare con uno dei seguenti comandi:
+
+    .. code-block:: bash
+    
+        $ ps aux | grep httpd
+
+    oppure
+
+    .. code-block:: bash
+
+        $ ps aux | grep apache
 
     **1. Usare ACL su un sistema che supporta chmod +a**
 
     Molti sistemi consento di usare il comando ``chmod +a``. Provare prima questo e, in
-    caso di errore, provare il metodo successivo:
+    caso di errore, provare il metodo successivo. Assicurarsi di sostituire `www-data`
+    con l'utente del prorio server web, nel primo comando ``chmod``:
 
     .. code-block:: bash
 
@@ -241,11 +257,6 @@ Se ci sono problemi, correggerli prima di proseguire.
 
         $ sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
         $ sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
-
-    Notare che non tutti i server web giranot come utente ``www-data``. Occorre verificare
-    quale utente sia usato dal server web e inserirlo al posto di ``www-data``.
-    Lo si può verificare dalla lista dei processi, cercando quale utente stia eseguendo
-    il processo del server web.
 
     **3. Senza usare ACL**
 

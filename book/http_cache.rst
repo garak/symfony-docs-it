@@ -310,6 +310,8 @@ creazione più gestibile::
 
     // ...
 
+    use Symfony\Component\HttpFoundation\Response;
+
     $response = new Response();
 
     // segna la risposta come pubblica o privata
@@ -649,6 +651,8 @@ Lo scopo principale di ogni strategia di cache è alleggerire il carico dell'app
 In altre parole, meno la propria applicazione fa per restituire una risposta 304,
 meglio è. Il metodo ``Response::isNotModified()`` fa esattamente questo, esponendo
 uno schema semplice ed efficiente::
+
+    use Symfony\Component\HttpFoundation\Response;
 
     public function showAction($articleSlug)
     {
@@ -1010,6 +1014,8 @@ metodo HTTP ``PURGE``::
 
     // ...
     use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
 
     class AppCache extends HttpCache
     {

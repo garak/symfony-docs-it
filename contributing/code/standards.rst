@@ -49,6 +49,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
         /**
          * @param string $dummy Una descrizione del parametro
+         * @param array $options
          *
          * @return string|null Input trasformato
          */
@@ -82,10 +83,13 @@ Struttura
 
 * Aggiungere un singolo spazio dopo ogni virgola delimitatrice;
 
-* Aggiungere un singolo spazio intorno agli operatori (`==`, `&&`, ...);
+* Aggiungere un singolo spazio intorno agli operatori (``==``, ``&&``, ...);
 
-* Aggiungere una riga vuota prima delle istruzioni `return`, a meno che non siano soli 
-  dentro una struttura di controllo (come un `if`);
+* Aggiungere una virgola dopo ogni elemento di array multi-linea, anche dopo
+  l'ultimo;
+
+* Aggiungere una riga vuota prima dei ``return``, a meno che il ``return`` non sia
+  da solo in un gruppo di istruzioni (come per esempio un ``if``);
 
 * Usare le parentesi graffe per le strutture di controllo, indipendentemente dal numero
   di istruzioni contenute;
@@ -97,6 +101,9 @@ Struttura
 * Dichiarare le proprietà di una classe prima dei metodi;
 
 * Dichiarare prima i metodi pubblici, poi quelli protetti e infine quelli privati;
+
+* Usare le parentesi per istanziare le classi, indipendentemente dal numero di
+  parametri del costruttore.
 
 Convenzioni sui nomi
 --------------------

@@ -175,7 +175,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     in riga 8 del precedente front controller. Questo valore specifica se
     l'applicazione dovrà essere eseguità in "modalità debug" o meno. Indipendentemente
     dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
-    debug configurata a ``true`` o a ``false. Questo modifica diversi aspetti dell'applicazione, come
+    debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione, come
     il fatto che gli errori vengano mostrati o se la cache debba essere ricreata dinamicamente
     a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre
     configurata a ``true`` negli ambienti ``dev`` e ``test`` e a ``false`` per 

@@ -58,6 +58,7 @@
   * :doc:`/components/http_foundation/sessions`
   * :doc:`/components/http_foundation/session_configuration`
   * :doc:`/components/http_foundation/session_testing`
+  * :doc:`/components/http_foundation/trusting_proxies`
 
 * :doc:`/components/http_kernel/index`
 
@@ -90,6 +91,7 @@
 
   * :doc:`/components/templating`
 
-* **YAML**
+* :doc:`/components/yaml/index`
 
-  * :doc:`/components/yaml`
+  * :doc:`/components/yaml/introduction`
+  * :doc:`/components/yaml/yaml_format`

@@ -178,8 +178,8 @@ Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
             $form = $this->createForm(new TaskType(), $task);
 
             // processare il form, in una richiesta POST
-            if ('POST' === $request->getMethod()) {
-                $form->bindRequest($request);
+            if ($request->isMethod('POST')) {
+                $form->bind($request);
                 if ($form->isValid()) {
                     // fare qualcosa con il form,  come salvare oggetti Tag e Task
                 }
@@ -341,7 +341,7 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
 
     .. code-block:: html+jinja
     
-        {{ form_widget(form.tags.get('prototype').name)|e }}
+        {{ form_widget(form.tags.vars.prototype.name)|e }}
 
 Nella pagina resa, il risultato assomiglierà a questo:
 
@@ -373,12 +373,16 @@ collegare l'evento "click" a tale collegamento, in modo da poter aggiungere un n
         // aggiunge l'ancora "aggiungere un tag" e il li all'ul dei tag
         collectionHolder.append($newLinkLi);
 
+        // contare gli input correnti (p.e. 2), usare il valore come nuovo
+        // indice da usare per inserire un nuovo elemento (p.e. 2)
+        collectionHolder.data('index', collectionHolder.find(':input').length);
+
         $addTagLink.on('click', function(e) {
             // previene il "#" nell'URL
             e.preventDefault();
 
             // aggiunge un nuovo form tag (vedere il prossimo blocco di codice)
-            addTagForm();
+            addTagForm(collectionHolder, $newLinkLi);
         });
     });
 
@@ -406,6 +410,9 @@ un esempio:
         // Sostituire '__name__' nell'HTML del prototipo per essere
         // invece un numero basato su quanti elementi ci sono
         var newForm = prototype.replace(/__name__/g, newIndex);
+
+        // incrementare l'indice di 1 per l'elemento successivo
+        collectionHolder.data('index', index + 1);
 
         // Mostrare il form nella pagina, dentro un li, prima del collegamento "Aggiungere un tag"
         var $newFormLi = $('<li></li>').append(newForm);

@@ -82,8 +82,41 @@ caricati i servizi correlati ai test della propria applicazione (p.e. ``test.cli
 Questa impostazione dovrebbe essere presete nel proprio ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
+trusted_proxies
+~~~~~~~~~~~~~~~
+
+**tipo**: ``array``
+
+Configura gli indirizzi IP di cui fidarsi come proxy. Per maggiori dettagli,
+vedere :doc:`/components/http_foundation/trusting_proxies`.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        framework:
+            trusted_proxies:  [192.0.0.1]
+
+    .. code-block:: xml
+
+        <framework:config trusted-proxies="192.0.0.1">
+            <!-- ... -->
+        </framework>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('framework', array(
+            'trusted_proxies' => array('192.0.0.1'),
+        ));
+
 trust_proxy_headers
 ~~~~~~~~~~~~~~~~~~~
+
+.. caution::
+
+    L'opzione ``trust_proxy_headers`` è deprecata e sarà rimossa in
+    Symfony 2.3. Vedere `trusted_proxies`_ e :doc:`/components/http_foundation/trusting_proxies`
+    per i dettagli su come fidarsi in modo corretto dei dati dei proxy.
 
 **tipo**: ``booleano``
 

@@ -7,13 +7,18 @@ Il componente DomCrawler
 
     Il componente DomCrawler semplifica la navigazione nel DOM dei documenti HTML e XML.
 
+.. note::
+
+    Dove possibile, il componente DomCrawler non è progettato per manipolare
+    il DOM o per ri-esportare HTML/XML.
+
 Installazione
 -------------
 
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DomCrawler);
-* Installandolo via Composer (``symfony/dom-crawler`` su `Packagist`_).
+* Installandolo :doc:`via Composer</components/using_components>` (``symfony/dom-crawler`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -172,6 +177,22 @@ e :phpclass:`DOMNode`:
     $crawler->addNode($nodo);
     $crawler->add($documento);
 
+.. sidebar:: Manipolare ed esportare un ``Crawler``
+
+    Questi metodi di ``Crawler`` servono per popolare inizialmente il proprio
+    ``Crawler`` e non per essere usati per manipolare ulteriormente un DOM
+    (sebbene sia possibile). Tuttavia, poiché il ``Crawler`` è un insieme di
+    oggetti :phpclass:`DOMElement`, si può usare qualsiasi metodo o proprietà disponibile
+    in :phpclass:`DOMElement`, :phpclass:`DOMNode` o :phpclass:`DOMDocument`.
+    Per esempio, si può ottenre l'HTML di un ``Crawler`` con qualcosa del
+    genere::
+    
+        $html = '';
+
+        foreach ($crawler as $domElement) {
+            $html.= $domElement->ownerDocument->saveHTML();
+        }
+
 Supporto per i collegamenti e per i form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -305,7 +326,7 @@ tutte le informazioni necessarie per create una richiesta POST dal form::
     // a questo punto si usa un qualche client HTTP e si inviano le informazioni
 
 Un ottimo esempio di sistema integrato che utilizza tutte queste funzioni è `Goutte`_.
-Goutte usa a pieno gli oggetti Symfony Crawler e, con essi, può inviare i form 
+Goutte usa a pieno gli oggetti del Crawler di Symfony e, con essi, può inviare i form 
 direttamente::
 
     use Goutte\Client;

@@ -112,12 +112,19 @@ solo quando il contenitore viene compilato nel punto in cui viene caricata l'est
     use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
     $container = new ContainerBuilder();
+    $container->registerExtension(new AcmeDemoExtension);
+
     $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
     $loader->load('config.yml');
 
-    $container->registerExtension(new AcmeDemoExtension);
     // ...
     $container->compile();
+
+.. note::
+
+    Quando si carica un file di configurazione che usa un alias di estensione come chiave,
+    l'estensione deve essere già stata registrata nel costruttore di contenitore
+    o verrà sollevata un'eccezione.
 
 I valori di tali sezioni dei file di configurazione sono passati al primo parametro
 del metodo ``load`` dell'estensione::
@@ -238,6 +245,25 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
             $loader->load('advanced.xml');
         }
     }
+
+.. note::
+
+    La registrazione di un'estensione nel contenitore non è sufficiente
+    per includerla tra le estensioni processate durante la compilazione del contenitore.
+    Caricare la configurazione che usa l'alias dell'estensione come chiave, come mostrato in
+    precedenza, assicurerà il suo caricamento. Si può anche dire al costruttore di contenitore 
+    di caricarla, usando il metodo
+    :method:`Symfony\\Component\\DependencyInjection\\ContainerBuilder::loadFromExtension`::
+
+
+        use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+        $container = new ContainerBuilder();
+        $extension = new AcmeDemoExtension();
+        $container->registerExtension($extension);
+        $container->loadFromExtension($extension->getAlias());
+        $container->compile();
+
 
 .. note::
 

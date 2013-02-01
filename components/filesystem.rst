@@ -16,8 +16,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Filesystem);
-* Installarlo via PEAR (`pear.symfony.com/Filesystem`);
-* Installarlo via Composer (`symfony/filesystem` su Packagist).
+* Installarlo via Composer (``symfony/filesystem`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -39,11 +38,12 @@ punto finale per le operazioni su filesystem::
 .. note::
 
     I metodi :method:`Symfony\\Component\\Filesystem\\Filesystem::mkdir`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::chown`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::chgrp`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::chown`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::remove` e
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::touch` possono ricevere
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::exists`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::touch`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::remove`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::chmod`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::chown` e
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::chgrp` possono ricevere
     come parametro una stringa, un array o qualsiasi oggetto che implementi
     :phpclass:`Traversable`.
 
@@ -240,3 +240,5 @@ implementa la classe
     restituiva un booleano e non lanciava eccezioni. Dalla 2.1, viene sollevata una
     :class:`Symfony\\Component\\Filesystem\\Exception\\IOException` se
     la creazione della cartella fallisce.
+
+.. _`Packagist`: https://packagist.org/packages/symfony/filesystem

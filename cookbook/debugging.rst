@@ -30,14 +30,12 @@ Il front controller ``app_dev.php`` contiene, nella sua versione predefinita, il
 
     // ...
 
-    require_once __DIR__.'/../app/bootstrap.php.cache';
+    $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
-
-    use Symfony\Component\HttpFoundation\Request;
 
     $kernel = new AppKernel('dev', true);
     $kernel->loadClassCache();
-    $kernel->handle(Request::createFromGlobals())->send();
+    $request = Request::createFromGlobals();
 
 Per facilitare il lavoro del debugger, è possibile disabilitare la cache di
 tutte le classi PHP rimuovendo la chiamata a ``loadClassCache()`` e sostituendo 
@@ -45,15 +43,15 @@ la dichirazione del require, nel seguente modo::
 
     // ...
 
-    // require_once __DIR__.'/../app/bootstrap.php.cache';
-    require_once __DIR__.'/../app/autoload.php';
+    // $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+    $loader = require_once __DIR__.'/../app/autoload.php';
     require_once __DIR__.'/../app/AppKernel.php';
 
     use Symfony\Component\HttpFoundation\Request;
 
     $kernel = new AppKernel('dev', true);
     // $kernel->loadClassCache();
-    $kernel->handle(Request::createFromGlobals())->send();
+    $request = Request::createFromGlobals();
 
 .. tip::
 

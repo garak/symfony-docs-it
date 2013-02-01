@@ -22,8 +22,16 @@ una classe ``User``, che rappresenti tali dati. La classe ``User``, comunque, pu
 essere fatta a piacere e contenere qualsiasi dato si desideri. L'unico requisito è che
 implementi :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 I metodi in tale interfaccia vanno quindi deifniti nella classe utente personalizzata:
-``getRoles()``, ``getPassword()``, ``getSalt()``, ``getUsername()``,
-``eraseCredentials()``, ``equals()``.
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getRoles`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getPassword`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getSalt`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getUsername`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::eraseCredentials`.
+Potrebbe essere utile anche implementare l'interfaccia
+:class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
+che definisce un metodo per verificare se l'utente corrisponde all'utente corrente. Tale
+interfaccia richiede un metodo :method:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface::isEqualTo`.
+
 
 Vediamola in azione::
 
@@ -31,8 +39,9 @@ Vediamola in azione::
     namespace Acme\WebserviceUserBundle\Security\User;
 
     use Symfony\Component\Security\Core\User\UserInterface;
+    use Symfony\Component\Security\Core\User\EquatableInterface;
 
-    class WebserviceUser implements UserInterface
+    class WebserviceUser implements UserInterface, EquatableInterface
     {
         private $username;
         private $password;
@@ -71,7 +80,7 @@ Vediamola in azione::
         {
         }
 
-        public function equals(UserInterface $user)
+        public function isEqualTo(UserInterface $user)
         {
             if (!$user instanceof WebserviceUser) {
                 return false;
@@ -93,10 +102,12 @@ Vediamola in azione::
         }
     }
 
+.. versionadded:: 2.1
+    L'interfaccia ``EquatableInterface`` è stata aggiunta in Symfony 2.1. Usare il metodo ``equals()``
+    di ``UserInterface`` in Symfony 2.0.
+
 Se si hanno maggiori informazioni sui propri utenti, come il nome di battesimo, si
 possono aggiungere campi per memorizzare tali dati.
-
-Per maggiori dettagli su ciascun metodo, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
 Creare un fornitore utenti
 --------------------------
@@ -126,7 +137,7 @@ Ecco un esempio di come potrebbe essere::
         public function loadUserByUsername($username)
         {
             // fare qui una chiamata al servizio web
-            // $userData = ...
+            $userData = ...
             // supponiamo che restituisca un array, oppure false se non trova utenti
 
             if ($userData) {

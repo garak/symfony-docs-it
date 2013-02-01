@@ -260,3 +260,44 @@ Rinvio dopo il login
 * ``default_target_path`` (tipo: ``stringa``, predefinito: ``/``)
 * ``target_path_parameter`` (tipo: ``stringa``, predefinito: ``_target_path``)
 * ``use_referer`` (tipo: ``booleano``, predefinito: ``false``)
+
+Autenticazione HTTP-Digest
+--------------------------
+
+Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
+
+.. configuration-block::
+
+   .. code-block:: yaml
+
+      # app/config/security.yml
+      security:
+         firewalls:
+            somename:
+              http_digest:
+               key: "a_random_string"
+               realm: "secure-api"
+
+   .. code-block:: xml
+
+      <!-- app/config/security.xml -->
+      <security:config>
+         <firewall name="somename">
+            <http-digest key="a_random_string" realm="secure-api" />
+         </firewall>
+      </security:config>
+
+   .. code-block:: php
+
+      // app/config/security.php
+      $container->loadFromExtension('security', array(
+           'firewalls' => array(
+               'somename' => array(
+                   'http_digest' => array(
+                       'key'   => 'a_random_string',
+                       'realm' => 'secure-api',
+                   ),
+               ),
+           ),
+      ));
+

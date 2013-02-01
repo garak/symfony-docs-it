@@ -21,6 +21,11 @@ INI.
 Il componente YAML di Symfony2 implementa la versione 1.2. della
 specifica.
 
+.. tip::
+
+    Si può sapere di più sul componente Yaml in
+    :doc:`/components/yaml/yaml_format`.
+
 Installazione
 -------------
 

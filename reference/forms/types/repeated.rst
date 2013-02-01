@@ -52,6 +52,42 @@ determina il tipo effettivo dei due campi. L'opzione ``options`` è passata a ci
 dei due campi, il che vuol dire, in questo esempio, che è supportata qualsiasi opzione
 supportata dal tipo ``password``.
 
+Resa
+~~~~
+
+Il tipo di campo ``repeated`` consiste in realtà di due campi, che possono essere
+resi in una volta sola o singolarmente. Per renderli in una volta sola, usare qualcosa
+come:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ form_row(form.password) }}
+
+    .. code-block:: php
+
+        <?php echo $view['form']->row($form['password']) ?>
+
+Per rendere ogni campo singolarmente, usare qualcosa come:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ form_row(form.password.first) }}
+        {{ form_row(form.password.second) }}
+
+    .. code-block:: php
+
+        <?php echo $view['form']->row($form['password']['first']) ?>
+        <?php echo $view['form']->row($form['password']['second']) ?>
+
+.. note::
+
+    I nomi predefiniti dei sotto-campi sono ``first`` e ``second``, ma possono
+    essere modificati tramite le opzioni `first_name`_ e `second_name`_.
+
 Validazione
 ~~~~~~~~~~~
 

@@ -123,6 +123,12 @@ il seguente URL per avviare la diagnosi sulla propria macchina:
 
         http://localhost/Symfony/web/config.php
 
+    Per ottenere degli URL brevi, si doverebbe puntare la document root del proprio
+    server web oppure un host virtuale alla cartella ``Symfony/web/``. In questo
+    caso, gli URL saranno come ``http://localhost/config.php`` o
+    ``http://sito.locale/config.php``, se si è creato un host virtuale a un
+    dominio locale chiamato ``sito.locale``.
+
 Se ci sono dei problemi, correggerli. Si potrebbe anche voler modificare la propria
 configurazione, seguendo le raccomandazioni fornite. Quando è tutto a posto,
 cliccare su "*Bypass configuration and go to the Welcome page*" per richiedere

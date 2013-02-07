@@ -20,11 +20,8 @@ Scaricare una distribuzione Symfony2
 .. tip::
 
     Verificare innanzitutto di avere un server web (come Apache) installato
-    e funzionante con la versione più recente di PHP (si raccomandano PHP 5.3.8
-    o successivi). Per ulteriori informazioni sui requisiti di Symfony2, si veda
-    il :doc:`riferimento sui requisiti</reference/requirements>`. Per
-    informazioni sulla configurazione di uno specifico server web, vedere
-    la seguente documentazione: `Apache`_ | `Nginx`_ .
+    e funzionante con PHP 5.3.8 o successivi. Per ulteriori informazioni sui requisiti di Symfony2,
+    si veda il :doc:`riferimento sui requisiti</reference/requirements>`.
 
 Symfony2 ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
 includono le librerie del nucleo di Symfony2, una selezione di bundle utili e alcune
@@ -287,14 +284,23 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 
 .. image:: /images/quick_tour/welcome.png
 
+.. tip::
+    
+    Per ottnere url brevi, si dovrebbe far puntare la docuemnt root del
+    server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
+    non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui
+    l'applicazione va in produzione, perché tutti i file di sistema e di configurazione
+    diventeranno inaccessibili ai client. Perinformazioni sulla configurazione di
+    uno specifico server web, vedere la seguente
+    documentazione: `Apache`_ | `Nginx`_ .
+
 Iniziare lo sviluppo
 --------------------
 
 Ora che si dispone di un'applicazione Symfony2 pienamente funzionante, si può iniziare
 lo sviluppo. La distribuzione potrebbe contenere del codice di esempio, verificare il file
 ``README.rst`` incluso nella distribuzione (aprendolo come file di testo) per sapere
-quale codice di esempio è incluso nella distribuzione scelta e come poterlo rimuovere
-in un secondo momento.
+quale codice di esempio è incluso nella distribuzione scelta.
 
 Per chi è nuovo in Symfony, in ":doc:`page_creation`" si può imparare come creare
 pagine, cambiare configurazioni e tutte le altre cose di cui si avrà bisogno nella
@@ -302,6 +308,11 @@ nuova applicazione.
 
 Dare un'occhiata anche al :doc:`ricettario</cookbook/index>`, che contiene
 una varietà di articoli su come risolvere problemi specifici con Symfony.
+
+.. note::
+
+    Se si vuole rimuovere il codice di esempio dalla distribuzione, dare un'occhiata
+    a questa ricetta: ":doc:`/cookbook/bundles/remove`"
 
 Usare un controllo di sorgenti
 ------------------------------

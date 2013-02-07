@@ -31,6 +31,8 @@ ma con valori predefiniti più appropriati per l'opzione `years`_. L'opzione
 |                          | - `user_timezone`_                                                                                                       |
 |                          | - `invalid_message`_                                                                                                     |
 |                          | - `invalid_message_parameters`_                                                                                          |
+|                          | - `read_only`_                                                                                                           |
+|                          | - `disabled`_                                                                                                            |
 +--------------------------+--------------------------------------------------------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`date</reference/forms/types/date>`                                                                                 |
 +--------------------------+--------------------------------------------------------------------------------------------------------------------------+
@@ -75,3 +77,6 @@ Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/field>`
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc

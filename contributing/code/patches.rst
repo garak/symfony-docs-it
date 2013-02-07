@@ -205,7 +205,7 @@ caratteristica o se ne cambia una, per esempio), occorre includere quello che se
 
 * Una spiegazione di come aggiornare un'applicazione esistente, nel file (o nei file)
   UPGRADE rilevante, se le modifiche infrangono la retro-compatibilità o se si sta
-   deprecando qualcosa che alla fine infrangerà la retro-compatibilità.
+  deprecando qualcosa che alla fine infrangerà la retro-compatibilità.
 
 Passo 3: inviare la propria patch
 ---------------------------------

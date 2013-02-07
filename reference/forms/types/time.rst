@@ -26,6 +26,8 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 +-------------------------+---------------------------------------------------------------------+
 | Opzioni                 | - `invalid_message`_                                                |
 | ereditate               | - `invalid_message_parameters`_                                     |
+|                         | - `read_only`_                                                      |
+|                         | - `disabled`_                                                       |
 +-------------------------+---------------------------------------------------------------------+
 | Tipo genitore           | form                                                                |
 +-------------------------+---------------------------------------------------------------------+
@@ -116,3 +118,7 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc

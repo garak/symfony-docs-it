@@ -59,6 +59,33 @@ dell'utente:
             protected $oldPassword;
        }
 
+    .. code-block:: xml
+
+        <!-- src/UserBundle/Resources/config/validation.xml -->
+        <class name="Acme\UserBundle\Form\Model\ChangePassword">
+            <property name="Symfony\Component\Security\Core\Validator\Constraint\UserPassword">
+                <option name="message">Wrong value for your current password</option>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/UserBundle/Form/Model/ChangePassword.php
+        namespace Acme\UserBundle\Form\Model;
+        
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
+  
+        class ChangePassword
+        {
+            public static function loadValidatorData(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('oldPassword', new SecurityAssert\UserPassword(array(
+                    'message' => 'Wrong value for your current password',
+                )));
+            }
+        }
+
 Opzioni
 -------
 

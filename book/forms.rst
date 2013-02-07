@@ -205,6 +205,7 @@ dall'utente devono essere associati al form. Aggiungere le seguenti funzionalit√
 controllore::
 
     // ...
+    use Symfony\Component\HttpFoundation\Request;
 
     public function newAction(Request $request)
     {

@@ -43,6 +43,8 @@ quanto segue:
     .. code-block:: php-annotations
 
         // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Participant
@@ -72,7 +74,28 @@ quanto segue:
             </property>
         </class>
 
-Options
+    .. code-block:: php
+
+        // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Participant
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('height', new Assert\Range(array(
+                    'min'        => 120,
+                    'max'        => 180,
+                    'minMessage' => 'Devi essere alto almeno 120cm per entrare',
+                    'maxMessage' => 'Non puoi essere più alto di 180cm per entrare',
+                )));
+            }
+        }
+
+Opzioni
 -------
 
 min

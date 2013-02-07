@@ -48,6 +48,35 @@ all'inizio della stringa:
             protected $description;
         }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <property name="description">
+                <constraint name="Regex">
+                    <option name="pattern">/^\w+/</option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+        
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('description', new Assert\Regex(array(
+                    'pattern' => '/^\w+/',
+                )));
+            }
+        }
+
 In alternativa, si può impostare l'opzione `match`_ a ``false``, per asserire che
 una stringa data *non* debba corrispondere. Nell'esempio seguente, si asserisce che
 il campo ``firstName`` non contenga numeri e si imposta un messaggio
@@ -84,6 +113,19 @@ personalizzato:
              */
             protected $firstName;
         }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <property name="firstName">
+                <constraint name="Regex">
+                    <option name="pattern">/\d/</option>
+                    <option name="match">false</option>
+                    <option name="message">Il nome non può contenere numeri</option>
+                </constraint>
+            </property>
+        </class>
 
 Opzioni
 -------

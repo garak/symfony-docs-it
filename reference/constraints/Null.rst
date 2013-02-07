@@ -55,6 +55,22 @@ una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
             </property>
         </class>
 
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+        
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('firstName', Assert\Null());
+            }
+        }
+
 Opzioni
 -------
 

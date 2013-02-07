@@ -40,6 +40,20 @@ Preparazione
                 - Callback:
                     methods:   [isAuthorValid]
 
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        /**
+         * @Assert\Callback(methods={"isAuthorValid"})
+         */
+        class Author
+        {
+        }
+
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
@@ -51,16 +65,22 @@ Preparazione
             </constraint>
         </class>
 
-    .. code-block:: php-annotations
+    .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
 
-        /**
-         * @Assert\Callback(methods={"isAuthorValid"})
-         */
         class Author
         {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addConstraint(new Assert\Callback(array(
+                    'methods' => array('isAuthorValid'),
+                )));
+            }
         }
 
 Il metod callback
@@ -88,6 +108,7 @@ questi errori vadano attribuiti::
                 $context->addViolationAtSubPath('firstname', 'Questo nome  sembra proprio falso!', array(), null);
             }
         }
+     }
 
 Opzioni
 -------
@@ -165,7 +186,7 @@ Ogni metodo può avere uno dei seguenti formati:
 
         class MyStaticValidatorClass
         {
-            static public function isAuthorValid(Author $author, ExecutionContext $context)
+            public static function isAuthorValid(Author $author, ExecutionContext $context)
             {
                 // ...
             }

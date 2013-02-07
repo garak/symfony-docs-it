@@ -802,7 +802,8 @@ specifiche saranno man mano approfondite.
     tre i formati (YAML, XML e PHP). Ciascuno ha i suoi vantaggi e svantaggi. La scelta
     è lasciata allo sviluppatore:
 
-    * *YAML*: Semplice, pulito e leggibile;
+    * *YAML*: Semplice, pulito e leggibile (se ne può sapere di più in
+      ":doc:`/components/yaml/yaml_format`");
 
     * *XML*: Più potente di YAML e supportato nell'autocompletamento dagli IDE;
 

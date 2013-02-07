@@ -44,6 +44,8 @@ fare come segue:
     .. code-block:: php-annotations
 
         // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Participant
@@ -61,7 +63,7 @@ fare come segue:
 
     .. code-block:: xml
 
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <!-- src/Acme/EventBundle/Resources/config/validation.xml -->
         <class name="Acme\EventBundle\Entity\Participant">
             <property name="firstName">
                 <constraint name="Length">
@@ -73,7 +75,28 @@ fare come segue:
             </property>
         </class>
 
-Opzioni
+    .. code-block:: php
+
+        // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Participant
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('firstName', new Assert\Length(array(
+                    'min'        => 2,
+                    'max'        => 50,
+                    'minMessage' => 'Your first name must be at least {{ limit }} characters length',
+                    'maxMessage' => 'Your first name cannot be longer than than {{ limit }} characters length',
+                )));
+            }
+        }
+
+Options
 -------
 
 min

@@ -48,13 +48,26 @@ i metodi restituiscono un'istanza di Finder.
 
 .. tip::
 
-    Un Finder è un'istanza di un `Iterator`_ PHP. Perciò, invece di dover iterare attraverso
+    Un Finder è un'istanza di un :phpclass:`Iterator` PHP. Perciò, invece di dover iterare attraverso
     Finder con un ciclo ``foreach``, è possibile convertirlo in un array, tramite il metodo
     :phpfunction:`iterator_to_array`, o ottenere il numero di oggetto in esso contenuti con
     :phpfunction:`iterator_count`.
 
+.. caution::
+
+    Quando si cerca in posizioni diverse, passate al metodo
+    :method:`Symfony\\Component\\Finder\\Finder::in`, internamente viene creato un
+    iteratore separato per ogni posizione. Questo vuol dire che si ottengono vari insiemi di
+    risultati, aggregati in uno solo.
+    Poiché :phpfunction:`iterator_to_array` usa le chiavi degli insiemi di risultati,
+    durante la conversione in array, alcune chiavi potrebbero essere duplicate e i loro
+    valori sovrascritti. Lo si può evitare, passando ``false`` come secondo parametro
+    di :phpfunction:`iterator_to_array`.
+
 Criteri
 -------
+
+Ci sono molti modi per filtrare e ordinare i risultati.
 
 Posizione
 ~~~~~~~~~
@@ -89,7 +102,7 @@ Funziona anche con flussi definiti dall'utente::
     $finder = new Finder();
     $finder->name('photos*')->size('< 100K')->date('since 1 hour ago');
     foreach ($finder->in('s3://bucket-name') as $file) {
-        // fare qualcosa
+        // ... fare qualcosa
 
         print $file->getFilename()."\n";
     }
@@ -261,7 +274,6 @@ Il contenuto dei file restituiti può essere letto con
     }
 
 .. _strtotime:   http://www.php.net/manual/en/datetime.formats.php
-.. _Iterator:     http://www.php.net/manual/en/spl.iterators.php
 .. _protocollo:   http://www.php.net/manual/en/wrappers.php
 .. _stream:       http://www.php.net/streams
 .. _standard IEC: http://physics.nist.gov/cuu/Units/binary.html

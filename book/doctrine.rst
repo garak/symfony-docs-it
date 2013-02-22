@@ -114,6 +114,45 @@ base dati al posto nostro:
         collation-server = utf8_general_ci
         character-set-server = utf8
 
+Usare SQLite
+~~~~~~~~~~~~
+
+Se si vuole usare SQLite come base dati, occorre impostare il percorso in cui
+si trova il relativo file:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        doctrine:
+            dbal:
+                driver: pdo_sqlite
+                path: "%kernel.root_dir%/sqlite.db"
+                charset: UTF8
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <doctrine:config
+            driver="pdo_sqlite"
+            path="%kernel.root_dir%/sqlite.db"
+            charset="UTF-8"
+        >
+            <!-- ... -->
+        </doctrine:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('doctrine', array(
+            'dbal' => array(
+                'driver'  => 'pdo_sqlite',
+                'path'    => '%kernel.root_dir%/sqlite.db',
+                'charset' => 'UTF-8',
+            ),
+        ));
+
 Creare una classe entità
 ~~~~~~~~~~~~~~~~~~~~~~~~
 

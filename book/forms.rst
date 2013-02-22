@@ -1593,7 +1593,7 @@ Saperne di più con il ricettario
 * :doc:`Riferimento del tipo di campo file</reference/forms/types/file>`
 * :doc:`Creare tipi di campo personalizzati </cookbook/form/create_custom_field_type>`
 * :doc:`/cookbook/form/form_customization`
-* :doc:`/cookbook/form/dynamic_form_generation`
+* :doc:`/cookbook/form/dynamic_form_modification`
 * :doc:`/cookbook/form/data_transformers`
 
 .. _`Componente Form di Symfony2`: https://github.com/symfony/Form

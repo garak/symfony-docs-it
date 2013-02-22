@@ -115,7 +115,8 @@ parametro predefinito:
 
         $container->loadFromExtension('web_profiler', array(
             'toolbar' => true,
-            ...,
+
+            // ...
         ));
 
 .. index::
@@ -205,9 +206,10 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
             $container->loadFromExtension('doctrine', array(
                 'dbal' => array(
                     'logging'  => '%kernel.debug%',
-                    ...,
+
+                    // ...
                 ),
-                ...
+                // ...
             ));
 
 .. index::

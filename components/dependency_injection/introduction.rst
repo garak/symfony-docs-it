@@ -205,7 +205,7 @@ Caricare un file di configurazione yaml::
 .. note::
 
     Se si vogliono caricare file di configurazione YAML, occorrerà installare
-    anche :doc:`il componente YAML</components/yaml>`.
+    anche :doc:`il componente YAML</components/yaml/introduction>`.
 
 I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file di configurazione:
 

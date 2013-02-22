@@ -18,6 +18,15 @@ Configurazione completa predefinita
 
             # mostra la barra di web debug in fondo alle pagine con un riassunto delle info del profilatore
             toolbar:             false
-            position:             bottom
+            position:            bottom
+
+            # da l'opportunità di guardare i dati raccolti prima di seguire il rinvio
             intercept_redirects:  false
 
+    .. code-block:: xml
+
+        <web-profiler:config
+            toolbar="false"
+            verbose="true"
+            intercept_redirects="false"
+        />

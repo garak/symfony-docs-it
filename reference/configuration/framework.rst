@@ -339,11 +339,11 @@ assets_version_format
 
 **tipo**: ``stringa`` **predefinito**: ``%%s?%%s``
 
-Specifica uno schema per `sprintf()`_, usato con l'opzione `assets_version`_
-per costruire il percorso della risorsa. Per impostazione predefinita, lo schema
-aggiunge la versione della risorsa alla stringa della query. Per esempio, se
-``assets_version_format`` è impostato a ``%%s?version=%%s`` e ``assets_version`` è
-impostato a ``5``, il percorso della risorsa sarà ``/images/logo.png?version=5``.
+Specifica uno schema per :phpfunction:`sprintf`, usato con l'opzione `assets_version`_
+per costruire il percorso della risorsa. Per impostazione predefinita, lo schema aggiunge
+la versione della risorsa alla stringa della query. Per esempio, se ``assets_version_format`` è
+impostato a ``%%s?version=%%s`` e ``assets_version`` è impostato a ``5``, il percorso della
+risorsa sarà ``/images/logo.png?version=5``.
 
 .. note::
 
@@ -422,7 +422,6 @@ Configurazione predefinita completa
 
             # configurazione della sessione
             session:
-                auto_start:           false
                 storage_id:           session.storage.native
                 handler_id:           session.handler.native_file
                 name:                 ~
@@ -497,5 +496,8 @@ Configurazione predefinita completa
                 file_cache_dir:       "%kernel.cache_dir%/annotations"
                 debug:                true
 
+.. versionadded:: 2.1
+    L'impostazione ```framework.session.auto_start`` è stata rimossa in Symfony2.1,
+    che inizia la sessione su richiesta.
+
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
-.. _`sprintf()`: http://php.net/manual/en/function.sprintf.php

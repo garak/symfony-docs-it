@@ -75,7 +75,8 @@ non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    ...,
+                    // ...
+
                     'default_target_path' => '/admin',
                 )),
             ),
@@ -119,7 +120,8 @@ senza considerare l'URL richiesta prima del login, impostando l'opzione
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    ...,
+                    // ...
+
                     'always_use_default_target_path' => true,
                 )),
             ),
@@ -161,7 +163,8 @@ Se nessun URL è stato memorizzato in sessione, si potrebbe voler provare a usar
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    ...,
+                    // ...
+
                     'use_referer' => true,
                 )),
             ),
@@ -294,7 +297,8 @@ configurazione seguente:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main' => array('form_login' => array(
-                    ...,
+                    // ...
+
                     'failure_path' => login_failure,
                 )),
             ),

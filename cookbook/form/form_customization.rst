@@ -436,12 +436,13 @@ form verrà reso.
             'form' => array('resources' => array(
                 'AcmeDemoBundle:Form:fields.html.twig',
              )),
-             ...,
+
+             // ...
         ));
 
-Di default, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
-potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risorsa
-``form_table_layout.html.twig`` come layout:
+Per impostazioone predefinita, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
+potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risorsa ``form_table_layout.html.twig``
+per ottenere questo tipo di layout:
 
 .. configuration-block::
 
@@ -470,7 +471,8 @@ potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risors
             'form' => array('resources' => array(
                 'form_table_layout.html.twig',
              )),
-             ...,
+
+             // ...
         ));
 
 Se si vuole effettuare un cambiamento soltanto in un template, aggiungere la seguente riga al
@@ -525,7 +527,8 @@ form viene reso.
                 array('resources' => array(
                     'AcmeDemoBundle:Form',
              ))),
-             ...,
+
+             // ...
         ));
 
 Per impostazione predefinita, il motore PHP utilizza un layout a *div* quando rende i form. Qualcuno,
@@ -563,7 +566,8 @@ tuttavia, potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare
                 array('resources' => array(
                     'FrameworkBundle:FormTable',
              ))),
-             ...,
+
+             // ...
         ));
 
 Se si vuole effettuare un cambiamento soltanto in un template, aggiungere la seguente riga al

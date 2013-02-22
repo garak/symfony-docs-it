@@ -192,13 +192,6 @@ Un esempio::
 
     * In Yaml, mettere uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
       tranne che in Twig (p.e. ``{'ciao' : 'valore'}``).
-    * Un array è parte di una riga, non una riga completa. Quindi non usare
-      ``// ...`` ma ``...,`` (la virgola fa parte degli standard di codice)::
-
-        array(
-            'un valore',
-            ...,
-        )
 
 Segnalare una problematica
 --------------------------

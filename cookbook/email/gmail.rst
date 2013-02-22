@@ -51,6 +51,20 @@ l'opzione ``gmail`` e ai parametri ``username`` e ``password`` le credenziali de
 
 E il gioco è fatto!
 
+.. tip::
+
+    Se si usa Symfony Standard Edition, configurare i parametri in ``parameters.yml``:
+
+    .. code-block:: yaml
+
+        # app/config/parameters.yml
+        parameters:
+            ...
+            mailer_transport: gmail
+            mailer_host:      ~
+            mailer_user:      nome_utente_gmail
+            mailer_password:  password_gmail
+
 .. note::
 
     L'attributo di trasporto ``gmail`` è in realtà una scorciatoia che imposta a ``smtp`` il trasporto, e 

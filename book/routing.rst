@@ -1108,12 +1108,21 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
         {
             // ...
 
-            $url = $this->get('router')->generate(
+            $url = $this->generateUrl(
                 'blog_show',
                 array('slug' => 'my-blog-post')
             );
         }
     }
+
+.. note::
+
+    In controllori che estendono la classe base di Symfony
+    :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`,
+    si può usare il metodo
+    :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::generateUrl`,
+    che richiama il metodo
+    :method:`Symfony\\Component\\Routing\\Router::generate` del servizio router.
 
 In una delle prossime sezioni, si imparerà a generare URL dall'interno di un template.
 

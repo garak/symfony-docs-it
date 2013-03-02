@@ -272,9 +272,11 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('framework', array('validation' => array(
+        $container->loadFromExtension('framework', array(
+            'validation' => array(
             'enable_annotations' => true,
-        )));
+            ),
+        ));
 
 .. index::
    single: Validazione; Vincoli

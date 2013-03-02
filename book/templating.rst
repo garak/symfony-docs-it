@@ -547,7 +547,10 @@ Includere questo template da un altro template è semplice:
             <h1>Articoli recenti</h1>
 
             <?php foreach ($articles as $article): ?>
-                <?php echo $view->render('AcmeArticleBundle:Article:articleDetails.html.php', array('article' => $article)) ?>
+                <?php echo $view->render(
+                    'AcmeArticleBundle:Article:articleDetails.html.php',
+                    array('article' => $article)
+                ) ?>
             <?php endforeach; ?>
         <?php $view['slots']->stop() ?>
 
@@ -1078,7 +1081,8 @@ dell'applicazione:
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            ...,
+            // ...
+
             'templating' => array(
                 'engines' => array('twig'),
             ),

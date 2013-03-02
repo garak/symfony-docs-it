@@ -94,7 +94,9 @@ Ogni parte sarà spiegata nella prossima sezione.
                     access_denied_handler: id.di.un.servizio
                     entry_point: id.di.un.servizio
                     provider: nome_di_un_provider_di_cui_sopra
-                    context: nome
+                    # gestisce i punti in cui ogni firewall memorizza informazioni sulla sessione
+                    # Vedere "Contesto del firewall" più avanti per maggiori dettagli
+                    context: chiave_del_contesto
                     stateless: false
                     x509:
                         provider: nome_di_un_provider_di_cui_sopra
@@ -260,6 +262,58 @@ Rinvio dopo il login
 * ``default_target_path`` (tipo: ``stringa``, predefinito: ``/``)
 * ``target_path_parameter`` (tipo: ``stringa``, predefinito: ``_target_path``)
 * ``use_referer`` (tipo: ``booleano``, predefinito: ``false``)
+
+.. _reference-security-firewall-context:
+
+Contesto del firewall
+---------------------
+
+La maggior parte delle applicazioni ha bisogno di un unico :ref:`firewall<book-security-firewalls>`.
+
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+
+            firewalls:
+                somename:
+                    # ...
+                    context: my_context
+                othername:
+                    # ...
+                    context: my_context
+
+    .. code-block:: xml
+
+       <!-- app/config/security.xml -->
+       <security:config>
+          <firewall name="somename" context="my_context">
+            <! ... ->
+          </firewall>
+          <firewall name="othername" context="my_context">
+            <! ... ->
+          </firewall>
+       </security:config>
+
+    .. code-block:: php
+
+       // app/config/security.php
+       $container->loadFromExtension('security', array(
+            'firewalls' => array(
+                'somename' => array(
+                    // ...
+                    'context' => 'my_context'
+                ),
+                'othername' => array(
+                    // ...
+                    'context' => 'my_context'
+                ),
+            ),
+       ));
 
 Autenticazione HTTP-Digest
 --------------------------

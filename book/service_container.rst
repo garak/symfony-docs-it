@@ -69,6 +69,7 @@ Cos'è un contenitore di servizi?
 
 Un :term:`contenitore di servizi` (o *contenitore di dependency injection*) è semplicemente
 un oggetto PHP che gestisce l'istanza di servizi (cioè gli oggetti).
+
 Per esempio, supponiamo di avere una semplice classe PHP che spedisce messaggi email.
 Senza un contenitore di servizi, bisogna creare manualmente l'oggetto ogni volta che
 se ne ha bisogno::
@@ -299,10 +300,10 @@ parametri che sono array.
         use Symfony\Component\DependencyInjection\Definition;
 
         $container->setParameter('my_mailer.gateways', array('mail1', 'mail2', 'mail3'));
-        $container->setParameter('my_multilang.language_fallback',
-                                 array('en' => array('en', 'fr'),
-                                       'fr' => array('fr', 'en'),
-                                ));
+        $container->setParameter('my_multilang.language_fallback', array(
+            'en' => array('en', 'fr'),
+            'fr' => array('fr', 'en'),
+        ));
 
 
 Importare altre risorse di configurazione del contenitore
@@ -323,10 +324,9 @@ essere importate da dentro questo file in un modo o nell'altro. Questo dà una a
 flessibilità sui servizi dell'applicazione.
 
 La configurazione esterna di servizi può essere importata in due modi differenti. Il primo,
-è quello che verrà utilizzato nelle applicazioni:
-la direttiva ``imports``. Nella sezione seguente, si introdurrà il
-secondo metodo, che è il metodo più flessibile e privilegiato per importare la configurazione
-di servizi in bundle di terze parti.
+e più comune, è la direttiva ``imports``. Nella sezione seguente, si introdurrà il
+secondo metodo, che è il metodo più flessibile e privilegiato per importare
+la configurazione di servizi in bundle di terze parti.
 
 .. index::
    single: Contenitore di servizi; imports
@@ -488,7 +488,8 @@ invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundl
             'form'            => array(),
             'csrf-protection' => array(),
             'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
-            ...,
+
+            // ...
         ));
 
 Quando viene analizzata la configurazione, il contenitore cerca un'estensione che
@@ -724,7 +725,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%'
         ))->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
+            new Reference('my_mailer'),
         ));
 
 .. note::
@@ -785,10 +786,12 @@ esiste e in caso contrario non farà nulla:
         $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
-            array(new Reference(
+            array(
+                new Reference(
                 'my_mailer',
                 ContainerInterface::IGNORE_ON_INVALID_REFERENCE
-            ))
+                )
+            )
         ));
 
 In YAML, la speciale sintassi ``@?`` dice al contenitore dei servizi che la dipendenza

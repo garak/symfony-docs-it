@@ -123,6 +123,17 @@ il seguente URL per avviare la diagnosi sulla propria macchina:
 
         http://localhost/Symfony/web/config.php
 
+.. note::
+
+    Tutti gli URL degli esempi ipotizzano che si sia scaricato e scompattato ``Symfony``
+    direttamente nella radice del server web. Chi ha seguito le istruzioni
+    precedenti e fatto in questo modo, aggiunga ``/Symfony/web`` dopo ``localhost`` per
+    tutti gli URL:
+
+    .. code-block:: text
+
+        http://localhost/Symfony/web/config.php
+
     Per ottenere degli URL brevi, si doverebbe puntare la document root del proprio
     server web oppure un host virtuale alla cartella ``Symfony/web/``. In questo
     caso, gli URL saranno come ``http://localhost/config.php`` o

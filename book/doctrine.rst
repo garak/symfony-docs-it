@@ -1445,6 +1445,16 @@ Alcuni task interessanti sono:
    la voce ":doc:`/bundles/DoctrineFixturesBundle/index`" della
    documentazione.
 
+.. tip::
+
+    Questa pagina mostra come interagire con Doctrine in un controllore. Si potrebbe anche voler
+    interagire con Doctrine in altri punti dell'applicaizone. Il metodo
+    :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::getDoctrine`
+    del controllore restituisce il servizio ``doctrine``, con cui si può
+    interagire altrove, iniettandolo in un proprio
+    servizio. Vedere :doc:`/book/service_container` per saperne di più su come
+    creare i propri servizi.
+
 Riepilogo
 ---------
 

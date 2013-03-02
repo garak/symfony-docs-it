@@ -153,6 +153,8 @@ Il sistema di sicurezza di Symfony funziona determinando l'identità di un utent
 e poi controllando se l'utente deve avere accesso a una risorsa specifica
 o URL.
 
+.. _book-security-firewalls:
+
 Firewall (autenticazione)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -296,8 +298,8 @@ In primo luogo, abilitare il form di login sotto il firewall:
                     pattern:    ^/
                     anonymous: ~
                     form_login:
-                        login_path:  /login
-                        check_path:  /login_check
+                        login_path:  login
+                        check_path:  login_check
 
     .. code-block:: xml
 
@@ -313,7 +315,7 @@ In primo luogo, abilitare il form di login sotto il firewall:
             <config>
                 <firewall name="secured_area" pattern="^/">
                     <anonymous />
-                    <form-login login_path="/login" check_path="/login_check" />
+                    <form-login login_path="login" check_path="login_check" />
                 </firewall>
             </config>
         </srv:container>
@@ -356,9 +358,10 @@ In primo luogo, abilitare il form di login sotto il firewall:
 
 Ora, quando il sistema di sicurezza inizia il processo di autenticazione,
 rinvierà l'utente al form di login (``/login`` per impostazione predefinita). Implementare
-visivamente il form di login è compito dello sviluppatore. In primo luogo, bisogna creare due rotte: una che
-visualizzerà il form di login (cioè ``/login``) e un'altra che gestirà
-l'invio del form di login (ad esempio ``/login_check``):
+visivamente il form di login è compito dello sviluppatore. In primo luogo, bisogna creare le due rotte usate
+nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il form di login (cioè
+``/login``) e la rotta ``login_check``, che gestirà l'invio del form di login
+(cioè ``/login_check``):
 
 .. configuration-block::
 
@@ -412,8 +415,7 @@ l'invio del form di login (ad esempio ``/login_check``):
     (p.e. ``/login``), ``check_path`` (p.e. ``/login_check``) e ``logout``
     (p.e. ``/logout``, vedere `Logout`_).
 
-Notare che il nome della rotta ``login`` non è importante. Quello che è importante
-è che l'URL della rotta (``/login``) corrisponda al valore di configurazione ``login_path``,
+Notare che il nome della rotta ``login`` corrisponde al valore di configurazione ``login_path``,
 in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di
 effettuare il login.
 
@@ -664,8 +666,10 @@ vedere :doc:`/cookbook/security/form_login`.
 
     Se si utilizzano più firewall e ci si autentica su un firewall,
     *non* si verrà autenticati automaticamente su qualsiasi altro firewall.
-    Firewall diversi sono come diversi sistemi di sicurezza. Ecco perché,
-    per la maggior parte delle applicazioni, avere un solo firewall è sufficiente.
+    Firewall diversi sono come diversi sistemi di sicurezza. Ecco perché occorre
+    definire esplicitamente lo stesso :ref:`reference-security-firewall-context`
+    per firewall diversi. Ma, per la maggior parte delle applicazioni, un solo
+    firewall è sufficiente.
 
 Autorizzazione
 --------------
@@ -728,7 +732,7 @@ il ruolo ``ROLE_ADMIN``.
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            // ...
+            ...,
             'access_control' => array(
                 array('path' => '^/admin/users', 'role' => 'ROLE_SUPER_ADMIN'),
                 array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
@@ -1323,8 +1327,7 @@ configurare l'encoder per questo utente:
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            // ...
-
+            ...,
             'encoders' => array(
                 'Acme\UserBundle\Entity\User' => 'sha512',
             ),
@@ -1825,7 +1828,7 @@ facilmente, attivando l'ascoltatore ``switch_user`` del firewall:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main'=> array(
-                    // ...
+                    ...,
                     'switch_user' => true
                 ),
             ),
@@ -1859,7 +1862,11 @@ per mostrare un collegamento per tornare all'utente precedente:
     .. code-block:: html+php
 
         <?php if ($view['security']->isGranted('ROLE_PREVIOUS_ADMIN')): ?>
-            <a href="<?php echo $view['router']->generate('homepage', array('_switch_user' => '_exit') ?>">Tornare all'utente precedente</a>
+            <a
+                href="<?php echo $view['router']->generate('homepage', array('_switch_user' => '_exit') ?>"
+            >
+                Tornare all'utente precedente
+            </a>
         <?php endif; ?>
 
 Naturalmente, questa funzionalità deve essere messa a disposizione di un piccolo gruppo di utenti.
@@ -1895,7 +1902,7 @@ maggiore sicurezza, è anche possibile modificare il nome del parametro della qu
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main'=> array(
-                    ...,
+                    // ...
                     'switch_user' => array('role' => 'ROLE_ADMIN', 'parameter' => '_want_to_be_this_user'),
                 ),
             ),

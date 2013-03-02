@@ -84,6 +84,15 @@ saranno programmati per la versione maggiore successiva: Symfony 3.0.
     Il lavoro su Symfony 3.0 inizierà nel momento in cui ci saranno abbastanza
     caratteristiche non retrocompatibili in attesa sulla lista delle cose da fare.
 
+Deprecati
+---------
+
+Quando non è possibile migliorare l'implementazione di una caratteristica senza
+infrangere la retrocompatibilità, resta la possibilità di deprecare
+la vecchia implementazione e aggiungerne una nuova. Leggere il documento sulle
+:ref:`convenzioni<contributing-code-conventions-deprecations>` per saperne
+di più suglia gestione dei depracati in Symfony.
+
 Motivazioni
 -----------
 

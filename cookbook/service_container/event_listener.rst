@@ -27,7 +27,11 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
         {
             // Prende l'oggetto eccezione dall'evento ricevuto
             $exception = $event->getException();
-            $message = 'My Error says: ' . $exception->getMessage();
+            $message = sprintf(
+                'Il mio errore dice: %s con codice: %s',
+                $exception->getMessage(),
+                $exception->getCode()
+            );
             
             // Personalizza l'oggetto risposta per mostrare i dettagli sull'eccezione
             $response = new Response();            
@@ -64,14 +68,14 @@ tag:
         # app/config/config.yml
         services:
             kernel.listener.your_listener_name:
-                class: Acme\DemoBundle\Listener\AcmeExceptionListener
+                class: Acme\DemoBundle\EventListener\AcmeExceptionListener
                 tags:
                     - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <service id="kernel.listener.your_listener_name" class="Acme\DemoBundle\Listener\AcmeExceptionListener">
+        <service id="kernel.listener.your_listener_name" class="Acme\DemoBundle\EventListener\AcmeExceptionListener">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
         </service>
 
@@ -79,7 +83,7 @@ tag:
 
         // app/config/config.php
         $container
-            ->register('kernel.listener.your_listener_name', 'Acme\DemoBundle\Listener\AcmeExceptionListener')
+            ->register('kernel.listener.your_listener_name', 'Acme\DemoBundle\EventListener\AcmeExceptionListener')
             ->addTag('kernel.event_listener', array('event' => 'kernel.exception', 'method' => 'onKernelException'))
         ;
         

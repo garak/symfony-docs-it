@@ -56,7 +56,10 @@ per ottnere informazioni sui messaggi inviati nella richiesta precedente::
             $this->assertEquals('Email di saluti', $message->getSubject());
             $this->assertEquals('mittente@example.com', key($message->getFrom()));
             $this->assertEquals('destinatario@example.com', key($message->getTo()));
-            $this->assertEquals('Dovresti vedermi nel profilatore!', $message->getBody());
+            $this->assertEquals(
+                'Dovresti vedermi nel profilatore!',
+                 $message->getBody()
+            );
         }
     }
 

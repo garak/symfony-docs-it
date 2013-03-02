@@ -27,9 +27,10 @@ che iniziano per ``/secure`` a usare ``HTTPS``, si può usare la seguente config
         .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/secure', 
-                      'role' => 'ROLE_ADMIN', 
-                      'requires_channel' => 'https'
+                array(
+                    'path'             => '^/secure',
+                     'role'            => 'ROLE_ADMIN', 
+                    'requires_channel' => 'https',
                 ),
             ),
 
@@ -58,9 +59,10 @@ le regole ``access_control`` con il ruolo
         .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/login', 
-                      'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 
-                      'requires_channel' => 'https'
+                array(
+                    'path'             => '^/login',
+                     'role'            => 'IS_AUTHENTICATED_ANONYMOUSLY', 
+                    'requires_channel' => 'https',
                 ),
             ),
 

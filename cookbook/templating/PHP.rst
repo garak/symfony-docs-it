@@ -38,7 +38,8 @@ di abilitarlo nel file di configurazione della propria applicazione:
     .. code-block:: php
 
         $container->loadFromExtension('framework', array(
-            ...,
+            // ...
+
             'templating'      => array(
                 'engines' => array('twig', 'php'),
             ),
@@ -225,7 +226,10 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 .. code-block:: html+php
 
     <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
-    <?php echo $view['actions']->render('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green')) ?>
+    <?php echo $view['actions']->render('AcmeHelloBundle:Hello:fancy', array(
+        'name'  => $name,
+        'color' => 'green'
+    )) ?>
 
 Qui la stringa ``HelloBundle:Hello:fancy`` si riferisce all'azione ``fancy`` del
 controllore ``Hello``::
@@ -239,7 +243,10 @@ controllore ``Hello``::
             // creare un oggetto basato sulla variabile $color
             $object = ...;
 
-            return $this->render('AcmeHelloBundle:Hello:fancy.html.php', array('name' => $name, 'object' => $object));
+            return $this->render('AcmeHelloBundle:Hello:fancy.html.php', array(
+                'name'   => $name,
+                'object' => $object
+            ));
         }
 
         // ...

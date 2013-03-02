@@ -48,8 +48,8 @@ essere configurate utilizzando la seguente configurazione del ``VirtualHost``:
     
     .. code-block:: bash
     
-        export SYMFONY__UTENTE__DATABASE=utente
-        export SYMFONY__PASSWORD__DATABASE=segreto
+        $ export SYMFONY__UTENTE__DATABASE=utente
+        $ export SYMFONY__PASSWORD__DATABASE=segreta
 
 Una volta dichiarate, le variabili saranno disponibili all'interno
 della variabile globale ``$_SERVER`` di PHP. Symfony si occuperà di trasformare
@@ -66,8 +66,8 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
             dbal:
                 driver    pdo_mysql
                 dbname:   symfony2_project
-                user:     %database.user%
-                password: %database.password%
+                user:     "%utente.database%"
+                password: "%password.database%"
 
     .. code-block:: xml
 
@@ -78,18 +78,20 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
             <doctrine:dbal
                 driver="pdo_mysql"
                 dbname="progetto_symfony2"
-                user="%database.user%"
-                password="%database.password%"
+                user="%utente.database%"
+                password="%password.database%"
             />
         </doctrine:config>
 
     .. code-block:: php
 
-        $container->loadFromExtension('doctrine', array('dbal' => array(
-            'driver'   => 'pdo_mysql',
-            'dbname'   => 'progetto_symfony2',
-            'user'     => '%database.user%',
-            'password' => '%database.password%',
+        $container->loadFromExtension('doctrine', array(
+            'dbal' => array(
+                'driver'   => 'pdo_mysql',
+                'dbname'   => 'progetto_symfony2',
+                'user'     => '%utente.database%',
+                'password' => '%password.database%',
+            )
         ));
 
 Costanti
@@ -121,7 +123,7 @@ e definirne il tipo come ``constant``.
     
         # app/config/config.yml
         imports:
-            - { resource: parametri.xml }
+            - { resource: parameters.xml }
 
 Configurazioni varie
 --------------------
@@ -136,19 +138,19 @@ necessaria al contenitore. Il seguente esempio importa un file di nome ``paramet
 
         # app/config/config.yml
         imports:
-            - { resource: parametri.php }
+            - { resource: parameters.php }
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <imports>
-            <import resource="parametri.php" />
+            <import resource="parameters.php" />
         </imports>
 
     .. code-block:: php
 
         // app/config/config.php
-        $loader->import('parametri.php');
+        $loader->import('parameters.php');
 
 .. note::
 

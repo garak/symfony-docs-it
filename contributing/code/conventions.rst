@@ -76,3 +76,5 @@ invece seguire i seguenti metodi (in cui ``XXX`` è il nome dell'elemento relazi
     "setXXX" può sostituire o aggiungere nuovi elementi alla relazione.
     D'altra parte, "replaceXXX"  non può aggiungere nuovi elementi. Se le viene passata
     una chiave non riconosciuta, "replaceXXX" deve lanciare un'eccezione.
+
+.. _contributing-code-conventions-deprecations:

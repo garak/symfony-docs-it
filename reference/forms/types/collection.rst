@@ -23,6 +23,7 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 | Opzioni     | - `label`_                                                                  |
 | ereditate   | - `error_bubbling`_                                                         |
 |             | - `by_reference`_                                                           |
+|             | - `empty_data`_                                                             |
 +-------------+-----------------------------------------------------------------------------+
 | Tipo padre  | :doc:`form</reference/forms/types/form>`                                    |
 +-------------+-----------------------------------------------------------------------------+
@@ -344,3 +345,5 @@ error_bubbling
 .. _reference-form-types-by-reference:
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc

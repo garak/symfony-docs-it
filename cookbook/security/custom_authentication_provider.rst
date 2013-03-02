@@ -219,13 +219,18 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
 
         protected function validateDigest($digest, $nonce, $created, $secret)
         {
+            // Verifica che il tempo di creazione non sia nel futuro
+            if (strtotime($created) > time()) {
+                return false;
+            }
+
             // Scade dopo 5 minuti
             if (time() - strtotime($created) > 300) {
                 return false;
             }
 
             // Valida che nonce sia unico nei 5 minuti
-            if (file_exists($this->cacheDir.'/'.$nonce) && file_get_contents($this->cacheDir.'/'.$nonce) + 300 < time()) {
+            if (file_exists($this->cacheDir.'/'.$nonce) && file_get_contents($this->cacheDir.'/'.$nonce) + 300 > time()) {
                 throw new NonceExpiredException('Previously used nonce detected');
             }
             file_put_contents($this->cacheDir.'/'.$nonce, time());
@@ -401,7 +406,7 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
           new Definition(
             'Acme\DemoBundle\Security\Firewall\WsseListener', array(
               new Reference('security.context'),
-              new Reference('security.authentication.manager'))
+              new Reference('security.authentication.manager')),
         ));
 
 Ora che i servizi sono stati definiti, diciamo al contesto della sicurezza del

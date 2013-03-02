@@ -63,8 +63,9 @@ come se fosse un normale JavaScript:
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/esempio.coffee'),
-            array('coffee')) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
+            array('coffee')
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
         <?php endforeach; ?>
 
 Questo è tutto quel che serve per compilare il file CoffeeScript e restituirlo
@@ -88,10 +89,13 @@ Filtrare file multpili
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmeFooBundle/Resources/public/js/esempio.coffee',
-                  '@AcmeFooBundle/Resources/public/js/altro.coffee'),
-            array('coffee')) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
+            array(
+                '@AcmeFooBundle/Resources/public/js/esempio.coffee',
+                '@AcmeFooBundle/Resources/public/js/altro.coffee',
+            ),
+            array('coffee')
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
         <?php endforeach; ?>
 
 Tutti i file verranno restituiti e compilati in un unico, regolare file 
@@ -168,9 +172,11 @@ dal filtro CoffeeScript):
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmeFooBundle/Resources/public/js/esempio.coffee',
-                  '@AcmeFooBundle/Resources/public/js/altro.coffee',
-                  '@AcmeFooBundle/Resources/public/js/regolare.js'),
-            as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
+            array(
+                '@AcmeFooBundle/Resources/public/js/esempio.coffee',
+                '@AcmeFooBundle/Resources/public/js/altro.coffee',
+                '@AcmeFooBundle/Resources/public/js/regolare.js',
+            )
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
         <?php endforeach; ?>

@@ -136,7 +136,6 @@ Oppure si può definire un prototipo per ogni nodo dentro un nodo array::
                     ->scalarNode('host')->end()
                     ->scalarNode('username')->end()
                     ->scalarNode('password')->end()
-                    ->end()
                 ->end()
             ->end()
         ->end()
@@ -157,6 +156,8 @@ Prima di definire i figli di un nodo array, si possono fornire opzioni, come:
 ``requiresAtLeastOneElement()``
     Dovrebbe esserci almeno un elemento nell'array (funziona solo se viene richiamato anche
     ``isRequired()``).
+``addDefaultsIfNotSet()``
+    Se nodi figli hanno valori predefiniti, usarli, a meno che non siano stati forniti valori espliciti.
 
 Un esempio::
 
@@ -223,6 +224,16 @@ abbia un determinato valore:
                     ->scalarNode('password')->end()
                     ->booleanNode('memory')
                         ->defaultFalse()
+                    ->end()
+                ->end()
+            ->end()
+            ->arrayNode('settings')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                        ->defaultValue('value')
                     ->end()
                 ->end()
             ->end()

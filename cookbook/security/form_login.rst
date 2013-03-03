@@ -74,11 +74,14 @@ non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
 
+                    'form_login' => array(
+                        // ...
                     'default_target_path' => '/admin',
-                )),
+                    ),
+                ),
             ),
         ));
 
@@ -119,11 +122,14 @@ senza considerare l'URL richiesta prima del login, impostando l'opzione
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
 
-                    'always_use_default_target_path' => true,
-                )),
+                    'form_login' => array(
+                        // ...
+                        'always_use_default_target_path' => true,
+                    ),
+                ),
             ),
         ));
 
@@ -162,11 +168,14 @@ Se nessun URL è stato memorizzato in sessione, si potrebbe voler provare a usar
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
 
-                    'use_referer' => true,
-                )),
+                    'form_login' => array(
+                        // ...
+                       'use_referer' => true,
+                    ),
+                ),
             ),
         ));
 
@@ -253,9 +262,11 @@ il valore desiderato.
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
-                    'target_path_parameter' => redirect_url,
-                )),
+                'main' => array(
+                    'form_login' => array(
+                        'target_path_parameter' => redirect_url,
+                    ),
+                ),
             ),
         ));
 
@@ -296,10 +307,13 @@ configurazione seguente:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
 
-                    'failure_path' => login_failure,
-                )),
+                    'form_login' => array(
+                        // ...
+                        'failure_path' => login_failure,
+                    ),
+                ),
             ),
         ));

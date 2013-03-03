@@ -78,3 +78,32 @@ invece seguire i seguenti metodi (in cui ``XXX`` è il nome dell'elemento relazi
     una chiave non riconosciuta, "replaceXXX" deve lanciare un'eccezione.
 
 .. _contributing-code-conventions-deprecations:
+
+Deprecati
+---------
+
+A volte, alcuni classi o metodi sono deprecatii ne
+framework. Ciò accade quando l'implementazione di una caratteristica non può essere
+cambiata, per questioni di retrocompatibilità, ma si vuole comunque proporre
+un'alternativa "migliore". In tal caso, la vecchia implementazione può essere
+**deprecata**.
+
+Una caratteristica viene segnata come deprecata aggiungendo un'annotazione ``@deprecated`` a
+classi, metodi, proprietà, ...::
+
+    /**
+     * @deprecated Deprecated since version 2.X, to be removed in 2.Y. Use XXX instead.
+     */
+
+Il messaggio dovrebbe indicare la versione in cui la classe/metodo è stata
+deprecata, la versione in cui sarà rimossa e, ove possibile, in che modo
+la caratteristica è stata rimpiazzata.
+
+Inoltre, bisogna lanciare un errore PHP ``E_USER_DEPRECATED``, per aiutrare gli sviluppatori
+nella migrazione, a partire da una o due versioni minori prima della versione in cui la
+caratteristica sarà rimossa (a seconda della criticità della rimozione)::
+
+    trigger_error(
+        'XXX() is deprecated since version 2.X and will be removed in 2.Y. Use XXX instead.',
+        E_USER_DEPRECATED
+    );

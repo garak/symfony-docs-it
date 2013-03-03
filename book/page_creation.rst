@@ -648,8 +648,7 @@ Ora che abbiamo creato il bundle, abilitiamolo tramite la classe ``AppKernel``::
     public function registerBundles()
     {
         $bundles = array(
-            // ...
-
+            ...,
             // register your bundles
             new Acme\TestBundle\AcmeTestBundle(),
         );

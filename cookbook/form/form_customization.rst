@@ -433,9 +433,11 @@ form verrà reso.
 
         // app/config/config.php
         $container->loadFromExtension('twig', array(
-            'form' => array('resources' => array(
-                'AcmeDemoBundle:Form:fields.html.twig',
-             )),
+            'form' => array(
+                'resources' => array(
+                    'AcmeDemoBundle:Form:fields.html.twig',
+                ),
+            ),
 
              // ...
         ));
@@ -468,9 +470,11 @@ per ottenere questo tipo di layout:
 
         // app/config/config.php
         $container->loadFromExtension('twig', array(
-            'form' => array('resources' => array(
-                'form_table_layout.html.twig',
-             )),
+            'form' => array(
+                'resources' => array(
+                    'form_table_layout.html.twig',
+                ),
+            ),
 
              // ...
         ));
@@ -523,10 +527,13 @@ form viene reso.
         // app/config/config.php
         // PHP
         $container->loadFromExtension('framework', array(
-            'templating' => array('form' =>
-                array('resources' => array(
-                    'AcmeDemoBundle:Form',
-             ))),
+            'templating' => array(
+                'form' => array(
+                    'resources' => array(
+                        'AcmeDemoBundle:Form',
+                    ),
+                ),
+             ),
 
              // ...
         ));
@@ -562,10 +569,13 @@ tuttavia, potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            'templating' => array('form' =>
-                array('resources' => array(
-                    'FrameworkBundle:FormTable',
-             ))),
+            'templating' => array(
+                'form' => array(
+                    'resources' => array(
+                        'FrameworkBundle:FormTable',
+                    ),
+                ),
+            ),
 
              // ...
         ));
@@ -946,9 +956,11 @@ personalizzazioni. Si veda l'esempio seguente:
     .. code-block:: php
 
         <!-- rende un widget, ma con classe "pippo" -->
-        <?php echo $view['form']->widget($form['name'], array('attr' => array(
-            'class' => 'pippo',
-        ))) ?>
+        <?php echo $view['form']->widget($form['name'], array(
+            'attr' => array(
+                'class' => 'pippo',
+            ),
+        )) ?>
 
 L'array passato come secondo parametro contiene delle variabili del form. Per maggiori
 dettagli su questo concetto in Twig, vedere :ref:`twig-reference-form-variables`.

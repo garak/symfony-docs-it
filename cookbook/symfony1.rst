@@ -178,14 +178,14 @@ In symfony1, la console è nella cartella radice del progetto ed è chiamata
 
 .. code-block:: bash
 
-    php symfony
+    $ php symfony
 
 In Symfony2, la console è ora nella sotto-cartella ``app`` ed è chiamata
 ``console``:
 
 .. code-block:: bash
 
-    php app/console
+    $ php app/console
 
 Applicazioni
 ------------
@@ -228,7 +228,8 @@ In symfony1, un plugin deve essere abilitato nella classe
     // config/ProjectConfiguration.class.php
     public function setup()
     {
-        $this->enableAllPluginsExcept(array(... nomi dei plugin));
+        // qui ci sono alcuni plugin
+        $this->enableAllPluginsExcept(array(...));
     }
 
 In Symfony2, i bundle sono attivati nel kernel dell'applicazione::

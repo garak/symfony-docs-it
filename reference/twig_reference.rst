@@ -114,7 +114,8 @@ Tag
 | Sintassi del tag                                  | Uso                                                               |
 +===================================================+===================================================================+
 | ``{% render 'controller' with {parameters} %}``   | Renderà il contenuto della risposta per il controllore dato,      |
-|                                                   | maggiori informazioni in :ref:`templating-embedding-controller`.  |
+|                                                   | a cui punta l'URL. Per maggiori                                   |
+|                                                   | informazioni, vedere :ref:`templating-embedding-controller`.      |
 +---------------------------------------------------+-------------------------------------------------------------------+
 | ``{% form_theme form 'file' %}``                  | Cercherà in un dato file i blocchi di form ridefiniti,            |
 |                                                   | maggiori informazioni in :doc:`/cookbook/form/form_customization`.|

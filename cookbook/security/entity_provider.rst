@@ -384,7 +384,11 @@ Il codice successivo mostra l'implementazione di
                 // se nessuna riga corrisponde ai criteri
                 $user = $q->getSingleResult();
             } catch (NoResultException $e) {
-                throw new UsernameNotFoundException(sprintf('Impossibile trovare un oggetto AcmeUserBundle:User identificato da "%s".', $username), null, 0, $e);
+                $message = sprintf(
+                    'Impossibile trovare un oggetto AcmeUserBundle:User identificato da  "%s".',
+                    $username
+                );
+                throw new UsernameNotFoundException($message, null, 0, $e);
             }
 
             return $user;
@@ -394,7 +398,12 @@ Il codice successivo mostra l'implementazione di
         {
             $class = get_class($user);
             if (!$this->supportsClass($class)) {
-                throw new UnsupportedUserException(sprintf('Istanze di "%s" non supportate.', $class));
+                throw new UnsupportedUserException(
+                    sprintf(
+                        'Istanze di "%s" non supportate.',
+                        $class
+                    )
+                );
             }
 
             return $this->loadUserByUsername($user->getUsername());
@@ -402,7 +411,8 @@ Il codice successivo mostra l'implementazione di
 
         public function supportsClass($class)
         {
-            return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
+            return $this->getEntityName() === $class
+                || is_subclass_of($class, $this->getEntityName());
         }
     }
 

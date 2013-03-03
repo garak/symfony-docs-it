@@ -4,6 +4,21 @@
 Riferimento delle funzioni per i form nei template Twig
 =======================================================
 
+Lavorando con i form in un template, ci sono potenti strumenti a
+disposizione:
+
+* :ref:`Funzioni<reference-form-twig-functions>` per rendere ogni parte di un form
+* :ref:`Variabili<twig-reference-form-variables>` per ottenere *qualsiasi* informazione su un campo
+
+Spesso si useranno funzioni per rendere i campi. Le variabili, d'altro
+canto, si usano meno frequentemente, ma hanno un grandissimo potere, perché danno
+accesso a label, attributi id, errori e qualsiasi altra cosa riguardo ai campi.
+
+.. _reference-form-twig-functions:
+
+Funzioni per la resa dei form
+-----------------------------
+
 Questo manuale di riferimento copre tutte le possibili funzioni di Twig disponibili
 per rendere i form. Ci sono diverse funzioni disponibili e ognuna è responsabile
 della resa di diverse parti di un form (p.e. label, errori, widget,
@@ -11,8 +26,8 @@ eccetera).
 
 .. _reference-forms-twig-label:
 
-form_label(form.name, label, variables)
----------------------------------------
+form_label(view, label, variables)
+----------------------------------
 
 Rende la label per un dato campo. Si può opzionalmente passare la label
 specifica che si vuole mostrare, come secondo parametro.
@@ -30,8 +45,8 @@ Vedere ":ref:`twig-reference-form-variables`" per saperne di più sul parametro
 
 .. _reference-forms-twig-errors:
 
-form_errors(form.name)
-----------------------
+form_errors(view)
+-----------------
 
 Renders any errors for the given field.
 
@@ -44,8 +59,8 @@ Renders any errors for the given field.
 
 .. _reference-forms-twig-widget:
 
-form_widget(form.name, variables)
----------------------------------
+form_widget(view, variables)
+----------------------------
 
 Rende il widget HTML del campo dato. Se lo si applica all'intero form o a un
 insieme di campi, ogni riga di form sottostante sarà resa.
@@ -67,8 +82,8 @@ Vedere ":ref:`twig-reference-form-variables`" per saperne di più sul parametro
 
 .. _reference-forms-twig-row:
 
-form_row(form.name, variables)
-------------------------------
+form_row(view, variables)
+-------------------------
 
 Rende la "riga" di un dato campo, cioè la combinazione di label, errori e widget
 del campo.
@@ -87,7 +102,7 @@ Vedere ":ref:`twig-reference-form-variables`" per saperne di più sul parametro
 
 .. _reference-forms-twig-rest:
 
-form_rest(form, variables)
+form_rest(view, variables)
 --------------------------
 
 Rende tutti i campi che non sono ancora stati resi nel form dato. È sempre una
@@ -101,7 +116,7 @@ dimenticati.
 
 .. _reference-forms-twig-enctype:
 
-form_enctype(form)
+form_enctype(view)
 ------------------
 
 Se il form contiene almeno un campo di caricamento file, renderà l'attributo
@@ -116,6 +131,10 @@ nel tag del proprio form:
 
 Approfondimento sulle variabili dei form
 ----------------------------------------
+
+.. tip::
+
+    Per una lista completa di variabili, vedere: :ref:`reference-form-twig-variables`.
 
 In quasi tutte le funzioni di Twig viste in precedenza, l'ultimo parametro è un array
 di variabili, che vengono usato per rendere una parte di un form. Per esempio, il
@@ -181,5 +200,81 @@ quali opzioni sono disponibili.
         {# **non** funziona, le variabili non sono ricorsive #}
         {{ form_widget(form, { 'attr': {'class': 'pippo'} }) }}
 
+.. _reference-form-twig-variables:
+
+Riferimento sulle variabili dei form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Le seguenti variabili sono comuni a ogni tipo di campo. Alcuni tipi di campo
+possono avere ulteriori variabili, mentre alcune variabili si applicano effettivamente
+solo ad alcuni tipi.
+
+Ipotizzando di avare una variabile di nome ``form`` in un template, e che si voglia
+riferirsi alle variabili del campo ``name``, l'accesso alle variabili è eseguito tramite
+una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\FormView`:
+
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        <label for="{{ form.name.vars.id }}"
+            class="{{ form.name.vars.required ? 'required' : '' }}">
+            {{ form.name.label }}
+        </label>
+
+    .. code-block:: html+php
+
+        <label for="<?php echo $view['form']->get('name')->vars['id'] ?>"
+            class="<?php echo $view['form']->get('name')->vars['required'] ? 'required' : '' ?>">
+            <?php echo $view['form']->get('name')->vars['label'] ?>
+        </label>
+
+.. versionadded:: 2.1
+    Le variabili ``valid``, ``label_attr``, ``compound`` e ``disabled`` sono
+    nuove in Symfony 2.1.
+
++-----------------+-----------------------------------------------------------------------------------------+
+| Variabile       | Uso                                                                                     |
++=================+=========================================================================================+
+| ``id``          | Attributo HTML ``id`` da rendere                                                        |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``name``        | Nome del campo (p.e. ``title``), ma non l'attributo HTML ``name``,                      |
+|                 | che invece è ``full_name``                                                              |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``full_name``   | Attributo HTML ``name`` da rendere                                                      |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``errors``      | Un array di errori allegati a *questo* specifico campo (p.e. ``form.title.errors``).    |
+|                 | Si noti che non si può usare ``form.errors`` per stabilire se un form sia valido,       |
+|                 | perché questo restituisce solo gli errori "globali": alcuni singoli campo possono avere |
+|                 | errori. Usare invece l'opzione ``valid``                                                |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``valid``       | ``true`` o ``false``, a seconda che il form sia valido o meno                           |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``value``       | Valore che sarà usato per la resa (solitamente è l'attributo HTML ``value``)            |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``read_only``   | Se ``true``, viene aggiunto ``readonly="readonly"`` al campo                            |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``disabled``    | Se ``true``, viene aggiunto ``disabled="disabled"`` al campo                            |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``required``    | Se ``true``, viene aggiunto un attributo ``required`` al campo, per attivare la         |
+|                 | validazione HTML5. Inoltre, viene aggiunta una classe ``required`` alla label.          |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``max_length``  | Aggiunge un attributo HTML ``maxlength`` all'elemento                                   |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``pattern``     | Aggiunge un attributo HTML ``pattern`` all'elemento                                     |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``label``       | La stringa da rendere per la  label                                                     |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``multipart``   | Se ``true``, ``form_enctype``renderà ``enctype="multipart/form-data"``.                 |
+|                 | Si applica solo all'elemento form principale.                                           |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``attr``        | Un array chiave-valore resi come attributi HTML del campo                               |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``label_attr``  | Un array chiave-valore resi come attributi HTML della label                             |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``compound``    | Se il campo è effettivamente un contenitore di campi figli                              |
+|                 | (per esempio, un campo ``choice``, che effettivamente è un grupo di checkbox            |
++-----------------+-----------------------------------------------------------------------------------------+
 
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

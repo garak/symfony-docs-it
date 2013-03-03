@@ -291,9 +291,12 @@ bundle::
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // prepara la propria variabile $config
+        // ... prepara la propria variabile $config
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.xml');
     }
 
@@ -303,9 +306,12 @@ Per esempio, si supponga di voler caricare un insieme di servizi, ma solo se un'
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // prepara la propria variabile $config
+        // ... prepara la propria variabile $config
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         
         if (isset($config['enabled']) && $config['enabled']) {
             $loader->load('services.xml');
@@ -349,16 +355,24 @@ Aggiungere al metodo ``load()`` il codice seguente::
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // prepara la propria variabile $config
+        // ... prepara la propria variabile $config
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.xml');
 
         if (!isset($config['mio_tipo'])) {
-            throw new \InvalidArgumentException('The "mio_tipo" option must be set');
+            throw new \InvalidArgumentException(
+                'The "mio_tipo" option must be set'
+            );
         }
 
-        $container->setParameter('acme_hello.my_service_type', $config['mio_tipo']);
+        $container->setParameter(
+            'acme_hello.my_service_type',
+            $config['mio_tipo']
+        );
     }
 
 L'utente ora è in grado di configurare effettivamente il servizio, specificando il
@@ -394,7 +408,7 @@ valore di configurazione ``mio_tipo``:
         // app/config/config.php
         $container->loadFromExtension('acme_hello', array(
             'mio_tipo' => 'pippo',
-            // ...
+            ...,
         ));
 
 Parametri globali
@@ -494,9 +508,10 @@ la configurazione predefinita di un bundle.
 
 Il comando funziona automaticamente solo se la configurazione del bundle si trova nella posizione standard
 (``MioBundle\DependencyInjection\Configuration``) e non ha un
-``__constructor()``. Se si ha qualcosa di diverso, la propria classe
+``__construct()``. Se si ha qualcosa di diverso, la propria classe
 ``Extension`` dovrà sovrascrivere il metodo
-``Extension::getConfiguration()`` e restituire un'istanza di
+:method:`Extension::getConfiguration() <Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension::getConfiguration>`
+e restituire un'istanza di
 ``Configuration``.
 
 Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
@@ -527,6 +542,7 @@ Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
 
             return $treeBuilder;
         }
+    }
 
 Il testo apparirà come commenti YAML nell'output del comando
 ``config:dump-reference``.

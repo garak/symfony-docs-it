@@ -188,6 +188,7 @@ XML o PHP. Si veda la configurazione predefinita:
         host:      "%mailer_host%"
         username:  "%mailer_user%"
         password:  "%mailer_password%"
+        spool:     { type: memory }
 
     jms_security_extra:
         secure_controllers:  true

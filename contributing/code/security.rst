@@ -54,6 +54,7 @@ Bollettini di sicurezza
 Questa sezione elenca le vulnerabilità di sicurezza che sono state risolte in Symfony,
 partendo da Symfony 1.0.0:
 
+* 17 gennaio 2013: `Security release: Symfony 2.0.22 and 2.1.7 released <http://symfony.com/blog/security-release-symfony-2-0-22-and-2-1-7-released>`_ (`CVE-2013-1348 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1348>`_ and `CVE-2013-1397 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1397>`_)
 * 20 dicembre 2012: `Security release: Symfony 2.0.20 and 2.1.5 <http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released>`_  (`CVE-2012-6431 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6431>`_ and `CVE-2012-6432 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6432>`_)
 * 29 novembre 2012: `Security release: Symfony 2.0.19 and 2.1.4 <http://symfony.com/blog/security-release-symfony-2-0-19-and-2-1-4>`_
 * 25 novembre 2012: `Security release: symfony 1.4.20 released  <http://symfony.com/blog/security-release-symfony-1-4-20-released>`_

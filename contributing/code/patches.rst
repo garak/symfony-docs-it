@@ -153,7 +153,8 @@ Lavorare sulla propria patch
 È possibile lavorare sul codice quanto si vuole e committare tanto quanto si vuole; ma bisogna tenere a mente le
 seguenti indicazioni:
 
-* Seguire gli :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
+* Seguire le :doc:`convenzioni <conventions>` di Symfony e gli
+  :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
   controllare i spazi alla fine);
 
 * Aggiungere test unitari per provare che il bug è stato fissato per mostrare che

@@ -23,6 +23,8 @@ predefinita è:
         app.php
         ...
 
+.. _override-cache-dir:
+
 Spostare la cartella ``cache``
 ------------------------------
 
@@ -52,6 +54,8 @@ della cartella della cache in ``app/{ambiente}/cache``.
     altrimenti potrebbe succedere qualcosa di inaspettato. Ogni ambiente genera
     la cache dei propri file di configurazione e quindi ognuno necessita della propria
     cartella, per memorizzare tali file.
+
+.. _override-logs-dir:
 
 Spostare la cartella ``logs``
 -----------------------------

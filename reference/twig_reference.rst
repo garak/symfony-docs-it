@@ -77,7 +77,8 @@ Filtri
 |                                                                                 | trattini bassi con spazi e mettendo la stringa in maiuscolo)      |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``text|trans(arguments = {}, domain = 'messages', locale = null)``              | Tradurrà il testo nella lingua attuale, maggiori                  |
-|                                                                                 | informazioni in :ref:`book-translation-twig`.                     |
+|                                                                                 | informazioni in                                                   |
+|                                                                                 | :ref:`filtri di traduzione<book-translation-filters>`.            |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``text|transchoice(count, arguments = {}, domain = 'messages', locale = null)`` | Tradurrà il testo con il plurale, maggiori informazioni           |
 |                                                                                 | in :ref:`book-translation-twig`.                                  |
@@ -113,19 +114,22 @@ Tag
 +---------------------------------------------------+-------------------------------------------------------------------+
 | Sintassi del tag                                  | Uso                                                               |
 +===================================================+===================================================================+
-| ``{% render 'controller' with {parameters} %}``   | Renderà il contenuto della risposta per il controllore dato,      |
+| ``{% render url('rotta', {parametri}) %}``        | Renderà il contenuto della risposta per il controllore dato,      |
 |                                                   | a cui punta l'URL. Per maggiori                                   |
 |                                                   | informazioni, vedere :ref:`templating-embedding-controller`.      |
 +---------------------------------------------------+-------------------------------------------------------------------+
 | ``{% form_theme form 'file' %}``                  | Cercherà in un dato file i blocchi di form ridefiniti,            |
 |                                                   | maggiori informazioni in :doc:`/cookbook/form/form_customization`.|
 +---------------------------------------------------+-------------------------------------------------------------------+
-| ``{% trans with {variables} %}...{% endtrans %}`` | Tradurrà e renderà il testo, maggiori informazioni in             |
+| ``{% trans with {variabili} %}...{% endtrans %}`` | Tradurrà e renderà il testo, maggiori informazioni in             |
 |                                                   | :ref:`book-translation-twig`                                      |
 +---------------------------------------------------+-------------------------------------------------------------------+
-| ``{% transchoice count with {variables} %}``      | Tradurrà e renderà il testo con il plurale, maggiori              |
+| ``{% transchoice count with {variabili} %}``      | Tradurrà e renderà il testo con il plurale, maggiori              |
 | ...                                               | informazioni in :ref:`book-translation-twig`                      |
 | ``{% endtranschoice %}``                          |                                                                   |
++---------------------------------------------------+-------------------------------------------------------------------+
+| ``{% trans_default_domain lingua %}``             | Imposterà il dominio predefinito per i cataloghi dei messaggi     |
+|                                                   | nel template corrente                                             |
 +---------------------------------------------------+-------------------------------------------------------------------+
 
 Test

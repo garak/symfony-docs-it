@@ -89,8 +89,9 @@ livello della vista, questo lavoro dovrà essere svolto nei template:
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/*'),
-            array('yui_js')) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>"></script>
+            array('yui_js')
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
 .. note::

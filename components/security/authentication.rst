@@ -180,7 +180,8 @@ riceve un array di codificatori::
     $encoders = array(
         'Symfony\\Component\\Security\\Core\\User\\User' => $defaultEncoder,
         'Acme\\Entity\\LegacyUser' => $weakEncoder,
-        ...,
+
+        // ...
     );
 
     $encoderFactory = new EncoderFactory($encoders);

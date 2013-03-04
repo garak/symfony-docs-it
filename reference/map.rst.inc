@@ -14,6 +14,8 @@
   * :doc:`monolog </reference/configuration/monolog>`
   * :doc:`web_profiler </reference/configuration/web_profiler>`
 
+* :doc:`Configurare il Kernel (p.e. AppKernel) </reference/configuration/kernel>`
+
 * **Form e validazione**
 
   * :doc:`Riferimenti dei tipi di campo dei form </reference/forms/types>`

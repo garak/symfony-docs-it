@@ -66,8 +66,9 @@ Sarà ora possibile usarlo nei propri template:
 
         <?php foreach ($view['assetic']->images(
             array('@AcmeFooBundle/Resources/public/images/esempio.jpg'),
-            array('jpegoptim')) as $url): ?>
-        <img src="<?php echo $view->escape($url) ?>" alt="Esempio"/>
+            array('jpegoptim')
+        ) as $url): ?>
+            <img src="<?php echo $view->escape($url) ?>" alt="Esempio"/>
         <?php endforeach; ?>
 
 Rimozione dei dati EXIF 

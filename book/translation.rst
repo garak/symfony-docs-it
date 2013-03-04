@@ -778,6 +778,8 @@ solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
         {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
     {% endtranschoice %}
 
+.. _book-translation-filters:
+
 I filtri ``trans`` e ``transchoice`` possono essere usati per tradurre *variabili
 di testo* ed espressioni complesse:
 
@@ -812,9 +814,9 @@ di testo* ed espressioni complesse:
             {{ message|trans|raw }}
             {{ '<h3>pluto</h3>'|trans|raw }}
 
-.. versionadded:: 2.1
-     Si può impostare il dominio di traduzione per un intero template Twig con un
-     singolo tag:
+.. tip::
+
+    Si può impostare il dominio di traduzione per un intero template Twig con un singolo tag:
 
      .. code-block:: jinja
 
@@ -822,6 +824,9 @@ di testo* ed espressioni complesse:
 
      Notare che questo influenza solo il template attuale, non tutti i template "inclusi"
      (in modo da evitare effetti collaterali).
+
+.. versionadded:: 2.1
+    Il tag ``trans_default_domain`` è nuovo in Symfony2.1
 
 Template PHP
 ~~~~~~~~~~~~

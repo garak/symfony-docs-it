@@ -19,8 +19,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Templating);
-* Installarlo via PEAR (`pear.symfony.com/Templating`);
-* Installarlo via Composer (`symfony/templating` su Packagist).
+* Installarlo via :doc:`Composer</components/using_components>` (``symfony/templating`` su `Packagist`_).
 
 Uso
 ---
@@ -110,3 +109,5 @@ L'helper Asset
 --------------
 
 Questa documentazione è ancora da scrivere.
+
+.. _Packagist: https://packagist.org/packages/symfony/templating

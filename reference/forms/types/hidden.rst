@@ -12,7 +12,7 @@ Il tipo hidden rappresenta un campo input nascosto.
 | Opzioni       | - ``data``                                                           |
 | ereditate     | - ``property_path``                                                  |
 +---------------+----------------------------------------------------------------------+
-| Tipo genitore | ``field``                                                            |
+| Tipo genitore | :doc:`field</reference/forms/types/field>`                           |
 +---------------+----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType` |
 +---------------+----------------------------------------------------------------------+

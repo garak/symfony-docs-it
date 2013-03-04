@@ -259,6 +259,6 @@ I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file 
 
         $container
             ->register('newsletter_manager', 'NewsletterManager')
-            ->addMethodCall('setMailer', new Reference('mailer'));
+            ->addMethodCall('setMailer', array(new Reference('mailer')));
 
 .. _Packagist: https://packagist.org/packages/symfony/dependency-injection

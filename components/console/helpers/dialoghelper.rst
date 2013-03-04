@@ -4,9 +4,10 @@
 Helper Dialog 
 =============
 
-L'helper Dialog fornisce funzioni per chiedere informazioni all'utente.
-È incluso nell'insieme predefinito degli helper, ottenibile
-richiamando :method:`Symfony\\Component\\Console\\Command\\Command::getHelperSet`::
+:class:`Symfony\\Component\\Console\\Helper\\DialogHelper` fornisce 
+funzioni per chiedere informazioni all'utente. È incluso nell'insieme
+predefinito degli helper, ottenibile richiamando
+:method:`Symfony\\Component\\Console\\Command\\Command::getHelperSet`::
 
     $dialog = $this->getHelperSet()->get('dialog');
 
@@ -71,6 +72,7 @@ avere il suffisso ``Bundle``. Lo si può validare, usando il metodo
                     'Il nome del bundle deve avere \'Bundle\' come suffisso'
                 );
             }
+            return $answer;
         },
         false,
         'AcmeDemoBundle'

@@ -606,11 +606,12 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
     use Symfony\Component\Routing\RequestContext;
 
     $routes = new RouteCollection();
-    $routes->add('hello', new Route('/hello/{name}', array('_controller' =>
-        function (Request $request) {
-            return new Response(sprintf("Ciao %s", $request->get('name')));
-        }
-    )));
+    $routes->add('hello', new Route('/hello/{name}', array(
+            '_controller' => function (Request $request) {
+                return new Response(sprintf("Ciao %s", $request->get('name')));
+            }
+        ),
+    ));
 
     $request = Request::createFromGlobals();
 

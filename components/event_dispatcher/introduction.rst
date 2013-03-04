@@ -24,7 +24,7 @@ Il componente Event Dispatcher di Symfony2 implementa il pattern `Observer`_ in 
 semplice ed efficace, per rendere possibile tutto questo e per rendere un progetto
 veramente estensibile.
 
-Prendiamo un semplice esempio dal `componente HttpKernel di Symfony2`_. Una volta creato
+Prendiamo un semplice esempio da :doc:`/components/http_kernel/introduction`. Una volta creato
 un oggetto ``Response``, può essere utile consentirne la modifica ad altri elementi del
 sistema (p.e. aggiungere header di cache) prima del suo utilizzo effettivo.
 Per poterlo fare, il kernel di Symfony2 lancia un evento,
@@ -50,8 +50,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher);
-* Installarlo via PEAR (`pear.symfony.com/EventDispatcher`);
-* Installarlo via Composer (`symfony/event-dispatcher` su Packagist).
+* Installarlo via :doc:`Composer</components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_).
 
 Uso
 ---
@@ -191,7 +190,7 @@ determinare l'esatta istanza ``Symfony\Component\EventDispatcher\Event``
 passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
 ``Symfony\Component\HttpKernel\Event\FilterResponseEvent``::
 
-    use Symfony\Component\HttpKernel\Event\FilterResponseEvent
+    use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
@@ -593,6 +592,6 @@ usato come parte della logica di processamento dell'ascoltatore::
     }
 
 .. _Observer: http://it.wikipedia.org/wiki/Observer_pattern
-.. _`componente HttpKernel di Symfony2`: https://github.com/symfony/HttpKernel
 .. _Closure: http://php.net/manual/en/functions.anonymous.php
 .. _callable PHP: http://www.php.net/manual/en/language.pseudo-types.php#language.types.callback
+.. _Packagist: https://packagist.org/packages/symfony/event-dispatcher

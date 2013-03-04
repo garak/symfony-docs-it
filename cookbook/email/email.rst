@@ -16,7 +16,8 @@ di reinventare la ruota, una soluzione per l'invio di email è l'uso di
         public function registerBundles()
         {
             $bundles = array(
-                ...,
+                // ...
+
                 new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             );
 
@@ -41,8 +42,8 @@ L'unico parametro obbligatorio della configurazione è il parametro ``transport`
             encryption: ssl
             auth_mode:  login
             host:       smtp.gmail.com
-            username:   tuo_nome_utente
-            password:   tua_password
+            username:   nome_utente
+            password:   password
 
     .. code-block:: xml
 
@@ -58,8 +59,8 @@ L'unico parametro obbligatorio della configurazione è il parametro ``transport`
             encryption="ssl"
             auth-mode="login"
             host="smtp.gmail.com"
-            username="tuo_nome_utente"
-            password="tua_password" />
+            username="nome_utente"
+            password="password" />
 
     .. code-block:: php
 
@@ -69,8 +70,8 @@ L'unico parametro obbligatorio della configurazione è il parametro ``transport`
             'encryption' => "ssl",
             'auth_mode'  => "login",
             'host'       => "smtp.gmail.com",
-            'username'   => "tuo_nome_utente",
-            'password'   => "tua_password",
+            'username'   => "nome_utente",
+            'password'   => "password",
         ));
 
 La maggior parte della configurazione di Swiftmailer è relativa al come

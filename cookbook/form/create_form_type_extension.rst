@@ -168,6 +168,7 @@ nella base dati)::
 
             return $webPath;
         }
+    }
 
 La classe dell'estensione ha bisogno di due cose per poter estendere
 il tipo form ``file``:
@@ -247,7 +248,7 @@ possono essere ridefiniti, per poter personalizzare la resa del form. Per maggio
 informazioni, fare riferimento alla ricetta :ref:`cookbook-form-customization-form-themes`.
 
 Nella classe estensione abbiamo aggiunto una nuova variabile (``image_url``), ma
-dobbiamo ancora specificare cosa fare con tale variabile nel template.
+dobbiamo ancora specificare cosa fare con tale variabile nei template.
 Nello specifico, occorre sovrascrivere il blocco ``file_widget``:
 
 .. configuration-block::

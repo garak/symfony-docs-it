@@ -8,12 +8,12 @@ Il tipo ``language`` è un sotto-insieme di ``ChoiceType``, che consente all'ute
 di scegliere da un lungo elenco di lingue. Come bonus aggiuntivo, i nomi delle lingue
 sono mostrati nella lingua dell'utente.
 
-Il valore per ogni locale è il codice della *lingua* a due lettere ISO639-1
-(p.e. ``it``).
+Il valore per ogni lingua è *l'identificativo Unicode della lingua*
+(p.e. ``it`` o ``zh-Hant``).
 
 .. note::
 
-   Il locale degli utenti è indovinato tramite `Locale::getDefault()`_
+   Il locale degli utenti è indovinato tramite :phpmethod:`Locale::getDefault`
 
 Diversamente dal tipo ``choice``, non occorre specificare l'opzione
 ``choices`` o ``choice_list``, perché il tipo di campo usa automaticamente la lista

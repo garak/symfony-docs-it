@@ -14,7 +14,7 @@ dal codice del *paese* ISO3166 (p.e. ``it_IT`` per Italiano/Italia).
 
 .. note::
 
-   Il locale dell'utente è indovinato tramite `Locale::getDefault()`_
+   Il locale dell'utente è indovinato tramite :phpmethod:`Locale::getDefault`
 
 Diversamente dal tipo ``choice``, non occorre specificare l'opzione
 ``choices`` o ``choice_list``, perché il tipo di campo usa automaticamente la lista

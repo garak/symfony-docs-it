@@ -176,11 +176,11 @@ l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerIn
         }
     }
 
-Il metodo ``isOptional`` deve resituire ``true`` se è possibile usare l'applicaizone senza
+Il metodo ``isOptional`` deve resituire ``true`` se è possibile usare l'applicazione senza
 richiamare il preparatore di cache. In Symfony 2.0, i preparatori facoltativi
 vengono eseguiti ugualmente, quindi questa funzione non ha effetto.
 
-Per registrare il proprio preparatore di cache, usare il tag kernel.cache_warmer:
+Per registrare il proprio preparatore di cache, usare il tag ``kernel.cache_warmer``:
 
 .. configuration-block::
 
@@ -205,7 +205,7 @@ Per registrare il proprio preparatore di cache, usare il tag kernel.cache_warmer
             ->addTag('kernel.cache_warmer', array('priority' => 0))
         ;
 
-Il vaolore ``priority`` è facoltativo ed è predefinito a 0. Questo valore può essere tra
+Il valore ``priority`` è facoltativo ed è predefinito a 0. Questo valore può essere tra
 -255 e 255 e i prepratori saranno eseguiti con un ordine basato sulla loro
 priorità.
 

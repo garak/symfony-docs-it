@@ -1,5 +1,5 @@
-Request
-=======
+Richiesta
+=========
 
 .. toctree::
     :maxdepth: 2

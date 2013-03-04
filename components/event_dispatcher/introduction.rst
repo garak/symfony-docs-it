@@ -116,7 +116,7 @@ Il distributore
 Il distributore è l'oggetto centrale del sistema di distribuzione degli eventi.
 In generale, viene creato un solo distributore, che mantiene un registro di
 ascoltatori. Quando un evento viene distribuito dal distributore, esso notifica a tutti
-gli ascoltatori registrati a tale evento.:
+gli ascoltatori registrati a tale evento::
 
     use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -179,7 +179,7 @@ l'oggetto ``Event`` come singolo parametro::
 
         public function onPippoAction(Event $event)
         {
-            // fa qualcosa
+            // ... fare qualcosa
         }
     }
 
@@ -229,12 +229,12 @@ applicazione, che serve a definire e documentare il proprio evento::
          * L'evento negozio.ordine è lanciato ogni volta che un ordine viene creato
          * nel sistema.
          *
-         * L'ascoltatore dell'evento riceve un'istanza di Acme\StoreBundle\Event\FilterOrderEvent.
-         * 
+         * L'ascoltatore dell'evento riceve un'istanza di 
+         * Acme\StoreBundle\Event\FilterOrderEvent.
          *
          * @var string
          */
-        const onStoreOrder = 'negozio.ordine';
+        const STORE_ORDER = 'negozio.ordine';
     }
 
 Si noti che la class in realtà non fa nulla. Lo scopo della classe
@@ -298,7 +298,7 @@ di tale evento::
 
     // creare FilterOrderEvent e distribuirlo
     $event = new FilterOrderEvent($order);
-    $dispatcher->dispatch(StoreEvents::onStoreOrder, $event);
+    $dispatcher->dispatch(StoreEvents::STORE_ORDER, $event);
 
 Si noti che l'oggetto speciale ``FilterOrderEvent`` è creato e passato al
 metodo ``dispatch``. Ora ogni ascoltatore dell'evento ``negozio.ordino`` riceverà
@@ -339,7 +339,7 @@ Si consideri il seguente esempio di un sottoscrittore, che sottoscrive gli event
 
     class StoreSubscriber implements EventSubscriberInterface
     {
-        static public function getSubscribedEvents()
+        public static function getSubscribedEvents()
         {
             return array(
                 'kernel.response' => array(
@@ -418,11 +418,11 @@ Ora, tutti gli ascoltatori di ``negozio.ordine`` che non sono ancora stati richi
 *non* saranno richiamati.
 
 Si può individuare se un evento è stato fermato, usando il metodo
-:method:`Symfony\\Component\\EventDispatcher\\Event::isStoppedPropagation`,
+:method:`Symfony\\Component\\EventDispatcher\\Event::isPropagationStopped`,
 che restituisce un booleano::
 
     $dispatcher->dispatch('foo.event', $event);
-    if ($event->isStoppedPropagation()) {
+    if ($event->isPropagationStopped()) {
         // ...
     }
 
@@ -546,7 +546,7 @@ Inoltre, ``EventDispatcher`` restituisce sempre quale oggetto evento è stato
 distribuito, cioè o l'evento passato o l'evento creato internamente dal
 distributore. Questo consente utili scorciatoie::
 
-    if (!$dispatcher->dispatch('foo.event')->isStoppedPropagation()) {
+    if (!$dispatcher->dispatch('foo.event')->isPropagationStopped()) {
         // ...
     }
 

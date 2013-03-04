@@ -1,5 +1,5 @@
-Controller
-==========
+Controllore
+===========
 
 .. toctree::
     :maxdepth: 2

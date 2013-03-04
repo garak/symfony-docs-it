@@ -44,7 +44,7 @@ secret
 
 **tipo**: ``stringa`` **obbligatorio**
 
-Una stringa che dovrebbe essere univoca nella propria applicaizone. In pratica,
+Una stringa che dovrebbe essere univoca nella propria applicazione. In pratica,
 è usta per generare il token anti-CSRF, ma potrebbe essere usata in ogni altro
 contesto in cui è utili avere una stringa univoca. Diventa il parametro del
 contenitore di servizi di nome ``kernel.secret``.

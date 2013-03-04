@@ -89,10 +89,10 @@ exception_controller
 **tipo**: ``stringa`` **predefinito**: ``Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController::showAction``
 
 Questo è il controllore che viene attivato dopo il lancio di un'eccezione nella
-propria applicaizone. Il controllore predefinito
+propria applicazione. Il controllore predefinito
 (:class:`Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController`)
 è quello responsabile di rendere template specifici sotto differenti condizioni
 di errore (vedere :doc:`/cookbook/controller/error_pages`). La modifica di
 questa opzione è avanzata. Se occorre personalizzare una pagina di errore, si dovrebbe
-usare il collegamento precedente. Se occorre eseguire qualche azioni su un'eccezione,
+usare il collegamento precedente. Se occorre eseguire qualche azione su un'eccezione,
 si dovrebbe aggiungere un ascoltatore all'evento ``kernel.exception``  (vedere :ref:`dic-tags-kernel-event-listener`).

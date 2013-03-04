@@ -77,7 +77,7 @@ con:
     $ php app/console list -verbose
     $ php app/console list -v
 
-Se si impostano, in modo facoltativo, nome e versione dell'applicaizone::
+Se si impostano, in modo facoltativo, nome e versione dell'applicazione::
 
     $application = new Application('Applicazione Acme Console', '1.2');
 

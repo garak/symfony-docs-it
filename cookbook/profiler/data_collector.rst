@@ -154,17 +154,20 @@ nella propria configurazione. Per esempio, ipotizzando che il template sia in un
             data_collector.your_collector_name:
                 class: Acme\DebugBundle\Collector\Class\Name
                 tags:
-                    - { name: data_collector, template: "AcmeDebug:Collector:templatename", id: "your_collector_name" }
+                    - { name: data_collector, template: "AcmeDebugBundle:Collector:templatename", id: "your_collector_name" }
 
     .. code-block:: xml
 
         <service id="data_collector.your_collector_name" class="Acme\DebugBundle\Collector\Class\Name">
-            <tag name="data_collector" template="AcmeDebug:Collector:templatename" id="your_collector_name" />
+            <tag name="data_collector" template="AcmeDebugBundle:Collector:templatename" id="your_collector_name" />
         </service>
 
     .. code-block:: php
 
         $container
             ->register('data_collector.your_collector_name', 'Acme\DebugBundle\Collector\Class\Name')
-            ->addTag('data_collector', array('template' => 'AcmeDebugBundle:Collector:templatename', 'id' => 'your_collector_name'))
+            ->addTag('data_collector', array(
+                'template' => 'AcmeDebugBundle:Collector:templatename',
+                'id'       => 'your_collector_name',
+            ))
         ;

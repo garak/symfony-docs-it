@@ -63,14 +63,14 @@ FrameworkBundle:
     .. code-block:: php
 
         // app/config/config.php
-
         $container->setParameter('translator.class', 'Acme\HelloBundle\Translation\Translator');
 
 Come seconda opzione, se la classe non è disponibile come parametro, ci si potrebbe assicurare
 che la classe sia sempre sovrascritta quando il proprio bundle viene usato oppure usare
 un passo di compilatore, per modificare qualcosa che non sia solamente il nome della classe::
 
-    namespace Foo\BarBundle\DependencyInjection\Compiler;
+    // src/Acme/FooBundle/DependencyInjection/Compiler/OverrideServiceCompilerPass.php
+    namespace Acme\DemoBundle\DependencyInjection\Compiler;
 
     use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -80,7 +80,7 @@ un passo di compilatore, per modificare qualcosa che non sia solamente il nome d
         public function process(ContainerBuilder $container)
         {
             $definition = $container->getDefinition('id-del-servizio-originale');
-            $definition->setClass('Foo\BarBundle\YourService');
+            $definition->setClass('Acme\DemoBundle\YourService');
         }
     }
 

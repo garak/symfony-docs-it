@@ -23,15 +23,20 @@ predefinita in ambiente ``test``)::
             $crawler = $client->request('GET', '/hello/Fabien');
 
             // Scrivere asserzioni sulla risposta
-            // ...
 
             // Verifica che il profilatore sia abilitato
             if ($profile = $client->getProfile()) {
                 // verificare il numero di richieste
-                $this->assertLessThan(10, $profile->getCollector('db')->getQueryCount());
+                $this->assertLessThan(
+                    10,
+                    $profile->getCollector('db')->getQueryCount()
+                );
 
                 // verifica il tempo speso nel framework
-                $this->assertLessThan(0.5, $profile->getCollector('timer')->getTime());
+                $this->assertLessThan(
+                    500,
+                    $profile->getCollector('time')->getTotalTime()
+                );
             }
         }
     }
@@ -43,7 +48,10 @@ sono finiti. È facile, basta inserire il token nel messaggio di errore::
     $this->assertLessThan(
         30,
         $profile->get('db')->getQueryCount(),
-        sprintf('Verifica che ci siano meno di 30 query (token %s)', $profile->getToken())
+        sprintf(
+            'Verifica che ci siano meno di 30 query (token %s)',
+            $profile->getToken()
+        )
     );
 
 .. caution::

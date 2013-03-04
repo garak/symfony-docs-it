@@ -13,18 +13,15 @@ password, ma deve inserire quella vecchia per motivi di sicurezza.
     Questo vincolo **non** va usato per la validazione di un form di login, che viene
     fatta automaticamente dal sistema di sicurezza.
 
-Se applicato a un array (o a un oggetto ``Traversable``), questo vincolo consente di
-applicare un insieme di vincoli a ogni elemento dell'array.
-
-+----------------+----------------------------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                                  |
-+----------------+----------------------------------------------------------------------------------------+
-| Opzioni        | - `message`_                                                                           |
-+----------------+----------------------------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\UserPassword`                      |
-+----------------+----------------------------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Bundle\\SecurityBundle\\Validator\\Constraint\\UserPasswordValidator` |
-+----------------+----------------------------------------------------------------------------------------+
++----------------+-------------------------------------------------------------------------------------------+
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                                     |
++----------------+-------------------------------------------------------------------------------------------+
+| Opzioni        | - `message`_                                                                              |
++----------------+-------------------------------------------------------------------------------------------+
+| Classe         | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraint\\UserPassword`          |
++----------------+-------------------------------------------------------------------------------------------+
+| Validatore     | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraint\\UserPasswordValidator` |
++----------------+-------------------------------------------------------------------------------------------+
 
 Uso di base
 -----------
@@ -42,7 +39,7 @@ dell'utente:
         Acme\UserBundle\Form\Model\ChangePassword:
             properties:
                 oldPassword:
-                    - UserPassword:
+                    - Symfony\Component\Security\Core\Validator\Constraint\UserPassword:
                         message: "Password attuale sbagliata"
 
     .. code-block:: php-annotations
@@ -50,17 +47,44 @@ dell'utente:
        // src/Acme/UserBundle/Form/Model/ChangePassword.php
        namespace Acme\UserBundle\Form\Model;
        
-       use Symfony\Component\Validator\Constraints as Assert;
+       use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
 
        class ChangePassword
        {
            /**
-            * @Assert\UserPassword(
+            * @SecurityAssert\UserPassword(
             *     message = "Password attuale sbagliata"
             * )
             */
             protected $oldPassword;
        }
+
+    .. code-block:: xml
+
+        <!-- src/UserBundle/Resources/config/validation.xml -->
+        <class name="Acme\UserBundle\Form\Model\ChangePassword">
+            <property name="Symfony\Component\Security\Core\Validator\Constraint\UserPassword">
+                <option name="message">Wrong value for your current password</option>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/UserBundle/Form/Model/ChangePassword.php
+        namespace Acme\UserBundle\Form\Model;
+        
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
+  
+        class ChangePassword
+        {
+            public static function loadValidatorData(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('oldPassword', new SecurityAssert\UserPassword(array(
+                    'message' => 'Wrong value for your current password',
+                )));
+            }
+        }
 
 Opzioni
 -------

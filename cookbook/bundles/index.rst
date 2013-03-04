@@ -7,4 +7,5 @@ Bundle
     best_practices
     inheritance
     override
+    remove
     extension

@@ -20,7 +20,8 @@ verifica se disponi dei privilegi per eseguire una certa azione.
 .. image:: /images/book/security_authentication_authorization.png
    :align: center
 
-Il modo migliore per imparare è quello di vedere un esempio, vediamolo subito.
+Il modo migliore per imparare è quello di vedere un esempio, iniziamo proteggendo
+l'applicazione con l'autenticazione base HTTP.
 
 .. note::
 
@@ -152,6 +153,8 @@ Il sistema di sicurezza di Symfony funziona determinando l'identità di un utent
 e poi controllando se l'utente deve avere accesso a una risorsa specifica
 o URL.
 
+.. _book-security-firewalls:
+
 Firewall (autenticazione)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -249,7 +252,7 @@ il flusso di richiesta è sempre lo stesso:
     Ma con l'autenticazione HTTP, l'utente invia le proprie credenziali direttamente
     all'URL originale (ad esempio ``/admin/foo``) e poi la pagina viene restituita
     all'utente nella stessa richiesta (cioè senza rinvio).
-    
+
     Questo tipo di idiosincrasie non dovrebbe causare alcun problema, ma è
     bene tenerle a mente.
 
@@ -295,8 +298,8 @@ In primo luogo, abilitare il form di login sotto il firewall:
                     pattern:    ^/
                     anonymous: ~
                     form_login:
-                        login_path:  /login
-                        check_path:  /login_check
+                        login_path:  login
+                        check_path:  login_check
 
     .. code-block:: xml
 
@@ -312,7 +315,7 @@ In primo luogo, abilitare il form di login sotto il firewall:
             <config>
                 <firewall name="secured_area" pattern="^/">
                     <anonymous />
-                    <form-login login_path="/login" check_path="/login_check" />
+                    <form-login login_path="login" check_path="login_check" />
                 </firewall>
             </config>
         </srv:container>
@@ -355,9 +358,10 @@ In primo luogo, abilitare il form di login sotto il firewall:
 
 Ora, quando il sistema di sicurezza inizia il processo di autenticazione,
 rinvierà l'utente al form di login (``/login`` per impostazione predefinita). Implementare
-visivamente il form di login è compito dello sviluppatore. In primo luogo, bisogna creare due rotte: una che
-visualizzerà il form di login (cioè ``/login``) e un'altra che gestirà
-l'invio del form di login (ad esempio ``/login_check``):
+visivamente il form di login è compito dello sviluppatore. In primo luogo, bisogna creare le due rotte usate
+nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il form di login (cioè
+``/login``) e la rotta ``login_check``, che gestirà l'invio del form di login
+(cioè ``/login_check``):
 
 .. configuration-block::
 
@@ -411,14 +415,11 @@ l'invio del form di login (ad esempio ``/login_check``):
     (p.e. ``/login``), ``check_path`` (p.e. ``/login_check``) e ``logout``
     (p.e. ``/logout``, vedere `Logout`_).
 
-Notare che il nome della rotta ``login`` non è importante. Quello che è importante
-è che l'URL della rotta (``/login``) corrisponda al valore di configurazione ``login_path``,
+Notare che il nome della rotta ``login`` corrisponde al valore di configurazione ``login_path``,
 in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di
 effettuare il login.
 
-Successivamente, creare il controllore che visualizzerà il form di login:
-
-.. code-block:: php
+Successivamente, creare il controllore che visualizzerà il form di login::
 
     // src/Acme/SecurityBundle/Controller/SecurityController.php;
     namespace Acme\SecurityBundle\Controller;
@@ -435,17 +436,22 @@ Successivamente, creare il controllore che visualizzerà il form di login:
 
             // verifica di eventuali errori
             if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-                $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+                $error = $request->attributes->get(
+                    SecurityContext::AUTHENTICATION_ERROR
+                );
             } else {
                 $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
                 $session->remove(SecurityContext::AUTHENTICATION_ERROR);
             }
 
-            return $this->render('AcmeSecurityBundle:Security:login.html.twig', array(
-                // ultimo nome utente inserito
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-                'error'         => $error,
-            ));
+            return $this->render(
+                'AcmeSecurityBundle:Security:login.html.twig',
+                array(
+                    // ultimo nome utente inserito
+                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'error'         => $error,
+                )
+            );
         }
     }
 
@@ -653,15 +659,17 @@ vedere :doc:`/cookbook/security/form_login`.
     Quindi, assicurarsi che l'URL ``check_path`` (ad esempio ``/login_check``)
     sia dietro al firewall che si sta usando per il form di login (in questo esempio,
     l'unico firewall fa passare *tutti* gli URL, includendo ``/login_check``). Se
-    ``/login_check`` non corrisponde a nessun firewall, si riceverà un ``Impossibile
-    trovare il controllore per il percorso "/login_check"`` dell'eccezione.
+    ``/login_check`` non corrisponde a nessun firewall, si riceverà un'eccezione
+    ``Unable to find the controller for path "/login_check"``.
 
     **4. Più firewall non condividono il contesto di sicurezza**
 
     Se si utilizzano più firewall e ci si autentica su un firewall,
     *non* si verrà autenticati automaticamente su qualsiasi altro firewall.
-    Firewall diversi sono come diversi sistemi di sicurezza. Ecco perché,
-    per la maggior parte delle applicazioni, avere un solo firewall è sufficiente.
+    Firewall diversi sono come diversi sistemi di sicurezza. Ecco perché occorre
+    definire esplicitamente lo stesso :ref:`reference-security-firewall-context`
+    per firewall diversi. Ma, per la maggior parte delle applicazioni, un solo
+    firewall è sufficiente.
 
 Autorizzazione
 --------------
@@ -692,6 +700,12 @@ schema di URL. Si è già visto questo nel primo esempio di questo capitolo,
 dove tutto ciò a cui corrisponde lo schema di espressione regolare  ``^/admin`` richiede
 il ruolo ``ROLE_ADMIN``.
 
+.. caution::
+
+    La piena comprensione del funzionamento di ``access_control`` è **molto** importante
+    per far sì che la propria applicaizone sia veramente sicura. Si veda :ref:`security-book-access-control-explanation`
+    più avanti per informazioni dettagliate.
+
 È possibile definire tanti schemi di URL quanti ne occorrono, ciascuno è un'espressione regolare.
 
 .. configuration-block::
@@ -718,7 +732,7 @@ il ruolo ``ROLE_ADMIN``.
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            // ...
+            ...,
             'access_control' => array(
                 array('path' => '^/admin/users', 'role' => 'ROLE_SUPER_ADMIN'),
                 array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
@@ -732,33 +746,35 @@ il ruolo ``ROLE_ADMIN``.
     simbolo ``^``) corrisponderebbe correttamente a ``/admin/foo``, ma corrisponderebbe anche a URL
     come ``/foo/admin``.
 
-Per ogni richiesta in arrivo, Symfony2 cerca di trovare una regola per il controllo dell'accesso
-che corrisponde (la prima vince). Se l'utente non è ancora autenticato, viene avviato
-il processo di autenticazione (cioè viene data all'utente la possibilità di fare login). Tuttavia,
-*se* l'utente è autenticato ma non ha il ruolo richiesto, viene lanciata
-un'eccezione :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`,
-che è possibile gestire e trasformare in una simpatica pagina di errore "accesso negato"
-per l'utente. Vedere :doc:`/cookbook/controller/error_pages` per
-maggiori informazioni.
+.. _security-book-access-control-explanation:
 
-Poiché Symfony utilizza la prima regola di controllo accesso trovata, un URL del tipo ``/admin/users/new``
-corrisponderà alla prima regola e richiederà solo il ruolo ``ROLE_SUPER_ADMIN``.
-Qualunque URL tipo ``/admin/blog`` corrisponderà alla seconda regola e richiederà ``ROLE_ADMIN``.
+Capire come funziona ``access_control``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _book-security-securing-ip:
+Per ogni richiesta in arrivo, Symfony2 verifica ogni voce di ``access_control``
+per trovarne *una* che corrisponda alla richiesta attuale. Se ne trova una corrispondente,
+si ferma, quindi solo la **prima** voce di ``access_control`` corrispondente
+verrà usata per garantire l'accesso.
 
-Protezione tramite IP
-~~~~~~~~~~~~~~~~~~~~~
+Ogni ``access_control`` ha varie opzioni che configurano varie
+cose: (a) :ref:`se la richiesta in arrivo deve corrispondere a questa voce di controllo di accesso<security-book-access-control-matching-options>`
+e (b) :ref:`una volta corrisposta, se alcune restrizioni di accesso debbano essere applicate<security-book-access-control-enforcement-options>`:
 
-In certe situazioni può succedere di limitare l'accesso a una data
-rotta basata su IP. Questo è particolarmente rilevante nel caso di :ref:`Edge Side Includes<edge-side-includes>`
-(ESI), per esempio, che utilizzano una rotta chiamata "_internal". Quando
-viene utilizzato ESI, è richiesta la rotta interna dal gateway della cache per abilitare
-diverse opzioni di cache per le sottosezioni all'interno di una determinata pagina. Queste rotte
-fornite con il prefisso ^/_internal per impostazione predefinita nell'edizione standard di Symfony (assumendo
-di aver scommentato queste linee dal file delle rotte).
+.. _security-book-access-control-matching-options:
 
-Ecco un esempio di come si possa garantire questa rotta da intrusioni esterne:
+**(a) Opzioni di corrispondenza**
+
+Symfony2 crea un'istanza di :class:`Symfony\\Component\\HttpFoundation\\RequestMatcher`
+per ogni voce di ``access_control``, che determina se un dato controllo di accesso
+vada usato o meno su questa richiesta. Le seguenti opzioni di ``access_control``
+sono usate per le corrispondenze:
+
+* ``path``
+* ``ip``
+* ``host``
+* ``methods``
+
+Si prende il seguente ``access_control`` come esempio:
 
 .. configuration-block::
 
@@ -768,27 +784,156 @@ Ecco un esempio di come si possa garantire questa rotta da intrusioni esterne:
         security:
             # ...
             access_control:
-                - { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+                - { path: ^/user, roles: ROLE_USER_IP, ip: 127.0.0.1 }
+                - { path: ^/user, roles: ROLE_USER_HOST, host: symfony.com }
+                - { path: ^/user, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
+                - { path: ^/user, roles: ROLE_USER }
 
     .. code-block:: xml
 
             <access-control>
-                <rule path="^/_internal" role="IS_AUTHENTICATED_ANONYMOUSLY" ip="127.0.0.1" />
+                <rule path="^/user" role="ROLE_USER_IP" ip="127.0.0.1" />
+                <rule path="^/user" role="ROLE_USER_HOST" host="symfony.com" />
+                <rule path="^/user" role="ROLE_USER_METHOD" method="POST, PUT" />
+                <rule path="^/user" role="ROLE_USER" />
             </access-control>
 
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/_internal', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
+                array('path' => '^/user', 'role' => 'ROLE_USER_IP', 'ip' => '127.0.0.1'),
+                array('path' => '^/user', 'role' => 'ROLE_USER_HOST', 'host' => 'symfony.com'),
+                array('path' => '^/user', 'role' => 'ROLE_USER_METHOD', 'method' => 'POST, PUT'),
+                array('path' => '^/user', 'role' => 'ROLE_USER'),
             ),
+
+Per ogni richiesta in arrivo, Symfony2 deciderà quale ``access_control``
+usare in base a URI, indirizzo IP del client, nome host in arrivo,
+metodo della richiestsa. Si ricordi, viene usata la prima regola corrispondnete e,
+se ``ip``, ``host`` o ``method`` non sono specificati per una voce, ``access_control``
+corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
+
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| **URI**         | **IP**      | **HOST**    | **METODO** | ``access_control``             | Perché?                                                     |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 127.0.0.1   | example.com | GET        | regola #1 (``ROLE_USER_IP``)   | L'URI corrisponde a ``path`` e l'IP a ``ip``.               |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 127.0.0.1   | symfony.com | GET        | regola #1 (``ROLE_USER_IP``)   | ``path`` e ``ip`` corrispondono. Corrisponderebbe anche     |
+|                 |             |             |            |                                | ``ROLE_USER_HOST``, ma *solo* se si usa la **prima**        |
+|                 |             |             |            |                                | corrispondenza di ``access_control``.                       |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | symfony.com | GET        | regola #2 (``ROLE_USER_HOST``) | ``ip`` non corrisponde alla prima regola, quindi viene      |
+|                 |             |             |            |                                | usata la seconda (che corrisponde).                         |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | symfony.com | POST       | regola #2 (``ROLE_USER_HOST``) | La seconda regola corrisponde. Corrisponderebbe anche la    |
+|                 |             |             |            |                                | terza regola (``ROLE_USER_METHOD``), ma solo la **prima**   |
+|                 |             |             |            |                                | corrispondenza di ``access_control`` viene usata.           |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | example.com | POST       | reg. #3 (``ROLE_USER_METHOD``) | ``ip`` e ``host`` non corrispondono alle prime due voci,    |
+|                 |             |             |            |                                | la terza, ``ROLE_USER_METHOD``, corrisponde e viene usata.  |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/admin/user`` | 168.0.0.1   | example.com | GET        | regola #4 (``ROLE_USER``)      | ``ip``, ``host`` e ``method`` non fanno corrispondere le    |
+|                 |             |             |            |                                | prime tre voci. Ma siccome l'URI corrisponde a ``path`` di  |
+|                 |             |             |            |                                | ``ROLE_USER``, viene usata.                                 |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| ``/foo``        | 127.0.0.1   | symfony.com | POST       | nessuna corrispondenza         | Non corrisponde ad alcune regola di ``access_control``,     |
+|                 |             |             |            |                                | poiché l'URI non corrisponde ad alcun valore di ``path``.   |
++-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+
+.. _security-book-access-control-enforcement-options:
+
+**(b) Controllo dell'accesso**
+
+Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
+*applica* restrizioni di accesso in base alle opzioni ``roles`` e
+``requires_channel``:
+
+* ``role`` Se l'utente non ha il ruolo fornito, l'accesso viene negato
+  (internamente, viene lanciata
+  :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`);
+
+* ``requires_channel`` Se il canale della richiesta in arrivo (p.e. ``http``)
+  non corrisponde a questo valore (p.e. ``https``), l'utente sarà rinviato
+  (p.e. rinviato da ``http`` a ``https``, o viceversa).
+
+.. tip::
+
+    In caso di accesso negato, il sistema proverà ad autenticare l'utente, se non lo è
+    già (p.e. rinviare l'utente alla pagina di login). Se l'utente è già
+    entrato, verrà mostrata la pagina di errore 403 "access denied". Si veda
+    :doc:`/cookbook/controller/error_pages` per ulteriori informazioni.
+
+.. _book-security-securing-ip:
+
+Protezione tramite IP
+~~~~~~~~~~~~~~~~~~~~~
+
+In certe situazioni può succedere di limitare l'accesso a una data
+rotta basata su IP. Questo è particolarmente rilevante nel caso di
+:ref:`Edge Side Includes<edge-side-includes>` (ESI), per esempio. Quando ESI è
+abilitato, si raccomanda di proteggere l'accesso agli URL ESI. Infatti, alcuni ESI
+possono contenere contenuti privati, come informazioni sull'utente attuale. Per
+prevenire un accesso diretto a tali risorse inserendo direttamnte l'URL nel browser,
+la rotta ESI deve essere protetta e resa visibile solo dalla cache del reverse
+proxy.
+
+Ecco un esempio di come si possano garantire tutte le rotte ESI che iniziano per
+un certo prefisso, ``/esi``, da intrusioni esterne:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+            access_control:
+                - { path: ^/esi, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+                - { path: ^/esi, roles: ROLE_NO_ACCESS }
+
+    .. code-block:: xml
+
+            <access-control>
+                <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY" ip="127.0.0.1" />
+                <rule path="^/esi" role="ROLE_NO_ACCESS" />
+            </access-control>
+
+    .. code-block:: php
+
+            'access_control' => array(
+                array('path' => '^/esi', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
+                array('path' => '^/esi', 'role' => 'ROLE_NO_ACCESS'),
+            ),
+
+Ecco come funziona quando il percorso è ``/esi/qualcosa`` dall'IP
+``10.0.0.1``:
+
+* La prima regola di controllo di accesso non corrisponde e viene ignorata, perché ``path``
+  corrisponde, ma ``ip`` no;
+
+* La seconda regola di controllo di accesso non corrisponde (essendoci solo
+  ``path``, che corrisponde): non avendo l'utente il ruolo ``ROLE_NO_ACCESS``,
+  perché non definito, l'accesso è negato (il ruolo ``ROLE_NO_ACCESS`` può
+  essere qualsiasi cosa che non sia un ruolo esistente, serve solo come espediente
+  per negare sempre l'accesso).
+
+Se ora la stessa richiesta arriva da ``127.0.0.1``:
+
+* Ora, la prima regola di controllo di accesso corrisponde sia per ``path`` che
+  per ``ip``: l'accesso è consentito, perché l'utente ha sempre il ruolo
+  ``IS_AUTHENTICATED_ANONYMOUSLY``.
+
+* La seconda regola di accesso non viene esaminata, perché la prima corrispondeva.
+
+.. include:: /book/_security-2012-6431.rst.inc
 
 .. _book-security-securing-channel:
 
 Protezione tramite canale
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Molto simile alla sicurezza basata su IP, richiedere l'uso di SSL è semplice, basta
-aggiungere la voce ``access_control``:
+Si può anche richiedere di accedere a un URL tramite SSL, basta
+usare la voce aggiungere il parametro ``requires_channel`` in una voce ``access_control``:
 
 .. configuration-block::
 
@@ -819,9 +964,7 @@ Proteggere un controllore
 
 Proteggere l'applicazione basandosi su schemi di URL è semplice, ma in
 alcuni casi può non essere abbastanza granulare. Quando necessario, si può facilmente forzare
-l'autorizzazione dall'interno di un controllore:
-
-.. code-block:: php
+l'autorizzazione dall'interno di un controllore::
 
     // ...
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -838,9 +981,7 @@ l'autorizzazione dall'interno di un controllore:
 .. _book-security-securing-controller-annotations:
 
 È anche possibile scegliere di installare e utilizzare l'opzionale ``JMSSecurityExtraBundle``,
-che può proteggere il controllore utilizzando le annotazioni:
-
-.. code-block:: php
+che può proteggere il controllore utilizzando le annotazioni::
 
     // ...
     use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -1010,7 +1151,7 @@ sarà memorizzata nella base dati.
     class User implements UserInterface
     {
         /**
-         * @ORM\Column(type="string", length="255")
+         * @ORM\Column(type="string", length=255)
          */
         protected $username;
 
@@ -1186,8 +1327,7 @@ configurare l'encoder per questo utente:
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            // ...
-
+            ...,
             'encoders' => array(
                 'Acme\UserBundle\Entity\User' => 'sha512',
             ),
@@ -1203,9 +1343,7 @@ partendo dal suo hash).
 Se si ha un form di registrazione per gli utenti, è necessario essere in grado
 di determinare l'hash della password, in modo che sia possibile impostarla per l'utente.
 Indipendentemente dall'algoritmo configurato per l'oggetto User, l'hash della password
-può essere determinato nel seguente modo da un controllore:
-
-.. code-block:: php
+può essere determinato nel seguente modo da un controllore::
 
     $factory = $this->get('security.encoder_factory');
     $user = new Acme\UserBundle\Entity\User();
@@ -1219,9 +1357,7 @@ Recuperare l'oggetto User
 
 Dopo l'autenticazione, si può accedere all'oggetto ``User`` per l'utente corrente
 tramite il servizio ``security.context``. Da dentro un controllore, assomiglierà
-a questo:
-
-.. code-block:: php
+a questo::
 
     public function indexAction()
     {
@@ -1255,6 +1391,10 @@ che richiama il metodo
 
         <p>Nome utente: {{ app.user.username }}</p>
 
+    .. code-block:: html+php
+
+        <p>Nome utente: <?php echo $app->getUser()->getUsername() ?></p>
+
 
 Utilizzare fornitori utenti multipli
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1276,8 +1416,9 @@ un nuovo fornitore, che li unisca:
                     chain:
                         providers: [in_memory, user_db]
                 in_memory:
-                    users:
-                        foo: { password: test }
+                    memory:
+                        users:
+                            foo: { password: test }
                 user_db:
                     entity: { class: Acme\UserBundle\Entity\User, property: username }
 
@@ -1292,7 +1433,9 @@ un nuovo fornitore, che li unisca:
                 </chain>
             </provider>
             <provider name="in_memory">
-                <user name="foo" password="test" />
+                <memory>
+                    <user name="foo" password="test" />
+                </memory>
             </provider>
             <provider name="user_db">
                 <entity class="Acme\UserBundle\Entity\User" property="username" />
@@ -1310,8 +1453,10 @@ un nuovo fornitore, che li unisca:
                     ),
                 ),
                 'in_memory' => array(
-                    'users' => array(
-                        'foo' => array('password' => 'test'),
+                    'memory' => array(
+                       'users' => array(
+                           'foo' => array('password' => 'test'),
+                       ),
                     ),
                 ),
                 'user_db' => array(
@@ -1388,7 +1533,7 @@ viene sempre utilizzato il primo fornitore:
                     # ...
                     provider: user_db
                     http_basic:
-                        realm: "Demo area sicura"
+                        realm: "Demo area protetta"
                         provider: in_memory
                     form_login: ~
 
@@ -1398,7 +1543,7 @@ viene sempre utilizzato il primo fornitore:
         <config>
             <firewall name="secured_area" pattern="^/" provider="user_db">
                 <!-- ... -->
-                <http-basic realm="Demo area sicura" provider="in_memory" />
+                <http-basic realm="Demo area protetta" provider="in_memory" />
                 <form-login />
             </firewall>
         </config>
@@ -1597,6 +1742,8 @@ definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per
 ulteriori informazioni sulla configurazione di logout, vedere il
 :doc:`Riferimento della configurazione di sicurezza</reference/configuration/security>`.
 
+.. _book-security-template:
+
 Controllare l'accesso nei template
 ----------------------------------
 
@@ -1628,17 +1775,17 @@ Verifica dell'accesso nei controllori
 -------------------------------------
 
 Quando si vuole verificare se l'utente corrente abbia un ruolo nel controllore, usare
-il metodo ``isGranted`` del contesto di sicurezza:
-
-.. code-block:: php
+il metodo :method:`Symfony\\Component\\Security\\Core\\SecurityContext::isGranted`
+del contesto di sicurezza::
 
     public function indexAction()
     {
         // mostrare contenuti diversi agli utenti admin
         if($this->get('security.context')->isGranted('ADMIN')) {
-            // caricare qui contenuti di amministrazione
+            // ... caricare qui contenuti di amministrazione
         }
-        // caricare qui altri contenuti normali 
+
+        // ... caricare qui altri contenuti normali 
     }
 
 .. note::
@@ -1681,7 +1828,7 @@ facilmente, attivando l'ascoltatore ``switch_user`` del firewall:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main'=> array(
-                    // ...
+                    ...,
                     'switch_user' => true
                 ),
             ),
@@ -1690,11 +1837,37 @@ facilmente, attivando l'ascoltatore ``switch_user`` del firewall:
 Per passare a un altro utente, basta aggiungere una stringa query all'URL corrente,
 con il parametro ``_switch_user`` e il nome utente come valore :
 
+.. code-block:: text
+
     http://example.com/indirizzo?_switch_user=thomas
 
 Per tornare indietro all'utente originale, usare il nome utente speciale ``_exit``:
 
+.. code-block:: text
+
     http://example.com/indirizzo?_switch_user=_exit
+
+Mentre impersona, all'utente viene fornito un ruolo speciale, chiamato
+``ROLE_PREVIOUS_ADMIN``. In un template, per esempio, si può usare tale ruolo
+per mostrare un collegamento per tornare all'utente precedente:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+            <a href="{{ path('homepage', {_switch_user: '_exit'}) }}">Tornare all'utente precedente</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted('ROLE_PREVIOUS_ADMIN')): ?>
+            <a
+                href="<?php echo $view['router']->generate('homepage', array('_switch_user' => '_exit') ?>"
+            >
+                Tornare all'utente precedente
+            </a>
+        <?php endif; ?>
 
 Naturalmente, questa funzionalità deve essere messa a disposizione di un piccolo gruppo di utenti.
 Per impostazione predefinita, l'accesso è limitato agli utenti che hanno il ruolo ``ROLE_ALLOWED_TO_SWITCH``.
@@ -1710,7 +1883,7 @@ maggiore sicurezza, è anche possibile modificare il nome del parametro della qu
         security:
             firewalls:
                 main:
-                    // ...
+                    # ...
                     switch_user: { role: ROLE_ADMIN, parameter: _want_to_be_this_user }
 
     .. code-block:: xml
@@ -1808,7 +1981,7 @@ Saperne di più con il ricettario
 * :doc:`/cookbook/security/remember_me`
 
 .. _`componente della sicurezza`: https://github.com/symfony/Security
-.. _`JMSSecurityExtraBundle`: https://github.com/schmittjoh/JMSSecurityExtraBundle
+.. _`JMSSecurityExtraBundle`: http://jmsyst.com/bundles/JMSSecurityExtraBundle/1.2
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/en/class.serializable.php
 .. _`functions-online.com`: http://www.functions-online.com/sha1.html

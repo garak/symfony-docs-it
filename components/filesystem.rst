@@ -16,8 +16,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Filesystem);
-* Installarlo via PEAR (`pear.symfony.com/Filesystem`);
-* Installarlo via Composer (`symfony/filesystem` su Packagist).
+* Installarlo via Composer (``symfony/filesystem`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -39,11 +38,12 @@ punto finale per le operazioni su filesystem::
 .. note::
 
     I metodi :method:`Symfony\\Component\\Filesystem\\Filesystem::mkdir`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::chown`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::chgrp`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::chown`,
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::remove` e
-    :method:`Symfony\\Component\\Filesystem\\Filesystem::touch` possono ricevere
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::exists`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::touch`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::remove`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::chmod`,
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::chown` e
+    :method:`Symfony\\Component\\Filesystem\\Filesystem::chgrp` possono ricevere
     come parametro una stringa, un array o qualsiasi oggetto che implementi
     :phpclass:`Traversable`.
 
@@ -113,12 +113,12 @@ l'ora attuale. Si può impostare un'ora diversa con il secondo parametro. Il ter
 Chown
 ~~~~~
 
-Chown is used to change the owner of a file. The third argument is a boolean
-recursive option::
+Chown è usato per cambiare il proprietario di un file. Il terzo parametro è un booleano per
+un'opzione ricorsiva::
 
-    // set the owner of the lolcat video to www-data
+    // imposta il proprietario del video lolcat a www-data
     $fs->chown('lolcat.mp4', 'www-data');
-    // change the owner of the video directory recursively
+    // cambia il proprietario della cartella video ricorsivamente
     $fs->chown('/video', 'www-data', true);
 
 .. note::
@@ -129,12 +129,12 @@ recursive option::
 Chgrp
 ~~~~~
 
-Chgrp is used to change the group of a file. The third argument is a boolean
-recursive option::
+Chgrp è usato per cambiare il gruppo di un file. Il terzo parametro è un booleano per
+un'opzione ricorsiva::
 
-    // set the group of the lolcat video to nginx
+    // imposta il gruppo del video lolcat a nginx
     $fs->chgrp('lolcat.mp4', 'nginx');
-    // change the group of the video directory recursively
+    // cambia il gruppo della cartella video ricorsivamente
     $fs->chgrp('/video', 'nginx', true);
 
 
@@ -189,7 +189,8 @@ non supporta i collegamenti simbolici, c'è un terzo parametro booleano::
 
     // crea un collegamento simbolico
     $fs->symlink('/percorso/della/sorgente', '/percorso/della/destinazione');
-    // duplica la cartella sorgente, se il filesystem non supporta i collegamenti simbolici
+    // duplica la cartella sorgente, se il filesystem
+    // non supporta i collegamenti simbolici
     $fs->symlink('/percorso/della/sorgente', '/percorso/della/destinazione', true);
 
 makePathRelative
@@ -198,7 +199,10 @@ makePathRelative
 Restituisce il percorso relativo di una cartella, data un'altra::
 
     // restituisce '../'
-    $fs->makePathRelative('/var/lib/symfony/src/Symfony/', '/var/lib/symfony/src/Symfony/Component');
+    $fs->makePathRelative(
+        '/var/lib/symfony/src/Symfony/',
+        '/var/lib/symfony/src/Symfony/Component'
+    );
     // restituisce 'videos'
     $fs->makePathRelative('/tmp', '/tmp/videos');
 
@@ -236,3 +240,5 @@ implementa la classe
     restituiva un booleano e non lanciava eccezioni. Dalla 2.1, viene sollevata una
     :class:`Symfony\\Component\\Filesystem\\Exception\\IOException` se
     la creazione della cartella fallisce.
+
+.. _`Packagist`: https://packagist.org/packages/symfony/filesystem

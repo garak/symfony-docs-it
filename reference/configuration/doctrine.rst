@@ -239,7 +239,7 @@ l'ORM risolve:
             # la distribuzione standard sovrascrive a true in debug, false altrimenti
             auto_generate_proxy_classes: false
             proxy_namespace: Proxies
-            proxy_dir: %kernel.cache_dir%/doctrine/orm/Proxies
+            proxy_dir: "%kernel.cache_dir%/doctrine/orm/Proxies"
             default_entity_manager: default
             metadata_cache_driver: array
             query_cache_driver: array
@@ -298,7 +298,7 @@ La mappatura dispone delle seguenti opzioni di configurazione:
   corti e semplici, da usare nelle query DQL o per l'accesso al Repository. Quando
   si usa un bundle, l'alias predefinito è il nome del bundle.
 
-* ``is_bundle`` Questa opzione è un valore derivato da ``dir`` ed ha ``true`` come
+* ``is_bundle`` Questa opzione è un valore derivato da ``dir`` e ha ``true`` come
   valore predefinito, se la cartella è fornita da una verifica con ``file_exists()``
   che restituisca ``false``. È ``false`` se la verifica restituisce ``true``. In
   questo caso, un percorso assoluto  è stato specificato e i file dei meta-dati sono
@@ -313,14 +313,10 @@ La mappatura dispone delle seguenti opzioni di configurazione:
 Configurazione Doctrine DBAL
 ----------------------------
 
-.. note::
-
-    DoctrineBundle supporta tutti i parametri che i driver predefiniti di Doctrine
-    accettano, convertiti alla nomenclatura XML o YML di Symfony.
-    Vedere la `documentazione DBAL`_ di Doctrine per maggiori informazioni.
-
-Oltre alle opzioni di Doctrine, ci sono alcune opzioni relative a Symfony che
-si possono configurare. Il blocco seguente mostra tutte le voci di configurazione:
+DoctrineBundle supporta tutti i parametri che i driver predefiniti di Doctrine
+accettano, convertiti alla nomenclatura XML o YML di Symfony.
+Vedere la `documentazione DBAL`_ di Doctrine per maggiori informazioni.
+Il blocco seguente mostra tutte le voci di configurazione:
 
 .. configuration-block::
 
@@ -334,20 +330,25 @@ si possono configurare. Il blocco seguente mostra tutte le voci di configurazion
                 user:                 user
                 password:             secret
                 driver:               pdo_mysql
+                # opzione driverClass di DBAL
                 driver_class:         MyNamespace\MyDriverImpl
+                # opzione driverOptions di DBAL
                 options:
                     foo: bar
-                path:                 %kernel.data_dir%/data.sqlite
+                path:                 "%kernel.data_dir%/data.sqlite"
                 memory:               true
                 unix_socket:          /tmp/mysql.sock
+                # the DBAL wrapperClass option
                 wrapper_class:        MyDoctrineDbalConnectionWrapper
                 charset:              UTF8
-                logging:              %kernel.debug%
+                logging:              "%kernel.debug%"
                 platform_service:     MyOwnDatabasePlatformService
                 mapping_types:
                     enum: string
                 types:
                     custom: Acme\HelloBundle\MyCustomType
+                # opzione keepSlave di DBAL
+                keep_slave:           false
 
     .. code-block:: xml
 
@@ -405,4 +406,4 @@ parametro ``default_connection``.
 Ogni connessione è anche accessibile tramite il servizio ``doctrine.dbal.[nome]_connection``,
 in cui ``[nome]`` è il nome della connessione.
 
-.. _documentazione DBAL: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/index.html
+.. _documentazione DBAL: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html

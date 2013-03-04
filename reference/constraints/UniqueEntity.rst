@@ -11,6 +11,7 @@ usando un indirizzo email già esistente nel sistema.
 | Opzioni        | - `fields`_                                                                         |
 |                | - `message`_                                                                        |
 |                | - `em`_                                                                             |
+|                | - `repositoryMethod`_                                                               |
 +----------------+-------------------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity`            |
 +----------------+-------------------------------------------------------------------------------------+
@@ -30,6 +31,8 @@ utenti:
     .. code-block:: php-annotations
 
         // Acme/UserBundle/Entity/User.php
+        namespace Acme\UserBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
         use Doctrine\ORM\Mapping as ORM;
 
@@ -81,7 +84,7 @@ Opzioni
 fields
 ~~~~~~
 
-**tipo**: ``array``|``stringa`` [:ref:`opzione predefinita<validation-default-option>`]
+**tipo**: ``array`` o ``stringa`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è il campo (o la lista di campi) per cui l'entità deve essere
 unica. Per esempio, si può specificare che i campi email e nome nell'esempio
@@ -109,3 +112,16 @@ Nome del gestore di entità da usare per eseguire la query che determina
 l'unicità. Se lasciato vuoto, sarà determinato il gestore di entità corretto
 per questa classe. Per questo motivo, probabilmente non occorre usare questa
 opzione.
+
+repositoryMethod
+~~~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``findBy``
+
+.. versionadded:: 2.1
+    L'opzione ``repositoryMethod`` è stata aggiunta in Symfony 2.1. In precedenza, veniva
+    usato sempre il metodo ``findBy``.
+
+Il nome del metodo del repository da usare per eseguire la query che determina
+l'univocità. Se lasciato vuoto, sarà usato il metodo ``findBy``. Questo
+metodo deve restituire un risultato che sia contabile.

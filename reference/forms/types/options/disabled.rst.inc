@@ -1,18 +1,11 @@
-*   ``disabled`` [tipo: booleano, predefinito: false]
-    Se non si vuole che l'utente modifichi il valore di un campo, si può impostare
-    questa opzione a ``true``. Ogni valore inserito sarà ignorato.
+disabled
+~~~~~~~~
 
-    .. code-block:: php
+.. versionadded:: 2.1
+    L'opzione ``disabled`` è stata aggiunta nella versione 2.1
 
-        use Symfony\Component\Form\TextField
+**type**: ``booleano``  **default**: ``false``
       
-        $field = new TextField('status', array(
-            'data' => 'Vecchi dati',
-            'disabled' => true,
-        ));
-        $field->submit('Nuovi dati');
-
-        // mostra "Vecchi dati"
-        echo $field->getData();
-
+Se non si vuole che l'utente modifichi il valore di un campo, si può impostare
+questa opzione a ``true``. Ogni valore inserito sarà ignorato.
 

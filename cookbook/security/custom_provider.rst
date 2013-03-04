@@ -11,7 +11,7 @@ Symfony quindi verifica che la password di tale utente sia corretta e genera
 un token di sicurezza, in modo che l'utente resti autenticato per la sessione corrente.
 Symfony dispone di due fornitori utenti predefiniti, "in_memory" e "entity".
 In questa ricetta, vedremo come poter creare il poprio fornitore utenti, che potrebbe
-essere utile se gli utenti accedono tramite un database personalizzato, un file, oppure
+essere utile se gli utenti accedono tramite una base dati personalizzata, un file, oppure
 (come mostrato in questo esempio) tramite un servizio web.
 
 Creare una classe utente
@@ -22,8 +22,16 @@ una classe ``User``, che rappresenti tali dati. La classe ``User``, comunque, pu
 essere fatta a piacere e contenere qualsiasi dato si desideri. L'unico requisito è che
 implementi :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 I metodi in tale interfaccia vanno quindi deifniti nella classe utente personalizzata:
-``getRoles()``, ``getPassword()``, ``getSalt()``, ``getUsername()``,
-``eraseCredentials()``, ``equals()``.
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getRoles`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getPassword`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getSalt`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getUsername`,
+:method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::eraseCredentials`.
+Potrebbe essere utile anche implementare l'interfaccia
+:class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
+che definisce un metodo per verificare se l'utente corrisponde all'utente corrente. Tale
+interfaccia richiede un metodo :method:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface::isEqualTo`.
+
 
 Vediamola in azione::
 
@@ -31,8 +39,9 @@ Vediamola in azione::
     namespace Acme\WebserviceUserBundle\Security\User;
 
     use Symfony\Component\Security\Core\User\UserInterface;
+    use Symfony\Component\Security\Core\User\EquatableInterface;
 
-    class WebserviceUser implements UserInterface
+    class WebserviceUser implements UserInterface, EquatableInterface
     {
         private $username;
         private $password;
@@ -65,13 +74,13 @@ Vediamola in azione::
         public function getUsername()
         {
             return $this->username;
-        }   
+        }
 
         public function eraseCredentials()
         {
         }
 
-        public function equals(UserInterface $user)
+        public function isEqualTo(UserInterface $user)
         {
             if (!$user instanceof WebserviceUser) {
                 return false;
@@ -93,10 +102,12 @@ Vediamola in azione::
         }
     }
 
+.. versionadded:: 2.1
+    L'interfaccia ``EquatableInterface`` è stata aggiunta in Symfony 2.1. Usare il metodo ``equals()``
+    di ``UserInterface`` in Symfony 2.0.
+
 Se si hanno maggiori informazioni sui propri utenti, come il nome di battesimo, si
 possono aggiungere campi per memorizzare tali dati.
-
-Per maggiori dettagli su ciascun metodo, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
 Creare un fornitore utenti
 --------------------------
@@ -126,7 +137,7 @@ Ecco un esempio di come potrebbe essere::
         public function loadUserByUsername($username)
         {
             // fare qui una chiamata al servizio web
-            // $userData = ...
+            $userData = ...
             // supponiamo che restituisca un array, oppure false se non trova utenti
 
             if ($userData) {
@@ -135,9 +146,9 @@ Ecco un esempio di come potrebbe essere::
                 // ...
 
                 return new WebserviceUser($username, $password, $salt, $roles)
-            } else {
-                throw new UsernameNotFoundException(sprintf('Nome utente "%s" non trovato.', $username));
             }
+
+            throw new UsernameNotFoundException(sprintf('Nome utente "%s" non trovato.', $username));
         }
 
         public function refreshUser(UserInterface $user)
@@ -167,29 +178,29 @@ Ora renderemo il fornitore utenti disponibile come servizio.
         # src/Acme/WebserviceUserBundle/Resources/config/services.yml
         parameters:
             webservice_user_provider.class: Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider
-            
+
         services:
             webservice_user_provider:
-                class: %webservice_user_provider.class%
-    
+                class: "%webservice_user_provider.class%"
+
     .. code-block:: xml
 
         <!-- src/Acme/WebserviceUserBundle/Resources/config/services.xml -->
         <parameters>
             <parameter key="webservice_user_provider.class">Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider</parameter>
         </parameters>
- 
+
         <services>
             <service id="webservice_user_provider" class="%webservice_user_provider.class%"></service>
         </services>
-        
+
     .. code-block:: php
-    
+
         // src/Acme/WebserviceUserBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
-        
+
         $container->setParameter('webservice_user_provider.class', 'Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider');
-        
+
         $container->setDefinition('webservice_user_provider', new Definition('%webservice_user_provider.class%');
 
 .. tip::
@@ -241,7 +252,7 @@ la password può essere codificata più volte e poi codificata in base64.
     nulla, la password inserita è semplicemente codificata con l'algoritmo specificato
     in ``security.yml``. Se invece il sale *è* fornito, il seguente valore viene creato e
     *poi* codificato tramite l'algoritmo:
-    
+
         ``$password.'{'.$salt.'}';``
 
     Se gli utenti esterni hanno password con sali diversi, occorre un po' di lavoro in
@@ -253,9 +264,9 @@ la password può essere codificata più volte e poi codificata in base64.
     Inoltre, per impostazione predefinita, l'hash è codificato più volte e poi codificato 
     in base64. Per i dettagli, si veda `MessageDigestPasswordEncoder`_.
     Se lo si vuole evitare, configurarlo in ``security.yml``:
-    
+
     .. code-block:: yaml
-    
+
         security:
             encoders:
                 Acme\WebserviceUserBundle\Security\User\WebserviceUser:

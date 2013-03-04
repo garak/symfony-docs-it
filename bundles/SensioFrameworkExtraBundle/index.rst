@@ -122,7 +122,7 @@ Questo esempio mostra tutte le annotazioni disponibili in azione::
          * @Route("/{id}")
          * @Method("GET")
          * @ParamConverter("post", class="SensioBlogBundle:Post")
-         * @Template("SensioBlogBundle:Annot:post", vars={"post"})
+         * @Template("SensioBlogBundle:Annot:post.html.twig", vars={"post"})
          * @Cache(smaxage="15")
          */
         public function showAction(Post $post)

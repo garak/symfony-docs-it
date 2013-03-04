@@ -24,7 +24,7 @@ Il componente Event Dispatcher di Symfony2 implementa il pattern `Observer`_ in 
 semplice ed efficace, per rendere possibile tutto questo e per rendere un progetto
 veramente estensibile.
 
-Prendiamo un semplice esempio dal `componente HttpKernel di Symfony2`_. Una volta creato
+Prendiamo un semplice esempio da :doc:`/components/http_kernel/introduction`. Una volta creato
 un oggetto ``Response``, può essere utile consentirne la modifica ad altri elementi del
 sistema (p.e. aggiungere header di cache) prima del suo utilizzo effettivo.
 Per poterlo fare, il kernel di Symfony2 lancia un evento,
@@ -50,8 +50,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher);
-* Installarlo via PEAR (`pear.symfony.com/EventDispatcher`);
-* Installarlo via Composer (`symfony/event-dispatcher` su Packagist).
+* Installarlo via :doc:`Composer</components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_).
 
 Uso
 ---
@@ -117,7 +116,7 @@ Il distributore
 Il distributore è l'oggetto centrale del sistema di distribuzione degli eventi.
 In generale, viene creato un solo distributore, che mantiene un registro di
 ascoltatori. Quando un evento viene distribuito dal distributore, esso notifica a tutti
-gli ascoltatori registrati a tale evento.:
+gli ascoltatori registrati a tale evento::
 
     use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -164,7 +163,7 @@ Il metodo ``addListener()`` accetta fino a tre parametri:
         use Symfony\Component\EventDispatcher\Event;
 
         $dispatcher->addListener('pipo.action', function (Event $event) {
-            // sarò eseguito quando l'evento pippo.actiion sarà distribuito
+            // sarà eseguito quando l'evento pippo.action sarà distribuito
         });
 
 Una volta registrato un evento sul distributore, esso aspetterà finché l'evento non
@@ -180,7 +179,7 @@ l'oggetto ``Event`` come singolo parametro::
 
         public function onPippoAction(Event $event)
         {
-            // fa qualcosa
+            // ... fare qualcosa
         }
     }
 
@@ -191,7 +190,7 @@ determinare l'esatta istanza ``Symfony\Component\EventDispatcher\Event``
 passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
 ``Symfony\Component\HttpKernel\Event\FilterResponseEvent``::
 
-    use Symfony\Component\HttpKernel\Event\FilterResponseEvent
+    use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
     public function onKernelResponse(FilterResponseEvent $event)
     {
@@ -230,12 +229,12 @@ applicazione, che serve a definire e documentare il proprio evento::
          * L'evento negozio.ordine è lanciato ogni volta che un ordine viene creato
          * nel sistema.
          *
-         * L'ascoltatore dell'evento riceve un'istanza di Acme\StoreBundle\Event\FilterOrderEvent.
-         * 
+         * L'ascoltatore dell'evento riceve un'istanza di 
+         * Acme\StoreBundle\Event\FilterOrderEvent.
          *
          * @var string
          */
-        const onStoreOrder = 'negozio.ordine';
+        const STORE_ORDER = 'negozio.ordine';
     }
 
 Si noti che la class in realtà non fa nulla. Lo scopo della classe
@@ -299,7 +298,7 @@ di tale evento::
 
     // creare FilterOrderEvent e distribuirlo
     $event = new FilterOrderEvent($order);
-    $dispatcher->dispatch(StoreEvents::onStoreOrder, $event);
+    $dispatcher->dispatch(StoreEvents::STORE_ORDER, $event);
 
 Si noti che l'oggetto speciale ``FilterOrderEvent`` è creato e passato al
 metodo ``dispatch``. Ora ogni ascoltatore dell'evento ``negozio.ordino`` riceverà
@@ -340,7 +339,7 @@ Si consideri il seguente esempio di un sottoscrittore, che sottoscrive gli event
 
     class StoreSubscriber implements EventSubscriberInterface
     {
-        static public function getSubscribedEvents()
+        public static function getSubscribedEvents()
         {
             return array(
                 'kernel.response' => array(
@@ -418,12 +417,12 @@ metodo :method:`Symfony\\Component\\EventDispatcher\\Event::stopPropagation`
 Ora, tutti gli ascoltatori di ``negozio.ordine`` che non sono ancora stati richiamati
 *non* saranno richiamati.
 
-Si può indidividuare se un evento è stato fermato, usando il metodo
-:method:`Symfony\\Component\\EventDispatcher\\Event::isStoppedPropagation`,
+Si può individuare se un evento è stato fermato, usando il metodo
+:method:`Symfony\\Component\\EventDispatcher\\Event::isPropagationStopped`,
 che restituisce un booleano::
 
     $dispatcher->dispatch('foo.event', $event);
-    if ($event->isStoppedPropagation()) {
+    if ($event->isPropagationStopped()) {
         // ...
     }
 
@@ -436,13 +435,13 @@ Eventi e ascolatori consapevoli del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.1
-    L'oggetto ``Event`` contiene un riferimento al distributore che lo invoca da Symfony 2.1
+    L'oggetto ``Event`` contiene un riferimento al distributore che lo invoca, da Symfony 2.1
 
 ``EventDispatcher`` inietta sempre un riferimento a sé stesso nell'evento passato.
 Questo vuol dire che tutti gli ascoltatori hanno accesso diretto all'oggetto
 ``EventDispatcher`` notificante, tramite il metodo
 :method:`Symfony\\Component\\EventDispatcher\\Event::getDispatcher`
-dell'oggetto ``Event`` passat .
+dell'oggetto ``Event`` passato.
 
 Questo può portare ad applicazioni avanzate per ``EventDispatcher``, incluse la
 possibilità per gli ascoltatori di distribuire altri eventi, il concatenamento degli eventi o anche il
@@ -547,7 +546,7 @@ Inoltre, ``EventDispatcher`` restituisce sempre quale oggetto evento è stato
 distribuito, cioè o l'evento passato o l'evento creato internamente dal
 distributore. Questo consente utili scorciatoie::
 
-    if (!$dispatcher->dispatch('foo.event')->isStoppedPropagation()) {
+    if (!$dispatcher->dispatch('foo.event')->isPropagationStopped()) {
         // ...
     }
 
@@ -592,7 +591,7 @@ usato come parte della logica di processamento dell'ascoltatore::
         }
     }
 
-.. _Observer: http://en.wikipedia.org/wiki/Observer_pattern
-.. _`componente HttpKernel di Symfony2`: https://github.com/symfony/HttpKernel
+.. _Observer: http://it.wikipedia.org/wiki/Observer_pattern
 .. _Closure: http://php.net/manual/en/functions.anonymous.php
 .. _callable PHP: http://www.php.net/manual/en/language.pseudo-types.php#language.types.callback
+.. _Packagist: https://packagist.org/packages/symfony/event-dispatcher

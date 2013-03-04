@@ -64,6 +64,8 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -77,8 +79,10 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
     .. code-block:: php
 
         // src/Acme/BlogBundle/EntityAuthor.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\Choice;
+        use Symfony\Component\Validator\Constraints as Assert;
         
         class Author
         {
@@ -279,7 +283,5 @@ strict
 **tipo**: ``booleano`` **predefinito**: ``false``
 
 Se ``true``, il validatore verificherà anche il tipo del valore di input. In particolare,
-questo valore è passato al terzo parametro della funzione `in_array`_ di PHP, durante la
+questo valore è passato al terzo parametro della funzione :phpfunction:`in_array` di PHP, durante la
 verifica se un valore è nell'array di scelte valide.
-
-.. _`in_array`: http://php.net/manual/en/function.in-array.php

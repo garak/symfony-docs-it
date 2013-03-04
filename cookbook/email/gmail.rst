@@ -14,7 +14,7 @@ facilissimo l'utilizzo.
     crearne uno da usare appositamente per questo scopo.
 
 Nel file di configurazione dell'ambiente di sviluppo, si assegna al parametro ``transport`` 
-l'ozione ``gmail`` e ai parametri ``username`` e ``password`` le credenziali dell'account di Google:
+l'opzione ``gmail`` e ai parametri ``username`` e ``password`` le credenziali dell'account di Google:
 
 .. configuration-block::
 
@@ -50,6 +50,20 @@ l'ozione ``gmail`` e ai parametri ``username`` e ``password`` le credenziali del
         ));
 
 E il gioco è fatto!
+
+.. tip::
+
+    Se si usa Symfony Standard Edition, configurare i parametri in ``parameters.yml``:
+
+    .. code-block:: yaml
+
+        # app/config/parameters.yml
+        parameters:
+            ...
+            mailer_transport: gmail
+            mailer_host:      ~
+            mailer_user:      nome_utente_gmail
+            mailer_password:  password_gmail
 
 .. note::
 

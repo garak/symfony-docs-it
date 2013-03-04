@@ -176,11 +176,11 @@ l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerIn
         }
     }
 
-Il metodo ``isOptional`` deve resituire ``true`` se è possibile usare l'applicaizone senza
+Il metodo ``isOptional`` deve resituire ``true`` se è possibile usare l'applicazione senza
 richiamare il preparatore di cache. In Symfony 2.0, i preparatori facoltativi
 vengono eseguiti ugualmente, quindi questa funzione non ha effetto.
 
-Per registrare il proprio preparatore di cache, usare il tag kernel.cache_warmer:
+Per registrare il proprio preparatore di cache, usare il tag ``kernel.cache_warmer``:
 
 .. configuration-block::
 
@@ -205,7 +205,7 @@ Per registrare il proprio preparatore di cache, usare il tag kernel.cache_warmer
             ->addTag('kernel.cache_warmer', array('priority' => 0))
         ;
 
-Il vaolore ``priority`` è facoltativo ed è predefinito a 0. Questo valore può essere tra
+Il valore ``priority`` è facoltativo ed è predefinito a 0. Questo valore può essere tra
 -255 e 255 e i prepratori saranno eseguiti con un ordine basato sulla loro
 priorità.
 
@@ -641,26 +641,28 @@ Il proprio metodo ``load`` ha la responsabilità di restituire un
 
 Registrare il caricatore come servizio e assegnargli il tag ``translation.loader``:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    services:
-        main.translation.my_custom_loader:
-            class: Acme\MainBundle\Translation\MyCustomLoader
-            tags:
-                - { name: translation.loader, alias: bin }
+    .. code-block:: yaml
 
-.. code-block:: xml
+        services:
+            main.translation.my_custom_loader:
+                class: Acme\MainBundle\Translation\MyCustomLoader
+                tags:
+                    - { name: translation.loader, alias: bin }
 
-    <service id="main.translation.my_custom_loader" class="Acme\MainBundle\Translation\MyCustomLoader">
-        <tag name="translation.loader" alias="bin" />
-    </service>
+    .. code-block:: xml
 
-.. code-block:: php
+        <service id="main.translation.my_custom_loader" class="Acme\MainBundle\Translation\MyCustomLoader">
+            <tag name="translation.loader" alias="bin" />
+        </service>
 
-    $container
-        ->register('main.translation.my_custom_loader', 'Acme\MainBundle\Translation\MyCustomLoader')
-        ->addTag('translation.loader', array('alias' => 'bin'))
-    ;
+    .. code-block:: php
+
+        $container
+            ->register('main.translation.my_custom_loader', 'Acme\MainBundle\Translation\MyCustomLoader')
+            ->addTag('translation.loader', array('alias' => 'bin'))
+        ;
 
 L'opzione ``alias`` è obbligatoria e molto importante: definisce il "suffisso" del file
 che sarà usato per i file risorsa che usano questo caricatore. Per esempio, si
@@ -771,5 +773,5 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`repository ufficiale delle estensioni di Twig`: http://github.com/fabpot/Twig-extensions
-.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.0/src/Symfony/Component/HttpKernel/KernelEvents.php
+.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html

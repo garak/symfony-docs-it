@@ -1,5 +1,6 @@
 .. index::
    single: CSS Selector
+   single: Componenti; CssSelector
 
 Il componente CssSelector
 =========================
@@ -12,8 +13,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/CssSelector);
-* Installarlo via PEAR (`pear.symfony.com/CssSelector`);
-* Installarlo via Composer (`symfony/css-selector` su Packagist).
+* Installarlo via :doc:`Composer</components/using_components>` (``symfony/css-selector`` su `Packagist`_).
 
 Uso
 ---
@@ -90,3 +90,5 @@ Diverse pseudo-classi non sono ancora supportate:
 * ``*:first-of-type``, ``*:last-of-type``, ``*:nth-of-type``,
   ``*:nth-last-of-type``, ``*:only-of-type``. (funzionano con il nome di un elemento
   (p.e. ``li:first-of-type``) ma non con ``*``.
+
+.. _Packagist: https://packagist.org/packages/symfony/css-selector

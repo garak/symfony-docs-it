@@ -35,8 +35,8 @@ a essere inviate negli ambienti ``prod`` e ``dev``:
         <!-- app/config/config_test.xml -->
 
         <!--
-        xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-        http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config
@@ -72,8 +72,8 @@ fare tramite l'opzione ``delivery_address``:
         <!-- app/config/config_dev.xml -->
 
         <!--
-        xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-        http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config
@@ -96,7 +96,12 @@ Supponiamo di inviare un'email a ``destinatario@example.com``.
             ->setSubject('Email di saluto')
             ->setFrom('mittente@example.com')
             ->setTo('destinatario@example.com')
-            ->setBody($this->renderView('HelloBundle:Hello:email.txt.twig', array('name' => $name)))
+            ->setBody(
+                $this->renderView(
+                    'HelloBundle:Hello:email.txt.twig',
+                    array('name' => $name)
+                )
+            )
         ;
         $this->get('mailer')->send($message);
 
@@ -121,21 +126,21 @@ Visualizzazione tramite Web Debug Toolbar
 Utilizzando la Web Debug Toolbar è possibile visualizzare le email inviate 
 durante la singola risposta nell'ambiente ``dev``. L'icona dell'email 
 apparirà nella barra mostrando quante email sono state spedite. Cliccandoci 
-sopra, un report mostrerà il dettaglio delle email inviate.
+sopra, un rapporto mostrerà il dettaglio delle email inviate.
 
-Se si invia un'email e immediatamente si esegue un redirect a un'altra pagina,
-la barra di debug del web non mostrerà né l'icona delle email né alcun report
+Se si invia un'email e immediatamente si esegue un rinvio a un'altra pagina,
+la barra di debug del web non mostrerà né l'icona delle email né alcun rapporto
 nella pagina finale.
 
 È però possibile, configurando a ``true`` l'opzione ``intercept_redirects`` nel 
-file ``config_dev.yml``, fermare il redirect in modo da permettere la visualizzazione
-del report con il dettaglio delle email inviate.
+file ``config_dev.yml``, fermare il rinvio, in modo da permettere la visualizzazione
+del rapporto con il dettaglio delle email inviate.
 
 .. tip::
 
-    Alternativamente è possibile aprire il profiler in seguito al redirect e
+    Alternativamente, è possibile aprire il profilatore in seguito al rinvio e
     cercare l'URL utilizzato nella richiesta precedente (p.e. ``/contatti/gestione``).
-    Questa funzionalità di ricerca del profiler permette di ottenere informazioni relative
+    Questa funzionalità di ricerca del profilatore permette di ottenere informazioni relative
     a qualsiasi richiesta pregressa.
 
 .. configuration-block::
@@ -150,10 +155,10 @@ del report con il dettaglio delle email inviate.
 
         <!-- app/config/config_dev.xml -->
 
-        <!-- 
+        <!--
             xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler"
-            xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler 
-            http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> 
+            xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler
+            http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd">
         -->
 
         <webprofiler:config

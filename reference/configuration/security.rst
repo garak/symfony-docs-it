@@ -85,7 +85,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                     chain:
                         providers:            []
 
-            firewalls:            # Obblifatorio
+            firewalls:            # Obbligatorio
                 # Esempi:
                 somename:
                     pattern: .*
@@ -94,7 +94,9 @@ Ogni parte sarà spiegata nella prossima sezione.
                     access_denied_handler: id.di.un.servizio
                     entry_point: id.di.un.servizio
                     provider: nome_di_un_provider_di_cui_sopra
-                    context: nome
+                    # gestisce i punti in cui ogni firewall memorizza informazioni sulla sessione
+                    # Vedere "Contesto del firewall" più avanti per maggiori dettagli
+                    context: chiave_del_contesto
                     stateless: false
                     x509:
                         provider: nome_di_un_provider_di_cui_sopra
@@ -103,22 +105,37 @@ Ogni parte sarà spiegata nella prossima sezione.
                     http_digest:
                         provider: nome_di_un_provider_di_cui_sopra
                     form_login:
+                        # invia il form di login qui
                         check_path: /login_check
+
+                        # l'utente viene rinviato qui se deve fare login
                         login_path: /login
+
+                        # se true, rimanda l'utente al login invece di rinviarlo
                         use_forward: false
+
+                        # opzioni per un login effettuato con successo (vedere sotto)
                         always_use_default_target_path: false
                         default_target_path: /
                         target_path_parameter: _target_path
                         use_referer: false
-                        failure_path: /foo
+
+                        # opzioni per un login fallito (vedere sotto)
+                        failure_path: /pippo
                         failure_forward: false
                         failure_handler: id.di.un.servizio
                         success_handler: id.di.un.servizio
+
+                        # nomi dei campi per username e password
                         username_parameter: _username
                         password_parameter: _password
+
+                        # opzioni token csrf
                         csrf_parameter: _csrf_token
                         intention: authenticate
                         csrf_provider: my.csrf_provider.id
+
+                        # il login deve essere in POST, non in GET
                         post_only: true
                         remember_me: false
                     remember_me:
@@ -197,6 +214,8 @@ Configurazione del form di login
 Quando si usa l'ascoltatore di autenticazione ``form_login`` dietro un firewall,
 ci sono diverse opzioni comuni per configurare l'esoerienza del form di login:
 
+Per dettagli ulteriori, vedere :doc:`/cookbook/security/form_login`.
+
 Il form e il processo di login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -243,3 +262,104 @@ Rinvio dopo il login
 * ``default_target_path`` (tipo: ``stringa``, predefinito: ``/``)
 * ``target_path_parameter`` (tipo: ``stringa``, predefinito: ``_target_path``)
 * ``use_referer`` (tipo: ``booleano``, predefinito: ``false``)
+
+.. _reference-security-firewall-context:
+
+Contesto del firewall
+---------------------
+
+La maggior parte delle applicazioni ha bisogno di un unico :ref:`firewall<book-security-firewalls>`.
+Se però un'applicazione usa effettivamente più firewall, si noterà che,
+se si è autenticati in un firewall, non si è automaticamente autenticati
+in un altro. In altre parole, i sistemi non condividiono un "contesto" comune: ciascun
+firewall agisce come sistema di sicurezza separato.
+
+Tuttavia, ciascun firewall ha una chiave facolativa ``context`` (con valore predefinito
+il nome del firewall stesso), usata quando memorizza e recupera dati di
+sicurezza da e per la sessione. Se tale chiave è stata impostata con lo stesso valore in
+più firewall, il "contesto" può essere effettivamente condiviso:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+
+            firewalls:
+                somename:
+                    # ...
+                    context: my_context
+                othername:
+                    # ...
+                    context: my_context
+
+    .. code-block:: xml
+
+       <!-- app/config/security.xml -->
+       <security:config>
+          <firewall name="somename" context="my_context">
+            <! ... ->
+          </firewall>
+          <firewall name="othername" context="my_context">
+            <! ... ->
+          </firewall>
+       </security:config>
+
+    .. code-block:: php
+
+       // app/config/security.php
+       $container->loadFromExtension('security', array(
+            'firewalls' => array(
+                'somename' => array(
+                    // ...
+                    'context' => 'my_context'
+                ),
+                'othername' => array(
+                    // ...
+                    'context' => 'my_context'
+                ),
+            ),
+       ));
+
+Autenticazione HTTP-Digest
+--------------------------
+
+Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
+
+.. configuration-block::
+
+   .. code-block:: yaml
+
+      # app/config/security.yml
+      security:
+         firewalls:
+            somename:
+              http_digest:
+               key: "a_random_string"
+               realm: "secure-api"
+
+   .. code-block:: xml
+
+      <!-- app/config/security.xml -->
+      <security:config>
+         <firewall name="somename">
+            <http-digest key="a_random_string" realm="secure-api" />
+         </firewall>
+      </security:config>
+
+   .. code-block:: php
+
+      // app/config/security.php
+      $container->loadFromExtension('security', array(
+           'firewalls' => array(
+               'somename' => array(
+                   'http_digest' => array(
+                       'key'   => 'a_random_string',
+                       'realm' => 'secure-api',
+                   ),
+               ),
+           ),
+      ));
+

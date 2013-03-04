@@ -2,19 +2,19 @@
    single: Sicurezza; Fornitore di utenti
    single: Sicurezza; Fornitore di entità
 
-Come caricare gli utenti dal database (il fornitore di entità)
-==============================================================
+Come caricare gli utenti dalla base dati (il fornitore di entità)
+=================================================================
 
 Il livello della sicurezza è uno degli strumenti migliori di Symfony. Gestisce due
 aspetti: il processo di autenticazione e quello di autorizzazione. Sebbene possa
 sembrare difficile capirne il funzionamento interno, il sistema di sicurezza è
 molto flessibile e consente di integrare la propria applicazione con qualsiasi
-backend di autenticazione, come Active Directory, OAuth o un database.
+backend di autenticazione, come Active Directory, OAuth o una base dati.
 
 Introduzione
 ------------
 
-Questo articolo mostra come autenticare gli utenti con una tabella di database,
+Questo articolo mostra come autenticare gli utenti con una tabella della base dati,
 gestita da una classe entità di Doctrine. Il contenuto di questa ricetta è suddiviso
 in tre parti. La prima parte riguarda la progettazione di una classe entità ``User``
 e il renderla usabile nel livello della sicurezza di Symfony. La seconda parte
@@ -23,7 +23,7 @@ descrive come autenticare facilmente un utente con l'oggetto
 con il framework, oltre che con un po' di configurazione.
 Infine, la guida dimostrerà come creare una classe
 :class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` personalizzata,
-per recuperare utenti dal database con condizioni particolari.
+per recuperare utenti dalla base dati con condizioni particolari.
 
 Questa guida presume che ci sia un bundle ``Acme\UserBundle`` già pronto
 nell'applicazione.
@@ -54,7 +54,7 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
      * @ORM\Table(name="acme_users")
      * @ORM\Entity(repositoryClass="Acme\UserBundle\Entity\UserRepository")
      */
-    class User implements UserInterface
+    class User implements UserInterface, \Serializable
     {
         /**
          * @ORM\Column(type="integer")
@@ -132,6 +132,26 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         public function eraseCredentials()
         {
         }
+
+        /**
+         * @see \Serializable::serialize()
+         */
+        public function serialize()
+        {
+            return serialize(array(
+                $this->id,
+            ));
+        }
+
+        /**
+         * @see \Serializable::unserialize()
+         */
+        public function unserialize($serialized)
+        {
+            list (
+                $this->id,
+            ) = unserialize($serialized);
+        }
     }
 
 Per poter usare un'istanza della classe ``AcmeUserBundle:User`` nel livello della sicurezza
@@ -168,6 +188,15 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
         return $this->username === $user->getUsername();
     }
 
+.. note::
+
+    L'interfaccia :phpclass:`Serializable` e i suoi metodi ``serialize`` e ``unserialize``
+    sono stati aggiunti per consentire alla classe ``User`` di essere serializzata
+    nella sessione. Questo potrebbe essere necessario o meno, a seconda della propria configurazione,
+    ma probabilmente è una buona idea. Solo ``id`` ha bisogno di essere serializzato,
+    perché il metodo :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
+    ricarica l'utente a ogni richiesta, usando ``id``.
+
 Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL. Per dettagli sulla
 creazione delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-security-encoding-user-password`.
 
@@ -184,29 +213,28 @@ creazione delle righe degli utenti e sulla codifica delle password, vedere :ref:
     +----+----------+----------------------------------+------------------------------------------+--------------------+-----------+
     4 rows in set (0.00 sec)
 
-Il database ora contiene quattro utenti, con differenti nomi, email e status. Nella
+La base dati ora contiene quattro utenti, con differenti nomi, email e status. Nella
 prossima parte, vedremo come autenticare uno di questi utenti,
 grazie al fornitore di entità di Doctrine e a un paio di righe di
 configurazione.
 
-Autenticazione con utenti sul database
---------------------------------------
+Autenticazione con utenti sulla base dati
+-----------------------------------------
 
-L'autenticazione di un utente tramite database, usando il livello della sicurezza di
+L'autenticazione di un utente tramite base dati, usando il livello della sicurezza di
 Symfony, è un gioco da ragazzi. Sta tutto nella configurazione
 :doc:`SecurityBundle</reference/configuration/security>`, memorizzata nel file
 ``app/config/security.yml``.
 
 Di seguito è mostrato un esempio di configurazione, in cui l'utente inserirà
 il suo nome e la sua password, tramite autenticazione HTTP. Queste informazioni
-saranno poi verificate sulla nostra entità ``User``, nel database:
+saranno poi verificate sulla nostra entità ``User``, nella base dati:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/security.yml
-
         security:
             encoders:
                 Acme\UserBundle\Entity\User:
@@ -231,17 +259,17 @@ saranno poi verificate sulla nostra entità ``User``, nel database:
                 - { path: ^/admin, roles: ROLE_ADMIN }
 
 La sezione ``encoders`` associa il codificatore ``sha1`` alla classe entità.
-Ciò vuol dire che Symfony si aspetta che le password siano codificate nel
-database, tramite tale algoritmo. Per maggiori dettagli su come creare un nuovo
+Ciò vuol dire che Symfony si aspetta che le password siano codificate nella
+base dati, tramite tale algoritmo. Per maggiori dettagli su come creare un nuovo
 oggetto utente, vedere la sezione
 :ref:`book-security-encoding-user-password` del capitolo sulla sicurezza.
 
 La sezione ``providers`` definsice un fornitore di utenti ``administrators``. Un
 fornitore di utenti è una "sorgente" da cui gli utenti vengono caricati durante
 l'autenticazione. In questo caso, la chiave ``entity`` vuol dire che Symfony userà
-il fornitore di entità di Doctrine per caricare gli oggetti ``User`` dal database,
+il fornitore di entità di Doctrine per caricare gli oggetti ``User`` dalla base dati,
 usando il campo univoco ``username``. In altre parole, dice a Symfony come recuperare
-gli utenti dal database, prima di verificare la validità della password.
+gli utenti dalla base dati, prima di verificare la validità della password.
 
 Questo codice e questa configurazione funzionano, ma non bastano per proteggere
 l'applicazione per gli utenti **attivi**. Finora, possiamo ancora autenticarci
@@ -273,15 +301,15 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
 .. code-block:: php
 
     // src/Acme/UserBundle/Entity/User.php
-    namespace Acme\Bundle\UserBundle\Entity;
+    namespace Acme\UserBundle\Entity;
 
     // ...
     use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-    // ...
     class User implements AdvancedUserInterface
     {
         // ...
+
         public function isAccountNonExpired()
         {
             return true;
@@ -311,10 +339,10 @@ con il suo nome oppure con la sua email.
 Autenticazione con un fornitore entità personalizzato
 -----------------------------------------------------
 
-Il passo successivo consisten nel consentire a un utente di autenticarsi con il suo nome
-o con il suo indirizzo email, che sono entrambi unici nel database. Sfortunatamente, il
+Il passo successivo consiste nel consentire a un utente di autenticarsi con il suo nome
+o con il suo indirizzo email, che sono entrambi unici nella base dati. Sfortunatamente, il
 fornitore di entità nativo è in grado di gestire una sola proprietà per recuperare
-l'utente dal database.
+l'utente dalla base dati.
 
 Per poterlo fare, creare un fornitore di entità personalizzato, che cerchi un utente il
 cui nome *o* la cui email corrisponda al nome utente inserito. La buona notizia
@@ -352,11 +380,15 @@ Il codice successivo mostra l'implementazione di
             ;
 
             try {
-                // The Query::getSingleResult() method throws an exception
-                // if there is no record matching the criteria.
+                // Il metodo Query::getSingleResult() lancia un'eccezione
+                // se nessuna riga corrisponde ai criteri
                 $user = $q->getSingleResult();
             } catch (NoResultException $e) {
-                throw new UsernameNotFoundException(sprintf('Impossibile trovare un oggetto AcmeUserBundle:User identificato da "%s".', $username), null, 0, $e);
+                $message = sprintf(
+                    'Impossibile trovare un oggetto AcmeUserBundle:User identificato da  "%s".',
+                    $username
+                );
+                throw new UsernameNotFoundException($message, null, 0, $e);
             }
 
             return $user;
@@ -366,7 +398,12 @@ Il codice successivo mostra l'implementazione di
         {
             $class = get_class($user);
             if (!$this->supportsClass($class)) {
-                throw new UnsupportedUserException(sprintf('Istanze di "%s" non supportate.', $class));
+                throw new UnsupportedUserException(
+                    sprintf(
+                        'Istanze di "%s" non supportate.',
+                        $class
+                    )
+                );
             }
 
             return $this->loadUserByUsername($user->getUsername());
@@ -374,7 +411,8 @@ Il codice successivo mostra l'implementazione di
 
         public function supportsClass($class)
         {
-            return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
+            return $this->getEntityName() === $class
+                || is_subclass_of($class, $this->getEntityName());
         }
     }
 
@@ -397,14 +435,14 @@ del file ``security.yml``.
             # ...
 
 In questo modo, il livello della sicurezza userà un'istanza di ``UserRepository`` e
-richiamerà il suo metodo ``loadUserByUsername()`` per recuperare un utente dal database,
+richiamerà il suo metodo ``loadUserByUsername()`` per recuperare un utente dalla base dati,
 sia che abbia inserito il suo nome utente che abbia inserito la sua email.
 
-Gestire i ruoli nel database
-----------------------------
+Gestire i ruoli nella base dati 
+-------------------------------
 
 L'ultima parte della guida spiega come memorizzare e recuperare una lista di ruoli
-dal database. Come già accennato, quando l'utente viene caricato, il metodo
+dalla base dati. Come già accennato, quando l'utente viene caricato, il metodo
 ``getRoles()`` restituisce un array di ruoli di sicurezza, che gli andrebbero assegnati.
 Si possono caricare tali dati da qualsiasi posto, una lista predefinita usata per
 ogni utente (p.e. ``array('ROLE_USER')``), un array di Doctrine chiamato
@@ -425,12 +463,12 @@ Poiché un gruppo è anche un ruolo, il precedente metodo ``getRoles()`` ora res
 l'elenco dei gruppi correlati::
 
     // src/Acme/UserBundle/Entity/User.php
-    namespace Acme\Bundle\UserBundle\Entity;
+    namespace Acme\UserBundle\Entity;
 
     use Doctrine\Common\Collections\ArrayCollection;
-
     // ...
-    class User implements AdvancedUserInterface
+
+    class User implements AdvancedUserInterface, \Serializable
     {
         /**
          * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
@@ -449,6 +487,26 @@ l'elenco dei gruppi correlati::
         {
             return $this->groups->toArray();
         }
+
+        /**
+         * @see \Serializable::serialize()
+         */
+        public function serialize()
+        {
+            return serialize(array(
+                $this->id,
+            ));
+        }
+
+        /**
+         * @see \Serializable::unserialize()
+         */
+        public function unserialize($serialized)
+        {
+            list (
+                $this->id,
+            ) = unserialize($serialized);
+        }
     }
 
 La classe entità ``AcmeUserBundle:Group`` definisce tre campi di tabella (``id``,
@@ -458,7 +516,8 @@ importante da notare è che la classe entità ``AcmeUserBundle:Group`` implement
 :class:`Symfony\\Component\\Security\\Core\\Role\\RoleInterface`, che la obbliga ad avere
 un metodo ``getRole()``::
 
-    namespace Acme\Bundle\UserBundle\Entity;
+    // src/Acme/Bundle/UserBundle/Entity/Group.php
+    namespace Acme\UserBundle\Entity;
 
     use Symfony\Component\Security\Core\Role\RoleInterface;
     use Doctrine\Common\Collections\ArrayCollection;
@@ -514,7 +573,7 @@ fare un join dei gruppi correlati nel metodo ``UserRepository::loadUserByUsernam
 In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una sola query::
 
     // src/Acme/UserBundle/Entity/UserRepository.php
-    namespace Acme\Bundle\UserBundle\Entity;
+    namespace Acme\UserBundle\Entity;
 
     // ...
 
@@ -529,8 +588,7 @@ In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una 
                 ->where('u.username = :username OR u.email = :email')
                 ->setParameter('username', $username)
                 ->setParameter('email', $username)
-                ->getQuery()
-            ;
+                ->getQuery();
 
             // ...
         }

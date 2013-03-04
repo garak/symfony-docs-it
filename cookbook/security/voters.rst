@@ -59,6 +59,7 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
 
 .. code-block:: php
 
+    // src/Acme/DemoBundle/Security/Authorization/Voter/ClientIpVoter.php
     namespace Acme\DemoBundle\Security\Authorization\Voter;
 
     use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -110,7 +111,6 @@ e assegnargli il tag "security.voter":
     .. code-block:: yaml
 
         # src/Acme/AcmeBundle/Resources/config/services.yml
-
         services:
             security.access.blacklist_voter:
                 class:      Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter
@@ -122,7 +122,6 @@ e assegnargli il tag "security.voter":
     .. code-block:: xml
 
         <!-- src/Acme/AcmeBundle/Resources/config/services.xml -->
-
         <service id="security.access.blacklist_voter"
                  class="Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter" public="false">
             <argument type="service" id="service_container" strict="false" />
@@ -136,7 +135,6 @@ e assegnargli il tag "security.voter":
     .. code-block:: php
 
         // src/Acme/AcmeBundle/Resources/config/services.php
-
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 

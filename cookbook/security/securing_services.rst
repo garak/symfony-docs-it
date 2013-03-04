@@ -79,7 +79,7 @@ Quindi, nella configurazione dei servizi, si può iniettare il servizio:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@security.context]
 
     .. code-block:: xml
@@ -206,7 +206,7 @@ Si possono ottenere gli stessi risultati usando le annotazioni::
          */
         public function sendNewsletter()
         {
-            //--
+            // ...
         }
 
         // ...
@@ -261,6 +261,7 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
             // app/config/config.php
             $container->loadFromExtension('jms_security_extra', array(
                 // ...
+
                 'secure_all_services' => true,
             ));
 

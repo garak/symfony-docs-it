@@ -75,9 +75,7 @@ per l'utilizzo nel controllore (proseguire nella lettura).
 Il parametro ``_controller`` è una chiave speciale che dice a Symfony quale controllore
 dovrebbe essere eseguito quando un URL corrisponde a questa rotta. La stringa ``_controller``
 è detta :ref:`nome logico<controller-string-syntax>`. Segue un
-pattern che punta a uno specifico metodo di una classe PHP:
-
-.. code-block:: php
+pattern che punta a uno specifico metodo di una classe PHP::
 
     // src/Acme/BlogBundle/Controller/BlogController.php
     namespace Acme\BlogBundle\Controller;
@@ -90,7 +88,7 @@ pattern che punta a uno specifico metodo di una classe PHP:
         {
             // usare la variabile $slug per interrogare la base dati
             $blog = ...;
-            
+
             return $this->render('AcmeBlogBundle:Blog:show.html.twig', array(
                 'blog' => $blog,
             ));
@@ -104,10 +102,6 @@ controllore ``showAction`` e la variabile ``$slug`` avrà valore ``my-post``.
 Questo è l'obiettivo delle rotte di Symfony2: mappare l'URL di una richiesta in un
 controllore. Lungo la strada, si impareranno tutti i trucchi per mappare facilmente
 anche gli URL più complessi. 
-
-.. versionadded:: 2.1
-    Da Symfony 2.1, il componente Routing accetta anche valori Unicode nelle
-    rotte, come: /Жени/
 
 .. index::
    single: Rotte; Sotto il cofano
@@ -183,8 +177,10 @@ dell'applicazione:
 .. tip::
 
     Anche se tutte le rotte sono caricate da un singolo file, è una pratica comune
-    includere ulteriori risorse di rotte all'interno del file. Vedere
-    la sezione :ref:`routing-include-external-resources` per maggiori informazioni.
+    includere ulteriori risorse di rotte all'interno del file. Per farlo, basta indicare nel
+    file di routing principale quale file esterni debbano essere inclusi.
+    Vedere la sezione :ref:`routing-include-external-resources` per maggiori
+    informazioni.
 
 Configurazione di base delle rotte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -418,6 +414,11 @@ corrispondenza, dando al parametro ``page`` il valore ``2``. Perfetto.
 +---------+------------+
 | /blog/2 | {page} = 2 |
 +---------+------------+
+
+.. tip::
+
+    Le rotte con parametri facoltativi alla fine non avranno corrispondenza da richieste
+    con barra finale (p.e. ``/blog/`` non corrisponderà, ``/blog`` invece sì).
 
 .. index::
    single: Rotte; Requisiti
@@ -776,6 +777,12 @@ una barra. Gli URL corrispondenti a questa rotta potrebbero essere del tipo:
     per ciascun valore di ``_format``. Il parametro ``_format`` è un modo molto potente
     per rendere lo stesso contenuto in formati diversi.
 
+.. note::
+
+    A volte si desidera che alcune parti delle rotte siano configurabili in modo globale.
+    Symfony2.1 fornisce un modo per poterlo fare, sfruttando i parametri del contenitore di
+    servizi. Si può approfondire in ":doc:`/cookbook/routing/service_container_parameters`.
+
 Parametri speciali per le rotte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -820,15 +827,13 @@ Per esempio, se ``_controller`` ha valore ``AcmeBlogBundle:Blog:show`` significa
 | AcmeBlogBundle | BlogController         | showAction      |
 +----------------+------------------------+-----------------+
 
-Il controllore potrebbe essere simile a questo:
-
-.. code-block:: php
+Il controllore potrebbe essere simile a questo::
 
     // src/Acme/BlogBundle/Controller/BlogController.php
     namespace Acme\BlogBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-    
+
     class BlogController extends Controller
     {
         public function showAction($slug)
@@ -856,9 +861,7 @@ Parametri delle rotte e parametri del controllore
 -------------------------------------------------
 
 I parametri delle rotte (ad esempio ``{slug}``) sono particolarmente importanti perché
-ciascuno è reso disponibile come parametro al metodo del controllore:
-
-.. code-block:: php
+ciascuno è reso disponibile come parametro al metodo del controllore::
 
     public function showAction($slug)
     {
@@ -1022,6 +1025,12 @@ invece di ``/hello/{name}``:
 La stringa ``/admin`` ora verrà preposta allo schema di ogni rotta
 caricata dalla nuova risorsa delle rotte.
 
+.. tip::
+
+    Si possono anche definire le rotte tramite annotazioni. Vedere la
+    :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/routing>`
+    per scoprire come.
+
 .. index::
    single: Rotte; Debug
 
@@ -1054,7 +1063,18 @@ il nome della rotta dopo il comando:
 
 .. code-block:: bash
 
-    php app/console router:debug article_show
+    $ php app/console router:debug article_show
+
+.. versionadded:: 2.1
+    Il comando ``router:match`` è stato aggiunto in Symfony 2.1
+
+Si può verificare quale rotta, se esiste, corrisponda a un percorso, usando il comando
+``router:match``:
+
+.. code-block:: bash
+
+    $ php app/console router:match /articles/en/2012/article.rss
+    Route "article_show" matches
 
 .. index::
    single: Rotte; Generazione di URL
@@ -1070,38 +1090,54 @@ una rotta + parametri di nuovo in un URL. I metodi
 bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
 
     $params = $router->match('/blog/my-blog-post');
-    // array('slug' => 'my-blog-post', '_controller' => 'AcmeBlogBundle:Blog:show')
+    // array(
+    //     'slug' => 'my-blog-post',
+    //     '_controller' => 'AcmeBlogBundle:Blog:show',
+    // )
 
     $uri = $router->generate('blog_show', array('slug' => 'my-blog-post'));
     // /blog/my-blog-post
 
 Per generare un URL, è necessario specificare il nome della rotta (ad esempio ``blog_show``)
 ed eventuali caratteri jolly (ad esempio ``slug = my-blog-post``) usati nello schema  per
-questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilmente:
-
-.. code-block:: php
+questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilmente::
 
     class MainController extends Controller
     {
         public function showAction($slug)
         {
-          // ...
+            // ...
 
-          $url = $this->get('router')->generate('blog_show', array('slug' => 'my-blog-post'));
+            $url = $this->generateUrl(
+                'blog_show',
+                array('slug' => 'my-blog-post')
+            );
         }
     }
 
-In una sezione successiva, si imparerà a generare URL dall'interno di un template.
+.. note::
+
+    In controllori che estendono la classe base di Symfony
+    :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`,
+    si può usare il metodo
+    :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::generateUrl`,
+    che richiama il metodo
+    :method:`Symfony\\Component\\Routing\\Router::generate` del servizio router.
+
+In una delle prossime sezioni, si imparerà a generare URL dall'interno di un template.
 
 .. tip::
 
     Se la propria applicazione usa richieste AJAX, si potrebbe voler
     generare URL in JavaScript, che siano basate sulla propria configurazione delle rotte.
     Usando `FOSJsRoutingBundle`_, lo si può fare:
-    
+
     .. code-block:: javascript
-    
-        var url = Routing.generate('blog_show', { "slug": 'my-blog-post});
+
+        var url = Routing.generate(
+            'blog_show',
+            {"slug": 'my-blog-post'}
+        );
 
     Per ultetiori informazioni, vedere la documentazione del bundle.
 
@@ -1113,9 +1149,7 @@ Generare URL assoluti
 
 Per impostazione predefinita, il router genera URL relativi (ad esempio ``/blog``). Per generare
 un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
-``generate()``:
-
-.. code-block:: php
+``generate()``::
 
     $router->generate('blog_show', array('slug' => 'my-blog-post'), true);
     // http://www.example.com/blog/my-blog-post
@@ -1126,10 +1160,8 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     dell'oggetto ``Request`` corrente. Questo viene rilevato automaticamente in base
     alle informazioni sul server fornite da PHP. Quando si generano URL assolute per
     script che devono essere eseguiti da riga di comando, sarà necessario impostare manualmente l'host
-    desiderato sull'oggetto ``Request``:
-    
-    .. code-block:: php
-    
+    desiderato sull'oggetto ``RequestContext``::
+
         $router->getContext()->setHost('www.example.com');
 
 .. index::
@@ -1165,13 +1197,13 @@ una funzione helper per i template:
             Read this blog post.
         </a>
 
-Possono anche essere generati gli URL assoluti.
+Possono anche essere generati URL assoluti.
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        <a href="{{ url('blog_show', { 'slug': 'my-blog-post' }) }}">
+        <a href="{{ url('blog_show', {'slug': 'my-blog-post'}) }}">
           Read this blog post.
         </a>
 

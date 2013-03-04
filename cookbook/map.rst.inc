@@ -10,6 +10,7 @@
   * :doc:`/cookbook/bundles/best_practices`
   * :doc:`/cookbook/bundles/inheritance`
   * :doc:`/cookbook/bundles/override`
+  * :doc:`/cookbook/bundles/remove`
   * :doc:`/cookbook/bundles/extension`
 
 * :doc:`/cookbook/cache/index`
@@ -19,13 +20,17 @@
 * :doc:`/cookbook/configuration/index`
 
   * :doc:`/cookbook/configuration/environments`
+  * :doc:`/cookbook/configuration/override_dir_structure`
   * :doc:`/cookbook/configuration/external_parameters`
   * :doc:`/cookbook/configuration/pdo_session_storage`
   * :doc:`/cookbook/configuration/apache_router`
 
-* **Comandi console**
+* :doc:`/cookbook/console/index`
 
   * :doc:`/cookbook/console/console_command`
+  * :doc:`/cookbook/console/usage`
+  * :doc:`/cookbook/console/sending_emails`
+  * :doc:`/cookbook/console/logging`
 
 * :doc:`/cookbook/controller/index`
 
@@ -35,6 +40,10 @@
 * **Debug**
 
   * :doc:`/cookbook/debugging`
+
+* **Deploy**
+
+  * :doc:`/cookbook/deployment-tools`
 
 * :doc:`/cookbook/doctrine/index`
 
@@ -54,22 +63,25 @@
   * :doc:`/cookbook/email/gmail`
   * :doc:`/cookbook/email/dev_environment`
   * :doc:`/cookbook/email/spool`
+  * :doc:`/cookbook/email/testing`
 
 * :doc:`/cookbook/event_dispatcher/index`
 
   * :doc:`/cookbook/event_dispatcher/before_after_filters`
   * :doc:`/cookbook/event_dispatcher/class_extension`
   * :doc:`/cookbook/event_dispatcher/method_behavior`
-  * (service container) :doc:`/cookbook/service_container/event_listener`
+  * (contenitore di servizi) :doc:`/cookbook/service_container/event_listener`
 
 * :doc:`/cookbook/form/index`
 
   * :doc:`/cookbook/form/form_customization`
   * :doc:`/cookbook/form/data_transformers`
-  * :doc:`/cookbook/form/dynamic_form_generation`
+  * :doc:`/cookbook/form/dynamic_form_modification`
   * :doc:`/cookbook/form/form_collections`
   * :doc:`/cookbook/form/create_custom_field_type`
+  * :doc:`/cookbook/form/create_form_type_extension`
   * :doc:`/cookbook/form/use_virtuals_forms`
+  * :doc:`/cookbook/form/unit_testing`
   * (validazione) :doc:`/cookbook/validation/custom_constraint`
   * (doctrine) :doc:`/cookbook/doctrine/file_uploads`
 
@@ -93,16 +105,7 @@
   * :doc:`/cookbook/routing/slash_in_parameter`
   * :doc:`/cookbook/routing/redirect_in_config`
   * :doc:`/cookbook/routing/method_parameters`
-
-* **symfony1**
-
-  * :doc:`/cookbook/symfony1`
-
-* :doc:`/cookbook/service_container/index`
-
-  * :doc:`/cookbook/service_container/event_listener`
-  * :doc:`/cookbook/service_container/scopes`
-  * :doc:`/cookbook/service_container/compiler_passes`
+  * :doc:`/cookbook/routing/service_container_parameters`
 
 * :doc:`/cookbook/security/index`
 
@@ -118,11 +121,22 @@
   * :doc:`/cookbook/security/custom_authentication_provider`
   * :doc:`/cookbook/security/target_path`
 
+* :doc:`/cookbook/service_container/index`
+
+  * :doc:`/cookbook/service_container/event_listener`
+  * :doc:`/cookbook/service_container/scopes`
+  * :doc:`/cookbook/service_container/compiler_passes`
+
+* **symfony1**
+
+  * :doc:`/cookbook/symfony1`
+
 * :doc:`/cookbook/templating/index`
 
   * :doc:`/cookbook/templating/global_variables`
   * :doc:`/cookbook/templating/PHP`
   * :doc:`/cookbook/templating/twig_extension`
+  * :doc:`/cookbook/templating/render_without_controller`
 
 * :doc:`/cookbook/testing/index`
 
@@ -130,6 +144,8 @@
   * :doc:`/cookbook/testing/insulating_clients`
   * :doc:`/cookbook/testing/profiling`
   * :doc:`/cookbook/testing/doctrine`
+  * :doc:`/cookbook/testing/bootstrap`
+  * (email) :doc:`/cookbook/email/testing`
 
 * :doc:`/cookbook/validation/index`
 
@@ -143,3 +159,4 @@
 
   * :doc:`/cookbook/workflow/new_project_git`
   * :doc:`/cookbook/workflow/new_project_svn`
+

@@ -22,7 +22,7 @@ mostrati di seguito:
             main:
                 remember_me:
                     key:      "%secret%"
-                    lifetime: 3600
+                    lifetime: 31536000 # 365 giorni in secondi
                     path:     /
                     domain:   ~ # Defaults to the current domain from $_SERVER
 
@@ -33,7 +33,7 @@ mostrati di seguito:
             <firewall>
                 <remember-me
                     key      = "%secret%"
-                    lifetime="3600"
+                    lifetime = "31536000" <!-- 365 giorni in secondi -->
                     path="/"
                     domain="" <!-- Defaults to the current domain from $_SERVER -->
                 />
@@ -45,12 +45,14 @@ mostrati di seguito:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('remember_me' => array(
-                    'key'      => '%secret%',
-                    'lifetime'                => 3600,
-                    'path'                    => '/',
-                    'domain'                  => '', // Defaults to the current domain from $_SERVER
-                )),
+                'main' => array(
+                    'remember_me' => array(
+                        'key'      => '%secret%',
+                        'lifetime' => 31536000, // 365 giorni in secondi
+                        'path'     => '/',
+                        'domain'   => '', // Prende il dominio corrente da $_SERVER
+                    ),
+                ),
             ),
         ));
 

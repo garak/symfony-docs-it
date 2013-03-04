@@ -1,5 +1,6 @@
 Makefile
 _build/
+_exts/
 _static/
 _templates/
 conf.py

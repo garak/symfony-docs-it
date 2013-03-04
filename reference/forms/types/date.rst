@@ -32,6 +32,8 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `invalid_message`_                                                        |
 | ereditate                | - `invalid_message_parameters`_                                             |
+|                          | - `read_only`_                                                              |
+|                          | - `disabled`_                                                               |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | ``field`` (se testo), ``form`` altrimenti                                   |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -81,7 +83,7 @@ Opzioni del campo
 empty_value
 ~~~~~~~~~~~
 
-**tipo**: ``stringa``|``array``
+**tipo**: ``stringa`` o ``array``
 
 Se l'opzione del widget è ``choice``, il campo sarà rappresentato come una serie
 di ``select``. L'opzione ``empty_value`` può essere usata per aggiungere una voce
@@ -121,3 +123,7 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc

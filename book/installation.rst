@@ -20,11 +20,8 @@ Scaricare una distribuzione Symfony2
 .. tip::
 
     Verificare innanzitutto di avere un server web (come Apache) installato
-    e funzionante con la versione più recente di PHP (si raccomandano PHP 5.3.8
-    o successivi). Per ulteriori informazioni sui requisiti di Symfony2, si veda
-    il :doc:`riferimento sui requisiti</reference/requirements>`. Per
-    informazioni sulla configurazione di uno specifico server web, vedere
-    la seguente documentazione: `Apache`_ | `Nginx`_ .
+    e funzionante con PHP 5.3.8 o successivi. Per ulteriori informazioni sui requisiti di Symfony2,
+    si veda il :doc:`riferimento sui requisiti</reference/requirements>`.
 
 Symfony2 ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
 includono le librerie del nucleo di Symfony2, una selezione di bundle utili e alcune
@@ -47,7 +44,7 @@ curl installato, è facile:
 
 .. code-block:: bash
 
-    curl -s https://getcomposer.org/installer | php
+    $ curl -s https://getcomposer.org/installer | php
 
 .. note::
 
@@ -60,7 +57,18 @@ Distribution:
 
 .. code-block:: bash
 
-    php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony
+
+.. tip::
+
+    Per una versione esatta, sostituire `2.1.x-dev` con l'ultima versione di Symfony
+    (p.e. 2.1.2). Per detaggli, si veda la `pagina di installazione di Symfony`_
+
+.. tip::
+
+    Per scaricare i file dei venditori più velocemente e senza cartelle non necessarie
+    (p.e. "Tests"), aggiungere l'opzione ``--prefer-dist`` alla fine di ogni comando di
+    Composer.
 
 Questo comando può richiedere diversti minuti, mentre Composer scarica la Standard
 Distribution e tutte le librerie dei venditori necessarie. Quando avrà finito,
@@ -110,6 +118,12 @@ uno dei seguenti comandi (sostituire ``###`` con il vero nome del file):
 Se si è optato per la versione senza venditori, occorerà leggere la 
 prossima sezione.
 
+.. note::
+
+    Si può facilmente modificare la struttura predefinita di cartelle. Si veda
+    :doc:`/cookbook/configuration/override_dir_structure` per maggiori
+    informazioni.
+
 .. _installation-updating-vendors:
 
 Aggiornare i venditori
@@ -128,7 +142,7 @@ Passo 1: Ottenere `Composer`_ (il nuovo bellissimo sistema di pacchetti PHP)
 
 .. code-block:: bash
 
-    curl -s http://getcomposer.org/installer | php
+    $ curl -s http://getcomposer.org/installer | php
 
 Ci si assicuri di scaricare ``composer.phar`` nella stessa cartella in cui risiede
 il file ``composer.json`` (per impostazione predefinita, la radice del progetto
@@ -138,7 +152,7 @@ Passo 2: Installare i venditori
 
 .. code-block:: bash
 
-    php composer.phar install
+    $ php composer.phar install
 
 Questo comando scarica tutte le librerie dei venditori necessarie, incluso
 Symfony stesso, nella cartella ``vendor/``.
@@ -151,13 +165,13 @@ Symfony stesso, nella cartella ``vendor/``.
 
     .. code-block:: bash
 
-        php installer
-        php composer.phar install
+        $ php installer
+        $ php composer.phar install
 
 .. tip::
 
     Quando si esegue ``php composer.phar install`` o ``php composer.phar update``,
-    composer eseguirà dei comandi post installazione/aggiornamento per cpulire la cache
+    composer eseguirà dei comandi post installazione/aggiornamento per pulire la cache
     e installare le risorse. Per impostazione predefinita, le risorse saranno copiate nella cartella ``web``.
     Per creare collegamenti simbolici invece di copiare le risorse, si può
     aggiungere una voce nel nodo ``extra`` del file composer.json con chiave ``symfony-assets-install``
@@ -187,7 +201,7 @@ seguente URL per la verifica della configurazione:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/config.php
+    http://localhost/config.php
 
 Se ci sono problemi, correggerli prima di proseguire.
 
@@ -197,13 +211,29 @@ Se ci sono problemi, correggerli prima di proseguire.
     scrivibili sia dal server web che dall'utente della linea di comando. Su sistemi
     UNIX, se l'utente del server web è diverso da quello della linea di comando,
     si possono eseguire i seguenti comandi una sola volta sul proprio progetto, per
-    assicurarsi che i permessi siano impostati correttamente. Cambiare ``www-data``
-    con l'utente del server web e ``tuonome`` con l'utente della linea di comando:
+    assicurarsi che i permessi siano impostati correttamente.
+
+    **Si noti che non tutti i server web girano con lo stesso utenteo** ``www-data`` usato negli esempi
+    di seguito. Verificare con quale utente gira *il proprio* server web e usare quello
+    al posto di ``www-data``.
+
+    Su sistemi di tipo UNIX, lo si può fare con uno dei seguenti comandi:
+
+    .. code-block:: bash
+    
+        $ ps aux | grep httpd
+
+    oppure
+
+    .. code-block:: bash
+
+        $ ps aux | grep apache
 
     **1. Usare ACL su un sistema che supporta chmod +a**
 
     Molti sistemi consento di usare il comando ``chmod +a``. Provare prima questo e, in
-    caso di errore, provare il metodo successivo:
+    caso di errore, provare il metodo successivo. Assicurarsi di sostituire `www-data`
+    con l'utente del prorio server web, nel primo comando ``chmod``:
 
     .. code-block:: bash
 
@@ -225,11 +255,6 @@ Se ci sono problemi, correggerli prima di proseguire.
         $ sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
         $ sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
 
-    Notare che non tutti i server web giranot come utente ``www-data``. Occorre verificare
-    quale utente sia usato dal server web e inserirlo al posto di ``www-data``.
-    Lo si può verificare dalla lista dei processi, cercando quale utente stia eseguendo
-    il processo del server web.
-
     **3. Senza usare ACL**
 
     Se non è possibile modificare l'ACL delle cartelle, occorrerà modificare
@@ -237,9 +262,7 @@ Se ci sono problemi, correggerli prima di proseguire.
     o da tutti (a seconda che gli utenti di server web e linea di comando siano
     o meno nello stesso gruppo). Per poterlo fare, inserire la riga seguente
     all'inizio dei file ``app/console``, ``web/app.php`` e
-    ``web/app_dev.php``:
-
-    .. code-block:: php
+    ``web/app_dev.php``::
 
         umask(0002); // Imposta i permessi a 0775
 
@@ -259,7 +282,17 @@ prima "vera" pagina di Symfony2:
 
 Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto finora!
 
-.. image:: /images/quick_tour/welcome.jpg
+.. image:: /images/quick_tour/welcome.png
+
+.. tip::
+    
+    Per ottnere url brevi, si dovrebbe far puntare la docuemnt root del
+    server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
+    non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui
+    l'applicazione va in produzione, perché tutti i file di sistema e di configurazione
+    diventeranno inaccessibili ai client. Perinformazioni sulla configurazione di
+    uno specifico server web, vedere la seguente
+    documentazione: `Apache`_ | `Nginx`_ .
 
 Iniziare lo sviluppo
 --------------------
@@ -267,8 +300,7 @@ Iniziare lo sviluppo
 Ora che si dispone di un'applicazione Symfony2 pienamente funzionante, si può iniziare
 lo sviluppo. La distribuzione potrebbe contenere del codice di esempio, verificare il file
 ``README.rst`` incluso nella distribuzione (aprendolo come file di testo) per sapere
-quale codice di esempio è incluso nella distribuzione scelta e come poterlo rimuovere
-in un secondo momento.
+quale codice di esempio è incluso nella distribuzione scelta.
 
 Per chi è nuovo in Symfony, in ":doc:`page_creation`" si può imparare come creare
 pagine, cambiare configurazioni e tutte le altre cose di cui si avrà bisogno nella
@@ -276,6 +308,11 @@ nuova applicazione.
 
 Dare un'occhiata anche al :doc:`ricettario</cookbook/index>`, che contiene
 una varietà di articoli su come risolvere problemi specifici con Symfony.
+
+.. note::
+
+    Se si vuole rimuovere il codice di esempio dalla distribuzione, dare un'occhiata
+    a questa ricetta: ":doc:`/cookbook/bundles/remove`"
 
 Usare un controllo di sorgenti
 ------------------------------
@@ -313,3 +350,4 @@ scaricare tutte le librerie dei venditori necessarie.
 .. _`scaricare Composer`: http://getcomposer.org/download/
 .. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
 .. _`Nginx`: http://wiki.nginx.org/Symfony
+.. _`pagina di installazione di Symfony`:    http://symfony.com/download

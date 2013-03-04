@@ -1,6 +1,12 @@
 MinLength
 =========
 
+.. caution::
+
+    Questo vincolo è deprecato dalla versione 2.1 e sarà rimosso
+    in Symfony 2.3. Usare :doc:`/reference/constraints/Length` con opzione ``min``
+    al suo posto.
+
 Valida che la lunghezza di una stringa sia almeno pari al limite dato.
 
 +----------------+-------------------------------------------------------------------------+
@@ -26,11 +32,13 @@ Uso di base
         Acme\BlogBundle\Entity\Blog:
             properties:
                 firstName:
-                    - MinLength: { limit: 3, message: "Your name must have at least {{ limit}} characters." }
+                    - MinLength: { limit: 3, message: "Your name must have at least {{ limit }} characters." }
 
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Blog.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Blog
@@ -38,7 +46,7 @@ Uso di base
             /**
              * @Assert\MinLength(
              *     limit=3,
-             *     message="Your name must have at least {{ limit}} characters."
+             *     message="Your name must have at least {{ limit }} characters."
              * )
              */
             protected $summary;
@@ -51,10 +59,29 @@ Uso di base
             <property name="summary">
                 <constraint name="MinLength">
                     <option name="limit">3</option>
-                    <option name="message">Your name must have at least {{ limit}} characters.</option>
+                    <option name="message">Your name must have at least {{ limit }} characters.</option>
                 </constraint>
             </property>
         </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Blog.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Blog
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('summary', new Assert\MinLength(array(
+                    'limit'   => 3,
+                    'message' => 'Your name must have at least {{ limit }} characters.',
+                )));
+            }
+        }
 
 Opzioni
 -------
@@ -80,8 +107,6 @@ charset
 
 **tipo**: ``charset`` **predefinito**: ``UTF-8``
 
-Se l'estensione "mbstring" di PHP è installata, sarà usata la funzione `mb_strlen`_ di
+Se l'estensione "mbstring" di PHP è installata, sarà usata la funzione :phpfunction:`mb_strlen` di
 PHP per calcolare la lunghezza della stringa. Il valore dell'opzione ``charset``
 è passato come secondo parametro a tale funzione.
-
-.. _`mb_strlen`: http://php.net/manual/en/function.mb-strlen.php

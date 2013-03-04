@@ -7,17 +7,17 @@ Come creare un tipo di campo personalizzato di un form
 Symfony è dotato di una serie di tipi di campi per la costruzione dei form.
 Tuttavia ci sono situazioni in cui è necessario realizzare un campo personalizzato
 per uno scopo specifico. Questa ricetta ipotizza che si abbia necessità 
-di un capo personalizzato che contenga il genere di una persona, 
+di un campo personalizzato che contenga il genere di una persona, 
 un nuovo campo basato su un campo di tipo scelta. Questa sezione spiega come il campo è definito, come si può personalizzare il layout e, infine, 
 come è possibile registrarlo per utilizzarlo nell'applicazione.
 
 Definizione del tipo di campo
 -----------------------------
 
-Per creare il tipo di campo personalizzato, è necessario creare per prima la classe
-che rappresenta il campo. Nell'esempio proposto la classe che realizza il tipo di campo
-sarà chiamata `GenderType` e il file sarà salvato nella cartella default contenente
-i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo estenda
+Per creare il tipo di campo personalizzato, è necessario creare prima la classe
+che rappresenta il campo. Nell'esempio proposto, la classe che realizza il tipo di campo
+sarà chiamata `GenderType` e il file sarà salvato nella cartella predefinita contenente
+i campi del form, che è ``<NomeBundle>\Form\Type``. Assicurarsi che il campo estenda
 :class:`Symfony\\Component\\Form\\AbstractType`::
 
     // src/Acme/DemoBundle/Form/Type/GenderType.php
@@ -32,8 +32,8 @@ i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo este
         {
             $resolver->setDefaults(array(
                 'choices' => array(
-                    'm' => 'Male',
-                    'f' => 'Female',
+                    'm' => 'Maschio',
+                    'f' => 'Femmina',
                 )
             ));
         }
@@ -57,7 +57,7 @@ i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo este
 Qui, il valore di ritorno del metodo ``getParent`` indica che che si sta
 estendendo il tipo di campo ``choice``. Questo significa che, per impostazione predefinita, sono ereditate
 tutte le logiche e la resa di questo tipo di campo. Per vedere alcune logiche,
-controlla la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
+guardare la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
 importanti:
 
 * ``buildForm()`` - Ogni tipo di campo possiede un metodo ``buildForm``, che permette di
@@ -79,8 +79,8 @@ importanti:
 
     Se si sta creando un campo che consiste di molti campi, assicurarsi  
     di impostare come "padre" un tipo come ``form`` o qualcos'altro che estenda ``form``.
-    Nello stesso modo, se occorre modificare la "vista" di ogni sottotipo 
-    che estende il proprio tipo, utilizzare il metodo ``buildViewBottomUp()``.
+    Inoltre, se occorre modificare la "vista" di ogni sottotipo 
+    che estende il proprio tipo, utilizzare il metodo ``finishView()``.
 
 Il metodo ``getName()`` restituisce un identificativo che dovrebbe essere unico
 all'interno dell'applicazione. Questo è usato in vari posti, ad esempio nel momento in cui 
@@ -127,7 +127,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
 
 .. note::
 
-    Assicurarsu che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
+    Assicurarsi che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
     essere ``gender_widget``, in base al valore restituito da ``getName``.
     Inoltre, il file principale di configurazione dovrebbe puntare al template personalizzato
     del form, in modo che sia utilizzato per la resa di tutti i form.
@@ -163,14 +163,14 @@ nuova istanza del tipo in un form::
     }
 
 Questo funziona perché il ``GenderType()`` è veramente semplice. Cosa succede se
-i valori del genere sono stati inseriti nella configurazione o nel database? La prossima
+i valori del genere sono stati inseriti nella configurazione o nella base dati? La prossima
 sezione spiega come un tipo di campo più complesso può risolvere questa situazione.
 
 Creazione di un tipo di campo come servizio
 -------------------------------------------
 
 Finora, questa spiegazione ha assunto che si ha un tipo di campo molto semplice.
-Ma se fosse necessario accedere alla configurazione o al database o a qualche altro
+Ma se fosse necessario accedere alla configurazione o alla base dati o a qualche altro
 servizio, è necessario registrare il tipo di campo come servizio. Per
 esempio, si supponga che i valori del genere siano memorizzati nella configurazione:
 
@@ -204,7 +204,7 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
 
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
-            form.type.gender:
+            acme_demo.form.type.gender:
                 class: Acme\DemoBundle\Form\Type\GenderType
                 arguments:
                     - "%genders%"
@@ -214,7 +214,7 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
     .. code-block:: xml
 
         <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
-        <service id="form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
+        <service id="acme_demo.form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
             <argument>%genders%</argument>
             <tag name="form.type" alias="gender" />
         </service>

@@ -39,6 +39,7 @@ di abilitarlo nel file di configurazione della propria applicazione:
 
         $container->loadFromExtension('framework', array(
             // ...
+
             'templating'      => array(
                 'engines' => array('twig', 'php'),
             ),
@@ -54,7 +55,24 @@ rende il template ``index.html.php``::
 
     public function indexAction($name)
     {
-        return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
+        return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+    }
+
+Si può anche usare la scorciatoia :doc:`/bundles/SensioFrameworkExtraBundle/annotations/view`
+per rendere il template ``AcmeHelloBundle:Hello:index.html.php``::
+
+    // src/Acme/HelloBundle/Controller/HelloController.php
+
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+    // ...
+
+    /**
+     * @Template(engine="php")
+     */
+    public function indexAction($name)
+    {
+        return array('name' => $name);
     }
 
 .. index::
@@ -208,7 +226,10 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 .. code-block:: html+php
 
     <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
-    <?php echo $view['actions']->render('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green')) ?>
+    <?php echo $view['actions']->render('AcmeHelloBundle:Hello:fancy', array(
+        'name'  => $name,
+        'color' => 'green'
+    )) ?>
 
 Qui la stringa ``HelloBundle:Hello:fancy`` si riferisce all'azione ``fancy`` del
 controllore ``Hello``::
@@ -219,10 +240,13 @@ controllore ``Hello``::
     {
         public function fancyAction($name, $color)
         {
-            // crear un oggettom basato sulla variabile $color
+            // creare un oggetto basato sulla variabile $color
             $object = ...;
 
-            return $this->render('HelloBundle:Hello:fancy.html.php', array('name' => $name, 'object' => $object));
+            return $this->render('AcmeHelloBundle:Hello:fancy.html.php', array(
+                'name'   => $name,
+                'object' => $object
+            ));
         }
 
         // ...

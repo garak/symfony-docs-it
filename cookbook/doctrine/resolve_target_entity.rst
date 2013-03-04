@@ -1,3 +1,7 @@
+.. index::
+   single: Doctrine; Risolvere entità bersaglio
+   single: Doctrine; Definire relazioni con classi astratte e interfacce
+
 Definire relazioni con classi astratte e interfacce
 ===================================================
 

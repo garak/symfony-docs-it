@@ -44,7 +44,7 @@ Quindi, definiamo la catena come servizio:
 
         services:
             acme_mailer.transport_chain:
-                class: %acme_mailer.transport_chain.class%
+                class: "%acme_mailer.transport_chain.class%"
 
     .. code-block:: xml
 
@@ -128,14 +128,22 @@ tag personalizzato::
     {
         public function process(ContainerBuilder $container)
         {
-            if (false === $container->hasDefinition('acme_mailer.transport_chain')) {
+            if (!$container->hasDefinition('acme_mailer.transport_chain')) {
                 return;
             }
 
-            $definition = $container->getDefinition('acme_mailer.transport_chain');
+            $definition = $container->getDefinition(
+                'acme_mailer.transport_chain'
+            );
 
-            foreach ($container->findTaggedServiceIds('acme_mailer.transport') as $id => $attributes) {
-                $definition->addMethodCall('addTransport', array(new Reference($id)));
+            $taggedServices = $container->findTaggedServiceIds(
+                'acme_mailer.transport'
+            );
+            foreach ($taggedServices as $id => $attributes) {
+                $definition->addMethodCall(
+                    'addTransport',
+                    array(new Reference($id))
+                );
             }
         }
     }
@@ -157,6 +165,12 @@ il contenitore viene compilato::
 
     $container = new ContainerBuilder();
     $container->addCompilerPass(new TransportCompilerPass);
+
+.. note::
+
+    I passi di compilatore sono registrati in modo diverso, se si usa il framework
+    completo. Vedere :doc:`/cookbook/service_container/compiler_passes`
+    per maggiori dettagli.
 
 Aggiungere altri attributi ai tag
 ---------------------------------
@@ -186,7 +200,7 @@ Per iniziare, cambiare la classe ``TransportChain``::
                return $this->transports[$alias];
             }
             else {
-               return null;
+               return;
             }
         }
     }
@@ -236,15 +250,23 @@ effettivamente, aggiornare il compilatore::
     {
         public function process(ContainerBuilder $container)
         {
-            if (false === $container->hasDefinition('acme_mailer.transport_chain')) {
+            if (!$container->hasDefinition('acme_mailer.transport_chain')) {
                 return;
             }
 
-            $definition = $container->getDefinition('acme_mailer.transport_chain');
+            $definition = $container->getDefinition(
+                'acme_mailer.transport_chain'
+            );
 
-            foreach ($container->findTaggedServiceIds('acme_mailer.transport') as $id => $tagAttributes) {
+            $taggedServices = $container->findTaggedServiceIds(
+                'acme_mailer.transport'
+            );
+            foreach ($taggedServices as $id => $tagAttributes) {
                 foreach ($tagAttributes as $attributes) {
-                    $definition->addMethodCall('addTransport', array(new Reference($id), $attributes["alias"]));
+                    $definition->addMethodCall(
+                        'addTransport',
+                        array(new Reference($id), $attributes["alias"])
+                    );
                 }
             }
         }

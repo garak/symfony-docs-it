@@ -92,13 +92,20 @@ Il file dei meta-dati ``BlogPost.dcm.xml`` assomiglia a questo:
       </entity>
     </doctrine-mapping>
 
+.. note::
+
+    Se si hanno relazioni ``oneToMany`` tra entità,
+    occorrerà modificare i file ``xml`` o ``yml`` generati, per aggiungere
+    una sezione sulle entità specifiche ``oneToMany``, che definiscono le parti
+    ``inversedBy`` e ``mappedBy``.
+
 Una volta generati i file dei meta-dati, si può chiedere a Doctrine di importare lo
 schema e costruire le relative classi entità, eseguendo i seguenti comandi.
 
 .. code-block:: bash
 
-    php app/console doctrine:mapping:import AcmeBlogBundle annotation
-    php app/console doctrine:generate:entities AcmeBlogBundle
+    $ php app/console doctrine:mapping:import AcmeBlogBundle annotation
+    $ php app/console doctrine:generate:entities AcmeBlogBundle
 
 Il primo comando genera le classi delle entità con annotazioni, ma ovviamente
 si può cambiare il parametro ``annotation`` in ``xml`` o ``yml``.

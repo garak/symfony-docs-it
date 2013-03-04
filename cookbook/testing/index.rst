@@ -1,5 +1,5 @@
-Testing
-=======
+Test
+====
 
 .. toctree::
     :maxdepth: 2
@@ -8,3 +8,4 @@ Testing
     insulating_clients
     profiling
     doctrine
+    bootstrap

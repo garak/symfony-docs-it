@@ -19,6 +19,7 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
 
     use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
     use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
     class AcmeExceptionListener
     {
@@ -26,12 +27,24 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
         {
             // Prende l'oggetto eccezione dall'evento ricevuto
             $exception = $event->getException();
-            $message = 'My Error says: ' . $exception->getMessage();
+            $message = sprintf(
+                'Il mio errore dice: %s con codice: %s',
+                $exception->getMessage(),
+                $exception->getCode()
+            );
             
             // Personalizza l'oggetto risposta per mostrare i dettagli sull'eccezione
             $response = new Response();            
             $response->setContent($message);
+
+            // HttpExceptionInterface è un tipo speciale di eccezione, che
+            // contiene il codice di stato e altri dettagli sugli header
+            if ($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
+                $response->headers->replace($exception->getHeaders());
+            } else {
+                $response->setStatusCode(500);
+            }
             
             // Invia la risposta modificata all'evento
             $event->setResponse($response);
@@ -55,14 +68,14 @@ tag:
         # app/config/config.yml
         services:
             kernel.listener.your_listener_name:
-                class: Acme\DemoBundle\Listener\AcmeExceptionListener
+                class: Acme\DemoBundle\EventListener\AcmeExceptionListener
                 tags:
                     - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <service id="kernel.listener.your_listener_name" class="Acme\DemoBundle\Listener\AcmeExceptionListener">
+        <service id="kernel.listener.your_listener_name" class="Acme\DemoBundle\EventListener\AcmeExceptionListener">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
         </service>
 
@@ -70,7 +83,7 @@ tag:
 
         // app/config/config.php
         $container
-            ->register('kernel.listener.your_listener_name', 'Acme\DemoBundle\Listener\AcmeExceptionListener')
+            ->register('kernel.listener.your_listener_name', 'Acme\DemoBundle\EventListener\AcmeExceptionListener')
             ->addTag('kernel.event_listener', array('event' => 'kernel.exception', 'method' => 'onKernelException'))
         ;
         
@@ -84,8 +97,8 @@ tag:
 Eventi richiesta, verifica dei tipi
 -----------------------------------
 
-Una singola page può eseguire diverse richieste (una principale, quindi molte
-sotto-richieste), per questo, quando si ha a che are con l'evento
+Una singola pagina può eseguire diverse richieste (una principale e poi diverse
+sotto-richieste); per questo, quando si ha a che fare con l'evento
 ``KernelEvents::REQUEST``, si potrebbe voler verificare il tipo di richiesta. Lo si
 può fare facilmente, come segue::
 
@@ -104,7 +117,7 @@ può fare facilmente, come segue::
                 return;
             }
 
-            // il proprio codice
+            // ...
         }
     }
 

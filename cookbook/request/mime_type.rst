@@ -56,11 +56,11 @@ configurazione e registrarlo come tale aggiungendogli il tag ``kernel.event_list
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
+            <services>
             <service id="acme.demobundle.listener.request" class="Acme\DemoBundle\RequestListener">
                 <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
             </service>
-
+            </services>
         </container>
 
     .. code-block:: yaml
@@ -76,7 +76,10 @@ configurazione e registrarlo come tale aggiungendogli il tag ``kernel.event_list
 
         # app/config/config.php
         $definition = new Definition('Acme\DemoBundle\RequestListener');
-        $definition->addTag('kernel.event_listener', array('event' => 'kernel.request', 'method' => 'onKernelRequest'));
+        $definition->addTag('kernel.event_listener', array(
+            'event'  => 'kernel.request',
+            'method' => 'onKernelRequest',
+        ));
         $container->setDefinition('acme.demobundle.listener.request', $definition);
 
 A questo punto, il servizio ``acme.demobundle.listener.request`` è stato configurato

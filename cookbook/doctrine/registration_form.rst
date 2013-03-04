@@ -151,6 +151,7 @@ Iniziare creando una semplice classe, che rappresenta la registrazione::
     {
         /**
          * @Assert\Type(type="Acme\AccountBundle\Entity\User")
+         * @Assert\Valid()
          */
         protected $user;
 
@@ -194,7 +195,11 @@ Quindi, creare il form per il modello ``Registration``::
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('user', new UserType());
-            $builder->add('terms', 'checkbox', array('property_path' => 'termsAccepted'));
+            $builder->add(
+                'terms',
+                'checkbox',
+                array('property_path' => 'termsAccepted')
+            );
         }
 
         public function getName()
@@ -227,9 +232,15 @@ controllore, per mostrare il form di registrazione::
     {
         public function registerAction()
         {
-            $form = $this->createForm(new RegistrationType(), new Registration());
+            $form = $this->createForm(
+                new RegistrationType(),
+                new Registration()
+            );
 
-            return $this->render('AcmeAccountBundle:Account:register.html.twig', array('form' => $form->createView()));
+            return $this->render(
+                'AcmeAccountBundle:Account:register.html.twig',
+                array('form' => $form->createView())
+            );
         }
     }
 
@@ -264,7 +275,10 @@ validazione e salva i dati nella base dati::
             return $this->redirect(...);
         }
 
-        return $this->render('AcmeAccountBundle:Account:register.html.twig', array('form' => $form->createView()));
+        return $this->render(
+            'AcmeAccountBundle:Account:register.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
 Ecco fatto! Il form ora valida e consente di salvare l'oggetto ``User``

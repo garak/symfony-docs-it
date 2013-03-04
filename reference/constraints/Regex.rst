@@ -37,7 +37,7 @@ all'inizio della stringa:
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-
+        
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -46,6 +46,35 @@ all'inizio della stringa:
              * @Assert\Regex("/^\w+/")
              */
             protected $description;
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <property name="description">
+                <constraint name="Regex">
+                    <option name="pattern">/^\w+/</option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+        
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('description', new Assert\Regex(array(
+                    'pattern' => '/^\w+/',
+                )));
+            }
         }
 
 In alternativa, si può impostare l'opzione `match`_ a ``false``, per asserire che
@@ -70,7 +99,7 @@ personalizzato:
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-
+        
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -85,6 +114,39 @@ personalizzato:
             protected $firstName;
         }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <property name="firstName">
+                <constraint name="Regex">
+                    <option name="pattern">/\d/</option>
+                    <option name="match">false</option>
+                    <option name="message">Il nome non può contenere numeri</option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('firstName', new Assert\Regex(array(
+                    'pattern' => '/\d/',
+                    'match'   => false,
+                    'message' => 'Il nome non può contenere numeri',
+                )));
+            }
+        }
+
 Opzioni
 -------
 
@@ -94,10 +156,10 @@ pattern
 **tipo**: ``stringa`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è l'espressione regolare a cui il valore inserito deve
-corrispondere. Per impostazione predefinita, il validatore fallisce se la stringa
-inserita *non* corrisponde a questa espressione regolare (tramite la funzione `preg_match`_
-di PHP). Se tuttavia `match`_ è ``false``, la validazione fallisce se la stringa inserita
-corrisponde a questo schema.
+corrispondere. Per impostazione predefinita, il validatore fallisce se la stringa inserita
+*non* corrisponde a questa espressione regolare (tramite la funzione :phpfunction:`preg_match` di PHP).
+Se tuttavia `match`_ è ``false``, la validazione fallisce se la stringa inserita
+*corrisponde* a questo schema.
 
 match
 ~~~~~
@@ -115,5 +177,3 @@ message
 **tipo**: ``stringa`` **predefinito**: ``This value is not valid``
 
 Messaggio mostrato se il validatore fallisce.
-
-.. _`preg_match`: http://php.net/manual/en/function.preg-match.php

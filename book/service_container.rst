@@ -69,11 +69,10 @@ Cos'è un contenitore di servizi?
 
 Un :term:`contenitore di servizi` (o *contenitore di dependency injection*) è semplicemente
 un oggetto PHP che gestisce l'istanza di servizi (cioè gli oggetti).
+
 Per esempio, supponiamo di avere una semplice classe PHP che spedisce messaggi email.
 Senza un contenitore di servizi, bisogna creare manualmente l'oggetto ogni volta che
-se ne ha bisogno:
-
-.. code-block:: php
+se ne ha bisogno::
 
     use Acme\HelloBundle\Mailer;
 
@@ -165,7 +164,8 @@ molti servizi. I servizi che non vengono mai utilizzati non sono mai costruite.
 Come bonus aggiuntivo, il servizio ``Mailer`` è creato una sola volta e
 ogni volta che si chiede per il servizio viene restituita la stessa istanza. Questo è quasi sempre
 il comportamento di cui si ha bisogno (è più flessibile e potente), ma si imparerà
-più avanti come configurare un servizio che ha istanze multiple.
+come configurare un servizio che ha istanze multiple nella ricetta
+":doc:`/cookbook/service_container/scopes`".
 
 .. _book-service-container-parameters:
 
@@ -186,7 +186,7 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
 
         services:
             my_mailer:
-                class:        %my_mailer.class%
+                class:        "%my_mailer.class%"
                 arguments:    [%my_mailer.transport%]
 
     .. code-block:: xml
@@ -300,10 +300,10 @@ parametri che sono array.
         use Symfony\Component\DependencyInjection\Definition;
 
         $container->setParameter('my_mailer.gateways', array('mail1', 'mail2', 'mail3'));
-        $container->setParameter('my_multilang.language_fallback',
-                                 array('en' => array('en', 'fr'),
-                                       'fr' => array('fr', 'en'),
-                                ));
+        $container->setParameter('my_multilang.language_fallback', array(
+            'en' => array('en', 'fr'),
+            'fr' => array('fr', 'en'),
+        ));
 
 
 Importare altre risorse di configurazione del contenitore
@@ -324,10 +324,9 @@ essere importate da dentro questo file in un modo o nell'altro. Questo dà una a
 flessibilità sui servizi dell'applicazione.
 
 La configurazione esterna di servizi può essere importata in due modi differenti. Il primo,
-è quello che verrà utilizzato nelle applicazioni:
-la direttiva ``imports``. Nella sezione seguente, si introdurrà il
-secondo metodo, che è il metodo più flessibile e privilegiato per importare la configurazione
-di servizi in bundle di terze parti.
+e più comune, è la direttiva ``imports``. Nella sezione seguente, si introdurrà il
+secondo metodo, che è il metodo più flessibile e privilegiato per importare
+la configurazione di servizi in bundle di terze parti.
 
 .. index::
    single: Contenitore di servizi; imports
@@ -358,7 +357,7 @@ non esistono, crearle.
 
         services:
             my_mailer:
-                class:        %my_mailer.class%
+                class:        "%my_mailer.class%"
                 arguments:    [%my_mailer.transport%]
 
     .. code-block:: xml
@@ -489,6 +488,7 @@ invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundl
             'form'            => array(),
             'csrf-protection' => array(),
             'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
+
             // ...
         ));
 
@@ -566,10 +566,14 @@ qualcosa del genere::
 Senza utilizzare il contenitore di servizi, si può creare abbastanza facilmente
 un nuovo ``NewsletterManager`` dentro a un controllore::
 
+    use Acme\HelloBundle\Newsletter\NewsletterManager;
+
+    // ...
+
     public function sendNewsletterAction()
     {
         $mailer = $this->get('my_mailer');
-        $newsletter = new Acme\HelloBundle\Newsletter\NewsletterManager($mailer);
+        $newsletter = new NewsletterManager($mailer);
         // ...
     }
 
@@ -592,7 +596,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@my_mailer]
 
     .. code-block:: xml
@@ -604,7 +608,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -619,9 +623,12 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter(
+            'newsletter_manager.class',
+            'Acme\HelloBundle\Newsletter\NewsletterManager'
+        );
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
             array(new Reference('my_mailer'))
@@ -679,7 +686,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 calls:
                     - [ setMailer, [ @my_mailer ] ]
 
@@ -692,7 +699,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -709,13 +716,16 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter(
+            'newsletter_manager.class',
+            'Acme\HelloBundle\Newsletter\NewsletterManager'
+        );
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%'
         ))->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
+            new Reference('my_mailer'),
         ));
 
 .. note::
@@ -744,7 +754,7 @@ esiste e in caso contrario non farà nulla:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@?my_mailer]
 
     .. code-block:: xml
@@ -752,7 +762,7 @@ esiste e in caso contrario non farà nulla:
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer" ...>
               <!-- ... -->
             </service>
             <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -768,19 +778,25 @@ esiste e in caso contrario non farà nulla:
         use Symfony\Component\DependencyInjection\ContainerInterface;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
+        $container->setParameter(
+            'newsletter_manager.class',
+            'Acme\HelloBundle\Newsletter\NewsletterManager'
+        );
 
-        $container->setDefinition('my_mailer', ... );
+        $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
-            array(new Reference('my_mailer', ContainerInterface::IGNORE_ON_INVALID_REFERENCE))
+            array(
+                new Reference(
+                'my_mailer',
+                ContainerInterface::IGNORE_ON_INVALID_REFERENCE
+                )
+            )
         ));
 
 In YAML, la speciale sintassi ``@?`` dice al contenitore dei servizi che la dipendenza
 è opzionale. Naturalmente, ``NewsletterManager`` deve essere scritto per
-consentire una dipendenza opzionale:
-
-.. code-block:: php
+consentire una dipendenza opzionale::
 
         public function __construct(Mailer $mailer = null)
         {
@@ -843,7 +859,7 @@ La configurazione del contenitore dei servizi è semplice:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@mailer, @templating]
 
     .. code-block:: xml
@@ -877,8 +893,8 @@ nel framework.
 
 .. _book-service-container-tags:
 
-I tag (``tags``)
-~~~~~~~~~~~~~~~~
+I tag
+~~~~~
 
 Allo stesso modo con cui il post di un blog su web viene etichettato con cose
 tipo "Symfony" o "PHP", anche i servizi configurati nel contenitore possono 
@@ -922,6 +938,29 @@ parametri aggiuntivi (oltre al solo ``name`` del parametro).
 
 Per una lista completa dei tag disponibili in Symfony, dare un'occhiata
 a :doc:`/reference/dic_tags`.
+
+Debug dei servizi
+-----------------
+
+Si può sapere quali servizi sono registrati nel contenitore, usando la
+console. Per mostrare tutti i servizi e le relative classi, eseguire:
+
+.. code-block:: bash
+
+    $ php app/console container:debug
+
+Vengono mostrati solo i servizi pubblici, ma si possono vedere anche quelli privati:
+
+.. code-block:: bash
+
+    $ php app/console container:debug --show-private
+
+Si possono ottenere informazioni più dettagliate su un singolo servizio, specificando
+il suo id:
+
+.. code-block:: bash
+
+    $ php app/console container:debug my_mailer
 
 Saperne di più
 --------------

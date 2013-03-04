@@ -31,7 +31,7 @@ Il vincolo ``Collection`` consente di validare le diverse chiavi di un insieme i
 individuale. Si consideri il seguente esempio::
 
     namespace Acme\BlogBundle\Entity;
-    
+
     class Author
     {
         protected $profileData = array(
@@ -53,21 +53,25 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
 
     .. code-block:: yaml
 
-        properties:
-            profileData:
-                - Collection:
-                    fields:
-                        personal_email: Email
-                        short_bio:
-                            - NotBlank
-                            - MaxLength:
-                                limit:   100
-                                message: Your short bio is too long!
-                    allowMissingfields: true
+        # src/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                profileData:
+                    - Collection:
+                        fields:
+                            personal_email: Email
+                            short_bio:
+                                - NotBlank
+                                - Length:
+                                    max:   100
+                                    maxMessage: Your short bio is too long!
+                        allowMissingFields: true
 
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -78,13 +82,13 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
              *         "personal_email" = @Assert\Email,
              *         "short_bio" = {
              *             @Assert\NotBlank(),
-             *             @Assert\MaxLength(
-             *                 limit = 100,
-             *                 message = "Your bio is too long!"
+             *             @Assert\Length(
+             *                 max = 100,
+             *                 maxMessage = "Your bio is too long!"
              *             )
              *         }
              *     },
-             *     allowMissingfields = true
+             *     allowMissingFields = true
              * )
              */
              protected $profileData = array(
@@ -105,9 +109,9 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
                         </value>
                         <value key="short_bio">
                             <constraint name="NotBlank" />
-                            <constraint name="MaxLength">
-                                <option name="limit">100</option>
-                                <option name="message">Your bio is too long!</option>
+                            <constraint name="Length">
+                                <option name="max">100</option>
+                                <option name="maxMessage">Your bio is too long!</option>
                             </constraint>
                         </value>
                     </option>
@@ -119,10 +123,10 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\Collection;
-        use Symfony\Component\Validator\Constraints\Email;
-        use Symfony\Component\Validator\Constraints\MaxLength;
+        use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
@@ -130,10 +134,13 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('profileData', new Collection(array(
+                $metadata->addPropertyConstraint('profileData', new Assert\Collection(array(
                     'fields' => array(
-                        'personal_email' => new Email(),
-                        'lastName' => array(new NotBlank(), new MaxLength(100)),
+                        'personal_email' => new Assert\Email(),
+                        'lastName' => array(
+                            new Assert\NotBlank(),
+                            new Assert\Length(array("max" => 100)),
+                        ),
                     ),
                     'allowMissingFields' => true,
                 )));

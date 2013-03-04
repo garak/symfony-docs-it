@@ -32,7 +32,7 @@ Identità degli oggetti
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Il sistema ACL è interamente disaccoppiato dagli oggetti del dominio. Non devono nemmeno
-essere nello stesso database o nello stesso server. Per ottenere tale
+essere nella stessa base dati o nello stesso server. Per ottenere tale
 disaccoppiamento, nel sistema ACL gli oggetti sono rappresentati tramite oggetti identità
 di oggetti. Ogni volta che si vuole recuperare l'ACL per un oggetto
 del dominio, il sistema ACL creerà prima un oggetto identità a partire dall'oggetto del
@@ -47,10 +47,10 @@ Identità di sicurezza
 nell'applicazione. Ogni ruolo, o utente, ha la sua identità di sicurezza.
 
 
-Struttura delle tabelle del database
-------------------------------------
+Struttura delle tabelle della base dati 
+---------------------------------------
 
-L'implementazione predefinita usa cinque tabelle del database, elencate sotto. Le
+L'implementazione predefinita usa cinque tabelle della base dati, elencate sotto. Le
 tabelle sono ordinate dalla più piccola alla più grande, in una tipica applicazione:
 
 - *acl_security_identities*: questa tabella registra tutte le identità di sicurezza (SID)
@@ -107,12 +107,15 @@ Mappa predefinita dei permessi
 +------------------+----------------------------+-----------------------------+
 | EDIT             | Se è consentito modificare | EDIT, OPERATOR, MASTER      |
 |                  | l'oggetto del dominio      | o OWNER                     |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | CREATE           | Se è consentito creare     | CREATE, OPERATOR, MASTER    |
 |                  | l'oggetto del dominio      | o  OWNER                    |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | DELETE           | Se è consentito eliminare  | DELETE, OPERATOR, MASTER    |
 |                  | l'oggetto del dominio      | o  OWNER                    |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | UNDELETE         | Se è consentito            | UNDELETE, OPERATOR, MASTER  |
 |                  | ripristinare un precedente | o OWNER                     |
@@ -120,6 +123,7 @@ Mappa predefinita dei permessi
 +------------------+----------------------------+-----------------------------+
 | OPERATOR         | Se è consentito eseguire   | OPERATOR, MASTER o OWNER    |
 |                  | tutte le azioni precedenti |                             |
+|                  |                            |                             |
 +------------------+----------------------------+-----------------------------+
 | MASTER           | Se è consentito eseguire   | MASTER o OWNER              |
 |                  | tutte le azioni precedenti |                             |
@@ -135,19 +139,14 @@ Mappa predefinita dei permessi
 |                  | master e owner             |                             |
 +------------------+----------------------------+-----------------------------+
 
-
-
-
-
 Attributi dei permessi o maschere di bit dei permessi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Gli attributi sono usati da ``AccessDecisionManager``, così come i ruoli sono
-attributi usati da ``AccessDecisionManager``. Spesso, tali attributi
-rappresentano di f atto un aggregato di maschere di bit. Le maschere di bit, d'altro
+attributi usati da ``AccessDecisionManager``. Spesso, tali attributi rappresentano di
+fatto un aggregato di maschere di bit. Le maschere di bit, d'altro
 canto, sono usate internamente dal sistema ACL  per memorizzare in modo efficiente i
-permessi degli utenti sul database e verificare gli accessi, usando operazioni di bit
-molto veloci.
+permessi degli utenti sulla base dati e verificare gli accessi, usando operazioni di bit molto veloci.
 
 Estensibilità
 ~~~~~~~~~~~~~

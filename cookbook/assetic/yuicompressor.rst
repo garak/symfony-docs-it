@@ -89,8 +89,9 @@ livello della vista, questo lavoro dovrà essere svolto nei template:
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/*'),
-            array('yui_js')) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>"></script>
+            array('yui_js')
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
 .. note::
@@ -116,7 +117,8 @@ ripetuto per minimizzare i fogli di stile.
 
         <?php foreach ($view['assetic']->stylesheets(
             array('@AcmeFooBundle/Resources/public/css/*'),
-            array('yui_css')) as $url): ?>
+            array('yui_css')
+        ) as $url): ?>
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $view->escape($url) ?>" />
         <?php endforeach; ?>
 
@@ -141,7 +143,8 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/*'),
-            array('?yui_js')) as $url): ?>
+            array('?yui_js')
+        ) as $url): ?>
         <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
@@ -157,4 +160,4 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
 
 
 .. _`YUI Compressor`: http://developer.yahoo.com/yui/compressor/
-.. _`scaricare il file JAR`: http://yuilibrary.com/downloads/#yuicompressor
+.. _`scaricare il file JAR`: http://yuilibrary.com/projects/yuicompressor/

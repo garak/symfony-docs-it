@@ -115,7 +115,8 @@ parametro predefinito:
 
         $container->loadFromExtension('web_profiler', array(
             'toolbar' => true,
-            ...,
+
+            // ...
         ));
 
 .. index::
@@ -175,7 +176,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     in riga 8 del precedente front controller. Questo valore specifica se
     l'applicazione dovrà essere eseguità in "modalità debug" o meno. Indipendentemente
     dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
-    debug configurata a ``true`` o a ``false. Questo modifica diversi aspetti dell'applicazione, come
+    debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione, come
     il fatto che gli errori vengano mostrati o se la cache debba essere ricreata dinamicamente
     a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre
     configurata a ``true`` negli ambienti ``dev`` e ``test`` e a ``false`` per 
@@ -205,9 +206,10 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
             $container->loadFromExtension('doctrine', array(
                 'dbal' => array(
                     'logging'  => '%kernel.debug%',
-                    ...,
+
+                    // ...
                 ),
-                ...
+                // ...
             ));
 
 .. index::
@@ -338,8 +340,13 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 
 * ``twig/`` - questa cartella contiene la cache dei template di Twig.
 
+.. note::
+
+    Si possono cambiare facilmente posizione e nome della cartella. Per maggiori informazioni,
+    si legga la ricetta :doc:`/cookbook/configuration/override_dir_structure`.
+
 
 Approfondimenti
 ---------------
 
-Si legga l'articolo :doc:`/cookbook/configuration/external_parameters`.
+Si legga la ricetta :doc:`/cookbook/configuration/external_parameters`.

@@ -36,7 +36,8 @@ Esempio di utilizzo
     $builder->add('password', 'repeated', array(
         'type' => 'password',
         'invalid_message' => 'Le password devono combaciare.',
-        'options' => array('label' => 'Password'),
+        'options' => array('attr' => array('class' => 'password-field')),
+        'required' => true,
         'first_options'  => array('label' => 'Password'),
         'second_options' => array('label' => 'Ripetere Password'),
     ));
@@ -51,15 +52,51 @@ determina il tipo effettivo dei due campi. L'opzione ``options`` è passata a ci
 dei due campi, il che vuol dire, in questo esempio, che è supportata qualsiasi opzione
 supportata dal tipo ``password``.
 
+Resa
+~~~~
+
+Il tipo di campo ``repeated`` consiste in realtà di due campi, che possono essere
+resi in una volta sola o singolarmente. Per renderli in una volta sola, usare qualcosa
+come:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ form_row(form.password) }}
+
+    .. code-block:: php
+
+        <?php echo $view['form']->row($form['password']) ?>
+
+Per rendere ogni campo singolarmente, usare qualcosa come:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ form_row(form.password.first) }}
+        {{ form_row(form.password.second) }}
+
+    .. code-block:: php
+
+        <?php echo $view['form']->row($form['password']['first']) ?>
+        <?php echo $view['form']->row($form['password']['second']) ?>
+
+.. note::
+
+    I nomi predefiniti dei sotto-campi sono ``first`` e ``second``, ma possono
+    essere modificati tramite le opzioni `first_name`_ e `second_name`_.
+
 Validazione
 ~~~~~~~~~~~
 
 Una delle caratteristiche fondamentali del campo ``repeated`` è la validazione interna
 (non occorre fare nulla per impostarla), che forza i due campi ad avere valori
-combacianti. Se i due campi non combaciani, sarà mostrato un errore
+combacianti. Se i due campi non combaciano, sarà mostrato un errore
 all'utente.
 
-si può usare l'opzione ``invalid_message`` per personalizzare l'errore che sarà
+Si può usare l'opzione ``invalid_message`` per personalizzare l'errore che sarà
 mostrato quando i due campi non combaciano.
 
 Opzioni del campo

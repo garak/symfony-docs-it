@@ -72,7 +72,10 @@ parametri dell'evento::
 
     use Symfony\Component\EventDispatcher\GenericEvent;
 
-    $event = new GenericEvent($subject, array('type' => 'pippo', 'counter' => 0)));
+    $event = new GenericEvent(
+        $subject,
+        array('type' => 'pippo', 'counter' => 0))
+    );
     $dispatcher->dispatch('pippo', $event);
 
     echo $event['counter'];

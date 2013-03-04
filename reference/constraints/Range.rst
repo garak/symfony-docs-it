@@ -43,6 +43,8 @@ quanto segue:
     .. code-block:: php-annotations
 
         // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Participant
@@ -58,7 +60,42 @@ quanto segue:
              protected $height;
         }
 
-Options
+    .. code-block:: xml
+
+        <!-- src/Acme/EventBundle/Resources/config/validation.xml -->
+        <class name="Acme\EventBundle\Entity\Participant">
+            <property name="height">
+                <constraint name="Range">
+                    <option name="min">120</option>
+                    <option name="max">180</option>
+                    <option name="minMessage">Devi essere alto almeno 120cm per entrare</option>
+                    <option name="maxMessage">Non puoi essere più alto di 180cm per entrare</option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Participant
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('height', new Assert\Range(array(
+                    'min'        => 120,
+                    'max'        => 180,
+                    'minMessage' => 'Devi essere alto almeno 120cm per entrare',
+                    'maxMessage' => 'Non puoi essere più alto di 180cm per entrare',
+                )));
+            }
+        }
+
+Opzioni
 -------
 
 min

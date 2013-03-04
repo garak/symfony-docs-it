@@ -1,8 +1,8 @@
 .. index::
    single: Form; Eventi
 
-Come generare dinamicamente form usando gli eventi form
-=======================================================
+Come modificare dinamicamente form usando gli eventi
+====================================================
 
 Prima di addentrarci nella generazione dinamica dei form, diamo un'occhiata veloce 
 alla classe dei form::
@@ -12,7 +12,7 @@ alla classe dei form::
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
-    
+
     class ProductType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
@@ -35,8 +35,8 @@ alla classe dei form::
 
 Si assuma per un momento che questo form utilizzi una classe immaginaria "prodotto"
 questa ha solo due attributi rilevanti ("nome" e "prezzo"). Il form generato 
-da questa classe avrà lo stesso aspetto, indipendentemente se un nuovo prodotto sta per essere creato
-oppure se un prodotto esistente sta per essere modificato (es. un prodotto ottenuto da database).
+da questa classe avrà lo stesso aspetto, indipendentemente se sta per essere creato un nuovo prodotto
+oppure se sta per essere modificato un prodotto esistente (cioè un prodotto ottenuto da base dati).
 
 Si supponga ora, di non voler abilitare l'utente alla modifica del campo 'nome' 
 una volta che l'oggetto è stato creato. Lo si può fare grazie al componente :doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
@@ -56,7 +56,7 @@ a un evento sottoscrittore::
     // src/Acme/DemoBundle/Form/Type/ProductType.php
     namespace Acme\DemoBundle\Form\Type;
 
-    use Symfony\Component\Form\AbstractType
+    use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
     use Acme\DemoBundle\Form\EventListener\AddNameFieldSubscriber;
 
@@ -85,26 +85,26 @@ Dentro la classe dell'evento sottoscrittore
 -------------------------------------------
 
 L'obiettivo è di creare un campo "nome" *solo* se l'oggetto Prodotto sottostante
-è nuovo (es. non è stato persistito nel database). Basandosi su questo, l'sottoscrittore
+è nuovo (cioè non è stato persistito nella base dati). Basandosi su questo, l'sottoscrittore
 potrebbe essere simile a questo::
 
     // src/Acme/DemoBundle/Form/EventListener/AddNameFieldSubscriber.php
     namespace Acme\DemoBundle\Form\EventListener;
 
-    use Symfony\Component\Form\Event\DataEvent;
+    use Symfony\Component\Form\FormEvent;
+    use Symfony\Component\Form\FormEvents;
     use Symfony\Component\Form\FormFactoryInterface;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-    use Symfony\Component\Form\FormEvents;
 
     class AddNameFieldSubscriber implements EventSubscriberInterface
     {
         private $factory;
-        
+
         public function __construct(FormFactoryInterface $factory)
         {
             $this->factory = $factory;
         }
-        
+
         public static function getSubscribedEvents()
         {
             // Indica al dispacher che si vuole ascoltare l'evento form.pre_set_data
@@ -116,7 +116,7 @@ potrebbe essere simile a questo::
         {
             $data = $event->getData();
             $form = $event->getForm();
-            
+
             // Dutante la creazione del form, setData è chiamata con parametri null
             // dal costruttore di FormBuilder. Si è interessati a quando 
             // setData è invocato con l'oggetto Entity attuale (se è nuovo,
@@ -145,20 +145,16 @@ La riga ``FormEvents::PRE_SET_DATA`` viene attualmente risolta nella stringa ``f
 La `classe FormEvents`_ ha uno scopo organizzativo. Ha una posizione centralizzata
 in quello che si può trovare tra i diversi eventi dei form disponibili.
 
-Anche se in questo esempio si potrebbe utilizzare l'evento ``form.set_data`` o anche l'evento ``form.post_set_data``,
+Anche se in questo esempio si potrebbe utilizzare l'evento ``form.post_set_data``,
 utilizzando ``form.pre_set_data`` si garantisce che 
 i dati saranno ottenuti dall'oggetto ``Event`` che non è stato modificato
-da nessun altro sottoscrittore o ascoltatore. Questo perché ``form.pre_set_data`` 
-passa all'oggetto `DataEvent`_ invece dell'oggetto `FilterDataEvent`_ passato dall'evento
-``form.set_data``. `DataEvent`_, a differenza del suo figlio `FilterDataEvent`_, 
-non ha il metodo setData().
+da nessun altro sottoscrittore o ascoltatore, perché ``form.pre_set_data`` è
+il primo evento distribuito.
 
 .. note::
 
     È possibile consultare la lista completa degli eventi del form tramite la `classe FormEvents`_, 
     nel bundle dei form.
 
-.. _`DataEvent`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Event/DataEvent.php
 .. _`classe FormEvents`: https://github.com/symfony/Form/blob/master/FormEvents.php
 .. _`classe Form`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Form.php
-.. _`FilterDataEvent`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Event/FilterDataEvent.php

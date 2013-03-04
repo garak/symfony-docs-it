@@ -1,5 +1,6 @@
 .. index::
     single: Console; CLI
+    single: Componenti; Console
     
 Il componente Console
 =====================
@@ -17,8 +18,16 @@ Installazione
 Il componente può essere installato in diversi modi:
 
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
-* Installandolo via PEAR (`pear.symfony.com/Console`);
-* Installandolo via Composer (`symfony/console` in Packagist).
+* Installandolo :doc:`via Composer</components/using_components>` (``symfony/console`` in `Packagist`_).
+
+.. note::
+
+    Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
+    disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
+    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
+    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
+
+    Per abilitare il supporto ai colori ANSI su Windows, si può installare `ANSICON`_.
 
 Creazione di comandi di base
 ----------------------------
@@ -41,8 +50,17 @@ contenente il seguente codice::
             $this
                 ->setName('demo:saluta')
                 ->setDescription('Saluta qualcuno')
-                ->addArgument('nome', InputArgument::OPTIONAL, 'Chi vuoi salutare?')
-                ->addOption('urla', null, InputOption::VALUE_NONE, 'Se impostato, il saluto verrà urlato con caratteri maiuscoli')
+                ->addArgument(
+                    'nome',
+                    InputArgument::OPTIONAL,
+                    'Chi vuoi salutare?'
+                )
+                ->addOption(
+                   'urla',
+                   null,
+                   InputOption::VALUE_NONE,
+                   'Se impostato, il saluto verrà urlato con caratteri maiuscoli'
+                )
             ;
         }
 
@@ -99,6 +117,8 @@ Il cui risultato sarà::
 
     CIAO FABIEN
 
+.. _components-console-coloring:
+
 Colorare l'output
 ~~~~~~~~~~~~~~~~~
 
@@ -129,6 +149,18 @@ I colori di sfondo e di testo disponibili sono: ``black``, ``red``, ``green``,
 
 Le opzioni disponibili sono: ``bold``, ``underscore``, ``blink``, ``reverse`` e ``conceal``.
 
+Si possono anche impostare colori e opzioni dentro il tag::
+
+    // testo verde
+    $output->writeln('<fg=green>pippo</fg=green>');
+
+    // testo nero su sfondo ciano
+    $output->writeln('<fg=black;bg=cyan>pippo</fg=black;bg=cyan>');
+
+    // testo grassetto su sfondo giallo
+    $output->writeln('<bg=yellow;options=bold>pippo</bg=yellow;options=bold>');
+
+
 Utilizzo degli argomenti nei comandi
 ------------------------------------
 
@@ -140,9 +172,16 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
 
     $this
         // ...
-        ->addArgument('nome', InputArgument::REQUIRED, 'Chi vuoi salutare?')
-        ->addArgument('cognome', InputArgument::OPTIONAL, 'Il tuo cognome?')
-        // ...
+        ->addArgument(
+            'nome',
+            InputArgument::REQUIRED,
+            'Chi vuoi salutare?'
+        )
+        ->addArgument(
+            'cognome',
+            InputArgument::OPTIONAL,
+            'Il tuo cognome?'
+        )
 
 A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
 
@@ -154,8 +193,8 @@ Il comando potrà essere utilizzato in uno qualsiasi dei seguenti modi:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien
-    app/console demo:saluta Fabien Potencier
+    $ app/console demo:saluta Fabien
+    $ app/console demo:saluta Fabien Potencier
 
 Utilizzo delle opzioni nei comandi
 ----------------------------------
@@ -178,7 +217,13 @@ saluto sarà stampato, si può aggiungere la seguente opzione::
 
     $this
         // ...
-        ->addOption('ripetizioni', null, InputOption::VALUE_REQUIRED, 'Quante volte dovrà essere stampato il messaggio?', 1)
+        ->addOption(
+            'ripetizioni',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Quante volte dovrà essere stampato il messaggio?',
+            1
+        );
 
 Ora è possibile usare l'opzione per stampare più volte il messaggio:
 
@@ -193,9 +238,8 @@ l'impostazione ``--ripetizioni``:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien
-
-    app/console demo:saluta Fabien --ripetizioni=5
+    $ app/console demo:saluta Fabien
+    $ app/console demo:saluta Fabien --ripetizioni=5
 
 Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
 il suo valore predefinito è ``1`` (l'ultimo argomento di ``addOption``). Nel secondo esempio, il
@@ -206,19 +250,19 @@ seguenti esempi funzioneranno correttamente:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien --ripetizioni=5 --urla
-    app/console demo:saluta Fabien --urla --ripetizioni=5
+    $ app/console demo:saluta Fabien --ripetizioni=5 --urla
+    $ app/console demo:saluta Fabien --urla --ripetizioni=5
 
 Ci sono 4 possibili varianti per le opzioni:
 
-===========================  ==================================================================
+===========================  =============================================================================================
 Opzione                      Valore
-===========================  ==================================================================
-InputOption::VALUE_IS_ARRAY  Questa opzione accetta valori multipli
+===========================  =============================================================================================
+InputOption::VALUE_IS_ARRAY  Questa opzione accetta valori multipli (p.e. ``--dir=/pippo --dir=/pluto``)
 InputOption::VALUE_NONE      Non accettare alcun valore per questa opzione (come in ``--urla``)
-InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5``)
-InputOption::VALUE_OPTIONAL  Il valore è opzionale
-===========================  ==================================================================
+InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5``), ò'opzione stessa è comunque facoltativa
+InputOption::VALUE_OPTIONAL  L'opzione può avere un valore o meno (p.e. ``urla`` o ``urla=forte``)
+===========================  =============================================================================================
 
 È possibile combinare VALUE_IS_ARRAY con VALUE_REQUIRED o con VALUE_OPTIONAL nel seguente modo:
 
@@ -226,31 +270,22 @@ InputOption::VALUE_OPTIONAL  Il valore è opzionale
 
     $this
         // ...
-        ->addOption('ripetizioni', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Quante volte dovrà essere stampato il messaggio?', 1)
-        
-Richiedere informazioni all'utente
-----------------------------------
+        ->addOption(
+            'ripetizioni',
+            null,
+            InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+            'Quante volte dovrà essere stampato il messaggio?',
+            1
+        );
 
-Nel creare comandi è possibile richiedere ulteriori informazioni dagli utenti 
-rivolgendo loro domande. Ad esempio, si potrbbe richiedere la conferma 
-prima di effettuare realmente una determinata azione. In questo caso si dovrà aggiungere 
-il seguente codice al comando::
+Helper di console
+-----------------
 
-    $dialogo = $this->getHelperSet()->get('dialog');
-    if (!$dialogo->askConfirmation($output, '<question>Vuoi proseguire con questa azione?</question>', false)) {
-        return;
-    }
+Il componente Console contiene anche una serie di "helper", vari piccoli strumenti
+in gradi di aiutare con diversi compiti:
 
-In questo modo, all'utente verrà chiesto se vuole "proseguire con questa azione" e, a meno che 
-la risposta non sia ``y``, l'azione non verrà eseguita. Il terzo argomento di 
-``askConfirmation`` è il valore predefinito da restituire nel caso in cui l'utente non 
-fornisca alcun input.
-
-È possibile rivolgere domande che prevedano risposte più complesse di un semplice si/no. Ad esempio, 
-se volessimo conoscere il nome di qualcosa, potremmo fare nel seguente modo::
-
-    $dialogo = $this->getHelperSet()->get('dialog');
-    $nome = $dialogo->ask($output, 'Insersci il nome del widget', 'pippo');
+* :doc:`/components/console/helpers/dialoghelper`: interactively ask the user for information
+* :doc:`/components/console/helpers/formatterhelper`: customize the output colorization
 
 Testare i comandi
 -----------------
@@ -262,6 +297,7 @@ test senza una reale interazione da terminale::
 
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
+    use Acme\DemoBundle\Command\SalutaCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
@@ -288,14 +324,13 @@ Si può testare l'invio di argomenti e opzioni al comando, passandoli come
 array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay`::
 
-    use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Component\Console\Application;
+    use Symfony\Component\Console\Tester\CommandTester;
     use Acme\DemoBundle\Command\GreetCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
-
-        //--
+        // ...
 
         public function testNameIsOutput()
         {
@@ -365,3 +400,12 @@ intero negli altri altri casi).
     restituire informazioni all'utente. Perciò, invece di eseguire un comando
     dal Web, sarebbe meglio provare a rifattorizzare il codice e spostare la logica
     all'interno di una nuova classe.
+
+Sapene di più
+-------------
+
+* :doc:`/components/console/usage`
+* :doc:`/components/console/single_command_tool`
+
+.. _Packagist: https://packagist.org/packages/symfony/console
+.. _ANSICON: http://adoxa.3eeweb.com/ansicon/

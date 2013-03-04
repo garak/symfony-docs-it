@@ -131,3 +131,9 @@ Si possono anche sostituire le chiamate a metodi esistenti con un array di nuove
 
     $definition->setMethodCalls($chiamate);
 
+.. tip::
+
+    Ci sono ulteriori esempi di modi specifici di lavorare con le definizioni
+    nei blocchi di codice PHP degli esempi di configurazione nelle pagine come
+    :doc:`/components/dependency_injection/factories` e
+    :doc:`/components/dependency_injection/parentservices`.

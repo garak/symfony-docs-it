@@ -1,5 +1,5 @@
 .. index::
-   single: Session; Database Storage
+   single: Sessione; Memorizzazione su base dati
 
 Usare PdoSessionStorage per salvare le sessioni nella base dati
 ===============================================================
@@ -34,17 +34,17 @@ proprio formato di configurazione):
         parameters:
             pdo.db_options:
                 db_table:    sessione
-                db_id_col:   sessione_id
-                db_data_col: sessione_value
-                db_time_col: sessione_time
+                db_id_col:   id_sessione
+                db_data_col: valore_sessione
+                db_time_col: tempo_sessione
 
         services:
             pdo:
                 class: PDO
                 arguments:
-                    dsn:      "mysql:dbname=db_sessione"
-                    user:     utente_db
-                    password: password_db
+                    dsn:      "mysql:dbname=basedati"
+                    user:     utente
+                    password: password
 
             session.handler.pdo:
                 class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
@@ -60,17 +60,17 @@ proprio formato di configurazione):
         <parameters>
             <parameter key="pdo.db_options" type="collection">
                 <parameter key="db_table">sessione</parameter>
-                <parameter key="db_id_col">sessione_id</parameter>
-                <parameter key="db_data_col">sessione_value</parameter>
-                <parameter key="db_time_col">sessione_time</parameter>
+                <parameter key="db_id_col">id_sessione</parameter>
+                <parameter key="db_data_col">valore_sessione</parameter>
+                <parameter key="db_time_col">tempo_sessione</parameter>
             </parameter>
         </parameters>
 
         <services>
             <service id="pdo" class="PDO">
-                <argument>mysql:dbname=db_sessione</argument>
-                <argument>utente_db</argument>
-                <argument>password_db</argument>
+                <argument>mysql:dbname=basedati</argument>
+                <argument>utente</argument>
+                <argument>password</argument>
             </service>
 
             <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
@@ -95,15 +95,15 @@ proprio formato di configurazione):
 
         $container->setParameter('pdo.db_options', array(
             'db_table'      => 'sessione',
-            'db_id_col'     => 'sessione_id',
-            'db_data_col'   => 'sessione_value',
-            'db_time_col'   => 'sessione_time',
+            'db_id_col'     => 'id_sessione',
+            'db_data_col'   => 'valore_sessione',
+            'db_time_col'   => 'tempo_sessione',
         ));
 
         $pdoDefinition = new Definition('PDO', array(
-            'mysql:dbname=mydatabase',
-            'myuser',
-            'mypassword',
+            'mysql:dbname=basedati',
+            'utente',
+            'password',
         ));
         $container->setDefinition('pdo', $pdoDefinition);
 
@@ -136,14 +136,14 @@ connessione di parameter.ini, richiamandone la configurazione della base dati:
         pdo:
             class: PDO
             arguments:
-                - "mysql:dbname=%database_name%"
+                - "mysql:host=%database_host%;port=%database_port%;dbname=%database_name%"
                 - %database_user%
                 - %database_password%
 
     .. code-block:: xml
 
         <service id="pdo" class="PDO">
-            <argument>mysql:dbname=%database_name%</argument>
+            <argument>mysql:host=%database_host%;port=%database_port%;dbname=%database_name%</argument>
             <argument>%database_user%</argument>
             <argument>%database_password%</argument>
         </service>
@@ -151,7 +151,7 @@ connessione di parameter.ini, richiamandone la configurazione della base dati:
     .. code-block:: php
 
         $pdoDefinition = new Definition('PDO', array(
-            'mysql:dbname=%database_name%',
+            'mysql:host=%database_host%;port=%database_port%;dbname=%database_name%',
             '%database_user%',
             '%database_password%',
         ));
@@ -168,9 +168,9 @@ simile alla seguente (MySQL):
 .. code-block:: sql
 
     CREATE TABLE `sessione` (
-        `sessione_id` varchar(255) NOT NULL,
-        `sessione_value` text NOT NULL,
-        `sessione_time` int(11) NOT NULL,
+        `id_sessione` varchar(255) NOT NULL,
+        `valore_sessione` text NOT NULL,
+        `tempo_sessione` int(11) NOT NULL,
         PRIMARY KEY (`session_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -182,8 +182,30 @@ Per PostgreSQL, la dichiarazione sarà simile alla seguente:
 .. code-block:: sql
 
     CREATE TABLE sessione (
-        sessione_id character varying(255) NOT NULL,
-        sessione_value text NOT NULL,
-        sessione_time integer NOT NULL,
+        id_sessione character varying(255) NOT NULL,
+        valore_sessione text NOT NULL,
+        tempo_sessione integer NOT NULL,
         CONSTRAINT session_pkey PRIMARY KEY (session_id),
     );
+
+Microsoft SQL Server
+~~~~~~~~~~~~~~~~~~~~
+
+Per MSSQL, l'istruzione potrebbe essere come la seguente:
+
+.. code-block:: sql
+
+    CREATE TABLE [dbo].[sessione](
+	    [id_sessione] [nvarchar](255) NOT NULL,
+	    [valore_sessione] [ntext] NOT NULL,
+        [tempo_sessione] [int] NOT NULL,
+		PRIMARY KEY CLUSTERED(
+			[session_id] ASC
+		) WITH (
+		    PAD_INDEX  = OFF,
+		    STATISTICS_NORECOMPUTE  = OFF,
+		    IGNORE_DUP_KEY = OFF,
+		    ALLOW_ROW_LOCKS  = ON,
+		    ALLOW_PAGE_LOCKS  = ON
+		) ON [PRIMARY]
+    ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

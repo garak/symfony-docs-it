@@ -13,18 +13,19 @@ questo Task, all'interno dello stesso form.
 
     Con questa ricetta, si assume di utilizzare Doctrine come
     ORM. Se non si utilizza Doctrine (es. Propel o semplicemente
-    una connessione a database), il tutto è pressapoco simile. Ci sono solo alcune parti
+    una connessione a base dati), il tutto è pressapoco simile. Ci sono solo alcune parti
     di questa guida che si occupano effettivamente di "persistenza".
-    
+
     Se si utilizza Doctrine, si avrà la necessità di aggiungere meta-dati Doctrine,
-    includendo una relazione ``ManyToMany`` sulla colonna ``tags`` di Task.
+    includendo una la definizione della mappature della relazione ``ManyToMany`` sulla
+    proprietà ``tags`` di Task.
 
 Iniziamo: supponiamo che ogni ``Task`` appartiene a più oggetti ``Tags``.
 Si crei una semplice classe ``Task``::
 
     // src/Acme/TaskBundle/Entity/Task.php
     namespace Acme\TaskBundle\Entity;
-    
+
     use Doctrine\Common\Collections\ArrayCollection;
 
     class Task
@@ -37,7 +38,7 @@ Si crei una semplice classe ``Task``::
         {
             $this->tags = new ArrayCollection();
         }
-        
+
         public function getDescription()
         {
             return $this->description;
@@ -151,39 +152,39 @@ Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
 
     // src/Acme/TaskBundle/Controller/TaskController.php
     namespace Acme\TaskBundle\Controller;
-    
+
     use Acme\TaskBundle\Entity\Task;
     use Acme\TaskBundle\Entity\Tag;
     use Acme\TaskBundle\Form\Type\TaskType;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-    
+
     class TaskController extends Controller
     {
         public function newAction(Request $request)
         {
             $task = new Task();
-            
+
             // codice fittizio: è qui solo perché il Task ha alcuni tag
             // altrimenti, questo non è un esempio interessante
             $tag1 = new Tag()
             $tag1->name = 'tag1';
             $task->getTags()->add($tag1);
-            $tag2 = new Tag()
+            $tag2 = new Tag();
             $tag2->name = 'tag2';
             $task->getTags()->add($tag2);
             // fine del codice fittizio
-            
+
             $form = $this->createForm(new TaskType(), $task);
-            
+
             // processare il form, in una richiesta POST
-            if ('POST' === $request->getMethod()) {
-                $form->bindRequest($request);
+            if ($request->isMethod('POST')) {
+                $form->bind($request);
                 if ($form->isValid()) {
                     // fare qualcosa con il form,  come salvare oggetti Tag e Task
                 }
             }
-            
+
             return $this->render('AcmeTaskBundle:Task:new.html.twig', array(
                 'form' => $form->createView(),
             ));
@@ -236,7 +237,7 @@ ha tag, appena viene creato).
 
             <?php echo $view['form']->rest($form) ?>
         </form>
-        
+
         <!-- ... -->
 
 Quando l'utente invia il form, i dati inviati per i campi di ``Tags``
@@ -313,14 +314,14 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
 .. configuration-block::
 
     .. code-block:: html+jinja
-    
-        <ul class="tags" data-prototype="{{ form_widget(form.tags.get('prototype')) | e }}">
+
+        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
             ...
         </ul>
-    
+
     .. code-block:: html+php
-    
-        <ul class="tags" data-prototype="<?php echo $view->escape($view['form']->row($form['tags']->get('prototype'))) ?>">
+
+        <ul class="tags" data-prototype="<?php echo $view->escape($view['form']->row($form['tags']->vars['prototype'])) ?>">
             ...
         </ul>
 
@@ -337,10 +338,10 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
     Questo vuol dire che si può richiamare su di esso ``form_widget``, ``form_row`` o
     ``form_label``. Si può anche scegliere di rendere solo uno dei suoi campi (p.e. il
     campo ``name``):
-    
+
     .. code-block:: html+jinja
     
-        {{ form_widget(form.tags.get('prototype').name) | e }}
+        {{ form_widget(form.tags.vars.prototype.name)|e }}
 
 Nella pagina resa, il risultato assomiglierà a questo:
 
@@ -372,12 +373,16 @@ collegare l'evento "click" a tale collegamento, in modo da poter aggiungere un n
         // aggiunge l'ancora "aggiungere un tag" e il li all'ul dei tag
         collectionHolder.append($newLinkLi);
 
+        // contare gli input correnti (p.e. 2), usare il valore come nuovo
+        // indice da usare per inserire un nuovo elemento (p.e. 2)
+        collectionHolder.data('index', collectionHolder.find(':input').length);
+
         $addTagLink.on('click', function(e) {
             // previene il "#" nell'URL
             e.preventDefault();
 
             // aggiunge un nuovo form tag (vedere il prossimo blocco di codice)
-            addTagForm();
+            addTagForm(collectionHolder, $newLinkLi);
         });
     });
 
@@ -399,9 +404,15 @@ un esempio:
         // Prendere data-prototype, come spiegato in precedenze
         var prototype = collectionHolder.attr('data-prototype');
 
-        // Sostituire '$$name$$' nel prototipo, per essere invece un
-        // numero, basato sulla lunghezza attuale dell'elenco.
-        var newForm = prototype.replace(/\$\$name\$\$/g, collectionHolder.children().length);
+        // contare gli input nel form (p.e. 2), usarlo come nuovo indice (p.e. 2)
+        var newIndex = collectionHolder.find(':input').length;
+
+        // Sostituire '__name__' nell'HTML del prototipo per essere
+        // invece un numero basato su quanti elementi ci sono
+        var newForm = prototype.replace(/__name__/g, newIndex);
+
+        // incrementare l'indice di 1 per l'elemento successivo
+        collectionHolder.data('index', index + 1);
 
         // Mostrare il form nella pagina, dentro un li, prima del collegamento "Aggiungere un tag"
         var $newFormLi = $('<li></li>').append(newForm);
@@ -423,15 +434,16 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
     Primo, a meno di non iterare tutti i nuovi oggetti ``Tag`` e richiamare
     ``$em->persist($tag)`` su ciascuno, si riceverà un errore da
     Doctrine:
-    
-        A new entity was found through the relationship 'Acme\TaskBundle\Entity\Task#tags' that was not configured to cascade persist operations for entity...
-    
+
+        A new entity was found through the relationship `Acme\TaskBundle\Entity\Task#tags`
+        that was not configured to cascade persist operations for entity...
+
     Per risolverlo, si può scegliere una "cascata" per persistere automaticamente l'operazione
     dall'oggetto  ``Task`` a ogni tag correlato. Per farlo, aggiungere l'opzione ``cascade``
     ai meta-dati ``ManyToMany``:
-    
+
     .. configuration-block::
-    
+
         .. code-block:: php-annotations
 
             // src/Acme/TaskBundle/Entity/Task.php
@@ -465,7 +477,7 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
     Un modo facile per farlo è aggiungere un po' di logica a ``setTags()``,
     che è richiamato dal framework dei form, poiché :ref:`by_reference<reference-form-types-by-reference>`
     è impostato a ``false``::
-    
+
         // src/Acme/TaskBundle/Entity/Task.php
 
         // ...
@@ -491,7 +503,7 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
                 $this->tasks->add($task);
             }
         }
-    
+
     In caso di relazione ``OneToMany``, il trucco è simile, tranne che si
     può semplicemente richiamare ``setTask`` da dentro ``setTags``.
 
@@ -509,7 +521,7 @@ Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::
 
     // ...
     use Symfony\Component\Form\FormBuilderInterface;
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('description');
@@ -538,13 +550,13 @@ Primo, aggiungere un collegamento "eliminare questo tag" a ogni form tag:
         collectionHolder.find('li').each(function() {
             addTagFormDeleteLink($(this));
         });
-    
+
         // ... il resto del blocco visto in precedenza
     });
-    
+
     function addTagForm() {
         // ...
-        
+
         // aggiunge un collegamento di eliminazione al nuovo form
         addTagFormDeleteLink($newFormLi);
     }
@@ -585,7 +597,7 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     Se invece si ha una relazione ``OneToMany``, o una ``ManyToMany`` con un
     ``mappedBy`` sull'entità Task (e quindi Task è il lato inverso),
     servirà del lavoro supplementare per persistere correttamente i tag rimossi.
-    
+
     In questo caso, si può modificare il controllore per eliminare la relazione con il
     tag rimosso. Si ipotizza che si abbia un'azione ``editAction``, che gestisce
     l'aggiornamento del Task::
@@ -598,7 +610,7 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
         {
             $em = $this->getDoctrine()->getManager();
             $task = $em->getRepository('AcmeTaskBundle:Task')->find($id);
-    
+
             if (!$task) {
                 throw $this->createNotFoundException('No task found for is '.$id);
             }
@@ -606,15 +618,17 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
             $originalTags = array();
 
             // Crea un array degli oggetti Tag attualmente nella base dati
-            foreach ($task->getTags() as $tag) $originalTags[] = $tag;
-          
+            foreach ($task->getTags() as $tag) {
+                $originalTags[] = $tag;
+            }
+
             $editForm = $this->createForm(new TaskType(), $task);
 
-               if ('POST' === $request->getMethod()) {
-                $editForm->bindRequest($this->getRequest());
+            if ($request->isMethod('POST')) {
+                $editForm->bind($this->getRequest());
 
                 if ($editForm->isValid()) {
-        
+
                     // filtra $originalTags per contenere i tag non più presenti
                     foreach ($task->getTags() as $tag) {
                         foreach ($originalTags as $key => $toDel) {
@@ -628,10 +642,10 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
                     foreach ($originalTags as $tag) {
                         // rimuove il Task dal Tag
                         $tag->getTasks()->removeElement($task);
-    
+
                         // se ci fosse una relazione ManyToOne, rimuoverla in questo modo
                         // $tag->setTask(null);
-                        
+
                         $em->persist($tag);
 
                         // se si vuole eliminare del tutto il Tag, si può anche fare così
@@ -645,14 +659,14 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
                     return $this->redirect($this->generateUrl('task_edit', array('id' => $id)));
                 }
             }
-            
+
             // rendere un template del form
         }
 
     Come si può vedere, aggiungere e rimuovere correttamente gli elementi può non essere banale.
     A meno che non si abbia una relazione ``ManyToMany`` in cui il Task è il lato di appartenenza,
     occorrerà del lavoro ulteriore per assicurarsi che la relazione sia aggiornata
-    correttamente (si per l'aggiunta di nuovi tag che per la rimozione di tag esistenti)
+    correttamente (sia per l'aggiunta di nuovi tag che per la rimozione di tag esistenti)
     per ogni oggetto Tag.
 
 

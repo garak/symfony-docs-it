@@ -1,5 +1,6 @@
 .. index::
    single: Locale
+   single: Componenti; Locale
 
 Il componente Locale
 ====================
@@ -27,8 +28,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Locale);
-* Installarlo via PEAR (`pear.symfony.com/Locale`);
-* Installarlo via Composer (`symfony/locale` su Packagist).
+* Installarlo via Composer (``symfony/locale`` su `Packagist`_).
 
 Uso
 ---
@@ -42,7 +42,9 @@ Quando si usa il componente ClassLoader, il codice seguente basta a fornire l'es
     if (!function_exists('intl_get_error_code')) {
         require __DIR__.'/percorso/src/Symfony/Component/Locale/Resources/stubs/functions.php';
 
-        $loader->registerPrefixFallbacks(array(__DIR__.'/percorso/src/Symfony/Component/Locale/Resources/stubs'));
+        $loader->registerPrefixFallbacks(
+            array(__DIR__.'/percorso/src/Symfony/Component/Locale/Resources/stubs')
+        );
     }
 
 La classe :class:`Symfony\\Component\\Locale\\Locale` arricchisce la classe nativa :phpclass:`Locale` con caratteristiche aggiuntive:
@@ -67,3 +69,4 @@ La classe :class:`Symfony\\Component\\Locale\\Locale` arricchisce la classe nati
     $icuVersion = Locale::getIcuVersion();
     $icuDataVersion = Locale::getIcuDataVersion();
 
+.. _Packagist: https://packagist.org/packages/symfony/locale

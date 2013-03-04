@@ -14,11 +14,15 @@
   * :doc:`monolog </reference/configuration/monolog>`
   * :doc:`web_profiler </reference/configuration/web_profiler>`
 
+* :doc:`Configurare il Kernel (p.e. AppKernel) </reference/configuration/kernel>`
+
 * **Form e validazione**
 
   * :doc:`Riferimenti dei tipi di campo dei form </reference/forms/types>`
   * :doc:`Riferimenti dei vincoli di validazione </reference/constraints>`
   * :doc:`Riferimenti delle funzioni dei template di Twig </reference/forms/twig_reference>`
+
+* :doc:`Riferimenti sulle estensioni Twig (form, filtri, tag, ecc.)</reference/twig_reference>`
 
 * **Altre aree**
 

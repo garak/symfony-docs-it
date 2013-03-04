@@ -14,8 +14,8 @@ Prima di lavorare con Symfony2, preparare l'ambiente con il seguente
 software:
 
 * Git;
-* PHP versione 5.3.2 o successive;
-* PHPUnit 3.5.11 o successivi.
+* PHP versione 5.3.3 o successive;
+* PHPUnit 3.6.4 o successivi.
 
 Configurare Git
 ~~~~~~~~~~~~~~~
@@ -153,7 +153,8 @@ Lavorare sulla propria patch
 È possibile lavorare sul codice quanto si vuole e committare tanto quanto si vuole; ma bisogna tenere a mente le
 seguenti indicazioni:
 
-* Seguire gli :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
+* Seguire le :doc:`convenzioni <conventions>` di Symfony e gli
+  :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
   controllare i spazi alla fine);
 
 * Aggiungere test unitari per provare che il bug è stato fissato per mostrare che
@@ -200,10 +201,12 @@ Preparare la propria patch
 Quando la proprià patch non riguarda la sistemazione di un bug (quando si aggiunge una nuova
 caratteristica o se ne cambia una, per esempio), occorre includere quello che segue:
 
-* Una spiegazione delle modifiche nel file (o nei file) CHANGELOG rilevante;
+* Una spiegazione delle modifiche nel file (o nei file) CHANGELOG rilevante (usare il prefisso
+  ``[BC BREAK]`` o ``[DEPRECATION]``, se rilevanti);
 
 * Una spiegazione di come aggiornare un'applicazione esistente, nel file (o nei file)
-  UPGRADE rilevante, se le modifiche infrangono la retro-compatibilità.
+  UPGRADE rilevante, se le modifiche infrangono la retro-compatibilità o se si sta
+  deprecando qualcosa che alla fine infrangerà la retro-compatibilità.
 
 Passo 3: inviare la propria patch
 ---------------------------------
@@ -259,41 +262,92 @@ richiesta di pull, come in:
 
 .. code-block:: text
 
-    [Yaml] pippo pluto
-    [Form] [Validator] [FrameworkBundle] pippo pluto
+    [Yaml] sistemato qualcosa
+    [Form] [Validator] [FrameworkBundle] aggiunto qualcosa
 
-.. tip::
-
-    Si prega di usare un titolo con "[WIP]", se la proposta non è ancora completa o se
-    i test sono incompleti o non passano ancora.
-
-La descrizione della richiesta di pull deve includere la seguente lista, per assicurare
+La descrizione della richiesta di pull deve includere la seguente lista in cima, per assicurare
 che i contributi siano rivisti senza continui giri di feedback e che quindi possano
-essere inclusi in Symfony il prima possibile:
+essere inclusi in Symfony2 il prima
+possibile:
 
 .. code-block:: text
 
-    Bug fix: [yes|no]
-    Feature addition: [yes|no]
-    Backwards compatibility break: [yes|no]
-    Symfony2 tests pass: [yes|no]
-    Fixes the following tickets: [lista separata da virgole di ticket risolti]
-    Todo: [lista di todo in corso]
-    License of the code: MIT
-    Documentation PR: [Riferimento alla PR di documentazione, se presente]
+    | Q             | A
+    | ------------- | ---
+    | Bug fix?      | [yes|no]
+    | New feature?  | [yes|no]
+    | BC breaks?    | [yes|no]
+    | Deprecations? | [yes|no]
+    | Tests pass?   | [yes|no]
+    | Fixed tickets | [lista separata da virgole di ticket risolti nella PR]
+    | License       | MIT
+    | Doc PR        | [Riferimento alla PR di documentazione, se presente]
 
 Un esempio di proposta potrebbe essere il seguente:
 
 .. code-block:: text
 
-    Bug fix: no
-    Feature addition: yes
-    Backwards compatibility break: no
-    Symfony2 tests pass: yes
-    Fixes the following tickets: #12, #43
-    Todo: -
-    License of the code: MIT
-    Documentation PR: symfony/symfony-docs#123
+    | Q             | A
+    | ------------- | ---
+    | Bug fix?      | no
+    | New feature?  | no
+    | BC breaks?    | no
+    | Deprecations? | no
+    | Tests pass?   | yes
+    | Fixed tickets | #12, #43
+    | License       | MIT
+    | Doc PR        | symfony/symfony-docs#123
+
+L'intera tabella va inclusa (**non** rimuovere le righe che si ritengono
+non rilevanti). Per sempici errori di battitura, modifiche minori in PHPDoc o modifiche
+nei file di traduzione, usare la versione breve della lista:
+
+.. code-block:: text
+
+    | Q             | A
+    | ------------- | ---
+    | Fixed tickets | [lista separata da virgole di ticket risolti nella PR]
+    | License       | MIT
+
+Alcune risposte alle domande richiedono ulteriori requisiti:
+
+ * Se si risponde affermativamente a "Bug fix?", verificare se il bug sia già elencato
+   tra le issue di Symfony e referenziarlo in "Fixed tickets";
+
+ * Se si risponde affermativamente a "New feature?", si deve inviare una richiesta di pull alla
+   documentazione e referenziarla sotto la sezione "Doc PR";
+
+ * Se si risponde affermativamente a "BC breaks?", la patch deve contenere aggiornamenti ai file
+   CHANGELOG e UPGRADE rilevanti;
+
+ * Se si risponde affermativamente a "Deprecations?", la patch deve contenere aggiornamenti ai file
+   CHANGELOG e UPGRADE rilevanti;
+
+ * Se si risponde negativamente a "Tests pass", si deve aggiungere un elemento a una lista di todo con
+   la zioni da eseguire per sistemare i test;
+
+ * Se "license" non è MIT, non inviare la richiesta di pull, perché non
+   sarà comunque accettata.
+
+Se alcuni dei precedenti requisiti non sono soddisfatti, creare una lista di todo e
+aggiungere gli elementi rilevanti:
+
+.. code-block:: text
+
+    - [ ] fix the tests as they have not been updated yet
+    - [ ] submit changes to the documentation
+    - [ ] document the BC breaks
+
+Se il codice non è finito perché non si ha il tempo di finirlo o
+perché si desidera prima un feedback, aggiungere un elemento alla lista di todo:
+
+.. code-block:: text
+
+    - [ ] finish the code
+    - [ ] gather feedback my changes
+
+Finché si hanno elementi nella lista di todo, si prega di aggiungere alla richiesta di pull
+il prefisso "[WIP]".
 
 Nella descrizione della richiesta di pull, dare quanti più dettagli possibile sulle
 proprie modifiche (non esitare a fornire esempi di codice per illustrare il punto). Se
@@ -347,23 +401,12 @@ Quando si salva, git inizierà il rebase e, in caso di successo, chiederà di mo
 il messaggio di commit, che come predefinito è una lista di messaggi di commit di tutti
 i commit. Dopo aver finito, eseguire il push.
 
-.. tip::
-
-    Per fare in modo che il proprio ramo sia automaticamente testato, si può aggiungere
-    il proprio fork a `travis-ci.org`_. Basta entrare con l'account usato su github.com e
-    e abilitare un singolo switch, per i test automatici. Nella propria richiesta di pull,
-    invece di specificare "*Symfony2 tests pass: [yes|no]*", si può collegare
-    l'`icona di stato di travis-ci.org`_. Per maggiori dettagli, vedere
-    `travis-ci.org Getting Started Guide`_. Lo si può fare in modo facile, cliccando sull'icona
-    della chiave inglese nella pagina del build di Travis. Prima selezionare il proprio ramo,
-    quindi copiare il codice markdown nella descrizione della propria richiesta di pull.
-
-.. _ProGit:                                http://progit.org/
+.. _ProGit:                                http://git-scm.com/book
 .. _GitHub:                                https://github.com/signup/free
 .. _`documentazione di Github`:            https://help.github.com/articles/ignoring-files
 .. _repository di Symfony2:                https://github.com/symfony/symfony
 .. _lista dev:                             http://groups.google.com/group/symfony-devs
-.. _travis-ci.org:                         http://travis-ci.org
+.. _travis-ci.org:                         https://travis-ci.org/
 .. _`icona di stato di travis-ci.org`:     http://about.travis-ci.org/docs/user/status-images/
 .. _`travis-ci.org Getting Started Guide`: http://about.travis-ci.org/docs/user/getting-started/
 .. _`repository della documentazione`:     https://github.com/symfony/symfony-docs

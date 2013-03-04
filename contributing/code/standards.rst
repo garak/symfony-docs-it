@@ -15,7 +15,7 @@ Symfony segue gli standard definiti nei documenti `PSR-0`_, `PSR-1`_ e
 Poiché un'immagine (o un po' di codice) vale più di mille parole, ecco un
 breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
-.. code-block:: php
+.. code-block:: html+php
 
     <?php
 
@@ -30,6 +30,9 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
     namespace Acme;
 
+    /**
+     * Coding standards demonstration.
+     */
     class FooBar
     {
         const SOME_CONST = 42;
@@ -41,18 +44,24 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
          */
         public function __construct($dummy)
         {
-            $this->fooBar = $this->transform($dummy);
+            $this->fooBar = $this->transformText($dummy);
         }
 
         /**
          * @param string $dummy Una descrizione del parametro
+         * @param array $options
+         *
          * @return string|null Input trasformato
          */
         private function transformText($dummy, $options = array())
         {
-            $mergedOptions = array_merge($options, array(
-                'some_default' => 'values',
-            ));
+            $mergedOptions = array_merge(
+                $options,
+                array(
+                    'some_default' => 'values',
+                    'another_default' => 'more values',
+                )
+            );
 
             if (true === $dummy) {
                 return;
@@ -63,7 +72,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
                 } else {
                     $dummy = ucwords($dummy);
                 }
-            } 
+            }
 
             return $dummy;
         }
@@ -74,10 +83,13 @@ Struttura
 
 * Aggiungere un singolo spazio dopo ogni virgola delimitatrice;
 
-* Aggiungere un singolo spazio intorno agli operatori (`==`, `&&`, ...);
+* Aggiungere un singolo spazio intorno agli operatori (``==``, ``&&``, ...);
 
-* Aggiungere una riga vuota prima delle istruzioni `return`, a meno che non siano soli 
-  dentro una struttura di controllo (come un `if`);
+* Aggiungere una virgola dopo ogni elemento di array multi-linea, anche dopo
+  l'ultimo;
+
+* Aggiungere una riga vuota prima dei ``return``, a meno che il ``return`` non sia
+  da solo in un gruppo di istruzioni (come per esempio un ``if``);
 
 * Usare le parentesi graffe per le strutture di controllo, indipendentemente dal numero
   di istruzioni contenute;
@@ -90,6 +102,9 @@ Struttura
 
 * Dichiarare prima i metodi pubblici, poi quelli protetti e infine quelli privati;
 
+* Usare le parentesi per istanziare le classi, indipendentemente dal numero di
+  parametri del costruttore.
+
 Convenzioni sui nomi
 --------------------
 
@@ -100,7 +115,15 @@ Convenzioni sui nomi
 
 * Usare gli spazi dei nomi per tutte le classi;
 
-* Aggiungere il suffisso `Interface` alle interfacce;
+* Aggiungere il prefisso ``Abstract`` alle classi astratte. Si noti che alcune vecchie classi di Symfony2
+  non seguono questa convenzione e non sono state rinominate per questioni di retro-compatibilità.
+  Tuttavia, tutte le nuove classi astratte devono seguire questa convenzione;
+
+* Aggiungere il suffisso ``Interface`` alle interfacce;
+
+* Aggiungere il suffisso ``Trait`` ai trait;
+
+* Aggiungere il suffisso ``Exception`` alle eccezioni;
 
 * Usare caratteri alfanumerici e trattini bassi per i nomi di file;
 

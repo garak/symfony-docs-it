@@ -18,10 +18,12 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 |             | - `allow_add`_                                                              |
 |             | - `allow_delete`_                                                           |
 |             | - `prototype`_                                                              |
+|             | - `prototype_name`_                                                         |
 +-------------+-----------------------------------------------------------------------------+
 | Opzioni     | - `label`_                                                                  |
 | ereditate   | - `error_bubbling`_                                                         |
 |             | - `by_reference`_                                                           |
+|             | - `empty_data`_                                                             |
 +-------------+-----------------------------------------------------------------------------+
 | Tipo padre  | :doc:`form</reference/forms/types/form>`                                    |
 +-------------+-----------------------------------------------------------------------------+
@@ -56,7 +58,7 @@ Il modo più semplice di renderlo è tutto insieme:
 
     .. code-block:: php
     
-        <?php echo $view['form']->row($form['emails]) ?>
+        <?php echo $view['form']->row($form['emails']) ?>
 
 Un metodo molto più flessibile sarebbe questo:
 
@@ -295,11 +297,11 @@ collection:
 
     .. code-block:: jinja
     
-        {{ form_row(form.emails.get('prototype')) }}
+        {{ form_row(form.emails.vars.prototype) }}
 
     .. code-block:: php
     
-        <?php echo $view['form']->row($form['emails']->get('prototype')) ?>
+        <?php echo $view['form']->row($form['emails']->getVar('prototype')) ?>
 
 Si noti che tutto quello di cui si ha effettivamente bisogno è il widget, ma a
 seconda di come si rende il form, avere l'intera riga del form potrebbe essere più facile.
@@ -312,6 +314,18 @@ seconda di come si rende il form, avere l'intera riga del form potrebbe essere p
 
 Per dettagli su come usare effettivamente questa opzione, vedere l'esempio sopra 
 o :ref:`cookbook-form-collections-new-prototype`.
+
+prototype_name
+~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+    L'opzoine ``prototype_name`` è stata aggiunta in Symfony 2.1
+
+**tipo**: ``Stringa`` **predefinito**: ``__name__``
+
+Se si hanno molti insiemi in un form o, peggio, si hanno insiemi annidati,
+si potrebbe voler modificare il segnaposto, in modo che i segnaposto senza relazioni non
+siano sostituiti con il medesimo valore.
 
 Opzioni ereditate
 -----------------
@@ -331,3 +345,5 @@ error_bubbling
 .. _reference-form-types-by-reference:
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc

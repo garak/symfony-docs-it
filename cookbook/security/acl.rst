@@ -61,18 +61,18 @@ Innanzitutto, occorre configurare la connessione al sistema ACL da usare:
 
 .. note::
 
-    Il sistema ACL richiede almeno una connessione di Doctrine configurata.
-    Tuttavia, questo non significa che si debba usare Doctrine per mappare
-    i propri oggetti del dominio. Si può usare qualsiasi mapper si desideri per i propri
-    oggetti, sia esso l'ORM Doctrine, l'ODM Mongo, Propel o anche SQL puro, la scelta
-    è lasciata allo sviluppatore.
+    Il sistema ACL richiede almeno una connessione di Doctrine configurata o nel DBAL (usabile
+    senza interventi) o con MongoDB (usabile con `MongoDBAclBundle`_). Tuttavia, questo non
+    significa che si debba usare Doctrine per mappare i propri oggetti del dominio. Si può usare
+    qualsiasi mapper si desideri per i propri oggetti, sia esso l'ORM Doctrine, l'ODM Mongo, Propel o anche
+    SQL puro, la scelta è lasciata allo sviluppatore.
 
-Dopo aver configurato la connessione, occorre importare la struttura del database.
+Dopo aver configurato la connessione, occorre importare la struttura della base dati.
 Fortunatamente, c'è un task per farlo. Basta eseguire il comando seguente:
 
-.. code-block:: text
+.. code-block:: bash
 
-    php app/console init:acl
+    $ php app/console init:acl
 
 Iniziare
 --------
@@ -96,34 +96,34 @@ Creare una ACL e aggiungere un ACE
 
     class BlogController
     {
-    // ...
-    
-    public function addCommentAction(Post $post)
-    {
-        $comment = new Comment();
+        // ...
 
-        // ... preparazione di $form e collegamento dei dati
+        public function addCommentAction(Post $post)
+        {
+            $comment = new Comment();
 
-        if ($form->isValid()) {
-            $entityManager = $this->get('doctrine.orm.default_entity_manager');
-            $entityManager->persist($comment);
-            $entityManager->flush();
+            // ... preparazione di $form e collegamento dei dati
 
-            // creazione dell'ACL
-            $aclProvider = $this->get('security.acl.provider');
-            $objectIdentity = ObjectIdentity::fromDomainObject($comment);
-            $acl = $aclProvider->createAcl($objectIdentity);
+            if ($form->isValid()) {
+                $entityManager = $this->get('doctrine.orm.default_entity_manager');
+                $entityManager->persist($comment);
+                $entityManager->flush();
 
-            // recupero dell'identità di sicurezza dell'utente attuale
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
-            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+                // creazione dell'ACL
+                $aclProvider = $this->get('security.acl.provider');
+                $objectIdentity = ObjectIdentity::fromDomainObject($comment);
+                $acl = $aclProvider->createAcl($objectIdentity);
 
-            // l'utente può accedere
-            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-            $aclProvider->updateAcl($acl);
+                // recupero dell'identità di sicurezza dell'utente attuale
+                $securityContext = $this->get('security.context');
+                $user = $securityContext->getToken()->getUser();
+                $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+                // l'utente può accedere
+                $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+                $aclProvider->updateAcl($acl);
+            }
         }
-    }
     }
 
 In questo pezzo di codice ci sono alcune importanti decisioni implementative.
@@ -141,7 +141,7 @@ stiamo consentendo l'accesso come proprietario del commento all'utente corrente.
 La costante ``MaskBuilder::MASK_OWNER`` è un intero predefinito; non ci si deve
 preoccupare, perché il costruttore di maschere astrae la maggior parte dei dettagli tecnici,
 ma usando questa tecnica si possono memorizzare molti permessi diversi in una singola riga
-di database, che fornisce un considerevole vantaggio in termini di prestazioni.
+di base dati, che fornisce un considerevole vantaggio in termini di prestazioni.
 
 .. tip::
 
@@ -161,18 +161,18 @@ Verifica dell'accesso
     {
         // ...
 
-    public function editCommentAction(Comment $comment)
-    {
-        $securityContext = $this->get('security.context');
-
-        // verifica per l'accesso in modifica
-        if (false === $securityContext->isGranted('EDIT', $comment))
+        public function editCommentAction(Comment $comment)
         {
-            throw new AccessDeniedException();
-        }
+            $securityContext = $this->get('security.context');
 
-        // recuperare l'oggetto commento e fare le modifiche
-        // ...
+            // verifica per l'accesso in modifica
+            if (false === $securityContext->isGranted('EDIT', $comment))
+            {
+                throw new AccessDeniedException();
+            }
+
+            // ... recuperare l'oggetto commento e fare le modifiche
+        }
     }
 
 In questo esempio, verifichiamo se l'utente abbia il permesso ``EDIT``.
@@ -216,3 +216,5 @@ aggiunti in precedenza:
     $acl->insertObjectAce($identity, $mask);
 
 Ora l'utente ha il permesso di vedere, modificare, cancellare e ripristinare gli oggetti.
+
+.. _`MongoDBAclBundle`: https://github.com/IamPersistent/MongoDBAclBundle

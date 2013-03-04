@@ -25,7 +25,15 @@ Configurazione
     * enabled
     * field_name
 * `session`_
-    * `lifetime`_
+    * `cookie_lifetime`_
+    * `cookie_path`_
+    * `cookie_domain`_
+    * `cookie_secure`_
+    * `cookie_httponly`_
+    * `gc_divisor`_
+    * `gc_probability`_
+    * `gc_maxlifetime`_
+    * `save_path`_
 * `templating`_
     * `assets_base_urls`_
     * `assets_version`_
@@ -36,7 +44,7 @@ secret
 
 **tipo**: ``stringa`` **obbligatorio**
 
-Una stringa che dovrebbe essere univoca nella propria applicaizone. In pratica,
+Una stringa che dovrebbe essere univoca nella propria applicazione. In pratica,
 è usta per generare il token anti-CSRF, ma potrebbe essere usata in ogni altro
 contesto in cui è utili avere una stringa univoca. Diventa il parametro del
 contenitore di servizi di nome ``kernel.secret``.
@@ -82,8 +90,41 @@ caricati i servizi correlati ai test della propria applicazione (p.e. ``test.cli
 Questa impostazione dovrebbe essere presete nel proprio ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
+trusted_proxies
+~~~~~~~~~~~~~~~
+
+**tipo**: ``array``
+
+Configura gli indirizzi IP di cui fidarsi come proxy. Per maggiori dettagli,
+vedere :doc:`/components/http_foundation/trusting_proxies`.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        framework:
+            trusted_proxies:  [192.0.0.1]
+
+    .. code-block:: xml
+
+        <framework:config trusted-proxies="192.0.0.1">
+            <!-- ... -->
+        </framework>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('framework', array(
+            'trusted_proxies' => array('192.0.0.1'),
+        ));
+
 trust_proxy_headers
 ~~~~~~~~~~~~~~~~~~~
+
+.. caution::
+
+    L'opzione ``trust_proxy_headers`` è deprecata e sarà rimossa in
+    Symfony 2.3. Vedere `trusted_proxies`_ e :doc:`/components/http_foundation/trusting_proxies`
+    per i dettagli su come fidarsi in modo corretto dei dati dei proxy.
 
 **tipo**: ``booleano``
 
@@ -104,13 +145,104 @@ csrf_protection
 session
 ~~~~~~~
 
-lifetime
-........
+cookie_lifetime
+...............
 
-**tipo**: ``integer`` **predefinito**: ``86400``
+.. versionadded:: 2.1
+    Questa opzione in precedenza si chiamava ``lifetime``
 
-Determina il tempo di scadenza della sessione, in secondi. Per impostazione predefinita,
-sarà ``0``, che vuol dire che il cookie vale per il tempo della sessione del browser.
+**tipo**: ``intero`` **predefinito**: ``0``
+
+Determina la durata della sessione in secondi. Per impostazione predefinita, sarà
+``0``, che vuol dire che il cookie è valido per la durata della sessione del browser.
+
+cookie_path
+...........
+
+.. versionadded:: 2.1
+    Questa opzione in precedenza si chiamava ``path``
+
+**tipo**: ``stringa`` **predefinito**: ``/``
+
+Determina il percorso da impostare nel cookie di sessione. Per impostazione predefinita è ``/``.
+
+cookie_domain
+.............
+
+.. versionadded:: 2.1
+    Questa opzione in precedenza si chiamava ``domain``
+
+**tipo**: ``stringa`` **predefinito**: ``''``
+
+Determina il dominio da impostare nel cookie di sessione. Per impostazione predefinita è vuoto,
+che vuol dire che sarà usato il dominio del server che ha generato il cookie,
+in accordo alle specifiche.
+
+cookie_secure
+.............
+
+.. versionadded:: 2.1
+    Questa opzione in precedenza si chiamava ``secure``
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Determina se i cookie debbano essere inviati su una connessione sicura.
+
+cookie_httponly
+...............
+
+.. versionadded:: 2.1
+    Questa opzione in precedenza si chiamava ``httponly``
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Determina se i cookie debbano essere accessibili solo tramite protocollo HTTP.
+Vuol dire che i cookie non saranno accessibili da linguaggi di scripting, come
+JavaScript. Questa impostazione può aiutare a ridurre furti di identità
+tramite attacchi XSS.
+
+gc_probability
+..............
+
+.. versionadded:: 2.1
+    L'opzione ``gc_probability`` è stata aggiunta nella versione 2.1
+
+**tipo**: ``intero`` **predefinito**: ``1``
+
+Definisce la probabilità che il processo del garbage collector parta a
+ogni inizializzazione della sessione. La probabilità è calcolata usando
+``gc_probability`` / ``gc_divisor``, p.e. 1/100 vuol dire che c'è una probabilità dell'1%
+che il processo parta, in ogni richiesta.
+
+gc_divisor
+..........
+
+.. versionadded:: 2.1
+    L'opzione ``gc_divisor`` è stata aggiunta nella versione 2.1
+
+**tipo**: ``intero`` **predefinito**: ``100``
+
+Vedere `gc_probability`_.
+
+gc_maxlifetime
+..............
+
+.. versionadded:: 2.1
+    L'opzione ``gc_maxlifetime`` è stata aggiunta nella versione 2.1
+
+**tipo**: ``intero`` **predefinito**: ``14400``
+
+Determina il numero di secondi dopo i quali i dati saranno visti come "garbage"
+e quindi potenzialmente cancellati. Il garbage collector può intervenire a inizio sessione
+e dipende da `gc_divisor`_ e `gc_probability`_.
+
+save_path
+.........
+
+**tipo**: ``stringa`` **predefinito**: ``%kernel.cache.dir%/sessions``
+
+Determina il parametro da passare al gestore di salvataggio. Se si sceglie il gestore
+file (quello predefinito), è il percorso in cui saranno creati i file.
 
 templating
 ~~~~~~~~~~
@@ -207,11 +339,11 @@ assets_version_format
 
 **tipo**: ``stringa`` **predefinito**: ``%%s?%%s``
 
-Specifica uno schema per `sprintf()`_, usato con l'opzione `assets_version`_
-per costruire il percorso della risorsa. Per impostazione predefinita, lo schema
-aggiunge la versione della risorsa alla stringa della query. Per esempio, se
-``assets_version_format`` è impostato a ``%%s?version=%%s`` e ``assets_version`` è
-impostato a ``5``, il percorso della risorsa sarà ``/images/logo.png?version=5``.
+Specifica uno schema per :phpfunction:`sprintf`, usato con l'opzione `assets_version`_
+per costruire il percorso della risorsa. Per impostazione predefinita, lo schema aggiunge
+la versione della risorsa alla stringa della query. Per esempio, se ``assets_version_format`` è
+impostato a ``%%s?version=%%s`` e ``assets_version`` è impostato a ``5``, il percorso della
+risorsa sarà ``/images/logo.png?version=5``.
 
 .. note::
 
@@ -290,7 +422,6 @@ Configurazione predefinita completa
 
             # configurazione della sessione
             session:
-                auto_start:           false
                 storage_id:           session.storage.native
                 handler_id:           session.handler.native_file
                 name:                 ~
@@ -365,5 +496,8 @@ Configurazione predefinita completa
                 file_cache_dir:       "%kernel.cache_dir%/annotations"
                 debug:                true
 
+.. versionadded:: 2.1
+    L'impostazione ```framework.session.auto_start`` è stata rimossa in Symfony2.1,
+    che inizia la sessione su richiesta.
+
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
-.. _`sprintf()`: http://php.net/manual/en/function.sprintf.php

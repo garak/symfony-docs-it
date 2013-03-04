@@ -44,6 +44,8 @@ fare come segue:
     .. code-block:: php-annotations
 
         // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Participant
@@ -57,6 +59,41 @@ fare come segue:
              * )
              */
              protected $emails = array();
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/EventBundle/Resources/config/validation.xml -->
+        <class name="Acme\EventBundle\Entity\Participant">
+            <property name="emails">
+                <constraint name="Count">       
+                    <option name="min">1</option> 
+                    <option name="max">5</option> 
+                    <option name="minMessage">You must specify at least one email</option>
+                    <option name="maxMessage">You cannot specify more than {{ limit }} emails</option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Participant
+        {
+            public static function loadValidatorMetadata(ClassMetadata $data)
+            {
+                $metadata->addPropertyConstraint('emails', new Assert\Count(array(
+                    'min'        => 1,
+                    'max'        => 5,
+                    'minMessage' => 'You must specify at least one email',
+                    'maxMessage' => 'You cannot specify more than {{ limit }} emails',
+                )));
+            }
         }
 
 Opzioni

@@ -1,6 +1,7 @@
 .. index::
    single: HTTP
    single: HttpFoundation
+   single: Componenti; HttpFoundation
 
 Il componente HttpFoundation
 ============================
@@ -21,8 +22,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation);
-* Installarlo via PEAR (`pear.symfony.com/HttpFoundation`);
-* Installarlo via Composer (`symfony/http-foundation` su Packagist).
+* Installarlo via Composer (``symfony/http-foundation`` su `Packagist`_).
 
 Richiesta
 ---------
@@ -38,7 +38,14 @@ con
 che è quasi equivalente al più verboso, ma anche più flessibile,
 :method:`Symfony\\Component\\HttpFoundation\\Request::__construct`::
 
-    $request = new Request($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
+    $request = new Request(
+        $_GET,
+        $_POST,
+        array(),
+        $_COOKIE,
+        $_FILES,
+        $_SERVER
+    );
 
 Accedere ai dati della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -184,7 +191,11 @@ Simulare una richiesta
 Invece di creare una richiesta basata sulle variabili di PHP, si può anche simulare
 una richiesta::
 
-    $request = Request::create('/hello-world', 'GET', array('name' => 'Fabien'));
+    $request = Request::create(
+        '/hello-world',
+        'GET',
+        array('name' => 'Fabien')
+    );
 
 Il metodo :method:`Symfony\\Component\\HttpFoundation\\Request::create`
 crea una richiesta in base a path info, un metodo e alcuni parametri (i parametri
@@ -208,11 +219,26 @@ Accedere alla sessione
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Se si ha una sessione allegata alla richiesta, vi si può accedere tramite il metodo
-:method:`Symfony\\Component\\HttpFoundation\\Request::getSession`. Il metodo
+:method:`Symfony\\Component\\HttpFoundation\\Request::getSession`. Il
+metodo
 :method:`Symfony\\Component\\HttpFoundation\\Request::hasPreviousSession`
 dice se la richiesta contiene una sessione, che sia stata fatta partire in una delle
-richieste
-precedenti.
+richieste precedenti.
+
+Accedere ai dati degli header `Accept-*`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si può accedere facilmente ai dati di base estratti dagli header ``Accept-*``
+usando i seguenti metodi:
+
+* :method:`Symfony\\Component\\HttpFoundation\\Request::getAcceptableContentTypes`:
+  restituisce la lista dei tipi di contenuto accettati, ordinata per qualità discendente;
+
+* :method:`Symfony\\Component\\HttpFoundation\\Request::getLanguages`:
+  restituisce la lista delle lingue accettate, ordinata per qualità discendente
+
+* :method:`Symfony\\Component\\HttpFoundation\\Request::getCharsets`:
+  restituisce la lista dei charset accettati, ordinata per qualità discendente
 
 Accedere ad altri dati
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -230,7 +256,11 @@ e un array di header HTTP::
 
     use Symfony\Component\HttpFoundation\Response;
 
-    $response = new Response('Contenuto', 200, array('content-type' => 'text/html'));
+    $response = new Response(
+        'Contenuto',
+        200,
+        array('content-type' => 'text/html')
+    );
 
 Queste informazioni possono anche essere manipolate dopo la creazione di Response::
 
@@ -375,7 +405,52 @@ astrae l'ingrato compito dietro una semplice API::
 
     $response->headers->set('Content-Disposition', $d);
 
+.. _component-http-foundation-json-response:
+
+Creare una rispota JSON
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Si può creare qualsiasi tipo di rispsota tramite la classe
+:class:`Symfony\\Component\\HttpFoundation\\Response`, impostando il contenuto
+e gli header corretti. Una risposta JSON può essere come questa::
+
+    use Symfony\Component\HttpFoundation\Response;
+
+    $response = new Response();
+    $response->setContent(json_encode(array(
+        'data' => 123
+    )));
+    $response->headers->set('Content-Type', 'application/json');
+
+.. versionadded:: 2.1
+    La classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse` è stata aggiunta in Symfony 2.1.
+
+C'è anche un'utile classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
+che può rendere le cose ancora più semplici::
+
+    use Symfony\Component\HttpFoundation\JsonResponse;
+
+    $response = new JsonResponse();
+    $response->setContent(array(
+        'data' => 123
+    ));
+
+Il risultato è una codifica dell'array di dati in JSON, con header ``Content-Type`` impostato
+a ``application/json``. Se si usa JSONP, si può impostare la funziona di callback
+a cui i dati vanno passati::
+
+    $response->setCallback('handleResponse');
+
+In tal caso, l'header ``Content-Type`` sarà ``text/javascript`` e il
+contenuto della risposta sarà come questo:
+
+.. code-block:: javascript
+
+    handleResponse({'data': 123});
+
 Sessioni
 --------
 
 Le informazioni sulle sessioni sono nell'apposito documento: :doc:`/components/http_foundation/sessions`.
+
+.. _Packagist: https://packagist.org/packages/symfony/http-foundation

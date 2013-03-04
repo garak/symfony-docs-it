@@ -60,9 +60,11 @@ In Symfony, si possono registrare funzioni DQL personalizzate nel modo seguente:
         $container->loadFromExtension('doctrine', array(
             'orm' => array(
                 // ...
+
                 'entity_managers' => array(
                     'default' => array(
                         // ...
+
                         'dql' => array(
                             'string_functions' => array(
                                 'test_string'   => 'Acme\HelloBundle\DQL\StringFunction',

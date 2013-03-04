@@ -26,8 +26,8 @@ che consente di isolare o riutilizzare il valore:
 
 .. code-block:: ini
 
-    ; app/config/parameters.yml
-    [parameters]
+    # app/config/parameters.yml
+    parameters:
         ga_tracking: UA-xxxxx-x
 
 .. code-block:: yaml
@@ -35,7 +35,7 @@ che consente di isolare o riutilizzare il valore:
     # app/config/config.yml
     twig:
         globals:
-            ga_tracking: %ga_tracking%
+            ga_tracking: "%ga_tracking%"
 
 La stessa variabile è disponibile esattamente come prima.
 

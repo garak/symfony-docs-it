@@ -22,8 +22,6 @@ risposta HTTP.
 Symfony2 segue questa filosofia e fornisce strumenti e convenzioni per mantenere la propria
 applicazione organizzata, man mano che cresce in utenti e in complessità.
 
-Sembra abbastanza semplice? Approfondiamo!
-
 .. index::
    single: Creazione di pagine; Esempio
 
@@ -69,7 +67,7 @@ questo capitolo), eseguire il seguente comando e seguire le istruzioni su scherm
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
+    $ php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
 
 Dietro le quinte, viene creata una cartella per il bundle in ``src/Acme/HelloBundle``.
 Inoltre viene aggiunta automaticamente una riga al file ``app/AppKernel.php``, in modo
@@ -105,7 +103,7 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
     .. code-block:: yaml
 
         # app/config/routing.yml
-        AcmeHelloBundle:
+        acme_hello:
             resource: "@AcmeHelloBundle/Resources/config/routing.yml"
             prefix:   /
 
@@ -258,10 +256,10 @@ applicazione dovrebbe salutare:
     
     Se si ottiene un errore, è probabilmente perché occorre pulire la cache,
     eseguendo:
-    
+
     .. code-block:: bash
 
-        php app/console cache:clear --env=prod --no-debug
+        $ php app/console cache:clear --env=prod --no-debug
 
 Un terzo passo, facoltativo ma comune, del processo è quello di creare un template.
 
@@ -290,10 +288,16 @@ HTML dentro al controllore, meglio rendere un template:
     {
         public function indexAction($name)
         {
-            return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+            return $this->render(
+                'AcmeHelloBundle:Hello:index.html.twig',
+                array('name' => $name)
+            );
 
-            // render a PHP template instead
-            // return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+            // rende invece un template PHP
+            // return $this->render(
+            //     'AcmeHelloBundle:Hello:index.html.php',
+            //     array('name' => $name)
+            // );
         }
     }
 
@@ -394,7 +398,7 @@ cartella ``app``:
             </head>
             <body>
                 <?php $view['slots']->output('_content') ?>
-                <?php $view['slots']->output('stylesheets') ?>
+                <?php $view['slots']->output('javascripts') ?>
             </body>
         </html>
 
@@ -529,11 +533,6 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
         Percorso:
             src/Acme/HelloBundle/Controller/HelloController.php
 
-    Tipicamente, l'unica volta in cui si avrà bisogno di preoccuparsi del file
-    ``app/autoload.php`` sarà al momento di includere nuove librerie di terze
-    parti nella cartella ``vendor/``. Per maggiori informazioni sull'autoload,
-    vedere :doc:`Come auto-caricare le classi</components/class_loader>`.
-
 La cartella dei sorgenti (``src``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -649,8 +648,7 @@ Ora che abbiamo creato il bundle, abilitiamolo tramite la classe ``AppKernel``::
     public function registerBundles()
     {
         $bundles = array(
-            // ...
-
+            ...,
             // register your bundles
             new Acme\TestBundle\AcmeTestBundle(),
         );
@@ -667,7 +665,7 @@ uno scheletro di base per un bundle:
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/TestBundle
+    $ php app/console generate:bundle --namespace=Acme/TestBundle
 
 Lo scheletro del bundle è generato con controllore, template e rotte, tutti
 personalizzabili. Approfondiremo più avanti la linea di comando di
@@ -803,7 +801,8 @@ specifiche saranno man mano approfondite.
     tre i formati (YAML, XML e PHP). Ciascuno ha i suoi vantaggi e svantaggi. La scelta
     è lasciata allo sviluppatore:
 
-    * *YAML*: Semplice, pulito e leggibile;
+    * *YAML*: Semplice, pulito e leggibile (se ne può sapere di più in
+      ":doc:`/components/yaml/yaml_format`");
 
     * *XML*: Più potente di YAML e supportato nell'autocompletamento dagli IDE;
 
@@ -871,9 +870,11 @@ richiamare invece il front controller ``prod``:
 Essendo l'ambiente ``prod`` ottimizzato per la velocità, la configurazione, le
 rotte e i template Twig sono compilato in classi in puro PHP e messi in cache.
 Per vedere delle modifiche in ambiente ``prod``, occorrerà pulire tali file
-in cache e consentire che siano ricostruiti::
+in cache e consentire che siano ricostruiti:
 
-    php app/console cache:clear --env=prod --no-debug
+.. code-block:: bash
+
+    $ php app/console cache:clear --env=prod --no-debug
 
 .. note::
 
@@ -903,7 +904,9 @@ di conigurazione scelti::
     // app/AppKernel.php
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(
+            __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
+        );
     }
 
 Sappiamo già che l'estensione ``.yml`` può essere cambiata in ``.xml`` o
@@ -996,7 +999,7 @@ della sua architettura e la potenza che dà nello sviluppo rapido di
 applicazioni.
 
 .. _`Twig`: http://twig.sensiolabs.org
-.. _`bundle di terze parti`: http://symfony2bundles.org/
+.. _`bundle di terze parti`: http://knpbundles.com
 .. _`Symfony Standard Edition`: http://symfony.com/download
 .. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/2.0/mod/mod_dir.html
 .. _`documentazione su HttpCoreModule di Nginx`: http://wiki.nginx.org/HttpCoreModule#location

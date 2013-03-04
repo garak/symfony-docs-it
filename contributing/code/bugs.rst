@@ -1,36 +1,36 @@
 Segnalare un bug
 ================
 
-Se doveste incontrare un bug in Symfony2, vi chiediamo di riportarlo. Ci aiuta
+Se doveste incontrare un bug in Symfony2, vi chiediamo di segnalarlo. Ci aiuta
 a rendere migliore Symfony2.
 
 .. caution::
 
     Se pensate di aver trovato un problema di sicurezza, per favore, seguite
-    invece la :doc:`procedura <security>`.
+    invece l'apposita :doc:`procedura <security>`.
     
 Prima di inviare un bug:
 
  * Ricontrollare la `documentazione`_ ufficiale per verificare che non si stia facendo 
    un uso scorretto del framework;
 
- * Chidere assistenza alla `lista degli utenti`_ , al `forum`_ o al
+ * Chiedere assistenza alla `lista degli utenti`_ , al `forum`_ o al
    `canale IRC`_ #symfony, se non si è sicuri che sia effettivamente un bug.
 
-Se si hanno problemi a identificare effettivamente il bug, segnalarlo utilizzando
-il bug `tracker`_ ufficiale seguendo alcune regole:
+Se il problema è effettivamente un bug, segnalarlo utilizzando
+il bug `tracker`_ ufficiale e seguendo alcune regole:
 
- * Utilizzare il campo titolo per descrivere chiaramente la problematica;
+ * Utilizzare il campo titolo per descrivere chiaramente la questione;
 
- * Descrivere gli step necessari per riprodurre il bug anche con dei piccoli 
-   esempi di codice (fornire il test unitario per replicare il bug è il massimo)
+ * Descrivere i passi necessari per riprodurre il bug con brevi esempi di codice
+   (la cosa migliore è fornire un test unitario per replicare il bug)
 
- * Fornire il maggior numero di dettagli possibile del proprio ambiente (OS, versione PHP
-   versione di Symfony, extensioni abilitate)
+ * Fornire il maggior numero di dettagli possibile sul proprio ambiente (sistema operativo, versione PHP
+   versione di Symfony, extensioni abilitate, ...)
 
- * *(optional)* Eventuali :doc:`patch <patches>` allegate.
+ * *(facoltativo)* Allegare una :doc:`patch <patches>`.
 
-.. _documentazione: http://symfony.com/doc/2.0/
+.. _documentazione: http://symfony.com/doc/2.1/index.html
 .. _lista degli utenti: http://groups.google.com/group/symfony-users
 .. _forum: http://forum.symfony-project.org/
 .. _canale IRC: irc://irc.freenode.net/symfony

@@ -8,12 +8,12 @@ Il tipo ``language`` è un sotto-insieme di ``ChoiceType``, che consente all'ute
 di scegliere da un lungo elenco di lingue. Come bonus aggiuntivo, i nomi delle lingue
 sono mostrati nella lingua dell'utente.
 
-Il valore per ogni locale è il codice della *lingua* a due lettere ISO639-1
-(p.e. ``it``).
+Il valore per ogni lingua è *l'identificativo Unicode della lingua*
+(p.e. ``it`` o ``zh-Hant``).
 
 .. note::
 
-   Il locale degli utenti è indovinato tramite `Locale::getDefault()`_
+   Il locale degli utenti è indovinato tramite :phpmethod:`Locale::getDefault`
 
 Diversamente dal tipo ``choice``, non occorre specificare l'opzione
 ``choices`` o ``choice_list``, perché il tipo di campo usa automaticamente la lista
@@ -31,6 +31,7 @@ dovrebbe usare il tipo ``choice`` direttamente.
 |               | - `required`_                                                          |
 |               | - `label`_                                                             |
 |               | - `read_only`_                                                         |
+|               | - `disabled`_                                                          |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`choice</reference/forms/types/choice>`                           |
 +---------------+------------------------------------------------------------------------+
@@ -60,4 +61,4 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
-.. _`Locale::getDefault()`: http://php.net/manual/en/locale.getdefault.php
+.. include:: /reference/forms/types/options/disabled.rst.inc

@@ -10,8 +10,28 @@ ispirata dalla libreria LogBook di Python.
 Utilizzo
 --------
 
-In Monolog, ogni logger definisce un canale di log. Ogni canale ha una pila di
-gestori per scrivere i log (i gestori possono essere condivisi).
+Per registrare un messaggio di log, basta prendere il servizio logger dal contenitore,
+in un controllore::
+
+    public function indexAction()
+    {
+        $logger = $this->get('logger');
+        $logger->info('Ho preso il logger');
+        $logger->err('SI è verificato un errore');
+
+        // ...
+    }
+
+Il servizio ``logger`` ha vari metodi, per diversi livelli di log.
+Vedere :class:`Symfony\\Component\\HttpKernel\\Log\\LoggerInterface` per maggiori dettagli
+sui metodi disponibili.
+
+Gestiru e canali: scrivere log in posizioni diverse
+---------------------------------------------------
+
+In Monolog, ogni logger definisce un canale di log, il che consente di organizzare i messaggi
+di log in diverse "categorie". Ogni canale ha una pila di gestori
+per scrivere i log (i gestori possono essere condivisi).
 
 .. tip::
 
@@ -29,19 +49,6 @@ messaggi in un buffer e di loggarli solo se un messaggio raggiunge il livello
 di azione (ERROR, nella configurazione fornita con la Standard
 Edition) girando i messaggi a un altro gestore.
 
-Per loggare un messaggio, basta prendere il servizio logger dal contenitore, nel
-controllore::
-
-    $logger = $this->get('logger');
-    $logger->info('Abbiamo ottenuto il logger');
-    $logger->err('Si è verificato un errore');
-
-.. tip::
-
-    Usare solo i metodi dell'interfaccia
-    :class:`Symfony\\Component\\HttpKernel\\Log\\LoggerInterface` consente di
-    cambiare l'implementazione del logger senza cambiare il proprio codice.
-
 Usare diversi gestori
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -55,7 +62,7 @@ consente di loggare facilmente i messaggi in molti modi.
         # app/config/config*.yml
         monolog:
             handlers:
-                syslog:
+                applog:
                     type: stream
                     path: /var/log/symfony.log
                     level: error
@@ -66,7 +73,9 @@ consente di loggare facilmente i messaggi in molti modi.
                 file:
                     type: stream
                     level: debug
-
+                syslog:
+                    type: syslog
+                    level: error
     .. code-block:: xml
 
         <container xmlns="http://symfony.com/schema/dic/services"
@@ -77,7 +86,7 @@ consente di loggare facilmente i messaggi in molti modi.
 
             <monolog:config>
                 <monolog:handler
-                    name="syslog"
+                    name="applog"
                     type="stream"
                     path="/var/log/symfony.log"
                     level="error"
@@ -92,6 +101,11 @@ consente di loggare facilmente i messaggi in molti modi.
                     name="file"
                     type="stream"
                     level="debug"
+                />
+                <monolog:handler
+                    name="syslog"
+                    type="syslog"
+                    level="error"
                 />
             </monolog:config>
         </container>
@@ -229,7 +243,7 @@ usando un processore.
             handlers:
                 main:
                     type: stream
-                    path: %kernel.logs_dir%/%kernel.environment%.log
+                    path: "%kernel.logs_dir%/%kernel.environment%.log"
                     level: debug
                     formatter: monolog.formatter.session_request
 

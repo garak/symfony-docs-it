@@ -202,11 +202,8 @@ I parametri delle rotte come parametri del controllore
 Si è già appreso che il parametro ``AcmeHelloBundle:Hello:index`` di ``_controller``
 fa riferimento a un metodo ``HelloController::indexAction()`` che si trova all'interno di un
 bundle ``AcmeHelloBundle``. La cosa più interessante è che i parametri vengono
-passati a tale metodo:
+passati a tale metodo::
 
-.. code-block:: php
-
-    <?php
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
 
@@ -276,7 +273,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($last_name, $color, $first_name)
         {
-            // ..
+            // ...
         }
 
 * **Ogni parametro richiesto del controllore, deve corrispondere a uno dei parametri della rotta**
@@ -286,7 +283,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $last_name, $color, $foo)
         {
-            // ..
+            // ...
         }
 
     Rendere il parametro facoltativo metterebbe le cose a posto. Il seguente
@@ -294,7 +291,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $last_name, $color, $foo = 'bar')
         {
-            // ..
+            // ...
         }
 
 * **Non tutti i parametri delle rotte devono essere parametri del controllore**
@@ -304,7 +301,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $color)
         {
-            // ..
+            // ...
         }
 
 .. tip::
@@ -327,8 +324,8 @@ lavora con i form, ad esempio::
     public function updateAction(Request $request)
     {
         $form = $this->createForm(...);
-        
-        $form->bindRequest($request);
+
+        $form->bind($request);
         // ...
     }
 
@@ -344,9 +341,7 @@ l'accesso a qualsiasi risorsa che potrebbe essere necessaria. Estendendo questa 
 è possibile usufruire di numerosi metodi helper.
 
 Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificare
-``HelloController`` per estenderla:
-
-.. code-block:: php
+``HelloController`` per estenderla::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
@@ -375,13 +370,12 @@ stessa.
 
     Estendere la classe base è *opzionale* in Symfony; essa contiene utili
     scorciatoie ma niente di obbligatorio. È inoltre possibile estendere
-    ``Symfony\Component\DependencyInjection\ContainerAware``. L'oggetto
+    :class:`Symfony\Component\DependencyInjection\ContainerAware`. L'oggetto
     service container sarà quindi accessibile tramite la proprietà ``container``.
 
 .. note::
 
-    È inoltre possibile definire i :doc:`Controllori come servizi
-    </cookbook/controller/service>`.
+    È inoltre possibile definire i :doc:`controllori come servizi</cookbook/controller/service>`.
 
 .. index::
    single: Controllore; Attività comuni
@@ -422,9 +416,7 @@ eseguire un rinvio 301 (permanente), modificare il secondo parametro::
 .. tip::
 
     Il metodo ``redirect()`` è semplicemente una scorciatoia che crea un oggetto ``Response``
-    specializzato nel rinviare l'utente. È equivalente a:
-
-    .. code-block:: php
+    specializzato nel rinviare l'utente. È equivalente a::
 
         use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -448,8 +440,8 @@ e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'ogget
             'color' => 'green'
         ));
 
-        // modifica ulteriormente la risposta o ritorna direttamente
-        
+        // ... modificare ulteriormente la risposta o restituirla direttamente
+
         return $response;
     }
 
@@ -480,10 +472,13 @@ valore di ogni variabile.
     ``Response``::
     
         $httpKernel = $this->container->get('http_kernel');
-        $response = $httpKernel->forward('AcmeHelloBundle:Hello:fancy', array(
-            'name'  => $name,
-            'color' => 'green',
-        ));
+        $response = $httpKernel->forward(
+            'AcmeHelloBundle:Hello:fancy',
+            array(
+                'name'  => $name,
+                'color' => 'green',
+            )
+        );
 
 .. index::
    single: Controllore; Rendere i template
@@ -498,14 +493,22 @@ che è responsabile di generare il codice HTML (o un altro formato) per il contr
 Il metodo ``renderView()`` rende un template e restituisce il suo contenuto. Il
 contenuto di un template può essere usato per creare un oggetto ``Response``::
 
-    $content = $this->renderView('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+    use Symfony\Component\HttpFoundation\Response;
+
+    $content = $this->renderView(
+        'AcmeHelloBundle:Hello:index.html.twig',
+        array('name' => $name)
+    );
 
     return new Response($content);
 
 Questo può anche essere fatto in un solo passaggio con il metodo ``render()``, che
 restituisce un oggetto ``Response`` contenente il contenuto di un template::
 
-    return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+    return $this->render(
+        'AcmeHelloBundle:Hello:index.html.twig',
+        array('name' => $name)
+    );
 
 In entrambi i casi, verrà reso il template ``Resources/views/Hello/index.html.twig`` presente
 all'interno di ``AcmeHelloBundle``.
@@ -515,11 +518,20 @@ capitolo :doc:`Template </book/templating>`.
 
 .. tip::
 
+    Si può anche evitare di richiamare il metodo ``render``, usando l'annotazione ``@Template``.
+    Si veda la :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/view>`
+    per maggiori dettagli.
+
+.. tip::
+
     Il metodo ``renderView`` è una scorciatoia per utilizzare direttamente il servizio
     ``templating``. Il servizio ``templating`` può anche essere utilizzato in modo diretto::
-    
+
         $templating = $this->get('templating');
-        $content = $templating->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+        $content = $templating->render(
+            'AcmeHelloBundle:Hello:index.html.twig',
+            array('name' => $name)
+        );
 
 .. note::
 
@@ -527,7 +539,10 @@ capitolo :doc:`Template </book/templating>`.
     a evitare l'errore di rendere la struttura delle cartelle eccessivamente
     elaborata::
 
-        $templating->render('AcmeHelloBundle:Hello/Greetings:index.html.twig', array('name' => $name));
+        $templating->render(
+            'AcmeHelloBundle:Hello/Greetings:index.html.twig',
+            array('name' => $name)
+        );
         // viene reso index.html.twig trovato in Resources/views/Hello/Greetings
 
 .. index::
@@ -553,7 +568,7 @@ di propri. Per elencare tutti i servizi disponibili, utilizzare il comando di co
 
 .. code-block:: bash
 
-    php app/console container:debug
+    $ php app/console container:debug
 
 Per maggiori informazioni, vedere il capitolo :doc:`/book/service_container`.
 
@@ -640,7 +655,7 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
     {
         $form = $this->createForm(...);
 
-        $form->bindRequest($this->getRequest());
+        $form->bind($this->getRequest());
         if ($form->isValid()) {
             // fare una qualche elaborazione
 
@@ -671,7 +686,7 @@ il messaggio ``notice``:
 
     .. code-block:: php
 
-        <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
+        <?php foreach ($view['session']->getFlash('notice') as $message): ?>
             <div class="flash-notice">
                 <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>
@@ -692,9 +707,11 @@ classe :class:`Symfony\\Component\\HttpFoundation\\Response` è una astrazione P
 sulla risposta HTTP - il messaggio testuale che contiene gli header HTTP
 e il contenuto che viene inviato al client::
 
-    // crea una semplice risposta con un codice di stato 200 (il predefinito)
-    $response = new Response('Hello '.$name, 200);
-    
+    use Symfony\Component\HttpFoundation\Response;
+
+    // crea una semplice risposta JSON con un codice di stato 200 (predefinito)
+    $response = new Response('Ciao '.$name, 200);
+
     // crea una risposta JSON con un codice di stato 200
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');
@@ -706,6 +723,11 @@ e il contenuto che viene inviato al client::
     utili metodi per leggere e modificare gli header ``Response``. I
     nomi degli header sono normalizzati in modo che l'utilizzo di ``Content-Type`` sia equivalente
     a ``content-type`` o anche a ``content_type``.
+
+.. tip::
+
+    C'è anche una classe speciale :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
+    che aiuta a restituire risposte JSON. Vedere :ref:`component-http-foundation-json-response`.
 
 .. index::
    single: Controllore; Oggetto Request 

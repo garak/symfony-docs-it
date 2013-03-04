@@ -70,10 +70,11 @@ punti del flusso della sessione.
 HttpFoundation di Symfony2 ne fornisce alcuni predefiniti, che possono facilmente servire
 da esempi, se se ne vuole scrivere uno.
 
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`;
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`;
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`;
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`;
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MongoDbSessionHandler`
+  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`
 
 Esempio::
 
@@ -219,16 +220,16 @@ e il lifetime.
 Compatibilità con PHP 5.4
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A partire da PHP 5.4.0, sono disponibili :phpclass:`SessionHandler` e
-:phpclass:`SessionHandlerInterface`. Symfony 2.1 fornisce compatibilità in avanti per
-:phpclass:`SessionHandlerInterface`, in modo che possa essere usata con PHP 5.3.
-Questo aumenta molto l'interoperabilità con altre
+A partire da PHP 5.4.0, sono disponibili :phpclass:`SessionHandler` e :phpclass:`SessionHandlerInterface`.
+Symfony 2.1 fornisce compatibilità in avanti per :phpclass:`SessionHandlerInterface`,
+in modo che possa essere usata con PHP 5.3. Questo aumenta molto l'interoperabilità con altre
 librerie.
 
 :phpclass:`SessionHandler` è una classe interna speciale di PHP, che espone i gestori del
-salvataggio nativi nello user space di PHP. Per poter fornire una soluzione a chi usa
-PHP 5.4, Symfony2 ha una classe speciale, chiamata
-:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSessionHandler`,
+salvataggio nativi nello user space di PHP.
+
+Per poter fornire una soluzione a chi usa PHP 5.4, Symfony2 ha una classe speciale,
+chiamata :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSessionHandler`,
 che sotto PHP 5.4 estende da `\SessionHandler` e sotto PHP 5.3 è solo una classe
 di base vuota. Questo dà alcune interessanti opportunità, per sfruttare le
 funzionalità di PHP 5.4, se disponibile.

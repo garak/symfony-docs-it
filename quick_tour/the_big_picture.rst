@@ -16,9 +16,26 @@ benvenuti in un nuovo mondo per sviluppare applicazioni web!
 Scaricare Symfony2
 ------------------
 
-Prima di tutto, verificare di aver installato e configurato correttamente un server web,
-come Apache con la versione più recente di PHP (si raccomandano PHP 5.3.8 o
-successivi) .
+Prima di tutto, verificare di aver installato e configurato correttamente un server web (come
+Apache) con PHP 5.3.3 o successivi.
+
+.. tip::
+
+    Se si ha PHP 5.4, si può usare il server web incluso. Il server incluso
+    andrebbe usato solo per lo sviluppo, ma può aiutare a iniziare
+    un progetto in modo rapido e facile.
+
+    Basta usare questo comando per lanciare il server:
+
+    .. code-block:: bash
+
+        $ php -S localhost:80 -t /percorso/di/www
+
+    dove "/percorso/di/www" è il percorso di una cartella sulla propria macchina, in
+    cui si estrarrà Symfony, in modo che l'eventuale URL dell'applicazione
+    sia "http://localhost/Symfony/app_dev.php". Si può anche estrarre prima Symfony
+    e poi far partire il server nella cartella "web" di Symfony. Se lo si
+    fa, l'URL dell'applicazione sarà "http://localhost/app_dev.php".
 
 Pronti? Iniziamo scaricando "`Symfony2 Standard Edition`_", una :term:`distribuzione`
 di Symfony preconfigurata per gli usi più comuni e che contiene anche del codice
@@ -44,8 +61,8 @@ ora avere una cartella ``Symfony/``, come la seguente:
                         Controller/
                         Resources/
                         ...
-                vendor/
-                    symfony/
+            vendor/
+                symfony/
                 doctrine/
                 ...
             web/
@@ -63,6 +80,9 @@ ora avere una cartella ``Symfony/``, come la seguente:
 
         # rimuove la cronologia di Git
         $ rm -rf .git
+
+    Per una versione esatta, sostituire `2.1.x-dev` con l'ultima versione di Symfony
+    (p.e. 2.1.2). Per dettagli, si veda la `pagina di installazione di Symfony`_
 
 .. tip::
    
@@ -103,6 +123,23 @@ il seguente URL per avviare la diagnosi sulla propria macchina:
 
         http://localhost/Symfony/web/config.php
 
+.. note::
+
+    Tutti gli URL degli esempi ipotizzano che si sia scaricato e scompattato ``Symfony``
+    direttamente nella radice del server web. Chi ha seguito le istruzioni
+    precedenti e fatto in questo modo, aggiunga ``/Symfony/web`` dopo ``localhost`` per
+    tutti gli URL:
+
+    .. code-block:: text
+
+        http://localhost/Symfony/web/config.php
+
+    Per ottenere degli URL brevi, si doverebbe puntare la document root del proprio
+    server web oppure un host virtuale alla cartella ``Symfony/web/``. In questo
+    caso, gli URL saranno come ``http://localhost/config.php`` o
+    ``http://sito.locale/config.php``, se si è creato un host virtuale a un
+    dominio locale chiamato ``sito.locale``.
+
 Se ci sono dei problemi, correggerli. Si potrebbe anche voler modificare la propria
 configurazione, seguendo le raccomandazioni fornite. Quando è tutto a posto,
 cliccare su "*Bypass configuration and go to the Welcome page*" per richiedere
@@ -114,7 +151,7 @@ la prima "vera" pagina di Symfony2:
 
 Symfony2 dovrebbe congratularsi per il duro lavoro svolto finora!
 
-.. image:: /images/quick_tour/welcome.jpg
+.. image:: /images/quick_tour/welcome.png
    :align: center
 
 Capire i fondamenti
@@ -389,20 +426,25 @@ utile di Symfony2: il profilatore.
 .. image:: /images/quick_tour/profiler.png
    :align: center
 
+.. note::
+
+    Si possono ottenere rapidamente maggiori informazioni posizionando il cursore sopra gli elementi
+    della barra di debug del web.
+
 Ovviamente, questo strumento non deve essere mostrato quando si rilascia l'applicazione
 su un server di produzione. Per questo motivo, si troverà un altro front controller (``app.php``)
 nella cartella ``web/``, ottimizzato per l'ambiente di produzione:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/app.php/demo/hello/Fabien
+    http://localhost/app.php/demo/hello/Fabien
 
 Se si usa Apache con ``mod_rewrite`` abilitato, si può anche omettere la
 parte ``app.php`` dell'URL:
 
 .. code-block:: text
 
-    http://localhost/Symfony/web/demo/hello/Fabien
+    http://localhost/demo/hello/Fabien
 
 Infine, ma non meno importante, sui server di produzione si dovrebbe far
 puntare la cartella radice del web alla cartella ``web/``,per rendere
@@ -461,3 +503,4 @@ sezione: ":doc:`la vista<the_view>`".
 .. _YAML:                           http://www.yaml.org/
 .. _annotazioni nei controllori:    http://symfony.com/it/doc/current/bundles/SensioFrameworkExtraBundle/index.html#annotazioni-per-i-controllori
 .. _Twig:                           http://twig.sensiolabs.org/
+.. _`pagina di installazione di Symfony`: http://symfony.com/download

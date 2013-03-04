@@ -58,17 +58,17 @@ Sarà ora possibile usarlo nei propri template:
     .. code-block:: html+jinja
 
         {% image '@AcmeFooBundle/Resources/public/images/esempio.jpg'
-            filter='jpegoptim' output='/images/esempio.jpg'
-        %}
-        <img src="{{ asset_url }}" alt="Esempio"/>
+            filter='jpegoptim' output='/images/esempio.jpg' %}
+            <img src="{{ asset_url }}" alt="Esempio"/>
         {% endimage %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->images(
             array('@AcmeFooBundle/Resources/public/images/esempio.jpg'),
-            array('jpegoptim')) as $url): ?>
-        <img src="<?php echo $view->escape($url) ?>" alt="Esempio"/>
+            array('jpegoptim')
+        ) as $url): ?>
+            <img src="<?php echo $view->escape($url) ?>" alt="Esempio"/>
         <?php endforeach; ?>
 
 Rimozione dei dati EXIF 
@@ -204,8 +204,7 @@ A questo punto il template di Twig può essere modificato nel seguente modo:
 
 .. code-block:: html+jinja
 
-    <img src="{{ jpegoptim('@AcmeFooBundle/Resources/public/images/esempio.jpg') }}"
-         alt="Esempio"/>
+    <img src="{{ jpegoptim('@AcmeFooBundle/Resources/public/images/esempio.jpg') }}" alt="Esempio"/>
 
 È possibile specificare la cartella di output nel seguente modo:
 

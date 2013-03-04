@@ -19,7 +19,7 @@ Di seguito la lista dei requisiti e dei requisiti opzionali.
 Requisiti
 ---------
 
-* PHP deve essere almeno alla versione 5.3.2
+* PHP deve essere almeno alla versione 5.3.3
 * JSON deve essere abilitato
 * ctype deve essere abilitato
 * php.ini deve avere l'impostazione date.timezone

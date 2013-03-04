@@ -108,10 +108,8 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
 
             <doctrine:config>
                 <doctrine:dbal>
-                <doctrine:dbal default-connection="default">
-                    <doctrine:connection>
-                        <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
-                    </doctrine:connection>
+                    <doctrine:type name="custom_first" class="Acme\HelloBundle\Type\CustomFirst" />
+                    <doctrine:type name="custom_second" class="Acme\HelloBundle\Type\CustomSecond" />
                 </doctrine:dbal>
             </doctrine:config>
         </container>
@@ -121,12 +119,9 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
         // app/config/config.php
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
-                'connections' => array(
-                    'default' => array(
-                        'mapping_types' => array(
-                            'enum'  => 'string',
-                        ),
-                    ),
+                'types' => array(
+                    'custom_first'  => 'Acme\HelloBundle\Type\CustomFirst',
+                    'custom_second' => 'Acme\HelloBundle\Type\CustomSecond',
                 ),
             ),
         ));
@@ -148,9 +143,9 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
         # app/config/config.yml
         doctrine:
             dbal:
-                connection:
+                connections:
                     default:
-                        // Other connections parameters
+                        // altri parametri di connessione
                         mapping_types:
                             enum: string
 
@@ -165,8 +160,10 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
 
             <doctrine:config>
                 <doctrine:dbal>
-                    <doctrine:type name="custom_first" class="Acme\HelloBundle\Type\CustomFirst" />
-                    <doctrine:type name="custom_second" class="Acme\HelloBundle\Type\CustomSecond" />
+                <doctrine:dbal default-connection="default">
+                    <doctrine:connection>
+                        <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
+                    </doctrine:connection>
                 </doctrine:dbal>
             </doctrine:config>
         </container>
@@ -176,9 +173,12 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
         // app/config/config.php
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
-                'types' => array(
-                    'custom_first'  => 'Acme\HelloBundle\Type\CustomFirst',
-                    'custom_second' => 'Acme\HelloBundle\Type\CustomSecond',
+                'connections' => array(
+                    'default' => array(
+                        'mapping_types' => array(
+                            'enum'  => 'string',
+                        ),
+                    ),
                 ),
             ),
         ));

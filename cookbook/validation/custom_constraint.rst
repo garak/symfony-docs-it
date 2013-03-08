@@ -226,7 +226,7 @@ In questo modo, il metodo ``validate()`` del validatore accetta un oggetto come 
         }
     }
 
-Si noti che un validatore con vincolo di classe si applica alla classe stesse e non
+Si noti che un validatore con vincolo di classe si applica alla classe stessa e non
 alla proprietà:
 
 .. configuration-block::

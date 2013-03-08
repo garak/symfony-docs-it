@@ -108,7 +108,7 @@ query_builder
 **tipo**: ``Doctrine\ORM\QueryBuilder`` oppure una closure
 
 Se specificato, è usato per cercare un sotto-insieme di opzioni (e il loro
-ordina) che dovrebbero essere usate per il campo. Il valore di questa opzione
+ordinamento) che dovrebbero essere usate per il campo. Il valore di questa opzione
 può essere un oggetto ``QueryBuilder`` oppure una closure. Se su usa una closure,
 dovrebbe accettare un singolo parametro, che è l'``EntityRepository``
 dell'entità.

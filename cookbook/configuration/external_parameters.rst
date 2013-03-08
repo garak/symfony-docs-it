@@ -118,17 +118,25 @@ e definirne il tipo come ``constant``.
 
     Per funzionare è necessario che la configurazione usi l'XML. Se *non* si sta
     usando l'XML, per sfruttare questa funzionalità, basta importarne uno:
-    
-    .. code-block:: yaml
-    
-        # app/config/config.yml
-        imports:
-            - { resource: parameters.xml }
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+        
+            # app/config/config.yml
+            imports:
+                - { resource: parameters.xml }
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $loader->import('parameters.xml');
+
 
 Configurazioni varie
 --------------------
 
-La direttiva ``import`` può essere usata per importare parametri conservati in qualsiasi parte.
+La direttiva ``imports`` può essere usata per importare parametri conservati in qualsiasi parte.
 Importare un file PHP permette di avere la flessibilità di aggiungere qualsiasi cosa sia
 necessaria al contenitore. Il seguente esempio importa un file di nome ``parametri.php``.
 

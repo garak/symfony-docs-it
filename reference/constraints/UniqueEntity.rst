@@ -28,6 +28,16 @@ utenti:
 
 .. configuration-block::
 
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/validation.yml
+        Acme\UserBundle\Entity\Author:
+            constraints:
+                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+            properties:
+                email:
+                    - Email: ~
+
     .. code-block:: php-annotations
 
         // Acme/UserBundle/Entity/User.php
@@ -56,16 +66,6 @@ utenti:
             // ...
         }
 
-    .. code-block:: yaml
-
-        # src/Acme/UserBundle/Resources/config/validation.yml
-        Acme\UserBundle\Entity\Author:
-            constraints:
-                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-            properties:
-                email:
-                    - Email: ~
-
     .. code-block:: xml
 
         <class name="Acme\UserBundle\Entity\Author">
@@ -77,6 +77,30 @@ utenti:
                 <constraint name="Email" />
             </property>
         </class>
+
+    .. code-block:: php
+
+
+        // Acme/UserBundle/Entity/User.php
+        namespace Acme\UserBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        // NON dimenticare questa istruzione!!!
+        use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+        
+        class Author
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addConstraint(new UniqueEntity(array(
+                    'fields'  => 'email',
+                    'message' => 'This email already exists.',
+                )));
+
+                $metadata->addPropertyConstraint(new Assert\Email());
+            }
+        }
 
 Opzioni
 -------

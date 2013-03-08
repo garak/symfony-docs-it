@@ -256,11 +256,35 @@ configurazioni dell'applicazioni all'interno di un bundle vanno incluse
 a mano. Per esempio, per inmcludere le rotte di un bundle chiamato ``AcmeDemoBundle``,
 si può fare nel seguente modo:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/routing.yml
-    _hello:
-        resource: "@AcmeDemoBundle/Resources/config/routing.yml"
+    .. code-block:: yaml
+
+        # app/config/routing.yml
+        _hello:
+            resource: "@AcmeDemoBundle/Resources/config/routing.yml"
+
+    .. code-block:: xml
+
+        <!-- app/config/routing.yml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <import resource="@AcmeDemoBundle/Resources/config/routing.xml" />
+        </routes>
+
+    .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
+        $collection->addCollection($loader->import("@AcmeHelloBundle/Resources/config/routing.php"));
+
+        return $collection;
 
 Questo caricherà le rotte trovate nel file ``Resources/config/routing.yml`` di
 ``AcmeDemoBundle``. Il nome ``@AcmeDemoBundle`` è una sintassi abbreviata, risolta
@@ -268,16 +292,30 @@ internamente con il percorso completo di quel bundle.
 
 Si può usare la stessa strategia per portare una configurazione da un bundle:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    imports:
-        - { resource: "@AcmeDemoBundle/Resources/config/config.yml" }
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        imports:
+            - { resource: "@AcmeDemoBundle/Resources/config/config.yml" }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <imports>
+            <import resource="@AcmeDemoBundle/Resources/config/config.xml" />
+        </imports>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $this->import('@AcmeDemoBundle/Resources/config/config.php')
 
 In Symfony2, la configurazione è un po' come ``app.yml`` in symfony1, ma più
 sistematica. Con ``app.yml``, si poteva semplicemente creare le voci volute.
 Per impostazione predefinita, queste voci erano prive di significato ed era
-lasciato allo sviluppatore il compito di usarle nella propria applicazione:
+lasciato allo sviluppatore il compito di usarle nell'applicazione:
 
 .. code-block:: yaml
 
@@ -286,13 +324,25 @@ lasciato allo sviluppatore il compito di usarle nella propria applicazione:
       email:
         from_address:  foo.bar@example.com
 
-In Symfony2, si possono ancora creare voci arbitrarie sotto la voce ``parameters``
-della propria configurazione:
+In Symfony2, si possono anche creare voci arbitrarie sotto la voce ``parameters``
+della configurazione:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    parameters:
-        email.from_address: foo.bar@example.com
+    .. code-block:: yaml
+
+        parameters:
+            email.from_address: foo.bar@example.com
+
+    .. code-block:: xml
+
+        <parameters>
+            <parameter key="email.from_address">foo.bar@example.com</parameter>
+        </parameters>
+
+    .. code-block:: php
+
+        $container->setParameter('email.from_address', 'foo.bar@example.com');
 
 Si può ora accedervi da un controllore, per esempio::
 

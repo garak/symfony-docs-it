@@ -46,20 +46,6 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
                         choices:  [maschio, femmina]
                         message:  Scegliere un genere valido.
 
-    .. code-block:: xml
-
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\EntityAuthor">
-            <property name="gender">
-                <constraint name="Choice">
-                    <option name="choices">
-                        <value>maschio</value>
-                        <value>femmina</value>
-                    </option>
-                    <option name="message">Scegliere un genere valido.</option>
-                </constraint>
-            </property>
-        </class>
 
     .. code-block:: php-annotations
 
@@ -75,6 +61,21 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
              */
             protected $gender;
         }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\EntityAuthor">
+            <property name="gender">
+                <constraint name="Choice">
+                    <option name="choices">
+                        <value>maschio</value>
+                        <value>femmina</value>
+                    </option>
+                    <option name="message">Scegliere un genere valido.</option>
+                </constraint>
+            </property>
+        </class>
 
     .. code-block:: php
 
@@ -108,6 +109,8 @@ un elemento select di un form.
 .. code-block:: php
 
     // src/Acme/BlogBundle/Entity/Author.php
+    namespace Acme\BlogBundle\Entity;
+
     class Author
     {
         public static function getGenders()
@@ -132,6 +135,8 @@ Si può passare il nome di questo metodo all'opzione `callback_` del vincolo
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -153,6 +158,26 @@ Si può passare il nome di questo metodo all'opzione `callback_` del vincolo
             </property>
         </class>
 
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/EntityAuthor.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+        
+        class Author
+        {
+            protected $gender;
+            
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('gender', new Assert\Choice(array(
+                    'callback' => 'getGenders',
+                )));
+            }
+        }
+
 Se il callback statico è posto in una classe diversa, per esempio ``Util``,
 si può passare il nome della classe e del metodo come array.
 
@@ -165,6 +190,21 @@ si può passare il nome della classe e del metodo come array.
             properties:
                 gender:
                     - Choice: { callback: [Util, getGenders] }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\Choice(callback = {"Util", "getGenders"})
+             */
+            protected $gender;
+        }
 
     .. code-block:: xml
 
@@ -180,17 +220,24 @@ si può passare il nome della classe e del metodo come array.
             </property>
         </class>
 
-    .. code-block:: php-annotations
+    .. code-block:: php
 
-        // src/Acme/BlogBundle/Entity/Author.php
+        // src/Acme/BlogBundle/EntityAuthor.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
-            /**
-             * @Assert\Choice(callback = {"Util", "getGenders"})
-             */
             protected $gender;
+            
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('gender', new Assert\Choice(array(
+                    'callback' => array('Util', 'getGenders'),
+                )));
+            }
         }
 
 Opzioni disponibili

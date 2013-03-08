@@ -182,5 +182,23 @@ configurazione della propria applicazione con il codice seguente.
                 # la strategia piò essere: affirmative, unanimous o consensus
                 strategy: unanimous
 
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <!-- la strategia piò essere: affirmative, unanimous o consensus -->
+            <access-decision-manager strategy="unanimous">
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.xml
+        $container->loadFromExtension('security', array(
+            // la strategia piò essere: affirmative, unanimous o consensus
+            'access_decision_manager' => array(
+                'strategy' => 'unanimous',
+            ),
+        ));
+
 Ecco fatto! Ora, nella decisione sull'accesso di un utente, il nuovo votante negherà
 l'accesso a ogni utente nella lista nera degli IP.

@@ -73,6 +73,14 @@ per costruire un oggetto ``HelloService`` in modo appropriato:
          </service>
         </services>
 
+    .. code-block:: php
+
+        // app/config/config.php
+        $container
+            ->register('hello_service', 'Acme\SoapBundle\Services\HelloService')
+            ->addArgument(new Reference('mailer'));
+
+
 Di seguito un esempio di un controllore che è in grando di gestire una richiesta
 SOAP. Se ``indexAction()`` è accessibile tramite la rotta ``/soap``, il documento
 WSDL può essere recuperato tramite ``/soap?wsdl``.
@@ -134,18 +142,22 @@ Di seguito, un esempio di WSDL
          xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
          xmlns="http://schemas.xmlsoap.org/wsdl/" 
          targetNamespace="urn:helloservicewsdl">
+
       <types>
        <xsd:schema targetNamespace="urn:hellowsdl">
         <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
         <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
        </xsd:schema>
       </types>
+
       <message name="helloRequest">
        <part name="name" type="xsd:string" />
       </message>
+
       <message name="helloResponse">
        <part name="return" type="xsd:string" />
       </message>
+
       <portType name="hellowsdlPortType">
        <operation name="hello">
         <documentation>Hello World</documentation>
@@ -153,20 +165,24 @@ Di seguito, un esempio di WSDL
         <output message="tns:helloResponse"/>
        </operation>
       </portType>
+
       <binding name="hellowsdlBinding" type="tns:hellowsdlPortType">
       <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
       <operation name="hello">
        <soap:operation soapAction="urn:arnleadservicewsdl#hello" style="rpc"/>
+                
        <input>
         <soap:body use="encoded" namespace="urn:hellowsdl" 
             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
        </input>
+
        <output>
         <soap:body use="encoded" namespace="urn:hellowsdl" 
             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
        </output>
       </operation>
      </binding>
+
      <service name="hellowsdl">
       <port name="hellowsdlPort" binding="tns:hellowsdlBinding">
        <soap:address location="http://example.com/app.php/soap" />

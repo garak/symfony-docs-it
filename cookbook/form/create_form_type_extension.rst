@@ -110,14 +110,19 @@ serve è dichiararla come servizio, usando il tag
 
     .. code-block:: xml
 
-        <service id="acme_demo_bundle.image_type_extension" class="Acme\DemoBundle\Form\Extension\ImageTypeExtension">
+        <service id="acme_demo_bundle.image_type_extension"
+            class="Acme\DemoBundle\Form\Extension\ImageTypeExtension"
+        >
             <tag name="form.type_extension" alias="file" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('acme_demo_bundle.image_type_extension', 'Acme\DemoBundle\Form\Extension\ImageTypeExtension')
+            ->register(
+                'acme_demo_bundle.image_type_extension',
+                'Acme\DemoBundle\Form\Extension\ImageTypeExtension'
+            )
             ->addTag('form.type_extension', array('alias' => 'file'));
 
 La chiave ``alias`` del tag è il tipo di campo a cui l'estensione va applicata.

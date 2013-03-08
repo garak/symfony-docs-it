@@ -105,14 +105,33 @@ necesario modificare i percorsi nei file::
     Se si usa AsseticBundle, occorre configurarlo in modo che possa usare la cartella
     ``web`` corretta:
 
-    .. code-block:: yaml
+    .. configuration-block::
 
-        # app/config/config.yml
+        .. code-block:: yaml
 
-        # ...
-        assetic:
+            # app/config/config.yml
+
             # ...
-            read_from: "%kernel.root_dir%/../../public_html"
+            assetic:
+                # ...
+                read_from: "%kernel.root_dir%/../../public_html"
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+
+            <!-- ... -->
+            <assetic:config read-from="%kernel.root_dir%/../../public_html" />
+
+        .. code-block:: php
+
+            // app/config/config.php
+
+            // ...
+            $container->loadFromExtension('assetic', array(
+                // ...
+                'read_from' => '%kernel.root_dir%/../../public_html',
+            ));
 
     Ora basta eseguire nuovamente il dump delle risorse e l'applicazione dovrebbe
     funzionare:

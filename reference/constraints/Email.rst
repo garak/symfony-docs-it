@@ -30,23 +30,6 @@ Uso di base
                     - Email:
                         message: The email "{{ value }}" is not a valid email.
                         checkMX: true
-    .. code-block:: xml
-
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
-
-            <class name="Acme\BlogBundle\Entity\Author">
-                <property name="email">
-                    <constraint name="Email">
-                        <option name="message">The email "{{ value }}" is not a valid email.</option>
-                        <option name="checkMX">true</option>
-                    </constraint>
-                </property>
-            </class>
-        </constraint-mapping>
         
     .. code-block:: php-annotations
 
@@ -66,6 +49,24 @@ Uso di base
              protected $email;
         }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="email">
+                    <constraint name="Email">
+                        <option name="message">The email "{{ value }}" is not a valid email.</option>
+                        <option name="checkMX">true</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
+
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -80,7 +81,7 @@ Uso di base
             {
                 $metadata->addPropertyConstraint('email', new Assert\Email(array(
                     'message' => 'The email "{{ value }}" is not a valid email.',
-                    'check'   => true,
+                    'checkMX' => true,
                 )));
             }
         }
@@ -111,6 +112,6 @@ checkHost
 
 **tipo**: ``booleano`` **predefinito**: ``false``
 
-Se `true`, sarà usata la funzione :phpfunction:`checkdnsrr` di PHP per verificare
+Se ``true``, sarà usata la funzione :phpfunction:`checkdnsrr` di PHP per verificare
 la validità del recordo MX *o* del record A *o* del record AAAA dell'host
 dell'email data.

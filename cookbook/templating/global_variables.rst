@@ -7,13 +7,33 @@ Iniettare variabili in tutti i template (variabili globali)
 A volte si vuole che una variabile sia accessibile in tutti i template usati.
 Lo si può fare, modificando il file ``app/config/config.yml``:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    twig:
-        # ...
-        globals:
-            ga_tracking: UA-xxxxx-x
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        twig:
+            # ...
+            globals:
+                ga_tracking: UA-xxxxx-x
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <twig:config ...>
+            <!-- ... -->
+            <twig:global key="ga_tracking">UA-xxxxx-x</twig:global>
+        </twig:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('twig', array(
+             // ...
+             'globals' => array(
+                 'ga_tracking' => 'UA-xxxxx-x',
+             ),
+        ));
 
 Ora, la variabile ``ga_tracking`` è disponibile in tutti i template Twig
 
@@ -24,18 +44,36 @@ Ora, la variabile ``ga_tracking`` è disponibile in tutti i template Twig
 È molto facile! Si può anche usare il sistema :ref:`book-service-container-parameters`,
 che consente di isolare o riutilizzare il valore:
 
-.. code-block:: ini
+.. code-block:: yaml
 
     # app/config/parameters.yml
     parameters:
         ga_tracking: UA-xxxxx-x
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    twig:
-        globals:
-            ga_tracking: "%ga_tracking%"
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        twig:
+            globals:
+                ga_tracking: "%ga_tracking%"
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <twig:config ...>
+            <twig:global key="ga_tracking">%ga_tracking%</twig:global>
+        </twig:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('twig', array(
+             'globals' => array(
+                 'ga_tracking' => '%ga_tracking%',
+             ),
+        ));
 
 La stessa variabile è disponibile esattamente come prima.
 

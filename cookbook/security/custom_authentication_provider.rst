@@ -398,16 +398,21 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
         $container->setDefinition('wsse.security.authentication.provider',
           new Definition(
-            'Acme\DemoBundle\Security\Authentication\Provider\WsseProvider',
-            array('', '%kernel.cache_dir%/security/nonces')
-        ));
+                'Acme\DemoBundle\Security\Authentication\Provider\WsseProvider', array(
+                    '',
+                    '%kernel.cache_dir%/security/nonces',
+                )
+            )
+        );
 
         $container->setDefinition('wsse.security.authentication.listener',
           new Definition(
             'Acme\DemoBundle\Security\Firewall\WsseListener', array(
               new Reference('security.context'),
-              new Reference('security.authentication.manager')),
-        ));
+                    new Reference('security.authentication.manager'),
+                )
+            )
+        );
 
 Ora che i servizi sono stati definiti, diciamo al contesto della sicurezza del
 factory. 
@@ -437,13 +442,35 @@ factory.
 
 Abbiamo finito! Ora si possono definire le parti dell'applicazione sotto protezione WSSE.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    security:
-        firewalls:
-            wsse_secured:
-                pattern:   /api/.*
-                wsse:      true
+    .. code-block:: yaml
+
+        security:
+            firewalls:
+                wsse_secured:
+                    pattern:   /api/.*
+                    wsse:      true
+
+    .. code-block:: xml
+
+        <config>
+            <firewall name="wsse_secured" pattern="/api/.*">
+                <wsse />
+            </firewall>
+        </config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('security', array(
+            'firewalls' => array(
+                'wsse_secured' => array(
+                    'pattern' => '/api/.*',
+                    'wsse'    => true,
+                ),
+            ),
+        ));
+
 
 Con questo abbiamo concluso la scrittura di un fornitore di autenticazione
 personalizzato.
@@ -516,13 +543,38 @@ fornitore di autenticazione.
 Il  tempo di scadenza di ogni richiesta WSSE è ora configurabile e può essere impostato
 con qualsiasi valore desiderato per ogni firewall.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    security:
-        firewalls:
-            wsse_secured:
-                pattern:   /api/.*
-                wsse:      { lifetime: 30 }
+    .. code-block:: yaml
+
+        security:
+            firewalls:
+                wsse_secured:
+                    pattern:   /api/.*
+                    wsse:      { lifetime: 30 }
+
+    .. code-block:: xml
+
+        <config>
+            <firewall name="wsse_secured"
+                pattern="/api/.*"
+            >
+                <wsse lifetime="30" />
+            </firewall>
+        </config>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('security', array(
+            'firewalls' => array(
+                'wsse_secured' => array(
+                    'pattern' => '/api/.*',
+                    'wsse'    => array(
+                        'lifetime' => 30,
+                    ),
+                ),
+            ),
+        ));
 
 Qualsiasi altra configurazione rilevante può essere definita nel factory e
 utilizzata o passata a altre classi nel contenitore.

@@ -46,7 +46,6 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
                         choices:  [maschio, femmina]
                         message:  Scegliere un genere valido.
 
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php

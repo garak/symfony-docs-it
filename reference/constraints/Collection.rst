@@ -30,6 +30,7 @@ Uso di base
 Il vincolo ``Collection`` consente di validare le diverse chiavi di un insieme in modo
 individuale. Si consideri il seguente esempio::
 
+    // src/Acme/BlogBundle/Entity/Author.php
     namespace Acme\BlogBundle\Entity;
 
     class Author
@@ -53,7 +54,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
 
     .. code-block:: yaml
 
-        # src/BlogBundle/Resources/config/validation.yml
+        # src/Acme/BlogBundle/Resources/config/validation.yml
         Acme\BlogBundle\Entity\Author:
             properties:
                 profileData:

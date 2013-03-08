@@ -38,7 +38,7 @@ Per iniziare, configurare i parametri di connessione alla base dati:
 
     .. code-block:: xml
 
-        // app/config/config.xml
+        <!-- app/config/config.xml -->
         <doctrine:config>
             <doctrine:dbal
                 name="default"
@@ -64,9 +64,7 @@ Per iniziare, configurare i parametri di connessione alla base dati:
 Per un elenco completo delle opzioni di configurazione, vedere :ref:`reference-dbal-configuration`.
 
 Si può quindi accedere alla connessione del DBAL di Doctrine usando il
-servizio ``database_connection``:
-
-.. code-block:: php
+servizio ``database_connection``::
 
     class UserController extends Controller
     {

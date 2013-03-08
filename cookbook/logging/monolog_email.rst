@@ -62,6 +62,31 @@ singolarmente.
             </monolog:config>
         </container>
 
+    .. code-block:: php
+            
+        // app/config/config.php
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'mail' => array(
+                    'type'         => 'fingers_crossed',
+                    'action_level' => 'critical',
+                    'handler'      => 'buffered',
+                ),    
+                'buffered' => array(
+                    'type'    => 'buffer',
+                    'handler' => 'swift',
+                ),    
+                'swift' => array(
+                    'type'       => 'swift_mailer',
+                    'from_email' => 'error@example.com',
+                    'to_email'   => 'error@example.com',
+                    'subject'    => 'An Error Occurred!',
+                    'level'      => 'debug',
+                ),    
+            ),
+        ));    
+
+
 Il gestore ``mail`` è un gestore ``fingers_crossed``, che vuol dire che viene
 evocato solo quando si raggiunge il livello di azione, in questo caso ``critical``.
 Esso logga ogni cosa, inclusi i messaggi sotto il livello di azione. Il livello
@@ -153,6 +178,40 @@ comunque loggati sul server, oltre che inviati per email:
                 />
             </monolog:config>
         </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'main' => array(
+                    'type'         => 'fingers_crossed',
+                    'action_level' => 'critical',
+                    'handler'      => 'grouped',
+                ),    
+                'grouped' => array(
+                    'type'    => 'group',
+                    'members' => array('streamed', 'buffered'),
+                ),    
+                'streamed'  => array(
+                    'type'  => 'stream',
+                    'path'  => '%kernel.logs_dir%/%kernel.environment%.log',
+                    'level' => 'debug',
+                ),    
+                'buffered'    => array(
+                    'type'    => 'buffer',
+                    'handler' => 'swift',
+                ),    
+                'swift' => array(
+                    'type'       => 'swift_mailer',
+                    'from_email' => 'error@example.com',
+                    'to_email'   => 'error@example.com',
+                    'subject'    => 'An Error Occurred!',
+                    'level'      => 'debug',
+                ),    
+            ),
+        ));
+
 
 Qui è stato usato il gestore ``group``, per inviare i messaggi ai due membri del gruppo,
 il gestore ``buffered`` e il gestore ``stream``. I messaggi saranno ora sia

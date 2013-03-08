@@ -758,6 +758,7 @@ incollare e personalizzare il frammento ``field_errors``.
 
 
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per come applicare questa personalizzazione.
 
 È anche possibile personalizzare l'output dell'errore per uno specifico tipo di campo.
@@ -811,6 +812,7 @@ classe all'elemento  ``div`` per ogni riga:
         </div>
 
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per conoscere come applicare questa personalizzazione.
 
 Aggiungere un asterisco "obbligatorio" alle label del campo
@@ -868,6 +870,7 @@ template originale:
     <?php endif ?>
 
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per sapere come effettuare questa personalizzazione.
 
 Aggiungere messaggi di aiuto
@@ -937,6 +940,7 @@ Per rendere un messaggio di aiuto sotto al campo, passare nella variabile ``help
         <?php echo $view['form']->widget($form['title'], array('help' => 'foobar')) ?>
 
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per sapere come applicare questa configurazione.
 
 Usare le variabili nei Form

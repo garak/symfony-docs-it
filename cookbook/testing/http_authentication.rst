@@ -34,3 +34,23 @@ nel firewall, insieme alla chiave ``form_login``:
             firewalls:
                 mio_firewall:
                     http_basic:
+
+    .. code-block:: xml
+
+        <!-- app/config/config_test.xml -->
+        <security:config>
+            <security:firewall name="mio_firewall">
+              <security:http-basic />
+           </security:firewall>
+        </security:config>
+
+    .. code-block:: php
+
+        // app/config/config_test.php
+        $container->loadFromExtension('security', array(
+            'firewalls' => array(
+                'mio_firewall' => array(
+                    'http_basic' => array(),
+                ),
+            ),
+        ));

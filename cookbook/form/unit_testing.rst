@@ -149,7 +149,7 @@ Aggiungere estensioni personalizzate
 ------------------------------------
 
 Spesso accade di usare alcune opzioni aggiunte da
-:doc:`form extensions<cookbook/form/create_form_type_extension>`. Uno dei casi può
+:doc:`estensioni di form</cookbook/form/create_form_type_extension>`. Uno dei casi può
 essere ``ValidatorExtension``, con la sua opzione ``invalid_message``.
 ``TypeTestCase`` carica solo le estensioni base del form, quindi sarà lanciata
 un'eccezione "Invalid option", se si prova a usarlo per testare una classe che dipenda

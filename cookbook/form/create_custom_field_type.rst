@@ -104,26 +104,45 @@ sia "expanded" (ad es. radio button o checkbox, al posto di un campo select),
 vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del proprio form
 (vedere il link sopra per maggiori dettagli), creare un blocco ``gender_widget`` per gestire questo caso:
 
-.. code-block:: html+jinja
+.. configuration-block::
 
-    {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
-    {% block gender_widget %}
-    {% spaceless %}
-        {% if expanded %}
-            <ul {{ block('widget_container_attributes') }}>
-            {% for child in form %}
+    .. code-block:: html+jinja
+
+        {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
+        {% block gender_widget %}
+        {% spaceless %}
+            {% if expanded %}
+                <ul {{ block('widget_container_attributes') }}>
+                {% for child in form %}
+                    <li>
+                        {{ form_widget(child) }}
+                        {{ form_label(child) }}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                {# far rendere il tag select al widget choice #}
+                {{ block('choice_widget') }}
+            {% endif %}
+        {% endspaceless %}
+        {% endblock %}
+
+    .. code-block:: html+php
+
+        <!-- src/Acme/DemoBundle/Resources/views/Form/gender_widget.html.twig -->
+        <?php if ($expanded) : ?>
+            <ul <?php $view['form']->block($form, 'widget_container_attributes') ?>>
+            <?php foreach ($form as $child) : ?>
                 <li>
-                    {{ form_widget(child) }}
-                    {{ form_label(child) }}
+                    <?php echo $view['form']->widget($child) ?>
+                    <?php echo $view['form']->label($child) ?>
                 </li>
-            {% endfor %}
+            <?php endforeach ?>
             </ul>
-        {% else %}
-            {# far rendere il tag select al widget choice #}
-            {{ block('choice_widget') }}
-        {% endif %}
-    {% endspaceless %}
-    {% endblock %}
+        <?php else : ?>
+            <!-- far rendere il tag select al widget choice -->
+            <?php echo $view['form']->renderBlock('choice_widget') ?>
+        <?php endif ?>
 
 .. note::
 
@@ -132,13 +151,35 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
     Inoltre, il file principale di configurazione dovrebbe puntare al template personalizzato
     del form, in modo che sia utilizzato per la resa di tutti i form.
 
-    .. code-block:: yaml
+    .. configuration-block::
 
-        # app/config/config.yml
-        twig:
-            form:
-                resources:
-                    - 'AcmeDemoBundle:Form:fields.html.twig'
+        .. code-block:: yaml
+
+            # app/config/config.yml
+            twig:
+                form:
+                    resources:
+                        - 'AcmeDemoBundle:Form:fields.html.twig'
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+            <twig:config>
+                <twig:form>
+                    <twig:resource>AcmeDemoBundle:Form:fields.html.twig</twig:resource>
+                </twig:form>
+            </twig:config>
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $container->loadFromExtension('twig', array(
+                'form' => array(
+                    'resources' => array(
+                        'AcmeDemoBundle:Form:fields.html.twig',
+                    ),
+                ),
+            ));
 
 Utilizzare il tipo di campo
 ---------------------------
@@ -157,7 +198,7 @@ nuova istanza del tipo in un form::
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('gender_code', new GenderType(), array(
-                'empty_value' => 'Choose a gender',
+                'empty_value' => 'Scegliere sesso',
             ));
         }
     }
@@ -181,18 +222,24 @@ esempio, si supponga che i valori del genere siano memorizzati nella configurazi
         # app/config/config.yml
         parameters:
             genders:
-                m: Male
-                f: Female
+                m: Maschio
+                f: Femmina
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <parameters>
             <parameter key="genders" type="collection">
-                <parameter key="m">Male</parameter>
-                <parameter key="f">Female</parameter>
+                <parameter key="m">Maschio</parameter>
+                <parameter key="f">Femmina</parameter>
             </parameter>
         </parameters>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->setParameter('genders.m', 'Maschio');
+        $container->setParameter('genders.f', 'Femmina');
 
 Per utilizzare i parametri, è necessario definire il tipo di campo come un servizio, iniettando
 i valori dei parametri di ``genders`` come primo parametro del metodo
@@ -219,6 +266,21 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
             <tag name="form.type" alias="gender" />
         </service>
 
+    .. code-block:: php
+
+        // src/Acme/DemoBundle/Resources/config/services.php
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container
+            ->setDefinition('acme_demo.form.type.gender', new Definition(
+                'Acme\DemoBundle\Form\Type\GenderType',
+                array('%genders%')
+            ))
+            ->addTag('form.type', array(
+                'alias' => 'gender',
+            ))
+        ;
+
 .. tip::
 
     Assicurarsi che il file dei servizi sia importato. Leggere :ref:`service-container-imports-directive`
@@ -236,6 +298,7 @@ di ``GenderType`` un parametro, che riceverà la configurazione di gender::
 
     // ...
 
+    // ...
     class GenderType extends AbstractType
     {
         private $genderChoices;
@@ -271,7 +334,7 @@ utilizzare il campo risulta molto semplice::
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('gender_code', 'gender', array(
-                'empty_value' => 'Choose a gender',
+                'empty_value' => 'Scegliere sesso',
             ));
         }
     }

@@ -221,22 +221,62 @@ Modificare ``security.yml``
 lista di fornitori nella sezione "security". Scegliere un nome per il fornitore di utenti
 (p.e. "webservice") e menzionare l'id del servizio appena definito.
 
-.. code-block:: yaml
+.. configuration-block::
 
-    security:
-        providers:
-            webservice:
-                id: webservice_user_provider
+    .. code-block:: yaml
+
+        // app/config/security.yml
+        security:
+            providers:
+                webservice:
+                    id: webservice_user_provider
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <provider name="webservice" id="webservice_user_provider" />
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            'providers' => array(
+                'webservice' => array(
+                    'id' => 'webservice_user_provider',
+                ),
+            ),
+        ));
 
 Symfony deve anche sapere come codificare le password fornite dagli utenti, per esempio
 quando compilano il form di login. Lo si può fare aggiungendo una riga alla sezione
 "encoders", in ``/app/config/security.yml``. 
 
-.. code-block:: yaml
+.. configuration-block::
 
-    security:
-        encoders:
-            Acme\WebserviceUserBundle\Security\User\WebserviceUser: sha512
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            encoders:
+                Acme\WebserviceUserBundle\Security\User\WebserviceUser: sha512
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <encoder class="Acme\WebserviceUserBundle\Security\User\WebserviceUser">sha512</encoder>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            'encoders' => array(
+                'Acme\WebserviceUserBundle\Security\User\WebserviceUser' => 'sha512',
+            ),
+        ));
 
 Il valore inserito deve corrispondere al modo in cui le password sono state codificate
 originariamente, alla creazione degli uenti (in qualsiasi modo siano stati creati).
@@ -265,13 +305,40 @@ la password può essere codificata più volte e poi codificata in base64.
     in base64. Per i dettagli, si veda `MessageDigestPasswordEncoder`_.
     Se lo si vuole evitare, configurarlo in ``security.yml``:
 
-    .. code-block:: yaml
+    .. configuration-block::
 
-        security:
-            encoders:
-                Acme\WebserviceUserBundle\Security\User\WebserviceUser:
-                    algorithm: sha512
-                    encode_as_base64: false
-                    iterations: 1
+        .. code-block:: yaml
+
+            # app/config/security.yml
+            security:
+                encoders:
+                    Acme\WebserviceUserBundle\Security\User\WebserviceUser:
+                        algorithm: sha512
+                        encode_as_base64: false
+                        iterations: 1
+
+        .. code-block:: xml
+
+            <!-- app/config/security.xml -->
+            <config>
+                <encoder class="Acme\WebserviceUserBundle\Security\User\WebserviceUser"
+                    algorithm="sha512"
+                    encode-as-base64="false"
+                    iterations="1"
+                />
+            </config>
+
+        .. code-block:: php
+
+            // app/config/security.php
+            $container->loadFromExtension('security', array(
+                'encoders' => array(
+                    'Acme\WebserviceUserBundle\Security\User\WebserviceUser' => array(
+                        'algorithm'         => 'sha512',
+                        'encode_as_base64'  => false,
+                        'iterations'        => 1,
+                    ),
+                ),
+            ));
 
 .. _MessageDigestPasswordEncoder: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Security/Core/Encoder/MessageDigestPasswordEncoder.php

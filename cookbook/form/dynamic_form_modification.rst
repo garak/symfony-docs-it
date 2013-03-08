@@ -39,7 +39,8 @@ da questa classe avrà lo stesso aspetto, indipendentemente se sta per essere cr
 oppure se sta per essere modificato un prodotto esistente (cioè un prodotto ottenuto da base dati).
 
 Si supponga ora, di non voler abilitare l'utente alla modifica del campo 'nome' 
-una volta che l'oggetto è stato creato. Lo si può fare grazie al componente :doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
+una volta che l'oggetto è stato creato. Lo si può fare grazie al componente
+:doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
 che analizza l'oggetto e modifica il form basato sull'
 oggetto prodotto. In questa ricetta si imparerà come aggiungere questo livello di
 flessibilità ai form.
@@ -112,7 +113,7 @@ potrebbe essere simile a questo::
             return array(FormEvents::PRE_SET_DATA => 'preSetData');
         }
 
-        public function preSetData(DataEvent $event)
+        public function preSetData(FormEvent $event)
         {
             $data = $event->getData();
             $form = $event->getForm();

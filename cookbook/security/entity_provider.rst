@@ -200,9 +200,9 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
 Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL. Per dettagli sulla
 creazione delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-security-encoding-user-password`.
 
-.. code-block:: text
+.. code-block:: bash
 
-    mysql> select * from user;
+    $ mysql> select * from user;
     +----+----------+----------------------------------+------------------------------------------+--------------------+-----------+
     | id | username | salt                             | password                                 | email              | is_active |
     +----+----------+----------------------------------+------------------------------------------+--------------------+-----------+
@@ -257,6 +257,64 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
 
             access_control:
                 - { path: ^/admin, roles: ROLE_ADMIN }
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <encoder class="Acme\UserBundle\Entity\User"
+                algorithm="sha1"
+                encode-as-base64="false"
+                iterations="1"
+            />
+
+            <role id="ROLE_ADMIN">ROLE_USER</role>
+            <role id="ROLE_SUPER_ADMIN">ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH</role>
+
+            <provider name="administrators">
+                <entity class="AcmeUserBundle:User" property="username" />
+            </provider>
+
+            <firewall name="admin_area" pattern="^/admin">
+                <http-basic />
+            </firewall>
+
+            <rule path="^/admin" role="ROLE_ADMIN" />
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            'encoders' => array(
+                'Acme\UserBundle\Entity\User' => array(
+                    'algorithm'         => 'sha1',
+                    'encode_as_base64'  => false,
+                    'iterations'        => 1,
+                ),
+            ),
+            'role_hierarchy' => array(
+                'ROLE_ADMIN'       => 'ROLE_USER',
+                'ROLE_SUPER_ADMIN' => array('ROLE_USER', 'ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH'),
+            ),
+            'providers' => array(
+                'administrator' => array(
+                    'entity' => array(
+                        'class'    => 'AcmeUserBundle:User',
+                        'property' => 'username',
+                    ),
+                ),
+            ),
+            'firewalls' => array(
+                'admin_area' => array(
+                    'pattern' => '^/admin',
+                    'http_basic' => null,
+                ),
+            ),
+            'access_control' => array(
+                array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
+            ),
+        ));
 
 La sezione ``encoders`` associa il codificatore ``sha1`` alla classe entità.
 Ciò vuol dire che Symfony si aspetta che le password siano codificate nella
@@ -406,7 +464,7 @@ Il codice successivo mostra l'implementazione di
                 );
             }
 
-            return $this->loadUserByUsername($user->getUsername());
+            return $this->find($user->getId());
         }
 
         public function supportsClass($class)
@@ -433,6 +491,34 @@ del file ``security.yml``.
                 administrators:
                     entity: { class: AcmeUserBundle:User }
             # ...
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <!-- ... -->
+
+            <provider name="administrator">
+                <entity class="AcmeUserBundle:User" />
+            </provider>
+
+            <!-- ... -->
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            ...,
+            'providers' => array(
+                'administrator' => array(
+                    'entity' => array(
+                        'class' => 'AcmeUserBundle:User',
+                    ),
+                ),
+            ),
+            ...,
+        ));
 
 In questo modo, il livello della sicurezza userà un'istanza di ``UserRepository`` e
 richiamerà il suo metodo ``loadUserByUsername()`` per recuperare un utente dalla base dati,

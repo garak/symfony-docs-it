@@ -65,7 +65,9 @@ della conversione da numero di issue a oggetto Issue e viceversa::
          * Transforms a string (number) to an object (issue).
          *
          * @param  string $number
+         *
          * @return Issue|null
+         *
          * @throws TransformationFailedException if object (issue) is not found.
          */
         public function reverseTransform($number)
@@ -314,6 +316,17 @@ riconosciuto come tipo di campo personalizzato:
             <tag name="form.type" alias="issue_selector" />
         </service>
 
+    .. code-block:: php
+
+        $container
+            ->setDefinition('acme_demo.type.issue_selector', array(
+                new Reference('doctrine.orm.entity_manager'),
+            ))
+            ->addTag('form.type', array(
+                'alias' => 'issue_selector',
+            ))
+        ;
+
 Ora, ogni volta che serve il tipo ``issue_selector``,
 è molto facile::
 
@@ -338,4 +351,3 @@ Ora, ogni volta che serve il tipo ``issue_selector``,
             return 'task';
         }
     }
-

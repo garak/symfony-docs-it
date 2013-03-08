@@ -465,7 +465,25 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
                     tags:
                         targetEntity: Tag
                         cascade:      [persist]
-    
+
+        .. code-block:: xml
+
+            <!-- src/Acme/TaskBundle/Resources/config/doctrine/Task.orm.xml -->
+            <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+                <entity name="Acme\TaskBundle\Entity\Task" ...>
+                    <!-- ... -->
+                    <one-to-many field="tags" target-entity="Tag">
+                        <cascade>
+                            <cascade-persist />
+                        </cascade>
+                    </one-to-many>
+                </entity>
+            </doctrine-mapping>
+
     Un altro possibile problema riguarda il `lato di appartenenza e il lato inverso`_
     delle relazioni Doctrine. In questo esempio il lato di appartenenza della
     relazione è "Task", quindi la persistenza funzionerà finché i tag sono aggiunti

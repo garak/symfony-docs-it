@@ -13,12 +13,33 @@ Modificare i parametri di configurazione delle rotte
 Per esportare in Apache le rotte, occorre prima sistemare alcuni parametri di configurazione,
 per dire a Symfony2 di usare ``ApacheUrlMatcher`` invece di quello predefinito:
 
-.. code-block:: yaml
-    
-    # app/config/config_prod.yml
-    parameters:
-        router.options.matcher.cache_class: ~ # disabilita la cache delle rotte
-        router.options.matcher_class: Symfony\Component\Routing\Matcher\ApacheUrlMatcher
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config_prod.yml
+        parameters:
+            router.options.matcher.cache_class: ~ # disabilita la cache delle rotte
+            router.options.matcher_class: Symfony\Component\Routing\Matcher\ApacheUrlMatcher
+
+    .. code-block:: xml
+
+        <!-- app/config/config_prod.xml -->
+        <parameters>
+            <parameter key="router.options.matcher.cache_class">null</parameter> <!-- disabilita la cache delle rotte -->
+            <parameter key="router.options.matcher_class">
+                Symfony\Component\Routing\Matcher\ApacheUrlMatcher
+            </parameter>
+        </parameters>
+
+    .. code-block:: php
+
+        // app/config/config_prod.php
+        $container->setParameter('router.options.matcher.cache_class', null); // disabilita la cache delle rotte
+        $container->setParameter(
+            'router.options.matcher_class',
+            'Symfony\Component\Routing\Matcher\ApacheUrlMatcher'
+        );
 
 .. tip::
 
@@ -33,19 +54,34 @@ Generare le regole per mod_rewrite
 
 Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle demo:
 
-.. code-block:: yaml
-    
-    # app/config/routing.yml
-    hello:
-        pattern:  /hello/{name}
-        defaults: { _controller: AcmeDemoBundle:Demo:hello }
-            
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/routing.yml
+        hello:
+            pattern:  /hello/{name}
+            defaults: { _controller: AcmeDemoBundle:Demo:hello }
+
+    .. code-block:: xml
+
+        <!-- app/config/routing.xml -->
+        <route id="hello" pattern="/hello/{name}">
+            <default key="_controller">AcmeDemoBundle:Demo:hello</default>
+        </route>
+
+    .. code-block:: php
+
+        // app/config/routing.php
+        $collection->add('hello', new Route('/hello/{name}', array(
+            '_controller' => 'AcmeDemoBundle:Demo:hello',
+        )));
 
 Ora generiamo le regole di **url_rewrite**:
     
 .. code-block:: bash
 
-    php app/console router:dump-apache -e=prod --no-debug
+    $ php app/console router:dump-apache -e=prod --no-debug
 
 Il risultato dovrebbe essere simile a questo:
 

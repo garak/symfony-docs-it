@@ -40,15 +40,15 @@ che usano tale connessione.
 
         services:
             my.listener:
-                class: Acme\SearchBundle\Listener\SearchIndexer
+                class: Acme\SearchBundle\EventListener\SearchIndexer
                 tags:
                     - { name: doctrine.event_listener, event: postPersist }
             my.listener2:
-                class: Acme\SearchBundle\Listener\SearchIndexer2
+                class: Acme\SearchBundle\EventListener\SearchIndexer2
                 tags:
                     - { name: doctrine.event_listener, event: postPersist, connection: default }
             my.subscriber:
-                class: Acme\SearchBundle\Listener\SearchIndexerSubscriber
+                class: Acme\SearchBundle\EventListener\SearchIndexerSubscriber
                 tags:
                     - { name: doctrine.event_subscriber, connection: default }
 
@@ -65,17 +65,55 @@ che usano tale connessione.
             </doctrine:config>
 
             <services>
-                <service id="my.listener" class="Acme\SearchBundle\Listener\SearchIndexer">
+                <service id="my.listener" class="Acme\SearchBundle\EventListener\SearchIndexer">
                     <tag name="doctrine.event_listener" event="postPersist" />
                 </service>
-                <service id="my.listener2" class="Acme\SearchBundle\Listener\SearchIndexer2">
+                <service id="my.listener2" class="Acme\SearchBundle\EventListener\SearchIndexer2">
                     <tag name="doctrine.event_listener" event="postPersist" connection="default" />
                 </service>
-                <service id="my.subscriber" class="Acme\SearchBundle\Listener\SearchIndexerSubscriber">
+                <service id="my.subscriber" class="Acme\SearchBundle\EventListener\SearchIndexerSubscriber">
                     <tag name="doctrine.event_subscriber" connection="default" />
                 </service>
             </services>
         </container>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container->loadFromExtension('doctrine', array(
+            'dbal' => array(
+                'default_connection' => 'default',
+                'connections' => array(
+                    'default' => array(
+                        'driver' => 'pdo_sqlite',
+                        'memory' => true,
+                    ),
+                ),
+            ),
+        ));
+
+        $container
+            ->setDefinition(
+                'my.listener',
+                new Definition('Acme\SearchBundle\EventListener\SearchIndexer')
+            )
+            ->addTag('doctrine.event_listener', array('event' => 'postPersist'))
+        ;
+        $container
+            ->setDefinition(
+                'my.listener2',
+                new Definition('Acme\SearchBundle\EventListener\SearchIndexer2')
+            )
+            ->addTag('doctrine.event_listener', array('event' => 'postPersist', 'connection' => 'default'))
+        ;
+        $container
+            ->setDefinition(
+                'my.subscriber',
+                new Definition('Acme\SearchBundle\EventListener\SearchIndexerSubscriber')
+            )
+            ->addTag('doctrine.event_subscriber', array('connection' => 'default'))
+        ;
 
 Creare la classe dell'ascoltatore
 ---------------------------------

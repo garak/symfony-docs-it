@@ -38,7 +38,7 @@ La rotta è semplice:
 
         # app/config/routing.yml
         blog_show:
-            pattern:   /blog/{slug}
+            path:      /blog/{slug}
             defaults:  { _controller: AcmeBlogBundle:Blog:show }
 
     .. code-block:: xml
@@ -49,7 +49,7 @@ La rotta è semplice:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog_show" pattern="/blog/{slug}">
+            <route id="blog_show" path="/blog/{slug}">
                 <default key="_controller">AcmeBlogBundle:Blog:show</default>
             </route>
         </routes>
@@ -66,6 +66,10 @@ La rotta è semplice:
         )));
 
         return $collection;
+
+.. versionadded:: 2.2
+    L'opzione ``path`` è nuova in Symfony2.2,  nelle precedenti versioni veniva
+    usata l'opzione ``pattern``.
 
 Lo schema definito dalla rotta ``blog_show`` si comporta come ``/blog/*``, dove
 al carattere jolly viene dato il nome ``slug``. Per l'URL ``/blog/my-blog-post``,
@@ -194,7 +198,7 @@ array ``defaults``:
     .. code-block:: yaml
 
         _welcome:
-            pattern:   /
+            path:      /
             defaults:  { _controller: AcmeDemoBundle:Main:homepage }
 
     .. code-block:: xml
@@ -205,7 +209,7 @@ array ``defaults``:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="_welcome" pattern="/">
+            <route id="_welcome" path="/">
                 <default key="_controller">AcmeDemoBundle:Main:homepage</default>
             </route>
 
@@ -242,7 +246,7 @@ rotte conterranno uno o più segnaposto "jolly":
     .. code-block:: yaml
 
         blog_show:
-            pattern:   /blog/{slug}
+            path:      /blog/{slug}
             defaults:  { _controller: AcmeBlogBundle:Blog:show }
 
     .. code-block:: xml
@@ -253,7 +257,7 @@ rotte conterranno uno o più segnaposto "jolly":
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog_show" pattern="/blog/{slug}">
+            <route id="blog_show" path="/blog/{slug}">
                 <default key="_controller">AcmeBlogBundle:Blog:show</default>
             </route>
         </routes>
@@ -291,7 +295,7 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
     .. code-block:: yaml
 
         blog:
-            pattern:   /blog
+            path:      /blog
             defaults:  { _controller: AcmeBlogBundle:Blog:index }
 
     .. code-block:: xml
@@ -302,7 +306,7 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog" pattern="/blog">
+            <route id="blog" path="/blog">
                 <default key="_controller">AcmeBlogBundle:Blog:index</default>
             </route>
         </routes>
@@ -329,7 +333,7 @@ del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
     .. code-block:: yaml
 
         blog:
-            pattern:   /blog/{page}
+            path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index }
 
     .. code-block:: xml
@@ -340,7 +344,7 @@ del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog" pattern="/blog/{page}">
+            <route id="blog" path="/blog/{page}">
                 <default key="_controller">AcmeBlogBundle:Blog:index</default>
             </route>
         </routes>
@@ -372,7 +376,7 @@ Questo si fa includendolo nella collezione ``defaults``:
     .. code-block:: yaml
 
         blog:
-            pattern:   /blog/{page}
+            path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
 
     .. code-block:: xml
@@ -383,7 +387,7 @@ Questo si fa includendolo nella collezione ``defaults``:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog" pattern="/blog/{page}">
+            <route id="blog" path="/blog/{page}">
                 <default key="_controller">AcmeBlogBundle:Blog:index</default>
                 <default key="page">1</default>
             </route>
@@ -433,11 +437,11 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
     .. code-block:: yaml
 
         blog:
-            pattern:   /blog/{page}
+            path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
 
         blog_show:
-            pattern:   /blog/{slug}
+            path:      /blog/{slug}
             defaults:  { _controller: AcmeBlogBundle:Blog:show }
 
     .. code-block:: xml
@@ -448,12 +452,12 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog" pattern="/blog/{page}">
+            <route id="blog" path="/blog/{page}">
                 <default key="_controller">AcmeBlogBundle:Blog:index</default>
                 <default key="page">1</default>
             </route>
 
-            <route id="blog_show" pattern="/blog/{slug}">
+            <route id="blog_show" path="/blog/{slug}">
                 <default key="_controller">AcmeBlogBundle:Blog:show</default>
             </route>
         </routes>
@@ -500,7 +504,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
     .. code-block:: yaml
 
         blog:
-            pattern:   /blog/{page}
+            path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
             requirements:
                 page:  \d+
@@ -513,7 +517,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog" pattern="/blog/{page}">
+            <route id="blog" path="/blog/{page}">
                 <default key="_controller">AcmeBlogBundle:Blog:index</default>
                 <default key="page">1</default>
                 <requirement key="page">\d+</requirement>
@@ -570,7 +574,7 @@ all'URL:
     .. code-block:: yaml
 
         homepage:
-            pattern:   /{culture}
+            path:      /{culture}
             defaults:  { _controller: AcmeDemoBundle:Main:homepage, culture: en }
             requirements:
                 culture:  en|fr
@@ -583,7 +587,7 @@ all'URL:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="homepage" pattern="/{culture}">
+            <route id="homepage" path="/{culture}">
                 <default key="_controller">AcmeDemoBundle:Main:homepage</default>
                 <default key="culture">en</default>
                 <requirement key="culture">en|fr</requirement>
@@ -635,16 +639,14 @@ essere realizzato con la seguente configurazione per le rotte:
     .. code-block:: yaml
 
         contact:
-            pattern:  /contact
+            path:     /contact
             defaults: { _controller: AcmeDemoBundle:Main:contact }
-            requirements:
-                _method:  GET
+            methods:  [GET]
 
         contact_process:
-            pattern:  /contact
+            path:     /contact
             defaults: { _controller: AcmeDemoBundle:Main:contactProcess }
-            requirements:
-                _method:  POST
+            methods:  [POST]
 
     .. code-block:: xml
 
@@ -654,14 +656,12 @@ essere realizzato con la seguente configurazione per le rotte:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="contact" pattern="/contact">
+            <route id="contact" path="/contact" methods="GET">
                 <default key="_controller">AcmeDemoBundle:Main:contact</default>
-                <requirement key="_method">GET</requirement>
             </route>
 
-            <route id="contact_process" pattern="/contact">
+            <route id="contact_process" path="/contact" methods="POST">
                 <default key="_controller">AcmeDemoBundle:Main:contactProcess</default>
-                <requirement key="_method">POST</requirement>
             </route>
         </routes>
 
@@ -673,17 +673,17 @@ essere realizzato con la seguente configurazione per le rotte:
         $collection = new RouteCollection();
         $collection->add('contact', new Route('/contact', array(
             '_controller' => 'AcmeDemoBundle:Main:contact',
-        ), array(
-            '_method' => 'GET',
-        )));
+        ), array(), array(), '', array(), array('GET')));
 
         $collection->add('contact_process', new Route('/contact', array(
             '_controller' => 'AcmeDemoBundle:Main:contactProcess',
-        ), array(
-            '_method' => 'POST',
-        )));
+        ), array(), array(), '', array(), array('POST')));
 
         return $collection;
+
+.. versionadded::
+    L'opzione ``methods`` è stata aggiunta in Symfony2.2. Usare il requisito ``_method``
+    in versioni precedenti.
 
 Nonostante il fatto che queste due rotte abbiano schemi identici (``/contact``),
 la prima rotta corrisponderà solo a richieste GET e la seconda rotta corrisponderà
@@ -691,11 +691,18 @@ solo a richieste POST. Questo significa che è possibile visualizzare il form e 
 utilizzando lo stesso URL ma controllori distinti per le due azioni.
 
 .. note::
-    Se non viene specificato nessun requisito ``_method``, la rotta verrà abbinata
-    con *tutti* i metodi.
 
-Come avviene per gli altri requisiti, il requisito ``_method`` viene analizzato come una espressione
-regolare. Per abbinare le richieste ``GET`` *o* ``POST``, si può utilizzare ``GET|POST``.
+    Se non viene specificato alcune metodo, la rotta verrà abbinata a *tutti* i metodi.
+
+Aggiungere un host
+~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Il supporto per gli host è stato aggiunto in Symfony 2.2
+
+Si può anche far corrispondere un *host* HTTP della richiesta in arrivo. Per maggiori
+informazioni, vedere :doc:`/components/routing/hostname_pattern` nella documentazione
+del componente Routing.
 
 .. index::
    single: Rotte; Esempio avanzato
@@ -715,7 +722,7 @@ può essere il sistema delle rotte:
     .. code-block:: yaml
 
         article_show:
-          pattern:  /articles/{culture}/{year}/{title}.{_format}
+          path:     /articles/{culture}/{year}/{title}.{_format}
           defaults: { _controller: AcmeDemoBundle:Article:show, _format: html }
           requirements:
               culture:  en|fr
@@ -730,7 +737,7 @@ può essere il sistema delle rotte:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="article_show" pattern="/articles/{culture}/{year}/{title}.{_format}">
+            <route id="article_show" path="/articles/{culture}/{year}/{title}.{_format}">
                 <default key="_controller">AcmeDemoBundle:Article:show</default>
                 <default key="_format">html</default>
                 <requirement key="culture">en|fr</requirement>
@@ -951,7 +958,7 @@ tipo questo:
 
         # src/Acme/HelloBundle/Resources/config/routing.yml
        acme_hello:
-            pattern:  /hello/{name}
+            path:     /hello/{name}
             defaults: { _controller: AcmeHelloBundle:Hello:index }
 
     .. code-block:: xml
@@ -963,7 +970,7 @@ tipo questo:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="acme_hello" pattern="/hello/{name}">
+            <route id="acme_hello" path="/hello/{name}">
                 <default key="_controller">AcmeHelloBundle:Hello:index</default>
             </route>
         </routes>
@@ -1031,6 +1038,15 @@ caricata dalla nuova risorsa delle rotte.
     :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/routing>`
     per scoprire come.
 
+Espressioni regolari per gli host nelle rotte importate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Il supporto per gli host è stato aggiunto in Symfony 2.2
+
+Si può impostare un'espressione regolare sull'host nelle rotte importate. Per maggiori informazioni, vedere
+:ref:`component-routing-host-imported`.
+
 .. index::
    single: Rotte; Debug
 
@@ -1089,13 +1105,13 @@ una rotta + parametri di nuovo in un URL. I metodi
 :method:`Symfony\\Component\\Routing\\Router::generate` formano questo sistema
 bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
 
-    $params = $router->match('/blog/my-blog-post');
+    $params = $this->get('router')->match('/blog/my-blog-post');
     // array(
     //     'slug' => 'my-blog-post',
     //     '_controller' => 'AcmeBlogBundle:Blog:show',
     // )
 
-    $uri = $router->generate('blog_show', array('slug' => 'my-blog-post'));
+    $uri = $this->get('router')->generate('blog_show', array('slug' => 'my-blog-post'));
     // /blog/my-blog-post
 
 Per generare un URL, è necessario specificare il nome della rotta (ad esempio ``blog_show``)

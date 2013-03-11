@@ -444,6 +444,12 @@ di query alla base dati.
 
 Si può ottenere il profilatore dell'ultima richiesta in questo modo::
 
+    // abilita il profilatore solo per la prossima richiesta
+    $client->enableProfiler();
+
+    $crawler = $client->request('GET', '/profiler');
+
+    // prende il profilatore
     $profile = $client->getProfile();
 
 Per dettagli specifici sull'uso del profilatore in un test, vedere la ricetta
@@ -458,10 +464,10 @@ seguire i rinvii, usando il metodo ``followRedirect()``::
 
     $crawler = $client->followRedirect(false);
 
-Quando il client non segue i rinvii, lo si può forzare con
-il metodo ``followRedirect()``::
+Se si vuole che il client segua automaticamente tutti i rinvii, si può
+forzarlo con il metodo ``followRedirects()``::
 
-    $crawler = $client->followRedirect();
+    $client->followRedirects();
 
 .. index::
    single: Test; Crawler

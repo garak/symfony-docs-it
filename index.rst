@@ -72,6 +72,17 @@ L'edizione standard di Symfony è distribuita con alcuni bundle. Approfondimenti
 
 .. include:: /bundles/map.rst.inc
 
+CMF
+---
+
+Il progetto Symfony CMF facilita gli sviluppatori nell'aggiunta di funzionalità CMS
+ad applicazioni costruite con il framework Symfony2.
+
+.. toctree::
+    :hidden:
+
+    cmf/index
+
 Contributi
 ----------
 

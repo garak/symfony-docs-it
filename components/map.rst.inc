@@ -73,13 +73,22 @@
 
   * :doc:`/components/process`
 
+* :doc:`/components/property_access/index`
+
+  * :doc:`/components/property_access/introduction`
+
 * :doc:`/components/routing/index`
 
   * :doc:`/components/routing/introduction`
+  * :doc:`/components/routing/hostname_pattern`
 
 * **Serializer**
 
   * :doc:`/components/serializer`
+
+* **Stopwatch**
+
+  * :doc:`/components/stopwatch`
 
 * :doc:`/components/security/index`
 

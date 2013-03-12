@@ -240,7 +240,7 @@ e il suo template:
         <input type="submit" />
     </form>
 
-Infinre, creaee til controllore che gestisce l'invio del form. Questo eseguirà
+Infine, creare il controllore che gestisce l'invio del form. Questo eseguirà
 la validazione e salverà i dati in MongoDB::
 
     public function createAction()

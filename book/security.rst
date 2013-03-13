@@ -329,8 +329,8 @@ In primo luogo, abilitare il form di login sotto il firewall:
                     'pattern' => '^/',
                     'anonymous' => array(),
                     'form_login' => array(
-                        'login_path' => '/login',
-                        'check_path' => '/login_check',
+                        'login_path' => 'login',
+                        'check_path' => 'login_check',
                     ),
                 ),
             ),
@@ -510,7 +510,7 @@ Infine, creare il template corrispondente:
                 <input type="hidden" name="_target_path" value="/account" />
             -->
 
-            <input type="submit" name="login" />
+            <button type="submit">login</button>
         </form>
 
 .. tip::
@@ -784,27 +784,27 @@ Si prende il seguente ``access_control`` come esempio:
         security:
             # ...
             access_control:
-                - { path: ^/user, roles: ROLE_USER_IP, ip: 127.0.0.1 }
-                - { path: ^/user, roles: ROLE_USER_HOST, host: symfony.com }
-                - { path: ^/user, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
-                - { path: ^/user, roles: ROLE_USER }
+                - { path: ^/admin, roles: ROLE_USER_IP, ip: 127.0.0.1 }
+                - { path: ^/admin, roles: ROLE_USER_HOST, host: symfony.com }
+                - { path: ^/admin, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
+                - { path: ^/admin, roles: ROLE_USER }
 
     .. code-block:: xml
 
             <access-control>
-                <rule path="^/user" role="ROLE_USER_IP" ip="127.0.0.1" />
-                <rule path="^/user" role="ROLE_USER_HOST" host="symfony.com" />
-                <rule path="^/user" role="ROLE_USER_METHOD" method="POST, PUT" />
-                <rule path="^/user" role="ROLE_USER" />
+                <rule path="^/admin" role="ROLE_USER_IP" ip="127.0.0.1" />
+                <rule path="^/admin" role="ROLE_USER_HOST" host="symfony.com" />
+                <rule path="^/admin" role="ROLE_USER_METHOD" method="POST, PUT" />
+                <rule path="^/admin" role="ROLE_USER" />
             </access-control>
 
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/user', 'role' => 'ROLE_USER_IP', 'ip' => '127.0.0.1'),
-                array('path' => '^/user', 'role' => 'ROLE_USER_HOST', 'host' => 'symfony.com'),
-                array('path' => '^/user', 'role' => 'ROLE_USER_METHOD', 'method' => 'POST, PUT'),
-                array('path' => '^/user', 'role' => 'ROLE_USER'),
+                array('path' => '^/admin', 'role' => 'ROLE_USER_IP', 'ip' => '127.0.0.1'),
+                array('path' => '^/admin', 'role' => 'ROLE_USER_HOST', 'host' => 'symfony.com'),
+                array('path' => '^/admin', 'role' => 'ROLE_USER_METHOD', 'method' => 'POST, PUT'),
+                array('path' => '^/admin', 'role' => 'ROLE_USER'),
             ),
 
 Per ogni richiesta in arrivo, Symfony2 deciderà quale ``access_control``
@@ -924,8 +924,6 @@ Se ora la stessa richiesta arriva da ``127.0.0.1``:
   ``IS_AUTHENTICATED_ANONYMOUSLY``.
 
 * La seconda regola di accesso non viene esaminata, perché la prima corrispondeva.
-
-.. include:: /book/_security-2012-6431.rst.inc
 
 .. _book-security-securing-channel:
 
@@ -1084,7 +1082,7 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            // ...
+            ...,
             'providers' => array(
                 'default_provider' => array(
                     'memory' => array(
@@ -1340,6 +1338,13 @@ in base64. In altre parole, la password è stata notevolmente offuscata in modo
 che il suo hash non possa essere decodificato (cioè non è possibile determinare la password
 partendo dal suo hash).
 
+.. versionadded:: 2.2
+    Da Symfony 2.2, si possono usare anche i codificatori :ref:`PBKDF2<reference-security-pbkdf2>`
+    e :ref:`BCrypt<reference-security-bcrypt>`.
+
+Determinare la password con hash
+................................
+
 Se si ha un form di registrazione per gli utenti, è necessario essere in grado
 di determinare l'hash della password, in modo che sia possibile impostarla per l'utente.
 Indipendentemente dall'algoritmo configurato per l'oggetto User, l'hash della password
@@ -1554,10 +1559,10 @@ viene sempre utilizzato il primo fornitore:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
-                    // ...
+                    ...,
                     'provider' => 'user_db',
                     'http_basic' => array(
-                        // ...
+                        ...,
                         'provider' => 'in_memory',
                     ),
                     'form_login' => array(),
@@ -1669,7 +1674,7 @@ parametro di configurazione ``logout``:
             'firewalls' => array(
                 'secured_area' => array(
                     // ...
-                    'logout' => array('path' => 'logout', 'target' => '/'),
+                    'logout' => array('path' => '/logout', 'target' => '/'),
                 ),
             ),
             // ...
@@ -1711,7 +1716,7 @@ una rotta da poter utilizzare per generare l'URL:
 
         # app/config/routing.yml
         logout:
-            pattern:   /logout
+            path:   /logout
 
     .. code-block:: xml
 
@@ -1722,7 +1727,7 @@ una rotta da poter utilizzare per generare l'URL:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="logout" pattern="/logout" />
+            <route id="logout" path="/logout" />
 
         </routes>
 
@@ -1952,6 +1957,61 @@ alcun cookie):
     Se si usa un form di login, Symfony2 creerà un cookie anche se si imposta
     ``stateless`` a ``true``.
 
+Utilità
+-------
+
+.. versionadded:: 2.2
+    Le classi ``StringUtils`` e ``SecureRandom`` sono state aggiunte in Symfony 2.2
+
+Il componente Security di Symfony dispone di una serie di utilità che riguardano
+la sicurezza. Queste utilità sono usate da Symfony2, ma si possono usare anche
+direttamente, se occorre risolvere il problemi di cui si occupano.
+
+Confronto tra stringhe
+~~~~~~~~~~~~~~~~~~~~~~
+
+Il tempo impiegato nel confronto tra due stringhe dipende dalle rispettive differenze.
+Il tempo può essere usato da un attaccante, quando le due stringhe rappresentano una password,
+per esempio. È noto come `Timing attack`_.
+
+Internamente, quando si confrontano due password, Symfony usa un algoritmo a
+tempo costante. Si può usare la stessa strategia nel proprio codice, grazie alla classe
+:class:`Symfony\\Component\\Security\\Core\\Util\\StringUtils`::
+
+    use Symfony\Component\Security\Core\Util\StringUtils;
+
+    // password1 è uguale a password2?
+    $bool = StringUtils::equals($password1, $password2);
+
+Generazione di un numero casuale
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ogni volta che occorre generare un numero casuale sicuro, si raccomanda
+di usare la classe
+:class:`Symfony\\Component\\Security\\Core\\Util\\SecureRandom`::
+
+    use Symfony\Component\Security\Core\Util\SecureRandom;
+
+    $generator = new SecureRandom();
+    $random = $generator->nextBytes(10);
+
+Il metodo
+:method:`Symfony\\Component\\Security\\Core\\Util\\SecureRandom::nextBytes`
+restituisce una stringa casuale, composta dal numero di caratteri passati come
+parametro (10, nell'esempio appena visto).
+
+La classe ``SecureRandom`` funziona meglio se è installato OpenSSL, ma, nel caso in cui
+non lo sia, si appoggia a un algoritmo interno, che ha bisogno di un file seme
+per funzionare. Basta passare il nome di un file, per abilitarlo::
+
+    $generator = new SecureRandom('/un/percorso/dove/memorizzare/il/seme.txt');
+    $random = $generator->nextBytes(10);
+
+.. note::
+
+    Si può anche accedere a un'stanza di un numero casuale direttametne dal contenitore
+    di Symfony: il suo nome è ``security.secure_random``.
+
 Considerazioni finali
 ---------------------
 
@@ -1985,3 +2045,4 @@ Saperne di più con il ricettario
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/en/class.serializable.php
 .. _`functions-online.com`: http://www.functions-online.com/sha1.html
+.. _`Timing attack`: http://en.wikipedia.org/wiki/Timing_attack

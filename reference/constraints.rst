@@ -40,6 +40,9 @@ Riferimento per i vincoli di validazione
    constraints/File
    constraints/Image
 
+   constraints/CardScheme
+   constraints/Luhn
+
    constraints/Callback
    constraints/All
    constraints/UserPassword

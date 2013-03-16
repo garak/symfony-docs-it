@@ -36,6 +36,15 @@ Il metodo :method:`Symfony\\Component\\Process\\Process::run` si prende cura del
 sottili differenze tra le varie piattaforme, durante l'esecuzione del
 comando.
 
+.. versionadded:: 2.2
+    I metodi ``getIncrementalOutput()`` e ``getIncrementalErrorOutput()`` sono stati aggiunti in Symfony 2.2.
+
+Il metodo ``getOutput()`` restituisce sempre l'intero contenuto dell'output standard
+del comando, mentre ``getErrorOutput()`` restituisce l'intero contenuto dell'output
+di errore. In alternativa, i metodi :method:`Symfony\\Component\\Process\\Process::getIncrementalOutput`
+e :method:`Symfony\\Component\\Process\\Process::getIncrementalErrorOutput`
+restituiscono i nuovi output dall'ultima chiamata.
+
 Quando si esegue un comando che gira a lungo (come la sincronizzazione di file con un
 server remoto), si può dare un feedback all'utente finale in tempo reale, passando una
 funzione anonima al metodo

@@ -50,6 +50,8 @@ AsseticBundle ha molti tag, non elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `twig.extension`_                 | Registrare un'estensione di Twig                                          |
 +-----------------------------------+---------------------------------------------------------------------------+
+| `twig.loader`_                    | Registrare un servizio personalizzato che carica template Twig            |
++-----------------------------------+---------------------------------------------------------------------------+
 | `validator.constraint_validator`_ | Creare un vincolo di validazione personalizzato                           |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `validator.initializer`_          | Registrare un servizio che inizializza oggetti prima della validazione    |
@@ -619,7 +621,7 @@ creare una classe che implementi l'interfaccia
     // src/Acme/MainBundle/Translation/MyCustomLoader.php
     namespace Acme\MainBundle\Translation;
 
-    use Symfony\Component\Translation\Loader\LoaderInterface
+    use Symfony\Component\Translation\Loader\LoaderInterface;
     use Symfony\Component\Translation\MessageCatalogue;
 
     class MyCustomLoader implements LoaderInterface
@@ -745,6 +747,39 @@ devono essere aggiunte come normali servizi:
             ->addTag('twig.extension')
         ;
 
+twig.loader
+-----------
+
+**Scopo**: Registrare un servizio personalizzato che carica template Twig
+
+Per impostazione predefinita, Symfony usa solo la classe `Twig Loader`_. 
+:class:`Symfony\\Bundle\\TwigBundle\\Loader\\FilesystemLoader`. Se si ha l'esigenza
+di caricare template Twig da un'altra risorsa, si può creare un servizio per il
+nuovo caricatore e assegnarli il tag ``twig.loader``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme.demo_bundle.loader.caricatore_twig:
+                class: Acme\DemoBundle\Loader\CaricatoreTwig
+                tags:
+                    - { name: twig.loader }
+
+    .. code-block:: xml
+
+        <service id="acme.demo_bundle.loader.caricatore_twig" class="Acme\DemoBundle\Loader\CaricatoreTwig">
+            <tag name="twig.loader" />
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('acme.demo_bundle.loader.caricatore_twig', 'Acme\DemoBundle\Loader\CaricatoreTwig')
+            ->addTag('twig.loader')
+        ;
+
 validator.constraint_validator
 ------------------------------
 
@@ -773,5 +808,6 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`repository ufficiale delle estensioni di Twig`: http://github.com/fabpot/Twig-extensions
-.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Component/HttpKernel/KernelEvents.php
+.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.2/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
+.. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders

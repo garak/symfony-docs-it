@@ -20,6 +20,10 @@ predefinita in ambiente ``test``)::
         public function testIndex()
         {
             $client = static::createClient();
+
+            // Abilita il profilatore per la richiesta successiva (se il profilatore non è abilitato, non succede nulla)
+            $client->enableProfiler();
+
             $crawler = $client->request('GET', '/hello/Fabien');
 
             // Scrivere asserzioni sulla risposta

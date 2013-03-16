@@ -65,9 +65,9 @@ a un evento sottoscrittore::
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $subscriber = new AddNameFieldSubscriber($builder->getFormFactory());
-            $builder->addEventSubscriber($subscriber);
             $builder->add('price');
+
+            $builder->addEventSubscriber(new AddNameFieldSubscriber());
         }
 
         public function getName()
@@ -75,10 +75,6 @@ a un evento sottoscrittore::
             return 'prodotto';
         }
     }
-
-L'evento sottoscrittore è passato dall'oggetto FormFactory nel suo costruttore, quindi
-il nuovo sottoscrittore è in grado di creare il widget del form una volta che 
-viene notificata dall'evento inviato durante la creazione del form.
 
 .. _`cookbook-forms-inside-subscriber-class`:
 
@@ -89,26 +85,24 @@ L'obiettivo è di creare un campo "nome" *solo* se l'oggetto Prodotto sottostant
 è nuovo (cioè non è stato persistito nella base dati). Basandosi su questo, l'sottoscrittore
 potrebbe essere simile a questo::
 
+.. versionadded:: 2.2
+    La possibilità di passare una stringa in :method:`FormInterface::add<Symfony\\Component\\Form\\FormInterface::add>`
+    è stata aggiunta in Symfony 2.2.
+
+.. code-block:: php
+
     // src/Acme/DemoBundle/Form/EventListener/AddNameFieldSubscriber.php
     namespace Acme\DemoBundle\Form\EventListener;
 
     use Symfony\Component\Form\FormEvent;
     use Symfony\Component\Form\FormEvents;
-    use Symfony\Component\Form\FormFactoryInterface;
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
     class AddNameFieldSubscriber implements EventSubscriberInterface
     {
-        private $factory;
-
-        public function __construct(FormFactoryInterface $factory)
-        {
-            $this->factory = $factory;
-        }
-
         public static function getSubscribedEvents()
         {
-            // Indica al dispacher che si vuole ascoltare l'evento form.pre_set_data
+            // Indica al distributore che si vuole ascoltare l'evento form.pre_set_data
             // e che verrà invocato il metodo preSetData.
             return array(FormEvents::PRE_SET_DATA => 'preSetData');
         }
@@ -121,7 +115,7 @@ potrebbe essere simile a questo::
             // Dutante la creazione del form, setData è chiamata con parametri null
             // dal costruttore di FormBuilder. Si è interessati a quando 
             // setData è invocato con l'oggetto Entity attuale (se è nuovo,
-            // oppure recuperato con Doctrine). Bisognerà uscire dal metoro 
+            // oppure recuperato con Doctrine). Bisognerà uscire dal metodo 
             // se la condizione restituisce null.
             if (null === $data) {
                 return;
@@ -129,7 +123,7 @@ potrebbe essere simile a questo::
 
             // controlla se l'oggetto Prodotto è nuovo
             if (!$data->getId()) {
-                $form->add($this->factory->createNamed('nome', 'text'));
+                $form->add('nome', 'text');
             }
         }
     }

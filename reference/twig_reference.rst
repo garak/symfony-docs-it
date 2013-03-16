@@ -20,10 +20,29 @@ Funzioni
 .. versionadded:: 2.1
     Le funzioni ``csrf_token``, ``logout_path`` e ``logout_url`` sono state aggiunte in Symfony2.1
 
+.. versionadded:: 2.2
+    Le funzioni ``render`` e ``controller`` sono nuove in Symfony 2.2. Precedentemente,
+    si usava il tag ``{% render %}``, che aveva una firma diversa.
+
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | Sintassi della funzione                            | Uso                                                                                        |
 +====================================================+============================================================================================+
-| ``asset(path, packageName = null)``                | Restituisce il percorso pubblico di una risorsa, maggiori informazioni in                  |
+| ``render(uri, options = {})``                      | Renderà il frammento per il controllore o l'URL dato.                                      |
+| ``render(controller('B:C:a', {params}))``          | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
+| ``render(path('route', {params}))``                |                                                                                            |
+| ``render(url('route', {params}))``                 |                                                                                            |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``render_esi(controller('B:C:a', {params}))``      | Genererà un tag ESI, quando possibile, altrimenti userà ``render``.                        |
+| ``render_esi(url('route', {params}))``             | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
+| ``render_esi(path('route', {params}))``            |                                                                                            |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``render_hinclude(controller(...))``               | This will generates an Hinclude tag for the given controller or URL.                       |
+| ``render_hinclude(url('route', {params}))``        | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
+| ``render_hinclude(path('route', {params}))``       |                                                                                            |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``controller(attributes = {}, query = {})``        | Usato con il tag ``render`` per fare riferimento al controllore che si vuole rendere.      |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``asset(path, packageName = null)``                | Restituisce il percorso pubblico della risorsa, maggiori informazioni in                   |
 |                                                    | ":ref:`book-templating-assets`".                                                           |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``asset_version(packageName = null)``              | Restituisce la versione attuale del pacchetto, maggiori informazioni in                    |
@@ -114,10 +133,6 @@ Tag
 +---------------------------------------------------+-------------------------------------------------------------------+
 | Sintassi del tag                                  | Uso                                                               |
 +===================================================+===================================================================+
-| ``{% render url('rotta', {parametri}) %}``        | Renderà il contenuto della risposta per il controllore dato,      |
-|                                                   | a cui punta l'URL. Per maggiori                                   |
-|                                                   | informazioni, vedere :ref:`templating-embedding-controller`.      |
-+---------------------------------------------------+-------------------------------------------------------------------+
 | ``{% form_theme form 'file' %}``                  | Cercherà in un dato file i blocchi di form ridefiniti,            |
 |                                                   | maggiori informazioni in :doc:`/cookbook/form/form_customization`.|
 +---------------------------------------------------+-------------------------------------------------------------------+

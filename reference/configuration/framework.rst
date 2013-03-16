@@ -377,27 +377,33 @@ Configurazione predefinita completa
     .. code-block:: yaml
 
         framework:
-
-            # configurazione generale
+            charset:              ~
+            secret:               ~
             trust_proxy_headers:  false
-            secret:               ~ # Obbligatorio
+            trusted_proxies:      []
             ide:                  ~
             test:                 ~
             default_locale:       en
 
             # configurazione dei form
             form:
-                enabled:              true
+                enabled:              false
             csrf_protection:
-                enabled:              true
+                enabled:              false
                 field_name:           _token
 
             # configurazione di esi
             esi:
-                enabled:              true
+                enabled:              false
+
+            # configurazione dei frammenti
+            fragments:
+                enabled:              false
+                path:                 /_fragment
 
             # configurazione del profilatore
             profiler:
+                enabled:              false
                 only_exceptions:      false
                 only_master_requests:  false
                 dsn:                  file:%kernel.cache_dir%/profiler
@@ -417,11 +423,17 @@ Configurazione predefinita completa
                 type:                 ~
                 http_port:            80
                 https_port:           443
-                # se false, sarà generato un URL vuoto se una rotta manca dei parametri obbligatori
-                strict_requirements:  %kernel.debug%
+
+                # impostare a true per lanciare un'eccezione se un parametro non corrisponde ai requisiti
+                # impostare a false per disabilitare le eccezioni se un parametro non corrisponde ai requisiti (e restituire null)
+                # impostare a null per disabilitare la verifica dei requisiti dei parametri
+                # true è preferibile durante lo sviluppo, mentre false o null sono preferibili in produzione
+                strict_requirements:  true
 
             # configurazione della sessione
             session:
+                # DEPRECATO! La sessione parte su richiesta
+                auto_start:           false
                 storage_id:           session.storage.native
                 handler_id:           session.handler.native_file
                 name:                 ~
@@ -489,12 +501,14 @@ Configurazione predefinita completa
                 enabled:              true
                 cache:                ~
                 enable_annotations:   false
+                translation_domain:   validators
 
             # configurazione delle annotazioni
             annotations:
                 cache:                file
-                file_cache_dir:       "%kernel.cache_dir%/annotations"
-                debug:                true
+                file_cache_dir:       %kernel.cache_dir%/annotations
+                debug:                %kernel.debug%
+
 
 .. versionadded:: 2.1
     L'impostazione ```framework.session.auto_start`` è stata rimossa in Symfony2.1,

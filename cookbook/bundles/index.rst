@@ -9,3 +9,4 @@ Bundle
     override
     remove
     extension
+    prepend_extension

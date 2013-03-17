@@ -83,7 +83,7 @@ Dentro la classe dell'evento sottoscrittore
 
 L'obiettivo è di creare un campo "nome" *solo* se l'oggetto Prodotto sottostante
 è nuovo (cioè non è stato persistito nella base dati). Basandosi su questo, l'sottoscrittore
-potrebbe essere simile a questo::
+potrebbe essere simile a questo:
 
 .. versionadded:: 2.2
     La possibilità di passare una stringa in :method:`FormInterface::add<Symfony\\Component\\Form\\FormInterface::add>`

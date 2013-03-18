@@ -55,8 +55,16 @@ Ogni parte sarà spiegata nella prossima sezione.
                     encode_as_base64: true
                     iterations: 5000
 
+                # PBKDF2 encoder
+                # vedere più avanti la nota su PBKDF2 per dettagli su sicurezza e velocità
+                Acme\Nome\Della\Classe:
+                    algorithm:            pbkdf2
+                    hash_algorithm:       sha512
+                    encode_as_base64:     true
+                    iterations:           1000
+
                 # Opzioni/valori di esempio di come potrebbe essere un encoder personalizzato
-                Acme\Your\Class\Name:
+                Acme\Nome\Della\Classe:
                     algorithm:            ~
                     ignore_case:          false
                     encode_as_base64:     true
@@ -123,6 +131,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                         # opzioni per un login fallito (vedere sotto)
                         failure_path: /pippo
                         failure_forward: false
+                        failure_path_parameter: _failure_path
                         failure_handler: id.di.un.servizio
                         success_handler: id.di.un.servizio
 
@@ -265,6 +274,94 @@ Rinvio dopo il login
 
 .. _reference-security-firewall-context:
 
+Uso del codificatore PBKDF2: sicurezza e velocità
+-------------------------------------------------
+
+.. versionadded:: 2.2
+    Il codificatore di password PBKDF2 è stato aggiunto in Symfony 2.2.
+
+Il codificatore `PBKDF2`_ fornisce un altro livello di sicurezza crittografica, come
+raccomandato dal National Institute of Standards and Technology (NIST).
+
+Si può vedere un esempio di codificatore ``pbkdf2`` nel blocco YAML in questa pagina.
+
+Ma l'uso  di PBKDF2 richiede anche un avvertimento: un alto numero di
+iterazioni provoca rallentamenti del processo. Quindi, PBKDF2 andrebbe usato
+con cautela.
+
+Una buona configurazione consiste in almeno 1000 e sha512
+come algoritmo di hash.
+
+.. _reference-security-bcrypt:
+
+Uso del codificatore di password BCrypt
+---------------------------------------
+
+.. versionadded:: 2.2
+    Il codificatore di password BCrypt è stato aggiunto in Symfony 2.2.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+
+            encoders:
+                Symfony\Component\Security\Core\User\User:
+                    algorithm: bcrypt
+                    cost:      15
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <!-- ... -->
+            <encoder
+                class="Symfony\Component\Security\Core\User\User"
+                algorithm="bcrypt"
+                cost="15"
+            />
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            // ...
+            'encoders' => array(
+                'Symfony\Component\Security\Core\User\User' => array(
+                    'algorithm' => 'bcrypt',
+                    'cost'      => 15,
+                ),
+            ),
+        ));
+
+L'opzione ``cost`` deve essere nell'intervallo ``4-31`` e determina quanto a lungo la
+password sarà codificata. Ogni incremento di ``cost`` *raddoppia* il tempo necessario
+alla codifica della password.
+
+Se non si fornisce l'opzione ``cost``, viene usato il valore predefinito ``13``.
+
+.. note::
+
+    Si può cambiare costo in ogni momento, anche se si hanno già delle password
+    codificate con un costo diverso. Le nuove password saranno codificate
+    con il nuovo costo, mentre quelle vecchie saranno validate
+    usando il costo usato al momento della loro codifica.
+
+Viene generato automaticamente un sale per ogni nuova password, senza necessità
+di persistenza. Poiché una password codificata contiene il sale usato per codificarla,
+la persistenza della password codificata è sufficiente.
+
+.. note::
+
+    Tutte le password codificate sono lunghe ``60`` caratteri, assicurarsi quindi di
+    allocare spazio sufficiente per la persistenza.
+
+    .. _reference-security-firewall-context:
+
 Contesto del firewall
 ---------------------
 
@@ -363,3 +460,4 @@ Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
            ),
       ));
 
+.. _`PBKDF2`: http://en.wikipedia.org/wiki/PBKDF2

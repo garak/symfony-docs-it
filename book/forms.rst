@@ -385,11 +385,11 @@ Gruppi di validatori
     Se non si usano i :ref:`gruppi di validatori <book-validation-validation-groups>`,
     è possibile saltare questa sezione.
     
-Se il proprio oggetto si avvale dei :ref:`gruppi di validatori <book-validation-validation-groups>`,
-si avrà bisogno di specificare quelle/i gruppi di convalida deve usare il form::
+Se un oggetto si avvale dei :ref:`gruppi di validatori <book-validation-validation-groups>`,
+occorrerà specificare quali gruppi di convalida deve usare il form::
 
     $form = $this->createFormBuilder($users, array(
-        'validation_groups' => array('registration'),
+        'validation_groups' => array('registrazione'),
     ))->add(...);
 
 Se si stanno creando :ref:`classi per i form<book-form-creating-form-classes>` (una
@@ -401,11 +401,11 @@ buona pratica), allora si avrà bisogno di aggiungere quanto segue al metodo
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('registration')
+            'validation_groups' => array('registrazione')
         ));
     }
 
-In entrambi i casi, *solo* il gruppo di validazione ``registration`` verrà
+In entrambi i casi, *solo* il gruppo di validazione ``registrazione`` verrà
 utilizzato per validare l'oggetto sottostante.
 
 Gruppi basati su dati inseriti
@@ -833,9 +833,9 @@ task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore u
         // ...
     }
 
-Porre la logica del form in una propria classe significa che il form può essere facilmente
+Porre la logica del form in una classe a parte significa che il form può essere facilmente
 riutilizzato in altre parti del progetto. Questo è il modo migliore per creare form, ma
-la scelta in ultima analisi, spetta a voi.
+la scelta in ultima analisi, spetta allo sviluppatore.
 
 .. _book-forms-data-class:
 
@@ -1536,7 +1536,7 @@ Ma se il form non è legato a un oggetto e invece si sta recuperando un semplice
 di dati inviati, come si possono aggiungere vincoli al
 form?
 
-La risposta è: impostare i vincoli in modo autonomo e passarli al proprio form.
+La risposta è: impostare i vincoli in modo autonomo e passarli al form.
 L'approccio generale è spiegato meglio nel :ref:`capitolo sulla validazione<book-validation-raw-values>`,
 ma ecco un breve esempio:
 

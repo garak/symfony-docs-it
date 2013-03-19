@@ -272,7 +272,7 @@ Rinvio dopo il login
 * ``target_path_parameter`` (tipo: ``stringa``, predefinito: ``_target_path``)
 * ``use_referer`` (tipo: ``booleano``, predefinito: ``false``)
 
-.. _reference-security-firewall-context:
+.. _reference-security-pbkdf2:
 
 Uso del codificatore PBKDF2: sicurezza e velocità
 -------------------------------------------------
@@ -360,7 +360,7 @@ la persistenza della password codificata è sufficiente.
     Tutte le password codificate sono lunghe ``60`` caratteri, assicurarsi quindi di
     allocare spazio sufficiente per la persistenza.
 
-    .. _reference-security-firewall-context:
+.. _reference-security-firewall-context:
 
 Contesto del firewall
 ---------------------

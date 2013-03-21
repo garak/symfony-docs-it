@@ -556,7 +556,7 @@ definendo un ``default_locale`` per il servizio di sessione:
 
 .. versionadded:: 2.1
      Il parametro ``default_locale`` era originariamente definito sotto la chiave
-     ``sessiom``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
+     ``session``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
      è ora impostato nella richiesta, invece che nella sessione.
 
 .. _book-translation-locale-url:

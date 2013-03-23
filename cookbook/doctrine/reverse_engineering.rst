@@ -32,7 +32,7 @@ riga di un post tramite una chiave esterna.
       `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
       `content` longtext COLLATE utf8_unicode_ci NOT NULL,
       `created_at` datetime NOT NULL,
-      PRIMARY KEY (`id`),
+      PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
     CREATE TABLE `blog_comment` (
@@ -92,13 +92,20 @@ Il file dei meta-dati ``BlogPost.dcm.xml`` assomiglia a questo:
       </entity>
     </doctrine-mapping>
 
+.. note::
+
+    Se si hanno relazioni ``oneToMany`` tra entità,
+    occorrerà modificare i file ``xml`` o ``yml`` generati, per aggiungere
+    una sezione sulle entità specifiche ``oneToMany``, che definiscono le parti
+    ``inversedBy`` e ``mappedBy``.
+
 Una volta generati i file dei meta-dati, si può chiedere a Doctrine di importare lo
 schema e costruire le relative classi entità, eseguendo i seguenti comandi.
 
 .. code-block:: bash
 
-    php app/console doctrine:mapping:import AcmeBlogBundle annotation
-    php app/console doctrine:generate:entities AcmeBlogBundle
+    $ php app/console doctrine:mapping:import AcmeBlogBundle annotation
+    $ php app/console doctrine:generate:entities AcmeBlogBundle
 
 Il primo comando genera le classi delle entità con annotazioni, ma ovviamente
 si può cambiare il parametro ``annotation`` in ``xml`` o ``yml``.
@@ -170,4 +177,4 @@ Il secondo comando genera tutti i getter e i setter per le proprietà delle clas
 ``BlogPost`` e ``BlogComment``. Le entità generate sono ora pronte per essere
 usate.
 
-.. _`documentazione sugli strumenti di Doctrine`: http://www.doctrine-project.org/docs/orm/2.0/en/reference/tools.html#reverse-engineering
+.. _`documentazione sugli strumenti di Doctrine`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/tools.html#reverse-engineering

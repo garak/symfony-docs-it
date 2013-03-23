@@ -1,3 +1,6 @@
+.. index::
+   single: Log; Inviare errori per email
+
 Come configurare Monolog con errori per email
 =============================================
 
@@ -30,6 +33,7 @@ singolarmente.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -58,6 +62,31 @@ singolarmente.
             </monolog:config>
         </container>
 
+    .. code-block:: php
+            
+        // app/config/config.php
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'mail' => array(
+                    'type'         => 'fingers_crossed',
+                    'action_level' => 'critical',
+                    'handler'      => 'buffered',
+                ),    
+                'buffered' => array(
+                    'type'    => 'buffer',
+                    'handler' => 'swift',
+                ),    
+                'swift' => array(
+                    'type'       => 'swift_mailer',
+                    'from_email' => 'error@example.com',
+                    'to_email'   => 'error@example.com',
+                    'subject'    => 'An Error Occurred!',
+                    'level'      => 'debug',
+                ),    
+            ),
+        ));    
+
+
 Il gestore ``mail`` è un gestore ``fingers_crossed``, che vuol dire che viene
 evocato solo quando si raggiunge il livello di azione, in questo caso ``critical``.
 Esso logga ogni cosa, inclusi i messaggi sotto il livello di azione. Il livello
@@ -72,12 +101,12 @@ Esso logga ogni cosa, inclusi i messaggi sotto il livello di azione. Il livello
 Il gestore ``buffered`` mantiene tutti i messaggi per una richiesta e quindi li passa
 al gestore annidato in un colpo. Se non si usa questo gestore, ogni messaggio sarà
 inviato separatamente. Viene quindi passato al gestore ``swift``. Questo gestore è
-quello che tratta effettivamente l'invio della email con gli errori. Le sue impostazioni
-sono semplici: gli indirizzi di mittente e destinatario e l'oggetto.
+quello che si occupa effettivamente dell'invio della email con gli errori. Le
+sue impostazioni sono semplici: gli indirizzi di mittente e destinatario e
+l'oggetto.
 
 Si possono combinare questi gestori con altri gestori, in modo che gli errori siano
-comunque loggati sul server, oltre che inviati per
-email:
+comunque loggati sul server, oltre che inviati per email:
 
 .. configuration-block::
 
@@ -95,7 +124,7 @@ email:
                     members: [streamed, buffered]
                 streamed:
                     type:  stream
-                    path:  %kernel.logs_dir%/%kernel.environment%.log
+                    path:  "%kernel.logs_dir%/%kernel.environment%.log"
                     level: debug
                 buffered:
                     type:    buffer
@@ -109,6 +138,7 @@ email:
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -148,6 +178,40 @@ email:
                 />
             </monolog:config>
         </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'main' => array(
+                    'type'         => 'fingers_crossed',
+                    'action_level' => 'critical',
+                    'handler'      => 'grouped',
+                ),    
+                'grouped' => array(
+                    'type'    => 'group',
+                    'members' => array('streamed', 'buffered'),
+                ),    
+                'streamed'  => array(
+                    'type'  => 'stream',
+                    'path'  => '%kernel.logs_dir%/%kernel.environment%.log',
+                    'level' => 'debug',
+                ),    
+                'buffered'    => array(
+                    'type'    => 'buffer',
+                    'handler' => 'swift',
+                ),    
+                'swift' => array(
+                    'type'       => 'swift_mailer',
+                    'from_email' => 'error@example.com',
+                    'to_email'   => 'error@example.com',
+                    'subject'    => 'An Error Occurred!',
+                    'level'      => 'debug',
+                ),    
+            ),
+        ));
+
 
 Qui è stato usato il gestore ``group``, per inviare i messaggi ai due membri del gruppo,
 il gestore ``buffered`` e il gestore ``stream``. I messaggi saranno ora sia

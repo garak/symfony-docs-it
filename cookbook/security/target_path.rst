@@ -1,24 +1,24 @@
 .. index::
-   single: Sicurezza; Puntare il percorso di rinvio
+   single: Sicurezza; Percorso di rinvio
 
-Come cambiare il comportamento predefinito del puntamento del percorso
-======================================================================
+Come cambiare il comportamento del percorso di rinvio predefinito
+=================================================================
 
-Per impostazione predefinita, il componente della sicurezza mantiene le informazioni
-sull'URI dell'ultima richiesta in una variabile di sessione, chiamata ``_security.target_path``.
-Dopo che un accesso viene eseguito, l'utente viene rinviato a questo percorso, come aiuto
-per continuare dall'ultima pagina visitata.
+Per impostazione predefinita, il componente della sicurezza mantiene l'informazione
+sull'URI dell'ultima richiesta in una variabile di sessione chiamata ``_security.target_path``.
+Dopo un login eseguito con successo, l'utente viene rinviato a tale percorso, per aiutarlo
+a continuare dalla sua ultima pagina vista.
 
-In alcune occasioni, questo comportamento è inatteso. Per esempio, quando l'URI dell'ultima
+In alcune occasioni, tale comportamento è inatteso. Per sempio, quando l'URI dell'ultima
 richiesta era un POST HTTP su una rotta configurata per consentire solo il metodo POST,
-l'utente rinviato a tale rotta otterrebbe solo un errore 404.
+l'utente viene rinviato a tale rotta per ottenere un errore 404.
 
-Per aggirare questo comportamento, occorre semplicemente estendere la classe
-``ExceptionListener`` e sovrascrivere il metodo chiamato ``setTargetPath()``.
+Per ovviare a questo problema, basta estendere la classe ``ExceptionListener``
+e sovrascrivere il metodo chiamato ``setTargetPath()``.
 
-Come prima cosa, sovrascrivere il parametro ``security.exception_listener.class`` nel
-proprio file di configurazione. Lo si può fare dalla propria configurazione principale
-(in `app/config`) oppure in un file di configurazione importato da un bundle:
+Sovrascrivere prima il parametro ``security.exception_listener.class`` nel file di
+configurazione. Lo si può fare nel file di configurazione principale (in
+`app/config`) o nel file di configurazione di un bundle:
 
 .. configuration-block::
 
@@ -43,7 +43,7 @@ proprio file di configurazione. Lo si può fare dalla propria configurazione pri
             // ...
             $container->setParameter('security.exception_listener.class', 'Acme\HelloBundle\Security\Firewall\ExceptionListener');
 
-Quindi, crare il proprio ``ExceptionListener``::
+Creare quindi il proprio ``ExceptionListener``::
 
     // src/Acme/HelloBundle/Security/Firewall/ExceptionListener.php
     namespace Acme\HelloBundle\Security\Firewall;
@@ -55,8 +55,8 @@ Quindi, crare il proprio ``ExceptionListener``::
     {
         protected function setTargetPath(Request $request)
         {
-            // Non salvare il percorso del puntamento per richieste XHR o diverse da GET
-            // Si può aggiungere altra logica, all'occorrenza
+            // Non salavre il percorso per richieste XHR e non GET
+            // Si può aggiungere altra logica a piacere
             if ($request->isXmlHttpRequest() || 'GET' !== $request->getMethod()) {
                 return;
             }
@@ -65,4 +65,4 @@ Quindi, crare il proprio ``ExceptionListener``::
         }
     }
 
-Si può aggiungere tutta la logica necessaria ai propri scopi!
+Aggiungere pure altra logica, se necessaria!

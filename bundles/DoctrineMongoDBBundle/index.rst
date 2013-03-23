@@ -22,9 +22,9 @@ facilitandone la configurazione e l'utilizzo.
 .. note::
 
     Questo capitolo assomiglia molto al :doc:`capitolo sull'ORM Doctrine2</book/doctrine>`,
-    che parla di come l'ORM di Doctrine2 possa essere usato per persistere dati in un
-    database relazione (p.e. MySQL). La somiglianza è intenzionale: che si persista in
-    un database relazione con ORM o in MongoDB con ODM, la filosofia è quasi
+    che parla di come l'ORM di Doctrine2 possa essere usato per persistere dati in una
+    base dati relazionale (p.e. MySQL). La somiglianza è intenzionale: che si persista in
+    una base dati relazionale con ORM o in MongoDB con ODM, la filosofia è quasi
     la stessa.
 
 Installazione
@@ -440,7 +440,7 @@ La cancellazione di un oggetto è molto simile, ma richiede una chiamata al meto
     $dm->flush();
 
 Come ci si potrebbe aspettare, il metodo ``remove()`` rende noto a Doctrine che si
-vorrebbe rimuovere la data entità dal database. Tuttavia, l'operazione di cancellazione non viene
+vorrebbe rimuovere la data entità dalla base dati. Tuttavia, l'operazione di cancellazione non viene
 realmente eseguita finché non si richiama il metodo ``flush()``.
 
 Cercare gli oggetti
@@ -700,7 +700,7 @@ Imparare di più dal ricettario
 * :doc:`/bundles/DoctrineMongoDBBundle/form`
 
 .. _`MongoDB`:          http://www.mongodb.org/
-.. _`documentazione`:   http://www.doctrine-project.org/docs/mongodb_odm/1.0/en
+.. _`documentazione`:   http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/
 .. _`Quick Start`:      http://www.mongodb.org/display/DOCS/Quickstart
 .. _`Documentazione di base sulla mappatura`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/basic-mapping.html
 .. _`tipo MongoDB`: http://us.php.net/manual/en/mongo.types.php

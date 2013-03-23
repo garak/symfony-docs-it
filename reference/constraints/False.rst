@@ -20,7 +20,7 @@ Vedere anche :doc:`True <True>`.
 Uso di base
 -----------
 
-Il vincolo ``False`` può essere applicato ad una proprietà o a un metodo "getter",
+Il vincolo ``False`` può essere applicato a una proprietà o a un metodo "getter",
 ma è usato più comunemente nel secondo caso. Per esempio, si supponga di voler
 garantire che una proprietà ``state`` *non* sia in un array dinamico
 ``invalidStates``. Per prima cosa, creare un metodo "getter"::
@@ -51,17 +51,48 @@ restituisce **false**:
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
             /**
-             * @Assert\False()
+             * @Assert\False(
+             *     message = "You've entered an invalid state."
+             * )
              */
-             public function isStateInvalid($message = "You've entered an invalid state.")
+             public function isStateInvalid()
              {
                 // ...
              }
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <getter property="stateInvalid">
+                <constraint name="False">
+                    <option name="message">You've entered an invalid state.</option>
+                </constraint>
+            </getter>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addGetterConstraint('stateInvalid', new Assert\False());
+            }
         }
 
 .. caution::

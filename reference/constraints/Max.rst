@@ -1,6 +1,12 @@
 Max
 ===
 
+.. caution::
+
+    Questo vincolo è deprecato dalla versione 2.1 e sarà rimosso
+    in Symfony 2.3. Usare :doc:`/reference/constraints/Range` con opzione ``max``
+    al suo posto.
+
 Valida che un dato numero sia *minore* di un numero massimo.
 
 +----------------+--------------------------------------------------------------------+
@@ -34,6 +40,8 @@ aggiungere il seguente:
     .. code-block:: php-annotations
 
         // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Participant
@@ -42,6 +50,37 @@ aggiungere il seguente:
              * @Assert\Max(limit = 50, message = "You must be 50 or under to enter.")
              */
              protected $age;
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/EventBundle/Resources/config/validation.yml -->
+        <class name="Acme\EventBundle\Entity\Participant">
+            <property name="age">
+                <constraint name="Max">
+                    <option name="limit">50</option>
+                    <option name="message">You must be 50 or under to enter.</option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/EventBundle/Entity/Participant.php
+        namespace Acme\EventBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Participant
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('age', new Assert\Max(array(
+                    'limit'   => 50,
+                    'message' => "You must be 50 or under to enter.",
+                )));
+            }
         }
 
 Opzioni
@@ -69,6 +108,4 @@ invalidMessage
 **tipo**: ``stringa`` **predefinito**: ``This value should be a valid number``
 
 Messaggio mostrato se il valore sottostante non è un numero (in base alla funzione
-`is_numeric`_ di PHP).
-
-.. _`is_numeric`: http://www.php.net/manual/en/function.is-numeric.php
+:phpfunction:`is_numeric` di PHP).

@@ -1,5 +1,6 @@
 .. index::
    pair: Autoloader; Configurazione
+   single: Componenti; ClassLoader
 
 Il componente ClassLoader
 =========================
@@ -27,7 +28,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/ClassLoader);
-* Installarlo via PEAR ( `pear.symfony.com/ClassLoader`);
+* Installarlo via PEAR (`pear.symfony.com/ClassLoader`);
 * Installarlo via Composer (`symfony/class-loader` su Packagist).
 
 Uso
@@ -47,6 +48,8 @@ La registrazione di :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoade
 
     // Si può cercare in include_path come ultima risorsa.
     $loader->useIncludePath(true);
+
+    // ... registrare qui spazi di nomi e prefissi (vedere sotto)
 
     $loader->register();
 
@@ -74,11 +77,11 @@ o
 :method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespaces`::
 
 
-    $loader->registerNamespace('Symfony', __DIR__.'/vendor/symfony/src');
+    $loader->registerNamespace('Symfony', __DIR__.'/vendor/symfony/symfony/src');
 
     $loader->registerNamespaces(array(
-        'Symfony' => __DIR__.'/../vendor/symfony/src',
-        'Monolog' => __DIR__.'/../vendor/monolog/src',
+        'Symfony' => __DIR__.'/../vendor/symfony/symofny/src',
+        'Monolog' => __DIR__.'/../vendor/monolog/monolog/src',
     ));
 
     $loader->register();
@@ -89,11 +92,11 @@ o
 :method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefixes`::
 
 
-    $loader->registerPrefix('Twig_', __DIR__.'/vendor/twig/lib');
+    $loader->registerPrefix('Twig_', __DIR__.'/vendor/twig/twig/lib');
 
     $loader->registerPrefixes(array(
-        'Swift_' => __DIR__.'/vendor/swiftmailer/lib/classes',
-        'Twig_'  => __DIR__.'/vendor/twig/lib',
+        'Swift_' => __DIR__.'/vendor/swiftmailer/swiftmailer/lib/classes',
+        'Twig_'  => __DIR__.'/vendor/twig/twig/lib',
     ));
 
     $loader->register();
@@ -108,10 +111,10 @@ cercate in un elenco di posizioni, per facilitare i venditori di un sotto-insiem
 per grossi progetti::
 
     $loader->registerNamespaces(array(
-        'Doctrine\\Common'           => __DIR__.'/vendor/doctrine-common/lib',
-        'Doctrine\\DBAL\\Migrations' => __DIR__.'/vendor/doctrine-migrations/lib',
-        'Doctrine\\DBAL'             => __DIR__.'/vendor/doctrine-dbal/lib',
-        'Doctrine'                   => __DIR__.'/vendor/doctrine/lib',
+        'Doctrine\\Common'           => __DIR__.'/vendor/doctrine/common/lib',
+        'Doctrine\\DBAL\\Migrations' => __DIR__.'/vendor/doctrine/migrations/lib',
+        'Doctrine\\DBAL'             => __DIR__.'/vendor/doctrine/dbal/lib',
+        'Doctrine'                   => __DIR__.'/vendor/doctrine/orm/lib',
     ));
 
     $loader->register();
@@ -122,5 +125,5 @@ o uno dei suoi figli, l'autoloader cercherà prima le classi sotto la cartella
 ``Doctrine`` (l'ultima configurata), infine si arrenderà.
 In questo caso, l'ordine di registrazione è significativo.
 
-.. _standard: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+.. _standard: http://symfony.com/PSR0
 .. _PEAR:     http://pear.php.net/manual/en/standards.php

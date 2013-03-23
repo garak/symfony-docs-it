@@ -22,8 +22,8 @@ ha comunque un'eccellente `documentazione`_.
 
 Ogni test, sia esso unitario o funzionale, è una classe PHP,
 che dovrebbe trovarsi in una sotto-cartella `Tests/` del proprio bundle.
-Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con
-il seguente comando:
+Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con il seguente
+comando:
 
 .. code-block:: bash
 
@@ -31,7 +31,7 @@ il seguente comando:
     $ phpunit -c app/
 
 L'opzione ``-c`` dice a PHPUnit di cercare nella cartella ``app/`` un file di configurazione.
-Chi fosee curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al file
+Chi fosse curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al file
 ``app/phpunit.xml.dist``.
 
 .. tip::
@@ -53,7 +53,7 @@ chiamata ``Calculator``, nella cartella ``Utility/`` del proprio bundle::
 
     // src/Acme/DemoBundle/Utility/Calculator.php
     namespace Acme\DemoBundle\Utility;
-    
+
     class Calculator
     {
         public function add($a, $b)
@@ -145,7 +145,10 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 
             $crawler = $client->request('GET', '/demo/hello/Fabien');
 
-            $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+            $this->assertGreaterThan(
+                0,
+                $crawler->filter('html:contains("Hello Fabien")')->count()
+            );
         }
     }
 
@@ -153,7 +156,7 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 
     Per eseguire i test funzionali, la classe ``WebTestCase`` inizializza il
     kernel dell'applicazione. Nella maggior parte dei casi, questo avviene in modo automatico.
-    Tuttavia, se il proprio kenerl si trova in una cartella non standard, occorre modificare
+    Tuttavia, se il proprio kernel si trova in una cartella non standard, occorre modificare
     il file ``phpunit.xml.dist`` e impostare nella variabile d'ambiente ``KERNEL_DIR`` la
     cartella del proprio kernel::
 
@@ -170,7 +173,7 @@ visitare il proprio sito::
 
     $crawler = $client->request('GET', '/demo/hello/Fabien');
 
-Il metodo ``request()`` (vedere :ref:`di più sil metodo della richiesta<book-testing-request-method-sidebar>`) restituisce un oggetto :class:`Symfony\\Component\\DomCrawler\\Crawler`,
+Il metodo ``request()`` (vedere :ref:`di più sul metodo della richiesta<book-testing-request-method-sidebar>`) restituisce un oggetto :class:`Symfony\\Component\\DomCrawler\\Crawler`,
 che può essere usato per selezionare elementi nella risposta, per cliccare su
 collegamenti e per inviare form.
 
@@ -217,7 +220,10 @@ Oppure, testare direttamente il contenuto della risposta, se si vuole solo asser
 il contenuto debba contenere del testo o se la risposta non è un documento
 XML/HTML::
 
-    $this->assertRegExp('/Hello Fabien/', $client->getResponse()->getContent());
+    $this->assertRegExp(
+        '/Hello Fabien/',
+        $client->getResponse()->getContent()
+    );
 
 .. _book-testing-request-method-sidebar:
 
@@ -227,17 +233,18 @@ XML/HTML::
 
         request(
             $method,
-            $uri, 
-            array $parameters = array(), 
-            array $files = array(), 
-            array $server = array(), 
-            $content = null, 
+            $uri,
+            array $parameters = array(),
+            array $files = array(),
+            array $server = array(),
+            $content = null,
             $changeHistory = true
         )
 
     L'array ``server`` contiene i valori grezzi che ci si aspetta di trovare normalmente
-    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP
-    `Content-Type` e `Referer`, passare i seguenti::
+    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP `Content-Type`,
+    `Referer` e `X-Requested-With', passare i seguenti (ricordare il
+    prefisso `HTTP_` per gli header non standard)::
 
         $client->request(
             'GET',
@@ -245,27 +252,37 @@ XML/HTML::
             array(),
             array(),
             array(
-                'CONTENT_TYPE' => 'application/json',
-                'HTTP_REFERER' => '/foo/bar',
+                'CONTENT_TYPE'          => 'application/json',
+                'HTTP_REFERER'          => '/foo/bar',
+                'HTTP_X-Requested-With' => 'XMLHttpRequest',
             )
         );
 
 .. index::
    single: Test; Asserzioni
 
-.. sidebar: Useful Assertions
+.. sidebar:: Asserzioni utili
 
     Per iniziare più rapidamente, ecco una lista delle asserzioni
     più utili e comuni::
 
-        // Asserire che la risposta corrisponda al selettore CSS dato.
-        $this->assertTrue($crawler->filter('h2.subtitle')->count() > 0);
+        // Asserire che ci sia almeno un tag h2
+        // con la classe "subtitle"
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('h2.subtitle')->count()
+        );
 
-        // Assert that there are exactly 4 h2 tags on the page
+        // Asserire che ci sono esattamente 4 tag h2 nella pagina
         $this->assertEquals(4, $crawler->filter('h2')->count());
 
-        // Assert the the "Content-Type" header is "application/json"
-        $this->assertTrue($client->getResponse()->headers->contains('Content-Type', 'application/json'));
+        // Asserire che il "Content-Type" header sia "application/json"
+        $this->assertTrue(
+            $client->getResponse()->headers->contains(
+                'Content-Type',
+                'application/json'
+            )
+        );
 
         // Asserire che la risposta corrisponda a un'espressione regolare.
         $this->assertRegExp('/pippo/', $client->getResponse()->getContent());
@@ -275,10 +292,15 @@ XML/HTML::
         // Asserire che il codice di stato della risposta sia 404
         $this->assertTrue($client->getResponse()->isNotFound());
         // Asserire uno specifico codice di stato 200
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(
+            200,
+            $client->getResponse()->getStatusCode()
+        );
 
         // Asserire che il codice di stato della risposta sia un rinvio a /demo/contact
-        $this->assertTrue($client->getResponse()->isRedirect('/demo/contact'));
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/demo/contact')
+        );
         // o verificare semplicemente che la risposta sia un rinvio
         $this->assertTrue($client->getResponse()->isRedirect());
 
@@ -315,7 +337,7 @@ file.
     Gli oggetti ``Link`` e ``Form`` nel crawler saranno approfonditi nella
     sezione :ref:`Crawler<book-testing-crawler>`, più avanti.
 
-Il metodo ``request()`` può anche essere usto per simulare direttamente l'invio di form
+Il metodo ``request()`` può anche essere usato per simulare direttamente l'invio di form
 o per eseguire richieste più complesse::
 
     // Invio diretto di form
@@ -325,14 +347,14 @@ o per eseguire richieste più complesse::
     use Symfony\Component\HttpFoundation\File\UploadedFile;
 
     $photo = new UploadedFile(
-        '/path/to/photo.jpg',
+        '/percorso/di/photo.jpg',
         'photo.jpg',
         'image/jpeg',
         123
     );
     // oppure
     $photo = array(
-        'tmp_name' => '/path/to/photo.jpg',
+        'tmp_name' => '/percorso/di/photo.jpg',
         'name' => 'photo.jpg',
         'type' => 'image/jpeg',
         'size' => 123,
@@ -345,7 +367,7 @@ o per eseguire richieste più complesse::
         array('photo' => $photo)
     );
 
-    // Eseguire richieste DELETE requests e passare header HTTP
+    // Eseguire richieste DELETE e passare header HTTP
     $client->request(
         'DELETE',
         '/post/12',
@@ -356,7 +378,7 @@ o per eseguire richieste più complesse::
 
 Infine, ma non meno importante, si può forzare l'esecuzione di ogni richiesta
 nel suo processo PHP, per evitare effetti collaterali quando si lavora con molti
-client nello stess script::
+client nello stesso script::
 
     $client->insulate();
 
@@ -398,24 +420,24 @@ Accesso al contenitore
 
 È caldamente raccomandato che un test funzionale testi solo la risposta. Ma
 sotto alcune rare circostanze, si potrebbe voler accedere ad alcuni oggetti
-interni, per scrivere asserzioni. In questi casi, si può accedere al dependency
-injection container::
+interni, per scrivere asserzioni. In questi casi, si può accedere al contenitore
+di dipendenze::
 
     $container = $client->getContainer();
 
-Attenzione, perché questo non funziona se si isola il client o se si usa un
+Attenzione, perché ciò non funziona se si isola il client o se si usa un
 livello HTTP. Per un elenco di servizi disponibili nell'applicazione, usare
 il comando ``container:debug``.
 
 .. tip::
 
-    Se l'informazione che occorre verificare è disponibile nel profiler, si usi
+    Se l'informazione che occorre verificare è disponibile nel profilatore, si usi
     invece quest'ultimo.
 
 Accedere ai dati del profilatore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A ogni richiesta, il profiler di Symfony raccoglie e memorizza molti dati, che
+A ogni richiesta, il profilatore di Symfony raccoglie e memorizza molti dati, che
 riguardano la gestione interna della richiesta stessa. Per esempio, il profilatore
 può essere usato per verificare che una data pagina esegua meno di un certo numero
 di query alla base dati.
@@ -431,15 +453,15 @@ Rinvii
 ~~~~~~
 
 Quando una richiesta restituisce una risposta di rinvio, il client la segue automaticamente.
-Se si vuole esaminare la rispostsa prima del rinvio, si può forzare il client a non
+Se si vuole esaminare la risposta prima del rinvio, si può forzare il client a non
 seguire i rinvii, usando il metodo ``followRedirect()``::
 
     $crawler = $client->followRedirect(false);
 
-Quando il client non segue i rinvvi, lo si può forzare con
-il metodo ``followRedirects()``::
+Quando il client non segue i rinvii, lo si può forzare con
+il metodo ``followRedirect()``::
 
-    $client->followRedirects();
+    $crawler = $client->followRedirect();
 
 .. index::
    single: Test; Crawler
@@ -522,13 +544,16 @@ Il crawler può estrarre informazioni dai nodi::
     // Restituisce il valore del nodo del primo nodo
     $crawler->text();
 
-    // Estrae un array di attributi per tutti i nodi (_text restituisce il valore del nodo)
-    $crawler->extract(array('_text', 'href'));
+    // Estrae un array di attributi per tutti i nodi
+    // (_text restituisce il valore del nodo)
+    // restituisce un array per ogni elemento nel crawler,
+    // ciascuno con value e href
+    $info = $crawler->extract(array('_text', 'href'));
 
     // Esegue una funzione lambda per ogni nodo e restituisce un array di risultati
     $data = $crawler->each(function ($node, $i)
     {
-        return $node->getAttribute('href');
+        return $node->attr('href');
     });
 
 Collegamenti
@@ -541,8 +566,7 @@ Si possono selezionare collegamenti coi metodi di attraversamento, ma la scorcia
 
 Seleziona i collegamenti che contengono il testo dato, oppure le immagini cliccabili per
 cui l'attributi ``alt`` contiene il testo dato. Come gli altri metodi filtro, restituisce
-un altro oggetto
-``Crawler``.
+un altro oggetto ``Crawler``.
 
 Una volta selezionato un collegamento, si ha accesso a uno speciale oggetto ``Link``, che
 ha utili metodi specifici per i collegamenti (come ``getMethod()`` e
@@ -575,7 +599,7 @@ Il metodo ``selectButton()`` può selezionare i tag ``button`` e i tag ``input``
 
 * Il valore dell'attributo ``id`` o ``name`` per i tag ``button``.
 
-Quando si a un nodo che rappresenta un bottone, richiamare il metodo ``form()`` per
+Quando si ha un nodo che rappresenta un bottone, richiamare il metodo ``form()`` per
 ottenere un'istanza ``Form`` per il form, che contiene il nodo bottone.
 
     $form = $buttonCrawlerNode->form();
@@ -622,7 +646,7 @@ tipo::
     $form['like_symfony']->tick();
 
     // Caricare un file
-    $form['photo']->upload('/path/to/lucas.jpg');
+    $form['photo']->upload('/percorso/di/lucas.jpg');
 
 .. tip::
 
@@ -640,9 +664,9 @@ Configurazione dei test
 -----------------------
 
 Il client usato dai test funzionali crea un kernel che gira in uno speciale
-ambiente ``test``. Sicomme Symfonu carica ``app/config/config_test.yml``
+ambiente ``test``. Siccome Symfony carica ``app/config/config_test.yml``
 in ambiente ``test``, si possono modificare le impostazioni della propria
-applicazione sperificatamente per i test.
+applicazione specificatamente per i test.
 
 Per esempio, swiftmailer è configurato in modo predefinito per *non* inviare le email
 in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
@@ -653,8 +677,8 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
     .. code-block:: yaml
 
         # app/config/config_test.yml
-        # ...
 
+        # ...
         swiftmailer:
             disable_delivery: true
 
@@ -663,15 +687,14 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
         <!-- app/config/config_test.xml -->
         <container>
             <!-- ... -->
-
             <swiftmailer:config disable-delivery="true" />
         </container>
 
     .. code-block:: php
 
         // app/config/config_test.php
-        // ...
 
+        // ...
         $container->loadFromExtension('swiftmailer', array(
             'disable_delivery' => true
         ));
@@ -723,9 +746,10 @@ un file ``phpunit.xml`` per aggiustare la configurazione per la propria macchina
     file ``phpunit.xml``.
 
 Per impostazione predefinita, solo i test memorizzati nei bundle "standard" sono eseguiti
-dal comando ``phpunit`` (per "standard" si intendono i test sotto gli spazi dei nomi
-Vendor\\*Bundle\\Tests). Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
-la configurazione seguente aggiunge i test per i bundle installati di terze parti:
+dal comando ``phpunit`` (per "standard" si intendono i test nelle cartelle
+``src/*/Bundle/Tests`` o ``src/*/Bundle/*Bundle/Tests``). Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
+la configurazione seguente aggiunge i test per i bundle installati di terze
+parti:
 
 .. code-block:: xml
 
@@ -737,11 +761,12 @@ la configurazione seguente aggiunge i test per i bundle installati di terze part
         </testsuite>
     </testsuites>
 
-Per includere altri spazi dei nomi nella copertura del codice, modificare anche la
+Per includere altre cartelle nella copertura del codice, modificare anche la
 sezione ``<filter>``:
 
 .. code-block:: xml
 
+    <!-- ... -->
     <filter>
         <whitelist>
             <directory>../src</directory>
@@ -754,13 +779,15 @@ sezione ``<filter>``:
         </whitelist>
     </filter>
 
+Saperne di più
+--------------
 
-Imparare di più con le ricette
-------------------------------
-
+* :doc:`/components/dom_crawler`
+* :doc:`/components/css_selector`
 * :doc:`/cookbook/testing/http_authentication`
 * :doc:`/cookbook/testing/insulating_clients`
 * :doc:`/cookbook/testing/profiling`
+* :doc:`/cookbook/testing/bootstrap`
 
 
 .. _`DemoControllerTest`: https://github.com/symfony/symfony-standard/blob/master/src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php

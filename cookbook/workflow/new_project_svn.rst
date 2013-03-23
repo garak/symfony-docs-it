@@ -1,3 +1,6 @@
+.. index::
+   single: Flusso di lavoro; Subversion
+
 Come creare e memorizzare un progetto Symfony2 in Subversion
 ============================================================
 
@@ -52,23 +55,23 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 3. Eseguire il checkout del repository Subversion che ospiterà questo progetto. Supponiamo
    che sia ospitato su `Google code`_ e che si chiami ``mioprogetto``:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ svn checkout http://mioprogetto.googlecode.com/svn/trunk mioprogetto
 
 4. Copiare i file del progetto Symfony2 nella cartella di subversion:
 
-    .. code-block:: bash
+   .. code-block:: bash
 
         $ mv Symfony/* mioprogetto/
 
 5. Impostiamo ora le regole di ignore. Non tutto *andrebbe* memorizzato nel
    repository subversion. Alcuni file (come la cache) sono generati e altri
-   (come la configurazione del database) devono essere personalizzati su
+   (come la configurazione della base dati) devono essere personalizzati su
    ciascuna macchina. Ciò implica l'uso della proprietà ``svn:ignore``, che consente
    di ignorare specifici file.
 
-    .. code-block:: bash
+   .. code-block:: bash
 
         $ cd mioprogetto/
         $ svn add --depth=empty app app/cache app/logs app/config web
@@ -85,30 +88,26 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
 6. Tutti gli altri file possono essere aggiunti al progetto:
 
-    .. code-block:: bash
+   .. code-block:: bash
 
         $ svn add --force .
         $ svn ci -m "aggiunta Symfony Standard 2.X.Y"
 
-7. Copiare ``app/config/parameters.ini`` su ``app/config/parameters.ini.dist``.
+7. Copiare ``app/config/parameters.yml`` su ``app/config/parameters.yml.dist``.
    Il file ``parameters.ini`` è ignorato da svn (vedere sopra) in modo che le
-   impostazioni delle singole macchine, come le password del database, non siano
+   impostazioni delle singole macchine, come le password della base dati, non siano
    inserite. Creando il file ``parameters.ini.dist``, i nuovi sviluppatori possono
    prendere subito il progetto, copiare questo file in ``parameters.ini``, personalizzarlo
    e iniziare a sviluppare.
 
-8. Infine, scaricare tutte le librerie dei venditori:
-
-    .. code-block:: bash
-    
-        $ php bin/vendors install
+8. Infine, scaricare tutte le librerie dei venditori, eseguendo composer. Per maggiori dettagli,
+   vedere :ref:`installation-updating-vendors`.
 
 .. tip::
 
-    `git`_ deve essere installato per poter eseguire ``bin/vendors``, essendo il protocollo
-    usato per recuperare le librerie. Questo vuol dire che  ``git`` è usato solo come
-    strumento per poter scaricare le librerie nella cartella ``vendor/``.
-
+    Se ci si basa su versioni "dev", ci si può basare su git per installare
+    tali librerie, poiché non dispongono di archivi da scaricare.
+ 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante, memorizzato nel
 proprio repository Subversion. Si può iniziare lo sviluppo, con i commit verso
 il repository.

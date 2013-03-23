@@ -1,11 +1,11 @@
 L'architettura
 ==============
 
-Sei il mio eroe! Chi avrebbe pensato che tu fossi ancora qui dopo le prime
+Sei un eroe! Chi avrebbe pensato che tu fossi ancora qui dopo le prime
 tre parti? I tuoi sforzi saranno presto ricompensati. Le prime tre parti
 non danno uno sguardo approfondito all'architettura del framework. Poiché
-essa rende unico Symfony2 nel panorama dei framework, vediamo in cosa consiste.
-
+essa rende unico Symfony2 nel panorama dei framework, vediamo in cosa
+consiste.
 
 Capire la struttura delle cartelle
 ----------------------------------
@@ -58,46 +58,17 @@ Questa classe deve implementare due metodi:
 * ``registerContainerConfiguration()`` carica la configurazione dell'applicazione
   (approfondito più avanti);
 
-Il caricamento automatico di PHP può essere configurato tramite ``app/autoload.php``::
-
-    // app/autoload.php
-    use Symfony\Component\ClassLoader\UniversalClassLoader;
-
-    $loader = new UniversalClassLoader();
-    $loader->registerNamespaces(array(
-        'Symfony'          => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
-        'Sensio'           => __DIR__.'/../vendor/bundles',
-        'JMS'              => __DIR__.'/../vendor/bundles',
-        'Doctrine\\Common' => __DIR__.'/../vendor/doctrine-common/lib',
-        'Doctrine\\DBAL'   => __DIR__.'/../vendor/doctrine-dbal/lib',
-        'Doctrine'         => __DIR__.'/../vendor/doctrine/lib',
-        'Monolog'          => __DIR__.'/../vendor/monolog/src',
-        'Assetic'          => __DIR__.'/../vendor/assetic/src',
-        'Metadata'         => __DIR__.'/../vendor/metadata/src',
-    ));
-    $loader->registerPrefixes(array(
-        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
-        'Twig_'            => __DIR__.'/../vendor/twig/lib',
-    ));
-
-    // ...
-
-    $loader->registerNamespaceFallbacks(array(
-        __DIR__.'/../src',
-    ));
-    $loader->register();
-
-La classe `Symfony\\Component\\ClassLoader\\UniversalClassLoader` di Symfony2 è usata
-per auto-caricare i file che rispettano gli `standard`_  di interoperabilità  per gli spazi dei nomi
-di PHP 5.3 oppure la `convenzione`_ dei nomi di PEAR per le classi. Come si può vedere,
-tutte le dipendenze sono sotto la cartella ``vendor/``, ma questa è solo una convenzione.
-Si possono inserire in qualsiasi posto, globalmente sul proprio server o localmente nei
-propri progetti.
+Il caricamento automatico essere configurato tramite `Composer`_, che vuol dire che si
+può usare qualsiasi classe PHP senza dover far nulla! Se occorre maggiore flessibilità,
+si può estendere l'autoloader nel file ``app/autoload.php``. Tutte le dipendenze sono
+memorizzate sotto la cartella ``vendor/``, ma è solo una convenzione.
+Si possono memorizzare dove si preferisce, globalmente sul poprio server o localmente
+nei propri progetti.
 
 .. note::
 
-    Se si vuole approfondire l'argomento flessibilità dell'autoloader di Symfony2,
-    si può leggere il capitolo ":doc:`/components/class_loader`".
+    Se si vuole approfondire l'argomento flessibilità dell'autoloader di Symfony2, leggere `Composer-Autoloader`_.
+    Symfony dispone anche di un componente specifico, si veda ":doc:`/components/class_loader`".
 
 Capire il sistema dei bundle
 ----------------------------
@@ -167,61 +138,59 @@ XML o PHP. Si veda la configurazione predefinita:
 
     framework:
         #esi:             ~
-        #translator:      { fallback: %locale% }
-        secret:          %secret%
-        charset:         UTF-8
-        router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+        #translator:      { fallback: "%locale%" }
+        secret:          "%secret%"
+        router:
+            resource: "%kernel.root_dir%/config/routing.yml"
+            strict_requirements: "%kernel.debug%"
         form:            true
         csrf_protection: true
         validation:      { enable_annotations: true }
         templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-        default_locale:  %locale%
-        session:
-            auto_start:     true
+        default_locale:  "%locale%"
+        trusted_proxies: ~
+        session:         ~
 
     # Configurazione di Twig
     twig:
-        debug:            %kernel.debug%
-        strict_variables: %kernel.debug%
+        debug:            "%kernel.debug%"
+        strict_variables: "%kernel.debug%"
 
     # Configurazione di Assetic
     assetic:
-        debug:          %kernel.debug%
+        debug:          "%kernel.debug%"
         use_controller: false
         bundles:        [ ]
         # java: /usr/bin/java
         filters:
             cssrewrite: ~
             # closure:
-            #     jar: %kernel.root_dir%/java/compiler.jar
+            #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
             # yui_css:
-            #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+            #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
     # Configurazione di Doctrine
     doctrine:
         dbal:
-            driver:   %database_driver%
-            host:     %database_host%
-            port:     %database_port%
-            dbname:   %database_name%
-            user:     %database_user%
-            password: %database_password%
+            driver:   "%database_driver%"
+            host:     "%database_host%"
+            port:     "%database_port%"
+            dbname:   "%database_name%"
+            user:     "%database_user%"
+            password: "%database_password%"
             charset:  UTF8
 
         orm:
-            auto_generate_proxy_classes: %kernel.debug%
+            auto_generate_proxy_classes: "%kernel.debug%"
             auto_mapping: true
 
     # Configurazione di Swiftmailer
     swiftmailer:
-        transport: %mailer_transport%
-        host:      %mailer_host%
-        username:  %mailer_user%
-        password:  %mailer_password%
-
-    jms_security_extra:
-        secure_controllers:  true
-        secure_all_services: false
+        transport: "%mailer_transport%"
+        host:      "%mailer_host%"
+        username:  "%mailer_user%"
+        password:  "%mailer_password%"
+        spool:     { type: memory }
 
 Ogni voce come ``framework`` definisce la configurazione per uno specifico bundle.
 Per esempio, ``framework`` configura ``FrameworkBundle``, mentre ``swiftmailer``
@@ -250,7 +219,7 @@ aggiungere alcuni strumenti di debug:
         handlers:
             main:
                 type:  stream
-                path:  %kernel.logs_dir%/%kernel.environment%.log
+                path:  "%kernel.logs_dir%/%kernel.environment%.log"
                 level: debug
             firephp:
                 type:  firephp
@@ -293,7 +262,7 @@ Per i template, il nome logico ``AcmeDemoBundle:Welcome:index.html.twig`` è
 convertito al percorso del file ``src/Acme/DemoBundle/Resources/views/Welcome/index.html.twig``.
 I template diventano ancora più interessanti quando si realizza che i file non
 hanno bisogno di essere memorizzati su filesystem. Si possono facilmente
-memorizzare, per esempio, in una tabella di database.
+memorizzare, per esempio, in una tabella di una base dati.
 
 Estendere i bundle
 ..................
@@ -328,12 +297,12 @@ YAML e XML a ogni richiesta? In parte, per il suo sistema di cache. La
 configurazione dell'applicazione è analizzata solo per la prima richiesta
 e poi compilata in semplice file PHP, memorizzato nella cartella ``app/cache/``
 dell'applicazione. Nell'ambiente di sviluppo, Symfony2 è abbastanza
-intelligente da pulire la cache quando cambiano dei file. In produzione,
-invece, occorre pulire la cache manualmente quando si aggiorna il codice
-o si modifica la configurazione.
+intelligente da pulire la cache quando cambiano dei file. In produzione, invece,
+occorre pulire la cache manualmente quando si aggiorna il codice o si modifica la configurazione.
 
 Sviluppando un'applicazione web, le cose possono andar male in diversi modi.
-I file di log nella cartella ``app/logs/`` dicono tutto a proposito delle richieste e aiutano a risolvere il problema in breve tempo.
+I file di log nella cartella ``app/logs/`` dicono tutto a proposito delle richieste
+e aiutano a risolvere il problema in breve tempo.
 
 Usare l'interfaccia a linea di comando
 --------------------------------------
@@ -346,13 +315,13 @@ Richiamandola senza parametri, si può sapere di più sulle sue capacità:
 
 .. code-block:: bash
 
-    php app/console
+    $ php app/console
 
 L'opzione ``--help`` aiuta a scoprire l'utilizzo di un comando:
 
 .. code-block:: bash
 
-    php app/console router:debug --help
+    $ php app/console router:debug --help
 
 Considerazioni finali
 ---------------------
@@ -367,5 +336,7 @@ imparare diverse cose per padroneggiare Symfony2. Pronti per approfondire questi
 temi? Senza indugi, basta andare nella pagine del :doc:`libro</book/index>` e
 scegliere un argomento a piacere.
 
-.. _standard:     http://groups.google.com/group/php-standards/web/psr-0-final-proposal
-.. _convenzione:  http://pear.php.net/
+.. _standard:    http://symfony.com/PSR0
+.. _convenzione: http://pear.php.net/
+.. _Composer:    http://getcomposer.org
+.. _`Composer-Autoloader`: http://getcomposer.org/doc/01-basic-usage.md#autoloading

@@ -7,7 +7,7 @@ Come esporre una configurazione semantica per un bundle
 
 Se si apre il file di configurazione della propria applicazione (di solito ``app/config/config.yml``),
 si vedranno un certo numero di "spazi di nomi" di configurazioni, come ``framework``,
-``twig`` e ``doctrine``. Ciasucno di questi configura uno specifico bundle, consentendo di
+``twig`` e ``doctrine``. Ciascuno di questi configura uno specifico bundle, consentendo di
 configurare cose ad alto livello e quindi lasciando al bundle tutte le modifiche complesse
 e di basso livello.
 
@@ -18,19 +18,19 @@ l'integrazione di altri componenti correlati:
 .. configuration-block::
 
     .. code-block:: yaml
-    
+
         framework:
             # ...
             form:            true
 
     .. code-block:: xml
-    
+
         <framework:config>
             <framework:form />
         </framework:config>
 
     .. code-block:: php
-    
+
         $container->loadFromExtension('framework', array(
             // ...
             'form'            => true,
@@ -59,10 +59,10 @@ Quando si crea un bundle, si hanno due scelte sulla gestione della configurazion
     questo metodo, non si avrà bisogno di importare alcuna risorsa di configurazione
     dall'appplicazione principale: la classe Extension può gestire tutto.
 
-La seconda opzione, di cui parleremo, è molto più flessibili, ma richiede anche
+La seconda opzione, di cui parleremo, è molto più flessibile, ma richiede anche
 più tempo di preparazione. Se si ci sta chiedendo quale metodo scegliere,
 probabilmente è una buona idea partire col primo metodo, poi cambiare al secondo,
-se se ne ha necessità.
+qualora fosse necessario.
 
 Il secondo metodo ha diversi vantaggi:
 
@@ -74,8 +74,7 @@ Il secondo metodo ha diversi vantaggi:
 * Fusione intelligente quando diversi file di configurazione (p.e. ``config_dev.yml``
   e ``config.yml``) sovrascrivono le proprie configurazioni a vicenda;
 
-* Validazione della configurazione (se si usa una
-  :ref:`classe di configurazione<cookbook-bundles-extension-config-class>`);
+* Validazione della configurazione (se si usa una :ref:`classe di configurazione<cookbook-bundles-extension-config-class>`);
 
 * auto-completamento nell'IDE quando si crea un XSD e lo sviluppatore usa XML.
 
@@ -83,7 +82,7 @@ Il secondo metodo ha diversi vantaggi:
 
     Se un bundle fornisce una classe Extension, in generale *non* si dovrebbe
     sovrascrivere alcun parametro del contenitore di servizi per quel bundle.
-    L'idea è che se è presente una classe Extension, ogni impostazione configurabile
+    L'idea è che, se è presente una classe Extension, ogni impostazione configurabile
     sia presente nella configurazione messa a disposizione da tale classe.
     In altre parole, la classe Extension definisce tutte le impostazioni supportate
     pubblicamente, per i quali sarà mantenuta
@@ -104,6 +103,8 @@ del bundle con ``Extension``. Per esempio, la classe Extension di
 ``AcmeHelloBundle`` si chiamerebbe ``AcmeHelloExtension``::
 
     // Acme/HelloBundle/DependencyInjection/AcmeHelloExtension.php
+    namespace Acme\HelloBundle\DependencyInjection;
+
     use Symfony\Component\HttpKernel\DependencyInjection\Extension;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -133,7 +134,7 @@ del bundle con ``Extension``. Per esempio, la classe Extension di
 La presenza della classe precedente vuol dire che si può definire uno spazio dei nomi
 ``acme_hello`` in un qualsiasi file di configurazione. Lo spazio dei nomi ``acme_hello``
 viene dal nome della classe Extension, a cui è stata rimossa la parola ``Extension``
-e posto in minuscolo e con trattini bassi il resto del nome. In altre parole,,
+e posto in minuscolo e con trattini bassi il resto del nome. In altre parole,
 ``AcmeHelloExtension`` diventa ``acme_hello``.
 
 Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
@@ -156,8 +157,8 @@ Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
            <acme_hello:config />
-           ...
 
+           <!-- ... -->
         </container>
 
     .. code-block:: php
@@ -191,8 +192,8 @@ Si prenda la seguente configurazione:
 
         # app/config/config.yml
         acme_hello:
-            foo: fooValue
-            bar: barValue
+            pippo: valoreDiPippo
+            pluto: valoreDiPluto
 
     .. code-block:: xml
 
@@ -204,8 +205,8 @@ Si prenda la seguente configurazione:
             xmlns:acme_hello="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-            <acme_hello:config foo="fooValue">
-                <acme_hello:bar>barValue</acme_hello:bar>
+            <acme_hello:config pippo="valoreDiPippo">
+                <acme_hello:pluto>valoreDiPluto</acme_hello:pluto>
             </acme_hello:config>
 
         </container>
@@ -214,16 +215,16 @@ Si prenda la seguente configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('acme_hello', array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'pippo' => 'valoreDiPippo',
+            'pluto' => 'valoreDiPluto',
         ));
 
 L'array passato al metodo ``load()`` sarà simile a questo::
 
     array(
         array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'pippo' => 'valoreDiPippo',
+            'pluto' => 'valoreDiPluto',
         )
     )
 
@@ -234,17 +235,18 @@ sotto di esso, l'array in uscita sarà simile a questo::
 
     array(
         array(
-            'foo' => 'fooValue',
-            'bar' => 'barValue',
+            'pippo' => 'valoreDiPippo',
+            'pluto' => 'valoreDiPluto',
         ),
         array(
-            'foo' => 'fooDevValue',
-            'baz' => 'newConfigEntry',
+            'pippo' => 'valoreDevDiPippo',
+            'baz' => 'nuovaVoceDiConfig',
         ),
     )
 
-L'ordine dei due array dipende da quale è stato definito prima. È compito di chi
-sviluppa il bundle, quindi, decidere in che modo tali configurazioni vadano fuse
+L'ordine dei due array dipende da quale è stato definito prima.
+
+È compito di chi sviluppa il bundle, quindi, decidere in che modo tali configurazioni vadano fuse
 insieme. Si potrebbe, per esempio, voler fare in modo che i valori successivi
 sovrascrivano quelli precedenti, oppure fonderli in qualche modo.
 
@@ -289,9 +291,12 @@ bundle::
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // prepara la propria variabile $config
+        // ... prepara la propria variabile $config
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.xml');
     }
 
@@ -301,9 +306,12 @@ Per esempio, si supponga di voler caricare un insieme di servizi, ma solo se un'
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // prepara la propria variabile $config
+        // ... prepara la propria variabile $config
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         
         if (isset($config['enabled']) && $config['enabled']) {
             $loader->load('services.xml');
@@ -342,25 +350,33 @@ parametro:
 Ma perché definire un parametro vuoto e poi passarlo al proprio servizio?
 La risposa è che si imposterà questo parametro nella propria classe Extension, in base
 ai valori di configurazione in entrata. Si supponga, per esempio, di voler consentire
-all'utente di definire questa opzione *type* sotto una chiave di nome ``my_type``.
+all'utente di definire questa opzione *type* sotto una chiave di nome ``mio_tipo``.
 Aggiungere al metodo ``load()`` il codice seguente::
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // prepara la propria variabile $config
+        // ... prepara la propria variabile $config
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
         $loader->load('services.xml');
 
-        if (!isset($config['my_type'])) {
-            throw new \InvalidArgumentException('The "my_type" option must be set');
+        if (!isset($config['mio_tipo'])) {
+            throw new \InvalidArgumentException(
+                'The "mio_tipo" option must be set'
+            );
         }
 
-        $container->setParameter('acme_hello.my_service_type', $config['my_type']);
+        $container->setParameter(
+            'acme_hello.my_service_type',
+            $config['mio_tipo']
+        );
     }
 
 L'utente ora è in grado di configurare effettivamente il servizio, specificando il
-valore di configurazione ``my_type``:
+valore di configurazione ``mio_tipo``:
 
 .. configuration-block::
 
@@ -368,7 +384,7 @@ valore di configurazione ``my_type``:
 
         # app/config/config.yml
         acme_hello:
-            my_type: foo
+            mio_tipo: pippo
             # ...
 
     .. code-block:: xml
@@ -381,7 +397,7 @@ valore di configurazione ``my_type``:
             xmlns:acme_hello="http://www.example.com/symfony/schema/"
             xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-            <acme_hello:config my_type="foo">
+            <acme_hello:config mio_tipo="pippo">
                 <!-- ... -->
             </acme_hello:config>
 
@@ -391,8 +407,8 @@ valore di configurazione ``my_type``:
 
         // app/config/config.php
         $container->loadFromExtension('acme_hello', array(
-            'my_type' => 'foo',
-            // ...
+            'mio_tipo' => 'pippo',
+            ...,
         ));
 
 Parametri globali
@@ -435,7 +451,7 @@ validazione, con i valori predefiniti e per la normalizzazione dei formati.
 Per sfruttare questo sistema, si creerà una classe ``Configuration`` e si costruirà
 un albero, che definisce la propria configurazione in tale classe::
 
-    // src/Acme/HelloBundle/DependencyExtension/Configuration.php
+    // src/Acme/HelloBundle/DependencyInjection/Configuration.php
     namespace Acme\HelloBundle\DependencyInjection;
 
     use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -450,27 +466,24 @@ un albero, che definisce la propria configurazione in tale classe::
 
             $rootNode
                 ->children()
-                    ->scalarNode('my_type')->defaultValue('bar')->end()
-                ->end()
-            ;
+                ->scalarNode('mio_tipo')->defaultValue('pluto')->end()
+                ->end();
 
             return $treeBuilder;
         }
+    }
 
 Questo è un esempio *molto* semplice, ma si può ora usare questa classe nel proprio
 metodo ``load()``, per fondere la propria configurazione e forzare la validazione. Se
-viene passata un'opzione che non sia ``my_type``, l'utente sarà avvisato con un'eccezione
+viene passata un'opzione che non sia ``mio_tipo``, l'utente sarà avvisato con un'eccezione
 del passaggio di un'opzione non supportata::
-
-    use Symfony\Component\Config\Definition\Processor;
-    // ...
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        $processor = new Processor();
         $configuration = new Configuration();
-        $config = $processor->processConfiguration($configuration, $configs);
-    
+
+        $config = $this->processConfiguration($configuration, $configs);
+
         // ...
     }
 
@@ -493,11 +506,13 @@ Esportare la configurazione predefinita
 Il comando ``config:dump-reference`` consente di mostrare nella console, in formato YAML,
 la configurazione predefinita di un bundle.
 
-Il comando funziona automaticamente solo se la configurazione del bundle si trova nella
-posizione standard (``MioBundle\DependencyInjection\Configuration``) e non ha un
-``__constructor()``. Se si ha qualcosa di diverso, la propria classe ``Extension``
-dovrà sovrascrivere il metodo ``Extension::getConfiguration()`` e restituire un'istanza
-di ``Configuration``.
+Il comando funziona automaticamente solo se la configurazione del bundle si trova nella posizione standard
+(``MioBundle\DependencyInjection\Configuration``) e non ha un
+``__construct()``. Se si ha qualcosa di diverso, la propria classe
+``Extension`` dovrà sovrascrivere il metodo
+:method:`Extension::getConfiguration() <Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension::getConfiguration>`
+e restituire un'istanza di
+``Configuration``.
 
 Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
 ``->setInfo()`` e ``->setExample()``::
@@ -518,7 +533,7 @@ Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
             $rootNode
                 ->children()
                     ->scalarNode('mio_tipo')
-                        ->defaultValue('bar')
+                        ->defaultValue('pluto')
                         ->setInfo('cosa configura mio_tipo')
                         ->setExample('impostazione di esempio')
                     ->end()
@@ -527,10 +542,10 @@ Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
 
             return $treeBuilder;
         }
+    }
 
 Il testo apparirà come commenti YAML nell'output del comando
 ``config:dump-reference``.
-
 
 .. index::
    pair: Convenzione; Configuration
@@ -552,6 +567,7 @@ automaticamente da Symfony2. In caso contrario, sovrascrivere il metodo
 :method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build` nel proprio
 bundle::
 
+    // ...
     use Acme\HelloBundle\DependencyInjection\UnconventionalExtensionClass;
 
     class AcmeHelloBundle extends Bundle

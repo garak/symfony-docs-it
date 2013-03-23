@@ -1,11 +1,13 @@
+.. index::
+   single: Sicurezza; Forzare HTTPS
+
 Come forzare HTTPS o HTTP per URL diversi
 =========================================
 
 Si possono forzare aree del proprio sito a usare il protocollo ``HTTPS`` nella
 configurazione della sicurezza. Lo si può fare tramite le regole ``access_control``,
 usando l'opzione ``requires_channel``. Per esempio, se si vogliono forzare tutti gli URL
-che iniziano per ``/secure`` a usare ``HTTPS``, si può usare la seguente
-configurazione:
+che iniziano per ``/secure`` a usare ``HTTPS``, si può usare la seguente configurazione:
 
 .. configuration-block::
 
@@ -25,9 +27,10 @@ configurazione:
         .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/secure', 
-                      'role' => 'ROLE_ADMIN', 
-                      'requires_channel' => 'https'
+                array(
+                    'path'             => '^/secure',
+                     'role'            => 'ROLE_ADMIN', 
+                    'requires_channel' => 'https',
                 ),
             ),
 
@@ -56,9 +59,10 @@ le regole ``access_control`` con il ruolo
         .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/login', 
-                      'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 
-                      'requires_channel' => 'https'
+                array(
+                    'path'             => '^/login',
+                     'role'            => 'IS_AUTHENTICATED_ANONYMOUSLY', 
+                    'requires_channel' => 'https',
                 ),
             ),
 

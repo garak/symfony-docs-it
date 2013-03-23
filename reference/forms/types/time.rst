@@ -24,6 +24,11 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 |                         | - `data_timezone`_                                                  |
 |                         | - `user_timezone`_                                                  |
 +-------------------------+---------------------------------------------------------------------+
+| Opzioni                 | - `invalid_message`_                                                |
+| ereditate               | - `invalid_message_parameters`_                                     |
+|                         | - `read_only`_                                                      |
+|                         | - `disabled`_                                                       |
++-------------------------+---------------------------------------------------------------------+
 | Tipo genitore           | form                                                                |
 +-------------------------+---------------------------------------------------------------------+
 | Classe                  | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimeType`  |
@@ -104,3 +109,16 @@ formato.
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
+
+Opzioni ereditate
+-----------------
+
+These options inherit from the :doc:`field</reference/forms/types/field>` type:
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc

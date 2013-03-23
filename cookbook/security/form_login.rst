@@ -1,3 +1,6 @@
+.. index::
+   single: Sicurezza; Personalizzazione del form di login
+
 Come personalizzare il form di login
 ====================================
 
@@ -9,92 +12,9 @@ nella prossima sezione.
 Riferimento di configurazione del form di login
 -----------------------------------------------
 
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/security.yml
-        security:
-            firewalls:
-                main:
-                    form_login:
-                        # the user is redirected here when he/she needs to login
-                        login_path:                     /login
-
-                        # if true, forward the user to the login form instead of redirecting
-                        use_forward:                    false
-
-                        # submit the login form here
-                        check_path:                     /login_check
-
-                        # by default, the login form *must* be a POST, not a GET
-                        post_only:                      true
-
-                        # login success redirecting options (read further below)
-                        always_use_default_target_path: false
-                        default_target_path:            /
-                        target_path_parameter:          _target_path
-                        use_referer:                    false
-
-                        # login failure redirecting options (read further below)
-                        failure_path:                   null
-                        failure_forward:                false
-
-                        # field names for the username and password fields
-                        username_parameter:             _username
-                        password_parameter:             _password
-
-                        # csrf token options
-                        csrf_parameter:                 _csrf_token
-                        intention:                      authenticate
-
-    .. code-block:: xml
-
-        <!-- app/config/security.xml -->
-        <config>
-            <firewall>
-                <form-login
-                    check_path="/login_check"
-                    login_path="/login"
-                    use_forward="false"
-                    always_use_default_target_path="false"
-                    default_target_path="/"
-                    target_path_parameter="_target_path"
-                    use_referer="false"
-                    failure_path="null"
-                    failure_forward="false"
-                    username_parameter="_username"
-                    password_parameter="_password"
-                    csrf_parameter="_csrf_token"
-                    intention="authenticate"
-                    post_only="true"
-                />
-            </firewall>
-        </config>
-
-    .. code-block:: php
-
-        // app/config/security.php
-        $container->loadFromExtension('security', array(
-            'firewalls' => array(
-                'main' => array('form_login' => array(
-                    'check_path'                     => '/login_check',
-                    'login_path'                     => '/login',
-                    'user_forward'                   => false,
-                    'always_use_default_target_path' => false,
-                    'default_target_path'            => '/',
-                    'target_path_parameter'          => _target_path,
-                    'use_referer'                    => false,
-                    'failure_path'                   => null,
-                    'failure_forward'                => false,
-                    'username_parameter'             => '_username',
-                    'password_parameter'             => '_password',
-                    'csrf_parameter'                 => '_csrf_token',
-                    'intention'                      => 'authenticate',
-                    'post_only'                      => true,
-                )),
-            ),
-        ));
+Per il riferimento completo della configurazione del form di login, vedere
+:doc:`/reference/configuration/security`. Alcune delle opzioni più interessanti
+sono spiegate di seguito.
 
 Rinvio dopo il successo
 -----------------------
@@ -103,12 +23,13 @@ Si può modificare il posto in cui il form di login rinvia dopo un login eseguit
 successo, usando le varie opzioni di configurazione. Per impostazione predefinita, il
 form rinvierà all'URL richiesto dall'utente (cioè l'URL che ha portato al form di login).
 Per esempio, se l'utente ha richiesto ``http://www.example.com/admin/post/18/edit``,
-sarà successivamente rimandato indietro a ``http://www.example.com/admin/post/18/edit``,
-dopo il login. Questo grazie alla memorizzazione in sessione dell'URL richiesto. Se non
+sarà successivamente rimandato indietro a
+``http://www.example.com/admin/post/18/edit``, dopo il login.
+Questo grazie alla memorizzazione in sessione dell'URL richiesto. Se non
 c'è alcun URL in sessione (forse l'utente ha richiesto direttamente la pagina di login),
-l'utente è rinviato alla pagina predefinita, che è ``/`` (ovvero la homepage). Si può
-modificare questo comportamento in diversi
-modi.
+l'utente è rinviato alla pagina predefinita, che
+è ``/`` (ovvero la homepage). Si può modificare questo comportamento
+in diversi modi.
 
 .. note::
 
@@ -153,10 +74,14 @@ non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
+
+                    'form_login' => array(
+                        // ...
                     'default_target_path' => '/admin',
-                )),
+                    ),
+                ),
             ),
         ));
 
@@ -197,10 +122,14 @@ senza considerare l'URL richiesta prima del login, impostando l'opzione
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
-                    'always_use_default_target_path' => true,
-                )),
+
+                    'form_login' => array(
+                        // ...
+                        'always_use_default_target_path' => true,
+                    ),
+                ),
             ),
         ));
 
@@ -239,10 +168,14 @@ Se nessun URL è stato memorizzato in sessione, si potrebbe voler provare a usar
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
-                    'use_referer' => true,
-                )),
+
+                    'form_login' => array(
+                        // ...
+                       'use_referer' => true,
+                    ),
+                ),
             ),
         ));
 
@@ -280,7 +213,7 @@ definito in una rotta ``account``, fare come segue:
 
     .. code-block:: html+php
 
-        <?php // src/Acme/SecurityBundle/Resources/views/Security/login.html.php ?>
+        <!-- src/Acme/SecurityBundle/Resources/views/Security/login.html.php -->
         <?php if ($error): ?>
             <div><?php echo $error->getMessage() ?></div>
         <?php endif; ?>
@@ -329,9 +262,11 @@ il valore desiderato.
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
-                    'target_path_parameter' => redirect_url,
-                )),
+                'main' => array(
+                    'form_login' => array(
+                        'target_path_parameter' => redirect_url,
+                    ),
+                ),
             ),
         ));
 
@@ -372,9 +307,13 @@ configurazione seguente:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('form_login' => array(
+                'main' => array(
                     // ...
-                    'failure_path' => login_failure,
-                )),
+
+                    'form_login' => array(
+                        // ...
+                        'failure_path' => login_failure,
+                    ),
+                ),
             ),
         ));

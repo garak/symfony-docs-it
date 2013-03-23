@@ -22,8 +22,6 @@ risposta HTTP.
 Symfony2 segue questa filosofia e fornisce strumenti e convenzioni per mantenere la propria
 applicazione organizzata, man mano che cresce in utenti e in complessità.
 
-Sembra abbastanza semplice? Approfondiamo!
-
 .. index::
    single: Creazione di pagine; Esempio
 
@@ -46,7 +44,11 @@ salutare. Per creare la pagina, seguiamo il semplice processo in due passi.
     La guida presume che Symfony2 sia stato già scaricato e il server web
     configurato. L'URL precedente presume che ``localhost`` punti alla cartella
     ``web`` del proprio nuovo progetto Symfony2. Per informazioni dettagliate su
-    questo processo, si veda :doc:`Installare Symfony2</book/installation>`.
+    questo processo, vedere la documentazione del server web usato.
+    Ecco le pagine di documentazione per alcuni server web:
+    
+    * Per il server Apache, fare riferimento alla `documentazione su DirectoryIndex di Apache`_.
+    * Per Nginx, fare riferimento alla `documentazione su HttpCoreModule di Nginx`_.
 
 Prima di iniziare: creare il bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,7 +67,7 @@ questo capitolo), eseguire il seguente comando e seguire le istruzioni su scherm
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
+    $ php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
 
 Dietro le quinte, viene creata una cartella per il bundle in ``src/Acme/HelloBundle``.
 Inoltre viene aggiunta automaticamente una riga al file ``app/AppKernel.php``, in modo
@@ -101,7 +103,7 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
     .. code-block:: yaml
 
         # app/config/routing.yml
-        AcmeHelloBundle:
+        acme_hello:
             resource: "@AcmeHelloBundle/Resources/config/routing.yml"
             prefix:   /
 
@@ -205,8 +207,6 @@ sul metodo ``indexAction`` di una classe PHP chiamata
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
 
-    use Symfony\Component\HttpFoundation\Response;
-
     class HelloController
     {
     }
@@ -221,8 +221,10 @@ Creare il metodo ``indexAction``, che Symfony2 eseguirà quando la rotta ``hello
 corrisposta::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
+    namespace Acme\HelloBundle\Controller;
 
-    // ...
+    use Symfony\Component\HttpFoundation\Response;
+
     class HelloController
     {
         public function indexAction($name)
@@ -254,10 +256,10 @@ applicazione dovrebbe salutare:
     
     Se si ottiene un errore, è probabilmente perché occorre pulire la cache,
     eseguendo:
-    
+
     .. code-block:: bash
 
-        php app/console cache:clear --env=prod --no-debug
+        $ php app/console cache:clear --env=prod --no-debug
 
 Un terzo passo, facoltativo ma comune, del processo è quello di creare un template.
 
@@ -286,10 +288,16 @@ HTML dentro al controllore, meglio rendere un template:
     {
         public function indexAction($name)
         {
-            return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+            return $this->render(
+                'AcmeHelloBundle:Hello:index.html.twig',
+                array('name' => $name)
+            );
 
-            // render a PHP template instead
-            // return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+            // rende invece un template PHP
+            // return $this->render(
+            //     'AcmeHelloBundle:Hello:index.html.php',
+            //     array('name' => $name)
+            // );
         }
     }
 
@@ -390,7 +398,7 @@ cartella ``app``:
             </head>
             <body>
                 <?php $view['slots']->output('_content') ?>
-                <?php $view['slots']->output('stylesheets') ?>
+                <?php $view['slots']->output('javascripts') ?>
             </body>
         </html>
 
@@ -420,7 +428,7 @@ creazione e alla resa delle pagine in Symfony2. Abbiamo anche già iniziato a ve
 come i progetti Symfony2 siano strutturati e organizzati. Alla fine di questa sezione,
 sapremo dove cercare e inserire i vari tipi di file, e perché.
 
-Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`application`
+Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`applicazione`
 Symfony ha la stessa struttura di cartelle raccomandata:
 
 * ``app/``: Questa cartella contiene la configurazione dell'applicazione;
@@ -524,11 +532,6 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
             Acme\HelloBundle\Controller\HelloController
         Percorso:
             src/Acme/HelloBundle/Controller/HelloController.php
-
-    Tipicamente, l'unica volta in cui si avrà bisogno di preoccuparsi del file
-    ``app/autoload.php`` sarà al momento di includere nuove librerie di terze
-    parti nella cartella ``vendor/``. Per maggiori informazioni sull'autoload,
-    vedere :doc:`Come auto-caricare le classi</cookbook/tools/autoloader>`.
 
 La cartella dei sorgenti (``src``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -645,8 +648,7 @@ Ora che abbiamo creato il bundle, abilitiamolo tramite la classe ``AppKernel``::
     public function registerBundles()
     {
         $bundles = array(
-            // ...
-
+            ...,
             // register your bundles
             new Acme\TestBundle\AcmeTestBundle(),
         );
@@ -663,7 +665,7 @@ uno scheletro di base per un bundle:
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/TestBundle
+    $ php app/console generate:bundle --namespace=Acme/TestBundle
 
 Lo scheletro del bundle è generato con controllore, template e rotte, tutti
 personalizzabili. Approfondiremo più avanti la linea di comando di
@@ -685,6 +687,10 @@ mantenere il codice coerente tra tutti i bundle di Symfony2. Si dia un'occhiata 
 
 * ``Controller/`` contiene i controllori del (p.e. ``HelloController.php``);
 
+* ``DependencyInjection/`` contiene alcune estensioni di classi,
+  che possono importare configurazioni di servizi, registrare passi di compilatore o altro
+  (tale cartella non è indispensabile);
+
 * ``Resources/config/`` ospita la configurazione, compresa la configurazione delle
   rotte (p.e. ``routing.yml``);
 
@@ -700,7 +706,7 @@ mantenere il codice coerente tra tutti i bundle di Symfony2. Si dia un'occhiata 
 Un bundle può essere grande o piccolo, come la caratteristica che implementa. Contiene
 solo i file che occorrono e niente altro.
 
-Andando avanti nel libro, si imparerà come persistere gli oggetti in un database,
+Andando avanti nel libro, si imparerà come persistere gli oggetti in una base dati,
 creare e validare form, creare traduzioni per la propria applicazione, scrivere
 test e molto altro. Ognuno di questi ha il suo posto e il suo ruolo dentro il
 bundle.
@@ -723,17 +729,16 @@ del formato scelto:
         imports:
             - { resource: parameters.yml }
             - { resource: security.yml }
-        
+
         framework:
-            secret:          %secret%
-            charset:         UTF-8
+            secret:          "%secret%"
             router:          { resource: "%kernel.root_dir%/config/routing.yml" }
             # ...
 
         # Configurazione di Twig
         twig:
-            debug:            %kernel.debug%
-            strict_variables: %kernel.debug%
+            debug:            "%kernel.debug%"
+            strict_variables: "%kernel.debug%"
 
         # ...
 
@@ -744,8 +749,8 @@ del formato scelto:
             <import resource="parameters.yml" />
             <import resource="security.yml" />
         </imports>
-        
-        <framework:config charset="UTF-8" secret="%secret%">
+
+        <framework:config secret="%secret%">
             <framework:router resource="%kernel.root_dir%/config/routing.xml" />
             <!-- ... -->
         </framework:config>
@@ -762,7 +767,6 @@ del formato scelto:
 
         $container->loadFromExtension('framework', array(
             'secret'          => '%secret%',
-            'charset'         => 'UTF-8',
             'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
             // ...
             ),
@@ -797,7 +801,8 @@ specifiche saranno man mano approfondite.
     tre i formati (YAML, XML e PHP). Ciascuno ha i suoi vantaggi e svantaggi. La scelta
     è lasciata allo sviluppatore:
 
-    * *YAML*: Semplice, pulito e leggibile;
+    * *YAML*: Semplice, pulito e leggibile (se ne può sapere di più in
+      ":doc:`/components/yaml/yaml_format`");
 
     * *XML*: Più potente di YAML e supportato nell'autocompletamento dagli IDE;
 
@@ -816,6 +821,12 @@ predefinita di FrameworkBundle:
 .. code-block:: text
 
     app/console config:dump-reference FrameworkBundle
+
+Si può anche usare l'alias dell'estensione (voce di configurazione):
+
+.. code-block:: text
+
+    app/console config:dump-reference framework
 
 .. note::
 
@@ -859,9 +870,11 @@ richiamare invece il front controller ``prod``:
 Essendo l'ambiente ``prod`` ottimizzato per la velocità, la configurazione, le
 rotte e i template Twig sono compilato in classi in puro PHP e messi in cache.
 Per vedere delle modifiche in ambiente ``prod``, occorrerà pulire tali file
-in cache e consentire che siano ricostruiti::
+in cache e consentire che siano ricostruiti:
 
-    php app/console cache:clear --env=prod --no-debug
+.. code-block:: bash
+
+    $ php app/console cache:clear --env=prod --no-debug
 
 .. note::
 
@@ -891,7 +904,9 @@ di conigurazione scelti::
     // app/AppKernel.php
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(
+            __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
+        );
     }
 
 Sappiamo già che l'estensione ``.yml`` può essere cambiata in ``.xml`` o
@@ -972,6 +987,9 @@ fondamentali:
 * la **configurazione** per ciascun bundle risiede nella cartella ``app/config`` e
   può essere specificata in YAML, XML o PHP;
 
+* la **configuratione dell'applicazione** globale si trova nella cartella
+  ``app/config``;
+
 * ogni **ambiente** è accessibile tramite un diverso front controller (p.e.
   ``app.php`` e ``app_dev.php``) e carica un diverso file di configurazione.
 
@@ -981,5 +999,7 @@ della sua architettura e la potenza che dà nello sviluppo rapido di
 applicazioni.
 
 .. _`Twig`: http://twig.sensiolabs.org
-.. _`bundle di terze parti`: http://symfony2bundles.org/
+.. _`bundle di terze parti`: http://knpbundles.com
 .. _`Symfony Standard Edition`: http://symfony.com/download
+.. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/2.0/mod/mod_dir.html
+.. _`documentazione su HttpCoreModule di Nginx`: http://wiki.nginx.org/HttpCoreModule#location

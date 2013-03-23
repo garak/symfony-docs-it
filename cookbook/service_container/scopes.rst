@@ -1,3 +1,6 @@
+.. index::
+   single: Dependency Injection; Scope
+
 Come lavorare con gli scope
 ===========================
 
@@ -116,6 +119,7 @@ In questi casi, si dovrebbe passare l'intero contenitore dentro il proprio servi
 recuperare le proprie dipendenze dal contenitore ogni volta che servono, per assicurarsi
 di avere l'istanza giusta::
 
+    // src/Acme/HelloBundle/Mail/Mailer.php
     namespace Acme\HelloBundle\Mail;
 
     use Symfony\Component\DependencyInjection\ContainerInterface;

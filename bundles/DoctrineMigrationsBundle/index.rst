@@ -1,9 +1,9 @@
 DoctrineMigrationsBundle
 ========================
 
-Le migrazioni dei database sono un'estensione del livello di astrazione del database
+Le migrazioni delle basi dati sono un'estensione del livello di astrazione della base dati
 e offrono l'opportunità di fare deploy programmatici di nuove versioni del proprio schema
-del database in modo sicuro, facile e standardizzato.
+di base dati in modo sicuro, facile e standardizzato.
 
 .. tip::
 
@@ -72,7 +72,7 @@ Tutte le funzionalità di migrazione sono contenuto in alcuni comandi:
 .. code-block:: bash
 
     doctrine:migrations
-      :diff     Genera una migrazione, confrontando il database attuale alle informazioni di mappatura.
+      :diff     Genera una migrazione, confrontando la base dati attuale con le informazioni di mappatura.
       :execute  Esegue una singola migrazione manualmente, in su o in giù.
       :generate Genera una classe migrazione vuota.
       :migrate  Esegue una migrazione a una specifica versione o all'ultima versione disponibile.
@@ -92,7 +92,7 @@ comando ``status``:
         >> Configuration Source:                               manually configured
         >> Version Table Name:                                 migration_versions
         >> Migrations Namespace:                               Application\Migrations
-        >> Migrations Directory:                               /path/to/project/app/DoctrineMigrations
+        >> Migrations Directory:                               /percorso/del/progetto/app/DoctrineMigrations
         >> Current Version:                                    0
         >> Latest Version:                                     0
         >> Executed Migrations:                                0
@@ -106,7 +106,7 @@ al posto nostro.
 .. code-block:: bash
 
     php app/console doctrine:migrations:generate
-    Generated new migration class to "/path/to/project/app/DoctrineMigrations/Version20100621140655.php"
+    Generated new migration class to "/percorso/del/progetto/app/DoctrineMigrations/Version20100621140655.php"
 
 Aprendo la classe migrazione appena generata, si vedrà qualcosa di simile a
 questo::
@@ -142,7 +142,7 @@ da eseguire:
        >> Configuration Source:                               manually configured
        >> Version Table Name:                                 migration_versions
        >> Migrations Namespace:                               Application\Migrations
-       >> Migrations Directory:                               /path/to/project/app/DoctrineMigrations
+       >> Migrations Directory:                               /percorso/del/progetto/app/DoctrineMigrations
        >> Current Version:                                    0
        >> Latest Version:                                     2010-06-21 14:06:55 (20100621140655)
        >> Executed Migrations:                                0
@@ -168,27 +168,27 @@ Eseguire migrazioni durante il deploy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ovviamente, il fine ultimo della scrittura delle migrazioni è la possibilità di usarle per
-aggiornare la struttura del proprio database al momento del deploy dell'applicazione.
+aggiornare la struttura della propria base dati al momento del deploy dell'applicazione.
 Eseguendo le migrazioni localmente (o su un server di stage), ci si può assicurare che
 esse funzionino come ci si aspetta.
 
 Quando infine si esegue il deploy della propria applicazione, occorre solo ricordarsi di
 eseguire il comando ``doctrine:migrations:migrate``. Internamente, Doctrine crea
-una tabella ``migration_versions`` dentro il proprio database e traccia le migrazioni
+una tabella ``migration_versions`` dentro la propria base dati e traccia le migrazioni
 eseguite al suo interno. Quindi, non importa quante migrazioni sono state create ed
 eseguite localmente, quando si esegue il comando durante il deploy, Doctrine saprà
 esattamente quali migrazioni non sono ancora state eseguite, guardando la tabella
-``migration_versions`` del database di produzione. Indipendentemente dal server su cui ci
+``migration_versions`` della base dati di produzione. Indipendentemente dal server su cui ci
 si trova, si può sempre eseguire questo comando senza problemi, per eseguire solo le
-migrazioni che non sono ancora state eseguite su *quel* particolare database.
+migrazioni che non sono ancora state eseguite su *quella* particolare base dati.
 
 Generare automaticamente le migrazioni
 --------------------------------------
 
 In realtà, raramente si avrà bisogno di scrivere migrazioni a mano, perché la libreria
 delle migrazioni può generare automaticamente le classi delle migrazioni, confrontando
-le informazioni di mappatura di Doctine (cioè come il proprio database *dovrebbe*
-essere) con l'attuale struttura del database..
+le informazioni di mappatura di Doctine (cioè come la propria base dati *dovrebbe*
+essere) con l'attuale struttura della base dati.
 
 Per esempio, si supponga di creare una nuova entità ``User`` e di aggiungere le
 informazioni di mappatura per l'ORM di Doctrine:
@@ -266,7 +266,7 @@ comando:
 Un messaggio dovrebbe dire che una nuova classe migrazione è stata generata, in base
 alle differenze con lo schema. Aprendo questo file, si troverà il codice SQL necessario
 per creare la tabella ``hello_user``. Quindi, eseguire la migrazione per aggiungere
-la tabella al proprio database:
+la tabella alla propria base dati:
 
 .. code-block:: bash
 
@@ -278,7 +278,7 @@ le proprie classi migrazione.
 
 Se lo si fa già dall'inizio del proprio progetto (cioè in modo tale che anche le prime
 tabelle siano caricate tramite una classe migrazione), si sarà sempre in grado di
-creare un nuovo database ed eseguire le proprie migrazioni per portare lo schema al
+creare una nuova base dati ed eseguire le proprie migrazioni per portare lo schema al
 pieno aggiornamento. In effetti, è un modo di lavorare facile e affidabile per il
 proprio progetto.
 

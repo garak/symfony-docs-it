@@ -47,28 +47,44 @@ Usare un autoloader con caches (p.e. ``ApcUniversalClassLoader``)
 
 Per impostazione predefinita, Symfony2 standard edition usa ``UniversalClassLoader``
 nel file `autoloader.php`_. Questo autoloader è facile da usare, perché troverà
-automaticamente ogni nuova classe inserita nelle cartella registrate.
+automaticamente ogni nuova classe inserita nelle cartella
+registrate.
 
 Sfortunatamente, questo ha un costo, perché il caricatore itera tutti gli spazi dei nomi
 configurati per trovare un particolare file, richiamando ``file_exists`` finché
 non trova il file cercato.
 
+La soluzione più semplice è dire a Composer di costruire una "mappa di classi" (cioè un
+grosso array con le posizioni di tutte le classi). Lo si può fare da
+linea di comando e potrebbe diventare parte del proprio processo di deploy::
 
-La soluzione più semplice è mettere in cache la posizione di ogni classe, dopo che
-è stata trovata per la prima volta. Symfony dispone di una classe di caricamento,
-``ApcUniversalClassLoader``, che estende ``UniversalClassLoader`` e memorizza le
-posizioni delle classi in APC.
+.. code-block:: bash
 
-Per usare questo caricatore, basta adattare il file ``autoloader.php`` come segue:
+    php composer.phar dump-autoload --optimize
 
-.. code-block:: php
+Internamente, costruire un grosso array di mappature delle classi in ``vendor/composer/autoload_namespaces.php``.
 
-    // app/autoload.php
-    require __DIR__.'/../vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+Cache dell'autoloader con APC
+-----------------------------
 
-    use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
+Un'altra soluzione è mettere in cache la posizione di ogni classe, dopo che è stata trovata
+per la prima volta. Symfony disponse di una classe, :class:`Symfony\\Component\\ClassLoader\\ApcClassLoader`,
+che si occupa proprio di questo. Per usarla, basta adattare il file del front controller.
+Se si usa la Standard Distribution, il codice è già disponibile nel file, ma
+commentato::
 
-    $loader = new ApcUniversalClassLoader('some caching unique prefix');
+    // app.php
+    // ...
+
+    $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+
+    // Usa APC per aumentare le prestazioni dell'auto-caricamento
+    // Cambiare 'sf2' con il prefisso desiderato, per prevenire conflitti di chiavi con altre applicazioni
+    /*
+    $loader = new ApcClassLoader('sf2', $loader);
+    $loader->register(true);
+    */
+
     // ...
 
 .. note::
@@ -110,7 +126,7 @@ Si noti che ci sono due svantaggi nell'uso di un file di avvio:
 
 Se si usa Symfony2 Standard Edition, il file di avvio è ricostruito automaticamente
 dopo l'aggiornamento delle librerie dei venditori, tramite il comando
-``php bin/vendors install``.
+``php composer.phar install``.
 
 File di avvio e cache bytecode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,4 +139,4 @@ non c'è più ragione di usare un file di avvio.
 .. _`cache bytecode`: http://en.wikipedia.org/wiki/List_of_PHP_accelerators
 .. _`APC`: http://php.net/manual/en/book.apc.php
 .. _`autoloader.php`: https://github.com/symfony/symfony-standard/blob/master/app/autoload.php
-.. _`file di avvio`: https://github.com/sensio/SensioDistributionBundle/blob/master/Resources/bin/build_bootstrap.php
+.. _`file di avvio`: https://github.com/sensio/SensioDistributionBundle/blob/master/Composer/ScriptHandler.php

@@ -1,3 +1,6 @@
+.. index::
+   single: Flusso di lavoro; Git
+
 Come creare e memorizzare un progetto Symfony2 in git
 =====================================================
 
@@ -23,7 +26,7 @@ locale:
    struttura del nuovo progetto, i file di configurazione, ecc. Si può rinominare la cartella a piacere.
    
 3. Creare un nuovo file chiamato ``.gitignore`` nella radice del nuovo progetto
-   (ovvero vicino al file ``deps``) e copiarvi le righe seguenti. I file corrispondenti
+   (ovvero vicino al file ``composer.json``) e copiarvi le righe seguenti. I file corrispondenti
    a questi schemi saranno ignorati da git:
 
     .. code-block:: text
@@ -35,65 +38,42 @@ locale:
         /vendor/  
         /app/config/parameters.yml
 
+.. tip::
+
+   Si potrebbe anche voler creare un file .gitignore, da usare su tutto il sistema,
+   nel qual caso, si possono trovare ulteriori informazioni qui: `Github .gitignore`_
+   In questo modo, si possono escludere i file e le cartelle usati più spesso dal proprio IDE per ogni progetto.
+
 4. Copiare ``app/config/parameters.yml`` in ``app/config/parameters.yml.dist``.
    Il file ``parameters.yml`` è ignorato da git (vedi sopra), quindi le impostazioni
-   specifiche della macchina, come le password del database, non saranno inviate. Creando
+   specifiche della macchina, come le password della base dati, non saranno inviate. Creando
    il file ``parameters.yml.dist``, i nuovi sviluppatori potranno clonare rapidamente il
    progetto, copiando questo file in ``parameters.yml`` e personalizzandolo.
 
 5. Inizializzare il proprio repository git:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ git init
 
 6. Aggiungere tutti i file in git:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ git add .
 
 7. Creare un commit iniziale con il nuovo progetto:
 
-    .. code-block:: bash
+   .. code-block:: bash
     
         $ git commit -m "Commit iniziale"
 
-8. Infine, scaricare tutte le librerie dei venditori:
-
-    .. code-block:: bash
-    
-        $ php bin/vendors install
+8. Infine, scaricare tutte le librerie dei venditori, eseguendo
+   composer. Per dettagli, vedere :ref:`installation-updating-vendors`.
 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante e correttamente
 copiato su git. Si può iniziare subito a sviluppare, inviando i commit delle
 modifiche al proprio repository git.
-
-.. tip::
-
-    Dopo aver eseguito il comando:
-    
-    .. code-block:: bash
-
-        $ php bin/vendors install
-
-    il progetto conterrà la cronologia completa di tutt i bundle e le
-    librerie definite nel file ``deps``. Potrebbero essere anche 100 MB!
-    Si possono cancellare le cartelle della cronologia di git con il comando seguente:
-
-    .. code-block:: bash
-
-        $ find vendor -name .git -type d | xargs rm -rf
-
-    Il comando cancella tutte le cartelle ``.git`` contenute nella cartella
-    ``vendor``.
-
-    Se successivamente si vogliono aggiornare i bundle definiti nel file ``deps``,
-    occorrerà installarli nuovamente:
-
-    .. code-block:: bash
-
-        $ php bin/vendors install --reinstall
 
 Si può continuare a seguire il capitolo :doc:`/book/page_creation` per imparare
 di più su come configurare e sviluppare la propria applicazione.
@@ -107,18 +87,15 @@ di più su come configurare e sviluppare la propria applicazione.
 
 .. include:: _vendor_deps.rst.inc
 
-    Inoltre, se si vuole semplicemente aggiornare il file ``deps.lock`` con
-    ciò che è stato appena installato, si può eseguire ``php bin/vendors lock``,
-    per memorizzare gli appropriati identificatori SHA di git nel file ``deps.lock``.
-
 Venditori e sotto-moduli
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Invece di usare il sistema basato su ``deps`` e ``bin/vendors`` per gestire le librerie
+Invece di usare il sistema basato su ``composer.json`` per gestire le librerie
 dei venditori, si potrebbe invece voler usare i `sotto-moduli di git`_.
-Non c'è nulla di sbagliato in questo approccio, ma il sistema ``deps`` è la via
-ufficiale per risolvere questo problema e i sotto-moduli di git possono a volte
-creare delle difficoltà.
+Non c'è nulla di sbagliato in questo approccio, ma il sistema ``composer.json`` è la via
+ufficiale per risolvere questo problema e probabilmente è più facile da gestire.
+Diversamente dai sotto-moduli di git, ``Composer`` è abbaatanza intelligente da calcolare
+le dipendenze tra le librerie.
 
 Memorizzare il progetto su un server remoto
 -------------------------------------------
@@ -143,3 +120,4 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://progit.org/book/ch4-4.html
 .. _`Gitolite`: https://github.com/sitaramc/gitolite
+.. _`Github .gitignore`: http://help.github.com/ignore-files/

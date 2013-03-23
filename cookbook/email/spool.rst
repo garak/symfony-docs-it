@@ -1,18 +1,62 @@
+.. index::
+   single: Emails; Spool
+
 Lo spool della posta
 ====================
 
 Quando si utilizza ``SwiftmailerBundle`` per l'invio delle email da un'applicazione
 Symfony2, queste vengono inviate immediatamente. È però possibile evitare il 
 rallentamento dovuto dalla comunicazione tra ``Swiftmailer`` e  il servizio di
-trasporto delle email che potrebbe mettere l'utente in attesa del caricamento della
-pagina durante l'invio. Per fare questo basta scegliere di mettere le email 
-in uno "spool" invece di spedirle direttamente. Questo vuol dire che ``Swiftmailer``
-non cerca di inviare le email ma invece salva i messaggi in qualche posto come, ad
-esempio, in un file. Un'altro processo potrebbe poi leggere lo spool e prendersi
+trasporto delle email, che potrebbe mettere l'utente in attesa del caricamento della
+pagina durante l'invio. Per fare questo, basta scegliere di mettere le email 
+in uno "spool", invece di spedirle direttamente. Questo vuol dire che ``Swiftmailer``
+non cercherà di inviare le email, ma invece salverà i messaggi in qualche posto, come ad
+esempio in un file. Un altro processo potrebbe poi leggere lo spool e prendersi
 l'incarico di inviare le email in esso contenute. Attualmente ``Swiftmailer`` supporta solo
 lo spool tramite file.
 
-Per usare lo spool, si usa la seguente configurazione:
+Spool in memoria
+----------------
+
+Se si usa lo spool per memorizzare email in memoria, saranno inviate subito prima del
+termine del kernel. Questo vuol dire che le email sono inviate solamente se l'intera
+richiesta viene eseguita, senza eccezioni o errori non gestiti. Per configurare
+Swiftmailer con l'opzione memory, usare la seguente configurazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        swiftmailer:
+            # ...
+            spool: { type: memory }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+
+        <!--
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+        -->
+
+        <swiftmailer:config>
+             <swiftmailer:spool type="memory" />
+        </swiftmailer:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('swiftmailer', array(
+             ...,
+            'spool' => array('type' => 'memory')
+        ));
+        
+Spool in un file
+----------------
+
+Per usare lo spool con un file, usare la seguente configurazione:
 
 .. configuration-block::
 
@@ -45,6 +89,7 @@ Per usare lo spool, si usa la seguente configurazione:
         // app/config/config.php
         $container->loadFromExtension('swiftmailer', array(
              // ...
+
             'spool' => array(
                 'type' => 'file',
                 'path' => '/percorso/file/di/spool',
@@ -67,19 +112,19 @@ Sarà un comando della console a inviare i messaggi dallo spool:
 
 .. code-block:: bash
 
-    php app/console swiftmailer:spool:send
+    $ php app/console swiftmailer:spool:send --env=prod
 
 È possibili limitare il numero di messaggi da inviare con un'apposita opzione:
 
 .. code-block:: bash
 
-    php app/console swiftmailer:spool:send --message-limit=10
+    $ php app/console swiftmailer:spool:send --message-limit=10 --env=prod
 
 È anche possibile indicare un limite in secondi per l'invio:
 
 .. code-block:: bash
 
-    php app/console swiftmailer:spool:send --time-limit=10
+    $ php app/console swiftmailer:spool:send --time-limit=10 --env=prod
 
 Ovviamente questo comando non dovrà essere eseguito manualmente. Il comando
 dovrebbe perciò essere eseguito, a intervalli regolari, come un lavoro di 

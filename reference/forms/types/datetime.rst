@@ -29,6 +29,11 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 |                          | - `data_timezone`_                                                          |
 |                          | - `user_timezone`_                                                          |
 +--------------------------+-----------------------------------------------------------------------------+
+| Opzioni                  | - `invalid_message`_                                                        |
+| ereditate                | - `invalid_message_parameters`_                                             |
+|                          | - `read_only`_                                                              |
+|                          | - `disabled`_                                                               |
++--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`form</reference/forms/types/form>`                                    |
 +--------------------------+-----------------------------------------------------------------------------+
 | Classe                   | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\DateTimeType`      |
@@ -73,6 +78,8 @@ date_format
 **tipo**: ``intero`` o ``stringa`` **predefinito**: ``IntlDateFormatter::MEDIUM``
 
 Definisce l'opzione ``format`` che sarà passata al campo date.
+Vedere le :ref:`opzioni per il formato date<reference-forms-type-date-format>`
+per maggiori dettagli.
 
 .. include:: /reference/forms/types/options/hours.rst.inc
 
@@ -91,3 +98,16 @@ Definisce l'opzione ``format`` che sarà passata al campo date.
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
+
+Opzioni ereditate
+-----------------
+
+Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc

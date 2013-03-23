@@ -1,3 +1,7 @@
+.. index::
+   single: Sicurezza; Proteggere un servizio
+   single: Sicurezza; Proteggere un metodo
+
 Proteggere servizi e metodi di un'applicazione
 ==============================================
 
@@ -5,8 +9,8 @@ Nel capitolo sulla sicurezza, si può vedere come
 :ref:`proteggere un controllore<book-security-securing-controller>`, richiedendo il
 servizio ``security.context`` dal contenitore di servizi e verificando il ruolo dell'utente attuale::
 
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     // ...
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
@@ -26,6 +30,7 @@ Prima di aggiungere la sicurezza, la classe assomiglia a qualcosa del genere:
 
 .. code-block:: php
 
+    // src/Acme/HelloBundle/Newsletter/NewsletterManager.php
     namespace Acme\HelloBundle\Newsletter;
 
     class NewsletterManager
@@ -74,7 +79,7 @@ Quindi, nella configurazione dei servizi, si può iniettare il servizio:
 
         services:
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 arguments: [@security.context]
 
     .. code-block:: xml
@@ -143,8 +148,8 @@ Si possono anche proteggere i metodi di un servizio tramite annotazioni, usando
 il bundle `JMSSecurityExtraBundle`_. Questo bundle è incluso nella
 Standard Edition di Symfony2.
 
-Per abilitare le annotazioni, :ref:`taggare<book-service-container-tags>`
-il servizio da proteggere con il tag ``security.secure_service``
+Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags>`
+``security.secure_service`` al servizio da proteggere
 (si può anche abilitare automaticamente la funzionalità per tutti i servizi, vedere i
 :ref:`dettagli<securing-services-annotations-sidebar>` più avanti):
 
@@ -201,7 +206,7 @@ Si possono ottenere gli stessi risultati usando le annotazioni::
          */
         public function sendNewsletter()
         {
-            //--
+            // ...
         }
 
         // ...
@@ -223,7 +228,7 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
 .. sidebar:: Attivare le annotazioni per tutti i servizi
 
     Quando si proteggono i metodi di un servizio (come mostrato precedentemente),
-    si può taggare ogni servizio individualmente oppure attivare la funzionalità per
+    si possono assegnare tag a ogni servizio individualmente oppure attivare la funzionalità per
     *tutti* i servizi. Per farlo, impostare l'opzione ``secure_all_services`` a
     ``true``:
 
@@ -238,11 +243,14 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
 
         .. code-block:: xml
 
-            <!-- app/config/config.xml -->
-            <srv:container xmlns="http://symfony.com/schema/dic/security"
+            <?xml version="1.0" ?>
+
+            <container xmlns="http://symfony.com/schema/dic/services"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:srv="http://symfony.com/schema/dic/services"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+                xmlns:acme_hello="http://www.example.com/symfony/schema/"
+                xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+
+                <!-- app/config/config.xml -->
 
                 <jms_security_extra secure_controllers="true" secure_all_services="true" />
 
@@ -253,6 +261,7 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
             // app/config/config.php
             $container->loadFromExtension('jms_security_extra', array(
                 // ...
+
                 'secure_all_services' => true,
             ));
 

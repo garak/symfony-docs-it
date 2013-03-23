@@ -7,38 +7,38 @@ Come creare un tipo di campo personalizzato di un form
 Symfony è dotato di una serie di tipi di campi per la costruzione dei form.
 Tuttavia ci sono situazioni in cui è necessario realizzare un campo personalizzato
 per uno scopo specifico. Questa ricetta ipotizza che si abbia necessità 
-di un capo personalizzato che contenga il genere di una persona, 
+di un campo personalizzato che contenga il genere di una persona, 
 un nuovo campo basato su un campo di tipo scelta. Questa sezione spiega come il campo è definito, come si può personalizzare il layout e, infine, 
 come è possibile registrarlo per utilizzarlo nell'applicazione.
 
 Definizione del tipo di campo
 -----------------------------
 
-Per creare il tipo di campo personalizzato, è necessario creare per prima la classe
-che rappresenta il campo. Nell'esempio proposto la classe che realizza il tipo di campo
-sarà chiamata `GenderType` e il file sarà salvato nella cartella default contenente
-i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo estenda
+Per creare il tipo di campo personalizzato, è necessario creare prima la classe
+che rappresenta il campo. Nell'esempio proposto, la classe che realizza il tipo di campo
+sarà chiamata `GenderType` e il file sarà salvato nella cartella predefinita contenente
+i campi del form, che è ``<NomeBundle>\Form\Type``. Assicurarsi che il campo estenda
 :class:`Symfony\\Component\\Form\\AbstractType`::
 
-    # src/Acme/DemoBundle/Form/Type/GenderType.php
+    // src/Acme/DemoBundle/Form/Type/GenderType.php
     namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class GenderType extends AbstractType
     {
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'choices' => array(
-                    'm' => 'Male',
-                    'f' => 'Female',
+                    'm' => 'Maschio',
+                    'f' => 'Femmina',
                 )
-            );
+            ));
         }
 
-        public function getParent(array $options)
+        public function getParent()
         {
             return 'choice';
         }
@@ -55,9 +55,9 @@ i capi del form, che è ``<BundleName>\Form\Type``. Assicurati che il campo este
     è solo una convenzione.
 
 Qui, il valore di ritorno del metodo ``getParent`` indica che che si sta
-estendendo il tipo di campo ``choice``. Questo significa che di default, sono ereditate
-tutte le logiche e la resa di queto tipo di campo. Per vedere alcune logiche,
-controlla la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
+estendendo il tipo di campo ``choice``. Questo significa che, per impostazione predefinita, sono ereditate
+tutte le logiche e la resa di questo tipo di campo. Per vedere alcune logiche,
+guardare la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
 importanti:
 
 * ``buildForm()`` - Ogni tipo di campo possiede un metodo ``buildForm``, che permette di
@@ -67,7 +67,7 @@ importanti:
 * ``buildView()`` - Questo metodo è utilizzato per impostare le altre variabili che sono necessarie
   per la resa del campo nel template. Per esempio, nel tipo di campo `ChoiceType`_,
   la variabile ``multiple`` è impostata e utilizzata nel template  per impostare (o non 
-  impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creare un template per il campo`_
+  impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creazione del template per il campo`_
   per maggiori dettagli.
 
 * ``getDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form
@@ -79,8 +79,8 @@ importanti:
 
     Se si sta creando un campo che consiste di molti campi, assicurarsi  
     di impostare come "padre" un tipo come ``form`` o qualcos'altro che estenda ``form``.
-    Nello stesso modo, se occorre modificare la "vista" di ogni sottotipo 
-    che estende il proprio tipo, utilizzare il metodo ``buildViewBottomUp()``.
+    Inoltre, se occorre modificare la "vista" di ogni sottotipo 
+    che estende il proprio tipo, utilizzare il metodo ``finishView()``.
 
 Il metodo ``getName()`` restituisce un identificativo che dovrebbe essere unico
 all'interno dell'applicazione. Questo è usato in vari posti, ad esempio nel momento in cui 
@@ -104,43 +104,82 @@ sia "expanded" (ad es. radio button o checkbox, al posto di un campo select),
 vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del proprio form
 (vedere il link sopra per maggiori dettagli), creare un blocco ``gender_widget`` per gestire questo caso:
 
-.. code-block:: html+jinja
+.. configuration-block::
 
-    {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
+    .. code-block:: html+jinja
 
-    {% block gender_widget %}
-    {% spaceless %}
-        {% if expanded %}
-            <ul {{ block('widget_container_attributes') }}>
-            {% for child in form %}
+        {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
+        {% block gender_widget %}
+        {% spaceless %}
+            {% if expanded %}
+                <ul {{ block('widget_container_attributes') }}>
+                {% for child in form %}
+                    <li>
+                        {{ form_widget(child) }}
+                        {{ form_label(child) }}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                {# far rendere il tag select al widget choice #}
+                {{ block('choice_widget') }}
+            {% endif %}
+        {% endspaceless %}
+        {% endblock %}
+
+    .. code-block:: html+php
+
+        <!-- src/Acme/DemoBundle/Resources/views/Form/gender_widget.html.twig -->
+        <?php if ($expanded) : ?>
+            <ul <?php $view['form']->block($form, 'widget_container_attributes') ?>>
+            <?php foreach ($form as $child) : ?>
                 <li>
-                    {{ form_widget(child) }}
-                    {{ form_label(child) }}
+                    <?php echo $view['form']->widget($child) ?>
+                    <?php echo $view['form']->label($child) ?>
                 </li>
-            {% endfor %}
+            <?php endforeach ?>
             </ul>
-        {% else %}
-            {# far rendere il tag select al widget choice #}
-            {{ block('choice_widget') }}
-        {% endif %}
-    {% endspaceless %}
-    {% endblock %}
+        <?php else : ?>
+            <!-- far rendere il tag select al widget choice -->
+            <?php echo $view['form']->renderBlock('choice_widget') ?>
+        <?php endif ?>
 
 .. note::
 
-    Assicurarsu che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
+    Assicurarsi che il prefisso del widget utilizzato sia corretto. In questo esempio il nome dovrebbe
     essere ``gender_widget``, in base al valore restituito da ``getName``.
     Inoltre, il file principale di configurazione dovrebbe puntare al template personalizzato
     del form, in modo che sia utilizzato per la resa di tutti i form.
 
-    .. code-block:: yaml
+    .. configuration-block::
 
-        # app/config/config.yml
+        .. code-block:: yaml
 
-        twig:
-            form:
-                resources:
-                    - 'AcmeDemoBundle:Form:fields.html.twig'
+            # app/config/config.yml
+            twig:
+                form:
+                    resources:
+                        - 'AcmeDemoBundle:Form:fields.html.twig'
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+            <twig:config>
+                <twig:form>
+                    <twig:resource>AcmeDemoBundle:Form:fields.html.twig</twig:resource>
+                </twig:form>
+            </twig:config>
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $container->loadFromExtension('twig', array(
+                'form' => array(
+                    'resources' => array(
+                        'AcmeDemoBundle:Form:fields.html.twig',
+                    ),
+                ),
+            ));
 
 Utilizzare il tipo di campo
 ---------------------------
@@ -152,27 +191,27 @@ nuova istanza del tipo in un form::
     namespace Acme\DemoBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\FormBuilderInterface;
     
     class AuthorType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('gender_code', new GenderType(), array(
-                'empty_value' => 'Choose a gender',
+                'empty_value' => 'Scegliere sesso',
             ));
         }
     }
 
 Questo funziona perché il ``GenderType()`` è veramente semplice. Cosa succede se
-i valori del genere sono stati inseriti nella configurazione o nel database? La prossima
+i valori del genere sono stati inseriti nella configurazione o nella base dati? La prossima
 sezione spiega come un tipo di campo più complesso può risolvere questa situazione.
 
 Creazione di un tipo di campo come servizio
 -------------------------------------------
 
 Finora, questa spiegazione ha assunto che si ha un tipo di campo molto semplice.
-Ma se fosse necessario accedere alla configurazione o al database o a qualche altro
+Ma se fosse necessario accedere alla configurazione o alla base dati o a qualche altro
 servizio, è necessario registrare il tipo di campo come servizio. Per
 esempio, si supponga che i valori del genere siano memorizzati nella configurazione:
 
@@ -183,18 +222,24 @@ esempio, si supponga che i valori del genere siano memorizzati nella configurazi
         # app/config/config.yml
         parameters:
             genders:
-                m: Male
-                f: Female
+                m: Maschio
+                f: Femmina
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <parameters>
             <parameter key="genders" type="collection">
-                <parameter key="m">Male</parameter>
-                <parameter key="f">Female</parameter>
+                <parameter key="m">Maschio</parameter>
+                <parameter key="f">Femmina</parameter>
             </parameter>
         </parameters>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->setParameter('genders.m', 'Maschio');
+        $container->setParameter('genders.f', 'Femmina');
 
 Per utilizzare i parametri, è necessario definire il tipo di campo come un servizio, iniettando
 i valori dei parametri di ``genders`` come primo parametro del metodo
@@ -206,7 +251,7 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
 
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
-            form.type.gender:
+            acme_demo.form.type.gender:
                 class: Acme\DemoBundle\Form\Type\GenderType
                 arguments:
                     - "%genders%"
@@ -216,10 +261,25 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
     .. code-block:: xml
 
         <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
-        <service id="form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
+        <service id="acme_demo.form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
             <argument>%genders%</argument>
             <tag name="form.type" alias="gender" />
         </service>
+
+    .. code-block:: php
+
+        // src/Acme/DemoBundle/Resources/config/services.php
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container
+            ->setDefinition('acme_demo.form.type.gender', new Definition(
+                'Acme\DemoBundle\Form\Type\GenderType',
+                array('%genders%')
+            ))
+            ->addTag('form.type', array(
+                'alias' => 'gender',
+            ))
+        ;
 
 .. tip::
 
@@ -231,10 +291,14 @@ dal metodo ``getName`` definito precedentemente. Si vedrà l'importanza
 di questo nel momento in cui si utilizzerà il tipo di campo. Ma prima, si aggiunga al metodo ``__construct``
 di ``GenderType`` un parametro, che riceverà la configurazione di gender::
 
-    # src/Acme/DemoBundle/Form/Type/GenderType.php
+    // src/Acme/DemoBundle/Form/Type/GenderType.php
     namespace Acme\DemoBundle\Form\Type;
+
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
     // ...
 
+    // ...
     class GenderType extends AbstractType
     {
         private $genderChoices;
@@ -244,11 +308,11 @@ di ``GenderType`` un parametro, che riceverà la configurazione di gender::
             $this->genderChoices = $genderChoices;
         }
     
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array(
+            $resolver->setDefaults(array(
                 'choices' => $this->genderChoices,
-            );
+            ));
         }
         
         // ...
@@ -260,14 +324,17 @@ utilizzare il campo risulta molto semplice::
 
     // src/Acme/DemoBundle/Form/Type/AuthorType.php
     namespace Acme\DemoBundle\Form\Type;
+
+    use Symfony\Component\Form\FormBuilderInterface;
+
     // ...
 
     class AuthorType extends AbstractType
     {
-        public function buildForm(FormBuilder $builder, array $options)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder->add('gender_code', 'gender', array(
-                'empty_value' => 'Choose a gender',
+                'empty_value' => 'Scegliere sesso',
             ));
         }
     }

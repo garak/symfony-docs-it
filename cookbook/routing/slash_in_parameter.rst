@@ -1,5 +1,5 @@
 ﻿.. index::
-   single: Routing; Allow / in route parameter
+   single: Rotte; Consentire / in un parametro di rotta
 
 Come permettere un carattere "/" in un parametro di rotta
 =========================================================

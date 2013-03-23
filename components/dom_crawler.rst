@@ -1,10 +1,16 @@
 .. index::
    single: DomCrawler
+   single: Componenti; DomCrawler
 
 Il componente DomCrawler
 ========================
 
     Il componente DomCrawler semplifica la navigazione nel DOM dei documenti HTML e XML.
+
+.. note::
+
+    Dove possibile, il componente DomCrawler non è progettato per manipolare
+    il DOM o per ri-esportare HTML/XML.
 
 Installazione
 -------------
@@ -12,8 +18,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DomCrawler);
-* Installandolo via PEAR ( `pear.symfony.com/DomCrawler`);
-* Installandolo via Composer (`symfony/dom-crawler` su Packagist).
+* Installandolo :doc:`via Composer</components/using_components>` (``symfony/dom-crawler`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -28,6 +33,7 @@ visitabili::
     use Symfony\Component\DomCrawler\Crawler;
 
     $html = <<<'HTML'
+    <!DOCTYPE html>
     <html>
         <body>
             <p class="messaggio">Ciao Mondo!</p>
@@ -120,7 +126,10 @@ Accedere al valore dell'attributo del primo nodo della selezione attuale::
 
 Estrarre l'attributo e/o il valore di un nodo da una lista di nodi::
 
-    $attributes = $crawler->filterXpath('//body/p')->extract(array('_text', 'class'));
+    $attributes = $crawler
+        ->filterXpath('//body/p')
+        ->extract(array('_text', 'class'))
+    ;
 
 .. note::
 
@@ -168,6 +177,22 @@ e :phpclass:`DOMNode`:
     $crawler->addNode($nodo);
     $crawler->add($documento);
 
+.. sidebar:: Manipolare ed esportare un ``Crawler``
+
+    Questi metodi di ``Crawler`` servono per popolare inizialmente il proprio
+    ``Crawler`` e non per essere usati per manipolare ulteriormente un DOM
+    (sebbene sia possibile). Tuttavia, poiché il ``Crawler`` è un insieme di
+    oggetti :phpclass:`DOMElement`, si può usare qualsiasi metodo o proprietà disponibile
+    in :phpclass:`DOMElement`, :phpclass:`DOMNode` o :phpclass:`DOMDocument`.
+    Per esempio, si può ottenre l'HTML di un ``Crawler`` con qualcosa del
+    genere::
+    
+        $html = '';
+
+        foreach ($crawler as $domElement) {
+            $html.= $domElement->ownerDocument->saveHTML();
+        }
+
 Supporto per i collegamenti e per i form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -190,26 +215,25 @@ restituisce l'oggetto speciale :class:`Symfony\\Component\\DomCrawler\\Link`::
 L'oggetto :class:`Symfony\\Component\\DomCrawler\\Link` ha diversi utili metodi per
 avere ulteriori informazioni relative al collegamento selezionato::
 
-    // restituisce il valore di href
-    $href = $link->getRawUri();
-
     // restituisce la URI che può essere utilizzata per effettuare nuove richieste
     $uri = $link->getUri();
 
-Il metodo ``getUri()`` è specialmente utile perché pulisce il valore di ``href``
-e lo trasforma nel modo in cui dovrebbe realmente essere processato. Ad esempio, un collegamento
-del tipo ``href="#foo"`` restituirà la URI completa della pagina corrente con il suffisso ``#foo``.
-Il valore restituito da ``getUri()`` è sempre una URI completa sulla quale è 
-possibile eseguire lavori.
+.. note::
+
+    Il metodo ``getUri()`` è specialmente utile perché pulisce il valore di ``href`` e
+    lo trasforma nel modo in cui dovrebbe realmente essere processato. Ad esempio, un collegamento
+    del tipo ``href="#foo"`` restituirà l'URI completo della pagina corrente
+    con il suffisso ``#foo``. Il valore restituito da ``getUri()`` è sempre un URI completo,
+    sul quale è possibile lavorare.
 
 I Form
 ......
 
 Un trattamento speciale è riservato anche ai form. È disponibile, in Crawler,
-un metodo ``selectButton()`` che restituisce un'altro Crawler relativo
+un metodo ``selectButton()`` che restituisce un altro Crawler relativo
 al pulsante (``input[type=submit]``, ``input[type=image]``, o ``button``) con
 il testo dato. Questo metodo è specialmente utile perché può essere usato per restituire
-un oggetto :class:`Symfony\\Component\\DomCrawler\\Form` che rappresenta 
+un oggetto :class:`Symfony\\Component\\DomCrawler\\Form`, che rappresenta 
 il form all'interno del quale il pulsante è definito::
 
     $form = $crawler->selectButton('Valida')->form();
@@ -228,7 +252,7 @@ metodi che permettono di lavorare con i form:
 
 Il metodo :method:`Symfony\\Component\\DomCrawler\\Form::getUri` fa più che
 restituire il mero attributo ``action`` del form. Se il metodo del form è
-GET, allora, imitando il comportamento del borwser, restituirà l'attributo
+GET, allora, imitando il comportamento del browser, restituirà l'attributo
 dell'azione seguito da una stringa di tutti i valori del form.
 
 È possibile impostare e leggere virtualmente i valori nel form::
@@ -242,7 +266,8 @@ dell'azione seguito da una stringa di tutti i valori del form.
     // restituisce un array di valori in un array "semplice", come in precedenza
     $values = $form->getValues();
 
-    // restituisce i valori come li vedrebbe PHP con "registrazione" come array
+    // restituisce i valori come li vedrebbe PHP
+    // con "registrazione" come array
     $values = $form->getPhpValues();
 
 Per lavorare con i campi multi-dimensionali::
@@ -265,12 +290,12 @@ Per lavorare con i campi multi-dimensionali::
     ));
 
 Se questo è fantastico, il resto è anche meglio! L'oggetto ``Form`` permette di
-interagire con il form come se si usasse il borwser, selezionando i valori dei radio,
+interagire con il form come se si usasse il browser, selezionando i valori dei radio,
 spuntando i checkbox e caricando file::
 
     $form['registrazione[nomeutente]']->setValue('fandisymfony');
 
-    // cambia segno di spunta ad un checkbox
+    // cambia segno di spunta a un checkbox
     $form['registrazione[termini]']->tick();
     $form['registrazione[termini]']->untick();
 
@@ -301,12 +326,12 @@ tutte le informazioni necessarie per create una richiesta POST dal form::
     // a questo punto si usa un qualche client HTTP e si inviano le informazioni
 
 Un ottimo esempio di sistema integrato che utilizza tutte queste funzioni è `Goutte`_.
-Goutte usa a pieno gli oggetti Symfony Crawler e, con essi, può inviare i form 
+Goutte usa a pieno gli oggetti del Crawler di Symfony e, con essi, può inviare i form 
 direttamente::
 
     use Goutte\Client;
 
-    // crea una richiesta ad un sito esterno
+    // crea una richiesta a un sito esterno
     $client = new Client();
     $crawler = $client->request('GET', 'https://github.com/login');
 
@@ -318,4 +343,5 @@ direttamente::
     // invia il form
     $crawler = $client->submit($form);
 
-.. _`Goutte`: https://github.com/fabpot/goutte
+.. _`Goutte`:  https://github.com/fabpot/goutte
+.. _Packagist: https://packagist.org/packages/symfony/dom-crawler

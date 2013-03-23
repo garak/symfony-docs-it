@@ -18,10 +18,12 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 |             | - `allow_add`_                                                              |
 |             | - `allow_delete`_                                                           |
 |             | - `prototype`_                                                              |
+|             | - `prototype_name`_                                                         |
 +-------------+-----------------------------------------------------------------------------+
 | Opzioni     | - `label`_                                                                  |
 | ereditate   | - `error_bubbling`_                                                         |
 |             | - `by_reference`_                                                           |
+|             | - `empty_data`_                                                             |
 +-------------+-----------------------------------------------------------------------------+
 | Tipo padre  | :doc:`form</reference/forms/types/form>`                                    |
 +-------------+-----------------------------------------------------------------------------+
@@ -56,7 +58,7 @@ Il modo più semplice di renderlo è tutto insieme:
 
     .. code-block:: php
     
-        <?php echo $view['form']->row($form['emails]) ?>
+        <?php echo $view['form']->row($form['emails']) ?>
 
 Un metodo molto più flessibile sarebbe questo:
 
@@ -82,7 +84,6 @@ Un metodo molto più flessibile sarebbe questo:
         <?php echo $view['form']->errors($form['emails']) ?>
         
         <ul>
-        {% for emailField in form.emails %}
         <?php foreach ($form['emails'] as $emailField): ?>
             <li>
                 <?php echo $view['form']->errors($emailField) ?>
@@ -128,9 +129,9 @@ a questo:
 
 .. code-block:: html
 
-    <input type="email" id="form_emails_$$name$$" name="form[emails][$$name$$]" value="" />
+    <input type="email" id="form_emails___name__" name="form[emails][__name__]" value="" />
 
-Sostituendo ``$$name$$`` con un valore unico (p.e. ``2``),
+Sostituendo ``__name__`` con un valore unico (p.e. ``2``),
 si possono costruire e inserire nuovi campi HTML nel form.
 
 Usando jQuery, un semplic esempio assomiglierebbe a questo. Se si rendono i campi
@@ -171,10 +172,10 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 
                     // prende il template prototipo
                     var newWidget = emailList.attr('data-prototype');
-                    // sostiuisce "$$name$$" usato nell'id e il nome del prototipo
+                    // sostiuisce "__name__" usato nell'id e il nome del prototipo
                     // con un numero univoco per le email
                     // l'attributo finale assomiglia a name="contact[emails][2]"
-                    newWidget = newWidget.replace(/\$\$name\$\$/g, emailCount);
+                    newWidget = newWidget.replace(/__name__/g, emailCount);
                     emailCount++;
 
                     // crea un nuovo elemento nella lista e lo aggiunge
@@ -284,8 +285,8 @@ Questa opzione è utile quando si usa l'opzione `allow_add`_. Se ``true`` (e se
 anche `allow_add`_ è ``true``), sarà disponibile uno speciale attributo "prototype",
 in modo che si possa rendere nella pagina un "template" esempio di come ogni nuovo
 elemento dovrebbe apparire. L'attributo ``name`` dato a tale elemento è
-``$$name$$``. Questo consente l'aggiunta di un bottone "aggiungi" tramite JavaScript,
-che legge il prototipo, sostituisce ``$$name$$`` con un nome o numero univoco
+``__name__``. Questo consente l'aggiunta di un bottone "aggiungi" tramite JavaScript,
+che legge il prototipo, sostituisce ``__name__`` con un nome o numero univoco
 e lo rende all'interno del form. Quando inviato, sarà aggiunto all'array
 sottostante, grazie all'opzione `allow_add`_.
 
@@ -296,11 +297,11 @@ collection:
 
     .. code-block:: jinja
     
-        {{ form_row(form.emails.get('prototype')) }}
+        {{ form_row(form.emails.vars.prototype) }}
 
     .. code-block:: php
     
-        <?php echo $view['form']->row($form['emails']->get('prototype')) ?>
+        <?php echo $view['form']->row($form['emails']->getVar('prototype')) ?>
 
 Si noti che tutto quello di cui si ha effettivamente bisogno è il widget, ma a
 seconda di come si rende il form, avere l'intera riga del form potrebbe essere più facile.
@@ -313,6 +314,18 @@ seconda di come si rende il form, avere l'intera riga del form potrebbe essere p
 
 Per dettagli su come usare effettivamente questa opzione, vedere l'esempio sopra 
 o :ref:`cookbook-form-collections-new-prototype`.
+
+prototype_name
+~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+    L'opzoine ``prototype_name`` è stata aggiunta in Symfony 2.1
+
+**tipo**: ``Stringa`` **predefinito**: ``__name__``
+
+Se si hanno molti insiemi in un form o, peggio, si hanno insiemi annidati,
+si potrebbe voler modificare il segnaposto, in modo che i segnaposto senza relazioni non
+siano sostituiti con il medesimo valore.
 
 Opzioni ereditate
 -----------------
@@ -329,4 +342,8 @@ error_bubbling
 
 .. include:: /reference/forms/types/options/_error_bubbling_body.rst.inc
 
+.. _reference-form-types-by-reference:
+
 .. include:: /reference/forms/types/options/by_reference.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc

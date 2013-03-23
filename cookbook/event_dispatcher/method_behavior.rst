@@ -24,10 +24,11 @@ metodo::
             // prende $foo e $bar dall'evento, potrebbero essere stati modificati
             $foo = $event->getFoo();
             $bar = $event->getBar();
+
             // la vera implementazione del metodo è qui
             // $ret = ...;
 
-            // fa qualcosa dopo il metodo
+            // fare qualcosa dopo il metodo
             $event = new FilterSendReturnValue($ret);
             $this->dispatcher->dispatch('foo.post_send', $event);
 

@@ -42,7 +42,7 @@ Glossario
    Servizio
         Un *servizio* è un termine generico per qualsiasi oggetto PHP che esegua un
         compito specifico. Un servizio è solitamente usato "globalmente", come un oggetto
-        di connessione a un database o un oggetto che invia messaggi email. In Symfony2,
+        di connessione a una base dati o un oggetto che invia messaggi email. In Symfony2,
         i servizi sono spesso configurati e recuperati da un contenitore di servizi.
         Un'applicazione con molti servizi non accoppiati segue una
         `architettura orientata ai servizi`_.
@@ -109,11 +109,11 @@ Glossario
         parti di essa. Si vedano i capitoli
        :doc:`/book/security`.
 
-   YAML 
+   Yaml 
         *YAML* è un acronimo ricorsivo, che sta per "YAML Ain't a Markup Language". È un
         linguaggio di serializzazione dei dati leggero e umano, molto usato nei file
         di configurazione di Symfony2. Si veda il capitolo
-        :doc:`/components/yaml`.
+        :doc:`/components/yaml/introduction`.
 
 
 .. _`architettura orientata ai servizi`: http://it.wikipedia.org/wiki/Service-oriented_architecture

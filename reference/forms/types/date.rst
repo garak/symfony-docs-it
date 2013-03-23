@@ -30,6 +30,11 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 |                          | - `data_timezone`_                                                          |
 |                          | - `user_timezone`_                                                          |
 +--------------------------+-----------------------------------------------------------------------------+
+| Opzioni                  | - `invalid_message`_                                                        |
+| ereditate                | - `invalid_message_parameters`_                                             |
+|                          | - `read_only`_                                                              |
+|                          | - `disabled`_                                                               |
++--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | ``field`` (se testo), ``form`` altrimenti                                   |
 +--------------------------+-----------------------------------------------------------------------------+
 | Classe                   | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\DateType`          |
@@ -78,7 +83,7 @@ Opzioni del campo
 empty_value
 ~~~~~~~~~~~
 
-**tipo**: ``stringa``|``array``
+**tipo**: ``stringa`` o ``array``
 
 Se l'opzione del widget è ``choice``, il campo sarà rappresentato come una serie
 di ``select``. L'opzione ``empty_value`` può essere usata per aggiungere una voce
@@ -100,6 +105,8 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
 
 .. include:: /reference/forms/types/options/days.rst.inc
 
+.. _reference-forms-type-date-format:
+
 .. include:: /reference/forms/types/options/date_format.rst.inc
 
 .. include:: /reference/forms/types/options/date_pattern.rst.inc
@@ -107,3 +114,16 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
+
+Opzioni ereditate
+-----------------
+
+These options inherit from the :doc:`field</reference/forms/types/field>` type:
+
+.. include:: /reference/forms/types/options/invalid_message.rst.inc
+
+.. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc

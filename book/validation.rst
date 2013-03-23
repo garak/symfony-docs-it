@@ -9,11 +9,12 @@ hanno bisogno di essere validati. I dati hanno bisogno di essere validati anche 
 essere inseriti in una base dati o passati a un servizio web.
 
 Symfony2 ha un componente `Validator`_ , che rende questo compito facile e trasparente.
-Questo componente è bastato sulle `specifiche di validazione JSR303 Bean`_. Cosa?
+Questo componente è bastato sulle `specifiche di validazione
+JSR303 Bean`_. Cosa?
 Specifiche Java in PHP? Proprio così, ma non è così male come potrebbe sembrare.
 Vediamo come usarle in PHP.
 
-.. index:
+.. index::
    single: Validazione; Le basi
 
 Le basi della validazione
@@ -21,9 +22,7 @@ Le basi della validazione
 
 Il modo migliore per capire la validazione è quello di vederla in azione. Per iniziare,
 supponiamo di aver creato un classico oggetto PHP, da usare in qualche parte della
-propria applicazione:
-
-.. code-block:: php
+propria applicazione::
 
     // src/Acme/BlogBundle/Entity/Author.php
     namespace Acme\BlogBundle\Entity;
@@ -56,6 +55,8 @@ seguente:
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -85,6 +86,7 @@ seguente:
 
         // src/Acme/BlogBundle/Entity/Author.php
 
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -114,13 +116,11 @@ Successivamente, per validare veramente un oggetto ``Author``, usare il metodo
 Il compito di ``validator`` è semplice: leggere i vincoli (cioè le regole) di una
 classe e verificare se i dati dell'oggetto soddisfi o no tali vincoli.
 Se la validazione fallisce, viene restituito un array di errori. Prendiamo questo
-semplice esempio dall'interno di un controllore:
+semplice esempio dall'interno di un controllore::
 
-.. code-block:: php
-
+    // ...
     use Symfony\Component\HttpFoundation\Response;
     use Acme\BlogBundle\Entity\Author;
-    // ...
 
     public function indexAction()
     {
@@ -174,7 +174,6 @@ Dentro al template, si può stampare la lista di errori, come necessario:
     .. code-block:: html+jinja
 
         {# src/Acme/BlogBundle/Resources/views/Author/validate.html.twig #}
-
         <h3>L'autore ha i seguenti errori</h3>
         <ul>
         {% for error in errors %}
@@ -185,7 +184,6 @@ Dentro al template, si può stampare la lista di errori, come necessario:
     .. code-block:: html+php
 
         <!-- src/Acme/BlogBundle/Resources/views/Author/validate.html.php -->
-
         <h3>L'autore ha i seguenti errori</h3>
         <ul>
         <?php foreach ($errors as $error): ?>
@@ -214,23 +212,23 @@ violazioni dei vincoli sull'oggetto sono convertite in oggetti ``FieldError``,
 che possono essere facilmente mostrati con il proprio form. Il tipico flusso dell'invio
 di un form assomiglia al seguente, all'interno di un controllore::
 
+    // ...
     use Acme\BlogBundle\Entity\Author;
     use Acme\BlogBundle\Form\AuthorType;
     use Symfony\Component\HttpFoundation\Request;
-    // ...
 
     public function updateAction(Request $request)
     {
-        $author = new Acme\BlogBundle\Entity\Author();
+        $author = new Author();
         $form = $this->createForm(new AuthorType(), $author);
 
-        if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
 
             if ($form->isValid()) {
-                // validazionoe passata, fare qualcosa con l'oggetto $author
+                // validazione passata, fare qualcosa con l'oggetto $author
 
-                return $this->redirect($this->generateUrl('...'));
+                return $this->redirect($this->generateUrl(...));
             }
         }
 
@@ -268,15 +266,17 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:validation enable_annotations="true" />
+            <framework:validation enable-annotations="true" />
         </framework:config>
 
     .. code-block:: php
 
         // app/config/config.php
-        $container->loadFromExtension('framework', array('validation' => array(
+        $container->loadFromExtension('framework', array(
+            'validation' => array(
             'enable_annotations' => true,
-        )));
+            ),
+        ));
 
 .. index::
    single: Validazione; Vincoli
@@ -317,7 +317,7 @@ Configurazione dei vincoli
 Alcuni vincoli, come :doc:`NotBlank</reference/constraints/NotBlank>`, sono
 semplici, mentre altri, come :doc:`Choice</reference/constraints/Choice>`, hanno
 diverse opzioni di configurazione disponibili. Supponiamo che la classe ``Author``
-abbia un'altra proprietà, ``gender``, che possa valore solo "M" oppure
+abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
 "F":
 
 .. configuration-block::
@@ -370,6 +370,8 @@ abbia un'altra proprietà, ``gender``, che possa valore solo "M" oppure
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -406,6 +408,8 @@ essere specificata in tal modo.
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -437,6 +441,8 @@ essere specificata in tal modo.
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\Choice;
 
@@ -446,7 +452,10 @@ essere specificata in tal modo.
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('gender', new Choice(array('M', 'F')));
+                $metadata->addPropertyConstraint(
+                    'gender',
+                    new Choice(array('M', 'F'))
+                );
             }
         }
 
@@ -456,6 +465,12 @@ vincolo più breve e rapida.
 Se non si è sicuri di come specificare un'opzione, verificare la documentazione delle API
 per il vincolo relativo, oppure andare sul sicuro passando sempre un array di opzioni
 (il primo metodo mostrato sopra).
+
+Traduzione dei messaggi dei vincoli
+-----------------------------------
+
+Per informazioni sulla traduzione dei messaggi dei vincoli, vedere
+:ref:`book-translation-constraint-messages`.
 
 .. index::
    single: Validazione; Obiettivi dei vincoli
@@ -491,18 +506,21 @@ avere almeno 3 caratteri.
             properties:
                 firstName:
                     - NotBlank: ~
-                    - MinLength: 3
+                    - Length:
+                        min: 3
 
     .. code-block:: php-annotations
 
         // Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
             /**
              * @Assert\NotBlank()
-             * @Assert\MinLength(3)
+             * @Assert\Length(min = "3")
              */
             private $firstName;
         }
@@ -513,16 +531,20 @@ avere almeno 3 caratteri.
         <class name="Acme\BlogBundle\Entity\Author">
             <property name="firstName">
                 <constraint name="NotBlank" />
-                <constraint name="MinLength">3</constraint>
+                <constraint name="Length">
+                    <option name="min">3</option>
+                </constraint>
             </property>
         </class>
 
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MinLength;
+        use Symfony\Component\Validator\Constraints\Length;
 
         class Author
         {
@@ -531,7 +553,9 @@ avere almeno 3 caratteri.
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('firstName', new NotBlank());
-                $metadata->addPropertyConstraint('firstName', new MinLength(3));
+                $metadata->addPropertyConstraint(
+                    'firstName',
+                    new Length(array("min" => 3)));
             }
         }
 
@@ -565,6 +589,8 @@ restituire ``true``:
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -592,6 +618,8 @@ restituire ``true``:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\True;
 
@@ -656,9 +684,10 @@ si registra che quando aggiorna successivamente le sue informazioni:
                     - Email: { groups: [registration] }
                 password:
                     - NotBlank: { groups: [registration] }
-                    - MinLength: { limit: 7, groups: [registration] }
+                    - Length: { min: 7, groups: [registration] }
                 city:
-                    - MinLength: 2
+                    - Length:
+                        min: 2
 
     .. code-block:: php-annotations
 
@@ -677,12 +706,12 @@ si registra che quando aggiorna successivamente le sue informazioni:
 
             /**
             * @Assert\NotBlank(groups={"registration"})
-            * @Assert\MinLength(limit=7, groups={"registration"})
+            * @Assert\Length(min=7, groups={"registration"})
             */
             private $password;
 
             /**
-            * @Assert\MinLength(2)
+            * @Assert\Length(min = "2")
             */
             private $city;
         }
@@ -704,15 +733,17 @@ si registra che quando aggiorna successivamente le sue informazioni:
                         <value>registration</value>
                     </option>
                 </constraint>
-                <constraint name="MinLength">
-                    <option name="limit">7</option>
+                <constraint name="Length">
+                    <option name="min">7</option>
                     <option name="groups">
                         <value>registration</value>
                     </option>
                 </constraint>
             </property>
             <property name="city">
-                <constraint name="MinLength">7</constraint>
+                <constraint name="Length">
+                    <option name="min">7</option>
+                </constraint>
             </property>
         </class>
 
@@ -724,25 +755,27 @@ si registra che quando aggiorna successivamente le sue informazioni:
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\Email;
         use Symfony\Component\Validator\Constraints\NotBlank;
-        use Symfony\Component\Validator\Constraints\MinLength;
+        use Symfony\Component\Validator\Constraints\Length;
 
         class User
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('email', new Email(array(
-                    'groups' => array('registration')
+                    'groups' => array('registration'),
                 )));
 
                 $metadata->addPropertyConstraint('password', new NotBlank(array(
-                    'groups' => array('registration')
+                    'groups' => array('registration'),
                 )));
-                $metadata->addPropertyConstraint('password', new MinLength(array(
-                    'limit'  => 7,
+                $metadata->addPropertyConstraint('password', new Length(array(
+                    'min'  => 7,
                     'groups' => array('registration')
                 )));
 
-                $metadata->addPropertyConstraint('city', new MinLength(3));
+                $metadata->addPropertyConstraint(
+                    'city',
+                    Length(array("min" => 3)));
             }
         }
 
@@ -775,9 +808,9 @@ validare solo un semplice valore, come verificare che una stringa sia un indiriz
 email valido. Lo si può fare molto facilmente. Da dentro a un controllore,
 assomiglia a questo::
 
-    // aggiungere questa riga in cima alla propria classe
     use Symfony\Component\Validator\Constraints\Email;
-    
+    // ...
+
     public function addEmailAction($email)
     {
         $emailConstraint = new Email();
@@ -785,17 +818,20 @@ assomiglia a questo::
         $emailConstraint->message = 'Invalid email address';
 
         // usa il validatore per validare il valore
-        $errorList = $this->get('validator')->validateValue($email, $emailConstraint);
+        $errorList = $this->get('validator')->validateValue(
+            $email,
+            $emailConstraint
+        );
 
         if (count($errorList) == 0) {
             // è un indirizzo email valido, fare qualcosa
         } else {
             // *non* è un indirizzo email valido
             $errorMessage = $errorList[0]->getMessage()
-            
+
             // fare qualcosa con l'errore
         }
-        
+
         // ...
     }
 

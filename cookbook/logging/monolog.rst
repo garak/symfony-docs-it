@@ -1,8 +1,8 @@
 .. index::
    single: Log
 
-Come usare Monologo per scrivere log
-====================================
+Come usare Monolog per scrivere log
+===================================
 
 Monolog_ è una libreria di log per PHP 5.3 usata da Symfony2. È
 ispirata dalla libreria LogBook di Python.
@@ -10,13 +10,33 @@ ispirata dalla libreria LogBook di Python.
 Utilizzo
 --------
 
-In Monolog, ogni logger definisce un canale di log. Ogni canale ha una pila di
-gestori per scrivere i log (i gestori possono essere condivisi).
+Per registrare un messaggio di log, basta prendere il servizio logger dal contenitore,
+in un controllore::
+
+    public function indexAction()
+    {
+        $logger = $this->get('logger');
+        $logger->info('Ho preso il logger');
+        $logger->err('SI è verificato un errore');
+
+        // ...
+    }
+
+Il servizio ``logger`` ha vari metodi, per diversi livelli di log.
+Vedere :class:`Symfony\\Component\\HttpKernel\\Log\\LoggerInterface` per maggiori dettagli
+sui metodi disponibili.
+
+Gestiru e canali: scrivere log in posizioni diverse
+---------------------------------------------------
+
+In Monolog, ogni logger definisce un canale di log, il che consente di organizzare i messaggi
+di log in diverse "categorie". Ogni canale ha una pila di gestori
+per scrivere i log (i gestori possono essere condivisi).
 
 .. tip::
 
     Quando si inietta il logger in un servizio, si può
-    :ref:`usar un canale personalizzato<dic_tags-monolog>` per vedere facilmente
+    :ref:`usare un canale personalizzato<dic_tags-monolog>` per vedere facilmente
     quale parte dell'applicazione ha loggato il messaggio.
 
 Il gestore di base è ``StreamHandler``, che scrive log in un flusso
@@ -26,21 +46,8 @@ Il gestore di base è ``StreamHandler``, che scrive log in un flusso
 Monolog dispone anche di un potente gestore per il log in ambiente di
 produzione: ``FingersCrossedHandler``. Esso consente di memorizzare i
 messaggi in un buffer e di loggarli solo se un messaggio raggiunge il livello
-di azione (ERROR, nella configurazione fornita con la standard
-edition) girando i messaggi a un altro gestore.
-
-Per loggare un messaggio, basta prendere il servizio logger dal contenitore, nel
-proprio controllore::
-
-    $logger = $this->get('logger');
-    $logger->info('Abbiamo preso il logger');
-    $logger->err('C'è stato un errore');
-
-.. tip::
-
-    Usare solo i metodi dell'interfaccia
-    :class:`Symfony\\Component\\HttpKernel\\Log\\LoggerInterface` consente di
-    cambiare l'implementazione del logger senza cambiare il proprio codice.
+di azione (ERROR, nella configurazione fornita con la Standard
+Edition) girando i messaggi a un altro gestore.
 
 Usare diversi gestori
 ~~~~~~~~~~~~~~~~~~~~~
@@ -52,9 +59,10 @@ consente di loggare facilmente i messaggi in molti modi.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         monolog:
             handlers:
-                syslog:
+                applog:
                     type: stream
                     path: /var/log/symfony.log
                     level: error
@@ -65,9 +73,13 @@ consente di loggare facilmente i messaggi in molti modi.
                 file:
                     type: stream
                     level: debug
+                syslog:
+                    type: syslog
+                    level: error
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -76,7 +88,7 @@ consente di loggare facilmente i messaggi in molti modi.
 
             <monolog:config>
                 <monolog:handler
-                    name="syslog"
+                    name="applog"
                     type="stream"
                     path="/var/log/symfony.log"
                     level="error"
@@ -92,8 +104,39 @@ consente di loggare facilmente i messaggi in molti modi.
                     type="stream"
                     level="debug"
                 />
+                <monolog:handler
+                    name="syslog"
+                    type="syslog"
+                    level="error"
+                />
             </monolog:config>
         </container>
+
+    .. code-block:: php
+        
+        // app/config/config.php
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'applog' => array(
+                    'type'  => 'stream',
+                    'path'  => '/var/log/symfony.log',
+                    'level' => 'error',
+                ),    
+                'main' => array(
+                    'type'         => 'fingers_crossed',
+                    'action_level' => 'warning',
+                    'handler'      => 'file',
+                ),    
+                'file' => array(
+                    'type'  => 'stream',
+                    'level' => 'debug',
+                ),   
+                'syslog' => array(
+                    'type'  => 'syslog',
+                    'level' => 'error',
+                ),    
+            ),
+        ));        
 
 La configurazione appena vista definisce una pila di gestori, che saranno richiamati
 nell'ordine in cui sono stati definiti.
@@ -123,6 +166,7 @@ Il proprio formattatore deve implementare
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         services:
             my_formatter:
                 class: Monolog\Formatter\JsonFormatter
@@ -135,6 +179,7 @@ Il proprio formattatore deve implementare
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -144,6 +189,7 @@ Il proprio formattatore deve implementare
             <services>
                 <service id="my_formatter" class="Monolog\Formatter\JsonFormatter" />
             </services>
+
             <monolog:config>
                 <monolog:handler
                     name="file"
@@ -153,6 +199,22 @@ Il proprio formattatore deve implementare
                 />
             </monolog:config>
         </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container
+            ->register('my_formatter', 'Monolog\Formatter\JsonFormatter');
+
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'file' => array(
+                    'type'      => 'stream',
+                    'level'     => 'debug',
+                    'formatter' => 'my_formatter',
+                ),
+            ),
+        ));
 
 Aggiungere dati extra nei messaggi di log
 -----------------------------------------
@@ -177,7 +239,7 @@ usando un processore.
 
     namespace Acme\MyBundle;
 
-    use Symfony\Component\HttpFoundation\Session;
+    use Symfony\Component\HttpFoundation\Session\Session;
 
     class SessionRequestProcessor
     {
@@ -205,10 +267,12 @@ usando un processore.
         }
     }
 
+
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         services:
             monolog.formatter.session_request:
                 class: Monolog\Formatter\LineFormatter
@@ -225,9 +289,62 @@ usando un processore.
             handlers:
                 main:
                     type: stream
-                    path: %kernel.logs_dir%/%kernel.environment%.log
+                    path: "%kernel.logs_dir%/%kernel.environment%.log"
                     level: debug
                     formatter: monolog.formatter.session_request
+
+    .. code-block:: xml
+
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:monolog="http://symfony.com/schema/dic/monolog"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/monolog http://symfony.com/schema/dic/monolog/monolog-1.0.xsd">
+
+            <services>
+                <service id="monolog.formatter.session_request" class="Monolog\Formatter\LineFormatter">
+                    <argument>[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%%\n</argument>
+                </service>
+
+                <service id="monolog.processor.session_request" class="Acme\MyBundle\SessionRequestProcessor">
+                    <argument type="service" id="session" />
+                    <tag name="monolog.processor" method="processRecord" />
+                </service>
+            </services>
+
+            <monolog:config>
+                <monolog:handler
+                    name="main"
+                    type="stream"
+                    path="%kernel.logs_dir%/%kernel.environment%.log"
+                    level="debug"
+                    formatter="monolog.formatter.session_request"
+                />
+            </monolog:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container
+            ->register('monolog.formatter.session_request', 'Monolog\Formatter\LineFormatter')
+            ->addArgument('[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%%\n');
+
+        $container
+            ->register('monolog.processor.session_request', 'Acme\MyBundle\SessionRequestProcessor')
+            ->addArgument(new Reference('session'))
+            ->addTag('monolog.processor', array('method' => 'processRecord'));
+
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'main' => array(
+                    'type'      => 'stream',
+                    'path'      => '%kernel.logs_dir%/%kernel.environment%.log',
+                    'level'     => 'debug',
+                    'formatter' => 'monolog.formatter.session_request',
+                ),
+            ),
+        ));
 
 .. note::
 

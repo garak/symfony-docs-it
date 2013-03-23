@@ -30,7 +30,7 @@ resi usando la funzione di Twig ``form_row`` oppure il metodo dell'helper PHP
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         <div>
             {{ form_label(form.age) }}
@@ -135,36 +135,36 @@ L'implementazione del frammento ``integer_widget`` sarà simile a:
 
     .. code-block:: jinja
 
+        {# form_div_layout.html.twig #}
         {% block integer_widget %}
             {% set type = type|default('number') %}
-            {{ block('field_widget') }}
+            {{ block('form_widget_simple') }}
         {% endblock integer_widget %}
 
     .. code-block:: html+php
 
         <!-- integer_widget.html.php -->
-
         <?php echo $view['form']->renderBlock('field_widget', array('type' => isset($type) ? $type : "number")) ?>
 
-Come è possibile vedere, questo frammento rende un altro frammento: ``field_widget``:
+Come è possibile vedere, questo frammento rende un altro frammento: ``field_widget_simple``:
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        {% block field_widget %}
+        {# form_div_layout.html.twig #}
+        {% block form_widget_simple %}
             {% set type = type|default('text') %}
-            <input type="{{ type }}" {{ block('widget_attributes') }} value="{{ value }}" />
-        {% endblock field_widget %}
+            <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        {% endblock form_widget_simple %}
 
     .. code-block:: html+php
 
-        <!-- FrameworkBundle/Resources/views/Form/field_widget.html.php -->
-
+        <!-- FrameworkBundle/Resources/views/Form/form_widget_simple.html.php -->
         <input
-            type="<?php echo isset($type) ? $view->escape($type) : "text" ?>"
-            value="<?php echo $view->escape($value) ?>"
-            <?php echo $view['form']->renderBlock('attributes') ?>
+            type="<?php echo isset($type) ? $view->escape($type) : 'text' ?>"
+            <?php if (!empty($value)): ?>value="<?php echo $view->escape($value) ?>"<?php endif ?>
+            <?php echo $view['form']->block($form, 'widget_attributes') ?>
         />
 
 Il punto è che il frammento detta l'output HTML di ogni parte del form. Per
@@ -242,12 +242,12 @@ direttamente nel template che è sta attualmente rendendo il form.
     {% block integer_widget %}
         <div class="integer_widget">
             {% set type = type|default('number') %}
-            {{ block('field_widget') }}
+            {{ block('form_widget_simple') }}
         </div>
     {% endblock %}
 
     {% block content %}
-        {# render the form #}
+        {# ... rendere il form #}
 
         {{ form_row(form.age) }}
     {% endblock %}
@@ -275,11 +275,10 @@ ora è possibile riutilizzare la personalizzazione del formi in diversi template
 .. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
-
     {% block integer_widget %}
         <div class="integer_widget">
             {% set type = type|default('number') %}
-            {{ block('field_widget') }}
+            {{ block('form_widget_simple') }}
         </div>
     {% endblock %}
 
@@ -314,9 +313,8 @@ per personalizzare il frammento ``integer_widget``.
 .. code-block:: html+php
 
     <!-- src/Acme/DemoBundle/Resources/views/Form/integer_widget.html.php -->
-
     <div class="integer_widget">
-        <?php echo $view['form']->renderBlock('field_widget', array('type' => isset($type) ? $type : "number")) ?>
+        <?php echo $view['form']->block($form, 'form_widget_simple', array('type' => isset($type) ? $type : "number")) ?>
     </div>
 
 Ora che è stato creato il tema del form personalizzato, bisogna dire a Symfony
@@ -341,7 +339,7 @@ Referenziare blocchi di form (specifico per Twig)
 -------------------------------------------------
 
 Finora, per sovrascrivere un particolare blocco del form, il metodo migliore è copiare
-il blocco di default da  `form_div_layout.html.twig`_, incollarlo in un template differente,
+il blocco predefinito da  `form_div_layout.html.twig`_, incollarlo in un template differente,
 e personalizzarlo. In molti casi, è possibile evitare di fare questo referenziando
 il blocco di base quando lo si personalizza.
 
@@ -360,7 +358,7 @@ il form:
 
 Ora, quando sono importati i blocchi da `form_div_layout.html.twig`_, il
 blocco ``integer_widget`` è chiamato ``base_integer_widget``. Questo significa che quando
-viene ridefinito il blocco ``integer_widget``, è possibile referenziare il markup di default
+viene ridefinito il blocco ``integer_widget``, è possibile referenziare il markup predefinito
 tramite ``base_integer_widget``:
 
 .. code-block:: html+jinja
@@ -380,7 +378,6 @@ il blocco base utilizzando la funzione di Twig ``parent()``:
 .. code-block:: html+jinja
 
     {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
-
     {% extends 'form_div_layout.html.twig' %}
 
     {% block integer_widget %}
@@ -416,7 +413,6 @@ form verrà reso.
     .. code-block:: yaml
 
         # app/config/config.yml
-
         twig:
             form:
                 resources:
@@ -426,7 +422,6 @@ form verrà reso.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <twig:config ...>
                 <twig:form>
                     <resource>AcmeDemoBundle:Form:fields.html.twig</resource>
@@ -437,24 +432,25 @@ form verrà reso.
     .. code-block:: php
 
         // app/config/config.php
-
         $container->loadFromExtension('twig', array(
-            'form' => array('resources' => array(
-                'AcmeDemoBundle:Form:fields.html.twig',
-             ))
-            // ...
+            'form' => array(
+                'resources' => array(
+                    'AcmeDemoBundle:Form:fields.html.twig',
+                ),
+            ),
+
+             // ...
         ));
 
-Di default, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
-potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risorsa
-``form_table_layout.html.twig`` come layout:
+Per impostazioone predefinita, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
+potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risorsa ``form_table_layout.html.twig``
+per ottenere questo tipo di layout:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # app/config/config.yml
-
         twig:
             form:
                 resources: ['form_table_layout.html.twig']
@@ -463,7 +459,6 @@ potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risors
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <twig:config ...>
                 <twig:form>
                     <resource>form_table_layout.html.twig</resource>
@@ -474,12 +469,14 @@ potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risors
     .. code-block:: php
 
         // app/config/config.php
-
         $container->loadFromExtension('twig', array(
-            'form' => array('resources' => array(
-                'form_table_layout.html.twig',
-             ))
-            // ...
+            'form' => array(
+                'resources' => array(
+                    'form_table_layout.html.twig',
+                ),
+            ),
+
+             // ...
         ));
 
 Se si vuole effettuare un cambiamento soltanto in un template, aggiungere la seguente riga al
@@ -504,7 +501,6 @@ form viene reso.
     .. code-block:: yaml
 
         # app/config/config.yml
-
         framework:
             templating:
                 form:
@@ -516,7 +512,6 @@ form viene reso.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <framework:config ...>
             <framework:templating>
                 <framework:form>
@@ -530,14 +525,17 @@ form viene reso.
     .. code-block:: php
 
         // app/config/config.php
-
         // PHP
         $container->loadFromExtension('framework', array(
-            'templating' => array('form' =>
-                array('resources' => array(
-                    'AcmeDemoBundle:Form',
-             )))
-            // ...
+            'templating' => array(
+                'form' => array(
+                    'resources' => array(
+                        'AcmeDemoBundle:Form',
+                    ),
+                ),
+             ),
+
+             // ...
         ));
 
 Per impostazione predefinita, il motore PHP utilizza un layout a *div* quando rende i form. Qualcuno,
@@ -549,7 +547,6 @@ tuttavia, potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare
     .. code-block:: yaml
 
         # app/config/config.yml
-
         framework:
             templating:
                 form:
@@ -559,7 +556,6 @@ tuttavia, potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-
         <framework:config ...>
             <framework:templating>
                 <framework:form>
@@ -572,13 +568,16 @@ tuttavia, potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare
     .. code-block:: php
 
         // app/config/config.php
-
         $container->loadFromExtension('framework', array(
-            'templating' => array('form' =>
-                array('resources' => array(
-                    'FrameworkBundle:FormTable',
-             )))
-            // ...
+            'templating' => array(
+                'form' => array(
+                    'resources' => array(
+                        'FrameworkBundle:FormTable',
+                    ),
+                ),
+            ),
+
+             // ...
         ));
 
 Se si vuole effettuare un cambiamento soltanto in un template, aggiungere la seguente riga al
@@ -609,7 +608,7 @@ in cui parte del campo viene personalizzato. Per esempio:
 
         {% block _product_name_widget %}
             <div class="text_widget">
-                {{ block('field_widget') }}
+                {{ block('form_widget_simple') }}
             </div>
         {% endblock %}
 
@@ -618,7 +617,6 @@ in cui parte del campo viene personalizzato. Per esempio:
     .. code-block:: html+php
 
         <!-- Main template -->
-
         <?php echo $view['form']->setTheme($form, array('AcmeDemoBundle:Form')); ?>
 
         <?php echo $view['form']->widget($form['name']); ?>
@@ -626,7 +624,7 @@ in cui parte del campo viene personalizzato. Per esempio:
         <!-- src/Acme/DemoBundle/Resources/views/Form/_product_name_widget.html.php -->
 
         <div class="text_widget">
-              echo $view['form']->renderBlock('field_widget') ?>
+              echo $view['form']->block('form_widget_simple') ?>
         </div>
 
 Qui, il frammento ``_product_name_widget`` definisce il template da utilizzare per il
@@ -645,6 +643,7 @@ campo del quale l'*id* è ``product_name`` (e il nome è ``product[name]``).
 
     .. code-block:: html+jinja
 
+        {# _product_name_row.html.twig #}
         {% form_theme form _self %}
 
         {% block _product_name_row %}
@@ -715,35 +714,51 @@ incollare e personalizzare il frammento ``field_errors``.
 
     .. code-block:: html+jinja
 
-        {% block field_errors %}
+        {# form_errors.html.twig #}
+        {% block form_errors %}
         {% spaceless %}
             {% if errors|length > 0 %}
             <ul class="error_list">
                 {% for error in errors %}
-                    <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
+                        <li>{{
+                            error.messagePluralization is null
+                                ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                                : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+                        }}</li>
                 {% endfor %}
             </ul>
             {% endif %}
         {% endspaceless %}
-        {% endblock field_errors %}
+        {% endblock form_errors %}
 
     .. code-block:: html+php
 
-        <!-- fields_errors.html.php -->
-
+        <!-- form_errors.html.php -->
         <?php if ($errors): ?>
             <ul class="error_list">
                 <?php foreach ($errors as $error): ?>
-                    <li><?php echo $view['translator']->trans(
+                    <li><?php
+                        if (null === $error->getMessagePluralization()) {
+                            echo $view['translator']->trans(
                         $error->getMessageTemplate(),
                         $error->getMessageParameters(),
                         'validators'
-                    ) ?></li>
+                            );
+                        } else {
+                            echo $view['translator']->transChoice(
+                                $error->getMessageTemplate(),
+                                $error->getMessagePluralization(),
+                                $error->getMessageParameters(),
+                                'validators'
+                            );
+                        }?></li>
                 <?php endforeach; ?>
             </ul>
         <?php endif ?>
 
+
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per come applicare questa personalizzazione.
 
 È anche possibile personalizzare l'output dell'errore per uno specifico tipo di campo.
@@ -763,7 +778,7 @@ a un singolo campo) sono resi separatamente, di solito all'inizio del form:
 Per personalizzare *solo* il markup utilizzato per questi errori, si segue la stesa strada
 de codice sopra ma verrà chiamato il blocco ``form_errors`` (Twig) / il file ``form_errors.html.php``
 (PHP). Ora, quando sono resi gli errori per il ``form``, i frammenti
-personalizzati verranno utilizzati al posto dei ``field_errors`` di default.
+personalizzati verranno utilizzati al posto dei ``field_errors`` predefinito.
 
 Personalizzare una "riga del form"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -778,18 +793,18 @@ classe all'elemento  ``div`` per ogni riga:
 
     .. code-block:: html+jinja
 
-        {% block field_row %}
+        {# form_row.html.twig #}
+        {% block form_row %}
             <div class="form_row">
                 {{ form_label(form) }}
                 {{ form_errors(form) }}
                 {{ form_widget(form) }}
             </div>
-        {% endblock field_row %}
+        {% endblock form_row %}
 
     .. code-block:: html+php
 
-        <!-- field_row.html.php -->
-
+        <!-- form_row.html.php -->
         <div class="form_row">
             <?php echo $view['form']->label($form) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -797,6 +812,7 @@ classe all'elemento  ``div`` per ogni riga:
         </div>
 
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per conoscere come applicare questa personalizzazione.
 
 Aggiungere un asterisco "obbligatorio" alle label del campo
@@ -810,10 +826,10 @@ form, basta modificare il tag ``use`` e aggiungere le seguenti righe:
 
 .. code-block:: html+jinja
 
-    {% use 'form_div_layout.html.twig' with field_label as base_field_label %}
+    {% use 'form_div_layout.html.twig' with form_label as base_form_label %}
 
-    {% block field_label %}
-        {{ block('base_field_label') }}
+    {% block form_label %}
+        {{ block('base_form_label') }}
 
         {% if required %}
             <span class="required" title="This field is required">*</span>
@@ -827,7 +843,7 @@ utilizzare le seguenti righe:
 
     {% extends 'form_div_layout.html.twig' %}
 
-    {% block field_label %}
+    {% block form_label %}
         {{ parent() }}
 
         {% if required %}
@@ -840,17 +856,21 @@ template originale:
 
 .. code-block:: html+php
 
-    <!-- field_label.html.php -->
+    <!-- form_label.html.php -->
 
-    <!-- original content -->
-    <label for="<?php echo $view->escape($id) ?>" <?php foreach($attr as $k => $v) { printf('%s="%s" ', $view->escape($k), $view->escape($v)); } ?>><?php echo $view->escape($view['translator']->trans($label)) ?></label>
+    <!-- contenuto originale -->
+    <?php if ($required) { $label_attr['class'] = trim((isset($label_attr['class']) ? $label_attr['class'] : '').' required'); } ?>
+    <?php if (!$compound) { $label_attr['for'] = $id; } ?>
+    <?php if (!$label) { $label = $view['form']->humanize($name); } ?>
+    <label <?php foreach ($label_attr as $k => $v) { printf('%s="%s" ', $view->escape($k), $view->escape($v)); } ?>><?php echo $view->escape($view['translator']->trans($label, array(), $translation_domain)) ?></label>
 
     <!-- personalizzazione -->
     <?php if ($required) : ?>
-        <span class="required" title="Questo campo è obbligatorio">*</span>
+        <span class="required" title="This field is required">*</span>
     <?php endif ?>
 
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per sapere come effettuare questa personalizzazione.
 
 Aggiungere messaggi di aiuto
@@ -863,10 +883,10 @@ form, basta modificare il tag ``use`` e aggiungere le seguenti righe:
 
 .. code-block:: html+jinja
 
-    {% use 'form_div_layout.html.twig' with field_widget as base_field_widget %}
+    {% use 'form_div_layout.html.twig' with form_widget_simple as base_form_widget_simple %}
 
-    {% block field_widget %}
-        {{ block('base_field_widget') }}
+    {% block form_widget_simple %}
+        {{ block('base_form_widget_simple') }}
 
         {% if help is defined %}
             <span class="help">{{ help }}</span>
@@ -880,7 +900,7 @@ utilizzare le seguenti righe:
 
     {% extends 'form_div_layout.html.twig' %}
 
-    {% block field_widget %}
+    {% block form_widget_simple %}
         {{ parent() }}
 
         {% if help is defined %}
@@ -893,13 +913,13 @@ template originale:
 
 .. code-block:: html+php
 
-    <!-- field_widget.html.php -->
+    <!-- form_widget_simple.html.php -->
 
     <!-- contenuto originale -->
     <input
-        type="<?php echo isset($type) ? $view->escape($type) : "text" ?>"
-        value="<?php echo $view->escape($value) ?>"
-        <?php echo $view['form']->renderBlock('attributes') ?>
+        type="<?php echo isset($type) ? $view->escape($type) : 'text' ?>"
+        <?php if (!empty($value)): ?>value="<?php echo $view->escape($value) ?>"<?php endif ?>
+        <?php echo $view['form']->block($form, 'widget_attributes') ?>
     />
 
     <!-- Personalizzazione -->
@@ -920,6 +940,33 @@ Per rendere un messaggio di aiuto sotto al campo, passare nella variabile ``help
         <?php echo $view['form']->widget($form['title'], array('help' => 'foobar')) ?>
 
 .. tip::
+
     Si veda :ref:`cookbook-form-theming-methods` per sapere come applicare questa configurazione.
 
-.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+Usare le variabili nei Form
+---------------------------
+
+La maggior parte delle funzioni disponibili per rendere le varie parti di un form (p.e.
+il widget form, la label del form, etcc.) consentono anche di eseguire direttamente alcune
+personalizzazioni. Si veda l'esempio seguente:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {# rende un widget, ma con classe "pippo" #}
+        {{ form_widget(form.name, { 'attr': {'class': 'pippo'} }) }}
+
+    .. code-block:: php
+
+        <!-- rende un widget, ma con classe "pippo" -->
+        <?php echo $view['form']->widget($form['name'], array(
+            'attr' => array(
+                'class' => 'pippo',
+            ),
+        )) ?>
+
+L'array passato come secondo parametro contiene delle variabili del form. Per maggiori
+dettagli su questo concetto in Twig, vedere :ref:`twig-reference-form-variables`.
+
+.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

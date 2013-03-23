@@ -59,6 +59,7 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
 
 .. code-block:: php
 
+    // src/Acme/DemoBundle/Security/Authorization/Voter/ClientIpVoter.php
     namespace Acme\DemoBundle\Security\Authorization\Voter;
 
     use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -88,7 +89,7 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
         function vote(TokenInterface $token, $object, array $attributes)
         {
             $request = $this->container->get('request');
-            if (in_array($this->request->getClientIp(), $this->blacklistedIp)) {
+            if (in_array($request->getClientIp(), $this->blacklistedIp)) {
                 return VoterInterface::ACCESS_DENIED;
             }
 
@@ -103,14 +104,13 @@ Dichiarare il votante come servizio
 -----------------------------------
 
 Per iniettare il votante nel livello della sicurezza, dobbiamo dichiararlo come servizio
-e taggarlo come "security.voter":
+e assegnargli il tag "security.voter":
 
 .. configuration-block::
 
     .. code-block:: yaml
 
         # src/Acme/AcmeBundle/Resources/config/services.yml
-
         services:
             security.access.blacklist_voter:
                 class:      Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter
@@ -122,7 +122,6 @@ e taggarlo come "security.voter":
     .. code-block:: xml
 
         <!-- src/Acme/AcmeBundle/Resources/config/services.xml -->
-
         <service id="security.access.blacklist_voter"
                  class="Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter" public="false">
             <argument type="service" id="service_container" strict="false" />
@@ -136,7 +135,6 @@ e taggarlo come "security.voter":
     .. code-block:: php
 
         // src/Acme/AcmeBundle/Resources/config/services.php
-
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
@@ -181,8 +179,26 @@ configurazione della propria applicazione con il codice seguente.
         # app/config/security.yml
         security:
             access_decision_manager:
-                # Strategy can be: affirmative, unanimous or consensus
+                # la strategia piò essere: affirmative, unanimous o consensus
                 strategy: unanimous
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <!-- la strategia piò essere: affirmative, unanimous o consensus -->
+            <access-decision-manager strategy="unanimous">
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.xml
+        $container->loadFromExtension('security', array(
+            // la strategia piò essere: affirmative, unanimous o consensus
+            'access_decision_manager' => array(
+                'strategy' => 'unanimous',
+            ),
+        ));
 
 Ecco fatto! Ora, nella decisione sull'accesso di un utente, il nuovo votante negherà
 l'accesso a ogni utente nella lista nera degli IP.

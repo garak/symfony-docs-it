@@ -1,7 +1,7 @@
 Callback
 ========
 
-Lo scopo del vincolo Callback è di poter creare delle regole di validazioni
+Lo scopo del vincolo Callback è di poter creare delle regole di validazione
 completamente personalizzate e di assegnare qualsiasi errore di validazione a
 campi specifici del proprio oggetto. Se si usa la validazione con i form, questo vuol dire
 che si possono mostrare questi errori personalizzati accanto a campi specifici, invece di
@@ -40,6 +40,20 @@ Preparazione
                 - Callback:
                     methods:   [isAuthorValid]
 
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        /**
+         * @Assert\Callback(methods={"isAuthorValid"})
+         */
+        class Author
+        {
+        }
+
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
@@ -51,16 +65,22 @@ Preparazione
             </constraint>
         </class>
 
-    .. code-block:: php-annotations
+    .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
 
-        /**
-         * @Assert\Callback(methods={"isAuthorValid"})
-         */
         class Author
         {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addConstraint(new Assert\Callback(array(
+                    'methods' => array('isAuthorValid'),
+                )));
+            }
         }
 
 Il metod callback
@@ -80,16 +100,15 @@ questi errori vadano attribuiti::
 
         public function isAuthorValid(ExecutionContext $context)
         {
-            // somehow you have an array of "fake names"
+            // si ha in qualche modo un array di nomi fasulli
             $fakeNames = array();
 
-            // check if the name is actually a fake name
+            // verifica se il nome è in effetti un nome fasullo
             if (in_array($this->getFirstName(), $fakeNames)) {
-                $property_path = $context->getPropertyPath() . '.firstName';
-                $context->setPropertyPath($property_path);
-                $context->addViolation('This name sounds totally fake!', array(), null);
+                $context->addViolationAtSubPath('firstname', 'Questo nome  sembra proprio falso!', array(), null);
             }
         }
+     }
 
 Opzioni
 -------
@@ -137,6 +156,18 @@ Ogni metodo può avere uno dei seguenti formati:
             {
             }
 
+        .. code-block:: xml
+
+            <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+            <class name="Acme\BlogBundle\Entity\Author">
+                <constraint name="Callback">
+                    <option name="methods">
+                        <value>Acme\BlogBundle\MyStaticValidatorClass</value>
+                        <value>isAuthorValid</value>
+                    </option>
+                </constraint>
+            </class>
+
         .. code-block:: php
 
             // src/Acme/BlogBundle/Entity/Author.php
@@ -167,7 +198,7 @@ Ogni metodo può avere uno dei seguenti formati:
 
         class MyStaticValidatorClass
         {
-            static public function isAuthorValid(Author $author, ExecutionContext $context)
+            public static function isAuthorValid(Author $author, ExecutionContext $context)
             {
                 // ...
             }

@@ -40,7 +40,7 @@ transport
 Il metodo di trasporto usato per inviare le email. Valori validi:
 
 * smtp
-* gmail (vedere :doc:`/cookbook/gmail`)
+* gmail (vedere :doc:`/cookbook/email/gmail`)
 * mail
 * sendmail
 * null (lo stesso che impostare `disable_delivery`_ a ``true``)
@@ -167,7 +167,7 @@ logging
 **tipo**: ``booleano`` **predefinito**: ``%kernel.debug%``
 
 Se ``true``, il raccoglitore di dati di Symfony sarà attivato per Swiftmailer e
-le informazioni saranno disponibili nel profiler.
+le informazioni saranno disponibili nel profilatore.
 
 Configurazione predefinita completa
 -----------------------------------
@@ -186,11 +186,37 @@ Configurazione predefinita completa
             auth_mode:            ~
             spool:
                 type:                 file
-                path:                 %kernel.cache_dir%/swiftmailer/spool
+                path:                 "%kernel.cache_dir%/swiftmailer/spool"
             sender_address:       ~
             antiflood:
                 threshold:            99
                 sleep:                0
             delivery_address:     ~
             disable_delivery:     ~
-            logging:              %kernel.debug%
+            logging:              "%kernel.debug%"
+
+    .. code-block:: xml
+
+        <swiftmailer:config
+            transport="smtp"
+            username=""
+            password=""
+            host="localhost"
+            port="false"
+            encryption=""
+            auth_mode=""
+            sender_address=""
+            delivery_address=""
+            disable_delivery=""
+            logging="%kernel.debug%"
+        >
+            <swiftmailer:spool
+                path="%kernel.cache_dir%/swiftmailer/spool"
+                type="file"
+            />
+
+            <swiftmailer:antiflood
+                sleep="0"
+                threshold="99"
+            />
+        </swiftmailer:config>

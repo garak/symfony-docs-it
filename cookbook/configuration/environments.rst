@@ -6,7 +6,7 @@ Come padroneggiare e creare nuovi ambienti
 
 Ogni applicazione è la combinazione di codice e di un insieme di configurazioni
 che determinano come il codice dovrà lavorare. La configurazione può definire
-il database da utilizzare, cosa dovrà essere messo in cache e cosa non, o quanto
+la base dati da utilizzare, cosa dovrà essere messo in cache e cosa non, o quanto
 esaustivi dovranno essere i log. In Symfony2, l'idea di ambiente è quella di
 eseguire il codice, utilizzando differenti configurazioni. Per esempio,
 l'ambiente ``dev`` dovrebbe usare una configurazione che renda lo sviluppo
@@ -36,6 +36,7 @@ della classe ``AppKernel``:
 .. code-block:: php
 
     // app/AppKernel.php
+
     // ...
     
     class AppKernel extends Kernel
@@ -63,7 +64,6 @@ ottenuto facilmente e in modo trasparente:
 
         imports:
             - { resource: config.yml }
-
         # ...
 
     .. code-block:: xml
@@ -71,13 +71,11 @@ ottenuto facilmente e in modo trasparente:
         <imports>
             <import resource="config.xml" />
         </imports>
-
         <!-- ... -->
 
     .. code-block:: php
 
         $loader->import('config.php');
-
         // ...
 
 Per condividere una configurazione comune, i file di configurazione di ogni ambiente
@@ -108,8 +106,7 @@ parametro predefinito:
 
         <webprofiler:config
             toolbar="true"
-            # ...
-        />
+            ... />
 
     .. code-block:: php
 
@@ -118,7 +115,8 @@ parametro predefinito:
 
         $container->loadFromExtension('web_profiler', array(
             'toolbar' => true,
-            // ..
+
+            // ...
         ));
 
 .. index::
@@ -178,7 +176,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     in riga 8 del precedente front controller. Questo valore specifica se
     l'applicazione dovrà essere eseguità in "modalità debug" o meno. Indipendentemente
     dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
-    debug configurata a ``true`` o a ``false. Questo modifica diversi aspetti dell'applicazione, come
+    debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione, come
     il fatto che gli errori vengano mostrati o se la cache debba essere ricreata dinamicamente
     a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre
     configurata a ``true`` negli ambienti ``dev`` e ``test`` e a ``false`` per 
@@ -196,7 +194,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
 
             doctrine:
                dbal:
-                   logging:  %kernel.debug%
+                   logging:  "%kernel.debug%"
                    # ...
 
         .. code-block:: xml
@@ -208,6 +206,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
             $container->loadFromExtension('doctrine', array(
                 'dbal' => array(
                     'logging'  => '%kernel.debug%',
+
                     // ...
                 ),
                 // ...
@@ -221,7 +220,7 @@ Creare un nuovo ambiente
 
 Un'applicazione Symfony2 viene generata con tre ambienti preconfigurati per
 gestire la maggior parte dei casi. Ovviamente, visto che un ambiente non è nient'altro
-che una stringa  che corrisponde ad un insieme di configurazioni, creare un nuovo
+che una stringa  che corrisponde a un insieme di configurazioni, creare un nuovo
 ambiente è abbastanza semplice.
 
 Supponiamo, per esempio, di voler misurare le prestazioni dell'applicazione
@@ -237,7 +236,6 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
     .. code-block:: yaml
 
         # app/config/config_benchmark.yml
-
         imports:
             - { resource: config_prod.yml }
 
@@ -247,7 +245,6 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
     .. code-block:: xml
 
         <!-- app/config/config_benchmark.xml -->
-
         <imports>
             <import resource="config_prod.xml" />
         </imports>
@@ -258,8 +255,7 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
 
     .. code-block:: php
 
-        // app/config/config_benchmark.php
-        
+        // app/config/config_benchmark.php     
         $loader->import('config_prod.php')
 
         $container->loadFromExtension('framework', array(
@@ -344,8 +340,13 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 
 * ``twig/`` - questa cartella contiene la cache dei template di Twig.
 
+.. note::
+
+    Si possono cambiare facilmente posizione e nome della cartella. Per maggiori informazioni,
+    si legga la ricetta :doc:`/cookbook/configuration/override_dir_structure`.
+
 
 Approfondimenti
 ---------------
 
-Si legga l'articolo :doc:`/cookbook/configuration/external_parameters`.
+Si legga la ricetta :doc:`/cookbook/configuration/external_parameters`.

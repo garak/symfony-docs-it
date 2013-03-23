@@ -48,8 +48,8 @@ essere configurate utilizzando la seguente configurazione del ``VirtualHost``:
     
     .. code-block:: bash
     
-        export SYMFONY__UTENTE__DATABASE=utente
-        export SYMFONY__PASSWORD__DATABASE=segreto
+        $ export SYMFONY__UTENTE__DATABASE=utente
+        $ export SYMFONY__PASSWORD__DATABASE=segreta
 
 Una volta dichiarate, le variabili saranno disponibili all'interno
 della variabile globale ``$_SERVER`` di PHP. Symfony si occuperà di trasformare
@@ -66,8 +66,8 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
             dbal:
                 driver    pdo_mysql
                 dbname:   symfony2_project
-                user:     %utente.database%
-                password: %password.database%
+                user:     "%utente.database%"
+                password: "%password.database%"
 
     .. code-block:: xml
 
@@ -85,11 +85,13 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
 
     .. code-block:: php
 
-        $container->loadFromExtension('doctrine', array('dbal' => array(
-            'driver'   => 'pdo_mysql',
-            'dbname'   => 'progetto_symfony2',
-            'user'     => '%utente.database%',
-            'password' => '%password.database%',
+        $container->loadFromExtension('doctrine', array(
+            'dbal' => array(
+                'driver'   => 'pdo_mysql',
+                'dbname'   => 'progetto_symfony2',
+                'user'     => '%utente.database%',
+                'password' => '%password.database%',
+            )
         ));
 
 Costanti
@@ -104,8 +106,7 @@ e definirne il tipo come ``constant``.
         <?xml version="1.0" encoding="UTF-8"?>
 
         <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        >
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
             <parameters>
                 <parameter key="valore.costante.globale" type="constant">COSTANTE_GLOBALE</parameter>
@@ -117,17 +118,25 @@ e definirne il tipo come ``constant``.
 
     Per funzionare è necessario che la configurazione usi l'XML. Se *non* si sta
     usando l'XML, per sfruttare questa funzionalità, basta importarne uno:
-    
-    .. code-block:: yaml
-    
-        // app/config/config.yml
-        imports:
-            - { resource: parametri.xml }
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+        
+            # app/config/config.yml
+            imports:
+                - { resource: parameters.xml }
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $loader->import('parameters.xml');
+
 
 Configurazioni varie
 --------------------
 
-La direttiva ``import`` può essere usata per importare parametri conservati in qualsiasi parte.
+La direttiva ``imports`` può essere usata per importare parametri conservati in qualsiasi parte.
 Importare un file PHP permette di avere la flessibilità di aggiungere qualsiasi cosa sia
 necessaria al contenitore. Il seguente esempio importa un file di nome ``parametri.php``.
 
@@ -137,19 +146,19 @@ necessaria al contenitore. Il seguente esempio importa un file di nome ``paramet
 
         # app/config/config.yml
         imports:
-            - { resource: parametri.php }
+            - { resource: parameters.php }
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <imports>
-            <import resource="parametri.php" />
+            <import resource="parameters.php" />
         </imports>
 
     .. code-block:: php
 
         // app/config/config.php
-        $loader->import('parametri.php');
+        $loader->import('parameters.php');
 
 .. note::
 
@@ -164,7 +173,6 @@ di una base dati per Drupal in un contenitore di servizi symfony.
 .. code-block:: php
 
     // app/config/parameters.php
-
     include_once('/percorso/al/sito/drupal/default/settings.php');
     $container->setParameter('url.database.drupal', $db_url);
 

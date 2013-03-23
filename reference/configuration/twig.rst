@@ -9,11 +9,12 @@ Riferimento configurazione TwigBundle
     .. code-block:: yaml
 
         twig:
+            exception_controller:  Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction
             form:
                 resources:
 
                     # Default:
-                    - div_layout.html.twig
+                    - form_div_layout.html.twig
 
                     # Esempio:
                     - MioBundle::form.html.twig
@@ -23,19 +24,21 @@ Riferimento configurazione TwigBundle
                 foo:                 "@bar"
                 pi:                  3.14
 
-                # Prototype
-                key:
+                # Esempi di opzioni, ma l'uso più facile è quello visto sopra
+                some_variable_name:
+                    # id di un servizio
                     id:                   ~
+                    # impostare con il servizio o lasciare vuoto
                     type:                 ~
                     value:                ~
             autoescape:           ~
             base_template_class:  ~ # Esempio: Twig_Template
-            cache:                %kernel.cache_dir%/twig
-            charset:              %kernel.charset%
-            debug:                %kernel.debug%
+            cache:                "%kernel.cache_dir%/twig"
+            charset:              "%kernel.charset%"
+            debug:                "%kernel.debug%"
             strict_variables:     ~
             auto_reload:          ~
-            exception_controller:  Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction
+            optimizations:        ~
 
     .. code-block:: xml
 
@@ -86,10 +89,10 @@ exception_controller
 **tipo**: ``stringa`` **predefinito**: ``Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController::showAction``
 
 Questo è il controllore che viene attivato dopo il lancio di un'eccezione nella
-propria applicaizone. Il controllore predefinito
+propria applicazione. Il controllore predefinito
 (:class:`Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController`)
 è quello responsabile di rendere template specifici sotto differenti condizioni
 di errore (vedere :doc:`/cookbook/controller/error_pages`). La modifica di
 questa opzione è avanzata. Se occorre personalizzare una pagina di errore, si dovrebbe
-usare il collegamento precedente. Se occorre eseguire qualche azioni su un'eccezione,
+usare il collegamento precedente. Se occorre eseguire qualche azione su un'eccezione,
 si dovrebbe aggiungere un ascoltatore all'evento ``kernel.exception``  (vedere :ref:`dic-tags-kernel-event-listener`).

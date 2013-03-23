@@ -1,3 +1,6 @@
+.. index::
+   single: Doctrine; Funzioni DQL personalizzate
+
 Registrare funzioni DQL personalizzate
 ======================================
 
@@ -57,9 +60,11 @@ In Symfony, si possono registrare funzioni DQL personalizzate nel modo seguente:
         $container->loadFromExtension('doctrine', array(
             'orm' => array(
                 // ...
+
                 'entity_managers' => array(
                     'default' => array(
                         // ...
+
                         'dql' => array(
                             'string_functions' => array(
                                 'test_string'   => 'Acme\HelloBundle\DQL\StringFunction',
@@ -77,4 +82,4 @@ In Symfony, si possono registrare funzioni DQL personalizzate nel modo seguente:
             ),
         ));
 
-.. _`DQL User Defined Functions`: http://www.doctrine-project.org/docs/orm/2.0/en/cookbook/dql-user-defined-functions.html
+.. _`DQL User Defined Functions`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/dql-user-defined-functions.html

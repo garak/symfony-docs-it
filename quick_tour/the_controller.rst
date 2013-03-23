@@ -1,7 +1,7 @@
 Il controllore
 ==============
 
-Ancora qui, dopo le prime due parti? State diventano dei Symfony2-dipendenti!
+Ancora qui, dopo le prime due parti? State diventando dei Symfony2-dipendenti!
 Senza ulteriori indugi, scopriamo cosa sono in grado di fare i controllori.
 
 Usare i formati
@@ -16,6 +16,8 @@ Modificare il file ``routing.yml`` e aggiungere un formato ``_format``, con valo
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+    // ...
 
     /**
      * @Route("/hello/{name}", defaults={"_format"="xml"}, name="_demo_hello")
@@ -44,6 +46,8 @@ rotta::
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+    // ...
 
     /**
      * @Route("/hello/{name}.{_format}", defaults={"_format"="html"}, requirements={"_format"="html|xml|json"}, name="_demo_hello")
@@ -126,20 +130,25 @@ un qualsiasi controllore::
     // in un altro controllore per un'altra richiesta
     $foo = $session->get('foo');
 
-    // imposta la localizzazione dell'utente
-    $session->setLocale('fr');
+    // usa una valore predefinito se la chiave non esiste
+    $filters = $session->set('filters', array());
 
 Si possono anche memorizzare piccoli messaggi che saranno disponibili solo per
 la richiesta successiva::
 
     // memorizza un messaggio per la richiesta successiva (in un controllore)
-    $session->setFlash('notice', 'Congratulazioni, azione eseguita con successo!');
+    $session->getFlashBag()->set('notice', 'Congratulazioni, azione eseguita con successo!');
 
     // mostra il messaggio nella richiesta successiva (in un template)
-    {{ app.session.flash('notice') }}
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div>{{ flashMessage }}</div>
+    {% endfor %}
 
 Ciò risulta utile quando occorre impostare un messaggio di successo, prima di rinviare
-l'utente a un'altra pagina (la quale mostrerà il messaggio).
+l'utente a un'altra pagina (la quale mostrerà il messaggio). Si noti che l'uso di
+``has()`` al posto di ``get()`` fa sì che il messaggio non venga cancellato o quindi rimanga
+disponibile per le richieste successive.
 
 Proteggere le risorse
 ---------------------

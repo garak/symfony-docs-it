@@ -1,3 +1,6 @@
+.. index::
+   single: Sicurezza; "Ricordami"
+
 Come aggiungere la funzionalità "ricordami" al login
 ====================================================
 
@@ -18,8 +21,8 @@ mostrati di seguito:
         firewalls:
             main:
                 remember_me:
-                    key:      aSecretKey
-                    lifetime: 3600
+                    key:      "%secret%"
+                    lifetime: 31536000 # 365 giorni in secondi
                     path:     /
                     domain:   ~ # Defaults to the current domain from $_SERVER
 
@@ -29,8 +32,8 @@ mostrati di seguito:
         <config>
             <firewall>
                 <remember-me
-                    key="aSecretKey"
-                    lifetime="3600"
+                    key      = "%secret%"
+                    lifetime = "31536000" <!-- 365 giorni in secondi -->
                     path="/"
                     domain="" <!-- Defaults to the current domain from $_SERVER -->
                 />
@@ -42,12 +45,14 @@ mostrati di seguito:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'main' => array('remember_me' => array(
-                    'key'                     => '/login_check',
-                    'lifetime'                => 3600,
-                    'path'                    => '/',
-                    'domain'                  => '', // Defaults to the current domain from $_SERVER
-                )),
+                'main' => array(
+                    'remember_me' => array(
+                        'key'      => '%secret%',
+                        'lifetime' => 31536000, // 365 giorni in secondi
+                        'path'     => '/',
+                        'domain'   => '', // Prende il dominio corrente da $_SERVER
+                    ),
+                ),
             ),
         ));
 
@@ -55,7 +60,8 @@ mostrati di seguito:
 "ricordami", perché non sempre è appropriata. Il modo usuale per farlo è l'aggiunta di un
 checkbox al form di login. Dando al checkbox il nome ``_remember_me``, il cookie sarà
 automaticamente impostato quando il checkbox è spuntato e l'utente entra. Quindi, il
-proprio form di login potrebbe alla fine assomigliare a questo:
+proprio form di login potrebbe alla fine assomigliare a
+questo:
 
 .. configuration-block::
 
@@ -151,8 +157,8 @@ Nel seguente esempio, l'azione è consentita solo se l'utente ha il ruolo
 
 .. code-block:: php
 
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException
     // ...
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException
 
     public function editAction()
     {

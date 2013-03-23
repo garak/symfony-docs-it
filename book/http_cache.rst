@@ -8,7 +8,7 @@ Le applicazioni web sono dinamiche. Non importa quanto efficiente possa essere
 la propria applicazione, ogni richiesta conterrà sempre overhead rispetto a quando
 si serve un file statico.
 
-Per la maggior parte delle applicazione, questo non è un problema. Symfony2 è
+Per la maggior parte delle applicazioni, questo non è un problema. Symfony2 è
 molto veloce e, a meno che non si stia facendo qualcosa di veramente molto pesante,
 ogni richiesta sarà gestita rapidamente, senza stressare troppo il server.
 
@@ -46,7 +46,7 @@ passi:
   e il client. Symfony2 fornisce impostazioni predefinite appropriate e una potente
   interfaccia per interagire con gli header di cache.
 
-* **Passo 3**: La :ref:`scadenza e validazione <http-expiration-validation>` HTTP sono
+* **Passo 3**: La :ref:`scadenza e la validazione <http-expiration-validation>` HTTP sono
   due modelli usati per determinare se il contenuto in cache è *fresco* (può
   essere riusato dalla cache) o *vecchio* (andrebbe rigenerato
   dall'applicazione):
@@ -63,7 +63,7 @@ di Mark Nottingham.
 
 .. index::
    single: Cache; Proxy
-   single: Cache; Reverse Proxy
+   single: Cache; Reverse proxy
    single: Cache; Gateway
 
 .. _gateway-caches:
@@ -126,7 +126,7 @@ cache dei primi due tipi. Queste cache sono fuori dal nostro controllo, ma seguo
 le indicazioni di cache HTTP impostate nella risposta.
 
 .. index::
-   single: Cache; 
+   single: Cache; Reverse proxy di Symfony2
 
 .. _`symfony-gateway-cache`:
 
@@ -144,7 +144,6 @@ Per abilitare la cache, modificare il codice di un front controller, per usare
 il kernel della cache::
 
     // web/app.php
-
     require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
     require_once __DIR__.'/../app/AppCache.php';
@@ -153,9 +152,12 @@ il kernel della cache::
 
     $kernel = new AppKernel('prod', false);
     $kernel->loadClassCache();
-    // wrap the default AppKernel with the AppCache one
+    // inserisce AppKernel all'interno di AppCache
     $kernel = new AppCache($kernel);
-    $kernel->handle(Request::createFromGlobals())->send();
+    $request = Request::createFromGlobals();
+    $response = $kernel->handle($request);
+    $response->send();
+    $kernel->terminate($request, $response);
 
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
 le risposte della propria applicazione e restituendole al client.
@@ -169,11 +171,11 @@ le risposte della propria applicazione e restituendole al client.
         error_log($kernel->getLog());
 
 L'oggetto ``AppCache`` una una configurazione predefinita adeguata, ma può essere
-regolato tramite un insieme di opzioni impostabili sovrascrivendo il metodo
-``getOptions()``::
+regolato tramite un insieme di opzioni impostabili sovrascrivendo il
+metodo
+:method:`Symfony\\Bundle\\FrameworkBundle\\HttpCache\\HttpCache::getOptions`::
 
     // app/AppCache.php
-
     use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 
     class AppCache extends HttpCache
@@ -270,9 +272,8 @@ gli header di cache HTTP nella risposta.
 
     Si tenga a mente che "HTTP" non è altro che il linguaggio (un semplice linguaggio
     testuale) usato dai client web (p.e. i browser) e i server web per comunicare
-    tra loro. Quando parliamo di cache HTTP, parliamo della parte di tale linguaggio
-    che consente a client e server di scambiarsi informazioni riguardo alla
-    cache.
+    tra loro. La cache HTTP è la parte di tale linguaggio che consente a client
+    e server di scambiarsi informazioni riguardo alla cache.
 
 HTTP specifica quattro header di cache per la risposta di cui ci occupiamo:
 
@@ -305,9 +306,11 @@ Ogni pezzo di informazione è separato da una virgola:
      Cache-Control: max-age=3600, must-revalidate
 
 Symfony fornisce un'astrazione sull'header ``Cache-Control``, per rendere la sua
-creazione più gestibile:
+creazione più gestibile::
 
-.. code-block:: php
+    // ...
+
+    use Symfony\Component\HttpFoundation\Response;
 
     $response = new Response();
 
@@ -458,7 +461,9 @@ come parametro::
 
     $response->setExpires($date);
 
-Il risultante header HTTP sarà simile a questo::
+Il risultante header HTTP sarà simile a questo:
+
+.. code-block:: text
 
     Expires: Thu, 01 Mar 2011 16:00:00 GMT
 
@@ -484,8 +489,9 @@ Scadenza con l'header ``Cache-Control``
 A causa dei limiti dell'header ``Expires``, la maggior parte delle volte si userà
 al suo posto l'header ``Cache-Control``. Si ricordi che l'header ``Cache-Control``
 è usato per specificare molte differenti direttive di cache. Per la scadenza, ci
-sono due direttive, ``max-age`` e ``s-maxage``.  La prima è usata da tutte le cache,
-mentre la seconda viene considerata solo dalla cache condivise::
+sono due direttive, ``max-age`` e ``s-maxage``.  La prima è usata da tutte le
+cache, mentre la seconda viene considerata solo dalla cache
+condivise::
 
     // Imposta il numero di secondi dopo cui la risposta
     // non dovrebbe più essere considerata fresca
@@ -495,7 +501,9 @@ mentre la seconda viene considerata solo dalla cache condivise::
     $response->setSharedMaxAge(600);
 
 L'header ``Cache-Control`` avrebbe il seguente formato (potrebbe contenere
-direttive aggiuntive)::
+direttive aggiuntive):
+
+.. code-block:: text
 
     Cache-Control: max-age=600, s-maxage=600
 
@@ -544,25 +552,25 @@ univocamente una rappresentazione della risorsa in questione. È interamente
 generato e impostato dalla propria applicazione, quindi si può dire, per esempio, se
 la risorsa ``/about`` che è in cache sia aggiornata con ciò che la propria
 applicazione restituirebbe. Un ``ETag`` è come un'impronta digitale ed è usato per
-confrontare rapidamente se due diverse versioni di una risorsa siano equivalenti.
-Come le impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazioni
-della stessa risorsa.
+confrontare rapidamente se due diverse versioni di una risorsa siano equivalenti. Come le
+impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazioni della stessa risorsa.
 
-Vediamo una semplice implementazione, che genera l'ETag come un md5 del
-contenuto::
+Vediamo una semplice implementazione, che genera l'ETag come un md5 del contenuto::
 
     public function indexAction()
     {
         $response = $this->render('MyBundle:Main:index.html.twig');
         $response->setETag(md5($response->getContent()));
+        $response->setPublic(); // make sure the response is public/cacheable
         $response->isNotModified($this->getRequest());
 
         return $response;
     }
 
-Il metodo ``Response::isNotModified()`` confronta l'``ETag`` inviato con la
-``Request`` con quello impostato nella ``Response``. Se i due combaciano, il
-metodo imposta automaticamente il codice di stato della ``Response`` a 304.
+Il metodo :method:`Symfony\\Component\\HttpFoundation\\Response::isNotModified`
+confronta l'``ETag`` inviato con la ``Request`` con quello impostato nella
+``Response``. Se i due combaciano, il metodo imposta automaticamente il codice
+di stato della ``Response`` a 304.
 
 Questo algoritmo è abbastanza semplice e molto generico, ma occorre creare
 l'intera ``Response`` prima di poter calcolare l'ETag, che non è ottimale.
@@ -606,7 +614,14 @@ necessari per calcolare la rappresentazione della risorsa come valore dell'heade
         $date = $authorDate > $articleDate ? $authorDate : $articleDate;
 
         $response->setLastModified($date);
-        $response->isNotModified($this->getRequest());
+        // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
+        $response->setPublic();
+
+        if ($response->isNotModified($this->getRequest())) {
+            return $response;
+        }
+
+        // ... fare qualcosa per popolare la risposta con il contenuto completo
 
         return $response;
     }
@@ -637,28 +652,33 @@ In altre parole, meno la propria applicazione fa per restituire una risposta 304
 meglio è. Il metodo ``Response::isNotModified()`` fa esattamente questo, esponendo
 uno schema semplice ed efficiente::
 
+    use Symfony\Component\HttpFoundation\Response;
+
     public function showAction($articleSlug)
     {
         // Prende l'informazione minima per calcolare
         // l'ETag o o il valore di Last-Modified
-        // (in base alla Request, i dati sono recuperati da un
-        // database o da una memoria chiave-valore, per esempio)
-        $article = // ...
+        // (in base alla Request, i dati sono recuperati da una
+        // base dati o da una memoria chiave-valore, per esempio)
+        $article = ...;
 
         // crea una Response con un ETag e/o un header Last-Modified
         $response = new Response();
         $response->setETag($article->computeETag());
         $response->setLastModified($article->getPublishedAt());
 
+        // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
+        $response->setPublic();
+
         // Verifica che la Response non sia modificata per la Request data
         if ($response->isNotModified($this->getRequest())) {
             // restituisce subito la Response 304
             return $response;
         } else {
-            // qui fa più lavoro, come recuperare altri dati
-            $comments = // ...
-            
-            // o rende un template con la $response già iniziata
+            // qui fare qualcosa, come recuperare altri dati
+            $comments = ...;
+
+            // o rendere un template con la $response già iniziata
             return $this->render(
                 'MyBundle:MyController:article.html.twig',
                 array('article' => $article, 'comments' => $comments),
@@ -669,7 +689,7 @@ uno schema semplice ed efficiente::
 
 Quando la ``Response`` non è stata modificata, ``isNotModified()`` imposta automaticamente
 il codice di stato della risposta a ``304``, rimuove il contenuto e rimuove alcuni header
-che no devono essere presenti in una risposta ``304`` (vedere
+che non devono essere presenti in una risposta ``304`` (vedere
 :method:`Symfony\\Component\\HttpFoundation\\Response::setNotModified`).
 
 .. index::
@@ -694,7 +714,9 @@ In questo caso, occorre mettere in cache sia una versione compressa che una non 
 della risposta di un particolare URI e restituirle in base al valore ``Accept-Encoding``
 della richiesta. Lo si può fare usando l'header di risposta ``Vary``, che è una lista
 separata da virgole dei diversi header i cui valori causano rappresentazioni diverse
-della risorsa richiesta::
+della risorsa richiesta:
+
+.. code-block:: text
 
     Vary: Accept-Encoding, User-Agent
 
@@ -776,14 +798,15 @@ poiché è l'unico utile nel contesto di Akamaï:
 
 .. code-block:: html
 
+    <!DOCTYPE html>
     <html>
         <body>
-            Del contenuto
+            <!-- ... del contenuto -->
 
             <!-- Inserisce qui il contenuto di un'altra pagina -->
             <esi:include src="http://..." />
 
-            Dell'altro contenuto
+            <!-- ... dell'altro contenuto -->
         </body>
     </html>
 
@@ -844,6 +867,7 @@ indipendentemente dal resto della pagina.
     public function indexAction()
     {
         $response = $this->render('MyBundle:MyController:index.html.twig');
+        // imposta il tempo massimo condiviso, il che rende la risposta pubblica
         $response->setSharedMaxAge(600);
 
         return $response;
@@ -861,11 +885,44 @@ Symfony2 usa l'helper ``render`` per configurare i tag ESI:
 
     .. code-block:: jinja
 
-        {% render '...:news' with {}, {'standalone': true} %}
+        {% render url('latest_news', { 'max': 5 }), {'standalone': true} %}
 
     .. code-block:: php
 
-        <?php echo $view['actions']->render('...:news', array(), array('standalone' => true)) ?>
+        <?php echo $view['actions']->render(
+            $view['router']->generate('latest_news', array('max' => 5), true),
+            array('standalone' => true)
+        ) ?>
+
+.. include:: /book/_security-2012-6431.rst.inc
+
+Il tag ``render`` accetta un url assoluto dell'azione inclusa. Questo vuol dire
+che occorre definire una nuova rotta per il controllore che si sta includendo:
+
+.. code-block:: yaml
+
+    # app/config/routing.yml
+    latest_news:
+        pattern:      /esi/latest-news/{max}
+        defaults:     { _controller: AcmeNewsBundle:News:news }
+        requirements: { max: \d+ }
+
+.. caution::
+
+    A meno che non si voglia che tale URL sia accessibile esternamente, si deve
+    usare il firewall di Symfony per proteggerlo (consentendo l'accesso agli
+    IP del proprio reverse proxy). Vedere la sezione :ref:`Protezione per IP<book-security-securing-ip>`
+    del :doc:`capitolo sulla sicurezza </book/security>` per maggiori informazioni
+    su come poterlo fare.
+
+.. tip::
+
+    Il modo milgiore è montare tutti gli url ESI su un solo prefisso (p.e.
+    ``/esi``) a scelta. Questo approccio ha due vantaggi. Primo, facilita
+    la gestione degli url ESI, perché si possono identificare facilmente le rotte usate per ESI.
+    Secondo, facilita la gestione della sicurezza, perché si possono proteggere tutti gli url che iniziano
+    con lo stesso prefisso più facilmente rispetto a url individuali. Vedere
+    la nota precedente per maggiori dettagli su come proteggere gli URL ESI.
 
 Impostando ``standalone`` a ``true``, si dice a Symfony2 che l'azione andrebbe
 resa come tag ESI. Ci si potrebbe chiedere perché usare un helper invece di usare
@@ -892,7 +949,7 @@ dalla pagina principale.
 
 .. code-block:: php
 
-    public function newsAction()
+    public function newsAction($max)
     {
       // ...
 
@@ -901,52 +958,6 @@ dalla pagina principale.
 
 Con ESI, la cache dell'intera pagina sarà valida per 600 secondi, mentre il
 componente delle news avrà una cache che dura per soli 60 secondi.
-
-Un requisito di ESI, tuttavia, è che l'azione inclusa sia accessibile tramite
-un URL, in modo che il gateway cache possa recuperarla indipendentemente dal
-resto della pagina. Ovviamente, un URL non può essere accessibile se non ha una rotta
-che punti a esso. Symfony2 si occupa di questo tramite una rotta e un controllore
-generici. Per poter far funzionare i tag include di ESI, occorre definire la rotta
-``_internal``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/routing.yml
-        _internal:
-            resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-            prefix:   /_internal
-
-    .. code-block:: xml
-
-        <!-- app/config/routing.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <import resource="@FrameworkBundle/Resources/config/routing/internal.xml" prefix="/_internal" />
-        </routes>
-
-    .. code-block:: php
-
-        // app/config/routing.php
-        use Symfony\Component\Routing\RouteCollection;
-        use Symfony\Component\Routing\Route;
-
-        $collection->addCollection($loader->import('@FrameworkBundle/Resources/config/routing/internal.xml', '/_internal'));
-
-        return $collection;
-
-.. tip::
-
-    Poiché questa rotta consente l'accesso a tutte le azioni tramite URL, si potrebbe
-    volerla proteggere usando il firewall di Symfony2 (consentendo l'accesso al range di
-    IP del proprio reverse proxy). Vedere la sezione 
-    :ref:`Sicurezza tramite IP<book-security-securing-ip>` del
-    :doc:`Capitolo sulla sicurezza </book/security>` per maggiori informazioni.
 
 Un grosso vantaggio di questa strategia di cache è che si può rendere la propria
 applicazione tanto dinamica quanto necessario e, allo stesso tempo, mantenere gli
@@ -1000,7 +1011,13 @@ Ecco come si può configurare il reverse proxy di Symfony2 per supportare il
 metodo HTTP ``PURGE``::
 
     // app/AppCache.php
-    class AppCache extends Cache
+
+    // ...
+    use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+
+    class AppCache extends HttpCache
     {
         protected function invalidate(Request $request)
         {

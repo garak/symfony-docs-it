@@ -23,7 +23,7 @@ Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mo
 
 L'obiettivo di un controllore è sempre lo stesso: creare e restituire un oggetto
 ``Response``. Lungo il percorso, potrebbe leggere le informazioni dalla richiesta, caricare una
-risorsa da un database, inviare un'email, o impostare informazioni sulla sessione dell'utente.
+risorsa da una base dati, inviare un'email, o impostare informazioni sulla sessione dell'utente.
 Ma in ogni caso, il controllore alla fine restituirà un oggetto ``Response``
 che verrà restituito al client.
 	
@@ -34,8 +34,8 @@ esempi comuni:
   della homepage di un sito.
 
 * Il *controllore B* legge il parametro ``slug`` da una richiesta per caricare un
-  blog da un database e creare un oggetto ``Response`` che visualizza
-  quel blog. Se lo ``slug`` non viene trovato nel database, crea e
+  blog da una base dati  e creare un oggetto ``Response`` che visualizza
+  quel blog. Se lo ``slug`` non viene trovato nella base dati, crea e
   restituisce un oggetto ``Response`` con codice di stato 404.
 
 * Il *controllore C* gestisce l'invio di un form contatti. Legge le
@@ -51,7 +51,7 @@ Richieste, controllori, ciclo di vita della risposta
 ----------------------------------------------------
 
 Ogni richiesta gestita da un progetto Symfony2 passa attraverso lo stesso semplice ciclo di vita.
-Il framework si occupa dei compiti ripetitivi ed infine esegue un
+Il framework si occupa dei compiti ripetitivi e infine esegue un
 controllore, che ospita il codice personalizzato dell'applicazione:
 
 #. Ogni richiesta è gestita da un singolo file con il controllore principale (ad esempio ``app.php``
@@ -94,8 +94,8 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
     :linenos:
 
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
+
     use Symfony\Component\HttpFoundation\Response;
 
     class HelloController
@@ -202,14 +202,11 @@ I parametri delle rotte come parametri del controllore
 Si è già appreso che il parametro ``AcmeHelloBundle:Hello:index`` di ``_controller``
 fa riferimento a un metodo ``HelloController::indexAction()`` che si trova all'interno di un
 bundle ``AcmeHelloBundle``. La cosa più interessante è che i parametri vengono
-passati a tale metodo:
+passati a tale metodo::
 
-.. code-block:: php
-
-    <?php
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     class HelloController extends Controller
@@ -276,7 +273,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($last_name, $color, $first_name)
         {
-            // ..
+            // ...
         }
 
 * **Ogni parametro richiesto del controllore, deve corrispondere a uno dei parametri della rotta**
@@ -286,15 +283,15 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $last_name, $color, $foo)
         {
-            // ..
+            // ...
         }
 
-    Rendere l'parametro facoltativo metterebbe le cose a posto. Il seguente
+    Rendere il parametro facoltativo metterebbe le cose a posto. Il seguente
     esempio non lancerebbe un'eccezione::
 
         public function indexAction($first_name, $last_name, $color, $foo = 'bar')
         {
-            // ..
+            // ...
         }
 
 * **Non tutti i parametri delle rotte devono essere parametri del controllore**
@@ -304,7 +301,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 
         public function indexAction($first_name, $color)
         {
-            // ..
+            // ...
         }
 
 .. tip::
@@ -327,8 +324,8 @@ lavora con i form, ad esempio::
     public function updateAction(Request $request)
     {
         $form = $this->createForm(...);
-        
-        $form->bindRequest($request);
+
+        $form->bind($request);
         // ...
     }
 
@@ -344,13 +341,11 @@ l'accesso a qualsiasi risorsa che potrebbe essere necessaria. Estendendo questa 
 è possibile usufruire di numerosi metodi helper.
 
 Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificare
-``HelloController`` per estenderla:
-
-.. code-block:: php
+``HelloController`` per estenderla::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     namespace Acme\HelloBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Response;
 
@@ -375,13 +370,12 @@ stessa.
 
     Estendere la classe base è *opzionale* in Symfony; essa contiene utili
     scorciatoie ma niente di obbligatorio. È inoltre possibile estendere
-    ``Symfony\Component\DependencyInjection\ContainerAware``. L'oggetto
+    :class:`Symfony\Component\DependencyInjection\ContainerAware`. L'oggetto
     service container sarà quindi accessibile tramite la proprietà ``container``.
 
 .. note::
 
-    È inoltre possibile definire i :doc:`Controllori come servizi
-    </cookbook/controller/service>`.
+    È inoltre possibile definire i :doc:`controllori come servizi</cookbook/controller/service>`.
 
 .. index::
    single: Controllore; Attività comuni
@@ -422,9 +416,7 @@ eseguire un rinvio 301 (permanente), modificare il secondo parametro::
 .. tip::
 
     Il metodo ``redirect()`` è semplicemente una scorciatoia che crea un oggetto ``Response``
-    specializzato nel rinviare l'utente. È equivalente a:
-
-    .. code-block:: php
+    specializzato nel rinviare l'utente. È equivalente a::
 
         use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -448,8 +440,8 @@ e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'ogget
             'color' => 'green'
         ));
 
-        // modifica ulteriormente la risposta o ritorna direttamente
-        
+        // ... modificare ulteriormente la risposta o restituirla direttamente
+
         return $response;
     }
 
@@ -480,10 +472,13 @@ valore di ogni variabile.
     ``Response``::
     
         $httpKernel = $this->container->get('http_kernel');
-        $response = $httpKernel->forward('AcmeHelloBundle:Hello:fancy', array(
-            'name'  => $name,
-            'color' => 'green',
-        ));
+        $response = $httpKernel->forward(
+            'AcmeHelloBundle:Hello:fancy',
+            array(
+                'name'  => $name,
+                'color' => 'green',
+            )
+        );
 
 .. index::
    single: Controllore; Rendere i template
@@ -498,14 +493,22 @@ che è responsabile di generare il codice HTML (o un altro formato) per il contr
 Il metodo ``renderView()`` rende un template e restituisce il suo contenuto. Il
 contenuto di un template può essere usato per creare un oggetto ``Response``::
 
-    $content = $this->renderView('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+    use Symfony\Component\HttpFoundation\Response;
+
+    $content = $this->renderView(
+        'AcmeHelloBundle:Hello:index.html.twig',
+        array('name' => $name)
+    );
 
     return new Response($content);
 
 Questo può anche essere fatto in un solo passaggio con il metodo ``render()``, che
 restituisce un oggetto ``Response`` contenente il contenuto di un template::
 
-    return $this->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+    return $this->render(
+        'AcmeHelloBundle:Hello:index.html.twig',
+        array('name' => $name)
+    );
 
 In entrambi i casi, verrà reso il template ``Resources/views/Hello/index.html.twig`` presente
 all'interno di ``AcmeHelloBundle``.
@@ -515,11 +518,32 @@ capitolo :doc:`Template </book/templating>`.
 
 .. tip::
 
+    Si può anche evitare di richiamare il metodo ``render``, usando l'annotazione ``@Template``.
+    Si veda la :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/view>`
+    per maggiori dettagli.
+
+.. tip::
+
     Il metodo ``renderView`` è una scorciatoia per utilizzare direttamente il servizio
     ``templating``. Il servizio ``templating`` può anche essere utilizzato in modo diretto::
-    
+
         $templating = $this->get('templating');
-        $content = $templating->render('AcmeHelloBundle:Hello:index.html.twig', array('name' => $name));
+        $content = $templating->render(
+            'AcmeHelloBundle:Hello:index.html.twig',
+            array('name' => $name)
+        );
+
+.. note::
+
+    Si possono anche rendere template in ulterioi sotto-cartelle, ma si faccia attenzione
+    a evitare l'errore di rendere la struttura delle cartelle eccessivamente
+    elaborata::
+
+        $templating->render(
+            'AcmeHelloBundle:Hello/Greetings:index.html.twig',
+            array('name' => $name)
+        );
+        // viene reso index.html.twig trovato in Resources/views/Hello/Greetings
 
 .. index::
    single: Controllore; Accedere ai servizi
@@ -544,7 +568,7 @@ di propri. Per elencare tutti i servizi disponibili, utilizzare il comando di co
 
 .. code-block:: bash
 
-    php app/console container:debug
+    $ php app/console container:debug
 
 Per maggiori informazioni, vedere il capitolo :doc:`/book/service_container`.
 
@@ -561,7 +585,8 @@ Se si sta estendendo la classe base del controllore, procedere come segue::
 
     public function indexAction()
     {
-        $product = // recuperare l'oggetto dal database
+        // recuperare l'oggetto dalla base dati 
+        $product = ...;
         if (!$product) {
             throw $this->createNotFoundException('Il prodotto non esiste');
         }
@@ -607,8 +632,8 @@ da qualsiasi controllore::
     // in un altro controllore per un'altra richiesta
     $foo = $session->get('foo');
 
-    // imposta il locale dell'utente
-    $session->setLocale('fr');
+    // usa un valore predefinito, se la chiave non esiste
+    $filters = $session->set('filters', array());
 
 Questi attributi rimarranno sull'utente per il resto della sessione
 utente.
@@ -619,10 +644,10 @@ utente.
 Messaggi flash
 ~~~~~~~~~~~~~~
 
-È anche possibile memorizzare messaggi di piccole dimensioni che vengono memorizzati sulla sessione utente
-solo per una richiesta successiva. Ciò è utile quando si elabora un form:
+È anche possibile memorizzare messaggi di piccole dimensioni, all'interno della sessione dell'utente
+e solo per la richiesta successiva. Ciò è utile quando si elabora un form:
 si desidera rinviare e avere un messaggio speciale mostrato sulla richiesta *successiva*.
-Questo tipo di messaggi sono chiamati messaggi "flash".
+I messaggi di questo tipo sono chiamati messaggi "flash".
 
 Per esempio, immaginiamo che si stia elaborando un form inviato::
 
@@ -630,11 +655,11 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
     {
         $form = $this->createForm(...);
 
-        $form->bindRequest($this->getRequest());
+        $form->bind($this->getRequest());
         if ($form->isValid()) {
             // fare una qualche elaborazione
 
-            $this->get('session')->setFlash('notice', 'Le modifiche sono state salvate!');
+            $this->get('session')->getFlashBag()->add('notice', 'Le modifiche sono state salvate!');
 
             return $this->redirect($this->generateUrl(...));
         }
@@ -653,19 +678,19 @@ il messaggio ``notice``:
 
     .. code-block:: html+jinja
 
-        {% if app.session.hasFlash('notice') %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
             <div class="flash-notice">
-                {{ app.session.flash('notice') }}
+                {{ flashMessage }}
             </div>
-        {% endif %}
+        {% endfor %}
 
     .. code-block:: php
-    
-        <?php if ($view['session']->hasFlash('notice')): ?>
+
+        <?php foreach ($view['session']->getFlash('notice') as $message): ?>
             <div class="flash-notice">
-                <?php echo $view['session']->getFlash('notice') ?>
+                <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>
-        <?php endif; ?>
+        <?php endforeach; ?>
 
 Per come sono stati progettati, i messaggi flash sono destinati a vivere esattamente per una richiesta (hanno la
 "durata di un flash"). Sono progettati per essere utilizzati in redirect esattamente come
@@ -682,9 +707,11 @@ classe :class:`Symfony\\Component\\HttpFoundation\\Response` è una astrazione P
 sulla risposta HTTP - il messaggio testuale che contiene gli header HTTP
 e il contenuto che viene inviato al client::
 
-    // crea una semplice risposta con un codice di stato 200 (il predefinito)
-    $response = new Response('Hello '.$name, 200);
-    
+    use Symfony\Component\HttpFoundation\Response;
+
+    // crea una semplice risposta JSON con un codice di stato 200 (predefinito)
+    $response = new Response('Ciao '.$name, 200);
+
     // crea una risposta JSON con un codice di stato 200
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');
@@ -696,6 +723,11 @@ e il contenuto che viene inviato al client::
     utili metodi per leggere e modificare gli header ``Response``. I
     nomi degli header sono normalizzati in modo che l'utilizzo di ``Content-Type`` sia equivalente
     a ``content-type`` o anche a ``content_type``.
+
+.. tip::
+
+    C'è anche una classe speciale :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
+    che aiuta a restituire risposte JSON. Vedere :ref:`component-http-foundation-json-response`.
 
 .. index::
    single: Controllore; Oggetto Request 
@@ -733,7 +765,7 @@ dal momento che non si vuole mettere il codice HTML nel controllore, è possibil
 il metodo ``render()`` per rendere e restituire il contenuto da un template.
 
 In altri capitoli, si vedrà come il controllore può essere usato per persistere e
-recuperare oggetti da un database, processare i form inviati, gestire la cache e
+recuperare oggetti da una base dati, processare i form inviati, gestire la cache e
 altro ancora.
 
 Imparare di più dal ricettario

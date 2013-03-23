@@ -12,16 +12,22 @@ Configurazione predefinita completa
     .. code-block:: yaml
 
         assetic:
-            debug:                true
-            use_controller:       true
+            debug:                %kernel.debug%
+            use_controller:
+                enabled:              %kernel.debug%
+                profiler:             false
             read_from:            %kernel.root_dir%/../web
             write_to:             %assetic.read_from%
             java:                 /usr/bin/java
             node:                 /usr/bin/node
+            ruby:                 /usr/bin/ruby
             sass:                 /usr/bin/sass
+            # Una coppia chiave-valore di un numero di elementi
+            variables:
+                some_name:                 []
             bundles:
 
-                # Defaults (all currently registered bundles):
+                # Predefiniti (tutti i bundle attualmente registrati):
                 - FrameworkBundle
                 - SecurityBundle
                 - TwigBundle
@@ -30,23 +36,68 @@ Configurazione predefinita completa
                 - DoctrineBundle
                 - AsseticBundle
                 - ...
-
             assets:
-
-                # Prototype
-                name:
+                # Un array di risorse (p.e. una_risorsa, un_altra_risorsa)
+                some_asset:
                     inputs:               []
                     filters:              []
                     options:
-
-                        # Prototype
-                        name:                 []
+                        # Un array chiave-valore di opzioni e valori
+                        some_option_name: []
             filters:
 
-                # Prototype
-                name:                 []
+                # Un array di filtri (p.e. un_filtro, un_altro_filtro)
+                some_filter:                 []
             twig:
                 functions:
+                    # Un array di funzioni (p.e. una_funzione, un_altra_funzione)
+                    some_function:                 []
 
-                    # Prototype
-                    name:                 []
+    .. code-block:: xml
+
+        <assetic:config
+            debug="%kernel.debug%"
+            use-controller="%kernel.debug%"
+            read-from="%kernel.root_dir%/../web"
+            write-to="%assetic.read_from%"
+            java="/usr/bin/java"
+            node="/usr/bin/node"
+            sass="/usr/bin/sass"
+        >
+            <!-- Predefiniti (tutti i bundle attualmente registrati) -->
+            <assetic:bundle>FrameworkBundle</assetic:bundle>
+            <assetic:bundle>SecurityBundle</assetic:bundle>
+            <assetic:bundle>TwigBundle</assetic:bundle>
+            <assetic:bundle>MonologBundle</assetic:bundle>
+            <assetic:bundle>SwiftmailerBundle</assetic:bundle>
+            <assetic:bundle>DoctrineBundle</assetic:bundle>
+            <assetic:bundle>AsseticBundle</assetic:bundle>
+            <assetic:bundle>...</assetic:bundle>
+
+            <assetic:asset>
+                <!-- prototype -->
+                <assetic:name>
+                    <assetic:input />
+
+                    <assetic:filter />
+
+                    <assetic:option>
+                        <!-- prototype -->
+                        <assetic:name />
+                    </assetic:option>
+                </assetic:name>
+            </assetic:asset>
+
+            <assetic:filter>
+                <!-- prototype -->
+                <assetic:name />
+            </assetic:filter>
+
+            <assetic:twig>
+                <assetic:functions>
+                    <!-- prototype -->
+                    <assetic:name />
+                </assetic:functions>
+            </assetic:twig>
+
+        </assetic:config>

@@ -1,3 +1,6 @@
+.. index::
+   single: Assetic; Applicare filtri
+
 Applicare i filtri di Assetic a file con specifiche estensioni
 ==============================================================
 
@@ -52,9 +55,7 @@ come se fosse un normale JavaScript:
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
-            filter='coffee'
-        %}
+        {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee' filter='coffee' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
@@ -62,8 +63,9 @@ come se fosse un normale JavaScript:
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/esempio.coffee'),
-            array('coffee')) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
+            array('coffee')
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
         <?php endforeach; ?>
 
 Questo è tutto quel che serve per compilare il file CoffeeScript e restituirlo
@@ -80,22 +82,26 @@ Filtrare file multpili
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
-            filter='coffee'
-        %}
+            filter='coffee' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmeFooBundle/Resources/public/js/esempio.coffee',
-                  '@AcmeFooBundle/Resources/public/js/altro.coffee'),
-            array('coffee')) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
+            array(
+                '@AcmeFooBundle/Resources/public/js/esempio.coffee',
+                '@AcmeFooBundle/Resources/public/js/altro.coffee',
+            ),
+            array('coffee')
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
         <?php endforeach; ?>
 
 Tutti i file verranno restituiti e compilati in un unico, regolare file 
 JavaScript.
+
+.. _cookbook-assetic-apply-to:
 
 Filtrare in base all'estensione del file
 ----------------------------------------
@@ -159,17 +165,18 @@ dal filtro CoffeeScript):
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
-                       '@AcmeFooBundle/Resources/public/js/regolare.js'
-        %}
+                       '@AcmeFooBundle/Resources/public/js/regolare.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmeFooBundle/Resources/public/js/esempio.coffee',
-                  '@AcmeFooBundle/Resources/public/js/altro.coffee',
-                  '@AcmeFooBundle/Resources/public/js/regolare.js'),
-            as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
+            array(
+                '@AcmeFooBundle/Resources/public/js/esempio.coffee',
+                '@AcmeFooBundle/Resources/public/js/altro.coffee',
+                '@AcmeFooBundle/Resources/public/js/regolare.js',
+            )
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
         <?php endforeach; ?>

@@ -128,7 +128,7 @@ questa:
     Content-Type: text/html
 
     <html>
-      <!-- HTML for the xkcd comic -->
+      <!-- ... HTML for the xkcd comic -->
     </html>
 
 La risposta HTTP contiene la risorsa richiesta (il contenuto HTML, in questo caso).
@@ -179,11 +179,8 @@ Richieste e risposte in PHP
 ---------------------------
 
 Dunque, come interagire con la "richiesta" e creare una "risposta" quando
-si usa PHP? In realtà, PHP astrae un po' l'intero processo:
+si usa PHP? In realtà, PHP astrae un po' l'intero processo::
 
-.. code-block:: php
-
-    <?php
     $uri = $_SERVER['REQUEST_URI'];
     $pippo = $_GET['pippo'];
 
@@ -310,7 +307,7 @@ mezzo. In altre parole, il vero lavoro consiste nello scrivere il codice che int
 l'informazione della richiesta e crea la risposta.
 
 La propria applicazione probabilmente fa molte cose, come inviare email, gestire invii di
-form, salvare dati in un database, rendere pagine HTML e proteggere contenuti. Come si
+form, salvare dati in una base dati, rendere pagine HTML e proteggere contenuti. Come si
 può gestire tutto questo e mantenere al contempo il proprio codice organizzato e
 mantenibile?
 
@@ -331,7 +328,7 @@ fosse un file fisico:
 Ci sono molti problemi con questo approccio, inclusa la flessibilità degli URL (che
 succede se si vuole cambiare ``blog.php`` con ``news.php`` senza rompere tutti i
 collegamenti?) e il fatto che ogni file *deve* includere manualmente alcuni file
-necessari, in modo che la sicurezza, le connessioni al database e l'aspetto del sito
+necessari, in modo che la sicurezza, le connessioni alla base dati e l'aspetto del sito
 possano rimanere coerenti.
 
 Una soluzione molto migliore è usare un :term:`front controller`: un unico file PHP
@@ -363,12 +360,11 @@ Restare organizzati
 Ma all'interno del nostro front controller, come possiamo sapere quale pagina debba essere
 resa e come poterla renderla in modo facile? In un modo o nell'altro, occorre verificare
 l'URI in entrata ed eseguire parti diverse di codice, a seconda di tale valore. Le cose
-possono peggiorare rapidamente:
-
-.. code-block:: php
+possono peggiorare rapidamente::
 
     // index.php
-
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
     $request = Request::createFromGlobals();
     $path = $request->getPathInfo(); // l'URL richiesto
 
@@ -423,24 +419,47 @@ Senza entrare troppo in dettaglio, vediamo questo processo in azione. Supponiamo
 di voler aggiungere una pagina ``/contact`` alla nostra applicazione Symfony. Primo,
 iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle rotte:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    contact:
-        pattern:  /contact
-        defaults: { _controller: AcmeDemoBundle:Main:contact }
+    .. code-block:: yaml
+
+        # app/config/routing.yml
+        contact:
+            pattern:  /contact
+            defaults: { _controller: AcmeDemoBundle:Main:contact }
+
+    .. code-block:: xml
+
+        <route id="contact" pattern="/contact">
+            <default key="_controller">AcmeBlogBundle:Main:contact</default>
+        </route>
+
+    .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+        use Symfony\Component\Routing\Route;
+
+        $collection = new RouteCollection();
+        $collection->add('contact', new Route('/contact', array(
+            '_controller' => 'AcmeBlogBundle:Main:contact',
+        )));
+
+        return $collection;
 
 .. note::
 
-   L'esempio usa :doc:`YAML</reference/YAML>` per definire la configurazione delle rotte.
+   L'esempio usa :doc:`YAML</components/yaml/introduction>` per definire la configurazione delle rotte.
    La configurazione delle rotte può essere scritta anche in altri formati, come XML o
    PHP.
 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
 specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
 la stringa ``AcmeDemoBundle:Main:contact`` è una sintassi breve che punta a uno specifico
-metodo PHP ``contactAction`` in una classe chiamata ``MainController``:
+metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
-.. code-block:: php
+    // src/Acme/DemoBundle/Controller/MainController.php
+    use Symfony\Component\HttpFoundation\Response;
 
     class MainController
     {
@@ -450,12 +469,13 @@ metodo PHP ``contactAction`` in una classe chiamata ``MainController``:
         }
     }
 
-In questo semplice esempio, il controllore semplicemente crea un oggetto ``Response``
-con il codice HTML "<h1>Contacttaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
+In questo semplice esempio, il controllore semplicemente crea un oggetto
+:class:`Symfony\\Component\\HttpFoundation\\Response` con il codice HTML
+"<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
 si imparerà come un controllore possa rendere dei template, consentendo al proprio codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose
-difficili: interagire col database, gestire l'invio di dati o l'invio di messaggi
+difficili: interagire con la base dati, gestire l'invio di dati o l'invio di messaggi
 email. 
 
 Symfony2: costruire la propria applicazione, non i propri strumenti.
@@ -484,12 +504,14 @@ possono essere usate in *qualsiasi* progetto PHP. Queste librerie, chiamate
 *componenti di Symfony2*, contengono qualcosa di utile per quasi ogni situazione,
 comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 
-* `HttpFoundation`_ - Contiene le classi ``Request`` e ``Response``, insieme ad altre
-  classi per gestire sessioni e caricamenti di file;
+* :doc:`HttpFoundation</components/http_foundation/introduction>` - Contiene le classi
+  ``Request`` e ``Response``, insieme ad altre  classi per gestire sessioni
+  e caricamenti di file;
 
-* `Routing`_ - Sistema di rotte potente e veloce, che consente di mappare uno specifico
-  URI (p.e. ``/contact``) ad alcune informazioni su come tale richiesta andrebbe gestita
-  (p.e. eseguendo il metodo ``contactAction()``);
+* :doc:`Routing</components/routing/introduction>` - Sistema di rotte potente e veloce, che
+  consente di mappare uno specifico  URI (p.e. ``/contact``) ad alcune informazioni
+  su come tale richiesta andrebbe gestita  (p.e. eseguendo il metodo
+  ``contactAction()``);
 
 * `Form`_ - Un framework completo e flessibile per creare form e gestire invii di
   dati;
@@ -497,10 +519,11 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 * `Validator`_ Un sistema per creare regole sui dati e quindi validarli, sia che i dati
   inviati dall'utente seguano o meno tali regole;
 
-* `ClassLoader`_ Una libreria di autoloading che consente l'uso di classi PHP senza
-  bisogno di usare manualmente ``require`` sui file che contengono tali classi;
+* :doc:`ClassLoader</components/class_loader>` Una libreria di autoloading che consente
+  l'uso di classi PHP senza bisogno di usare manualmente ``require`` sui file
+  che contengono tali classi;
 
-* `Templating`_ Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
+* :doc:`Templating</components/templating>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
   template (p.e. un template è decorato con un layout) ed eseguire altri compiti
   comuni sui template;
 
@@ -516,37 +539,34 @@ realizzata per essere usata se necessario e sostituita in caso contrario.
 La soluzione completa il *framework* Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Cos'*è* quindi il *framework* Symfony2? Il *framework* Symfony2 è una libreria PHP
+Cos'*è* quindi il *framework* Symfony2? Il *framework Symfony2* è una libreria PHP
 che esegue due compiti distinti:
 
 #. Fornisce una selezione di componenti (cioè i componenti di Symfony2) e
-   librerie di terze parti (p.e. ``Swiftmailer`` per l'invio di email);
+   librerie di terze parti (p.e. `Swiftmailer`_ per l'invio di email);
 
 #. Fornisce una pratica configurazione e una libreria "collante", che lega insieme tutti
    i pezzi.
 
-Lo scopo del framework è integrare molti strumenti indipendenti, per fornire un'esperienza
-coerente allo sviluppatore. Anche il framework stesso è un bundle (cioè un plugin) che
-può essere configurato o sostituito interamente.
+Lo scopo del framework è integrare molti strumenti indipendenti, per fornire
+un'esperienza coerente allo sviluppatore. Anche il framework stesso è
+un bundle (cioè un plugin) che può essere configurato o sostituito
+interamente.
 
-Symfony2 fornisce un potente insieme di strumenti per sviluppare rapidamente applicazioni
-web, senza imposizioni sulla propria applicazione. Gli utenti normali possono iniziare
-velocemente a sviluppare usando una distribuzione di Symfony2, che fornisce uno scheletro
-di progetto con configurazioni predefinite ragionevoli. Gli utenti avanzati hanno il
-cielo come limite.
+Symfony2 fornisce un potente insieme di strumenti per sviluppare rapidamente applicazioni web,
+senza imposizioni sulla propria applicazione. Gli utenti normali possono iniziare velocemente
+a sviluppare usando una distribuzione di Symfony2, che fornisce uno scheletro di progetto
+con configurazioni predefinite ragionevoli. Gli utenti avanzati hanno il cielo come limite.
 
 .. _`xkcd`: http://xkcd.com/
 .. _`RFC HTTP 1.1`: http://www.w3.org/Protocols/rfc2616/rfc2616.html
 .. _`HTTP Bis`: http://datatracker.ietf.org/wg/httpbis/
-.. _`Live HTTP Headers`: https://addons.mozilla.org/en-US/firefox/addon/3829/
+.. _`Live HTTP Headers`: https://addons.mozilla.org/en-US/firefox/addon/live-http-headers/
 .. _`Elenco dei codici di stato HTTP`: http://it.wikipedia.org/wiki/Elenco_dei_codici_di_stato_HTTP
 .. _`Lista di header HTTP`: http://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 .. _`Lista di tipi di media comuni`: http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types
-.. _`HttpFoundation`: https://github.com/symfony/HttpFoundation
-.. _`Routing`: https://github.com/symfony/Routing
 .. _`Form`: https://github.com/symfony/Form
 .. _`Validator`: https://github.com/symfony/Validator
-.. _`ClassLoader`: https://github.com/symfony/ClassLoader
-.. _`Templating`: https://github.com/symfony/Templating
 .. _`Security`: https://github.com/symfony/Security
 .. _`Translation`: https://github.com/symfony/Translation
+.. _`Swiftmailer`: http://swiftmailer.org/

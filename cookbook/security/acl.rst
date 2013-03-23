@@ -61,18 +61,18 @@ Innanzitutto, occorre configurare la connessione al sistema ACL da usare:
 
 .. note::
 
-    Il sistema ACL richiede almeno una connessione di Doctrine configurata.
-    Tuttavia, questo non significa che si debba usare Doctrine per mappare
-    i propri oggetti del dominio. Si può usare qualsiasi mapper si desideri per i propri
-    oggetti, sia esso l'ORM Doctrine, l'ODM Mongo, Propel o anche SQL puro, la scelta
-    è lasciata allo sviluppatore.
+    Il sistema ACL richiede almeno una connessione di Doctrine configurata o nel DBAL (usabile
+    senza interventi) o con MongoDB (usabile con `MongoDBAclBundle`_). Tuttavia, questo non
+    significa che si debba usare Doctrine per mappare i propri oggetti del dominio. Si può usare
+    qualsiasi mapper si desideri per i propri oggetti, sia esso l'ORM Doctrine, l'ODM Mongo, Propel o anche
+    SQL puro, la scelta è lasciata allo sviluppatore.
 
-Dopo aver configurato la connessione, occorre importare la struttura del database.
+Dopo aver configurato la connessione, occorre importare la struttura della base dati.
 Fortunatamente, c'è un task per farlo. Basta eseguire il comando seguente:
 
-.. code-block:: text
+.. code-block:: bash
 
-    php app/console init:acl
+    $ php app/console init:acl
 
 Iniziare
 --------
@@ -85,38 +85,44 @@ Creare una ACL e aggiungere un ACE
 
 .. code-block:: php
 
+    // src/Acme/DemoBundle/Controller/BlogController.php
+    namespace Acme\DemoBundle\Controller;
+
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
     use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
     use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-    // ...
-    
-    // BlogController.php
-    public function addCommentAction(Post $post)
-    {
-        $comment = new Comment();
 
-        // preparazione di $form e collegamento dei dati
+    class BlogController
+    {
         // ...
 
-        if ($form->isValid()) {
-            $entityManager = $this->get('doctrine.orm.default_entity_manager');
-            $entityManager->persist($comment);
-            $entityManager->flush();
+        public function addCommentAction(Post $post)
+        {
+            $comment = new Comment();
 
-            // creazione dell'ACL
-            $aclProvider = $this->get('security.acl.provider');
-            $objectIdentity = ObjectIdentity::fromDomainObject($comment);
-            $acl = $aclProvider->createAcl($objectIdentity);
+            // ... preparazione di $form e collegamento dei dati
 
-            // recupero dell'identità di sicurezza dell'utente attuale
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
-            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+            if ($form->isValid()) {
+                $entityManager = $this->get('doctrine.orm.default_entity_manager');
+                $entityManager->persist($comment);
+                $entityManager->flush();
 
-            // l'utente può accedere
-            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-            $aclProvider->updateAcl($acl);
+                // creazione dell'ACL
+                $aclProvider = $this->get('security.acl.provider');
+                $objectIdentity = ObjectIdentity::fromDomainObject($comment);
+                $acl = $aclProvider->createAcl($objectIdentity);
+
+                // recupero dell'identità di sicurezza dell'utente attuale
+                $securityContext = $this->get('security.context');
+                $user = $securityContext->getToken()->getUser();
+                $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+                // l'utente può accedere
+                $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+                $aclProvider->updateAcl($acl);
+            }
         }
     }
 
@@ -135,7 +141,7 @@ stiamo consentendo l'accesso come proprietario del commento all'utente corrente.
 La costante ``MaskBuilder::MASK_OWNER`` è un intero predefinito; non ci si deve
 preoccupare, perché il costruttore di maschere astrae la maggior parte dei dettagli tecnici,
 ma usando questa tecnica si possono memorizzare molti permessi diversi in una singola riga
-di database, che fornisce un considerevole vantaggio in termini di prestazioni.
+di base dati, che fornisce un considerevole vantaggio in termini di prestazioni.
 
 .. tip::
 
@@ -147,19 +153,26 @@ Verifica dell'accesso
 
 .. code-block:: php
 
-    // BlogController.php
-    public function editCommentAction(Comment $comment)
+    // src/Acme/DemoBundle/Controller/BlogController.php
+
+    // ...
+
+    class BlogController
     {
-        $securityContext = $this->get('security.context');
-
-        // verifica per l'accesso in modifica
-        if (false === $securityContext->isGranted('EDIT', $comment))
-        {
-            throw new AccessDeniedException();
-        }
-
-        // recuperare l'oggetto commento e fare le modifiche
         // ...
+
+        public function editCommentAction(Comment $comment)
+        {
+            $securityContext = $this->get('security.context');
+
+            // verifica per l'accesso in modifica
+            if (false === $securityContext->isGranted('EDIT', $comment))
+            {
+                throw new AccessDeniedException();
+            }
+
+            // ... recuperare l'oggetto commento e fare le modifiche
+        }
     }
 
 In questo esempio, verifichiamo se l'utente abbia il permesso ``EDIT``.
@@ -192,13 +205,16 @@ permessi di base:
         ->add('delete')
         ->add('undelete')
     ;
-    $mask = $builder->get(); // int(15)
+    $mask = $builder->get(); // int(29)
 
 Questa maschera può quindi essere usata per assegnare all'utente i permessi di base
 aggiunti in precedenza:
 
 .. code-block:: php
 
-    $acl->insertObjectAce(new UserSecurityIdentity('johannes'), $mask);
+    $identity = new UserSecurityIdentity('johannes', 'Acme\UserBundle\Entity\User');
+    $acl->insertObjectAce($identity, $mask);
 
 Ora l'utente ha il permesso di vedere, modificare, cancellare e ripristinare gli oggetti.
+
+.. _`MongoDBAclBundle`: https://github.com/IamPersistent/MongoDBAclBundle

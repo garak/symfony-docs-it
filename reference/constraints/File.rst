@@ -71,7 +71,7 @@ una certa dimensione e un PDF valido, aggiungere il seguente:
     .. code-block:: yaml
 
         # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author
+        Acme\BlogBundle\Entity\Author:
             properties:
                 bioFile:
                     - File:
@@ -83,6 +83,8 @@ una certa dimensione e un PDF valido, aggiungere il seguente:
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -116,18 +118,16 @@ una certa dimensione e un PDF valido, aggiungere il seguente:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
-        // ...
+        namespace Acme\BlogBundle\Entity;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\File;
+        use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
-            // ...
-
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('bioFile', new File(array(
+                $metadata->addPropertyConstraint('bioFile', new Assert\File(array(
                     'maxSize' => '1024k',
                     'mimeTypes' => array(
                         'application/pdf',
@@ -168,8 +168,10 @@ mimeTypes
 **tipo**: ``array`` o ``stringa``
 
 Se impostata, il validatore verificherà che il tipo mime del file sottostante
-sia uguale al tipo mime dato (se stringa) o a uno dei tipi mime dati
-(se array).
+sia uguale al tipo mime dato (se stringa) o esista nell'insieme dei tipi
+mime dati (se array).
+
+Si può trovare una lista di tipi mime esistenti sul `sito web di IANA`_
 
 maxSizeMessage
 ~~~~~~~~~~~~~~
@@ -227,3 +229,6 @@ uploadErrorMessage
 Messaggio mostrato se il file caricato non può essere caricato per una ragione
 sconosciuta, per esempio se il file non può essere scritto su
 disco.
+
+
+.. _`sito web di IANA`: http://www.iana.org/assignments/media-types/index.html

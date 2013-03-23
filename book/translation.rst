@@ -8,13 +8,14 @@ Il termine "internazionalizzazione" si riferisce al processo di astrazione delle
 e altri pezzi specifici dell'applicazione che variano in base al locale, in uno strato
 dove possono essere tradotti e convertiti in base alle impostazioni internazionali dell'utente (ad esempio
 lingua e paese). Per il testo, questo significa che ognuno viene avvolto con una funzione
-capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
-
+capace di tradurre il testo (o "messaggio") nella lingua
+dell'utente::
 
     // il testo verrà *sempre* stampato in inglese
     echo 'Hello World';
 
-    // il testo può essere tradotto nella lingua dell'utente finale o per impostazione predefinita in inglese
+    // il testo può essere tradotto nella lingua dell'utente finale o
+    // restare in inglese
     echo $translator->trans('Hello World');
 
 .. note::
@@ -22,10 +23,10 @@ capace di tradurre il testo (o "messaggio") nella lingua dell'utente::
     Il termine *locale* si riferisce all'incirca al linguaggio dell'utente e al paese.
     Può essere qualsiasi stringa che l'applicazione utilizza poi per gestire le traduzioni
     e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare
-    il codice di *lingua* ISO639-1, un carattere di sottolineatura (``_``), poi il codice di *paese* ISO3166
-    (per esempio ``fr_FR`` per francese / Francia).
+    il codice di *lingua* `ISO639-1`_, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
+    (per esempio ``fr_FR`` per francese/Francia).
 
-In questo capitolo, si imparerà a preparare un'applicazione per supportare più
+In questo capitolo si imparerà a preparare un'applicazione per supportare più
 locale e poi a creare le traduzioni per più locale. Nel complesso,
 il processo ha diverse fasi comuni:
 
@@ -94,9 +95,10 @@ La traduzione del testo è fatta attraverso il servizio ``translator``
 (:class:`Symfony\\Component\\Translation\\Translator`). Per tradurre un blocco
 di testo (chiamato *messaggio*), usare il metodo
 :method:`Symfony\\Component\\Translation\\Translator::trans`. Supponiamo,
-ad esempio, che stiamo traducendo un semplice messaggio all'interno del controllore:
+ad esempio, che stiamo traducendo un semplice messaggio all'interno del controllore::
 
-.. code-block:: php
+    // ...
+    use Symfony\Component\HttpFoundation\Response;
 
     public function indexAction()
     {
@@ -170,9 +172,10 @@ del catalogo dei messaggi e la restituisce (se esiste).
 Segnaposto per i messaggi
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A volte, un messaggio contiene una variabile deve essere tradotta:
+A volte, un messaggio contiene una variabile deve essere tradotta::
 
-.. code-block:: php
+    // ...
+    use Symfony\Component\HttpFoundation\Response;
 
     public function indexAction($name)
     {
@@ -185,20 +188,24 @@ Tuttavia, la creazione di una traduzione per questa stringa è impossibile, poic
 proverà a cercare il messaggio esatto, includendo le parti con le variabili
 (per esempio "Ciao Ryan" o "Ciao Fabien"). Invece di scrivere una traduzione
 per ogni possibile iterazione della variabile ``$name``, si può sostituire la
-variabile con un "segnaposto":
+variabile con un "segnaposto"::
 
-.. code-block:: php
+    // ...
+    use Symfony\Component\HttpFoundation\Response;
 
     public function indexAction($name)
     {
-        $t = $this->get('translator')->trans('Hello %name%', array('%name%' => $name));
+        $t = $this->get('translator')->trans(
+            'Hello %name%',
+            array('%name%' => $name)
+        );
 
-        new Response($t);
+        return new Response($t);
     }
 
-Symfony2 cercherà ora una traduzione del messaggio raw (``Hello %name%``)
+Symfony2 cercherà ora una traduzione del messaggio di base (``Hello %name%``)
 e *poi* sostituirà i segnaposto con i loro valori. La creazione di una traduzione
-è fatta esattamente come prima:
+viene fatta esattamente come prima:
 
 .. configuration-block::
 
@@ -227,13 +234,13 @@ e *poi* sostituirà i segnaposto con i loro valori. La creazione di una traduzio
     .. code-block:: yaml
 
         # messages.fr.yml
-        'Hello %name%': Hello %name%
+        'Hello %name%': Bonjour %name%
 
 .. note::
 
     Il segnaposto può assumere qualsiasi forma visto che il messaggio è ricostruito
     utilizzando la `funzione strtr`_ di PHP. Tuttavia, la notazione ``%var%`` è
-    richiesta quando si traduce utilizzando i template Twig e in generale è una 
+    obbligatoria quando si traduce nei template Twig e in generale è una 
     convenzione che è consigliato seguire.
 
 Come si è visto, la creazione di una traduzione è un processo in due fasi:
@@ -259,6 +266,8 @@ di messaggi è come un dizionario di traduzioni per uno specifico locale. Ad
 esempio, il catalogo per il locale ``fr_FR`` potrebbe contenere la seguente
 traduzione:
 
+.. code-block:: text
+
     Symfony2 is Great => J'aime Symfony2
 
 È compito dello sviluppatore (o traduttore) di una applicazione
@@ -270,10 +279,10 @@ filesystem e vengono trovate da Symfony grazie ad alcune convenzioni.
     Ogni volta che si crea una *nuova* risorsa di traduzione (o si installa un pacchetto
     che include una risorsa di traduzione), assicurarsi di cancellare la cache in modo
     che Symfony possa scoprire la nuova risorsa di traduzione:
-    
+
     .. code-block:: bash
-    
-        php app/console cache:clear
+
+        $ php app/console cache:clear
 
 .. index::
    single: Traduzioni; Sedi per le traduzioni e convenzioni sui nomi
@@ -283,11 +292,19 @@ Sedi per le traduzioni e convenzioni sui nomi
 
 Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
-* Per i messaggi trovati in un bundle, i corrispondenti file con i messaggi dovrebbero
-  trovarsi nella cartella ``Resources/translations/`` del bundle;
+* la cartella ``<radice>/Resources/translations``;
 
-* Per sovrascrivere eventuali traduzioni del bundle, posizionare i file con i messaggi
-  nella cartella ``app/Resources/translations``.
+* la cartella ``<radice>/Resources/<bundle>/translations``;
+
+* la cartella ``Resources/translations/`` del bundle.
+
+I posti sono elencati in ordine di priorità. Quindi, si possono sovrascrivere i
+messaggi di traduzione di un bundle in una qualsiasi delle due cartelle superiori.
+
+Il meccanismo di priorità si basa sulle chiavi: occoore dichiarare solamente le chiavi
+da sovrascrivere in un file di messaggi a priorià superiore. Se una chiave non viene trovata
+in un file di messaggi, il traduttore si appoggerà automaticamente ai file di messaggi
+a priorità inferiore.
 
 È importante anche il nome del file con le traduzioni, perché Symfony2 utilizza una convenzione
 per determinare i dettagli sulle traduzioni. Ogni file con i messaggi deve essere nominato
@@ -316,8 +333,6 @@ di gusti.
     È anche possibile memorizzare le traduzioni in una base dati  o in qualsiasi altro mezzo,
     fornendo una classe personalizzata che implementa
     l'interfaccia :class:`Symfony\\Component\\Translation\\Loader\\LoaderInterface`.
-    Vedere :doc:`Caricatori per le traduzioni personalizzati </cookbook/translation/custom_loader>`
-    di seguito per imparare a registrare caricatori personalizzati.
 
 .. index::
    single: Traduzioni; Creazione delle traduzioni
@@ -374,9 +389,7 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
 .. sidebar:: Utilizzare messaggi reali o parole chiave
 
     Questo esempio mostra le due diverse filosofie nella creazione di
-    messaggi che dovranno essere tradotti:
-
-    .. code-block:: php
+    messaggi che dovranno essere tradotti::
 
         $t = $translator->trans('Symfony2 is great');
 
@@ -473,9 +486,7 @@ per i messaggi:
 * ``navigation.fr.xliff``
 
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
-è necessario specificare il dominio come terzo parametro di ``trans()``:
-
-.. code-block:: php
+è necessario specificare il dominio come terzo parametro di ``trans()``::
 
     $this->get('translator')->trans('Symfony2 is great', array(), 'admin');
 
@@ -489,9 +500,7 @@ Gestione del locale dell'utente
 -------------------------------
 
 Il locale dell'utente corrente è memorizzato nella richiesta ed è accessibile
-tramite l'oggetto ``request``:
-
-.. code-block:: php
+tramite l'oggetto ``request``::
 
     // accesso all'oggetto requesta in un controllore
     $request = $this->getRequest();
@@ -510,7 +519,7 @@ richiesta. Se lo si fa, ogni richiesta successiva avrà lo stesso locale.
 
     $this->get('session')->set('_locale', 'en_US');
 
-Vedere la sezione :ref:`.. _book-translation-locale-url:` sotto,
+Vedere la sezione :ref:`book-translation-locale-url` sotto,
 sull'impostazione del locale tramite rotte.
 
 Fallback e locale predefinito
@@ -546,9 +555,8 @@ definendo un ``default_locale`` per il servizio di sessione:
         ));
 
 .. versionadded:: 2.1
-
      Il parametro ``default_locale`` era originariamente definito sotto la chiave
-     ``sessiom``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
+     ``session``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
      è ora impostato nella richiesta, invece che nella sessione.
 
 .. _book-translation-locale-url:
@@ -556,7 +564,7 @@ definendo un ``default_locale`` per il servizio di sessione:
 Il locale e gli URL
 ~~~~~~~~~~~~~~~~~~~
 
-Dal momento che il locale dell'utente è memorizzato nella sessione, si può essere tentati
+Dal momento che si può memorizzare il locale dell'utente nella sessione, si può essere tentati
 di utilizzare lo stesso URL per visualizzare una risorsa in più lingue in base
 al locale dell'utente. Per esempio, ``http://www.example.com/contact`` può
 mostrare contenuti in inglese per un utente e in francese per un altro. Purtroppo
@@ -595,7 +603,7 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
             '_controller' => 'AcmeDemoBundle:Contact:index',
             '_locale'     => 'en',
         ), array(
-            '_locale'     => 'en|fr|de'
+            '_locale'     => 'en|fr|de',
         )));
 
         return $collection;
@@ -618,7 +626,15 @@ La pluralizzazione dei messaggi è un argomento un po' difficile, perché le reg
 esempio, questa è la rappresentazione matematica delle regole di pluralizzazione
 russe::
 
-    (($number % 10 == 1) && ($number % 100 != 11)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
+    (($number % 10 == 1) && ($number % 100 != 11))
+        ? 0
+        : ((($number % 10 >= 2)
+            && ($number % 10 <= 4)
+            && (($number % 100 < 10)
+            || ($number % 100 >= 20)))
+                ? 1
+                : 2
+    );
 
 Come si può vedere, in russo si possono avere tre diverse forme plurali, ciascuna
 dato un indice di 0, 1 o 2. Per ciascuna forma il plurale è diverso e
@@ -630,9 +646,7 @@ tutte le forme come una stringa separata da un pipe (``|``)::
     'There is one apple|There are %count% apples'
 
 Per tradurre i messaggi pluralizzati, utilizzare il
-metodo :method:`Symfony\\Component\\Translation\\Translator::transChoice`:
-
-.. code-block:: php
+metodo :method:`Symfony\\Component\\Translation\\Translator::transChoice`::
 
     $t = $this->get('translator')->transChoice(
         'There is one apple|There are %count% apples',
@@ -688,14 +702,14 @@ c'è bisogno di più controllo o si vuole una traduzione diversa per casi specif
 ``0``, o   quando il conteggio è negativo, ad esempio). In tali casi, è possibile
 utilizzare espliciti intervalli matematici::
 
-    '{0} There is no apples|{1} There is one apple|]1,19] There are %count% apples|[20,Inf] There are many apples'
+    '{0} There are no apples|{1} There is one apple|]1,19] There are %count% apples|[20,Inf] There are many apples'
 
 Gli intervalli seguono la notazione `ISO 31-11`_. La suddetta stringa specifica
 quattro diversi intervalli: esattamente ``0``, esattamente ``1``, ``2-19`` e ``20``
 e superiori.
 
 È inoltre possibile combinare le regole matematiche e le regole standard. In questo caso, se
-il numero non corrisponde ad un intervallo specifico, le regole standard hanno
+il numero non corrisponde a un intervallo specifico, le regole standard hanno
 effetto dopo aver rimosso le regole esplicite::
 
     '{0} There is no apples|[20,Inf] There are many apples|There is one apple|a_few: There are %count% apples'
@@ -727,6 +741,8 @@ Traduzioni nei template
 La maggior parte delle volte, la traduzione avviene nei template. Symfony2 fornisce un supporto
 nativo sia per i template Twig che per i template PHP.
 
+.. _book-translation-twig:
+
 Template Twig
 ~~~~~~~~~~~~~
 
@@ -738,7 +754,7 @@ aiutare nella traduzione di messaggi con *blocchi statici di testo*:
     {% trans %}Hello %name%{% endtrans %}
 
     {% transchoice count %}
-        {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+        {0} There are no apples|{1} There is one apple|]1,Inf] There are %count% apples
     {% endtranschoice %}
 
 Il tag ``transchoice`` ottiene automaticamente la variabile ``%count%`` dal
@@ -747,8 +763,8 @@ solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
 
 .. tip::
 
-    Se in una stringa è necessario usare il carattere percentuale (``%``), escapizzarlo
-    raddoppiandolo: ``{% trans %}Percent: %percent%%%{% endtrans %}``
+    Se in una stringa è necessario usare il carattere percentuale (``%``), occorre un escape
+    con raddoppio: ``{% trans %}Percent: %percent%%%{% endtrans %}``
 
 È inoltre possibile specificare il dominio del messaggio e passare alcune variabili aggiuntive:
 
@@ -761,6 +777,8 @@ solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
     {% transchoice count with {'%name%': 'Fabien'} from "app" %}
         {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
     {% endtranschoice %}
+
+.. _book-translation-filters:
 
 I filtri ``trans`` e ``transchoice`` possono essere usati per tradurre *variabili
 di testo* ed espressioni complesse:
@@ -780,23 +798,35 @@ di testo* ed espressioni complesse:
     Utilizzare i tag di traduzione o i filtri ha lo stesso effetto, ma con
     una sottile differenza: l'escape automatico dell'output è applicato solo alle
     variabili tradotte utilizzando un filtro. In altre parole, se è necessario
-    essere sicuri che la variabile tradotta *non* venga escapizzata, è necessario
+    essere sicuri che la variabile tradotta *non* subisca un escape, è necessario
     applicare il filtro raw dopo il filtro di traduzione:
 
     .. code-block:: jinja
 
             {# il testo tradotto tra i tag non è mai sotto escape #}
             {% trans %}
-                <h3>foo</h3>
+                <h3>pippo</h3>
             {% endtrans %}
 
             {% set message = '<h3>foo</h3>' %}
 
             {# una variabile tradotta tramite filtro è sotto escape per impostazione predefinita #}
             {{ message|trans|raw }}
+            {{ '<h3>pluto</h3>'|trans|raw }}
 
-            {# le stringhe statiche non sono mai sotto escape #}
-            {{ '<h3>foo</h3>'|trans }}
+.. tip::
+
+    Si può impostare il dominio di traduzione per un intero template Twig con un singolo tag:
+
+     .. code-block:: jinja
+
+            {% trans_default_domain "app" %}
+
+     Notare che questo influenza solo il template attuale, non tutti i template "inclusi"
+     (in modo da evitare effetti collaterali).
+
+.. versionadded:: 2.1
+    Il tag ``trans_default_domain`` è nuovo in Symfony2.1
 
 Template PHP
 ~~~~~~~~~~~~
@@ -817,35 +847,145 @@ l'helper ``translator``:
 Forzare il locale della traduzione
 ----------------------------------
 
-Quando si traduce un messaggio, Symfony2 utilizza il lodale della sessione utente
+Quando si traduce un messaggio, Symfony2 utilizza il locale della richiesta corrente
 o il locale ``fallback`` se necessario. È anche possibile specificare manualmente il
-locale da usare per la traduzione:
-
-.. code-block:: php
+locale da usare per la traduzione::
 
     $this->get('translator')->trans(
         'Symfony2 is great',
         array(),
         'messages',
-        'fr_FR',
+        'fr_FR'
     );
 
-    $this->get('translator')->trans(
+    $this->get('translator')->transChoice(
         '{0} There are no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
         10,
         array('%count%' => 10),
         'messages',
-        'fr_FR',
+        'fr_FR'
     );
 
-Tradurre contenuti da un database
----------------------------------
+Tradurre contenuti da una base dati 
+-----------------------------------
 
-La traduzione del contenuto di un database dovrebbero essere gestite da Doctrine attraverso
+La traduzione del contenuto di una base dati dovrebbero essere gestite da Doctrine attraverso
 l'`Estensione Translatable`_. Per maggiori informazioni, vedere la documentazione
 di questa libreria.
 
-Riassunto
+.. _book-translation-constraint-messages:
+
+Tradurre i messaggi dei vincoli
+-------------------------------
+
+Il modo migliore per capire la traduzione dei vincoli è vederla in azione. Per iniziare,
+supponiamo di aver creato un caro vecchio oggetto PHP, che dobbiamo usare da qualche
+parte nella nostra applicazione::
+
+    // src/Acme/BlogBundle/Entity/Author.php
+    namespace Acme\BlogBundle\Entity;
+
+    class Author
+    {
+        public $name;
+    }
+
+Aggiungere i vincoli tramite uno dei metodi supportati. Impostare l'opzione del messaggio
+al testo sorgente della traduzione. Per esempio, per assicurarsi che la proprietà $name
+non sia vuota, aggiungere il seguente:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                name:
+                    - NotBlank: { message: "author.name.not_blank" }
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\NotBlank(message = "author.name.not_blank")
+             */
+            public $name;
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="name">
+                    <constraint name="NotBlank">
+                        <option name="message">author.name.not_blank</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+
+        // ...
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints\NotBlank;
+
+        class Author
+        {
+            public $name;
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('name', new NotBlank(array(
+                    'message' => 'author.name.not_blank',
+                )));
+            }
+        }
+
+Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei vincoli, tipicamente nella cartella ``Resources/translations/`` del bundle. Vedere `Cataloghi di messaggi`_ per maggiori dettagli.
+
+.. configuration-block::
+
+    .. code-block:: xml
+
+        <!-- validators.it.xliff -->
+        <?xml version="1.0"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en" datatype="plaintext" original="file.ext">
+                <body>
+                    <trans-unit id="1">
+                        <source>author.name.not_blank</source>
+                        <target>Inserire un nome per l'autore.</target>
+                    </trans-unit>
+                </body>
+            </file>
+        </xliff>
+
+    .. code-block:: php
+
+        // validators.it.php
+        return array(
+            'author.name.not_blank' => 'Inserire un nome per l'autore.',
+        );
+
+    .. code-block:: yaml
+
+        # validators.it.yml
+        author.name.not_blank: Inserire un nome per l'autore.
+
+Riepilogo
 ---------
 
 Con il componente Translation di Symfony2, la creazione e l'internazionalizzazione di applicazioni
@@ -866,5 +1006,7 @@ passi:
 .. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`L10n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
-.. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_%28mathematics%29#The_ISO_notation
+.. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals
 .. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions
+.. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

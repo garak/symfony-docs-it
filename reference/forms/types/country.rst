@@ -12,7 +12,7 @@ Il valore di ogni paese è un codice da due lettere.
 
 .. note::
 
-   Il locale dell'utente è indovinato tramite `Locale::getDefault()`_
+   Il locale dell'utente è indovinato tramite :phpmethod:`Locale::getDefault`
 
 Diversamente dal tipo ``choice``, non occorre specificare l'opzione ``choices`` o
 ``choice_list``, poiché il campo usaa automaticamente tutti i paesi del mondo.
@@ -30,6 +30,7 @@ usare il tipo ``choice`` direttamente.
 |               | - `required`_                                                         |
 |               | - `label`_                                                            |
 |               | - `read_only`_                                                        |
+|               | - `disabled`_                                                         |
 +---------------+-----------------------------------------------------------------------+
 | Tipo genitore | :doc:`choice</reference/forms/types/choice>`                          |
 +---------------+-----------------------------------------------------------------------+
@@ -59,4 +60,4 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
-.. _`Locale::getDefault()`: http://php.net/manual/en/locale.getdefault.php
+.. include:: /reference/forms/types/options/disabled.rst.inc

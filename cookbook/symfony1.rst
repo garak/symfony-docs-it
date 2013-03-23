@@ -1,3 +1,6 @@
+.. index::
+   single: symfony1
+
 Differenze tra Symfony2 e symfony1
 ==================================
 
@@ -45,7 +48,7 @@ alle applicazioni risiede in un bundle (pressappoco equivalente a un plugin di s
 e ogni bundle risiede, per impostazione predefinita, nella cartella ``src``. In questo
 modo, la cartella ``src`` è un po' come la cartella ``plugins`` di symfony1, ma molto
 più flessibile. Inoltre, mentre i *propri* bundle risiedono nella cartella ``src``, i
-bundle di terze parti possono risedere nella cartella ``vendor/bundles/``.
+bundle di terze parti risiederaano nella cartella ``vendor/``.
 
 Per avere un quadro più completo della cartella ``src/``, pensiamo a un'applicazione
 symfony1. Innanzitutto, parte del proprio codice probabilmente risiede in una o più
@@ -74,8 +77,8 @@ La cartella ``vendor/`` è essenzialmente equivalente alla cartella ``lib/vendor
 in symfony1, che era la cartella convenzionale per tutte le librerie di terze
 parti. Per impostazione predefinita, si troveranno le librerie di Symfony2 in
 questa cartella, insieme a diverse altre librerie indipendenti, come Doctrine2,
-Twig e Swiftmailer. I bundle di Symfony2 di terze parti solitamente risiedono
-in ``vendor/bundles/``.
+Twig e Swiftmailer. I bundle di Symfony2 di terze parti risiedono da qualche parte
+in ``vendor/``.
 
 La cartella ``web/``
 ~~~~~~~~~~~~~~~~~~~~
@@ -91,7 +94,7 @@ eseguire il seguente comando:
 
 .. code-block:: bash
 
-    php app/console assets:install web
+    $ php app/console assets:install web
 
 .. note::
 
@@ -113,13 +116,11 @@ gigantesco array. Questo array diceva a symfony1 esattamente quale file
 conteneva ciascuna classe. Nell'ambiente di produzione, questo causava la necessità
 di dover pulire la cache quando una classe veniva aggiunta o spostata.
 
-In Symfony2, una nuova classe, ``UniversalClassLoader`` gestisce questo processo.
+In Symfony2, uno strumento chiamato `Composer`_ gestisce questo processo.
 L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso lo
 spazio dei nomi) deve corrispondere al percorso del file che contiene tale classe.
 Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di
-Symfony2:
-
-.. code-block:: php
+Symfony2::
 
     namespace Sensio\Bundle\FrameworkExtraBundle;
 
@@ -129,25 +130,15 @@ Symfony2:
     class SensioFrameworkExtraBundle extends Bundle
     {
         // ...
+    }
 
 Il file stesso risiede in
-``vendor/bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
+``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
 Come si può vedere, la locazione del file segue lo spazio dei nomi della classe.
 Nello specifico, lo spazio dei nomi ``Sensio\Bundle\FrameworkExtraBundle`` dice che la
 cartella in cui il file dovrebbe risiedere
-(``vendor/bundle/Sensio/Bundle/FrameworkExtraBundle``). Per questo motivo, nel file
-``app/autoload.php``, si dovrà configurare Symfony2 per cercare lo spazio dei nomi
-``Sensio`` nella cartella ``vendor/bundle``:
-
-.. code-block:: php
-
-    // app/autoload.php
-
-    // ...
-    $loader->registerNamespaces(array(
-        // ...
-        'Sensio'           => __DIR__.'/../vendor/bundles',
-    ));
+(``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/``).
+Composer quindi può cercare il file nella specifica posizione e caricarlo molto velocemente.
 
 Se il file *non* risiede in questa esatta locazione, si riceverà un errore
 ``Class "Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle" does not exist.``.
@@ -159,25 +150,25 @@ cerca in una specifica locazione quella classe, ma quella locazione non esiste
 
 Come già accennato, per poter far funzionare l'autoloader, esso deve sapere che
 lo spazio dei nomi ``Sensio`` risiede nella cartella ``vendor/bundles`` e che, per esempio,
-lo spazio dei nomi ``Doctrine`` risiede nella cartella ``vendor/doctrine/lib/``.
-Questa mappatura è interamente controllata dallo sviluppatore, tramite il file
-``app/autoload.php``.
+lo spazio dei nomi ``Doctrine`` risiede nella cartella ``vendor/doctrine/orm/lib/``.
+Questa mappatura è interamente controllata da Composer. Ogni
+libreria di terze parti caricata tramite composer ha le sue impostazioni definite
+e Composer si occupa di tutto al posto nostro.
+
+Per poter funzionare, tutte le librerie di terze parti usate nel progetto devono
+essere definite nel file ``composer.json``.
 
 Se si dà un'occhiata a ``HelloController`` nella Standard Edition di Symfony2, si
 vedrà che esso risiede nello spazio dei nomi ``Acme\DemoBundle\Controller``. Anche qui,
-lo spazio dei nomi ``Acme`` non è definito in ``app/autoload.php``. Non occorre
-configurare esplicitamente la locazione dei bundle che risiedono nella cartella
-``src/``. ``UniversalClassLoader`` è configurato per usare come locazione di
-riserva la cartella ``src/``, usando il suo metodo ``registerNamespaceFallbacks``:
+``AcmeBundle`` non è definito nel file ``composer.json``. I file vengono comunque caricati
+automaticamente. Questo perché si può dire a Composer di auto-caricare i file da
+cartelle specifiche, senza definire dipendenze:
 
-.. code-block:: php
+.. code-block:: yaml
 
-    // app/autoload.php
-
-    // ...
-    $loader->registerNamespaceFallbacks(array(
-        __DIR__.'/../src',
-    ));
+    "autoload": {
+        "psr-0": { "": "src/" }
+    }
 
 Uso della console
 -----------------
@@ -185,16 +176,16 @@ Uso della console
 In symfony1, la console è nella cartella radice del progetto ed è chiamata
  ``symfony``:
 
-.. code-block:: text
+.. code-block:: bash
 
-    php symfony
+    $ php symfony
 
 In Symfony2, la console è ora nella sotto-cartella ``app`` ed è chiamata
 ``console``:
 
-.. code-block:: text
+.. code-block:: bash
 
-    php app/console
+    $ php app/console
 
 Applicazioni
 ------------
@@ -214,13 +205,12 @@ separate e così via.
 
 Ovviamente non c'è nulla di sbagliato ad avere più di un'applicazione nel proprio
 progetto, questa scelta è lasciata allo sviluppatore. Una seconda applicazione
-vorrebbe dire una nuova cartella, per esempio ``app2/``, con la stessa struttura
-di base della cartella ``app/``.
+vorrebbe dire una nuova cartella, per esempio ``app2/``, con la stessa struttura di base della cartella ``app/``.
 
 .. tip::
+
    Leggere la definizione di :term:`Progetto`, :term:`Applicazione` e
    :term:`Bundle` nel glossario.
- 
  
 Bundle e plugin
 ---------------
@@ -232,19 +222,17 @@ potente di un plugin, perché il nucleo stesso del framework Symfony2 è costitu
 da una serie di bundle. In Symfony2, i bundle sono cittadini di prima classe e sono
 così flessibili che il nucleo stesso è un bundle.
 
-In symfony1, un plugin deve essere abilitato nella classe ``ProjectConfiguration``:
-
-.. code-block:: php
+In symfony1, un plugin deve essere abilitato nella classe
+``ProjectConfiguration``::
 
     // config/ProjectConfiguration.class.php
     public function setup()
     {
-        $this->enableAllPluginsExcept(array(/* nomi dei plugin */));
+        // qui ci sono alcuni plugin
+        $this->enableAllPluginsExcept(array(...));
     }
 
-In Symfony2, i bundle sono attivati nel kernel dell'applicazione:
-
-.. code-block:: php
+In Symfony2, i bundle sono attivati nel kernel dell'applicazione::
 
     // app/AppKernel.php
     public function registerBundles()
@@ -252,10 +240,10 @@ In Symfony2, i bundle sono attivati nel kernel dell'applicazione:
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            // ...
+            ...,
             new Acme\DemoBundle\AcmeDemoBundle(),
         );
-        
+
         return $bundles;
     }
 
@@ -268,11 +256,35 @@ configurazioni dell'applicazioni all'interno di un bundle vanno incluse
 a mano. Per esempio, per inmcludere le rotte di un bundle chiamato ``AcmeDemoBundle``,
 si può fare nel seguente modo:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/routing.yml
-    _hello:
-        resource: "@AcmeDemoBundle/Resources/config/routing.yml"
+    .. code-block:: yaml
+
+        # app/config/routing.yml
+        _hello:
+            resource: "@AcmeDemoBundle/Resources/config/routing.yml"
+
+    .. code-block:: xml
+
+        <!-- app/config/routing.yml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <import resource="@AcmeDemoBundle/Resources/config/routing.xml" />
+        </routes>
+
+    .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
+        $collection->addCollection($loader->import("@AcmeHelloBundle/Resources/config/routing.php"));
+
+        return $collection;
 
 Questo caricherà le rotte trovate nel file ``Resources/config/routing.yml`` di
 ``AcmeDemoBundle``. Il nome ``@AcmeDemoBundle`` è una sintassi abbreviata, risolta
@@ -280,16 +292,30 @@ internamente con il percorso completo di quel bundle.
 
 Si può usare la stessa strategia per portare una configurazione da un bundle:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config.yml
-    imports:
-        - { resource: "@AcmeDemoBundle/Resources/config/config.yml" }
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        imports:
+            - { resource: "@AcmeDemoBundle/Resources/config/config.yml" }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <imports>
+            <import resource="@AcmeDemoBundle/Resources/config/config.xml" />
+        </imports>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $this->import('@AcmeDemoBundle/Resources/config/config.php')
 
 In Symfony2, la configurazione è un po' come ``app.yml`` in symfony1, ma più
 sistematica. Con ``app.yml``, si poteva semplicemente creare le voci volute.
 Per impostazione predefinita, queste voci erano prive di significato ed era
-lasciato allo sviluppatore il compito di usarle nella propria applicazione:
+lasciato allo sviluppatore il compito di usarle nell'applicazione:
 
 .. code-block:: yaml
 
@@ -298,17 +324,27 @@ lasciato allo sviluppatore il compito di usarle nella propria applicazione:
       email:
         from_address:  foo.bar@example.com
 
-In Symfony2, si possono ancora creare voci arbitrarie sotto la voce ``parameters``
-della propria configurazione:
+In Symfony2, si possono anche creare voci arbitrarie sotto la voce ``parameters``
+della configurazione:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    parameters:
-        email.from_address: foo.bar@example.com
+    .. code-block:: yaml
 
-Si può ora accedervi da un controllore, per esempio:
+        parameters:
+            email.from_address: foo.bar@example.com
 
-.. code-block:: php
+    .. code-block:: xml
+
+        <parameters>
+            <parameter key="email.from_address">foo.bar@example.com</parameter>
+        </parameters>
+
+    .. code-block:: php
+
+        $container->setParameter('email.from_address', 'foo.bar@example.com');
+
+Si può ora accedervi da un controllore, per esempio::
 
     public function helloAction($name)
     {
@@ -320,3 +356,4 @@ per configurare oggetti da usare. Per maggiori informazioni, vedere il capitolo
 intitolato ":doc:`/book/service_container`".
 
 .. _`Symfony2 Standard`: https://github.com/symfony/symfony-standard
+.. _`Composer`: http://getcomposer.org

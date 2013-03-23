@@ -30,13 +30,14 @@ dell'array:
                 favoriteColors:
                     - All:
                         - NotBlank:  ~
-                        - MinLength: 5
+                        - Length:
+                            min: 5
 
     .. code-block:: php-annotations
 
        // src/Acme/UserBundle/Entity/User.php
        namespace Acme\UserBundle\Entity;
-
+       
        use Symfony\Component\Validator\Constraints as Assert;
 
        class User
@@ -44,11 +45,48 @@ dell'array:
            /**
             * @Assert\All({
             *     @Assert\NotBlank
-            *     @Assert\MinLength(5),
+            *     @Assert\Length(min = "5"),
             * })
             */
             protected $favoriteColors = array();
        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/UserBundle/Resources/config/validation.xml -->
+        <class name="Acme\UserBundle\Entity\User">
+            <property name="favoriteColors">
+                <constraint name="All">
+                    <option name="constraints">
+                        <constraint name="NotBlank" />
+                        <constraint name="Length">
+                            <option name="min">5</option>
+                        </constraint>
+                    </option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/UserBundle/Entity/User.php
+        namespace Acme\UserBundle\Entity;
+       
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class User
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('favoriteColors', new Assert\All(array(
+                    'constraints' => array(
+                        new Assert\NotBlank(),
+                        new Assert\Length(array('limit' => 5)),
+                    ),
+                )));
+            }
+        }
 
 Ora, ogni elemento nell'array ``favoriteColors`` sarà validato per non essere
 vuoto e per avere almeno 5 caratteri.

@@ -1,3 +1,6 @@
+.. index::
+   single: Assetic; YUI Compressor
+
 Minimizzare i file JavaScript e i fogli di stile con YUI Compressor
 ===================================================================
 
@@ -24,6 +27,7 @@ con YUI Compressor:
 
         # app/config/config.yml
         assetic:
+            # java: "/usr/bin/java"
             filters:
                 yui_css:
                     jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
@@ -46,6 +50,7 @@ con YUI Compressor:
 
         // app/config/config.php
         $container->loadFromExtension('assetic', array(
+            // 'java' => '/usr/bin/java',
             'filters' => array(
                 'yui_css' => array(
                     'jar' => '%kernel.root_dir%/Resources/java/yuicompressor.jar',
@@ -55,6 +60,11 @@ con YUI Compressor:
                 ),
             ),
         ));
+
+.. note::
+
+    Gli utenti Windows ricordino di aggiornare la configurazione con il percorso corretto di java. 
+    Quello predefinito in Windows7 x64 bit è ``C:\Program Files (x86)\Java\jre6\bin\java.exe``.
 
 Dall'applicazione si ha ora accesso a due nuovi filtri di Assetic:
 ``yui_css`` e ``yui_js``. Questi filtri utilizzeranno YUI Compressor per
@@ -79,8 +89,9 @@ livello della vista, questo lavoro dovrà essere svolto nei template:
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/*'),
-            array('yui_js')) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>"></script>
+            array('yui_js')
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
 .. note::
@@ -106,7 +117,8 @@ ripetuto per minimizzare i fogli di stile.
 
         <?php foreach ($view['assetic']->stylesheets(
             array('@AcmeFooBundle/Resources/public/css/*'),
-            array('yui_css')) as $url): ?>
+            array('yui_css')
+        ) as $url): ?>
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $view->escape($url) ?>" />
         <?php endforeach; ?>
 
@@ -131,9 +143,21 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/*'),
-            array('?yui_js')) as $url): ?>
+            array('?yui_js')
+        ) as $url): ?>
         <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
+
+.. tip::
+
+    Invece di aggiungere il filtro ai tag degli asset, lo si può abilitare globalmente,
+    aggiungendo l'attributo ``apply-to`` alla configurazione del filtro, per esempio
+    nel filtro yui_js ``apply_to: "\.js$"``. Per avere un unico filtro applicato
+    in produzione, aggiungerlo al file config_prod invece che al file comune
+    config. Per dettagli sull'applicazione dei filtri per estensione di file,
+    vedere :ref:`cookbook-assetic-apply-to`.
+
+
 .. _`YUI Compressor`: http://developer.yahoo.com/yui/compressor/
-.. _`scaricare il file JAR`: http://yuilibrary.com/downloads/#yuicompressor
+.. _`scaricare il file JAR`: http://yuilibrary.com/projects/yuicompressor/

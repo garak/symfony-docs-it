@@ -7,23 +7,25 @@ traduzione.
 Contribuire
 -----------
 
-Prima di tutto, bisogna diventare familiari con il :doc:`linguaggio di markup<format>` usato dalla documentazione
+Prima di tutto, bisogna diventare familiari con il :doc:`linguaggio di markup<format>` usato dalla
+documentazione.
 
 Successivamente, iscriversi alla `lista Symfony docs`, per poter 
 collaborare.
 
 Infine, trovare il repository *master* per il linguaggio per il quale si vuole contribuire.
-Di seguito la lista dei principali
-repository *master*:
+Di seguito la lista dei repository *master* ufficiali:
 
-* *Inglese*:  http://github.com/symfony/symfony-docs
+* *Inglese*:  https://github.com/symfony/symfony-docs
 * *Francese*:   https://github.com/gscorpio/symfony-docs-fr
 * *Italiano*:  https://github.com/garak/symfony-docs-it
 * *Giapponese*: https://github.com/symfony-japan/symfony-docs-ja
-* *Polacco*:   http://github.com/ampluso/symfony-docs-pl
-* *Rumeno*: http://github.com/sebio/symfony-docs-ro
-* *Russo*:  http://github.com/avalanche123/symfony-docs-ru
+* *Polacco*:   https://github.com/ampluso/symfony-docs-pl
+* *Portoghese (Brasile)*:  https://github.com/andreia/symfony-docs-pt-BR
+* *Rumeno*: https://github.com/sebio/symfony-docs-ro
+* *Russo*:  https://github.com/avalanche123/symfony-docs-ru
 * *Spagnolo*:  https://github.com/gitnacho/symfony-docs-es
+* *Turco*:  https://github.com/symfony-tr/symfony-docs-tr
 
 .. note::
 
@@ -66,11 +68,11 @@ Creare il repository e copiarci i documenti in lingua inglese.
 
 Il team a questo punto può iniziare il processo di traduzione.
 
-Quando il team pensa che il repository sia in uno stato coerente e stabile (è tutto tradotto,
-oppure i documenti non tradotti saranno rimossi) il tema manager può fare richiesta che il
-repository sia aggiunto alla lista di quelli *master* ufficiali, inviando
-un'email a Fabien (fabien.potencier at symfony.com).
-
+Quando il team pensa che il repository sia in uno stato coerente e stabile (è tutto
+tradotto, oppure i documenti non tradotti sono stati rimossi dai toctree, che sono i
+file index.rst e map.rst.inc), il team manager può fare richiesta che il repository
+sia aggiunto alla lista di quelli *master* ufficiali, inviando un'email a Fabien
+(fabien.potencier at symfony.com).
 
 Manutenzione
 ------------

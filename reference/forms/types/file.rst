@@ -12,9 +12,10 @@ Il tipo ``file`` rappresenta un input per caricare file.
 | Opzioni       | - `required`_                                                       |
 | ereditate     | - `label`_                                                          |
 |               | - `read_only`_                                                      |
+|               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/field>`                           |
+| Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType`  |
 +---------------+---------------------------------------------------------------------+
@@ -47,7 +48,7 @@ usata per spotare il file ``attachment`` in una posizione permanente:
 
         if ($form->isValid()) {
             $someNewFilename = ...
-        
+
             $form['attachment']->getData()->move($dir, $someNewFilename);
 
             // ...
@@ -88,5 +89,7 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/label.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc

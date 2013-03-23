@@ -7,13 +7,14 @@ Tipo di campo entity
 Un campo speciale ``choice`` pensato per caricare opzioni da un'entità Doctrine.
 Per esempio, se si ha un'entità ``Category``, si può usare questo campo
 per mostrare un campo ``select`` di tutti, o di alcuni, oggetti ``Category``
-presi dal database.
+presi dalla base dati.
 
 +---------------+---------------------------------------------------------------------+
 | Reso come     | possono essere vari tag (vedere :ref:`forms-reference-choice-tags`) |
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `class`_                                                          |
 |               | - `property`_                                                       |
+|               | - `group_by`_                                                       |
 |               | - `query_builder`_                                                  |
 |               | - `em`_                                                             |
 +---------------+---------------------------------------------------------------------+
@@ -24,6 +25,7 @@ presi dal database.
 |               | - `preferred_choices`_                                              |
 |               | - `empty_value`_                                                    |
 |               | - `read_only`_                                                      |
+|               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`choice</reference/forms/types/choice>`                        |
@@ -39,17 +41,20 @@ del campo choice::
 
     $builder->add('users', 'entity', array(
         'class' => 'AcmeHelloBundle:User',
+        'property' => 'username',
     ));
 
-In questo caso, tutti gli oggetti ``User`` saranno caricati dal database e resti come
+In questo caso, tutti gli oggetti ``User`` saranno caricati dalla base dati e resi come
 un tag ``select``, dei radio o una serie di checkbox (a seconda dei valori di
 ``multiple`` ed ``expanded``).
+Se l'oggetto entità manca del metodo ``__toString()``, occorre passare l'opzione
+``property``.
 
 Usare una query personalizzata per le entità
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Se occorre specificare una query personalizzata da usare per recuperare le entità
-(p.e.e si vogliono solo alcune entità o le si vuole ordinare), usare l'opzione
+(p.e. si vogliono solo alcune entità o le si vuole ordinare), usare l'opzione
 ``query_builder``. Il modo più facile è fare come segue::
 
     use Doctrine\ORM\EntityRepository;
@@ -86,13 +91,24 @@ La proprietà da usare per mostrare le entità come testi nell'elemento HTML.
 Se lasciata vuota, gli oggetti saranno formattati come stringhe, quindi
 occorre avere un metodo ``__toString()``.
 
+group_by
+~~~~~~~~
+
+**tipo**: ``stringa``
+
+Il percorso di proprietà (p.e. ``author.name``) usato per organizzare le scelte
+disponibili in gruppi. Funziona solo se reso come tag select e lo fa
+aggiungendo tag optgroup tra le opzioni. Le scelte che non restituiscono un
+valore per questo percorso di proprietà sono rese direttamete sotto il tag
+select, senza optgroup.
+
 query_builder
 ~~~~~~~~~~~~~
 
 **tipo**: ``Doctrine\ORM\QueryBuilder`` oppure una closure
 
 Se specificato, è usato per cercare un sotto-insieme di opzioni (e il loro
-ordina) che dovrebbero essere usate per il campo. Il valore di questa opzione
+ordinamento) che dovrebbero essere usate per il campo. Il valore di questa opzione
 può essere un oggetto ``QueryBuilder`` oppure una closure. Se su usa una closure,
 dovrebbe accettare un singolo parametro, che è l'``EntityRepository``
 dell'entità.
@@ -125,5 +141,7 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/label.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc

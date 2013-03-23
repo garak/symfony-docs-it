@@ -19,10 +19,13 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 |               | - `expanded`_                                                                 |
 |               | - `preferred_choices`_                                                        |
 |               | - `empty_value`_                                                              |
+|               | - `empty_data`_                                                               |
+|               | - `by_reference`_                                                             |
 +---------------+-------------------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                                 |
 | ereditate     | - `label`_                                                                    |
 |               | - `read_only`_                                                                |
+|               | - `disabled`_                                                                 |
 |               | - `error_bubbling`_                                                           |
 +---------------+-------------------------------------------------------------------------------+
 | Tipo genitore | :doc:`form</reference/forms/types/form>` (con expanded), altrimenti ``field`` |
@@ -103,6 +106,8 @@ questa interfaccia e fornisca le scelte.
 
 .. include:: /reference/forms/types/options/empty_data.rst.inc
 
+.. include:: /reference/forms/types/options/by_reference.rst.inc
+
 Opzioni ereditate
 -----------------
 
@@ -113,5 +118,7 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/label.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc

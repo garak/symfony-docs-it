@@ -17,7 +17,9 @@ Riferimento configurazione
                     path:                /var/log/symfony.log
                     level:               ERROR
                     bubble:              false
-                    formatter:           my_formatter
+                    formatter:           mio_formattatore
+                    processors:
+                        - un_callable
                 main:
                     type:                fingers_crossed
                     action_level:        WARNING
@@ -27,28 +29,35 @@ Riferimento configurazione
                     type:                service
                     id:                  my_handler
 
-                # Prototype
-                name:
-                    type:                 ~ # Required
+                # Opzioni e valori predfiniti per un "mio_gestore"
+                mio_gestore:
+                    type:                 ~ # Obbligatorio
                     id:                   ~
                     priority:             0
                     level:                DEBUG
                     bubble:               true
-                    path:                 %kernel.logs_dir%/%kernel.environment%.log
+                    path:                 "%kernel.logs_dir%/%kernel.environment%.log"
                     ident:                false
                     facility:             user
                     max_files:            0
                     action_level:         WARNING
+                    activation_strategy:  ~
                     stop_buffering:       true
                     buffer_size:          0
                     handler:              ~
                     members:              []
+                    channels:
+                        type:     ~
+                        elements: ~
                     from_email:           ~
                     to_email:             ~
                     subject:              ~
                     email_prototype:
-                        id:     ~ # Required (when the email_prototype is used)
-                        method: ~
+                        id:                   ~ # Obbligatorio (se si usa email_prototype)
+                        factory-method:       ~
+                    channels:
+                        type:                 ~
+                        elements:             []
                     formatter:            ~
 
     .. code-block:: xml
@@ -84,6 +93,6 @@ Riferimento configurazione
 
 .. note::
 
-    Quando il profiler è abilitato, viene aggiunto un gestore per memorizzare i messaggi
-    di log nel profiler. Il profiler usa il nome "debug", quindi il nome è riservato e
+    Quando il profilatore è abilitato, viene aggiunto un gestore per memorizzare i messaggi
+    di log nel profilatore. Il profilatore usa il nome "debug", quindi il nome è riservato e
     non può essere usato nella configurazione.

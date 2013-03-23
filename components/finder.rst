@@ -1,5 +1,6 @@
 .. index::
    single: Finder
+   single: Componenti; Finder
 
 Il componente Finder
 ====================
@@ -13,8 +14,7 @@ Installazione
 È possibile installare il componente in diversi modi:
 
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Finder);
-* Installandolo via PEAR ( `pear.symfony.com/Finder`);
-* Installandolo tramite Composer (`symfony/finder` su Packagist).
+* Installandolo tramite Composer (``symfony/finder`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -30,8 +30,10 @@ cartelle::
     foreach ($finder as $file) {
         // Stampa il percorso assoluto
         print $file->getRealpath()."\n";
+
         // Stampa il percorso relativo del file, omettendo il nome del file stesso
         print $file->getRelativePath()."\n";
+
         // Stampa il percorso relativo del file
         print $file->getRelativePathname()."\n";
     }
@@ -46,13 +48,26 @@ i metodi restituiscono un'istanza di Finder.
 
 .. tip::
 
-    Un Finder è un'istanza di un `Iterator`_ PHP. Perciò, invece di dover iterare attraverso
+    Un Finder è un'istanza di un :phpclass:`Iterator` PHP. Perciò, invece di dover iterare attraverso
     Finder con un ciclo ``foreach``, è possibile convertirlo in un array, tramite il metodo
     :phpfunction:`iterator_to_array`, o ottenere il numero di oggetto in esso contenuti con
     :phpfunction:`iterator_count`.
 
+.. caution::
+
+    Quando si cerca in posizioni diverse, passate al metodo
+    :method:`Symfony\\Component\\Finder\\Finder::in`, internamente viene creato un
+    iteratore separato per ogni posizione. Questo vuol dire che si ottengono vari insiemi di
+    risultati, aggregati in uno solo.
+    Poiché :phpfunction:`iterator_to_array` usa le chiavi degli insiemi di risultati,
+    durante la conversione in array, alcune chiavi potrebbero essere duplicate e i loro
+    valori sovrascritti. Lo si può evitare, passando ``false`` come secondo parametro
+    di :phpfunction:`iterator_to_array`.
+
 Criteri
 -------
+
+Ci sono molti modi per filtrare e ordinare i risultati.
 
 Posizione
 ~~~~~~~~~
@@ -87,7 +102,7 @@ Funziona anche con flussi definiti dall'utente::
     $finder = new Finder();
     $finder->name('photos*')->size('< 100K')->date('since 1 hour ago');
     foreach ($finder->in('s3://bucket-name') as $file) {
-        // fare qualcosa
+        // ... fare qualcosa
 
         print $file->getFilename()."\n";
     }
@@ -155,6 +170,25 @@ Il metodo ``notNames()`` viene invece usato per escludere i file che corrispondo
 
     $finder->files()->notName('*.rb');
 
+File Contents
+~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+   I metodi ``contains()`` e ``notContains()`` sono stati introdotti nella versione 2.1.
+
+Restringere i file per contenuto con il metodo
+:method:`Symfony\\Component\\Finder\\Finder::contains`::
+
+    $finder->files()->contains('lorem ipsum');
+
+Il metodo ``contains()`` accetta stringhe o espressioni regolari::
+
+    $finder->files()->contains('/lorem\s+ipsum$/i');
+
+Il metodo ``notContains()`` esclude file che contengono lo schema dato::
+
+    $finder->files()->notContains('dolor sit amet');
+
 Dimensione dei file
 ~~~~~~~~~~~~~~~~~~~
 
@@ -167,8 +201,11 @@ Si possono filtrare i file di dimensione compresa tra due valori, concatenando l
 
     $finder->files()->size('>= 1K')->size('<= 2K');
 
-È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, '<=',
-'=='.
+È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, ``<=``,
+``==``, ``!=``.
+
+.. versionadded:: 2.1
+   L'operatore ``!=`` è stato aggiunto nella versione 2.1.
 
 La dimensione può essere indicata usando l'indicazione in kilobyte (``k``, ``ki``),
 megabyte (``m``, ``mi``) o in gigabyte (``g``, ``gi``). Gli indicatori che terminano
@@ -203,22 +240,41 @@ Filtri personalizzati
 È possibile definire filtri personalizzati, grazie al metodo
 :method:`Symfony\\Component\\Finder\\Finder::filter`::
 
-    $filtro_personalizzato = function (\SplFileInfo $file)
+    $filtro = function (\SplFileInfo $file)
     {
         if (strlen($file) > 10) {
             return false;
         }
     };
 
-    $finder->files()->filter($filtro_personalizzato);
+    $finder->files()->filter($filtro);
 
 Il metodo ``filter()`` prende una Closure come argomento. Per ogni file che corrisponde ai criteri,
 la Closure viene chiamata passandogli il file come un'istanza di :class:`Symfony\\Component\\Finder\\SplFileInfo`.
 Il file sarà escluso dal risultato della ricerca nel caso in cui la Closure restituisca
 ``false``.
 
+Leggere il contenuto dei file restituiti
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.1
+   Il metodo ``getContents()`` è stato introdotto nella versione 2.1.
+
+Il contenuto dei file restituiti può essere letto con
+:method:`Symfony\\Component\\Finder\\SplFileInfo::getContents`::
+
+    use Symfony\Component\Finder\Finder;
+
+    $finder = new Finder();
+    $finder->files()->in(__DIR__);
+
+    foreach ($finder as $file) {
+        $contents = $file->getContents();
+        ...
+    }
+
 .. _strtotime:   http://www.php.net/manual/en/datetime.formats.php
-.. _Iterator:     http://www.php.net/manual/en/spl.iterators.php
 .. _protocollo:   http://www.php.net/manual/en/wrappers.php
 .. _stream:       http://www.php.net/streams
 .. _standard IEC: http://physics.nist.gov/cuu/Units/binary.html
+.. _Packagist:    https://packagist.org/packages/symfony/finder

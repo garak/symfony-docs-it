@@ -1,5 +1,5 @@
 .. index::
-   single: Bundle; Best Practice
+   single: Bundle; Best practice
 
 Struttura del bundle e best practice
 ====================================
@@ -145,7 +145,7 @@ della classe è ``Bundle\HelloBundle\Controller\HelloController``.
 Tutte le classi e i file devono seguire gli :doc:`standard di codice
 </contributing/code/standards>` di Symfony2.
 
-Alcune classi vanno viste solo come facciati e devono essere più corte possibile, come
+Alcune classi vanno viste solo come facciate e devono essere più corte possibile, come
 comandi, helper, ascoltatori e controllori.
 
 Le classi che si connettono al distributore di eventi devono avere come suffisso
@@ -171,7 +171,7 @@ Un bundle deve avere una suite di test scritta con PHPUnit e posta sotto la cart
 * La suite di test deve essere eseguibile con un semplice comando ``phpunit``, eseguito da
   un'applicazione di esempio;
 * I test funzionali vanno usati solo per testare la risposta e alcune informazioni di
-  profile, se se ne hanno;
+  profilo, se se ne hanno;
 * La copertura del codice deve essere almeno del 95%.
 
 .. note::
@@ -263,6 +263,7 @@ L'utente finale può fornire valori in qualsiasi file di configurazione:
 
     .. code-block:: ini
 
+        ; app/config/config.ini
         [parameters]
         acme_hello.email.from = fabien@example.com
 
@@ -283,4 +284,4 @@ Imparare di più dal ricettario
 
 * :doc:`/cookbook/bundles/extension`
 
-.. _standard: http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+.. _standard: http://symfony.com/PSR0

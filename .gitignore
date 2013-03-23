@@ -1,10 +1,12 @@
 Makefile
 _build/
+_exts/
 _static/
 _templates/
 conf.py
 favicon.ico
 rsync.sh
+symfony_black_03.png
 
 
 .DS_Store

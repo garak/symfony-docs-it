@@ -21,19 +21,19 @@ Un semplice blog in PHP puro
 
 In questo capitolo, costruiremo un'applicazione blog usando solo PHP puro.
 Per iniziare, creiamo una singola pagina che mostra le voci del blog, che sono
-state memorizzate nel database. La scrittura in puro PHP è sporca e veloce:
+state memorizzate nella base dati. La scrittura in puro PHP è sporca e veloce:
 
 .. code-block:: html+php
 
     <?php
     // index.php
-
     $link = mysql_connect('localhost', 'mioutente', 'miapassword');
     mysql_select_db('blog_db', $link);
 
     $result = mysql_query('SELECT id, title FROM post', $link);
     ?>
 
+    <!DOCTYPE html>
     <html>
         <head>
             <title>Lista dei post</title>
@@ -54,23 +54,26 @@ state memorizzate nel database. La scrittura in puro PHP è sporca e veloce:
 
     <?php
     mysql_close($link);
+    ?>
 
 Veloce da scrivere, rapido da eseguire e, al crescere dell'applicazione, impossibile
 da mantenere. Ci sono diversi problemi che occorre considerare:
 
-* **Niente verifica degli errori**: Che succede se la connessione al database fallisce?
+* **Niente verifica degli errori**: Che succede se la connessione alla base dati fallisce?
 
 * **Scarsa organizzazione**: Se l'applicazione cresce, questo singolo file diventerà
   sempre più immantenibile. Dove inserire il codice per gestire la compilazione di un
-  form? Come validare i dati? Dove mettere il codice per inviare delle email?
+  form? Come validare i dati? Dove mettere il codice per inviare delle
+  email?
 
 * **Difficoltà nel riusare il codice**: Essendo tutto in un solo file, non c'è modo di
   riusare alcuna parte dell'applicazione per altre "pagine" del blog.
 
 .. note::
-    Un altro problema non menzionato è il fatto che il database è legato a MySQL.
+
+    Un altro problema non menzionato è il fatto che la base dati è legata a MySQL.
     Sebbene non affrontato qui, Symfony2 integra in pieno `Doctrine`_,
-    una libreria dedicata all'astrazione e alla mappatura del database.
+    una libreria dedicata all'astrazione e alla mappatura della base dati.
 
 Cerchiamo di metterci al lavoro per risolvere questi e altri problemi.
 
@@ -84,7 +87,6 @@ dell'applicazione dal codice che prepara la "presentazione" in HTML:
 
     <?php
     // index.php
-
     $link = mysql_connect('localhost', 'mioutente', 'miapassword');
     mysql_select_db('blog_db', $link);
 
@@ -105,6 +107,7 @@ essenzialmente un file HTML che usa una sintassi PHP per template:
 
 .. code-block:: html+php
 
+    <!DOCTYPE html>
     <html>
         <head>
             <title>Lista dei post</title>
@@ -123,13 +126,12 @@ essenzialmente un file HTML che usa una sintassi PHP per template:
         </body>
     </html>
 
-Per convenzione, il file che contiene tutta la logica dell'applicazione, cioè
-``index.php``, è noto come "controllore". Il termine :term:`controllore` è una parola
-che ricorrerà spesso, quale che sia il linguaggio o il framework scelto. Si riferisce
-semplicemente alla parte del *proprio* codice che processa l'input proveniente dall'utente
-e prepara la risposta.
+Per convenzione, il file che contiene tutta la logica dell'applicazione, cioè ``index.php``,
+è noto come "controllore". Il termine :term:`controllore` è una parola che ricorrerà
+spesso, quale che sia il linguaggio o il framework scelto. Si riferisce semplicemente
+alla parte del *proprio* codice che processa l'input proveniente dall'utente e prepara la risposta.
 
-In questo caso, il nostro controllore prepara i dati estratti dal database e quindi include
+In questo caso, il nostro controllore prepara i dati estratti dalla base dati e quindi include
 un template, per presentare tali dati. Con il controllore isolato, è possibile cambiare
 facilmente *solo* il file template necessario per rendere le voci del blog in un
 qualche altro formato (p.e. ``list.json.php`` per il formato JSON). 
@@ -138,7 +140,7 @@ Isolare la logica dell'applicazione (il dominio)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Finora l'applicazione contiene una singola pagina. Ma se una seconda pagina avesse
-bisogno di usare la stessa connessione al database, o anche lo stesso array di post
+bisogno di usare la stessa connessione alla base dati, o anche lo stesso array di post
 del blog? Rifattorizziamo il codice in modo che il comportamento centrale e le funzioni
 di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``model.php``:
 
@@ -146,7 +148,6 @@ di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``
 
     <?php
     // model.php
-
     function open_database_connection()
     {
         $link = mysql_connect('localhost', 'mioutente', 'miapassword');
@@ -181,7 +182,7 @@ di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``
    organizzata, la maggior parte del codice che rappresenta la "logica di business"
    dovrebbe stare nel modello (invece che stare in un controllore). Diversamente da
    questo esempio, solo una parte (o niente) del modello riguarda effettivamente
-   l'accesso a un database.
+   l'accesso a una base dati.
  
 Il controllore (``index.php``) è ora molto semplice:
 
@@ -211,6 +212,7 @@ questo aspetto, creando un nuovo file ``layout.php``:
 .. code-block:: html+php
 
     <!-- templates/layout.php -->
+    <!DOCTYPE html>
     <html>
         <head>
             <title><?php echo $title ?></title>
@@ -263,7 +265,7 @@ un singolo risultato del blog a partire da un id dato::
     {
         $link = open_database_connection();
 
-        $id = mysql_real_escape_string($id);
+        $id = intval($id);
         $query = 'SELECT date, title, body FROM post WHERE id = '.$id;
         $result = mysql_query($query);
         $row = mysql_fetch_assoc($result);
@@ -308,7 +310,7 @@ duplicazione di codice. Tuttavia, questa pagina introduce alcuni altri problemi,
 un framework può risolvere. Per esempio, un parametro ``id`` mancante o non valido
 causerà un errore nella pagina. Sarebbe meglio se facesse rendere una pagina 404,
 ma non possiamo ancora farlo in modo facile. Inoltre, avendo dimenticato di pulire
-il parametro ``id`` con la funzione ``mysql_real_escape_string()``, il database
+il parametro ``id`` con la funzione ``mysql_real_escape_string()``, la base dati
 è a rischio di attacchi di tipo SQL injection.
 
 Un altro grosso problema è che ogni singolo controllore deve includere il file
@@ -424,28 +426,30 @@ fornito da Symfony. Un autoloader è uno strumento che rende possibile l'utilizz
 classi PHP senza includere esplicitamente il file che contiene la
 classe.
 
-Primo, `scaricare symfony`_ e metterlo in una cartella ``vendor/symfony/``.
-Poi, creare un file ``app/bootstrap.php``. Usarlo per il ``require`` dei due file
-dell'applicazione e per configurare l'autoloader:
+Nella cartella radice, creare un file ``composer.json`` con il seguente
+contenuto:
 
-.. code-block:: html+php
+.. code-block:: json
 
-    <?php
-    // bootstrap.php
-    require_once 'model.php';
-    require_once 'controllers.php';
-    require_once 'vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+    {
+        "require": {
+            "symfony/symfony": "2.1.*"
+        },
+        "autoload": {
+            "files": ["model.php","controller.php"]
+        }
+    }
+    
+Quindi, `scaricare Composer`_ ed eseguire il seguente comando, che scaricherà Symfony
+in una cartella `vendor/`:
 
-    $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
-    $loader->registerNamespaces(array(
-        'Symfony' => __DIR__.'/../vendor/symfony/src',
-    ));
+.. code-block:: bash
 
-    $loader->register();
+    $ php composer.phar install
 
-Questo dice all'autoloader dove sono le classi ``Symfony``. In questo modo, si può
-iniziare a usare le classi di Symfony senza usare l'istruzione ``require`` per i file
-che le contengono.
+Oltre a scaricare le dipendenza, Composer genera un file ``vendor/autoload.php``,
+che si occupa di auto-caricare tutti i file del framework Symfony, nonché dei
+file menzionati nella sezione autoload di ``composer.json``.
 
 Una delle idee principali della filosofia di Symfony è che il compito principale di
 un'applicazione sia quello di interpretare ogni richiesta e restituire una risposta. A
@@ -458,7 +462,7 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
 
     <?php
     // index.php
-    require_once 'app/bootstrap.php';
+    require_once 'vendor/bootstrap.php';
 
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -466,9 +470,9 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
     $request = Request::createFromGlobals();
 
     $uri = $request->getPathInfo();
-    if ($uri == '/') {
+    if ('/' == $uri) {
         $response = list_action();
-    } elseif ($uri == '/show' && $request->query->has('id')) {
+    } elseif ('/show' == $uri && $request->query->has('id')) {
         $response = show_action($request->query->get('id'));
     } else {
         $html = '<html><body><h1>Pagina non trovata</h1></body></html>';
@@ -537,51 +541,55 @@ si potrebbero almeno utilizzare i componenti `Routing`_  e `Templating`_, che gi
 risolvono questi problemi.
 
 Invece di risolvere nuovamente problemi comuni, si può lasciare a Symfony2 il compito di
-occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2:
+occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
 
-.. code-block:: html+php
-
-    <?php
     // src/Acme/BlogBundle/Controller/BlogController.php
-
     namespace Acme\BlogBundle\Controller;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     class BlogController extends Controller
     {
         public function listAction()
         {
-            $posts = $this->get('doctrine')->getEntityManager()
+            $posts = $this->get('doctrine')->getManager()
                 ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
-            return $this->render('AcmeBlogBundle:Blog:list.html.php', array('posts' => $posts));
+            return $this->render(
+                'AcmeBlogBundle:Blog:list.html.php',
+                array('posts' => $posts)
+            );
         }
 
         public function showAction($id)
         {
             $post = $this->get('doctrine')
-                ->getEntityManager()
+                ->getManager()
                 ->getRepository('AcmeBlogBundle:Post')
-                ->find($id);
-            
+                ->find($id)
+            ;
+
             if (!$post) {
-                // cause the 404 page not found to be displayed
+                // mostra la pagina 404 page not found
                 throw $this->createNotFoundException();
             }
 
-            return $this->render('AcmeBlogBundle:Blog:show.html.php', array('post' => $post));
+            return $this->render(
+                'AcmeBlogBundle:Blog:show.html.php',
+                array('post' => $post)
+            );
         }
     }
 
 I due controllori sono ancora leggeri. Ognuno usa la libreria ORM Doctrine per
-recuperare oggetti dal database e il componente ``Templating`` per rendere un template
+recuperare oggetti dalla base dati e il componente ``Templating`` per rendere un template
 e restituire un oggetto ``Response``. Il template della lista è ora un po' più
 semplice:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/BlogBundle/Resources/views/Blog/list.html.php --> 
+    <!-- src/Acme/BlogBundle/Resources/views/Blog/list.html.php -->
     <?php $view->extend('::layout.html.php') ?>
 
     <?php $view['slots']->set('title', 'List of Posts') ?>
@@ -590,7 +598,10 @@ semplice:
     <ul>
         <?php foreach ($posts as $post): ?>
         <li>
-            <a href="<?php echo $view['router']->generate('blog_show', array('id' => $post->getId())) ?>">
+            <a href="<?php echo $view['router']->generate(
+                'blog_show',
+                array('id' => $post->getId())
+            ) ?>">
                 <?php echo $post->getTitle() ?>
             </a>
         </li>
@@ -602,9 +613,13 @@ Il layout è quasi identico:
 .. code-block:: html+php
 
     <!-- app/Resources/views/layout.html.php -->
+    <!DOCTYPE html>
     <html>
         <head>
-            <title><?php echo $view['slots']->output('title', 'Titolo predefinito') ?></title>
+            <title><?php echo $view['slots']->output(
+                'title',
+                'Titolo predefinito'
+            ) ?></title>
         </head>
         <body>
             <?php echo $view['slots']->output('_content') ?>
@@ -634,11 +649,8 @@ Una configurazione delle rotte fornisce tali informazioni in un formato leggibil
 Ora che Symfony2 gestisce tutti i compiti più comuni, il front controller è
 semplicissimo. E siccome fa così poco, non si avrà mai bisogno di modificarlo una
 volta creato (e se si usa una distribuzione di Symfony2, non servirà nemmeno
-crearlo!):
+crearlo!)::
 
-.. code-block:: html+php
-
-    <?php
     // web/app.php
     require_once __DIR__.'/../app/bootstrap.php';
     require_once __DIR__.'/../app/AppKernel.php';
@@ -699,8 +711,8 @@ Prendiamo per esempio il template della lista, scritto in Twig:
 .. code-block:: html+jinja
 
     {# src/Acme/BlogBundle/Resources/views/Blog/list.html.twig #}
-
     {% extends "::layout.html.twig" %}
+
     {% block title %}Lista dei post{% endblock %}
 
     {% block body %}
@@ -742,10 +754,10 @@ Imparare di più con le ricette
 * :doc:`/cookbook/controller/service`
 
 .. _`Doctrine`: http://www.doctrine-project.org
-.. _`scaricare symfony`: http://symfony.com/download
+.. _`scaricare Composer`: http://getcomposer.org/download/
 .. _`Routing`: https://github.com/symfony/Routing
 .. _`Templating`: https://github.com/symfony/Templating
 .. _`KnpBundles.com`: http://knpbundles.com/
 .. _`Twig`: http://twig.sensiolabs.org
-.. _`Varnish`: http://www.varnish-cache.org
+.. _`Varnish`: https://www.varnish-cache.org/
 .. _`PHPUnit`: http://www.phpunit.de

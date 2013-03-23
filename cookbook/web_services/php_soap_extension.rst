@@ -22,7 +22,8 @@ SOAP funziona espondendo i metodi di un oggetto PHP a un'entità esterna
 servizio SOAP. In questo caso, il servizio SOAP consentirà al client di richiamare
 un metodo chiamto ``hello``,  che invia un'email::
 
-    namespace Acme\SoapBundle;
+    // src/Acme/SoapBundle/Services/HelloService.php
+    namespace Acme\SoapBundle\Services;
 
     class HelloService
     {
@@ -60,17 +61,25 @@ per costruire un oggetto ``HelloService`` in modo appropriato:
         # app/config/config.yml    
         services:
             hello_service:
-                class: Acme\DemoBundle\Services\HelloService
-                arguments: [mailer]
+                class: Acme\SoapBundle\Services\HelloService
+                arguments: [@mailer]
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <services>
-         <service id="hello_service" class="Acme\DemoBundle\Services\HelloService">
-          <argument>mailer</argument>
+         <service id="hello_service" class="Acme\SoapBundle\Services\HelloService">
+          <argument type="service" id="mailer"/>
          </service>
         </services>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container
+            ->register('hello_service', 'Acme\SoapBundle\Services\HelloService')
+            ->addArgument(new Reference('mailer'));
+
 
 Di seguito un esempio di un controllore che è in grando di gestire una richiesta
 SOAP. Se ``indexAction()`` è accessibile tramite la rotta ``/soap``, il documento
@@ -81,12 +90,13 @@ WSDL può essere recuperato tramite ``/soap?wsdl``.
     namespace Acme\SoapBundle\Controller;
     
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Component\HttpFoundation\Response;
 
     class HelloServiceController extends Controller 
     {
         public function indexAction()
         {
-            $server = new \SoapServer('/path/to/hello.wsdl');
+            $server = new \SoapServer('/percorso/di/hello.wsdl');
             $server->setObject($this->get('hello_service'));
             
             $response = new Response();
@@ -114,7 +124,7 @@ Di seguito un esempio che richiama il servizio, usando un client `NuSOAP`_. Ques
 presume che ``indexAction`` nel controllore visto sopra sia accessibile tramite la rotta
 ``/soap``::
 
-    $client = new \soapclient('http://example.com/app.php/soap?wsdl', true);
+    $client = new \Soapclient('http://example.com/app.php/soap?wsdl', true);
     
     $result = $client->call('hello', array('name' => 'Scott'));
 
@@ -132,18 +142,22 @@ Di seguito, un esempio di WSDL
          xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
          xmlns="http://schemas.xmlsoap.org/wsdl/" 
          targetNamespace="urn:helloservicewsdl">
+
       <types>
        <xsd:schema targetNamespace="urn:hellowsdl">
         <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
         <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
        </xsd:schema>
       </types>
+
       <message name="helloRequest">
        <part name="name" type="xsd:string" />
       </message>
+
       <message name="helloResponse">
        <part name="return" type="xsd:string" />
       </message>
+
       <portType name="hellowsdlPortType">
        <operation name="hello">
         <documentation>Hello World</documentation>
@@ -151,20 +165,24 @@ Di seguito, un esempio di WSDL
         <output message="tns:helloResponse"/>
        </operation>
       </portType>
+
       <binding name="hellowsdlBinding" type="tns:hellowsdlPortType">
       <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
       <operation name="hello">
        <soap:operation soapAction="urn:arnleadservicewsdl#hello" style="rpc"/>
+                
        <input>
         <soap:body use="encoded" namespace="urn:hellowsdl" 
             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
        </input>
+
        <output>
         <soap:body use="encoded" namespace="urn:hellowsdl" 
             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
        </output>
       </operation>
      </binding>
+
      <service name="hellowsdl">
       <port name="hellowsdlPort" binding="tns:hellowsdlBinding">
        <soap:address location="http://example.com/app.php/soap" />
@@ -173,7 +191,7 @@ Di seguito, un esempio di WSDL
     </definitions>
 
 
-.. _`PHP SOAP`:            http://php.net/manual/en/book.soap.php
+.. _`PHP SOAP`:            http://php.net/manual/it/book.soap.php
 .. _`NuSOAP`:              http://sourceforge.net/projects/nusoap
-.. _`buffer dell'output`:  http://php.net/manual/en/book.outcontrol.php
+.. _`buffer dell'output`:  http://php.net/manual/it/book.outcontrol.php
 .. _`Zend SOAP`:           http://framework.zend.com/manual/en/zend.soap.server.html

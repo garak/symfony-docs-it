@@ -1,16 +1,16 @@
 .. index::
    single: Form; Campi; csrf
 
-Tipo di campo
-=============
+Tipo di campo csrf
+==================
 
 Il tipo ``csrf`` è un campo nascosto che contiene un token per il CSRF.
 
 +---------------+--------------------------------------------------------------------+
-| Reso come     | campo ``input`` ``hidden`` field                                   |
+| Reso come     | campo ``input`` ``hidden``                                         |
 +---------------+--------------------------------------------------------------------+
 | Opzioni       | - ``csrf_provider``                                                |
-|               | - ``page_id``                                                      |
+|               | - ``intention``                                                    |
 |               | - ``property_path``                                                |
 +---------------+--------------------------------------------------------------------+
 | Tipo genitore | ``hidden``                                                         |

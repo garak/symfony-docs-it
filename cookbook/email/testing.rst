@@ -41,6 +41,10 @@ per ottnere informazioni sui messaggi inviati nella richiesta precedente::
         public function testMailIsSentAndContentIsOk()
         {
             $client = static::createClient();
+
+            // Abilita il profilatore per la prossima richiesta (non fa nulla se il profilatore non è disponibile)
+            $client->enableProfiler();
+
             $crawler = $client->request('POST', '/path/to/above/action');
 
             $mailCollector = $client->getProfile()->getCollector('swiftmailer');

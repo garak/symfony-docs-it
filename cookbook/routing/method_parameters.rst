@@ -4,6 +4,11 @@
 Usare i metodi HTTP oltre a GET e POST nelle rotte
 ==================================================
 
+.. versionadded:: 2.2
+    Questa funzionalità è disabilitata in Symfony 2.2. Per abilitarla, 
+    richiamare il metodo :method:`Request::enableHttpMethodParameterOverride <Symfony\\Component\\HttpFoundation\\Request::enableHttpMethodParameterOverride>` 
+    prima di gestire la richiesta.
+
 Il metodo HTTP di una richiesta è uno dei requisiti verificabili per la
 corrispondenza a una rotta. L'argomento è trattato nella capitolo sulle rotte
 del libro, ":doc:`/book/routing`", con esempi che usano GET e POST. Ma si possono
@@ -16,22 +21,19 @@ e cancellarlo, cercando corrispondenza con GET, PUT e DELETE.
     .. code-block:: yaml
 
         blog_show:
-            pattern:  /blog/{slug}
+            path:     /blog/{slug}
             defaults: { _controller: AcmeDemoBundle:Blog:show }
-            requirements:
-                _method:  GET
+            methods:   [GET]
 
         blog_update:
-            pattern:  /blog/{slug}
+            path:     /blog/{slug}
             defaults: { _controller: AcmeDemoBundle:Blog:update }
-            requirements:
-                _method:  PUT
+            methods:   [PUT]
 
         blog_delete:
-            pattern:  /blog/{slug}
+            path:     /blog/{slug}
             defaults: { _controller: AcmeDemoBundle:Blog:delete }
-            requirements:
-                _method:  DELETE
+            methods:   [DELETE]
 
     .. code-block:: xml
 
@@ -41,19 +43,16 @@ e cancellarlo, cercando corrispondenza con GET, PUT e DELETE.
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="blog_show" pattern="/blog/{slug}">
+            <route id="blog_show" path="/blog/{slug}" methods="GET">
                 <default key="_controller">AcmeDemoBundle:Blog:show</default>
-                <requirement key="_method">GET</requirement>
             </route>
 
-            <route id="blog_update" pattern="/blog/{slug}">
+            <route id="blog_update" path="/blog/{slug}" methods="PUT">
                 <default key="_controller">AcmeDemoBundle:Blog:update</default>
-                <requirement key="_method">PUT</requirement>
             </route>
 
-            <route id="blog_delete" pattern="/blog/{slug}">
+            <route id="blog_delete" path="/blog/{slug}" methods="DELETE">
                 <default key="_controller">AcmeDemoBundle:Blog:delete</default>
-                <requirement key="_method">DELETE</requirement>
             </route>
         </routes>
 
@@ -65,21 +64,15 @@ e cancellarlo, cercando corrispondenza con GET, PUT e DELETE.
         $collection = new RouteCollection();
         $collection->add('blog_show', new Route('/blog/{slug}', array(
             '_controller' => 'AcmeDemoBundle:Blog:show',
-        ), array(
-            '_method' => 'GET',
-        )));
+        ), array(), array(), '', array(), array('GET')));
 
         $collection->add('blog_update', new Route('/blog/{slug}', array(
             '_controller' => 'AcmeDemoBundle:Blog:update',
-        ), array(
-            '_method' => 'PUT',
-        )));
+        ), array(), array(), '', array(), array('PUT')));
 
         $collection->add('blog_delete', new Route('/blog/{slug}', array(
             '_controller' => 'AcmeDemoBundle:Blog:delete',
-        ), array(
-            '_method' => 'DELETE',
-        )));
+        ), array(), array(), '', array('DELETE')));
 
         return $collection;
 

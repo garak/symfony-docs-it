@@ -1058,7 +1058,7 @@ Imparare di più con le ricette
 
 .. _`Things Caches Do`: http://tomayko.com/writings/things-caches-do
 .. _`Cache Tutorial`: http://www.mnot.net/cache_docs/
-.. _`Varnish`: http://www.varnish-cache.org/
+.. _`Varnish`: https://www.varnish-cache.org/
 .. _`Squid in modalità reverse proxy`: http://wiki.squid-cache.org/SquidFaq/ReverseProxy
 .. _`modello a scadenza`: http://tools.ietf.org/html/rfc2616#section-13.2
 .. _`modello a validazione`: http://tools.ietf.org/html/rfc2616#section-13.3

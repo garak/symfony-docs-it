@@ -101,10 +101,37 @@ di nodo. I tipi di nodo disponibili sono:
 * booleano
 * array
 * enum (nuovo in 2.1)
+* intero (nuovo in 2.2)
+* virgola mobile (nuovo in 2.2)
 * variabile (nessuna validazione)
 
 e sono creati con ``node($nome, $tipo)`` o con i relativi metodi scorciatoia
 ``xxxxNode($nome)``.
+
+Nodi di vincoli numerici
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    I nodi numerici (virgola mobile e intero) sono nuovi in 2.2
+
+I nodi numerici (virgola mobile e intero) foniscono due vincoli extra,
+:method:`Symfony\\Component\\Config\\Definition\\Builder::min` e
+:method:`Symfony\\Component\\Config\\Definition\\Builder::max`,
+che consentono di  validare il valore::
+
+    $rootNode
+        ->children()
+            ->integerNode('positive_value')
+                ->min(0)
+            ->end()
+            ->floatNode('big_value')
+                ->max(5E45)
+            ->end()
+            ->integerNode('value_inside_a_range')
+                ->min(-50)->max(50)
+            ->end()
+        ->end()
+    ;
 
 Nodi array
 ~~~~~~~~~~
@@ -136,7 +163,6 @@ Oppure si può definire un prototipo per ogni nodo dentro un nodo array::
                     ->scalarNode('host')->end()
                     ->scalarNode('username')->end()
                     ->scalarNode('password')->end()
-                    ->end()
                 ->end()
             ->end()
         ->end()
@@ -157,6 +183,8 @@ Prima di definire i figli di un nodo array, si possono fornire opzioni, come:
 ``requiresAtLeastOneElement()``
     Dovrebbe esserci almeno un elemento nell'array (funziona solo se viene richiamato anche
     ``isRequired()``).
+``addDefaultsIfNotSet()``
+    Se dei nodi figli hanno valori predefiniti, usarli se non sono stati forniti dati espliciti.
 
 Un esempio::
 
@@ -226,8 +254,47 @@ abbia un determinato valore:
                     ->end()
                 ->end()
             ->end()
+            ->arrayNode('settings')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                        ->defaultValue('value')
+                    ->end()
+                ->end()
+            ->end()
         ->end()
     ;
+
+Sezioni facoltative
+-------------------
+
+.. versionadded:: 2.2
+    I metodi ``canBeEnabled`` e ``canBeDisabled`` sono nuovi in Symfony 2.2
+
+Se si hanno intere sezioni facoltative e che possono essere abilitate/disabilitate,
+si possono sfruttare le scorciatoie
+:method:`Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition::canBeEnabled` e
+:method:`Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition::canBeDisabled`::
+
+    $arrayNode
+        ->canBeEnabled()
+    ;
+
+    // è equivalente a
+
+    $arrayNode
+        ->treatFalseLike(array('enabled' => false))
+        ->treatTrueLike(array('enabled' => true))
+        ->treatNullLike(array('enabled' => true))
+        ->children()
+            ->booleanNode('enabled')
+                ->defaultFalse()
+    ;
+
+Il metodo ``canBeDisabled`` è uguale, tranne per il fatto che la sezione
+viene abilitata in modo predefinito.
 
 Opzioni di fusione
 ------------------
@@ -481,5 +548,4 @@ Altrimenti, il risultato è un array pulito di valori di configurazione::
         $configuration,
         $configs)
     ;
-
 

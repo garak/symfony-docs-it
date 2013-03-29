@@ -38,8 +38,8 @@ fare come segue:
                     - Length:
                         min: 2
                         max: 50
-                        minMessage: Il nome deve essere lungo almeno 2 caratteri
-                        maxMessage: Il nome non può essere più lungo di 50 caratteri
+                        minMessage: Il nome deve essere lungo almeno {{ limit }} caratteri
+                        maxMessage: Il nome non può essere più lungo di {{ limit }} caratteri
 
     .. code-block:: php-annotations
 
@@ -54,8 +54,8 @@ fare come segue:
              * @Assert\Length(
              *      min = "2",
              *      max = "50",
-             *      minMessage = "Il nome deve essere lungo almeno 2 caratteri",
-             *      maxMessage = "Il nome non può essere più lungo di 50 caratteri"
+             *      minMessage = "Il nome deve essere lungo almeno {{ limit }} caratteri",
+             *      maxMessage = "Il nome non può essere più lungo di {{ limit }} caratteri"
              * )
              */
              protected $firstName;
@@ -69,8 +69,8 @@ fare come segue:
                 <constraint name="Length">
                     <option name="min">2</option>
                     <option name="max">50</option>
-                    <option name="minMessage">Your first name must be at least {{ limit }} characters length</option>
-                    <option name="maxMessage">Your first name cannot be longer than than {{ limit }} characters length</option>
+                    <option name="minMessage">Il nome deve essere lungo almeno {{ limit }} caratteri</option>
+                    <option name="maxMessage">Il nome non può essere più lungo di {{ limit }} caratteri</option>
                 </constraint>
             </property>
         </class>
@@ -90,8 +90,8 @@ fare come segue:
                 $metadata->addPropertyConstraint('firstName', new Assert\Length(array(
                     'min'        => 2,
                     'max'        => 50,
-                    'minMessage' => 'Your first name must be at least {{ limit }} characters length',
-                    'maxMessage' => 'Your first name cannot be longer than than {{ limit }} characters length',
+                    'minMessage' => 'Il nome deve essere lungo almeno {{ limit }} caratteri',
+                    'maxMessage' => 'Il nome non può essere più lungo di {{ limit }} caratteri',
                 )));
             }
         }

@@ -82,6 +82,15 @@ Per cercare in diverse posizioni, è possibile concatenare diverse chiamate a
 
     $finder->files()->in(__DIR__)->in('/altraparte');
 
+.. versionadded:: 2.2
+   Il supporto per i caratteri jolly è stato aggiunto nella  versione 2.2.
+
+Si possono usare caretteri jolly nelle cartelle, per cercare uno schema::
+
+    $finder->in('src/Symfony/*/*/Resources');
+
+Ogni schema deve risolvere almeno un percorso di cartella.
+
 È possibile escludere cartelle dalla ricerca tramite il metodo
 :method:`Symfony\\Component\\Finder\\Finder::exclude`::
 
@@ -188,6 +197,36 @@ Il metodo ``contains()`` accetta stringhe o espressioni regolari::
 Il metodo ``notContains()`` esclude file che contengono lo schema dato::
 
     $finder->files()->notContains('dolor sit amet');
+
+Path
+~~~~
+
+.. versionadded:: 2.2
+   I metodi ``path()`` e ``notPath()`` sono stati aggiunti nella versione 2.2.
+
+Si possono restringere file e cartelle per percorso, con il
+metodo :method:`Symfony\\Component\\Finder\\Finder::path`::
+
+    $finder->path('una/cartella/particolare');
+
+Su tutte le piattarforma, bisogna usare la barra (cioè ``/``) come separatore di cartelle.
+
+Il metodo ``path()`` accetta stringhe o espressioni regolari::
+
+    $finder->path('pippo/pluto');
+    $finder->path('/^pippo\/pluto/');
+
+Internamente, le stringhe sono convertite in espressioni regolari, tramite escape delle barre
+e l'aggiunta di delimitatori:
+
+.. code-block:: text
+
+    nomecartella ===>    /nomecartella/
+    a/b/c        ===>    /a\/b\/c/
+
+Il metodo :method:`Symfony\\Component\\Finder\\Finder::notPath` esclude i file per percorso::
+
+    $finder->notPath('altra/cartella');
 
 Dimensione dei file
 ~~~~~~~~~~~~~~~~~~~

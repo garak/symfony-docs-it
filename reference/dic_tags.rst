@@ -26,9 +26,9 @@ AsseticBundle ha molti tag, non elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `kernel.cache_warmer`_            | Registrare un servizio da richiamare durante il cache warming             |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `kernel.event_listener`_          | Ascoltare diversi eventi/hook in Symfony                                  |
+| `kernel.event_listener`_          | Ascoltare diversi eventi/agganci in Symfony                               |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `kernel.event_subscriber`_        | Sottoscrivere un insieme di vari eventi/hook in Symfony                   |
+| `kernel.event_subscriber`_        | Sottoscrivere un insieme di vari eventi/agganci in Symfony                |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `monolog.logger`_                 | Log con un canale di log personalizzato                                   |
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -313,7 +313,7 @@ kernel.terminate
 kernel.event_subscriber
 -----------------------
 
-**Scopo**: Sottoscrivere un insieme di vari eventi/hhok in Symfony
+**Scopo**: Sottoscrivere un insieme di vari eventi/agganci in Symfony
 
 .. versionadded:: 2.1
    La possibilità di aggiungere sottoscrittori di eventi del kernle è nuova nella 2.1.

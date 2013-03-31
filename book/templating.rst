@@ -676,9 +676,7 @@ Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
 
     .. code-block:: jinja
 
-        {{ render_hinclude(controller('...')) }}
-
-        {{ render_hinclude(url('...')) }}
+        {% render url('...') with {}, {'standalone': 'js'} %}
 
     .. code-block:: php
 
@@ -1297,7 +1295,7 @@ o consentire a un utente malintenzionato di eseguire un attacco `Cross Site Scri
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         Ciao {{ name }}
 
@@ -1307,10 +1305,14 @@ o consentire a un utente malintenzionato di eseguire un attacco `Cross Site Scri
 
 Si immagini che l'utente inserisca nel suo nome il seguente codice::
 
+.. code-block:: text
+
     <script>alert('ciao!')</script>
 
 Senza alcun escape dell'output, il template risultante causerebbe la comparsa
 di una finestra di alert Javascript::
+
+.. code-block:: html
 
     Ciao <script>alert('ciao!')</script>
 
@@ -1321,6 +1323,8 @@ all'interno dell'area di un utente legittimo e ignaro.
 La risposta a questo problema è l'escape dell'output. Con l'escape attivo,
 lo stesso template verrebbe reso in modo innocuo e scriverebbe alla lettera
 il tag ``script`` su schermo::
+
+.. code-block:: html
 
     Ciao &lt;script&gt;alert(&#39;ciao!&#39;)&lt;/script&gt;
 
@@ -1354,6 +1358,8 @@ L'escape dell'output non è automatico, se si usano i template PHP. Questo vuol 
 a meno che non scelga esplicitamente di passare una variabile sotto escape, non si è
 protetti. Per usare l'escape, usare il metodo speciale ``escape()``::
 
+.. code-block:: html+php
+
     Ciao <?php echo $view->escape($name) ?>
 
 Per impostazione predefinita, il metodo ``escape()`` assume che la variabile sia resa
@@ -1361,7 +1367,7 @@ in un contesto HTML (quindi l'escape renderà la variabile sicura per HTML).
 Il secondo parametro consente di cambiare contesto. Per esempio per mostrare qualcosa
 in una stringa Javascript, usare il contesto ``js``:
 
-.. code-block:: js
+.. code-block:: html+php
 
     var myMsg = 'Ciao <?php echo $view->escape($name, 'js') ?>';
 

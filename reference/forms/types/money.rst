@@ -45,7 +45,8 @@ mostrato accanto alla casella di testo. A seconda della valuta, il simbolo potre
 essere mostrato prima o dopo la casella di
 testo.
 
-Può anche essere impostato a ``false``, per nascondere il simbolo della valuta.
+Può essere un codice `ISO 4217` a tre lettere. Può anche essere impostato a ``false``,
+per nascondere il simbolo della valuta.
 
 divisor
 ~~~~~~~
@@ -95,3 +96,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. _`ISO 4217`: http://en.wikipedia.org/wiki/ISO_4217

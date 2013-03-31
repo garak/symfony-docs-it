@@ -160,10 +160,12 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
     il file ``phpunit.xml.dist`` e impostare nella variabile d'ambiente ``KERNEL_DIR`` la
     cartella del proprio kernel::
 
-        <phpunit
+    .. code-block:: xml
+
+        <phpunit>
             <!-- ... -->
             <php>
-                <server name="KERNEL_DIR" value="/percorso/della/propria/applicazione/" />
+                <server name="KERNEL_DIR" value="/percorso/della/applicazione/" />
             </php>
             <!-- ... -->
         </phpunit>
@@ -351,14 +353,6 @@ o per eseguire richieste più complesse::
         'photo.jpg',
         'image/jpeg',
         123
-    );
-    // oppure
-    $photo = array(
-        'tmp_name' => '/percorso/di/photo.jpg',
-        'name' => 'photo.jpg',
-        'type' => 'image/jpeg',
-        'size' => 123,
-        'error' => UPLOAD_ERR_OK
     );
     $client->request(
         'POST',

@@ -28,6 +28,11 @@ contenitore e personalizzare gli oggetti da un bundle di terze parti. Si inizier
 scrivere codice che è più riutilizzabile, testabile e disaccoppiato, semplicemente perché
 il contenitore di servizi consente di scrivere facilmente del buon codice.
 
+.. tip::
+
+    Per un approfondimento successivo alla lettura di questo capitolo, dare un'occhiata
+    alla :doc:`documentazione del componente Dependency Injection</components/dependency_injection/introduction>`.
+
 .. index::
    single: Contenitore di servizi; Cos'è un servizio?
 
@@ -222,15 +227,6 @@ Il risultato finale è esattamente lo stesso di prima, la differenza è solo nel
 di dover cercare per parametri con questi nomi. Quando il contenitore è costruito,
 cerca il valore di ogni parametro e lo usa nella definizione del servizio.
 
-.. note::
-
-    Il simbolo di percentuale dentro a un parametro o argomento, come parte della stringa, deve subire
-    un escape con un ulteriore simbolo di percentuale:
-    
-    .. code-block:: xml
-
-        <argument type="string">http://symfony.com/?pippo=%%s&pluto=%%d</argument>
-
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
 I parametri, tuttavia, hanno diversi vantaggi:
@@ -251,60 +247,7 @@ tuttavia, potrebbe non essere necessaria la flessibilità dei parametri.
 Parametri array
 ~~~~~~~~~~~~~~~
 
-I parametri non devono necessariamente essere semplici stringhe, possono anche essere
-array. Per il formato YAML, occorre usare l'attributo type="collection" per tutti i
-parametri che sono array.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        parameters:
-            my_mailer.gateways:
-                - mail1
-                - mail2
-                - mail3
-            my_multilang.language_fallback:
-                en:
-                    - en
-                    - fr
-                fr:
-                    - fr
-                    - en
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <parameters>
-            <parameter key="my_mailer.gateways" type="collection">
-                <parameter>mail1</parameter>
-                <parameter>mail2</parameter>
-                <parameter>mail3</parameter>
-            </parameter>
-            <parameter key="my_multilang.language_fallback" type="collection">
-                <parameter key="en" type="collection">
-                    <parameter>en</parameter>
-                    <parameter>fr</parameter>
-                </parameter>
-                <parameter key="fr" type="collection">
-                    <parameter>fr</parameter>
-                    <parameter>en</parameter>
-                </parameter>
-            </parameter>
-        </parameters>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        use Symfony\Component\DependencyInjection\Definition;
-
-        $container->setParameter('my_mailer.gateways', array('mail1', 'mail2', 'mail3'));
-        $container->setParameter('my_multilang.language_fallback', array(
-            'en' => array('en', 'fr'),
-            'fr' => array('fr', 'en'),
-        ));
-
+I parametri possono anche contenere array. Vedere :ref:`component-di-parameters-array`.
 
 Importare altre risorse di configurazione del contenitore
 ---------------------------------------------------------
@@ -875,7 +818,7 @@ La configurazione del contenitore dei servizi è semplice:
             '%newsletter_manager.class%',
             array(
                 new Reference('mailer'),
-                new Reference('templating')
+                new Reference('templating'),
             )
         ));
 
@@ -965,6 +908,7 @@ il suo id:
 Saperne di più
 --------------
 
+* :doc:`/components/dependency_injection/parameters`
 * :doc:`/components/dependency_injection/compilation`
 * :doc:`/components/dependency_injection/definitions`
 * :doc:`/components/dependency_injection/factories`

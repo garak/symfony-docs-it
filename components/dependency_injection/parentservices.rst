@@ -62,13 +62,13 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
             my_email_formatter:
                 # ...
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 calls:
                     - [ setMailer, [ @my_mailer ] ]
                     - [ setEmailFormatter, [ @my_email_formatter] ]
 
             greeting_card_manager:
-                class:     %greeting_card_manager.class%
+                class:     "%greeting_card_manager.class%"
                 calls:
                     - [ setMailer, [ @my_mailer ] ]
                     - [ setEmailFormatter, [ @my_email_formatter] ]
@@ -184,25 +184,23 @@ genitore per un servizio.
             # ...
             newsletter_manager.class: NewsletterManager
             greeting_card_manager.class: GreetingCardManager
-            mail_manager.class: MailManager
         services:
             my_mailer:
                 # ...
             my_email_formatter:
                 # ...
             mail_manager:
-                class:     %mail_manager.class%
                 abstract:  true
                 calls:
                     - [ setMailer, [ @my_mailer ] ]
                     - [ setEmailFormatter, [ @my_email_formatter] ]
             
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 parent: mail_manager
             
             greeting_card_manager:
-                class:     %greeting_card_manager.class%
+                class:     "%greeting_card_manager.class%"
                 parent: mail_manager
             
     .. code-block:: xml
@@ -211,7 +209,6 @@ genitore per un servizio.
             <!-- ... -->
             <parameter key="newsletter_manager.class">NewsletterManager</parameter>
             <parameter key="greeting_card_manager.class">GreetingCardManager</parameter>
-            <parameter key="mail_manager.class">MailManager</parameter>
         </parameters>
 
         <services>
@@ -221,7 +218,7 @@ genitore per un servizio.
             <service id="my_email_formatter" ... >
               <!-- ... -->
             </service>
-            <service id="mail_manager" class="%mail_manager.class%" abstract="true">
+            <service id="mail_manager" abstract="true">
                 <call method="setMailer">
                      <argument type="service" id="my_mailer" />
                 </call>
@@ -242,13 +239,11 @@ genitore per un servizio.
         // ...
         $container->setParameter('newsletter_manager.class', 'NewsletterManager');
         $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
-        $container->setParameter('mail_manager.class', 'MailManager');
 
         $container->setDefinition('my_mailer', ... );
         $container->setDefinition('my_email_formatter', ... );
         $container->setDefinition('mail_manager', new Definition(
-            '%mail_manager.class%'
-        ))->SetAbstract(
+        ))->setAbstract(
             true
         )->addMethodCall('setMailer', array(
             new Reference('my_mailer')
@@ -279,11 +274,10 @@ servizi figli.
    ``mail_manager``, non sarà eseguito quando i servizi figli saranno
    istanziati.
 
-La classe genitore è astratta, perché non andrebbe istanziata direttamente. Impostandola
-come astratta nel file di configurazione, come fatto sopra, vuol dire che potrà essere
-usata come servizio genitore e non direttamente come servizio da iniettare e che sarà
-rimossa durante la compilazione. In altre parole, esiste puramente come "template" per
-altri servizi.
+La classe genitore è astratta, perché non andrebbe istanziata direttamente dal
+contenitore o passata in un altro servizio. Esiste puramente come "template" per
+altri servizi. Per questo può non avere ``class`` configurata, che
+provocherebbe un'eccezione per un servizio non astratto.
 
 .. note::
 
@@ -308,7 +302,6 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
             # ...
             newsletter_manager.class: NewsletterManager
             greeting_card_manager.class: GreetingCardManager
-            mail_manager.class: MailManager
         services:
             my_mailer:
                 # ...
@@ -317,20 +310,19 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
             my_email_formatter:
                 # ...
             mail_manager:
-                class:     %mail_manager.class%
                 abstract:  true
                 calls:
                     - [ setMailer, [ @my_mailer ] ]
                     - [ setEmailFormatter, [ @my_email_formatter] ]
             
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 parent: mail_manager
                 calls:
                     - [ setMailer, [ @my_alternative_mailer ] ]
             
             greeting_card_manager:
-                class:     %greeting_card_manager.class%
+                class:     "%greeting_card_manager.class%"
                 parent: mail_manager
             
     .. code-block:: xml
@@ -339,7 +331,6 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
             <!-- ... -->
             <parameter key="newsletter_manager.class">NewsletterManager</parameter>
             <parameter key="greeting_card_manager.class">GreetingCardManager</parameter>
-            <parameter key="mail_manager.class">MailManager</parameter>
         </parameters>
 
         <services>
@@ -352,7 +343,7 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
             <service id="my_email_formatter" ... >
               <!-- ... -->
             </service>
-            <service id="mail_manager" class="%mail_manager.class%" abstract="true">
+            <service id="mail_manager" abstract="true">
                 <call method="setMailer">
                      <argument type="service" id="my_mailer" />
                 </call>
@@ -377,14 +368,12 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
         // ...
         $container->setParameter('newsletter_manager.class', 'NewsletterManager');
         $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
-        $container->setParameter('mail_manager.class', 'MailManager');
 
         $container->setDefinition('my_mailer', ... );
         $container->setDefinition('my_alternative_mailer', ... );
         $container->setDefinition('my_email_formatter', ... );
         $container->setDefinition('mail_manager', new Definition(
-            '%mail_manager.class%'
-        ))->SetAbstract(
+        ))->setAbstract(
             true
         )->addMethodCall('setMailer', array(
             new Reference('my_mailer')
@@ -442,20 +431,18 @@ Se si ha la seguente configurazione:
         parameters:
             # ...
             newsletter_manager.class: NewsletterManager
-            mail_manager.class: MailManager
         services:
             my_filter:
                 # ...
             another_filter:
                 # ...
             mail_manager:
-                class:     %mail_manager.class%
                 abstract:  true
                 calls:
                     - [ setFilter, [ @my_filter ] ]
                     
             newsletter_manager:
-                class:     %newsletter_manager.class%
+                class:     "%newsletter_manager.class%"
                 parent: mail_manager
                 calls:
                     - [ setFilter, [ @another_filter ] ]
@@ -465,7 +452,6 @@ Se si ha la seguente configurazione:
         <parameters>
             <!-- ... -->
             <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-            <parameter key="mail_manager.class">MailManager</parameter>
         </parameters>
 
         <services>
@@ -475,7 +461,7 @@ Se si ha la seguente configurazione:
             <service id="another_filter" ... >
               <!-- ... -->
             </service>
-            <service id="mail_manager" class="%mail_manager.class%" abstract="true">
+            <service id="mail_manager" abstract="true">
                 <call method="setFilter">
                      <argument type="service" id="my_filter" />
                 </call>
@@ -500,8 +486,7 @@ Se si ha la seguente configurazione:
         $container->setDefinition('my_filter', ... );
         $container->setDefinition('another_filter', ... );
         $container->setDefinition('mail_manager', new Definition(
-            '%mail_manager.class%'
-        ))->SetAbstract(
+        ))->setAbstract(
             true
         )->addMethodCall('setFilter', array(
             new Reference('my_filter')

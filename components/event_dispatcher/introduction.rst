@@ -317,6 +317,8 @@ metodo ``dispatch``. Ora ogni ascoltatore dell'evento ``negozio.ordino`` ricever
 .. index::
    single: Event Dispatcher; Sottoscrittori
 
+.. _event_dispatcher-using-event-subscribers:
+
 Usare i sottoscrittori
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -389,6 +391,10 @@ indicizzata per nomi di eventi e i cui valori sono o i nomi dei metodi da chiama
 array composti dal nome del metodo e da una priorità. L'esempio precedentemostra come
 registrare diversi metodi ascoltatori per lo stesso evento in un sottoscrittore e mostra
 anche come passare una priorità a ciascun metodo ascoltatore.
+Più è alta la priorità, prima sarà chiamato il metodo. Nell'esempio precedente,
+quando viene lanciato l'evento ``kernel.response``, i metodi
+``onKernelResponsePre``, ``onKernelResponseMid`` e ``onKernelResponsePost``
+sono richiamati in questo ordine.
 
 .. index::
    single: Event Dispatcher; Bloccare il flusso degli eventi
@@ -402,8 +408,8 @@ In alcuni casi, potrebbe aver senso che un ascoltatore prevenga il richiamo di q
 altro ascoltatore. In altre parole, l'ascoltatore deve poter essere in grado di dire al
 distributore di bloccare ogni propagazione dell'evento a futuri ascoltatori (cioè di non
 notificare più altri ascoltatori). Lo si può fare da dentro un ascoltatore, tramite il
-metodo :method:`Symfony\\Component\\EventDispatcher\\Event::stopPropagation`
-::
+metodo :method:`Symfony\\Component\\EventDispatcher\\Event::stopPropagation`::
+
 
    use Acme\StoreBundle\Event\FilterOrderEvent;
 

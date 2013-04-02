@@ -8,49 +8,31 @@ Lavorare con parametri e definizioni del contenitore
 Ottenere e impostare parametri del contenitore
 ----------------------------------------------
 
-Lavorare con i parametri del contenitore è facile, basta usare i metodi di accesso
-del contenitore per i parametri. Si può verificare se un parametro sia stato definito
-nel contenitore, con::
+Ci sono alcuni metodi utili per lavorare con le definizioni dei servizi.
 
-     $container->hasParameter($name);
-
-Si possono recuperare parametri del contenitore, con::
-
-    $container->getParameter($name);
-
-e impostare parametri nel contenitore, con::
-
-    $container->setParameter($name, $value);
-
-Ottenere e impostare definizioni di un servizio
------------------------------------------------
-
-Ci sono anche alcuni utili metodi per lavorare con
-le definizioni dei servizi.
-
-Per vedere ce ci sia una definizione per l'id di un servizio:: 
+Per trovare se ci sia una definizione per un id di un servizio::
 
     $container->hasDefinition($idServizio);
 
-Questo è utile se si vuole fare qualcosa solo nel caso in cui una data definizione esista.
+Questo è utile se si vuole far qualcosa solo se una particolare definizione esiste.
 
-Si può recuperare una definizione, con::
+Si possono recuperare una definizione con::
 
     $container->getDefinition($idServizio);
 
-o::
+oppure::
 
     $container->findDefinition($idServizio);
 
-che, diversamente da ``getDefinition()``, risolve anche gli alias: se l'argomento ``$idServizio``
-è un alias, si ottiene la definizione sottostante.
+che, diversamente da ``getDefinition()``, risolve anche gli alias, in modo che, se ``$idServizio``
+è un alias, si otterrà la definizione sottostante.
 
-Le definizioni stesse dei servizi sono oggetti, per cui se si recupera una definizione con
-tali metodi e si eseguono modifiche a essa, tali modifiche si rifletteranno nel
-contenitore. Se, tuttavia, si sta creando una nuova definizione, la si può aggiungere
+Le definizioni stesse dei servizi sono oggetti, quindi se si recupera una definizione
+con tali metodi e li si modifica, tali modifiche si rifletteranno nel
+contenitore. Se, tuttavia, si crea una nuova definizione, la si può aggiungere
 al contenitore, usando::
 
-    $container->setDefinition($id, $definitzione);
+    $container->setDefinition($id, $definizione);
 
 Lavorare con una definizione
 ----------------------------
@@ -96,7 +78,7 @@ Il parametro può essere una stringa, un array, il parametro di un servizio, se 
 
     use Symfony\Component\DependencyInjection\Reference;
   
-    //--
+    // ...
 
     $definition->addArgument(new Reference('id_servizio'));
 
@@ -137,3 +119,10 @@ Si possono anche sostituire le chiamate a metodi esistenti con un array di nuove
     nei blocchi di codice PHP degli esempi di configurazione nelle pagine come
     :doc:`/components/dependency_injection/factories` e
     :doc:`/components/dependency_injection/parentservices`.
+
+.. note::
+
+    I metodi visti qui che cambiano definizione dei servizi possono essere usati solo
+    prima che il contenitore sia compilato: una volta che il contenitore è compilato, non si
+    possono manipolare ultetiormente le definizioni dei servizi. Per saperne di più sulla compilazione
+    del contenitore, vedere :doc:`/components/dependency_injection/compilation`.

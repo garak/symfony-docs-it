@@ -1,13 +1,8 @@
 .. index::
-   single: Rotte; _method
+   single: Rotte; metodi
 
 Usare i metodi HTTP oltre a GET e POST nelle rotte
 ==================================================
-
-.. versionadded:: 2.2
-    Questa funzionalità è disabilitata in Symfony 2.2. Per abilitarla, 
-    richiamare il metodo :method:`Request::enableHttpMethodParameterOverride <Symfony\\Component\\HttpFoundation\\Request::enableHttpMethodParameterOverride>` 
-    prima di gestire la richiesta.
 
 Il metodo HTTP di una richiesta è uno dei requisiti verificabili per la
 corrispondenza a una rotta. L'argomento è trattato nella capitolo sulle rotte
@@ -75,6 +70,15 @@ e cancellarlo, cercando corrispondenza con GET, PUT e DELETE.
         ), array(), array(), '', array('DELETE')));
 
         return $collection;
+
+Finti metodi con _method
+------------------------
+
+.. note::
+
+    La funzionalità ``_method`` mostrata qui è disabilitata in Symfony 2.2. Per abilitarla, 
+    richiamare il metodo :method:`Request::enableHttpMethodParameterOverride <Symfony\\Component\\HttpFoundation\\Request::enableHttpMethodParameterOverride>` 
+    prima di gestire la richiesta (p.e. nel front controller).
 
 Sfortunatamente, la vita non è così facile, poiché molti browser non supportano
 l'invio di richieste PUT e DELETE. Per fortuna, Symfony2 fornisce un semplice modo

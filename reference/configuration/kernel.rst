@@ -11,10 +11,35 @@ classe padre :class:`Symfony\\Component\\HttpKernel\\Kernel`.
 Configurazione
 --------------
 
+* `Charset`_
 * `Kernel Name`_
 * `Root Directory`_
 * `Cache Directory`_
 * `Log Directory`_
+
+.. versionadded:: 2.1
+    Il metodo :method:`Symfony\\Component\\HttpKernel\\Kernel::getCharset` è nuovo
+    in Symfony 2.1
+
+Charset
+~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``UTF-8``
+
+Restituisce il set di caratteri usato nell'applicaizone. Per cambiarlo, sovrascrivere il metodo
+:method:`Symfony\\Component\\HttpKernel\\Kernel::getCharset` e restituire un set di
+caratteri diverso, per esempio::
+
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        public function getCharset()
+        {
+            return 'ISO-8859-1';
+        }
+    }
 
 Kernel Name
 ~~~~~~~~~~~

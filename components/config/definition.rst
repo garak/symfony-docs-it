@@ -382,6 +382,11 @@ Il separatore usato nelle chiavi è tipicamente ``_`` in Yaml e ``-`` in XML. Pe
 esempio, ``auto_connect`` in Yaml e ``auto-connect``. La normalizzazione rende
 entrambi ``auto_connect``.
 
+.. caution::
+
+    La chiave interessata non sarà alterata se è mista, come
+    ``pippo-pluto_muu``, o se esiste già.
+
 Un'altra differenza tra Yaml e XML è il modo in cui sono rappresentati array
 di dati. In Yaml si può avere:
 

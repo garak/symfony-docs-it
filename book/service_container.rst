@@ -227,6 +227,23 @@ Il risultato finale è esattamente lo stesso di prima, la differenza è solo nel
 di dover cercare per parametri con questi nomi. Quando il contenitore è costruito,
 cerca il valore di ogni parametro e lo usa nella definizione del servizio.
 
+.. versionadded:: 2.1
+    L'escape del carattere ``@`` nei valori dei parametri YAML è nuovo in Symfony 2.1.9
+    e Symfony 2.2.1.
+
+.. note::
+
+    Se si vuole usare una stringa che inizi con il simbolo ``@`` come valore di un
+    parametro (p.e. una password) in un file yaml, occorre un escape tramite
+    un ulteriore simbolo ``@`` (si applica solo al formato YAML):
+
+    .. code-block:: yaml
+
+        # app/config/parameters.yml
+        parameters:
+            # Questo valore sarà analizzato come "@passwordsicura"
+            mailer_password: "@@passwordsicura"
+
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
 I parametri, tuttavia, hanno diversi vantaggi:

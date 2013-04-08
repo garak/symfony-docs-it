@@ -19,6 +19,7 @@ Configurazione
 * `ide`_
 * `test`_
 * `trust_proxy_headers`_
+* `trusted_proxies`_
 * `form`_
     * enabled
 * `csrf_protection`_
@@ -242,7 +243,34 @@ save_path
 **tipo**: ``stringa`` **predefinito**: ``%kernel.cache.dir%/sessions``
 
 Determina il parametro da passare al gestore di salvataggio. Se si sceglie il gestore
-file (quello predefinito), è il percorso in cui saranno creati i file.
+file (quello predefinito), è il percorso in cui saranno creati i file. Si può anche impostare
+questo  valore a quello di ``save_path`` di ``php.ini``, impostandolo
+a ``null``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        framework:
+            session:
+                save_path: null
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <framework:config>
+            <framework:session save-path="null" />
+        </framework:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('framework', array(
+            'session' => array(
+                'save_path' => null,
+            ),
+        ));
 
 templating
 ~~~~~~~~~~
@@ -320,7 +348,7 @@ Ora, attivare l'opzione ``assets_version``:
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            // ...
+            ...,
             'templating'      => array(
                 'engines' => array('twig'),
                 'assets_version' => 'v2',

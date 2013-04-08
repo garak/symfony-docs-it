@@ -345,6 +345,16 @@ o per eseguire richieste più complesse::
     // Invio diretto di form
     $client->request('POST', '/submit', array('name' => 'Fabien'));
 
+    // Invio di una string JSON grezza nel corpo della richiesta
+    $client->request(
+        'POST',
+        '/submit',
+        array(),
+        array(),
+        array('CONTENT_TYPE' => 'application/json'),
+        '{"name":"Fabien"}'
+    );
+
     // Invio di form di con caricamento di file
     use Symfony\Component\HttpFoundation\File\UploadedFile;
 

@@ -65,6 +65,8 @@ data_collector
 Per dettagli su come creare i propri insiemi di dati, leggere la ricetta
 :doc:`/cookbook/profiler/data_collector`.
 
+.. _dic-tags-form-type:
+
 form.type
 ---------
 
@@ -90,14 +92,14 @@ Per semplicità, spesso si estenderà la classe
 l'interfaccia::
 
     // src/Acme/MainBundle/Form/Type/MyFormTypeExtension.php
-    namespace Acme\MainBundle\Form\Type\MyFormTypeExtension;
+    namespace Acme\MainBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractTypeExtension;
 
     class MyFormTypeExtension extends AbstractTypeExtension
     {
         // ... inserire i metodi che si vogliono sovrascrivere
-        // come buildForm(), buildView(), buildViewBottomUp(), getDefaultOptions() o getAllowedOptionValues()
+        // come buildForm(), buildView(), finishView(), setDefaultOptions()
     }
 
 Per far conoscere a Symfony la propria estensione e usarla, usare il
@@ -169,7 +171,7 @@ l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerIn
     {
         public function warmUp($cacheDir)
         {
-            // fare quealcosa per preparare la cache
+            // fare qualcosa per preparare la cache
         }
 
         public function isOptional()

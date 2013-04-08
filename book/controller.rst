@@ -150,13 +150,13 @@ nel controllore:
 
         # app/config/routing.yml
         hello:
-            pattern:      /hello/{name}
+            path:      /hello/{name}
             defaults:     { _controller: AcmeHelloBundle:Hello:index }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" pattern="/hello/{name}">
+        <route id="hello" path="/hello/{name}">
             <default key="_controller">AcmeHelloBundle:Hello:index</default>
         </route>
 
@@ -229,13 +229,13 @@ esempio:
 
         # app/config/routing.yml
         hello:
-            pattern:      /hello/{first_name}/{last_name}
+            path:      /hello/{first_name}/{last_name}
             defaults:     { _controller: AcmeHelloBundle:Hello:index, color: green }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" pattern="/hello/{first_name}/{last_name}">
+        <route id="hello" path="/hello/{first_name}/{last_name}">
             <default key="_controller">AcmeHelloBundle:Hello:index</default>
             <default key="color">green</default>
         </route>
@@ -726,8 +726,12 @@ e il contenuto che viene inviato al client::
 
 .. tip::
 
-    C'è anche una classe speciale :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
-    che aiuta a restituire risposte JSON. Vedere :ref:`component-http-foundation-json-response`.
+    Ci sono anche alcune classi speciali, che facilitano alcuni tipi di risposta:
+
+    - Per JSON, :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`.
+      Vedere :ref:`component-http-foundation-json-response`.
+    - Per i file, :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`.
+      Vedere :ref:`component-http-foundation-serving-files`.
 
 .. index::
    single: Controllore; Oggetto Request 

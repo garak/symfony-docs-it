@@ -17,6 +17,8 @@ su tutti i campi:
 
 .. include:: /reference/forms/types/options/cascade_validation.rst.inc
 
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/trim.rst.inc

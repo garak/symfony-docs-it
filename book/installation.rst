@@ -66,9 +66,8 @@ Distribution:
 
 .. tip::
 
-    Per scaricare i file dei venditori più velocemente e senza cartelle non necessarie
-    (p.e. "Tests"), aggiungere l'opzione ``--prefer-dist`` alla fine di ogni comando di
-    Composer.
+    Per scaricare i file dei venditori più velocemente, aggiungere l'opzione ``--prefer-dist``
+    alla fine di ogni comando di Composer.
 
 Questo comando può richiedere diversti minuti, mentre Composer scarica la Standard
 Distribution e tutte le librerie dei venditori necessarie. Quando avrà finito,
@@ -172,11 +171,15 @@ Symfony stesso, nella cartella ``vendor/``.
 
     Quando si esegue ``php composer.phar install`` o ``php composer.phar update``,
     composer eseguirà dei comandi post installazione/aggiornamento per pulire la cache
-    e installare le risorse. Per impostazione predefinita, le risorse saranno copiate nella cartella ``web``.
-    Per creare collegamenti simbolici invece di copiare le risorse, si può
-    aggiungere una voce nel nodo ``extra`` del file composer.json con chiave ``symfony-assets-install``
-    e valore ``symlink``:
+    e installare le risorse. Per impostazione predefinita, le risorse saranno copiate
+    nella cartella ``web``.
+
+    Invece di copiare le risorse, si possono creare dei collegamenti simbolici, se
+    consentito dal sistema operativo. Per creare collegamenti simbolici invece di copiare le risorse,
+    aggiungere una voce nel nodo ``extra`` del file composer.json con chiave
+    ``symfony-assets-install`` e valore ``symlink``:
     
+
     .. code-block:: json
     
         "extra": {

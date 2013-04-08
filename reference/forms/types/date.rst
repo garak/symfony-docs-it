@@ -26,7 +26,6 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 |                          | - `months`_                                                                 |
 |                          | - `days`_                                                                   |
 |                          | - `format`_                                                                 |
-|                          | - `pattern`_                                                                |
 |                          | - `data_timezone`_                                                          |
 |                          | - `user_timezone`_                                                          |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -34,6 +33,7 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 | ereditate                | - `invalid_message_parameters`_                                             |
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
+|                          | - `virtual`_                                                                |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | ``field`` (se testo), ``form`` altrimenti                                   |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -109,8 +109,6 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
 
 .. include:: /reference/forms/types/options/date_format.rst.inc
 
-.. include:: /reference/forms/types/options/date_pattern.rst.inc
-
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
@@ -127,3 +125,7 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/virtual.rst.inc

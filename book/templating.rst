@@ -530,7 +530,7 @@ Includere questo template da un altro template è semplice:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/ArticleBundle/Resources/Article/list.html.twig #}
+        {# src/Acme/ArticleBundle/Resources/views/Article/list.html.twig #}
         {% extends 'AcmeArticleBundle::layout.html.twig' %}
 
         {% block body %}
@@ -1344,8 +1344,13 @@ il contenuto sia sotto escape per l'output HTML.
 In alcuni casi, si avrà bisogno di disabilitare l'escape dell'output, quando si avrà
 bisogno di rendere una variabile affidabile che contiene markup. Supponiamo che gli
 utenti amministratori siano abilitati a scrivere articoli che contengano codice HTML.
-Per impostazione predefinita, Twig mostrerà l'articolo con escape. Per renderlo
-normalmente, aggiungere il filtro ``raw``: ``{{ article.body | raw }}``.
+Per impostazione predefinita, Twig mostrerà l'articolo con escape.
+
+Per renderlo normalmente, aggiungere il filtro ``raw``:
+
+.. code-block:: jinja
+
+     {{ article.body | raw }}
 
 Si può anche disabilitare l'escape dell'output dentro a un ``{% block %}`` o
 per un intero template. Per maggiori informazioni, vedere `Escape dell'output`_ nella

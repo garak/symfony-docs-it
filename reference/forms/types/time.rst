@@ -28,6 +28,7 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 | ereditate               | - `invalid_message_parameters`_                                     |
 |                         | - `read_only`_                                                      |
 |                         | - `disabled`_                                                       |
+|                         | - `virtual`_                                                        |
 +-------------------------+---------------------------------------------------------------------+
 | Tipo genitore           | form                                                                |
 +-------------------------+---------------------------------------------------------------------+
@@ -113,7 +114,7 @@ formato.
 Opzioni ereditate
 -----------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
@@ -122,3 +123,7 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/virtual.rst.inc

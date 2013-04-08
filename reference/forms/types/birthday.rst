@@ -26,13 +26,13 @@ ma con valori predefiniti più appropriati per l'opzione `years`_. L'opzione
 |                          | - `months`_                                                                                                              |
 |                          | - `days`_                                                                                                                |
 |                          | - `format`_                                                                                                              |
-|                          | - `pattern`_                                                                                                             |
 |                          | - `data_timezone`_                                                                                                       |
 |                          | - `user_timezone`_                                                                                                       |
 |                          | - `invalid_message`_                                                                                                     |
 |                          | - `invalid_message_parameters`_                                                                                          |
 |                          | - `read_only`_                                                                                                           |
 |                          | - `disabled`_                                                                                                            |
+|                          | - `virtual`_                                                                                                             |
 +--------------------------+--------------------------------------------------------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`date</reference/forms/types/date>`                                                                                 |
 +--------------------------+--------------------------------------------------------------------------------------------------------------------------+
@@ -65,8 +65,6 @@ Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/date>`:
 
 .. include:: /reference/forms/types/options/date_format.rst.inc
     
-.. include:: /reference/forms/types/options/date_pattern.rst.inc
-
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
@@ -80,3 +78,7 @@ Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/field>`
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/virtual.rst.inc

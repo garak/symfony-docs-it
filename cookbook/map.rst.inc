@@ -7,11 +7,13 @@
 
 * :doc:`/cookbook/bundles/index`
 
+  * :doc:`/cookbook/bundles/installation`
   * :doc:`/cookbook/bundles/best_practices`
   * :doc:`/cookbook/bundles/inheritance`
   * :doc:`/cookbook/bundles/override`
   * :doc:`/cookbook/bundles/remove`
   * :doc:`/cookbook/bundles/extension`
+  * :doc:`/cookbook/bundles/prepend_extension`
 
 * :doc:`/cookbook/cache/index`
 
@@ -82,6 +84,7 @@
   * :doc:`/cookbook/form/create_form_type_extension`
   * :doc:`/cookbook/form/use_virtuals_forms`
   * :doc:`/cookbook/form/unit_testing`
+  * :doc:`/cookbook/form/use_empty_data`
   * (validazione) :doc:`/cookbook/validation/custom_constraint`
   * (doctrine) :doc:`/cookbook/doctrine/file_uploads`
 
@@ -134,6 +137,7 @@
 * :doc:`/cookbook/templating/index`
 
   * :doc:`/cookbook/templating/global_variables`
+  * :doc:`/cookbook/templating/namespaced_paths`
   * :doc:`/cookbook/templating/PHP`
   * :doc:`/cookbook/templating/twig_extension`
   * :doc:`/cookbook/templating/render_without_controller`

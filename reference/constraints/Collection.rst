@@ -163,6 +163,73 @@ siano consentite nell'insieme, si possono modificare rispettivamente le opzioni
 ``personal_email`` o ``short_bio`` fossero stati mancanti dalla proprietà
 ``$personalData``, non sarebbe occorso alcun errore di validazione.
 
+.. versionadded:: 2.1
+    I vincoli ``Required`` e ``Optional`` sono nuovi in Symfony 2.1.
+
+Vincoli Required e Optional
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+I vincoli per campi all'iterno di una collezione possono essere avvolti nel vincolo ``Required`` o
+``Optional``, per controllare se debbano sempre essere applicati (``Required``)
+o applicati solamente quando il campo è presente (``Optional``).
+
+Per esempio, se ci si vuole assicurare che il campo ``personal_email`` dell'array
+``profileData`` non sia vuoto e che sia un'email valida e che il campo ``alternate_email``
+sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare così:
+
+.. configuration-block::
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\Collection(
+             *     fields={
+             *         "personal_email"  = @Assert\Collection\Required({@Assert\NotBlank, @Assert\Email}),
+             *         "alternate_email" = @Assert\Collection\Optional({@Assert\Email}),
+             *     }
+             * )
+             */
+             protected $profileData = array(
+                 'personal_email',
+             );
+        }
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            protected $profileData = array('personal_email');
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('profileData', new Assert\Collection(array(
+                    'fields' => array(
+                        'personal_email'  => new Assert\Collection\Required(array(new Assert\NotBlank(), new Assert\Email())),
+                        'alternate_email' => new Assert\Collection\Optional(array(new Assert\Email())),
+                    ),
+                )));
+            }
+        }
+
+Anche senza ``allowMissingFields`` impostato a ``true``, si può ora omettere la proprietà ``alternate_email``
+dall'array ``profileData``, poiché è ``Optional``.
+Tuttavia, se il campo ``personal_email`` non esiste nell'array,
+si applicherà comunque il vincolo ``NotBlank`` (essendo avvolto in
+``Required``) e si riceverà una violazione di vincolo.
+
 Opzioni
 -------
 

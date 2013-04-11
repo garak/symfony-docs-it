@@ -116,7 +116,7 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
 Opzioni ereditate
 -----------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+Queste opzioni sono ereditate dal tipo  :doc:`field</reference/forms/types/field>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

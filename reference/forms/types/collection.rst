@@ -30,6 +30,13 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 | Classe      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CollectionType`    |
 +-------------+-----------------------------------------------------------------------------+
 
+.. note::
+
+    Se si ha a che fare con collezioni di entità Doctrine, prestare particolare
+    attenzione alle opzioni `allow_add`_, `allow_delete`_ e `by_reference`_.
+    Si può vedere un esempio completo nella ricetta
+    :doc:`/cookbook/form/form_collections`.
+
 Uso di base
 -----------
 

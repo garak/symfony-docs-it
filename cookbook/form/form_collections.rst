@@ -63,8 +63,8 @@ Si crei una semplice classe ``Task``::
 .. note::
 
     ``ArrayCollection`` è specifica per Doctrine ed è fondamentalmente la
-    stessa cosa di utilizzare un ``array`` (ma deve essere un ``ArrayCollection``) se
-    si utilizza Doctrine.
+    stessa cosa di utilizzare un ``array`` (ma deve essere un ``ArrayCollection`` se
+    si utilizza Doctrine).
 
 Ora, si crei una classe ``Tag``. Come è possibile verificare, un ``Task`` può avere più oggetti
 ``Tag``::
@@ -80,10 +80,10 @@ Ora, si crei una classe ``Tag``. Come è possibile verificare, un ``Task`` può 
 .. tip::
 
     La proprietà ``name`` qui è pubblica, ma può essere facilmente protetta
-    o privata (ma in questo caso si avrebbe bisogno dei metodi ``getName`` e ``setName``).
+    o privata (ma in questo caso servono dei metodi ``getName`` e ``setName``).
 
-Si crei ora una classe di form cosicché un oggetto ``Tag``
-può essere modificato dall'utente::
+Si crei ora una classe di form, cosicché un oggetto ``Tag``
+possa essere modificato dall'utente::
 
     // src/Acme/TaskBundle/Form/Type/TagType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -167,7 +167,7 @@ Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
 
             // codice fittizio: è qui solo perché il Task ha alcuni tag
             // altrimenti, questo non è un esempio interessante
-            $tag1 = new Tag()
+            $tag1 = new Tag();
             $tag1->name = 'tag1';
             $task->getTags()->add($tag1);
             $tag2 = new Tag();
@@ -181,7 +181,7 @@ Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
             if ($request->isMethod('POST')) {
                 $form->bind($request);
                 if ($form->isValid()) {
-                    // fare qualcosa con il form,  come salvare oggetti Tag e Task
+                    // ... fare qualcosa con il form, come salvare oggetti Tag e Task
                 }
             }
 
@@ -401,25 +401,25 @@ un esempio:
 .. code-block:: javascript
 
     function addTagForm() {
-        // Prendere data-prototype, come spiegato in precedenze
-        var prototype = collectionHolder.attr('data-prototype');
+        // Prende data-prototype, come spiegato in precedenze
+        var prototype = collectionHolder.data('prototype');
 
-        // contare gli input nel form (p.e. 2), usarlo come nuovo indice (p.e. 2)
-        var newIndex = collectionHolder.find(':input').length;
+        // prende il nuov indice
+        var index = collectionHolder.data('index');
 
-        // Sostituire '__name__' nell'HTML del prototipo per essere
+        // Sostituisce '__name__' nell'HTML del prototipo per essere
         // invece un numero basato su quanti elementi ci sono
-        var newForm = prototype.replace(/__name__/g, newIndex);
+        var newForm = prototype.replace(/__name__/g, index);
 
-        // incrementare l'indice di 1 per l'elemento successivo
+        // incrementa l'indice di 1 per l'elemento successivo
         collectionHolder.data('index', index + 1);
 
-        // Mostrare il form nella pagina, dentro un li, prima del collegamento "Aggiungere un tag"
+        // Mostra il form nella pagina, dentro un li, prima del collegamento "Aggiungere un tag"
         var $newFormLi = $('<li></li>').append(newForm);
         $newLinkLi.before($newFormLi);
     }
 
-.. note:
+.. note::
 
     È meglio separare il codice JavaScript in un file a parte, piuttosto che scriverlo
     direttamente in mezzo al codice HTML, come fatto ora.

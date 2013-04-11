@@ -128,6 +128,13 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
+.. note::
+    
+    Se si ha a che fare con una collezione di entità Doctrine, sarà utile
+    leggere la documenzione anche di :doc:`/reference/forms/types/collection`.
+    In aggiunta, c'è un esempio completo nella ricetta
+    :doc:`/cookbook/form/form_collections`.
+    
 .. include:: /reference/forms/types/options/expanded.rst.inc
 
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc

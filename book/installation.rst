@@ -289,13 +289,15 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 
 .. tip::
     
-    Per ottnere url brevi, si dovrebbe far puntare la docuemnt root del
+    Per ottenere url brevi, si dovrebbe far puntare la document root del
     server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
     non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui
     l'applicazione va in produzione, perché tutti i file di sistema e di configurazione
     diventeranno inaccessibili ai client. Perinformazioni sulla configurazione di
-    uno specifico server web, vedere la seguente
-    documentazione: `Apache`_ | `Nginx`_ .
+    uno specifico server web, leggere
+    :doc:`/cookbook/configuration/web_server_configuration`
+    o consultare la documentazione ufficiale del server:
+    `Apache`_ | `Nginx`_ .
 
 Iniziare lo sviluppo
 --------------------

@@ -768,8 +768,9 @@ dell'URL è ``en`` o ``fr`` e se ``{year}`` è un numero. Questa
 rotta mostra anche come sia possibile utilizzare un punto tra i segnaposto al posto di
 una barra. Gli URL corrispondenti a questa rotta potrebbero essere del tipo:
 
- * ``/articles/en/2010/my-post``
- * ``/articles/fr/2010/my-post.rss``
+* ``/articles/en/2010/my-post``
+* ``/articles/fr/2010/my-post.rss``
+* ``/articles/en/2013/my-latest-post.html``
 
 .. _book-routing-format-param:
 
@@ -1081,16 +1082,18 @@ il nome della rotta dopo il comando:
 
     $ php app/console router:debug article_show
 
-.. versionadded:: 2.1
-    Il comando ``router:match`` è stato aggiunto in Symfony 2.1
-
 Si può verificare quale rotta, se esiste, corrisponda a un percorso, usando il comando
 ``router:match``:
 
 .. code-block:: bash
 
-    $ php app/console router:match /articles/en/2012/article.rss
-    Route "article_show" matches
+    $ php app/console router:match /blog/my-latest-post
+
+Questo comando mostrerà quale rotta corrisponde all'URL.
+
+.. code-block:: text
+
+    Route "blog_show" matches
 
 .. index::
    single: Rotte; Generazione di URL

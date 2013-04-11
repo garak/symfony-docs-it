@@ -332,6 +332,14 @@ lavora con i form, ad esempio::
 .. index::
    single: Controllore; Classe base Controller
 
+Creare pagine statiche
+----------------------
+
+Si può creare una pagina statica, senza nemmeno creare un controllre (basta una rotta
+e un template).
+
+Vedere :doc:`/cookbook/templating/render_without_controller`.
+
 La classe base del controllore
 ------------------------------
 
@@ -684,9 +692,9 @@ il messaggio ``notice``:
             </div>
         {% endfor %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
-        <?php foreach ($view['session']->getFlash('notice') as $message): ?>
+        <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
             <div class="flash-notice">
                 <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>

@@ -87,10 +87,14 @@ Se ora vogliamo serializzare questo oggetto in JSON, ci basta usare
 il servizio Serializer creato in precedenza::
 
     $person = new Acme\Person();
-    $person->setName('foo');
+    $person->setName('pippo');
     $person->setAge(99);
 
-    $serializer->serialize($person, 'json'); // Output: {"name":"foo","age":99}
+    $serializer->serialize($person, 'json');
+
+    // $jsonContent contiene {"name":"pippo","age":99}
+
+    echo $jsonContent; // o restituirlo in una risposta
 
 Il primo parametro di :method:`Symfony\\Component\\Serializer\\Serializer::serialize`
 è l'oggetto da serializzare e il secondo è usato per scegliere l'Encoder giusto,
@@ -104,7 +108,7 @@ Vediamo ora l'operazione inversa. Questa volta, l'informazione della classe
 
     $data = <<<EOF
     <person>
-        <name>foo</name>
+        <name>pippo</name>
         <age>99</age>
     </person>
     EOF;
@@ -121,11 +125,11 @@ ha bisogno di tre parametri:
 JMSSerializationBundle
 ----------------------
 
-Esiste un popolare bundle, `JMSSerializationBundle`_, che estende
-(e a volte sostituisce) la funzionalità della serializzazione. Questo include la
+Una popolare libreria, `JMS serializer`_, fornisce una soluzione
+più sofisticata, sebbene più complessa. La libreria include la
 possibilità di configurare il modo in cui gli oggetto debbano essere serializzati/deserializzati
 tramite annotazioni (oltre che YML, XML e PHP), integrazione con l'ORM di Doctrine
 e gestione di altri casi complessi (p.e. riferimenti circolari).
 
-.. _`JMSSerializationBundle`: https://github.com/schmittjoh/JMSSerializerBundle
+.. _`JMS serializer`: https://github.com/schmittjoh/serializer
 .. _Packagist: https://packagist.org/packages/symfony/serializer

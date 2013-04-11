@@ -244,6 +244,23 @@ cerca il valore di ogni parametro e lo usa nella definizione del servizio.
             # Questo valore sarà analizzato come "@passwordsicura"
             mailer_password: "@@passwordsicura"
 
+.. note::
+
+    Il simbolo di percentuale dentro a un parametro, come parte della stringa, deve
+    subire un escape tramite un ulteriore simbolo di percentuale:
+
+    .. code-block:: xml
+
+        <argument type="string">http://symfony.com/?pippo=%%s&pluto=%%d</argument>
+
+.. caution::
+
+    Si potrebbe avere una
+    :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
+    passando il servizio ``request`` come argomento. Per capire meglio questo
+    problema e imparare a risolverlo, fare riferimento alla ricetta
+    :doc:`/cookbook/service_container/scopes`.
+
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
 I parametri, tuttavia, hanno diversi vantaggi:
@@ -358,7 +375,7 @@ dell'applicazione.
 
         # app/config/config.yml
         imports:
-            - { resource: @AcmeHelloBundle/Resources/config/services.yml }
+            - { resource: "@AcmeHelloBundle/Resources/config/services.yml" }
 
     .. code-block:: xml
 
@@ -557,7 +574,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
                 # ...
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
-                arguments: [@my_mailer]
+                arguments: ["@my_mailer"]
 
     .. code-block:: xml
 
@@ -648,7 +665,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
+                    - [setMailer, ["@my_mailer"]]
 
     .. code-block:: xml
 
@@ -715,7 +732,7 @@ esiste e in caso contrario non farà nulla:
         services:
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
-                arguments: [@?my_mailer]
+                arguments: ["@?my_mailer"]
 
     .. code-block:: xml
 
@@ -820,7 +837,7 @@ La configurazione del contenitore dei servizi è semplice:
         services:
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
-                arguments: [@mailer, @templating]
+                arguments: ["@mailer", "@templating"]
 
     .. code-block:: xml
 

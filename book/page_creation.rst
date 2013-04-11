@@ -77,7 +77,7 @@ che il bundle sia registrato nel kernel::
     public function registerBundles()
     {
         $bundles = array(
-            // ...
+            ...,
             new Acme\HelloBundle\AcmeHelloBundle(),
         );
         // ...
@@ -147,7 +147,7 @@ che definisce l'URL della pagina che stiamo per creare:
 
         # src/Acme/HelloBundle/Resources/config/routing.yml
         hello:
-            pattern:  /hello/{name}
+            path:     /hello/{name}
             defaults: { _controller: AcmeHelloBundle:Hello:index }
 
     .. code-block:: xml
@@ -159,7 +159,7 @@ che definisce l'URL della pagina che stiamo per creare:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="hello" pattern="/hello/{name}">
+            <route id="hello" path="/hello/{name}">
                 <default key="_controller">AcmeHelloBundle:Hello:index</default>
             </route>
         </routes>
@@ -438,6 +438,8 @@ Symfony ha la stessa struttura di cartelle raccomandata:
 * ``vendor/``: Ogni libreria dei venditori è inserita qui, per convenzione;
 
 * ``web/``: Questa è la cartella radice del web e contiene ogni file accessibile pubblicamente;
+
+.. _the-web-directory:
 
 La cartella web
 ~~~~~~~~~~~~~~~

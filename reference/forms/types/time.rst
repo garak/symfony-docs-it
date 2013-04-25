@@ -24,6 +24,9 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 |                         | - `data_timezone`_                                                  |
 |                         | - `user_timezone`_                                                  |
 +-------------------------+---------------------------------------------------------------------+
+| Opzioni                 | - `by_reference`_                                                   |
+| ridefinite              | - `error_bubbling`_                                                 |
++-------------------------+---------------------------------------------------------------------+
 | Opzioni                 | - `invalid_message`_                                                |
 | ereditate               | - `invalid_message_parameters`_                                     |
 |                         | - `read_only`_                                                      |
@@ -110,6 +113,21 @@ formato.
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
+
+Opzioni ridefinite
+------------------
+
+by_reference
+~~~~~~~~~~~~
+
+**predefinito**: ``false``
+
+Le classi ``DateTime`` sono trattate come oggetti immutabili.
+
+error_bubbling
+~~~~~~~~~~~~~~
+
+**predefinito**: ``false``
 
 Opzioni ereditate
 -----------------

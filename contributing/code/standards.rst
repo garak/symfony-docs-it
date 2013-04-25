@@ -31,11 +31,11 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
     namespace Acme;
 
     /**
-     * Coding standards demonstration.
+     * Dimostrazione degli standard del codice.
      */
     class FooBar
     {
-        const SOME_CONST = 42;
+        const UNA_COSTANTE = 42;
 
         private $fooBar;
 
@@ -58,8 +58,8 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
             $mergedOptions = array_merge(
                 $options,
                 array(
-                    'some_default' => 'values',
-                    'another_default' => 'more values',
+                    'some_default' => 'valori',
+                    'another_default' => 'altri valori',
                 )
             );
 
@@ -67,11 +67,13 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
                 return;
             }
             if ('string' === $dummy) {
-                if ('values' === $mergedOptions['some_default']) {
+                if ('values' === $mergedOptions['un_valore_predefinito']) {
                     $dummy = substr($dummy, 0, 5);
                 } else {
                     $dummy = ucwords($dummy);
                 }
+            } else {
+                throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));
             }
 
             return $dummy;
@@ -96,7 +98,7 @@ Struttura
 
 * Definire una classe per file (non si applica a classi private di helper
   che non devono essere istanziate dall'esterno e quindi esulano dallo
-  standard PSR-0);
+  standard `PSR-0`_);
 
 * Dichiarare le proprietà di una classe prima dei metodi;
 
@@ -104,6 +106,8 @@ Struttura
 
 * Usare le parentesi per istanziare le classi, indipendentemente dal numero di
   parametri del costruttore.
+
+* Le stringhe dei messaggi di eccezione vanno concatenate usando :phpfunction:`sprintf`.
 
 Convenzioni sui nomi
 --------------------

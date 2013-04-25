@@ -18,6 +18,9 @@ presi dalla base dati.
 |               | - `query_builder`_                                                  |
 |               | - `em`_                                                             |
 +---------------+---------------------------------------------------------------------+
+| Opzioni       | - `choices`_                                                        |
+| ridefinite    | - `choice_list`_                                                    |
++---------------+---------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                       |
 | ereditate     | - `label`_                                                          |
 |               | - `multiple`_                                                       |
@@ -120,6 +123,22 @@ em
 
 Se specificato, l'entity manager da usare per caricare le scelte, al posto
 di quello predefinito.
+
+Opzioni ridefinite
+------------------
+
+choices
+~~~~~~~
+
+**predefinito**: ``null``
+
+choice_list
+~~~~~~~~~~~
+
+**predefinito**: tutte le entità scelte
+
+Tutte le entità scelte con una delle opzioni documentate
+in precedenza.
 
 Opzioni ereditate
 -----------------

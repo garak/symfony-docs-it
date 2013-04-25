@@ -48,6 +48,9 @@ file ``app/config/parameters.ini``:
     I parametri definiti in tale file sono riferiti dal file di configurazione principale
     durante le impostazioni iniziali di Propel:
 
+I parametri definiti in ``parameters.yml`` possono essere inclusi nel file di
+configurazione (``config.yml``):
+
     .. code-block:: yaml
 
         propel:
@@ -67,8 +70,8 @@ base dati al posto nostro:
 .. note::
 
     In questo esempio, si ha una sola connessione configurata, di nome ``default``. Se
-    si vogliono configurare più connessioni, leggere la sezione `configurazione di
-    PropelBundle <Working With Symfony2 - Configuration>`_.
+    si vogliono configurare più connessioni, leggere la sezione
+    `configurazione di PropelBundle`_.
 
 Creare una classe del modello
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,12 +91,28 @@ proprio ``AcmeStoreBundle``:
 .. code-block:: xml
 
     <?xml version="1.0" encoding="UTF-8"?>
-    <database name="default" namespace="Acme\StoreBundle\Model" defaultIdMethod="native">
+    <database name="default"
+        namespace="Acme\StoreBundle\Model"
+        defaultIdMethod="native"
+    >
         <table name="product">
-            <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-            <column name="name" type="varchar" primaryString="true" size="100" />
-            <column name="price" type="decimal" />
-            <column name="description" type="longvarchar" />
+            <column name="id"
+                type="integer"
+                required="true"
+                primaryKey="true"
+                autoIncrement="true"
+            />
+            <column name="name"
+                type="varchar"
+                primaryString="true"
+                size="100"
+            />
+            <column name="price"
+                type="decimal"
+            />
+            <column name="description"
+                type="longvarchar"
+            />
         </table>
     </database>
 
@@ -245,7 +264,7 @@ Si immagini di voler cercare prodotti che costino più di 19.99, ordinati dal pi
 economico al più costoso. Da dentro un controllore, fare come segue::
 
     $products = \Acme\StoreBundle\Model\ProductQuery::create()
-        ->filterByPrice(19.99, \Criteria::GREATER_THAN)
+        ->filterByPrice(array('min' => 19.99))
         ->orderByPrice()
         ->find();
 
@@ -263,7 +282,7 @@ classe ``ProductQuery``::
         public function filterByExpensivePrice()
         {
             return $this
-                ->filterByPrice(array('min' => 1000))
+                ->filterByPrice(array('min' => 1000));
         }
     }
 
@@ -308,7 +327,7 @@ Creare le classi:
 
 .. code-block:: bash
 
-    php app/console propel:model:build
+    $ php app/console propel:model:build
 
 Ipotizziamo di avere già dei prodotti nella base dati e che non si voglia perderli. Grazie
 alle migrazioni, Propel sarà in grado di aggiornare la base dati, senza perdere alcun
@@ -385,7 +404,7 @@ Maggior informazioni sulle associazioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si possono trovare maggiori informazioni sulle relazioni, leggendo il capitolo
-dedicato `Relationships`_.
+dedicato alle `relazioni`_.
 
 Callback del ciclo di vita
 --------------------------
@@ -426,7 +445,7 @@ Comportamenti
 
 Tutti i comportamenti distribuiti con Propel funzionano in Symfony2. Per ottenere
 maggiori informazioni su come usare i comportamenti di Propel, fare riferimento alla
-sezione `Behaviors reference`_.
+sezione sui `behavior`_.
 
 Comandi
 -------
@@ -434,7 +453,7 @@ Comandi
 Leggere la sezione dedicata ai `comandi Propel in Symfony2`_.
 
 .. _`Working With Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#installation
-.. _`Working With Symfony2 - Configuration`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#configuration
-.. _`Relationships`: http://propelorm.org/documentation/04-relationships.html
-.. _`Behaviors reference`: http://propelorm.org/documentation/#behaviors_reference
-.. _`comandi Propel in Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2#commands
+.. _`configurazione di PropelBundle`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#configuration
+.. _`relazioni`: http://propelorm.org/documentation/04-relationships.html
+.. _`behavior`: http://propelorm.org/documentation/#behaviors_reference
+.. _`comandi Propel in Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2#the_commands

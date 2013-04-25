@@ -22,6 +22,9 @@ usare il tipo ``choice`` direttamente.
 +---------------+-----------------------------------------------------------------------+
 | Reso come     | possono essere varitag (vedere :ref:`forms-reference-choice-tags`)    |
 +---------------+-----------------------------------------------------------------------+
+| Opzioni       | - `choices`_                                                          |
+| ridefinite    |                                                                       |
++---------------+-----------------------------------------------------------------------+
 | Opzioni       | - `multiple`_                                                         |
 | ereditate     | - `expanded`_                                                         |
 |               | - `preferred_choices`_                                                |
@@ -36,6 +39,18 @@ usare il tipo ``choice`` direttamente.
 +---------------+-----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CountryType` |
 +---------------+-----------------------------------------------------------------------+
+
+Opzioni ridefinite
+------------------
+
+choices
+~~~~~~~
+
+**predefinito**: :method:`Symfony\\Component\\Locale\\Locale::getDisplayCountries`
+
+Questa opzione ha come valore predefinito tutti i locale restituiti da
+:method:`Symfony\\Component\\Locale\\Locale::getDisplayCountries`.
+Usa il locale predefinito per determinare la lingua.
 
 Opzioni ereditate
 -----------------

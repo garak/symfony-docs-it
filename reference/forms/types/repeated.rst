@@ -19,6 +19,9 @@ verificarne l'accuratezza.
 |               | - `first_name`_                                                        |
 |               | - `second_name`_                                                       |
 +---------------+------------------------------------------------------------------------+
+| Opzioni       | - `error_bubbling`_                                                    |
+| ridefinite    |                                                                        |
++---------------+------------------------------------------------------------------------+
 | Opzioni       | - `invalid_message`_                                                   |
 | ereditate     | - `invalid_message_parameters`_                                        |
 |               | - `error_bubbling`_                                                    |
@@ -167,6 +170,14 @@ second_name
 **tipo**: ``stringa`` **predefinito**: ``second``
 
 Come ``first_name``, ma per il secondo campo.
+
+Opzioni ridefinite
+------------------
+
+error_bubbling
+~~~~~~~~~~~~~~
+
+**predefinito**: ``false``
 
 Opzioni ereditate
 -----------------

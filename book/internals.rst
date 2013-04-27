@@ -44,6 +44,10 @@ PHP:
   :class:`Symfony\\Component\\HttpFoundation\\SessionStorage\\SessionStorageInterface`
   astraggono le funzioni di gestione della sessione ``session_*()``.
 
+.. note::
+
+    Si può approfondire nel :doc:`componente HttpFoundation </components/http_foundation/introduction>`.
+
 Il componente ``HttpKernel``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -58,8 +62,9 @@ componente Dependency Injection e a un potente sistema di plugin (bundle).
 
 .. seealso::
 
-    Approfondimento
-    sul componente :doc:`Dependency Injection </book/service_container>` e sui :doc:`Bundle </cookbook/bundles/best_practices>`.
+    Approfondimento sul :doc:`componente HttpKernel </components/http_kernel/introduction>`,
+    su :doc:`dependency injection </book/service_container>` e
+    sui :doc:`bundle </cookbook/bundles/best_practices>`.
 
 Il bundle ``FrameworkBundle``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -256,6 +261,10 @@ usa un oggetto :class:`Symfony\\Component\\Routing\\RouterInterface` per corrisp
 ``Request`` e determinare il nome del controllore (memorizzato nell'attributo
 ``_controller`` di ``Request``).
 
+.. seealso::
+
+    Approfondire l':ref:`evento kernel.request <component-http-kernel-kernel-request>`.
+
 .. index::
    single: Evento; kernel.controller
 
@@ -277,6 +286,10 @@ per modificare il controllore da eseguire::
         // il controllore può essere cambiato da qualsiasi funzione PHP
         $event->setController($controller);
     }
+
+.. seealso::
+
+    Approfondire l':ref:`evento kernel.controller <component-http-kernel-kernel-controller>`.
 
 .. index::
    single: Evento; kernel.view
@@ -306,6 +319,10 @@ Il valore restituito dal controllore è accessibile tramite il metodo
 
         $event->setResponse($response);
     }
+
+.. seealso::
+
+    Approfondire l':ref:`evento kernel.view <component-http-kernel-kernel-view>`.
 
 .. index::
    single: Evento; kernel.response
@@ -339,6 +356,26 @@ l'oggetto ``Response`` dopo la sua creazione::
 * :class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`: aggiunge un
   header HTTP ``Surrogate-Control`` quando si deve cercare dei tag ESI nella
   risposta.
+
+.. seealso::
+
+    Approfondire l':ref:`evento kernel.response <component-http-kernel-kernel-response>`.
+
+.. index::
+   single: Evento; kernel.terminate
+
+Evento ``kernel.terminate``
+...........................
+
+.. versionadded:: 2.1
+    L'evento ``kernel.terminate`` è nuovo in Symfony 2.1.
+
+Lo scopo di questo evento è quello di eseguire compiti più "pesanti", dopo che la risposta
+sia stata inviata al client.
+
+.. seealso::
+
+    Approfondire l':ref:`evento kernel.terminate <component-http-kernel-kernel-terminate>`.
 
 .. index::
    single: Evento; kernel.exception
@@ -392,6 +429,10 @@ Il distributore di eventi
 Event Dispatcher (distributore di eventi) è un componente, responsabile di gran parte
 della logica sottostante e del flusso dietro a una richiesta di Symfony. Per maggiori informazioni,
 vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
+
+.. seealso::
+
+    Approfondire l':ref:`evento kernel.exception <component-http-kernel-kernel-exception>`.
 
 .. index::
    single: Profilatore

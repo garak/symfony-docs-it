@@ -23,9 +23,11 @@
 
   * :doc:`/cookbook/configuration/environments`
   * :doc:`/cookbook/configuration/override_dir_structure`
+  * :doc:`/cookbook/configuration/front_controllers_and_kernel`
   * :doc:`/cookbook/configuration/external_parameters`
   * :doc:`/cookbook/configuration/pdo_session_storage`
   * :doc:`/cookbook/configuration/apache_router`
+  * :doc:`/cookbook/configuration/web_server_configuration`
 
 * :doc:`/cookbook/console/index`
 
@@ -109,6 +111,7 @@
   * :doc:`/cookbook/routing/redirect_in_config`
   * :doc:`/cookbook/routing/method_parameters`
   * :doc:`/cookbook/routing/service_container_parameters`
+  * :doc:`/cookbook/routing/custom_route_loader`
 
 * :doc:`/cookbook/security/index`
 
@@ -145,8 +148,10 @@
 * :doc:`/cookbook/testing/index`
 
   * :doc:`/cookbook/testing/http_authentication`
+  * :doc:`/cookbook/testing/simulating_authentication`
   * :doc:`/cookbook/testing/insulating_clients`
   * :doc:`/cookbook/testing/profiling`
+  * :doc:`/cookbook/testing/database`
   * :doc:`/cookbook/testing/doctrine`
   * :doc:`/cookbook/testing/bootstrap`
   * (email) :doc:`/cookbook/email/testing`

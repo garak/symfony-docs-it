@@ -24,7 +24,6 @@ verificarne l'accuratezza.
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | - `invalid_message`_                                                   |
 | ereditate     | - `invalid_message_parameters`_                                        |
-|               | - `error_bubbling`_                                                    |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/form>`                              |
 +---------------+------------------------------------------------------------------------+
@@ -187,5 +186,3 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
-
-.. include:: /reference/forms/types/options/error_bubbling.rst.inc

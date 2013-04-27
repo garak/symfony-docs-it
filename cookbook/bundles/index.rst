@@ -4,6 +4,7 @@ Bundle
 .. toctree::
     :maxdepth: 2
 
+    installation
     best_practices
     inheritance
     override

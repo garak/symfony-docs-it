@@ -123,6 +123,22 @@ prossima sezione.
     :doc:`/cookbook/configuration/override_dir_structure` per maggiori
     informazioni.
 
+Tutti i file pubblici e il front controller che gestisce le richieste in arrivo in
+un'applicazione Symfony2 si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
+di aver decompresso l'archivio nella cartella radice del server web o di un virtual host,
+gli URL dell'applicazione inizieranno con ``http://localhost/Symfony/web/``.
+Per avere URL brevi, si deve far puntare la cartella radice del server web o
+del virtual host alla cartella ``Symfony/web/``. Sebbene ciò non sia obbligatorio
+per lo sviluppo, è raccomandato nel momento in cui l'applicazione va in
+produzione, perché tutti i file di sistema e di configurazione diventano inaccessibili agli utenti.
+Per informazioni su come configurare il proprio server web, vedere la
+documentazione seguente: `Apache`_ | `Nginx`_ .
+
+.. note::
+
+    Gli esempi che seguono ipotizzano che le impostazioni sulla cartella radice non siano state modificate,
+    quindi tutti gli URL inizieranno con ``http://localhost/Symfony/web/``
+
 .. _installation-updating-vendors:
 
 Aggiornare i venditori

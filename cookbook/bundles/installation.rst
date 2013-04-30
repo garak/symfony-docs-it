@@ -38,7 +38,7 @@ Nel caso di FOSUserBundle, il file ``README`` avverte che la versione
 delle istruzioni ``require`` di esempio per ogni versione di un pacchetto. La versione
 attualmente in sviluppo di FOSUserBundle è ``"friendsofsymfony/user-bundle": "2.0.*@dev"``.
 
-Ora si può aggiungere il bundle al file ``composer.json``e aggiornare le
+Ora si può aggiungere il bundle al file ``composer.json`` e aggiornare le
 dipendenze. Lo si può fare a mano:
 
 1. **Aggiungere al file composer.json:**

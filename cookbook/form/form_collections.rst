@@ -244,7 +244,7 @@ Quando l'utente invia il form, i dati inviati per i campi di ``Tags``
 sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``,che viene poi
 impostato sul campo ``tag`` dell'istanza ``Task``.
 
-L'insieme ``Tags``è acessibile tramite ``$task->getTags()``
+L'insieme ``Tags`` è acessibile tramite ``$task->getTags()``
 e può essere persistito nella base dati, oppure utilizzato. dove necessario.
 
 Finora, tutto ciò funziona bene, ma questo non permette di aggiungere nuovi dinamicamente 

@@ -354,7 +354,7 @@ e aggiungere dinamicamente nuovi form tag, quando l'utente clicca su "Aggiunti u
 Per facilitare le cose, useremo jQuery e ipotizzeremo di averlo incluso da qualche parte
 nella nostra pagine.
 
-Aggiunggere un tag ``script`` nella pagine, in modo da poter scrivere del codice JavaScript.
+Aggiungere un tag ``script`` nella pagine, in modo da poter scrivere del codice JavaScript.
 
 Prima di tutto, aggiungere un collegamento in fondo alla lista "tags", tramite JavaScript. Poi,
 collegare l'evento "click" a tale collegamento, in modo da poter aggiungere un nuovo form tag
@@ -401,7 +401,7 @@ un esempio:
 .. code-block:: javascript
 
     function addTagForm() {
-        // Prende data-prototype, come spiegato in precedenze
+        // Prende data-prototype, come spiegato in precedenza
         var prototype = collectionHolder.data('prototype');
 
         // prende il nuov indice

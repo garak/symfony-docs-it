@@ -66,7 +66,7 @@ al nostro fornitore di autenticazione.
         {
             parent::__construct($roles);
             
-            // If the user has roles, consider it authenticated
+            // Se l'utente ha dei ruoli, considerarlo autenticato
             $this->setAuthenticated(count($roles) > 0);
         }
 

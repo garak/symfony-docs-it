@@ -1,25 +1,25 @@
-Size
-====
+Length
+======
 
 Valida che la lunghezza di una data stringa sia *tra* un minimo e un massimo.
 
 .. versionadded:: 2.1
-    Il vincolo Size è stato aggiunto in Symfony 2.1.
+    Il vincolo Length è stato aggiunto in Symfony 2.1.
 
-+----------------+--------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`              |
-+----------------+--------------------------------------------------------------------+
-| Opzioni        | - `min`_                                                           |
-|                | - `max`_                                                           |
-|                | - `charset`_                                                       |
-|                | - `minMessage`_                                                    |
-|                | - `maxMessage`_                                                    |
-|                | - `exactMessage`_                                                  |
-+----------------+--------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Size`          |
-+----------------+--------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\SizeValidator` |
-+----------------+--------------------------------------------------------------------+
++----------------+----------------------------------------------------------------------+
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                |
++----------------+----------------------------------------------------------------------+
+| Opzioni        | - `min`_                                                             |
+|                | - `max`_                                                             |
+|                | - `charset`_                                                         |
+|                | - `minMessage`_                                                      |
+|                | - `maxMessage`_                                                      |
+|                | - `exactMessage`_                                                    |
++----------------+----------------------------------------------------------------------+
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Length`          |
++----------------+----------------------------------------------------------------------+
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\LengthValidator` |
++----------------+----------------------------------------------------------------------+
 
 Utilizzo di base
 ----------------
@@ -38,8 +38,8 @@ fare come segue:
                     - Length:
                         min: 2
                         max: 50
-                        minMessage: Il nome deve essere lungo almeno {{ limit }} caratteri
-                        maxMessage: Il nome non può essere più lungo di {{ limit }} caratteri
+                        minMessage: Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.
+                        maxMessage: Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.
 
     .. code-block:: php-annotations
 
@@ -54,8 +54,8 @@ fare come segue:
              * @Assert\Length(
              *      min = "2",
              *      max = "50",
-             *      minMessage = "Il nome deve essere lungo almeno {{ limit }} caratteri",
-             *      maxMessage = "Il nome non può essere più lungo di {{ limit }} caratteri"
+             *      minMessage = "Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.",
+             *      maxMessage = "Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri."
              * )
              */
              protected $firstName;
@@ -69,8 +69,8 @@ fare come segue:
                 <constraint name="Length">
                     <option name="min">2</option>
                     <option name="max">50</option>
-                    <option name="minMessage">Il nome deve essere lungo almeno {{ limit }} caratteri</option>
-                    <option name="maxMessage">Il nome non può essere più lungo di {{ limit }} caratteri</option>
+                    <option name="minMessage">Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.</option>
+                    <option name="maxMessage">Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.</option>
                 </constraint>
             </property>
         </class>
@@ -90,8 +90,8 @@ fare come segue:
                 $metadata->addPropertyConstraint('firstName', new Assert\Length(array(
                     'min'        => 2,
                     'max'        => 50,
-                    'minMessage' => 'Il nome deve essere lungo almeno {{ limit }} caratteri',
-                    'maxMessage' => 'Il nome non può essere più lungo di {{ limit }} caratteri',
+                    'minMessage' => 'Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.',
+                    'maxMessage' => 'Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.',
                 )));
             }
         }
@@ -128,21 +128,21 @@ usta la funzione :phpfunction:`strlen` di PHP.
 minMessage
 ~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This value should be {{ limit }} or more.``
+**tipo**: ``stringa`` **predefinito**: ``This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.``
 
 Il messaggio mostrato se il valore sottostante è inferiore a quello dell'opzione `min`_.
 
 maxMessage
 ~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This value should be {{ limit }} or less.``
+**tipo**: ``stringa`` **predefinito**: ``This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.``
 
 Il messaggio mostrato se il valore sottostante è superiore a quello dell'opzione `max`_.
 
 exactMessage
 ~~~~~~~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``This value should have exactly {{ limit }} characters.`` when validating a string, or ``This collection should contain exactly {{ limit }} elements.`` when validating a collection.
+**tipo**: ``string`` **predefinito**: ``This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.``
 
 Il messaggio mostrato se i valori minimo e massimo sono uguali e la lunghezza del valore
 sottostante o il numero di elementi dell'insieme non è esattamente tale valore.

@@ -141,9 +141,11 @@ la richiesta successiva::
 
     // mostra il messaggio nella richiesta successiva (in un template)
 
-    {% for flashMessage in app.session.flashbag.get('notice') %}
-        <div>{{ flashMessage }}</div>
-    {% endfor %}
+    {% if app.session.started %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div>{{ flashMessage }}</div>
+        {% endfor %}
+    {% endif %}
 
 Ciò risulta utile quando occorre impostare un messaggio di successo, prima di rinviare
 l'utente a un'altra pagina (la quale mostrerà il messaggio). Si noti che l'uso di

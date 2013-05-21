@@ -52,12 +52,14 @@ pseudo-linguaggio:
 
     La lista dei linguaggi supportati è disponibile nel `sito di Pygments`_.
 
+.. _docs-configuration-blocks:
+
 Blocchi di configurazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ogni volta che si mostra una configurazione, per mostrarla in tutti i formati supportati ,bisogna utilizzare la
 direttiva ``configuration-block`` (``PHP``, ``YAML`` e
-``XML``):
+``XML``)
 
 .. code-block:: rst
 
@@ -157,7 +159,7 @@ e alla documentazione di PHP:
 
     :phpclass:`SimpleXMLElement`
 
-    `DateTime::createFromFormat`_
+    :phpmethod:`DateTime::createFromFormat`
 
     :phpfunction:`iterator_to_array`
 
@@ -209,10 +211,9 @@ Installare le estensioni di Sphinx
 
 .. _reStructuredText:        http://docutils.sourceforge.net/rst.html
 .. _Sphinx:                  http://sphinx-doc.org/
-.. _documenti:               http://github.com/symfony/symfony-docs
+.. _documenti:               https://github.com/symfony/symfony-docs
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 .. _markup:                  http://sphinx-doc.org/markup/
 .. _sito di Pygments:        http://pygments.org/languages/
 .. _sorgenti:                https://github.com/fabpot/sphinx-php
 .. _preparazione rapida di Sphinx:  http://sphinx-doc.org/tutorial.html#setting-up-the-documentation-sources
-.. _`DateTime::createFromFormat`: http://php.net/manual/en/datetime.createfromformat.php

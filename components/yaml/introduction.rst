@@ -132,7 +132,7 @@ Quando si carica un file YAML, a volte è meglio usare il metodo involucro
 Il metodo statico :method:`Symfony\\Component\\Yaml\\Yaml::parse` prende una stringa YAML
 o un file contenente YAML. Internamente, richiama il metodo
 :method:`Symfony\\Component\\Yaml\\Parser::parse`, ma migliora gli errori, nel
-caso qualcosa vada stroto, aggiungendo il nome del file al messaggio.
+caso qualcosa vada storto, aggiungendo il nome del file al messaggio.
 
 Eseguire PHP dentro i file YAML
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

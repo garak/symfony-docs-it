@@ -5,13 +5,13 @@ Come implementare i propri votanti per una lista nera di indirizzi IP
 =====================================================================
 
 Il componente della sicurezza di Symfony2 fornisce diversi livelli per autenticare gli
-utenti. Uno dei livelli è chiamato `voter`. Un votante è una classe dedicata a verificare
+utenti. Uno dei livelli è chiamato `voter` (votante). Un votante è una classe dedicata a verificare
 che l'utente abbia i diritti per connettersi all'applicazione. Per esempio, Symfony2
 fornisce un livello che verifica se l'utente è pienamente autenticato oppure se ha dei
 ruoli.
 
 A volte è utile creare un votante personalizzato, per gestire un caso specifico, non
-coperto dal framework. In questa sezione, si imparerà come creare un votante che consenta
+coperto dal framework. In questa sezione si imparerà come creare un votante che consenta
 di mettere gli utenti una lista nera, in base al loro IP.
 
 L'interfaccia Voter
@@ -100,6 +100,17 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
 Ecco fatto! Il votante è pronto. Il prossimo passo consiste nell'iniettare il votante
 dentro al livello della sicurezza. Lo si può fare facilmente tramite il contenitore di servizi.
 
+.. tip::
+
+   Le implementazioni dei metodi
+   :method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface::supportsAttribute` 
+   e :method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface::supportsClass` 
+   non sono chiamate internamente dal framework. Una volta registrato il
+   votante, il metodo ``vote()`` sarà sempre richiamato, indipendentemente dal fatto
+   che tali metodi restituiscano ``true`` o meno. Occorre quindi richiamare tali
+   metodi nell'implementazione del metodo ``vote()`` e restituire ``ACCESS_ABSTAIN``,
+   nel caso in cui il votante non supporti la classe o l'attributo.
+
 Dichiarare il votante come servizio
 -----------------------------------
 
@@ -114,7 +125,7 @@ e assegnargli il tag "security.voter":
         services:
             security.access.blacklist_voter:
                 class:      Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter
-                arguments:  [@service_container, [123.123.123.123, 171.171.171.171]]
+                arguments:  ["@service_container", [123.123.123.123, 171.171.171.171]]
                 public:     false
                 tags:
                     -       { name: security.voter }

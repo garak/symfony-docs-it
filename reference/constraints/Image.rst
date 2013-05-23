@@ -11,26 +11,26 @@ altezza dell'immagine.
 Vedere il vincolo :doc:`File</reference/constraints/File>` per la documentazione completa
 su questo vincolo.
 
-+----------------+----------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                |
-+----------------+----------------------------------------------------------------------+
-| Opzioni        | - `mimeTypes`_                                                       |
-|                | - `minWidth`_                                                        |
-|                | - `maxWidth`_                                                        |
-|                | - `maxHeight`_                                                       |
-|                | - `minHeight`_                                                       |
-|                | - `mimeTypesMessage`_                                                |
-|                | - `sizeNotDetectedMessage`_                                          |
-|                | - `maxWidthMessage`_                                                 |
-|                | - `minWidthMessage`_                                                 |
-|                | - `maxHeightMessage`_                                                |
-|                | - `minHeightMessage`_                                                |
-|                | - See :doc:`File</reference/constraints/File>` for inherited options |
-+----------------+----------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\File`            |
-+----------------+----------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\FileValidator`   |
-+----------------+----------------------------------------------------------------------+
++----------------+----------------------------------------------------------------------------+
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                      |
++----------------+----------------------------------------------------------------------------+
+| Opzioni        | - `mimeTypes`_                                                             |
+|                | - `minWidth`_                                                              |
+|                | - `maxWidth`_                                                              |
+|                | - `maxHeight`_                                                             |
+|                | - `minHeight`_                                                             |
+|                | - `mimeTypesMessage`_                                                      |
+|                | - `sizeNotDetectedMessage`_                                                |
+|                | - `maxWidthMessage`_                                                       |
+|                | - `minWidthMessage`_                                                       |
+|                | - `maxHeightMessage`_                                                      |
+|                | - `minHeightMessage`_                                                      |
+|                | - Vedere :doc:`File</reference/constraints/File>` per le opzioni ereditate |
++----------------+----------------------------------------------------------------------------+
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\File`                  |
++----------------+----------------------------------------------------------------------------+
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\FileValidator`         |
++----------------+----------------------------------------------------------------------------+
 
 Uso di base
 -----------

@@ -176,61 +176,23 @@ E cambiare il template ``index.html.twig`` per includerlo:
 Inserire altri controllori
 --------------------------
 
-Cosa fare se si vuole inserire il risultato di un altro controllore in un
-template? Può essere molto utile quando si lavora con Ajax o quando il
-template incluso necessita di alcune variabili, non disponibili nel template principale.
+Cosa fare se si vuole inserire il risultato di un altro controllore in un template?
+Può essere molto utile quando si lavora con Ajax o quando il template incluso necessita
+di alcune variabili, non disponibili nel template principale.
 
-Supponiamo di aver creato un metodo ``fancyAction`` in un controllore e di volerlo "rendere"
-dentro al template ``index``. Iniziare creando una rotta per il nuovo controllore, in uno dei
-file di configurazione delle rotte dell'applicazione.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/routing.yml
-        fancy:
-            pattern:   /included/fancy/{name}/{color}
-            defaults:  { _controller: AcmeDemoBundle:Demo:fancy }
-
-    .. code-block:: xml
-
-        <!-- app/config/routing.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="fancy" pattern="/included/fancy/{name}/{color}">
-                <default key="_controller">AcmeDemoBundle:Demo:fancy</default>
-            </route>
-        </routes>
-
-    .. code-block:: php
-
-        // app/config/routing.php
-        use Symfony\Component\Routing\RouteCollection;
-        use Symfony\Component\Routing\Route;
-
-        $collection = new RouteCollection();
-        $collection->add('fancy', new Route('/included/fancy/{name}/{color}', array(
-            '_controller' => 'AcmeDemoBundle:Demo:fancy',
-        )));
-
-        return $collection;
-
-Per includere il risultato (cioè ``HTML``) del controllore, usare il tag ``render``:
+Supponiamo di aver creato un metodo ``fancyAction`` in un controllore e di volerlo
+"rendere" dentro al template ``index``, che vuol dire inserire il risultato
+(cioè il codice HTML) del controllore. Per farlo, si usa la funzione ``render``:
 
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/index.html.twig #}
-    {% render url('fancy', { 'name': name, 'color': 'green'}) %}
+    {{ render(controller("AcmeDemoBundle:Demo:fancy", {'name': name, 'color': 'green'})) }}
 
-.. include:: /book/_security-2012-6431.rst.inc
-
-Il rag ``render`` eseguirà il controllore ``AcmeDemoBundle:Demo:fancy``
-e includerà il suo risultato. Pe esempio, la nuova ``fancyAction`` potrebbe
-essere così::
+Qui, la stringa ``AcmeDemoBundle:Demo:fancy`` si riferisce all'azione ``fancy`` del
+controllore ``Demo``. I parametri (``name`` e ``color``) agiscono come variabili simulate
+della richiesta (come se ``fancyAction`` stesse gestendo una richiesta completamente
+nuova) e sono rese disponibili al controllore::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
 
@@ -243,7 +205,7 @@ essere così::
 
             return $this->render('AcmeDemoBundle:Demo:fancy.html.twig', array(
                 'name' => $name,
-                'object' => $object
+                'object' => $object,
             ));
         }
 

@@ -368,9 +368,9 @@ sicurezza, caricamento della configurazione, rotte. In questa applicazione,
 
     // dirotta internamente la richiesta
     $uri = $_SERVER['REQUEST_URI'];
-    if ($uri == '/index.php') {
+    if ('/index.php' == $uri) {
         list_action();
-    } elseif ($uri == '/index.php/show' && isset($_GET['id'])) {
+    } elseif ('/index.php/show' == $uri && isset($_GET['id'])) {
         show_action($_GET['id']);
     } else {
         header('Status: 404 Not Found');
@@ -436,12 +436,12 @@ contenuto:
             "symfony/symfony": "2.1.*"
         },
         "autoload": {
-            "files": ["model.php","controller.php"]
+            "files": ["model.php","controllers.php"]
         }
     }
     
 Quindi, `scaricare Composer`_ ed eseguire il seguente comando, che scaricherà Symfony
-in una cartella `vendor/`:
+in una cartella ``vendor/``:
 
 .. code-block:: bash
 
@@ -462,7 +462,7 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
 
     <?php
     // index.php
-    require_once 'vendor/bootstrap.php';
+    require_once 'vendor/autoload.php';
 
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -639,11 +639,11 @@ Una configurazione delle rotte fornisce tali informazioni in un formato leggibil
 
     # app/config/routing.yml
     blog_list:
-        pattern:  /blog
+        path:     /blog
         defaults: { _controller: AcmeBlogBundle:Blog:list }
 
     blog_show:
-        pattern:  /blog/show/{id}
+        path:     /blog/show/{id}
         defaults: { _controller: AcmeBlogBundle:Blog:show }
 
 Ora che Symfony2 gestisce tutti i compiti più comuni, il front controller è
@@ -733,7 +733,7 @@ Il template corrispondente ``layout.html.twig`` è anche più facile da scrivere
 .. code-block:: html+jinja
 
     {# app/Resources/views/layout.html.twig #}
-
+    <!DOCTYPE html>
     <html>
         <head>
             <title>{% block title %}Titolo predefinito{% endblock %}</title>

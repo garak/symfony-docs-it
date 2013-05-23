@@ -274,6 +274,35 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
 
 .. _components-dependency-injection-compiler-passes:
 
+Prependere la configurazione passatta all'estensione
+----------------------------------------------------
+
+.. versionadded:: 2.2
+    La possibilità di prependere la configurazione di un bundle è nuova in Symfony 2.2.
+
+Una Extension può prependere la configurazione di un altro bundle, prima della chiamata al metodo ``load()``,
+implementando :class:`Symfony\\Component\\DependencyInjection\\Extension\\PrependExtensionInterface`::
+
+    use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+    // ...
+
+    class AcmeDemoExtension implements ExtensionInterface, PrependExtensionInterface
+    {
+        // ...
+
+        public function prepend()
+        {
+            // ...
+
+            $container->prependExtensionConfig($name, $config);
+
+            // ...
+        }
+    }
+
+Per maggiori dettagli, si veda :doc:`/cookbook/bundles/prepend_extension`, che è specifica
+del framework Symfony2, ma contiene più informazioni su questa caratteristica.
+
 Creare un passo di compilatore
 ------------------------------
 
@@ -447,7 +476,7 @@ come meta dati per la cache::
 
     // ...
 
-    // imposta $isDebug in base a qualcosa nel progetto
+    // impostare $isDebug in base a qualcosa nel progetto
     $isDebug = ...;
 
     $file = __DIR__ .'/cache/container.php';

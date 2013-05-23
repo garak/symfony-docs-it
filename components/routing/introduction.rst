@@ -85,13 +85,27 @@ in forma di espressione regolare.
 4. Un array di opzioni. Questo array contiene configurazioni interne per le rotte e,
 solitamente, sono la parte di cui meno ci si interessa.
 
+5. Un host. Viene cercata corrispondenza con l'host della richiesta. Vedere
+   :doc:`/components/routing/hostname_pattern` per ulteriori dettagli.
+
+6. Un array di schemi. Restringe a specifici schemi HTTP (``http``, ``https``).
+
+7. Un array di metodi. Restringe a specifici metodi di richiesta HTTP (``HEAD``,
+   ``GET``, ``POST``, ...).
+
+.. versionadded:: 2.2
+   Il supporto per l'host è stato aggiunto in Symfony 2.2
+
 Si prenda la seguente rotta, che combina diversi dei concetti esposti::
 
    $route = new Route(
        '/archivio/{mese}', // pattern per la rotta
        array('controller' => 'mostraArchivio'), // valori predefiniti
        array('mese' => '[0-9]{4}-[0-9]{2}'), // requisiti
-       array() // opzioni
+       array(), // opzioni
+       '{subdomain}.example.com', // host
+       array(), // schemi
+       array() // metodi
    );
 
    // ...
@@ -100,6 +114,7 @@ Si prenda la seguente rotta, che combina diversi dei concetti esposti::
    // array(
    //     'controller' => 'mostraArchivio',
    //     'mese' => 2012-01',
+   //     'subdomain' => 'www',
    //     '_route' => ...
    //  )
 
@@ -110,24 +125,9 @@ In questo caso la rotta viene trovata con ``/archivio/2012/01``, perché il segn
 ``{mese}`` è associabile alla espressione regolare definita. Invece, per ``/archivio/pippo``,
 *non* verrà trovata nessuna corrispondenza perché "pippo" non rispetta i requisiti del segnaposto.
 
-Oltre ai requisiti definiti con le espressioni regolari, è possibile definire due 
-requisiti speciali:
-
-* ``_method`` richiede che il metodo HTTP utilizzato sia quello definito (``HEAD``, ``GET``, ``POST``, ...)
-* ``_scheme`` richiede che lo schema HTTP utilizzato sia quello definito (``http``, ``https``) 
-
-La rotta seguente, per esempio, accetterà le sole richieste a /pippo che siano
-eseguite con metodo POST e con connessione sicura::
-
-   $rotta = new Route(
-       '/pippo',
-       array(),
-       array('_method' => 'post', '_scheme' => 'https' )
-   );
-
 .. tip::
     
-    Per creare una corrispondenza che trovi tutte le url che inizino con un determinato percorso e
+    Per creare una corrispondenza che trovi tutti gli URL che inizino con un determinato percorso e
     terminino con un suffisso arbitrario, è possibile usare la seguente definizione::
         
         $rotta = new Route(
@@ -142,19 +142,27 @@ Usare i prefissi
 È possibile aggiungere sia rotte che nuove istanze di
 :class:`Symfony\\Component\\Routing\\RouteCollection` ad *un'altra* collezione.
 In questo modo si possono creare alberi di rotte. Inoltre è possibile definire dei prefissi,
-requisiti predefiniti e opzioni predefinite per tutte le rotte di un sotto albero::
+requisiti predefiniti e opzioni predefinite per tutte le rotte di un sotto albero, con
+il metodo :method:`Symfony\\Component\\Routing\\RouteCollection::addPrefix`::
 
-    $radiceCollezione = new RouteCollection();
+    $collezioneRadice = new RouteCollection();
 
     $subCollezione = new RouteCollection();
     $subCollezione->add(...);
     $subCollezione->add(...);
-
-    $radiceCollezione->addCollection(
-         $subCollezione,
-         '/prefisso',
-         array('_scheme' => 'https')
+    $subCollezione->addPrefix(
+        '/prefisso', // prefisso
+        array(), // requisiti
+        array(), // opzioni
+        'admin.example.com', // host
+        array('https') // schemi
     );
+
+    $collezioneRadice->addCollection($subCollezione);
+
+.. versionadded:: 2.2
+    Il metodo ``addPrefix`` è stato aggiunto in Symfony2.2. Nelle versioni precedenti,
+    faceva parte del metodo ``addCollection``.
 
 Configurare i parametri della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

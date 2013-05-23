@@ -97,41 +97,8 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
 Costanti
 --------
 
-Il contenitore permette di usare anche le costanti PHP come parametri.
-Per poter usare questa funzionalità, si dovrà associare la costante alla chiave del parametro
-e definirne il tipo come ``constant``.
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8"?>
-
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-            <parameters>
-                <parameter key="valore.costante.globale" type="constant">COSTANTE_GLOBALE</parameter>
-                <parameter key="mia_classe.valore.constante" type="constant">Mia_Classe::NOME_COSTANTE</parameter>
-            </parameters>
-        </container>
-
-.. note::
-
-    Per funzionare è necessario che la configurazione usi l'XML. Se *non* si sta
-    usando l'XML, per sfruttare questa funzionalità, basta importarne uno:
-
-    .. configuration-block::
-
-        .. code-block:: yaml
-        
-            # app/config/config.yml
-            imports:
-                - { resource: parameters.xml }
-
-        .. code-block:: php
-
-            // app/config/config.php
-            $loader->import('parameters.xml');
-
+Il contenitore supporta anche l'impostazione di costanti PHP come parametri.
+Vedere :ref:`component-di-parameters-constants` per ulteriori dettagli.
 
 Configurazioni varie
 --------------------

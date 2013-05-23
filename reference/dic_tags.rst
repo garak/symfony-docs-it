@@ -26,9 +26,11 @@ AsseticBundle ha molti tag, non elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `kernel.cache_warmer`_            | Registrare un servizio da richiamare durante il cache warming             |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `kernel.event_listener`_          | Ascoltare diversi eventi/hook in Symfony                                  |
+| `kernel.event_listener`_          | Ascoltare diversi eventi/agganci in Symfony                               |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `kernel.event_subscriber`_        | Sottoscrivere un insieme di vari eventi/hook in Symfony                   |
+| `kernel.event_subscriber`_        | Sottoscrivere un insieme di vari eventi/agganci in Symfony                |
++-----------------------------------+---------------------------------------------------------------------------+
+| `kernel.fragment_renderer`_       | Aggiunta di nuove strategie di resa del contenuto HTTP                    |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `monolog.logger`_                 | Log con un canale di log personalizzato                                   |
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -50,6 +52,8 @@ AsseticBundle ha molti tag, non elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `twig.extension`_                 | Registrare un'estensione di Twig                                          |
 +-----------------------------------+---------------------------------------------------------------------------+
+| `twig.loader`_                    | Registrare un servizio personalizzato che carica template Twig            |
++-----------------------------------+---------------------------------------------------------------------------+
 | `validator.constraint_validator`_ | Creare un vincolo di validazione personalizzato                           |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `validator.initializer`_          | Registrare un servizio che inizializza oggetti prima della validazione    |
@@ -62,6 +66,8 @@ data_collector
 
 Per dettagli su come creare i propri insiemi di dati, leggere la ricetta
 :doc:`/cookbook/profiler/data_collector`.
+
+.. _dic-tags-form-type:
 
 form.type
 ---------
@@ -88,14 +94,14 @@ Per semplicità, spesso si estenderà la classe
 l'interfaccia::
 
     // src/Acme/MainBundle/Form/Type/MyFormTypeExtension.php
-    namespace Acme\MainBundle\Form\Type\MyFormTypeExtension;
+    namespace Acme\MainBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractTypeExtension;
 
     class MyFormTypeExtension extends AbstractTypeExtension
     {
         // ... inserire i metodi che si vogliono sovrascrivere
-        // come buildForm(), buildView(), buildViewBottomUp(), getDefaultOptions() o getAllowedOptionValues()
+        // come buildForm(), buildView(), finishView(), setDefaultOptions()
     }
 
 Per far conoscere a Symfony la propria estensione e usarla, usare il
@@ -167,7 +173,7 @@ l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerIn
     {
         public function warmUp($cacheDir)
         {
-            // fare quealcosa per preparare la cache
+            // fare qualcosa per preparare la cache
         }
 
         public function isOptional()
@@ -311,7 +317,7 @@ kernel.terminate
 kernel.event_subscriber
 -----------------------
 
-**Scopo**: Sottoscrivere un insieme di vari eventi/hhok in Symfony
+**Scopo**: Sottoscrivere un insieme di vari eventi/agganci in Symfony
 
 .. versionadded:: 2.1
    La possibilità di aggiungere sottoscrittori di eventi del kernle è nuova nella 2.1.
@@ -352,6 +358,16 @@ configurazioni e assegnarli il tag ``kernel.event_subscriber``:
     Se il servizio è creato da un factory, si **DEVE** impostare correttamente il parametro ``class``
     del tag, per poterlo far funzionare correttamente.
 
+kernel.fragment_renderer
+------------------------
+
+**Scopo**: Aggiunta di una nuova strategia di resa del contenuto HTTP.
+
+Per aggiungere una nuova strategia di resa, in aggiunta a quelle predefinite come
+``EsiFragmentRenderer``, creare una classe che implementi
+:class:`Symfony\\Component\\HttpKernel\\Fragment\\FragmentRendererInterface`,
+registrarla come servizio, assegnando il tag ``kernel.fragment_renderer``.
+
 .. _dic_tags-monolog:
 
 monolog.logger
@@ -370,7 +386,7 @@ quando si inietta il logger in un servizio.
         services:
             mio_servizio:
                 class: Nome\Pienamente\QUalificato\Classe\Loader
-                arguments: [@logger]
+                arguments: ["@logger"]
                 tags:
                     - { name: monolog.logger, channel: acme }
 
@@ -523,6 +539,8 @@ una configurazione e assegnargli il tag ``routing.loader``:
             ->addTag('routing.loader')
         ;
 
+Per maggiori informazioni, vedere :doc:`/cookbook/routing/custom_route_loader`.
+
 security.listener.factory
 -------------------------
 
@@ -619,7 +637,7 @@ creare una classe che implementi l'interfaccia
     // src/Acme/MainBundle/Translation/MyCustomLoader.php
     namespace Acme\MainBundle\Translation;
 
-    use Symfony\Component\Translation\Loader\LoaderInterface
+    use Symfony\Component\Translation\Loader\LoaderInterface;
     use Symfony\Component\Translation\MessageCatalogue;
 
     class MyCustomLoader implements LoaderInterface
@@ -745,6 +763,39 @@ devono essere aggiunte come normali servizi:
             ->addTag('twig.extension')
         ;
 
+twig.loader
+-----------
+
+**Scopo**: Registrare un servizio personalizzato che carica template Twig
+
+Per impostazione predefinita, Symfony usa solo la classe `Twig Loader`_. 
+:class:`Symfony\\Bundle\\TwigBundle\\Loader\\FilesystemLoader`. Se si ha l'esigenza
+di caricare template Twig da un'altra risorsa, si può creare un servizio per il
+nuovo caricatore e assegnarli il tag ``twig.loader``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme.demo_bundle.loader.caricatore_twig:
+                class: Acme\DemoBundle\Loader\CaricatoreTwig
+                tags:
+                    - { name: twig.loader }
+
+    .. code-block:: xml
+
+        <service id="acme.demo_bundle.loader.caricatore_twig" class="Acme\DemoBundle\Loader\CaricatoreTwig">
+            <tag name="twig.loader" />
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('acme.demo_bundle.loader.caricatore_twig', 'Acme\DemoBundle\Loader\CaricatoreTwig')
+            ->addTag('twig.loader')
+        ;
+
 validator.constraint_validator
 ------------------------------
 
@@ -773,5 +824,6 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`repository ufficiale delle estensioni di Twig`: http://github.com/fabpot/Twig-extensions
-.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Component/HttpKernel/KernelEvents.php
+.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.2/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
+.. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders

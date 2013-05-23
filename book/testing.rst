@@ -160,10 +160,12 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
     il file ``phpunit.xml.dist`` e impostare nella variabile d'ambiente ``KERNEL_DIR`` la
     cartella del proprio kernel::
 
-        <phpunit
+    .. code-block:: xml
+
+        <phpunit>
             <!-- ... -->
             <php>
-                <server name="KERNEL_DIR" value="/percorso/della/propria/applicazione/" />
+                <server name="KERNEL_DIR" value="/percorso/della/applicazione/" />
             </php>
             <!-- ... -->
         </phpunit>
@@ -343,6 +345,16 @@ o per eseguire richieste più complesse::
     // Invio diretto di form
     $client->request('POST', '/submit', array('name' => 'Fabien'));
 
+    // Invio di una string JSON grezza nel corpo della richiesta
+    $client->request(
+        'POST',
+        '/submit',
+        array(),
+        array(),
+        array('CONTENT_TYPE' => 'application/json'),
+        '{"name":"Fabien"}'
+    );
+
     // Invio di form di con caricamento di file
     use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -351,14 +363,6 @@ o per eseguire richieste più complesse::
         'photo.jpg',
         'image/jpeg',
         123
-    );
-    // oppure
-    $photo = array(
-        'tmp_name' => '/percorso/di/photo.jpg',
-        'name' => 'photo.jpg',
-        'type' => 'image/jpeg',
-        'size' => 123,
-        'error' => UPLOAD_ERR_OK
     );
     $client->request(
         'POST',
@@ -444,6 +448,12 @@ di query alla base dati.
 
 Si può ottenere il profilatore dell'ultima richiesta in questo modo::
 
+    // abilita il profilatore solo per la prossima richiesta
+    $client->enableProfiler();
+
+    $crawler = $client->request('GET', '/profiler');
+
+    // prende il profilatore
     $profile = $client->getProfile();
 
 Per dettagli specifici sull'uso del profilatore in un test, vedere la ricetta
@@ -458,10 +468,10 @@ seguire i rinvii, usando il metodo ``followRedirect()``::
 
     $crawler = $client->followRedirect(false);
 
-Quando il client non segue i rinvii, lo si può forzare con
-il metodo ``followRedirect()``::
+Se si vuole che il client segua automaticamente tutti i rinvii, si può
+forzarlo con il metodo ``followRedirects()``::
 
-    $crawler = $client->followRedirect();
+    $client->followRedirects();
 
 .. index::
    single: Test; Crawler

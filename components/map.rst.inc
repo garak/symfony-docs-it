@@ -26,6 +26,7 @@
 
   * :doc:`/components/dependency_injection/introduction`
   * :doc:`/components/dependency_injection/types`
+  * :doc:`/components/dependency_injection/parameters`
   * :doc:`/components/dependency_injection/definitions`
   * :doc:`/components/dependency_injection/compilation`
   * :doc:`/components/dependency_injection/tags`
@@ -73,13 +74,22 @@
 
   * :doc:`/components/process`
 
+* :doc:`/components/property_access/index`
+
+  * :doc:`/components/property_access/introduction`
+
 * :doc:`/components/routing/index`
 
   * :doc:`/components/routing/introduction`
+  * :doc:`/components/routing/hostname_pattern`
 
 * **Serializer**
 
   * :doc:`/components/serializer`
+
+* **Stopwatch**
+
+  * :doc:`/components/stopwatch`
 
 * :doc:`/components/security/index`
 

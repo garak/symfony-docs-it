@@ -7,11 +7,13 @@
 
 * :doc:`/cookbook/bundles/index`
 
+  * :doc:`/cookbook/bundles/installation`
   * :doc:`/cookbook/bundles/best_practices`
   * :doc:`/cookbook/bundles/inheritance`
   * :doc:`/cookbook/bundles/override`
   * :doc:`/cookbook/bundles/remove`
   * :doc:`/cookbook/bundles/extension`
+  * :doc:`/cookbook/bundles/prepend_extension`
 
 * :doc:`/cookbook/cache/index`
 
@@ -21,9 +23,11 @@
 
   * :doc:`/cookbook/configuration/environments`
   * :doc:`/cookbook/configuration/override_dir_structure`
+  * :doc:`/cookbook/configuration/front_controllers_and_kernel`
   * :doc:`/cookbook/configuration/external_parameters`
   * :doc:`/cookbook/configuration/pdo_session_storage`
   * :doc:`/cookbook/configuration/apache_router`
+  * :doc:`/cookbook/configuration/web_server_configuration`
 
 * :doc:`/cookbook/console/index`
 
@@ -82,6 +86,7 @@
   * :doc:`/cookbook/form/create_form_type_extension`
   * :doc:`/cookbook/form/use_virtuals_forms`
   * :doc:`/cookbook/form/unit_testing`
+  * :doc:`/cookbook/form/use_empty_data`
   * (validazione) :doc:`/cookbook/validation/custom_constraint`
   * (doctrine) :doc:`/cookbook/doctrine/file_uploads`
 
@@ -106,6 +111,7 @@
   * :doc:`/cookbook/routing/redirect_in_config`
   * :doc:`/cookbook/routing/method_parameters`
   * :doc:`/cookbook/routing/service_container_parameters`
+  * :doc:`/cookbook/routing/custom_route_loader`
 
 * :doc:`/cookbook/security/index`
 
@@ -134,6 +140,7 @@
 * :doc:`/cookbook/templating/index`
 
   * :doc:`/cookbook/templating/global_variables`
+  * :doc:`/cookbook/templating/namespaced_paths`
   * :doc:`/cookbook/templating/PHP`
   * :doc:`/cookbook/templating/twig_extension`
   * :doc:`/cookbook/templating/render_without_controller`
@@ -141,8 +148,10 @@
 * :doc:`/cookbook/testing/index`
 
   * :doc:`/cookbook/testing/http_authentication`
+  * :doc:`/cookbook/testing/simulating_authentication`
   * :doc:`/cookbook/testing/insulating_clients`
   * :doc:`/cookbook/testing/profiling`
+  * :doc:`/cookbook/testing/database`
   * :doc:`/cookbook/testing/doctrine`
   * :doc:`/cookbook/testing/bootstrap`
   * (email) :doc:`/cookbook/email/testing`

@@ -4,6 +4,14 @@ UserPassword
 .. versionadded:: 2.1
    Questo vincolo è stato aggiunto nella versione 2.1.
 
+.. note::
+
+    Da Symfony 2.2, le classi `UserPassword*` nello spazio dei nomi
+    `Symfony\Component\Security\Core\Validator\Constraint` sono
+    deprecate, saranno rimosse in Symfony 2.3. Usare invece le classi
+    `UserPassword*` nello spazio dei nomi
+    `Symfony\Component\Security\Core\Validator\Constraints`.
+
 Valida che un valore inserito sia uguale alla password dell'utente attualmente
 autenticato. Può tornare utile in un form in cui un utente può cambiare la propria
 password, ma deve inserire quella vecchia per motivi di sicurezza.
@@ -47,7 +55,7 @@ dell'utente:
        // src/Acme/UserBundle/Form/Model/ChangePassword.php
        namespace Acme\UserBundle\Form\Model;
        
-       use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
+       use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
        class ChangePassword
        {
@@ -63,7 +71,7 @@ dell'utente:
 
         <!-- src/UserBundle/Resources/config/validation.xml -->
         <class name="Acme\UserBundle\Form\Model\ChangePassword">
-            <property name="Symfony\Component\Security\Core\Validator\Constraint\UserPassword">
+            <property name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword">
                 <option name="message">Wrong value for your current password</option>
             </property>
         </class>
@@ -74,7 +82,7 @@ dell'utente:
         namespace Acme\UserBundle\Form\Model;
         
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
+        use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
   
         class ChangePassword
         {

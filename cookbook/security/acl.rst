@@ -166,8 +166,7 @@ Verifica dell'accesso
             $securityContext = $this->get('security.context');
 
             // verifica per l'accesso in modifica
-            if (false === $securityContext->isGranted('EDIT', $comment))
-            {
+            if (false === $securityContext->isGranted('EDIT', $comment)) {
                 throw new AccessDeniedException();
             }
 
@@ -176,7 +175,7 @@ Verifica dell'accesso
     }
 
 In questo esempio, verifichiamo se l'utente abbia il permesso ``EDIT``.
-Internamente, Symfony2 mappa i permessi a diversi interi e verifica se l'uente possieda
+Internamente, Symfony2 mappa i permessi a diversi interi e verifica se l'utente possieda
 uno di essi.
 
 .. note::

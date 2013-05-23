@@ -26,14 +26,17 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 |                          | - `months`_                                                                 |
 |                          | - `days`_                                                                   |
 |                          | - `format`_                                                                 |
-|                          | - `pattern`_                                                                |
 |                          | - `data_timezone`_                                                          |
 |                          | - `user_timezone`_                                                          |
++--------------------------+-----------------------------------------------------------------------------+
+| Opzioni                  | - `by_reference`_                                                           |
+| ridefinite               | - `error_bubbling`_                                                         |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `invalid_message`_                                                        |
 | ereditate                | - `invalid_message_parameters`_                                             |
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
+|                          | - `virtual`_                                                                |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | ``field`` (se testo), ``form`` altrimenti                                   |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -109,16 +112,29 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
 
 .. include:: /reference/forms/types/options/date_format.rst.inc
 
-.. include:: /reference/forms/types/options/date_pattern.rst.inc
-
 .. include:: /reference/forms/types/options/data_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
 
+Opzioni ridefinite
+------------------
+
+by_reference
+~~~~~~~~~~~~
+
+**predefinito**: ``false``
+
+Le classi ``DateTime`` sono trattate come oggetti immutabili.
+
+error_bubbling
+~~~~~~~~~~~~~~
+
+**predefinito**: ``false``
+
 Opzioni ereditate
 -----------------
 
-These options inherit from the :doc:`field</reference/forms/types/field>` type:
+Queste opzioni sono ereditate dal tipo  :doc:`field</reference/forms/types/field>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
@@ -127,3 +143,7 @@ These options inherit from the :doc:`field</reference/forms/types/field>` type:
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/virtual.rst.inc

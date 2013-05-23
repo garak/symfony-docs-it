@@ -2,7 +2,7 @@ Vincoli di base
 ~~~~~~~~~~~~~~~
 
 Questi sono i vincoli di base: usarli per asserire cose molto basilari sul
-valore delle proprietà o sui valori restituiti dai metodi del proprio oggetto.
+valore delle proprietà o sui valori restituiti dai metodi di un oggetto.
 
 * :doc:`NotBlank </reference/constraints/NotBlank>`
 * :doc:`Blank </reference/constraints/Blank>`
@@ -53,6 +53,12 @@ Vincoli di file
 
 * :doc:`File </reference/constraints/File>`
 * :doc:`Image </reference/constraints/Image>`
+
+Vincoli finanziari
+~~~~~~~~~~~~~~~~~~
+
+* :doc:`CardScheme </reference/constraints/CardScheme>`
+* :doc:`Luhn </reference/constraints/Luhn>`
 
 Altri vincoli
 ~~~~~~~~~~~~~

@@ -240,6 +240,25 @@ usando i seguenti metodi:
 * :method:`Symfony\\Component\\HttpFoundation\\Request::getCharsets`:
   restituisce la lista dei charset accettati, ordinata per qualità discendente
 
+.. versionadded:: 2.2
+    La classe :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` è nuova in Symfony 2.2.
+
+Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
+``Accept-Charset`` o ``Accept-Encoding``, si può usare la classe
+:class:`Symfony\\Component\\HttpFoundation\\AcceptHeader`::
+
+    use Symfony\Component\HttpFoundation\AcceptHeader;
+
+    $accept = AcceptHeader::fromString($request->headers->get('Accept'));
+    if ($accept->has('text/html')) {
+        $item = $accept->get('html');
+        $charset = $item->getAttribute('charset', 'utf-8');
+        $quality = $item->getQuality();
+    }
+
+    // accepts items are sorted by descending quality
+    $accepts = AcceptHeader::fromString($request->headers->get('Accept'))->all();
+
 Accedere ad altri dati
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -418,7 +437,7 @@ e gli header corretti. Una risposta JSON può essere come questa::
 
     $response = new Response();
     $response->setContent(json_encode(array(
-        'data' => 123
+        'data' => 123,
     )));
     $response->headers->set('Content-Type', 'application/json');
 
@@ -431,7 +450,7 @@ che può rendere le cose ancora più semplici::
     use Symfony\Component\HttpFoundation\JsonResponse;
 
     $response = new JsonResponse();
-    $response->setContent(array(
+    $response->setData(array(
         'data' => 123
     ));
 

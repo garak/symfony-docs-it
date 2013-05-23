@@ -9,6 +9,7 @@ Gli helper della console
 
     dialoghelper
     formatterhelper
+    progresshelper
 
 I componenti della console dispongono alcuni utili helper. Questi helper
 contengono funzioni che facilitano alcuni compiti comuni.

@@ -497,6 +497,16 @@ XML e fusione avanzata. Il modo migliore per vederla in azione è guardare alcun
 Configuration del nucleo, come quella `FrameworkBundle`_ o di
 `TwigBundle`_.
 
+Modificare la configurazione di un altro bundle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Se si hanno più bundle che dipendono l'uno dall'altro, può essere utile
+consentire a una classe ``Extension`` la modifica della configurazione passata alla classe
+``Extension`` di un altro bundle, come se lo sviluppatore avesse inserito tale
+configurazione nel file ``app/config/config.yml``.
+
+Per ulteriori dettagli, vedere :doc:`/cookbook/bundles/prepend_extension`.
+
 Esportare la configurazione predefinita
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

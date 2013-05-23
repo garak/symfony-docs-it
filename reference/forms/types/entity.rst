@@ -18,6 +18,9 @@ presi dalla base dati.
 |               | - `query_builder`_                                                  |
 |               | - `em`_                                                             |
 +---------------+---------------------------------------------------------------------+
+| Opzioni       | - `choices`_                                                        |
+| ridefinite    | - `choice_list`_                                                    |
++---------------+---------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                       |
 | ereditate     | - `label`_                                                          |
 |               | - `multiple`_                                                       |
@@ -121,6 +124,22 @@ em
 Se specificato, l'entity manager da usare per caricare le scelte, al posto
 di quello predefinito.
 
+Opzioni ridefinite
+------------------
+
+choices
+~~~~~~~
+
+**predefinito**: ``null``
+
+choice_list
+~~~~~~~~~~~
+
+**predefinito**: tutte le entità scelte
+
+Tutte le entità scelte con una delle opzioni documentate
+in precedenza.
+
 Opzioni ereditate
 -----------------
 
@@ -128,6 +147,13 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
+.. note::
+    
+    Se si ha a che fare con una collezione di entità Doctrine, sarà utile
+    leggere la documenzione anche di :doc:`/reference/forms/types/collection`.
+    In aggiunta, c'è un esempio completo nella ricetta
+    :doc:`/cookbook/form/form_collections`.
+    
 .. include:: /reference/forms/types/options/expanded.rst.inc
 
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc

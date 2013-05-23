@@ -150,13 +150,13 @@ nel controllore:
 
         # app/config/routing.yml
         hello:
-            pattern:      /hello/{name}
+            path:      /hello/{name}
             defaults:     { _controller: AcmeHelloBundle:Hello:index }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" pattern="/hello/{name}">
+        <route id="hello" path="/hello/{name}">
             <default key="_controller">AcmeHelloBundle:Hello:index</default>
         </route>
 
@@ -229,13 +229,13 @@ esempio:
 
         # app/config/routing.yml
         hello:
-            pattern:      /hello/{first_name}/{last_name}
+            path:      /hello/{first_name}/{last_name}
             defaults:     { _controller: AcmeHelloBundle:Hello:index, color: green }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" pattern="/hello/{first_name}/{last_name}">
+        <route id="hello" path="/hello/{first_name}/{last_name}">
             <default key="_controller">AcmeHelloBundle:Hello:index</default>
             <default key="color">green</default>
         </route>
@@ -331,6 +331,14 @@ lavora con i form, ad esempio::
 
 .. index::
    single: Controllore; Classe base Controller
+
+Creare pagine statiche
+----------------------
+
+Si può creare una pagina statica, senza nemmeno creare un controllre (basta una rotta
+e un template).
+
+Vedere :doc:`/cookbook/templating/render_without_controller`.
 
 La classe base del controllore
 ------------------------------
@@ -678,19 +686,23 @@ il messaggio ``notice``:
 
     .. code-block:: html+jinja
 
-        {% for flashMessage in app.session.flashbag.get('notice') %}
-            <div class="flash-notice">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
+        {% if app.session.started %}
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="flash-notice">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
-        <?php foreach ($view['session']->getFlash('notice') as $message): ?>
-            <div class="flash-notice">
-                <?php echo "<div class='flash-error'>$message</div>" ?>
-            </div>
-        <?php endforeach; ?>
+        <?php if ($view['session']->isStarted()): ?>
+            <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
+                <div class="flash-notice">
+                    <?php echo "<div class='flash-error'>$message</div>" ?>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
 Per come sono stati progettati, i messaggi flash sono destinati a vivere esattamente per una richiesta (hanno la
 "durata di un flash"). Sono progettati per essere utilizzati in redirect esattamente come
@@ -726,8 +738,12 @@ e il contenuto che viene inviato al client::
 
 .. tip::
 
-    C'è anche una classe speciale :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
-    che aiuta a restituire risposte JSON. Vedere :ref:`component-http-foundation-json-response`.
+    Ci sono anche alcune classi speciali, che facilitano alcuni tipi di risposta:
+
+    - Per JSON, :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`.
+      Vedere :ref:`component-http-foundation-json-response`.
+    - Per i file, :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`.
+      Vedere :ref:`component-http-foundation-serving-files`.
 
 .. index::
    single: Controllore; Oggetto Request 

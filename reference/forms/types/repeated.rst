@@ -19,9 +19,11 @@ verificarne l'accuratezza.
 |               | - `first_name`_                                                        |
 |               | - `second_name`_                                                       |
 +---------------+------------------------------------------------------------------------+
+| Opzioni       | - `error_bubbling`_                                                    |
+| ridefinite    |                                                                        |
++---------------+------------------------------------------------------------------------+
 | Opzioni       | - `invalid_message`_                                                   |
 | ereditate     | - `invalid_message_parameters`_                                        |
-|               | - `error_bubbling`_                                                    |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/form>`                              |
 +---------------+------------------------------------------------------------------------+
@@ -168,6 +170,14 @@ second_name
 
 Come ``first_name``, ma per il secondo campo.
 
+Opzioni ridefinite
+------------------
+
+error_bubbling
+~~~~~~~~~~~~~~
+
+**predefinito**: ``false``
+
 Opzioni ereditate
 -----------------
 
@@ -176,5 +186,3 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
-
-.. include:: /reference/forms/types/options/error_bubbling.rst.inc

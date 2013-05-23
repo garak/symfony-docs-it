@@ -23,10 +23,16 @@ Configurare il contesto della richiesta globalmente
 .. versionadded:: 2.1
     I parametri ``host`` e ``scheme`` sono disponibili da Symfony 2.1
 
+.. versionadded: 2.2
+    Il parametro ``base_url`` è disponibile da Symfony 2.2
+
 Per configurare il contesto della richiesta, usato dal generatore di URL, si possono
 ridefinire i parametri che usa come valori predefiniti, per cambiare l'host
 (localhost) e lo schema (http) predefiniti. Si noti che ciò non impatta sugli URL
-generati tramite normali richieste web, poiché sovrascriveranno tali valpori.
+generati tramite normali richieste web, poiché sovrascriveranno tali valori.
+
+Si noti che questo non ha impatto su URL generati tramite normali richieste web, perché
+queste ultime sovrascriveranno i valori predefiniti.
 
 .. configuration-block::
 
@@ -36,6 +42,7 @@ generati tramite normali richieste web, poiché sovrascriveranno tali valpori.
         parameters:
             router.request_context.host: example.org
             router.request_context.scheme: https
+            router.request_context.base_url: my/path
 
     .. code-block:: xml
 
@@ -48,6 +55,7 @@ generati tramite normali richieste web, poiché sovrascriveranno tali valpori.
             <parameters>
                 <parameter key="router.request_context.host">example.org</parameter>
                 <parameter key="router.request_context.scheme">https</parameter>
+                <parameter key="router.request_context.base_url">my/path</parameter>
             </parameters>
         </container>
 
@@ -56,6 +64,7 @@ generati tramite normali richieste web, poiché sovrascriveranno tali valpori.
         // app/config/config_test.php
         $container->setParameter('router.request_context.host', 'example.org');
         $container->setParameter('router.request_context.scheme', 'https');
+        $container->setParameter('router.request_context.base_url', 'my/path');
 
 Configurare il contesto della richiesta per comando
 ---------------------------------------------------
@@ -73,6 +82,7 @@ della richiesta e sovrascrivere le sue impostazioni::
            $context = $this->getContainer()->get('router')->getContext();
            $context->setHost('example.com');
            $context->setScheme('https');
+           $context->setBaseUrl('my/path');
 
            // ... il proprio codice
        }
@@ -105,3 +115,4 @@ di console e usare un metodo di spool differente.
     Ci si deve occupare dello spool solo quando si usa lo spool memory. 
     Se invece si usa lo spool file (o nessuno spool), non occorre alcun
     flush manuale della coda all'interno del comando.
+

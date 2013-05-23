@@ -12,7 +12,7 @@ contenga solo caratteri alfanumerici.
 Creare la classe Constraint
 ---------------------------
 
-Innanzitutto, occorre creare una classe Constraint, che estenda :class:`Symfony\\Component\\Validator\\Constraint`::
+Innanzitutto, occorre creare una classe vincolo, che estenda :class:`Symfony\\Component\\Validator\\Constraint`::
 
     // src/Acme/DemoBundle/Validator/Constraints/ContainsAlphanumeric.php
     namespace Acme\DemoBundle\Validator\Constraints;
@@ -48,8 +48,8 @@ che usa una semplice logica predefinita::
         return get_class($this).'Validator';
     }
 
-In altre parole, se si crea un ``Constraint``, ovvero un vincolo, personalizzato (come ``MioVincolo``),
-Symfony2, automaticamente, cercherà anche un'altra la classe, ``MioVincoloValidator``
+In altre parole, se si crea un ``Constraint``, ovvero un vincolo personalizzato (come ``MioVincolo``),
+Symfony2 cercherà automaticamente anche un'altra la classe, ``MioVincoloValidator``,
 per effettuare la validazione vera e propria.
 
 Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio: ``validate``::

@@ -45,7 +45,7 @@ Il token
 Il ruolo del token nel contesto della sicurezza di Symfony2 è importante.
 Un token rappresenta i dati di autenticazione dell'utente presenti nella richiesta.
 Una volta autenticata la richiesta, il token mantiene i dati dell'utente e fornisce
-tali data attraverso il contesto della sicurezza. Prima di tutto, creeremo la nostra
+tali dati attraverso il contesto della sicurezza. Prima di tutto, creeremo la nostra
 classe per il token. Questo consentirà il passaggio di tutte le informazioni rilevanti
 al nostro fornitore di autenticazione.
 
@@ -66,7 +66,7 @@ al nostro fornitore di autenticazione.
         {
             parent::__construct($roles);
             
-            // If the user has roles, consider it authenticated
+            // Se l'utente ha dei ruoli, considerarlo autenticato
             $this->setAuthenticated(count($roles) > 0);
         }
 

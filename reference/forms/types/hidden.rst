@@ -9,6 +9,9 @@ Il tipo hidden rappresenta un campo input nascosto.
 +---------------+----------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``hidden``                                           |
 +---------------+----------------------------------------------------------------------+
+| Opzioni       | - `required`_                                                        |
+| ridefinite    | - `error_bubbling`_                                                  |
++---------------+----------------------------------------------------------------------+
 | Opzioni       | - ``data``                                                           |
 | ereditate     | - ``property_path``                                                  |
 +---------------+----------------------------------------------------------------------+
@@ -16,6 +19,23 @@ Il tipo hidden rappresenta un campo input nascosto.
 +---------------+----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType` |
 +---------------+----------------------------------------------------------------------+
+
+Opzioni ridefinite
+------------------
+
+required
+~~~~~~~~
+
+**predefinito**: ``false``
+
+I campi nascosti non possono avere un attributo ``required``.
+
+error_bubbling
+~~~~~~~~~~~~~~
+
+**predefinito**: ``true``
+
+Passa gli errori al form radice, altrimenti non sarebbero visibili.
 
 Opzioni ereditate
 -----------------

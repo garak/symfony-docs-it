@@ -22,7 +22,10 @@ dei locale. Si *può* specificare una di queste opzioni manualmente, ma allora s
 dovrebbe usare il tipo ``choice`` direttamente.
 
 +---------------+------------------------------------------------------------------------+
-| Reso come     | possono essere diversi tag (vedere :ref:`forms-reference-choice-tags`) |
+| Reso come     | può essere diversi tag (vedere :ref:`forms-reference-choice-tags`)     |
++---------------+------------------------------------------------------------------------+
+| Opzioni       | - `choices`_                                                           |
+| ridefinite    |                                                                        |
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | - `multiple`_                                                          |
 | ereditate     | - `expanded`_                                                          |
@@ -38,6 +41,19 @@ dovrebbe usare il tipo ``choice`` direttamente.
 +---------------+------------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\LanguageType` |
 +---------------+------------------------------------------------------------------------+
+
+Opzioni ridefinite
+------------------
+
+choices
+~~~~~~~
+
+**predefinito**: :method:`Symfony\\Component\\Locale\\Locale::getDisplayLocales`
+
+Questa opzione ha come valore predefinito tutti i locale restituiti da
+:method:`Symfony\\Component\\Locale\\Locale::getDisplayLocales`. Usa il
+locale predefinito per specificare la lingua.
+
 
 Opzioni ereditate
 -----------------

@@ -10,9 +10,7 @@ essere inseriti in una base dati o passati a un servizio web.
 
 Symfony2 ha un componente `Validator`_ , che rende questo compito facile e trasparente.
 Questo componente è bastato sulle `specifiche di validazione
-JSR303 Bean`_. Cosa?
-Specifiche Java in PHP? Proprio così, ma non è così male come potrebbe sembrare.
-Vediamo come usarle in PHP.
+JSR303 Bean`_. 
 
 .. index::
    single: Validazione; Le basi
@@ -373,7 +371,7 @@ abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
 
         // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\NotBlank;
+        use Symfony\Component\Validator\Constraints\Choice;
 
         class Author
         {

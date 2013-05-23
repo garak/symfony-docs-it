@@ -20,6 +20,7 @@ protocollo.
 |               | - `read_only`_                                                    |
 |               | - `disabled`_                                                     |
 |               | - `error_bubbling`_                                               |
+|               | - `mapped`_                                                       |
 +---------------+-------------------------------------------------------------------+
 | Tipo genitore | :doc:`text</reference/forms/types/text>`                          |
 +---------------+-------------------------------------------------------------------+
@@ -56,3 +57,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

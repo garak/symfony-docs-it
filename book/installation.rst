@@ -66,9 +66,8 @@ Distribution:
 
 .. tip::
 
-    Per scaricare i file dei venditori più velocemente e senza cartelle non necessarie
-    (p.e. "Tests"), aggiungere l'opzione ``--prefer-dist`` alla fine di ogni comando di
-    Composer.
+    Per scaricare i file dei venditori più velocemente, aggiungere l'opzione ``--prefer-dist``
+    alla fine di ogni comando di Composer.
 
 Questo comando può richiedere diversti minuti, mentre Composer scarica la Standard
 Distribution e tutte le librerie dei venditori necessarie. Quando avrà finito,
@@ -124,6 +123,22 @@ prossima sezione.
     :doc:`/cookbook/configuration/override_dir_structure` per maggiori
     informazioni.
 
+Tutti i file pubblici e il front controller che gestisce le richieste in arrivo in
+un'applicazione Symfony2 si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
+di aver decompresso l'archivio nella cartella radice del server web o di un virtual host,
+gli URL dell'applicazione inizieranno con ``http://localhost/Symfony/web/``.
+Per avere URL brevi, si deve far puntare la cartella radice del server web o
+del virtual host alla cartella ``Symfony/web/``. Sebbene ciò non sia obbligatorio
+per lo sviluppo, è raccomandato nel momento in cui l'applicazione va in
+produzione, perché tutti i file di sistema e di configurazione diventano inaccessibili agli utenti.
+Per informazioni su come configurare il proprio server web, vedere la
+documentazione seguente: `Apache`_ | `Nginx`_ .
+
+.. note::
+
+    Gli esempi che seguono ipotizzano che le impostazioni sulla cartella radice non siano state modificate,
+    quindi tutti gli URL inizieranno con ``http://localhost/Symfony/web/``
+
 .. _installation-updating-vendors:
 
 Aggiornare i venditori
@@ -172,11 +187,15 @@ Symfony stesso, nella cartella ``vendor/``.
 
     Quando si esegue ``php composer.phar install`` o ``php composer.phar update``,
     composer eseguirà dei comandi post installazione/aggiornamento per pulire la cache
-    e installare le risorse. Per impostazione predefinita, le risorse saranno copiate nella cartella ``web``.
-    Per creare collegamenti simbolici invece di copiare le risorse, si può
-    aggiungere una voce nel nodo ``extra`` del file composer.json con chiave ``symfony-assets-install``
-    e valore ``symlink``:
+    e installare le risorse. Per impostazione predefinita, le risorse saranno copiate
+    nella cartella ``web``.
+
+    Invece di copiare le risorse, si possono creare dei collegamenti simbolici, se
+    consentito dal sistema operativo. Per creare collegamenti simbolici invece di copiare le risorse,
+    aggiungere una voce nel nodo ``extra`` del file composer.json con chiave
+    ``symfony-assets-install`` e valore ``symlink``:
     
+
     .. code-block:: json
     
         "extra": {
@@ -286,13 +305,15 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 
 .. tip::
     
-    Per ottnere url brevi, si dovrebbe far puntare la docuemnt root del
+    Per ottenere url brevi, si dovrebbe far puntare la document root del
     server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
     non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui
     l'applicazione va in produzione, perché tutti i file di sistema e di configurazione
     diventeranno inaccessibili ai client. Perinformazioni sulla configurazione di
-    uno specifico server web, vedere la seguente
-    documentazione: `Apache`_ | `Nginx`_ .
+    uno specifico server web, leggere
+    :doc:`/cookbook/configuration/web_server_configuration`
+    o consultare la documentazione ufficiale del server:
+    `Apache`_ | `Nginx`_ .
 
 Iniziare lo sviluppo
 --------------------

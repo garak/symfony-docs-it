@@ -33,6 +33,7 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 | ereditate                | - `invalid_message_parameters`_                                             |
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
+|                          | - `virtual`_                                                                |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`form</reference/forms/types/form>`                                    |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -111,3 +112,7 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/virtual.rst.inc

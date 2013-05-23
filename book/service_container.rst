@@ -28,6 +28,11 @@ contenitore e personalizzare gli oggetti da un bundle di terze parti. Si inizier
 scrivere codice che è più riutilizzabile, testabile e disaccoppiato, semplicemente perché
 il contenitore di servizi consente di scrivere facilmente del buon codice.
 
+.. tip::
+
+    Per un approfondimento successivo alla lettura di questo capitolo, dare un'occhiata
+    alla :doc:`documentazione del componente Dependency Injection</components/dependency_injection/introduction>`.
+
 .. index::
    single: Contenitore di servizi; Cos'è un servizio?
 
@@ -222,14 +227,39 @@ Il risultato finale è esattamente lo stesso di prima, la differenza è solo nel
 di dover cercare per parametri con questi nomi. Quando il contenitore è costruito,
 cerca il valore di ogni parametro e lo usa nella definizione del servizio.
 
+.. versionadded:: 2.1
+    L'escape del carattere ``@`` nei valori dei parametri YAML è nuovo in Symfony 2.1.9
+    e Symfony 2.2.1.
+
 .. note::
 
-    Il simbolo di percentuale dentro a un parametro o argomento, come parte della stringa, deve subire
-    un escape con un ulteriore simbolo di percentuale:
-    
+    Se si vuole usare una stringa che inizi con il simbolo ``@`` come valore di un
+    parametro (p.e. una password) in un file yaml, occorre un escape tramite
+    un ulteriore simbolo ``@`` (si applica solo al formato YAML):
+
+    .. code-block:: yaml
+
+        # app/config/parameters.yml
+        parameters:
+            # Questo valore sarà analizzato come "@passwordsicura"
+            mailer_password: "@@passwordsicura"
+
+.. note::
+
+    Il simbolo di percentuale dentro a un parametro, come parte della stringa, deve
+    subire un escape tramite un ulteriore simbolo di percentuale:
+
     .. code-block:: xml
 
         <argument type="string">http://symfony.com/?pippo=%%s&pluto=%%d</argument>
+
+.. caution::
+
+    Si potrebbe avere una
+    :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
+    passando il servizio ``request`` come argomento. Per capire meglio questo
+    problema e imparare a risolverlo, fare riferimento alla ricetta
+    :doc:`/cookbook/service_container/scopes`.
 
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
@@ -251,60 +281,7 @@ tuttavia, potrebbe non essere necessaria la flessibilità dei parametri.
 Parametri array
 ~~~~~~~~~~~~~~~
 
-I parametri non devono necessariamente essere semplici stringhe, possono anche essere
-array. Per il formato YAML, occorre usare l'attributo type="collection" per tutti i
-parametri che sono array.
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        parameters:
-            my_mailer.gateways:
-                - mail1
-                - mail2
-                - mail3
-            my_multilang.language_fallback:
-                en:
-                    - en
-                    - fr
-                fr:
-                    - fr
-                    - en
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <parameters>
-            <parameter key="my_mailer.gateways" type="collection">
-                <parameter>mail1</parameter>
-                <parameter>mail2</parameter>
-                <parameter>mail3</parameter>
-            </parameter>
-            <parameter key="my_multilang.language_fallback" type="collection">
-                <parameter key="en" type="collection">
-                    <parameter>en</parameter>
-                    <parameter>fr</parameter>
-                </parameter>
-                <parameter key="fr" type="collection">
-                    <parameter>fr</parameter>
-                    <parameter>en</parameter>
-                </parameter>
-            </parameter>
-        </parameters>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        use Symfony\Component\DependencyInjection\Definition;
-
-        $container->setParameter('my_mailer.gateways', array('mail1', 'mail2', 'mail3'));
-        $container->setParameter('my_multilang.language_fallback', array(
-            'en' => array('en', 'fr'),
-            'fr' => array('fr', 'en'),
-        ));
-
+I parametri possono anche contenere array. Vedere :ref:`component-di-parameters-array`.
 
 Importare altre risorse di configurazione del contenitore
 ---------------------------------------------------------
@@ -398,7 +375,7 @@ dell'applicazione.
 
         # app/config/config.yml
         imports:
-            - { resource: @AcmeHelloBundle/Resources/config/services.yml }
+            - { resource: "@AcmeHelloBundle/Resources/config/services.yml" }
 
     .. code-block:: xml
 
@@ -597,7 +574,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
                 # ...
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
-                arguments: [@my_mailer]
+                arguments: ["@my_mailer"]
 
     .. code-block:: xml
 
@@ -688,7 +665,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
+                    - [setMailer, ["@my_mailer"]]
 
     .. code-block:: xml
 
@@ -755,7 +732,7 @@ esiste e in caso contrario non farà nulla:
         services:
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
-                arguments: [@?my_mailer]
+                arguments: ["@?my_mailer"]
 
     .. code-block:: xml
 
@@ -860,7 +837,7 @@ La configurazione del contenitore dei servizi è semplice:
         services:
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
-                arguments: [@mailer, @templating]
+                arguments: ["@mailer", "@templating"]
 
     .. code-block:: xml
 
@@ -875,7 +852,7 @@ La configurazione del contenitore dei servizi è semplice:
             '%newsletter_manager.class%',
             array(
                 new Reference('mailer'),
-                new Reference('templating')
+                new Reference('templating'),
             )
         ));
 
@@ -965,6 +942,7 @@ il suo id:
 Saperne di più
 --------------
 
+* :doc:`/components/dependency_injection/parameters`
 * :doc:`/components/dependency_injection/compilation`
 * :doc:`/components/dependency_injection/definitions`
 * :doc:`/components/dependency_injection/factories`

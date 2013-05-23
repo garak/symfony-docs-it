@@ -376,6 +376,11 @@ Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da te
 Nomi e posizioni dei template
 -----------------------------
 
+.. versionadded:: 2.2
+    Il supporto a percorsi con spazi dei nomi è stato aggiunto nella 2.2, consentendo nomi di template
+    come ``@AcmeDemo/layout.html.twig``. Vedere :doc:`/cookbook/templating/namespaced_paths`
+    per ulteriori dettagli.
+
 Per impostazione predefinita, i template possono stare in una di queste posizioni:
 
 * ``app/Resources/views/``: La cartella ``views`` di un'applicazione può contenere
@@ -525,16 +530,14 @@ Includere questo template da un altro template è semplice:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/ArticleBundle/Resources/Article/list.html.twig #}
+        {# src/Acme/ArticleBundle/Resources/views/Article/list.html.twig #}
         {% extends 'AcmeArticleBundle::layout.html.twig' %}
 
         {% block body %}
             <h1>Articoli recenti<h1>
 
             {% for article in articles %}
-                {% include 'AcmeArticleBundle:Article:articleDetails.html.twig'
-                       with {'article': article}
-                %}
+                {{ include('AcmeArticleBundle:Article:articleDetails.html.twig', {'article': article}) }}
             {% endfor %}
         {% endblock %}
 
@@ -564,6 +567,10 @@ usando il comando ``with``.
     La sintassi ``{'article': article}`` è la sintassi standard di Twig per gli
     array associativi (con chiavi non numeriche). Se avessimo avuto bisogno di passare più
     elementi, sarebbe stato così: ``{'pippo': pippo, 'pluto': pluto}``.
+
+.. versionadded:: 2.2
+    La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
+    Symfony 2.2. Precedentemente, si usava il tag ``{% include %}``.
 
 .. index::
    single: Template; Inserire azioni
@@ -626,43 +633,8 @@ Il template ``recentList`` è molto semplice:
     (p.e. ``/article/*slug*``). Questa non è una buona pratica. Nella prossima sezione,
     vedremo come farlo correttamente.
 
-Anche se questo controllore sarà usato solo internamente, occorrerà
-creare una rotta che punti al controllore:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        latest_articles:
-            pattern:  /articles/latest/{max}
-            defaults: { _controller: AcmeArticleBundle:Article:recentArticles }
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-
-            <route id="latest_articles" pattern="/articles/latest/{max}">
-                <default key="_controller">AcmeArticleBundle:Article:recentArticles</default>
-            </route>
-        </routes>
-
-    .. code-block:: php
-
-        use Symfony\Component\Routing\RouteCollection;
-        use Symfony\Component\Routing\Route;
-
-        $collection = new RouteCollection();
-        $collection->add('latest_articles', new Route('/articles/latest/{max}', array(
-            '_controller' => 'AcmeArticleBundle:Article:recentArticles',
-        )));
-
-        return $collection;
-
-Per includere il controllore, occorrerà farvi riferimento con un url assoluto:
+Per includere il controllore, occorrerà farvi riferimento con la sintassi standard
+per i controllori (cioè **bundle**:**controllore**:**azione**):
 
 .. configuration-block::
 
@@ -672,7 +644,7 @@ Per includere il controllore, occorrerà farvi riferimento con un url assoluto:
 
         {# ... #}
         <div id="sidebar">
-            {% render url('latest_articles', { 'max': 3 }) %}
+            {{ render(controller('AcmeArticleBundle:Article:recentArticles', {'max': 3})) }}
         </div>
 
     .. code-block:: html+php
@@ -682,11 +654,9 @@ Per includere il controllore, occorrerà farvi riferimento con un url assoluto:
         <!-- ... -->
         <div id="sidebar">
             <?php echo $view['actions']->render(
-                $view['router']->generate('latest_articles', array('max' => 3), true)
+                new ControllerReference('AcmeArticleBundle:Article:recentArticles', array('max' => 3))
             ) ?>
         </div>
-
-.. include:: /book/_security-2012-6431.rst.inc
 
 Ogni volta che ci si trova ad aver bisogno di una variabile o di un pezzo di informazione
 a cui non si ha accesso in un template, considerare di rendere un controllore.
@@ -706,18 +676,52 @@ Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
 
     .. code-block:: jinja
 
-        {% render url('...'), {'standalone': 'js'} %}
+        {% render url('...') with {}, {'standalone': 'js'} %}
 
     .. code-block:: php
 
         <?php echo $view['actions']->render(
+            new ControllerReference('...'),
+            array('renderer' => 'hinclude')
+        ) ?>
+
+        <?php echo $view['actions']->render(
             $view['router']->generate('...'),
-            array('standalone' => 'js')
+            array('renderer' => 'hinclude')
         ) ?>
 
 .. note::
 
    hinclude.js_ deve essere incluso nella pagina.
+
+.. note::
+
+    Quando si usa un controllore invece di un URL, occorre abilitare la configurazione
+    ``fragments``:
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+
+            # app/config/config.yml
+            framework:
+                # ...
+                fragments: { path: /_fragment }
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+            <framework:config>
+                <framework:fragments path="/_fragment" />
+            </framework:config>
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $container->loadFromExtension('framework', array(
+                // ...
+                'fragments' => array('path' => '/_fragment'),
+            ));
 
 Il contenuto predefinito (visibile durante il caricamento o senza JavaScript) può
 essere impostato in modo globale nella configurazione dell'applicazione:
@@ -749,6 +753,46 @@ essere impostato in modo globale nella configurazione dell'applicazione:
             ),
         ));
 
+.. versionadded:: 2.2
+    I template predefiniti per funzioni di resa sono stati aggiunti in Symfony 2.2
+
+Si possono definire template predefiniti per funzione ``render`` (che sovrascriveranno
+qualsiasi template predefinito globale):
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ render_hinclude(controller('...'),  {'default': 'AcmeDemoBundle:Default:content.html.twig'}) }}
+
+    .. code-block:: php
+
+        <?php echo $view['actions']->render(
+            new ControllerReference('...'),
+            array(
+                'renderer' => 'hinclude',
+                'default' => 'AcmeDemoBundle:Default:content.html.twig',
+            )
+        ) ?>
+
+Oppure si può specificare una stringa da mostrare come contenuto predefinito:
+
+.. configuration-block::
+
+    .. code-block:: jinja
+
+        {{ render_hinclude(controller('...'), {'default': 'Caricamento...'}) }}
+
+    .. code-block:: php
+
+        <?php echo $view['actions']->render(
+            new ControllerReference('...'),
+            array(
+                'renderer' => 'hinclude',
+                'default' => 'Caricamento...',
+            )
+        ) ?>
+
 .. index::
    single: Template; Collegare le pagine
 
@@ -772,12 +816,12 @@ delle rotte:
     .. code-block:: yaml
 
         _welcome:
-            pattern:  /
+            path:     /
             defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
     .. code-block:: xml
 
-        <route id="_welcome" pattern="/">
+        <route id="_welcome" path="/">
             <default key="_controller">AcmeDemoBundle:Welcome:index</default>
         </route>
 
@@ -810,12 +854,12 @@ rotta più complessa:
     .. code-block:: yaml
 
         article_show:
-            pattern:  /article/{slug}
+            path:     /article/{slug}
             defaults: { _controller: AcmeArticleBundle:Article:show }
 
     .. code-block:: xml
 
-        <route id="article_show" pattern="/article/{slug}">
+        <route id="article_show" path="/article/{slug}">
             <default key="_controller">AcmeArticleBundle:Article:show</default>
         </route>
 
@@ -1251,7 +1295,7 @@ o consentire a un utente malintenzionato di eseguire un attacco `Cross Site Scri
 
 .. configuration-block::
 
-    .. code-block:: jinja
+    .. code-block:: html+jinja
 
         Ciao {{ name }}
 
@@ -1261,10 +1305,14 @@ o consentire a un utente malintenzionato di eseguire un attacco `Cross Site Scri
 
 Si immagini che l'utente inserisca nel suo nome il seguente codice::
 
+.. code-block:: text
+
     <script>alert('ciao!')</script>
 
 Senza alcun escape dell'output, il template risultante causerebbe la comparsa
 di una finestra di alert Javascript::
+
+.. code-block:: html
 
     Ciao <script>alert('ciao!')</script>
 
@@ -1275,6 +1323,8 @@ all'interno dell'area di un utente legittimo e ignaro.
 La risposta a questo problema è l'escape dell'output. Con l'escape attivo,
 lo stesso template verrebbe reso in modo innocuo e scriverebbe alla lettera
 il tag ``script`` su schermo::
+
+.. code-block:: html
 
     Ciao &lt;script&gt;alert(&#39;ciao!&#39;)&lt;/script&gt;
 
@@ -1294,8 +1344,13 @@ il contenuto sia sotto escape per l'output HTML.
 In alcuni casi, si avrà bisogno di disabilitare l'escape dell'output, quando si avrà
 bisogno di rendere una variabile affidabile che contiene markup. Supponiamo che gli
 utenti amministratori siano abilitati a scrivere articoli che contengano codice HTML.
-Per impostazione predefinita, Twig mostrerà l'articolo con escape. Per renderlo
-normalmente, aggiungere il filtro ``raw``: ``{{ article.body | raw }}``.
+Per impostazione predefinita, Twig mostrerà l'articolo con escape.
+
+Per renderlo normalmente, aggiungere il filtro ``raw``:
+
+.. code-block:: jinja
+
+     {{ article.body | raw }}
 
 Si può anche disabilitare l'escape dell'output dentro a un ``{% block %}`` o
 per un intero template. Per maggiori informazioni, vedere `Escape dell'output`_ nella
@@ -1308,6 +1363,8 @@ L'escape dell'output non è automatico, se si usano i template PHP. Questo vuol 
 a meno che non scelga esplicitamente di passare una variabile sotto escape, non si è
 protetti. Per usare l'escape, usare il metodo speciale ``escape()``::
 
+.. code-block:: html+php
+
     Ciao <?php echo $view->escape($name) ?>
 
 Per impostazione predefinita, il metodo ``escape()`` assume che la variabile sia resa
@@ -1315,7 +1372,7 @@ in un contesto HTML (quindi l'escape renderà la variabile sicura per HTML).
 Il secondo parametro consente di cambiare contesto. Per esempio per mostrare qualcosa
 in una stringa Javascript, usare il contesto ``js``:
 
-.. code-block:: js
+.. code-block:: html+php
 
     var myMsg = 'Ciao <?php echo $view->escape($name, 'js') ?>';
 

@@ -13,7 +13,6 @@ Riferimenti sui tipi nei form
    types/choice
    types/collection
    types/country
-   types/csrf
    types/date
    types/datetime
    types/email

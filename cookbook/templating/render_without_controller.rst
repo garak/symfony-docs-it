@@ -19,7 +19,7 @@ senza creare un controllore:
     .. code-block:: yaml
 
         acme_privacy:
-            pattern: /privacy
+            path: /privacy
             defaults:
                 _controller: FrameworkBundle:Template:template
                 template: 'AcmeBundle:Static:privacy.html.twig'
@@ -32,7 +32,7 @@ senza creare un controllore:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="acme_privacy" pattern="/privacy">
+            <route id="acme_privacy" path="/privacy">
                 <default key="_controller">FrameworkBundle:Template:template</default>
                 <default key="template">AcmeBundle:Static:privacy.html.twig</default>
             </route>
@@ -64,10 +64,74 @@ frammenti statici, una caratteristica che sarà disponibile in Symfony 2.2.
 
     .. code-block:: html+jinja
 
-        {% render url('acme_privacy') %}
+        {{ render(url('acme_privacy')) }}
 
     .. code-block:: html+php
 
         <?php echo $view['actions']->render(
             $view['router']->generate('acme_privacy', array(), true)
         ) ?>
+
+.. _cookbook-templating-no-controller-caching:
+
+Template statici in cache
+-------------------------
+
+.. versionadded:: 2.2
+    La possibilità di mettere in cache i template resi tramite ``FrameworkBundle:Template:template``
+    è nuova in Symfony 2.2.
+
+Poiché i template resi in questo modo sono tipicamente statici, può aver
+senso metterli in cache. Per fortuna, questo è facile! Configurando alcune
+variabili in più nella rotta, si può controllare esattamente il modo in cui la pagina è messa in cache:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        acme_privacy:
+            path: /privacy
+            defaults:
+                _controller: FrameworkBundle:Template:template
+                template: 'AcmeBundle:Static:privacy.html.twig'
+                maxAge: 86400
+                sharedMaxAge: 86400
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="acme_privacy" path="/privacy">
+                <default key="_controller">FrameworkBundle:Template:template</default>
+                <default key="template">AcmeBundle:Static:privacy.html.twig</default>
+                <default key="maxAge">86400</default>
+                <default key="sharedMaxAge">86400</default>
+            </route>
+        </routes>
+
+    .. code-block:: php
+
+        use Symfony\Component\Routing\RouteCollection;
+        use Symfony\Component\Routing\Route;
+
+        $collection = new RouteCollection();
+        $collection->add('acme_privacy', new Route('/privacy', array(
+            '_controller'  => 'FrameworkBundle:Template:template',
+            'template'     => 'AcmeBundle:Static:privacy.html.twig',
+            'maxAge'       => 86400,
+            'sharedMaxAge' => 86400,
+        )));
+
+        return $collection;
+
+I valori ``maxAge`` e ``sharedMaxAge`` sono usati per modificare l'oggetto della risposta
+creato dal controllore. Per maggiori informazioni sulla cache, vedere
+:doc:`/book/http_cache`.
+
+C'è anche una variabile ``private`` (non mostrata qui). Per impostazione preferinita, la risposta
+sarà pubblica, purché vengano passati ``maxAge`` o ``sharedMaxAge``.
+Se impostata a ``true``, la risposta sarà privata.

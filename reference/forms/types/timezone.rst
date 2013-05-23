@@ -18,6 +18,9 @@ dovrebbe usare direttamente il tipo ``choice``.
 +---------------+------------------------------------------------------------------------+
 | Reso come     | può essere vari tag (vedere :ref:`forms-reference-choice-tags`)        |
 +---------------+------------------------------------------------------------------------+
+| Opzioni       | - `choice_list`_                                                       |
+| ridefinite    |                                                                        |
++---------------+------------------------------------------------------------------------+
 | Opzioni       | - `multiple`_                                                          |
 | ereditate     | - `expanded`_                                                          |
 |               | - `preferred_choices`_                                                 |
@@ -32,6 +35,17 @@ dovrebbe usare direttamente il tipo ``choice``.
 +---------------+------------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimezoneType` |
 +---------------+------------------------------------------------------------------------+
+
+Opzioni ridefinite
+------------------
+
+choice_list
+~~~~~~~~~~~
+
+**predefinito**: :class:`Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\TimezoneChoiceList`
+
+Tutti i fusi orari restituiti da
+:phpmethod:`DateTimeZone::listIdentifiers`, separati per continente.
 
 Opzioni ereditate
 -----------------

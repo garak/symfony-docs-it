@@ -38,6 +38,11 @@ eseguire un checkout del ramo 2.0 prima del prossimo passo:
 
     $ git checkout 2.0
 
+.. tip::
+
+    Il ramo base (p.e. 2.0) diventerà "Applies to" nel :ref:`doc-contributing-pr-format`
+    usato successivamente.
+
 Quindi, creare un ramo dedicato per le proprie modifiche (per questioni organizzative):
 
 .. code-block:: bash
@@ -73,6 +78,19 @@ GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
 
   La documentazione di Symfony2 è rilasciata sotto :doc:`licenza <license>`
   Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Unported.
+
+Si può anche aggiungere un prefisso al titolo della richiesta di pull, in questi casi:
+
+* ``[WIP]`` (Work in Progress) è usato quando non si ha ancora finito con la propria
+  richiesta di pull, ma si vorrebbe che fosse rivista. La richiesta di pull non
+  subirà merge finché non si dichiara che è pronta.
+
+* ``[WCM]`` (Waiting Code Merge) è usato quando si sta documentando una nuova caratteristica
+  o modifica che non è ancora stata accettata. La richiesta di pull non subirà
+  merge fino al merge del codice (oppure sarà chiusa, se la modifica
+  verrà respinta).
+
+.. _doc-contributing-pr-format:
 
 Formato della richiesta di pull
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

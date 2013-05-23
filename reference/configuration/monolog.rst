@@ -54,7 +54,7 @@ Riferimento configurazione
                     subject:              ~
                     email_prototype:
                         id:                   ~ # Obbligatorio (se si usa email_prototype)
-                        factory-method:       ~
+                        method:               ~
                     channels:
                         type:                 ~
                         elements:             []

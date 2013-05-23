@@ -47,7 +47,6 @@ Campi nascosti
 ~~~~~~~~~~~~~~
 
 * :doc:`hidden</reference/forms/types/hidden>`
-* :doc:`csrf</reference/forms/types/csrf>`
 
 Campi di base
 ~~~~~~~~~~~~~

@@ -885,58 +885,38 @@ Symfony2 usa l'helper ``render`` per configurare i tag ESI:
 
     .. code-block:: jinja
 
-        {% render url('latest_news', { 'max': 5 }), {'standalone': true} %}
+        {# si può fare riferimento a un controllore #}
+        {{ render_esi(controller('...:news', { 'max': 5 })) }}
+
+        {# ... o a un URL #}
+        {{ render_esi(url('latest_news', { 'max': 5 })) }}
 
     .. code-block:: php
 
         <?php echo $view['actions']->render(
+            new ControllerReference('...:news', array('max' => 5)),
+            array('renderer' => 'esi'))
+        ?>
+
+        <?php echo $view['actions']->render(
             $view['router']->generate('latest_news', array('max' => 5), true),
-            array('standalone' => true)
+            array('renderer' => 'esi'),
         ) ?>
 
-.. include:: /book/_security-2012-6431.rst.inc
+Usando l'opzione ``esi``(che usa a sua volta la funzoine Twig ``render_esi``), si dice
+a Symfony2 che l'azione va resa come tag ESI. Ci si potrebbe chiedere
+perché voler usare un helper invece di scrivere direttamente il tag ESI.
+Il motivo è che un helper fa funzionare l'applicazione anche
+se non ci sono gateway per la cache installati.
 
-Il tag ``render`` accetta un url assoluto dell'azione inclusa. Questo vuol dire
-che occorre definire una nuova rotta per il controllore che si sta includendo:
-
-.. code-block:: yaml
-
-    # app/config/routing.yml
-    latest_news:
-        pattern:      /esi/latest-news/{max}
-        defaults:     { _controller: AcmeNewsBundle:News:news }
-        requirements: { max: \d+ }
-
-.. caution::
-
-    A meno che non si voglia che tale URL sia accessibile esternamente, si deve
-    usare il firewall di Symfony per proteggerlo (consentendo l'accesso agli
-    IP del proprio reverse proxy). Vedere la sezione :ref:`Protezione per IP<book-security-securing-ip>`
-    del :doc:`capitolo sulla sicurezza </book/security>` per maggiori informazioni
-    su come poterlo fare.
-
-.. tip::
-
-    Il modo milgiore è montare tutti gli url ESI su un solo prefisso (p.e.
-    ``/esi``) a scelta. Questo approccio ha due vantaggi. Primo, facilita
-    la gestione degli url ESI, perché si possono identificare facilmente le rotte usate per ESI.
-    Secondo, facilita la gestione della sicurezza, perché si possono proteggere tutti gli url che iniziano
-    con lo stesso prefisso più facilmente rispetto a url individuali. Vedere
-    la nota precedente per maggiori dettagli su come proteggere gli URL ESI.
-
-Impostando ``standalone`` a ``true``, si dice a Symfony2 che l'azione andrebbe
-resa come tag ESI. Ci si potrebbe chiedere perché usare un helper invece di usare
-direttamente il tag ESI. Il motivo è che l'uso di un helper consente all'applicazione
-di funzionare anche se non c'è nessun gateway cache installato. Vediamo come
-funziona.
-
-Quando ``standalone`` è ``false`` (il valore predefinito), Symfony2 fonde il contenuto
-della pagina in quella principale, prima di inviare la risposta al client. Ma quando
-``standalone`` è ``true`` *e* se Symfony2 individua che sta parlando a una gateway
-cache che supporti ESI, genera un tag include di ESI. Se invece non c'è una gateway
-cache con supporto a ESI, Symfony2 fonde direttamente il contenuto della pagina
-inclusa dentro la pagina principale, come se ``standalone`` fosse stato impostato
-a ``false``.
+Quando si usa la funzione ``render`` predefinita (o si usa l'opzione
+``inline``), Symfony2 fonde il contenuto della pagina inclusa in quello principale,
+prima di inviare la risposta al client. Se invece si usa l'opzione ``esi``
+(che richiama ``render_esi``) *e* se Symfony2 capisce che sta parlando a un
+gateway per la cache che supporti ESI, genera un tag ESI. Ma se non c'è
+alcun gateway per la cache o se ce n'è uno che non supporta ESI, Symfony2 fonderà
+il contenuto della pagina inclusa in quello principale, come se fosse state usata
+``render``.
 
 .. note::
 
@@ -944,24 +924,59 @@ a ``false``.
     specifica di Akamaï, che è supportata nativamente dal reverse proxy di
     Symfony2.
 
-L'azione inclusa ora può specificare le sue regole di cache, del tutto indipendentemente
+L'azione inclusa ora può specificare le  sue regole di cache, indipendentemente
 dalla pagina principale.
 
 .. code-block:: php
 
     public function newsAction($max)
     {
-      // ...
+        // ...
 
-      $response->setSharedMaxAge(60);
+        $response->setSharedMaxAge(60);
     }
 
 Con ESI, la cache dell'intera pagina sarà valida per 600 secondi, mentre il
 componente delle news avrà una cache che dura per soli 60 secondi.
 
+Quando si fa riferimento a un controllore, il tag ESI dovrebbe far riferimento all'azione
+inclusa con un URL accessibile, in modo che il gateway della cache possa recuperarla indipendentemente
+dal resto della pagina. Symfony2 si occupa di generare un URL univoco per ogni
+riferimento a controllori ed è in grado di puntare correttamente le rotte, grazie a un
+ascoltatore che va abilitato nella configurazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        framework:
+            # ...
+            fragments: { path: /_fragment }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <framework:config>
+            <framework:fragments path="/_fragment" />
+        </framework:config>
+
+.. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('framework', array(
+            // ...
+            'fragments' => array('path' => '/_fragment'),
+        ));
+
 Un grosso vantaggio di questa strategia di cache è che si può rendere la propria
 applicazione tanto dinamica quanto necessario e, allo stesso tempo, mantenere gli
 accessi al minimo.
+
+.. tip::
+
+    L'ascoltatore risponde solo agli indirizzi IP locali o ai proxy
+    fidati.
 
 .. note::
 

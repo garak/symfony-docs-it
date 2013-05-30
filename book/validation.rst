@@ -777,9 +777,12 @@ si registra che quando aggiorna successivamente le sue informazioni:
             }
         }
 
-Con questa configurazione, ci sono due gruppi di validazione:
+Con questa configurazione, ci sono tre gruppi di validazione:
 
 * ``Default`` - contiene i vincoli non assegnati ad altri gruppi;
+
+* ``User`` - contiene i vincoli  che appartengono al gruppo ``Default``
+  (questo gruppo è utile per :ref:`book-validation-group-sequence`);
 
 * ``registration`` - contiene solo i vincoli sui campi ``email`` e
   ``password``.
@@ -789,9 +792,134 @@ gruppo come secondo parametro del metodo ``validate()``::
 
     $errors = $validator->validate($author, array('registration'));
 
+Se non si specifica alcun gruppo, saranno applicati tutti i vincoli che appartengono
+al gruppo ``Default``.
+
 Ovviamente, di solito si lavorerà con la validazione in modo indiretto, tramite la
 libreria dei form. Per informazioni su come usare i gruppi di validazione dentro ai
 form, vedere :ref:`book-forms-validation-groups`.
+
+.. _book-validation-group-sequence:
+
+Sequenza di gruppi
+------------------
+
+A  volte si vogliono validare i gruppi in passi separati. Lo si può fare, usando
+``GroupSequence``. In questo caso, un oggetto definisce una sequenza di gruppi
+e i gruppi in tale sequenza sono validati in ordine.
+
+.. tip::
+
+    Le sequenze di gruppi non possono contenere il gruppo ``Default``, altrimenti si creerebbe
+    un loop. Usare invece il gruppo ``{ClassName}`` (p.e. ``User``).
+
+Per esempio, si supponga di avere una classe ``User`` e di voler validare che
+nome utente e password siano diversi, solo se le altre validazioni passano
+(per evitare messaggi di errore multipli).
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\User:
+            group_sequence:
+                - User
+                - Strict
+            getters:
+                passwordLegal:
+                    - "True":
+                        message: "The password cannot match your username"
+                        groups: [Strict]
+            properties:
+                username:
+                    - NotBlank: ~
+                password:
+                    - NotBlank: ~
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/User.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Security\Core\User\UserInterface;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        /**
+         * @Assert\GroupSequence({"Strict", "User"})
+         */
+        class User implements UserInterface
+        {
+            /**
+            * @Assert\NotBlank
+            */
+            private $username;
+
+            /**
+            * @Assert\NotBlank
+            */
+            private $password;
+
+            /**
+             * @Assert\True(message="The password cannot match your username", groups={"Strict"})
+             */
+            public function isPasswordLegal()
+            {
+                return ($this->username !== $this->password);
+            }
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\User">
+            <property name="username">
+                <constraint name="NotBlank" />
+            </property>
+            <property name="password">
+                <constraint name="NotBlank" />
+            </property>
+            <getter property="passwordLegal">
+                <constraint name="True">
+                    <option name="message">The password cannot match your username</option>
+                    <option name="groups">
+                        <value>Strict</value>
+                    </option>
+                </constraint>
+            </getter>
+            <group-sequence>
+                <value>User</value>
+                <value>Strict</value>
+            </group-sequence>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/User.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class User
+        {
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('username', new Assert\NotBlank());
+                $metadata->addPropertyConstraint('password', new Assert\NotBlank());
+
+                $metadata->addGetterConstraint('passwordLegal', new Assert\True(array(
+                    'message' => 'La password deve essere diversa dal nome utente',
+                    'groups'  => array('Strict'),
+                )));
+
+                $metadata->setGroupSequence(array('User', 'Strict'));
+            }
+        }
+
+In questo esempio, prima saranno validati i vincoli del gruppo ``User``
+(che corrispondono a quelli del gruppo ``Default``). Solo se tutti i vincoli in
+tale gruppo sono validi, sarà validato il secondo gruppo, ``Strict``.
 
 .. index::
    single: Validazione; Valori grezzi di validazione

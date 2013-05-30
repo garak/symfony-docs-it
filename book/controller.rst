@@ -686,23 +686,19 @@ il messaggio ``notice``:
 
     .. code-block:: html+jinja
 
-        {% if app.session.started %}
-            {% for flashMessage in app.session.flashbag.get('notice') %}
-                <div class="flash-notice">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-        {% endif %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
 
     .. code-block:: html+php
 
-        <?php if ($view['session']->isStarted()): ?>
-            <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
-                <div class="flash-notice">
-                    <?php echo "<div class='flash-error'>$message</div>" ?>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+        <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
+            <div class="flash-notice">
+                <?php echo "<div class='flash-error'>$message</div>" ?>
+            </div>
+        <?php endforeach; ?>
 
 Per come sono stati progettati, i messaggi flash sono destinati a vivere esattamente per una richiesta (hanno la
 "durata di un flash"). Sono progettati per essere utilizzati in redirect esattamente come

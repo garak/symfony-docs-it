@@ -112,7 +112,7 @@ potrebbe essere simile a questo:
             $data = $event->getData();
             $form = $event->getForm();
 
-            // Dutante la creazione del form, setData è chiamata con parametri null
+            // Durante la creazione del form, setData è chiamata con parametri null
             // dal costruttore di FormBuilder. Si è interessati a quando 
             // setData è invocato con l'oggetto Entity attuale (se è nuovo,
             // oppure recuperato con Doctrine). Bisognerà uscire dal metodo 

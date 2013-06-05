@@ -12,6 +12,7 @@ usando un indirizzo email già esistente nel sistema.
 |                | - `message`_                                                                        |
 |                | - `em`_                                                                             |
 |                | - `repositoryMethod`_                                                               |
+|                | - `ignoreNull`_                                                                     |
 +----------------+-------------------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity`            |
 +----------------+-------------------------------------------------------------------------------------+
@@ -88,7 +89,7 @@ utenti:
 
         // NON dimenticare questa istruzione!!!
         use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-        
+
         class Author
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
@@ -149,3 +150,16 @@ repositoryMethod
 Il nome del metodo del repository da usare per eseguire la query che determina
 l'univocità. Se lasciato vuoto, sarà usato il metodo ``findBy``. Questo
 metodo deve restituire un risultato che sia contabile.
+
+.. versionadded:: 2.1
+    L'opzione ``ignoreNull`` è stata aggiunta in Symfony 2.1.
+
+ignoreNull
+~~~~~~~~~~
+
+**type**: ``booleano`` **default**: ``true``
+
+Se quest'opzione è impostata a ``true`` il vincolo permetterà di avere diverse
+entità con valore ``null`` per un campo specifico senza far fallire la validazione.
+Se impostata a ``false`` solamente un valore ``null`` sarà permesso, in caso di un
+secondo valore ``null`` la validazione fallirà.

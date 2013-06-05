@@ -25,6 +25,7 @@ Questo campo aggiunge un simbolo di percentuale,  "``%``", dopo l'input.
 |               | - `error_bubbling`_                                                   |
 |               | - `invalid_message`_                                                  |
 |               | - `invalid_message_parameters`_                                       |
+|               | - `mapped`_                                                           |
 +---------------+-----------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/field>`                            |
 +---------------+-----------------------------------------------------------------------+
@@ -42,7 +43,7 @@ type
 Controlla come i dati sono memorizzati nel proprio oggetto. Per esempio, una
 percentuale di "55%" potrebbe essere memorizzata come ``.55`` o ``55`` nel proprio
 oggetto. I due tipi gestiscono questi due casi:
-    
+
 *   ``fractional``
     Se i dati sono memorizzati come decimale (p.e. ``.55``), usare questo tipo.
     I dati saranno moltiplicati per ``100`` prima di essere mostrati all'utente
@@ -80,3 +81,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

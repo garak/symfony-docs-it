@@ -36,6 +36,7 @@ dovrebbe usare il tipo ``choice`` direttamente.
 |               | - `label`_                                                             |
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
+|               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`choice</reference/forms/types/choice>`                           |
 +---------------+------------------------------------------------------------------------+
@@ -79,3 +80,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

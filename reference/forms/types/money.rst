@@ -26,6 +26,7 @@ gestione dell'input e dell'output dei dati.
 |               | - `error_bubbling`_                                                 |
 |               | - `invalid_message`_                                                |
 |               | - `invalid_message_parameters`_                                     |
+|               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/field>`                          |
 +---------------+---------------------------------------------------------------------+
@@ -81,7 +82,7 @@ a ``0``).
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -96,5 +97,7 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
 
 .. _`ISO 4217`: http://en.wikipedia.org/wiki/ISO_4217

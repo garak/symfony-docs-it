@@ -12,8 +12,9 @@ Il tipo hidden rappresenta un campo input nascosto.
 | Opzioni       | - `required`_                                                        |
 | ridefinite    | - `error_bubbling`_                                                  |
 +---------------+----------------------------------------------------------------------+
-| Opzioni       | - ``data``                                                           |
-| ereditate     | - ``property_path``                                                  |
+| Opzioni       | - `data`_                                                            |
+| ereditate     | - `property_path`_                                                   |
+|               | - `mapped`_                                                          |
 +---------------+----------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/field>`                           |
 +---------------+----------------------------------------------------------------------+
@@ -45,3 +46,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/property_path.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

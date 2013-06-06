@@ -61,11 +61,11 @@ Il modo più semplice di renderlo è tutto insieme:
 .. configuration-block::
 
     .. code-block:: jinja
-    
+
         {{ form_row(form.emails) }}
 
     .. code-block:: php
-    
+
         <?php echo $view['form']->row($form['emails']) ?>
 
 Un metodo molto più flessibile sarebbe questo:
@@ -73,7 +73,7 @@ Un metodo molto più flessibile sarebbe questo:
 .. configuration-block::
 
     .. code-block:: html+jinja
-    
+
         {{ form_label(form.emails) }}
         {{ form_errors(form.emails) }}
 
@@ -90,7 +90,7 @@ Un metodo molto più flessibile sarebbe questo:
 
         <?php echo $view['form']->label($form['emails']) ?>
         <?php echo $view['form']->errors($form['emails']) ?>
-        
+
         <ul>
         <?php foreach ($form['emails'] as $emailField): ?>
             <li>
@@ -151,7 +151,7 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 .. configuration-block::
 
     .. code-block:: html+jinja
-    
+
         <form action="..." method="POST" {{ form_enctype(form) }}>
             {# ... #}
 
@@ -164,9 +164,9 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
                 </li>
             {% endfor %}
             </ul>
-        
+
             <a href="#" id="add-another-email">Aggiungere email</a>
-        
+
             {# ... #}
         </form>
 
@@ -304,11 +304,11 @@ collection:
 .. configuration-block::
 
     .. code-block:: jinja
-    
+
         {{ form_row(form.emails.vars.prototype) }}
 
     .. code-block:: php
-    
+
         <?php echo $view['form']->row($form['emails']->getVar('prototype')) ?>
 
 Si noti che tutto quello di cui si ha effettivamente bisogno è il widget, ma a
@@ -320,7 +320,7 @@ seconda di come si rende il form, avere l'intera riga del form potrebbe essere p
     sarà disponibile automaticamente nell'attributo ``data-prototype``
     dell'elemento (p.e. ``div`` o ``table``) che contiene l'insieme.
 
-Per dettagli su come usare effettivamente questa opzione, vedere l'esempio sopra 
+Per dettagli su come usare effettivamente questa opzione, vedere l'esempio sopra
 o :ref:`cookbook-form-collections-new-prototype`.
 
 prototype_name

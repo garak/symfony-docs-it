@@ -50,7 +50,7 @@ rounding_mode
 Se un numero inviato ha bisogno di essere arrotondato (in base all'opzione ``precision``),
 si dispone di varie opzioni configurabili per tale arrotondamento. Ogni opzione è una
 costante di :class:`Symfony\\Component\\Form\\Extension\\Core\\DataTransformer\\IntegerToLocalizedStringTransformer`:
-    
+
 *   ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` Arrotondamento verso lo
     zero.
 

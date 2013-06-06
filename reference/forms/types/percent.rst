@@ -43,7 +43,7 @@ type
 Controlla come i dati sono memorizzati nel proprio oggetto. Per esempio, una
 percentuale di "55%" potrebbe essere memorizzata come ``.55`` o ``55`` nel proprio
 oggetto. I due tipi gestiscono questi due casi:
-    
+
 *   ``fractional``
     Se i dati sono memorizzati come decimale (p.e. ``.55``), usare questo tipo.
     I dati saranno moltiplicati per ``100`` prima di essere mostrati all'utente

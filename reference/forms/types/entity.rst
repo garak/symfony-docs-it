@@ -30,7 +30,7 @@ presi dalla base dati.
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
-|               | - `mapped`_                                                      |
+|               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`choice</reference/forms/types/choice>`                        |
 +---------------+---------------------------------------------------------------------+
@@ -161,7 +161,7 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

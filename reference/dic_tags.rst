@@ -10,19 +10,38 @@ Si possono approfondire i tag leggendo la sezione ":ref:`book-service-container-
 del capitolo sul contenitore di servizi.
 
 Di seguito si trovano informazioni su tutti i tag disponibili in Symfony2. Potrebbero
-esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui. Per esempio,
-AsseticBundle ha molti tag, non elencati qui.
+esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 
 +-----------------------------------+---------------------------------------------------------------------------+
 | Nome tag                          | Utilizzo                                                                  |
 +-----------------------------------+---------------------------------------------------------------------------+
+| `assetic.asset`_                  | Registrare una risorsa nel gestore di risorse corrente                    |
++-----------------------------------+---------------------------------------------------------------------------+
+| `assetic.factory_worker`_         | Aggiungere un factory worker                                              |
++-----------------------------------+---------------------------------------------------------------------------+
+| `assetic.filter`_                 | Registrare un filtro                                                      |
++-----------------------------------+---------------------------------------------------------------------------+
+| `assetic.formula_loader`_         | Aggiungere un formula loader al gestore di risorse corrente               |
++-----------------------------------+---------------------------------------------------------------------------+
+| `assetic.formula_resource`_       | Aggiungere una risorsa al gestore di risorse corrente                     |
++-----------------------------------+---------------------------------------------------------------------------+
+| `assetic.templating.php`_         | Rimuovere questo servizio se i template PHP sono disabilitati             |
++-----------------------------------+---------------------------------------------------------------------------+
+| `assetic.templating.twig`_        | Rimuovere questo servizio se i template Twig sono disabilitati            |
++-----------------------------------+---------------------------------------------------------------------------+
 | `data_collector`_                 | Creare una classe che raccolga dati personalizzati per il profilatore     |
++-----------------------------------+---------------------------------------------------------------------------+
+| `doctrine.event_listener`_        | Aggiungere un ascoltatore di eventi Doctrine                              |
++-----------------------------------+---------------------------------------------------------------------------+
+| `doctrine.event_subscriber`_      | Aggiungere un sottoscrittore di eventi Doctrine                           |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `form.type`_                      | Creare un tipo di campo personalizzato per i form                         |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `form.type_extension`_            | Creare un "form extension" personalizzato                                 |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `form.type_guesser`_              | Aggiungere logica per "form type guessing"                                |
++-----------------------------------+---------------------------------------------------------------------------+
+| `kernel.cache_clearer`_           | Registrare un servizio da richiamare durante la pulizia della cache       |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `kernel.cache_warmer`_            | Registrare un servizio da richiamare durante il cache warming             |
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -42,8 +61,6 @@ AsseticBundle ha molti tag, non elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `security.remember_me_aware`_     | Consentire il "ricorami" nell'autenticazione                              |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `security.listener.factory`_      | Necessario quando si cre un sistema di autenticazione personalizzato      |
-+-----------------------------------+---------------------------------------------------------------------------+
 | `swiftmailer.plugin`_             | Registre un plugin di SwiftMailer                                         |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `templating.helper`_              | Rendere il servizio disponibile nei template PHP                          |
@@ -56,8 +73,163 @@ AsseticBundle ha molti tag, non elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `validator.constraint_validator`_ | Creare un vincolo di validazione personalizzato                           |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `validator.initializer`_          | Registrare un servizio che inizializza oggetti prima della validazione    |
-+-----------------------------------+---------------------------------------------------------------------------+
+
+assetic.asset
+-------------
+
+**Scopo**: Registrare una risorsa nel gestore di risorse corrente
+
+assetic.factory_worker
+----------------------
+
+**Scopo**: Aggiungere un factory worker
+
+A Factory worker is a class implementing ``Assetic\Factory\Worker\WorkerInterface``.
+Its ``process($asset)`` method is called for each asset after asset creation.
+You can modify an asset or even return a new one.
+
+In order to add a new worker, first create a class::
+
+    use Assetic\Asset\AssetInterface;
+    use Assetic\Factory\Worker\WorkerInterface;
+
+    class MyWorker implements WorkerInterface
+    {
+        public function process(AssetInterface $asset)
+        {
+            // ... change $asset or return a new one
+        }
+
+    }
+
+And then add register it as a tagged service:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme.my_worker:
+                class: MyWorker
+                tags:
+                    - { name: assetic.factory_worker }
+
+    .. code-block:: xml
+
+        <service id="acme.my_worker" class="MyWorker>
+            <tag name="assetic.factory_worker" />
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('acme.my_worker', 'MyWorker')
+            ->addTag('assetic.factory_worker')
+        ;
+
+assetic.filter
+--------------
+
+**Scopo**: Registrare un filtro
+
+AsseticBundle uses this tag to register common filters. You can also use
+this tag to register your own filters.
+
+First, you need to create a filter::
+
+    use Assetic\Asset\AssetInterface;
+    use Assetic\Filter\FilterInterface;
+
+    class MyFilter implements FilterInterface
+    {
+        public function filterLoad(AssetInterface $asset)
+        {
+            $asset->setContent('alert("yo");' . $asset->getContent());
+        }
+
+        public function filterDump(AssetInterface $asset)
+        {
+            // ...
+        }
+    }
+
+Second, define a service:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme.my_filter:
+                class: MyFilter
+                tags:
+                    - { name: assetic.filter, alias: my_filter }
+
+    .. code-block:: xml
+
+        <service id="acme.my_filter" class="MyFilter">
+            <tag name="assetic.filter" alias="my_filter" />
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('acme.my_filter', 'MyFilter')
+            ->addTag('assetic.filter', array('alias' => 'my_filter'))
+        ;
+
+Finally, apply the filter:
+
+.. code-block:: jinja
+
+    {% javascripts
+        '@AcmeBaseBundle/Resources/public/js/global.js'
+        filter='my_filter'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+You can also apply your filter via the ``assetic.filters.my_filter.apply_to``
+config option as it's described here: :doc:`/cookbook/assetic/apply_to_option`.
+In order to do that, you must define your filter service in a separate xml
+config file and point to this file's path via the ``assetic.filters.my_filter.resource``
+configuration key.
+
+assetic.formula_loader
+----------------------
+
+**Scopo**: Aggiungere un formula loader al gestore di risorse corrente
+
+A Formula loader is a class implementing
+``Assetic\\Factory\Loader\\FormulaLoaderInterface`` interface. This class
+is responsible for loading assets from a particular kind of resources (for
+instance, twig template). Assetic ships loaders for php and twig templates.
+
+An ``alias`` attribute defines the name of the loader.
+
+assetic.formula_resource
+------------------------
+
+**Scopo**: Aggiungere una risorsa al gestore di risorse corrente
+
+A resource is something formulae can be loaded from. For instance, twig
+templates are resources.
+
+assetic.templating.php
+----------------------
+
+**Scopo**: Rimuovere questo servizio se i template PHP sono disabilitati
+
+The tagged service will be removed from the container if the
+``framework.templating.engines`` config section does not contain php.
+
+assetic.templating.twig
+-----------------------
+
+**Scopo**: Rimuovere questo servizio se i template Twig sono disabilitati
+
+The tagged service will be removed from the container if
+``framework.templating.engines`` config section does not contain twig.
 
 data_collector
 --------------
@@ -66,6 +238,22 @@ data_collector
 
 Per dettagli su come creare i propri insiemi di dati, leggere la ricetta
 :doc:`/cookbook/profiler/data_collector`.
+
+doctrine.event_listener
+-----------------------
+
+**Scopo**: Aggiungere un ascoltatore di eventi Doctrine 
+
+For details on creating Doctrine event listeners, read the cookbook article:
+:doc:`/cookbook/doctrine/event_listeners_subscribers`.
+
+doctrine.event_subscriber
+-------------------------
+
+**Scopo**: Aggiungere un sottoscrittore di eventi Doctrine 
+
+For details on creating Doctrine event subscribers, read the cookbook article:
+:doc:`/cookbook/doctrine/event_listeners_subscribers`.
 
 .. _dic-tags-form-type:
 
@@ -149,6 +337,57 @@ servizio il tag ``form.type_guesser`` (che non ha opzioni).
 
 Per avere un'idea della classe, dare un'occhiata alla classe ``ValidatorTypeGuesser``
 nel componente ``Form``.
+
+kernel.cache_clearer
+--------------------
+
+**Scopo**: Registrare un servizio da richiamare durante la pulizia della cache
+
+Cache clearing occurs whenever you call ``cache:clear`` command. If your
+bundle caches files, you should add custom cache clearer for clearing those
+files during the cache clearing process.
+
+In order to register your custom cache clearer, first you must create a
+service class::
+
+    // src/Acme/MainBundle/Cache/MyClearer.php
+    namespace Acme\MainBundle\Cache;
+
+    use Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface;
+
+    class MyClearer implements CacheClearerInterface
+    {
+        public function clear($cacheDir)
+        {
+            // clear your cache
+        }
+
+    }
+
+Then register this class and tag it with ``kernel.cache:clearer``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            my_cache_clearer:
+                class: Acme\MainBundle\Cache\MyClearer
+                tags:
+                    - { name: kernel.cache_clearer }
+
+    .. code-block:: xml
+
+        <service id="my_cache_clearer" class="Acme\MainBundle\Cache\MyClearer">
+            <tag name="kernel.cache_clearer" />
+        </service>
+
+    .. code-block:: php
+
+        $container
+            ->register('my_cache_clearer', 'Acme\MainBundle\Cache\MyClearer')
+            ->addTag('kernel.cache_clearer')
+        ;
 
 kernel.cache_warmer
 -------------------
@@ -541,14 +780,6 @@ una configurazione e assegnargli il tag ``routing.loader``:
 
 Per maggiori informazioni, vedere :doc:`/cookbook/routing/custom_route_loader`.
 
-security.listener.factory
--------------------------
-
-**Scopo**: Necessario quando si crea un sistema di autenticazione personalizzato
-
-Questo tag si usa quando si crea il proprio sistema di autenticazine. Per dettagli
-vedere :doc:`/cookbook/security/custom_authentication_provider`.
-
 security.remember_me_aware
 --------------------------
 
@@ -823,7 +1054,7 @@ Quindi, assegnare il tag ``validator.initializer`` (che non ha opzioni).
 Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
-.. _`repository ufficiale delle estensioni di Twig`: http://github.com/fabpot/Twig-extensions
+.. _`repository ufficiale delle estensioni di Twig`: https://github.com/fabpot/Twig-extensions
 .. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.2/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
 .. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders

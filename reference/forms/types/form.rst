@@ -6,7 +6,7 @@ Tipo di campo form
 
 Vedere :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FormType`.
 
-Il tipo ``field`` predefinisce alcune opzioni, che sono disponibili
+Il tipo ``form`` predefinisce alcune opzioni, che sono disponibili
 su tutti i campi:
 
 .. include:: /reference/forms/types/options/data.rst.inc

@@ -71,7 +71,7 @@ Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/date>`:
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

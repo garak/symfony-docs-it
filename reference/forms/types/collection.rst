@@ -338,7 +338,7 @@ siano sostituiti con il medesimo valore.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/form>`.
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`.
 Non sono elencate tutte le opzioni, solo quelle più attinenti a questo tipo:
 
 .. include:: /reference/forms/types/options/label.rst.inc

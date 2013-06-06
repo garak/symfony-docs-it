@@ -73,6 +73,8 @@ esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `validator.constraint_validator`_ | Creare un vincolo di validazione personalizzato                           |
 +-----------------------------------+---------------------------------------------------------------------------+
+| `validator.initializer`_          | Registrare un servizio che inizializzi gli oggetti prima della validazione|
++-----------------------------------+---------------------------------------------------------------------------+
 
 assetic.asset
 -------------
@@ -242,7 +244,7 @@ Per dettagli su come creare i propri insiemi di dati, leggere la ricetta
 doctrine.event_listener
 -----------------------
 
-**Scopo**: Aggiungere un ascoltatore di eventi Doctrine 
+**Scopo**: Aggiungere un ascoltatore di eventi Doctrine
 
 For details on creating Doctrine event listeners, read the cookbook article:
 :doc:`/cookbook/doctrine/event_listeners_subscribers`.
@@ -250,7 +252,7 @@ For details on creating Doctrine event listeners, read the cookbook article:
 doctrine.event_subscriber
 -------------------------
 
-**Scopo**: Aggiungere un sottoscrittore di eventi Doctrine 
+**Scopo**: Aggiungere un sottoscrittore di eventi Doctrine
 
 For details on creating Doctrine event subscribers, read the cookbook article:
 :doc:`/cookbook/doctrine/event_listeners_subscribers`.
@@ -968,7 +970,7 @@ Per sapere come creare la classe estensione di Twig, vedere la
 Prima di scrivere la propria estensione, dare un'occhiata al
 `repository ufficiale delle estensioni di Twig`_, che contiene molte estensioni utili.
 Per esempio, ``Intl`` e il suo filtro ``localizeddate``, che formatta
-una data in base al locale dell'utente. Anche aueste estensioni ufficiali di Twig 
+una data in base al locale dell'utente. Anche aueste estensioni ufficiali di Twig
 devono essere aggiunte come normali servizi:
 
 .. configuration-block::
@@ -999,7 +1001,7 @@ twig.loader
 
 **Scopo**: Registrare un servizio personalizzato che carica template Twig
 
-Per impostazione predefinita, Symfony usa solo la classe `Twig Loader`_. 
+Per impostazione predefinita, Symfony usa solo la classe `Twig Loader`_.
 :class:`Symfony\\Bundle\\TwigBundle\\Loader\\FilesystemLoader`. Se si ha l'esigenza
 di caricare template Twig da un'altra risorsa, si può creare un servizio per il
 nuovo caricatore e assegnarli il tag ``twig.loader``:

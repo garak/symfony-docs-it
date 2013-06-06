@@ -54,6 +54,8 @@ su un oggetto che conterrà un numero di carta di credito.
     .. code-block:: php-annotations
 
         // src/Acme/SubscriptionBundle/Entity/Transaction.php
+        namespace Acme\SubscriptionBundle\Entity\Transaction;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Transaction
@@ -67,6 +69,8 @@ su un oggetto che conterrà un numero di carta di credito.
     .. code-block:: php
 
         // src/Acme/SubscriptionBundle/Entity/Transaction.php
+        namespace Acme\SubscriptionBundle\Entity\Transaction;
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\CardScheme;
 

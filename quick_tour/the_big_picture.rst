@@ -479,7 +479,7 @@ mantiene una cache sotto la cartella ``app/cache/``. Nell'ambiente di sviluppo (
 la cache è svuotata automaticamente quando vengono fatte modifiche al codice o
 alla configurazione. Non è questo il caso dell'ambiente di produzione
 (''app.php'') in cui la performance è cruciale. Per questo si dovrebbe sempre usare 
-l'ambiente di sviluppo mentre si sviluppate la vostra applicazione.
+l'ambiente di sviluppo mentre sviluppate la vostra applicazione.
 
 Diversi :term:`ambienti<ambiente>` di una stessa applicazione differiscono
 solo nella loro configurazione.

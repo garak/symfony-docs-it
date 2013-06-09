@@ -385,7 +385,7 @@ cartella ``app``:
             </body>
         </html>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
         <!DOCTYPE html>
@@ -517,10 +517,10 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
     Quando Symfony si carica, un file speciale chiamato ``app/autoload.php`` viene incluso.
     Questo file è responsabile di configurare l'autoloader, che auto-caricherà i file
     dell'applicazione dalla cartella ``src/`` e le librerie di terze parti dalla
-    cartella ``vendor/``.
+    cartella ``vendor/`` menzionate nel file ``composer.json``.
 
     Grazie all'autoloader, non si avrà mai bisogno di usare le istruzioni ``include``
-    o ``require``. Al posto loro, Symfony2 usa lo spazio dei nomi di una classe per
+    o ``require``. Al posto loro, Composer usa lo spazio dei nomi di una classe per
     determinare la sua posizione e includere automaticamente il file al posto
     nostro, nel momento in cui la classe è necessaria.
 
@@ -586,7 +586,6 @@ della classe ``AppKernel``::
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -812,9 +811,6 @@ specifiche saranno man mano approfondite.
 
 Esportazione della configurazione predefinita
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-    Il comando ``config:dump-reference`` è stato aggiunto in Symfony 2.1
 
 Si può esportare la configurazione predefinita per un bundle in yaml sulla console, usando
 il comando ``config:dump-reference``. Ecco un esempio di esportazione della configurazione

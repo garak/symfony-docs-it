@@ -53,11 +53,6 @@ Si crei una semplice classe ``Task``::
         {
             return $this->tags;
         }
-
-        public function setTags(ArrayCollection $tags)
-        {
-            $this->tags = $tags;
-        }
     }
 
 .. note::
@@ -211,7 +206,7 @@ ha tag, appena viene creato).
 
             <h3>Tags</h3>
             <ul class="tags">
-                {# itera per ogni tag esistente e rende solo il campo: nome #}
+                {# itera per ogni tag esistente e rende solo il campo: name #}
                 {% for tag in form.tags %}
                     <li>{{ form_row(tag.name) }}</li>
                 {% endfor %}
@@ -285,8 +280,7 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
 
-    // ...
-    
+    // ...   
     use Symfony\Component\Form\FormBuilderInterface;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -296,15 +290,8 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
         $builder->add('tags', 'collection', array(
             'type' => new TagType(),
             'allow_add' => true,
-            'by_reference' => false,
         ));
     }
-
-Da notare che è stata aggiunto  ``'by_reference' => false``. Normalmente, il framework dei form
-modificherebbe i tag su un oggetto `Task`, *senza* effettivamente nemmeno
-richiamare `setTags`. Impostando :ref:`by_reference<reference-form-types-by-reference>`
-a `false`, `setTags` sarà richiamato. Questo sarà importante più avanti, come 
-vedremo.
 
 Oltre a dire al campo di accettare un numero qualsiasi di oggetti inviati, l'opzione
 ``allow_add`` rende anche disponibile una variabile "prototipo". Questo "prototipo" è un
@@ -321,7 +308,9 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
 
     .. code-block:: html+php
 
-        <ul class="tags" data-prototype="<?php echo $view->escape($view['form']->row($form['tags']->vars['prototype'])) ?>">
+        <ul class="tags" data-prototype="<?php
+            echo $view->escape($view['form']->row($form['tags']->vars['prototype']))
+        ?>">
             ...
         </ul>
 
@@ -428,6 +417,56 @@ Ora, ogni volta che un utente clicca sul link ``Aggiungi un tag``, apparirà un 
 form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in nuovi oggetti
 ``Tag`` e aggiunto alla proprietà ``tags`` dell'oggetto ``Task``
 
+Per gestire più facilmente questi nuovi tag, aggiungere dei metodi "adder" e "remover"
+alla classe  ``Task``::
+
+    // src/Acme/TaskBundle/Entity/Task.php
+    namespace Acme\TaskBundle\Entity;
+
+    // ...
+    class Task
+    {
+        // ...
+
+        public function addTag($tag)
+        {
+            $this->tags->add($tag);
+        }
+
+        public function removeTag($tag)
+        {
+            // ...
+        }
+    }
+
+Aggiungere quindi l'opzione ``by_reference`` al campo ``tags``, impostata a ``false``::
+
+    // src/Acme/TaskBundle/Form/Type/TaskType.php
+
+    // ...
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        // ...
+
+        $builder->add('tags', 'collection', array(
+            // ...
+            'by_reference' => false,
+        ));
+    }
+
+Con queste due modifiche, al submit del form, ogni nuovo oggetto ``Tag``
+sarà aggiunto alla classe ``Task``, richiamando il metodo ``addTag``. Prima di tale
+modifica, venivano aggiunti internamente dal form, richiamando ``$task->getTags()->add($task)``.
+Andava comunque bene, ma forzando il metodo "adder" si rende più facile la
+gestione di questi nuovi oggetti ``Tag`` (soprattutto se si usa Doctrine, come
+vedremo tra poco!).
+
+.. caution::
+
+    Se non vengono trovati **entrambi** i metodi ``addTag`` e ``removeTag``, il form userà
+    comunque  ``setTag``, anche con ``by_reference`` uguale a ``false``. Vedremo meglio
+    la questione ``removeTag`` più avanti.
+
 .. sidebar:: Doctrine: relazioni a cascata e salvataggio del lato "opposto"
 
     Per avere i nuovi tag salvati in Doctrine, occorre considerare un paio di altri aspetti.
@@ -435,8 +474,9 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
     ``$em->persist($tag)`` su ciascuno, si riceverà un errore da
     Doctrine:
 
-        A new entity was found through the relationship `Acme\TaskBundle\Entity\Task#tags`
-        that was not configured to cascade persist operations for entity...
+        A new entity was found through the relationship
+        ``Acme\TaskBundle\Entity\Task#tags`` that was not configured to
+        cascade persist operations for entity...
 
     Per risolverlo, si può scegliere una "cascata" per persistere automaticamente l'operazione
     dall'oggetto  ``Task`` a ogni tag correlato. Per farlo, aggiungere l'opzione ``cascade``
@@ -499,14 +539,11 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
         // src/Acme/TaskBundle/Entity/Task.php
 
         // ...
-
-        public function setTags(ArrayCollection $tags)
+        public function addTag(ArrayCollection $tag)
         {
-            foreach ($tags as $tag) {
-                $tag->addTask($this);
-            }
-
-            $this->tags = $tags;
+            $tag->addTask($this);
+ 
+            $this->tags->add($tag);
         }
 
     Dentro ``Tag``, assicurarsi di avere un metodo ``addTask``::
@@ -514,7 +551,6 @@ form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in n
         // src/Acme/TaskBundle/Entity/Tag.php
 
         // ...
-
         public function addTask(Task $task)
         {
             if (!$this->tasks->contains($task)) {
@@ -538,18 +574,29 @@ Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::
     // src/Acme/TaskBundle/Form/Type/TaskType.php
 
     // ...
-    use Symfony\Component\Form\FormBuilderInterface;
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('description');
+        // ...
 
         $builder->add('tags', 'collection', array(
-            'type' => new TagType(),
-            'allow_add' => true,
+            // ...
             'allow_delete' => true,
-            'by_reference' => false,
         ));
+    }
+
+Ora occorre inserire del codice nel metodo ``removeTag`` di ``Task``::
+
+    // src/Acme/TaskBundle/Entity/Task.php
+
+    // ...
+    class Task
+    {
+        // ...
+
+        public function removeTag($tag)
+        {
+            $this->tags->removeElement($tag);
+        }
     }
 
 Modifiche ai template
@@ -623,7 +670,6 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
         // src/Acme/TaskBundle/Controller/TaskController.php
 
         // ...
-
         public function editAction($id, Request $request)
         {
             $em = $this->getDoctrine()->getManager();

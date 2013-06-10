@@ -206,17 +206,6 @@ sono in quel file:
 .. code-block:: yaml
 
     # app/config/routing_dev.yml
-    # ...
-
-    # rotte dell'AcmeDemoBundle (da rimuovere)
-    _acme_demo:
-        resource: "@AcmeDemoBundle/Resources/config/routing.yml"
-
-Questo importa un file ``routing.yml`` che risiede dentro AcmeDemoBundle:
-
-.. code-block:: yaml
-
-    # src/Acme/DemoBundle/Resources/config/routing.yml
     _welcome:
         path:  /
         defaults: { _controller: AcmeDemoBundle:Welcome:index }

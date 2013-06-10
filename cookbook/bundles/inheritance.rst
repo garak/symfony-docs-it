@@ -97,12 +97,9 @@ Lo stesso vale per i file delle rotte, della configurazione della validazione e 
 
 .. caution::
 
-   I file delle traduzioni non funzionano nel modo descritto sopra. Tutti i file
-   di traduzione sono raggruppati in un insieme di domini di "pool" (uno per ciascuno).
-   Symfony carica i file delle traduzioni prima dai bundle (nell'ordine in cui i bundle
-   sono inizializzati) e poi dalla cartella ``app/Resources``.
-   Se la stessa traduzione compare in più risorse, sarà applicata la traduzione
-   della risorsa caricata per ultima.
+   I file delle traduzioni non funzionano nel modo descritto sopra. Si legga
+   :ref:`override-translations`, se si vuole sapere come sovrascrivere le
+   traduzioni.
 
 .. _`FOSUserBundle`: https://github.com/friendsofsymfony/fosuserbundle
 

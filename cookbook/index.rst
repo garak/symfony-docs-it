@@ -13,6 +13,7 @@ Ricettario
     validation/index
     configuration/index
     service_container/index
+    session/index
     bundles/index
     email/index
     testing/index

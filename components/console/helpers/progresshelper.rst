@@ -58,16 +58,18 @@ Per tutte le opzioni disponibili, consultare la documentazione delle API di
 
     Per questioni prestazionali, fare attenzione a non impostare un numero totale di passi
     troppo elevato. Per esempio, se si itera un gran numero
-    di elementi, considerare un "passo" più piccolo, che aggiorni solamente ogni
-    tot iterazioni::
+    di elementi, considerare l'impostazione di una frequenza maggiore, richiamando
+    :method:`Symfony\\Component\\Console\\Helper\\ProgressHelper::setRedrawFrequency`,
+    in modo da aggiornare solamente ogni tot iterazioni::
 
-        $progress->start($output, 500);
+        $progress->start($output, 50000);
+
+        // avanzare ogni 100 iterazioni
+        $progress->setRedrawFrequency(100);
+
         $i = 0;
         while ($i++ < 50000) {
             // ... fare qualcosa
 
-            // avanzare ogni 100 iterazioni
-            if ($i % 100 == 0) {
-                $progress->advance();
-            }
+            $progress->advance();
         }

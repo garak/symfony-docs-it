@@ -11,6 +11,7 @@ Template
 --------
 
 Per informazioni su come sovrascrivere i template, vedere
+
 * :ref:`overriding-bundle-templates`.
 * :doc:`/cookbook/bundles/inheritance`
 
@@ -31,6 +32,7 @@ Controllori
 Ipotizzando che un bundle di terze parti usi controllori che non siano servizi (che
 è quasi sempre il caso), si possono facilmente sovrascrivere tramite l'ereditarietà
 dei bundle. Per maggiori informazioni, vedere :doc:`/cookbook/bundles/inheritance`.
+Se il controllore è un servizio, vedere la sezione successiva su come sovrascriverlo.
 
 Servizi & configurazione
 ------------------------
@@ -69,7 +71,7 @@ Come seconda opzione, se la classe non è disponibile come parametro, ci si potr
 che la classe sia sempre sovrascritta quando il proprio bundle viene usato oppure usare
 un passo di compilatore, per modificare qualcosa che non sia solamente il nome della classe::
 
-    // src/Acme/FooBundle/DependencyInjection/Compiler/OverrideServiceCompilerPass.php
+    // src/Acme/DemoBundle/DependencyInjection/Compiler/OverrideServiceCompilerPass.php
     namespace Acme\DemoBundle\DependencyInjection\Compiler;
 
     use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -94,7 +96,11 @@ aggiungere la chiamata a un metodo, l'unica opzione è il passo di compilatore.
 Entità & mappature
 ------------------
 
-In corso...
+Per come funziona Doctrine, non è possibile sovrascrivere la mappatura di entità
+di un bundle. Tuttavia, se il bundle fornisce una superclasse mappata (come
+l'entità ``User`` in FOSUserBundle), si possono sovrascrivere attributi e
+associazioni. Si può approfondire questa caratteristica e i suoi limiti nella
+`documentazione di Doctrine`_.
 
 Form
 ----
@@ -116,7 +122,22 @@ Meta-dati di validazione
 
 In corso...
 
+.. _override-translations:
+
 Traduzioni
 ----------
 
-In corso...
+Le traduzioni sono riguardano i bundle, ma i domini. Questo vuol dire che
+si possono sovrascrivere traduzioni per qualsiasi file di traduzione, purché si trovi
+nel :ref:`dominio corretto <translation-domains>`.
+
+.. caution::
+
+    L'ultimo file di traduzione vince. Questo vuol dire che occorre assicurarsi
+    che il bundle contenente le *proprie* traduzioni sia caricato dopo ogni
+    bundle con traduzioni da sovrascrivere. Lo si fa in ``AppKernel``.
+
+    Il file che vince sempre è quello posto in
+    ``app/Resources/translations``, poiché è sempre caricato per ultimo.
+
+.. _`documentazione di Doctrine`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/inheritance-mapping.html#overrides

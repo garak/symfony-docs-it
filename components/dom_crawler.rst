@@ -160,6 +160,13 @@ Il crawler supporta diversi modi per aggiungere contenuti::
     $crawler->add('<html><body /></html>');
     $crawler->add('<root><node /></root>');
 
+.. note::
+
+    Quando si trattano set di caratteri diversi da ISO-8859-1, aggiungere sempre il
+    content HTML, usando il metodo :method:`Symfony\\Component\\DomCrawler\\Crawler::addHTMLContent`,
+    in cui si può specificare come secondo parametro il set di caratteri
+    desiderato.
+
 Essendo l'implementazione del Crawler basata sull'estensione di DOM, è anche
 possibile interagire con le classi native :phpclass:`DOMDocument`, :phpclass:`DOMNodeList`
 e :phpclass:`DOMNode`:
@@ -190,7 +197,7 @@ e :phpclass:`DOMNode`:
         $html = '';
 
         foreach ($crawler as $domElement) {
-            $html.= $domElement->ownerDocument->saveHTML();
+            $html .= $domElement->ownerDocument->saveHTML($domElement);
         }
 
 Supporto per i collegamenti e per i form

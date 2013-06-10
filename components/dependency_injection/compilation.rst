@@ -316,7 +316,10 @@ quotidiano.
 Il passo di compilatore deve avere il metodo ``process``, che viene passato al contenitore
 che si sta compilando::
 
-    class CustomCompilerPass
+    use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+    use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+    class CustomCompilerPass implements CompilerPassInterface
     {
         public function process(ContainerBuilder $container)
         {

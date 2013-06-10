@@ -64,14 +64,14 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [setMailer, ["@my_mailer"]]
+                    - [setEmailFormatter, ["@my_email_formatter"]]
 
             greeting_card_manager:
                 class:     "%greeting_card_manager.class%"
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [setMailer, ["@my_mailer"]]
+                    - [setEmailFormatter, ["@my_email_formatter"]]
 
     .. code-block:: xml
 
@@ -192,8 +192,8 @@ genitore per un servizio.
             mail_manager:
                 abstract:  true
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [setMailer, ["@my_mailer"]]
+                    - [setEmailFormatter, ["@my_email_formatter"]]
             
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
@@ -274,6 +274,11 @@ servizi figli.
    ``mail_manager``, non sarà eseguito quando i servizi figli saranno
    istanziati.
 
+.. caution::
+
+   Gli attributi ``scope``, ``abstract`` e ``tags`` sono sempre presi dal
+   servizio figlio.
+
 La classe genitore è astratta, perché non andrebbe istanziata direttamente dal
 contenitore o passata in un altro servizio. Esiste puramente come "template" per
 altri servizi. Per questo può non avere ``class`` configurata, che
@@ -312,14 +317,14 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
             mail_manager:
                 abstract:  true
                 calls:
-                    - [ setMailer, [ @my_mailer ] ]
-                    - [ setEmailFormatter, [ @my_email_formatter] ]
+                    - [setMailer, ["@my_mailer"]]
+                    - [setEmailFormatter, ["@my_email_formatter"]]
             
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
                 parent: mail_manager
                 calls:
-                    - [ setMailer, [ @my_alternative_mailer ] ]
+                    - [setMailer, ["@my_alternative_mailer"]]
             
             greeting_card_manager:
                 class:     "%greeting_card_manager.class%"
@@ -439,13 +444,13 @@ Se si ha la seguente configurazione:
             mail_manager:
                 abstract:  true
                 calls:
-                    - [ setFilter, [ @my_filter ] ]
+                    - [setFilter, ["@my_filter"]]
                     
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
                 parent: mail_manager
                 calls:
-                    - [ setFilter, [ @another_filter ] ]
+                    - [setFilter, ["@another_filter"]]
             
     .. code-block:: xml
 
@@ -505,3 +510,11 @@ richiamato due volte, risultando in un array ``$filters`` che conterrà sia l'og
 effettivamente aggiungere filtri alla sotto-classe. Se invece si vuole sostituire il
 filtro passato alla sotto-classe, la rimozione dell'impostazione del genitore dalla
 configurazione impedisce la chiamata a ``setFilter`` dalla classe base.
+
+.. tip::
+
+    Negli esempi mostrati c'è una relazione simile tra servizi padre e figlio
+    e classi padre e figlio sottostanti. Sebbene non sia detto che questo debba
+    sempre essere il caso, si possono estrarre le parti comuni di definizioni
+    simili di servizi in un servizio padre, senza ereditare anche una classe
+    padre.

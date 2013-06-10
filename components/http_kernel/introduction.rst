@@ -259,6 +259,8 @@ sarà richiamato dopo che un altro evento, ``kernel.controller``, è stato distr
     Ci possono essere alcune piccole variazioni nel processo appena visto, p.e. se
     i controllori sono stati registrati come servizi).
 
+.. _component-http-kernel-kernel-controller:
+
 3) L'evento ``kernel.controller``
 ---------------------------------
 
@@ -444,6 +446,8 @@ che invia gli header e stampa il contenuto della ``Response``.
     serializza le informazioni sull'utente corrente nella
     sessione, in modo che possano essere ricaricate alla richiesta successiva. 
 
+.. _component-http-kernel-kernel-terminate:
+
 8) L'evento ``kernel.terminate``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -610,7 +614,7 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
             '_controller' => function (Request $request) {
                 return new Response(sprintf("Ciao %s", $request->get('name')));
             }
-        ),
+        )
     ));
 
     $request = Request::createFromGlobals();

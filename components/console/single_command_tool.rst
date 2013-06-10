@@ -43,7 +43,31 @@ essere noioso. Per fortuna, è possibile rimuovere questo obbligo, estendendo l'
 
             return $defaultCommands;
         }
+
+        /**
+         * Sovrascritto in modo che l'applicazione non si aspetti il nome del
+         * comando come primo parametro.
+         */
+        public function getDefinition()
+        {
+            $inputDefinition = parent::getDefinition();
+            // pulisce il primo parametro normale, che è il nome del comando
+            $inputDefinition->setArguments();
+
+            return $inputDefinition;
+        }
     }
 
 Richiamando lo script da console, sarà sempre usato il comando `MioComando`,
 senza doverne passare il nome.
+
+Si può anche semplificare come eseguire l'applicazione::
+
+    #!/usr/bin/env php
+    <?php
+    // command.php
+    use Acme\Tool\MyApplication;
+
+    $application = new MyApplication();
+    $application->run();
+

@@ -19,6 +19,8 @@ controllo si vuole avere:
 2. Sostituire il controllore predefinito delle eccezioni ``TwigBundle::Exception:show``
    con il proprio controllore e gestirlo come si vuole (vedere
    :ref:`exception_controller nella guida di riferimento di Twig<config-twig-exception-controller>`);
+   Il controllore predefinito delle eccezioni è registrato come servizio, la classe
+   effettiva è ``Symfony\Bundle\TwigBundle\Controller\ExceptionController``.
 
 .. tip::
 

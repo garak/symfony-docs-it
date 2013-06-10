@@ -91,6 +91,19 @@ necesario modificare i percorsi nei file::
     require_once __DIR__.'/../Symfony/app/bootstrap.php.cache';
     require_once __DIR__.'/../Symfony/app/AppKernel.php';
 
+Da Symfony 2.1 (in cui è stato introdotto Composer), occorre anche modificare
+l'opzione ``extra.symfony-web-dir`` nel file ``composer.json``:
+
+.. code-block:: json
+
+    {
+        ...
+        "extra": {
+            ...
+            "symfony-web-dir": "nuova_cartella_web"
+        }
+    }
+
 .. tip::
 
     Alcuni host condivisi hanno una cartella radice del web chiamata ``public_html``.

@@ -1,7 +1,6 @@
 .. index::
    single: Doctrine; Caricamento di file
 
-
 Come gestire il caricamento di file con Doctrine
 ================================================
 
@@ -120,6 +119,37 @@ nel controller, potrebbe essere come il seguente::
 In seguito, creare la proprietà nella classe ``Document`` aggiungendo alcune 
 regole di validazione::
 
+    use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+    // ...
+    class Document
+    {
+        /**
+         * @Assert\File(maxSize="6000000")
+         */
+        private $file;
+
+        /**
+         * Sets file.
+         *
+         * @param UploadedFile $file
+         */
+        public function setFile(UploadedFile $file = null)
+        {
+            $this->file = $file;
+        }
+
+        /**
+         * Get file.
+         *
+         * @return UploadedFile
+         */
+        public function getFile()
+        {
+            return $this->file;
+        }
+    }
+
 .. configuration-block::
 
     .. code-block:: yaml
@@ -144,7 +174,7 @@ regole di validazione::
             /**
              * @Assert\File(maxSize="6000000")
              */
-            public $file;
+            private $file;
 
             // ...
         }
@@ -273,7 +303,7 @@ che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
     public function upload()
     {
         // la proprietà file può essere vuota se il campo non è obbligatorio
-        if (null === $this->file) {
+        if (null === $this->getFile()) {
             return;
         }
         
@@ -282,9 +312,9 @@ che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
         
         // move accetta come parametri la cartella di destinazione
         // e il nome del file di destinazione
-        $this->file->move(
+        $this->getFile()->move(
             $this->getUploadRootDir(),
-            $this->file->getClientOriginalName()
+            $this->getFile()->getClientOriginalName()
         );
 
         // impostare la proprietà del percorso al nome del file dove è stato salvato il file
@@ -329,13 +359,33 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
      */
     class Document
     {
+        private $temp;
+
+        /**
+         * Imposta il file.
+         *
+         * @param UploadedFile $file
+         */
+        public function setFile(UploadedFile $file = null)
+        {
+            $this->file = $file;
+            // verifica se abbiamo un percorso di immagine vecchio
+            if (isset($this->path)) {
+                // memorizza il vecchio nome da cancellare dopo l'aggiornamento
+                $this->temp = $this->path;
+                $this->path = null;
+            } else {
+                $this->path = 'initial';
+            }
+        }
+
         /**
          * @ORM\PrePersist()
          * @ORM\PreUpdate()
          */
         public function preUpload()
         {
-            if (null !== $this->file) {
+            if (null !== $this->getFile()) {
                 // fare qualsiasi cosa si voglia per generare un nome univoco
                 $filename = sha1(uniqid(mt_rand(), true));
                 $this->path = $filename.'.'.$this->file->guessExtension();
@@ -348,16 +398,23 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
          */
         public function upload()
         {
-            if (null === $this->file) {
+            if (null === $this->getFile()) {
                 return;
             }
 
             // se si verifica un errore mentre il file viene spostato viene 
             // lanciata automaticamente un'eccezione da move(). Questo eviterà
             // la memorizzazione dell'entità nella base dati in caso di errore
-            $this->file->move($this->getUploadRootDir(), $this->path);
+            $this->getFile()->move($this->getUploadRootDir(), $this->path);
 
-            unset($this->file);
+            // verifica se abbiamo una vecchia immagine
+            if (isset($this->temp)) {
+                // elimina la vecchia immagine
+                unlink($this->getUploadRootDir().'/'.$this->temp);
+                // pulisce il percorso temporaneo dell'immagine
+                $this->temp = null;
+            }
+            $this->file = null;
         }
 
         /**
@@ -384,7 +441,7 @@ a ``$document->upload()`` andrebbe tolta dal controllore::
         $em->persist($document);
         $em->flush();
 
-        $this->redirect(...);
+        return $this->redirect(...);
     }
 
 .. note::
@@ -418,8 +475,24 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
      */
     class Document
     {
-        // una proprietà usata temporaneamente durante la cancellazione
-        private $filenameForRemove;
+        private $temp;
+
+        /**
+         * Imposta il file.
+         *
+         * @param UploadedFile $file
+         */
+        public function setFile(UploadedFile $file = null)
+        {
+            $this->file = $file;
+            // verifica se abbiamo un vecchio percorso dell'immagine
+            if (is_file($this->getAbsolutePath())) {
+                // memorizza il vecchio nome da cancellare dopo l'aggiornamento
+                $this->temp = $this->getAbsolutePath();
+            } else {
+                $this->path = 'initial';
+            }
+        }
 
         /**
          * @ORM\PrePersist()
@@ -427,8 +500,8 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
          */
         public function preUpload()
         {
-            if (null !== $this->file) {
-                $this->path = $this->file->guessExtension();
+            if (null !== $this->getFile()) {
+                $this->path = $this->getFile()->guessExtension();
             }
         }
 
@@ -438,19 +511,27 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
          */
         public function upload()
         {
-            if (null === $this->file) {
+            if (null === $this->getFile()) {
                 return;
             }
 
+            // check if we have an old image
+            if (isset($this->temp)) {
+                // elimina la vecchia immagine
+                unlink($this->temp);
+                // pulisce il percorso temporaneo dell'immagine
+                $this->temp = null;
+            }
+
             // qui si deve lanciare un'eccezione se il file non può essere spostato
-            // per fare in modo che l'entità non possa essere memorizzata nella base dati
-            // cosa che viene fatta da move()
-            $this->file->move(
+            // per fare in modo che l'entità non possa essere persistita nella base dati,
+            // cosa che viene fatta da move() di UploadedFile
+            $this->getFile()->move(
                 $this->getUploadRootDir(),
-                $this->id.'.'.$this->file->guessExtension()
+                $this->id.'.'.$this->getFile()->guessExtension()
             );
 
-            unset($this->file);
+            $this->setFile(null);
         }
 
         /**
@@ -458,7 +539,7 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
          */
         public function storeFilenameForRemove()
         {
-            $this->filenameForRemove = $this->getAbsolutePath();
+            $this->temp = $this->getAbsolutePath();
         }
 
         /**
@@ -466,8 +547,8 @@ diversa, dato che sarebbe necessario memorizzare l'estensione nella proprietà
          */
         public function removeUpload()
         {
-            if ($this->filenameForRemove) {
-                unlink($this->filenameForRemove);
+            if (isset($this->temp)) {
+                unlink($this->temp);
             }
         }
 

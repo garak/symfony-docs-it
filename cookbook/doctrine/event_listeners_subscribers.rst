@@ -17,6 +17,8 @@ Doctrine defininsce due tipi di oggetti che possono ascoltare eventi:
 ascoltatori e sottoscrittori. Sono simili tra loro, ma gli ascoltatori sono leggermente
 più semplificati. Per approfondimenti, vedere `The Event System`_ sul sito di Doctrine.
 
+Il sito di Doctrine spiega anche tutti gli eventi esistenti che possono essere ascoltati.
+
 Configurare ascoltatori e sottoscrittori
 ----------------------------------------
 
@@ -151,5 +153,61 @@ entità della propria applicazione. Quindi, se si vuole gestire solo un tipo
 specifico di entità (p.e. un'entità ``Product``, ma non un'entità ``BlogPost``),
 si dovrebbe verificare il nome della classe dell'entità nel proprio metodo
 (come precedentemente mostrato).
+
+Creare la classe Subscriber
+---------------------------
+
+Un sottoscrittore di eventi Doctrine deve implementare l'interfaccia ``Doctrine\Common\EventSubscriber``
+e avere un metodo per ogni evento sottoscritto::
+
+    // src/Acme/SearchBundle/EventListener/SearchIndexerSubscriber.php
+    namespace Acme\SearchBundle\EventListener;
+
+    use Doctrine\Common\EventSubscriber;
+    use Doctrine\ORM\Event\LifecycleEventArgs;
+    // per doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+    use Acme\StoreBundle\Entity\Product;
+
+    class SearchIndexerSubscriber implements EventSubscriber
+    {
+        public function getSubscribedEvents()
+        {
+            return array(
+                'postPersist',
+                'postUpdate',
+            );
+        }
+
+        public function postUpdate(LifecycleEventArgs $args)
+        {
+            $this->index($args);
+        }
+
+        public function postPersist(LifecycleEventArgs $args)
+        {
+            $this->index($args);
+        }
+
+        public function index(LifecycleEventArgs $args)
+        {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
+
+            // forse si vuole agire solo su un'entità "Product"
+            if ($entity instanceof Product) {
+                // ... fare qualcosa con Product
+            }
+        }
+    }
+
+.. tip::
+
+    I sottoscrittori di eventi Doctrine non possono restituire un array flessibile di metodi daDoctrine event subscribers can not return a flexible array of methods to
+    richiamare per gli eventi, come invece possono fare i :ref:`sottoscrittore di eventi Symfony <event_dispatcher-using-event-subscribers>`.
+    I sottoscrittori di eventi Doctrine devono restituire un semplice array di nomi di eventi
+    sottoscritti. Doctrine quindi si aspetterà metodi del sottoscrittore
+    con lo stesso nome di ciascun evento sottoscritto, proprio come quando si usa un ascoltatore di eventi.
+
+Per ulteriori riferimenti, si veda il capitolo `The Event System`_ nella documentazione di Doctrine.
 
 .. _`The Event System`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html

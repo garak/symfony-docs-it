@@ -26,8 +26,8 @@ che va popolato automaticamente in base al valore del campo
 
 .. _cookbook-form-events-underlying-data:
 
-Personaizzare un form in base ai dati sottostanti
--------------------------------------------------
+Personalizzare un form in base ai dati sottostanti
+--------------------------------------------------
 
 Prima di addentrarci nella generazione dinamica dei form, diamo un'occhiata veloce 
 alla classe dei form::

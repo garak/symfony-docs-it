@@ -220,14 +220,12 @@ di un form assomiglia al seguente, all'interno di un controllore::
         $author = new Author();
         $form = $this->createForm(new AuthorType(), $author);
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                // validazione passata, fare qualcosa con l'oggetto $author
+        if ($form->isValid()) {
+            // validazione passata, fare qualcosa con l'oggetto $author
 
-                return $this->redirect($this->generateUrl(...));
-            }
+            return $this->redirect($this->generateUrl(...));
         }
 
         return $this->render('BlogBundle:Author:form.html.twig', array(
@@ -272,7 +270,7 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             'validation' => array(
-            'enable_annotations' => true,
+                'enable_annotations' => true,
             ),
         ));
 
@@ -301,7 +299,7 @@ Symfony2 dispone di un gran numero dei vincoli più comunemente necessari:
 
 .. include:: /reference/constraints/map.rst.inc
 
-Si possono anche creare i propri vincoli personalizzati. L'argomento è coperto
+Si possono anche creare i propri vincoli personalizzati. L'argomento è discusso
 nell'articolo ":doc:`/cookbook/validation/custom_constraint`" del ricettario.
 
 .. index::
@@ -799,6 +797,9 @@ Ovviamente, di solito si lavorerà con la validazione in modo indiretto, tramite
 libreria dei form. Per informazioni su come usare i gruppi di validazione dentro ai
 form, vedere :ref:`book-forms-validation-groups`.
 
+.. index::
+   single: Validazione; Valori grezzi di validazione
+
 .. _book-validation-group-sequence:
 
 Sequenza di gruppi
@@ -920,9 +921,6 @@ nome utente e password siano diversi, solo se le altre validazioni passano
 In questo esempio, prima saranno validati i vincoli del gruppo ``User``
 (che corrispondono a quelli del gruppo ``Default``). Solo se tutti i vincoli in
 tale gruppo sono validi, sarà validato il secondo gruppo, ``Strict``.
-
-.. index::
-   single: Validazione; Valori grezzi di validazione
 
 .. _book-validation-raw-values:
 

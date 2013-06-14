@@ -33,18 +33,28 @@ Manutenzione
 ------------
 
 Ogni versione di Symfony è mantenuta per un periodo fissato di tempo, a seconda del tipo
-di rilascio.
+di rilascio. CI sono due periodi di manutenzione:
+
+* *Fix di bug e fix di sicurezza*: durante questo periodo, possono essere risolti tutti i problemi.
+  La fine di questo periodo è indicata come *fine manutenzione* di un
+  rilascio.
+
+* *Solo fix di sicurezza*: durante questo periodo, possono essere risolti solamente propblemi relativi
+  alla sicurezza. La fine di questo periodo è indicata come *fine
+  vita* di un rilascio.
 
 Rilasci standard
 ~~~~~~~~~~~~~~~~
 
-Un rilascio standard è mantenuto per un periodo di *otto mesi*.
+Un rilascio standard è mantenuto per un periodo di *otto mesi* per i bug
+e per un periodo di *quattordici mesi* per i problemi di sicurezza.
 
 Rilasci a supporto prolungato
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ogni due anni, viene pubblicato un rilascio a supporto prolungato (detto anche LTS, Long
-Term Support). Ogni rilascio LTS è supportato per un periodo di *tre anni*.
+Term Support). Ogni rilascio LTS è supportato per un periodo di *tre anni* per i bug
+e per un periodo di *quattro anni* per i problemi di sicurezza.
 
 .. note::
 
@@ -63,14 +73,38 @@ Di seguito il piano per le prime due versioni che useranno questo modello di ril
 * **Blu** rappresenta la fase di  stabilizzazione
 * **Verde** rappresenta il periodo di supporto
 
-Tutto ciò produrrà date e periodi di manutenzione molto attendibili.
+Tutto ciò produrrà date e periodi di manutenzione molto attendibili:
 
-* *(speciale)* Symfony 2.2 sarà rilasciato a fine febbraio 2013;
-* *(speciale)* Symfony 2.3 (la prima LTS) sarà rilasciato alla fine di maggio
-   2013;
-* Symfony 2.4 sarà rilasciato alla fine di novembre 2013;
-* Symfony 2.5 sarà rilasciato alla fine di maggio 2014;
-* ...
+
++----------+----------+--------------------+-----------+
+| Versione | Rilascio | Fine manutenzione  | Fine vita |
++==========+==========+====================+===========+
+| 2.0      | 07/2011  | 03/2013 (20 mesi)  | 09/2013   |
++----------+----------+--------------------+-----------+
+| 2.1      | 09/2012  | 05/2013 (9 mesi)   | 11/2013   |
++----------+----------+--------------------+-----------+
+| 2.2      | 03/2013  | 11/2013 (8 mesi)   | 05/2014   |
++----------+----------+--------------------+-----------+
+| **2.3**  | 05/2013  | 05/2016 (36 mesi)  | 05/2017   |
++----------+----------+--------------------+-----------+
+| 2.4      | 11/2013  | 07/2014 (8 mesi)   | 01/2015   |
++----------+----------+--------------------+-----------+
+| 2.5      | 05/2014  | 01/2015 (8 mesi)   | 07/2016   |
++----------+----------+--------------------+-----------+
+| 2.6      | 11/2014  | 07/2015 (8 mesi)   | 01/2016   |
++----------+----------+--------------------+-----------+
+| **2.7**  | 05/2015  | 05/2018 (36 mesi)  | 05/2019   |
++----------+----------+--------------------+-----------+
+| 2.8      | 11/2015  | 07/2016 (8 mesi)   | 01/2017   |
++----------+----------+--------------------+-----------+
+| ...      | ...      | ...                | ...       |
++----------+----------+--------------------+-----------+
+
+.. tip::
+
+    Se si vuole approfondire la linea temporale di una data versione di Symfony,
+    si può usare il `calcolatore di linea temporale`_. Si possono anche ottenere tutti i dati come JSON
+    via URL, per esempio `http://symfony.com/roadmap.json?version=2.x`.
 
 Retrocompatibilità
 ------------------
@@ -124,3 +158,5 @@ aggiornare.
 
 .. _repository Git: https://github.com/symfony/symfony
 .. _SensioLabs:     http://sensiolabs.com/
+.. _roadmap:        http://symfony.com/roadmap
+.. _calcolatore di linea temporale: http://symfony.com/roadmap

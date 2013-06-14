@@ -245,6 +245,8 @@ applicazione dovrebbe salutare:
 
     http://localhost/app_dev.php/hello/Ryan
 
+.. _book-page-creation-prod-cache-clear:
+
 .. tip::
 
     Si può anche vedere l'applicazione nell':ref:`ambiente<environments-summary>`

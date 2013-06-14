@@ -8,6 +8,11 @@ Yahoo! mette a disposizione un eccellente strumento per minimizzare i file JavaS
 e i fogli di stile, che così possono viaggiare più velocemente sulla rete: lo `YUI Compressor`_. 
 Grazie ad Assetic utilizzare questo strumento è semplicissimo.
 
+.. caution::
+
+    YUI Compressor sta per essere `deprecato`_. Niente
+    paura! Si veda :doc:`/cookbook/assetic/uglifyjs` per una possibile alternativa.
+
 Scaricare il JAR di YUI Compressor
 ----------------------------------
 
@@ -161,3 +166,4 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
 
 .. _`YUI Compressor`: http://developer.yahoo.com/yui/compressor/
 .. _`scaricare il file JAR`: http://yuilibrary.com/projects/yuicompressor/
+.. _`deprecato`: http://www.yuiblog.com/blog/2012/10/16/state-of-yui-compressor/

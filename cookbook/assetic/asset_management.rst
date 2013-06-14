@@ -359,6 +359,8 @@ da Symfony (visto che i file di risorse sono nell'ambiente ``dev``).
 Lasciare generare a Symfony questi file dinamicamente in un ambiente di
 produzione sarebbe troppo lento.
 
+.. _cookbook-asetic-dump-prod:
+
 Invece, ogni volta che si utilizza l'applicazione nell'ambiente ``prod`` (e quindi,
 ogni volta che si fa un nuovo rilascio), è necessario eseguire il seguente task:
 

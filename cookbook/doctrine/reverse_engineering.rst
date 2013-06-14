@@ -60,11 +60,12 @@ in base ai campi delle tabelle.
 
 .. code-block:: bash
 
-    php app/console doctrine:mapping:convert xml ./src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm --from-database --force
+    $ php app/console doctrine:mapping:convert xml ./src/Acme/BlogBundle/Resources/config/doctrine --from-database --force
 
 Questo comando del terminale chiede a Doctrine l'introspezione della base dati e la
-generazione dei file di meta-dati XML sotto la cartella
-``src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm`` del bundle.
+generazione dei file di meta-dati XML sotto la cartella ``src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm``
+del bundle. I file generati sono ``BlogPost.orm.xml`` e
+``BlogComment.orm.xml``.
 
 .. tip::
 
@@ -76,44 +77,42 @@ Il file dei meta-dati ``BlogPost.dcm.xml`` assomiglia a questo:
 .. code-block:: xml
 
     <?xml version="1.0" encoding="utf-8"?>
-    <doctrine-mapping>
+    <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
       <entity name="BlogPost" table="blog_post">
-        <change-tracking-policy>DEFERRED_IMPLICIT</change-tracking-policy>
         <id name="id" type="bigint" column="id">
           <generator strategy="IDENTITY"/>
         </id>
-        <field name="title" type="string" column="title" length="100"/>
-        <field name="content" type="text" column="content"/>
-        <field name="isPublished" type="boolean" column="is_published"/>
-        <field name="createdAt" type="datetime" column="created_at"/>
-        <field name="updatedAt" type="datetime" column="updated_at"/>
-        <field name="slug" type="string" column="slug" length="255"/>
-        <lifecycle-callbacks/>
+        <field name="title" type="string" column="title" length="100" nullable="false"/>
+        <field name="content" type="text" column="content" nullable="false"/>
+        <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
       </entity>
     </doctrine-mapping>
 
-.. note::
+Aggiornare lo spazio dei nomi nell'attributo ``name`` dell'elemento ``entity`` in questo
+modo:
 
-    Se si hanno relazioni ``oneToMany`` tra entità,
-    occorrerà modificare i file ``xml`` o ``yml`` generati, per aggiungere
-    una sezione sulle entità specifiche ``oneToMany``, che definiscono le parti
-    ``inversedBy`` e ``mappedBy``.
+.. code-block:: xml
+
+    <entity name="Acme\BlogBundle\Entity\BlogPost" table="blog_post">
 
 Una volta generati i file dei meta-dati, si può chiedere a Doctrine di importare lo
 schema e costruire le relative classi entità, eseguendo i seguenti comandi.
 
 .. code-block:: bash
 
-    $ php app/console doctrine:mapping:import AcmeBlogBundle annotation
+    $ php app/console doctrine:mapping:convert annotation ./src
     $ php app/console doctrine:generate:entities AcmeBlogBundle
 
-Il primo comando genera le classi delle entità con annotazioni, ma ovviamente
-si può cambiare il parametro ``annotation`` in ``xml`` o ``yml``.
-La nuva classe entità ``BlogComment`` è simile a questa:
+Il primo comando genera le classi delle entità con annotazioni. Se invece
+si vuole usare la mappature yml o xml, basta eseguire il secondo
+comando.
 
-.. code-block:: php
+.. tip::
 
-    <?php
+    Se si vogliono usare le annotazioni, si possono tranquillamente eliminare i file XML,
+    dopo l'esecuzione dei due comandi.
+
+Per esempio, la nuva classe entità ``BlogComment`` è simile a questa::
 
     // src/Acme/BlogBundle/Entity/BlogComment.php
     namespace Acme\BlogBundle\Entity;
@@ -129,9 +128,9 @@ La nuva classe entità ``BlogComment`` è simile a questa:
     class BlogComment
     {
         /**
-         * @var bigint $id
+         * @var integer $id
          *
-         * @ORM\Column(name="id", type="bigint", nullable=false)
+         * @ORM\Column(name="id", type="bigint")
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
@@ -173,8 +172,13 @@ classe. La cosa più notevole è che scopre anche la relazione con la classe ent
 Di conseguenza, si può trovare una proprietà ``$post``, mappata con l'entità ``BlogPost``
 nella classe ``BlogComment``.
 
-Il secondo comando genera tutti i getter e i setter per le proprietà delle classi entità
-``BlogPost`` e ``BlogComment``. Le entità generate sono ora pronte per essere
-usate.
+.. note::
+
+    Se si vuole una relazione ``oneToMany``, occorrerà aggiungerla manualmente
+    nell'entità o nei file ``xml`` o ``yml``.
+    Aggiungere una sezione nelle specifiche entità per ``oneToMany``, definendo
+    le parti ``inversedBy`` e ``mappedBy``.
+
+Le entità generate sono pronte per l'uso. Buon divertimento!
 
 .. _`documentazione sugli strumenti di Doctrine`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/tools.html#reverse-engineering

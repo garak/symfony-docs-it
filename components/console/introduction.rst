@@ -85,8 +85,8 @@ Occorre anche creare il file da eseguire in linea di comando, che crea
 una ``Application`` e vi aggiunge comandi::
 
     #!/usr/bin/env php
-    # app/console
     <?php 
+    // app/console
 
     use Acme\DemoBundle\Command\GreetCommand;
     use Symfony\Component\Console\Application;
@@ -160,6 +160,39 @@ Si possono anche impostare colori e opzioni dentro il tag::
     // testo grassetto su sfondo giallo
     $output->writeln('<bg=yellow;options=bold>pippo</bg=yellow;options=bold>');
 
+Livelli di verbosità
+~~~~~~~~~~~~~~~~~~~~
+
+La console dispone di tre livelli di verbosità. Tali livelli sono definiti in
+:class:`Symfony\\Component\\Console\\Output\\OutputInterface`:
+
+==================================  ===============================
+Opzione                             Valore
+==================================  ===============================
+OutputInterface::VERBOSITY_QUIET    Nessun messaggio in output
+OutputInterface::VERBOSITY_NORMAL   Livello predefinito di verbosità
+OutputInterface::VERBOSITY_VERBOSE  Verbosità maggiore
+==================================  ===============================
+
+Si può specificare il livello quieto di verbosità con l'opzione ``--quiet`` o ``-q``.
+L'opzione ``--verbose`` o ``-v`` si usa quando si vuole un livello di verbosità
+maggiore.
+
+.. tip::
+
+    Se si usa il livello ``VERBOSITY_VERBOSE``, viene mostrato lo stacktrace
+    completo delle eccezioni.
+
+È anche possibile mostrare un messaggio in un comando solo per uno specifico livello
+di verbosità. Per esempio::
+
+    if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
+        $output->writeln(...);
+    }
+
+Quando si usa il livello quieto, viene soppresso ogni output, poiché iol metodo
+:method:`Symfony\Component\Console\Output::write<Symfony\\Component\\Console\\Output::write>`
+restituisce e non stampa nulla.
 
 Utilizzo degli argomenti nei comandi
 ------------------------------------
@@ -195,6 +228,50 @@ Il comando potrà essere utilizzato in uno qualsiasi dei seguenti modi:
 
     $ app/console demo:saluta Fabien
     $ app/console demo:saluta Fabien Potencier
+
+È anche possibile consentire una lista di valori a un parametro (si immagini di
+voler salutare tutti gli amici). Lo si deve fare alla fine della lista dei
+parametri::
+
+    $this
+        // ...
+        ->addArgument(
+            'nomi',
+            InputArgument::IS_ARRAY,
+            'Chi vuoi salutare (separare i nomi con uno spazio)?'
+        );
+
+In questo modo, si possono specificare più nomi:
+
+.. code-block:: bash
+
+    $ app/console demo:saluta Fabien Ryan Bernhard
+
+Si può accedere al parametro ``nmoi`` come un array::
+
+    if ($nomi = $input->getArgument('nomi')) {
+        $testo .= ' '.implode(', ', $nomi);
+    }
+
+Ci sono tre varianti di parametro utilizzabili:
+
+===========================  ====================================================================================================================
+Opzione                      Valore
+===========================  ====================================================================================================================
+InputArgument::REQUIRED      Il parametro è obbligatorio
+InputArgument::OPTIONAL      Il parametro è facoltativo, può essere omesso
+InputArgument::IS_ARRAY      Il parametro può contenere un numero indefinito di parametri e deve essere usato alla fine della lista dei parametri
+===========================  ====================================================================================================================
+
+Si può combinare ``IS_ARRAY`` con ``REQUIRED`` e ``OPTIONAL``, per esempio::
+
+    $this
+        // ...
+        ->addArgument(
+            'nomi',
+            InputArgument::IS_ARRAY | InputArgument::REQUIRED,
+            'Chi vuoi salutare (separare i nomi con uno spazio)?'
+        );
 
 Utilizzo delle opzioni nei comandi
 ----------------------------------
@@ -286,6 +363,7 @@ in gradi di aiutare con diversi compiti:
 
 * :doc:`/components/console/helpers/dialoghelper`: interactively ask the user for information
 * :doc:`/components/console/helpers/formatterhelper`: customize the output colorization
+* :doc:`/components/console/helpers/progresshelper`: shows a progress bar
 
 Testare i comandi
 -----------------
@@ -322,7 +400,7 @@ terminale.
 
 Si può testare l'invio di argomenti e opzioni al comando, passandoli come
 array al metodo
-:method:`Symfony\\Component\\Console\\Tester\\CommandTester::getDisplay`::
+:method:`Symfony\\Component\\Console\\Tester\\CommandTester::execute`::
 
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
@@ -380,7 +458,7 @@ Richiamare un comando da un altro è molto semplice::
         // ...
     }
 
-Innanzitutto si dovrà trovare (:method:`Symfony\\Component\\Console\\Command\\Command::find`) il
+Innanzitutto si dovrà trovare (:method:`Symfony\\Component\\Console\\Application::find`) il
 comando da eseguire usandone il nome come parametro.
 
 Quindi si dovrà creare un nuovo 

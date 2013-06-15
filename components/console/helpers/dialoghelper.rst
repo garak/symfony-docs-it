@@ -53,6 +53,30 @@ All'utente sarà chiesto "Prego inserire il nome del bundle". L'utente potrà in
 un nome, che sarà restituito dal metodo ``ask``. Se lasciato vuoto, sarà
 restituito il valore predefinito (``AcmeDemoBundle``).
 
+Nascodere la risposta dell'utente
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
+
+Si può anche fare una domanda e nascodere la risposta. Ciò risulta utile
+in particolare per le password::
+
+    $dialog = $this->getHelperSet()->get('dialog');
+    $password = $dialog->askHiddenResponse(
+        $output,
+        'Inserire la password della base dati',
+        false
+    );
+
+.. caution::
+
+    Quando si richiede una risposta nascosta, Symfony userà un binario, cambierà
+    la modalità stty oppure userà un altro trucco per nascondere la risposta. Se nessuna opzione è
+    disponibili, si arrenderà e mostrerà la risposta, a meno che non si passi ``false``
+    come terzo parametro, come nell'esempio appena visto. In questo caso, sarà sollevata
+    una RuntimeException.
+
 Validare la risposta
 --------------------
 
@@ -98,3 +122,108 @@ Una volta raggiunto tale numero, sarà usato il valore predefinito, fornito
 nell'ultimo parametro. Usando ``false`` si indica che il numero di tentativi è infinito.
 L'utente vedrà la domanda finché inserisce una risposta non valida e potrà
 procedere solo in caso di risposta valida.
+
+Nascodere la risposta dell'utente
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Il metodo ``askHiddenResponseAndValidate`` è stato aggiunto in Symfony 2.2.
+
+Si può anche fare una domanda e validare una risposta nascosta::
+
+    $dialog = $this->getHelperSet()->get('dialog');
+
+    $validator = function ($value) {
+        if (trim($value) == '') {
+            throw new \Exception('La password non può essere vuota');
+        }
+    };
+
+    $password = $dialog->askHiddenResponseAndValidate(
+        $output,
+        'Si prega di inserire il nome del widget',
+        $validator,
+        20,
+        false
+    );
+
+Se si vuole consentire che la risposta sia visibile, in caso non possa essere nascosta
+per qualche ragione, passare ``true`` come quinto parametro.
+
+Consentire una scelta da una lista di risposte
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Il metodo :method:`Symfony\\Component\\Console\\Helper\\DialogHelper::select` è
+    stato aggiunto in Symfony 2.2.
+
+Se si ha un insieme predefinito di risposte tra cui l'utente può scegliere, si
+può usare il metodo ``ask`` descritto in precedenza oppure, per assicurarsi che l'utente
+fornisca una risposta corretta, il metodo ``askAndValidate``. Entrambi hanno
+lo svantaggio di costringere lo sviluppatore a gestire i valori non corretti da solo.
+
+Si può invece usare il metodo
+:method:`Symfony\\Component\\Console\\Helper\\DialogHelper::select`,
+che assicura che l'utente possa inserire solamente una stringa valida,
+da una lista predefinita::
+
+    $dialog = $app->getHelperSet()->get('dialog');
+    $colors = array('rosso', 'blu', 'giallo');
+    
+    $color = $dialog->select(
+        $output, 
+        'Scegli il tuo colore preferito (predefinito: rosso)', 
+        $colors, 
+        0
+    );
+    $output->writeln('Hai scelto: ' . $colors[$color]);
+    
+    // ... fare qualcosa con il colore
+    
+L'opzione selezionata come predefinita va fornita come quarto
+parametro. Il valore predefinito è ``null``, che significa che nessuna opzione è predefinita.
+
+Se l'utente inserisce una stringa non valida, viene mostrato un errore e chiesto all'utente
+di fornire una nuova risposta, finché non ne inserisce una valida o
+raggiunge il numero massimo di tentativi (definibile nel quinto
+parametro). Il valore predefinito per i tentativi è ``false``, che equivale a
+infiniti tentativi. Si può definire un messaggio di errore personalizzato nel sesto parametro.
+
+Testare un comando con un input atteso
+--------------------------------------
+
+Se si vuole scrivere un test per un comando che si aspetta un qualche tipo di input
+da linea di omando, occorre sovrascrivere HelperSet usato dal comando::
+
+    use Symfony\Component\Console\Helper\DialogHelper;
+    use Symfony\Component\Console\Helper\HelperSet;
+    
+    // ...
+    public function testExecute()
+    {
+        // ...
+        $commandTester = new CommandTester($command);
+        
+        $dialog = $command->getHelper('dialog');
+        $dialog->setInputStream($this->getInputStream('Test\n')); 
+        // Equivale all'inserimento di "Test" e pressione di ENTER
+        // Se occorre una conferma, va bene anche "yes\n"
+        
+        $commandTester->execute(array('command' => $command->getName()));
+    
+        // $this->assertRegExp('/.../', $commandTester->getDisplay());
+    }
+    
+    protected function getInputStream($input)
+    {
+        $stream = fopen('php://memory', 'r+', false);
+        fputs($stream, $input);
+        rewind($stream);
+
+        return $stream;
+    }
+    
+Impostando il flusso di input di ``DialogHelper``, si imita ciò che la
+console farebbe internamente con l'input dell'utente tramite cli. In questo modo,
+si può testare ogni interazione, anche complessa, passando un appropriato
+flusso di input.

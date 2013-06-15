@@ -1,6 +1,6 @@
 .. index::
-   single: Come interagiscono front controller, ``AppKernel`` e ambienti
-
+   single: Come interagiscono front controller, ``AppKernel`` e 
+   ambienti
 
 Capire come interagiscono front controller, Kernel e ambienti
 =============================================================

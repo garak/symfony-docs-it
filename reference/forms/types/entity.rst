@@ -30,6 +30,7 @@ presi dalla base dati.
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
+|               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`choice</reference/forms/types/choice>`                        |
 +---------------+---------------------------------------------------------------------+
@@ -148,19 +149,19 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
 .. note::
-    
+
     Se si ha a che fare con una collezione di entità Doctrine, sarà utile
     leggere la documenzione anche di :doc:`/reference/forms/types/collection`.
     In aggiunta, c'è un esempio completo nella ricetta
     :doc:`/cookbook/form/form_collections`.
-    
+
 .. include:: /reference/forms/types/options/expanded.rst.inc
 
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -171,3 +172,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

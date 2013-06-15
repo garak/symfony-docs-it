@@ -22,7 +22,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation);
-* Installarlo via Composer (``symfony/http-foundation`` su `Packagist`_).
+* Installarlo via :doc:`Composer </components/using_components>` (``symfony/http-foundation`` su `Packagist`_).
 
 Richiesta
 ---------
@@ -406,6 +406,18 @@ rappresentato da un callable PHP, invece che da una stringa::
     });
     $response->send();
 
+.. note::
+
+    La funzione ``flush()`` non esegue il flush del buffer. Se è stato richiamato ``ob_start()``
+    in precedenza oppure se l'opzione ``output_buffering`` è abilitata in php.ini,
+    occorre richiamare ``ob_flush()`` prima di ``flush()``.
+
+    Inoltre, PHP non è l'unico livello possibile di buffer dell'output. Il server web
+    può anche eseguire un buffer, a seconda della configurazione. Ancora, se si
+    usa fastcgi, non si può disabilitare affatto il buffer.
+
+.. _component-http-foundation-serving-files:
+
 Scaricare file
 ~~~~~~~~~~~~~~
 
@@ -423,6 +435,33 @@ astrae l'ingrato compito dietro una semplice API::
     $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'foo.pdf');
 
     $response->headers->set('Content-Disposition', $d);
+
+.. versionadded:: 2.2
+    La classe :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`
+    è stata aggiunta in Symfony 2.2.
+
+In alternativa, se si sta servendo un file statico, si può usare
+:class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`::
+
+    use Symfony\Component\HttpFoundation\BinaryFileResponse
+    
+    $file = 'percorrso/del/file.txt';
+    $response = new BinaryFileResponse($file);
+
+``BinaryFileResponse`` gestirà automaticamente gli header ``Range`` e
+``If-Range`` della richiesta. Supporta anche ``X-Sendfile``
+(vedere per `Nginx`_ e `Apache`_). Per poterlo usare, occorre determinare
+se l'header ``X-Sendfile-Type`` sia fidato o meno e richiamare
+:method:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse::trustXSendfileTypeHeader`
+in caso positivo::
+
+    $response::trustXSendfileTypeHeader();
+
+Si può ancora impostare il ``Content-Type`` del file inviato o cambiarne il ``Content-Disposition``::
+
+    $response->headers->set('Content-Type', 'text/plain')
+    $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'nomefile.txt');
+    
 
 .. _component-http-foundation-json-response:
 
@@ -442,7 +481,8 @@ e gli header corretti. Una risposta JSON può essere come questa::
     $response->headers->set('Content-Type', 'application/json');
 
 .. versionadded:: 2.1
-    La classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse` è stata aggiunta in Symfony 2.1.
+    La classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse` è
+    stata aggiunta in Symfony 2.1.
 
 C'è anche un'utile classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
 che può rendere le cose ancora più semplici::
@@ -455,7 +495,20 @@ che può rendere le cose ancora più semplici::
     ));
 
 Il risultato è una codifica dell'array di dati in JSON, con header ``Content-Type`` impostato
-a ``application/json``. Se si usa JSONP, si può impostare la funziona di callback
+a ``application/json``.
+
+.. caution::
+
+    Per evitare un `JSON Hijacking`_ XSSI , bisogna passare un array associativo
+    come parte più esterna dell'array a ``JsonResponse`` enon un array indicizzato, in modo
+    che il risultato finale sia un oggetto (p.e. ``{"oggetto": "non dentro un array"}``)
+    invece che un array (p.e. ``[{"oggetto": "dentro un array"}]``). Si leggano
+    le `linee guida OWASP`_ per maggiori informazioni.
+
+Callback JSONP
+~~~~~~~~~~~~~~
+
+Se si usa JSONP, si può impostare la funziona di callback
 a cui i dati vanno passati::
 
     $response->setCallback('handleResponse');
@@ -473,3 +526,7 @@ Sessioni
 Le informazioni sulle sessioni sono nell'apposito documento: :doc:`/components/http_foundation/sessions`.
 
 .. _Packagist: https://packagist.org/packages/symfony/http-foundation
+.. _Nginx: http://wiki.nginx.org/XSendfile
+.. _Apache: https://tn123.org/mod_xsendfile/
+.. _`JSON Hijacking`: http://haacked.com/archive/2009/06/25/json-hijacking.aspx
+.. _linee guida OWASP: https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside

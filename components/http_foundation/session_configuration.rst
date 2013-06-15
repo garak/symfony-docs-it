@@ -79,7 +79,7 @@ da esempi, se se ne vuole scrivere uno.
 Esempio::
 
     use Symfony\Component\HttpFoundation\Session\Session;
-    use Symfony\Component\HttpFoundation\Session\Storage\SessionStorage;
+    use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
     use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
     $storage = new NativeSessionStorage(array(), new PdoSessionHandler());
@@ -134,15 +134,15 @@ esempio, se impostati rispettivamente a ``5/100``, risulterebbe in una probabili
 del 5%. In modo simile, ``3/4`` vorrebbe dire 3 possibilità su 4 di essere richiamato, quindi il 75%.
 
 Se il garbage collector viene invocato, PHP passerà il valore memorizzato nella
-direttiva php.ini ``session.gc_maxlifetime`. Il significato in questo contesto è
+direttiva php.ini ``session.gc_maxlifetime``. Il significato in questo contesto è
 che ogni sessione memorizzata prima di ``maxlifetime`` secondi fa andrebbe
 cancellata. Questo consente di far scadere le sessioni in base al tempo di inattività.
 
 Si possono impostare queste impostazioni passando ``gc_probability``, ``gc_divisor``
 e ``gc_maxlifetime`` in un array al costruttore di
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
-o al metodo :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions()`
-.
+o al metodo :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`.
+
 
 Scadenza della sessione
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -204,7 +204,7 @@ Entrambi i metodi restituiscono un timestamp Unix (relativo al server).
 Questi meta-dati possono essere usati per far scadere in modo espliciti una sessione all'accesso, p.e.::
 
     $session->start();
-    if (time() - $session->getMetadataBag()->getLastUpdate() > $maxIdleTime) {
+    if (time() - $session->getMetadataBag()->getLastUsed() > $maxIdleTime) {
         $session->invalidate();
         throw new SessionExpired(); // rinvia alla pagina di sessione scaduta
     }

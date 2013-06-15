@@ -26,6 +26,7 @@ Configurazione
     * enabled
     * field_name
 * `session`_
+    * `name`_
     * `cookie_lifetime`_
     * `cookie_path`_
     * `cookie_domain`_
@@ -39,6 +40,8 @@ Configurazione
     * `assets_base_urls`_
     * `assets_version`_
     * `assets_version_format`_
+    * `profiler`_
+    * :ref:`enabled<profiler.enabled>`
 
 secret
 ~~~~~~
@@ -145,6 +148,14 @@ csrf_protection
 
 session
 ~~~~~~~
+
+name
+....
+
+**tipo**: ``stringa`` **predefinito**: ``null``
+
+Specifica in nome del cookie di sessione. Per impostazione predefinita, sarà utilizzato
+il nome definito nel ``php.ini`` con la direttiva ``session.name``.
 
 cookie_lifetime
 ...............
@@ -396,6 +407,24 @@ risorsa sarà ``/images/logo.png?version=5``.
     appropriato con la versione, come parte del processo di deploy, e non usare la riscrittura
     degli URL. L'ultima opzione è utile se si vuole che le vecchie versioni delle risorse restino
     disponibili nei loro URL originari.
+
+profiler
+~~~~~~~~
+
+.. versionadded:: 2.2
+    L'opzione ``enabled`` è stata aggiunta in Symfony 2.2. Precedentemente il profiler
+    poteva essere disabilitato solamente omettendo interamente la configurazione
+    ``framework.profiler``.
+
+.. _profiler.enabled:
+
+enabled
+.......
+
+**predefinito**: ``true`` negli ambienti ``dev`` e ``test``
+
+Il profiler può essere disabilitato importanto questa chiave a ``false``. In realtà,
+il profiler continua ad esistere, ma i collettori dei dati non sono attivi.
 
 Configurazione predefinita completa
 -----------------------------------

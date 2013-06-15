@@ -207,6 +207,8 @@ Questo funziona perché il ``GenderType()`` è veramente semplice. Cosa succede 
 i valori del genere sono stati inseriti nella configurazione o nella base dati? La prossima
 sezione spiega come un tipo di campo più complesso può risolvere questa situazione.
 
+.. _form-cookbook-form-field-service:
+
 Creazione di un tipo di campo come servizio
 -------------------------------------------
 

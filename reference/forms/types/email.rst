@@ -17,6 +17,7 @@ Il campo ``email`` è un campo di testo reso usando il tag
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
+|               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/field>`                          |
 +---------------+---------------------------------------------------------------------+
@@ -26,7 +27,7 @@ Il campo ``email`` è un campo di testo reso usando il tag
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
 
@@ -41,3 +42,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

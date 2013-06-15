@@ -1,43 +1,43 @@
-Documentation Standards
-=======================
+Standard di documentazione
+==========================
 
-In order to help the reader as much as possible and to create code examples that
-look and feel familiar, you should follow these standards.
+Per aiutare il più possibile il lettore e per creare esempi di codice che
+sembrino familiare, si devono seguire i seguenti standard.
 
 Sphinx
 ------
 
-* The following characters are choosen for different heading levels: level 1
-  is ``=``, level 2 ``-``, level 3 ``~``, level 4 ``.`` and level 5 ``"``;
-* Each line should break approximately after the first word that crosses the
-  72nd character (so most lines end up being 72-78 characters);
-* The ``::`` shorthand is *preferred* over ``.. code-block:: php`` to begin a PHP
-  code block (read `the Sphinx documentation`_ to see when you should use the
-  shorthand);
-* Inline hyperlinks are **not** used. Seperate the link and their target
-  definition, which you add on the bottom of the page;
-* You should use a form of *you* instead of *we*.
+* Per i vari livelli di intestazione vanno usati i segeuenti caratteri: livello 1
+  è ``=``, livello 2 ``-``, livello 3 ``~``, livello 4 ``.`` e livello 5 ``"``;
+* Ogni riga va interrotta approssimativametne dopo la prima parola che attraversa
+  il 72esimo carattere (quindi quasi tutte le righe dovrebbeero essere tra i 72 e i 78 caratteri);
+* La scorciatoia ``::`` va *preferita* a ``.. code-block:: php``, quando si inizia un
+  blocco di codice PHP (si legga la `documentazione di Sphinx`_ per vedere quando usare
+  la scorciatoia);
+* I collegamenti in linea **non** vanno usati. Separare il collegamento e la definizione della
+  destinazione, che andrà aggiunta a fondo pagina;
+* Va preferita la forma impersonale a quella personale.
 
-Example
+Esempio
 ~~~~~~~
 
 .. code-block:: text
 
-    Example
+    Esempio
     =======
 
     When you are working on the docs, you should follow the `Symfony Docs`_
     standards.
 
-    Level 2
-    -------
+    Livello 2
+    ---------
 
     A PHP example would be::
 
         echo 'Hello World';
 
-    Level 3
-    ~~~~~~~
+    Livello 3
+    ~~~~~~~~~
 
     .. code-block:: php
 
@@ -45,38 +45,38 @@ Example
 
     .. _`Symfony Docs`: http://symfony.com/doc/current/contributing/documentation/standards.html
 
-Code Examples
--------------
+Esempi di codice
+----------------
 
-* The code follows the :doc:`Symfony Coding Standards</contributing/code/standards>`
-  as well as the `Twig Coding Standards`_;
-* To avoid horizontal scrolling on code blocks, we prefer to break a line
-  correctly if it crosses the 85th character;
-* When you fold one or more lines of code, place ``...`` in a comment at the point
-  of the fold. These comments are: ``// ...`` (php), ``# ...`` (yaml/bash), ``{# ... #}``
-  (twig), ``<!-- ... -->`` (xml/html), ``; ...`` (ini), ``...`` (text);
-* When you fold a part of a line, e.g. a variable value, put ``...`` (without comment)
-  at the place of the fold;
-* Description of the folded code: (optional)
-  If you fold several lines: the description of the fold can be placed after the ``...``
-  If you fold only part of a line: the description can be placed before the line;
-* If useful, a ``codeblock`` should begin with a comment containing the filename
-  of the file in the code block. Don't place a blank line after this comment,
-  unless the next line is also a comment;
-* You should put a ``$`` in front of every bash line.
+* Il codice segue gli :doc:`standard di codice di Symfony</contributing/code/standards>`
+  e gli `standard di codice di Twig`_;
+* Per evitare le barre orizzontali sui blocchi di codici, si preferisce interrompere una riga
+  se va oltre l'85esimo carattere;
+* Quando si omettono righe di codice, porre ``...`` in un commento nel punto
+  di omissione. I commenti sono: ``// ...`` (php), ``# ...`` (yaml/bash), ``{# ... #}``
+  (twig), ``<!-- ... -->`` (xml/html), ``; ...`` (ini), ``...`` (testo);
+* Quando si omette una parte di riga, p.e. il valore di una variabile, porre ``...`` (senza commenti)
+  nel punto di omissione;
+* Descrizione del codice omesso (facoltativa):
+  se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``
+  se si omette parte di una riga: la descrizione può essere posta prima della riga;
+* Se utile, un ``codeblock`` dovrebbe iniziare con un commento contenente il nome del
+  file nel blocco di codce. Inserire una riga vuota dopo il commento, a meno che la riga
+  successiva non sia anch'essa un commento;
+* Inserire il simbolo ``$`` all'inizio di ogni riga di bash;
 
-Formats
+Formati
 ~~~~~~~
 
-Configuration examples should show all supported formats using
-:ref:`configuration blocks <docs-configuration-blocks>`. The supported formats
-(and their orders) are:
+Gli esempi di configurazione vanno mostrati in tutti i formati supportati, usando i
+:ref:`blocchi di configurazione <docs-configuration-blocks>`. I formati supportati
+(in ordine) sono:
 
-* **Configuration** (including services and routing): Yaml, Xml, Php
-* **Validation**: Yaml, Annotations, Xml, Php
-* **Doctrine Mapping**: Annotations, Yaml, Xml, Php
+* **Configurazione** (inclusi servizis e rotte): Yaml, Xml, Php
+* **Validazione**: Yaml, Annotazioni, Xml, Php
+* **Mappatura Doctrine**: Annotazioni, Yaml, Xml, Php
 
-Example
+Esempio
 ~~~~~~~
 
 .. code-block:: php
@@ -101,8 +101,8 @@ Example
 
 .. caution::
 
-    In Yaml you should put a space after ``{`` and before ``}`` (e.g. ``{ _controller: ... }``),
-    but this should not be done in Twig (e.g.  ``{'hello' : 'value'}``).
+    In Yaml va messo uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
+    ma non va fatto in Twig (p.e.  ``{'hello' : 'value'}``).
 
-.. _`the Sphinx documentation`: http://sphinx-doc.org/rest.html#source-code
-.. _`Twig Coding Standards`: http://twig.sensiolabs.org/doc/coding_standards.html
+.. _`documentazione di Sphinx`: http://sphinx-doc.org/rest.html#source-code
+.. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html

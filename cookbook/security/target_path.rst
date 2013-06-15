@@ -5,9 +5,10 @@ Come cambiare il comportamento del percorso di rinvio predefinito
 =================================================================
 
 Per impostazione predefinita, il componente della sicurezza mantiene l'informazione
-sull'URI dell'ultima richiesta in una variabile di sessione chiamata ``_security.target_path``.
-Dopo un login eseguito con successo, l'utente viene rinviato a tale percorso, per aiutarlo
-a continuare dalla sua ultima pagina vista.
+sull'URI dell'ultima richiesta in una variabile di sessione chiamata ``_security.main.target_path`` (in cui ``main``
+è il nome del firewall, definito in ``security.yml``). Dopo un login eseguito con successo,
+l'utente viene rinviato a tale percorso, per aiutarlo a continuare dalla
+sua ultima pagina vista.
 
 In alcune occasioni, tale comportamento è inatteso. Per sempio, quando l'URI dell'ultima
 richiesta era un POST HTTP su una rotta configurata per consentire solo il metodo POST,
@@ -55,13 +56,13 @@ Creare quindi il proprio ``ExceptionListener``::
     {
         protected function setTargetPath(Request $request)
         {
-            // Non salavre il percorso per richieste XHR e non GET
+            // Non salavre il percorso per richieste XHR o diverse da GET
             // Si può aggiungere altra logica a piacere
             if ($request->isXmlHttpRequest() || 'GET' !== $request->getMethod()) {
                 return;
             }
 
-            $request->getSession()->set('_security.target_path', $request->getUri());
+            parent::setTargetPath($request);
         }
     }
 

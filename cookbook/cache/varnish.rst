@@ -35,6 +35,7 @@ sottostante:
 .. code-block:: text
 
     sub vcl_recv {
+        // Aggiunge un header Surrogate-Capability per dichiarare il supporto a ESI.
         set req.http.Surrogate-Capability = "abc=ESI/1.0";
     }
 
@@ -45,6 +46,10 @@ Symfony2 aggiunge automaticamente:
 .. code-block:: text
 
     sub vcl_fetch {
+        /* 
+        Verifica il riconoscimento di ESI  
+        e rimuove l'header Surrogate-Control
+        */
         if (beresp.http.Surrogate-Control ~ "ESI/1.0") {
             unset beresp.http.Surrogate-Control;
 
@@ -75,14 +80,43 @@ che invalida la cache per una data risorsa:
 
 .. code-block:: text
 
-    sub vcl_hit {
+    /* 
+     Connessione al server di backend
+     sulla porta 8080 della macchina locale
+     */
+    backend default {
+        .host = "127.0.0.1";
+        .port = "8080";
+    }
+
+    sub vcl_recv {
+        /* 
+        Il comportamento predefinito di Varnish non supporta PURGE.
+        Individua le richieste PURGE e fa immediatamente una ricerca in cache, 
+        altrimenti Varnish girerebbe direttamente la richiesta al backend
+        e aggirerebbe la cache        
+        */
         if (req.request == "PURGE") {
+            return(lookup);
+        }
+    }
+
+    sub vcl_hit {
+        // Individua la richiesta PURGE
+        if (req.request == "PURGE") {
+            // Forza la scadenza dell'oggetto per Varnish < 3.0
             set obj.ttl = 0s;
+            // Fa un vero purge per Varnish >= 3.0
+            // purge;
             error 200 "Purged";
         }
     }
 
     sub vcl_miss {
+        /*
+        Individua la richiesta PURGE e
+        indica che la richiesta non è stata messa in cache.
+        */
         if (req.request == "PURGE") {
             error 404 "Not purged";
         }
@@ -93,5 +127,54 @@ che invalida la cache per una data risorsa:
     Bisogna proteggere il metodo HTTP ``PURGE`` in qualche modo, per evitare che qualcuno
     pulisca i dati in cache in modo casuale.
 
+    .. code-block:: text
+
+        /* 
+         Connessione al server di backend
+         sulla porta 8080 della macchina locale
+         */
+        backend default {
+            .host = "127.0.0.1";
+            .port = "8080";
+        }
+
+        // Le acl possono contenere IP, sottoreti e nomi di host
+        acl purge {
+            "localhost";
+            "192.168.55.0"/24;
+        }
+
+        sub vcl_recv {
+            // Individua la richiesta PURGE per evitare l'aggiramento della cache
+            if (req.request == "PURGE") {
+                // Individua l'IP del client corrispondente all'acl
+                if (!client.ip ~ purge) {
+                    // Accesso negato
+                    error 405 "Not allowed.";
+                }
+                // Esegue una ricerca in cache
+                return(lookup);
+            }
+        }
+
+        sub vcl_hit {
+            // Individua la richiesta PURGE
+            if (req.request == "PURGE") {
+                // Forza la scadenza dell'oggetto per Varnish < 3.0
+                set obj.ttl = 0s;
+                // Fa un vero purge per Varnish >= 3.0
+                // purge;
+                error 200 "Purged";
+            }
+        }
+
+        sub vcl_miss {
+            // Individua la richiesta PURGE
+            if (req.request == "PURGE") {
+                // Indica che l'oggetto non è in cache
+                error 404 "Not purged";
+            }
+        }
+
 .. _`Architettura Edge`: http://www.w3.org/TR/edge-arch
-.. _`GZIP e Varnish`:    https://www.varnish-cache.org/docs/3.0/phk/gzip.html
+.. _`GZIP e Varnish`:  https://www.varnish-cache.org/docs/3.0/phk/gzip.html

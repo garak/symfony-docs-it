@@ -71,18 +71,18 @@ ora avere una cartella ``Symfony/``, come la seguente:
 
 .. note::
 
-    Se è stata scaricata la Standard Edition *senza venditori*, basta eseguire
-    il comando seguente per scaricare tutte le librerie dei venditori:
+    Se si ha familiarità con Composer, basta eseguire
+    il comando seguente invece di scaricare l'archivio:
 
     .. code-block:: bash
 
-        $ composer.phar create-project symfony/framework-standard-edition path/to/install
+        $ composer.phar create-project symfony/framework-standard-edition path/to/install 2.2.0
 
         # rimuove la cronologia di Git
         $ rm -rf .git
 
-    Per una versione esatta, sostituire `2.1.x-dev` con l'ultima versione di Symfony
-    (p.e. 2.1.2). Per dettagli, si veda la `pagina di installazione di Symfony`_
+    Per una versione esatta, sostituire `2.2.0` con l'ultima versione di Symfony
+    (p.e. 2.1.1). Per dettagli, si veda la `pagina di installazione di Symfony`_
 
 .. tip::
    
@@ -207,7 +207,7 @@ sono in quel file:
 
     # app/config/routing_dev.yml
     _welcome:
-        pattern:  /
+        path:  /
         defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
     _demo:
@@ -217,7 +217,7 @@ sono in quel file:
 
     # ...
 
-Le prime righe (dopo il commento) definiscono quale codice
+Le prime tre righe (dopo il commento) definiscono quale codice
 richiamare quanto l'utente richiede la risorsa "``/``" (come la pagina di benvenuto
 vista prima). Quando richiesto, il controllore ``AcmeDemoBundle:Welcome:index`` sarà
 eseguito. Nella prossima sezione, si imparerà esattamente quello che significa.
@@ -464,15 +464,16 @@ l'installazione sicura e avere URL più allettanti:
     in *app/config/routing_dev.yml*.
 
 Per rendere l'ambiente di produzione più veloce possibile, Symfony2
-mantiene una cache sotto la cartella ``app/cache/``. Quando si fanno
-delle modifiche al codice o alla configurazione, occorre rimuovere
-a mano i file in cache. Per questo si dovrebbe sempre usare il front
-controller di sviluppo (``app_dev.php``) mentre si lavora al
-progetto.
+mantiene una cache sotto la cartella ``app/cache/``. Nell'ambiente di sviluppo (''app_dev.php''),
+la cache è svuotata automaticamente quando vengono fatte modifiche al codice o
+alla configurazione. Non è questo il caso dell'ambiente di produzione
+(''app.php'') in cui la performance è cruciale. Per questo si dovrebbe sempre usare 
+l'ambiente di sviluppo mentre sviluppate la vostra applicazione.
 
 Diversi :term:`ambienti<ambiente>` di una stessa applicazione differiscono
 solo nella loro configurazione.
-In effetti, una configurazione può ereditare da un'altra:
+In effetti, una configurazione può ereditare da 
+un'altra:
 
 .. code-block:: yaml
 

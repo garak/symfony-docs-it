@@ -1,6 +1,7 @@
 * :doc:`/cookbook/assetic/index`
 
   * :doc:`/cookbook/assetic/asset_management`
+  * :doc:`/cookbook/assetic/uglifyjs`
   * :doc:`/cookbook/assetic/yuicompressor`
   * :doc:`/cookbook/assetic/jpeg_optimize`
   * :doc:`/cookbook/assetic/apply_to_option`
@@ -132,6 +133,10 @@
   * :doc:`/cookbook/service_container/event_listener`
   * :doc:`/cookbook/service_container/scopes`
   * :doc:`/cookbook/service_container/compiler_passes`
+
+* :doc:`/cookbook/session/index`
+
+  * :doc:`/cookbook/session/proxy_examples`
 
 * **symfony1**
 

@@ -51,8 +51,9 @@ punto finale per le operazioni su filesystem::
 Mkdir
 ~~~~~
 
-Mkdir crea una cartella. Su filesystem di tipo posix, le cartelle sono create in
-modalità predefinita `0777`. Si può usare il secondo parametro per impostare la modalità::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::mkdir` crea una cartella.
+Su filesystem di tipo posix, le cartelle sono create in modalità predefinita
+`0777`. Si può usare il secondo parametro per impostare la modalità::
 
     $fs->mkdir('/tmp/photos', 0700);
 
@@ -81,8 +82,9 @@ manca::
 Copy
 ~~~~
 
-Questo metodo copia file. Se la destinazione esiste già, file file è copiato solo
-se la data di modifica del sorgente è precedente a quella della destinazione. Questo
+:method:`Symfony\\Component\\Filesystem\\Filesystem::copy` copia file.
+Se la destinazione esiste già, file file è copiato solo se la data di
+modifica del sorgente è precedente a quella della destinazione. Questo
 comportamento è modificabile tramite un terzo parametro booleano::
 
     // funziona solo se image-ICC è stato modificato dopo image.jpg
@@ -162,7 +164,8 @@ ricorsiva::
 Remove
 ~~~~~~
 
-Remove rimuove file, collegamenti simbolici, cartelle::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::remove` rimuove file,
+collegamenti simbolici, cartelle::
 
     $fs->remove(array('symlink', '/path/to/directory', 'activity.log'));
 
@@ -174,7 +177,8 @@ Remove rimuove file, collegamenti simbolici, cartelle::
 Rename
 ~~~~~~
 
-Rename rinomina file e cartelle::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::rename` rinomina file
+e cartelle::
 
     // rinomina un file
     $fs->rename('/tmp/processed_video.ogg', '/path/to/store/video_647.ogg');
@@ -184,7 +188,8 @@ Rename rinomina file e cartelle::
 symlink
 ~~~~~~~
 
-Crea un collegamento simbolico dal sorgente alla destinazione. Se il filesystem
+:method:`Symfony\\Component\\Filesystem\\Filesystem::symlink` crea un
+collegamento simbolico dal sorgente alla destinazione. Se il filesystem
 non supporta i collegamenti simbolici, c'è un terzo parametro booleano::
 
     // crea un collegamento simbolico
@@ -196,7 +201,8 @@ non supporta i collegamenti simbolici, c'è un terzo parametro booleano::
 makePathRelative
 ~~~~~~~~~~~~~~~~
 
-Restituisce il percorso relativo di una cartella, data un'altra::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::makePathRelative` restituisce
+il percorso relativo di una cartella, data un'altra::
 
     // restituisce '../'
     $fs->makePathRelative(
@@ -209,14 +215,16 @@ Restituisce il percorso relativo di una cartella, data un'altra::
 mirror
 ~~~~~~
 
-Esegute il mirror di una cartella::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::mirror` esegute il mirror
+di una cartella::
 
     $fs->mirror('/percorso/della/sorgente', '/percorso/della/destinazione');
 
 isAbsolutePath
 ~~~~~~~~~~~~~~
 
-isAbsolutePath restiuisce `true` se il percorso dato è assoluto, `false` altrimenti::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::isAbsolutePath` restiuisce
+`true` se il percorso dato è assoluto, `false` altrimenti::
 
     // restituisce true
     $fs->isAbsolutePath('/tmp');

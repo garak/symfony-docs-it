@@ -18,6 +18,7 @@ Il campo ``password`` rende una casella di testo per una password.
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
 |               | - `error_bubbling`_                                                    |
+|               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`text</reference/forms/types/text>`                               |
 +---------------+------------------------------------------------------------------------+
@@ -42,7 +43,7 @@ password già inserita nel campo, impostare questa opzione a ``false``.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
 
@@ -57,3 +58,5 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

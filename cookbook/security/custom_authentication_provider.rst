@@ -137,6 +137,7 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
 
             try {
                 $authToken = $this->authenticationManager->authenticate($token);
+                $this->securityContext->setToken($authToken);
 
                 $this->securityContext->setToken($authToken);
             } catch (AuthenticationException $failed) {
@@ -152,6 +153,11 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
                 $event->setResponse($response);
 
             }
+
+            // Negare autenticazione per impostazione predefinita
+            $response = new Response();
+            $response->setStatusCode(403);
+            $event->setResponse($response);
         }
     }
 
@@ -232,6 +238,10 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
             // Valida che nonce sia unico nei 5 minuti
             if (file_exists($this->cacheDir.'/'.$nonce) && file_get_contents($this->cacheDir.'/'.$nonce) + 300 > time()) {
                 throw new NonceExpiredException('Previously used nonce detected');
+            }
+            // Se la cartella della cache non esiste, va creata
+            if (!is_dir($this->cacheDir)) {
+                mkdir($this->cacheDir, 0777, true);
             }
             file_put_contents($this->cacheDir.'/'.$nonce, time());
 
@@ -361,11 +371,11 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
         services:
           wsse.security.authentication.provider:
             class:  Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
-            arguments: ['', %kernel.cache_dir%/security/nonces]
+                arguments: ["", "%kernel.cache_dir%/security/nonces"]
 
           wsse.security.authentication.listener:
             class:  Acme\DemoBundle\Security\Firewall\WsseListener
-            arguments: [@security.context, @security.authentication.manager]
+                arguments: ["@security.context", "@security.authentication.manager"]
 
 
     .. code-block:: xml

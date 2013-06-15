@@ -2,7 +2,7 @@ Problemi di sicurezza
 =====================
 
 Questo documento spiega la gestione da parte della squadra di Symfony  dei problemi di sicurezza
-di Symfony (In cui "Symfony" è il codice ospitato nel `repository Git`_ ``symfony/symfony``.
+di Symfony (in cui "Symfony" è il codice ospitato nel `repository Git`_ ``symfony/symfony``).
 
 
 Segnalare un problema di sicurezza
@@ -48,6 +48,46 @@ confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi pas
 
    Mentre la patch è in corso di lavorazione, si prega di non rivelare pubblicamente la problematica.
 
+.. note::
+
+    La risoluzione può prendere tra un paio di giorni a un mese, a seconda
+    della complessità e del coordinamento tra i progetti a valle (vedere
+    il paragrafo successivo).
+
+Collaborazione con progetti open source a valle
+-----------------------------------------------
+
+Poiché Symfony è usato da molti progetti open source, il modo in cui la
+squadra di sicurezza di Symfony collabora sulle problematiche di sicurezza è stata standardizzata
+con i progetti a valle. Il progetto funziona come segue:
+
+1. Dopo che la squadra di sicurezza di Symfony ha riconosciuto la problematica, invia
+immediatamente una email alle squadre di sicurezza dei progetti a valle, per informarli
+della probelamtica;
+
+2. La squadra di sicurezza di Symfony crea un repository Git privato, per facilitare la
+collaborazione sulla problematica. L'accesso a tale repository è fornito all
+squadra di sicurezza di Symfony, ai contributori du Symfony che hanno avuto impatto sulla
+problematica e a un rappresentante i ogni progetto a valle;
+
+3. Le persone che accedono al repository privato lavorano a una soluzione per
+risolvere la problematica, tramire richieste di pull, revisioni di codice e commenti;
+
+4. Una volta trovata la soluzione, tutti i progetti coinvolti collaborano per trovare
+la data migliore per un rilascio congiunto (non c'è garanzai che tutti i rllasci saranno
+contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo).
+
+La lista dei progetti a valle partecipanti a tale processo è manutenuta più corta
+possibile, per meglio gestire il flusso di informazioni riservate, prima
+della pubblicazione. Per questo motivo, i progetti saranno inclusi a sola discrezione
+della squadra di sicurezza di Symfony.
+
+A oggi, i seguenti progetti hanno approvato questo processo e sono parte dei
+progetti a valle inclusi:
+
+* Drupal
+* eZPublish
+
 Bollettini di sicurezza
 -----------------------
 
@@ -75,5 +115,5 @@ partendo da Symfony 1.0.0:
 * 25 giugno 2007: `symfony 1.0.5 released (security fix) <http://symfony.com/blog/symfony-1-0-5-released-security-fix>`_
 
 .. _repository Git:      https://github.com/symfony/symfony
-.. _blog:                https://symfony.com/blog/
+.. _blog:                http://symfony.com/blog/
 .. _Security Advisories: http://symfony.com/blog/category/security-advisories

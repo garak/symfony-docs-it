@@ -245,6 +245,8 @@ applicazione dovrebbe salutare:
 
     http://localhost/app_dev.php/hello/Ryan
 
+.. _book-page-creation-prod-cache-clear:
+
 .. tip::
 
     Si può anche vedere l'applicazione nell':ref:`ambiente<environments-summary>`
@@ -385,7 +387,7 @@ cartella ``app``:
             </body>
         </html>
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- app/Resources/views/base.html.php -->
         <!DOCTYPE html>
@@ -517,10 +519,10 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
     Quando Symfony si carica, un file speciale chiamato ``app/autoload.php`` viene incluso.
     Questo file è responsabile di configurare l'autoloader, che auto-caricherà i file
     dell'applicazione dalla cartella ``src/`` e le librerie di terze parti dalla
-    cartella ``vendor/``.
+    cartella ``vendor/`` menzionate nel file ``composer.json``.
 
     Grazie all'autoloader, non si avrà mai bisogno di usare le istruzioni ``include``
-    o ``require``. Al posto loro, Symfony2 usa lo spazio dei nomi di una classe per
+    o ``require``. Al posto loro, Composer usa lo spazio dei nomi di una classe per
     determinare la sua posizione e includere automaticamente il file al posto
     nostro, nel momento in cui la classe è necessaria.
 

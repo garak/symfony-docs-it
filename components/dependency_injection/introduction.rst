@@ -153,7 +153,6 @@ Si può quindi ottenere il servizio ``newsletter_manager`` dal contenitore,
 in questo modo::
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
-    use Symfony\Component\DependencyInjection\Reference;
 
     $container = new ContainerBuilder();
 
@@ -180,7 +179,12 @@ Impostare il contenitore con file di configurazione
 ---------------------------------------------------
 
 Oltre a impostare servizi usando PHP, come sopra, si possono usare dei file di
-configurazione. Per poterlo fare, occorre installare anche :doc:`il componente Config</components/config/introduction>`:
+configurazione. Ciò consente di usare XML o Yaml per scrivere definizioni
+per i servizi, invece di usare PHP per definire i servizi, come visto negli esempi
+precedenti. In applicazioni che non siano piccole ha senso organizzare le
+definizioni dei servizi, spostandole in più file di configurazione.
+Per poterlo fare, occorre installare anche
+:doc:`il componente Config</components/config/introduction>`:
 
 Caricare un file di configurazione xml::
 
@@ -207,13 +211,24 @@ Caricare un file di configurazione yaml::
     Se si vogliono caricare file di configurazione YAML, occorrerà installare
     anche :doc:`il componente YAML</components/yaml/introduction>`.
 
-I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file di configurazione:
+Se si vuole usare PHP per creare i servizi, si possono spostare
+in un file di configurazione separato e caricarlo in modo simile::
+
+    use Symfony\Component\DependencyInjection\ContainerBuilder;
+    use Symfony\Component\Config\FileLocator;
+    use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+
+    $container = new ContainerBuilder();
+    $loader = new PhpFileLoader($container, new FileLocator(__DIR__));
+    $loader->load('services.php');
+
+I servizi ``newsletter_manager`` e `` mailer`` possono ora essere impostati
+da file di configurazione:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
             mailer.transport: sendmail
@@ -221,15 +236,14 @@ I servizi ``newsletter_manager`` e `` mailer`` possono essere impostati da file 
         services:
             mailer:
                 class:     Mailer
-                arguments: [%mailer.transport%]
+                arguments: ["%mailer.transport%"]
             newsletter_manager:
                 class:     NewsletterManager
                 calls:
-                    - [ setMailer, [ @mailer ] ]
+                    - [setMailer, ["@mailer"]]
 
     .. code-block:: xml
 
-        <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
             <parameter key="mailer.transport">sendmail</parameter>

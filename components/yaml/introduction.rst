@@ -127,12 +127,18 @@ Quando si carica un file YAML, a volte è meglio usare il metodo involucro
 
     use Symfony\Component\Yaml\Yaml;
 
-    $yaml = Yaml::parse('/percorso/del/file.yml');
+    $yaml = Yaml::parse(file_get_contents('/percorso/del/file.yml'));
 
-Il metodo statico :method:`Symfony\\Component\\Yaml\\Yaml::parse` prende una stringa YAML
+Il metodo statico :method:`Symfony\\Component\\Yaml\\Yaml::parse` accetta una stringa YAML
 o un file contenente YAML. Internamente, richiama il metodo
 :method:`Symfony\\Component\\Yaml\\Parser::parse`, ma migliora gli errori, nel
-caso qualcosa vada stroto, aggiungendo il nome del file al messaggio.
+caso qualcosa vada storto, aggiungendo il nome del file al messaggio.
+
+.. caution::
+
+    Essendo attualmente possibile passare un nome di file a questo metodo, si deve
+    validare l'input prima. Passare un nome di file è deprecato in
+    Symfony 2.2 e sarà rimosso in Symfony 3.0.
 
 Eseguire PHP dentro i file YAML
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -160,7 +166,7 @@ corrispondente rappresentazione YAML:
 
     $array = array(
         'foo' => 'bar',
-        'bar' => array('foo' => 'bar', 'bar' => 'baz')
+        'bar' => array('foo' => 'bar', 'bar' => 'baz'),
     );
 
     $dumper = new Dumper();

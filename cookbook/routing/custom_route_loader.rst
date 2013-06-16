@@ -46,7 +46,7 @@ Edition:
         type:     annotation
         prefix:   /demo
 
-Quando il loader principale le parsa interpella ogni loader delagato e ne chiama
+Quando il loader principale ne fa il parsing interpella ogni loader delegato e ne chiama
 il metodo :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
 con la risorsa data (``@AcmeDemoBundle/Controller/DemoController.php``) e
 il tipo (``annotation``) come argomenti. Quando uno dei loader ritorna ``true``,
@@ -120,7 +120,7 @@ vogliate. Il nome della risorsa non viene concretamente utilizzato nell'esempio:
 
 .. note::
 
-    Accertatevi cje il controller che specificate esista realmente.
+    Accertatevi che il controller che specificate esista realmente.
 
 Adesso definite un servizio per l'``ExtraLoader``:
 

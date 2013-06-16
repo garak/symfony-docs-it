@@ -63,7 +63,7 @@ deve implementare l'interfaccia :class:`Symfony\\Component\\Config\\Loader\\Load
 
 Il Loader d'esempio qui sotto supporta il caricamento di risorse di tipo
 ``extra``. Il tipo ``extra`` non è importante - potete inventarvi qualsiasi tiipo di risorsa
-vogliate. Il nome della risorsa non viene concretamente utilizzato nell'esempio
+vogliate. Il nome della risorsa non viene concretamente utilizzato nell'esempio::
 
     namespace Acme\DemoBundle\Routing;
 
@@ -224,7 +224,7 @@ Ovviamente avete ancora bisogno di implementare i metodi
 e :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::load`.
 Ogni volta che caricate un'altra risorsa - per esempio un file di configurazione di routing in 
 Yaml - potete chiamare il metodo
-:method:`Symfony\\Component\\Config\\Loader\\Loader::import` method::
+:method:`Symfony\\Component\\Config\\Loader\\Loader::import` ::
 
     namespace Acme\DemoBundle\Routing;
 

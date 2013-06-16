@@ -124,7 +124,7 @@ vogliate. Il nome della risorsa non viene concretamente utilizzato nell'esempio:
 
 Adesso definite un servizio per l'``ExtraLoader``:
 
-.. configuration-block::
+    .. configuration-block::
 
     .. code-block:: yaml
 
@@ -168,9 +168,9 @@ Usare un Custom Loader
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Se non avete fatto niente di diverso il vostro routing loader *non* sarà interpellato.
-Invece, avete solo bisogno di aggiungere qualche riga extra alla configurazione del router.
+Avete solo bisogno di aggiungere qualche riga extra alla configurazione del router.
 
-.. configuration-block::
+    .. configuration-block::
 
     .. code-block:: yaml
 
@@ -199,15 +199,14 @@ Invece, avete solo bisogno di aggiungere qualche riga extra alla configurazione 
 
         return $collection;
 
-La parte importante qui è la chiave ``type``. Il suo valore deve essere"extra".
-Questo è il tipo supportato dal nostro ``ExtraLoader`` e questo farà sì che il suo 
-metodo ``load()``  venga chiamato. La chiave ``resource`` è ininfluente per l'
-``ExtraLoader``, quindi la impostiamo a ".".
+La parte importante qui è la chiave ``type``. Il suo valore deve essere "extra".
+Questo è il tipo supportato dal nostro ``ExtraLoader`` e questo farà sì che venga chiamato il suo 
+metodo ``load()`` . La chiave ``resource`` è ininfluente per l'``ExtraLoader``, quindi la impostiamo a ".".
 
 .. note::
 
-    Le route definite usando dei custom route loader vengono messe in cache 
-    dal framework automaticamente. Quindi ogni volta che cambiate qualcosa nella 
+    Le route definite usando dei custom route loader vengono automaticamente messe in cache 
+    dal framework. Quindi ogni volta che cambiate qualcosa nella 
     classe del loader, non dimenticate di cancellare la cache.
 
 Loader Più Avanzati

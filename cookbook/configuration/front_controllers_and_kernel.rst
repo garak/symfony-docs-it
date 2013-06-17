@@ -52,13 +52,13 @@ Il frint controller può essere scelto richiedendo URL come:
 
 .. code-block:: text
 
-     http://localhost/app_dev.php/some/path/...
+     http://localhost/app_dev.php/un/percorso/...
 
-Come potete vedere, questo URL contiene lo script PHP che deve essere usato
-come front controller. Potete usarlo per scambiare facilmente il front controller 
-o usarne uno custom mettendolo nella cartella ``web/`` (ad es. ``app_cache.php``).
+Come si può vedere, questo URL contiene lo script PHP che deve essere usato
+come front controller. Lo si può usare per scambiare facilmente il front controller 
+o usarne uno personalizzato, mettendolo nella cartella ``web/`` (ad es. ``app_cache.php``).
 
-Se si usa Apache e la `RewriteRule shipped with the Standard Edition`_,
+Se si usa Apache e la `RewriteRule distribuita con la Standard Edition`_,
 si può omettere il nome del file dall'URL e la RewriteRule userà ``app.php``
 come default.
 
@@ -88,39 +88,44 @@ applicazione e fornisce loro la configurazione dell'applicazione.
 Il Kernel crea poi un service container prima di gestire le richieste col suo metodo
 :method:`Symfony\\Component\\HttpKernel\\HttpKernelInterface::handle`.
 
+
 Ci sono due metodi dichiarati nell'interfaccia
 :class:`Symfony\\Component\\HttpKernel\\KernelInterface` e che sono non implementati
 nella classe :class:`Symfony\\Component\\HttpKernel\\Kernel`
-servendo quindi come `template methods`_:
+servendo quindi come `metodi template`_:
 
 * :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerBundles`,
-  che deve ritornare un array di tutti i Bundle necessari per eseguire l'applicazione.
+  che deve ritornare un array di tutti i Bundle necessari per eseguire
+  l'applicazione.
 
 * :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`,
   che carica la configurazione dell'applicazione.
 
 Per riempire questi (piccoli) buchi la vostra applicazione deve essere una sottoclasse 
-del Kernel e implementare questi metodi. La classe che ne risulta viene convenzionalmente chiamata``AppKernel``.
+del Kernel e implementare questi metodi. La classe che ne risulta viene convenzionalmente
+chiamata``AppKernel``.
 
 Ancora una volta Symfony2 Standard Edition fornisce un `AppKernel`_ nella cartella ``app/``. 
 Per decidere quali Bundle creare questa classe usa il nome dell'ambiente, che viene passato al 
 metodo del Kernel  :method:`constructor<Symfony\\Component\\HttpKernel\\Kernel::__construct>`
 ed è ottenibile tramite il metodo :method:`Symfony\\Component\\HttpKernel\\Kernel::getEnvironment` -.
 La logica per ottenere questo si trova nel metodo ``registerBundles()``,
-un metodo pensato per essere esteso da voi quando iniziate ad aggiungere bundles alla vostra applicazione.
+un metodo pensato per essere esteso da voi quando iniziate ad aggiungere bundles
+alla propria applicazione.
 
-Siete ovviamente liberi di creare la vostra variante di ``AppKernel``,
-alternativa o aggiuntiva a quella di default.
-Tutto quello che dovete fare è adattare il vostro front controller (o aggiungerne uno novo)
-perché usi il nuovo kernel.
+Si è ovviamente liberi di creare la propria variante di ``AppKernel``,
+alternativa o aggiuntiva a quella di default. Tutto quello che occorre è adattare il
+front controller (o aggiungerne uno nuovo) perché usi il nuovo kernel.
 
 .. note::
 
     Il nome e la posizione di ``AppKernel`` non sono fissati. QUando
-    si mettono kernel multipli in una singola applicazione, può avere senso 
-    aggiungere sotto-cartelle aggiuntive, ad esempio: ``app/admin/AdminKernel.php`` e
-    ``app/api/ApiKernel.php``. Quello che conta è che il vostro front controller sia 
-    in grado di creare una istanza del kernel appropriato.
+    si mettono kernel multipli in una singola applicazione, 
+    può avere senso aggiungere sotto-cartelle aggiuntive, ad
+    esempio: ``app/admin/AdminKernel.php`` e
+    ``app/api/ApiKernel.php``. Quello che conta è che il front
+    controller sia in grado di creare una istanza del kernel
+    appropriato.
 
 Avere diversi ``AppKernels`` può essere utile per abilitare diversi front-controller
 (potenzialmente su diversi server) per eseguire indipendentemente parti della vostra 
@@ -138,19 +143,23 @@ Gli Ambienti
 
 Abbiamo appena menzionato un altro metoodo che l'``AppKernel`` deve implementare -
 :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`.
-Questo metodo è responsabile del caricamento della configurazione dell'applicazione dall'*ambiente* corretto.
+Questo metodo è responsabile del caricamento della configurazione dell'applicazione 
+dall'*ambiente* corretto.
 
 Gli ambienti sono stati trattati in amniera estesa
 :doc:`in the previous chapter</cookbook/configuration/environments>`,
-e probabilmente ricorderete che la Standard Edition ne ha tre - ``dev``, ``prod`` e ``test``.
+e probabilmente ricorderete che la Standard Edition ne ha tre:
+``dev``, ``prod`` e ``test``.
 
-Più tecnicamente questi nomi non sono altro che stringhe passate dal front controller al costruttore dell'
-``AppKernel``. Questo nome può essere usato nel metodo :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`
+Più tecnicamente, questi nomi non sono altro che stringhe passate dal
+front controller al costruttore di ``AppKernel``. Questo nome può essere
+usato nel metodo :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`,
 che decide quale file di configurazione caricare.
 
-La classe `AppKernel`_ della Standard Edition implementa questo metodo caricando semplicemente 
-il file ``app/config/config_*environment*.yml`` . Voi siete ovviamente liberi di implementare questo 
-metodo diversamente se vi serve un sistema più sofisticato per caricare la vostra configurazione.
+La classe `AppKernel`_ della Standard Edition implementa questo metodo 
+caricando semplicemente  il file ``app/config/config_*environment*.yml`` .
+Si è ovviamente liberi di implementare questo metodo diversamente,
+se serve un sistema più sofisticato per caricare la configurazione.
 
 .. _front controller: http://en.wikipedia.org/wiki/Front_Controller_pattern
 .. _Symfony2 Standard Edition: https://github.com/symfony/symfony-standard
@@ -159,5 +168,5 @@ metodo diversamente se vi serve un sistema più sofisticato per caricare la vost
 .. _app/console: https://github.com/symfony/symfony-standard/blob/master/app/console
 .. _AppKernel: https://github.com/symfony/symfony-standard/blob/master/app/AppKernel.php
 .. _decorate: http://en.wikipedia.org/wiki/Decorator_pattern
-.. _RewriteRule shipped with the Standard Edition: https://github.com/symfony/symfony-standard/blob/master/web/.htaccess)
-.. _template methods: http://en.wikipedia.org/wiki/Template_method_pattern
+.. _RewriteRule  distribuita con la Standard Edition: https://github.com/symfony/symfony-standard/blob/master/web/.htaccess)
+.. _metodi template: http://en.wikipedia.org/wiki/Template_method_pattern

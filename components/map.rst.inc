@@ -34,6 +34,7 @@
   * :doc:`/components/dependency_injection/configurators`
   * :doc:`/components/dependency_injection/parentservices`
   * :doc:`/components/dependency_injection/advanced`
+  * :doc:`/components/dependency_injection/lazy_services`
   * :doc:`/components/dependency_injection/workflow`
 
 * **DOM Crawler**

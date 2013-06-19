@@ -1,9 +1,8 @@
 .. index::
-   single: HTTP
-   single: HttpFoundation, Sessioni
+   single: Dependency Injection; Servizi pigri
 
-Integrazione con sessioni legacy
-================================
+Servizi pigri
+=============
 
 Questa pagina non è ancora stata tradotta.
 

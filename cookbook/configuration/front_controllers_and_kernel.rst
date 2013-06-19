@@ -11,9 +11,9 @@ Questa sezione spiegherà un po' più in dettaglio cosa succeda quando la vostra
 attraversa la fase di bootstrapp. Per agganciarsi a questo processo avete bisogno di capire
 tre elementi che lavorano assieme:
 
-* `The Front Controller`_
-* `The Kernel Class`_
-* `The Environments`_
+* `Il front controller`_
+* `La classe Kernel`_
+* `Gli ambienti`_
 
 .. note::
 

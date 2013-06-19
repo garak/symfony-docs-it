@@ -11,9 +11,9 @@ Questa sezione spiegherà un po' più in dettaglio cosa succeda quando la vostra
 attraversa la fase di bootstrapp. Per agganciarsi a questo processo avete bisogno di capire
 tre elementi che lavorano assieme:
 
-* `The Front Controller`_
-* `The Kernel Class`_
-* `The Environments`_
+* `Il front controller`_
+* `La classe Kernel`_
+* `Gli ambienti`_
 
 .. note::
 
@@ -24,7 +24,7 @@ tre elementi che lavorano assieme:
     Questa sezione di documentazione viene fornita per spiegare cosa succeda
     dietro le quinte.
 
-Il Front Controller
+Il front controller
 -------------------
 
 Il `front controller`_ è un design pattern molto conosciuto; è un pezzo di codice attraverso 
@@ -136,7 +136,7 @@ applicazione (per esempio la UI lato admin, la UI del frontend e le migrazioni d
     Ma ci sono ottime probabilità che non abbiate bisogno di cambiare cose di questo genere al volo
     se avete varie implementazioni multiple dell'``AppKernel``.
 
-Gli Ambienti
+Gli ambienti
 ------------
 
 Abbiamo appena menzionato un altro metoodo che l'``AppKernel`` deve implementare -

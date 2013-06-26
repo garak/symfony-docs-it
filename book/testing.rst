@@ -401,6 +401,10 @@ Il client supporta molte operazioni eseguibili in un browser reale::
 Accesso agli oggetti interni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. versionadded:: 2.3
+    I metodi ``getInternalRequest()`` e ``getInternalResponse()`` sono stati
+    aggiunti in Symfony 2.3.
+
 Se si usa il client per testare la propria applicazione, si potrebbe voler accedere
 agli oggetti interni del client::
 
@@ -409,8 +413,18 @@ agli oggetti interni del client::
 
 I possono anche ottenere gli oggetti relativi all'ultima richiesta::
 
+    // l'istanza della richiesta HttpKernel
     $request  = $client->getRequest();
+
+    // l'istanza della richiesta BrowserKit
+    $request  = $client->getInternalRequest();
+
+    // l'istanza della richiesta HttpKernel
     $response = $client->getResponse();
+
+    // l'istanza della richiesta BrowserKit
+    $response = $client->getInternalResponse();
+
     $crawler  = $client->getCrawler();
 
 Se le richieste non sono isolate, si può accedere agli oggetti ``Container`` e
@@ -706,7 +720,7 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
 
         // ...
         $container->loadFromExtension('swiftmailer', array(
-            'disable_delivery' => true
+            'disable_delivery' => true,
         ));
 
 Si può anche cambiare l'ambiente predefinito (``test``) e sovrascrivere la modalità

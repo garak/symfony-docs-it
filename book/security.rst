@@ -410,11 +410,6 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
     perché il firewall catturerà ed elaborerà qualunque form inviato
     a questo URL.
 
-.. versionadded:: 2.1
-    A partire da Symfony 2.1, si *devono* avere rotte configurate per i propri URL ``login_path``
-    (p.e. ``/login``), ``check_path`` (p.e. ``/login_check``) e ``logout``
-    (p.e. ``/logout``, vedere `Logout`_).
-
 Notare che il nome della rotta ``login`` corrisponde al valore di configurazione ``login_path``,
 in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di
 effettuare il login.
@@ -877,6 +872,11 @@ prevenire un accesso diretto a tali risorse inserendo direttamnte l'URL nel brow
 la rotta ESI deve essere protetta e resa visibile solo dalla cache del reverse
 proxy.
 
+.. versionadded:: 2.3
+    La versione 2.3 consente più indirizzi IP in una singola regola, con il costrutto ``ips: [a, b]``.
+    Prima della 2.3, era necessario creare una regola per ogni indirizzo IP e usare
+    la chiave ``ip`` al posto di ``ips``.
+
 Ecco un esempio di come si possano garantire tutte le rotte ESI che iniziano per
 un certo prefisso, ``/esi``, da intrusioni esterne:
 
@@ -888,20 +888,20 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
         security:
             # ...
             access_control:
-                - { path: ^/esi, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+                - { path: ^/esi, roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1] }
                 - { path: ^/esi, roles: ROLE_NO_ACCESS }
 
     .. code-block:: xml
 
             <access-control>
-                <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY" ip="127.0.0.1" />
+                <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY" ips="127.0.0.1, ::1" />
                 <rule path="^/esi" role="ROLE_NO_ACCESS" />
             </access-control>
 
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/esi', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
+                array('path' => '^/esi', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ips' => '127.0.0.1, ::1'),
                 array('path' => '^/esi', 'role' => 'ROLE_NO_ACCESS'),
             ),
 
@@ -917,7 +917,8 @@ Ecco come funziona quando il percorso è ``/esi/qualcosa`` dall'IP
   essere qualsiasi cosa che non sia un ruolo esistente, serve solo come espediente
   per negare sempre l'accesso).
 
-Se ora la stessa richiesta arriva da ``127.0.0.1``:
+Se ora la stessa richiesta arriva da ``127.0.0.1`` o da ``::1`` (l'indirizzo locale
+in IPv6):
 
 * Ora, la prima regola di controllo di accesso corrisponde sia per ``path`` che
   per ``ip``: l'accesso è consentito, perché l'utente ha sempre il ruolo
@@ -1082,7 +1083,7 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            ...,
+            // ...
             'providers' => array(
                 'default_provider' => array(
                     'memory' => array(
@@ -1160,12 +1161,6 @@ Per come è stato pensato il sistema di sicurezza, l'unico requisito per
 la classe utente personalizzata è che implementi l'interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 Questo significa che il concetto di "utente" può essere qualsiasi cosa, purché
 implementi questa interfaccia.
-
-.. versionadded:: 2.1
-    In Symfony 2.1, il metodo ``equals`` è stato rimosso da ``UserInterface``.
-    Se occorre ridefinire l'implementazione originale della logica di confronto,
-    implementare la nuova interfaccia
-    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`.
 
 .. note::
 
@@ -1325,7 +1320,7 @@ configurare l'encoder per questo utente:
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            ...,
+            // ...
             'encoders' => array(
                 'Acme\UserBundle\Entity\User' => 'sha512',
             ),
@@ -1559,10 +1554,10 @@ viene sempre utilizzato il primo fornitore:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
-                    ...,
+                    // ...
                     'provider' => 'user_db',
                     'http_basic' => array(
-                        ...,
+                        // ...
                         'provider' => 'in_memory',
                     ),
                     'form_login' => array(),
@@ -1674,7 +1669,7 @@ parametro di configurazione ``logout``:
             'firewalls' => array(
                 'secured_area' => array(
                     // ...
-                    'logout' => array('path' => '/logout', 'target' => '/'),
+                    'logout' => array('path' => 'logout', 'target' => '/'),
                 ),
             ),
             // ...
@@ -1833,7 +1828,7 @@ facilmente, attivando l'ascoltatore ``switch_user`` del firewall:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main'=> array(
-                    ...,
+                    // ...
                     'switch_user' => true
                 ),
             ),

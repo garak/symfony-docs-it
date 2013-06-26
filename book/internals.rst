@@ -367,9 +367,6 @@ l'oggetto ``Response`` dopo la sua creazione::
 Evento ``kernel.terminate``
 ...........................
 
-.. versionadded:: 2.1
-    L'evento ``kernel.terminate`` è nuovo in Symfony 2.1.
-
 Lo scopo di questo evento è quello di eseguire compiti più "pesanti", dopo che la risposta
 sia stata inviata al client.
 

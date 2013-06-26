@@ -665,9 +665,6 @@ I controllori sono veloci da eseguire e promuovono buona organizzazione e riuso 
 Contenuto asincrono con hinclude.js
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    il supporto per hinclude.js è stato aggiunto in Symfony 2.1
-
 Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
 Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
@@ -1408,9 +1405,6 @@ ambiente ``dev``, ma non in ``prod``.
 
 Verifica sintattica
 -------------------
-
-.. versionadded:: 2.1
-    Il comando ``twig:lint`` è stato aggiunto in Symfony 2.1
 
 Si possono cercare eventuali errori di sintassi nei template Twig, usando il comando
 ``twig:lint``:

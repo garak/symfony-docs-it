@@ -192,7 +192,7 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
         services:
             my_mailer:
                 class:        "%my_mailer.class%"
-                arguments:    [%my_mailer.transport%]
+                arguments:    ["%my_mailer.transport%"]
 
     .. code-block:: xml
 
@@ -226,10 +226,6 @@ Il risultato finale è esattamente lo stesso di prima, la differenza è solo nel
 ``my_mailer.transport`` con il segno di percentuale (``%``), il contenitore sa
 di dover cercare per parametri con questi nomi. Quando il contenitore è costruito,
 cerca il valore di ogni parametro e lo usa nella definizione del servizio.
-
-.. versionadded:: 2.1
-    L'escape del carattere ``@`` nei valori dei parametri YAML è nuovo in Symfony 2.1.9
-    e Symfony 2.2.1.
 
 .. note::
 
@@ -335,7 +331,7 @@ non esistono, crearle.
         services:
             my_mailer:
                 class:        "%my_mailer.class%"
-                arguments:    [%my_mailer.transport%]
+                arguments:    ["%my_mailer.transport%"]
 
     .. code-block:: xml
 

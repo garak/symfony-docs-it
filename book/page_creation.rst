@@ -588,7 +588,6 @@ della classe ``AppKernel``::
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -814,9 +813,6 @@ specifiche saranno man mano approfondite.
 
 Esportazione della configurazione predefinita
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-    Il comando ``config:dump-reference`` è stato aggiunto in Symfony 2.1
 
 Si può esportare la configurazione predefinita per un bundle in yaml sulla console, usando
 il comando ``config:dump-reference``. Ecco un esempio di esportazione della configurazione

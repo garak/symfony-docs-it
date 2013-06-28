@@ -768,8 +768,8 @@ Considerazioni finali
 
 Ogni volta che si crea una pagina, è necessario scrivere del codice che
 contiene la logica per quella pagina. In Symfony, questo codice si chiama controllore,
-ed è una funzione PHP che può fare qualsiasi cosa di cui ha bisogno per tornare
-l'oggetto finale ``Response`` che verrà restituito all'utente.
+ed è una funzione PHP che può fare qualsiasi cosa occorra per restituire
+l'oggetto finale ``Response``, che verrà restituito all'utente.
 
 Per rendere la vita più facile, si può scegliere di estendere una classe base ``Controller``,
 che contiene metodi scorciatoia per molti compiti comuni del controllore. Per esempio,

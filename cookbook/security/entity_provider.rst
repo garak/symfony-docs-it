@@ -446,7 +446,7 @@ Il codice successivo mostra l'implementazione di
                     'Impossibile trovare un oggetto AcmeUserBundle:User identificato da  "%s".',
                     $username
                 );
-                throw new UsernameNotFoundException($message, null, 0, $e);
+                throw new UsernameNotFoundException($message, 0, $e);
             }
 
             return $user;

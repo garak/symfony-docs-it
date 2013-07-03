@@ -104,6 +104,7 @@
 * :doc:`/cookbook/request/index`
 
   * :doc:`/cookbook/request/mime_type`
+  * (sessione) :doc:`/cookbook/session/locale_sticky_session`
 
 * :doc:`/cookbook/routing/index`
 
@@ -137,6 +138,8 @@
 * :doc:`/cookbook/session/index`
 
   * :doc:`/cookbook/session/proxy_examples`
+  * :doc:`/cookbook/session/locale_sticky_session`
+  * :doc:`/cookbook/session/sessions_directory`
 
 * **symfony1**
 
@@ -173,4 +176,3 @@
 
   * :doc:`/cookbook/workflow/new_project_git`
   * :doc:`/cookbook/workflow/new_project_svn`
-

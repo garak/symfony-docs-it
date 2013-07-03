@@ -172,6 +172,15 @@ il comportamento di cui si ha bisogno (è più flessibile e potente), ma si impa
 come configurare un servizio che ha istanze multiple nella ricetta
 ":doc:`/cookbook/service_container/scopes`".
 
+.. note::
+
+    In questo esempio, il controllore estende quello base di Symfony, il quale fornisce
+    accesso al contenitore di servizi. Si può quindi usare il metodo
+    ``get`` per recuperare il servizio ``my_mailer`` dal
+    contenitore. Si possono anche definire i :doc:`controllori come servizi</cookbook/controller/service>`.
+    Questo è un po' più avanzato e non sempre necessario, ma consente di iniettare solo
+    i servizi che serviranno nel controllore.
+
 .. _book-service-container-parameters:
 
 I parametri del servizio
@@ -192,7 +201,7 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
         services:
             my_mailer:
                 class:        "%my_mailer.class%"
-                arguments:    [%my_mailer.transport%]
+                arguments:    ["%my_mailer.transport%"]
 
     .. code-block:: xml
 
@@ -335,7 +344,7 @@ non esistono, crearle.
         services:
             my_mailer:
                 class:        "%my_mailer.class%"
-                arguments:    [%my_mailer.transport%]
+                arguments:    ["%my_mailer.transport%"]
 
     .. code-block:: xml
 
@@ -464,7 +473,9 @@ invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundl
             'secret'          => 'xxxxxxxxxx',
             'form'            => array(),
             'csrf-protection' => array(),
-            'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
+            'router'          => array(
+                'resource' => '%kernel.root_dir%/config/routing.php',
+            ),
 
             // ...
         ));
@@ -819,8 +830,10 @@ in modo che possa generare il contenuto dell'email tramite un template::
 
         protected $templating;
 
-        public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
-        {
+        public function __construct(
+            \Swift_Mailer $mailer,
+            EngineInterface $templating
+        ) {
             $this->mailer = $mailer;
             $this->templating = $templating;
         }
@@ -890,7 +903,8 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
 
     .. code-block:: xml
 
-        <service id="foo.twig.extension" class="Acme\HelloBundle\Extension\FooExtension">
+        <service id="foo.twig.extension"
+            class="Acme\HelloBundle\Extension\FooExtension">
             <tag name="twig.extension" />
         </service>
 

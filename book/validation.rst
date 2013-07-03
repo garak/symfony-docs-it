@@ -799,6 +799,9 @@ Ovviamente, di solito si lavorerà con la validazione in modo indiretto, tramite
 libreria dei form. Per informazioni su come usare i gruppi di validazione dentro ai
 form, vedere :ref:`book-forms-validation-groups`.
 
+.. index::
+   single: Validazione; Validazione dei valori grezzi
+
 .. _book-validation-group-sequence:
 
 Sequenza di gruppi
@@ -846,7 +849,7 @@ nome utente e password siano diversi, solo se le altre validazioni passano
         use Symfony\Component\Validator\Constraints as Assert;
 
         /**
-         * @Assert\GroupSequence({"Strict", "User"})
+         * @Assert\GroupSequence({"User", "Strict"})
          */
         class User implements UserInterface
         {
@@ -905,13 +908,22 @@ nome utente e password siano diversi, solo se le altre validazioni passano
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('username', new Assert\NotBlank());
-                $metadata->addPropertyConstraint('password', new Assert\NotBlank());
+                $metadata->addPropertyConstraint(
+                    'username',
+                    new Assert\NotBlank()
+                );
+                $metadata->addPropertyConstraint(
+                    'password',
+                    new Assert\NotBlank()
+                );
 
-                $metadata->addGetterConstraint('passwordLegal', new Assert\True(array(
-                    'message' => 'La password deve essere diversa dal nome utente',
+                $metadata->addGetterConstraint(
+                    'passwordLegal',
+                    new Assert\True(array(
+                        'message' => 'La password deve essere diversa dal nome utente',
                     'groups'  => array('Strict'),
-                )));
+                    ))
+                );
 
                 $metadata->setGroupSequence(array('User', 'Strict'));
             }
@@ -920,9 +932,6 @@ nome utente e password siano diversi, solo se le altre validazioni passano
 In questo esempio, prima saranno validati i vincoli del gruppo ``User``
 (che corrispondono a quelli del gruppo ``Default``). Solo se tutti i vincoli in
 tale gruppo sono validi, sarà validato il secondo gruppo, ``Strict``.
-
-.. index::
-   single: Validazione; Valori grezzi di validazione
 
 .. _book-validation-raw-values:
 

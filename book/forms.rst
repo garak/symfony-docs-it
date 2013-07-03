@@ -318,15 +318,18 @@ valido.
     .. code-block:: xml
 
         <!-- Acme/TaskBundle/Resources/config/validation.xml -->
-        <class name="Acme\TaskBundle\Entity\Task">
-            <property name="task">
-                <constraint name="NotBlank" />
-            </property>
-            <property name="dueDate">
-                <constraint name="NotBlank" />
-                <constraint name="Type">\DateTime</constraint>
-            </property>
-        </class>
+        <?xml version="1.0" charset="UTF-8"?>
+            <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+            <class name="Acme\TaskBundle\Entity\Task">
+                <property name="task">
+                    <constraint name="NotBlank" />
+                </property>
+                <property name="dueDate">
+                    <constraint name="NotBlank" />
+                    <constraint name="Type">\DateTime</constraint>
+                </property>
+            </class>
+        <constraint-mapping>
 
     .. code-block:: php
 
@@ -344,7 +347,10 @@ valido.
                 $metadata->addPropertyConstraint('task', new NotBlank());
 
                 $metadata->addPropertyConstraint('dueDate', new NotBlank());
-                $metadata->addPropertyConstraint('dueDate', new Type('\DateTime'));
+                $metadata->addPropertyConstraint(
+                    'dueDate',
+                    new Type('\DateTime')
+                );
             }
         }
 
@@ -424,7 +430,10 @@ un callback o a una ``Closure``::
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Acme\\AcmeBundle\\Entity\\Client', 'determineValidationGroups'),
+            'validation_groups' => array(
+                'Acme\AcmeBundle\Entity\Client',
+                'determineValidationGroups',
+            ),
         ));
     }
 
@@ -903,7 +912,8 @@ facilmente in un'applicazione.
     .. code-block:: xml
 
         <!-- src/Acme/TaskBundle/Resources/config/services.xml -->
-        <service id="acme_demo.form.type.task" class="Acme\TaskBundle\Form\Type\TaskType">
+        <service id="acme_demo.form.type.task"
+            class="Acme\TaskBundle\Form\Type\TaskType">
             <tag name="form.type" alias="task" />
         </service>
 
@@ -913,7 +923,10 @@ facilmente in un'applicazione.
         use Symfony\Component\DependencyInjection\Definition;
 
         $container
-            ->register('acme_demo.form.type.task', 'Acme\TaskBundle\Form\Type\TaskType')
+            ->register(
+                'acme_demo.form.type.task',
+                'Acme\TaskBundle\Form\Type\TaskType'
+            )
             ->addTag('form.type', array(
                 'alias' => 'task',
             ))
@@ -1437,7 +1450,6 @@ con la configurazione dell'applicazione:
                         - 'AcmeTaskBundle:Form'
         # ...
 
-
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
@@ -1637,7 +1649,6 @@ ma ecco un breve esempio:
 .. code-block:: php
 
     new NotBlank(array('groups' => array('create', 'update'))
-
 
 Considerazioni finali
 ---------------------

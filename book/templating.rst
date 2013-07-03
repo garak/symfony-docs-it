@@ -19,7 +19,6 @@ il codice di un template
     La resa dei template è spiegata nel capitolo relativo al :ref:`controllore <controller-rendering-templates>`
     del libro.
 
-
 .. index::
    single: Template; Cos'è un template?
 
@@ -537,7 +536,10 @@ Includere questo template da un altro template è semplice:
             <h1>Articoli recenti<h1>
 
             {% for article in articles %}
-                {{ include('AcmeArticleBundle:Article:articleDetails.html.twig', {'article': article}) }}
+                {{ include(
+                    'AcmeArticleBundle:Article:articleDetails.html.twig',
+                    { 'article': article }
+                ) }}
             {% endfor %}
         {% endblock %}
 
@@ -644,7 +646,9 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
 
         {# ... #}
         <div id="sidebar">
-            {{ render(controller('AcmeArticleBundle:Article:recentArticles', {'max': 3})) }}
+            {{ render(controller('AcmeArticleBundle:Article:recentArticles', {
+                'max': 3
+            })) }}
         </div>
 
     .. code-block:: html+php
@@ -654,7 +658,10 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
         <!-- ... -->
         <div id="sidebar">
             <?php echo $view['actions']->render(
-                new ControllerReference('AcmeArticleBundle:Article:recentArticles', array('max' => 3))
+                new ControllerReference(
+                    'AcmeArticleBundle:Article:recentArticles',
+                    array('max' => 3)
+                )
             ) ?>
         </div>
 
@@ -740,7 +747,8 @@ essere impostato in modo globale nella configurazione dell'applicazione:
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:templating hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
+            <framework:templating
+                hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
         </framework:config>
 
     .. code-block:: php
@@ -749,7 +757,9 @@ essere impostato in modo globale nella configurazione dell'applicazione:
         $container->loadFromExtension('framework', array(
             // ...
             'templating'      => array(
-                'hinclude_default_template' => array('AcmeDemoBundle::hinclude.html.twig'),
+                'hinclude_default_template' => array(
+                    'AcmeDemoBundle::hinclude.html.twig',
+                ),
             ),
         ));
 
@@ -763,7 +773,9 @@ qualsiasi template predefinito globale):
 
     .. code-block:: jinja
 
-        {{ render_hinclude(controller('...'),  {'default': 'AcmeDemoBundle:Default:content.html.twig'}) }}
+        {{ render_hinclude(controller('...'),  {
+            'default': 'AcmeDemoBundle:Default:content.html.twig'
+        }) }}
 
     .. code-block:: php
 
@@ -892,7 +904,9 @@ articoli:
 
         <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
         <?php foreach ($articles in $article): ?>
-            <a href="<?php echo $view['router']->generate('article_show', array('slug' => $article->getSlug()) ?>">
+            <a href="<?php echo $view['router']->generate('article_show', array(
+                'slug' => $article->getSlug(),
+            )) ?>">
                 <?php echo $article->getTitle() ?>
             </a>
         <?php endforeach; ?>
@@ -976,7 +990,6 @@ l'ereditarietà dei template.
     con queste risorse. Per maggiori informazioni sull'uso di Assetic, vedere
     :doc:`/cookbook/assetic/asset_management`.
 
-
 Iniziamo aggiungendo due blocchi al template di base, che conterranno le risorse:
 uno chiamato ``stylesheets``, dentro al tag ``head``, e l'altro chiamato ``javascripts``,
 appena prima della chiusura del tag ``body``. Questi blocchi conterranno tutti i fogli
@@ -990,14 +1003,14 @@ di stile e i Javascript che occorrerano al sito:
             {# ... #}
 
             {% block stylesheets %}
-                <link href="{{ asset('/css/main.css') }}" type="text/css" rel="stylesheet" />
+                <link href="{{ asset('/css/main.css') }}" rel="stylesheet" />
             {% endblock %}
         </head>
         <body>
             {# ... #}
 
             {% block javascripts %}
-                <script src="{{ asset('/js/main.js') }}" type="text/javascript"></script>
+                <script src="{{ asset('/js/main.js') }}"></script>
             {% endblock %}
         </body>
     </html>
@@ -1015,7 +1028,7 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
     {% block stylesheets %}
         {{ parent() }}
 
-        <link href="{{ asset('/css/contact.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('/css/contact.css') }}" rel="stylesheet" />
     {% endblock %}
 
     {# ... #}
@@ -1401,7 +1414,6 @@ Si può fare un dump dei parametri nei template, usando la funzione ``dump``:
         </a>
     {% endfor %}
 
-
 Il dump delle variabili avverrà solo se l'impostazione ``debug`` (in ``config.yml``)
 è ``true``. Questo vuol dire che, per impostazione predefinita, il dump avverrà in
 ambiente ``dev``, ma non in ``prod``.
@@ -1474,7 +1486,10 @@ come parametro:
 
     .. code-block:: html+php
 
-        <a href="<?php echo $view['router']->generate('article_show', array('id' => 123, '_format' => 'pdf')) ?>">
+        <a href="<?php echo $view['router']->generate('article_show', array(
+            'id' => 123,
+            '_format' => 'pdf',
+        )) ?>">
             versione PDF
         </a>
 

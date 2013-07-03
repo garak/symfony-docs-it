@@ -70,7 +70,8 @@ base HTTP (cioè il classico vecchio box nome utente/password):
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- app/config/security.xml -->
 
@@ -91,7 +92,8 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                     </memory>
                 </provider>
 
-                <encoder class="Symfony\Component\Security\Core\User\User" algorithm="plaintext" />
+                <encoder class="Symfony\Component\Security\Core\User\User"
+                    algorithm="plaintext" />
             </config>
         </srv:container>
 
@@ -115,8 +117,14 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 'in_memory' => array(
                     'memory' => array(
                         'users' => array(
-                            'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
-                            'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
+                            'ryan' => array(
+                                'password' => 'ryanpass',
+                                'roles' => 'ROLE_USER',
+                                ),
+                            'admin' => array(
+                                'password' => 'kitten',
+                                'roles' => 'ROLE_ADMIN',
+                            ),
                         ),
                     ),
                 ),
@@ -308,7 +316,8 @@ In primo luogo, abilitare il form di login sotto il firewall:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <!-- app/config/security.xml -->
 
@@ -381,7 +390,8 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
 
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="login" pattern="/login">
                 <default key="_controller">AcmeSecurityBundle:Security:login</default>
@@ -484,7 +494,8 @@ Infine, creare il template corrispondente:
             <input type="password" id="password" name="_password" />
 
             {#
-                Se si desidera controllare l'URL a cui l'utente viene rinviato in caso di successo (maggiori dettagli qui sotto)
+                Se si desidera controllare l'URL a cui l'utente 
+                viene rinviato in caso di successo (maggiori dettagli qui sotto)
                 <input type="hidden" name="_target_path" value="/account" />
             #}
 
@@ -493,7 +504,7 @@ Infine, creare il template corrispondente:
 
     .. code-block:: html+php
 
-        <?php // src/Acme/SecurityBundle/Resources/views/Security/login.html.php ?>
+        <!-- src/Acme/SecurityBundle/Resources/views/Security/login.html.php -->
         <?php if ($error): ?>
             <div><?php echo $error->getMessage() ?></div>
         <?php endif; ?>
@@ -506,7 +517,8 @@ Infine, creare il template corrispondente:
             <input type="password" id="password" name="_password" />
 
             <!--
-                Se si desidera controllare l'URL a cui l'utente viene rinviato in caso di successo (maggiori dettagli qui sotto)
+                Se si desidera controllare l'URL a cui l'utente
+                viene rinviato in caso di successo (maggiori dettagli qui sotto)
                 <input type="hidden" name="_target_path" value="/account" />
             -->
 
@@ -732,7 +744,7 @@ il ruolo ``ROLE_ADMIN``.
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            ...,
+            // ...
             'access_control' => array(
                 array('path' => '^/admin/users', 'role' => 'ROLE_SUPER_ADMIN'),
                 array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
@@ -801,10 +813,25 @@ Si prende il seguente ``access_control`` come esempio:
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/admin', 'role' => 'ROLE_USER_IP', 'ip' => '127.0.0.1'),
-                array('path' => '^/admin', 'role' => 'ROLE_USER_HOST', 'host' => 'symfony.com'),
-                array('path' => '^/admin', 'role' => 'ROLE_USER_METHOD', 'method' => 'POST, PUT'),
-                array('path' => '^/admin', 'role' => 'ROLE_USER'),
+                array(
+                    'path' => '^/admin',
+                    'role' => 'ROLE_USER_IP',
+                    'ip' => '127.0.0.1',
+                ),
+                array(
+                    'path' => '^/admin',
+                    'role' => 'ROLE_USER_HOST',
+                    'host' => 'symfony.com',
+                ),
+                array(
+                    'path' => '^/admin',
+                    'role' => 'ROLE_USER_METHOD',
+                    'method' => 'POST, PUT',
+                ),
+                array(
+                    'path' => '^/admin',
+                    'role' => 'ROLE_USER',
+                ),
             ),
 
 Per ogni richiesta in arrivo, Symfony2 deciderà quale ``access_control``
@@ -894,15 +921,23 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
     .. code-block:: xml
 
             <access-control>
-                <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY" ip="127.0.0.1" />
+                <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY"
+                    ip="127.0.0.1" />
                 <rule path="^/esi" role="ROLE_NO_ACCESS" />
             </access-control>
 
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/esi', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'ip' => '127.0.0.1'),
-                array('path' => '^/esi', 'role' => 'ROLE_NO_ACCESS'),
+                array(
+                    'path' => '^/esi',
+                    'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
+                    'ip' => '127.0.0.1',
+                ),
+                array(
+                    'path' => '^/esi',
+                    'role' => 'ROLE_NO_ACCESS',
+                ),
             ),
 
 Ecco come funziona quando il percorso è ``/esi/qualcosa`` dall'IP
@@ -946,13 +981,18 @@ usare la voce aggiungere il parametro ``requires_channel`` in una voce ``access_
     .. code-block:: xml
 
             <access-control>
-                <rule path="^/cart/checkout" role="IS_AUTHENTICATED_ANONYMOUSLY" requires_channel="https" />
+                <rule path="^/cart/checkout" role="IS_AUTHENTICATED_ANONYMOUSLY"
+                    requires_channel="https" />
             </access-control>
 
     .. code-block:: php
 
             'access_control' => array(
-                array('path' => '^/cart/checkout', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'requires_channel' => 'https'),
+                array(
+                    'path' => '^/cart/checkout',
+                    'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
+                    'requires_channel' => 'https',
+                ),
             ),
           
 .. _book-security-securing-controller:
@@ -1082,13 +1122,19 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            ...,
+            // ...
             'providers' => array(
                 'default_provider' => array(
                     'memory' => array(
                         'users' => array(
-                            'ryan' => array('password' => 'ryanpass', 'roles' => 'ROLE_USER'),
-                            'admin' => array('password' => 'kitten', 'roles' => 'ROLE_ADMIN'),
+                            'ryan' => array(
+                                'password' => 'ryanpass',
+                                'roles' => 'ROLE_USER',
+                            ),
+                            'admin' => array(
+                                'password' => 'kitten',
+                                'roles' => 'ROLE_ADMIN',
+                            ),
                         ),
                     ),
                 ),
@@ -1202,7 +1248,10 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
         $container->loadFromExtension('security', array(
             'providers' => array(
                 'main' => array(
-                    'entity' => array('class' => 'Acme\UserBundle\Entity\User', 'property' => 'username'),
+                    'entity' => array(
+                        'class' => 'Acme\UserBundle\Entity\User',
+                        'property' => 'username',
+                    ),
                 ),
             ),
         ));
@@ -1258,12 +1307,19 @@ si può fare come segue:
             <!-- ... -->
             <provider name="in_memory">
                 <memory>
-                    <user name="ryan" password="bb87a29949f3a1ee0559f8a57357487151281386" roles="ROLE_USER" />
-                    <user name="admin" password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620" roles="ROLE_ADMIN" />
+                    <user name="ryan"
+                        password="bb87a29949f3a1ee0559f8a57357487151281386"
+                        roles="ROLE_USER" />
+                    <user name="admin"
+                        password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620"
+                        roles="ROLE_ADMIN" />
                 </memory>
             </provider>
 
-            <encoder class="Symfony\Component\Security\Core\User\User" algorithm="sha1" iterations="1" encode_as_base64="false" />
+            <encoder class="Symfony\Component\Security\Core\User\User"
+                algorithm="sha1"
+                iterations="1"
+                encode_as_base64="false" />
         </config>
 
     .. code-block:: php
@@ -1275,8 +1331,14 @@ si può fare come segue:
                 'in_memory' => array(
                     'memory' => array(
                         'users' => array(
-                            'ryan' => array('password' => 'bb87a29949f3a1ee0559f8a57357487151281386', 'roles' => 'ROLE_USER'),
-                            'admin' => array('password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620', 'roles' => 'ROLE_ADMIN'),
+                            'ryan' => array(
+                                'password' => 'bb87a29949f3a1ee0559f8a57357487151281386',
+                                'roles' => 'ROLE_USER',
+                            ),
+                            'admin' => array(
+                                'password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620',
+                                'roles' => 'ROLE_ADMIN',
+                            ),
                         ),
                     ),
                 ),
@@ -1325,7 +1387,7 @@ configurare l'encoder per questo utente:
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            ...,
+            // ...
             'encoders' => array(
                 'Acme\UserBundle\Entity\User' => 'sha512',
             ),
@@ -1378,7 +1440,6 @@ In un controllore, si può usare una scorciatoia:
         $user = $this->getUser();
     }
 
-
 .. note::
 
     Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo
@@ -1399,7 +1460,6 @@ che richiama il metodo
     .. code-block:: html+php
 
         <p>Nome utente: <?php echo $app->getUser()->getUsername() ?></p>
-
 
 Utilizzare fornitori utenti multipli
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1465,7 +1525,10 @@ un nuovo fornitore, che li unisca:
                     ),
                 ),
                 'user_db' => array(
-                    'entity' => array('class' => 'Acme\UserBundle\Entity\User', 'property' => 'username'),
+                    'entity' => array(
+                        'class' => 'Acme\UserBundle\Entity\User',
+                        'property' => 'username',
+                    ),
                 ),
             ),
         ));
@@ -1503,7 +1566,9 @@ l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
                     <memory>
                         <user name="foo" password="test" />
                     </memory>
-                    <entity class="Acme\UserBundle\Entity\User" property="username" />
+
+                    <entity class="Acme\UserBundle\Entity\User"
+                        property="username" />
                 </provider>
             </config>
 
@@ -1518,7 +1583,9 @@ l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
                                 'foo' => array('password' => 'test'),
                             ),
                         ),
-                        'entity' => array('class' => 'Acme\UserBundle\Entity\User', 'property' => 'username'),
+                        'entity' => array(
+                        'class' => 'Acme\UserBundle\Entity\User',
+                        'property' => 'username'),
                     ),
                 ),
             ));
@@ -1559,10 +1626,10 @@ viene sempre utilizzato il primo fornitore:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
-                    ...,
+                    // ...
                     'provider' => 'user_db',
                     'http_basic' => array(
-                        ...,
+                        // ...
                         'provider' => 'in_memory',
                     ),
                     'form_login' => array(),
@@ -1627,7 +1694,10 @@ dei ruoli creando una gerarchia di ruoli:
         $container->loadFromExtension('security', array(
             'role_hierarchy' => array(
                 'ROLE_ADMIN'       => 'ROLE_USER',
-                'ROLE_SUPER_ADMIN' => array('ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH'),
+                'ROLE_SUPER_ADMIN' => array(
+                    'ROLE_ADMIN',
+                    'ROLE_ALLOWED_TO_SWITCH',
+                ),
             ),
         ));
 
@@ -1674,7 +1744,7 @@ parametro di configurazione ``logout``:
             'firewalls' => array(
                 'secured_area' => array(
                     // ...
-                    'logout' => array('path' => '/logout', 'target' => '/'),
+                    'logout' => array('path' => 'logout', 'target' => '/'),
                 ),
             ),
             // ...
@@ -1725,7 +1795,8 @@ una rotta da poter utilizzare per generare l'URL:
 
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="logout" path="/logout" />
 
@@ -1833,7 +1904,7 @@ facilmente, attivando l'ascoltatore ``switch_user`` del firewall:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'main'=> array(
-                    ...,
+                    // ...
                     'switch_user' => true
                 ),
             ),
@@ -1868,7 +1939,9 @@ per mostrare un collegamento per tornare all'utente precedente:
 
         <?php if ($view['security']->isGranted('ROLE_PREVIOUS_ADMIN')): ?>
             <a
-                href="<?php echo $view['router']->generate('homepage', array('_switch_user' => '_exit') ?>"
+                href="<?php echo $view['router']->generate('homepage', array(
+                    '_switch_user' => '_exit',
+                ) ?>"
             >
                 Tornare all'utente precedente
             </a>
@@ -1908,7 +1981,10 @@ maggiore sicurezza, è anche possibile modificare il nome del parametro della qu
             'firewalls' => array(
                 'main'=> array(
                     // ...
-                    'switch_user' => array('role' => 'ROLE_ADMIN', 'parameter' => '_want_to_be_this_user'),
+                    'switch_user' => array(
+                        'role' => 'ROLE_ADMIN',
+                        'parameter' => '_want_to_be_this_user',
+                    ),
                 ),
             ),
         ));

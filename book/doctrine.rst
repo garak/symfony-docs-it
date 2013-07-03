@@ -142,44 +142,43 @@ base dati al posto nostro:
         collation-server = utf8_general_ci
         character-set-server = utf8
 
-Usare SQLite
-~~~~~~~~~~~~
+.. note::
 
-Se si vuole usare SQLite come base dati, occorre impostare il percorso in cui
-si trova il relativo file:
+    Se si vuole usare SQLite come base dati, occorre impostare il percorso in cui
+    si trova il relativo file:
 
-.. configuration-block::
+    .. configuration-block::
 
-    .. code-block:: yaml
+        .. code-block:: yaml
 
-        # app/config/config.yml
-        doctrine:
-            dbal:
-                driver: pdo_sqlite
-                path: "%kernel.root_dir%/sqlite.db"
-                charset: UTF8
+            # app/config/config.yml
+            doctrine:
+                dbal:
+                    driver: pdo_sqlite
+                    path: "%kernel.root_dir%/sqlite.db"
+                    charset: UTF8
 
-    .. code-block:: xml
+        .. code-block:: xml
 
-        <!-- app/config/config.xml -->
-        <doctrine:config
-            driver="pdo_sqlite"
-            path="%kernel.root_dir%/sqlite.db"
-            charset="UTF-8"
-        >
-            <!-- ... -->
-        </doctrine:config>
+            <!-- app/config/config.xml -->
+            <doctrine:config
+                driver="pdo_sqlite"
+                path="%kernel.root_dir%/sqlite.db"
+                charset="UTF-8"
+            >
+                <!-- ... -->
+            </doctrine:config>
 
-    .. code-block:: php
+        .. code-block:: php
 
-        // app/config/config.php
-        $container->loadFromExtension('doctrine', array(
-            'dbal' => array(
-                'driver'  => 'pdo_sqlite',
-                'path'    => '%kernel.root_dir%/sqlite.db',
-                'charset' => 'UTF-8',
-            ),
-        ));
+            // app/config/config.php
+            $container->loadFromExtension('doctrine', array(
+                'dbal' => array(
+                    'driver'  => 'pdo_sqlite',
+                    'path'    => '%kernel.root_dir%/sqlite.db',
+                    'charset' => 'UTF-8',
+                ),
+            ));
 
 Creare una classe entità
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,11 +208,12 @@ solo una semplice classe PHP.
 .. tip::
 
     Una volta imparati i concetti dietro a Doctrine, si può fare in modo che Doctrine
-    crei questa classe entità al posto nostro:
+    crei questa classe entità al posto nostro. Questo comando porrà delle domande, per
+    aiutare nella costruzione dell'entità:
 
     .. code-block:: bash
 
-        $ php app/console doctrine:generate:entity --entity="AcmeStoreBundle:Product" --fields="name:string(255) price:float description:text"
+        $ php app/console doctrine:generate:entity
 
 .. index::
     single: Doctrine; Aggiungere meta-dati di mappatura
@@ -364,6 +364,8 @@ con le sue opzioni Per informazioni sui tipi disponibili, vedere la sezione
         class Product
         // ...
 
+.. _book-doctrine-generating-getters-and-setters:
+
 Generare getter e setter
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -402,7 +404,8 @@ metodi già presenti).
     Il comando ``doctrine:generate:entities`` salva una copia di backup del file
     originale ``Product.php``, chiamata ``Product.php~``. In alcuni casi, la presenza
     di questo file può causare un errore "Cannot redeclare class". Il file può
-    essere rimosso senza problemi.
+    essere rimosso senza problemi. Si può anche usare l'opzione ``--no-backup``, per prevenire
+    la generazione di questi file di backup.
 
     Si noti che non è *necessario* usare questo comando. Doctrine non si appoggia alla
     generazione di codice. Come con le normali classi PHP, occorre solo assicurarsi
@@ -424,6 +427,8 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
     o se siano o meno presenti getter o setter per una proprietà.
     I getter e i setter sono generati qui solo perché necessari per
     interagire col proprio oggetto PHP.
+
+.. _book-doctrine-creating-the-database-tables-schema:
 
 Creare tabelle e schema dela base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -696,7 +701,10 @@ fare come segue::
 
     $em = $this->getDoctrine()->getManager();
     $query = $em->createQuery(
-        'SELECT p FROM AcmeStoreBundle:Product p WHERE p.price > :price ORDER BY p.price ASC'
+        'SELECT p
+        FROM AcmeStoreBundle:Product p
+        WHERE p.price > :price
+        ORDER BY p.price ASC'
     )->setParameter('price', '19.99');
 
     $products = $query->getResult();
@@ -858,7 +866,9 @@ ordinate alfabeticamente.
         public function findAllOrderedByName()
         {
             return $this->getEntityManager()
-                ->createQuery('SELECT p FROM AcmeStoreBundle:Product p ORDER BY p.name ASC')
+                ->createQuery(
+                    'SELECT p FROM AcmeStoreBundle:Product p ORDER BY p.name ASC'
+                )
                 ->getResult();
         }
     }
@@ -954,7 +964,10 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
                     mapped-by="category"
                 />
 
-                <!-- don't forget to init the collection in entity __construct() method -->
+                <!-- 
+                    non dimenticare di inizializzare la collection
+                    nel metodo __construct() dell'entità
+                -->
             </entity>
         </doctrine-mapping>
 
@@ -1325,7 +1338,8 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
             <entity name="Acme\StoreBundle\Entity\Product">
                     <!-- ... -->
                     <lifecycle-callbacks>
-                        <lifecycle-callback type="prePersist" method="setCreatedValue" />
+                        <lifecycle-callback type="prePersist"
+                            method="setCreatedValue" />
                     </lifecycle-callbacks>
             </entity>
         </doctrine-mapping>

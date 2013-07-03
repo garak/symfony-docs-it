@@ -906,13 +906,22 @@ nome utente e password siano diversi, solo se le altre validazioni passano
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('username', new Assert\NotBlank());
-                $metadata->addPropertyConstraint('password', new Assert\NotBlank());
+                $metadata->addPropertyConstraint(
+                    'username',
+                    new Assert\NotBlank()
+                );
+                $metadata->addPropertyConstraint(
+                    'password',
+                    new Assert\NotBlank()
+                );
 
-                $metadata->addGetterConstraint('passwordLegal', new Assert\True(array(
-                    'message' => 'La password deve essere diversa dal nome utente',
+                $metadata->addGetterConstraint(
+                    'passwordLegal',
+                    new Assert\True(array(
+                        'message' => 'La password deve essere diversa dal nome utente',
                     'groups'  => array('Strict'),
-                )));
+                    ))
+                );
 
                 $metadata->setGroupSequence(array('User', 'Strict'));
             }

@@ -386,7 +386,10 @@ valido.
                 $metadata->addPropertyConstraint('task', new NotBlank());
 
                 $metadata->addPropertyConstraint('dueDate', new NotBlank());
-                $metadata->addPropertyConstraint('dueDate', new Type('\DateTime'));
+                $metadata->addPropertyConstraint(
+                    'dueDate',
+                    new Type('\DateTime')
+                );
             }
         }
 
@@ -496,7 +499,10 @@ un callback o a una ``Closure``::
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => array('Acme\\AcmeBundle\\Entity\\Client', 'determineValidationGroups'),
+            'validation_groups' => array(
+                'Acme\AcmeBundle\Entity\Client',
+                'determineValidationGroups',
+            ),
         ));
     }
 
@@ -1082,7 +1088,8 @@ facilmente in un'applicazione.
     .. code-block:: xml
 
         <!-- src/Acme/TaskBundle/Resources/config/services.xml -->
-        <service id="acme_demo.form.type.task" class="Acme\TaskBundle\Form\Type\TaskType">
+        <service id="acme_demo.form.type.task"
+            class="Acme\TaskBundle\Form\Type\TaskType">
             <tag name="form.type" alias="task" />
         </service>
 
@@ -1092,7 +1099,10 @@ facilmente in un'applicazione.
         use Symfony\Component\DependencyInjection\Definition;
 
         $container
-            ->register('acme_demo.form.type.task', 'Acme\TaskBundle\Form\Type\TaskType')
+            ->register(
+                'acme_demo.form.type.task',
+                'Acme\TaskBundle\Form\Type\TaskType'
+            )
             ->addTag('form.type', array(
                 'alias' => 'task',
             ))
@@ -1609,7 +1619,6 @@ con la configurazione dell'applicazione:
                         - 'AcmeTaskBundle:Form'
         # ...
 
-
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
@@ -1804,7 +1813,6 @@ ma ecco un breve esempio:
 .. code-block:: php
 
     new NotBlank(array('groups' => array('create', 'update'))
-
 
 Considerazioni finali
 ---------------------

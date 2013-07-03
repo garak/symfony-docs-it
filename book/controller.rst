@@ -384,6 +384,8 @@ stessa.
 .. note::
 
     È inoltre possibile definire i :doc:`controllori come servizi</cookbook/controller/service>`.
+    È opzionale, ma può dare maggiore controllo sulle esatte dipendenze
+    che sono iniettate dentro al controllore.
 
 .. index::
    single: Controllore; Attività comuni
@@ -667,7 +669,10 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
         if ($form->isValid()) {
             // fare una qualche elaborazione
 
-            $this->get('session')->getFlashBag()->add('notice', 'Le modifiche sono state salvate!');
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'Le modifiche sono state salvate!'
+            );
 
             return $this->redirect($this->generateUrl(...));
         }

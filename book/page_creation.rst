@@ -114,9 +114,11 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
 
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <import resource="@AcmeHelloBundle/Resources/config/routing.xml" prefix="/" />
+            <import resource="@AcmeHelloBundle/Resources/config/routing.xml"
+                prefix="/" />
         </routes>
 
     .. code-block:: php
@@ -157,7 +159,8 @@ che definisce l'URL della pagina che stiamo per creare:
 
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="hello" path="/hello/{name}">
                 <default key="_controller">AcmeHelloBundle:Hello:index</default>
@@ -770,7 +773,9 @@ del formato scelto:
 
         $container->loadFromExtension('framework', array(
             'secret'          => '%secret%',
-            'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
+            'router'          => array(
+                'resource' => '%kernel.root_dir%/config/routing.php',
+            ),
             // ...
             ),
         ));
@@ -936,7 +941,9 @@ il file di configurazione per l'ambiente ``dev``.
         </imports>
 
         <framework:config>
-            <framework:router resource="%kernel.root_dir%/config/routing_dev.xml" />
+            <framework:router
+                resource="%kernel.root_dir%/config/routing_dev.xml"
+            />
             <framework:profiler only-exceptions="false" />
         </framework:config>
 
@@ -948,7 +955,9 @@ il file di configurazione per l'ambiente ``dev``.
         $loader->import('config.php');
 
         $container->loadFromExtension('framework', array(
-            'router'   => array('resource' => '%kernel.root_dir%/config/routing_dev.php'),
+            'router'   => array(
+                'resource' => '%kernel.root_dir%/config/routing_dev.php',
+            ),
             'profiler' => array('only-exceptions' => false),
         ));
 

@@ -415,7 +415,11 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla::
     funziona. Se si vuole sovrascrivere il codice di stato (che non andrebbe fatto senza
     buone ragioni), impostare l'header ``X-Status-Code``::
 
-        return new Response('Error', 404 /* ignorato */, array('X-Status-Code' => 200));
+        return new Response(
+            'Error',
+            404 // ignorato,
+            array('X-Status-Code' => 200)
+        );
 
 .. index::
    single: Distributore di eventi
@@ -607,11 +611,19 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
 
     .. code-block:: xml
 
-        <import resource="@WebProfilerBundle/Resources/config/routing/profiler.xml" prefix="/_profiler" />
+        <import
+            resource="@WebProfilerBundle/Resources/config/routing/profiler.xml"
+            prefix="/_profiler"
+        />
 
     .. code-block:: php
 
-        $collection->addCollection($loader->import("@WebProfilerBundle/Resources/config/routing/profiler.xml"), '/_profiler');
+        $collection->addCollection(
+            $loader->import(
+                "@WebProfilerBundle/Resources/config/routing/profiler.xml"
+            ),
+            '/_profiler'
+        );
 
 Poiché il profilatore aggiunge un po' di sovraccarico, probabilmente lo si abiliterà solo
 in alcune circostanze in ambiente di produzione. L'impostazione ``only-exceptions``
@@ -623,7 +635,8 @@ può usare un matcher della richiesta:
 
     .. code-block:: yaml
 
-        # abilita il profilatore solo per richieste provenienti dalla rete 192.168.0.0
+        # abilita il profilatore solo per richieste
+        # provenienti dalla rete 192.168.0.0
         framework:
             profiler:
                 matcher: { ip: 192.168.0.0/24 }
@@ -638,14 +651,18 @@ può usare un matcher della richiesta:
             profiler:
                 matcher: { ip: 192.168.0.0/24, path: "^/admin/" }
 
-        # usa un matcher personalizzato, definito nel servizio "custom_matcher"
+        # usa un matcher personalizzato, definito
+        # nel servizio "custom_matcher"
         framework:
             profiler:
                 matcher: { service: custom_matcher }
 
     .. code-block:: xml
 
-        <!-- abilita il profilatore solo per richieste provenienti dalla rete 192.168.0.0 -->
+        <!-- 
+            abilita il profilatore solo per richieste
+            provenienti dalla rete 192.168.0.0
+        -->
         <framework:config>
             <framework:profiler>
                 <framework:matcher ip="192.168.0.0/24" />
@@ -666,7 +683,10 @@ può usare un matcher della richiesta:
             </framework:profiler>
         </framework:config>
 
-        <!-- usa un matcher personalizzato, definito nel servizio "custom_matcher" -->
+        <!-- 
+            usa un matcher personalizzato, definito
+            nel servizio "custom_matcher"
+        -->
         <framework:config>
             <framework:profiler>
                 <framework:matcher service="custom_matcher" />
@@ -675,7 +695,8 @@ può usare un matcher della richiesta:
 
     .. code-block:: php
 
-        // abilita il profilatore solo per richieste provenienti dalla rete 192.168.0.0
+        // abilita il profilatore solo per richieste
+        // provenienti dalla rete 192.168.0.0
         $container->loadFromExtension('framework', array(
             'profiler' => array(
                 'matcher' => array('ip' => '192.168.0.0/24'),
@@ -692,11 +713,15 @@ può usare un matcher della richiesta:
         // combina le regole
         $container->loadFromExtension('framework', array(
             'profiler' => array(
-                'matcher' => array('ip' => '192.168.0.0/24', 'path' => '^/admin/'),
+                'matcher' => array(
+                    'ip' => '192.168.0.0/24',
+                    'path' => '^/admin/',
+                ),
             ),
         ));
 
-        # usa un matcher personalizzato, definito nel servizio "custom_matcher"
+        // usa un matcher personalizzato,
+        // definito nel servizio "custom_matcher"
         $container->loadFromExtension('framework', array(
             'profiler' => array(
                 'matcher' => array('service' => 'custom_matcher'),

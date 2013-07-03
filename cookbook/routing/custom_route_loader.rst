@@ -158,15 +158,15 @@ Adesso definire un servizio per l'``ExtraLoader``:
             ->addTag('routing.loader')
         ;
 
-Notate il tag ``routing.loader``. Tutti i servizi con questo tag saranno marcati
-come potenziali loader di route e aggiunti come router specializzati alla classe
+Si noti il tag ``routing.loader``. Tutti i servizi con questo tag saranno marcati
+come potenziali loader di rotte e aggiunti come router specializzati alla classe
 :class:`Symfony\\Bundle\\FrameworkBundle\\Routing\\DelegatingLoader`.
 
 Usare un Custom Loader
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Se non avete fatto niente di diverso il vostro routing loader *non* sarà interpellato.
-Avete solo bisogno di aggiungere qualche riga extra alla configurazione del router.
+Se non è stato fatto niente di diverso, il routing loader *non* sarà interpellato.
+Occorre solo aggiungere qualche riga extra alla configurazione del router.
 
     .. configuration-block::
 
@@ -217,7 +217,7 @@ ma estendere la classe :class:`Symfony\\Component\\Config\\Loader\\Loader`.
 Questa classe sa come usare un :class:`Symfony\\Component\\Config\\Loader\\LoaderResolver`
 per caricare le risorse di routing secondarie.
 
-Ovviamente avete ancora bisogno di implementare i metodi
+Ovviamente è ancora necessario implementare i metodi
 :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
 e :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::load`.
 Ogni volta che si carica un'altra risorsa, per esempio un file di configurazione di rotte in 

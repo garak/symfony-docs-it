@@ -16,9 +16,9 @@ Configurazione
 --------------
 
 * `secret`_
+* `http_method_override`_
 * `ide`_
 * `test`_
-* `trust_proxy_headers`_
 * `trusted_proxies`_
 * `form`_
     * enabled
@@ -36,11 +36,14 @@ Configurazione
     * `gc_probability`_
     * `gc_maxlifetime`_
     * `save_path`_
+* `serializer`_
+    * :ref:`enabled<serializer.enabled>`
 * `templating`_
     * `assets_base_urls`_
     * `assets_version`_
     * `assets_version_format`_
-    * `profiler`_
+* `profiler`_
+    * `collect`_
     * :ref:`enabled<profiler.enabled>`
 
 secret
@@ -52,6 +55,23 @@ Una stringa che dovrebbe essere univoca nella propria applicazione. In pratica,
 è usta per generare il token anti-CSRF, ma potrebbe essere usata in ogni altro
 contesto in cui è utili avere una stringa univoca. Diventa il parametro del
 contenitore di servizi di nome ``kernel.secret``.
+
+.. _configuration-framework-http_method_override:
+
+http_method_override
+~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.3
+    L'opzione ``http_method_override`` è nuova in Symfony 2.3.
+
+**type**: ``booleano`` **predefinito**: ``true``
+
+Determina se il parametro ``_method`` della richiesta sia usato come metodo HTTP inteso
+sulle richieste POST. Se abilitato,
+:method:`Request::enableHttpMethodParameterOverride <Symfony\\Component\\HttpFoundation\\Request::enableHttpMethodParameterOverride>`
+è richiamato automaticamente. Diventa un parametro del contenitore di servizi, con nome
+``kernel.http_method_override``. Per maggiori informazioni, vedere
+:doc:`/cookbook/routing/method_parameters`.
 
 ide
 ~~~
@@ -102,41 +122,28 @@ trusted_proxies
 Configura gli indirizzi IP di cui fidarsi come proxy. Per maggiori dettagli,
 vedere :doc:`/components/http_foundation/trusting_proxies`.
 
+.. versionadded:: 2.3
+    È stato introdotto il supporto per la notazione CIDR, quindi si possono indicare
+    intere sotto-reti (p.e. ``10.0.0.0/8``, ``fc00::/7``).
+
 .. configuration-block::
 
     .. code-block:: yaml
 
         framework:
-            trusted_proxies:  [192.0.0.1]
+            trusted_proxies:  [192.0.0.1, 10.0.0.0/8]
 
     .. code-block:: xml
 
-        <framework:config trusted-proxies="192.0.0.1">
+        <framework:config trusted-proxies="192.0.0.1, 10.0.0.0/8">
             <!-- ... -->
         </framework>
 
     .. code-block:: php
 
         $container->loadFromExtension('framework', array(
-            'trusted_proxies' => array('192.0.0.1'),
+            'trusted_proxies' => array('192.0.0.1', '10.0.0.0/8'),
         ));
-
-trust_proxy_headers
-~~~~~~~~~~~~~~~~~~~
-
-.. caution::
-
-    L'opzione ``trust_proxy_headers`` è deprecata e sarà rimossa in
-    Symfony 2.3. Vedere `trusted_proxies`_ e :doc:`/components/http_foundation/trusting_proxies`
-    per i dettagli su come fidarsi in modo corretto dei dati dei proxy.
-
-**tipo**: ``booleano``
-
-Configura se gli header HTTP (come ``HTTP_X_FORWARDED_FOR``, ``X_FORWARDED_PROTO`` e
-``X_FORWARDED_HOST``) siano affidabili indicazioni per una connessione SSL. L'impostazione
-predefinita è ``false`` e quindi solo le connessioni SSL_HTTPS sono considerate sicure.
-
-Si dovrebbe abilitare questa impostazione se l'applicazione è dietro un reverse proxy.
 
 .. _reference-framework-form:
 
@@ -160,9 +167,6 @@ il nome definito nel ``php.ini`` con la direttiva ``session.name``.
 cookie_lifetime
 ...............
 
-.. versionadded:: 2.1
-    Questa opzione in precedenza si chiamava ``lifetime``
-
 **tipo**: ``intero`` **predefinito**: ``0``
 
 Determina la durata della sessione in secondi. Per impostazione predefinita, sarà
@@ -171,18 +175,12 @@ Determina la durata della sessione in secondi. Per impostazione predefinita, sar
 cookie_path
 ...........
 
-.. versionadded:: 2.1
-    Questa opzione in precedenza si chiamava ``path``
-
 **tipo**: ``stringa`` **predefinito**: ``/``
 
 Determina il percorso da impostare nel cookie di sessione. Per impostazione predefinita è ``/``.
 
 cookie_domain
 .............
-
-.. versionadded:: 2.1
-    Questa opzione in precedenza si chiamava ``domain``
 
 **tipo**: ``stringa`` **predefinito**: ``''``
 
@@ -193,18 +191,12 @@ in accordo alle specifiche.
 cookie_secure
 .............
 
-.. versionadded:: 2.1
-    Questa opzione in precedenza si chiamava ``secure``
-
 **tipo**: ``booleano`` **predefinito**: ``false``
 
 Determina se i cookie debbano essere inviati su una connessione sicura.
 
 cookie_httponly
 ...............
-
-.. versionadded:: 2.1
-    Questa opzione in precedenza si chiamava ``httponly``
 
 **tipo**: ``booleano`` **predefinito**: ``false``
 
@@ -216,9 +208,6 @@ tramite attacchi XSS.
 gc_probability
 ..............
 
-.. versionadded:: 2.1
-    L'opzione ``gc_probability`` è stata aggiunta nella versione 2.1
-
 **tipo**: ``intero`` **predefinito**: ``1``
 
 Definisce la probabilità che il processo del garbage collector parta a
@@ -229,18 +218,12 @@ che il processo parta, in ogni richiesta.
 gc_divisor
 ..........
 
-.. versionadded:: 2.1
-    L'opzione ``gc_divisor`` è stata aggiunta nella versione 2.1
-
 **tipo**: ``intero`` **predefinito**: ``100``
 
 Vedere `gc_probability`_.
 
 gc_maxlifetime
 ..............
-
-.. versionadded:: 2.1
-    L'opzione ``gc_maxlifetime`` è stata aggiunta nella versione 2.1
 
 **tipo**: ``intero`` **predefinito**: ``14400``
 
@@ -254,8 +237,10 @@ save_path
 **tipo**: ``stringa`` **predefinito**: ``%kernel.cache.dir%/sessions``
 
 Determina il parametro da passare al gestore di salvataggio. Se si sceglie il gestore
-file (quello predefinito), è il percorso in cui saranno creati i file. Si può anche impostare
-questo  valore a quello di ``save_path`` di ``php.ini``, impostandolo
+file (quello predefinito), è il percorso in cui saranno creati i file.
+Per maggiori informazioni, vedere :doc:`/cookbook/session/sessions_directory`.
+
+Si può anche impostare questo  valore a quello di ``save_path`` di ``php.ini``, impostandolo
 a ``null``:
 
 .. configuration-block::
@@ -283,6 +268,22 @@ a ``null``:
             ),
         ));
 
+.. _configuration-framework-serializer:
+
+serializer
+~~~~~~~~~~
+
+.. _serializer.enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se abilitare o meno il servizio ``serializer`` nel contenitore.
+
+Per maggiori dettagli, vedere :doc:`/cookbook/serializer`.
+
 templating
 ~~~~~~~~~~
 
@@ -302,15 +303,6 @@ le richieste ``http`` e ``https``. Se un URL inizia con ``https://`` o
 è `protocol-relative`_ (cioè inizia con `//`), sarà aggiunto a entrambe le
 liste. Gli URL che iniziano con ``http://`` saranno aggiunti solo alla lista
 ``http``.
-
-.. versionadded:: 2.1
-    Diversamente dalla maggior parte dei blocchi di configurazione, i valori successivi di ``assets_base_urls``
-    si sovrascrivono a vicenda invece di essere fusi. È stato scelto questo comportamento
-    perché solitamente gli sviluppatori definiscono URL di base per ogni ambiente.
-    Dato che la maggior parte dei progetti tende a ereditare configurazioni
-    (p.e. ``config_test.yml`` importa ``config_dev.yml``) e/o condividere una configurazione
-    comune di base (p.e. ``config.yml``), la fusione avrebbe portato a un insieme di URL di base
-    per ambienti multipli.
 
 .. _ref-framework-assets-version:
 
@@ -423,8 +415,25 @@ enabled
 
 **predefinito**: ``true`` negli ambienti ``dev`` e ``test``
 
-Il profiler può essere disabilitato importanto questa chiave a ``false``. In realtà,
-il profiler continua ad esistere, ma i collettori dei dati non sono attivi.
+Il profiler può essere disabilitato importanto questa chiave a ``false``.
+
+.. versionadded:: 2.3
+
+    The ``collect`` option is new in Symfony 2.3. Previously, when ``profiler.enabled``
+    was false, the profiler *was* actually enabled, but the collectors were
+    disabled. Now the profiler and collectors can be controller independently.
+
+collect
+.......
+
+**predefinito**: ``true``
+
+Questa opzione configura il modo in cui il profilatore si comporta quando abilitato. Se
+``true``, il profilatore raccoglie dati per ogni richiesta. Se si vogliono raccogliere
+informazioni solo in casi specifici, impostare ``collect`` a ``false``
+e attivare i raccoglitori di dati manualmente::
+
+    $profiler->enable();
 
 Configurazione predefinita completa
 -----------------------------------
@@ -434,9 +443,8 @@ Configurazione predefinita completa
     .. code-block:: yaml
 
         framework:
-            charset:              ~
             secret:               ~
-            trust_proxy_headers:  false
+            http_method_override: true
             trusted_proxies:      []
             ide:                  ~
             test:                 ~
@@ -461,6 +469,7 @@ Configurazione predefinita completa
             # configurazione del profilatore
             profiler:
                 enabled:              false
+                collect:              true
                 only_exceptions:      false
                 only_master_requests:  false
                 dsn:                  file:%kernel.cache_dir%/profiler
@@ -489,8 +498,6 @@ Configurazione predefinita completa
 
             # configurazione della sessione
             session:
-                # DEPRECATO! La sessione parte su richiesta
-                auto_start:           false
                 storage_id:           session.storage.native
                 handler_id:           session.handler.native_file
                 name:                 ~
@@ -504,20 +511,9 @@ Configurazione predefinita completa
                 gc_maxlifetime:       ~
                 save_path:            %kernel.cache_dir%/sessions
 
-                # DEPRECATO! Usare: cookie_lifetime
-                lifetime:             ~
-
-                # DEPRECATO! Usare: cookie_path
-                path:                 ~
-
-                # DEPRECATO! Usare: cookie_domain
-                domain:               ~
-
-                # DEPRECATO! Usare: cookie_secure
-                secure:               ~
-
-                # DEPRECATO! Usare: cookie_httponly
-                httponly:             ~
+            # configurazione dei serializer
+            serializer:
+               enabled: false
 
             # configurazione dei template
             templating:
@@ -565,10 +561,5 @@ Configurazione predefinita completa
                 cache:                file
                 file_cache_dir:       %kernel.cache_dir%/annotations
                 debug:                %kernel.debug%
-
-
-.. versionadded:: 2.1
-    L'impostazione ```framework.session.auto_start`` è stata rimossa in Symfony2.1,
-    che inizia la sessione su richiesta.
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2

@@ -158,7 +158,7 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
     kernel dell'applicazione. Nella maggior parte dei casi, questo avviene in modo automatico.
     Tuttavia, se il proprio kernel si trova in una cartella non standard, occorre modificare
     il file ``phpunit.xml.dist`` e impostare nella variabile d'ambiente ``KERNEL_DIR`` la
-    cartella del proprio kernel::
+    cartella del proprio kernel:
 
     .. code-block:: xml
 

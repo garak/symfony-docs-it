@@ -423,8 +423,8 @@ enabled
 
 **predefinito**: ``true`` negli ambienti ``dev`` e ``test``
 
-Il profiler può essere disabilitato importanto questa chiave a ``false``. In realtà,
-il profiler continua ad esistere, ma i collettori dei dati non sono attivi.
+Il profiler può essere disabilitato impostando questa chiave a ``false``. In realtà,
+il profiler continua a esistere, ma i raccogiltori di dati non sono attivi.
 
 Configurazione predefinita completa
 -----------------------------------

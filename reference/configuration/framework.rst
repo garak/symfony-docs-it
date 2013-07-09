@@ -415,13 +415,13 @@ enabled
 
 **predefinito**: ``true`` negli ambienti ``dev`` e ``test``
 
-Il profiler può essere disabilitato importanto questa chiave a ``false``.
+Il profiler può essere disabilitato impostando questa chiave a ``false``.
 
 .. versionadded:: 2.3
 
-    The ``collect`` option is new in Symfony 2.3. Previously, when ``profiler.enabled``
-    was false, the profiler *was* actually enabled, but the collectors were
-    disabled. Now the profiler and collectors can be controller independently.
+    L'opzione ``collect`` è nuova in Symfony 2.3. Precedentemente, quando ``profiler.enabled``
+    era ``false``, il profilatore *era* effettivamente attivo, ma i raccoglitori
+    disabilitati. Ora profilatore e raccoglitori sono controllabili separatamente.
 
 collect
 .......

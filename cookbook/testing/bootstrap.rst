@@ -32,8 +32,8 @@ con ``tests.bootstrap.php``:
     bootstrap = "tests.bootstrap.php"
     >
 
-Ora possiamo definire, nel nostro file ``phpunit.xml.dist``, quale ambiente della cache
-vogliamo pulire:
+Ora si può definire, nel proprio file ``phpunit.xml.dist``, quale ambiente della cache
+si vuole pulire:
 
 .. code-block:: xml
 
@@ -42,5 +42,5 @@ vogliamo pulire:
         <env name="BOOTSTRAP_CLEAR_CACHE_ENV" value="test"/>
     </php>
 
-Ora abbiamo una variabile di ambiente (come ``$_ENV``) a disposizione
-nel fil di boostrap personalizzato (``tests.bootstrap.php``).
+Ora si dispone di una variabile di ambiente (come ``$_ENV``)
+nel file di boostrap personalizzato (``tests.bootstrap.php``).

@@ -103,7 +103,7 @@ group_by
 Il percorso di proprietà (p.e. ``author.name``) usato per organizzare le scelte
 disponibili in gruppi. Funziona solo se reso come tag select e lo fa
 aggiungendo tag optgroup tra le opzioni. Le scelte che non restituiscono un
-valore per questo percorso di proprietà sono rese direttamete sotto il tag
+valore per questo percorso di proprietà sono rese direttamente sotto il tag
 select, senza optgroup.
 
 query_builder

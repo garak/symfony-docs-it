@@ -100,7 +100,7 @@ Ora si deve rendere nota al contenitore di servizi l'estensione di Twig appena c
    Tenere a mente che le estensioni di Twig non sono caricate in modalità pigra. Questo
    vuol dire che c'è una buona possibilità di avere una **CircularReferenceException**
    o una **ScopeWideningInjectionException**, se un servizio
-   (o un'estensione Twig, in questo caso) dipendono dal servisio della richiesta.
+   (o un'estensione Twig, in questo caso) dipendono dal servizio della richiesta.
    Per maggiori informazioni, si veda :doc:`/cookbook/service_container/scopes`.
 
 Usare l'estensione personalizzata                

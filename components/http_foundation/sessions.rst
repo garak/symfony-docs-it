@@ -27,7 +27,7 @@ Un rapido esempio::
     $session->set('name', 'Drak');
     $session->get('name');
 
-    // imposta messggi flash
+    // imposta messaggi flash
     $session->getFlashBag()->add('notice', 'Profilo aggiornato');
 
     // recupera i messaggi

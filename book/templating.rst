@@ -204,10 +204,10 @@ Primo, costruire un file per il layout di base:
             <body>
                 <div id="sidebar">
                     {% block sidebar %}
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/blog">Blog</a></li>
-                    </ul>
+                        <ul>
+                              <li><a href="/">Home</a></li>
+                              <li><a href="/blog">Blog</a></li>
+                        </ul>
                     {% endblock %}
                 </div>
 
@@ -559,20 +559,22 @@ Includere questo template da un altro template è semplice:
             <?php endforeach; ?>
         <?php $view['slots']->stop() ?>
 
-Il template è incluso usando il tag ``{% include %}``. Si noti che il nome del
+Il template è incluso usando il tag ``{{ include ]}``. Si noti che il nome del
 template segue le stesse tipiche convenzioni. Il template ``articleDetails.html.twig``
-usa una variabile ``article``. Questa viene passata nel template ``list.html.twig``
-usando il comando ``with``.
+usa una variabile ``article``, che viene passata. In questo caso,
+lo si può evitare, perché tutte le variabili disponibili in
+``list.html.twig`` lo sono anche in ``articleDetails.html.twig`` (a meno che non
+si imposti `with_context`_ a ``false``.
 
 .. tip::
 
     La sintassi ``{'article': article}`` è la sintassi standard di Twig per gli
-    array associativi (con chiavi non numeriche). Se avessimo avuto bisogno di passare più
-    elementi, sarebbe stato così: ``{'pippo': pippo, 'pluto': pluto}``.
+    array associativi (cioè con chiavi non numeriche). Se si avesse bisogno di passare più
+    elementi, si può fare in questo modo: ``{'pippo': pippo, 'pluto': pluto}``.
 
 .. versionadded:: 2.2
-    La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
-    Symfony 2.2. Precedentemente, si usava il tag ``{% include %}``.
+    La funzione `include()`_ è una nuova caratteristica di Twig, disponibile in
+    Symfony 2.2. Precedentemente, si usava il tag `{% include %}`_.
 
 .. index::
    single: Template; Inserire azioni
@@ -679,11 +681,13 @@ Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
 Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
 
+
 .. configuration-block::
 
     .. code-block:: jinja
 
-        {% render url('...') with {}, {'standalone': 'js'} %}
+        {{ render_hinclude(controller('...')) %}
+        {{ render_hinclude(url('...')) %}
 
     .. code-block:: php
 
@@ -1046,7 +1050,7 @@ cartella "web").
 
 .. code-block:: html+jinja
 
-   <link href="{{ asset('bundles/acmedemo/css/contact.css') }}" type="text/css" rel="stylesheet" />
+   <link href="{{ asset('bundles/acmedemo/css/contact.css') }}" rel="stylesheet" />
 
 Il risultato finale è una pagina che include i fogli di stile ``main.css`` e
 ``contact.css``.
@@ -1226,7 +1230,7 @@ appropriata.
 .. _templating-overriding-core-templates:
 
 .. index::
-    single; Template; Sovrascrivere template di eccezioni
+    single: Template; Sovrascrivere template di eccezioni
 
 Sovrascrivere template del nucleo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1392,8 +1396,6 @@ in una stringa Javascript, usare il contesto ``js``:
 .. index::
    single: Template; Formati
 
-.. _template-formats:
-
 Debug
 -----
 
@@ -1437,6 +1439,8 @@ Si possono cercare eventuali errori di sintassi nei template Twig, usando il com
 
     # oppure per bundle:
     $ php app/console twig:lint @AcmeArticleBundle
+
+.. _template-formats:
 
 Formati di template
 -------------------
@@ -1533,3 +1537,6 @@ Imparare di più con il ricettario
 .. _`filtri`: http://twig.sensiolabs.org/doc/filters/index.html
 .. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`hinclude.js`: http://mnot.github.com/hinclude/
+.. _`with_context`: http://twig.sensiolabs.org/doc/functions/include.html
+.. _`include()`: http://twig.sensiolabs.org/doc/functions/include.html
+.. _`{% include %}`: http://twig.sensiolabs.org/doc/tags/include.html

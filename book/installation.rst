@@ -127,12 +127,6 @@ Tutti i file pubblici e il front controller che gestisce le richieste in arrivo 
 un'applicazione Symfony2 si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
 di aver decompresso l'archivio nella cartella radice del server web o di un virtual host,
 gli URL dell'applicazione inizieranno con ``http://localhost/Symfony/web/``.
-Per avere URL brevi, si deve far puntare la cartella radice del server web o
-del virtual host alla cartella ``Symfony/web/``. Sebbene ciò non sia obbligatorio
-per lo sviluppo, è raccomandato nel momento in cui l'applicazione va in
-produzione, perché tutti i file di sistema e di configurazione diventano inaccessibili agli utenti.
-Per informazioni su come configurare il proprio server web, vedere la
-documentazione seguente: `Apache`_ | `Nginx`_ .
 
 .. note::
 
@@ -194,10 +188,9 @@ Symfony stesso, nella cartella ``vendor/``.
     consentito dal sistema operativo. Per creare collegamenti simbolici invece di copiare le risorse,
     aggiungere una voce nel nodo ``extra`` del file composer.json con chiave
     ``symfony-assets-install`` e valore ``symlink``:
-    
 
     .. code-block:: json
-    
+
         "extra": {
             "symfony-app-dir": "app",
             "symfony-web-dir": "web",
@@ -232,22 +225,6 @@ Se ci sono problemi, correggerli prima di proseguire.
     si possono eseguire i seguenti comandi una sola volta sul proprio progetto, per
     assicurarsi che i permessi siano impostati correttamente.
 
-    **Si noti che non tutti i server web girano con lo stesso utenteo** ``www-data`` usato negli esempi
-    di seguito. Verificare con quale utente gira *il proprio* server web e usare quello
-    al posto di ``www-data``.
-
-    Su sistemi di tipo UNIX, lo si può fare con uno dei seguenti comandi:
-
-    .. code-block:: bash
-    
-        $ ps aux | grep httpd
-
-    oppure
-
-    .. code-block:: bash
-
-        $ ps aux | grep apache
-
     **1. Usare ACL su un sistema che supporta chmod +a**
 
     Molti sistemi consento di usare il comando ``chmod +a``. Provare prima questo e, in
@@ -259,21 +236,25 @@ Se ci sono problemi, correggerli prima di proseguire.
         $ rm -rf app/cache/*
         $ rm -rf app/logs/*
 
-        $ sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
-        $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+		$ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
+		$ sudo chmod +a "$APACHEUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+		$ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+
 
     **2. Usare ACL su un sistema che non supporta chmod +a**
 
     Alcuni sistemi non supportano ``chmod +a``, ma supportano un altro programma
     chiamato ``setfacl``. Si potrebbe aver bisogno di `abilitare il supporto ACL`_ sulla
-    propria partizione e installare setfacl prima di usarlo (come nel caso di Ubuntu),
-    in questo modo:
+    propria partizione e installare setfacl prima di usarlo (come nel caso di Ubuntu). Viene
+    usato un comando per cercare di determinare l'utente con cui gira il server web e impostarlo
+    come ``APACHEUSER``:
 
     .. code-block:: bash
 
-        $ sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
-        $ sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
-
+		$ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
+		$ sudo setfacl -R -m u:$APACHEUSER:rwX -m u:`whoami`:rwX app/cache app/logs
+		$ sudo setfacl -dR -m u:$APACHEUSER:rwX -m u:`whoami`:rwX app/cache app/logs
+		
     **3. Senza usare ACL**
 
     Se non è possibile modificare l'ACL delle cartelle, occorrerà modificare

@@ -470,6 +470,9 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
 .. index::
    single: Traduzioni; Domini dei messaggi
 
+
+.. _using-message-domains:
+
 Uso dei domini per i messaggi
 -----------------------------
 
@@ -580,14 +583,14 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
     .. code-block:: yaml
 
         contact:
-            pattern:   /{_locale}/contact
+            path:      /{_locale}/contact
             defaults:  { _controller: AcmeDemoBundle:Contact:index, _locale: en }
             requirements:
                 _locale: en|fr|de
 
     .. code-block:: xml
 
-        <route id="contact" pattern="/{_locale}/contact">
+        <route id="contact" path="/{_locale}/contact">
             <default key="_controller">AcmeDemoBundle:Contact:index</default>
             <default key="_locale">en</default>
             <requirement key="_locale">en|fr|de</requirement>

@@ -201,7 +201,7 @@ direttamente.
 
 3) **Dati di vista** - il formato usato per riempire i campi stessi del form.
 È anche il formato in cui l'utente invierà i dati. Quando si richiama
-``Form::bind($data)``, ``$data`` + nel formato di dati "vista".
+``Form::bind($data)``, ``$data`` è nel formato di dati "vista".
 
 I due diversi tipi di trasformatori aiutano a convertire da e per ciascuno di questi
 tipi di dati:
@@ -214,7 +214,7 @@ tipi di dati:
     - ``transform``: "dati normali" => "dati vista"
     - ``reverseTransform``: "dati vista" => "dati normali"
 
-A seconda della situazione, occorrerà un tasformatore diverso.
+A seconda della situazione, occorrerà un trasformatore diverso.
 
 Per usare un trasformatore di vista, richiamare ``addViewTransformer``.
 

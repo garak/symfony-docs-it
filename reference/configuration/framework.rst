@@ -94,6 +94,8 @@ caricati i servizi correlati ai test della propria applicazione (p.e. ``test.cli
 Questa impostazione dovrebbe essere presete nel proprio ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
+.. _reference-framework-trusted-proxies:
+
 trusted_proxies
 ~~~~~~~~~~~~~~~
 
@@ -254,8 +256,10 @@ save_path
 **tipo**: ``stringa`` **predefinito**: ``%kernel.cache.dir%/sessions``
 
 Determina il parametro da passare al gestore di salvataggio. Se si sceglie il gestore
-file (quello predefinito), è il percorso in cui saranno creati i file. Si può anche impostare
-questo  valore a quello di ``save_path`` di ``php.ini``, impostandolo
+file (quello predefinito), è il percorso in cui saranno creati i file.
+Per maggiori informazioni, vedere :doc:`/cookbook/session/sessions_directory`.
+
+Si può anche impostare questo  valore a quello di ``save_path`` di ``php.ini``, impostandolo
 a ``null``:
 
 .. configuration-block::
@@ -361,7 +365,7 @@ Ora, attivare l'opzione ``assets_version``:
         $container->loadFromExtension('framework', array(
             ...,
             'templating'      => array(
-                'engines' => array('twig'),
+                'engines'        => array('twig'),
                 'assets_version' => 'v2',
             ),
         ));
@@ -569,6 +573,6 @@ Configurazione predefinita completa
 
 .. versionadded:: 2.1
     L'impostazione ```framework.session.auto_start`` è stata rimossa in Symfony2.1,
-    che inizia la sessione su richiesta.
+    ora la sessione inizia su richiesta.
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2

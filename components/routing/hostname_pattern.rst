@@ -5,7 +5,7 @@ Corrispondere una rotta in base all'host
 ========================================
 
 .. versionadded:: 2.2
-    Il supporto per la corrispondenza degli host è stati aggiunto in Symfony 2.2
+    Il supporto per la corrispondenza degli host è stato aggiunto in Symfony 2.2
 
 Si può anche far corrispondere l'*host* HTTP della richiesta in entrata.
 

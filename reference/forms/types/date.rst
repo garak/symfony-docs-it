@@ -36,7 +36,9 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 | ereditate                | - `invalid_message_parameters`_                                             |
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
+|                          | - `mapped`_                                                                 |
 |                          | - `virtual`_                                                                |
+|                          | - `error_mapping`_                                                          |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | ``field`` (se testo), ``form`` altrimenti                                   |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -147,3 +149,5 @@ Queste opzioni sono ereditate dal tipo  :doc:`field</reference/forms/types/field
 Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/virtual.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc

@@ -55,9 +55,6 @@ Riferimento configurazione
                     email_prototype:
                         id:                   ~ # Obbligatorio (se si usa email_prototype)
                         method:               ~
-                    channels:
-                        type:                 ~
-                        elements:             []
                     formatter:            ~
 
     .. code-block:: xml

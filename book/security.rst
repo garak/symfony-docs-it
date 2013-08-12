@@ -25,8 +25,8 @@ l'applicazione con l'autenticazione base HTTP.
 
 .. note::
 
-    Il `componente della sicurezza`_ di Symfony è disponibile come libreria PHP a sé stante,
-    per l'utilizzo all'interno di qualsiasi progetto PHP.
+    Il `componente della sicurezza </components/security/introduction>` di Symfony è 
+    disponibile come libreria PHP a sé stante, per l'utilizzo all'interno di qualsiasi progetto PHP.
 
 Esempio di base: l'autenticazione HTTP
 --------------------------------------

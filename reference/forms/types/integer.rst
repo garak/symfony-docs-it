@@ -16,6 +16,7 @@ Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arro
 | Reso come     | campo ``input`` ``text``                                              |
 +---------------+-----------------------------------------------------------------------+
 | Opzioni       | - `rounding_mode`_                                                    |
+|               | - `precision`_                                                        |
 |               | - `grouping`_                                                         |
 +---------------+-----------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                         |
@@ -23,17 +24,20 @@ Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arro
 |               | - `read_only`_                                                        |
 |               | - `disabled`_                                                         |
 |               | - `error_bubbling`_                                                   |
+|               | - `error_mapping`_                                                    |
 |               | - `invalid_message`_                                                  |
 |               | - `invalid_message_parameters`_                                       |
 |               | - `mapped`_                                                           |
 +---------------+-----------------------------------------------------------------------+
-| Tipo genitore | :doc:`field</reference/forms/types/field>`                            |
+| Tipo genitore | :doc:`field</reference/forms/types/form>`                             |
 +---------------+-----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType` |
 +---------------+-----------------------------------------------------------------------+
 
 Opzioni del campo
 -----------------
+
+.. include:: /reference/forms/types/options/precision.rst.inc
 
 rounding_mode
 ~~~~~~~~~~~~~
@@ -72,6 +76,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

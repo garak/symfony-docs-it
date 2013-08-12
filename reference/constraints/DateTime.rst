@@ -46,11 +46,17 @@ Uso di base
     .. code-block:: xml
 
         <!-- src/Acme/UserBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <property name="createdAt">
-                <constraint name="DateTime" />
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="createdAt">
+                    <constraint name="DateTime" />
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -64,7 +70,7 @@ Uso di base
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('createdAt', new Assert\DataTime());
+                $metadata->addPropertyConstraint('createdAt', new Assert\DateTime());
             }
         }
 

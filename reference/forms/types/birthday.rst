@@ -24,6 +24,7 @@ ma con valori predefiniti più appropriati per l'opzione `years`_. L'opzione
 +--------------------------+-------------------------------------------------------------------------------+
 | Opzioni ereditate        | - `widget`_                                                                   |
 |                          | - `input`_                                                                    |
+|                          | - `empty_value`_                                                              |
 |                          | - `months`_                                                                   |
 |                          | - `days`_                                                                     |
 |                          | - `format`_                                                                   |
@@ -60,6 +61,8 @@ Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/date>`:
 .. include:: /reference/forms/types/options/date_widget.rst.inc
 
 .. include:: /reference/forms/types/options/date_input.rst.inc
+
+.. include:: /reference/forms/types/options/empty_value.rst.inc
 
 .. include:: /reference/forms/types/options/months.rst.inc
 

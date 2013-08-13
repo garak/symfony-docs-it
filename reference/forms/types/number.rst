@@ -20,11 +20,12 @@ per i numeri.
 |               | - `read_only`_                                                       |
 |               | - `disabled`_                                                        |
 |               | - `error_bubbling`_                                                  |
+|               | - `error_mapping`_                                                   |
 |               | - `invalid_message`_                                                 |
 |               | - `invalid_message_parameters`_                                      |
 |               | - `mapped`_                                                          |
 +---------------+----------------------------------------------------------------------+
-| Tipo genitore | :doc:`field</reference/forms/types/field>`                           |
+| Tipo genitore | :doc:`form</reference/forms/types/form>`                             |
 +---------------+----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\NumberType` |
 +---------------+----------------------------------------------------------------------+
@@ -32,20 +33,12 @@ per i numeri.
 Opzioni del campo
 -----------------
 
-precision
-~~~~~~~~~
-
-**tipo**: ``intero`` **predefinito**: dipende dal locale (solitamente ``3``)
-
-Specifica quanti decimali saranno consentiti prima che il campo arrotondi il
-valore inviato (tramite ``rounding_mode``). Per esempio, se ``precision`` è
-impostato a ``2``, un valore inviato di ``20.123`` sarà arrotondato, per esempio,
-a ``20.12`` (a seconda dell'opzione ``rounding_mode``).
+.. include:: /reference/forms/types/options/precision.rst.inc
 
 rounding_mode
 ~~~~~~~~~~~~~
 
-**tipo**: ``intero`` **predefinito**: ``IntegerToLocalizedStringTransformer::ROUND_DOWN``
+**tipo**: ``intero`` **predefinito**: ``IntegerToLocalizedStringTransformer::ROUND_HALFUP``
 
 Se un numero inviato ha bisogno di essere arrotondato (in base all'opzione ``precision``),
 si dispone di varie opzioni configurabili per tale arrotondamento. Ogni opzione è una
@@ -91,6 +84,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

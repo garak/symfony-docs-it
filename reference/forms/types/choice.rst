@@ -10,29 +10,31 @@ Può essere reso come tag ``select``, bottone radio o checkbox.
 Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l'opzione
 ``choices``.
 
-+---------------+-------------------------------------------------------------------------------+
-| Reso come     | può essere vari tag (vedere sotto)                                            |
-+---------------+-------------------------------------------------------------------------------+
-| Opzioni       | - `choices`_                                                                  |
-|               | - `choice_list`_                                                              |
-|               | - `multiple`_                                                                 |
-|               | - `expanded`_                                                                 |
-|               | - `preferred_choices`_                                                        |
-|               | - `empty_value`_                                                              |
-|               | - `empty_data`_                                                               |
-|               | - `by_reference`_                                                             |
-+---------------+-------------------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                                 |
-| ereditate     | - `label`_                                                                    |
-|               | - `read_only`_                                                                |
-|               | - `disabled`_                                                                 |
-|               | - `error_bubbling`_                                                           |
-|               | - `virtual`_                                                                  |
-+---------------+-------------------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>` (con expanded), altrimenti ``field`` |
-+---------------+-------------------------------------------------------------------------------+
-| Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType`          |
-+---------------+-------------------------------------------------------------------------------+
++---------------+------------------------------------------------------------------------------+
+| Reso come     | può essere vari tag (vedere sotto)                                           |
++---------------+------------------------------------------------------------------------------+
+| Opzioni       | - `choices`_                                                                 |
+|               | - `choice_list`_                                                             |
+|               | - `multiple`_                                                                |
+|               | - `expanded`_                                                                |
+|               | - `preferred_choices`_                                                       |
+|               | - `empty_value`_                                                             |
++---------------+------------------------------------------------------------------------------+
+| Opzioni       | - `required`_                                                                |
+| ereditate     | - `label`_                                                                   |
+|               | - `read_only`_                                                               |
+|               | - `disabled`_                                                                |
+|               | - `error_bubbling`_                                                          |
+|               | - `error_mapping`_                                                           |
+|               | - `mapped`_                                                                  |
+|               | - `virtual`_                                                                 |
+|               | - `by_reference`_                                                            |
+|               | - `empty_data`_                                                              |
++---------------+------------------------------------------------------------------------------+
+| Tipo genitore | :doc:`form</reference/forms/types/form>` (se expanded), altrimenti ``field`` |
++---------------+------------------------------------------------------------------------------+
+| Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType`         |
++---------------+------------------------------------------------------------------------------+
 
 Esempio di utilizzo
 -------------------
@@ -105,14 +107,10 @@ questa interfaccia e fornisca le scelte.
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/by_reference.rst.inc
-
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -124,6 +122,12 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
 
 .. include:: /reference/forms/types/options/virtual.rst.inc
+
+.. include:: /reference/forms/types/options/by_reference.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc

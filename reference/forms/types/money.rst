@@ -24,11 +24,12 @@ gestione dell'input e dell'output dei dati.
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
+|               | - `error_mapping`_                                                  |
 |               | - `invalid_message`_                                                |
 |               | - `invalid_message_parameters`_                                     |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`field</reference/forms/types/field>`                          |
+| Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\MoneyType` |
 +---------------+---------------------------------------------------------------------+
@@ -93,6 +94,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

@@ -22,6 +22,7 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 +-------------+-----------------------------------------------------------------------------+
 | Opzioni     | - `label`_                                                                  |
 | ereditate   | - `error_bubbling`_                                                         |
+|             | - `error_mapping`_                                                          |
 |             | - `by_reference`_                                                           |
 |             | - `empty_data`_                                                             |
 |             | - `mapped`_                                                                 |
@@ -344,6 +345,8 @@ Non sono elencate tutte le opzioni, solo quelle più attinenti a questo tipo:
 .. include:: /reference/forms/types/options/label.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 error_bubbling
 ~~~~~~~~~~~~~~

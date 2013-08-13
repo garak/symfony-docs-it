@@ -57,13 +57,19 @@ Preparazione
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <constraint name="Callback">
-                <option name="methods">
-                    <value>isAuthorValid</value>
-                </option>
-            </constraint>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <constraint name="Callback">
+                    <option name="methods">
+                        <value>isAuthorValid</value>
+                    </option>
+                </constraint>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -159,14 +165,22 @@ Ogni metodo può avere uno dei seguenti formati:
         .. code-block:: xml
 
             <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-            <class name="Acme\BlogBundle\Entity\Author">
-                <constraint name="Callback">
-                    <option name="methods">
-                        <value>Acme\BlogBundle\MyStaticValidatorClass</value>
-                        <value>isAuthorValid</value>
-                    </option>
-                </constraint>
-            </class>
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+                <class name="Acme\BlogBundle\Entity\Author">
+                    <constraint name="Callback">
+                        <option name="methods">
+                            <value>
+                                <value>Acme\BlogBundle\MyStaticValidatorClass</value>
+                                <value>isAuthorValid</value>
+                            </value>
+                        </option>
+                    </constraint>
+                </class>
+            </constraint-mapping>
 
         .. code-block:: php
 
@@ -182,23 +196,25 @@ Ogni metodo può avere uno dei seguenti formati:
                 public static function loadValidatorMetadata(ClassMetadata $metadata)
                 {
                     $metadata->addConstraint(new Callback(array(
-                        'methods' => array('isAuthorValid'),
+                        'methods' => array(
+                            array('Acme\BlogBundle\MyStaticValidatorClass', 'isAuthorValid'),
+                        ),
                     )));
                 }
             }
 
     In questo caso, sarà richiamato il metodo statico ``isAuthorValid`` della classe
     ``Acme\BlogBundle\MyStaticValidatorClass``. Gli verrà passato sia l'oggetto originale
-    in corso di validazione (p.e. ``Author``) che ``ExecutionContext``::
+    in corso di validazione (p.e. ``Author``) che ``ExecutionContextInterface``::
 
         namespace Acme\BlogBundle;
-
-        use Symfony\Component\Validator\ExecutionContext;
+    
+        use Symfony\Component\Validator\ExecutionContextInterface;
         use Acme\BlogBundle\Entity\Author;
 
         class MyStaticValidatorClass
         {
-            public static function isAuthorValid(Author $author, ExecutionContext $context)
+            public static function isAuthorValid(Author $author, ExecutionContextInterface $context)
             {
                 // ...
             }

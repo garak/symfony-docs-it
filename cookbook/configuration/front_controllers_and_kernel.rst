@@ -46,7 +46,7 @@ con caratteristiche aggiuntive. Fra gli esempi ci sono:
 * Aggiungere un livello di cache HTTP wrapperizzando il kernel in una istanza di
   :ref:`AppCache<symfony-gateway-cache>`;
 
-Il frint controller può essere scelto richiedendo URL come:
+Il front controller può essere scelto richiedendo URL come:
 
 .. code-block:: text
 

@@ -64,17 +64,23 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\EntityAuthor">
-            <property name="gender">
-                <constraint name="Choice">
-                    <option name="choices">
-                        <value>maschio</value>
-                        <value>femmina</value>
-                    </option>
-                    <option name="message">Scegliere un genere valido.</option>
-                </constraint>
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="gender">
+                    <constraint name="Choice">
+                        <option name="choices">
+                            <value>maschio</value>
+                            <value>femmina</value>
+                        </option>
+                        <option name="message">Scegliere un genere valido.</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -149,13 +155,19 @@ Si può passare il nome di questo metodo all'opzione `callback_` del vincolo
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <property name="gender">
-                <constraint name="Choice">
-                    <option name="callback">getGenders</option>
-                </constraint>
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="gender">
+                    <constraint name="Choice">
+                        <option name="callback">getGenders</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -208,16 +220,22 @@ si può passare il nome della classe e del metodo come array.
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <property name="gender">
-                <constraint name="Choice">
-                    <option name="callback">
-                        <value>Util</value>
-                        <value>getGenders</value>
-                    </option>
-                </constraint>
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="gender">
+                    <constraint name="Choice">
+                        <option name="callback">
+                            <value>Util</value>
+                            <value>getGenders</value>
+                        </option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 

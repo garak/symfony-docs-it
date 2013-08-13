@@ -25,6 +25,7 @@ verificarne l'accuratezza.
 | Opzioni       | - `invalid_message`_                                                   |
 | ereditate     | - `invalid_message_parameters`_                                        |
 |               | - `mapped`_                                                            |
+|               | - `error_mapping`_                                                     |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/form>`                              |
 +---------------+------------------------------------------------------------------------+
@@ -189,3 +190,5 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc

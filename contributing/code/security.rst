@@ -74,8 +74,10 @@ problematica e a un rappresentante i ogni progetto a valle;
 risolvere la problematica, tramire richieste di pull, revisioni di codice e commenti;
 
 4. Una volta trovata la soluzione, tutti i progetti coinvolti collaborano per trovare
-la data migliore per un rilascio congiunto (non c'è garanzai che tutti i rllasci saranno
-contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo).
+la data migliore per un rilascio congiunto (non c'è garanzia che tutti i rllasci saranno
+contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo). Quando
+non si ritiene che la problematica abbia subito degli exploit, un periodo di due settimane
+sembra essere ragionevole.
 
 La lista dei progetti a valle partecipanti a tale processo è manutenuta più corta
 possibile, per meglio gestire il flusso di informazioni riservate, prima
@@ -85,7 +87,7 @@ della squadra di sicurezza di Symfony.
 A oggi, i seguenti progetti hanno approvato questo processo e sono parte dei
 progetti a valle inclusi:
 
-* Drupal
+* Drupal (solitamente con rilasci di venerdì)
 * eZPublish
 
 Bollettini di sicurezza

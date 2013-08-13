@@ -134,7 +134,6 @@ Meta-dati della sessione
   Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\MetadataBag`,
   che contiene informazioni sulla sessione.
 
-
 Gestori del salvataggio
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -166,7 +165,6 @@ seguente API, intesa principalmente per scopi interni:
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getName`:
   Restituisce il nome del bag della sessione.
-
 
 Attributi
 ~~~~~~~~~
@@ -233,7 +231,6 @@ ha una semplice API
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::clear`:
   Pulisce il bag;
-
 
 Messaggi flash
 ~~~~~~~~~~~~~~

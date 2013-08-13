@@ -35,17 +35,6 @@ conterrà un numero di carta di credito.
                     - Luhn:
                         message: Verificare il numero di carta di credito.
 
-    .. code-block:: xml
-
-        <!-- src/Acme/SubscriptionBundle/Resources/config/validation.xml -->
-        <class name="Acme\SubscriptionBundle\Entity\Transaction">
-            <property name="cardNumber">
-                <constraint name="Luhn">
-                    <option name="message">Verificare il numero di carta di credito.</option>
-                </constraint>
-            </property>
-        </class>
-
     .. code-block:: php-annotations
 
         // src/Acme/SubscriptionBundle/Entity/Transaction.php
@@ -61,13 +50,30 @@ conterrà un numero di carta di credito.
             protected $cardNumber;
         }
 
+    .. code-block:: xml
+
+        <!-- src/Acme/SubscriptionBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\SubscriptionBundle\Entity\Transaction">
+                <property name="cardNumber">
+                    <constraint name="Luhn">
+                        <option name="message">Verificare il numero di carta di credito.</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
+
     .. code-block:: php
 
         // src/Acme/SubscriptionBundle/Entity/Transaction.php
         namespace Acme\SubscriptionBundle\Entity\Transaction;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\Luhn;
+        use Symfony\Component\Validator\Constraints as Assert;
 
         class Transaction
         {
@@ -75,7 +81,7 @@ conterrà un numero di carta di credito.
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('luhn', new Luhn(array(
+                $metadata->addPropertyConstraint('cardNumber', new Assert\Luhn(array(
                     'message' => 'Verificare il numero di carta di credito.',
                 )));
             }

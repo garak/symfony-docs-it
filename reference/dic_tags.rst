@@ -67,6 +67,10 @@ esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `translation.loader`_             | Registrare un servizio che carica traduzioni                              |
 +-----------------------------------+---------------------------------------------------------------------------+
+| `translation.extractor`_          | Registrare un servizio personalizzato che estrae messaggi di traduzione   |
++-----------------------------------+---------------------------------------------------------------------------+
+| `translation.dumper`_             | Registrare un servizio personalizzato che esporta messaggi di traduzione  |
++-----------------------------------+---------------------------------------------------------------------------+
 | `twig.extension`_                 | Registrare un'estensione di Twig                                          |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `twig.loader`_                    | Registrare un servizio personalizzato che carica template Twig            |
@@ -929,6 +933,131 @@ Se si caricano traduzioni da una base dati, occorrerà comunque un file risorsa,
 ma potrebbe essere vuoto o contenere poche informazioni sul caricamento di tali
 risorse dalla base dati. Il file è la chiave per far scattare il metodo
 ``load`` del proprio caricatore personalizzato.
+
+translation.extractor
+---------------------
+
+**Scopo**: Registrare un servizio personalizzato che estragga messaggi da un file
+
+.. versionadded:: 2.1
+   La possibilità di aggiungere estrattori di messaggi è nuova in Symfony 2.1.
+
+Quando si esegue il comando ``translation:update``, esso usa degli estrattori per
+estrarre messaggi di traduzione da un file. Per impostazione predefinita, Symfony2
+ha un :class:`Symfony\\Bridge\\Twig\\Translation\\TwigExtractor` e un
+:class:`Symfony\\Bundle\\FrameworkBundle\\Translation\\PhpExtractor`, che
+aiutano a trovare ed estrarre chiavi di traduzione da template Twig e file PHP.
+
+Si può creare il proprio estrattore, creando una classe che implementi
+:class:`Symfony\\Component\\Translation\\Extractor\\ExtractorInterface` e
+assegnado al servizio il tag ``translation.extractor``. Il tag ha un'opzione
+obbligatoria: ``alias``, che definisce il nome dell'estrattore::
+
+    // src/Acme/DemoBundle/Translation/PippoExtractor.php
+    namespace Acme\DemoBundle\Translation;
+
+    use Symfony\Component\Translation\Extractor\ExtractorInterface;
+    use Symfony\Component\Translation\MessageCatalogue;
+
+    class PippoExtractor implements ExtractorInterface
+    {
+        protected $prefix;
+
+        /**
+         * Estrae messaggi di traduzione da una cartella di template al catalogo.
+         */
+        public function extract($directory, MessageCatalogue $catalogue)
+        {
+            // ...
+        }
+
+        /**
+         * Imposta il prefisso da usare per i nuovi messaggi trovati.
+         */
+        public function setPrefix($prefix)
+        {
+            $this->prefix = $prefix;
+        }
+    }
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme_demo.translation.extractor.foo:
+                class: Acme\DemoBundle\Translation\PippoExtractor
+                tags:
+                    - { name: translation.extractor, alias: foo }
+
+    .. code-block:: xml
+
+        <service id="acme_demo.translation.extractor.pippo"
+            class="Acme\DemoBundle\Translation\PippoExtractor">
+            <tag name="translation.extractor" alias="pippo" />
+        </service>
+
+    .. code-block:: php
+
+        $container->register(
+            'acme_demo.translation.extractor.pippo',
+            'Acme\DemoBundle\Translation\PippoExtractor'
+        )
+            ->addTag('translation.extractor', array('alias' => 'pippo'));
+
+translation.dumper
+------------------
+
+**Scopo**: Registrare un servizio personalizzato che esporti messaggi in un file
+
+.. versionadded:: 2.1
+   La possibilità di aggiungere esportatori di messaggi è nuova in Symfony 2.1.
+
+Dopo che un `Extractor <translation.extractor>`_ ha estratto tutti i messaggi dai
+template, vengono eseguiti gli esportatori, per esportare i messaggi in un file di
+traduzione in uno specifico formato.
+
+Symfony2 dispone di diversi esportatori:
+
+* :class:`Symfony\\Component\\Translation\\Dumper\\CsvFileDumper`
+* :class:`Symfony\\Component\\Translation\\Dumper\\IcuResFileDumper`
+* :class:`Symfony\\Component\\Translation\\Dumper\\IniFileDumper`
+* :class:`Symfony\\Component\\Translation\\Dumper\\MoFileDumper`
+* :class:`Symfony\\Component\\Translation\\Dumper\\PoFileDumper`
+* :class:`Symfony\\Component\\Translation\\Dumper\\QtFileDumper`
+* :class:`Symfony\\Component\\Translation\\Dumper\\XliffFileDumper`
+* :class:`Symfony\\Component\\Translation\\Dumper\\YamlFileDumper`
+
+Si può creare un proprio estrattore, estendendo
+:class:`Symfony\\Component\\Translation\\Dumper\\FileDumper` o implementando
+:class:`Symfony\\Component\\Translation\\Dumper\\DumperInterface` e assegnado al
+servizio il tag ``translation.dumper``. Il tag ha un'unica opzione: ``alias``
+È il nome usato per determinare quale esportatore va usato.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            acme_demo.translation.dumper.json:
+                class: Acme\DemoBundle\Translation\JsonFileDumper
+                tags:
+                    - { name: translation.dumper, alias: json }
+
+    .. code-block:: xml
+
+        <service id="acme_demo.translation.dumper.json"
+            class="Acme\DemoBundle\Translation\JsonFileDumper">
+            <tag name="translation.dumper" alias="json" />
+        </service>
+
+    .. code-block:: php
+
+        $container->register(
+            'acme_demo.translation.dumper.json',
+            'Acme\DemoBundle\Translation\JsonFileDumper'
+        )
+            ->addTag('translation.dumper', array('alias' => 'json'));
 
 .. _reference-dic-tags-twig-extension:
 

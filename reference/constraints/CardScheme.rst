@@ -40,16 +40,22 @@ su un oggetto che conterrà un numero di carta di credito.
     .. code-block:: xml
 
         <!-- src/Acme/SubscriptionBundle/Resources/config/validation.xml -->
-        <class name="Acme\SubscriptionBundle\Entity\Transaction">
-            <property name="cardNumber">
-                <constraint name="CardScheme">
-                    <option name="schemes">
-                        <value>VISA</value>
-                    </option>
-                    <option name="message">Numero di carta di credito non valido.</option>
-                </constraint>
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\SubscriptionBundle\Entity\Transaction">
+                <property name="cardNumber">
+                    <constraint name="CardScheme">
+                        <option name="schemes">
+                            <value>VISA</value>
+                        </option>
+                        <option name="message">Numero di carta di credito non valido.</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php-annotations
 
@@ -72,7 +78,7 @@ su un oggetto che conterrà un numero di carta di credito.
         namespace Acme\SubscriptionBundle\Entity\Transaction;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\CardScheme;
+        use Symfony\Component\Validator\Constraints as Assert;
 
         class Transaction
         {
@@ -80,7 +86,7 @@ su un oggetto che conterrà un numero di carta di credito.
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('cardSchema', new CardScheme(array(
+                $metadata->addPropertyConstraint('cardNumber', new Assert\CardScheme(array(
                     'schemes' => array(
                         'VISA'
                     ),

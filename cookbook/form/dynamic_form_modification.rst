@@ -469,6 +469,8 @@ Il sottoscrittore sarebbe simile a questo::
     use Symfony\Component\Form\FormFactoryInterface;
     use Doctrine\ORM\EntityManager;
     use Symfony\Component\Form\FormEvent;
+    use Symfony\Component\Form\FormEvents;
+    use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
     class RegistrationSportListener implements EventSubscriberInterface
     {
@@ -480,15 +482,15 @@ Il sottoscrittore sarebbe simile a questo::
         /**
          * @var EntityManager
          */
-        private $om;
+        private $em;
 
         /**
          * @param factory FormFactoryInterface
          */
-        public function __construct(FormFactoryInterface $factory, EntityManager $om)
+        public function __construct(FormFactoryInterface $factory, EntityManager $em)
         {
             $this->factory = $factory;
-            $this->om = $om;
+            $this->em = $em;
         }
 
         public static function getSubscribedEvents()
@@ -521,7 +523,7 @@ Il sottoscrittore sarebbe simile a questo::
         {
             $data = $event->getData();
             $id = $data['event'];
-            $meetup = $this->om
+            $meetup = $this->em
                 ->getRepository('AcmeDemoBundle:SportMeetup')
                 ->find($id);
 
@@ -560,7 +562,7 @@ Dopo aver svolto questa preparazione, registrare form e ascoltatore come servizi
                 - { name: form.type, alias: acme_meetup_registration }
         acme.form.meetup_registration_listener
             class: Acme\SportBundle\Form\EventListener\RegistrationSportListener
-            arguments: [@form.factory, @doctrine]
+            arguments: [@form.factory, @doctrine.orm.entity_manager]
 
     .. code-block:: xml
 
@@ -572,7 +574,7 @@ Dopo aver svolto questa preparazione, registrare form e ascoltatore come servizi
             </service>
             <service id="acme.form.meetup_registration_listener" class="Acme\SportBundle\Form\EventListener\RegistrationSportListener">
                 <argument type="service" id="form.factory" />
-                <argument type="service" id="doctrine" />
+                <argument type="service" id="doctrine.orm.entity_manager" />
             </service>
         </services>
 
@@ -590,7 +592,7 @@ Dopo aver svolto questa preparazione, registrare form e ascoltatore come servizi
         $container->setDefinition(
             'acme.form.meetup_registration_listener',
             $definition,
-            array('form.factory', 'doctrine')
+            array('form.factory', 'doctrine.orm.entity_manager')
         );
 
 Qui, ``RegistrationSportListener`` sarà un parametro del costruttore di

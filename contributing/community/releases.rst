@@ -13,6 +13,8 @@ esce ogni *sei mesi*: uno in *maggio* e uno in *novembre*.
     "regola" spiegata in questo documento deve essere rigorosamente eseguita a partire da
     Symfony 2.4.
 
+.. _contributing-release-development:
+
 Sviluppo
 --------
 
@@ -28,6 +30,8 @@ Il periodo semestrale è suddiviso in due fasi:
 Durante la fase di sviluppo, ogni nuova caratteristica può essere annullata, in caso non
 sia pronta per tempo o se non fosse abbastanza stabile da essere inclusa nell'attuale
 rilascio finale.
+
+.. _contributing-release-maintenance:
 
 Manutenzione
 ------------
@@ -74,7 +78,6 @@ Di seguito il piano per le prime due versioni che useranno questo modello di ril
 * **Verde** rappresenta il periodo di supporto
 
 Tutto ciò produrrà date e periodi di manutenzione molto attendibili:
-
 
 +----------+----------+--------------------+-----------+
 | Versione | Rilascio | Fine manutenzione  | Fine vita |

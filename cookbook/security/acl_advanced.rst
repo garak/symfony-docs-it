@@ -39,13 +39,11 @@ del dominio, il sistema ACL creerà prima un oggetto identità a partire dall'og
 dominio, quindi passerà tale oggetto identità al fornitore ACL per ulteriori
 processi.
 
-
 Identità di sicurezza
 ~~~~~~~~~~~~~~~~~~~~~
 
 È analoga all'identità degli oggetti, ma rappresenta un utente o un ruolo
 nell'applicazione. Ogni ruolo, o utente, ha la sua identità di sicurezza.
-
 
 Struttura delle tabelle della base dati 
 ---------------------------------------
@@ -65,7 +63,6 @@ tabelle sono ordinate dalla più piccola alla più grande, in una tipica applica
 - *acl_entries*: questa tabella contiene tutti gli ACE. Questa è tipicamente la tabella
   con più righe. Può contenerne decine di milioni, senza impattare in modo significativo
   sulle prestazioni
-
 
 Visibilità degli Access Control Entry
 -------------------------------------

@@ -439,7 +439,7 @@ form verrà reso.
                 ),
             ),
 
-             // ...
+            // ...
         ));
 
 Per impostazioone predefinita, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
@@ -476,7 +476,7 @@ per ottenere questo tipo di layout:
                 ),
             ),
 
-             // ...
+            // ...
         ));
 
 Se si vuole effettuare un cambiamento soltanto in un template, aggiungere la seguente riga al
@@ -508,7 +508,6 @@ form viene reso.
                         - 'AcmeDemoBundle:Form'
             # ...
 
-
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
@@ -520,7 +519,6 @@ form viene reso.
             </framework:templating>
             <!-- ... -->
         </framework:config>
-
 
     .. code-block:: php
 
@@ -716,19 +714,19 @@ incollare e personalizzare il frammento ``field_errors``.
 
         {# form_errors.html.twig #}
         {% block form_errors %}
-        {% spaceless %}
-            {% if errors|length > 0 %}
-            <ul class="error_list">
-                {% for error in errors %}
+            {% spaceless %}
+                {% if errors|length > 0 %}
+                <ul class="error_list">
+                    {% for error in errors %}
                         <li>{{
                             error.messagePluralization is null
                                 ? error.messageTemplate|trans(error.messageParameters, 'validators')
                                 : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
                         }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        {% endspaceless %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endspaceless %}
         {% endblock form_errors %}
 
     .. code-block:: html+php
@@ -740,9 +738,9 @@ incollare e personalizzare il frammento ``field_errors``.
                     <li><?php
                         if (null === $error->getMessagePluralization()) {
                             echo $view['translator']->trans(
-                        $error->getMessageTemplate(),
-                        $error->getMessageParameters(),
-                        'validators'
+                                $error->getMessageTemplate(),
+                                $error->getMessageParameters(),
+                                'validators'
                             );
                         } else {
                             echo $view['translator']->transChoice(
@@ -755,7 +753,6 @@ incollare e personalizzare il frammento ``field_errors``.
                 <?php endforeach; ?>
             </ul>
         <?php endif ?>
-
 
 .. tip::
 

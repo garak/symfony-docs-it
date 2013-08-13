@@ -22,10 +22,7 @@ Di seguito la lista dei repository *master* ufficiali:
 * *Giapponese*: https://github.com/symfony-japan/symfony-docs-ja
 * *Polacco*:   https://github.com/ampluso/symfony-docs-pl
 * *Portoghese (Brasile)*:  https://github.com/andreia/symfony-docs-pt-BR
-* *Rumeno*: https://github.com/sebio/symfony-docs-ro
-* *Russo*:  https://github.com/avalanche123/symfony-docs-ru
 * *Spagnolo*:  https://github.com/gitnacho/symfony-docs-es
-* *Turco*:  https://github.com/symfony-tr/symfony-docs-tr
 
 .. note::
 
@@ -84,7 +81,7 @@ inglese e applicare i cambiamenti alla propria versione quanto prima.
 
 .. caution::
 
-   I linguaggi non correttamente manutenuti sono rimossi dalla lista di quelli 
-   ufficiali, poiché la documentazione non aggiornata è pericolosa
+    I linguaggi non correttamente manutenuti sono rimossi dalla lista di quelli 
+    ufficiali, poiché la documentazione non aggiornata è pericolosa
 
 .. _lista Symfony docs: http://groups.google.com/group/symfony-docs

@@ -53,13 +53,13 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
          *
          * @return string|null Input trasformato
          */
-        private function transformText($dummy, $options = array())
+        private function transformText($dummy, array $options = array())
         {
             $mergedOptions = array_merge(
                 $options,
                 array(
-                    'some_default' => 'valori',
-                    'another_default' => 'altri valori',
+                    'un_valore_predefinito' => 'valori',
+                    'un_altro_valore_predefinito' => 'altri valori',
                 )
             );
 
@@ -133,6 +133,16 @@ Convenzioni sui nomi
 
 * Non dimenticare di dare un'occhiata al documento più prolisso sulle :doc:`conventions`,
   per considerazioni più soggettive sulla nomenclatura.
+
+Convenzioni sui nomi dei servizi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Il nome di un servizio contiene grupii, separati da punti;
+* L'alias DI del bundle è il primo gruppo (p.e. ``fos_user``);
+* Usare lettere minuscole per nomi di servizi e parametri;
+* Un nome di gruppo usa la notazione con trattini bassi;
+* Ogni servizio ha un parametro corrispondente, contenente il nome della classe,
+  che segue la convenzione ``NOME SERVIZIO.classe``.
 
 Documentazione
 --------------

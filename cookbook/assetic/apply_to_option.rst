@@ -9,8 +9,8 @@ come vedremo, a file che hanno una specifica estensione. Per mostrare
 l'utilizzo di ogni opzione, supponiamo di voler usare il filtro CoffeeScript 
 di Assetic che compila i file CoffeeScript in Javascript.
 
-La configurazione prevede semplicemente di definire i percorsi per coffee e per node.
-I valori predefiniti sono ``/usr/bin/coffee`` e ``/usr/bin/node``:
+La configurazione prevede semplicemente di definire i percorsi per coffee, node e node_modules.
+Un esempio di configurazione potrebbe assomigliare a questo:
 
 .. configuration-block::
 
@@ -22,15 +22,18 @@ I valori predefiniti sono ``/usr/bin/coffee`` e ``/usr/bin/node``:
                 coffee:
                     bin: /usr/bin/coffee
                     node: /usr/bin/node
+                    node_paths: [ /usr/lib/node_modules/ ]
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <assetic:config>
-            <assetic:filter
+            <assetic:filter 
                 name="coffee"
-                bin="/usr/bin/coffee"
-                node="/usr/bin/node" />
+                bin="/usr/bin/coffee/"
+                node="/usr/bin/node/">
+                <assetic:node-path>/usr/lib/node_modules/</assetic:node-path>
+            </assetic:filter>
         </assetic:config>
 
     .. code-block:: php
@@ -39,8 +42,9 @@ I valori predefiniti sono ``/usr/bin/coffee`` e ``/usr/bin/node``:
         $container->loadFromExtension('assetic', array(
             'filters' => array(
                 'coffee' => array(
-                    'bin' => '/usr/bin/coffee',
+                    'bin'  => '/usr/bin/coffee',
                     'node' => '/usr/bin/node',
+                    'node_paths' => array('/usr/lib/node_modules/'),
                 ),
             ),
         ));
@@ -83,7 +87,7 @@ Filtrare file multpili
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
             filter='coffee' %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>
+            <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -128,6 +132,7 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
                 coffee:
                     bin: /usr/bin/coffee
                     node: /usr/bin/node
+                    node_paths: [ /usr/lib/node_modules/ ]
                     apply_to: "\.coffee$"
 
     .. code-block:: xml
@@ -139,6 +144,7 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
                 bin="/usr/bin/coffee"
                 node="/usr/bin/node"
                 apply_to="\.coffee$" />
+                <assetic:node-paths>/usr/lib/node_modules/</assetic:node-path>
         </assetic:config>
 
     .. code-block:: php
@@ -147,8 +153,9 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
         $container->loadFromExtension('assetic', array(
             'filters' => array(
                 'coffee' => array(
-                    'bin' => '/usr/bin/coffee',
-                    'node' => '/usr/bin/node',
+                    'bin'      => '/usr/bin/coffee',
+                    'node'     => '/usr/bin/node',
+                    'node_paths' => array('/usr/lib/node_modules/'),
                     'apply_to' => '\.coffee$',
                 ),
             ),
@@ -165,7 +172,7 @@ dal filtro CoffeeScript):
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
-                       '@AcmeFooBundle/Resources/public/js/regolare.js' %}
+                       '@AcmeFooBundle/Resources/public/js/regular.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
@@ -175,7 +182,7 @@ dal filtro CoffeeScript):
             array(
                 '@AcmeFooBundle/Resources/public/js/esempio.coffee',
                 '@AcmeFooBundle/Resources/public/js/altro.coffee',
-                '@AcmeFooBundle/Resources/public/js/regolare.js',
+                '@AcmeFooBundle/Resources/public/js/regular.js',
             )
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>

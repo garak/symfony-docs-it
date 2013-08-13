@@ -47,7 +47,6 @@ punto finale per le operazioni su filesystem::
     come parametro una stringa, un array o qualsiasi oggetto che implementi
     :phpclass:`Traversable`.
 
-
 Mkdir
 ~~~~~
 
@@ -138,7 +137,6 @@ un'opzione ricorsiva::
     $fs->chgrp('lolcat.mp4', 'nginx');
     // cambia il gruppo della cartella video ricorsivamente
     $fs->chgrp('/video', 'nginx', true);
-
 
 .. note::
 

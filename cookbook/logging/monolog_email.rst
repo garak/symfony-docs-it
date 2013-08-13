@@ -14,7 +14,7 @@ singolarmente.
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/config_prod.yml
         monolog:
             handlers:
                 mail:
@@ -28,12 +28,12 @@ singolarmente.
                     type:       swift_mailer
                     from_email: error@example.com
                     to_email:   error@example.com
-                    subject:    An Error Occurred!
+                    subject:    Si è verificato un errore!
                     level:      debug
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/config_prod.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -56,36 +56,35 @@ singolarmente.
                     name="swift"
                     from-email="error@example.com"
                     to-email="error@example.com"
-                    subject="An Error Occurred!"
+                    subject="Si è verificato un errore!"
                     level="debug"
                 />
             </monolog:config>
         </container>
 
     .. code-block:: php
-            
-        // app/config/config.php
+
+        // app/config/config_prod.php
         $container->loadFromExtension('monolog', array(
             'handlers' => array(
                 'mail' => array(
                     'type'         => 'fingers_crossed',
                     'action_level' => 'critical',
                     'handler'      => 'buffered',
-                ),    
+                ),
                 'buffered' => array(
                     'type'    => 'buffer',
                     'handler' => 'swift',
-                ),    
+                ),
                 'swift' => array(
                     'type'       => 'swift_mailer',
                     'from_email' => 'error@example.com',
                     'to_email'   => 'error@example.com',
-                    'subject'    => 'An Error Occurred!',
+                    'subject'    => 'Si è verificato un errore!',
                     'level'      => 'debug',
-                ),    
+                ),
             ),
-        ));    
-
+        ));
 
 Il gestore ``mail`` è un gestore ``fingers_crossed``, che vuol dire che viene
 evocato solo quando si raggiunge il livello di azione, in questo caso ``critical``.
@@ -108,11 +107,19 @@ l'oggetto.
 Si possono combinare questi gestori con altri gestori, in modo che gli errori siano
 comunque loggati sul server, oltre che inviati per email:
 
+.. caution::
+
+    L'impostazione predefinita per lo spool di swiftmailer è ``memory``, il che
+    vuol dire che le email sono inviate alla fine della richiesta. Tuttavia, questo non
+    funziona attualmente con buffer dei log. Per poter abilitare i log via email
+    nell'esempio seguente, occorre commentare la riga ``spool: { type: memory }``
+    nel file ``config.yml``.
+
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # app/config/config.yml
+        # app/config/config_prod.yml
         monolog:
             handlers:
                 main:
@@ -133,12 +140,12 @@ comunque loggati sul server, oltre che inviati per email:
                     type:       swift_mailer
                     from_email: error@example.com
                     to_email:   error@example.com
-                    subject:    An Error Occurred!
+                    subject:    Si è verificato un errore!
                     level:      debug
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/config_prod.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -151,7 +158,7 @@ comunque loggati sul server, oltre che inviati per email:
                     type="fingers_crossed"
                     action_level="critical"
                     handler="grouped"
-                />                
+                />
                 <monolog:handler
                     name="grouped"
                     type="group"
@@ -173,7 +180,7 @@ comunque loggati sul server, oltre che inviati per email:
                     name="swift"
                     from-email="error@example.com"
                     to-email="error@example.com"
-                    subject="An Error Occurred!"
+                    subject="Si è verificato un errore!"
                     level="debug"
                 />
             </monolog:config>
@@ -181,37 +188,36 @@ comunque loggati sul server, oltre che inviati per email:
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/config_prod.php
         $container->loadFromExtension('monolog', array(
             'handlers' => array(
                 'main' => array(
                     'type'         => 'fingers_crossed',
                     'action_level' => 'critical',
                     'handler'      => 'grouped',
-                ),    
+                ),
                 'grouped' => array(
                     'type'    => 'group',
                     'members' => array('streamed', 'buffered'),
-                ),    
+                ),
                 'streamed'  => array(
                     'type'  => 'stream',
                     'path'  => '%kernel.logs_dir%/%kernel.environment%.log',
                     'level' => 'debug',
-                ),    
+                ),
                 'buffered'    => array(
                     'type'    => 'buffer',
                     'handler' => 'swift',
-                ),    
+                ),
                 'swift' => array(
                     'type'       => 'swift_mailer',
                     'from_email' => 'error@example.com',
                     'to_email'   => 'error@example.com',
-                    'subject'    => 'An Error Occurred!',
+                    'subject'    => 'Si è verificato un errore!',
                     'level'      => 'debug',
-                ),    
+                ),
             ),
         ));
-
 
 Qui è stato usato il gestore ``group``, per inviare i messaggi ai due membri del gruppo,
 il gestore ``buffered`` e il gestore ``stream``. I messaggi saranno ora sia

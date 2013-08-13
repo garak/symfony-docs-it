@@ -117,21 +117,28 @@ cosa del genere::
 
 Per creare correttamente il form, occorre rendere il tipo disponibile al
 form factory del test. Il modo più facile è registrarlo manualmente,
-prima di creare il form genitore::
+prima di creare il form genitore, usando la classe ``PreloadedExtension``::
 
     // src/Acme/TestBundle/Tests/Form/Type/TestedTypeTests.php
     namespace Acme\TestBundle\Tests\Form\Type;
 
     use Acme\TestBundle\Form\Type\TestedType;
     use Acme\TestBundle\Model\TestObject;
-    use Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
+    use Symfony\Component\Form\Test\TypeTestCase;
+    use Symfony\Component\Form\PreloadedExtension;
 
     class TestedTypeTest extends TypeTestCase
     {
+        protected function getExtensions()
+        {
+            $childType = new TestChildType();
+            return array(new PreloadedExtension(array(
+                $childType->getName() => $childType,
+            ), array()));
+        }
+
         public function testBindValidData()
         {
-            $this->factory->addType(new TestChildType());
-
             $type = new TestedType();
             $form = $this->factory->create($type);
 
@@ -188,7 +195,7 @@ da altre estensioni. Occorre aggiungere tali estensioni all'oggetto factory::
         }
 
         // ... i test
-    } 
+    }
 
 Testare diversi insiemi di dati
 -------------------------------

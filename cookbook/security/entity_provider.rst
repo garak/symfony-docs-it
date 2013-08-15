@@ -40,6 +40,15 @@ Per sintetizzare, i metodi setter e getter per ogni campo sono stati rimossi, in
 modo da focalizzarsi sui metodi più importanti, provenienti da
 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
+.. tip::
+
+    Si possono generare :ref:`getter e setter mancanti<book-doctrine-generating-getters-and-setters>`
+    eseguendo:
+
+    .. code-block:: bash
+
+        $ php app/console doctrine:generate:entities Acme/UserBundle/Entity/User
+
 .. code-block:: php
 
     // src/Acme/UserBundle/Entity/User.php
@@ -154,6 +163,15 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         }
     }
 
+.. tip::
+
+    Si può :ref:`generare la tabella<book-doctrine-creating-the-database-tables-schema>`
+    per l'entità ``User``, eseguendo:
+
+    .. code-block:: bash
+
+        $ php app/console doctrine:schema:update --force
+
 Per poter usare un'istanza della classe ``AcmeUserBundle:User`` nel livello della sicurezza
 di Symfony, la classe entità deve implementare
 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`. Questa
@@ -185,7 +203,7 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
 
     public function isEqualTo(UserInterface $user)
     {
-        return $this->username === $user->getUsername();
+        return $this->id === $user->getId();
     }
 
 .. note::
@@ -197,24 +215,20 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
     perché il metodo :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
     ricarica l'utente a ogni richiesta, usando ``id``.
 
-Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL. Per dettagli sulla
+Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL, con un utente ``admin`` con
+password ``admin`` (codificata). Per dettagli sulla
 creazione delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-security-encoding-user-password`.
 
 .. code-block:: bash
 
-    $ mysql> select * from user;
-    +----+----------+----------------------------------+------------------------------------------+--------------------+-----------+
-    | id | username | salt                             | password                                 | email              | is_active |
-    +----+----------+----------------------------------+------------------------------------------+--------------------+-----------+
-    |  1 | hhamon   | 7308e59b97f6957fb42d66f894793079 | 09610f61637408828a35d7debee5b38a8350eebe | hhamon@example.com |         1 |
-    |  2 | jsmith   | ce617a6cca9126bf4036ca0c02e82dee | 8390105917f3a3d533815250ed7c64b4594d7ebf | jsmith@example.com |         1 |
-    |  3 | maxime   | cd01749bb995dc658fa56ed45458d807 | 9764731e5f7fb944de5fd8efad4949b995b72a3c | maxime@example.com |         0 |
-    |  4 | donald   | 6683c2bfd90c0426088402930cadd0f8 | 5c3bcec385f59edcc04490d1db95fdb8673bf612 | donald@example.com |         1 |
-    +----+----------+----------------------------------+------------------------------------------+--------------------+-----------+
-    4 rows in set (0.00 sec)
+    $ mysql> select * from acme_users;
+    +----+----------+------+------------------------------------------+--------------------+-----------+
+    | id | username | salt | password                                 | email              | is_active |
+    +----+----------+------+------------------------------------------+--------------------+-----------+
+    |  1 | admin    |      | d033e22ae348aeb5660fc2140aec35850c4da997 | admin@example.com  |         1 |
+    +----+----------+------+------------------------------------------+--------------------+-----------+
 
-La base dati ora contiene quattro utenti, con differenti nomi, email e status. Nella
-prossima parte, vedremo come autenticare uno di questi utenti,
+Nella prossima parte, si vedrà come autenticare uno di questi utenti,
 grazie al fornitore di entità di Doctrine e a un paio di righe di
 configurazione.
 
@@ -329,12 +343,13 @@ il fornitore di entità di Doctrine per caricare gli oggetti ``User`` dalla base
 usando il campo univoco ``username``. In altre parole, dice a Symfony come recuperare
 gli utenti dalla base dati, prima di verificare la validità della password.
 
-Questo codice e questa configurazione funzionano, ma non bastano per proteggere
-l'applicazione per gli utenti **attivi**. Finora, possiamo ancora autenticarci
-con ``maxime``. Nella prossima sezione, vedremo come inibire gli utenti non attivi.
-
 Inibire gli utenti inattivi
 ---------------------------
+
+Se la proprietà``isActive`` di uno User è ``false`` (cioè se ``is_active``
+vale 0 nella base dati), l'utente potrà ancora entrare nel sito
+normalmente, Per evitare che gli utenti non attivi possano entrare, è necessario
+un po' di lavoro in più.
 
 Il modo più facile per escludere gli utenti inattivi è implementare l'interfaccia
 :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`,
@@ -361,10 +376,10 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
     // src/Acme/UserBundle/Entity/User.php
     namespace Acme\UserBundle\Entity;
 
-    // ...
+    use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-    class User implements AdvancedUserInterface
+    class User implements AdvancedUserInterface, \Serializable 
     {
         // ...
 
@@ -389,10 +404,11 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
         }
     }
 
-Se proviamo ora ad autenticare ``maxime``, l'accesso sarà negato, perché questo
-utente non è stato abilitato. La prossima parte analizzerà il modo
-in cui scrivere fornitori di utenti personalizzati, per autenticare un utente
-con il suo nome oppure con la sua email.
+Se proviamo ora ad autenticare un utente non attivo, l'accesso sarà
+negato.
+
+La prossima parte analizzerà il modo in cui scrivere fornitori di utenti personalizzati,
+per autenticare un utente con il suo nome oppure con la sua email.
 
 Autenticazione con un fornitore entità personalizzato
 -----------------------------------------------------
@@ -434,8 +450,7 @@ Il codice successivo mostra l'implementazione di
                 ->where('u.username = :username OR u.email = :email')
                 ->setParameter('username', $username)
                 ->setParameter('email', $username)
-                ->getQuery()
-            ;
+                ->getQuery();
 
             try {
                 // Il metodo Query::getSingleResult() lancia un'eccezione
@@ -537,16 +552,17 @@ questa sezione.
 
 .. caution::
 
-    In una configurazione tipica, si dovrebbe sempre restituire almeno un ruolo nel
-    metodo``getRoles()``. Per convenzione, solitamente si restituisce un ruolo chiamato
-    ``ROLE_USER``. Se non si restituisce alcun ruolo, l'utente potrebbe apparire come
+    In una configurazione tipica, si dovrebbe sempre restituire almeno un ruolo nel     metodo``getRoles()``.
+    Per convenzione, solitamente si restituisce un ruolo chiamato ``ROLE_USER``.
+    Se non si restituisce alcun ruolo, l'utente potrebbe apparire come
     non autenticato.
 
 In questo esempio, la classe entità ``AcmeUserBundle:User`` definisce una relazione
-molti-a-molti con la classe entità ``AcmeUserBundle:Group``. Un utente può essere in
-relazione con molti gruppi e un gruppo può essere composto da uno o più utenti.
-Poiché un gruppo è anche un ruolo, il precedente metodo ``getRoles()`` ora restituisce
-l'elenco dei gruppi correlati::
+molti-a-molti con la classe entità ``AcmeUserBundle:Role``.
+Un utente può essere in relazione con molti ruoli e un ruolo può essere composto
+da uno o più utenti. Il precedente metodo ``getRoles()`` ora restituisce
+l'elenco dei ruoli correlati. Si noti che i metodi ``__construct()`` e ``getRoles()``
+sono cambiati::
 
     // src/Acme/UserBundle/Entity/User.php
     namespace Acme\UserBundle\Entity;
@@ -556,53 +572,34 @@ l'elenco dei gruppi correlati::
 
     class User implements AdvancedUserInterface, \Serializable
     {
+        // ...
+        
         /**
-         * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
+         * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
          *
          */
-        private $groups;
+        private $roles;
 
         public function __construct()
         {
-            $this->groups = new ArrayCollection();
+            $this->roles = new ArrayCollection();
         }
-
-        // ...
 
         public function getRoles()
         {
-            return $this->groups->toArray();
+            return $this->roles->toArray();
         }
+        
+        // ...
 
-        /**
-         * @see \Serializable::serialize()
-         */
-        public function serialize()
-        {
-            return serialize(array(
-                $this->id,
-            ));
-        }
-
-        /**
-         * @see \Serializable::unserialize()
-         */
-        public function unserialize($serialized)
-        {
-            list (
-                $this->id,
-            ) = unserialize($serialized);
-        }
     }
 
-La classe entità ``AcmeUserBundle:Group`` definisce tre campi di tabella (``id``,
-``name`` e ``role``). Il campo univoco ``role`` contiene i nomi dei ruoli usati dal livello
-della sicurezza di Symfony per proteggere parti dell'applicazione. La cosa più
-importante da notare è che la classe entità ``AcmeUserBundle:Group`` implementa
-:class:`Symfony\\Component\\Security\\Core\\Role\\RoleInterface`, che la obbliga ad avere
-un metodo ``getRole()``::
+La classe entità ``AcmeUserBundle:Role`` definisce tre campi di tabella (``id``,
+``name`` e ``role``). Il campo univoco ``role`` contiene i nomi dei ruoli
+(p.e. ``ROLE_ADMIN``) usati dal livello della sicurezza di Symfony per proteggere parti
+dell'applicazione::
 
-    // src/Acme/Bundle/UserBundle/Entity/Group.php
+    // src/Acme/Bundle/UserBundle/Entity/Role.php
     namespace Acme\UserBundle\Entity;
 
     use Symfony\Component\Security\Core\Role\RoleInterface;
@@ -610,10 +607,10 @@ un metodo ``getRole()``::
     use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @ORM\Table(name="acme_groups")
+     * @ORM\Table(name="acme_roles")
      * @ORM\Entity()
      */
-    class Group implements RoleInterface
+    class Role implements RoleInterface
     {
         /**
          * @ORM\Column(name="id", type="integer")
@@ -633,7 +630,7 @@ un metodo ``getRole()``::
         private $role;
 
         /**
-         * @ORM\ManyToMany(targetEntity="User", mappedBy="groups")
+         * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
          */
         private $users;
 
@@ -642,8 +639,6 @@ un metodo ``getRole()``::
             $this->users = new ArrayCollection();
         }
 
-        // ... getter e setter per ogni proprietà
-
         /**
          * @see RoleInterface
          */
@@ -651,7 +646,64 @@ un metodo ``getRole()``::
         {
             return $this->role;
         }
+
+        // ... getter e setter per ogni proprietà
     }
+
+Per brevità, i metodi getter e setter non sono mostrati, ma possono essere
+:ref:`generati <book-doctrine-generating-getters-and-setters>`:
+
+.. code-block:: bash
+
+    $ php app/console doctrine:generate:entities Acme/UserBundle/Entity/User
+
+Non dimenticare di aggiornare lo schema della base dati:
+
+.. code-block:: bash
+
+    php app/console doctrine:schema:update --force
+
+Il comando creerà la tabella ``acme_role`` e uno ``user_role``, per memorizzare
+le relazioni molti-a-molti tra ``acme_user`` e ``acme_role``. Se
+si ha un utente collegato a un ruolo, la base dati potrebbe assomigliare
+a questa:
+
+.. code-block:: text
+
+    $ mysql> select * from acme_users;
+    +----+-------+------------+
+    | id | name  | role       |
+    +----+-------+------------+
+    |  1 | admin | ROLE_ADMIN |
+    +----+-------+------------+
+
+    mysql> select * from user_role;
+    +---------+---------+
+    | user_id | role_id |
+    +---------+---------+
+    |       1 |       1 |
+    +---------+---------+
+
+Ecco fatto! Quando un utente accede, il sistema di sicurezza di Symfony richiamerà
+il metodo ``User::getRoles``. Questo restituirà un array di oggetti ``Role``,
+che Symfony userà per deterimnare se l'utente abbia o meno accesso a determinate
+parti del sistema.
+
+.. sidebar:: Che scopo ha RoleInterface?
+
+    Si noti che la classe ``Role`` implementa
+    :class:`Symfony\\Component\\Security\\Core\\Role\\RoleInterface`. Questo
+    perché il sistema di sicurezza di Symfony richiede che il metodo ``User::getRoles``
+    restituisce un array di stringhe di ruoli o di oggetti che implementino tale interfaccia.
+    Se ``Role`` non implementasse tale interfaccia, ``User::getRoles``
+    dovrebbe iterare tutti gli oggetti ``Role``, richiamare ``getRole``
+    su ciascuno e creare un array di stringhe da restituire. Enrambi gli approcci sono
+    validi ed equivalenti.
+
+.. _cookbook-doctrine-entity-provider-role-db-schema:
+
+Migliorare le prestazioni con un join
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per migliorare le prestazioni ed evitare il caricamento pigro dei gruppi al momento
 del recupero dell'utente dal fornitore di utenti personalizzato, la soluzione migliore è
@@ -669,8 +721,8 @@ In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una 
         {
             $q = $this
                 ->createQueryBuilder('u')
-                ->select('u, g')
-                ->leftJoin('u.groups', 'g')
+                ->select('u, r')
+                ->leftJoin('u.roles', 'r')
                 ->where('u.username = :username OR u.email = :email')
                 ->setParameter('username', $username)
                 ->setParameter('email', $username)
@@ -682,6 +734,6 @@ In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una 
         // ...
     }
 
-Il metodo ``QueryBuilder::leftJoin()`` recupera con un join i gruppi correlati dalla
+Il metodo ``QueryBuilder::leftJoin()`` recupera con un join i ruoli correlati dalla
 classe del modello ``AcmeUserBundle:User``, quando un utente viene recuperato con la sua
 email o con il suo nome.

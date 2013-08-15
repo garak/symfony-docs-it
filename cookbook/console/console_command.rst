@@ -76,17 +76,19 @@ Per esempio, si può facilmente estendere il task per essere traducibile::
         $name = $input->getArgument('name');
         $translator = $this->getContainer()->get('translator');
         if ($name) {
-            $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
+            $output->writeln($translator->trans('Ciao %name%!', array('%name%' => $name)));
         } else {
-            $output->writeln($translator->trans('Hello!'));
+            $output->writeln($translator->trans('Ciao!'));
         }
     }
 
 Testare i comandi
 -----------------
 
-Quando si testano i comandi usati come parte di un framework, andrebbe usata :class:`Symfony\\Bundle\\FrameworkBundle\\Console\\Application`
-al posto di :class:`Symfony\\Component\\Console\\Application`::
+Quando si testano i comandi usati come parte di un framework, andrebbe usata
+:class:`Symfony\\Bundle\\FrameworkBundle\\Console\\Application <Symfony\\Bundle\\FrameworkBundle\\Console\\Application>`
+al posto di
+:class:`Symfony\\Component\\Console\\Application <Symfony\\Component\\Console\\Application>`::
 
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -102,7 +104,12 @@ al posto di :class:`Symfony\\Component\\Console\\Application`::
 
             $command = $application->find('demo:greet');
             $commandTester = new CommandTester($command);
-            $commandTester->execute(array('command' => $command->getName()));
+            $commandTester->execute(
+               array(
+                  'name'    => 'Fabien',
+                  '--yell'  => true,
+               )
+            );
 
             $this->assertRegExp('/.../', $commandTester->getDisplay());
 
@@ -110,9 +117,15 @@ al posto di :class:`Symfony\\Component\\Console\\Application`::
         }
     }
 
+.. note::
+
+    Nel caso specifico appena visto, il parametro ``name`` e l'opzione ``--yell``
+    non sono obbligatori per il funzionamento del comando, ma sono mostrati in modo da poter capire
+    come personalizzarli durante la chiamata.
+
 Per poter usare il contenitore in modo completo per i test della console,
 si può estendere il test da
-:class:`Symfony\Bundle\FrameworkBundle\Test\WebTestCase`::
+:class:`Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase`::
 
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -131,7 +144,12 @@ si può estendere il test da
 
             $command = $application->find('demo:greet');
             $commandTester = new CommandTester($command);
-            $commandTester->execute(array('command' => $command->getName()));
+            $commandTester->execute(
+               array(
+                  'name'    => 'Fabien',
+                  '--yell'  => true,
+               )
+            );
 
             $this->assertRegExp('/.../', $commandTester->getDisplay());
 

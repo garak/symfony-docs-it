@@ -176,5 +176,36 @@ che invalida la cache per una data risorsa:
             }
         }
 
+Rotte ed header X-FORWARDED
+---------------------------
+
+Per assicurarsi che le rotte di Symfony generino correttamente URL con Varnish,
+occorre aggiungere i corretti header ```X-Forwarded```, in modo che Symfony sia consapevole
+del numero originale di porta della richiesta. Il modo esatto in cui ciò viene fatto
+dipende dalla configurazione. Come esempio di base, si supponga che Varnish e il server web siano sulla
+stessa macchina e che Varnish sia in ascolto su una porta (p.e. 80) e Apache
+su un'altra (p.e. 8080). In questa situazione, Varnish dovrebbe aggiungere l'header ``X-Forwarded-Port``,
+in modo che l'applicazione Symfony sappia che il numero originale di porta
+è 80 non 8080.
+
+Se tale header non fosse impostato correttamente, Symfony appenderebbe ``8080`` agli URL
+assoluti generati:
+
+.. code-block:: text
+
+    sub vcl_recv {
+        if (req.http.X-Forwarded-Proto == "https" ) {
+            set req.http.X-Forwarded-Port = "443";
+        } else {
+            set req.http.X-Forwarded-Port = "80"
+        }
+    }
+
+.. note::
+
+    Ricordarsi di configurare :ref:`framework.trusted_proxies<reference-framework-trusted-proxies>`
+    nella configurazione di Symfony, in modo che Varnish sia visto come proxy fidato
+    e quindi siano usati gli header ``X-Forwarded-``.
+
 .. _`Architettura Edge`: http://www.w3.org/TR/edge-arch
-.. _`GZIP e Varnish`:  https://www.varnish-cache.org/docs/3.0/phk/gzip.html
+.. _`GZIP e Varnish`: https://www.varnish-cache.org/docs/3.0/phk/gzip.html

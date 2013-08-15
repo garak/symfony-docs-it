@@ -114,7 +114,7 @@ Sarà un comando della console a inviare i messaggi dallo spool:
 
     $ php app/console swiftmailer:spool:send --env=prod
 
-È possibili limitare il numero di messaggi da inviare con un'apposita opzione:
+È possibile limitare il numero di messaggi da inviare con un'apposita opzione:
 
 .. code-block:: bash
 

@@ -19,9 +19,8 @@ viene richiamato in modo casuale, secondo la configurazione di PHP, e, se richia
 invocato dopo l'operazione `open`). Si può approfondire l'argomento su
 `php.net/session.customhandler`_
 
-
 Gestori del salvataggio nativi di PHP
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 
 I gestori cosiddetti 'nativi' sono gestori di sessione che sono o compilati in
 PHP o forniti da estensioni di PHP, come PHP-Sqlite, PHP-Memcached e così via.
@@ -59,9 +58,8 @@ Esempio di utilzzo::
     in sistemi complessi, in cui occorre maggior controllo, i gestori di salvataggio personalizzati possono fornire più
     libertà e flessibilità. Symfony2 fornisce varie implementazioni, personalizzabili a piacimento.
 
-
 Gestori di salvataggio personalizzati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 
 I gestori personalizzati sono quelli che sostituiscono completamente i gestori del salvataggio
 nativi di PHP, fornendo sei funzioni di callback, richiamate internamente da PHP in vari
@@ -84,7 +82,6 @@ Esempio::
 
     $storage = new NativeSessionStorage(array(), new PdoSessionHandler());
     $session = new Session($storage);
-
 
 Configurare le sessioni di PHP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

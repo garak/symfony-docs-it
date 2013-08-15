@@ -103,9 +103,9 @@ Quindi, creare un form per il modello ``User``::
         {
             $builder->add('email', 'email');
             $builder->add('plainPassword', 'repeated', array(
-               'first_name' => 'password',
+               'first_name'  => 'password',
                'second_name' => 'confirm',
-               'type' => 'password',
+               'type'        => 'password',
             ));
         }
 
@@ -280,6 +280,67 @@ validazione e salva i dati nella base dati::
             array('form' => $form->createView())
         );
     }
+
+Aggiungere nuove rotte
+----------------------
+
+Successivamente, aggiornare le rotte. Se si stanno sostituendo le rotte all'interno del proprio bundle
+(come mostrato qui), non dimentare di assicurarsi che il file delle rotte sia
+:ref:`importato<routing-include-external-resources>`.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/AccountBundle/Resources/config/routing.yml
+        account_register:
+           pattern:  /register
+           defaults: { _controller: AcmeAccountBundle:Account:register }
+   
+        account_create:
+           pattern:  /register/create
+           defaults: { _controller: AcmeAccountBundle:Account:create }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/AccountBundle/Resources/config/routing.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="account_register" path="/register">
+                <default key="_controller">AcmeAccountBundle:Account:register</default>
+            </route>
+
+            <route id="account_create" path="/register/create">
+                <default key="_controller">AcmeAccountBundle:Account:create</default>
+            </route>
+        </routes>
+
+    .. code-block:: php
+
+        // src/Acme/AccountBundle/Resources/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+        use Symfony\Component\Routing\Route;
+
+        $collection = new RouteCollection();
+        $collection->add('account_register', new Route('/register', array(
+            '_controller' => 'AcmeAccountBundle:Account:register',
+        )));
+        $collection->add('account_create', new Route('/register/create', array(
+            '_controller' => 'AcmeAccountBundle:Account:create',
+        )));
+
+        return $collection;
+
+Aggiornare lo schema della base dati
+------------------------------------
+
+Ovviamente, poiché è stata aggiunta un'entità ``User``, assicurarsi
+che lo schema della base dati sia aggiornato di conseguenza:
+
+   $ php app/console doctrine:schema:update --force
 
 Ecco fatto! Il form ora valida e consente di salvare l'oggetto ``User``
 nella base dati. Il campo in più ``terms`` del modello ``Registration``

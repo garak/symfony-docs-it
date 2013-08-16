@@ -52,6 +52,16 @@ Le classi specializzate :class:`Symfony\\Component\\DomCrawler\\Link` e
 :class:`Symfony\\Component\\DomCrawler\\Form` sono utili per interagire con
 collegamenti html e i form durante la visita dell'albero HTML.
 
+.. note::
+
+    DomCrawler proverà ad aggiustare automaticamente il codice HTML, in modo che aderisca
+    alle specifiche ufficiali. Per esempio, se si innesta un tag ``<p>`` in un
+    altro tag ``<p>``, questo sarà spostato accanto al tag genitore.
+    Questo comportamento fa parte delle specifiche HTML5. Se tuttavia si ottiene
+    un comportamento inaspettato, potrebbe esserne una causa. Sebbene ``DomCrawler``
+    non sia pensato per esportare contenuti, si può vedere la versione "aggiustata" dell'HTML
+    con un :ref:`dump<component-dom-crawler-dumping>`.
+
 Filtrare i nodi
 ~~~~~~~~~~~~~~~
 
@@ -183,6 +193,8 @@ e :phpclass:`DOMNode`:
     $crawler->addNodes(array($nodo));
     $crawler->addNode($nodo);
     $crawler->add($documento);
+
+.. _component-dom-crawler-dumping:
 
 .. sidebar:: Manipolare ed esportare un ``Crawler``
 

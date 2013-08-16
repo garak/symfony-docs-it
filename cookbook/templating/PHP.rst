@@ -253,24 +253,24 @@ controllore ``Hello``::
     }
 
 Ma dove è definito ``$view['actions']``? Come anche
-``$view['slots']``, è chiamato helper di template e sarà approfondito nella
+``$view['slots']``, è chiamato aiutante di template e sarà approfondito nella
 prossima sezione.
 
 .. index::
-   single: Template; Helper
+   single: Template; Aiutante
 
-Usare gli helper di template
-----------------------------
+Usare gli aiutanti dei template
+-------------------------------
 
-Il sistema di template di Symfony2 può essere facilmente esteso tramite gli helper.
-Gli helper sono oggetti PHP che forniscono caratteristiche utili nel contesto di un
-template. ``actions`` e ``slots`` sono due degli helper già disponibili in Symfony2.
+Il sistema di template di Symfony2 può essere facilmente esteso tramite gli aiutanti.
+Gli aiutanti sono oggetti PHP che forniscono caratteristiche utili nel contesto di un
+template. ``actions`` e ``slots`` sono due degli aiutanti già disponibili in Symfony2.
 
 Creare collegamenti tra le pagine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Parlando di applicazioni web, non può mancare la creazione di collegamenti. Invece di
-inserire a mano gli URL nei template, l'helper ``router`` sa come generare gli URL,
+inserire a mano gli URL nei template, l'aiutante ``router`` sa come generare gli URL,
 in base alla configurazione delle rotte. In questo modo, tutti gli URL possono essere
 facilmente cambiati, cambiando la configurazione:
 
@@ -304,8 +304,8 @@ Symfony2 fornisce il tag ``assets`` per gestirli facilmente:
 
     <img src="<?php echo $view['assets']->getUrl('images/logo.png') ?>" />
 
-Lo scopo principale dell'helper ``assets`` è quello di rendere l'applicazione più
-portabile. Grazie a questo helper, si può spostare la cartella radice dell'applicazione
+Lo scopo principale dell'aiutante ``assets`` è quello di rendere l'applicazione più
+portabile. Grazie a questo aiutante, si può spostare la cartella radice dell'applicazione
 in qualsiasi punto sotto la propria cartella radice del web, senza dover cambiare nulla
 nel codice dei template.
 

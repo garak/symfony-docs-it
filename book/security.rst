@@ -1816,7 +1816,7 @@ Controllare l'accesso nei template
 ----------------------------------
 
 Nel caso si voglia controllare all'interno di un template se l'utente corrente ha un ruolo, usare
-la funzione helper:
+la funzione aiutante:
 
 .. configuration-block::
 

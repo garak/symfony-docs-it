@@ -833,9 +833,9 @@ templating.helper
 
 **Scopo**: Rendere i proprio servizi disponibili nei template PHP
 
-Per abilitare un helper personalizzato per i template, aggiungerlo come normale servizio
+Per abilitare un aiutante personalizzato per i template, aggiungerlo come normale servizio
 in una configurazione, assegnarli il tag ``templating.helper`` e definire un attributo
-``alias`` (l'helper sarà accessibile tramite tale alias nei
+``alias`` (l'aiutante sarà accessibile tramite tale alias nei
 template):
 
 .. configuration-block::
@@ -843,21 +843,21 @@ template):
     .. code-block:: yaml
 
         services:
-            templating.helper.il mio_helper:
-                class: Nome\Pienamente\QUalificato\Classe\Helper
+            templating.helper.il_mio_aiutante:
+                class: Nome\Pienamente\QUalificato\Classe\Aiutante
                 tags:
                     - { name: templating.helper, alias: nome_alias }
 
     .. code-block:: xml
 
-        <service id="templating.helper.il mio_helper" class="Nome\Pienamente\QUalificato\Classe\Helper">
+        <service id="templating.helper.il_mio_aiutante" class="Nome\Pienamente\QUalificato\Classe\Aiutante">
             <tag name="templating.helper" alias="nome_alias" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('templating.helper.il mio_helper', 'Nome\Pienamente\QUalificato\Classe\Helper')
+            ->register('templating.helper.il_mio_aiutante', 'Nome\Pienamente\QUalificato\Classe\Aiutante')
             ->addTag('templating.helper', array('alias' => 'nome_alias'))
         ;
 

@@ -138,7 +138,7 @@ Visualizzare il Form
 Ora che il modulo è stato creato, il passo successivo è quello di visualizzarlo. Questo viene
 fatto passando uno speciale oggetto form "view" al template (notare il
 ``$form->createView()`` nel controllore sopra) e utilizzando una serie di funzioni
-helper per i form:
+aiutanti per i form:
 
 .. configuration-block::
 
@@ -652,12 +652,12 @@ Diamo uno sguardo a ogni parte:
   un elemento ``div``;
 
 * ``form_rest(form)`` - Rende tutti i campi che non sono ancora stati resi.
-  Di solito è una buona idea mettere una chiamata a questo helper in fondo
+  Di solito è una buona idea mettere una chiamata a questo aiutante in fondo
   a ogni form (nel caso in cui ci si è dimenticati di mostrare un campo o non ci si voglia annoiare
-  a inserire manualmente i campi nascosti). Questo helper è utile anche per utilizzare
+  a inserire manualmente i campi nascosti). Questo aiutante è utile anche per utilizzare
   automaticamente i vantaggi della :ref:`protezione CSRF<forms-csrf>`.
   
-La maggior parte del lavoro viene fatto dall'helper ``form_row``, che rende
+La maggior parte del lavoro viene fatto dall'aiutante ``form_row``, che rende
 l'etichetta, gli errori e i widget HTML del form di ogni campo all'interno di un tag ``div``
 per impostazione predefinita. Nella sezione :ref:`form-theming`, si apprenderà come l'output
 di ``form_row`` possa essere personalizzato su diversi livelli.
@@ -682,11 +682,11 @@ di ``form_row`` possa essere personalizzato su diversi livelli.
 Rendere manualmente ciascun campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-L'helper ``form_row`` è utile perché si può rendere ciascun campo del form
+L'aiutante ``form_row`` è utile perché si può rendere ciascun campo del form
 molto facilmente (e il markup utilizzato per la "riga" può essere personalizzato
 come si vuole). Ma poiché la vita non è sempre così semplice, è anche possibile rendere ogni campo
 interamente a mano. Il risultato finale del codice che segue è lo stesso di quando
-si è utilizzato l'helper ``form_row``:
+si è utilizzato l'aiutante ``form_row``:
 
 .. configuration-block::
 
@@ -789,7 +789,7 @@ Riferimento alle funzioni del template Twig
 
 Se si utilizza Twig, un riferimento completo alle funzioni di resa è
 disponibile nel :doc:`manuale di riferimento</reference/forms/twig_reference>`.
-Leggendolo si può sapere tutto sugli helper disponibili e le opzioni
+Leggendolo si può sapere tutto sugli aiutanti disponibili e le opzioni
 che possono essere usate con ciascuno di essi.
 
 .. index::
@@ -1350,7 +1350,7 @@ direttamente il frammento ``form_errors``.
 Temi globali per i form
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Nell'esempio sopra, è stato utilizzato l'helper ``form_theme`` (in Twig) per "importare"
+Nell'esempio sopra, è stato utilizzato l'aiutante ``form_theme`` (in Twig) per "importare"
 i frammenti personalizzati *solo* in quel form. Si può anche dire a Symfony
 di importare personalizzazioni del form nell'intero progetto.
 

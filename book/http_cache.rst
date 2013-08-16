@@ -875,11 +875,11 @@ indipendentemente dal resto della pagina.
 
 In questo esempio, abbiamo dato alla cache della pagina intera un tempo di vita di dieci
 minuti. Successivamente, includiamo l'elenco di news nel template, includendolo in
-un'azione. Possiamo farlo grazie all'helper ``render`` (vedere
+un'azione. Possiamo farlo grazie all'aiutante ``render`` (vedere
 :ref:`templating-embedding-controller` per maggiori dettagli).
 
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
-Symfony2 usa l'helper ``render`` per configurare i tag ESI:
+Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
 
 .. configuration-block::
 
@@ -905,8 +905,8 @@ Symfony2 usa l'helper ``render`` per configurare i tag ESI:
 
 Usando l'opzione ``esi``(che usa a sua volta la funzoine Twig ``render_esi``), si dice
 a Symfony2 che l'azione va resa come tag ESI. Ci si potrebbe chiedere
-perché voler usare un helper invece di scrivere direttamente il tag ESI.
-Il motivo è che un helper fa funzionare l'applicazione anche
+perché voler usare un aiutante invece di scrivere direttamente il tag ESI.
+Il motivo è che un aiutante fa funzionare l'applicazione anche
 se non ci sono gateway per la cache installati.
 
 Quando si usa la funzione ``render`` predefinita (o si usa l'opzione
@@ -986,7 +986,7 @@ accessi al minimo.
     ``max-age`` e metterà in cache l'intera pagina. E questo non è quello che
     vogliamo.
 
-L'helper ``render`` supporta due utili opzioni:
+L'aiutante ``render`` supporta due utili opzioni:
 
 * ``alt``: usato come attributo ``alt`` nel tag ESI, che consente di specificare
   un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;

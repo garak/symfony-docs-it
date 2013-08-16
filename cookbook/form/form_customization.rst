@@ -13,7 +13,7 @@ Le basi della resa dei form
 ---------------------------
 
 Si ricordi che le label, gli errori e i widget HTML di un campo del form possono essere facilmente
-resi usando la funzione di Twig ``form_row`` oppure il metodo dell'helper PHP
+resi usando la funzione di Twig ``form_row`` oppure il metodo dell'aiutante PHP
 ``row``:
 
 .. configuration-block::
@@ -319,7 +319,7 @@ per personalizzare il frammento ``integer_widget``.
 
 Ora che è stato creato il tema del form personalizzato, bisogna dire a Symfony
 di utilizzarlo. Nel template dove viene attualmente reso il form,
-dire a Symfony di utilizzare il tema attraverso il metodo ``setTheme`` dell'helper:
+dire a Symfony di utilizzare il tema attraverso il metodo ``setTheme`` dell'aiutante:
 
 .. _cookbook-form-php-theme-import-template:
 
@@ -685,7 +685,7 @@ Personalizzare l'output degli errori
 
 Ci sono diversi modi di personalizzare come gli errori sono resi quando un
 form viene inviato con errori. I messaggi di errore per un campo sono resi
-quando si utilizza l'helper ``form_errors``:
+quando si utilizza l'aiutante ``form_errors``:
 
 .. configuration-block::
 

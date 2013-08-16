@@ -835,7 +835,7 @@ Template PHP
 ~~~~~~~~~~~~
 
 Il servizio di traduzione è accessibile nei template PHP attraverso
-l'helper ``translator``:
+l'aiutante ``translator``:
 
 .. code-block:: html+php
 

@@ -24,6 +24,8 @@ Si può installare il componente in molti modi diversi:
 * Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation);
 * Installarlo via :doc:`Composer </components/using_components>` (``symfony/http-foundation`` su `Packagist`_).
 
+.. _component-http-foundation-request:
+
 Richiesta
 ---------
 
@@ -145,7 +147,6 @@ esiste::
     $request->query->get('bar', 'bar');
     // restituisce 'bar'
 
-
 Quando PHP importa la query della richiesta, gestisce i parametri della richiesta, come
 ``foo[bar]=bar``, in modo speciale, creando un array. In questo modo, si può richiedere il
 parametro ``foo`` e ottenere un array con un elemento ``bar``. A volte, però,
@@ -172,7 +173,8 @@ richiesta, grazie alla proprietà pubblica ``attributes``, che è anche un'istan
 :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`. La si usa soprattutto
 per allegare informazioni che appartengono alla richiesta e a cui si deve accedere in
 diversi punti della propria applicazione. Per informazioni su come viene usata
-nel framework Symfony2, vedere :ref:`saperne di più<book-fundamentals-attributes>`.
+nel framework Symfony2, vedere
+:ref:`il libro di Symfony2<book-fundamentals-attributes>`.
 
 Identificare una richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -251,7 +253,7 @@ Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
 
     $accept = AcceptHeader::fromString($request->headers->get('Accept'));
     if ($accept->has('text/html')) {
-        $item = $accept->get('html');
+        $item = $accept->get('text/html');
         $charset = $item->getAttribute('charset', 'utf-8');
         $quality = $item->getQuality();
     }
@@ -263,7 +265,11 @@ Accedere ad altri dati
 ~~~~~~~~~~~~~~~~~~~~~~
 
 La classe Request ha molti altri metodi, che si possono usare per accedere alle
-informazioni della richiesta. Si dia uno sguardo alle API per maggiori informazioni.
+informazioni della richiesta. Si dia uno sguardo alla classe
+:class:`the Request API<Symfony\\Component\\HttpFoundation\\Request>`
+per maggiori informazioni.
+
+.. _component-http-foundation-response:
 
 Risposta
 --------
@@ -444,7 +450,7 @@ In alternativa, se si sta servendo un file statico, si può usare
 :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`::
 
     use Symfony\Component\HttpFoundation\BinaryFileResponse
-    
+
     $file = 'percorrso/del/file.txt';
     $response = new BinaryFileResponse($file);
 
@@ -461,7 +467,6 @@ Si può ancora impostare il ``Content-Type`` del file inviato o cambiarne il ``C
 
     $response->headers->set('Content-Type', 'text/plain')
     $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'nomefile.txt');
-    
 
 .. _component-http-foundation-json-response:
 
@@ -504,6 +509,9 @@ a ``application/json``.
     che il risultato finale sia un oggetto (p.e. ``{"oggetto": "non dentro un array"}``)
     invece che un array (p.e. ``[{"oggetto": "dentro un array"}]``). Si leggano
     le `linee guida OWASP`_ per maggiori informazioni.
+
+    Solol i metodi che rispondono a richieste GET sono vulnerabili a  XSSI 'JSON Hijacking'.
+    I metodi che rispondono solo a richieste POST non ne sono affetti.
 
 Callback JSONP
 ~~~~~~~~~~~~~~

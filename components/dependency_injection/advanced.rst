@@ -59,6 +59,54 @@ alias (vedere sotto) per accedervi (tramite alias).
 
    I servizi sono predefiniti come pubblici.
 
+Servizi sintetici
+-----------------
+
+I servizi sintetici sono servizi che sono iniettati nel contenitore, invece di
+essere creati dal contenitore.
+
+Per esempio, se si usa il componente :doc:`HttpKernel</components/http_kernel/introduction>`
+con il componente DependencyInjection, il servizio ``request``
+è iniettato nel metodo
+:method:`ContainerAwareHttpKernel::handle() <Symfony\\Component\\HttpKernel\\DependencyInjection\\ContainerAwareHttpKernel::handle>`
+entrando nello :doc:`scope </cookbook/service_container/scopes>` della richiesta.
+La classe non esiste se non c'è una richiesta, quindi non può essere inclusa nella
+configurazione del contenitore. Inoltre, il servizio sarebbe diverso per ogni
+sott-richiesta nell'applicazione.
+
+Per creare un servizio sintetico, impostare ``synthetic`` a ``true``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            request:
+                synthetic: true
+
+    .. code-block:: xml
+
+        <service id="request"
+            synthetic="true" />
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+
+        // ...
+        $container->setDefinition('request', new Definition())
+            ->setSynthetic(true);
+
+Come si può vedere, solo l'opzione ``synthetic`` è impostata. Tutte le altre opzioni sono usate solo per
+configurare il modo in cui il servizio è creato dal contenitore. Poiché il servizio non è
+creato dal contenitore, tali opzioni vengono omesse.
+
+Si può ora iniettare la classe, usando
+:method:`Container::set<Symfony\\Component\\DependencyInjection\\Container::set>`::
+
+    // ...
+    $container->set('request', new MyRequest(...));
+
 Alias
 -----
 

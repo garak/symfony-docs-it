@@ -83,7 +83,7 @@ sotto-template, per impostare il suo template padre.
         <?php echo $page->body ?>
     </p>
 
-Per usare l'ereditarietà dei template, l'helper :class:`Symfony\\Templating\\Helper\\SlotsHelper`
+Per usare l'ereditarietà dei template, l'aiutante :class:`Symfony\\Templating\\Helper\\SlotsHelper`
 deve essere registrato::
 
     use Symfony\Templating\Helper\SlotsHelper;
@@ -105,8 +105,8 @@ Escape dell'output
 
 Questa documentazione è ancora da scrivere.
 
-L'helper Asset
---------------
+L'aiutante Asset
+----------------
 
 Questa documentazione è ancora da scrivere.
 

@@ -507,7 +507,7 @@ che si comporta un po' come il sistema di template di Symfony2:
         return new Response($html);
     }
 
-    // funzione helper per rendere i template
+    // funzione aiutante per rendere i template
     function render_template($path, array $args)
     {
         extract($args);

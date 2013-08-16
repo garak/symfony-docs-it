@@ -461,11 +461,11 @@ in altri formati. Per maggiori informazioni, leggere la sezione
    Vedere :ref:`Configurazione dei template<template-configuration>` per maggiori dettagli.
 
 .. index::
-   single: Template Tag e helper
-   single: Template; Helper
+   single: Template Tag e aiutanti
+   single: Template; Aiutanti
 
-Tag e helper
-------------
+Tag e aiutanti
+--------------
 
 Dopo aver parlato delle basi dei template, di che nomi abbiano e di come si
 possa usare l'ereditarietà, la parte più difficile è passata. In questa
@@ -475,11 +475,11 @@ template, collegare pagine e inserire immagini.
 
 Symfony2 dispone di molti tag di Twig specializzati e di molte funzioni, che facilitano
 il lavoro del progettista di template. In PHP, il sistema di template fornisce un
-sistema estensibile di *helper*, che fornisce utili caratteristiche nel contesto
+sistema estensibile di *aiutanti*, che fornisce utili caratteristiche nel contesto
 dei template.
 
 Abbiamo già visto i tag predefiniti (``{% block %}`` e ``{% extends %}``),
-così come un esempio di helper PHP (``$view['slots']``). Vediamone alcuni
+così come un esempio di aiutante PHP (``$view['slots']``). Vediamone alcuni
 altri.
 
 .. index::
@@ -679,7 +679,7 @@ Contenuto asincrono con hinclude.js
 
 Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
-Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
+Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
 
 
 .. configuration-block::
@@ -819,7 +819,7 @@ Collegare le pagine
 
 Creare collegamenti alle altre pagine della propria applicazione è uno dei lavori più
 comuni per un template. Invece di inserire a mano URL nei template, usare la funzione
-``path`` di Twig (o l'helper ``router`` in PHP)  per generare URL basati sulla
+``path`` di Twig (o l'aiutante ``router`` in PHP)  per generare URL basati sulla
 configurazione delle rotte. Più avanti, se si vuole modificare l'URL di una particolare
 pagina, tutto ciò di cui si avrà bisogno è cambiare la configurazione delle rotte: i
 template genereranno automaticamente il nuovo URL.
@@ -1515,7 +1515,7 @@ un controllore può essere creato con o senza l'uso di un template::
 Il motore dei template di Symfony è molto flessibile e mette a disposizione due
 sistemi di template: i tradizionali template *PHP* e i potenti e raffinati
 template *Twig*. Entrambi supportano una gerarchia di template e sono distribuiti
-con un ricco insieme di funzioni helper, capaci di eseguire i compiti più
+con un ricco insieme di funzioni aiutanti, capaci di eseguire i compiti più
 comuni.
 
 Complessivamente, l'argomento template dovrebbe essere considerato come un potente

@@ -1231,7 +1231,7 @@ Generare URL da un template
 
 Il luogo più comune per generare un URL è all'interno di un template quando si creano i collegamenti
 tra le varie pagine dell'applicazione. Questo viene fatto esattamente come prima, ma utilizzando
-una funzione helper per i template:
+una funzione aiutante per i template:
 
 .. configuration-block::
 

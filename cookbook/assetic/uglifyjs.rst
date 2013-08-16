@@ -223,7 +223,7 @@ Successivamente si aggiunge il filtro alla configurazione:
             ),
         ));
         
-Per utilizzare il filtro sui file css, si aggiunge il filtro all'helper ``stylesheets``
+Per utilizzare il filtro sui file css, si aggiunge il filtro all'aiutante ``stylesheets``
 di Assetic:
 
 .. configuration-block::

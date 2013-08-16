@@ -355,10 +355,10 @@ InputOption::VALUE_OPTIONAL  L'opzione può avere un valore o meno (p.e. ``urla`
             1
         );
 
-Helper di console
------------------
+Aiutanti della console
+----------------------
 
-Il componente Console contiene anche una serie di "helper", vari piccoli strumenti
+Il componente Console contiene anche una serie di "aiutanti", vari piccoli strumenti
 in gradi di aiutare con diversi compiti:
 
 * :doc:`/components/console/helpers/dialoghelper`: interactively ask the user for information

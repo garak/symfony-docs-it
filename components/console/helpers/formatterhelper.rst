@@ -1,14 +1,14 @@
 .. index::
-    single: Helper della console; Helper Formatter
+    single: Aiutanti della console; Aiutante Formatter
 
-Helper Formatter
-================
+Aiutante Formatter
+==================
 
-L'helper Formatter fornisce funzioni per formattare l'output con colori.
-Si possono fare cose più avanzate con questo helper rispetto a
+L'aiutante Formatter fornisce funzioni per formattare l'output con colori.
+Si possono fare cose più avanzate con questo aiutante rispetto a
 :ref:`components-console-coloring`.
 
-L'helper ``formatter`` è incluso nell'insieme predefinito di helper, ottenibile
+L'aiutante ``formatter`` è incluso nell'insieme predefinito di aiutanti, ottenibile
 richiamando :method:`Symfony\\Component\\Console\\Command\\Command::getHelperSet`::
 
     $formatter = $this->getHelperSet()->get('formatter');

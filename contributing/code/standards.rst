@@ -96,7 +96,7 @@ Struttura
 * Usare le parentesi graffe per le strutture di controllo, indipendentemente dal numero
   di istruzioni contenute;
 
-* Definire una classe per file (non si applica a classi private di helper
+* Definire una classe per file (non si applica a classi private di aiutanti
   che non devono essere istanziate dall'esterno e quindi esulano dallo
   standard `PSR-0`_);
 

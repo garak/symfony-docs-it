@@ -346,7 +346,7 @@ La classe base del controllore
 Per comodità, Symfony2 ha una classe base ``Controller`` che aiuta
 nelle attività più comuni del controllore e dà alla classe controllore
 l'accesso a qualsiasi risorsa che potrebbe essere necessaria. Estendendo questa classe ``Controller``,
-è possibile usufruire di numerosi metodi helper.
+è possibile usufruire di numerosi metodi aiutanti.
 
 Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificare
 ``HelloController`` per estenderla::
@@ -366,7 +366,7 @@ Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificar
     }
 
 Questo in realtà non cambia nulla su come lavora il controllore. Nella
-prossima sezione, si imparerà a conoscere i metodi helper che rende disponibili
+prossima sezione, si imparerà a conoscere i metodi aiutanti che rende disponibili
 la classe base del controllore. Questi metodi sono solo scorciatoie per usare funzionalità
 del nucleo di Symfony2 che sono a disposizione con o senza la classe
 base di ``Controller``. Un ottimo modo per vedere le funzionalità del nucleo in azione

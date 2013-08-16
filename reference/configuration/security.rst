@@ -27,9 +27,9 @@ Ogni parte sarà spiegata nella prossima sezione.
             always_authenticate_before_granting: false
             erase_credentials: true
             access_decision_manager:
-                strategy: affirmative
-                allow_if_all_abstain: false
-                allow_if_equal_granted_denied: true
+                strategy:             affirmative
+                allow_if_all_abstain:  false
+                allow_if_equal_granted_denied:  true
             acl:
 
                 # un nome configurato nella sezione doctrine.dbal
@@ -39,21 +39,21 @@ Ogni parte sarà spiegata nella prossima sezione.
                     prefix:               sf2_acl_
                 provider:             ~
                 tables:
-                    class: acl_classes
-                    entry: acl_entries
-                    object_identity: acl_object_identities
-                    object_identity_ancestors: acl_object_identity_ancestors
-                    security_identity: acl_security_identities
+                    class:                acl_classes
+                    entry:                acl_entries
+                    object_identity:      acl_object_identities
+                    object_identity_ancestors:  acl_object_identity_ancestors
+                    security_identity:    acl_security_identities
                 voter:
-                    allow_if_object_identity_unavailable: true
+                    allow_if_object_identity_unavailable:  true
 
             encoders:
                 # Esempi:
                 Acme\DemoBundle\Entity\User1: sha512
                 Acme\DemoBundle\Entity\User2:
-                    algorithm: sha512
-                    encode_as_base64: true
-                    iterations: 5000
+                    algorithm:           sha512
+                    encode_as_base64:    true
+                    iterations:          5000
 
                 # PBKDF2 encoder
                 # vedere più avanti la nota su PBKDF2 per dettagli su sicurezza e velocità
@@ -64,34 +64,35 @@ Ogni parte sarà spiegata nella prossima sezione.
                     iterations:           1000
 
                 # Opzioni/valori di esempio di come potrebbe essere un encoder personalizzato
-                Acme\Nome\Della\Classe:
-                    algorithm:            ~
-                    ignore_case:          false
-                    encode_as_base64:     true
-                    iterations:           5000
-                    id:                   ~
+                Acme\DemoBundle\Entity\User3:
+                    id:                   my.encoder.id
 
             providers:            # Obbligatorio
                 # Esempi:
+                my_in_memory_provider:
                     memory:
-                    name:                memory
                         users:
-                        foo:
-                            password:            foo
-                            roles:               ROLE_USER
-                        bar:
-                            password:            bar
-                            roles:               [ROLE_USER, ROLE_ADMIN]
-                entity:
+                            foo:
+                                password:           foo
+                                roles:              ROLE_USER
+                            bar:
+                                password:           bar
+                                roles:              [ROLE_USER, ROLE_ADMIN]
+
+                my_entity_provider:
                     entity:
-                        class:               SecurityBundle:User
-                        property:            username
+                        class:              SecurityBundle:User
+                        property:           username
+                        manager_name:       ~
 
                 # Esempio di fornitore personalizzato
-                some_custom_provider:
+                my_some_custom_provider:
                     id:                   ~
+
+                # Concatena alcuni fornitori
+                my_chain_provider:
                     chain:
-                        providers:            []
+                        providers:          [ my_in_memory_provider, my_entity_provider ]
 
             firewalls:            # Obbligatorio
                 # Esempi:
@@ -124,9 +125,9 @@ Ogni parte sarà spiegata nella prossima sezione.
 
                         # opzioni per un login effettuato con successo (vedere sotto)
                         always_use_default_target_path: false
-                        default_target_path: /
-                        target_path_parameter: _target_path
-                        use_referer: false
+                        default_target_path:            /
+                        target_path_parameter:          _target_path
+                        use_referer:                    false
 
                         # opzioni per un login fallito (vedere sotto)
                         failure_path: /pippo
@@ -141,12 +142,12 @@ Ogni parte sarà spiegata nella prossima sezione.
 
                         # opzioni token csrf
                         csrf_parameter: _csrf_token
-                        intention: authenticate
-                        csrf_provider: my.csrf_provider.id
+                        intention:      authenticate
+                        csrf_provider:  my.csrf_provider.id
 
                         # il login deve essere in POST, non in GET
-                        post_only: true
-                        remember_me: false
+                        post_only:      true
+                        remember_me:    false
                     remember_me:
                         token_provider: nome
                         key: unaQualcheChiaveSegreta

@@ -1,17 +1,17 @@
 .. index::
-    single: Helper della console; Helper Dialog
+    single: Aiutanti della console; Aiutante Dialog
 
-Helper Dialog 
-=============
+Aiutante Dialog 
+===============
 
 :class:`Symfony\\Component\\Console\\Helper\\DialogHelper` fornisce 
 funzioni per chiedere informazioni all'utente. È incluso nell'insieme
-predefinito degli helper, ottenibile richiamando
+predefinito degli aiutanti, ottenibile richiamando
 :method:`Symfony\\Component\\Console\\Command\\Command::getHelperSet`::
 
     $dialog = $this->getHelperSet()->get('dialog');
 
-Tutti i metodi all'interno dell'helper Dialog hanno
+Tutti i metodi all'interno dell'aiutante Dialog hanno
 :class:`Symfony\\Component\\Console\\Output\\OutputInterface` come primo
 parametro, la domanda come secondo parametro e il valore predefinito come ultimo
 parametro.

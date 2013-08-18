@@ -103,10 +103,10 @@ base HTTP (cioè il classico vecchio box nome utente/password):
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
-                    'pattern' => '^/',
-                    'anonymous' => array(),
+                    'pattern'    => '^/',
+                    'anonymous'  => array(),
                     'http_basic' => array(
-                        'realm' => 'Area demo protetta',
+                        'realm'  => 'Area demo protetta',
                     ),
                 ),
             ),
@@ -335,8 +335,8 @@ In primo luogo, abilitare il form di login sotto il firewall:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
-                    'pattern' => '^/',
-                    'anonymous' => array(),
+                    'pattern'    => '^/',
+                    'anonymous'  => array(),
                     'form_login' => array(
                         'login_path' => 'login',
                         'check_path' => 'login_check',
@@ -657,11 +657,11 @@ vedere :doc:`/cookbook/security/form_login`.
 
             'firewalls' => array(
                 'login_firewall' => array(
-                    'pattern' => '^/login$',
+                    'pattern'   => '^/login$',
                     'anonymous' => array(),
                 ),
                 'secured_area' => array(
-                    'pattern' => '^/',
+                    'pattern'    => '^/',
                     'form_login' => array(),
                 ),
             ),
@@ -1804,6 +1804,11 @@ una rotta da poter utilizzare per generare l'URL:
         $collection->add('logout', new Route('/logout', array()));
 
         return $collection;
+
+.. caution::
+
+    Da Symfony 2.1, si *deve* averee una rotta corrispondente al percorso di disconnessone.
+    Senza tale rotta, la disconnessone non funzionerà.
 
 Una volta che l'utente è stato disconnesso, viene rinviato al percorso
 definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per

@@ -132,15 +132,19 @@ Symfony2::
         // ...
     }
 
-Il file stesso risiede in
+Il file stesso si trova in
 ``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
-Come si può vedere, la locazione del file segue lo spazio dei nomi della classe.
-Nello specifico, lo spazio dei nomi ``Sensio\Bundle\FrameworkExtraBundle`` dice che la
-cartella in cui il file dovrebbe risiedere
-(``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/``).
-Composer quindi può cercare il file nella specifica posizione e caricarlo molto velocemente.
+Come si può vedere, la seconda parte del percorso segue lo spazio dei nomi della
+classe. La prima parte è uguale al nome del pacchetto SensioFrameworkExtraBundle.
 
-Se il file *non* risiede in questa esatta locazione, si riceverà un errore
+Lo spazio dei nomi, ``Sensio\Bundle\FrameworkExtraBundle``, e il nome del pacchetto,
+``sensio/framework-extra-bundle``, dicono la
+cartella in cui il file dovrebbe trovarsi
+(``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/``).
+Composer quindi può cercare il file nella specifica posizione e caricarlo molto
+velocemente.
+
+Se il file *non* si trova in questa esatta posizione, si riceverà un errore
 ``Class "Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle" does not exist.``.
 In Symfony2, un errore "class does not exist" vuol dire che lo spazio dei nomi della
 classe e la locazione fisica del file non corrispondono. Fondamentalmente, Symfony2
@@ -169,6 +173,11 @@ cartelle specifiche, senza definire dipendenze:
     "autoload": {
         "psr-0": { "": "src/" }
     }
+
+Questo vuol dire che, se una classe non viene trovata nella cartella ``vendor``, Composer
+cercherà nella cartella ``src``, prima di sollevare un'eccezione "class does not exist".
+Si può approfondire la configurazione dell'auto-caricamento di Composer nella
+`documentazione di Composer`_
 
 Uso della console
 -----------------
@@ -355,5 +364,6 @@ In realtà, la configurazione di Symfony2 è molto più potente ed è usata prin
 per configurare oggetti da usare. Per maggiori informazioni, vedere il capitolo
 intitolato ":doc:`/book/service_container`".
 
-.. _`Symfony2 Standard`: https://github.com/symfony/symfony-standard
 .. _`Composer`: http://getcomposer.org
+.. _`Symfony2 Standard`: https://github.com/symfony/symfony-standard
+.. _`documentazione di Composer`: http://getcomposer.org/doc/04-schema.md#autoload

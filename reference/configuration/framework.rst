@@ -40,7 +40,7 @@ Configurazione
     * `assets_base_urls`_
     * `assets_version`_
     * `assets_version_format`_
-    * `profiler`_
+* `profiler`_
     * :ref:`enabled<profiler.enabled>`
 
 secret
@@ -554,12 +554,12 @@ Configurazione predefinita completa
 
             # configurazione della traduzione
             translator:
-                enabled:              true
+                enabled:              false
                 fallback:             en
 
             # configurazione della validazione
             validation:
-                enabled:              true
+                enabled:              false
                 cache:                ~
                 enable_annotations:   false
                 translation_domain:   validators

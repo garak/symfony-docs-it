@@ -20,7 +20,7 @@ o dopo che un metodo sia eseguito, senza interferire con altri plugin. Questo pr
 si risolve facilmente con l'ereditarietà singola, mentre l'ereditarietà multipla
 (dove sia possibile con PHP) ha i suoi difetti.
 
-Il componente Event Dispatcher di Symfony2 implementa il pattern `Observer`_ in modo
+Il componente Event Dispatcher di Symfony2 implementa il pattern `Mediator`_ in modo
 semplice ed efficace, per rendere possibile tutto questo e per rendere un progetto
 veramente estensibile.
 
@@ -427,7 +427,7 @@ Si può individuare se un evento è stato fermato, usando il metodo
 :method:`Symfony\\Component\\EventDispatcher\\Event::isPropagationStopped`,
 che restituisce un booleano::
 
-    $dispatcher->dispatch('foo.event', $event);
+    $dispatcher->dispatch('pippo.event', $event);
     if ($event->isPropagationStopped()) {
         // ...
     }
@@ -458,7 +458,7 @@ Caricamento pigro degli ascoltatori::
     use Symfony\Component\EventDispatcher\Event;
     use Acme\StoreBundle\Event\StoreSubscriber;
 
-    class Foo
+    class Pippo
     {
         private $started = false;
 
@@ -479,7 +479,7 @@ Distribuzione di altri eventi da dentro un ascoltatore::
 
     use Symfony\Component\EventDispatcher\Event;
 
-    class Foo
+    class Pippo
     {
         public function myFooListener(Event $event)
         {
@@ -498,7 +498,7 @@ Iniezione per costruttore::
 
     use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-    class Foo
+    class Pippo
     {
         protected $dispatcher = null;
 
@@ -512,7 +512,7 @@ Iniezione per setter::
 
     use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-    class Foo
+    class Pippo
     {
         protected $dispatcher = null;
 
@@ -546,24 +546,24 @@ evento personalizzato, ci si può appoggiare semplicemente su un oggetto
 passarlo al distributore, perché ne sarà creato uno per impostazione predefinita, a meno  che
 non venga passato specificatamente::
 
-    $dispatcher->dispatch('foo.event');
+    $dispatcher->dispatch('pippo.evento');
 
 Inoltre, ``EventDispatcher`` restituisce sempre quale oggetto evento è stato
 distribuito, cioè o l'evento passato o l'evento creato internamente dal
 distributore. Questo consente utili scorciatoie::
 
-    if (!$dispatcher->dispatch('foo.event')->isPropagationStopped()) {
+    if (!$dispatcher->dispatch('pippo.evento')->isPropagationStopped()) {
         // ...
     }
 
 Oppure::
 
-    $barEvent = new BarEvent();
-    $bar = $dispatcher->dispatch('bar.event', $barEvent)->getBar();
+    $eventoPluto = new EventoPluto();
+    $pluto = $dispatcher->dispatch('pluto.evento', $eventoPluto)->getPluto();
 
 Oppure::
 
-    $response = $dispatcher->dispatch('bar.event', new BarEvent())->getBar();
+    $response = $dispatcher->dispatch('pluto.evento', new EventoPluto())->getPluto();
 
 e così via...
 
@@ -589,15 +589,24 @@ usato come parte della logica di processamento dell'ascoltatore::
 
     use Symfony\Component\EventDispatcher\Event;
 
-    class Foo
+    class Pippo
     {
-        public function myEventListener(Event $event)
+        public function mioAscoltatoreDiEventi(Event $evento)
         {
-            echo $event->getName();
+            echo $evento->getNome();
         }
     }
 
-.. _Observer: http://it.wikipedia.org/wiki/Observer_pattern
+Altri distributori
+------------------
+
+Oltre al comunemente usato ``EventDispatcher``, il componente dispone di due
+altri distributori:
+
+* :doc:`/components/event_dispatcher/container_aware_dispatcher`
+* :doc:`/components/event_dispatcher/immutable_dispatcher`
+
+.. _Mediator: http://it.wikipedia.org/wiki/Mediator_pattern
 .. _Closure: http://php.net/manual/en/functions.anonymous.php
 .. _callable PHP: http://www.php.net/manual/en/language.pseudo-types.php#language.types.callback
 .. _Packagist: https://packagist.org/packages/symfony/event-dispatcher

@@ -45,11 +45,12 @@
   * :doc:`/components/event_dispatcher/introduction`
   * :doc:`/components/event_dispatcher/container_aware_dispatcher`
   * :doc:`/components/event_dispatcher/generic_event`
+  * :doc:`/components/event_dispatcher/immutable_dispatcher`
 
 * **Filesystem**
 
   * :doc:`/components/filesystem`
-  
+
 * **Finder**
 
   * :doc:`/components/finder`
@@ -69,6 +70,10 @@
 * **Locale**
 
   * :doc:`/components/locale`
+
+* **Options Resolver**
+
+  * :doc:`/components/options_resolver`
 
 * **Process**
 
@@ -98,9 +103,9 @@
   * :doc:`/components/security/authentication`
   * :doc:`/components/security/authorization`
 
-* **Templating**
+* :doc:`/components/templating/index`
 
-  * :doc:`/components/templating`
+  * :doc:`/components/templating/introduction`
 
 * :doc:`/components/yaml/index`
 

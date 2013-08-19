@@ -112,7 +112,7 @@ Usare il servizio ``validator``
 Successivamente, per validare veramente un oggetto ``Author``, usare il metodo
 ``validate`` sul servizio ``validator`` (classe :class:`Symfony\\Component\\Validator\\Validator`).
 Il compito di ``validator`` è semplice: leggere i vincoli (cioè le regole) di una
-classe e verificare se i dati dell'oggetto soddisfi o no tali vincoli.
+classe e verificare se i dati dell'oggetto soddisfino o no tali vincoli.
 Se la validazione fallisce, viene restituito un array di errori. Prendiamo questo
 semplice esempio dall'interno di un controllore::
 
@@ -122,11 +122,11 @@ semplice esempio dall'interno di un controllore::
 
     public function indexAction()
     {
-        $author = new Author();
-        // ... fare qualcosa con l'oggetto $author
+        $autore = new Author();
+        // ... fare qualcosa con l'oggetto $autore
 
         $validator = $this->get('validator');
-        $errors = $validator->validate($author);
+        $errors = $validator->validate($autore);
 
         if (count($errors) > 0) {
             return new Response(print_r($errors, true));

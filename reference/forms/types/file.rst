@@ -14,6 +14,7 @@ Il tipo ``file`` rappresenta un input per caricare file.
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
+|               | - `error_mapping`_                                                  |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
@@ -29,11 +30,6 @@ Si supponga di avere in un form:
 .. code-block:: php
 
     $builder->add('attachment', 'file');
-
-.. caution::
-
-    Non dimenticare di aggiungere l'attributo ``enctype`` nel tag form:
-    ``<form action="#" method="post" {{ form_enctype(form) }}>``.
 
 Quando il form viene inviato, il campo ``attachment`` sarà un'istanza di
 :class:`Symfony\\Component\\HttpFoundation\\File\\UploadedFile`. Può essere
@@ -94,5 +90,7 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc

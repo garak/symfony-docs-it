@@ -23,6 +23,7 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 |                         | - `seconds`_                                                        |
 |                         | - `data_timezone`_                                                  |
 |                         | - `user_timezone`_                                                  |
+|                         | - `empty_value`_                                                    |
 +-------------------------+---------------------------------------------------------------------+
 | Opzioni                 | - `by_reference`_                                                   |
 | ridefinite              | - `error_bubbling`_                                                 |
@@ -31,9 +32,11 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 | ereditate               | - `invalid_message_parameters`_                                     |
 |                         | - `read_only`_                                                      |
 |                         | - `disabled`_                                                       |
+|                         | - `mapped`_                                                         |
 |                         | - `virtual`_                                                        |
+|                         | - `error_mapping`_                                                  |
 +-------------------------+---------------------------------------------------------------------+
-| Tipo genitore           | form                                                                |
+| Tipo genitore           | :doc:`form</reference/forms/types/form>`                            |
 +-------------------------+---------------------------------------------------------------------+
 | Classe                  | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimeType`  |
 +-------------------------+---------------------------------------------------------------------+
@@ -114,6 +117,8 @@ formato.
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
 
+.. include:: /reference/forms/types/options/empty_value.rst.inc
+
 Opzioni ridefinite
 ------------------
 
@@ -132,7 +137,7 @@ error_bubbling
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
@@ -142,6 +147,8 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+.. include:: /reference/forms/types/options/mapped.rst.inc
 
 .. include:: /reference/forms/types/options/virtual.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc

@@ -50,11 +50,11 @@ file ``app/config/parameters.yml``:
 
     # app/config/parameters.yml
     parameters:
-        database_driver:   pdo_mysql
-        database_host:     localhost
-        database_name:     test_project
-        database_user:     root
-        database_password: password
+        database_driver:    pdo_mysql
+        database_host:      localhost
+        database_name:      test_project
+        database_user:      root
+        database_password:  password
 
     # ...
 
@@ -91,7 +91,7 @@ file ``app/config/parameters.yml``:
             </doctrine:config>
 
         .. code-block:: php
-        
+
             // app/config/config.php
             $configuration->loadFromExtension('doctrine', array(
                 'dbal' => array(
@@ -960,7 +960,7 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
             <entity name="Acme\StoreBundle\Entity\Category">
                 <!-- ... -->
                 <one-to-many field="products"
-                    target-entity="product"
+                    target-entity="Product"
                     mapped-by="category"
                 />
 
@@ -1038,7 +1038,8 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
             <entity name="Acme\StoreBundle\Entity\Product">
                 <!-- ... -->
                 <many-to-one field="category"
-                    target-entity="products"
+                    target-entity="Category"
+                    inversed-by="products"
                     join-column="category"
                 >
                     <join-column
@@ -1256,7 +1257,7 @@ Ora si può usare questo metodo nel proprio controllore per cercare un oggetto
         $category = $product->getCategory();
 
         // ...
-    }    
+    }
 
 Ulteriori informazioni sulle associazioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1304,7 +1305,7 @@ ciclo di vita. Questo non è necessario se si usa YAML o XML per la mappatura:
     }
 
 Si può ora dire a Doctrine di eseguire un metodo su uno degli eventi disponibili del
-ciclo di vita. Per esempio, supponiamo di voler impostare una colonna di data ``created``
+ciclo di vita. Per esempio, supponiamo di voler impostare una colonna di data ``createdAt``
 alla data attuale, solo quando l'entità è persistita la prima volta (cioè è inserita):
 
 .. configuration-block::
@@ -1314,9 +1315,9 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
         /**
          * @ORM\PrePersist
          */
-        public function setCreatedValue()
+        public function setCreatedAtValue()
         {
-            $this->created = new \DateTime();
+            $this->createdAt = new \DateTime();
         }
 
     .. code-block:: yaml
@@ -1326,7 +1327,7 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
             type: entity
             # ...
             lifecycleCallbacks:
-                prePersist: [ setCreatedValue ]
+                prePersist: [setCreatedAtValue]
 
     .. code-block:: xml
 
@@ -1339,14 +1340,14 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
                     <!-- ... -->
                     <lifecycle-callbacks>
                         <lifecycle-callback type="prePersist"
-                            method="setCreatedValue" />
+                            method="setCreatedAtValue" />
                     </lifecycle-callbacks>
             </entity>
         </doctrine-mapping>
 
 .. note::
 
-    L'esempio precedente presume che sia stata creata e mappata una proprietà ``created``
+    L'esempio precedente presume che sia stata creata e mappata una proprietà ``createdAt``
     (non mostrata qui).
 
 Ora, appena prima che l'entità sia persistita per la prima volta, Doctrine richiamerà

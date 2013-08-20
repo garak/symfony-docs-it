@@ -25,8 +25,8 @@ l'applicazione con l'autenticazione base HTTP.
 
 .. note::
 
-    Il `componente della sicurezza`_ di Symfony è disponibile come libreria PHP a sé stante,
-    per l'utilizzo all'interno di qualsiasi progetto PHP.
+    Il `componente della sicurezza </components/security/introduction>` di Symfony è 
+    disponibile come libreria PHP a sé stante, per l'utilizzo all'interno di qualsiasi progetto PHP.
 
 Esempio di base: l'autenticazione HTTP
 --------------------------------------
@@ -103,10 +103,10 @@ base HTTP (cioè il classico vecchio box nome utente/password):
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
-                    'pattern' => '^/',
-                    'anonymous' => array(),
+                    'pattern'    => '^/',
+                    'anonymous'  => array(),
                     'http_basic' => array(
-                        'realm' => 'Area demo protetta',
+                        'realm'  => 'Area demo protetta',
                     ),
                 ),
             ),
@@ -335,8 +335,8 @@ In primo luogo, abilitare il form di login sotto il firewall:
         $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'secured_area' => array(
-                    'pattern' => '^/',
-                    'anonymous' => array(),
+                    'pattern'    => '^/',
+                    'anonymous'  => array(),
                     'form_login' => array(
                         'login_path' => 'login',
                         'check_path' => 'login_check',
@@ -419,6 +419,11 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
     *Non* è necessario implementare un controllore per l'URL ``/login_check``
     perché il firewall catturerà ed elaborerà qualunque form inviato
     a questo URL.
+
+.. versionadded:: 2.1
+    A partire da Symfony 2.1, si *devono* avere rotte configurate per i propri URL ``login_path``
+    (p.e. ``/login``), ``check_path`` (p.e. ``/login_check``) e ``logout``
+    (p.e. ``/logout``, vedere `Logout`_).
 
 Notare che il nome della rotta ``login`` corrisponde al valore di configurazione ``login_path``,
 in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di
@@ -652,11 +657,11 @@ vedere :doc:`/cookbook/security/form_login`.
 
             'firewalls' => array(
                 'login_firewall' => array(
-                    'pattern' => '^/login$',
+                    'pattern'   => '^/login$',
                     'anonymous' => array(),
                 ),
                 'secured_area' => array(
-                    'pattern' => '^/',
+                    'pattern'    => '^/',
                     'form_login' => array(),
                 ),
             ),
@@ -681,14 +686,11 @@ vedere :doc:`/cookbook/security/form_login`.
 Autorizzazione
 --------------
 
-Il primo passo per la sicurezza è sempre l'autenticazione: il processo di verificare
-l'identità dell'utente. Con Symfony, l'autenticazione può essere fatta in qualunque modo, attraverso
-un form di login, autenticazione HTTP o anche tramite Facebook.
-
-Una volta che l'utente è stato autenticato, l'autorizzazione ha inizio. L'autorizzazione
-fornisce un metodo standard e potente per decidere se un utente può accedere a una qualche risorsa
-(un URL, un oggetto del modello, una chiamata a metodo, ...). Questo funziona tramite l'assegnazione
-di specifici ruoli a ciascun utente e quindi richiedendo ruoli diversi per differenti risorse.
+Il primo passo per la sicurezza è sempre l'autenticazione. Una volta che l'utente è stato
+autenticato, l'autorizzazione ha inizio. L'autorizzazione fornisce un metodo standard e
+potente per decidere se un utente può accedere a una qualche risorsa (un URL, un
+oggetto del modello, una chiamata a metodo, ...). Questo funziona tramite l'assegnazione di
+specifici ruoli a ciascun utente e quindi richiedendo ruoli diversi per differenti risorse.
 
 Il processo di autorizzazione ha due diversi lati:
 
@@ -706,12 +708,6 @@ Il modo più semplice per proteggere parte dell'applicazione è quello di proteg
 schema di URL. Si è già visto questo nel primo esempio di questo capitolo,
 dove tutto ciò a cui corrisponde lo schema di espressione regolare  ``^/admin`` richiede
 il ruolo ``ROLE_ADMIN``.
-
-.. caution::
-
-    La piena comprensione del funzionamento di ``access_control`` è **molto** importante
-    per far sì che la propria applicaizone sia veramente sicura. Si veda :ref:`security-book-access-control-explanation`
-    più avanti per informazioni dettagliate.
 
 È possibile definire tanti schemi di URL quanti ne occorrono, ciascuno è un'espressione regolare.
 
@@ -764,12 +760,15 @@ si ferma, quindi solo la **prima** voce di ``access_control`` corrispondente
 verrà usata per garantire l'accesso.
 
 Ogni ``access_control`` ha varie opzioni che configurano varie
-cose: (a) :ref:`se la richiesta in arrivo deve corrispondere a questa voce di controllo di accesso<security-book-access-control-matching-options>`
-e (b) :ref:`una volta corrisposta, se alcune restrizioni di accesso debbano essere applicate<security-book-access-control-enforcement-options>`:
+cose:
+
+* (a) :ref:`se la richiesta in arrivo deve corrispondere a questa voce di controllo di accesso<security-book-access-control-matching-options>`
+* (b) :ref:`una volta corrisposta, se alcune restrizioni di accesso debbano essere applicate<security-book-access-control-enforcement-options>`:
 
 .. _security-book-access-control-matching-options:
 
-**(a) Opzioni di corrispondenza**
+(a) Opzioni di corrispondenza
+.............................
 
 Symfony2 crea un'istanza di :class:`Symfony\\Component\\HttpFoundation\\RequestMatcher`
 per ogni voce di ``access_control``, che determina se un dato controllo di accesso
@@ -777,7 +776,7 @@ vada usato o meno su questa richiesta. Le seguenti opzioni di ``access_control``
 sono usate per le corrispondenze:
 
 * ``path``
-* ``ip``
+* ``ip`` o ``ips``
 * ``host``
 * ``methods``
 
@@ -864,7 +863,8 @@ corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
 
 .. _security-book-access-control-enforcement-options:
 
-**(b) Controllo dell'accesso**
+(b) Controllo dell'accesso
+..........................
 
 Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
 *applica* restrizioni di accesso in base alle opzioni ``roles`` e
@@ -995,7 +995,7 @@ usare la voce aggiungere il parametro ``requires_channel`` in una voce ``access_
                     'requires_channel' => 'https',
                 ),
             ),
-          
+
 .. _book-security-securing-controller:
 
 Proteggere un controllore
@@ -1224,7 +1224,9 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
         security:
             providers:
                 main:
-                    entity: { class: Acme\UserBundle\Entity\User, property: username }
+                    entity:
+                        class: Acme\UserBundle\Entity\User
+                        property: username
 
     .. code-block:: xml
 
@@ -1241,7 +1243,10 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
         $container->loadFromExtension('security', array(
             'providers' => array(
                 'main' => array(
-                    'entity' => array('class' => 'Acme\UserBundle\Entity\User', 'property' => 'username'),
+                    'entity' => array(
+                        'class' => 'Acme\UserBundle\Entity\User',
+                        'property' => 'username',
+                    ),
                 ),
             ),
         ));
@@ -1286,7 +1291,7 @@ si può fare come segue:
 
             encoders:
                 Symfony\Component\Security\Core\User\User:
-                    algorithm:   sha1
+                    algorithm: sha1
                     iterations: 1
                     encode_as_base64: false
 
@@ -1765,11 +1770,6 @@ Si noti che *non* è necessario implementare un controllore per l'URL ``/logout`
 perché il firewall si occupa di tutto. Si può, tuttavia, creare
 una rotta da poter utilizzare per generare l'URL:
 
-.. warning::
-
-    Da Symfony 2.1, *occorre* avere una rotta che corrisponda al percorso di
-    logout. Senza tale rotta, il logut non funzionerà.
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -1803,6 +1803,11 @@ una rotta da poter utilizzare per generare l'URL:
 
         return $collection;
 
+.. caution::
+
+    Da Symfony 2.1, si *deve* averee una rotta corrispondente al percorso di disconnessone.
+    Senza tale rotta, la disconnessone non funzionerà.
+
 Una volta che l'utente è stato disconnesso, viene rinviato al percorso
 definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per
 ulteriori informazioni sulla configurazione di logout, vedere il
@@ -1814,7 +1819,7 @@ Controllare l'accesso nei template
 ----------------------------------
 
 Nel caso si voglia controllare all'interno di un template se l'utente corrente ha un ruolo, usare
-la funzione helper:
+la funzione aiutante:
 
 .. configuration-block::
 
@@ -2106,7 +2111,6 @@ Saperne di più con il ricettario
 * :doc:`Access Control List (ACL) </cookbook/security/acl>`
 * :doc:`/cookbook/security/remember_me`
 
-.. _`componente della sicurezza`: https://github.com/symfony/Security
 .. _`JMSSecurityExtraBundle`: http://jmsyst.com/bundles/JMSSecurityExtraBundle/1.2
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/en/class.serializable.php

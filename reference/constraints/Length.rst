@@ -3,9 +3,6 @@ Length
 
 Valida che la lunghezza di una data stringa sia *tra* un minimo e un massimo.
 
-.. versionadded:: 2.1
-    Il vincolo Length è stato aggiunto in Symfony 2.1.
-
 +----------------+----------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                |
 +----------------+----------------------------------------------------------------------+
@@ -64,16 +61,22 @@ fare come segue:
     .. code-block:: xml
 
         <!-- src/Acme/EventBundle/Resources/config/validation.xml -->
-        <class name="Acme\EventBundle\Entity\Participant">
-            <property name="firstName">
-                <constraint name="Length">
-                    <option name="min">2</option>
-                    <option name="max">50</option>
-                    <option name="minMessage">Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.</option>
-                    <option name="maxMessage">Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.</option>
-                </constraint>
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\EventBundle\Entity\Participant">
+                <property name="firstName">
+                    <constraint name="Length">
+                        <option name="min">2</option>
+                        <option name="max">50</option>
+                        <option name="minMessage">Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.</option>
+                        <option name="maxMessage">Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 

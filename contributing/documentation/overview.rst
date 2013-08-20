@@ -12,7 +12,7 @@ Contribuire
 Prima di contribuire, è necessario famigliarizzare con il :doc:`linguaggio di markup<format>` 
 usato per la documentazione.
 
-La documentazione di Symfony 2 è ospitata da GitHub:
+La documentazione di Symfony2 è ospitata da GitHub:
 
 .. code-block:: text
 
@@ -23,24 +23,23 @@ e quindi un clone del proprio fork:
 
 .. code-block:: bash
 
-    $ git clone git://github.com/TUONOME/symfony-docs.git
+    $ git clone git://github.com/NOMEUTENTE/symfony-docs.git
 
 Coerentemente con il codice sorgente di Symfony, il repository della documentazione è suddiviso in
-tre rami: ``2.0`` per il rilascio Symfony 2.0.x, ``2.1`` per il
-rilascio Symfony 2.1.x e ``master`` come ramo di sviluppo per i
-rilasci futuri.
+vari rami, corrispondenti alle diverse versioni di Symfony stesso.
+Il ramo ``master`` contiene la documentazione per il ramo in sviluppo del codice.
 
-A meno di non documentare una caratteristica aggiunta in Symfony 2.1, le modifiche
-vanno basate sul ramo 2.0, non sul ramo master. Per poterlo fare,
-eseguire un checkout del ramo 2.0 prima del prossimo passo:
+A meno di non documentare una caratteristica aggiunta *dopo* Symfony 2.2
+(p.e. in Symfony 2.3), le modifiche vanno sempre basate sul ramo 2.2.
+Per poterlo fare, eseguire un checkout del ramo 2.2 prima del prossimo passo:
 
 .. code-block:: bash
 
-    $ git checkout 2.0
+    $ git checkout 2.2
 
 .. tip::
 
-    Il ramo base (p.e. 2.0) diventerà "Applies to" nel :ref:`doc-contributing-pr-format`
+    Il ramo base (p.e. 2.2) diventerà "Applies to" nel :ref:`doc-contributing-pr-format`
     usato successivamente.
 
 Quindi, creare un ramo dedicato per le proprie modifiche (per questioni organizzative):
@@ -58,19 +57,17 @@ Richiedere un pull
 Seguend l'esempio, la richiesta di pull sarà tra il proprio ramo
 ``miglioramenti_di_pippo_e_pluto`` e il ramo ``master`` di ``symfony-docs``.
 
-.. image:: /images/docs-pull-request.png
-   :align: center
-
-Se le proprie modifiche sono basate sul ramo 2.0, occorre cambiare il
-ramo base in 2.0 sulla pagina di anteprima:
+Se le proprie modifiche sono basate sul ramo 2.2, occorre cambiare il
+ramo base in 2.2 sulla pagina di anteprima, cliccando sul pulsante ``edit``
+in alto a sinistra:
 
 .. image:: /images/docs-pull-request-change-base.png
    :align: center
 
 .. note::
 
-  Tutte le modifiche fatte nel ramo 2.0 subiranno un merge nei rami più nuovi
-  (cioè 2.1, master, ecc.) per il prossimo rilascio, su base settimanale.
+  Tutte le modifiche fatte nel ramo 2.2 subiranno un merge nei rami più nuovi
+  (cioè 2.3, master, ecc.) per il prossimo rilascio, su base settimanale.
 
 GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
 
@@ -117,7 +114,7 @@ Un esempio di invio potrebbe essere come il seguente:
     | ------------- | ---
     | Doc fix?      | yes
     | New docs?     | yes (symfony/symfony#2500)
-    | Applies to    | all (or 2.1+)
+    | Applies to    | all (or 2.3+)
     | Fixed tickets | #1075
 
 .. tip::
@@ -137,8 +134,8 @@ e una brave descrizione:
 
 .. code-block:: text
 
-    .. versionadded:: 2.2
-        Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
+    .. versionadded:: 2.3
+        Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.3.
 
     Si può anche fare una domanda e nascondere la risposta. Questo è particolarmente...
 
@@ -147,11 +144,11 @@ il modo in cui il comportamento è cambiato.
 
 .. code-block:: text
 
-    .. versionadded:: 2.2
+    .. versionadded:: 2.3
         La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
-        Symfony 2.2. In precedenza, veniva usato il tag ``{% include %}``.
+        Symfony 2.3. In precedenza, veniva usato il tag ``{% include %}``.
 
-Ogni volta che viene rilasciata una nuova versione minore di Symfony2 (p.e. 2.3, 2.4, ecc.),
+Ogni volta che viene rilasciata una nuova versione minore di Symfony2 (p.e. 2.4, 2.5, ecc.),
 viene creato un nuovo ramo della documentazione, partendo dal ramo ``master``.
 A questo punto, tutti i tag ``versionadded`` per versioni di Symfony2 che hanno raggiunto il
 fine vita saranno rimossi. Per esempio, se Symfony 2.5 fosse rilasciato
@@ -172,7 +169,7 @@ un errore grammaticale, un bug nel codice di esempio, e così via
 
 Passi:
 
-* Segnalare un bug attraverso il bug Tracker;
+* Segnalare un bug attraverso il bug tracker;
 
 * *(opzionale)* Inviare una patch.
 
@@ -181,6 +178,52 @@ Traduzione
 
 Leggere la :doc:`documentazione <translations>`.
 
-.. _`fork`: http://help.github.com/articles/fork-a-repo
-.. _`richieste di pull`: http://help.github.com/articles/using-pull-requests
+.. _`fork`: https://help.github.com/articles/fork-a-repo
+.. _`richieste di pull`: https://help.github.com/articles/using-pull-requests
 .. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors
+
+Gestione dei rilasci
+--------------------
+
+Symfony ha un processo di rilasci molto standardizzato, che si può approfondire
+nella sezione :doc:`/contributing/community/releases`.
+
+Per mantenere il processo dei rilasci, la squadra della documentazione esegue molte
+modifiche alla documentazione nelle varie parti del ciclo di vita.
+
+Quando un rilascio raggiunge la "fine manutenzione"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ogni rilascio prima o poi raggiunge la sua "fine manutenzione". Per maggiori dettagli,
+vedere :ref:`contributing-release-maintenance`.
+
+Quando finisce la manutenzione di un rilascio, si eseguono le seguenti azioni.
+Per questo esempio, supponiamo che la versione 2.1 abbia appena raggiunta la sua fine manutenzione:
+
+* Non si esegue più il merge di modifiche e richieste di pull nel ramo (2.1),
+  tranne per aggiornamenti di sicurezza, fino a che il rilascio non raggiunge
+  la suo "fine vita".
+
+* Tutti i rami ancora mantenuti (p.e. 2.2 e superiori) vengono aggiornati
+  per riflettere che le richieste di pull vanno iniziate dalla versione mantenuta più
+  vecchia (p.e. 2.2).
+
+* Si rimuovono tutte le direttive ``versionadded`` e ogni altra nota relative a caratteristiche
+  modificate o aggiunte, per la versione nuova (p.e. 2.1) nel ramo master.
+  Come risultato, il prossimo rilascio (che è il primo ad arrivare
+  *dopo*  la fine manutenzione di questo ramo), non avrà menzioni della
+  vecchia versione (p.e. 2.1).
+
+Quando si crea un nuovo ramo per un rilascio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Durante la :ref:`fase di stabilizzazione<contributing-release-development>`, viene
+creato un nuovo ramo della documentazione. Per esempio, se la versione 2.3 è
+stata stabilizzata, viene creato un ramo 2.3 per essa. Quando questo
+accade, vengono eseguite le seguenti azioni:
+
+* Si cambiano tutti riferimenti a versione e master alla versione correttta (p.e. 2.3).
+  Per esempio, nei capitoli sull'installazione, si fa riferimento alla versione da usare
+  per un'installazione. Come esempio, si vedano le modifiche eseguite nella `PR #2688`_.
+
+.. _`PR #2688`: https://github.com/symfony/symfony-docs/pull/2688

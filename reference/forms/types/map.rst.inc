@@ -21,6 +21,7 @@ Campi di scelta
 * :doc:`language</reference/forms/types/language>`
 * :doc:`locale</reference/forms/types/locale>`
 * :doc:`timezone</reference/forms/types/timezone>`
+* :doc:`currency</reference/forms/types/currency>`
 
 Campi data e ora
 ~~~~~~~~~~~~~~~~
@@ -48,8 +49,14 @@ Campi nascosti
 
 * :doc:`hidden</reference/forms/types/hidden>`
 
+Bottoni
+~~~~~~~
+
+* :doc:`button</reference/forms/types/button>`
+* :doc:`reset</reference/forms/types/reset>`
+* :doc:`submit</reference/forms/types/submit>`
+
 Campi di base
 ~~~~~~~~~~~~~
 
-* :doc:`field</reference/forms/types/field>`
 * :doc:`form</reference/forms/types/form>`

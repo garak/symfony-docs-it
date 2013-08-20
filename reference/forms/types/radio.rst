@@ -10,7 +10,7 @@ sarà impostato a ``false``.
 
 Il tipo ``radio`` solitamente non è usato direttamente. Più comunemente, è usato
 internamente da altri tipo, come :doc:`choice</reference/forms/types/choice>`.
-Se si desidere un campo booleano, usare :doc:`checkbox</reference/forms/types/checkbox>`.
+Se si desidera un campo booleano, usare :doc:`checkbox</reference/forms/types/checkbox>`.
 
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``radio``                                           |
@@ -22,9 +22,10 @@ Se si desidere un campo booleano, usare :doc:`checkbox</reference/forms/types/ch
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
+|               | - `error_mapping`_                                                  |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`field</reference/forms/types/field>`                          |
+| Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\RadioType` |
 +---------------+---------------------------------------------------------------------+
@@ -54,5 +55,7 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc

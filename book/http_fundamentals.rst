@@ -270,7 +270,6 @@ tramite una connessione sicura (cioè ``https``).
     ``attributes`` è pensata apposta per essere un posto in cui preparare
     e memorizzare informazioni sulla richiesta relative al contesto.
 
-
 Symfony fornisce anche una classe ``Response``: una semplice rappresentazione PHP di un
 messaggio di risposta HTTP. Questo consente alla propria applicazione di usare un'interfaccia
 orientata agli oggetti per costruire la risposta che occorre restituire al client::
@@ -425,13 +424,13 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
         # app/config/routing.yml
         contact:
-            pattern:  /contact
+            path:     /contact
             defaults: { _controller: AcmeDemoBundle:Main:contact }
 
     .. code-block:: xml
 
-        <route id="contact" pattern="/contact">
-            <default key="_controller">AcmeBlogBundle:Main:contact</default>
+        <route id="contact" path="/contact">
+            <default key="_controller">AcmeDemoBundle:Main:contact</default>
         </route>
 
     .. code-block:: php
@@ -442,14 +441,14 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
         $collection = new RouteCollection();
         $collection->add('contact', new Route('/contact', array(
-            '_controller' => 'AcmeBlogBundle:Main:contact',
+            '_controller' => 'AcmeDemoBundle:Main:contact',
         )));
 
         return $collection;
 
 .. note::
 
-   L'esempio usa :doc:`YAML</components/yaml/introduction>` per definire la configurazione delle rotte.
+   L'esempio usa :doc:`YAML</components/yaml/yaml_format>` per definire la configurazione delle rotte.
    La configurazione delle rotte può essere scritta anche in altri formati, come XML o
    PHP.
 
@@ -459,6 +458,8 @@ la stringa ``AcmeDemoBundle:Main:contact`` è una sintassi breve che punta a uno
 metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
     // src/Acme/DemoBundle/Controller/MainController.php
+    namespace Acme\DemoBundle\Controller;
+
     use Symfony\Component\HttpFoundation\Response;
 
     class MainController

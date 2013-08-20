@@ -30,3 +30,9 @@ su tutti i campi:
 .. include:: /reference/forms/types/options/attr.rst.inc
 
 .. include:: /reference/forms/types/options/translation_domain.rst.inc
+
+virtual
+-------
+
+Vedere :doc:`Come usare l'opzione del campo virtual dei form</cookbook/form/use_virtuals_forms>`
+

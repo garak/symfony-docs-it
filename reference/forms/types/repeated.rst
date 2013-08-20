@@ -25,6 +25,7 @@ verificarne l'accuratezza.
 | Opzioni       | - `invalid_message`_                                                   |
 | ereditate     | - `invalid_message_parameters`_                                        |
 |               | - `mapped`_                                                            |
+|               | - `error_mapping`_                                                     |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/form>`                              |
 +---------------+------------------------------------------------------------------------+
@@ -78,6 +79,7 @@ Per rendere ogni campo singolarmente, usare qualcosa come:
 
     .. code-block:: jinja
 
+        {# .first e .second possono variare, vedere nota più avanti #}
         {{ form_row(form.password.first) }}
         {{ form_row(form.password.second) }}
 
@@ -88,8 +90,10 @@ Per rendere ogni campo singolarmente, usare qualcosa come:
 
 .. note::
 
-    I nomi predefiniti dei sotto-campi sono ``first`` e ``second``, ma possono
-    essere modificati tramite le opzioni `first_name`_ e `second_name`_.
+    I nomi ``first`` e ``second`` sono i predefiniti per i due
+    sotto-campi. Tuttavia, tali nomi possono essere controllati tramite opzioni `first_name`_
+    e `second_name`_. Se sei impostano tali opzioni, occorre usare i valori impostati,
+    al posto di ``first`` e ``second``, durante la resa.
 
 Validazione
 ~~~~~~~~~~~
@@ -129,9 +133,6 @@ first_options
 
 **tipo**: ``array`` **predefinito**: ``array()``
 
-.. versionadded:: 2.1
-    L'opzione ``first_options`` è nuova in Symfony 2.1.
-
 Ulteriori opzioni (saranno fuse in `options`) da passare
 *solo* al primo campo. Particolarmente utile per personalizzare la
 label::
@@ -145,9 +146,6 @@ second_options
 ~~~~~~~~~~~~~~
 
 **tipo**: ``array`` **predefinito**: ``array()``
-
-.. versionadded:: 2.1
-     L'opzione  ``second_options`` è nuova in Symfony 2.1.
 
 Ulteriori opzioni (saranno fuse in `options`) da passare
 *solo* al secondo campo. Particolarmente utile per personalizzare la
@@ -189,3 +187,5 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc

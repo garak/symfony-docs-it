@@ -114,6 +114,8 @@ caricati i servizi correlati ai test della propria applicazione (p.e. ``test.cli
 Questa impostazione dovrebbe essere presete nel proprio ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
+.. _reference-framework-trusted-proxies:
+
 trusted_proxies
 ~~~~~~~~~~~~~~~
 
@@ -353,7 +355,7 @@ Ora, attivare l'opzione ``assets_version``:
         $container->loadFromExtension('framework', array(
             ...,
             'templating'      => array(
-                'engines' => array('twig'),
+                'engines'        => array('twig'),
                 'assets_version' => 'v2',
             ),
         ));
@@ -546,12 +548,12 @@ Configurazione predefinita completa
 
             # configurazione della traduzione
             translator:
-                enabled:              true
+                enabled:              false
                 fallback:             en
 
             # configurazione della validazione
             validation:
-                enabled:              true
+                enabled:              false
                 cache:                ~
                 enable_annotations:   false
                 translation_domain:   validators

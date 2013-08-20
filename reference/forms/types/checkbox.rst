@@ -18,6 +18,7 @@ il campo sarà impostato a falso.
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
 |               | - `error_bubbling`_                                                    |
+|               | - `error_mapping`_                                                     |
 |               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`field</reference/forms/types/field>`                             |
@@ -60,5 +61,7 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc

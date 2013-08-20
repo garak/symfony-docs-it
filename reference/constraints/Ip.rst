@@ -31,27 +31,33 @@ Uso di base
 
     .. code-block:: php-annotations
 
-       // src/Acme/BlogBundle/Entity/Author.php
-       namespace Acme\BlogBundle\Entity;
-       
-       use Symfony\Component\Validator\Constraints as Assert;
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+        
+        use Symfony\Component\Validator\Constraints as Assert;
 
-       class Author
-       {
-           /**
-            * @Assert\Ip
-            */
-            protected $ipAddress;
-       }
+        class Author
+        {
+            /**
+             * @Assert\Ip
+             */
+             protected $ipAddress;
+        }
 
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <property name="ipAddress">
-                <constraint name="Ip" />
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="ipAddress">
+                    <constraint name="Ip" />
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 

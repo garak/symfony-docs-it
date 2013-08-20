@@ -433,7 +433,7 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
             return array(
                 'symfony2' => array(
                     'is' => array(
-                        'great' => 'Symfony2 is great',
+                        'great'   => 'Symfony2 is great',
                         'amazing' => 'Symfony2 is amazing',
                     ),
                     'has' => array(
@@ -469,6 +469,9 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
 
 .. index::
    single: Traduzioni; Domini dei messaggi
+
+
+.. _using-message-domains:
 
 Uso dei domini per i messaggi
 -----------------------------
@@ -554,6 +557,11 @@ definendo un ``default_locale`` per il servizio di sessione:
             'default_locale' => 'en',
         ));
 
+.. versionadded:: 2.1
+     Il parametro ``default_locale`` era originariamente definito sotto la chiave
+     ``session``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
+     è ora impostato nella richiesta, invece che nella sessione.
+
 .. _book-translation-locale-url:
 
 Il locale e gli URL
@@ -575,14 +583,14 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
     .. code-block:: yaml
 
         contact:
-            pattern:   /{_locale}/contact
+            path:      /{_locale}/contact
             defaults:  { _controller: AcmeDemoBundle:Contact:index, _locale: en }
             requirements:
                 _locale: en|fr|de
 
     .. code-block:: xml
 
-        <route id="contact" pattern="/{_locale}/contact">
+        <route id="contact" path="/{_locale}/contact">
             <default key="_controller">AcmeDemoBundle:Contact:index</default>
             <default key="_locale">en</default>
             <requirement key="_locale">en|fr|de</requirement>
@@ -770,7 +778,7 @@ solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
     {% trans with {'%name%': 'Fabien'} from "app" into "fr" %}Hello %name%{% endtrans %}
 
     {% transchoice count with {'%name%': 'Fabien'} from "app" %}
-        {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+        {0} %name%, there are no apples|{1} %name%, there is one apple|]1,Inf] %name%, there are %count% apples
     {% endtranschoice %}
 
 .. _book-translation-filters:
@@ -813,18 +821,18 @@ di testo* ed espressioni complesse:
 
     Si può impostare il dominio di traduzione per un intero template Twig con un singolo tag:
 
-     .. code-block:: jinja
+    .. code-block:: jinja
 
-            {% trans_default_domain "app" %}
+           {% trans_default_domain "app" %}
 
-     Notare che questo influenza solo il template attuale, non tutti i template "inclusi"
-     (in modo da evitare effetti collaterali).
+    Notare che questo influenza solo il template attuale, non tutti i template "inclusi"
+    (in modo da evitare effetti collaterali).
 
 Template PHP
 ~~~~~~~~~~~~
 
 Il servizio di traduzione è accessibile nei template PHP attraverso
-l'helper ``translator``:
+l'aiutante ``translator``:
 
 .. code-block:: html+php
 

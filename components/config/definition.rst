@@ -99,10 +99,10 @@ di nodo. I tipi di nodo disponibili sono:
 
 * scalare
 * booleano
-* array
-* enum (nuovo in 2.1)
 * intero (nuovo in 2.2)
-* virgola mobile (nuovo in 2.2)
+* enum (nuovo in 2.2)
+* virgola mobile (nuovo in 2.1)
+* array
 * variabile (nessuna validazione)
 
 e sono creati con ``node($nome, $tipo)`` o con i relativi metodi scorciatoia
@@ -132,6 +132,25 @@ che consentono di  validare il valore::
             ->end()
         ->end()
     ;
+
+Nodi enum
+~~~~~~~~~~
+
+.. versionadded:: 2.1
+    Il nodo enum è nuovo in Symfony 2.1
+
+I nodi enum forniscono un vincolo che fa corrispondere il dato inserito a una
+serie divalori::
+
+    $rootNode
+        ->children()
+            ->enumNode('genere')
+                ->values(array('maschio', 'femmina'))
+            ->end()
+        ->end()
+    ;
+
+Questo restringe l'opzione ``genere`` ai valori ``maschio`` o ``femmina``.
 
 Nodi array
 ~~~~~~~~~~
@@ -553,4 +572,3 @@ Altrimenti, il risultato è un array pulito di valori di configurazione::
         $configuration,
         $configs)
     ;
-

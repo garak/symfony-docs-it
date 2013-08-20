@@ -30,17 +30,17 @@ Uso di base
                     - Email:
                         message: The email "{{ value }}" is not a valid email.
                         checkMX: true
-        
+
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
-            /** 
+            /**
              * @Assert\Email(
              *     message = "The email '{{ value }}' is not a valid email.",
              *     checkMX = true
@@ -106,9 +106,6 @@ del record MX dell'host dell'email fornita.
 
 checkHost
 ~~~~~~~~~
-
-.. versionadded:: 2.1
-    L'opzione ``checkHost`` è stata aggiunta in Symfony 2.1
 
 **tipo**: ``booleano`` **predefinito**: ``false``
 

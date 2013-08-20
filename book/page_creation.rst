@@ -23,6 +23,42 @@ Symfony2 segue questa filosofia e fornisce strumenti e convenzioni per mantenere
 applicazione organizzata, man mano che cresce in utenti e in complessità.
 
 .. index::
+   single: Creazione di pagine; Ambienti e front controller
+
+.. _page-creation-environments:
+
+Ambienti e front controller
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ogni applicazione Symfony gira con un :term:`ambiente`. Un ambiente
+è un insieme specifico di configurazioni e bundle caricati, rappresentato da una stringa.
+La stessa applicazione può girare con diverse configurazioni, se eseguita
+in diversi ambienti. Symfony2 dispone di tre ambienti
+predefiniti: ``dev``, ``test`` e ``prod``. È comunque possibile crearne di altri.
+
+Gli ambienti sono utili, perché consentono a una singola applicazione di avere un ambiente (dev)
+pensato per il debug e un altro (prod) ottimizziato per la velocità. Si possono
+anche caricare bundle specifici, in base all'ambiente. Per esempio,
+Symfony2 dispone di un WebProfilerBundle (descritto più avanti), abilitato
+solamente in ``dev`` e in ``test``.
+
+Symfony2 dispone di due front controller pubblici: ``app_dev.php`` 
+fornisce l'ambiente ``dev``, mentre ``app.php`` fornisce l'ambiente ``prod``.
+Ogni accesso via web a Symfony2 normalmente passa per uno di questi due front controller.
+(L'ambiente ``test`` normalmente si usa solo quando si eseguono i test e quindi
+non dispone di un front controller dedicato. La linea di comando fornisce ugualmente
+un front controller utilizzabile con qualsiasi ambiente.)
+
+Quando il front controller inizializza il kernel, fornisce due parametri:
+l'ambiente e la modalità di debug con cui il kernel deve girare.
+Per far rispondere velocemente l'applicaizone, Symfony2 mantiene una cache sotto la
+cartella ``app/cache/``. Quando il debug è abilitato (come in ``app_dev.php``),
+la cache viene rinfrescata automaticamente a ogni modifica del
+codice o della configurazione. In debug, Symfony2 va più
+lentamente, ma le modifiche sono rispettate senza dover pulire a mano la
+cache.
+
+.. index::
    single: Creazione di pagine; Esempio
 
 La pagina "Ciao Symfony!"
@@ -46,7 +82,7 @@ salutare. Per creare la pagina, seguiamo il semplice processo in due passi.
     ``web`` del proprio nuovo progetto Symfony2. Per informazioni dettagliate su
     questo processo, vedere la documentazione del server web usato.
     Ecco le pagine di documentazione per alcuni server web:
-    
+
     * Per il server Apache, fare riferimento alla `documentazione su DirectoryIndex di Apache`_.
     * Per Nginx, fare riferimento alla `documentazione su HttpCoreModule di Nginx`_.
 

@@ -544,8 +544,7 @@ metodi, perché ogni metodo restituisce una nuova istanza di Crawler per i nodi 
 
     $crawler
         ->filter('h1')
-        ->reduce(function ($node, $i)
-        {
+        ->reduce(function ($node, $i) {
             if (!$node->getAttribute('class')) {
                 return false;
             }
@@ -812,7 +811,6 @@ Saperne di più
 * :doc:`/cookbook/testing/insulating_clients`
 * :doc:`/cookbook/testing/profiling`
 * :doc:`/cookbook/testing/bootstrap`
-
 
 .. _`DemoControllerTest`: https://github.com/symfony/symfony-standard/blob/master/src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
 .. _`$_SERVER`: http://php.net/manual/en/reserved.variables.server.php

@@ -31,6 +31,7 @@ A partire da Symfony 2.0, i seguenti componenti hanno un tag API pubblico:
 * DependencyInjection
 * DomCrawler
 * EventDispatcher
+* Filesystem (da Symfony 2.1)
 * Finder
 * HttpFoundation
 * HttpKernel

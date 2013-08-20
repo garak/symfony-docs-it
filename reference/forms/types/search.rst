@@ -19,6 +19,7 @@ Maggiori informazioni su `DiveIntoHTML5.info`_
 |               | - `read_only`_                                                       |
 |               | - `disabled`_                                                        |
 |               | - `error_bubbling`_                                                  |
+|               | - `error_mapping`_                                                   |
 |               | - `mapped`_                                                          |
 +---------------+----------------------------------------------------------------------+
 | Tipo genitore | :doc:`text</reference/forms/types/text>`                             |
@@ -44,6 +45,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
 

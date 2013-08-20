@@ -24,8 +24,8 @@ Impostare le informazioni utente con il proprio nome reale e il proprio indirizz
 
 .. code-block:: bash
 
-    $ git config --global user.name "Il proprio nome"
-    $ git config --global user.email la_propria_email@example.com
+    $ git config --global user.name "nome"
+    $ git config --global user.email email@example.com
 
 .. tip::
 
@@ -107,13 +107,13 @@ Scegliere il ramo giusto
 Prima di lavorare su una patch, è necessario individuare il ramo giusto. Il ramo deve
 essere basato sul ramo `master` se si vuole aggiungere una nuova
 funzionalità. Ma se si vuole risolvere un bug, utilizzare le versioni vecchie (ma ancora
-mantenute) di Symfony nelle quali appare il bug (come `2.1`).
+mantenute) di Symfony nelle quali appare il bug (come `2.2`).
 
 .. tip::
 
     Tutti i bug risolti in rami di manutenzione sono inseriti anche i rami più recenti,
     su base regolare. Per esempio, se si invia una patch
-    per il ramo `2.1`, la patch sarà applicata anche sul ramo
+    per il ramo `2.3`, la patch sarà applicata anche sul ramo
     `master`.
 
 Creare un ramo
@@ -126,18 +126,18 @@ un ramo:
 
     $ git checkout -b NOME_RAMO master
 
-Oppure, se si vuole risolvere un bug per il ramo 2.1, tracciare il ramo `2.1` remoto
+Oppure, se si vuole risolvere un bug per il ramo 2.2, tracciare il ramo `2.2` remoto
 in locale:
 
 .. code-block:: bash
 
-    $ git checkout -t origin/2.1
+    $ git checkout -t origin/2.2
 
-Quindi creare un nuovo ramo dal ramo `2.1`:
+Quindi creare un nuovo ramo dal ramo `2.2`:
 
 .. code-block:: bash
 
-    $ git checkout -b NOME_RAMO 2.1
+    $ git checkout -b NOME_RAMO 2.2
 
 .. tip::
 
@@ -230,7 +230,7 @@ tempo tra il checkout e il commit delle nuove funzionalità)
 
 .. tip::
 
-    Sostituire `master` con `2.1` se si sta lavorando sulla risoluzione di un bug
+    Sostituire `master` con `2.3` se si sta lavorando sulla risoluzione di un bug
 
 Quando si esegue il comando ``rebase``, potrebbe essere necessario risolvere
 conflitti. Il comando ``git status`` metterà in mostra
@@ -254,8 +254,8 @@ Si può ora eseguire una richiesta di pull sul repository ``symfony/symfony`` su
 
 .. tip::
 
-    Si faccia attenzione a puntare la richiesta di pull verso ``symfony:2.1``, se si vuole
-    che la risoluzione del bug riceva un pull basato sul ramo 2.1.
+    Si faccia attenzione a puntare la richiesta di pull verso ``symfony:2.3``, se si vuole
+    che la risoluzione del bug riceva un pull basato sul ramo 2.3.
 
 Per facilitare il lavoro, includere sempre i componenti modificati nel messaggio di
 richiesta di pull, come in:
@@ -344,7 +344,7 @@ perché si desidera prima un feedback, aggiungere un elemento alla lista di todo
 .. code-block:: text
 
     - [ ] finish the code
-    - [ ] gather feedback my changes
+    - [ ] gather feedback for my changes
 
 Finché si hanno elementi nella lista di todo, si prega di aggiungere alla richiesta di pull
 il prefisso "[WIP]".

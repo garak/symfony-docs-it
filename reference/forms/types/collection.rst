@@ -22,6 +22,7 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 +-------------+-----------------------------------------------------------------------------+
 | Opzioni     | - `label`_                                                                  |
 | ereditate   | - `error_bubbling`_                                                         |
+|             | - `error_mapping`_                                                          |
 |             | - `by_reference`_                                                           |
 |             | - `empty_data`_                                                             |
 |             | - `mapped`_                                                                 |
@@ -123,7 +124,7 @@ form):
 
 .. code-block:: html
 
-    <input type="email" id="form_emails_1" name="form[emails][0]" value="foo@foo.com" />
+    <input type="email" id="form_emails_0" name="form[emails][0]" value="foo@foo.com" />
     <input type="email" id="form_emails_1" name="form[emails][1]" value="bar@bar.com" />
 
 Per consetnire l'aggiunta di altre email, impostare `allow_add`_ a ``true``
@@ -152,11 +153,11 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 
     .. code-block:: html+jinja
 
-        <form action="..." method="POST" {{ form_enctype(form) }}>
+        {{ form_start(form) }}
             {# ... #}
 
             {# memorizza il prototipo nell'attributo data-prototype #}
-            <ul id="email-fields-list" data-prototype="{{ form_widget(form.emails.get('prototype')) | e }}">
+            <ul id="email-fields-list" data-prototype="{{ form_widget(form.emails.vars.prototype) | e }}">
             {% for emailField in form.emails %}
                 <li>
                     {{ form_errors(emailField) }}
@@ -168,7 +169,7 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
             <a href="#" id="add-another-email">Aggiungere email</a>
 
             {# ... #}
-        </form>
+        {{ form_end(form) }}
 
         <script type="text/javascript">
             // tiene traccia di quanti campi email sono stati resi
@@ -309,7 +310,7 @@ collection:
 
     .. code-block:: php
 
-        <?php echo $view['form']->row($form['emails']->getVar('prototype')) ?>
+        <?php echo $view['form']->row($form['emails']->vars['prototype']) ?>
 
 Si noti che tutto quello di cui si ha effettivamente bisogno è il widget, ma a
 seconda di come si rende il form, avere l'intera riga del form potrebbe essere più facile.
@@ -326,9 +327,6 @@ o :ref:`cookbook-form-collections-new-prototype`.
 prototype_name
 ~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    L'opzoine ``prototype_name`` è stata aggiunta in Symfony 2.1
-
 **tipo**: ``Stringa`` **predefinito**: ``__name__``
 
 Se si hanno molti insiemi in un form o, peggio, si hanno insiemi annidati,
@@ -344,6 +342,8 @@ Non sono elencate tutte le opzioni, solo quelle più attinenti a questo tipo:
 .. include:: /reference/forms/types/options/label.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 error_bubbling
 ~~~~~~~~~~~~~~

@@ -17,10 +17,6 @@ Configurazione
 * `Cache Directory`_
 * `Log Directory`_
 
-.. versionadded:: 2.1
-    Il metodo :method:`Symfony\\Component\\HttpKernel\\Kernel::getCharset` è nuovo
-    in Symfony 2.1
-
 Charset
 ~~~~~~~
 

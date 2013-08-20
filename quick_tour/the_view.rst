@@ -50,7 +50,6 @@ variabili, ``page_title`` e ``navigation``, che dovrebbero essere passate al tem
         </body>
     </html>
 
-
 .. tip::
 
    Si possono inserire commenti nei template, usando i delimitatori ``{# ... #}``.
@@ -170,7 +169,7 @@ E cambiare il template ``index.html.twig`` per includerlo:
 
     {# override the body block from embedded.html.twig #}
     {% block content %}
-        {% include "AcmeDemoBundle:Demo:embedded.html.twig" %}
+        {{ include("AcmeDemoBundle:Demo:embedded.html.twig") }}
     {% endblock %}
 
 Inserire altri controllori
@@ -247,7 +246,7 @@ definiti nello schema della rotta::
 .. tip::
 
     La funzione ``url`` genera URL *assoluti*: ``{{ url('_demo_hello', {
-    'name': 'Thomas' }) }}``.
+    'name': 'Thomas'}) }}``.
 
 Includere risorse: immagini, JavaScript e fogli di stile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

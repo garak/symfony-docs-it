@@ -204,10 +204,10 @@ Primo, costruire un file per il layout di base:
             <body>
                 <div id="sidebar">
                     {% block sidebar %}
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/blog">Blog</a></li>
-                    </ul>
+                        <ul>
+                              <li><a href="/">Home</a></li>
+                              <li><a href="/blog">Blog</a></li>
+                        </ul>
                     {% endblock %}
                 </div>
 
@@ -461,11 +461,11 @@ in altri formati. Per maggiori informazioni, leggere la sezione
    Vedere :ref:`Configurazione dei template<template-configuration>` per maggiori dettagli.
 
 .. index::
-   single: Template Tag e helper
-   single: Template; Helper
+   single: Template Tag e aiutanti
+   single: Template; Aiutanti
 
-Tag e helper
-------------
+Tag e aiutanti
+--------------
 
 Dopo aver parlato delle basi dei template, di che nomi abbiano e di come si
 possa usare l'ereditarietà, la parte più difficile è passata. In questa
@@ -475,11 +475,11 @@ template, collegare pagine e inserire immagini.
 
 Symfony2 dispone di molti tag di Twig specializzati e di molte funzioni, che facilitano
 il lavoro del progettista di template. In PHP, il sistema di template fornisce un
-sistema estensibile di *helper*, che fornisce utili caratteristiche nel contesto
+sistema estensibile di *aiutanti*, che fornisce utili caratteristiche nel contesto
 dei template.
 
 Abbiamo già visto i tag predefiniti (``{% block %}`` e ``{% extends %}``),
-così come un esempio di helper PHP (``$view['slots']``). Vediamone alcuni
+così come un esempio di aiutante PHP (``$view['slots']``). Vediamone alcuni
 altri.
 
 .. index::
@@ -559,20 +559,22 @@ Includere questo template da un altro template è semplice:
             <?php endforeach; ?>
         <?php $view['slots']->stop() ?>
 
-Il template è incluso usando il tag ``{% include %}``. Si noti che il nome del
+Il template è incluso usando il tag ``{{ include ]}``. Si noti che il nome del
 template segue le stesse tipiche convenzioni. Il template ``articleDetails.html.twig``
-usa una variabile ``article``. Questa viene passata nel template ``list.html.twig``
-usando il comando ``with``.
+usa una variabile ``article``, che viene passata. In questo caso,
+lo si può evitare, perché tutte le variabili disponibili in
+``list.html.twig`` lo sono anche in ``articleDetails.html.twig`` (a meno che non
+si imposti `with_context`_ a ``false``.
 
 .. tip::
 
     La sintassi ``{'article': article}`` è la sintassi standard di Twig per gli
-    array associativi (con chiavi non numeriche). Se avessimo avuto bisogno di passare più
-    elementi, sarebbe stato così: ``{'pippo': pippo, 'pluto': pluto}``.
+    array associativi (cioè con chiavi non numeriche). Se si avesse bisogno di passare più
+    elementi, si può fare in questo modo: ``{'pippo': pippo, 'pluto': pluto}``.
 
 .. versionadded:: 2.2
-    La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
-    Symfony 2.2. Precedentemente, si usava il tag ``{% include %}``.
+    La funzione `include()`_ è una nuova caratteristica di Twig, disponibile in
+    Symfony 2.2. Precedentemente, si usava il tag `{% include %}`_.
 
 .. index::
    single: Template; Inserire azioni
@@ -674,7 +676,8 @@ Contenuto asincrono con hinclude.js
 
 Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
-Symfony2 usa l'helper standard ``render`` per configurare i tag ``hinclude``:
+Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
+
 
 .. configuration-block::
 
@@ -1505,7 +1508,7 @@ un controllore può essere creato con o senza l'uso di un template::
 Il motore dei template di Symfony è molto flessibile e mette a disposizione due
 sistemi di template: i tradizionali template *PHP* e i potenti e raffinati
 template *Twig*. Entrambi supportano una gerarchia di template e sono distribuiti
-con un ricco insieme di funzioni helper, capaci di eseguire i compiti più
+con un ricco insieme di funzioni aiutanti, capaci di eseguire i compiti più
 comuni.
 
 Complessivamente, l'argomento template dovrebbe essere considerato come un potente
@@ -1527,3 +1530,6 @@ Imparare di più con il ricettario
 .. _`filtri`: http://twig.sensiolabs.org/doc/filters/index.html
 .. _`aggiungere le proprie estensioni`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`hinclude.js`: http://mnot.github.com/hinclude/
+.. _`with_context`: http://twig.sensiolabs.org/doc/functions/include.html
+.. _`include()`: http://twig.sensiolabs.org/doc/functions/include.html
+.. _`{% include %}`: http://twig.sensiolabs.org/doc/tags/include.html

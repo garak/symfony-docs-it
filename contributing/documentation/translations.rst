@@ -17,15 +17,12 @@ Infine, trovare il repository *master* per il linguaggio per il quale si vuole c
 Di seguito la lista dei repository *master* ufficiali:
 
 * *Inglese*:  https://github.com/symfony/symfony-docs
-* *Francese*:   https://github.com/gscorpio/symfony-docs-fr
+* *Francese*:   https://github.com/symfony-fr/symfony-docs-fr
 * *Italiano*:  https://github.com/garak/symfony-docs-it
 * *Giapponese*: https://github.com/symfony-japan/symfony-docs-ja
-* *Polacco*:   https://github.com/ampluso/symfony-docs-pl
+* *Polacco*:   https://github.com/symfony-docs-pl/symfony-docs-pl
 * *Portoghese (Brasile)*:  https://github.com/andreia/symfony-docs-pt-BR
-* *Rumeno*: https://github.com/sebio/symfony-docs-ro
-* *Russo*:  https://github.com/avalanche123/symfony-docs-ru
 * *Spagnolo*:  https://github.com/gitnacho/symfony-docs-es
-* *Turco*:  https://github.com/symfony-tr/symfony-docs-tr
 
 .. note::
 

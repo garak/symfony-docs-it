@@ -28,11 +28,13 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 |                          | - `with_seconds`_                                                           |
 |                          | - `data_timezone`_                                                          |
 |                          | - `user_timezone`_                                                          |
+|                          | - `empty_value`_                                                            |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `invalid_message`_                                                        |
 | ereditate                | - `invalid_message_parameters`_                                             |
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
+|                          | - `mapped`_                                                                 |
 |                          | - `virtual`_                                                                |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`form</reference/forms/types/form>`                                    |
@@ -73,6 +75,8 @@ nell'oggetto sottostante. Valori validi sono:
 Il valore che arriva dal form sarà anche normalizzato in questo
 formato.
 
+.. include:: /reference/forms/types/options/_date_limitation.rst.inc
+
 date_format
 ~~~~~~~~~~~
 
@@ -100,10 +104,12 @@ per maggiori dettagli.
 
 .. include:: /reference/forms/types/options/user_timezone.rst.inc
 
+.. include:: /reference/forms/types/options/empty_value.rst.inc
+
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
@@ -113,6 +119,6 @@ Queste opzioni sono ereditate dal tipo :doc:`field</reference/forms/types/field>
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+.. include:: /reference/forms/types/options/mapped.rst.inc
 
 .. include:: /reference/forms/types/options/virtual.rst.inc

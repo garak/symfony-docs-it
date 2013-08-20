@@ -9,7 +9,7 @@ Riferimento configurazione TwigBundle
     .. code-block:: yaml
 
         twig:
-            exception_controller:  Symfony\Bundle\TwigBundle\Controller\ExceptionController::showAction
+            exception_controller:  twig.controller.exception:showAction
             form:
                 resources:
 
@@ -31,14 +31,19 @@ Riferimento configurazione TwigBundle
                     # impostare con il servizio o lasciare vuoto
                     type:                 ~
                     value:                ~
-            autoescape:           ~
-            base_template_class:  ~ # Esempio: Twig_Template
-            cache:                "%kernel.cache_dir%/twig"
-            charset:              "%kernel.charset%"
-            debug:                "%kernel.debug%"
-            strict_variables:     ~
-            auto_reload:          ~
-            optimizations:        ~
+            autoescape:                ~
+
+            # Aggiunto in Symfony 2.3.
+            # Vedere http://twig.sensiolabs.org/doc/recipes.html#using-the-template-name-to-set-the-default-escaping-strategy
+            autoescape_service:        ~ # Esempio: @my_service
+            autoescape_service_method: ~ # usare in combinazione con l'opzione autoescape_service
+            base_template_class:       ~ # Esempio: Twig_Template
+            cache:                     "%kernel.cache_dir%/twig"
+            charset:                   "%kernel.charset%"
+            debug:                     "%kernel.debug%"
+            strict_variables:          ~
+            auto_reload:               ~
+            optimizations:             ~
 
     .. code-block:: xml
 
@@ -86,7 +91,7 @@ Configurazione
 exception_controller
 ....................
 
-**tipo**: ``stringa`` **predefinito**: ``Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController::showAction``
+**tipo**: ``stringa`` **predefinito**: ``twig.controller.exception:showAction``
 
 Questo è il controllore che viene attivato dopo il lancio di un'eccezione nella
 propria applicazione. Il controllore predefinito

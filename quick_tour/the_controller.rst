@@ -207,28 +207,6 @@ Andando all'URL ``http://localhost/Symfony/web/app_dev.php/demo/secured/hello``,
 si verrà automaticamente rinviati al form di login, perché questa risorsa è
 protetta da un ``firewall``.
 
-Si può anche forzare l'azione a richiedere un dato ruolo, usando l'annotazione
-``@Secure`` nel controllore::
-
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-    use JMS\SecurityExtraBundle\Annotation\Secure;
-
-    /**
-     * @Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Template()
-     */
-    public function helloAdminAction($name)
-    {
-        return array('name' => $name);
-    }
-
-Ora, si entri come utente ``user`` (che *non* ha il ruolo ``ROLE_ADMIN``) e,
-dalla pagina sicura "hello", si clicchi sul collegamento "Hello resource secured".
-Symfony2 dovrebbe restituire un codice di stato HTTP 403 ("forbidden"), indicando che
-l'utente non è autorizzato ad accedere a tale risorsa.
-
 .. note::
 
     Il livello di sicurezza di Symfony2 è molto flessibile e fornisce diversi provider

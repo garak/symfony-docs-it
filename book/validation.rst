@@ -112,7 +112,7 @@ Usare il servizio ``validator``
 Successivamente, per validare veramente un oggetto ``Author``, usare il metodo
 ``validate`` sul servizio ``validator`` (classe :class:`Symfony\\Component\\Validator\\Validator`).
 Il compito di ``validator`` è semplice: leggere i vincoli (cioè le regole) di una
-classe e verificare se i dati dell'oggetto soddisfi o no tali vincoli.
+classe e verificare se i dati dell'oggetto soddisfino o no tali vincoli.
 Se la validazione fallisce, viene restituito un array di errori. Prendiamo questo
 semplice esempio dall'interno di un controllore::
 
@@ -122,11 +122,11 @@ semplice esempio dall'interno di un controllore::
 
     public function indexAction()
     {
-        $author = new Author();
-        // ... fare qualcosa con l'oggetto $author
+        $autore = new Author();
+        // ... fare qualcosa con l'oggetto $autore
 
         $validator = $this->get('validator');
-        $errors = $validator->validate($author);
+        $errors = $validator->validate($autore);
 
         if (count($errors) > 0) {
             return new Response(print_r($errors, true));
@@ -270,7 +270,7 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             'validation' => array(
-                'enable_annotations' => true,
+            'enable_annotations' => true,
             ),
         ));
 
@@ -798,7 +798,7 @@ libreria dei form. Per informazioni su come usare i gruppi di validazione dentro
 form, vedere :ref:`book-forms-validation-groups`.
 
 .. index::
-   single: Validazione; Valori grezzi di validazione
+   single: Validazione; Validazione dei valori grezzi
 
 .. _book-validation-group-sequence:
 
@@ -930,6 +930,134 @@ nome utente e password siano diversi, solo se le altre validazioni passano
 In questo esempio, prima saranno validati i vincoli del gruppo ``User``
 (che corrispondono a quelli del gruppo ``Default``). Solo se tutti i vincoli in
 tale gruppo sono validi, sarà validato il secondo gruppo, ``Strict``.
+
+Fornitori di sequenza di gruppo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si immagini un'entità ``User``, che potrebbe essere un utente normale oppure premium. Se
+è premium, necessita di alcuni vincoli aggiuntivi
+(p.e. dettagli sulla carta di credito). Per determinare in modo dinamico quali gruppi
+attivare, si può creare un Group Sequence Provider. Creare prima
+l'entità e aggiungere un nuovo gruppo di vincoli, chiamato ``Premium``:
+
+.. configuration-block::
+
+    .. code-block:: php-annotations
+
+        // src/Acme/DemoBundle/Entity/User.php
+        namespace Acme\DemoBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class User
+        {
+            // ...
+
+            /**
+             * @Assert\NotBlank()
+             */
+            private $name;
+
+            /**
+             * @Assert\CardScheme(
+             *     schemes={"VISA"},
+             *     groups={"Premium"},
+             * )
+             */
+            private $creditCard;
+        }
+
+    .. code-block:: yaml
+
+        # src/Acme/DemoBundle/Resources/config/validation.yml
+        Acme\DemoBundle\Entity\User:
+            properties:
+                name:
+                    - NotBlank
+                creditCard:
+                    - CardScheme
+                        schemes: [VISA]
+                        groups: [Premium]
+
+    .. code-block:: xml
+
+        <!-- src/Acme/DemoBundle/Resources/config/validation.xml -->
+        <class name="Acme\DemoBundle\Entity\User">
+            <property name="name">
+                <constraint name="NotBlank" />
+            </property>
+
+            <property name="creditCard">
+                <constraint name="CardScheme">
+                    <option name="schemes">
+                        <value>VISA</value>
+                    </option>
+                    <option name="groups">
+                        <value>Premium</value>
+                    </option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/DemoBundle/Entity/User.php
+        namespace Acme\DemoBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+
+        class User
+        {
+            private $name;
+            private $creditCard;
+
+            // ...
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('name', new Assert\NotBlank());
+                $metadata->addPropertyConstraint('creditCard', new Assert\CardScheme(
+                    'schemes' => array('VISA'),
+                    'groups'  => array('Premium'),
+                ));
+            }
+        }
+
+Cambiare ora la classe ``User`` per implementare
+:class:`Symfony\\Component\\Validation\\GroupSequenceProviderInterface` e
+aggiungere
+:method:`Symfony\\Component\\Validation\\GroupSequenceProviderInterface::getGroupSequence`,
+che deve restituire un array di gruppi da usare. Inoltre, aggiungere l'annotazione
+``@Assert\GroupSequenceProvider`` alla classe. Se si ipotizza che
+un metodo di nome ``isPremium`` restituisce ``true`` quando un utente è premium,
+il codice potrebbe assomigliare a questo::
+
+    // src/Acme/DemoBundle/Entity/User.php
+    namespace Acme\DemoBundle\Entity;
+
+    // ...
+    use Symfony\Component\Validation\GroupSequenceProviderInterface;
+
+    /**
+     * @Assert\GroupSequenceProvider
+     * ...
+     */
+    class User implements GroupSequenceProviderInterface
+    {
+        // ...
+
+        public function getGroupSequence()
+        {
+            $groups = array('User');
+
+            if ($this->isPremium()) {
+                $groups[] = 'Premium';
+            }
+
+            return $groups;
+        }
+    }
 
 .. _book-validation-raw-values:
 

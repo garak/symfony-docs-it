@@ -79,7 +79,8 @@ commentato::
     $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
     // Usa APC per aumentare le prestazioni dell'auto-caricamento
-    // Cambiare 'sf2' con il prefisso desiderato, per prevenire conflitti di chiavi con altre applicazioni
+    // Cambiare 'sf2' con il prefisso desiderato
+    // per prevenire conflitti di chiavi con altre applicazioni
     /*
     $loader = new ApcClassLoader('sf2', $loader);
     $loader->register(true);

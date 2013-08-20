@@ -6,15 +6,15 @@ error_mapping
 
 **tipo**: ``array`` **predefinito**: ``empty``
 
-This option allows you to modify the target of a validation error.
+Questa opzione consente di modificare il bersaglio di un errore di validazione.
 
-Imagine you have a custom method named ``matchingCityAndZipCode`` that validates
-whether the city and zip code match. Unfortunately, there is no "matchingCityAndZipCode" 
-field in your form, so all that Symfony can do is display the error on top
-of the form.
+Si immagini di avere un metodo personalizzato, di nome ``matchingCityAndZipCode``, che valida
+se una città e un codice postale corrsispondano. Purtroppo non c'è un campo "matchingCityAndZipCode"
+nel form, quindi tutto ciò che può fare Symfony è mostrare l'errore in cima
+al form stesso.
 
-With customized error mapping, you can do better: map the error to the city
-field so that it displays above it::
+Con la mappatura personalizzata degli errori, si può fare meglio: mappare l'errore al campo
+della città, in modo che sia mostrato accanto a esso::
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -25,29 +25,16 @@ field so that it displays above it::
         ));
     }
 
-Here are the rules for the left and the right side of the mapping:
+Ecco le regole per i lati destro e sinistro della mappatura:
 
-* The left side contains property paths.
-* If the violation is generated on a property or method of a class, its path
-  is simply "propertyName".
-* If the violation is generated on an entry of an ``array`` or ``ArrayAccess``
-  object, the property path is ``[indexName]``.
-* You can construct nested property paths by concatenating them, separating
-  properties by dots. For example: ``addresses[work].matchingCityAndZipCode``
-* The left side of the error mapping also accepts a dot ``.``, which refers
-  to the field itself. That means that any error added to the field is added
-  to the given nested field instead.
-* The right side contains simply the names of fields in the form.
-
-
-
-
-
-
-
-
-
-
-
-
-
+* I lato sinistro contiene i percorsi delle proprietà.
+* Se la validazione è generata su una proprietà o metodo di una classe, il suo percorso
+  è semplicemente "nomeProprietà".
+* Se la validazione è generata su un elemento di un ``array`` od oggetto ``ArrayAccess``,
+  il percorso è ``[nomeIndice]``.
+* Si possono costruire percorsi innestati, concatenandoli, separando le
+  proprietà con dei punti. Per esempio: ``addresses[work].matchingCityAndZipCode``
+* Anche il lato sinistro della mappatura accetta un punto ``.``, che si riferisce
+  al campo stesso. Questo significa che un errore aggiunto al campo è aggiunto
+  invece al dato campo innnestato.
+* Il lato destro contiene semplicemente i nomi dei campi nel form.

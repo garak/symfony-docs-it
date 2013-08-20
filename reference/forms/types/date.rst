@@ -136,7 +136,7 @@ error_bubbling
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo  :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo  :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
@@ -146,7 +146,7 @@ Queste opzioni sono ereditate dal tipo  :doc:`field</reference/forms/types/field
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/form>`:
+.. include:: /reference/forms/types/options/mapped.rst.inc
 
 .. include:: /reference/forms/types/options/virtual.rst.inc
 

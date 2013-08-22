@@ -21,7 +21,7 @@ l'integrazione di altri componenti correlati:
 
         framework:
             # ...
-            form:            true
+            form: true
 
     .. code-block:: xml
 
@@ -33,7 +33,7 @@ l'integrazione di altri componenti correlati:
 
         $container->loadFromExtension('framework', array(
             // ...
-            'form'            => true,
+            'form' => true,
             // ...
         ));
 
@@ -261,7 +261,7 @@ fonderli a mano::
             $config = array_merge($config, $subConfig);
         }
 
-        // usare ora l'array $config
+        // ... usare ora l'array $config
     }
 
 .. caution::
@@ -312,7 +312,7 @@ Per esempio, si supponga di voler caricare un insieme di servizi, ma solo se un'
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
-        
+
         if (isset($config['enabled']) && $config['enabled']) {
             $loader->load('services.xml');
         }
@@ -355,7 +355,7 @@ Aggiungere al metodo ``load()`` il codice seguente::
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // ... prepara la propria variabile $config
+        // ... preparare la propria variabile $config
 
         $loader = new XmlFileLoader(
             $container,
@@ -423,7 +423,6 @@ globali:
 * ``kernel.root_dir``
 * ``kernel.cache_dir``
 * ``kernel.logs_dir``
-* ``kernel.bundle_dirs``
 * ``kernel.bundles``
 * ``kernel.charset``
 
@@ -510,9 +509,6 @@ Per ulteriori dettagli, vedere :doc:`/cookbook/bundles/prepend_extension`.
 Esportare la configurazione predefinita
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    Il comando ``config:dump-reference`` è stato aggiunto in Symfony 2.1
-
 Il comando ``config:dump-reference`` consente di mostrare nella console, in formato YAML,
 la configurazione predefinita di un bundle.
 
@@ -525,7 +521,7 @@ e restituire un'istanza di
 ``Configuration``.
 
 Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
-``->setInfo()`` e ``->setExample()``::
+``->info()`` ed ``->example()``::
 
     // src/Acme/HelloBundle/DependencyExtension/Configuration.php
     namespace Acme\HelloBundle\DependencyInjection;
@@ -544,8 +540,8 @@ Si possono aggiungere commenti ed esempi alla configurazione, usando i metodi
                 ->children()
                     ->scalarNode('mio_tipo')
                         ->defaultValue('pluto')
-                        ->setInfo('cosa configura mio_tipo')
-                        ->setExample('impostazione di esempio')
+                        ->info('cosa configura mio_tipo')
+                        ->example('impostazione di esempio')
                     ->end()
                 ->end()
             ;

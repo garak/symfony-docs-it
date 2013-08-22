@@ -5,10 +5,6 @@
 Definire relazioni con classi astratte e interfacce
 ===================================================
 
-.. versionadded: 2.1
-    ResolveTargetEntityListener è nuovo in Doctrine 2.2, impacchettato per la prima
-    volta con Symfony 2.1.
-
 Uno degli scopi dei bundle è quello di creare insiemi di funzionalità
 che non abbiamo molte dipendenze o che non ne abbiano alcuna, consentendone l'uso
 in altre applicazioni, senza includere cose non strettamente necessarie.

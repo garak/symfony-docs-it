@@ -4,9 +4,6 @@
 Il distributore consapevole del contenitore
 ===========================================
 
-.. versionadded:: 2.1
-    Questa caratteristiche è stata spostata nel componente EventDispatcher in Symfony 2.1.
-
 Introduzione
 ------------
 
@@ -74,7 +71,7 @@ parametro è il nome della classe del servizio (che deve implementare
 
     class StoreSubscriber implements EventSubscriberInterface
     {
-        static public function getSubscribedEvents()
+        public static function getSubscribedEvents()
         {
             return array(
                 'kernel.response' => array(

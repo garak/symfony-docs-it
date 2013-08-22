@@ -148,6 +148,12 @@ Ogni parte sarà spiegata nella prossima sezione.
                         # il login deve essere in POST, non in GET
                         post_only:      true
                         remember_me:    false
+
+                        # per impostazione predefinita, deve esistere una sessione prima di inviare una richiesta di autenticazione
+                        # se false, non viene richiamato Request::hasPreviousSession durante l'autenticazione
+                        # nuovo in Symfony 2.3
+                        require_previous_session: true
+
                     remember_me:
                         token_provider: nome
                         key: unaQualcheChiaveSegreta
@@ -298,6 +304,11 @@ come algoritmo di hash.
 Uso del codificatore di password BCrypt
 ---------------------------------------
 
+.. caution::
+
+    Per usare questo codificatore, occorre la versione 5.5 di PHP oppure
+    la libreria `ircmaxell/password-compat`_, installabile tramite Composer.
+
 .. versionadded:: 2.2
     Il codificatore di password BCrypt è stato aggiunto in Symfony 2.2.
 
@@ -435,7 +446,7 @@ Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
          firewalls:
             somename:
               http_digest:
-               key: "a_random_string"
+               key: "una_stringa_casuale"
                realm: "secure-api"
 
    .. code-block:: xml
@@ -443,7 +454,7 @@ Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
       <!-- app/config/security.xml -->
       <security:config>
          <firewall name="somename">
-            <http-digest key="a_random_string" realm="secure-api" />
+            <http-digest key="una_stringa_casuale" realm="secure-api" />
          </firewall>
       </security:config>
 
@@ -454,7 +465,7 @@ Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
            'firewalls' => array(
                'somename' => array(
                    'http_digest' => array(
-                       'key'   => 'a_random_string',
+                       'key'   => 'una_stringa_casuale',
                        'realm' => 'secure-api',
                    ),
                ),
@@ -462,3 +473,4 @@ Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
       ));
 
 .. _`PBKDF2`: http://en.wikipedia.org/wiki/PBKDF2
+.. _`ircmaxell/password-compat`: https://packagist.org/packages/ircmaxell/password-compat

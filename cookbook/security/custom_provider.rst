@@ -102,10 +102,6 @@ Vediamola in azione::
         }
     }
 
-.. versionadded:: 2.1
-    L'interfaccia ``EquatableInterface`` è stata aggiunta in Symfony 2.1. Usare il metodo ``equals()``
-    di ``UserInterface`` in Symfony 2.0.
-
 Se si hanno maggiori informazioni sui propri utenti, come il nome di battesimo, si
 possono aggiungere campi per memorizzare tali dati.
 

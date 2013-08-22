@@ -43,8 +43,8 @@ Cambiare la pagina predefinita
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prima di tutto, la pagina predefinita (la pagina a cui l'utente viene rinviato, se
-non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla a
-``/admin``, usare la seguente configurazione:
+non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla alla
+rotta ``default_security_target``, usare la seguente configurazione:
 
 .. configuration-block::
 
@@ -56,7 +56,7 @@ non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla
                 main:
                     form_login:
                         # ...
-                        default_target_path: /admin
+                        default_target_path: default_security_target
 
     .. code-block:: xml
 
@@ -64,7 +64,7 @@ non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla
         <config>
             <firewall>
                 <form-login
-                    default_target_path="/admin"                    
+                    default_target_path="default_security_target"
                 />
             </firewall>
         </config>
@@ -79,13 +79,14 @@ non ci sono pagine precedenti in sessione) può essere impostata. Per impostarla
 
                     'form_login' => array(
                         // ...
-                    'default_target_path' => '/admin',
+                        'default_target_path' => 'default_security_target',
                     ),
                 ),
             ),
         ));
 
-Ora, se non ci sono URL in sessione, gli utenti saranno mandati su ``/admin``.
+Ora, se non ci sono URL in sessione, gli utenti saranno rimandati alla
+rotta ``default_security_target``.
 
 Rinviare sempre alla pagina predefinita
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,7 +106,7 @@ senza considerare l'URL richiesta prima del login, impostando l'opzione
                     form_login:
                         # ...
                         always_use_default_target_path: true
-                        
+
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
@@ -173,15 +174,11 @@ Se nessun URL è stato memorizzato in sessione, si potrebbe voler provare a usar
 
                     'form_login' => array(
                         // ...
-                       'use_referer' => true,
+                        'use_referer' => true,
                     ),
                 ),
             ),
         ));
-
-.. versionadded:: 2.1
-    Dalla 2.1, se il referer è uguale all'opzione ``login_path``, l'utente
-    sarà rinviato a ``default_target_path``.
 
 Controllare l'URL di rinvio da dentro un form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -226,7 +223,7 @@ definito in una rotta ``account``, fare come segue:
             <input type="password" id="password" name="_password" />
 
             <input type="hidden" name="_target_path" value="account" />
-            
+
             <input type="submit" name="login" />
         </form>
 
@@ -289,8 +286,8 @@ configurazione seguente:
                 main:
                     form_login:
                         # ...
-                        failure_path: /login_failure
-                        
+                        failure_path: login_failure
+
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
@@ -312,7 +309,7 @@ configurazione seguente:
 
                     'form_login' => array(
                         // ...
-                        'failure_path' => login_failure,
+                        'failure_path' => 'login_failure',
                     ),
                 ),
             ),

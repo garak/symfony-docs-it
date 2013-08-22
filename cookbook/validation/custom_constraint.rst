@@ -16,7 +16,7 @@ Innanzitutto, occorre creare una classe vincolo, che estenda :class:`Symfony\\Co
 
     // src/Acme/DemoBundle/Validator/Constraints/ContainsAlphanumeric.php
     namespace Acme\DemoBundle\Validator\Constraints;
-    
+
     use Symfony\Component\Validator\Constraint;
 
     /**
@@ -56,7 +56,7 @@ Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio: 
 
     // src/Acme/DemoBundle/Validator/Constraints/ContainsAlphanumericValidator.php
     namespace Acme\DemoBundle\Validator\Constraints;
-    
+
     use Symfony\Component\Validator\Constraint;
     use Symfony\Component\Validator\ConstraintValidator;
 
@@ -79,11 +79,6 @@ Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio: 
     Il primo parametro della chiamata ad ``addViolation`` è il messaggio di errore da
     usare per tale violazione.
 
-.. versionadded:: 2.1
-    Il metodo ``isValid`` è stato rinominato ``validate`` in Symfony 2.1. Il metodo
-    ``setMessage`` è stato deprecato, a favore della chiamata ad ``addViolation``
-    sul contesto.
-
 Usare il nuovo validatore
 -------------------------
 
@@ -92,7 +87,7 @@ Usare il nuovo validatore è molto facile, come quelli forniti da Symfony2:
 .. configuration-block::
 
     .. code-block:: yaml
-        
+
         # src/Acme/BlogBundle/Resources/config/validation.yml
         Acme\DemoBundle\Entity\AcmeEntity:
             properties:
@@ -102,25 +97,25 @@ Usare il nuovo validatore è molto facile, come quelli forniti da Symfony2:
 
     .. code-block:: php-annotations
 
-        // src/Acme/DemoBundle/Entity/AcmeEntity.php 
+        // src/Acme/DemoBundle/Entity/AcmeEntity.php
         use Symfony\Component\Validator\Constraints as Assert;
         use Acme\DemoBundle\Validator\Constraints as AcmeAssert;
-            
+
         class AcmeEntity
         {
             // ...
-            
+
             /**
              * @Assert\NotBlank
              * @AcmeAssert\ContainsAlphanumeric
              */
             protected $name;
-            
+
             // ...
         }
 
     .. code-block:: xml
-        
+
         <!-- src/Acme/DemoBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
@@ -136,7 +131,7 @@ Usare il nuovo validatore è molto facile, come quelli forniti da Symfony2:
         </constraint-mapping>
 
     .. code-block:: php
-        
+
         // src/Acme/DemoBundle/Entity/AcmeEntity.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
@@ -220,8 +215,8 @@ In questo modo, il metodo ``validate()`` del validatore accetta un oggetto come 
     {
         public function validate($protocol, Constraint $constraint)
         {
-            if ($protocol->getFoo() != $protocol->getBar()) {
-                $this->context->addViolationAtSubPath('foo', $constraint->message, array(), null);
+            if ($protocol->getPippo() != $protocol->getPluto()) {
+                $this->context->addViolationAt('pippo', $constraint->message, array(), null);
             }
         }
     }
@@ -236,7 +231,7 @@ alla proprietà:
         # src/Acme/BlogBundle/Resources/config/validation.yml
         Acme\DemoBundle\Entity\AcmeEntity:
             constraints:
-                - ContainsAlphanumeric
+                - Acme\DemoBundle\Validator\Constraints\ContainsAlphanumeric: ~
 
     .. code-block:: php-annotations
 
@@ -252,5 +247,5 @@ alla proprietà:
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
         <class name="Acme\DemoBundle\Entity\AcmeEntity">
-            <constraint name="ContainsAlphanumeric" />
+            <constraint name="Acme\DemoBundle\Validator\Constraints\ContainsAlphanumeric" />
         </class>

@@ -8,19 +8,19 @@ Il tipo ``country`` è un sotto-insieme di ``ChoiceType``, che mostra i paesi de
 Come bonus aggiuntivo, i nomi dei paesi sono mostrati nella lingua
 dell'utente.
 
-Il valore di ogni paese è un codice da due lettere.
+Il valore di ogni paese è un codice di due lettere.
 
 .. note::
 
    Il locale dell'utente è indovinato tramite :phpmethod:`Locale::getDefault`
 
 Diversamente dal tipo ``choice``, non occorre specificare l'opzione ``choices`` o
-``choice_list``, poiché il campo usaa automaticamente tutti i paesi del mondo.
+``choice_list``, poiché il campo usa automaticamente tutti i paesi del mondo.
 Si *può* specificare una di queste opzioni manulmente, ma allora si dovrebbe
 usare il tipo ``choice`` direttamente.
 
 +---------------+-----------------------------------------------------------------------+
-| Reso come     | possono essere varitag (vedere :ref:`forms-reference-choice-tags`)    |
+| Reso come     | possono essere vari tag (vedere :ref:`forms-reference-choice-tags`)   |
 +---------------+-----------------------------------------------------------------------+
 | Opzioni       | - `choices`_                                                          |
 | ridefinite    |                                                                       |

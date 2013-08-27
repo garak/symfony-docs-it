@@ -61,9 +61,17 @@ abilitare il ``Translator`` nella configurazione:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:translator fallback="en" />
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <framework:translator fallback="en" />
+            </framework:config>
+        </container>
 
     .. code-block:: php
 
@@ -102,9 +110,9 @@ ad esempio, che stiamo traducendo un semplice messaggio all'interno del controll
 
     public function indexAction()
     {
-        $t = $this->get('translator')->trans('Symfony2 is great');
+        $translated = $this->get('translator')->trans('Symfony2 is great');
 
-        return new Response($t);
+        return new Response($translated);
     }
 
 Quando questo codice viene eseguito, Symfony2 tenterà di tradurre il messaggio
@@ -179,9 +187,9 @@ A volte, un messaggio contiene una variabile deve essere tradotta::
 
     public function indexAction($name)
     {
-        $t = $this->get('translator')->trans('Hello '.$name);
+        $translated = $this->get('translator')->trans('Hello '.$name);
 
-        return new Response($t);
+        return new Response($translated);
     }
 
 Tuttavia, la creazione di una traduzione per questa stringa è impossibile, poiché il traduttore
@@ -195,12 +203,12 @@ variabile con un "segnaposto"::
 
     public function indexAction($name)
     {
-        $t = $this->get('translator')->trans(
+        $translated = $this->get('translator')->trans(
             'Hello %name%',
             array('%name%' => $name)
         );
 
-        return new Response($t);
+        return new Response($translated);
     }
 
 Symfony2 cercherà ora una traduzione del messaggio di base (``Hello %name%``)
@@ -245,10 +253,10 @@ viene fatta esattamente come prima:
 
 Come si è visto, la creazione di una traduzione è un processo in due fasi:
 
-1. Astrarre il messaggio che si deve tradurre, processandolo tramite il
+#. Astrarre il messaggio che si deve tradurre, processandolo tramite il
    ``Translator``.
 
-2. Creare una traduzione per il messaggio in ogni locale che si desideri
+#. Creare una traduzione per il messaggio in ogni locale che si desideri
    supportare.
 
 Il secondo passo si esegue creando cataloghi di messaggi, che definiscono le traduzioni
@@ -333,6 +341,7 @@ di gusti.
     È anche possibile memorizzare le traduzioni in una base dati  o in qualsiasi altro mezzo,
     fornendo una classe personalizzata che implementa
     l'interfaccia :class:`Symfony\\Component\\Translation\\Loader\\LoaderInterface`.
+    Vedere :ref:`dic-tags-translation-loader` per maggiori informazioni.
 
 .. index::
    single: Traduzioni; Creazione delle traduzioni
@@ -391,9 +400,9 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
     Questo esempio mostra le due diverse filosofie nella creazione di
     messaggi che dovranno essere tradotti::
 
-        $t = $translator->trans('Symfony2 is great');
+        $translated = $translator->trans('Symfony2 is great');
 
-        $t = $translator->trans('symfony2.great');
+        $translated = $translator->trans('symfony2.great');
 
     Nel primo metodo, i messaggi vengono scritti nella lingua del locale
     predefinito (in inglese in questo caso). Questo messaggio viene quindi utilizzato come "id"
@@ -433,7 +442,7 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
             return array(
                 'symfony2' => array(
                     'is' => array(
-                        'great' => 'Symfony2 is great',
+                        'great'   => 'Symfony2 is great',
                         'amazing' => 'Symfony2 is amazing',
                     ),
                     'has' => array(
@@ -546,9 +555,17 @@ definendo un ``default_locale`` per il servizio di sessione:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:default-locale>en</framework:default-locale>
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <framework:default-locale>en</framework:default-locale>
+            </framework:config>
+        </container>
 
     .. code-block:: php
 
@@ -590,11 +607,18 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
     .. code-block:: xml
 
-        <route id="contact" path="/{_locale}/contact">
-            <default key="_controller">AcmeDemoBundle:Contact:index</default>
-            <default key="_locale">en</default>
-            <requirement key="_locale">en|fr|de</requirement>
-        </route>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="contact" path="/{_locale}/contact">
+                <default key="_controller">AcmeDemoBundle:Contact:index</default>
+                <default key="_locale">en</default>
+                <requirement key="_locale">en|fr|de</requirement>
+            </route>
+        </routes>
 
     .. code-block:: php
 
@@ -778,7 +802,7 @@ solo quando si utilizza un segnaposto che segue lo schema ``%var%``.
     {% trans with {'%name%': 'Fabien'} from "app" into "fr" %}Hello %name%{% endtrans %}
 
     {% transchoice count with {'%name%': 'Fabien'} from "app" %}
-        {0} There is no apples|{1} There is one apple|]1,Inf] There are %count% apples
+        {0} %name%, there are no apples|{1} %name%, there is one apple|]1,Inf] %name%, there are %count% apples
     {% endtranschoice %}
 
 .. _book-translation-filters:

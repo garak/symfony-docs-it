@@ -38,7 +38,7 @@ della classe ``AppKernel``:
     // app/AppKernel.php
 
     // ...
-    
+
     class AppKernel extends Kernel
     {
         // ...
@@ -255,7 +255,7 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
 
     .. code-block:: php
 
-        // app/config/config_benchmark.php     
+        // app/config/config_benchmark.php
         $loader->import('config_prod.php')
 
         $container->loadFromExtension('framework', array(
@@ -344,7 +344,6 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 
     Si possono cambiare facilmente posizione e nome della cartella. Per maggiori informazioni,
     si legga la ricetta :doc:`/cookbook/configuration/override_dir_structure`.
-
 
 Approfondimenti
 ---------------

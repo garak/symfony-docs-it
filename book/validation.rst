@@ -130,9 +130,9 @@ semplice esempio dall'interno di un controllore::
 
         if (count($errors) > 0) {
             return new Response(print_r($errors, true));
-        } else {
-            return new Response('L\'autore è valido! Sì!');
         }
+
+        return new Response('L\'autore è valido! Sì!');
     }
 
 Se la proprietà ``$name`` è vuota, si vedrà il seguente messaggio di
@@ -161,8 +161,6 @@ Si può anche passare un insieme di errori in un template.
         return $this->render('AcmeBlogBundle:Author:validate.html.twig', array(
             'errors' => $errors,
         ));
-    } else {
-        // ...
     }
 
 Dentro al template, si può stampare la lista di errori, come necessario:
@@ -263,16 +261,24 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:validation enable-annotations="true" />
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <framework:validation enable-annotations="true" />
+            </framework:config>
+        </container>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             'validation' => array(
-            'enable_annotations' => true,
+                'enable_annotations' => true,
             ),
         ));
 
@@ -526,14 +532,20 @@ avere almeno 3 caratteri.
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <property name="firstName">
-                <constraint name="NotBlank" />
-                <constraint name="Length">
-                    <option name="min">3</option>
-                </constraint>
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <property name="firstName">
+                    <constraint name="NotBlank" />
+                    <constraint name="Length">
+                        <option name="min">3</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -605,13 +617,19 @@ restituire ``true``:
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\Author">
-            <getter property="passwordLegal">
-                <constraint name="True">
-                    <option name="message">La password non può essere uguale al nome</option>
-                </constraint>
-            </getter>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\Author">
+                <getter property="passwordLegal">
+                    <constraint name="True">
+                        <option name="message">La password non può essere uguale al nome</option>
+                    </constraint>
+                </getter>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -635,7 +653,7 @@ Creare ora il metodo ``isPasswordLegal()`` e includervi la logica necessaria::
 
     public function isPasswordLegal()
     {
-        return ($this->firstName != $this->password);
+        return $this->firstName != $this->password;
     }
 
 .. note::
@@ -717,33 +735,39 @@ si registra che quando aggiorna successivamente le sue informazioni:
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\User">
-            <property name="email">
-                <constraint name="Email">
-                    <option name="groups">
-                        <value>registration</value>
-                    </option>
-                </constraint>
-            </property>
-            <property name="password">
-                <constraint name="NotBlank">
-                    <option name="groups">
-                        <value>registration</value>
-                    </option>
-                </constraint>
-                <constraint name="Length">
-                    <option name="min">7</option>
-                    <option name="groups">
-                        <value>registration</value>
-                    </option>
-                </constraint>
-            </property>
-            <property name="city">
-                <constraint name="Length">
-                    <option name="min">7</option>
-                </constraint>
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\User">
+                <property name="email">
+                    <constraint name="Email">
+                        <option name="groups">
+                            <value>registration</value>
+                        </option>
+                    </constraint>
+                </property>
+                <property name="password">
+                    <constraint name="NotBlank">
+                        <option name="groups">
+                            <value>registration</value>
+                        </option>
+                    </constraint>
+                    <constraint name="Length">
+                        <option name="min">7</option>
+                        <option name="groups">
+                            <value>registration</value>
+                        </option>
+                    </constraint>
+                </property>
+                <property name="city">
+                    <constraint name="Length">
+                        <option name="min">7</option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -874,26 +898,32 @@ nome utente e password siano diversi, solo se le altre validazioni passano
     .. code-block:: xml
 
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\BlogBundle\Entity\User">
-            <property name="username">
-                <constraint name="NotBlank" />
-            </property>
-            <property name="password">
-                <constraint name="NotBlank" />
-            </property>
-            <getter property="passwordLegal">
-                <constraint name="True">
-                    <option name="message">The password cannot match your username</option>
-                    <option name="groups">
-                        <value>Strict</value>
-                    </option>
-                </constraint>
-            </getter>
-            <group-sequence>
-                <value>User</value>
-                <value>Strict</value>
-            </group-sequence>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\BlogBundle\Entity\User">
+                <property name="username">
+                    <constraint name="NotBlank" />
+                </property>
+                <property name="password">
+                    <constraint name="NotBlank" />
+                </property>
+                <getter property="passwordLegal">
+                    <constraint name="True">
+                        <option name="message">The password cannot match your username</option>
+                        <option name="groups">
+                            <value>Strict</value>
+                        </option>
+                    </constraint>
+                </getter>
+                <group-sequence>
+                    <value>User</value>
+                    <value>Strict</value>
+                </group-sequence>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -920,7 +950,7 @@ nome utente e password siano diversi, solo se le altre validazioni passano
                     'passwordLegal',
                     new Assert\True(array(
                         'message' => 'La password deve essere diversa dal nome utente',
-                    'groups'  => array('Strict'),
+                        'groups'  => array('Strict'),
                     ))
                 );
 
@@ -983,22 +1013,28 @@ l'entità e aggiungere un nuovo gruppo di vincoli, chiamato ``Premium``:
     .. code-block:: xml
 
         <!-- src/Acme/DemoBundle/Resources/config/validation.xml -->
-        <class name="Acme\DemoBundle\Entity\User">
-            <property name="name">
-                <constraint name="NotBlank" />
-            </property>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <property name="creditCard">
-                <constraint name="CardScheme">
-                    <option name="schemes">
-                        <value>VISA</value>
-                    </option>
-                    <option name="groups">
-                        <value>Premium</value>
-                    </option>
-                </constraint>
-            </property>
-        </class>
+            <class name="Acme\DemoBundle\Entity\User">
+                <property name="name">
+                    <constraint name="NotBlank" />
+                </property>
+
+                <property name="creditCard">
+                    <constraint name="CardScheme">
+                        <option name="schemes">
+                            <value>VISA</value>
+                        </option>
+                        <option name="groups">
+                            <value>Premium</value>
+                        </option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 
@@ -1038,7 +1074,7 @@ il codice potrebbe assomigliare a questo::
     namespace Acme\DemoBundle\Entity;
 
     // ...
-    use Symfony\Component\Validation\GroupSequenceProviderInterface;
+    use Symfony\Component\Validator\GroupSequenceProviderInterface;
 
     /**
      * @Assert\GroupSequenceProvider

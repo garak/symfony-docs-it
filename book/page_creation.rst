@@ -147,7 +147,6 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
 
         <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing
@@ -192,7 +191,6 @@ che definisce l'URL della pagina che stiamo per creare:
 
         <!-- src/Acme/HelloBundle/Resources/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing
@@ -385,7 +383,7 @@ controllore e ``index.html.twig`` il template:
             Ciao {{ name }}!
         {% endblock %}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
         <?php $view->extend('::base.html.php') ?>
@@ -788,20 +786,30 @@ del formato scelto:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <imports>
-            <import resource="parameters.yml" />
-            <import resource="security.yml" />
-        </imports>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xmlns:twig="http://symfony.com/schema/dic/twig"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd
+                                http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
+                                
+            <imports>
+                <import resource="parameters.yml" />
+                <import resource="security.yml" />
+            </imports>
 
-        <framework:config secret="%secret%">
-            <framework:router resource="%kernel.root_dir%/config/routing.xml" />
+            <framework:config secret="%secret%">
+                <framework:router resource="%kernel.root_dir%/config/routing.xml" />
+                <!-- ... -->
+            </framework:config>
+
+            <!-- Configurazione di Twig -->
+            <twig:config debug="%kernel.debug%" strict-variables="%kernel.debug%" />
+
             <!-- ... -->
-        </framework:config>
-
-        <!-- Configurazione di Twig -->
-        <twig:config debug="%kernel.debug%" strict-variables="%kernel.debug%" />
-
-        <!-- ... -->
+        </container>
 
     .. code-block:: php
 
@@ -976,18 +984,25 @@ il file di configurazione per l'ambiente ``dev``.
     .. code-block:: xml
 
         <!-- app/config/config_dev.xml -->
-        <imports>
-            <import resource="config.xml" />
-        </imports>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-        <framework:config>
-            <framework:router
-                resource="%kernel.root_dir%/config/routing_dev.xml"
-            />
-            <framework:profiler only-exceptions="false" />
-        </framework:config>
+            <imports>
+                <import resource="config.xml" />
+            </imports>
 
-        <!-- ... -->
+            <framework:config>
+                <framework:router
+                    resource="%kernel.root_dir%/config/routing_dev.xml"
+                />
+                <framework:profiler only-exceptions="false" />
+            </framework:config>
+
+            <!-- ... -->
 
     .. code-block:: php
 

@@ -78,7 +78,7 @@ Il file dei meta-dati ``BlogPost.dcm.xml`` assomiglia a questo:
 
     <?xml version="1.0" encoding="utf-8"?>
     <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-      <entity name="BlogPost" table="blog_post">
+      <entity name="Acme\BlogBundle\Entity\BlogPost" table="blog_post">
         <id name="id" type="bigint" column="id">
           <generator strategy="IDENTITY"/>
         </id>
@@ -87,13 +87,6 @@ Il file dei meta-dati ``BlogPost.dcm.xml`` assomiglia a questo:
         <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
       </entity>
     </doctrine-mapping>
-
-Aggiornare lo spazio dei nomi nell'attributo ``name`` dell'elemento ``entity`` in questo
-modo:
-
-.. code-block:: xml
-
-    <entity name="Acme\BlogBundle\Entity\BlogPost" table="blog_post">
 
 Una volta generati i file dei meta-dati, si può chiedere a Doctrine di importare lo
 schema e costruire le relative classi entità, eseguendo i seguenti comandi.

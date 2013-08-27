@@ -151,14 +151,21 @@ nel controllore:
         # app/config/routing.yml
         hello:
             path:      /hello/{name}
-            defaults:     { _controller: AcmeHelloBundle:Hello:index }
+            defaults:  { _controller: AcmeHelloBundle:Hello:index }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" path="/hello/{name}">
-            <default key="_controller">AcmeHelloBundle:Hello:index</default>
-        </route>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="hello" path="/hello/{name}">
+                <default key="_controller">AcmeHelloBundle:Hello:index</default>
+            </route>
+        </routes>
 
     .. code-block:: php
 
@@ -230,15 +237,22 @@ esempio:
         # app/config/routing.yml
         hello:
             path:      /hello/{first_name}/{last_name}
-            defaults:     { _controller: AcmeHelloBundle:Hello:index, color: green }
+            defaults:  { _controller: AcmeHelloBundle:Hello:index, color: green }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" path="/hello/{first_name}/{last_name}">
-            <default key="_controller">AcmeHelloBundle:Hello:index</default>
-            <default key="color">green</default>
-        </route>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="hello" path="/hello/{first_name}/{last_name}">
+                <default key="_controller">AcmeHelloBundle:Hello:index</default>
+                <default key="color">green</default>
+            </route>
+        </routes>
 
     .. code-block:: php
 
@@ -361,7 +375,7 @@ Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificar
     {
         public function indexAction($name)
         {
-          return new Response('<html><body>Hello '.$name.'!</body></html>');
+            return new Response('<html><body>Hello '.$name.'!</body></html>');
         }
     }
 
@@ -447,7 +461,7 @@ e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'ogget
     {
         $response = $this->forward('AcmeHelloBundle:Hello:fancy', array(
             'name'  => $name,
-            'color' => 'green'
+            'color' => 'green',
         ));
 
         // ... modificare ulteriormente la risposta o restituirla direttamente

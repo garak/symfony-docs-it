@@ -230,13 +230,13 @@ di Assetic:
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/css/*' filter='uglifycss' %}
+        {% stylesheets '@AcmePippoBundle/Resources/public/css/*' filter='uglifycss' %}
              <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endjavascripts %}
+        {% endstylesheets %}
 
     .. code-block:: html+php
 
-        <?php foreach ($view['assetic']->javascripts(
+        <?php foreach ($view['assetic']->stylesheets(
             array('@AcmePippoBundle/Resources/public/css/*'),
             array('uglifycss')
         ) as $url): ?>

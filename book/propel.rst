@@ -51,14 +51,14 @@ file ``app/config/parameters.ini``:
 I parametri definiti in ``parameters.yml`` possono essere inclusi nel file di
 configurazione (``config.yml``):
 
-    .. code-block:: yaml
+.. code-block:: yaml
 
-        propel:
-            dbal:
-                driver:     "%database_driver%"
-                user:       "%database_user%"
-                password:   "%database_password%"
-                dsn:        "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
+    propel:
+        dbal:
+            driver:     "%database_driver%"
+            user:       "%database_user%"
+            password:   "%database_password%"
+            dsn:        "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
 
 Ora che Propel ha informazioni sulla base dati, si può fare in modo che crei la
 base dati al posto nostro:
@@ -90,7 +90,7 @@ proprio ``AcmeStoreBundle``:
 
 .. code-block:: xml
 
-    <?xml version="1.0" encoding="UTF-8"?>
+    <?xml version="1.0" encoding="UTF-8" ?>
     <database name="default"
         namespace="Acme\StoreBundle\Model"
         defaultIdMethod="native"
@@ -304,6 +304,7 @@ Si inizi aggiungendo la definizione di ``category`` al file ``schema.xml``:
 
 .. code-block:: xml
 
+    <?xml version="1.0" encoding="UTF-8" ?>
     <database name="default"
         namespace="Acme\StoreBundle\Model"
         defaultIdMethod="native">

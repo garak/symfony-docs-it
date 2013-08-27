@@ -97,10 +97,31 @@ rispetto ad averla legata e nascosta nella definizione del servizio:
             ->register('mailer', 'Mailer')
             ->addArgument('%mailer.transport%');
 
-In caso di uso altrove, occorre cambiare il
+.. caution::
+
+    I valori nei tag ``parameter`` nella configurazione XML mantengono
+    eventuali spazi e "a capo".
+
+    Questo vuol dire che il seguente esempio di configurazione avrà come valore
+    ``\n    sendmail\n``:
+
+    .. code-block:: xml
+
+        <parameter key="mailer.transport">
+            sendmail
+        </parameter>
+
+    In alcuni casi (per costanti o nomi di classi), questo può causare errori. Per
+    prevenirlo, inserire sempre i parametri sulla stessa riga, come segue:
+
+    .. code-block:: xml
+
+        <parameter key="mailer.transport">sendmail</parameter>
+
+In caso di uso altrove, occorre cambiare il valore del
 parametro in un unico posto, se necessario.
 
-Si può anche usare i parametri nella definizione dei servizi, per esempio,
+Si possono anche usare i parametri nella definizione dei servizi, per esempio,
 rendendo un parametro la classe di un servizio:
 
 .. configuration-block::
@@ -264,3 +285,72 @@ e definire il tipo come ``constant``.
             # app/config/config.yml
             imports:
                 - { resource: parameters.xml }
+
+Parole chiave di PHP in XML
+---------------------------
+
+Per impostazione predefinita, ``true``, ``false`` e ``null`` in XML sono convertiti nelle rispettive parole
+chiave di PHP (rispettivamente ``true``, ``false`` e ``null``):
+
+.. code-block:: xml
+
+    <parameters>
+        <parameter key="mailer.send_all_in_once">false</parameters>
+    </parameters>
+
+    <!-- dopo l'analisi
+    $container->getParameter('mailer.send_all_in_once'); // restituisce false
+    -->
+
+Per disabilitare questo comportamento, usare il tipo ``string``:
+
+.. code-block:: xml
+
+    <parameters>
+        <parameter key="mailer.some_parameter" type="string">true</parameter>
+    </parameters>
+
+    <!-- dopo l'analisi
+    $container->getParameter('mailer.some_parameter'); // restituisce "true"
+    -->
+
+.. note::
+
+    Questa caratteristica non è disponibile per Yaml e PHP, che hanno già un supporto
+    interno per le parole chiave di PHP.
+
+Fare riferimento ai servizi
+---------------------------
+
+Si possono creare dei riferimento i servizi, che hanno un aspetto un po' differente in
+ciascun formato. Si può configurare il comportamento da tenere nel caso in cui il servizio di riferimento
+non esista. Per impostazione predefinita, viene lanciata un'eccezione nel caso di
+servizio non esistente.
+
+Yaml
+~~~~
+
+Prefissare la stringa con  ``@`` o ``@?`` per fare riferimento a un servizio in Yaml.
+
+* ``@mailer`` fa riferimento al servizio ``mailer``. Se il servizio non
+  esiste, verrà lanciata un'eccezione;
+* ``@?mailer`` fa riferimento al servizio ``mailer``. Se il servizio non
+  esiste, verrà ignorato;
+
+Xml
+~~~
+
+In XML, usare il tipo ``service``. Il comportamento in caso di servizio non esistente
+può essere specificato con il parametro ``on-invalid``. Per impostazione predefinita, viene
+lanciata un'eccezione. Valori validi per ``on-invalid`` sono ``null`` (usa ``null`` al posto
+del servizio mancante) o ``ignored`` (molto simile, ma rimuove la chiamata al metodo, se
+usato su una chiamata a metodo).
+
+Php
+~~~
+
+In PHP, si può usare la classe
+:class:`Symfony\\Component\\DependencyInjection\\Reference` per fare riferimento a
+un servizio. Il comportamento non valido è configurabile con il secondo parametro del
+costruttore e le costanti di
+:class:`Symfony\\Component\\DependencyInjection\\ContainerInterface`.

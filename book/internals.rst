@@ -566,20 +566,27 @@ la configurazione per l'ambiente di sviluppo:
 
     .. code-block:: xml
 
-        <!-- xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler" -->
-        <!-- xsi:schemaLocation="http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd"> -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-        <!-- carica il profilatore -->
-        <framework:config>
-            <framework:profiler only-exceptions="false" />
-        </framework:config>
+            <!-- carica il profilatore -->
+            <framework:config>
+                <framework:profiler only-exceptions="false" />
+            </framework:config>
 
-        <!-- abilita il profilatore web -->
-        <webprofiler:config
-            toolbar="true"
-            intercept-redirects="true"
-            verbose="true"
-        />
+            <!-- abilita il profilatore web -->
+            <webprofiler:config
+                toolbar="true"
+                intercept-redirects="true"
+                verbose="true"
+            />
+        </container>
 
     .. code-block:: php
 
@@ -590,9 +597,9 @@ la configurazione per l'ambiente di sviluppo:
 
         // abilita il profilatore web
         $container->loadFromExtension('web_profiler', array(
-            'toolbar' => true,
+            'toolbar'             => true,
             'intercept-redirects' => true,
-            'verbose' => true,
+            'verbose'             => true,
         ));
 
 Quando ``only-exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
@@ -614,10 +621,17 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
 
     .. code-block:: xml
 
-        <import
-            resource="@WebProfilerBundle/Resources/config/routing/profiler.xml"
-            prefix="/_profiler"
-        />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <import
+                resource="@WebProfilerBundle/Resources/config/routing/profiler.xml"
+                prefix="/_profiler"
+            />
+        </routes>
 
     .. code-block:: php
 

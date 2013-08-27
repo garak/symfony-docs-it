@@ -68,15 +68,12 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
             }
             if ('string' === $dummy) {
                 if ('values' === $mergedOptions['un_valore_predefinito']) {
-                    $dummy = substr($dummy, 0, 5);
-                } else {
-                    $dummy = ucwords($dummy);
+                    return substr($dummy, 0, 5);
                 }
-            } else {
-                throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));
+                
+                return ucwords($dummy);
             }
-
-            return $dummy;
+            throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));
         }
     }
 

@@ -82,7 +82,7 @@ se ne ha bisogno::
     use Acme\HelloBundle\Mailer;
 
     $mailer = new Mailer('sendmail');
-    $mailer->send('ryan@foobar.net', ... );
+    $mailer->send('ryan@foobar.net', ...);
 
 Questo è abbastanza facile. La classe immaginaria ``Mailer`` permette di configurare
 il metodo utilizzato per inviare i messaggi email (per esempio ``sendmail``, ``smtp``, ecc).
@@ -116,11 +116,17 @@ essere specificata in YAML, XML o PHP:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <services>
-            <service id="my_mailer" class="Acme\HelloBundle\Mailer">
-                <argument>sendmail</argument>
-            </service>
-        </services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="my_mailer" class="Acme\HelloBundle\Mailer">
+                    <argument>sendmail</argument>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -154,7 +160,7 @@ metodo scorciatoia ``get()``::
         {
             // ...
             $mailer = $this->get('my_mailer');
-            $mailer->send('ryan@foobar.net', ... );
+            $mailer->send('ryan@foobar.net', ...);
         }
     }
 
@@ -206,16 +212,22 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <parameters>
-            <parameter key="my_mailer.class">Acme\HelloBundle\Mailer</parameter>
-            <parameter key="my_mailer.transport">sendmail</parameter>
-        </parameters>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="my_mailer" class="%my_mailer.class%">
-                <argument>%my_mailer.transport%</argument>
-            </service>
-        </services>
+            <parameters>
+                <parameter key="my_mailer.class">Acme\HelloBundle\Mailer</parameter>
+                <parameter key="my_mailer.transport">sendmail</parameter>
+            </parameters>
+
+            <services>
+                <service id="my_mailer" class="%my_mailer.class%">
+                    <argument>%my_mailer.transport%</argument>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -345,16 +357,22 @@ non esistono, crearle.
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
-        <parameters>
-            <parameter key="my_mailer.class">Acme\HelloBundle\Mailer</parameter>
-            <parameter key="my_mailer.transport">sendmail</parameter>
-        </parameters>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="my_mailer" class="%my_mailer.class%">
-                <argument>%my_mailer.transport%</argument>
-            </service>
-        </services>
+            <parameters>
+                <parameter key="my_mailer.class">Acme\HelloBundle\Mailer</parameter>
+                <parameter key="my_mailer.transport">sendmail</parameter>
+            </parameters>
+
+            <services>
+                <service id="my_mailer" class="%my_mailer.class%">
+                    <argument>%my_mailer.transport%</argument>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -385,9 +403,15 @@ dell'applicazione.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <imports>
-            <import resource="@AcmeHelloBundle/Resources/config/services.xml"/>
-        </imports>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <imports>
+                <import resource="@AcmeHelloBundle/Resources/config/services.xml"/>
+            </imports>
+        </container>
 
     .. code-block:: php
 
@@ -455,12 +479,20 @@ invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundl
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config secret="xxxxxxxxxx">
-            <framework:form />
-            <framework:csrf-protection />
-            <framework:router resource="%kernel.root_dir%/config/routing.xml" />
-            <!-- ... -->
-        </framework>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config secret="xxxxxxxxxx">
+                <framework:form />
+                <framework:csrf-protection />
+                <framework:router resource="%kernel.root_dir%/config/routing.xml" />
+                <!-- ... -->
+            </framework>
+        </container>
 
     .. code-block:: php
 
@@ -586,19 +618,25 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
-        <parameters>
-            <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
-        </parameters>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="my_mailer" ...>
-              <!-- ... -->
-            </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
-                <argument type="service" id="my_mailer"/>
-            </service>
-        </services>
+            <parameters>
+                <!-- ... -->
+                <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
+            </parameters>
+
+            <services>
+                <service id="my_mailer" ...>
+                <!-- ... -->
+                </service>
+                <service id="newsletter_manager" class="%newsletter_manager.class%">
+                    <argument type="service" id="my_mailer"/>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -677,21 +715,27 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
-        <parameters>
-            <!-- ... -->
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
-        </parameters>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="my_mailer" ...>
-              <!-- ... -->
-            </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
-                <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
-                </call>
-            </service>
-        </services>
+            <parameters>
+                <!-- ... -->
+                <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
+            </parameters>
+
+            <services>
+                <service id="my_mailer" ...>
+                <!-- ... -->
+                </service>
+                <service id="newsletter_manager" class="%newsletter_manager.class%">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -744,15 +788,20 @@ esiste e in caso contrario non farà nulla:
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="my_mailer" ...>
-              <!-- ... -->
-            </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
-                <argument type="service" id="my_mailer" on-invalid="ignore" />
-            </service>
-        </services>
+            <services>
+                <service id="my_mailer" ...>
+                <!-- ... -->
+                </service>
+                <service id="newsletter_manager" class="%newsletter_manager.class%">
+                    <argument type="service" id="my_mailer" on-invalid="ignore" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -772,8 +821,8 @@ esiste e in caso contrario non farà nulla:
             '%newsletter_manager.class%',
             array(
                 new Reference(
-                'my_mailer',
-                ContainerInterface::IGNORE_ON_INVALID_REFERENCE
+                    'my_mailer',
+                    ContainerInterface::IGNORE_ON_INVALID_REFERENCE
                 )
             )
         ));
@@ -850,10 +899,16 @@ La configurazione del contenitore dei servizi è semplice:
 
     .. code-block:: xml
 
-        <service id="newsletter_manager" class="%newsletter_manager.class%">
-            <argument type="service" id="mailer"/>
-            <argument type="service" id="templating"/>
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <service id="newsletter_manager" class="%newsletter_manager.class%">
+                <argument type="service" id="mailer"/>
+                <argument type="service" id="templating"/>
+            </service>
+        </container>
 
     .. code-block:: php
 
@@ -899,10 +954,16 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
 
     .. code-block:: xml
 
-        <service id="foo.twig.extension"
-            class="Acme\HelloBundle\Extension\FooExtension">
-            <tag name="twig.extension" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <service id="foo.twig.extension"
+                class="Acme\HelloBundle\Extension\FooExtension">
+                <tag name="twig.extension" />
+            </service>
+        </container>
 
     .. code-block:: php
 

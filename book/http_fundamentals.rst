@@ -429,9 +429,16 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
     .. code-block:: xml
 
-        <route id="contact" path="/contact">
-            <default key="_controller">AcmeDemoBundle:Main:contact</default>
-        </route>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="contact" path="/contact">
+                <default key="_controller">AcmeDemoBundle:Main:contact</default>
+            </route>
+        </routes>
 
     .. code-block:: php
 

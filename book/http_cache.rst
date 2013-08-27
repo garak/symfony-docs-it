@@ -845,10 +845,19 @@ Per usare ESI, assicurarsi prima di tutto di abilitarlo nella configurazione del
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ...>
-            <!-- ... -->
-            <framework:esi enabled="true" />
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/symfony"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config ...>
+                <!-- ... -->
+                <framework:esi enabled="true" />
+            </framework:config>
+
+        </container>
 
     .. code-block:: php
 
@@ -957,11 +966,19 @@ ascoltatore che va abilitato nella configurazione:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:fragments path="/_fragment" />
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:doctrine="http://symfony.com/schema/dic/framework"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-.. code-block:: php
+            <framework:config>
+                <framework:fragments path="/_fragment" />
+            </framework:config>
+        </container>
+
+    .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
@@ -1073,7 +1090,7 @@ Imparare di più con le ricette
 
 .. _`Things Caches Do`: http://tomayko.com/writings/things-caches-do
 .. _`Cache Tutorial`: http://www.mnot.net/cache_docs/
-.. _`Varnish`: http://www.varnish-cache.org/
+.. _`Varnish`: https://www.varnish-cache.org/
 .. _`Squid in modalità reverse proxy`: http://wiki.squid-cache.org/SquidFaq/ReverseProxy
 .. _`modello a scadenza`: http://tools.ietf.org/html/rfc2616#section-13.2
 .. _`modello a validazione`: http://tools.ietf.org/html/rfc2616#section-13.3

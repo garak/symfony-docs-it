@@ -26,7 +26,7 @@ Il servizio ``logger`` ha vari metodi, per diversi livelli di log.
 Vedere :class:`Symfony\\Component\\HttpKernel\\Log\\LoggerInterface` per maggiori dettagli
 sui metodi disponibili.
 
-Gestiru e canali: scrivere log in posizioni diverse
+Gestori e canali: scrivere log in posizioni diverse
 ---------------------------------------------------
 
 In Monolog, ogni logger definisce un canale di log, il che consente di organizzare i messaggi

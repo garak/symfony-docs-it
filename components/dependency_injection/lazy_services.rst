@@ -11,16 +11,16 @@ Perché i servizi pigri?
 -----------------------
 
 A volte può essere necessario iniettare, all'interno del proprio oggetto, un servizio 
-un po pesante da istanziare e che non sempre viene utilizzato . Si supponga, ad esempio,
+un po' pesante da istanziare e che non sempre viene utilizzato . Si supponga, ad esempio,
 di avere un ``GestoreDiNewsletter`` e che si voglia iniettare un servizio ``mailer`` al suo interno. Solo
 alcuni metodi del ``GestoreDiNewsletter`` usano effettivamente il ``mailer`` ma,
 anche senza farne uso, il servizio ``mailer`` verrebbe comunque istanziato
 in modo da poter costruire il ``GestoreDiNewsletter``.
 
-Per risolvere questo problema è possibile usare un servizio pigro (lazy service). Quando si usa un servizio pigro, 
+Per risolvere questo problema è possibile usare un servizio pigro. Quando si usa un servizio pigro, 
 in realtà viene iniettato un "sostituto" del servizio ``mailer``. Il sostituto sembra e si comporta esattamente
-come se fosse il ``mailer`` a parte il fatto che il ``mailer`` non viene istanziato fino a
-che non si interagisce in qualche modo con il suo sostituto.
+come se fosse il ``mailer``, a parte il fatto che ``mailer`` non viene istanziato finché
+non si interagisce in qualche modo con il suo sostituto.
 
 Installazione
 -------------
@@ -41,7 +41,7 @@ il `bridge ProxyManager`_:
 Configurazione
 --------------
 
-Si può definire un servizio come ``pigro`` modificandone la definizione:
+Si può definire un servizio come pigro, modificandone la definizione:
 
 .. configuration-block::
 
@@ -74,7 +74,7 @@ iniettato sarà il sostituto.
 .. note::
 
     Se non si è installato il `bridge ProxyManager`_, il contenitore si limiterà
-    a saltare il parametro ``lazy`` e ad istanziare il servizio come
+    a saltare il parametro ``lazy`` e a istanziare il servizio come
     farebbe normalmente.
 
 Il sostituto viene inizializzato e il servizio vero e proprio viene istanziato non appena

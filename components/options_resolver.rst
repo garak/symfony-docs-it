@@ -34,7 +34,7 @@ Innanzitutto, creare la classe ``Person``::
         }
     }
 
-Si potrebbe settare il valore di ``$options`` direttamente nella proprietà. Invece,
+Si potrebbe impostare il valore di ``$options`` direttamente nella proprietà. Invece,
 utilizzare la classe :class:`Symfony\\Component\\OptionsResolver\\OptionsResolver`
 e lasciare che essa risolva le opzioni tramite la chiamata al metodo
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::resolve`.
@@ -72,7 +72,7 @@ significa che è possibile gestirla come un normale array::
         return $name;
     }
 
-Adesso, prova ad utilizzare effettivamente la classe::
+Adesso, si provi a utilizzare effettivamente la classe::
 
     $person = new Person(array(
         'firstName' => 'Wouter',
@@ -81,9 +81,9 @@ Adesso, prova ad utilizzare effettivamente la classe::
 
     echo $person->getFirstName();
 
-In questo momento, avrai ricevuto una 
+In questo momento, si riceverà una 
 :class:`Symfony\\Component\\OptionsResolver\\Exception\\InvalidOptionsException`,
-la quale ci informa che le opzioni ``firstName`` e ``lastName`` non esistono.
+la quale informa che le opzioni ``firstName`` e ``lastName`` non esistono.
 Questo perché è necessario configurare prima l'``OptionsResolver``, in modo che
 sappia quali opzioni devono essere risolte.
 

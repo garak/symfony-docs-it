@@ -4,14 +4,14 @@
 Come creare un Custom Route Loader
 ==================================
 
-Un Custom route loader permette di aggiungere route ad una applicazione senza 
-per esempio farne l'inclusione da un file Yaml. Questo viene comodo quando si 
-ha un bundle, ma non si vuole aggiungere manualmente i route per quel bundle
+Un Custom route loader permette di aggiungere rotte a una applicazione, senza 
+per esempio farne l'inclusione da un file Yaml. Questo può essere comodo quando si 
+ha un bundle, ma non si vuole aggiungere manualmente le rotte per quel bundle
 a ``app/config/routing.yml``. Questo può essere in special modo importante 
 quando si vuole rendere il bundle riusabile o quando lo si è reso open source, in quanto
 questo rallenterebbe il processo di installazione e lo renderebbe più incline agli errori.
 
-Alternativamente, si può usare un Custom Route Loader quando si vuole che le proprie 
+Alternativamente, si può usare un caricatore personalizzato di rotte, quando si vuole che le proprie 
 rotte siano generate o trovate automaticamente in base a qualche convenzione o schema.
 Un esempio è il `FOSRestBundle`_, nel quale le rotte sono generate in base ai nomi
 dei metodi Action nei controllori.

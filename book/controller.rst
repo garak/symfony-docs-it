@@ -453,7 +453,8 @@ Inoltro
 ~~~~~~~
 
 Si può anche facilmente inoltrare internamente a un altro controllore con il metodo
-``forward()``. Invece di redirigere il browser dell'utente, fa una sotto richiesta interna
+:method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::forward`. Invece
+di redirigere il browser dell'utente, fa una sotto richiesta interna
 e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'oggetto
 ``Response`` che è tornato da quel controllore::
 
@@ -492,17 +493,22 @@ valore di ogni variabile.
 
     Come per gli altri metodi base di ``Controller``, il metodo ``forward`` è solo
     una scorciatoia per funzionalità del nucleo di Symfony2. Un inoltro può essere eseguito
-    direttamente attraverso il servizio ``http_kernel``. Un inoltro restituisce un oggetto
-    ``Response``::
+    direttamente, duplicando la richiesta corrente. Quanto tale
+    :ref:`sotto-richiesta<http-kernel-sub-requests>` viene eseguita tramite il servizio ``http_kernel``,
+    ``HttpKernel`` restituisce un oggetto ``Response``::
     
-        $httpKernel = $this->container->get('http_kernel');
-        $response = $httpKernel->forward(
-            'AcmeHelloBundle:Hello:fancy',
-            array(
-                'name'  => $name,
-                'color' => 'green',
-            )
+        use Symfony\Component\HttpKernel/HttpKernelInterface;
+    
+        $path = array(
+            '_controller' => 'AcmeHelloBundle:Hello:fancy',
+            'name'        => $name,
+            'color'       => 'green',
         );
+        $request = $this->container->get('request');
+        $subRequest = $request->duplicate(array(), null, $path);
+
+        $httpKernel = $this->container->get('http_kernel');
+        $response = $httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
 
 .. index::
    single: Controllore; Rendere i template

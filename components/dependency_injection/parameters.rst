@@ -337,6 +337,12 @@ Prefissare la stringa con  ``@`` o ``@?`` per fare riferimento a un servizio in 
 * ``@?mailer`` fa riferimento al servizio ``mailer``. Se il servizio non
   esiste, verrà ignorato;
 
+.. tip::
+
+    Usare ``@@`` per l'escape del simbolo ``@`` in Yaml. ``@@mailer`` sarà
+    convertito nella stringa ``"@mailer"``, invece di far riferimento al
+    servizio ``mailer``.
+
 Xml
 ~~~
 

@@ -61,7 +61,11 @@ esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `security.remember_me_aware`_     | Consentire il "ricorami" nell'autenticazione                              |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `swiftmailer.plugin`_             | Registre un plugin di SwiftMailer                                         |
+| `serializer.encoder`_             | Registrare un nuovo codificatore nel servizio ``serializer``              |
++-----------------------------------+---------------------------------------------------------------------------+
+| `serializer.normalizer`_          | Registrare un nuovo normalizzatore nel servizio ``serializer``            |
++-----------------------------------+---------------------------------------------------------------------------+
+| `swiftmailer.plugin`_             | Registrare un plugin di SwiftMailer                                       |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `templating.helper`_              | Rendere il servizio disponibile nei template PHP                          |
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -349,12 +353,12 @@ kernel.cache_clearer
 
 **Scopo**: Registrare un servizio da richiamare durante la pulizia della cache
 
-Cache clearing occurs whenever you call ``cache:clear`` command. If your
-bundle caches files, you should add custom cache clearer for clearing those
-files during the cache clearing process.
+La pulizia della cache avviene a ogni chiamata del comando ``cache:clear``. Se un
+bundle mette dei file in cache, si dovrebbe aggiungere un pulitore personalizzato, per
+pulirli durante il processo di pulizia della cache.
 
-In order to register your custom cache clearer, first you must create a
-service class::
+Per registrare un pulitore personalizzato, occorre innanzitutto creare
+un servizio::
 
     // src/Acme/MainBundle/Cache/MyClearer.php
     namespace Acme\MainBundle\Cache;
@@ -365,12 +369,12 @@ service class::
     {
         public function clear($cacheDir)
         {
-            // clear your cache
+            // pulire i propri file dalla cache
         }
 
     }
 
-Then register this class and tag it with ``kernel.cache:clearer``:
+Quindi registrare la classe e assegnarle il tag ``kernel.cache:clearer``:
 
 .. configuration-block::
 
@@ -563,9 +567,6 @@ kernel.event_subscriber
 -----------------------
 
 **Scopo**: Sottoscrivere un insieme di vari eventi/agganci in Symfony
-
-.. versionadded:: 2.1
-   La possibilità di aggiungere sottoscrittori di eventi del kernle è nuova nella 2.1.
 
 Per abilitare un sottoscrittore personalizzato, aggiungerlo come normale servizio in una delle
 configurazioni e assegnarli il tag ``kernel.event_subscriber``:
@@ -813,6 +814,30 @@ le quinte un sistema di "votanti", per determinare se l'utente possa accedere. I
 
 Per maggiori informazioni, leggere la ricetta :doc:`/cookbook/security/voters`.
 
+.. _reference-dic-tags-serializer-encoder:
+
+serializer.encoder
+------------------
+
+**Scopo**: Registrare un nuovo codificatore nel servizio ``serializer``
+
+La classe con il tag deve implementare :class:`Symfony\\Component\\Serializer\\Encoder\\EncoderInterface`
+e :class:`Symfony\\Component\\Serializer\\Encoder\\DecoderInterface`.
+
+Per maggiori dettagli, vedere :doc:`/cookbook/serializer`.
+
+.. _reference-dic-tags-serializer-normalizer:
+
+serializer.normalizer
+---------------------
+
+**Scopo**: Registrare un nuovo normalizzatore nel servizio ``serializer``
+
+La classe con il tag deve implementare :class:`Symfony\\Component\\Serializer\\Normalizer\\NormalizerInterface`
+e :class:`Symfony\\Component\\Serializer\\Normalizer\\DenormalizerInterface`.
+
+Per maggiori dettagli, vedere :doc:`/cookbook/serializer`.
+
 swiftmailer.plugin
 ------------------
 
@@ -860,6 +885,8 @@ template):
             ->register('templating.helper.il_mio_aiutante', 'Nome\Pienamente\QUalificato\Classe\Aiutante')
             ->addTag('templating.helper', array('alias' => 'nome_alias'))
         ;
+
+.. _dic-tags-translation-loader:
 
 translation.loader
 ------------------

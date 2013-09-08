@@ -230,7 +230,7 @@ controllore::
     }
 
 .. versionadded:: 2.3
-    Il metodo :method:`Symfony\Component\Form\FormInterface::handleRequest` è stato
+    Il metodo :method:`Symfony\\Component\\Form\\FormInterface::handleRequest` è stato
     aggiunto in Symfony 2.3. In precedenza, veniva passata ``$request`` al
     metodo ``submit``, una straetegia deprecata, che sarà rimossa
     in Symfony 3.0. Per dettagli sul metodo, vedere :ref:`cookbook-form-submit-request`.
@@ -731,8 +731,6 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 
             {{ form_row(form.task) }}
             {{ form_row(form.dueDate) }}
-
-            <input type="submit" />
         {{ form_end(form) }}
 
     .. code-block:: html+php
@@ -743,8 +741,6 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 
             <?php echo $view['form']->row($form['task']) ?>
             <?php echo $view['form']->row($form['dueDate']) ?>
-
-            <input type="submit" />
         <?php echo $view['form']->end($form) ?>
 
 Diamo uno sguardo a ogni parte:

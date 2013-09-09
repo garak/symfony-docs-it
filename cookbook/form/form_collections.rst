@@ -280,7 +280,7 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
 
-    // ...   
+    // ...
     use Symfony\Component\Form\FormBuilderInterface;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -288,8 +288,8 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
         $builder->add('description');
 
         $builder->add('tags', 'collection', array(
-            'type' => new TagType(),
-            'allow_add' => true,
+            'type'         => new TagType(),
+            'allow_add'    => true,
         ));
     }
 
@@ -329,7 +329,7 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
     campo ``name``):
 
     .. code-block:: html+jinja
-    
+
         {{ form_widget(form.tags.vars.prototype.name)|e }}
 
 Nella pagina resa, il risultato assomiglierà a questo:
@@ -428,12 +428,12 @@ alla classe  ``Task``::
     {
         // ...
 
-        public function addTag($tag)
+        public function addTag(Tag $tag)
         {
             $this->tags->add($tag);
         }
 
-        public function removeTag($tag)
+        public function removeTag(Tag $tag)
         {
             // ...
         }
@@ -542,7 +542,7 @@ vedremo tra poco!).
         public function addTag(ArrayCollection $tag)
         {
             $tag->addTask($this);
- 
+
             $this->tags->add($tag);
         }
 
@@ -601,7 +601,7 @@ Ora occorre inserire del codice nel metodo ``removeTag`` di ``Task``::
 
 Modifiche ai template
 ~~~~~~~~~~~~~~~~~~~~~
-    
+
 L'opzione ``allow_delete`` ha una conseguenza: se un elemento dell'elenco non viene
 inviato, i dati relativi saranno rimossi dall'elenco. La soluzione quindi è quella di
 rimuovere l'elemento dal DOM.
@@ -732,6 +732,5 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     occorrerà del lavoro ulteriore per assicurarsi che la relazione sia aggiornata
     correttamente (sia per l'aggiunta di nuovi tag che per la rimozione di tag esistenti)
     per ogni oggetto Tag.
-
 
 .. _`lato di appartenenza e il lato inverso`: http://docs.doctrine-project.org/en/latest/reference/unitofwork-associations.html

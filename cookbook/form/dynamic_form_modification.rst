@@ -407,6 +407,12 @@ La riunione sarà passata come campo nascosto al form. In questo modo si può
 accedere a ciascuno sport in questo modo::
 
     // src/Acme/DemoBundle/Form/Type/SportMeetupType.php
+    namespace Acme\DemoBundle\Form\Type;
+    
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\Form\FormEvent;
+    use Symfony\Component\Form\FormEvents;
+    
     class SportMeetupType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
@@ -419,7 +425,7 @@ accedere a ciascuno sport in questo modo::
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) use($user, $factory){
+                function(FormEvent $event) use ($factory){
                     $form = $event->getForm();
 
                     // questa sarà l'entità, p.e. SportMeetup
@@ -508,7 +514,7 @@ Il sottoscrittore sarebbe simile a questo::
         {
             $meetup = $event->getData()->getMeetup();
 
-            // Before binding the form, the "meetup" will be null
+            // Prima del bind del form, $meetup sarà nullo
             if (null === $meetup) {
                 return;
             }
@@ -528,7 +534,7 @@ Il sottoscrittore sarebbe simile a questo::
                 ->find($id);
 
             if ($meetup === null) {
-                $msg = 'The event %s could not be found for you registration';
+                $msg = 'Impossibile trovare evento %s corrispondente alla tua registrazione';
                 throw new \Exception(sprintf($msg, $id));
             }
             $form = $event->getForm();

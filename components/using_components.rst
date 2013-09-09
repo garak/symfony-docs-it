@@ -24,7 +24,7 @@ Uso del componente Finder
 
     {
         "require": {
-            "symfony/finder": "2.1.*"
+            "symfony/finder": "2.2.*"
         }
     }
 
@@ -69,9 +69,9 @@ immediatamente::
 
             {
                 "require": {
-                    "symfony/finder": "2.1.*",
-                    "symfony/dom-crawler": "2.1.*",
-                    "symfony/css-selector": "2.1.*"
+                    "symfony/finder": "2.2.*",
+                    "symfony/dom-crawler": "2.2.*",
+                    "symfony/css-selector": "2.2.*"
                 }
             }
 
@@ -81,7 +81,7 @@ immediatamente::
 
             {
                 "require": {
-                    "symfony/symfony": "2.1.*"
+                    "symfony/symfony": "2.2.*"
                 }
             }
 

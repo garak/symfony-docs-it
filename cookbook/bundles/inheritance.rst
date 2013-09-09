@@ -55,7 +55,7 @@ bundle e cambiarne le funzionalità::
         public function registerAction()
         {
             $response = parent::registerAction();
-            
+
             // ... fare qualcosa
             return $response;
         }
@@ -102,4 +102,3 @@ Lo stesso vale per i file delle rotte, della configurazione della validazione e 
    traduzioni.
 
 .. _`FOSUserBundle`: https://github.com/friendsofsymfony/fosuserbundle
-

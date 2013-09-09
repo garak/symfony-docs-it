@@ -632,6 +632,8 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
 
     $kernel->terminate($request, $response);
 
+.. _http-kernel-sub-requests:
+
 Sotto-richieste
 ---------------
 
@@ -679,7 +681,7 @@ assomigliare a questo::
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
-        
+
         // ...
     }
 

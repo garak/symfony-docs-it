@@ -1,8 +1,8 @@
 .. index::
-    single: Console; Helper della console
+    single: Console; Aiutanti della console
 
-Gli helper della console
-========================
+Gli aiutanti della console
+==========================
 
 .. toctree::
     :hidden:
@@ -10,8 +10,9 @@ Gli helper della console
     dialoghelper
     formatterhelper
     progresshelper
+    tablehelper
 
-I componenti della console dispongono alcuni utili helper. Questi helper
+I componenti della console dispongono alcuni utili aiutanti. Questi aiutanti
 contengono funzioni che facilitano alcuni compiti comuni.
 
 .. include:: map.rst.inc

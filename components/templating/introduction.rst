@@ -8,7 +8,7 @@ Il componente Templating
     Il componente Templating fornisce tutti gli strumenti necessari per costruire
     un sistema di template.
 
-    Fornisce un'infrastruttra per caricare file di template e, opzionalmente, monitorarne
+    Fornisce un'infrastruttura per caricare file di template e, opzionalmente, monitorarne
     le modifiche. Fornisce anche l'implementazione concreta di un motore di template,
     usando PHP e strumenti aggiuntivi per l'escape e per la separazione dei template in
     blocchi e layout.

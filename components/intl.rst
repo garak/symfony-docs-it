@@ -407,7 +407,7 @@ con valore predefinito il locale predefinito::
 Questo è tutto quello che occorre sapere, per ora. Buon divertimento con il codice!
 
 .. _Packagist: https://packagist.org/packages/symfony/intl
-.. _component ICU: https://packagist.org/packages/symfony/icu
+.. _componente ICU: https://packagist.org/packages/symfony/icu
 .. _estensione intl: http://www.php.net/manual/en/book.intl.php
 .. _installare l'estensione intl: http://www.php.net/manual/en/intl.setup.php
 .. _libreria ICU: http://site.icu-project.org/

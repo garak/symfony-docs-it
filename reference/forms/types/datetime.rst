@@ -26,8 +26,8 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 |                          | - `months`_                                                                 |
 |                          | - `days`_                                                                   |
 |                          | - `with_seconds`_                                                           |
-|                          | - `data_timezone`_                                                          |
-|                          | - `user_timezone`_                                                          |
+|                          | - `model_timezone`_                                                         |
+|                          | - `view_timezone`_                                                          |
 |                          | - `empty_value`_                                                            |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `invalid_message`_                                                        |
@@ -35,7 +35,7 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
 |                          | - `mapped`_                                                                 |
-|                          | - `virtual`_                                                                |
+|                          | - `inherit_data`_                                                           |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`form</reference/forms/types/form>`                                    |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -100,9 +100,9 @@ per maggiori dettagli.
 
 .. include:: /reference/forms/types/options/with_seconds.rst.inc
 
-.. include:: /reference/forms/types/options/data_timezone.rst.inc
+.. include:: /reference/forms/types/options/model_timezone.rst.inc
 
-.. include:: /reference/forms/types/options/user_timezone.rst.inc
+.. include:: /reference/forms/types/options/view_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
@@ -121,4 +121,4 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
-.. include:: /reference/forms/types/options/virtual.rst.inc
+.. include:: /reference/forms/types/options/inherit_data.rst.inc

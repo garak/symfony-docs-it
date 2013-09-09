@@ -4,4 +4,162 @@
 Usare un Matcher per abilitare dinamicamente il profilatore
 ===========================================================
 
-(TODO da tradurre...)
+Per impostazione predefinita, il profilatore è attivo solo nell'ambiente di sviluppo. Tuttavia,
+è ipotizzabile che uno sviluppatore voglia vedere il profilatore anche in
+produzione. Un'altra siturazione potrebbe essere quella di voler mostrare il profilatore solo
+a un utente amministratore. In questi casi, si può abilitare il profilatore,
+usando dei matcher.
+
+Uso dei matcher predefiniti
+---------------------------
+
+Symfony2 fornisce un
+:class:`built-in matcher <Symfony\\Component\\HttpFoundation\\RequestMatcher>`,
+che può far corrispondere percorsi e IP. Per esempio, se si vuole mostrare il
+profilatore solo accedendo con l'IP ``168.0.0.1``, si può
+usare questa configurazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        framework:
+            # ...
+            profiler:
+                matcher:
+                    ip: 168.0.0.1
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <framework:config>
+            <framework:profiler
+                ip="168.0.0.1"
+            />
+        </framework:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('framework', array(
+            'profiler' => array(
+                'ip' => '168.0.0.1',
+            ),
+        ));
+
+Si può anche impostare un'opzione ``path``, per definire il percorso in cui il profilatore
+debba essere attivo. Per esempio, impostandola ad ``^/admin/``, abiliterà
+il profilatore solo per gli URL che iniziano per ``/admin/``.
+
+Creare un matcher personalizzato
+--------------------------------
+
+Si può anche creare un matcher personalizzato. Non è altro che un servizio, che verifica
+se il profilatore vada abilitato o meno. Per creare tale servizio, creare una classe
+che implementi
+:class:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface`. Questa
+inferfaccia richiede un solo metodo:
+:method:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface::matches`.
+Questo metodo restituisce ``false`` per disabilitare il profilatore e ``true`` per
+abilitarlo.
+
+Per abilitare il profilatore solo per un utente con ``ROLE_SUPER_ADMIN``, si può usare
+qualcosa come::
+
+    // src/Acme/DemoBundle/Profiler/SuperAdminMatcher.php
+    namespace Acme\DemoBundle\Profiler;
+
+    use Symfony\Component\Security\Core\SecurityContext;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\RequestMatcherInterface;
+
+    class SuperAdminMatcher implements RequestMatcherInterface
+    {
+        protected $securityContext;
+
+        public function __construct(SecurityContext $securityContext)
+        {
+            $this->securityContext = $securityContext;
+        }
+
+        public function matches(Request $request)
+        {
+            return $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
+        }
+    }
+
+Occorre quindi configurare il servizio:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        parameters:
+            acme_demo.profiler.matcher.super_admin.class: Acme\DemoBundle\Profiler\SuperAdminMatcher
+
+        services:
+            acme_demo.profiler.matcher.super_admin:
+                class: "%acme_demo.profiler.matcher.super_admin.class%"
+                arguments: [@security.context]
+
+    .. code-block:: xml
+
+        <parameters>
+            <parameter
+                key="acme_demo.profiler.matcher.super_admin.class"
+            >Acme\DemoBundle\Profiler\SuperAdminMatcher</parameter>
+        </parameters>
+
+        <services>
+            <service id="acme_demo.profiler.matcher.super_admin"
+                class="%acme_demo.profiler.matcher.super_admin.class%">
+                <argument type="service" id="security.context" />
+        </services>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Reference;
+
+        $container->setParameter(
+            'acme_demo.profiler.matcher.super_admin.class',
+            'Acme\DemoBundle\Profiler\SuperAdminMatcher'
+        );
+
+        $container->setDefinition('acme_demo.profiler.matcher.super_admin', new Definition(
+            '%acme_demo.profiler.matcher.super_admin.class%',
+            array(new Reference('security.context'))
+        );
+
+Una volta registrato il servizio, l'unica cosa che resta è configurare il
+profilatore per usare questo servizio come matcher:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        framework:
+            # ...
+            profiler:
+                matcher:
+                    service: acme_demo.profiler.matcher.super_admin
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <framework:config>
+            <framework:profiler
+                service="acme_demo.profiler.matcher.super_admin"
+            />
+        </framework:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('framework', array(
+            'profiler' => array(
+                'service' => 'acme_demo.profiler.matcher.super_admin',
+            ),
+        ));

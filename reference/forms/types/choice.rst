@@ -126,7 +126,7 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
-.. include:: /reference/forms/types/options/virtual.rst.inc
+.. include:: /reference/forms/types/options/inherit_data.rst.inc
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc
 

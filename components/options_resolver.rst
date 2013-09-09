@@ -19,13 +19,13 @@ E' possibile installare i componente in due modi differenti:
 Utilizzo
 --------
 
-Si immagini di avere una classe ``Person`` che ha 2 opzioni: ``firstName`` e
-``secondName``. Queste opzioni stanno per essere gestite dal Componente 
+Si immagini di avere una classe ``Mailer`` che ha 2 opzioni: ``host`` e
+``password``. Queste opzioni stanno per essere gestite dal Componente 
 OptionsResolver.
 
-Innanzitutto, creare la classe ``Person``::
+Innanzitutto, creare la classe ``Mailer``::
 
-    class Person
+    class Mailer
     {
         protected $options;
 
@@ -56,34 +56,31 @@ La proprietà ``$options`` è un'istanza di
 significa che è possibile gestirla come un normale array::
 
     // ...
-    public function getFirstName()
+    public function getHost()
     {
-        return $this->options['firstName'];
+        return $this->options['host'];
     }
 
-    public function getFullName()
+    public function getPassword()
     {
-        $name = $this->options['firstName'];
-
-        if (isset($this->options['lastName'])) {
-            $name .= ' '.$this->options['lastName'];
-        }
-
-        return $name;
+        return $this->options['password'];
     }
+
+Configurare OptionsResolver
+---------------------------
 
 Adesso, si provi a utilizzare effettivamente la classe::
 
-    $person = new Person(array(
-        'firstName' => 'Wouter',
-        'lastName'  => 'de Jong',
+    $mailer = new Mailer(array(
+        'host'     => 'smtp.example.org',
+        'password' => 'pa$$word',
     ));
 
-    echo $person->getFirstName();
+    echo $mailer->getPassword();
 
 In questo momento, si riceverà una 
 :class:`Symfony\\Component\\OptionsResolver\\Exception\\InvalidOptionsException`,
-la quale informa che le opzioni ``firstName`` e ``lastName`` non esistono.
+la quale informa che le opzioni ``host`` e ``password`` non esistono.
 Questo perché è necessario configurare prima l'``OptionsResolver``, in modo che
 sappia quali opzioni devono essere risolte.
 
@@ -91,8 +88,7 @@ sappia quali opzioni devono essere risolte.
 
     Per controllare se un'opzione esiste, si può utilizzare la
     funzione
-    :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::isKnown`
-    .
+    :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::isKnown`.
 
 Una buona pratica è porre la configurazione in un metodo (per esempio
 ``setDefaultOptions``). Il metodo viene invocato nel costruttore per configurare
@@ -101,7 +97,7 @@ la classe ``OptionsResolver``::
     use Symfony\Component\OptionsResolver\OptionsResolver;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-    class Person
+    class Mailer
     {
         protected $options;
 
@@ -129,16 +125,16 @@ di essa. Si possono settare le opzioni obbligatorie invocando
     // ...
     protected function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired(array('firstName'));
+        $resolver->setRequired(array('host'));
     }
 
 A questo punto è possible usare la classe senza errori::
 
-    $person = new Person(array(
-        'firstName' => 'Wouter',
+    $mailer = new Mailer(array(
+        'host' => 'smtp.example.org',
     ));
 
-    echo $person->getFirstName(); // 'Wouter'
+    echo $mailer->getHost(); // 'smtp.example.org'
 
 Se un'opzione obbligatoria non viene passata, una
 :class:`Symfony\\Component\\OptionsResolver\\Exception\\MissingOptionsException`
@@ -160,13 +156,13 @@ Qualche volta, un'opzione può essere facoltativa (per esempio l'opzione ``lastN
     {
         // ...
 
-        $resolver->setOptional(array('lastName'));
+        $resolver->setOptional(array('password'));
     }
 
 Settare Valori Predefiniti
 --------------------------
 
-La maggior parte delle opzioni facoltative hanno un valore predefinito. E' possibile configurare queste
+La maggior parte delle opzioni facoltative hanno un valore predefinito. È possibile configurare queste
 opzioni invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setDefaults`::
 
@@ -176,12 +172,13 @@ opzioni invocando
         // ...
 
         $resolver->setDefaults(array(
-            'age' => 0,
+            'username' => 'root',
         ));
     }
 
-L'età predefinita adesso sarà ``0``. Quando l'utente specifica una data, questa viene
-rimpiazzata. Non è necessario configurare ``age`` come una opzione facoltativa.
+È stata aggiunta una terza opzione, ``username``, con un valore predefinito di
+``root``. Se l'utente passerà un'opzione ``username``, tale valore sarà
+sovrascritto. Non è necessario configurare ``username`` come una opzione facoltativa.
 ``OptionsResolver`` sa già che le opzioni con un valore predefinito sono
 facoltative.
 
@@ -191,14 +188,14 @@ Questo può essere usato per sovrascrivere il valore precedente. La closure
 che è passata ha 2 parametri:
 
 * ``$options`` (un'istanza di :class:`Symfony\\Component\\OptionsResolver\\Options), 
-con tutti i valori predefiniti
+  con tutti i valori predefiniti
 * ``$value``, il set precedente di valori predefiniti
 
-Valori Predefiniti che dipendono da altre Opzioni
+Valori predefiniti che dipendono da altre Opzioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Supponiamo di aggiungere un'opzione ``gender`` alla classe ``Person``, il cui valore predefinito
-è indovinato sulla base del nome. E' possibile fare questo facilmente usando una
+Supponiamo di aggiungere un'opzione ``port`` alla classe ``Mailer``, il cui valore predefinito
+è indovinato sulla base dell'host. Lo si può fare facilmente, usando una
 Closure come valore predefinito::
 
     use Symfony\Component\OptionsResolver\Options;
@@ -209,12 +206,12 @@ Closure come valore predefinito::
         // ...
 
         $resolver->setDefaults(array(
-            'gender' => function (Options $options) {
-                if (GenderGuesser::isMale($options['firstName'])) {
-                    return 'male';
+            'port' => function (Options $options) {
+                if (in_array($options['host'], array('127.0.0.1', 'localhost')) {
+                    return 80;
                 }
-                
-                return 'female';
+
+                return 25;
             },
         ));
     }
@@ -227,9 +224,9 @@ Closure come valore predefinito::
 Configurare i Valori consentiti
 -------------------------------
 
-Non tutti i valori sono validi per le opzioni. Per esempio, l'opzione ``gender``
-può essere solo ``female`` o ``male``. E' possibile configurare questi valori consentiti
-invocando
+Non tutti i valori sono validi per le opzioni. Supponiamo che la classe ``Mailer`` abbia
+un'opzione ``transport``, che può valere solo ``sendmail``, ``mail`` o
+``smtp``. È possibile configurare questi valori consentiti, invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setAllowedValues`::
 
     // ...
@@ -238,7 +235,7 @@ invocando
         // ...
 
         $resolver->setAllowedValues(array(
-            'gender' => array('male', 'female'),
+            'transport' => array('sendmail', 'mail', 'smtp'),
         ));
     }
 
@@ -260,14 +257,13 @@ essere qualsiasi cosa, ma deve essere una stringa. E' possibile configurare ques
         // ...
 
         $resolver->setAllowedTypes(array(
-            'firstName' => 'string',
+            'port' => 'integer',
         ));
     }
 
 I possibili tipi sono quelli associati alle funzioni php ``is_*`` o al nome
 della classe. E' possibile passare anche un array di tipi come valore. Per esempio,
-``array('null', 'string')`` consente a ``firstName`` di essere ``null`` o una
-``string``.
+``array('null', 'string')`` consente a ``port`` di essere nullo o una stringa.
 
 Esiste anche un metodo
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::addAllowedTypes`, 
@@ -289,13 +285,37 @@ invocando
         // ...
 
         $resolver->setNormalizers(array(
-            'firstName' => function (Options $options, $value) {
-                return ucfirst($value);
+            'host' => function (Options $options, $value) {
+                if ('http://' !== substr($value, 0, 7)) {
+                    $value = 'http://'.$value;
+                }
+
+                return $value;
             },
         ));
     }
 
-E' possibile notare che la closure riceve un parametetro ``$options``. Qualche volta, è
+Si può notare che la closure riceve un parametetro ``$options``. Qualche volta, è
 necessario utilizzare altre opzioni per normalizzare.
+
+    // ...
+    protected function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        // ...
+
+        $resolver->setNormalizers(array(
+            'host' => function (Options $options, $value) {
+                if (!in_array(substr($value, 0, 7), array('http://', 'https://')) {
+                    if ($options['ssl']) {
+                        $value = 'https://'.$value;
+                    } else {
+                        $value = 'http://'.$value;
+                    }
+                }
+
+                return $value;
+            },
+        ));
+    }
 
 .. _Packagist: https://packagist.org/packages/symfony/options-resolver

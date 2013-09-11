@@ -21,7 +21,7 @@ il campo sarà impostato a falso.
 |               | - `error_mapping`_                                                     |
 |               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
-| Tipo genitore | :doc:`field</reference/forms/types/field>`                             |
+| Tipo genitore | :doc:`form</reference/forms/types/form>`                               |
 +---------------+------------------------------------------------------------------------+
 | Classee       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType` |
 +---------------+------------------------------------------------------------------------+

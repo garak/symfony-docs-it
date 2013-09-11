@@ -17,7 +17,7 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo di dato sottostante | uno tra ``DateTime``, stringa, timestamp o array (vedere opzione ``input``) |
 +--------------------------+-----------------------------------------------------------------------------+
-| Reso come                | single text box or three select fields                                      |
+| Reso come                | singolo campo testo o tre campi select                                      |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `widget`_                                                                 |
 |                          | - `input`_                                                                  |
@@ -136,7 +136,7 @@ error_bubbling
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo  :doc:`field</reference/forms/types/field>`:
+Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

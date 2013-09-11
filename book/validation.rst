@@ -100,7 +100,7 @@ seguente:
 
 .. tip::
 
-    Anche le proprietà private e protette possono essere  validati, così come i
+    Anche le proprietà private e protette possono essere validate, così come i
     metodi "getter" (vedere `validator-constraint-targets`).
 
 .. index::

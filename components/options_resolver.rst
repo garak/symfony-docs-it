@@ -187,7 +187,7 @@ metodo :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::replaceDef
 Questo può essere usato per sovrascrivere il valore precedente. La closure
 che è passata ha 2 parametri:
 
-* ``$options`` (un'istanza di :class:`Symfony\\Component\\OptionsResolver\\Options), 
+* ``$options`` (un'istanza di :class:`Symfony\\Component\\OptionsResolver\\Options`), 
   con tutti i valori predefiniti
 * ``$value``, il set precedente di valori predefiniti
 

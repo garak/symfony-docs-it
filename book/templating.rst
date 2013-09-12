@@ -670,6 +670,8 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
 Ogni volta che ci si trova ad aver bisogno di una variabile o di un pezzo di informazione
 a cui non si ha accesso in un template, considerare di rendere un controllore.
 I controllori sono veloci da eseguire e promuovono buona organizzazione e riuso del codice.
+Ovviamente, come tutti i controlori, dovrebbero idealmente essere snelli, perché la
+maggior parte del codice dovrebbe trovarsi nei :doc:`services</book/service_container>`, che sono riusabili.
 
 Contenuto asincrono con hinclude.js
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

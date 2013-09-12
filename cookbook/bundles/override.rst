@@ -82,7 +82,7 @@ un passo di compilatore, per modificare qualcosa che non sia solamente il nome d
         public function process(ContainerBuilder $container)
         {
             $definition = $container->getDefinition('id-del-servizio-originale');
-            $definition->setClass('Acme\DemoBundle\YourService');
+            $definition->setClass('Acme\DemoBundle\UnServizio');
         }
     }
 
@@ -111,11 +111,11 @@ descritto in `servizi & configurazione`_. Ovviamente, funziona solo se il tipo
 è referenziato tramite alias, piuttosto che istanziato,
 p.e.::
 
-    $builder->add('name', 'tipo_personalizzato');
+    $builder->add('nome', 'tipo_personalizzato');
 
 e non::
 
-    $builder->add('name', new TipoPersonalizzato());
+    $builder->add('nome', new TipoPersonalizzato());
 
 Meta-dati di validazione
 ------------------------
@@ -129,7 +129,7 @@ Traduzioni
 
 Le traduzioni sono riguardano i bundle, ma i domini. Questo vuol dire che
 si possono sovrascrivere traduzioni per qualsiasi file di traduzione, purché si trovi
-nel :ref:`dominio corretto <translation-domains>`.
+nel :ref:`dominio corretto <using-translation-domains>`.
 
 .. caution::
 

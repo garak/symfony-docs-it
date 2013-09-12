@@ -307,6 +307,8 @@ per sapere se sia stato cliccato il bottone "Save and add"::
 .. index::
    single: Form; Validazione
 
+.. _book-forms-form-validation:
+
 Validare un form
 ----------------
 

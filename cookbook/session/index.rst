@@ -7,3 +7,4 @@ Sessioni
     proxy_examples
     locale_sticky_session
     sessions_directory
+    php_bridge

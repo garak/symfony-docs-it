@@ -268,6 +268,8 @@ possibili percorsi:
 .. index::
    single: Form; Validazione
 
+.. _book-forms-form-validation:
+
 Validare un form
 ----------------
 
@@ -1604,10 +1606,10 @@ Per impostazione predefinita, un form ipotizza che si voglia lavorare con array
 di dati, invece che con oggetti. Ci sono due modi per modificare questo comportamento
 e legare un form a un oggetto:
 
-1. Passare un oggetto alla creazione del form (come primo parametro di
-   ``createFormBuilder`` o come secondo parametro di ``createForm``);
+#. Passare un oggetto alla creazione del form (come primo parametro di ``createFormBuilder``
+   o come secondo parametro di ``createForm``);
 
-2. Dichiarare l'opzione ``data_class`` nel form.
+#. Dichiarare l'opzione ``data_class`` nel form.
 
 Se *non* si fa nessuna di queste due cose, il form restituirà i dati come
 array. In questo esempio, poiché ``$defaultData`` non è un oggetto (e

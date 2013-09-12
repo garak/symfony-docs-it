@@ -20,10 +20,10 @@ La configurazione sarà simile a questa:
         prefix:   /app
 
     root:
-        pattern: /
+        path:     /
         defaults:
             _controller: FrameworkBundle:Redirect:urlRedirect
-            path: /app
+            route: /app
             permanent: true
 
 In questo esempio, configuriamo una rotta per il percorso ``/`` e lo facciamo gestire a :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController`.

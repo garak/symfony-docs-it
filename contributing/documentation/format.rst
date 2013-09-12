@@ -168,29 +168,29 @@ Test della documentazione
 
 Per fare un test della documentazione, prima di un commit:
 
- * Installare `Sphinx`_;
+* Installare `Sphinx`_;
 
- * Eseguire la `preparazione rapida di Sphinx`_;
+* Eseguire la `preparazione rapida di Sphinx`_;
 
- * Installare le estensioni di Sphinx (vedere sotto);
+* Installare le estensioni di Sphinx (vedere sotto);
 
- * Eseguire ``make html`` e controllare l'HTML generato nella cartella ``build``.
+* Eseguire ``make html`` e controllare l'HTML generato nella cartella ``build``.
 
 Installare le estensioni di Sphinx
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- * Scaricare l'estensione dal repository dei `sorgenti`_
-  
- * Copiare la cartella ``sensio`` nella cartella ``_exts`` della propria
-   cartella dei sorgenti (in cui si trova ``conf.py``)
-   
- * Aggiungere le righe seguenti al file ``conf.py``:
+* Scaricare l'estensione dal repository dei `sorgenti`_
+
+* Copiare la cartella ``sensio`` nella cartella ``_exts`` della propria
+  cartella dei sorgenti (in cui si trova ``conf.py``)
+
+* Aggiungere le righe seguenti al file ``conf.py``:
 
 .. code-block:: py
-    
+
     # ...
     sys.path.append(os.path.abspath('_exts'))
-    
+
     # aggiunge PhpLexer
     from sphinx.highlighting import lexers
     from pygments.lexers.web import PhpLexer
@@ -205,7 +205,7 @@ Installare le estensioni di Sphinx
 
     # usa PHP come dominio primario
     primary_domain = 'php'
-    
+
     # imposta url per collegamenti alle API
     api_url = 'http://api.symfony.com/master/%s'
 

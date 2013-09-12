@@ -296,7 +296,7 @@ invocando
     }
 
 Si può notare che la closure riceve un parametetro ``$options``. Qualche volta, è
-necessario utilizzare altre opzioni per normalizzare.
+necessario utilizzare altre opzioni per normalizzare::
 
     // ...
     protected function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -27,7 +27,7 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 |               | - `error_bubbling`_                                                          |
 |               | - `error_mapping`_                                                           |
 |               | - `mapped`_                                                                  |
-|               | - `virtual`_                                                                 |
+|               | - `inherit_data`_                                                            |
 |               | - `by_reference`_                                                            |
 |               | - `empty_data`_                                                              |
 +---------------+------------------------------------------------------------------------------+

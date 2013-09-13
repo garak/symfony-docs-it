@@ -20,11 +20,10 @@ C'è già una classe che può beneficiare di semplici test dei FormType:
 :class:`Symfony\\Component\\Form\\Tests\\Extension\\Core\\Type\\TypeTestCase`.
 Questa classe viene usata per testare i tipi del nucleo e la si può usare per testare i propri tipi.
 
-.. note::
-
-    A seconda del modo in cui si sono installati i componenti di Symfony o il framework,
-    i test potrebbero non essere stati scaricati. Usare l'opzione ``--prefer-source`` di
-    composer, nel caso mancassero.
+.. versionadded:: 2.3
+    ``TypeTestCase`` è stato spostato sotto lo spazio dei nomi ``Symfony\Component\Form\Test``
+    nella versione 2.3. Precedentemente, la classe si trovava in
+    ``Symfony\Component\Form\Tests\Extension\Core\Type``.
 
 I fondamentali
 --------------
@@ -36,11 +35,11 @@ L'implementazione più semplice di ``TypeTestCase`` assomiglia a questa::
 
     use Acme\TestBundle\Form\Type\TestedType;
     use Acme\TestBundle\Model\TestObject;
-    use Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
+    use Symfony\Component\Form\Test\TypeTestCase;
 
     class TestedTypeTest extends TypeTestCase
     {
-        public function testBindValidData()
+        public function testSubmitValidData()
         {
             $formData = array(
                 'test' => 'test',
@@ -53,7 +52,8 @@ L'implementazione più semplice di ``TypeTestCase`` assomiglia a questa::
             $object = new TestObject();
             $object->fromArray($formData);
 
-            $form->bind($formData);
+            // invia direttamente i dati al form
+            $form->submit($formData);
 
             $this->assertTrue($form->isSynchronized());
             $this->assertEquals($object, $form->getData());
@@ -80,7 +80,7 @@ Questo test verifica che nessun trasformatore di dati usato dal form
 fallisca. Il metodo :method:`Symfony\\Component\\Form\\FormInterface::isSynchronized``
 è impostato a ``false`` solo se un trasformatore di dati lancia un'eccezione::
 
-    $form->bind($formData);
+    $form->submit($formData);
     $this->assertTrue($form->isSynchronized());
 
 .. note::
@@ -124,14 +124,21 @@ prima di creare il form genitore::
 
     use Acme\TestBundle\Form\Type\TestedType;
     use Acme\TestBundle\Model\TestObject;
-    use Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
+    use Symfony\Component\Form\Test\TypeTestCase;
+    use Symfony\Component\Form\PreloadedExtension;
 
     class TestedTypeTest extends TypeTestCase
     {
-        public function testBindValidData()
+        protected function getExtensions()
         {
-            $this->factory->addType(new TestChildType());
+            $childType = new TestChildType();
+            return array(new PreloadedExtension(array(
+                $childType->getName() => $childType,
+            ), array()));
+        }
 
+        public function testSubmitValidData()
+        {
             $type = new TestedType();
             $form = $this->factory->create($type);
 
@@ -160,7 +167,7 @@ da altre estensioni. Occorre aggiungere tali estensioni all'oggetto factory::
 
     use Acme\TestBundle\Form\Type\TestedType;
     use Acme\TestBundle\Model\TestObject;
-    use Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
+    use Symfony\Component\Form\Test\TypeTestCase;
 
     class TestedTypeTest extends TypeTestCase
     {
@@ -201,7 +208,7 @@ essere una buona occasione::
 
     use Acme\TestBundle\Form\Type\TestedType;
     use Acme\TestBundle\Model\TestObject;
-    use Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
+    use Symfony\Component\Form\Test\TypeTestCase;
 
     class TestedTypeTest extends TypeTestCase
     {

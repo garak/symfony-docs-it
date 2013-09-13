@@ -134,6 +134,12 @@ Le seguenti classi e i seguenti file hanno postazioni specifiche:
 | Test unitari e funzionali    | ``Tests/``                  |
 +------------------------------+-----------------------------+
 
+.. note::
+
+    Se si crea un bundle riusabile, le classi del modello andrebbero poste nello
+    spazio dei nomi ``Model``. Si veda :doc:`/cookbook/doctrine/mapping_model_classes` per capire
+    come gestire la mappature con un passo di compilatore.
+
 Classi
 ------
 

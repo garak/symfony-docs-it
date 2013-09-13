@@ -34,23 +34,23 @@ repository.
 Supponiamo che la classe da testare sia come questa::
 
     namespace Acme\DemoBundle\Salary;
-    
+
     use Doctrine\Common\Persistence\ObjectManager;
-    
+
     class SalaryCalculator
     {
         private $entityManager;
-        
+
         public function __construct(ObjectManager $entityManager)
         {
             $this->entityManager = $entityManager;
         }
-        
+
         public function calculateTotalSalary($id)
         {
             $employeeRepository = $this->entityManager->getRepository('AcmeDemoBundle::Employee');
             $employee = $userRepository->find($id);
-            
+
             return $employee->getSalary() + $employee->getBonus();
         }
     }
@@ -62,7 +62,7 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
 
     class SalaryCalculatorTest extends \PHPUnit_Framework_TestCase
     {
-        
+
         public function testCalculateTotalSalary()
         {
             // il primo mock che serve è quello da usare nel test
@@ -72,8 +72,8 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
                 ->will($this->returnValue(1000));
             $employee->expects($this->once())
                 ->method('getBonus')
-                ->will($this->returnValue(1100));   
-            
+                ->will($this->returnValue(1100));
+
             // ora serve il mock del repository, in modo che restitsuica il mock di Employee
             $employeeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
                 ->disableOriginalConstructor()
@@ -81,7 +81,7 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
             $employeeRepository->expects($this->once())
                 ->method('find')
                 ->will($this->returnValue($employee));
-                
+
             // infine, serve il mock di EntityManager, per restituire il mock del repository
             $entityManager = $this->getMockBuilder('\Doctrine\Common\Persistence\ObjectManager')
                 ->disableOriginalConstructor()
@@ -89,12 +89,12 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
             $entityManager->expects($this->once())
                 ->method('getRepository')
                 ->will($this->returnValue($employeeRepository));
-            
+
             $salaryCalculator = new SalaryCalculator($entityManager);
             $this->assertEquals(2100, $salaryCalculator->calculateTotalSalary(1));
         }
     }
-    
+
 In questo esempio, i mock sono stati costruiti partendo dall'interno, creando prima
 Employee, restituito  da ``Repository``, restituito a sua volta
 da ``EntityManager``. IN questo modo, nessuna classe reale è stata coinvolta nel
@@ -111,40 +111,42 @@ per poter pulire la base dati prima di ogni test.
 Per poterlo fare, si può specificare una configurazione, che sovrascriva quella
 predefinita:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    # app/config/config_test.yml
-    doctrine:
-        # ...
-        dbal:
-            host: localhost
-            dbname: testdb
-            user: testdb
-            password: testdb
-            
-.. code-block:: xml
+    .. code-block:: yaml
 
-    <!-- app/config/config_test.xml -->
-    <doctrine:config>
-        <doctrine:dbal
-            host="localhost"
-            dbname="testdb"
-            user="testdb"
-            password="testdb"
-        >
-    </doctrine:config>
+        # app/config/config_test.yml
+        doctrine:
+            # ...
+            dbal:
+                host: localhost
+                dbname: testdb
+                user: testdb
+                password: testdb
 
-.. code-block:: php
+    .. code-block:: xml
 
-    // app/config/config_test.php
-    $configuration->loadFromExtension('doctrine', array(
-        'dbal' => array(
-            'host'     => 'localhost',
-            'dbname'   => 'testdb',
-            'user'     => 'testdb',
-            'password' => 'testdb',
-        ),
-    ));
+        <!-- app/config/config_test.xml -->
+        <doctrine:config>
+            <doctrine:dbal
+                host="localhost"
+                dbname="testdb"
+                user="testdb"
+                password="testdb"
+            />
+        </doctrine:config>
+
+    .. code-block:: php
+
+        // app/config/config_test.php
+        $configuration->loadFromExtension('doctrine', array(
+            'dbal' => array(
+                'host'     => 'localhost',
+                'dbname'   => 'testdb',
+                'user'     => 'testdb',
+                'password' => 'testdb',
+            ),
+        ));
 
 Assicurarsi che la base dati sia in esecuzione su localhost, che la base dati esista
 e che le credenziali siano corrette.

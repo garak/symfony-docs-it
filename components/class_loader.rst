@@ -28,14 +28,10 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/ClassLoader);
-* Installarlo via PEAR (`pear.symfony.com/ClassLoader`);
-* Installarlo via Composer (`symfony/class-loader` su Packagist).
+* :doc:`Installarlo via Composer </components/using_components>` (``symfony/class-loader`` su `Packagist`_).
 
 Uso
 ---
-
-.. versionadded:: 2.1
-   Il metodo ``useIncludePath`` è stato aggiunto in Symfony 2.1.
 
 La registrazione di :class:`Symfony\\Component\\ClassLoader\\UniversalClassLoader`
 è molto semplice::
@@ -80,7 +76,7 @@ o
     $loader->registerNamespace('Symfony', __DIR__.'/vendor/symfony/symfony/src');
 
     $loader->registerNamespaces(array(
-        'Symfony' => __DIR__.'/../vendor/symfony/symofny/src',
+        'Symfony' => __DIR__.'/../vendor/symfony/symfony/src',
         'Monolog' => __DIR__.'/../vendor/monolog/monolog/src',
     ));
 
@@ -125,5 +121,6 @@ o uno dei suoi figli, l'autoloader cercherà prima le classi sotto la cartella
 ``Doctrine`` (l'ultima configurata), infine si arrenderà.
 In questo caso, l'ordine di registrazione è significativo.
 
-.. _standard: http://symfony.com/PSR0
-.. _PEAR:     http://pear.php.net/manual/en/standards.php
+.. _standard:  http://symfony.com/PSR0
+.. _PEAR:      http://pear.php.net/manual/en/standards.php
+.. _Packagist: https://packagist.org/packages/symfony/class-loader

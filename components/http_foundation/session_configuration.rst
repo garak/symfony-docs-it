@@ -19,7 +19,6 @@ viene richiamato in modo casuale, secondo la configurazione di PHP, e, se richia
 invocato dopo l'operazione `open`). Si può approfondire l'argomento su
 `php.net/session.customhandler`_
 
-
 Gestori del salvataggio nativi di PHP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -59,7 +58,6 @@ Esempio di utilzzo::
     in sistemi complessi, in cui occorre maggior controllo, i gestori di salvataggio personalizzati possono fornire più
     libertà e flessibilità. Symfony2 fornisce varie implementazioni, personalizzabili a piacimento.
 
-
 Gestori di salvataggio personalizzati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -84,7 +82,6 @@ Esempio::
 
     $storage = new NativeSessionStorage(array(), new PdoSessionHandler());
     $session = new Session($storage);
-
 
 Configurare le sessioni di PHP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

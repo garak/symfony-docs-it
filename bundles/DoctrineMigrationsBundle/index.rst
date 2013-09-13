@@ -14,41 +14,33 @@ Installazione
 -------------
 
 Le migrazioni di Doctrine per Symfony sono mantenute in `DoctrineMigrationsBundle`_.
-Assicurarsi di avere entrambe le librerie ``doctrine-migrations`` e ``DoctrineMigrationsBundle``
-configurate nel proprio progetto. Seguire questi passi per installare le librerie
-nella distribuzione Symfony Standard.
+Il bundle usa la libreria esterna `Doctrine Database Migrations`_.
 
-Aggiungere i seguenti a ``deps``. Ciò registrarà il bundle delle migrazioni e la libreria
-doctrine-migrations come dipendenze della propria applicazione:
+Seguire questi passi per installare il bundle e la libreria in un progetto Symfony.
+Aggiungere le righe seguenti al file ``composer.json``:
 
-.. code-block:: text
+.. code-block:: json
 
-    [doctrine-migrations]
-        git=http://github.com/doctrine/migrations.git
-
-    [DoctrineMigrationsBundle]
-        git=http://github.com/symfony/DoctrineMigrationsBundle.git
-        target=/bundles/Symfony/Bundle/DoctrineMigrationsBundle
+    {
+        "require": {
+            "doctrine/doctrine-migrations-bundle": "dev-master"
+        }
+    }
 
 Aggiornare le librerie dei venditori:
 
 .. code-block:: bash
 
-    $ php bin/vendors install
+    $ php composer.phar update
 
-Quindi, assicurarsi che lo spazio dei nomi ``Doctrine\DBAL\Migrations`` sia caricato
-tramite ``autoload.php``. Lo spazio dei nomi ``Migrations`` *deve* essere posto prima
-di ``Doctrine\\DBAL``, in modo che l'autoloader cerchi tali classi nella cartella
-delle migrazioni:
+Se tutto è andato bene, ora ``DoctrineMigrationsBundle`` si troverà
+sotto ``vendor/doctrine/doctrine-migrations-bundle``.
 
-.. code-block:: php
+.. note::
 
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-        //...
-        'Doctrine\\DBAL\\Migrations' => __DIR__.'/../vendor/doctrine-migrations/lib',
-        'Doctrine\\DBAL'             => __DIR__.'/../vendor/doctrine-dbal/lib',
-    ));
+    ``DoctrineMigrationsBundle`` installa la libreria
+    `Doctrine Database Migrations`_. Tale libreria si trova
+    sotto ``vendor/doctrine/migrations``.
 
 Infine, assicurarsi di abilitare il bundle in ``AppKernel.php``, includendo il
 seguente:
@@ -60,7 +52,7 @@ seguente:
     {
         $bundles = array(
             //...
-            new Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
     }
 
@@ -282,6 +274,81 @@ creare una nuova base dati ed eseguire le proprie migrazioni per portare lo sche
 pieno aggiornamento. In effetti, è un modo di lavorare facile e affidabile per il
 proprio progetto.
 
-.. _documentazione: http://www.doctrine-project.org/projects/migrations/2.0/docs/reference/introduction/en
-.. _DoctrineMigrationsBundle: https://github.com/symfony/DoctrineMigrationsBundle
+Migrazioni con contenitore
+--------------------------
 
+In alcuni casi, potrebbe essere necessario accedere al contenitore, per assicurare un corretto aggiornamento
+della struttura dei dati. Potrebbe servire per aggiornare relazioni con una logica specifica
+o per creare nuove entità. 
+
+In questi casi, basta implementare ``ContainerAwareInterface``, che contiene i metodi necessari
+per un pieno accesso al contenitore.
+
+.. code-block:: php
+
+    // ...
+    
+    class Version20130326212938 extends AbstractMigration implements ContainerAwareInterface
+    {
+    
+        private $container;
+    
+        public function setContainer(ContainerInterface $container = null)
+        {
+            $this->container = $container;
+        }
+    
+        public function up(Schema $schema)
+        {
+            // ... contenuto della migrazione
+        }
+    
+        public function postUp(Schema $schema)
+        {
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            // ... aggiornare le entità
+        }
+    }
+
+Tabelle manuali
+---------------
+
+Può essere un'esigenza comune avere, oltre alla struttura della base dati generata
+partenedo dalle entità di Doctrine, delle tabelle personalizzate. Per impostazione predefinita,
+tali tabelle sarebbero rimosse dal comando ``doctrine:migrations:diff``.
+
+Seguendo uno schema specifico, si può configurare Doctrine per ignorare tali
+tabelle. Supponiamo che tutte le tabelle personalizzate abbiano un nome che iniza per 't_'. In questo caso,
+basta aggiungere la seguente configurazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+    
+        doctrine:
+            dbal:        
+                schema_filter: ~^(?!t_)~
+                
+    .. code-block:: xml
+    
+        <doctrine:dbal schema-filter="~^(?!t_)~" ... />
+
+    
+    .. code-block:: php
+    
+        $container->loadFromExtension('doctrine', array(
+            'dbal' => array(
+                'schema_filter'  => '~^(?!t_)~',
+                // ...
+            ),
+            // ...
+        ));
+
+Le tabelle saranno ignorate a livello di DBAL e quindi ignorate dal comando di diff.
+
+Si noti che se si hanno più connessioni configurate, occorrerà ripetere ``schema_filter``
+in ciascuna connessione.
+
+.. _documentazione: http://docs.doctrine-project.org/projects/doctrine-migrations/en/latest/index.html
+.. _DoctrineMigrationsBundle: https://github.com/doctrine/DoctrineMigrationsBundle
+.. _`Doctrine Database Migrations`: https://github.com/doctrine/migrations

@@ -4,10 +4,6 @@
 Come scrivere messaggi di log su file diversi
 =============================================
 
-.. versionadded:: 2.1
-    La possibilità di specificare canali per gestori specifici è stata aggiunta
-    in MonologBundle per Symfony 2.1.
-
 La Standard Edition di Symfony contiene molti canali per i log: ``doctrine``,
 ``event``, ``security`` e ``request``. Ogni canale corrisponde a un servizio di
 log (``monolog.logger.XXX``) nel contenitore ed è iniettato nel servizio

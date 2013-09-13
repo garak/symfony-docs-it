@@ -134,11 +134,15 @@ Symfony2::
 
 Il file stesso risiede in
 ``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/SensioFrameworkExtraBundle.php``.
-Come si può vedere, la locazione del file segue lo spazio dei nomi della classe.
-Nello specifico, lo spazio dei nomi ``Sensio\Bundle\FrameworkExtraBundle`` dice che la
-cartella in cui il file dovrebbe risiedere
+Come si può vedere, la locazione del file segue lo spazio dei nomi della
+classe. La prima parte è uguale al nome del pacchetto di SensioFrameworkExtraBundle.
+
+Lo spazio dei nomi, ``Sensio\Bundle\FrameworkExtraBundle``, e il nome del pacchetto,
+``sensio/framework-extra-bundle``, dicono che la cartella in cui il file
+dovrebbe trovarsi
 (``vendor/sensio/framework-extra-bundle/Sensio/Bundle/FrameworkExtraBundle/``).
-Composer quindi può cercare il file nella specifica posizione e caricarlo molto velocemente.
+Composer quindi può cercare il file nella specifica posizione e caricarlo molto
+velocemente.
 
 Se il file *non* risiede in questa esatta locazione, si riceverà un errore
 ``Class "Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle" does not exist.``.
@@ -169,6 +173,11 @@ cartelle specifiche, senza definire dipendenze:
     "autoload": {
         "psr-0": { "": "src/" }
     }
+
+Questo vuol dire che se una classe non viene trovata nella cartella ``vendor``, Composer
+cercherà nella cartella ``src``, prima di lanciare un'eccezione "class does not exist".
+Si può approndire la configurazione dell'auto-caricamento di Composer nella
+`documentazione di Composer`_
 
 Uso della console
 -----------------
@@ -211,7 +220,7 @@ vorrebbe dire una nuova cartella, per esempio ``app2/``, con la stessa struttura
 
    Leggere la definizione di :term:`Progetto`, :term:`Applicazione` e
    :term:`Bundle` nel glossario.
- 
+
 Bundle e plugin
 ---------------
 
@@ -355,5 +364,6 @@ In realtà, la configurazione di Symfony2 è molto più potente ed è usata prin
 per configurare oggetti da usare. Per maggiori informazioni, vedere il capitolo
 intitolato ":doc:`/book/service_container`".
 
-.. _`Symfony2 Standard`: https://github.com/symfony/symfony-standard
 .. _`Composer`: http://getcomposer.org
+.. _`Symfony2 Standard`: https://github.com/symfony/symfony-standard
+.. _`documentazione di Composer`: http://getcomposer.org/doc/04-schema.md#autoload

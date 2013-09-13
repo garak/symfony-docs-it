@@ -39,6 +39,9 @@ che rende la gestione dell'invio di form più facile che mai::
 Richiamare Form::submit() a mano
 --------------------------------
 
+.. versionadded:: 2.3
+    Prima di Symfony 2.3, il metodo ``submit()`` si chiamava ``bind()``.
+
 In alcuni casi, si desidera un maggior controllo sull'esatto invio del form e su quali
 dati siano passati. Invece di usare il metodo
 :method:`Symfony\Component\Form\FormInterface::handleRequest`

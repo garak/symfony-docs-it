@@ -20,9 +20,6 @@ o per comando.
 Configurare il contesto della richiesta globalmente
 ---------------------------------------------------
 
-.. versionadded:: 2.1
-    I parametri ``host`` e ``scheme`` sono disponibili da Symfony 2.1
-
 .. versionadded: 2.2
     Il parametro ``base_url`` è disponibile da Symfony 2.2
 
@@ -84,7 +81,7 @@ della richiesta e sovrascrivere le sue impostazioni::
            $context->setScheme('https');
            $context->setBaseUrl('my/path');
 
-           // ... il proprio codice
+           // ... del codice
        }
    }
 
@@ -106,13 +103,12 @@ comando di console::
     $transport = $container->get('swiftmailer.transport.real');
 
     $spool->flushQueue($transport);
-    
+
 Un'altra possibilità è quella di creare un ambiente usato solo dai comandi
 di console e usare un metodo di spool differente. 
-    
+
 .. note::
 
     Ci si deve occupare dello spool solo quando si usa lo spool memory. 
     Se invece si usa lo spool file (o nessuno spool), non occorre alcun
     flush manuale della coda all'interno del comando.
-

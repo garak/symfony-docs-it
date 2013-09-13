@@ -31,56 +31,54 @@ Installazione
 -------------
 
 Per usare l'ODM MongoDB, occorrono due librerie fornite da Doctrine e un bundle che le
-integri in Symfony2. Se si usa la Standard Distribution di Symfony, aggiungere il
-seguente al file ``deps`` del proprio progetto:
+integri in Symfony.
 
-.. code-block:: text
+Installare il bundle tramite Composer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    [doctrine-mongodb]
-        git=http://github.com/doctrine/mongodb.git
+Per installare DoctrineMongoDBBundle con Composer, aggiungere le seguenti righe al
+file `composer.json`::
 
-    [doctrine-mongodb-odm]
-        git=http://github.com/doctrine/mongodb-odm.git
+    {
+        "require": {
+            "doctrine/mongodb-odm": "1.0.*@dev",
+            "doctrine/mongodb-odm-bundle": "3.0.*@dev"
+        },
+    }
 
-    [DoctrineMongoDBBundle]
-        git=http://github.com/symfony/DoctrineMongoDBBundle.git
-        target=/bundles/Symfony/Bundle/DoctrineMongoDBBundle
+La definizione ``@dev`` è necessaria, perché al momento non sono disponibili versioni del bundle e di
+ODM stabili. A seconda delle necessità del proprio progeto, si potrebbero usare altre stringhe della versione,
+come spiegato nella `documentazione sullo schema`_ di Composer.
 
-Aggiornare le librerie dei venditori, eseguendo:
+Ora si possono installare le nuove dipendenza, eseguendo il comando ``update``
+di Composer, dalla cartella in cui si trova il file ``composer.json``:
 
-.. code-block:: bash
+.. code-block :: bash
 
-    $ php bin/vendors install
+    php composer.phar update
 
-Quindi, aggiungere gli spazi dei nomi ``Doctrine\ODM\MongoDB`` e ``Doctrine\MongoDB``
-al file ``app/autoload.php``, in modo che tali librerie possano essere caricate.
-Assicurarsi di aggiungerle *sopra* lo spazio dei nomi ``Doctrine`` (mostrato)::
+Composer scaricherà tutti i file necessari e li installerà.
 
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-        // ...
-        'Doctrine\\ODM\\MongoDB'    => __DIR__.'/../vendor/doctrine-mongodb-odm/lib',
-        'Doctrine\\MongoDB'         => __DIR__.'/../vendor/doctrine-mongodb/lib',
-        'Doctrine'                  => __DIR__.'/../vendor/doctrine/lib',
-        // ...
-    ));
+
+Registrare le annotazioni e il bundle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quindi, registrare la libreria delle annotazioni, aggiungendo il seguente all'autoloader
-(sotto la riga, già esistente, ``AnnotationRegistry::registerFile``)::
+(sotto la riga, già esistente, ``AnnotationRegistry::registerLoader``)::
 
     // app/autoload.php
-    AnnotationRegistry::registerFile(
-        __DIR__.'/../vendor/doctrine-mongodb-odm/lib/Doctrine/ODM/MongoDB/Mapping/Annotations/DoctrineAnnotations.php'
-    );
+    use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
+    AnnotationDriver::registerAnnotationClasses();
 
-Infine, abilitare il bundle nel kernel::
+Infine, abilitare il bundle nel kernel e registrare il
+bundle::
 
     // app/AppKernel.php
     public function registerBundles()
     {
         $bundles = array(
             // ...
-            new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
         );
 
         // ...
@@ -102,8 +100,7 @@ l'ODM MongoDB su tutta la propria applicazione:
         connections:
             default:
                 server: mongodb://localhost:27017
-                options:
-                    connect: true
+                options: {}
         default_database: test_database
         document_managers:
             default:
@@ -285,7 +282,7 @@ del bundle:
         $product->setName('A Foo Bar');
         $product->setPrice('19.99');
 
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
+        $dm = $this->get('doctrine_mongodb')->getManager();
         $dm->persist($product);
         $dm->flush();
 
@@ -330,7 +327,6 @@ che già esistono in MongoDB.
     nel proprio progetto (le cosiddette "fixture"). Per informazioni, vedere
     :doc:`/bundles/DoctrineFixturesBundle/index`.
 
-
 Recuperare oggetti da MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -340,7 +336,7 @@ in base al valore del suo ``id``::
 
     public function showAction($id)
     {
-        $product = $this->get('doctrine.odm.mongodb.document_manager')
+        $product = $this->get('doctrine_mongodb')
             ->getRepository('AcmeStoreBundle:Product')
             ->find($id);
 
@@ -356,7 +352,8 @@ come il suo "repository". Si può pensare a un repository come a una classe PHP 
 unico compito è quello di aiutare nel recuperare entità di una certa classe. Si può
 accedere all'oggetto repository per una classe documento tramite::
 
-    $repository = $this->get('doctrine.odm.mongodb.document_manager')
+    $repository = $this->get('doctrine_mongodb')
+        ->getManager()
         ->getRepository('AcmeStoreBundle:Product');
 
 .. note::
@@ -406,7 +403,7 @@ di avere una rotta che mappi un id di prodotto a un'azione di aggiornamento in u
 
     public function updateAction($id)
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
+        $dm = $this->get('doctrine_mongodb')->getManager();
         $product = $dm->getRepository('AcmeStoreBundle:Product')->find($id);
 
         if (!$product) {
@@ -459,7 +456,8 @@ che restituisce esattamente i documenti desiderati. Se si usa un IDE, si può an
 trarre vantaggio dall'auto-completamento durante la scrittura dei nomi dei metodi.
 Da dentro un controllore::
 
-    $products = $this->get('doctrine.odm.mongodb.document_manager')
+    $products = $this->get('doctrine_mongodb')
+        ->getManager()
         ->createQueryBuilder('AcmeStoreBundle:Product')
         ->field('name')->equals('foo')
         ->limit(10)
@@ -525,7 +523,7 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
 
         </doctrine-mong-mapping>
 
-Doctrine può generare la classe repository per noi, eseguendo:
+Doctrine può generare la classe repository, eseguendo:
 
 .. code-block:: bash
 
@@ -555,7 +553,8 @@ ordinati alfabeticamente.
 
 Si può usare il metodo appena creato proprio come i metodi predefiniti del repository::
 
-    $product = $this->get('doctrine.odm.mongodb.document_manager')
+    $products = $this->get('doctrine_mongodb')
+        ->getManager()
         ->getRepository('AcmeStoreBundle:Product')
         ->findAllOrderedByName();
 
@@ -643,14 +642,36 @@ Doctrine consente di registrare ascoltatori e sottoscrittori di eventi, che sono
 notificati quando i vari eventi accadono all'interno dell'ODM di Doctrine. Per ulteriori
 informazioni, vedere la `Documentazione sugli eventi`_ di Doctrine.
 
+.. tip::
+
+    Oltre agli eventi dell'ODM, si possono ascoltare anche eventi a basso livello di MongoDBIn addition to ODM events, you may also listen on lower-level MongoDB,
+    che si possono trovare definiti nella classe ``Doctrine\MongoDB\Events``.
+
+.. note::
+
+    Ciascuna connessione in Doctrine ha il suo gestore di eventi, condiviso con
+    i gestori di documenti legati a tale connessione. Gli ascoltatori e i sottoscrittori possono
+    essere registrati con tutti i gestori di eventi o solo con uno (usando il nome della connessione).
+
 In Symfony, si possono registrare ascoltatori o sottoscrittori, creando un :term:`servizio`
 e :ref:`taggandolo<book-service-container-tags>` uno specifico tag.
 
-*   **ascoltatore**: Usare il tag ``doctrine.odm.mongodb.<connection>_event_listener``,
-    dove il nome ``<connection>`` è sostituito dal nome della propria connessione
-    (solitamente, ``default``). Inoltre, assicurarsi di aggiungere la chiave ``event`` al
-    tag, specificando quale evento ascoltare. Ipotizzando che la connessione si chiami
-    ``default``:
+*   **ascoltatore di eventi**: Usare il tag ``doctrine_mongodb.odm.event_listener`` pe
+    registrare un ascoltatore. L'attributo ``event`` è obbligatorio e denota
+    l'evento da ascoltare. Per impostazione predefinita, tutti gli ascoltatori saranno registrati con
+    i gestori di eventi per tutte le connessioni. Per limitare un ascoltatore a una singola
+    connessione, specificare il suo nome nell'attributo ``connection`` del tag.
+
+    L'attributo ``priority``, con valore ``0`` se omesso, può essere usato
+    per controllare l'ordine in cui registrare gli ascoltatori. Come il
+    :doc:`distributore di eventi</components/event_dispatcher/introduction>` di Symfony2,
+    numeri maggiori daranno precedenza all'esecuzione dell'ascoltatore, mentre gli ascoltatori con
+    uguale priorità saranno eseguiti nell'ordine in cui sono stati registrati con
+    il gestore di eventi.
+
+    Infine, l'attributo ``lazy``, con valore predefinito ``false``, può essere
+    usato per richiedere che l'ascoltatore sia caricato pigramente dal gestore
+    di eventi, quando distribuito.
 
     .. configuration-block::
 
@@ -661,24 +682,30 @@ e :ref:`taggandolo<book-service-container-tags>` uno specifico tag.
                     class:   Acme\HelloBundle\Listener\MyDoctrineListener
                     # ...
                     tags:
-                        -  { name: doctrine.odm.mongodb.default_event_listener, event: postPersist }
+                        -  { name: doctrine_mongodb.odm.event_listener, event: postPersist }
 
         .. code-block:: xml
 
             <service id="my_doctrine_listener" class="Acme\HelloBundle\Listener\MyDoctrineListener">
                 <!-- ... -->
-                <tag name="doctrine.odm.mongodb.default_event_listener" event="postPersist" />
+                <tag name="doctrine_mongodb.odm.event_listener" event="postPersist" />
             </service>.
 
         .. code-block:: php
 
             $definition = new Definition('Acme\HelloBundle\Listener\MyDoctrineListener');
             // ...
-            $definition->addTag('doctrine.odm.mongodb.default_event_listener');
+            $definition->addTag('doctrine_mongodb.odm.event_listener', array(
+                'event' => 'postPersist',
+            ));
             $container->setDefinition('my_doctrine_listener', $definition);
 
-*   **sottoscrittore**: Usare il tag ``doctrine.odm.mongodb.<connection>_event_subscriber``.
-    Non occorre nessuna altra chiave nel tag.
+*   **sottoscrittore di eventi**: Usare il tag ``doctrine_mongodb.odm.event_subscriber``
+    per registrare un sottoscrittore. I sottoscrittorii devono implementare
+    ``Doctrine\Common\EventSubscriber`` e un metodo per restituire gli eventi
+    che osservano. Per tale ragione, questo tag non ha un attributo ``event``.
+    Sono invece disponibili gli attributi ``connection``, ``priority`` e 
+    ``lazy``.
 
 Riepilogo
 ---------
@@ -701,10 +728,11 @@ Imparare di più dal ricettario
 
 .. _`MongoDB`:          http://www.mongodb.org/
 .. _`documentazione`:   http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/
+.. _`documentazion sullo schema`: http://getcomposer.org/doc/04-schema.md#minimum-stability
 .. _`Quick Start`:      http://www.mongodb.org/display/DOCS/Quickstart
 .. _`Documentazione di base sulla mappatura`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/basic-mapping.html
 .. _`tipo MongoDB`: http://us.php.net/manual/en/mongo.types.php
-.. _`Documentazione sulla mappatura dei tipi`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/basic-mapping.html#doctrine-mapping-types
+.. _`Documentazione sulla mappatura dei tipi`: http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/basic-mapping.html#doctrine-mapping-types
 .. _`Query Builder`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/query-builder-api.html
 .. _`Operatori condizionali`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/query-builder-api.html#conditional-operators
 .. _`Documentazione sugli eventi`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/events.html

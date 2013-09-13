@@ -1,0 +1,4 @@
+Currency
+========
+
+(TODO da tradurre...)

@@ -4,9 +4,6 @@
 Come usare i parametri del contenitore di servizi nelle rotte
 =============================================================
 
-.. versionadded:: 2.1
-    La possibilità di usare parametri nelle rotte è stata aggiunta in Symfony 2.1.
-
 A volte potrebbe essere utile rendere alcune parti delle rotte
 configurabili globalmente. Per esempio, se si costruisce un sito internazionalizzato,
 probabilmente si inizierà con una o due lingue. Sicuramente, si aggiungerà un
@@ -22,7 +19,7 @@ servizi, dentro alla configurazione delle rotte:
     .. code-block:: yaml
 
         contact:
-            pattern:  /{_locale}/contact
+            path:     /{_locale}/contact
             defaults: { _controller: AcmeDemoBundle:Main:contact }
             requirements:
                 _locale: %acme_demo.locales%
@@ -35,7 +32,7 @@ servizi, dentro alla configurazione delle rotte:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="contact" pattern="/{_locale}/contact">
+            <route id="contact" path="/{_locale}/contact">
                 <default key="_controller">AcmeDemoBundle:Main:contact</default>
                 <requirement key="_locale">%acme_demo.locales%</requirement>
             </route>
@@ -75,7 +72,7 @@ parte nel contenitore:
 
     .. code-block:: php
 
-        # app/config/config.php
+        // app/config/config.php
         $container->setParameter('acme_demo.locales', 'en|es');
 
 Si può anche usare un parametro per definire lo schema (o parte dello
@@ -86,7 +83,7 @@ schema) della rotta:
     .. code-block:: yaml
 
         some_route:
-            pattern:  /%acme_demo.route_prefix%/contact
+            path:     /%acme_demo.route_prefix%/contact
             defaults: { _controller: AcmeDemoBundle:Main:contact }
 
     .. code-block:: xml
@@ -97,7 +94,7 @@ schema) della rotta:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="some_route" pattern="/%acme_demo.route_prefix%/contact">
+            <route id="some_route" path="/%acme_demo.route_prefix%/contact">
                 <default key="_controller">AcmeDemoBundle:Main:contact</default>
             </route>
         </routes>
@@ -119,3 +116,7 @@ schema) della rotta:
     Proprio come nei normali file di configurazione del contenitore di servizi, se
     occorre un ``%`` in una rotta, si può fare escape del simbolo percentuale raddoppiandolo,
     p.e. ``/score-50%%``, che sarà risolto in ``/score-50%``.
+
+    Tuttavia, poiché i caratteri ``%`` inclusi un un URL sono automaticamente codificati,
+    l'URL risultante da questo esempio sarebbe ``/score-50%25`` (``%25`` è il
+    risultati della codifica del carattere ``%``).

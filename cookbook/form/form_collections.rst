@@ -172,12 +172,10 @@ Nel controllore, è possibile inizializzare una nuova istanza di ``TaskType``::
 
             $form = $this->createForm(new TaskType(), $task);
 
-            // processare il form, in una richiesta POST
-            if ($request->isMethod('POST')) {
-                $form->bind($request);
-                if ($form->isValid()) {
-                    // ... fare qualcosa con il form, come salvare oggetti Tag e Task
-                }
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                // ... fare qualcosa con il form, come salvare oggetti Tag e Task
             }
 
             return $this->render('AcmeTaskBundle:Task:new.html.twig', array(
@@ -200,21 +198,20 @@ ha tag, appena viene creato).
 
         {# ... #}
 
-        <form action="..." method="POST" {{ form_enctype(form) }}>
-            {# rende solo il campo: description #}
+        {{ form_start(form) }}
+            {# rende l'unico campo: description #}
             {{ form_row(form.description) }}
 
             <h3>Tags</h3>
             <ul class="tags">
-                {# itera per ogni tag esistente e rende solo il campo: name #}
+                {# itera per ogni tag esistente e rende il suo unico campo: name #}
                 {% for tag in form.tags %}
                     <li>{{ form_row(tag.name) }}</li>
                 {% endfor %}
             </ul>
+        {{ form_end(form) }}
 
-            {{ form_rest(form) }}
-            {# ... #}
-        </form>
+        {# ... #}
 
     .. code-block:: html+php
 
@@ -222,16 +219,17 @@ ha tag, appena viene creato).
 
         <!-- ... -->
 
-        <form action="..." method="POST" ...>
+        <?php echo $view['form']->start($form) ?>
+            <!-- rende l'unico campo: description -->
+            <?php echo $view['form']->row($form['description']) ?>
+
             <h3>Tags</h3>
             <ul class="tags">
                 <?php foreach($form['tags'] as $tag): ?>
                     <li><?php echo $view['form']->row($tag['name']) ?></li>
                 <?php endforeach; ?>
             </ul>
-
-            <?php echo $view['form']->rest($form) ?>
-        </form>
+        <?php echo $view['form']->end($form) ?>
 
         <!-- ... -->
 
@@ -280,7 +278,7 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
 
-    // ...   
+    // ...
     use Symfony\Component\Form\FormBuilderInterface;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -288,8 +286,8 @@ bisognerà aggiungere l'opzione ``allow_add`` al campo collection::
         $builder->add('description');
 
         $builder->add('tags', 'collection', array(
-            'type' => new TagType(),
-            'allow_add' => true,
+            'type'         => new TagType(),
+            'allow_add'    => true,
         ));
     }
 
@@ -329,7 +327,7 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
     campo ``name``):
 
     .. code-block:: html+jinja
-    
+
         {{ form_widget(form.tags.vars.prototype.name)|e }}
 
 Nella pagina resa, il risultato assomiglierà a questo:
@@ -381,9 +379,6 @@ contiene l'input chiamato ``task[tags][__name__][name]`` e con id
 ``task_tags___name___name``. La stringa ``__name__`` è un piccolo "segnaposto",
 che sostituiremo con un numero univoco e incrementale (p.e. ``task[tags][3][name]``).
 
-.. versionadded:: 2.1
-    Il segnaposto è stato cambiato da ``$$name$$`` a ``__name__`` in Symfony 2.1
-
 Il vero codice necessario per far funzionare il tutto potrebbe variare un po', ma ecco
 un esempio:
 
@@ -428,12 +423,12 @@ alla classe  ``Task``::
     {
         // ...
 
-        public function addTag($tag)
+        public function addTag(Tag $tag)
         {
             $this->tags->add($tag);
         }
 
-        public function removeTag($tag)
+        public function removeTag(Tag $tag)
         {
             // ...
         }
@@ -539,10 +534,10 @@ vedremo tra poco!).
         // src/Acme/TaskBundle/Entity/Task.php
 
         // ...
-        public function addTag(ArrayCollection $tag)
+        public function addTag(Tag $tag)
         {
             $tag->addTask($this);
- 
+
             $this->tags->add($tag);
         }
 
@@ -593,7 +588,7 @@ Ora occorre inserire del codice nel metodo ``removeTag`` di ``Task``::
     {
         // ...
 
-        public function removeTag($tag)
+        public function removeTag(Tag $tag)
         {
             $this->tags->removeElement($tag);
         }
@@ -688,40 +683,38 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
 
             $editForm = $this->createForm(new TaskType(), $task);
 
-            if ($request->isMethod('POST')) {
-                $editForm->bind($this->getRequest());
+            $editForm->handleRequest($request);
 
-                if ($editForm->isValid()) {
+            if ($editForm->isValid()) {
 
-                    // filtra $originalTags per contenere i tag non più presenti
-                    foreach ($task->getTags() as $tag) {
-                        foreach ($originalTags as $key => $toDel) {
-                            if ($toDel->getId() === $tag->getId()) {
-                                unset($originalTags[$key]);
-                            }
+                // filtra $originalTags per contenere i tag non più presenti
+                foreach ($task->getTags() as $tag) {
+                    foreach ($originalTags as $key => $toDel) {
+                        if ($toDel->getId() === $tag->getId()) {
+                            unset($originalTags[$key]);
                         }
                     }
-
-                    // rimuove la relazione tra tag e Task
-                    foreach ($originalTags as $tag) {
-                        // rimuove il Task dal Tag
-                        $tag->getTasks()->removeElement($task);
-
-                        // se ci fosse una relazione ManyToOne, rimuoverla in questo modo
-                        // $tag->setTask(null);
-
-                        $em->persist($tag);
-
-                        // se si vuole eliminare del tutto il Tag, si può anche fare così
-                        // $em->remove($tag);
-                    }
-
-                    $em->persist($task);
-                    $em->flush();
-
-                    // ritorna a una pagina di modifica
-                    return $this->redirect($this->generateUrl('task_edit', array('id' => $id)));
                 }
+
+                // rimuove la relazione tra tag e Task
+                foreach ($originalTags as $tag) {
+                    // rimuove il Task dal Tag
+                    $tag->getTasks()->removeElement($task);
+
+                    // se ci fosse una relazione ManyToOne, rimuoverla in questo modo
+                    // $tag->setTask(null);
+
+                    $em->persist($tag);
+
+                    // se si vuole eliminare del tutto il Tag, si può anche fare così
+                    // $em->remove($tag);
+                }
+
+                $em->persist($task);
+                $em->flush();
+
+                // ritorna a una pagina di modifica
+                return $this->redirect($this->generateUrl('task_edit', array('id' => $id)));
             }
 
             // rendere un template del form
@@ -732,6 +725,5 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     occorrerà del lavoro ulteriore per assicurarsi che la relazione sia aggiornata
     correttamente (sia per l'aggiunta di nuovi tag che per la rimozione di tag esistenti)
     per ogni oggetto Tag.
-
 
 .. _`lato di appartenenza e il lato inverso`: http://docs.doctrine-project.org/en/latest/reference/unitofwork-associations.html

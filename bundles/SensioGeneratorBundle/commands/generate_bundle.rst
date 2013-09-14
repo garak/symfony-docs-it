@@ -13,14 +13,14 @@ bundle:
 
 .. code-block:: bash
 
-    php app/console generate:bundle
+    $ php app/console generate:bundle
 
 Per disattivare la modalità interattiva, usare l'opzione `--no-interaction`, senza
 dimenticare di passare tutte le opzioni necessarie:
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/Bundle/BlogBundle --no-interaction
+    $ php app/console generate:bundle --namespace=Acme/Bundle/BlogBundle --no-interaction
 
 Opzioni disponibili
 -------------------
@@ -33,21 +33,21 @@ Opzioni disponibili
 
   .. code-block:: bash
 
-        php app/console generate:bundle --namespace=Acme/Bundle/BlogBundle
+        $ php app/console generate:bundle --namespace=Acme/Bundle/BlogBundle
 
 * ``--bundle-name``: Il nomde del bundle, opzionale. Deve essere una stringa con suffisso
   ``Bundle``:
 
     .. code-block:: bash
 
-        php app/console generate:bundle --bundle-name=AcmeBlogBundle
+        $ php app/console generate:bundle --bundle-name=AcmeBlogBundle
 
 * ``--dir``: La cartella in cui mettere il bundle. Per convenzione, il comando individua
   e usa la cartella ``src/`` dell'applicazione:
 
     .. code-block:: bash
 
-        php app/console generate:bundle --dir=/var/www/myproject/src
+        $ php app/console generate:bundle --dir=/var/www/myproject/src
 
 * ``--format``: (**annotation**) [valori: yml, xml, php o annotation]
   Determina il formato da usare per i file di configurazione, come quello delle
@@ -57,7 +57,7 @@ Opzioni disponibili
 
     .. code-block:: bash
 
-        php app/console generate:bundle --format=annotation
+        $ php app/console generate:bundle --format=annotation
 
 * ``--structure``: (**no**) [valori: yes|no] Se generare o meno una struttura di cartelle
   completa, incluse le cartelle pubbliche vuote per la documentazione, per le risorse
@@ -65,5 +65,4 @@ Opzioni disponibili
 
     .. code-block:: bash
 
-        php app/console generate:bundle --structure=yes
-
+        $ php app/console generate:bundle --structure=yes

@@ -451,9 +451,6 @@ che invia gli header e stampa il contenuto della ``Response``.
 8) L'evento ``kernel.terminate``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    L'evento ``kernel.terminate`` è nuovo in Symfony 2.1.
-
 **Scopi tipici**: Eseguire qualche azione "pesante" dopo che la risposta sia stata
 inviata all'utente
 
@@ -632,6 +629,8 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
 
     $kernel->terminate($request, $response);
 
+.. _http-kernel-sub-requests:
+
 Sotto-richieste
 ---------------
 
@@ -679,7 +678,7 @@ assomigliare a questo::
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
-        
+
         // ...
     }
 

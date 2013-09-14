@@ -270,11 +270,9 @@ e scrivere la logica dell'ascoltatore::
                 );
             }
 
-            $factory = $builder->getFormFactory();
-
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) use($user, $factory){
+                function(FormEvent $event) use ($user) {
                     $form = $event->getForm();
 
                     $formOptions = array(
@@ -372,15 +370,21 @@ Per definire il form come servizio, creare un normale serizio e aggiungere il ta
 Se si vuole crearlo da dentro un controllore o un altro servizio che abbia accesso
 al form factory, si può usare::
 
-    class FriendMessageController extends Controller
+    use Symfony\Component\DependencyInjection\ContainerAware;
+
+    class FriendMessageController extends ContainerAware
     {
         public function newAction(Request $request)
         {
-            $form = $this->createForm('acme_friend_message');
+            $form = $this->get('form.factory')->create('acme_friend_message');
 
             // ...
         }
     }
+
+Se si estende la classe ``Symfony\Bundle\FrameworkBundle\Controller\Controller``, basta chiamare::
+
+    $form = $this->createForm('acme_friend_message');
 
 Si può anche includere il form type in un altro form::
 
@@ -407,19 +411,24 @@ La riunione sarà passata come campo nascosto al form. In questo modo si può
 accedere a ciascuno sport in questo modo::
 
     // src/Acme/DemoBundle/Form/Type/SportMeetupType.php
+    namespace Acme\DemoBundle\Form\Type;
+
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\Form\FormEvent;
+    use Symfony\Component\Form\FormEvents;
+    // ...
+
     class SportMeetupType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder
-                ->add('number_of_people', 'text')
-                ->add('discount_coupon', 'text')
+                ->add('sport', 'entity', array(...))
             ;
-            $factory = $builder->getFormFactory();
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) use($user, $factory){
+                function(FormEvent $event) {
                     $form = $event->getForm();
 
                     // questa sarà l'entità, p.e. SportMeetup
@@ -427,7 +436,7 @@ accedere a ciascuno sport in questo modo::
 
                     $positions = $data->getSport()->getAvailablePositions();
 
-                    // ... procedere nella personalizzazione del form, in base alle posizioni disponibili
+                    $form->add('position', 'entity', array('choices' => $positions));
                 }
             );
         }
@@ -452,171 +461,71 @@ In un form, possiamo solitamente ascoltare questi eventi:
     Gli eventi ``PRE_SUBMIT``, ``SUBMIT`` e ``POST_SUBMIT`` sono stati aggiunti in
     Symfony 2.3. In precedenza, si chiamavano ``PRE_BIND``, ``BIND`` e ``POST_BIND``.
 
-Ascoltando ``SUBMIT`` e ``POST_SUBMIT``, è già "troppo tardi" per
-cambiare il form. Fortunatamente, ``PRE_SUBMIT`` è perfetto per lo scopo.
-Tuttavia, c'è una grossa differenza in ciò che viene restituito da ``$event->getData()``
-per ciascuno di questi eventi. Nello specifico, in ``PRE_SUBMIT``, ``$event->getData()``
-restituisce i dati grezzi inviati dall'utente.
+.. versionadded:: 2.2.6
 
-Questo è utile per ottnere l'id dell'oggetto ``SportMeetup`` e recuperarlo dalla base dati,
-avendo un riferimento al gestore di oggetti (se si usa Doctrine). Alla fine,
-si ha un sottoscrittore che ascolta due diversi eventi,
-richiede alcuni servizi esterni e personalizza il form. In tale siturazione,
-probabilmente è meglio definirlo come servizio, piuttosto che usare una funzione
-anonima come callback dell'ascoltatore.
+    Il comportamento dell'evento ``POST_SUBMIT`` è cambiato leggermento in 2.2.6, usato
+    dall'esempio seguente.
 
-Il sottoscrittore sarebbe simile a questo::
+La chiave sta nell'aggiungere un ascoltatore ``POST_SUBMIT`` al campo da cui dipende il nuovo
+campo. Se si aggiunge un ascoltatore ``POST_SUBMIT`` a un form figlio (p.e. ``sport`),
+e si aggiungono nuovi figli al form genitore, il componente Form individuerà il
+nuovo campo automaticamente e lo mapperà ai dati inviati dal client.
 
-    // src/Acme/DemoBundle/Form/EventListener/RegistrationSportListener.php
-    namespace Acme\DemoBundle\Form\EventListener;
+La classe ora sarà così::
 
-    use Symfony\Component\Form\FormFactoryInterface;
-    use Doctrine\ORM\EntityManager;
-    use Symfony\Component\Form\FormEvent;
+    // src/Acme/DemoBundle/Form/Type/SportMeetupType.php
+    namespace Acme\DemoBundle\Form\Type;
 
-    class RegistrationSportListener implements EventSubscriberInterface
+    // ...
+    Acme\DemoBundle\Entity\Sport;
+    Symfony\Component\Form\FormInterface;
+
+    class SportMeetupType extends AbstractType
     {
-        /**
-         * @var FormFactoryInterface
-         */
-        private $factory;
-
-        /**
-         * @var EntityManager
-         */
-        private $om;
-
-        /**
-         * @param factory FormFactoryInterface
-         */
-        public function __construct(FormFactoryInterface $factory, EntityManager $om)
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $this->factory = $factory;
-            $this->om = $om;
-        }
+            $builder
+                ->add('sport', 'entity', array(...))
+            ;
 
-        public static function getSubscribedEvents()
-        {
-            return array(
-                FormEvents::PRE_SUBMIT => 'preSubmit',
-                FormEvents::PRE_SET_DATA => 'preSetData',
+            $formModifier = function(FormInterface $form, Sport $sport) {
+                $positions = $data->getSport()->getAvailablePositions();
+
+                $form->add('position', 'entity', array('choices' => $positions));
+            }
+
+            $builder->addEventListener(
+                FormEvents::PRE_SET_DATA,
+                function(FormEvent $event) {
+                    $form = $event->getForm();
+
+                    // questa sarebbe l'entità, p.e. SportMeetup
+                    $data = $event->getData();
+
+                    $formModifier($event->getForm(), $sport);
+                }
             );
-        }
 
-        /**
-         * @param event FormEvent
-         */
-        public function preSetData(FormEvent $event)
-        {
-            $meetup = $event->getData()->getMeetup();
+            $builder->get('sport')->addEventListener(
+                FormEvents::POST_SUBMIT,
+                function(FormEvent $event) use ($formModifier) {
+                    // è importante qui recuperare $event->getForm()->getData(), perché
+                    // $event->getData() restituirà i dati del client (quindi l'ID)
+                    $sport = $event->getForm()->getData();
 
-            // Prima di inviare il form, "meetup" sarà null
-            if (null === $meetup) {
-                return;
-            }
+                    $positions = $sport->getAvailablePositions();
 
-            $form = $event->getForm();
-            $positions = $meetup->getSport()->getPositions();
-
-            $this->customizeForm($form, $positions);
-        }
-
-        public function preSubmit(FormEvent $event)
-        {
-            $data = $event->getData();
-            $id = $data['event'];
-            $meetup = $this->om
-                ->getRepository('AcmeDemoBundle:SportMeetup')
-                ->find($id);
-
-            if ($meetup === null) {
-                $msg = 'The event %s could not be found for you registration';
-                throw new \Exception(sprintf($msg, $id));
-            }
-            $form = $event->getForm();
-            $positions = $meetup->getSport()->getPositions();
-
-            $this->customizeForm($form, $positions);
-        }
-
-        protected function customizeForm($form, $positions)
-        {
-            // ... personalizzare il form a seconda delle posizioni
+                    // avendo aggiunto l'ascoltatore al figlio, dovremo passare
+                    // il genitore alle funzioni callback!
+                    $formModifier($event->getForm()->getParent(), $sport);
+                }
+            );
         }
     }
 
 Si può vedere come occorra scoltare questi due eventi e avere callback diversi,
-solo perché in due scenari diversi i dati che si possono usare vengono restituiti
-in formati diversi. Oltre a questo, questa classe può sempre eseguire esattamente
-le stesse cose su un form dato.
-
-Dopo aver svolto questa preparazione, registrare form e ascoltatore come servizi:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        acme.form.sport_meetup:
-            class: Acme\SportBundle\Form\Type\SportMeetupType
-            arguments: [@acme.form.meetup_registration_listener]
-            tags:
-                - { name: form.type, alias: acme_meetup_registration }
-        acme.form.meetup_registration_listener
-            class: Acme\SportBundle\Form\EventListener\RegistrationSportListener
-            arguments: [@form.factory, @doctrine]
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <services>
-            <service id="acme.form.sport_meetup" class="Acme\SportBundle\FormType\SportMeetupType">
-                <argument type="service" id="acme.form.meetup_registration_listener" />
-                <tag name="form.type" alias="acme_meetup_registration" />
-            </service>
-            <service id="acme.form.meetup_registration_listener" class="Acme\SportBundle\Form\EventListener\RegistrationSportListener">
-                <argument type="service" id="form.factory" />
-                <argument type="service" id="doctrine" />
-            </service>
-        </services>
-
-    .. code-block:: php
-
-        // app/config/config.php
-        $definition = new Definition('Acme\SportBundle\Form\Type\SportMeetupType');
-        $definition->addTag('form.type', array('alias' => 'acme_meetup_registration'));
-        $container->setDefinition(
-            'acme.form.meetup_registration_listener',
-            $definition,
-            array('security.context')
-        );
-        $definition = new Definition('Acme\SportBundle\Form\EventListener\RegistrationSportListener');
-        $container->setDefinition(
-            'acme.form.meetup_registration_listener',
-            $definition,
-            array('form.factory', 'doctrine')
-        );
-
-Qui, ``RegistrationSportListener`` sarà un parametro del costruttore di
-``SportMeetupType``. Lo si può quindi registrare come sottoscrittore
-sul form::
-
-    private $registrationSportListener;
-
-    public function __construct(RegistrationSportListener $registrationSportListener)
-    {
-        $this->registrationSportListener = $registrationSportListener;
-    }
-
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        // ...
-        $builder->addEventSubscriber($this->registrationSportListener);
-    }
-
-Questo dovrebbe collegare il tutto. Si può ora recuperare il form dal
-controllore, mostrarlo a un utente e validarlo con le giuste opzioni
-impostate per ogni possibile tipo di sport a cui gli utenti si stanno registrando.
+solo perché in due scenari diversi i dati che si possono usare vengono restituiti in eventi diversi.
+Oltre a questo, gli ascoltatori eseguono esattamente le stesse cose su un form dato.
 
 Un pezzo ancora mancante è l'aggiornamento lato client del form, dopo la
 scelta dello sport. Lo si può gestire tramite una chiamata AJAX

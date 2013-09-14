@@ -13,14 +13,14 @@ struttura:
 
 .. code-block:: bash
 
-    php app/console generate:doctrine:entity
+    $ php app/console generate:doctrine:entity
 
 Il comando può essere eseguito in modalità non interattiva, usando l'opzione
 `--no-interaction`, senza dimenticare di passare tutte le opzioni necessarie:
 
 .. code-block:: bash
 
-    php app/console generate:doctrine:entity --non-interaction --entity=AcmeBlogBundle:Post --fields="title:string(100) body:text" --format=xml
+    $ php app/console generate:doctrine:entity --no-interaction --entity=AcmeBlogBundle:Post --fields="title:string(100) body:text" --format=xml
 
 Opzioni disponibili
 -------------------
@@ -31,13 +31,13 @@ Opzioni disponibili
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:entity --entity=AcmeBlogBundle:Post
+        $ php app/console generate:doctrine:entity --entity=AcmeBlogBundle:Post
 
 * ``--fields``: L'elenco dei campi da inserire nell'entità:
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:entity --fields="title:string(100) body:text"
+        $ php app/console generate:doctrine:entity --fields="title:string(100) body:text"
 
 * ``--format``: (**annotation**) [valori: yml, xml, php o annotation]
   Determina il formato da usare per i file di configurazione, come quelli delle
@@ -52,5 +52,4 @@ Opzioni disponibili
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:entity --with-repository
-
+        $ php app/console generate:doctrine:entity --with-repository

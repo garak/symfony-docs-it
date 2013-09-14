@@ -11,14 +11,35 @@ Configurazione di esempio
         connections:
             default:
                 server: mongodb://localhost:27017
-                options:
-                    connect: true
+                options: {}
         default_database: hello_%kernel.environment%
         document_managers:
             default:
                 mappings:
                     AcmeDemoBundle: ~
+                filters:
+                    filter-name:
+                        class: Class\Example\Filter\ODM\ExampleFilter
+                        enabled: true
                 metadata_cache_driver: array # array, apc, xcache, memcache
+
+.. tip::
+
+    Se ogni ambiente necessita di un diverso URI di connessione a MongoDB, si possono
+    definirli in un parametro separato e farvi riferimento nella configurazione:
+
+    .. code-block:: yaml
+
+        # app/config/parameters.yml
+        mongodb_server: mongodb://localhost:27017
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        doctrine_mongodb:
+            connections:
+                default:
+                    server: %mongodb_server%
 
 Se si vuole usare memcache per la cache dei meta-dati, occorre configurare
 l'istanza ``Memcache``. Per esempio, si può fare come segue:
@@ -33,8 +54,7 @@ l'istanza ``Memcache``. Per esempio, si può fare come segue:
             connections:
                 default:
                     server: mongodb://localhost:27017
-                    options:
-                        connect: true
+                    options: {}
             document_managers:
                 default:
                     mappings:
@@ -68,11 +88,11 @@ l'istanza ``Memcache``. Per esempio, si può fare come segue:
                 </doctrine_mongodb:document-manager>
                 <doctrine_mongodb:connection id="default" server="mongodb://localhost:27017">
                     <doctrine_mongodb:options>
-                        <doctrine_mongodb:connect>true</doctrine_mongodb:connect>
                     </doctrine_mongodb:options>
                 </doctrine_mongodb:connection>
             </doctrine_mongodb:config>
         </container>
+
 
 Configurazione della mappatura
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -141,13 +161,34 @@ La configurazione seguente mostra tanto esempi di mappatura:
                         prefix: DoctrineExtensions\Documents\
                         alias: DExt
 
+Filtri
+~~~~~~
+
+Si possono aggiungere facilmente filtri a un gestore di documenti, usando
+la sintassi seguente:
+
+.. code-block:: yaml
+
+    doctrine_mongodb:
+        document_managers:
+            default:
+                filters:
+                    filter-one:
+                        class: Class\ExampleOne\Filter\ODM\ExampleFilter
+                        enabled: true
+                    filter-two:
+                        class: Class\ExampleTwo\Filter\ODM\ExampleFilter
+                        enabled: false
+
+I filtri sono usati per aggiungere condizini al queryBuilder, indipendentemente da dove la query sia generata.
+
 Connessioni multiple 
 ~~~~~~~~~~~~~~~~~~~~
 
 Se servono connessioni e gestori di documenti multipli, si può usare
 la sintassi seguente:
 
-.. configuration-block
+.. configuration-block::
 
     .. code-block:: yaml
 
@@ -159,12 +200,8 @@ la sintassi seguente:
             connections:
                 conn1:
                     server: mongodb://localhost:27017
-                    options:
-                        connect: true
                 conn2:
                     server: mongodb://localhost:27017
-                    options:
-                        connect: true
             document_managers:
                 dm1:
                     connection: conn1
@@ -190,16 +227,14 @@ la sintassi seguente:
                     default-database="hello_%kernel.environment%"
                     default-document-manager="dm2"
                     default-connection="dm2"
-                    proxy-namespace="Proxies"
+                    proxy-namespace="MongoDBODMProxies"
                     auto-generate-proxy-classes="true">
                 <doctrine_mongodb:connection id="conn1" server="mongodb://localhost:27017">
                     <doctrine_mongodb:options>
-                        <doctrine_mongodb:connect>true</doctrine_mongodb:connect>
                     </doctrine_mongodb:options>
                 </doctrine_mongodb:connection>
                 <doctrine_mongodb:connection id="conn2" server="mongodb://localhost:27017">
                     <doctrine_mongodb:options>
-                        <doctrine_mongodb:connect>true</doctrine_mongodb:connect>
                     </doctrine_mongodb:options>
                 </doctrine_mongodb:connection>
                 <doctrine_mongodb:document-manager id="dm1" metadata-cache-driver="xcache" connection="conn1">
@@ -213,14 +248,14 @@ la sintassi seguente:
 
 Si possono quindi recuperare i servizi configurati::
 
-    $conn1 = $container->get('doctrine.odm.mongodb.conn1_connection');
-    $conn2 = $container->get('doctrine.odm.mongodb.conn2_connection');
+    $conn1 = $container->get('doctrine_mongodb.odm.conn1_connection');
+    $conn2 = $container->get('doctrine_mongodb.odm.conn2_connection');
 
 E si può anche recuperare il gestore di documenti configurato che usa i servizi
 di connessione visti sopra::
 
-    $dm1 = $container->get('doctrine.odm.mongodb.dm1_document_manager');
-    $dm2 = $container->get('doctrine.odm.mongodb.dm2_document_manager');
+    $dm1 = $container->get('doctrine_mongodb.odm.dm1_document_manager');
+    $dm2 = $container->get('doctrine_mongodb.odm.dm2_document_manager');
 
 Connettersi a un pool di server mongodb con una connessione
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -242,6 +277,18 @@ separati da virgole.
 Dove mongodb-01, mongodb-02 e mongodb-03 sono i nomi di host delle macchine. Se si preferisce,
 si possono usare gli indirizzi IP.
 
+Riprovare connessioni e query
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+MongoDB di Doctrine supporta automaticamente nuovi tentativi di connessioni e query dopo
+un'eccezione, che è utile quando si ha a che fare con situazioni come il
+fallimento di una replica. Questo allevia molto il bisogno di controllare le eccezioni
+nel driver PHP per MongoDB nell'applicazione e di riprovare a mano le operazioni.
+
+Si può specificare il numero di volte in cui riprovare le connessioni e le query, tramite le
+opzioni `retry_connect` e `retry_query` nella configurazione del gestore di documenti.
+I valori predefiniti di queste opzioni sono zero, che vuol dire che nessuna operazione sarà riprovata.
+
 Configurazione predefinita completa
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -258,6 +305,8 @@ Configurazione predefinita completa
                     database:             ~
                     logging:              true
                     auto_mapping:         false
+                    retry_connect:        0
+                    retry_query:          0
                     metadata_cache_driver:
                         type:                 ~
                         class:                ~
@@ -286,7 +335,7 @@ Configurazione predefinita completa
                         replicaSet:           ~
                         username:             ~
                         password:             ~
-            proxy_namespace:      Proxies
+            proxy_namespace:      MongoDBODMProxies
             proxy_dir:            %kernel.cache_dir%/doctrine/odm/mongodb/Proxies
             auto_generate_proxy_classes:  false
             hydrator_namespace:   Hydrators

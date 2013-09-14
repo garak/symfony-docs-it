@@ -61,11 +61,11 @@ al nostro fornitore di autenticazione.
         public $created;
         public $digest;
         public $nonce;
-        
+
         public function __construct(array $roles = array())
         {
             parent::__construct($roles);
-            
+
             // Se l'utente ha dei ruoli, considerarlo autenticato
             $this->setAuthenticated(count($roles) > 0);
         }
@@ -139,12 +139,16 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
                 $authToken = $this->authenticationManager->authenticate($token);
                 $this->securityContext->setToken($authToken);
 
-                $this->securityContext->setToken($authToken);
+                return;
             } catch (AuthenticationException $failed) {
                 // ... si potrebbe loggare qualcosa in questo punto
 
                 // Per negare l'autenticazione, pulire il token. L'utente sarà rinviato alla pagina di login.
-                // $this->securityContext->setToken(null);
+                // Assicurarsi di pulire solo il proprio token, non quello di altri ascoltatori di autenticazione.
+                // $token = $this->securityContext->getToken();
+                // if ($token instanceof WsseUserToken && $this->providerKey === $token->getProviderKey()) {
+                //     $this->securityContext->setToken(null);
+                // }
                 // return;
 
                 // Negare l'autenticazione con una risposta HTTP '403 Forbidden'
@@ -213,7 +217,7 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
         {
             $user = $this->userProvider->loadUserByUsername($token->getUsername());
 
-            if ($user && $this->validateDigest($token->digest, $token->nonce, $token->created, $user->getPassword())) {            
+            if ($user && $this->validateDigest($token->digest, $token->nonce, $token->created, $user->getPassword())) {
                 $authenticatedToken = new WsseUserToken($user->getRoles());
                 $authenticatedToken->setUser($user);
 
@@ -369,14 +373,13 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
-          wsse.security.authentication.provider:
-            class:  Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
+            wsse.security.authentication.provider:
+                class:  Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
                 arguments: ["", "%kernel.cache_dir%/security/nonces"]
 
-          wsse.security.authentication.listener:
-            class:  Acme\DemoBundle\Security\Firewall\WsseListener
+            wsse.security.authentication.listener:
+                class:  Acme\DemoBundle\Security\Firewall\WsseListener
                 arguments: ["@security.context", "@security.authentication.manager"]
-
 
     .. code-block:: xml
 
@@ -385,19 +388,19 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-           <services>
-               <service id="wsse.security.authentication.provider"
-                 class="Acme\DemoBundle\Security\Authentication\Provider\WsseProvider" public="false">
-                   <argument /> <!-- User Provider -->
-                   <argument>%kernel.cache_dir%/security/nonces</argument>
-               </service>
+            <services>
+                <service id="wsse.security.authentication.provider"
+                    class="Acme\DemoBundle\Security\Authentication\Provider\WsseProvider" public="false">
+                    <argument /> <!-- User Provider -->
+                    <argument>%kernel.cache_dir%/security/nonces</argument>
+                </service>
 
-               <service id="wsse.security.authentication.listener"
-                 class="Acme\DemoBundle\Security\Firewall\WsseListener" public="false">
-                   <argument type="service" id="security.context"/>
-                   <argument type="service" id="security.authentication.manager" />
-               </service>
-           </services>
+                <service id="wsse.security.authentication.listener"
+                    class="Acme\DemoBundle\Security\Firewall\WsseListener" public="false">
+                    <argument type="service" id="security.context"/>
+                    <argument type="service" id="security.authentication.manager" />
+                </service>
+            </services>
         </container>
 
     .. code-block:: php
@@ -407,7 +410,7 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->setDefinition('wsse.security.authentication.provider',
-          new Definition(
+            new Definition(
                 'Acme\DemoBundle\Security\Authentication\Provider\WsseProvider', array(
                     '',
                     '%kernel.cache_dir%/security/nonces',
@@ -416,9 +419,9 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
         );
 
         $container->setDefinition('wsse.security.authentication.listener',
-          new Definition(
-            'Acme\DemoBundle\Security\Firewall\WsseListener', array(
-              new Reference('security.context'),
+            new Definition(
+                'Acme\DemoBundle\Security\Firewall\WsseListener', array(
+                    new Reference('security.context'),
                     new Reference('security.authentication.manager'),
                 )
             )
@@ -426,9 +429,6 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
 Ora che i servizi sono stati definiti, diciamo al contesto della sicurezza del
 factory. 
-
-.. versionadded:: 2.1
-    Prima della 2.1, il factory successivo veniva aggiunto tramite ``security.yml``.
 
 .. code-block:: php
 
@@ -460,12 +460,14 @@ Abbiamo finito! Ora si possono definire le parti dell'applicazione sotto protezi
             firewalls:
                 wsse_secured:
                     pattern:   /api/.*
+                    stateless: true
                     wsse:      true
 
     .. code-block:: xml
 
         <config>
             <firewall name="wsse_secured" pattern="/api/.*">
+                <stateless />
                 <wsse />
             </firewall>
         </config>
@@ -476,11 +478,11 @@ Abbiamo finito! Ora si possono definire le parti dell'applicazione sotto protezi
             'firewalls' => array(
                 'wsse_secured' => array(
                     'pattern' => '/api/.*',
+                    'stateless'    => true,
                     'wsse'    => true,
                 ),
             ),
         ));
-
 
 Con questo abbiamo concluso la scrittura di un fornitore di autenticazione
 personalizzato.
@@ -561,6 +563,7 @@ con qualsiasi valore desiderato per ogni firewall.
             firewalls:
                 wsse_secured:
                     pattern:   /api/.*
+                    stateless: true
                     wsse:      { lifetime: 30 }
 
     .. code-block:: xml
@@ -569,6 +572,7 @@ con qualsiasi valore desiderato per ogni firewall.
             <firewall name="wsse_secured"
                 pattern="/api/.*"
             >
+                <stateless />
                 <wsse lifetime="30" />
             </firewall>
         </config>
@@ -579,6 +583,7 @@ con qualsiasi valore desiderato per ogni firewall.
             'firewalls' => array(
                 'wsse_secured' => array(
                     'pattern' => '/api/.*',
+                    'stateless' => true,
                     'wsse'    => array(
                         'lifetime' => 30,
                     ),

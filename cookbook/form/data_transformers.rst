@@ -177,11 +177,6 @@ controllabile dall'opzione del campo ``invalid_message``.
 Trasformatore per modelli e viste
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    Nomi e metodi dei trasformatori sono cambiati in Symfony 2.1.
-    ``prependNormTransformer`` è diventato ``addModelTransformer`` e ``appendClientTransformer``
-    è diventato ``addViewTransformer``.
-
 Nell'esempio precedente, il trasformatore è stato usato come trasformatore di modello.
 Infatti, ci sono due diversi tipi di trasformatori e tre diversi tipi di
 dati sottostanti.
@@ -342,7 +337,7 @@ Ora, ogni volta che serve il tipo ``issue_selector``,
         {
             $builder
                 ->add('task')
-                ->add('dueDate', null, array('widget' => 'single_text'));
+                ->add('dueDate', null, array('widget' => 'single_text'))
                 ->add('issue', 'issue_selector');
         }
 

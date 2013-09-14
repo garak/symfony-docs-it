@@ -1,5 +1,5 @@
-Generare una nuova classe Typer per un form basato su un'entità Doctrine
-========================================================================
+Generare una nuova classe Type per un form basato su un'entità Doctrine
+=======================================================================
 
 Utilizzo
 --------
@@ -9,7 +9,7 @@ i meta-dati di mappatura della classe dell'entità fornita:
 
 .. code-block:: bash
 
-    php app/console generate:doctrine:form AcmeBlogBundle:Post
+    $ php app/console generate:doctrine:form AcmeBlogBundle:Post
 
 Parametri obbligatori
 ---------------------
@@ -20,5 +20,4 @@ Parametri obbligatori
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:form AcmeBlogBundle:Post
-
+        $ php app/console generate:doctrine:form AcmeBlogBundle:Post

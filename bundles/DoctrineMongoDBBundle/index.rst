@@ -707,14 +707,44 @@ e :ref:`taggandolo<book-service-container-tags>` uno specifico tag.
     Sono invece disponibili gli attributi ``connection``, ``priority`` e 
     ``lazy``.
 
+.. note::
+
+    Diversamente dagli ascoltatori di eventi di Symfony2, il gestore di eventi di Doctrine si aspetta che ciascun
+    ascoltatore e sottoscrittore abbia un nome di metodo corrispondente all'evento o agli eventi
+    osservati. Per tale ragione, i tag menzionati in precedenza non hanno un attributo
+    ``method``.
+
+Integrazione con SecurityBundle
+-------------------------------
+
+Si può usare un fornitore di utente in un progetto MongoDB, che funziona esattamente come
+il fornitore di entità descritto :doc:`nel ricettario</cookbook/security/entity_provider>`
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        security:
+            providers:
+                my_mongo_provider:
+                    mongodb: {class: Acme\DemoBundle\Document\User, property: username}
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <provider name="my_mongo_provider">
+                <mongodb class="Acme\DemoBundle\Document\User" property="username" />
+            </provider>
+        </config>
+
 Riepilogo
 ---------
 
 Con Doctrine, ci si può concentrare sui propri oggetti e su come siano utili nella
-propria applicazione e preoccuparsi della persistenza su MongoDB in un secondo momento.
-Questo perché Doctrine consente di usare qualsiasi oggetto PHP per tenere i propri dati e
-si appoggia su meta-dati di mappatura per mappare i dati di un oggetto su una
-particolare collezione di MongoDB.
+propria applicazione e preoccuparsi della persistenza su MongoDB in un secondo momento. Questo perché 
+Doctrine consente di usare qualsiasi oggetto PHP per tenere i propri dati e si appoggia
+su meta-dati di mappatura per mappare i dati di un oggetto su una collezione di MongoDB.
 
 Sebbene Doctrine giri intorno a un semplice concetto, è incredibilmente potente,
 consentendo di creare query complesse e sottoscrivere eventi che consentono
@@ -728,7 +758,7 @@ Imparare di più dal ricettario
 
 .. _`MongoDB`:          http://www.mongodb.org/
 .. _`documentazione`:   http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/
-.. _`documentazion sullo schema`: http://getcomposer.org/doc/04-schema.md#minimum-stability
+.. _`documentazione sullo schema`: http://getcomposer.org/doc/04-schema.md#minimum-stability
 .. _`Quick Start`:      http://www.mongodb.org/display/DOCS/Quickstart
 .. _`Documentazione di base sulla mappatura`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/basic-mapping.html
 .. _`tipo MongoDB`: http://us.php.net/manual/en/mongo.types.php
@@ -736,4 +766,3 @@ Imparare di più dal ricettario
 .. _`Query Builder`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/query-builder-api.html
 .. _`Operatori condizionali`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/query-builder-api.html#conditional-operators
 .. _`Documentazione sugli eventi`: http://www.doctrine-project.org/docs/mongodb_odm/1.0/en/reference/events.html
-

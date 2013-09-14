@@ -202,7 +202,7 @@ regole di validazione::
         class Document
         {
             // ...
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('file', new Assert\File(array(
@@ -222,60 +222,33 @@ Il controllore seguente mostra come gestire l'intero processo::
     // ...
     use Acme\DemoBundle\Entity\Document;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    use Symfony\Component\HttpFoundation\Request;
     // ...
 
     /**
      * @Template()
      */
-    public function uploadAction()
+    public function uploadAction(Request $request)
     {
         $document = new Document();
         $form = $this->createFormBuilder($document)
             ->add('name')
             ->add('file')
-            ->getForm()
-        ;
+            ->getForm();
 
-        if ($this->getRequest()->isMethod('POST')) {
-            $form->bind($this->getRequest());
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
+        $form->handleRequest($request);
 
-                $em->persist($document);
-                $em->flush();
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
 
-                return $this->redirect($this->generateUrl(...));
-            }
+            $em->persist($document);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl(...));
         }
 
         return array('form' => $form->createView());
     }
-
-.. note::
-
-    Realizzando il template non dimenticarsi di impostare l'attributo ``enctype``:
-
-    .. configuration-block::
-
-        .. code-block:: html+jinja
-
-            <h1>Upload File</h1>
-
-            <form action="#" method="post" {{ form_enctype(form) }}>
-                {{ form_widget(form) }}
-
-                <input type="submit" value="Upload Document" />
-            </form>
-
-        .. code-block:: html+php
-
-            <h1>Upload File</h1>
-
-            <form action="#" method="post" <?php echo $view['form']->enctype($form) ?>>
-                <?php echo $view['form']->widget($form) ?>
-
-                <input type="submit" value="Upload Document" />
-            </form>
 
 Il controllore precedente memorizzerà automaticamente l'entità ``Document`` con
 il nome inviato, ma non farà nulla relativamente al file e la proprietà ``path``
@@ -306,10 +279,10 @@ che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
         if (null === $this->getFile()) {
             return;
         }
-        
+
         // si utilizza il nome originale del file ma è consigliabile
         // un processo di sanitizzazione almeno per evitare problemi di sicurezza
-        
+
         // move accetta come parametri la cartella di destinazione
         // e il nome del file di destinazione
         $this->getFile()->move(
@@ -388,7 +361,7 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
             if (null !== $this->getFile()) {
                 // fare qualsiasi cosa si voglia per generare un nome univoco
                 $filename = sha1(uniqid(mt_rand(), true));
-                $this->path = $filename.'.'.$this->file->guessExtension();
+                $this->path = $filename.'.'.$this->getFile()->guessExtension();
             }
         }
 

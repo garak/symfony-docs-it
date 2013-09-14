@@ -45,16 +45,18 @@ proprio formato di configurazione):
                     dsn:      "mysql:dbname=basedati"
                     user:     utente
                     password: password
+                calls:
+                    - [setAttribute, [3, 2]] # \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION
 
             session.handler.pdo:
                 class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
-                arguments: [@pdo, %pdo.db_options%]
+                arguments: ["@pdo", "%pdo.db_options%"]
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <framework:config>
-            <framework:session handler-id="session.handler.pdo" lifetime="3600" auto-start="true"/>
+            <framework:session handler-id="session.handler.pdo" cookie-lifetime="3600" auto-start="true"/>
         </framework:config>
 
         <parameters>
@@ -71,6 +73,10 @@ proprio formato di configurazione):
                 <argument>mysql:dbname=basedati</argument>
                 <argument>utente</argument>
                 <argument>password</argument>
+                <call method="setAttribute">
+                    <argument type="constant">PDO::ATTR_ERRMODE</argument>
+                    <argument type="constant">PDO::ERRMODE_EXCEPTION</argument>
+                </call>
             </service>
 
             <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
@@ -86,9 +92,9 @@ proprio formato di configurazione):
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->loadFromExtension('framework', array(
-            // ...
+            ...,
             'session' => array(
-                ...,
+                // ...,
                 'handler_id' => 'session.handler.pdo',
             ),
         ));
@@ -105,6 +111,7 @@ proprio formato di configurazione):
             'utente',
             'password',
         ));
+        $pdoDefinition->addMethodCall('setAttribute', array(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION));
         $container->setDefinition('pdo', $pdoDefinition);
 
         $storageDefinition = new Definition('Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler', array(
@@ -137,8 +144,8 @@ connessione di parameter.ini, richiamandone la configurazione della base dati:
             class: PDO
             arguments:
                 - "mysql:host=%database_host%;port=%database_port%;dbname=%database_name%"
-                - %database_user%
-                - %database_password%
+                - "%database_user%"
+                - "%database_password%"
 
     .. code-block:: xml
 

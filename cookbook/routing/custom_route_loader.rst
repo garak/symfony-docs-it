@@ -39,6 +39,7 @@ Osserviamo queste linee del file ``routing.yml``:
 
 .. code-block:: yaml
 
+    # src/Acme/DemoBundle/Resources/config/routing.yml
     _demo:
         resource: "@AcmeDemoBundle/Controller/DemoController.php"
         type:     annotation
@@ -66,7 +67,7 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
     namespace Acme\DemoBundle\Routing;
 
     use Symfony\Component\Config\Loader\LoaderInterface;
-    use Symfony\Component\Config\Loader\LoaderResolver;
+    use Symfony\Component\Config\Loader\LoaderResolverInterface;
     use Symfony\Component\Routing\Route;
     use Symfony\Component\Routing\RouteCollection;
 
@@ -122,7 +123,7 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
 
 Adesso definire un servizio per l'``ExtraLoader``:
 
-    .. configuration-block::
+.. configuration-block::
 
     .. code-block:: yaml
 
@@ -168,7 +169,7 @@ Usare un Custom Loader
 Se non è stato fatto niente di diverso, il routing loader *non* sarà interpellato.
 Occorre solo aggiungere qualche riga extra alla configurazione del router.
 
-    .. configuration-block::
+.. configuration-block::
 
     .. code-block:: yaml
 

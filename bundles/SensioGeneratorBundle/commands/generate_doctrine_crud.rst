@@ -20,14 +20,14 @@ di scrittura:
 
 .. code-block:: bash
 
-    php app/console generate:doctrine:crud
+    $ php app/console generate:doctrine:crud
 
 Per disattivare la modalità interattiva, usare l'opzione `--no-interaction`, senza
 dimenticare di passare tutte le opzioni necessarie:
 
 .. code-block:: bash
 
-    php app/console generate:doctrine:crud --entity=AcmeBlogBundle:Post --format=annotation --with-write --no-interaction
+    $ php app/console generate:doctrine:crud --entity=AcmeBlogBundle:Post --format=annotation --with-write --no-interaction
 
 Opzioni disponibili
 -------------------
@@ -38,21 +38,21 @@ Opzioni disponibili
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:crud --entity=AcmeBlogBundle:Post
+        $ php app/console generate:doctrine:crud --entity=AcmeBlogBundle:Post
 
 * ``--route-prefix``: Il prefisso da usare per ogni rotta che identifica
   un'azione:
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:crud --route-prefix=acme_post
+        $ php app/console generate:doctrine:crud --route-prefix=acme_post
 
 * ``--with-write``: (**no**) [valori: yes|no] Se generare o meno le azioni
   `new`, `create`, `edit`, `update` e `delete`:
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:crud --with-write
+        $ php app/console generate:doctrine:crud --with-write
 
 * ``--format``: (**annotation**) [valori: yml, xml, php o annotation]
   Determina il formato da usare per i file di configurazione, come quelli delle
@@ -62,5 +62,4 @@ Opzioni disponibili
 
     .. code-block:: bash
 
-        php app/console generate:doctrine:crud --format=annotation
-
+        $ php app/console generate:doctrine:crud --format=annotation

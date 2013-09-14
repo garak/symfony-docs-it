@@ -20,7 +20,7 @@ Quindi, in questa guida inizieremo con il modello per un documento ``User``::
 
     /**
      * @MongoDB\Document(collection="users")
-     * @MongoDBUnique(path="email")
+     * @MongoDBUnique(fields="email")
      */
     class User
     {
@@ -90,6 +90,7 @@ Quindi, creare il form per il modello ``User``::
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
     use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class UserType extends AbstractType
     {
@@ -103,9 +104,11 @@ Quindi, creare il form per il modello ``User``::
             ));
         }
 
-        public function getDefaultOptions(array $options)
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
-            return array('data_class' => 'Acme\AccountBundle\Document\User');
+            $resolver->setDefaults(array(
+                'data_class' => 'Acme\AccountBundle\Document\User',
+            ));
         }
 
         public function getName()
@@ -245,7 +248,7 @@ la validazione e salverà i dati in MongoDB::
 
     public function createAction()
     {
-        $dm = $this->get('doctrine.odm.mongodb.default_document_manager');
+        $dm = $this->get('doctrine_mongodb')->getManager();
 
         $form = $this->createForm(new RegistrationType(), new Registration());
 

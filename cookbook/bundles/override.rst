@@ -129,7 +129,7 @@ Traduzioni
 
 Le traduzioni sono riguardano i bundle, ma i domini. Questo vuol dire che
 si possono sovrascrivere traduzioni per qualsiasi file di traduzione, purché si trovi
-nel :ref:`dominio corretto <using-translation-domains>`.
+nel :ref:`dominio corretto <using-message-domains>`.
 
 .. caution::
 

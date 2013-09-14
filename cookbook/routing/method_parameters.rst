@@ -76,36 +76,17 @@ Finti metodi con _method
 
 .. note::
 
-    La funzionalità ``_method`` mostrata qui è disabilitata in Symfony 2.2. Per abilitarla, 
+    La funzionalità ``_method`` mostrata qui è disabilitata in Symfony 2.2
+    e abilitata in Symfony 2.3. Per abilitarla in Symfony 2.2, occorre
     richiamare il metodo :method:`Request::enableHttpMethodParameterOverride <Symfony\\Component\\HttpFoundation\\Request::enableHttpMethodParameterOverride>` 
-    prima di gestire la richiesta (p.e. nel front controller).
+    prima di gestire la richiesta (p.e. nel front controller). In Symfony
+    2.3, usare l'opzione :ref:`configuration-framework-http_method_override`.
 
 Sfortunatamente, la vita non è così facile, poiché molti browser non supportano
 l'invio di richieste PUT e DELETE. Per fortuna, Symfony2 fornisce un semplice modo
 per aggirare tale limitazione. Includendo un parametro ``_method``
 nella query string o nei parametri di una richiesta HTTP, Symfony2 lo userà
-come metodo nella corrispondenza delle rotte. Lo si può fare facilmente nei form,
-usando un campo nascosto. Si supponga di avere un form per modificare il post di un blog:
-
-.. code-block:: html+jinja
-
-    <form action="{{ path('blog_update', {'slug': blog.slug}) }}" method="post">
-        <input type="hidden" name="_method" value="PUT" />
-        {{ form_widget(form) }}
-        <input type="submit" value="Update" />
-    </form>
-
-La richiesta inviata ora corrisponderà alla rotta ``blog_update`` e quindi l'azione
-``updateAction`` processerà il form.
-
-In modo simile, il form di cancellazione può essere modificato come segue:
-
-.. code-block:: html+jinja
-
-    <form action="{{ path('blog_delete', {'slug': blog.slug}) }}" method="post">
-        <input type="hidden" name="_method" value="DELETE" />
-        {{ form_widget(delete_form) }}
-        <input type="submit" value="Delete" />
-    </form>
-
-Corrisponderà quindi alla rotta ``blog_delete``.
+come metodo nella corrispondenza delle rotte. I form includono automaticamente un
+campo nascosto per tale parametro, se il metodo di invio non è GET o POST.
+Vedere :ref:`il capitolo relativo nella documentazione dei form<book-forms-changing-action-and-method>`
+per maggiori informazioni.

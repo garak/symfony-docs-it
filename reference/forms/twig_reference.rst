@@ -24,6 +24,66 @@ per rendere i form. Ci sono diverse funzioni disponibili e ognuna è responsabil
 della resa di diverse parti di un form (p.e. label, errori, widget,
 eccetera).
 
+.. _reference-forms-twig-form:
+
+form(view, variables)
+---------------------
+
+Rende l'HTML di un form completo.
+
+.. code-block:: jinja
+
+    {# rende il form e cambia il metodo di invio #}
+    {{ form(form, {'method': 'GET'}) }}
+
+Si userà questo aiutante per lo più per prototipare o se si usano temi personalizzati
+di form. Se occorre più flessibilità nella resa del form, bisogna usare
+gli altri aiutanti, per rendere invece le singole parti del form:
+
+.. code-block:: jinja
+
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.dueDate) }}
+
+        <input type="submit" value="Submit me"/>
+    {{ form_end(form) }}
+
+.. _reference-forms-twig-start:
+
+form_start(view, variables)
+---------------------------
+
+Rende il tag iniziale di un form. Questo aiutante si occupa di scrivere il
+metodo e il target del form. Includerà anche la
+proprietà ``enctype``, nel caso in cui il form contenga caricamenti di file.
+
+.. code-block:: jinja
+
+    {# rende il tag iniziale il metodo di invio #}
+    {{ form_start(form, {'method': 'GET'}) }}
+
+.. _reference-forms-twig-end:
+
+form_end(view, variables)
+-------------------------
+
+Rende il tag finale di un form.
+
+.. code-block:: jinja
+
+    {{ form_end(form) }}
+
+Questo aiutante include ``form_rest()``, a meno di non aver impostato ``render_rest`` a
+``false``:
+
+.. code-block:: jinja
+
+    {# non rendere i campi non ancora resi #}
+    {{ form_end(form, {'render_rest': false}) }}
+
 .. _reference-forms-twig-label:
 
 form_label(view, label, variables)
@@ -118,6 +178,11 @@ dimenticati.
 
 form_enctype(view)
 ------------------
+
+.. note::
+
+    Questo aiutante è stato deprecato in Symfony 2.3 e sarà rimosso in Symfony 3.0.
+    Usare ``form_start()`` al suo posto.
 
 Se il form contiene almeno un campo di caricamento file, renderà l'attributo
 obbligatorio ``enctype="multipart/form-data"``. È sempre una buona idea includerlo
@@ -220,7 +285,7 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 
         <label for="{{ form.name.vars.id }}"
             class="{{ form.name.vars.required ? 'required' : '' }}">
-            {{ form.name.label }}
+            {{ form.name.vars.label }}
         </label>
 
     .. code-block:: html+php
@@ -229,10 +294,6 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
             class="<?php echo $view['form']->get('name')->vars['required'] ? 'required' : '' ?>">
             <?php echo $view['form']->get('name')->vars['label'] ?>
         </label>
-
-.. versionadded:: 2.1
-    Le variabili ``valid``, ``label_attr``, ``compound`` e ``disabled`` sono
-    nuove in Symfony 2.1.
 
 +-----------------+-----------------------------------------------------------------------------------------+
 | Variabile       | Uso                                                                                     |
@@ -277,4 +338,4 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 |                 | (per esempio, un campo ``choice``, che effettivamente è un grupo di checkbox            |
 +-----------------+-----------------------------------------------------------------------------------------+
 
-.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

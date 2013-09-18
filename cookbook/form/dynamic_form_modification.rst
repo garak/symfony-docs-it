@@ -467,7 +467,7 @@ In un form, possiamo solitamente ascoltare questi eventi:
     dall'esempio seguente.
 
 La chiave sta nell'aggiungere un ascoltatore ``POST_SUBMIT`` al campo da cui dipende il nuovo
-campo. Se si aggiunge un ascoltatore ``POST_SUBMIT`` a un form figlio (p.e. ``sport`),
+campo. Se si aggiunge un ascoltatore ``POST_SUBMIT`` a un form figlio (p.e. ``sport``),
 e si aggiungono nuovi figli al form genitore, il componente Form individuerà il
 nuovo campo automaticamente e lo mapperà ai dati inviati dal client.
 

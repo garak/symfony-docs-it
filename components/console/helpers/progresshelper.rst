@@ -1,11 +1,11 @@
 .. index::
-    single: Helper di Console; Helper Progress
+    single: Aiutanti di Console; Aiutante Progress
     
 Helper Progress
 ===============
 
 .. versionadded:: 2.2
-    L'helper ``progress`` è stato aggiunto in Symfony 2.2.
+    L'aiutante ``progress`` è stato aggiunto in Symfony 2.2.
 
 Quando si eseguono comandi che devono girare a lungo, può essere utile mostrare una barra di progresso,
 che si aggiorna durante l'esecuzione:

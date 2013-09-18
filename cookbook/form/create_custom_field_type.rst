@@ -321,8 +321,8 @@ di ``GenderType`` un parametro, che riceverà la configurazione di gender::
     }
 
 Benissimo! Il tipo ``GenderType`` è ora caricato con i parametri di configurazione ed è
-registrato come servizio. In quanto nella configurazione del servizio si utilizza nel ``form.type`` l'alias,
-utilizzare il campo risulta molto semplice::
+registrato come servizio. Poiché nella configurazione del servizio si usa un alias per ``form.type``,
+utilizzare il campo risulta ora molto semplice::
 
     // src/Acme/DemoBundle/Form/Type/AuthorType.php
     namespace Acme\DemoBundle\Form\Type;
@@ -341,8 +341,8 @@ utilizzare il campo risulta molto semplice::
         }
     }
 
-Notare che al posto di creare l'istanza di una nuova istanza, ora è possibile riferirsi al tipo di campo
-tramite l'alias utilizzato nella configurazione del servizio, ``gender``.
+Notare che, invece di creare una nuova istanza, ora è possibile riferirsi al tipo di campo
+tramite l'alias usato nella configurazione del servizio, ``gender``.
 
 .. _`ChoiceType`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Extension/Core/Type/ChoiceType.php
 .. _`FieldType`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Form/Extension/Core/Type/FieldType.php

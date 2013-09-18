@@ -801,10 +801,9 @@ si registra che quando aggiorna successivamente le sue informazioni:
 
 Con questa configurazione, ci sono tre gruppi di validazione:
 
-* ``Default`` - contiene i vincoli non assegnati ad altri gruppi;
-
-* ``User`` - contiene i vincoli  che appartengono al gruppo ``Default``
-  (questo gruppo è utile per :ref:`book-validation-group-sequence`);
+* ``User`` - contiene i vincoli che non appartengono ad altri gruppi
+  ed è considerato come gruppo ``Default``. (Questo gruppo è utile per
+  una :ref:`book-validation-group-sequence`);
 
 * ``registration`` - contiene solo i vincoli sui campi ``email`` e
   ``password``.
@@ -871,7 +870,7 @@ nome utente e password siano diversi, solo se le altre validazioni passano
         use Symfony\Component\Validator\Constraints as Assert;
 
         /**
-         * @Assert\GroupSequence({"Strict", "User"})
+         * @Assert\GroupSequence({"User", "Strict"})
          */
         class User implements UserInterface
         {

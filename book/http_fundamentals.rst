@@ -531,7 +531,7 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
   l'uso di classi PHP senza bisogno di usare manualmente ``require`` sui file
   che contengono tali classi;
 
-* :doc:`Templating</components/templating>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
+* :doc:`Templating</components/templating/introduction>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
   template (p.e. un template è decorato con un layout) ed eseguire altri compiti
   comuni sui template;
 

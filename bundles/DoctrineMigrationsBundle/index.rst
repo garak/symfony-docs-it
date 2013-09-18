@@ -318,7 +318,7 @@ partenedo dalle entità di Doctrine, delle tabelle personalizzate. Per impostazi
 tali tabelle sarebbero rimosse dal comando ``doctrine:migrations:diff``.
 
 Seguendo uno schema specifico, si può configurare Doctrine per ignorare tali
-tabelle. Supponiamo che tutte le tabelle personalizzate abbiano un nome che iniza per "t_". In questo caso,
+tabelle. Supponiamo che tutte le tabelle personalizzate abbiano un nome che iniza per 't\_'. In questo caso,
 basta aggiungere la seguente configurazione:
 
 .. configuration-block::

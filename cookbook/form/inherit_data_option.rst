@@ -80,3 +80,76 @@ Costruiamo ora i form per queste entità, ``CompanyType`` e ``CustomerType``::
         }
     }
 
+Invece di incluldere i campi duplicati ``address``, ``zipcode``, ``city``
+e ``country`` in enbtrambi i form, creeremo un terzo form apposta.
+Chiameremo questo form ``LocationType``::
+
+    // src/Acme/HelloBundle/Form/Type/LocationType.php
+    namespace Acme\HelloBundle\Form\Type;
+
+    use Symfony\Component\Form\AbstractType;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    class LocationType extends AbstractType
+    {
+        public function buildForm(FormBuilderInterface $builder, array $options)
+        {
+            $builder
+                ->add('address', 'textarea')
+                ->add('zipcode', 'text')
+                ->add('city', 'text')
+                ->add('country', 'text');
+        }
+
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
+        {
+            $resolver->setDefaults(array(
+                'inherit_data' => true
+            ));
+        }
+
+        public function getName()
+        {
+            return 'location';
+        }
+    }
+
+Questo form ha un'opzione interessante, chiamata ``inherit_data``. Tale
+opzione fa sì che il form erediti i suoi dati dal form genitore. Se incluso
+nel form company, i campi del form location portranno accedere alle proprietà
+dell'istanza  ``Company``. Se incluso nel form customer, i campi invece potranno
+accedere alle proprietà dell'istanza ``Customer``.
+
+.. note::
+
+    Invece di impostare l'opzione ``inherit_data`` in ``LocationType``, si può
+    anche (come per le altre opzioni) passarla come terzo parametro di
+    ``$builder->add()``.
+
+Ora aggiungiamo il form location ai due form originari::
+
+    // src/Acme/HelloBundle/Form/Type/CompanyType.php
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        // ...
+
+        $builder->add('foo', new LocationType(), array(
+            'data_class' => 'Acme\HelloBundle\Entity\Company'
+        ));
+    }
+
+.. code-block:: php
+
+    // src/Acme/HelloBundle/Form/Type/CustomerType.php
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        // ...
+
+        $builder->add('bar', new LocationType(), array(
+            'data_class' => 'Acme\HelloBundle\Entity\Customer'
+        ));
+    }
+
+Ecco fatto! La duplicazione delle definizioni dei campi è stata estratta in un form
+a parte, riutilizzabili ovunque sia necessario.

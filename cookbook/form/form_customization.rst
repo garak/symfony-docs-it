@@ -934,7 +934,7 @@ personalizzazioni. Si veda l'esempio seguente:
     .. code-block:: jinja
 
         {# rende un widget, ma con classe "pippo" #}
-        {{ form_widget(form.name, { 'attr': {'class': 'pippo'} }) }}
+        {{ form_widget(form.name, {'attr': {'class': 'pippo'}}) }}
 
     .. code-block:: php
 

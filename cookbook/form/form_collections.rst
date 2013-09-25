@@ -17,10 +17,10 @@ questo Task, all'interno dello stesso form.
     di questa guida che si occupano effettivamente di "persistenza".
 
     Se si utilizza Doctrine, si avrà la necessità di aggiungere meta-dati Doctrine,
-    includendo una la definizione della mappature della relazione ``ManyToMany`` sulla
+    includendo una definizione della mappature della relazione ``ManyToMany`` sulla
     proprietà ``tags`` di Task.
 
-Iniziamo: supponiamo che ogni ``Task`` appartiene a più oggetti ``Tags``.
+Iniziamo: supponiamo che ogni ``Task`` appartenga a più oggetti ``Tag``.
 Si crei una semplice classe ``Task``::
 
     // src/Acme/TaskBundle/Entity/Task.php
@@ -57,7 +57,7 @@ Si crei una semplice classe ``Task``::
 
 .. note::
 
-    ``ArrayCollection`` è specifica per Doctrine ed è fondamentalmente la
+    ``ArrayCollection`` è specifico per Doctrine ed è fondamentalmente la
     stessa cosa di utilizzare un ``array`` (ma deve essere un ``ArrayCollection`` se
     si utilizza Doctrine).
 

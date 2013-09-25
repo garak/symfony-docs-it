@@ -11,6 +11,16 @@ Glossario
         una selezione di bundle, una struttura di cartelle sensibile, una
         configurazione predefinita e un sistema di configurazione opzionale.
 
+   Dependency Injection
+        *Dependency Injection* è un design pattern molto usato nel framework Symfony2.
+        Incoraggia un'architettura per le applicazioni poco accopiata e più manutenbile.
+        Il principio di base di questo pattern sta nel consentire allo sviluppatore di *iniettare* oggetti
+        (noti anche come "servizi") in altri oggetti, solitamente passandoli come parametri.
+        Si possono stabilire vari livelli di accopiamento tra trali oggetti,
+        a seconda del metodo usato per iniettare gli oggetti stessi.
+        Il pattern Dependency Injection è spesso associato a un altro
+        specifico tipo di oggetto: il :doc:`/book/service_container`.
+
    Progetto
         Un *progetto* è una cartella composta da un'applicazione, un insieme
         di bundle, librerie di terze parti, un autoloader e alcuni script per

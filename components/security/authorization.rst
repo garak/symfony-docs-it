@@ -98,9 +98,9 @@ AuthenticatedVoter
 ~~~~~~~~~~~~~~~~~~
 
 Il votante :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\AuthenticatedVoter`
-supporta gli attriubti ``IS_AUTHENTICATED_FULLY``, ``IS_AUTHENTICATED_REMEMBERED``
+supporta gli attributi ``IS_AUTHENTICATED_FULLY``, ``IS_AUTHENTICATED_REMEMBERED``
 e ``IS_AUTHENTICATED_ANONYMOUSLY`` e garantisce accesso in base all'attuale livello
-di autenticazione, cioè se l'utente è pienamente autenticato o solo in base a
+di autenticazione, cioè se l'utente è autenticato pienamente o solo in base a
 un cookie "ricordami", o ancora se è autenticato anonimamente.
 
 .. code-block:: php
@@ -186,7 +186,7 @@ il primo parametro del suo costruttore::
 
     La maggior parte dei token di autenticazione estendono :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AbstractToken`,
     che vuol dire che i ruoli forniti al suo costruttore saranno
-    automaticamente convertiti da stringe a semplici oggetti ``Role``.
+    automaticamente convertiti da stringhe a semplici oggetti ``Role``.
 
 Usare il gestore di decisioni
 -----------------------------

@@ -57,5 +57,5 @@ con una richiesta. L'esempio seguente mostra tale tecnica::
 
 .. note::
 
-    La tecnica descritta in :doc:`/cookbook/testing/http_authentication`.
+    La tecnica descritta in :doc:`/cookbook/testing/http_authentication`
     è più pulita e quindi preferibile.

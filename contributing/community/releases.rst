@@ -1,8 +1,8 @@
 Il processo di rilascio
 =======================
 
-Questo documento spiega il processo di rilascio di Symfony (dove Symfony è il codice
-ospitato sul `repository Git`_ symfony/symfony.
+Questo documento spiega il processo di rilascio di Symfony (cioè del codice
+ospitato sul `repository Git`_ symfony/symfony).
 
 Symfony gestisce i suoi rilasci con un *modello temporale*; un nuovo rilascio di Symfony
 esce ogni *sei mesi*: uno in *maggio* e uno in *novembre*.
@@ -10,7 +10,7 @@ esce ogni *sei mesi*: uno in *maggio* e uno in *novembre*.
 .. note::
 
     Tale processo di rilascio è stato adottato a partire da Symfony 2.2 e ogni
-    "regola" spiegata in questo documento deve essere rigorosamente eseguita a partire da Symfony
+    "regola" spiegata in questo documento deve essere rigorosamente seguita a partire da Symfony
     2.4.
 
 .. _contributing-release-development:
@@ -37,9 +37,9 @@ Manutenzione
 ------------
 
 Ogni versione di Symfony è mantenuta per un periodo fissato di tempo, a seconda del tipo
-di rilascio. CI sono due periodi di manutenzione:
+di rilascio. Ci sono due periodi di manutenzione:
 
-* *Fix di bug e fix di sicurezza*: durante questo periodo, possono essere risolti tutti i problemi.
+* *Fix di bug e fix di sicurezza*: durante questo periodo, possono essere risolti tutti i tipi di problemi.
   La fine di questo periodo è indicata come *fine manutenzione* di un
   rilascio.
 

@@ -163,16 +163,22 @@ Si possono anche impostare colori e opzioni dentro il tag::
 Livelli di verbosità
 ~~~~~~~~~~~~~~~~~~~~
 
+.. versionadded:: 2.3
+   Le costanti ``VERBOSITY_VERY_VERBOSE`` e ``VERBOSITY_DEBUG`` sono state introdotte
+   nella versione 2.3
+
 La console dispone di tre livelli di verbosità. Tali livelli sono definiti in
 :class:`Symfony\\Component\\Console\\Output\\OutputInterface`:
 
-==================================  ===============================
-Opzione                             Valore
-==================================  ===============================
-OutputInterface::VERBOSITY_QUIET    Nessun messaggio in output
-OutputInterface::VERBOSITY_NORMAL   Livello predefinito di verbosità
-OutputInterface::VERBOSITY_VERBOSE  Verbosità maggiore
-==================================  ===============================
+=======================================  ===================================
+Opzione                                     Valore
+=======================================  ===================================
+OutputInterface::VERBOSITY_QUIET         Nessun messaggio in output
+OutputInterface::VERBOSITY_NORMAL        Livello predefinito di verbosità
+OutputInterface::VERBOSITY_VERBOSE       Verbosità maggiore
+OutputInterface::VERBOSITY_VERY_VERBOSE  Messaggi informativi non essenziali
+OutputInterface::VERBOSITY_DEBUG         Messaggi di debug
+=======================================  ===================================
 
 Si può specificare il livello quieto di verbosità con l'opzione ``--quiet`` o ``-q``.
 L'opzione ``--verbose`` o ``-v`` si usa quando si vuole un livello di verbosità
@@ -186,7 +192,7 @@ maggiore.
 È anche possibile mostrare un messaggio in un comando solo per uno specifico livello
 di verbosità. Per esempio::
 
-    if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
+    if (OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity()) {
         $output->writeln(...);
     }
 
@@ -256,7 +262,7 @@ Si può accedere al parametro ``nmoi`` come un array::
 Ci sono tre varianti di parametro utilizzabili:
 
 ===========================  ====================================================================================================================
-Opzione                      Valore
+Modalità                     Valore
 ===========================  ====================================================================================================================
 InputArgument::REQUIRED      Il parametro è obbligatorio
 InputArgument::OPTIONAL      Il parametro è facoltativo, può essere omesso
@@ -337,7 +343,7 @@ Opzione                      Valore
 ===========================  =============================================================================================
 InputOption::VALUE_IS_ARRAY  Questa opzione accetta valori multipli (p.e. ``--dir=/pippo --dir=/pluto``)
 InputOption::VALUE_NONE      Non accettare alcun valore per questa opzione (come in ``--urla``)
-InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5``), ò'opzione stessa è comunque facoltativa
+InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5``), l'opzione stessa è comunque facoltativa
 InputOption::VALUE_OPTIONAL  L'opzione può avere un valore o meno (p.e. ``urla`` o ``urla=forte``)
 ===========================  =============================================================================================
 
@@ -486,4 +492,4 @@ Sapene di più
 * :doc:`/components/console/single_command_tool`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
-.. _ANSICON: http://adoxa.3eeweb.com/ansicon/
+.. _ANSICON: https://github.com/adoxa/ansicon/downloads

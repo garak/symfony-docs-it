@@ -527,7 +527,7 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 * `Validator`_ Un sistema per creare regole sui dati e quindi validarli, sia che i dati
   inviati dall'utente seguano o meno tali regole;
 
-* :doc:`ClassLoader</components/class_loader>` Una libreria di autoloading che consente
+* :doc:`ClassLoader</components/class_loader/introduction>` Una libreria di autoloading che consente
   l'uso di classi PHP senza bisogno di usare manualmente ``require`` sui file
   che contengono tali classi;
 

@@ -173,7 +173,7 @@ dell'applicazione:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
                                 http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-            <framework:config ...>
+            <framework:config>
                 <!-- ... -->
                 <framework:router resource="%kernel.root_dir%/config/routing.xml" />
             </framework:config>
@@ -422,13 +422,15 @@ più obbligatorio. L'URL ``/blog`` corrisponderà a questa rotta e il valore del
 parametro ``page`` verrà impostato a ``1``. Anche l'URL ``/blog/2`` avrà
 corrispondenza, dando al parametro ``page`` il valore ``2``. Perfetto.
 
-+---------+------------+
-| /blog   | {page} = 1 |
-+---------+------------+
-| /blog/1 | {page} = 1 |
-+---------+------------+
-| /blog/2 | {page} = 2 |
-+---------+------------+
++--------------------+-------+-----------------------+
+| URL                | rotta | parametri             |
++====================+=======+=======================+
+| /blog              | blog  | {page} = 1            |
++--------------------+-------+-----------------------+
+| /blog/1            | blog  | {page} = 1            |
++--------------------+-------+-----------------------+
+| /blog/2            | blog  | {page} = 2            |
++--------------------+-------+-----------------------+
 
 .. tip::
 
@@ -481,7 +483,7 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog/{page}', array(
             '_controller' => 'AcmeBlogBundle:Blog:index',
-            'page' => 1,
+            'page'        => 1,
         )));
 
         $collection->add('blog_show', new Route('/blog/{show}', array(
@@ -543,7 +545,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog/{page}', array(
             '_controller' => 'AcmeBlogBundle:Blog:index',
-            'page' => 1,
+            'page'        => 1,
         ), array(
             'page' => '\d+',
         )));
@@ -613,7 +615,7 @@ all'URL:
         $collection = new RouteCollection();
         $collection->add('homepage', new Route('/{culture}', array(
             '_controller' => 'AcmeDemoBundle:Main:homepage',
-            'culture' => 'en',
+            'culture'     => 'en',
         ), array(
             'culture' => 'en|fr',
         )));
@@ -769,12 +771,12 @@ può essere il sistema delle rotte:
         $collection->add(
             'homepage',
             new Route('/articles/{culture}/{year}/{title}.{_format}', array(
-            '_controller' => 'AcmeDemoBundle:Article:show',
-            '_format' => 'html',
-        ), array(
-            'culture' => 'en|fr',
-            '_format' => 'html|rss',
-            'year' => '\d+',
+                '_controller' => 'AcmeDemoBundle:Article:show',
+                '_format'     => 'html',
+            ), array(
+                'culture' => 'en|fr',
+                '_format' => 'html|rss',
+                'year'    => '\d+',
             ))
         );
 
@@ -1136,7 +1138,7 @@ bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
 
     $params = $this->get('router')->match('/blog/my-blog-post');
     // array(
-    //     'slug' => 'my-blog-post',
+    //     'slug'        => 'my-blog-post',
     //     '_controller' => 'AcmeBlogBundle:Blog:show',
     // )
 
@@ -1207,7 +1209,7 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     script che devono essere eseguiti da riga di comando, sarà necessario impostare manualmente l'host
     desiderato sull'oggetto ``RequestContext``::
 
-        $router->getContext()->setHost('www.example.com');
+        $this->get('router')->getContext()->setHost('www.example.com');
 
 .. index::
    single: Rotte; Generare URL in un template
@@ -1218,7 +1220,7 @@ Generare URL con query string
 Il metodo ``generate`` accetta un array di valori jolly per generare l'URI.
 Ma se si passano quelli extra, saranno aggiunti all'URI come query string::
 
-    $router->generate('blog', array('page' => 2, 'category' => 'Symfony'));
+    $this->get('router')->generate('blog', array('page' => 2, 'category' => 'Symfony'));
     // /blog/2?category=Symfony
 
 Generare URL da un template

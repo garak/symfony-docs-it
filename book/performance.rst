@@ -88,6 +88,8 @@ commentato::
 
     // ...
 
+Per maggiori dettagli, vedere :doc:`/components/class_loader/cache_class_loader`.
+
 .. note::
 
     Quando si usa l'autoloader APC, se si aggiungono nuove classi, saranno trovate
@@ -138,6 +140,6 @@ questa caratteristica è disabilitata nella cache bytecode (p.e. con ``apc.stat=
 non c'è più ragione di usare un file di avvio.
 
 .. _`cache bytecode`: http://en.wikipedia.org/wiki/List_of_PHP_accelerators
-.. _`APC`: http://php.net/manual/en/book.apc.php
+.. _`APC`: http://php.net/manual/it/book.apc.php
 .. _`autoloader.php`: https://github.com/symfony/symfony-standard/blob/master/app/autoload.php
 .. _`file di avvio`: https://github.com/sensio/SensioDistributionBundle/blob/master/Composer/ScriptHandler.php

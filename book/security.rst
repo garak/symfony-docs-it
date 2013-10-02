@@ -1408,6 +1408,13 @@ può essere determinato nel seguente modo da un controllore::
     $password = $encoder->encodePassword('ryanpass', $user->getSalt());
     $user->setPassword($password);
 
+.. caution::
+
+    Quando si consente all'utente di inviare una password in chiaro (p.e. form di registrazione,
+    form di cambio password), *occorre* avere una validazione, che garantisca
+    che la password non superi i 4096 caratteri. Per maggiori dettagli, vedere
+    :ref:`implementare un semplice form di registrazione <cookbook-registration-password-max>`.
+
 Recuperare l'oggetto User
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 

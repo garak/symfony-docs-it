@@ -9,7 +9,7 @@ L'annotazione ``@Cache`` rende facile la definizione della cache HTTP::
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
     /**
-     * @Cache(expires="tomorrow")
+     * @Cache(expires="tomorrow", public="true")
      */
     public function indexAction()
     {
@@ -18,7 +18,7 @@ L'annotazione ``@Cache`` rende facile la definizione della cache HTTP::
 Si può anche usare l'annotazione su una classe, per definire la cache per tutti i metodi::
 
     /**
-     * @Cache(expires="tomorrow")
+     * @Cache(expires="tomorrow", public="true")
      */
     class BlogController extends Controller
     {
@@ -51,10 +51,11 @@ Annotazione                    Metodo Response
 ``@Cache(expires="tomorrow")`` ``$response->setExpires()``
 ``@Cache(smaxage="15")``       ``$response->setSharedMaxAge()``
 ``@Cache(maxage="15")``        ``$response->setMaxAge()``
+``@Cache(vary=["Cookie"])``    ``$response->setVary()``
+``@Cache(public="true")``      ``$response->setPublic()``
 ============================== ===============
 
 .. note::
 
    L'attributo ``expires`` accetta qualsiasi data valida interpretabile dalla funzione
    ``strtotime()`` di PHP.
-

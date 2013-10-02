@@ -68,7 +68,7 @@ nei propri progetti.
 .. note::
 
     Se si vuole approfondire l'argomento flessibilità dell'autoloader di Symfony2, leggere `Composer-Autoloader`_.
-    Symfony dispone anche di un componente specifico, si veda ":doc:`/components/class_loader`".
+    Symfony dispone anche di un componente specifico, si veda ":doc:`/components/class_loader/class_loader`".
 
 Capire il sistema dei bundle
 ----------------------------
@@ -105,7 +105,6 @@ della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singol
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -164,9 +163,9 @@ XML o PHP. Si veda la configurazione predefinita:
         # java: /usr/bin/java
         filters:
             cssrewrite: ~
-            # closure:
+            #closure:
             #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-            # yui_css:
+            #yui_css:
             #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
     # Configurazione di Doctrine

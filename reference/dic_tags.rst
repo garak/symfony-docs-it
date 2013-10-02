@@ -94,11 +94,11 @@ assetic.factory_worker
 
 **Scopo**: Aggiungere un factory worker
 
-A Factory worker is a class implementing ``Assetic\Factory\Worker\WorkerInterface``.
-Its ``process($asset)`` method is called for each asset after asset creation.
-You can modify an asset or even return a new one.
+Un Factory worker è una classe che implementa ``Assetic\Factory\Worker\WorkerInterface``.
+Il suo metodo ``process($asset)`` viene richiamato per ogni risorsa, dopo la creazione.
+Si può modificare una risorsa o anche restituirne una nuova.
 
-In order to add a new worker, first create a class::
+Per poter aggiungere un nuovo worker, creare una classe::
 
     use Assetic\Asset\AssetInterface;
     use Assetic\Factory\Worker\WorkerInterface;
@@ -107,12 +107,12 @@ In order to add a new worker, first create a class::
     {
         public function process(AssetInterface $asset)
         {
-            // ... change $asset or return a new one
+            // ... modificare $asset o restituirne uno nuovo
         }
 
     }
 
-And then add register it as a tagged service:
+Quindi registrarla come servizio:
 
 .. configuration-block::
 
@@ -142,10 +142,10 @@ assetic.filter
 
 **Scopo**: Registrare un filtro
 
-AsseticBundle uses this tag to register common filters. You can also use
-this tag to register your own filters.
+AsseticBundle usa questo tag per registrare filtri comuni. Lo si può usare
+per registrare i propri filtri.
 
-First, you need to create a filter::
+Occorre prima di tutto creare un filtro::
 
     use Assetic\Asset\AssetInterface;
     use Assetic\Filter\FilterInterface;
@@ -163,7 +163,7 @@ First, you need to create a filter::
         }
     }
 
-Second, define a service:
+Definire quindi un servizio:
 
 .. configuration-block::
 
@@ -188,7 +188,7 @@ Second, define a service:
             ->addTag('assetic.filter', array('alias' => 'my_filter'))
         ;
 
-Finally, apply the filter:
+Infine applicare il filtro:
 
 .. code-block:: jinja
 
@@ -199,47 +199,47 @@ Finally, apply the filter:
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-You can also apply your filter via the ``assetic.filters.my_filter.apply_to``
-config option as it's described here: :doc:`/cookbook/assetic/apply_to_option`.
-In order to do that, you must define your filter service in a separate xml
-config file and point to this file's path via the ``assetic.filters.my_filter.resource``
-configuration key.
+Si può anche applicare un filtro tramite l'opzione di configurazione ``assetic.filters.my_filter.apply_to``,
+come spiegato in :doc:`/cookbook/assetic/apply_to_option`.
+Per poterlo fare, si deve definire il servizio per il filtro in un file xml a parte
+e puntare al percorso di tale file, tramite la chiave di configurazione
+``assetic.filters.my_filter.resource``.
 
 assetic.formula_loader
 ----------------------
 
 **Scopo**: Aggiungere un formula loader al gestore di risorse corrente
 
-A Formula loader is a class implementing
-``Assetic\\Factory\Loader\\FormulaLoaderInterface`` interface. This class
-is responsible for loading assets from a particular kind of resources (for
-instance, twig template). Assetic ships loaders for php and twig templates.
+Un formula loader è una classe che implementa l'interfaccia
+``Assetic\\Factory\Loader\\FormulaLoaderInterface``. Tale classe
+è responsabile del caricamento di risorse di un certo tipo (per
+esempio, template Twig). Assetic dispone di loader per template PHP e Twig.
 
-An ``alias`` attribute defines the name of the loader.
+Un attributo ``alias`` definisce il nome del loader.
 
 assetic.formula_resource
 ------------------------
 
 **Scopo**: Aggiungere una risorsa al gestore di risorse corrente
 
-A resource is something formulae can be loaded from. For instance, twig
-templates are resources.
+Una risorsa è qualcosa che possa essere caricato da un formula loader. Per esempio,
+i template Twig sono risorse.
 
 assetic.templating.php
 ----------------------
 
 **Scopo**: Rimuovere questo servizio se i template PHP sono disabilitati
 
-The tagged service will be removed from the container if the
-``framework.templating.engines`` config section does not contain php.
+Il servizio sarà rimosso dal contenitore, se la sezione 
+``framework.templating.engines`` non contiene php.
 
 assetic.templating.twig
 -----------------------
 
 **Scopo**: Rimuovere questo servizio se i template Twig sono disabilitati
 
-The tagged service will be removed from the container if
-``framework.templating.engines`` config section does not contain twig.
+Il servizio sarà rimosso dal contenitore, se la sezione 
+``framework.templating.engines`` non contiene twig.
 
 data_collector
 --------------
@@ -254,7 +254,7 @@ doctrine.event_listener
 
 **Scopo**: Aggiungere un ascoltatore di eventi Doctrine
 
-For details on creating Doctrine event listeners, read the cookbook article:
+Per dettagli su come creare ascoltatori di eventi, leggere la ricetta
 :doc:`/cookbook/doctrine/event_listeners_subscribers`.
 
 doctrine.event_subscriber
@@ -262,7 +262,7 @@ doctrine.event_subscriber
 
 **Scopo**: Aggiungere un sottoscrittore di eventi Doctrine
 
-For details on creating Doctrine event subscribers, read the cookbook article:
+Per dettagli su come creare sottoscrittori di eventi, leggere la ricetta
 :doc:`/cookbook/doctrine/event_listeners_subscribers`.
 
 .. _dic-tags-form-type:
@@ -648,11 +648,6 @@ quando si inietta il logger in un servizio.
         $definition = new Definition('Nome\Pienamente\QUalificato\Classe\Loader', array(new Reference('logger'));
         $definition->addTag('monolog.logger', array('channel' => 'acme'));
         $container->register('mio_servizio', $definition);;
-
-.. note::
-
-    Questo funziona solo quando il servizio logger è un parametro del costruttore,
-    non quando viene iniettato tramite setter.
 
 .. _dic_tags-monolog-processor:
 

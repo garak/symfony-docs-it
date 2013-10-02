@@ -45,6 +45,7 @@ Si ha una semplice entità ``User`` mappata sulla base dati::
         /**
          * @ORM\Column(type="string", length=255)
          * @Assert\NotBlank()
+         * @Assert\Length(max = 4096)
          */
         protected $plainPassword;
 
@@ -85,6 +86,21 @@ classe.
     implementare l'interfaccia :ref:`UserInterface<book-security-user-entity>` del
     componente della sicurezza.
 
+.. _cookbook-registration-password-max:
+
+.. sidebar:: Why the 4096 Password Limit?
+
+    Si noti che ``plainPassword`` ha una lunghezza massima di ``4096`` caratteri.
+    Per motivi di sicurezza (`CVE-2013-5750`_), Symfony limita la lunghezza delle
+    password a 4096 caratteri, prima della codifica. L'aggiunta di questo vincolo
+    assicura che il form darà un errore di validazione, se qualcuno tenta di inserire
+    una password veramente molto lunga.
+
+    Occorre aggiungere tale vincolo in qualsiasi punto dell'applicazione in cui
+    l'utente può inserire una password in chiaro (p.e. in un form di cambio password).
+    L'unico punto in cui non occorre preoccuparsene è il form di login,
+    poiché il componente Security di Symfony lo gestisce autonomamente.
+
 Creare un form per il modello
 -----------------------------
 
@@ -103,9 +119,9 @@ Quindi, creare un form per il modello ``User``::
         {
             $builder->add('email', 'email');
             $builder->add('plainPassword', 'repeated', array(
-               'first_name' => 'password',
+               'first_name'  => 'password',
                'second_name' => 'confirm',
-               'type' => 'password',
+               'type'        => 'password',
             ));
         }
 
@@ -232,10 +248,10 @@ controllore, per mostrare il form di registrazione::
     {
         public function registerAction()
         {
-            $form = $this->createForm(
-                new RegistrationType(),
-                new Registration()
-            );
+            $registration = new Registration();
+            $form = $this->createForm(new RegistrationType(), $registration, array(
+                'action' => $this->generateUrl('account_create'),
+            ));
 
             return $this->render(
                 'AcmeAccountBundle:Account:register.html.twig',
@@ -249,22 +265,18 @@ e il suo template:
 .. code-block:: html+jinja
 
     {# src/Acme/AccountBundle/Resources/views/Account/register.html.twig #}
-    <form action="{{ path('create')}}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-
-        <input type="submit" />
-    </form>
+    {{ form(form) }}
 
 Infine, creare il controllare che gestisce l'invio del form. Questo esegue la
 validazione e salva i dati nella base dati::
 
-    public function createAction()
+    public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
         $form = $this->createForm(new RegistrationType(), new Registration());
 
-        $form->bind($this->getRequest());
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $registration = $form->getData();
@@ -281,7 +293,70 @@ validazione e salva i dati nella base dati::
         );
     }
 
+Aggiungere nuove rotte
+----------------------
+
+Aggiornare quindi le rotte. Se le rotte sono fuori dal bundle
+(come in questo caso), non dimenticare di assicurarsi che il file delle rotte sia
+:ref:`importato<routing-include-external-resources>`.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/AccountBundle/Resources/config/routing.yml
+        account_register:
+           pattern:  /register
+           defaults: { _controller: AcmeAccountBundle:Account:register }
+   
+        account_create:
+           pattern:  /register/create
+           defaults: { _controller: AcmeAccountBundle:Account:create }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/AccountBundle/Resources/config/routing.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="account_register" path="/register">
+                <default key="_controller">AcmeAccountBundle:Account:register</default>
+            </route>
+
+            <route id="account_create" path="/register/create">
+                <default key="_controller">AcmeAccountBundle:Account:create</default>
+            </route>
+        </routes>
+
+    .. code-block:: php
+
+        // src/Acme/AccountBundle/Resources/config/routing.php
+        use Symfony\Component\Routing\RouteCollection;
+        use Symfony\Component\Routing\Route;
+
+        $collection = new RouteCollection();
+        $collection->add('account_register', new Route('/register', array(
+            '_controller' => 'AcmeAccountBundle:Account:register',
+        )));
+        $collection->add('account_create', new Route('/register/create', array(
+            '_controller' => 'AcmeAccountBundle:Account:create',
+        )));
+
+        return $collection;
+
+Aggiornare lo schema della base dati
+------------------------------------
+
+Avendo aggiunto un'entità ``User``, occorre assicurarsi che lo
+schema della base dati sia aggiornato di conseguenza:
+
+   $ php app/console doctrine:schema:update --force
+
 Ecco fatto! Il form ora valida e consente di salvare l'oggetto ``User``
 nella base dati. Il campo in più ``terms`` del modello ``Registration``
 viene usato durante la registrazione, ma non viene usato successivamente, durante
 il salvataggio dell'utente nella base dati.
+
+.. _`CVE-2013-5750`: http://symfony.com/blog/cve-2013-5750-security-issue-in-fosuserbundle-login-form

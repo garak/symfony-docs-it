@@ -35,7 +35,8 @@ e quindi hanno due metodi importanti:
 :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
 e :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::load`.
 
-Osserviamo queste linee del file ``routing.yml``:
+Osserviamo queste linee del file ``routing.yml`` in AcmeDemoBundle della Standard
+Edition:
 
 .. code-block:: yaml
 
@@ -96,6 +97,8 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
             // aggiunge la nuova rotta all'insieme di rotte:
             $routeName = 'extraRoute';
             $routes->add($routeName, $route);
+            
+            $this->loaded = true;
 
             return $routes;
         }

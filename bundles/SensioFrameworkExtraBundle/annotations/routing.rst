@@ -4,7 +4,7 @@
 Utilizzo
 --------
 
-L'annotazione @Route mappa lo schema di una rotta con un controllore::
+L'annotazione ``@Route`` mappa lo schema di una rotta con un controllore::
 
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -32,13 +32,23 @@ Come ogni altro schema di rotta, si possono definire segnaposto, requisiti e val
 predefiniti::
 
     /**
-     * @Route("/{id}", requirements={"id" = "\d+"}, defaults={"foo" = "bar"})
+     * @Route("/{id}", requirements={"id" = "\d+"}, defaults={"id" = 1})
      */
     public function showAction($id)
     {
     }
 
-Si può anche far corisspondere la rotta a più di un URL, definendo annotazioni
+Si può anche definire il valore predefinito per un segnaposto, usando
+il valore predefinito di PHP::
+
+    /**
+     * @Route("/{id}", requirements={"id" = "\d+"})
+     */
+    public function showAction($id = 1)
+    {
+    }
+
+Si può anche far corrispondere la rotta a più di un URL, definendo annotazioni
 ``@Route``::
 
     /**
@@ -48,6 +58,8 @@ Si può anche far corisspondere la rotta a più di un URL, definendo annotazioni
     public function showAction($id)
     {
     }
+
+.. _frameworkextra-annotations-routing-activation:
 
 Attivazione
 -----------
@@ -149,3 +161,18 @@ GET o POST.
 L'annotazione ``@Method`` viene considerata solo se un'azione è annotata con
 ``@Route``.
 
+Controllore come servizio
+-------------------------
+
+L'annotazione ``@Route`` su una classe controllore può anche essere usata per assegnare
+la classe a un servizio, in modo che il risolutore istanzi
+il controllore recuperandolo dal contenitore, invece che richiamando ``new
+PostController()``::
+
+    /**
+     * @Route(service="my_post_controller_service")
+     */
+    class PostController extends Controller
+    {
+        // ...
+    }

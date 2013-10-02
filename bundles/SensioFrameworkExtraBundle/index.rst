@@ -22,6 +22,12 @@ Quindi, come per ogni altro bundle, includerlo nella propria classe Kernel::
         ...
     }
 
+Se si vogliono usare o creare annotazioni per i controllori, assicurarsi di aggiornare
+``autoload.php``, aggiungendo la riga seguente::
+
+    Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+
+
 Configurazione
 --------------
 
@@ -140,6 +146,10 @@ annotazioni::
     public function showAction(Post $post)
     {
     }
+
+Occorre importare le rotte, in modo che siano attive, come ogni altra rotta.
+Vedere :ref:`attivare rotte annotate<frameworkextra-annotations-routing-activation>` per
+i dettagli.
 
 .. _`SensioFrameworkExtraBundle`: https://github.com/sensio/SensioFrameworkExtraBundle
 .. _`Scaricare`: http://github.com/sensio/SensioFrameworkExtraBundle

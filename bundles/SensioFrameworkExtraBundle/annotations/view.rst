@@ -22,6 +22,19 @@ L'annotazione ``@Template`` associa un controllore con un nome di template::
 Quando si usa l'annotazione ``@Template``, il controllore dovrebbe restituire un array
 di parametri da passare alla vista, al posto dell'oggetto ``Response``.
 
+.. note::
+
+    Se si vuole uno stream del template, usare la seguente configurazione::
+
+        /**
+         * @Template(isStreamable=true)
+         */
+        public function showAction($id)
+        {
+            // ...
+        }
+
+
 .. tip::
    Se l'azione restituisce un oggetto ``Response``, l'annotazione ``@Template`` 
    viene semplicemente ignorata.
@@ -40,6 +53,19 @@ precedente, si può anche omettere il valore nell'annotazione::
         return array('post' => $post);
     }
 
+.. note::
+
+    Se si usa PHP come sistema di template, occorre renderlo
+    esplicito::
+
+        /**
+         * @Template(engine="php")
+         */
+        public function showAction($id)
+        {
+            // ...
+        }
+
 Inoltre, se gli unici parametri da passare al template sono parametri del metodo, si
 può usare l'attributo ``vars``, invece di restituire un array. Questo risulta molto utile
 in combinazione con l' :doc:`annotazione <converters>`
@@ -47,7 +73,7 @@ in combinazione con l' :doc:`annotazione <converters>`
 
     /**
      * @ParamConverter("post", class="SensioBlogBundle:Post")
-     * @Template("SensioBlogBundle:Post:show", vars={"post"})
+     * @Template("SensioBlogBundle:Post:show.html.twig", vars={"post"})
      */
     public function showAction(Post $post)
     {
@@ -72,4 +98,3 @@ automaticamente al template, se il metodo restituisce ``null`` e nessun attribut
     public function showAction(Post $post)
     {
     }
-

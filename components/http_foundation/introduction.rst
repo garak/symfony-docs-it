@@ -24,6 +24,8 @@ Si può installare il componente in molti modi diversi:
 * Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation);
 * Installarlo via :doc:`Composer </components/using_components>` (``symfony/http-foundation`` su `Packagist`_).
 
+.. _component-http-foundation-request:
+
 Richiesta
 ---------
 
@@ -251,7 +253,7 @@ Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
 
     $accept = AcceptHeader::fromString($request->headers->get('Accept'));
     if ($accept->has('text/html')) {
-        $item = $accept->get('html');
+        $item = $accept->get('text/html');
         $charset = $item->getAttribute('charset', 'utf-8');
         $quality = $item->getQuality();
     }
@@ -262,8 +264,12 @@ Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
 Accedere ad altri dati
 ~~~~~~~~~~~~~~~~~~~~~~
 
-La classe Request ha molti altri metodi, che si possono usare per accedere alle
-informazioni della richiesta. Si dia uno sguardo alle API per maggiori informazioni.
+La classe ``Request`` ha molti altri metodi, che si possono usare per accedere alle
+informazioni della richiesta. Si dia uno sguardo alle 
+:class:`API di Request<Symfony\\Component\\HttpFoundation\\Request>`
+per maggiori informazioni.
+
+.. _component-http-foundation-response:
 
 Risposta
 --------
@@ -387,9 +393,6 @@ Per rinviare il client a un altro URL, si può usare la classe
 Flusso di risposta
 ~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    Il supporto per i flussi di risposte è stato aggiunto in Symfony 2.1.
-
 La classe :class:`Symfony\\Component\\HttpFoundation\\StreamedResponse` consente
 di inviare flussi di risposte al client. Il contenuto della risposta viene
 rappresentato da un callable PHP, invece che da una stringa::
@@ -421,9 +424,6 @@ rappresentato da un callable PHP, invece che da una stringa::
 Scaricare file
 ~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    Il metodo ``makeDisposition`` è stato aggiunto in Symfony 2.1.
-
 Quando si carica un file, occorre aggiungere un header ``Content-Disposition`` alla
 risposta. Sebbene la creazione di questo header per scaricamenti di base sia facile,
 l'uso di nomi di file non ASCII è più complesso. Il metodo
@@ -444,7 +444,7 @@ In alternativa, se si sta servendo un file statico, si può usare
 :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`::
 
     use Symfony\Component\HttpFoundation\BinaryFileResponse
-    
+
     $file = 'percorrso/del/file.txt';
     $response = new BinaryFileResponse($file);
 
@@ -461,7 +461,6 @@ Si può ancora impostare il ``Content-Type`` del file inviato o cambiarne il ``C
 
     $response->headers->set('Content-Type', 'text/plain')
     $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'nomefile.txt');
-    
 
 .. _component-http-foundation-json-response:
 
@@ -479,10 +478,6 @@ e gli header corretti. Una risposta JSON può essere come questa::
         'data' => 123,
     )));
     $response->headers->set('Content-Type', 'application/json');
-
-.. versionadded:: 2.1
-    La classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse` è
-    stata aggiunta in Symfony 2.1.
 
 C'è anche un'utile classe :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`,
 che può rendere le cose ancora più semplici::
@@ -504,6 +499,9 @@ a ``application/json``.
     che il risultato finale sia un oggetto (p.e. ``{"oggetto": "non dentro un array"}``)
     invece che un array (p.e. ``[{"oggetto": "dentro un array"}]``). Si leggano
     le `linee guida OWASP`_ per maggiori informazioni.
+
+    Solo i metodi che rispondono a richieste GET sono vulnerabili a 'JSON Hijacking' XSSI.
+    I metodi che rispondono a richieste POST restano immuni.
 
 Callback JSONP
 ~~~~~~~~~~~~~~

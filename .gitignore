@@ -7,6 +7,6 @@ conf.py
 favicon.ico
 rsync.sh
 symfony_black_03.png
-
+.idea/
 
 .DS_Store

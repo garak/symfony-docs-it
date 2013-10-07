@@ -17,9 +17,6 @@ Ci sono anche alcuni tag nei bundle, non elencati qui.
 Funzioni
 --------
 
-.. versionadded:: 2.1
-    Le funzioni ``csrf_token``, ``logout_path`` e ``logout_url`` sono state aggiunte in Symfony2.1
-
 .. versionadded:: 2.2
     Le funzioni ``render`` e ``controller`` sono nuove in Symfony 2.2. Precedentemente,
     si usava il tag ``{% render %}``, che aveva una firma diversa.
@@ -29,65 +26,72 @@ Funzioni
 +====================================================+============================================================================================+
 | ``render(uri, options = {})``                      | Renderà il frammento per il controllore o l'URL dato.                                      |
 | ``render(controller('B:C:a', {params}))``          | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
-| ``render(path('route', {params}))``                |                                                                                            |
-| ``render(url('route', {params}))``                 |                                                                                            |
+| ``render(path('rotta', {params}))``                |                                                                                            |
+| ``render(url('rotta', {params}))``                 |                                                                                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``render_esi(controller('B:C:a', {params}))``      | Genererà un tag ESI, quando possibile, altrimenti userà ``render``.                        |
-| ``render_esi(url('route', {params}))``             | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
-| ``render_esi(path('route', {params}))``            |                                                                                            |
+| ``render_esi(url('rotta', {params}))``             | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
+| ``render_esi(path('rotta', {params}))``            |                                                                                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``render_hinclude(controller(...))``               | This will generates an Hinclude tag for the given controller or URL.                       |
-| ``render_hinclude(url('route', {params}))``        | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
-| ``render_hinclude(path('route', {params}))``       |                                                                                            |
+| ``render_hinclude(url('rotta', {params}))``        | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
+| ``render_hinclude(path('rotta', {params}))``       |                                                                                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``controller(attributes = {}, query = {})``        | Usato con il tag ``render`` per fare riferimento al controllore che si vuole rendere.      |
+| ``controller(attributi = {}, query = {})``         | Usato con il tag ``render`` per fare riferimento al controllore che si vuole rendere.      |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``asset(path, packageName = null)``                | Restituisce il percorso pubblico della risorsa, maggiori informazioni in                   |
+| ``asset(percorso, nomePacchetto = null)``          | Restituisce il percorso pubblico della risorsa, maggiori informazioni in                   |
 |                                                    | ":ref:`book-templating-assets`".                                                           |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``asset_version(packageName = null)``              | Restituisce la versione attuale del pacchetto, maggiori informazioni in                    |
+| ``asset_version(nomePacchetto = null)``            | Restituisce la versione attuale del pacchetto, maggiori informazioni in                    |
 |                                                    | ":ref:`book-templating-assets`".                                                           |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_enctype(form)``                             | Renderà l'attributo obbligatorio ``enctype="multipart/form-data"`` in un                   |
+| ``form(view, variabili = {})``                     | Renderà l'HTML di un form completo, maggiori informazioni                                  |
+|                                                    | nel :ref:`riferimento Form di Twig <reference-forms-twig-form>`.                           |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``form_start(view, variabili = {})``               | Renderà l'HTML del tag di apertura di un form, maggiori informazioni                       |
+|                                                    | nel :ref:`riferimento Form di Twig <reference-forms-twig-start>`.                          |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``form_end(view, variabili = {})``                 | Renderà l'HTML del tag di chiusura di un form, insieme a tutti i campi non                 |
+|                                                    | ancora resi, maggiori informazioni                                                         |
+|                                                    | nel :ref:`riferimento Form di Twig <reference-forms-twig-end>`.                            |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``form_enctype(view)``                             | Renderà l'attributo obbligatorio ``enctype="multipart/form-data"`` in un                   |
 |                                                    | form con almeno un campo di caricamento di file, maggiori informazioni in                  |
 |                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-enctype>`.                          |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_widget(form, variables = {})``              | Renderà un intero form o un widget specifico di un campo,                                  |
+| ``form_widget(view, variabili = {})``              | Renderà un intero form o un widget specifico di un campo,                                  |
 |                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-widget>`.  |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_errors(form)``                              | Renderà gli errori per un dato campo o gli errori "globali",                               |
+| ``form_errors(view)``                              | Renderà gli errori per un dato campo o gli errori "globali",                               |
 |                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-errors>`.  |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_label(form, label = null, variables = {})`` | Renderà la label di un dato campo, maggiori informazioni in                                |
+| ``form_label(view, label = null, variabili = {})`` | Renderà la label di un dato campo, maggiori informazioni in                                |
 |                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-label>`.                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_row(form, variables = {})``                 | Renderà la riga (label, errori e widget del campo) del dato campo,                         |
+| ``form_row(view, variabili = {})``                 | Renderà la riga (label, errori e widget del campo) del dato campo,                         |
 |                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-row>`.     |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_rest(form, variables = {})``                | Renderà tutti i campi non ancora resi, maggiori informazioni in                            |
+| ``form_rest(view, variabili = {})``                | Renderà tutti i campi non ancora resi, maggiori informazioni in                            |
 |                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-rest>`.                             |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``csrf_token(intention)``                          | Renderà un token CSRF. Funzione da usare se si vuole protezione CSRF senza                 |
 |                                                    | creaew un form                                                                             |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``is_granted(role, object = null, field = null)``  | Restituirà ``true`` se l'utente attuale ha il ruolo richiesto, maggiori                    |
+| ``is_granted(ruolo, ogg = null, campo = null)``    | Restituirà ``true`` se l'utente attuale ha il ruolo richiesto, maggiori                    |
 |                                                    | informazioni in ":ref:`book-security-template`"                                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``logout_path(key)``                               | Genererà l'URL relativo per il logout del firewall dato                                    |
+| ``logout_path(chiave)``                            | Genererà l'URL relativo per il logout del firewall dato                                    |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``logout_url(key)``                                | Equivalente a ``logout_path(...)``, ma genererà un URL assoluto                            |
+| ``logout_url(chiave)``                             | Equivalente a ``logout_path(...)``, ma genererà un URL assoluto                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``path(name, parameters = {})``                    | Restituisce l'URL relativo per la rotta data, maggiori informazioni in                     |
+| ``path(nome, parametri = {})``                     | Restituisce l'URL relativo per la rotta data, maggiori informazioni in                     |
 |                                                    | ":ref:`book-templating-pages`".                                                            |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``url(name, parameters = {})``                     | Equivalente a ``path(...)``, ma genera un URL assoluto                                     |
+| ``url(nome, parametri = {})``                      | Equivalente a ``path(...)``, ma genera un URL assoluto                                     |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 
 Filtri
 ------
-
-.. versionadded:: 2.1
-    Il filtro ``humanize`` è stato aggiunto in Symfony2.1
 
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | Sintassi del filtro                                                             | Uso                                                               |
@@ -95,11 +99,11 @@ Filtri
 | ``text|humanize``                                                               | Rende un nome tecnico leggibile umanamente (sostituendo i         |
 |                                                                                 | trattini bassi con spazi e mettendo la stringa in maiuscolo)      |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``text|trans(arguments = {}, domain = 'messages', locale = null)``              | Tradurrà il testo nella lingua attuale, maggiori                  |
+| ``text|trans(parametri = {}, dominio = 'messages', locale = null)``             | Tradurrà il testo nella lingua attuale, maggiori                  |
 |                                                                                 | informazioni in                                                   |
 |                                                                                 | :ref:`filtri di traduzione<book-translation-filters>`.            |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``text|transchoice(count, arguments = {}, domain = 'messages', locale = null)`` | Tradurrà il testo con il plurale, maggiori informazioni           |
+| ``text|transchoice(conta, parametri = {}, dominio = 'messages', locale = null)``| Tradurrà il testo con il plurale, maggiori informazioni           |
 |                                                                                 | in :ref:`book-translation-twig`.                                  |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``variable|yaml_encode(inline = 0)``                                            | Trasformerà il testo della variabile in sintassi YAML.            |
@@ -117,14 +121,14 @@ Filtri
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``arguments|format_args_as_text``                                               | Equivalente a ``[...]|format_args``, ma elimina i tag.            |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``path|file_excerpt(line)``                                                     | Renderà un estratto di un file di codice intorno alla riga data.  |
+| ``path|file_excerpt(riga)``                                                     | Renderà un estratto di un file di codice intorno alla riga data.  |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``path|format_file(line, text)``                                                | Renderà il percorso di un file in un collegamento.                |
+| ``path|format_file(riga, testo)``                                               | Renderà il percorso di un file in un collegamento.                |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``exceptionMessage|format_file_from_text``                                      | Equivalente a ``format_file``, ma ha analizzato la stringa di     |
 |                                                                                 | errore di PHP in un file (p.e. 'in pippo.php on line 45')         |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``path|file_link(line)``                                                        | Renderà un percorso al file (e numero di riga) corretto           |
+| ``path|file_link(riga)``                                                        | Renderà un percorso al file (e numero di riga) corretto           |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 
 Tag
@@ -149,9 +153,6 @@ Tag
 
 Test
 ----
-
-.. versionadded:: 2.1
-    Il test ``selectedchoice`` è stato aggiunto in Symfony2.1
 
 +---------------------------------------------------+------------------------------------------------------------------------------+
 | Sintassi del test                                 | Uso                                                                          |

@@ -50,10 +50,7 @@ I vantaggi di operare in questo modo saranno più ovvi andando avanti::
         $this->options = $resolver->resolve($options);
     }
 
-La proprietà ``$options`` è un'istanza di
-:class:`Symfony\\Component\\OptionsResolver\\Options`, la quale implementa
-:phpclass:`ArrayAccess`, :phpclass:`Iterator` e :phpclass:`Countable`. Questo
-significa che è possibile gestirla come un normale array::
+La proprietà ``$options`` è ora un array ben definito, con tutte le opzioni risolte rese disponibili::
 
     // ...
     public function getHost()
@@ -75,8 +72,6 @@ Adesso, si provi a utilizzare effettivamente la classe::
         'host'     => 'smtp.example.org',
         'password' => 'pa$$word',
     ));
-
-    echo $mailer->getPassword();
 
 In questo momento, si riceverà una 
 :class:`Symfony\\Component\\OptionsResolver\\Exception\\InvalidOptionsException`,
@@ -218,7 +213,7 @@ Closure come valore predefinito::
 
 .. caution::
 
-    Il primo argomento della Closure deve essere di tipo ``Options``,
+    Il primo parametro della Closure deve essere di tipo ``Options``,
     altrimenti sarà considerata come il valore.
 
 Configurare i Valori consentiti

@@ -31,6 +31,8 @@ su tutti i campi:
 
 .. include:: /reference/forms/types/options/translation_domain.rst.inc
 
+.. include:: /reference/forms/types/options/block_name.rst.inc
+
 inherit_data
 ------------
 

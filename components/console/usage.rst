@@ -74,8 +74,16 @@ con:
 
 .. code-block:: bash
 
-    $ php app/console list -verbose
+    $ php app/console list --verbose
     $ php app/console list -v
+
+Le opzioni sulla verbosità hanno un parametro opzionale, tra 1 (predefinito) e 3,
+per mostrare messaggi ancora più verbosi:
+
+    $ php app/console list --verbose=2
+    $ php app/console list -vv
+    $ php app/console list --verbose=3
+    $ php app/console list -vvv
 
 Se si impostano, in modo facoltativo, nome e versione dell'applicazione::
 
@@ -85,7 +93,7 @@ si può usare:
 
 .. code-block:: bash
 
-    $ php app/console list -version
+    $ php app/console list --version
     $ php app/console list -V
 
 per ottnere queste informazioni:

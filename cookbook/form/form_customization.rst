@@ -180,7 +180,7 @@ questa cartella.
 
 .. _cookbook-form-customization-sidebar:
 
-.. sidebar:: Conoscere quale blocco personalizzare
+.. sidebar:: Sapere quale blocco personalizzare
 
     In questo esempio, il nome del frammento personalizzato è ``integer_widget`` perché
     si vuole sovrascrivere l'HTML del ``widget`` per tutti i tipi di campo ``integer``. Se

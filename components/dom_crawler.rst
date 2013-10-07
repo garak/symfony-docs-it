@@ -210,7 +210,7 @@ Collegamenti
 
 Per trovare un collegamento tramite il suo nome (o un'immagine cliccabile tramite il suo
 attributo ``alt``) si usa il metodo ``selectLink`` in un crawler esistente. La chiamata
-restituisce un'istanza di Crawler contenente il/i solo/i collegamento/i selezionato/i. La chiamata ``link()``
+restituisce un'istanza di Crawler contenente solo i collegamenti selezionati. La chiamata ``link()``
 restituisce l'oggetto speciale :class:`Symfony\\Component\\DomCrawler\\Link`::
 
     $linksCrawler = $crawler->selectLink('Vai altrove...');
@@ -219,16 +219,16 @@ restituisce l'oggetto speciale :class:`Symfony\\Component\\DomCrawler\\Link`::
     // oppure, in una sola riga
     $link = $crawler->selectLink('Vai altrove...')->link();
 
-L'oggetto :class:`Symfony\\Component\\DomCrawler\\Link` ha diversi utili metodi per
+L'oggetto :class:`Symfony\\Component\\DomCrawler\\Link` ha diversi metodi utili per
 avere ulteriori informazioni relative al collegamento selezionato::
 
-    // restituisce la URI che può essere utilizzata per effettuare nuove richieste
+    // restituisce l'URI che può essere usato per eseguire nuove richieste
     $uri = $link->getUri();
 
 .. note::
 
-    Il metodo ``getUri()`` è specialmente utile perché pulisce il valore di ``href`` e
-    lo trasforma nel modo in cui dovrebbe realmente essere processato. Ad esempio, un collegamento
+    Il metodo ``getUri()`` è specialmente utile, perché pulisce il valore di ``href`` e
+    lo trasforma nel modo in cui dovrebbe realmente essere processato. Per esempio, un collegamento
     del tipo ``href="#foo"`` restituirà l'URI completo della pagina corrente
     con il suffisso ``#foo``. Il valore restituito da ``getUri()`` è sempre un URI completo,
     sul quale è possibile lavorare.

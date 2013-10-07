@@ -200,7 +200,7 @@ Ogni convertitore deve implementare
         function supports(ConfigurationInterface $configuration);
     }
 
-Il metodo ``supports()`` deve restituire ``true`` quando è in grando di convertire la
+Il metodo ``supports()`` deve restituire ``true`` quando è in grado di convertire la
 configurazione data (un'istanza di ``ParamConverter``).
 
 L'istanza ``ParamConverter`` ha tre informazioni sull'annotazione:

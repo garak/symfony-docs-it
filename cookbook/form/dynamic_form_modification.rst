@@ -277,23 +277,31 @@ e scrivere la logica dell'ascoltatore::
 
                     $formOptions = array(
                         'class' => 'Acme\DemoBundle\Entity\User',
-                        'multiple' => false,
-                        'expanded' => false,
                         'property' => 'fullName',
                         'query_builder' => function(EntityRepository $er) use ($user) {
-                            // usare una query personalizzata o richiamare un metodo del repository (meglio!)
+                            // usare una query personalizzata 
+                            // return $er->createQueryBuilder('u')->addOrderBy('fullName', 'DESC');
+
+                            // o richiamare un metodo del repository che restituisce un query builder
+                            // $er è un'istanza di UserRepository
+                            // return $er->createOrderByFullNameQueryBuilder();
                         },
                     );
 
                     // creare il campo, similmente a $builder->add()
                     // nome del campo, tipo di campo, dati, opzioni
-                    $form->add($factory->createNamed('friend', 'entity', null, $formOptions));
+                    $form->add('friend', 'entity', $formOptions);
                 }
             );
         }
 
         // ...
     }
+
+.. note::
+
+    Le opzioni ``multiple`` ed ``expanded`` varranno ``false``,
+    perché il tipo del campo ``friend`` è ``entity``.
 
 Usare il form
 ~~~~~~~~~~~~~
@@ -462,7 +470,6 @@ In un form, possiamo solitamente ascoltare questi eventi:
     Symfony 2.3. In precedenza, si chiamavano ``PRE_BIND``, ``BIND`` e ``POST_BIND``.
 
 .. versionadded:: 2.2.6
-
     Il comportamento dell'evento ``POST_SUBMIT`` è cambiato leggermento in 2.2.6, usato
     dall'esempio seguente.
 
@@ -477,8 +484,8 @@ La classe ora sarà così::
     namespace Acme\DemoBundle\Form\Type;
 
     // ...
-    Acme\DemoBundle\Entity\Sport;
-    Symfony\Component\Form\FormInterface;
+    use Acme\DemoBundle\Entity\Sport;
+    use Symfony\Component\Form\FormInterface;
 
     class SportMeetupType extends AbstractType
     {
@@ -489,20 +496,18 @@ La classe ora sarà così::
             ;
 
             $formModifier = function(FormInterface $form, Sport $sport) {
-                $positions = $data->getSport()->getAvailablePositions();
+                $positions = $sport->getAvailablePositions();
 
                 $form->add('position', 'entity', array('choices' => $positions));
-            }
+            };
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) {
-                    $form = $event->getForm();
-
+                function(FormEvent $event) use ($formModifier) {
                     // questa sarebbe l'entità, p.e. SportMeetup
                     $data = $event->getData();
 
-                    $formModifier($event->getForm(), $sport);
+                    $formModifier($event->getForm(), $data->getSport());
                 }
             );
 
@@ -512,8 +517,6 @@ La classe ora sarà così::
                     // è importante qui recuperare $event->getForm()->getData(), perché
                     // $event->getData() restituirà i dati del client (quindi l'ID)
                     $sport = $event->getForm()->getData();
-
-                    $positions = $sport->getAvailablePositions();
 
                     // avendo aggiunto l'ascoltatore al figlio, dovremo passare
                     // il genitore alle funzioni callback!

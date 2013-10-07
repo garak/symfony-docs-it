@@ -62,7 +62,8 @@ Quando si crea un bundle, si hanno due scelte sulla gestione della configurazion
 La seconda opzione, di cui parleremo, è molto più flessibile, ma richiede anche
 più tempo di preparazione. Se si ci sta chiedendo quale metodo scegliere,
 probabilmente è una buona idea partire col primo metodo, poi cambiare al secondo,
-qualora fosse necessario.
+qualora fosse necessario. Se si pensa di distribuire il bundle, la seconda opzione
+è quella raccomandata.
 
 Il secondo metodo ha diversi vantaggi:
 
@@ -492,9 +493,10 @@ insieme.
 
 La classe ``Configuration`` può essere molto più complicata di quanto mostrato qui, poiché
 supporta nodi array, nodi "prototipo", validazione avanzata, normalizzazione specifica di
-XML e fusione avanzata. Il modo migliore per vederla in azione è guardare alcune classi
-Configuration del nucleo, come quella `FrameworkBundle`_ o di
-`TwigBundle`_.
+XML e fusione avanzata. Si può approfondire nella
+:doc:`documentazione del componente Config </components/config/definition>`.
+Il modo migliore per vederla in azione è guardare alcune classi Configuration
+del nucleo, come quella `FrameworkBundle`_ o di `TwigBundle`_.
 
 Modificare la configurazione di un altro bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

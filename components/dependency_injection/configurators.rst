@@ -44,7 +44,6 @@ definendo una classe ``NewsletterManager``, come questa::
         // ...
     }
 
-
 e una classe ``GreetingCardManager``::
 
     class GreetingCardManager implements EmailFormatterAwareInterface
@@ -64,7 +63,6 @@ e una classe ``GreetingCardManager``::
 
         // ...
     }
-
 
 Come menzionato in precedenza, lo scopo è quello di impostare i formattatori a runtime, a
 seconda delle configurazioni dell'applicazione. Per farlo, definiamo anche una classe ``EmailFormatterManager``,
@@ -154,7 +152,6 @@ La configurazione del servizio per le classi viste sopra assomiglia a questa:
                 calls:
                     - [setMailer, ["@my_mailer"]]
                 configurator: ["@email_configurator", configure]
-
 
     .. code-block:: xml
 

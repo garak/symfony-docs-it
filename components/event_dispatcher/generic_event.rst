@@ -4,9 +4,6 @@
 Oggetto evento generico
 =======================
 
-.. versionadded:: 2.1
-    La classe ``GenericEvent`` è stata aggiunta in Symfony 2.1
-
 La classe base :class:`Symfony\\Component\\EventDispatcher\\Event` fornita dal
 componente ``Event Dispatcher`` è deliberatamente breve, per consentire la creazione
 di oggetti evento con API specifiche, usando l'ereditarietà. Questo consente un codice

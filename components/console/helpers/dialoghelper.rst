@@ -1,8 +1,8 @@
 .. index::
     single: Aiutanti della console; Aiutante Dialog
 
-Helper Dialog 
-=============
+Aiutante Dialog 
+===============
 
 :class:`Symfony\\Component\\Console\\Helper\\DialogHelper` fornisce 
 funzioni per chiedere informazioni all'utente. È incluso nell'insieme

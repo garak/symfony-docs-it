@@ -2,11 +2,11 @@
     single: Form; Campi; currency
 
 Tipo di campo currency
-===================
+======================
 
 Il tipo ``currency`` è un sottoinsieme del
 :doc:`campo choice </reference/forms/types/choice>` che permette all'utente
-di selezionare da una grande lista di valute `3-letter ISO 4217`_.
+di selezionare da una grande lista di valute `ISO 4217 a 3 lettere`_.
 
 A differenza del tipo ``choice``, non c'è bisogno di specificare le opzioni
 ``choices`` o ``choice_list`` dato che il campo usa automaticamente una grande lista di
@@ -72,4 +72,4 @@ Queste opzioni sono eredidate dal tipo :doc:`date</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
-.. _`3-letter ISO 4217`: http://en.wikipedia.org/wiki/ISO_4217
+.. _`ISO 4217 a 3 lettere`: http://en.wikipedia.org/wiki/ISO_4217

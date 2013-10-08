@@ -52,30 +52,30 @@ curl installato, è facile:
     all'esecuzione del comando. Seguire tali raccomandazioni per far funzionare Composer
     correttamente.
 
-Composer è un file PHAR eseguibile, che si può usare oer scarucare la Standard
-Distribution:
+Composer è un file PHAR eseguibile, che si può usare per scaricare la distribuzione
+Standard:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.3.0
 
 .. tip::
 
-    Per una versione esatta, sostituire `2.1.x-dev` con l'ultima versione di Symfony
-    (p.e. 2.1.2). Per detaggli, si veda la `pagina di installazione di Symfony`_
+    Per una versione esatta, sostituire "2.3.0" con l'ultima versione di Symfony.
+    Per detaggli, si veda la `pagina di installazione di Symfony`_
 
 .. tip::
 
     Per scaricare i file dei venditori più velocemente, aggiungere l'opzione ``--prefer-dist``
     alla fine di ogni comando di Composer.
 
-Questo comando può richiedere diversti minuti, mentre Composer scarica la Standard
-Distribution e tutte le librerie dei venditori necessarie. Quando avrà finito,
+Questo comando può richiedere diversti minuti, mentre Composer scarica la distribuzione Standard
+e tutte le librerie dei venditori necessarie. Quando avrà finito,
 si dovrebbe avere una cartella simile a questa:
 
 .. code-block:: text
 
-    percorso/web/ <- la propria cartella radice del web
+    percorso/web/ <- la cartella radice del web
         Symfony/ <- l'archivio scompattato
             app/
                 cache/
@@ -95,24 +95,24 @@ Opzione 2) Scaricare un archivio
 Si può anche scaricare un archivio della Standard Edition. Qui, si possono fare
 due scelte:
 
-* Scaricare un archivio ``.tgz`` o ``.zip``, sono equivalenti, scegliere quello che
-  si preferisce;
+* Scaricare un archivio ``.tgz`` o ``.zip``( sono equivalenti, scegliere quello che
+  si preferisce);
 
 * Scaricare la distribuzione con o senza venditori. Se si pensa di usare
   molte librerie o bundle di terze parti e gestirli tramite Composer, probabilmente
   sarà meglio scaricare quella senza venditori.
 
-Scaricare uno degli archivi e lo si scompatti da qualche parte sotto la cartella
-radice del web del proprio server. Da una linea di comando UNIX, si può farlo con
+Scaricare uno degli archivi e scompattarlo da qualche parte sotto la cartella
+radice del web del server. Da linea di comando UNIX, lo si può fare con
 uno dei seguenti comandi (sostituire ``###`` con il vero nome del file):
 
 .. code-block:: bash
 
     # per il file .tgz
-    $ tar zxvf Symfony_Standard_Vendors_2.1.###.tgz
+    $ tar zxvf Symfony_Standard_Vendors_2.3.###.tgz
 
     # per il file .zip
-    $ unzip Symfony_Standard_Vendors_2.1.###.zip
+    $ unzip Symfony_Standard_Vendors_2.3.###.zip
 
 Se si è optato per la versione senza venditori, occorerà leggere la 
 prossima sezione.
@@ -125,7 +125,7 @@ prossima sezione.
 
 Tutti i file pubblici e il front controller che gestisce le richieste in arrivo in
 un'applicazione Symfony2 si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
-di aver decompresso l'archivio nella cartella radice del server web o di un virtual host,
+di aver decompresso l'archivio nella cartella radice del server web o di un host virtuale,
 gli URL dell'applicazione inizieranno con ``http://localhost/Symfony/web/``.
 
 .. note::
@@ -143,7 +143,7 @@ si può iniziare a sviluppare la propria applicazione. Un progetto Symfony dipen
 da diverse librerie esterne. Queste vanno scaricate nella cartella `vendor/`
 del progetto, tramite una libreria chiamata `Composer`_.
 
-A seconda di come Symfony è stato scaricato, si potrebbe aver bisogno o no di
+A seconda di come Symfony è stato scaricato, si potrebbe aver bisogno o meno di
 aggiornare i venditori. Aggiornare i venditori è sempre sicuro e garantisce
 di disporre di tutte le librerie necessarie.
 
@@ -153,7 +153,7 @@ Passo 1: Ottenere `Composer`_ (il nuovo bellissimo sistema di pacchetti PHP)
 
     $ curl -s http://getcomposer.org/installer | php
 
-Ci si assicuri di scaricare ``composer.phar`` nella stessa cartella in cui risiede
+Assicurarsi di scaricare ``composer.phar`` nella stessa cartella in cui si trova
 il file ``composer.json`` (per impostazione predefinita, la radice del progetto
 Symfony).
 
@@ -185,8 +185,8 @@ Symfony stesso, nella cartella ``vendor/``.
     nella cartella ``web``.
 
     Invece di copiare le risorse, si possono creare dei collegamenti simbolici, se
-    consentito dal sistema operativo. Per creare collegamenti simbolici invece di copiare le risorse,
-    aggiungere una voce nel nodo ``extra`` del file composer.json con chiave
+    supportato dal sistema operativo. Per creare collegamenti simbolici, aggiungere
+    una voce nel nodo ``extra`` del file composer.json, con chiave
     ``symfony-assets-install`` e valore ``symlink``:
 
     .. code-block:: json
@@ -198,13 +198,13 @@ Symfony stesso, nella cartella ``vendor/``.
         }
 
     Passando ``relative`` invece di ``symlink`` a symfony-assets-install, il comando genererà
-    collegamenti relativi.    
+    collegamenti simbolici relativi.
         
 Configurazione
 ~~~~~~~~~~~~~~
 
-A questo punto, tutte le librerie di terze parti che ci occorrono sono nella
-cartella ``vendor/``. Abbiamo anche una configurazione predefinita dell'applicazione
+A questo punto, tutte le librerie di terze parti necessarie sono nella
+cartella ``vendor/``. Si dispone anche una configurazione predefinita dell'applicazione
 in ``app/`` e un po' di codice di esempio in ``src/``.
 
 Symfony2 dispone di uno strumento visuale per la verifica della configurazione del server,
@@ -228,17 +228,17 @@ Se ci sono problemi, correggerli prima di proseguire.
     **1. Usare ACL su un sistema che supporta chmod +a**
 
     Molti sistemi consento di usare il comando ``chmod +a``. Provare prima questo e, in
-    caso di errore, provare il metodo successivo. Assicurarsi di sostituire `www-data`
-    con l'utente del prorio server web, nel primo comando ``chmod``:
+    caso di errore, provare il metodo successivo. Viene usato un comando per cercare di
+    determinare l'utente con cui gira il server web e impostarlo come ``APACHEUSER``:
 
     .. code-block:: bash
 
         $ rm -rf app/cache/*
         $ rm -rf app/logs/*
 
-		$ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
-		$ sudo chmod +a "$APACHEUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
-		$ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+        $ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
+        $ sudo chmod +a "$APACHEUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+        $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
 
     **2. Usare ACL su un sistema che non supporta chmod +a**
@@ -246,8 +246,8 @@ Se ci sono problemi, correggerli prima di proseguire.
     Alcuni sistemi non supportano ``chmod +a``, ma supportano un altro programma
     chiamato ``setfacl``. Si potrebbe aver bisogno di `abilitare il supporto ACL`_ sulla
     propria partizione e installare setfacl prima di usarlo (come nel caso di Ubuntu). Viene
-    usato un comando per cercare di determinare l'utente con cui gira il server web e impostarlo
-    come ``APACHEUSER``:
+    usato un comando per cercare di determinare l'utente con cui gira il server web e impostarlo come
+    ``APACHEUSER``:
 
     .. code-block:: bash
 
@@ -286,7 +286,7 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 
 .. tip::
     
-    Per ottenere url brevi, si dovrebbe far puntare la document root del
+    Per ottenere url brevi, si dovrebbe far puntare la cartella radice del
     server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
     non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui
     l'applicazione va in produzione, perché tutti i file di sistema e di configurazione
@@ -301,7 +301,7 @@ Iniziare lo sviluppo
 
 Ora che si dispone di un'applicazione Symfony2 pienamente funzionante, si può iniziare
 lo sviluppo. La distribuzione potrebbe contenere del codice di esempio, verificare il file
-``README.rst`` incluso nella distribuzione (aprendolo come file di testo) per sapere
+``README.md`` incluso nella distribuzione (aprendolo come file di testo) per sapere
 quale codice di esempio è incluso nella distribuzione scelta.
 
 Per chi è nuovo in Symfony, in ":doc:`page_creation`" si può imparare come creare
@@ -340,7 +340,7 @@ seguente riga:
     /vendor/
 
 Ora la cartella dei venditori non sarà inviata in commit al controllo di sorgenti.
-Questo è bene (anzi, benissimo!) perché quando qualcun altro clonerà o farà checkout
+Questo è bene (anzi, benissimo!), perché quando qualcun altro clonerà o farà checkout
 del progetto, potrà semplicemente eseguire lo script ``php composer.phar install`` per
 scaricare tutte le librerie dei venditori necessarie.
 

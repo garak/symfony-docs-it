@@ -1,8 +1,8 @@
 .. index::
     single: Aiutanti di Console; Aiutante Progress
     
-Helper Progress
-===============
+Aiutante Progress
+=================
 
 .. versionadded:: 2.2
     L'aiutante ``progress`` è stato aggiunto in Symfony 2.2.

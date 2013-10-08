@@ -5,7 +5,7 @@ Configurazione di FrameworkBundle ("framework")
 ===============================================
 
 Questo riferimento è ancora provvisorio. Dovrebbe essere accurato, ma
-non sono pienamente coperate tutte le opzioni.
+non sono pienamente coperte tutte le opzioni.
 
 ``FrameworkBundle`` contiene la maggior parte delle funzionalità di base del
 framework e può essere configurato sotto la chiave ``framework`` nella
@@ -313,10 +313,10 @@ assets_version
 
 **tipo**: ``stringa``
 
-Questa opzione è usata per spaccare le risorse in cache, aggiungendo globalmente
+Questa opzione è usata per evitare che le risorse vadano in cache, aggiungendo globalmente
 un parametro di query a tutti i percorsi delle risorse (p.e. ``/images/logo.png?v2``).
-Si applica solo alle risorse rese tramite la funzione ``asset`` di Twig (o al suo equivalente
-PHP), come pure alle risorse rese con Assetic.
+Si applica solo alle risorse rese tramite la funzione ``asset`` di Twig (o al suo equivalente PHP),
+come pure alle risorse rese con Assetic.
 
 Per esempio, si supponga di avere il seguente:
 

@@ -15,12 +15,12 @@ La creazione di una nuova pagina in Symfony2 è un semplice processo in due pass
   restituito all'utente.
 
 Questo semplice approccio è molto bello, perché corrisponde al modo in cui funziona il web.
-Ogni interazione sul web inizia con una richiesta HTTP. Il lavoro della propria applicazione
-è semplicemente quello di interpretare la richiesta e restituire l'appropriata
+Ogni interazione sul web inizia con una richiesta HTTP. Il lavoro di
+un'applicazione è semplicemente quello di interpretare la richiesta e restituire l'appropriata
 risposta HTTP.
 
-Symfony2 segue questa filosofia e fornisce strumenti e convenzioni per mantenere la propria
-applicazione organizzata, man mano che cresce in utenti e in complessità.
+Symfony2 segue questa filosofia e fornisce strumenti e convenzioni per mantenere
+un'applicazione organizzata, man mano che cresce in utenti e in complessità.
 
 .. index::
    single: Creazione di pagine; Ambienti e front controller
@@ -30,7 +30,7 @@ applicazione organizzata, man mano che cresce in utenti e in complessità.
 Ambienti e front controller
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ogni applicazione Symfony gira con un :term:`ambiente`. Un ambiente
+Ogni applicazione Symfony gira in un :term:`ambiente`. Un ambiente
 è un insieme specifico di configurazioni e bundle caricati, rappresentato da una stringa.
 La stessa applicazione può girare con diverse configurazioni, se eseguita
 in diversi ambienti. Symfony2 dispone di tre ambienti
@@ -292,7 +292,7 @@ applicazione dovrebbe salutare:
     .. code-block:: text
 
         http://localhost/app.php/hello/Ryan
-    
+
     Se si ottiene un errore, è probabilmente perché occorre pulire la cache,
     eseguendo:
 

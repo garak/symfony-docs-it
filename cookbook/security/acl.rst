@@ -9,6 +9,17 @@ che non possono essere basate solo sulla persona che lo richiede (il cosiddetto 
 ma che coinvolgono anche un oggetto del dominio per cui l'accesso viene richiesto. Qui
 entrano in gioco le ACL.
 
+.. sidebar:: Alternative ad ACL
+
+    L'uso di ACL non è banale e, per casi d'uso semplice, potrebbe essere eccessivo.
+    Se la logica dei permessi può essere descritta solo scrivendo un po' di codice (p.e.
+    èer verificare se l'utente corrente è proprietario di un Blog), si prenda in considerazione l'uso dei
+    :doc:`votanti </cookbook/security/voters>`. A un votante viene passato l'oggetto
+    su cui si vota, quindi su può usare per prendere decisioni complesse e in effetti
+    implementare un proprio ACL. Usando l'autorizzazione (p.e. la parte ``isGranted``),
+    sembrerà simile a quello che si vedrà in questa ricetta, ma la classe votante
+    gestirà la logica dietro le quinte, al posto del sistema ACL.
+
 Si immagini di progettare un sistema di blog, in cui gli utenti possano commentare i post.
 Ora, si vuole che un utente sia in grado di modificare i propri commenti, ma non quelli
 degli altri utenti; inoltre, si vuole che l'amministratore possa modificare tutti i commenti.
@@ -57,7 +68,6 @@ Innanzitutto, occorre configurare la connessione al sistema ACL da usare:
         $container->loadFromExtension('security', 'acl', array(
             'connection' => 'default',
         ));
-
 
 .. note::
 

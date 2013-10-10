@@ -95,7 +95,7 @@ Opzione 2) Scaricare un archivio
 Si può anche scaricare un archivio della Standard Edition. Qui, si possono fare
 due scelte:
 
-* Scaricare un archivio ``.tgz`` o ``.zip``( sono equivalenti, scegliere quello che
+* Scaricare un archivio ``.tgz`` o ``.zip`` (sono equivalenti, scegliere quello che
   si preferisce);
 
 * Scaricare la distribuzione con o senza venditori. Se si pensa di usare
@@ -123,8 +123,8 @@ prossima sezione.
     :doc:`/cookbook/configuration/override_dir_structure` per maggiori
     informazioni.
 
-Tutti i file pubblici e il front controller che gestisce le richieste in arrivo in
-un'applicazione Symfony2 si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
+Tutti i file pubblici e il front controller, che gestisce le richieste in arrivo in
+un'applicazione Symfony2, si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
 di aver decompresso l'archivio nella cartella radice del server web o di un host virtuale,
 gli URL dell'applicazione inizieranno con ``http://localhost/Symfony/web/``.
 

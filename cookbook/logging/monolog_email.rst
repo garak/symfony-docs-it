@@ -28,7 +28,7 @@ singolarmente.
                     type:       swift_mailer
                     from_email: error@example.com
                     to_email:   error@example.com
-                    subject:    An Error Occurred!
+                    subject:    Si è verificato un errore!
                     level:      debug
 
     .. code-block:: xml
@@ -56,7 +56,7 @@ singolarmente.
                     name="swift"
                     from-email="error@example.com"
                     to-email="error@example.com"
-                    subject="An Error Occurred!"
+                    subject="Si è verificato un errore!"
                     level="debug"
                 />
             </monolog:config>
@@ -80,7 +80,7 @@ singolarmente.
                     'type'       => 'swift_mailer',
                     'from_email' => 'error@example.com',
                     'to_email'   => 'error@example.com',
-                    'subject'    => 'An Error Occurred!',
+                    'subject'    => 'Si è verificato un errore!',
                     'level'      => 'debug',
                 ),
             ),
@@ -107,14 +107,6 @@ l'oggetto.
 Si possono combinare questi gestori con altri gestori, in modo che gli errori siano
 comunque loggati sul server, oltre che inviati per email:
 
-.. caution::
-
-    L'impostazione predefinita dello spool per swiftmailer è ``memory``, che
-    vuol dire che le email sono inviate solo alla fine della richiesta. Tuttavia, non
-    funziona attualmente con il buffer dei log. Per poter abiitare l'invio di log via
-    email, come nell'esempio, occorre commentare la riga ``spool: { type: memory }``
-    nel file ``config.yml``.
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -140,7 +132,7 @@ comunque loggati sul server, oltre che inviati per email:
                     type:       swift_mailer
                     from_email: error@example.com
                     to_email:   error@example.com
-                    subject:    An Error Occurred!
+                    subject:    Si è verificato un errore!
                     level:      debug
 
     .. code-block:: xml
@@ -180,7 +172,7 @@ comunque loggati sul server, oltre che inviati per email:
                     name="swift"
                     from-email="error@example.com"
                     to-email="error@example.com"
-                    subject="An Error Occurred!"
+                    subject="Si è verificato un errore!"
                     level="debug"
                 />
             </monolog:config>
@@ -213,7 +205,7 @@ comunque loggati sul server, oltre che inviati per email:
                     'type'       => 'swift_mailer',
                     'from_email' => 'error@example.com',
                     'to_email'   => 'error@example.com',
-                    'subject'    => 'An Error Occurred!',
+                    'subject'    => 'Si è verificato un errore!',
                     'level'      => 'debug',
                 ),
             ),

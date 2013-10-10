@@ -1,11 +1,14 @@
 .. index::
     single: Aiutanti di Console; Aiutante Progress
-    
+
 Aiutante Progress
 =================
 
 .. versionadded:: 2.2
     L'aiutante ``progress`` è stato aggiunto in Symfony 2.2.
+
+.. versionadded:: 2.3
+    Il metodo ``setCurrent`` è stato aggiunto in Symfony 2.3.
 
 Quando si eseguono comandi che devono girare a lungo, può essere utile mostrare una barra di progresso,
 che si aggiorna durante l'esecuzione:
@@ -27,6 +30,12 @@ passargli un numero totale di unità e avanzare il progresso man mano che il com
     }
 
     $progress->finish();
+
+.. tip::
+
+    Si può anche impostare il progresso attaule, richiamando il metodo
+    :method:`Symfony\\Component\\Console\\Helper\\ProgressHelper::setCurrent`.
+
 
 Si può anche personalizzare il modo in cui il progresso viene mostrato, con vari
 livelli di verbosità. Ciascuno di questi mostra diversi possibili

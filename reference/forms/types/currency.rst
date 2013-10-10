@@ -35,7 +35,7 @@ si dovrebbe usare il tipo ``choice`` direttamente.
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CurrencyType` |
 +---------------+------------------------------------------------------------------------+
 
-Opzioni sovrascritte
+Opzioni ridefinite
 ------------------
 
 choices

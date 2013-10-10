@@ -22,15 +22,18 @@ I valori predefiniti sono ``/usr/bin/coffee`` e ``/usr/bin/node``:
                 coffee:
                     bin: /usr/bin/coffee
                     node: /usr/bin/node
+                    node_paths: [ /usr/lib/node_modules/ ]
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <assetic:config>
-            <assetic:filter
+            <assetic:filter 
                 name="coffee"
-                bin="/usr/bin/coffee"
-                node="/usr/bin/node" />
+                bin="/usr/bin/coffee/"
+                node="/usr/bin/node/">
+                <assetic:node-path>/usr/lib/node_modules/</assetic:node-path>
+            </assetic:filter>
         </assetic:config>
 
     .. code-block:: php
@@ -39,8 +42,9 @@ I valori predefiniti sono ``/usr/bin/coffee`` e ``/usr/bin/node``:
         $container->loadFromExtension('assetic', array(
             'filters' => array(
                 'coffee' => array(
-                    'bin' => '/usr/bin/coffee',
+                    'bin'  => '/usr/bin/coffee',
                     'node' => '/usr/bin/node',
+                    'node_paths' => array('/usr/lib/node_modules/'),
                 ),
             ),
         ));
@@ -83,7 +87,7 @@ Filtrare file multpili
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
             filter='coffee' %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>
+            <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -128,6 +132,7 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
                 coffee:
                     bin: /usr/bin/coffee
                     node: /usr/bin/node
+                    node_paths: [ /usr/lib/node_modules/ ]
                     apply_to: "\.coffee$"
 
     .. code-block:: xml
@@ -139,6 +144,7 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
                 bin="/usr/bin/coffee"
                 node="/usr/bin/node"
                 apply_to="\.coffee$" />
+                <assetic:node-paths>/usr/lib/node_modules/</assetic:node-path>
         </assetic:config>
 
     .. code-block:: php
@@ -147,8 +153,9 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
         $container->loadFromExtension('assetic', array(
             'filters' => array(
                 'coffee' => array(
-                    'bin' => '/usr/bin/coffee',
-                    'node' => '/usr/bin/node',
+                    'bin'      => '/usr/bin/coffee',
+                    'node'     => '/usr/bin/node',
+                    'node_paths' => array('/usr/lib/node_modules/'),
                     'apply_to' => '\.coffee$',
                 ),
             ),
@@ -166,7 +173,7 @@ dal filtro CoffeeScript):
         {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
                        '@AcmeFooBundle/Resources/public/js/altro.coffee'
                        '@AcmeFooBundle/Resources/public/js/regolare.js' %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>
+            <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php

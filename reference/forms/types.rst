@@ -42,7 +42,7 @@ Riferimenti sui tipi nei form
 
 Un form è composto da *campi*, ciascuno dei quali è costruito con l'aiuto di un
 *tipo* di campo (p.e. un tipo ``text``, un tipo ``choice``, eccetera). Symfony2 dispone
-di un gran numero di tipi di campo, che possono essere usati nella propria applicazione.
+di un gran numero di tipi di campo, che possono essere usati in un'applicazione.
 
 Tipi di campo supportati
 ------------------------

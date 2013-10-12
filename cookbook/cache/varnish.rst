@@ -7,8 +7,7 @@ Come usare Varnish per accelerare il proprio sito
 Poiché la cache di Symfony2 usa gli header standard della cache HTTP,
 :ref:`symfony-gateway-cache` può essere facilmente sostituito da qualsiasi altro reverse
 proxy. Varnish è un acceleratore HTTP potente e open source, che è in grado di servire
-contenuti in cache in modo veloce e che include il supporto per :ref:`Edge Side
-Include<edge-side-includes>`.
+contenuti in cache in modo veloce e che include il supporto per :ref:`Edge Side Include<edge-side-includes>`.
 
 .. index::
     single: Varnish; Configurazione
@@ -175,6 +174,37 @@ che invalida la cache per una data risorsa:
                 error 404 "Not purged";
             }
         }
+
+Rotte e header X-FORWARDED
+--------------------------
+
+Per assicurarsi che le rotte di Symfony generino URL corrette con Varnish,
+occorre aggiungere gli appropriati header ```X-Forwarded```, in modo che Symfony sia consapevole
+del numero originale di porta della richiesta. Il modo in cui farlo dipende dalla
+configurazione. Come semplice esempio, supponiamo che Varnish e il server web siano sulla
+stessa macchina e che Varnish ascolti su una porta (p.e. 80) e Apache
+su un'altra (p.e. 8080). In tale situazionen, Varnish dovrebbe aggiungere l'header ``X-Forwarded-Port``,
+in modo tale che l'applicazione Symfony sappia che il numero originale di porta
+è 80 e non 8080.
+
+Se questo header non è stato impostato, Symfony potrebbe aggiungere ``8080`` agli URL
+assoluti generati:
+
+.. code-block:: text
+
+    sub vcl_recv {
+        if (req.http.X-Forwarded-Proto == "https" ) {
+            set req.http.X-Forwarded-Port = "443";
+        } else {
+            set req.http.X-Forwarded-Port = "80";
+        }
+    }
+
+.. note::
+
+    Ricordarsi di impostare :ref:`framework.trusted_proxies <reference-framework-trusted-proxies>`
+    nella configurazione di Symfony, in modo che Varnish sia visto come proxy fidato
+    e gli header ``X-Forwarded-`` usati.
 
 .. _`Architettura Edge`: http://www.w3.org/TR/edge-arch
 .. _`GZIP e Varnish`:  https://www.varnish-cache.org/docs/3.0/phk/gzip.html

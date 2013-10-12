@@ -9,7 +9,7 @@ non sono pienamente coperte tutte le opzioni.
 
 ``FrameworkBundle`` contiene la maggior parte delle funzionalità di base del
 framework e può essere configurato sotto la chiave ``framework`` nella
-configurazione della propria applicazione. Include impostazioni relative a
+configurazione di un'applicazione. Include impostazioni relative a
 sessioni, traduzione, form, validazione, rotte e altro.
 
 Configurazione

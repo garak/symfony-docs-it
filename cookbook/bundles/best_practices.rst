@@ -273,7 +273,7 @@ L'utente finale può fornire valori in qualsiasi file di configurazione:
         [parameters]
         acme_hello.email.from = fabien@example.com
 
-Recuperare i parametri di configurazione nel proprio codice dal contenitore::
+Recuperare i parametri di configurazione nel codice, dal contenitore::
 
     $container->getParameter('acme_hello.email.from');
 
@@ -282,7 +282,7 @@ della configurazione semantica, descritta nel ricettario.
 
 .. note::
 
-    Se si definiscono servizi, deve avere anche essi come prefisso l'alias del
+    Se si definiscono servizi, devono avere anch'essi come prefisso l'alias del
     bundle.
 
 Imparare di più dal ricettario

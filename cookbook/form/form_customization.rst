@@ -144,9 +144,9 @@ L'implementazione del frammento ``integer_widget`` sarà simile a:
     .. code-block:: html+php
 
         <!-- integer_widget.html.php -->
-        <?php echo $view['form']->renderBlock('field_widget', array('type' => isset($type) ? $type : "number")) ?>
+        <?php echo $view['form']->block($form, 'form_widget_simple', array('type' => isset($type) ? $type : "number")) ?>
 
-Come è possibile vedere, questo frammento rende un altro frammento: ``field_widget_simple``:
+Come si può vedere, questo frammento rende un altro frammento: ``form_widget_simple``:
 
 .. configuration-block::
 
@@ -192,11 +192,11 @@ questa cartella.
     il campo input ``text``, bisogna personalizzare il frammento ``text_errors``.
 
     Più frequentemente, tuttavia, si vorrà personalizzare la visualizzazione degli errori
-    attraverso  *tutti* i campi. È possibile fare questo personalizzando il frammento
-    ``field_errors``. Questo si avvale delle ereditarietà del tipo di campo. Specificamente
+    attraverso  *tutti* i campi. È possibile fare questo personalizzando il frammento ``form_errors``.
+    Questo si avvale delle ereditarietà del tipo di campo. Specificamente
     dato che il tipo ``text`` è esteso dal tipo ``field``, il componente del form
     guarderà per prima cosa al tipo-specifico di frammento (es. ``text_errors``) prima 
-    di ricadere sul nome del frammento del suo genitore, se non esiste (es. ``field_errors``).
+    di ricadere sul nome del frammento del suo genitore, se non esiste (es. ``form_errors``).
 
     Per maggiori informazioni sull'argomento, si veda :ref:`form-template-blocks`.
 
@@ -298,6 +298,24 @@ Quando il widget ``form.age`` è reso, Symfony utilizzerà il blocco ``integer_w
 dal nuovo template e il tag ``input`` sarà incorporato nel
 ``div`` specificato nel blocco personalizzato.
 
+Form figli
+..........
+
+Si può anche applicare un tema a uno specifico figlio del form:
+
+.. code-block:: html+jinja
+
+    {% form_theme form.child 'AcmeDemoBundle:Form:fields.html.twig' %}
+
+Questo torna utile quanto si vuole avere un tema personalizzato per un form innestato che
+differisca da quello del form principale. Basta specificare entrambi i temi:
+
+.. code-block:: html+jinja
+
+    {% form_theme form 'AcmeDemoBundle:Form:fields.html.twig' %}
+
+    {% form_theme form.child 'AcmeDemoBundle:Form:fields_child.html.twig' %}
+
 .. _cookbook-form-php-theming:
 
 Temi del form in PHP
@@ -332,6 +350,13 @@ dire a Symfony di utilizzare il tema attraverso il metodo ``setTheme`` dell'help
 Quando il widget ``form.age`` viene reso, Symfony utilizzerà il tema personalizzato
 ``integer_widget.html.php`` e il tag ``input`` sarà contenuto in un
 elemento ``div``.
+
+Se si vuole applicare un tema a uno specifico form figlio, passarlo al metodo ``setTheme``:
+
+
+.. code-block:: php
+
+    <?php $view['form']->setTheme($form['child'], 'AcmeDemoBundle:Form/Child'); ?>
 
 .. _cookbook-form-twig-import-base-blocks:
 
@@ -948,4 +973,4 @@ personalizzazioni. Si veda l'esempio seguente:
 L'array passato come secondo parametro contiene delle variabili del form. Per maggiori
 dettagli su questo concetto in Twig, vedere :ref:`twig-reference-form-variables`.
 
-.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.1/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.3/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

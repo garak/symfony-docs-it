@@ -9,10 +9,6 @@ Il componente HttpFoundation di Symfony2 ha un sotto-sistema per le sessioni mol
 e flessibile, progettato per fornire una gestione delle sessioni tramite una semplice
 interfaccia orientata agli oggetti, usando una varietà di driver per memorizzare la sessione.
 
-.. versionadded:: 2.1
-    L'interfaccia :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface`,
-    insieme a molte altre modifiche, è stata aggiunta in Symfony 2.1.
-
 Le sessioni sono usate tramite la semplice implementazione :class:`Symfony\\Component\\HttpFoundation\\Session\\Session`
 dell'interfaccia :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface`.
 
@@ -102,9 +98,6 @@ Attributi della sessione
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::has`:
   Restituisce ``true`` se l'attributo esiste;
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::keys`:
-  Restituisce un array di chiavi di attributi;
-
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::replace`:
   Imposta molti attributi contemporaneamente: accetta un array e imposta ogni coppia chiave => valore.
 
@@ -133,7 +126,6 @@ Meta-dati della sessione
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag`:
   Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\MetadataBag`,
   che contiene informazioni sulla sessione.
-
 
 Gestori del salvataggio
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -166,7 +158,6 @@ seguente API, intesa principalmente per scopi interni:
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getName`:
   Restituisce il nome del bag della sessione.
-
 
 Attributi
 ~~~~~~~~~
@@ -233,7 +224,6 @@ ha una semplice API
 
 * :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::clear`:
   Pulisce il bag;
-
 
 Messaggi flash
 ~~~~~~~~~~~~~~

@@ -990,12 +990,12 @@ altre risorse. Certamente, si potrebbe inserire manualmente il percorso a tali r
         <link href="<?php echo $view['assets']->getUrl('css/blog.css') ?>" rel="stylesheet" type="text/css" />
 
 Lo scopo principale della funzione ``asset`` è rendere più portabile la propria
-applicazione. Se la propria applicazione si trova nella radice del proprio host
+applicazione. Se l'applicazione si trova nella radice dell'host
 (p.e. http://example.com), i percorsi resi dovrebbero essere del tipo ``/images/logo.png``. 
-Se invece la propria applicazione si trova in una sotto-cartella (p.e.
+Se invece l'applicazione si trova in una sotto-cartella (p.e.
 http://example.com/my_app), ogni percorso dovrebbe includere la sotto-cartella
 (p.e. ``/my_app/images/logo.png``). La funzione ``asset`` si prende cura di questi aspetti,
-determinando in che modo è usata la propria applicazione e generando i percorsi adeguati.
+determinando in che modo è usata l'applicazione e generando i percorsi adeguati.
 
 Inoltre, se si usa la funzione ``asset``, Symfony può aggiungere automaticamente
 un parametro all'URL della risorsa, per garantire che le risorse statiche aggiornate

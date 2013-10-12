@@ -85,7 +85,7 @@ Quindi l'URL dell'applicazione sarà "http://localhost:8000/app_dev.php"
 Il server web incluso andrebbe usato solo durante lo sviluppo, ma può
 aiutare a iniziare unprogetto in modo rapido e facile.
 
-Se si usa un server web classico, come Apache, l'URL dipende dalla propria
+Se si usa un server web classico, come Apache, l'URL dipende dalla
 configurazione. Se Symfony è stato scompattato sotto la cartella radice, in
 una cartella ``Symfony``, l'URL dell'applicazione sarà:
 "http://localhost/Symfony/web/app_dev.php".
@@ -116,7 +116,7 @@ il seguente URL per avviare la diagnosi sulla propria macchina:
     :ref:`above section<quick-tour-big-picture-built-in-server>` per dettagli
     su come dovrebbe essere l'URL e usarlo in tutti gli esempi.
 
-Se ci sono dei problemi, correggerli. Si potrebbe anche voler modificare la propria
+Se ci sono dei problemi, correggerli. Si potrebbe anche voler modificare la
 configurazione, seguendo le raccomandazioni fornite. Quando è tutto a posto,
 cliccare su "*Bypass configuration and go to the Welcome page*" per richiedere
 la prima "vera" pagina di Symfony2:
@@ -133,8 +133,8 @@ Symfony2 dovrebbe congratularsi per il duro lavoro svolto finora!
 Capire i fondamenti
 -------------------
 
-Uno degli obiettivi principali di un framework è quello di assicurare la `Separazione degli ambiti`_.
-Ciò mantiene il proprio codice organizzato e consente alla propria applicazione di
+Uno degli obiettivi principali di un framework è quello di assicurare la `separazione degli ambiti`_.
+Ciò mantiene il proprio codice organizzato e consente all'applicazione di
 evolvere facilmente nel tempo, evitando il miscuglio di chiamate alla base dati, tag HTML
 e logica di business nello stesso script. Per raggiungere questo obiettivo con Symfony,
 occorre prima imparare alcuni termini e concetti fondamentali.
@@ -383,13 +383,13 @@ capitolo introdurrà il modo in cui funzionano i template in in Symfony2.
 Bundle
 ~~~~~~
 
-Forse vi siete chiesti perché il termine :term:`bundle` viene usato così tante volte
-finora. Tutto il codice che si scrive per la propria applicazione è organizzato in
+Forse ci si sta chiedendo perché il termine :term:`bundle` sia stato usato così tante volte
+finora. Tutto il codice che si scrive per un'applicazione è organizzato in
 bundle. Nel linguaggio di Symfony2, un bundle è un insieme strutturato di file (file
 PHP, fogli di stile, JavaScript, immagini, ...) che implementano una singola
 caratteristica (un blog, un forum, ...) e che può essere condivisa facilmente con
-altri sviluppatori. Finora abbiamo manipolato un solo bundle, ``AcmeDemoBundle``.
-Impareremo di più sui bundle nell'ultimo capitolo di questa guida.
+altri sviluppatori. Finora è stato trattato un solo bundle, ``AcmeDemoBundle``.
+Si vedrà di più sui bundle nell'ultimo capitolo di questa guida.
 
 .. _quick-tour-big-picture-environments:
 
@@ -405,7 +405,7 @@ una piccola barra con il logo di Symfony2. Questa barra è chiamata
    :align: center
 
 Ma quello che si vede all'inizio è solo la punta dell'iceberg: cliccando
-sullo strano numero esadecimale, rivelerà un altro strumento di debug veramente
+sullo strano numero esadecimale, si rivelerà un altro strumento di debug veramente
 utile di Symfony2: il profilatore.
 
 .. image:: /images/quick_tour/profiler.png
@@ -417,7 +417,7 @@ utile di Symfony2: il profilatore.
     sopra gli elementi della barra di debug del web o cliccandovi sopra, per andare
     alle rispettive pagine del profilatore.
 
-Se caricato e abilitato (lo è in :ref:`environment<quick-tour-big-picture-environments-intro>` ``dev``),
+Se caricato e abilitato (lo è in :ref:`ambiente<quick-tour-big-picture-environments-intro>` ``dev``),
 il profilatore fornisce un'interfaccia web a un *immenso* ammontare di informazioni registrate
 a ogni richiesta, inclusi log, tempi di richiesta, parametri GET o POST,
 dettagli di sicurezza, query alla base dati e così via.
@@ -491,7 +491,7 @@ sezione: ":doc:`la vista<the_view>`".
 .. _Symfony2 Standard Edition:      http://symfony.com/download
 .. _Symfony in 5 minuti:            http://symfony.com/symfony-in-five-minutes
 .. _`Composer`:                     http://getcomposer.org/
-.. _Separazione degli ambiti:       http://en.wikipedia.org/wiki/Separation_of_concerns
+.. _separazione degli ambiti:       http://en.wikipedia.org/wiki/Separation_of_concerns
 .. _annotazioni nei controllori:    http://symfony.com/it/doc/current/bundles/SensioFrameworkExtraBundle/index.html#annotazioni-per-i-controllori
 .. _Twig:                           http://twig.sensiolabs.org/
 .. _`pagina di installazione di Symfony`: http://symfony.com/download

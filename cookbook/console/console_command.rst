@@ -85,8 +85,10 @@ Per esempio, si può facilmente estendere il task per essere traducibile::
 Testare i comandi
 -----------------
 
-Quando si testano i comandi usati come parte di un framework, andrebbe usata :class:`Symfony\\Bundle\\FrameworkBundle\\Console\\Application`
-al posto di :class:`Symfony\\Component\\Console\\Application`::
+Quando si testano i comandi usati come parte di un framework, andrebbe usata
+:class:`Symfony\\Bundle\\FrameworkBundle\\Console\\Application <Symfony\\Bundle\\FrameworkBundle\\Console\\Application>`
+al posto di
+:class:`Symfony\\Component\\Console\\Application <Symfony\\Component\\Console\\Application>`::
 
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -96,13 +98,18 @@ al posto di :class:`Symfony\\Component\\Console\\Application`::
     {
         public function testExecute()
         {
-            // fare un mock del Kernel o crearme uno, a seconda delle esigenze
+            // fare un mock del Kernel o crearne uno, a seconda delle esigenze
             $application = new Application($kernel);
             $application->add(new GreetCommand());
 
             $command = $application->find('demo:greet');
             $commandTester = new CommandTester($command);
-            $commandTester->execute(array('command' => $command->getName()));
+            $commandTester->execute(
+               array(
+                  'name'    => 'Fabien',
+                  '--yell'  => true,
+               )
+            );
 
             $this->assertRegExp('/.../', $commandTester->getDisplay());
 
@@ -110,9 +117,15 @@ al posto di :class:`Symfony\\Component\\Console\\Application`::
         }
     }
 
+.. note::
+
+    Nel caso specifico appena visto, il parametro ``name`` e l'opzione ``--yell``
+    non sono indispensabili al comando, ma sono mostrate per poter capire
+    come personalizzarli quando si richiama il comando stesso.
+
 Per poter usare il contenitore in modo completo per i test della console,
 si può estendere il test da
-:class:`Symfony\Bundle\FrameworkBundle\Test\WebTestCase`::
+:class:`Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase`::
 
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -131,7 +144,12 @@ si può estendere il test da
 
             $command = $application->find('demo:greet');
             $commandTester = new CommandTester($command);
-            $commandTester->execute(array('command' => $command->getName()));
+            $commandTester->execute(
+               array(
+                  'name'    => 'Fabien',
+                  '--yell'  => true,
+               )
+            );
 
             $this->assertRegExp('/.../', $commandTester->getDisplay());
 

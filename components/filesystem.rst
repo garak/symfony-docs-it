@@ -6,17 +6,13 @@ Il componente Filesystem
 
     Il componente Filesystem fornisce utilità di base per il filesystem.
 
-.. versionadded:: 2.1
-    Il componente Filesystem è stato aggiunto in Symfony 2.1. Precedentemente, la classe
-    ``Filesystem`` si trovava nel componente ``HttpKernel``.
-
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
 * Usare il repository ufficiale su Git (https://github.com/symfony/Filesystem);
-* Installarlo via Composer (``symfony/filesystem`` su `Packagist`_).
+* Installarlo tramite `Composer </components/using_components>` (``symfony/filesystem`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -44,9 +40,8 @@ punto finale per le operazioni su filesystem::
     :method:`Symfony\\Component\\Filesystem\\Filesystem::chmod`,
     :method:`Symfony\\Component\\Filesystem\\Filesystem::chown` e
     :method:`Symfony\\Component\\Filesystem\\Filesystem::chgrp` possono ricevere
-    come parametro una stringa, un array o qualsiasi oggetto che implementi
-    :phpclass:`Traversable`.
-
+    una stringa, un array o un oggetto che implementi :phpclass:`Traversable`
+    come parametro.
 
 Mkdir
 ~~~~~
@@ -138,7 +133,6 @@ un'opzione ricorsiva::
     $fs->chgrp('lolcat.mp4', 'nginx');
     // cambia il gruppo della cartella video ricorsivamente
     $fs->chgrp('/video', 'nginx', true);
-
 
 .. note::
 
@@ -235,8 +229,26 @@ isAbsolutePath
     // restituisce false
     $fs->isAbsolutePath('../dir');
 
-Error Handling
---------------
+.. versionadded:: 2.3
+    ``dumpFile`` è nuovo in Symfony 2.3
+
+dumpFile
+~~~~~~~~
+
+:method:`Symfony\\Component\\Filesystem\\Filesystem::dumpFile` consente di
+esportare contenuti in un file. Lo fa in maniera atomica: scrive prima un file
+temporaneo e quindi lo sposta nella nuova posizione, in cui viene finalizzato.
+Questo vuol dire che l'utente vedrà sempre o il vecchio file completo o
+il nuovo file completo (ma mai un file parziale)::
+
+    $fs->dumpFile('file.txt', 'Ciao mondo');
+
+Il file ``file.txt`` ora contiene ``Ciao mondo``.
+
+Si può passare come terzo parametro una modalità di file.
+
+Gestione degli errori
+---------------------
 
 Quando si verifica un problema, viene sollevata un'eccezione che
 implementa la classe
@@ -244,8 +256,8 @@ implementa la classe
 
 .. note::
 
-    Prima della versione 2.1, :method:`Symfony\\Component\\Filesystem\\Filesystem::mkdir`
-    restituiva un booleano e non lanciava eccezioni. Dalla 2.1, viene sollevata una
+    Prima della versione 2.1, ``mkdir`` restituiva un booleano e non lanciava
+    eccezioni. Dalla 2.1, viene sollevata una
     :class:`Symfony\\Component\\Filesystem\\Exception\\IOException` se
     la creazione della cartella fallisce.
 

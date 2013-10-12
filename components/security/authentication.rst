@@ -134,7 +134,7 @@ password è valida::
             'admin' => array(
                 // la password è "foo"
                 'password' => '5FZ2Z8QIkA7UTZ4BYkoC+GsReLf569mSKDsfods6LYQ8t+a8EW9oaircfMpmaLbPBh4FOBiiFyLfuZmTSUwzZg==',
-                'roles' => array('ROLE_ADMIN'),
+                'roles'    => array('ROLE_ADMIN'),
             ),
         )
     );
@@ -179,7 +179,7 @@ riceve un array di codificatori::
 
     $encoders = array(
         'Symfony\\Component\\Security\\Core\\User\\User' => $defaultEncoder,
-        'Acme\\Entity\\LegacyUser' => $weakEncoder,
+        'Acme\\Entity\\LegacyUser'                       => $weakEncoder,
 
         // ...
     );
@@ -190,8 +190,21 @@ Ogni codificatore deve implementare :class:`Symfony\\Component\\Security\\Core\\
 o essere un array con chiavi ``class`` e ``arguments``, che consente al
 factory codificatore di costruire il codificatore solo quando necessario.
 
-Codificatori di password
-~~~~~~~~~~~~~~~~~~~~~~~~
+Creare un codificatore di password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ci sono molti codificatori di password predefiniti. Se si ha l'esigenza di crearne
+uno nuovo, basta seguire le seguenti tre regole:
+
+#. La classe deve implementare :class:`Symfony\\Component\\Security\\Core\\Encoder\\PasswordEncoderInterface`;
+
+#. La prima riga in ``encodePassword`` e ``isPasswordValid`` deve
+   assicurarsi che la password non sia troppo lunga (p.e. 4096). Questo per ragioni di sicurezza
+   (vedere `CVE-2013-5750`_). Si può copiare l'implementazione di `BasePasswordEncoder::checkPasswordLength`_
+   da Symfony 2.4.
+
+Usare codificatori di password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quando il metodo :method:`Symfony\\Component\\Security\\Core\\Encoder\\EncoderFactory::getEncoder`
 del factory codificatore di password viene richiamato con l'oggetto utente come
@@ -213,3 +226,6 @@ che va usato per codificare la password dell'utente::
         $user->getPassword(),
         $password,
         $user->getSalt());
+
+.. _`CVE-2013-5750`: http://symfony.com/blog/cve-2013-5750-security-issue-in-fosuserbundle-login-form
+.. _`BasePasswordEncoder::checkPasswordLength`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Security/Core/Encoder/BasePasswordEncoder.php

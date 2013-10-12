@@ -256,5 +256,10 @@ Il meccanismo del proxy consente di essere coinvolto in modo più approfondito n
 dei gestori del salvataggio. Un proxy, per esempio, può essere usato per criptare ogni
 transazione di una sessione, senza sapere nulla del gestore del salvataggio specifico.
 
+.. note::
+
+    Prima di PHP 5.4, si possono usare proxy di gestori di salvataggio personalizzati,
+    non quelli nativi di PHP.
+
 .. _`php.net/session.customhandler`: http://php.net/session.customhandler
 .. _`php.net/session.configuration`: http://php.net/session.configuration

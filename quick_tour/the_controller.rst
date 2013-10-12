@@ -241,9 +241,9 @@ In questo esempio, la risorsa sarà in cache per un giorno. Ma si può anche usa
 la validazione invece della scadenza o una combinazione di entrambe, se questo
 soddisfa meglio le proprie esigenze.
 
-La cache delle risorse è gestita dal reverse proxy predefinito di Symfony2. Ma poiché la
+La cache delle risorse è gestita dal reverse proxy predefinito di Symfony2. Ma, poiché la
 cache è gestita usando i normali header di cache di HTTP, è possibile rimpiazzare il
-reverse proxy predefinito con Varnish o Squid e scalare facilmente la propria applicazione.
+reverse proxy predefinito con Varnish o Squid e far scalare facilmente un'applicazione.
 
 .. note::
 

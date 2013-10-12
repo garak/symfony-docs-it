@@ -79,12 +79,12 @@ potenti caratteristiche di Symfony2, il sistema dei :term:`bundle`.
 Un bundle è molto simile a un plugin in un altro software. Ma perché
 allora si chiama *bundle* e non *plugin*? Perché *ogni cosa* è un bundle
 in Symfony2, dalle caratteristiche del nucleo del framework al codice
-scritto per la propria applicazione. I bundle sono cittadini di prima classe in Symfony2.
+scritto per un'applicazione. I bundle sono cittadini di prima classe in Symfony2.
 Essi forniscono la flessibilità di usare delle caratteristiche pre-costruite impacchettate
 in bundle di terze parti o di distribuire i propri bundle. Questo rende
 molto facile scegliere quali caratteristiche abilitare nella propria
 applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
-della propria applicazione è *importante* quanto il nucleo stesso del framework.
+dell'applicazione è *importante* quanto il nucleo stesso del framework.
 
 Registrare un bundle
 ~~~~~~~~~~~~~~~~~~~~
@@ -282,7 +282,7 @@ applicazioni, memorizzarli localmente o globalmente, a propria scelta.
 Usare i venditori
 -----------------
 
-Probabilmente la propria applicazione dipenderà da librerie di terze parti.
+Probabilmente l'applicazione dipenderà da librerie di terze parti.
 Queste ultime dovrebbero essere memorizzate nella cartella ``vendor/``.
 Tale cartella contiene già le librerie di Symfony2, SwiftMailer, l'ORM Doctrine,
 il sistema di template Twig e alcune altre librerie e bundle di terze parti.

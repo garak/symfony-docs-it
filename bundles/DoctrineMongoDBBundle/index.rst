@@ -91,7 +91,7 @@ Configurazione
 
 Per iniziare, sono necessarie alcune configurazioni di base, che impostano il document
 manager. Il modo pià semplice è abilitare ``auto_mapping``, che attiverà
-l'ODM MongoDB su tutta la propria applicazione:
+l'ODM MongoDB su tutta l'applicazione:
 
 .. code-block:: yaml
 
@@ -741,8 +741,8 @@ il fornitore di entità descritto :doc:`nel ricettario</cookbook/security/entity
 Riepilogo
 ---------
 
-Con Doctrine, ci si può concentrare sui propri oggetti e su come siano utili nella
-propria applicazione e preoccuparsi della persistenza su MongoDB in un secondo momento. Questo perché 
+Con Doctrine, ci si può concentrare sui propri oggetti e su come siano utili
+nell'applicazione e preoccuparsi della persistenza su MongoDB in un secondo momento. Questo perché 
 Doctrine consente di usare qualsiasi oggetto PHP per tenere i propri dati e si appoggia
 su meta-dati di mappatura per mappare i dati di un oggetto su una collezione di MongoDB.
 

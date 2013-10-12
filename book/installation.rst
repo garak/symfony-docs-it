@@ -62,7 +62,7 @@ Standard:
 .. tip::
 
     Per una versione esatta, sostituire "2.3.0" con l'ultima versione di Symfony.
-    Per detaggli, si veda la `pagina di installazione di Symfony`_
+    Per dettagli, si veda la `pagina di installazione di Symfony`_
 
 .. tip::
 

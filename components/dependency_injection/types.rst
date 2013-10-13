@@ -23,7 +23,7 @@ che accetti la dipendenza::
     {
         protected $mailer;
 
-        public function __construct(Mailer $mailer)
+        public function __construct(\Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
@@ -43,7 +43,7 @@ del contenitore di servizi:
                 # ...
             newsletter_manager:
                 class:     NewsletterManager
-                arguments: [@mio_mailer]
+                arguments: ["@mio_mailer"]
 
     .. code-block:: xml
 
@@ -101,7 +101,7 @@ che accetti la dipendenza::
     {
         protected $mailer;
 
-        public function setMailer(Mailer $mailer)
+        public function setMailer(\Mailer $mailer)
         {
             $this->mailer = $mailer;
         }
@@ -119,7 +119,7 @@ che accetti la dipendenza::
             newsletter_manager:
                 class:     NewsletterManager
                 calls:
-                    - [ setMailer, [ @mio_mailer ] ]
+                    - [setMailer, ["@mio_mailer"]]
 
     .. code-block:: xml
 
@@ -186,7 +186,7 @@ Un'altra possibilità consiste nell'impostare direttamente campi pubblici della 
             newsletter_manager:
                 class:     NewsletterManager
                 properties:
-                    mailer: @mio_mailer
+                    mailer: "@mio_mailer"
 
     .. code-block:: xml
 
@@ -210,7 +210,6 @@ Un'altra possibilità consiste nell'impostare direttamente campi pubblici della 
             'NewsletterManager'
         ))->setProperty('mailer', new Reference('mio_mailer')));
 
-
 Ci sono principalmente solo svantaggi nell'uso dell'iniezione di proprietà, che è
 simile a quella da setter, ma con importanti problemi ulteriori:
 
@@ -224,4 +223,3 @@ simile a quella da setter, ma con importanti problemi ulteriori:
 Tuttavia, è utile conoscere questa possibilità del contenitore di servizi,
 specialmente se si lavora con codice fuori dal proprio controllo, come in
 librerie di terze parti, che usino proprietà pubbliche per le proprie dipendenze.
-

@@ -5,7 +5,7 @@ Servizi pigri
 =============
 
 .. versionadded:: 2.3
-   I servizi pigri sono stati aggiunti nella versione 2.3 di Symfony.
+   I servizi pigri sono stati aggiunti in Symfony 2.3.
 
 Perché i servizi pigri?
 -----------------------
@@ -18,9 +18,9 @@ anche senza farne uso, il servizio ``mailer`` verrebbe comunque istanziato
 in modo da poter costruire il ``GestoreDiNewsletter``.
 
 Per risolvere questo problema è possibile usare un servizio pigro. Quando si usa un servizio pigro, 
-in realtà viene iniettato un "sostituto" del servizio ``mailer``. Il sostituto sembra e si comporta esattamente
+in realtà viene iniettato un "proxy" del servizio ``mailer``. Il proxy sembra e si comporta esattamente
 come se fosse il ``mailer``, a parte il fatto che ``mailer`` non viene istanziato finché
-non si interagisce in qualche modo con il suo sostituto.
+non si interagisce in qualche modo con il suo proxy.
 
 Installazione
 -------------
@@ -34,9 +34,17 @@ il `bridge ProxyManager`_:
 
 .. note::
 
-    A meno di non utilizzare il framework completo, questo pacchetto non viene installato
-    e richiede di essere aggiunto in ``composer.json`` e installato (che è ciò che
-    il precedente comando fa).
+    Se si usa il framework completo, questo pacchetto è già incluso,
+    ma il vero gestore di proxy deve essere incluso. Aggiungere quindi
+
+    .. code-block:: json
+
+        "require": {
+            "ocramius/proxy-manager": "0.4.*"
+        }
+
+    nel file ``composer.json``. Compilare quindi il contenitore e verificare
+    di avere un proxy per i servizi pigri.
 
 Configurazione
 --------------
@@ -62,14 +70,24 @@ Si può definire un servizio come pigro, modificandone la definizione:
         $definizione->setLazy(true);
         $container->setDefinition('pippo', $definizione);
 
-Ora è possibile richiedere il servizio tramite il contenitore::
+Ora è possibile richiedere il servizio dal contenitore::
 
     $servizio = $container->get('pippo');
 
-Fino a qui il ``$servizio`` recuperato dovrebbe essere un `sostituto`_ virtuale con
+A questo punto il ``$servizio`` recuperato dovrebbe essere un `proxy`_ virtuale con
 la stessa firma della classe che rappresenta il servizio. È anche possibile iniettare
 il servizio così come si farebbe con qualsiasi altro servizio. L'oggetto che verrà effettivamente
-iniettato sarà il sostituto.
+iniettato sarà il proxy.
+
+Per verificare che il proxy funzioni, si può semplicemente verificare l'interfaccia
+dell'oggetto ricevuto.
+
+.. code-block:: php
+
+    var_dump(class_implements($service));
+
+Se la classe implementa "ProxyManager\Proxy\LazyLoadingInterface", i servizi
+pigri stanno funzionando.
 
 .. note::
 
@@ -77,7 +95,7 @@ iniettato sarà il sostituto.
     a saltare il parametro ``lazy`` e a istanziare il servizio come
     farebbe normalmente.
 
-Il sostituto viene inizializzato e il servizio vero e proprio viene istanziato non appena
+Il proxy viene inizializzato e il servizio vero e proprio viene istanziato non appena
 si dovesse interagire con l'oggetto.
 
 Risorse aggiuntive
@@ -88,5 +106,5 @@ nella `documentazione sul ProxyManager`_.
 
 
 .. _`bridge ProxyManager`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge/ProxyManager
-.. _`sostituto`: http://it.wikipedia.org/wiki/Proxy_pattern
+.. _`proxy`: http://it.wikipedia.org/wiki/Proxy_pattern
 .. _`documentazione sul ProxyManager`: https://github.com/Ocramius/ProxyManager/blob/master/docs/lazy-loading-value-holder.md

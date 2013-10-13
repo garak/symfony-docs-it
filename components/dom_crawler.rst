@@ -52,6 +52,16 @@ Le classi specializzate :class:`Symfony\\Component\\DomCrawler\\Link` e
 :class:`Symfony\\Component\\DomCrawler\\Form` sono utili per interagire con
 collegamenti html e i form durante la visita dell'albero HTML.
 
+.. note::
+
+    DomCrawler proverà a sistemare automaticamente il codice HTML, per farlo corrispondere
+    alle specifiche ufficiali. Per esempio, se si inserisce un tag `` <p>`` dentro a
+    un altro tag `` <p>``, sarà spostato come fratello del tag genitore.
+    Questo è il comportamento atteso e fa parte delle specifiche di HTML5. Se però si
+    ottiene un comportamento inatteso, potrebbe esserne una causa. Pur non essendo ``DomCrawler``
+    pensato per esportare contenuti, si può vedere la versione "sistemata" del codice HTML
+    :ref:`con un esportazione <component-dom-crawler-dumping>`.
+
 Filtrare i nodi
 ~~~~~~~~~~~~~~~
 
@@ -69,6 +79,9 @@ In questo modo è possibile usare lo stile jQuery per l'attraversamento::
     $crawler = $crawler->filter('body > p');
 
 È possibile usare funzioni anonime per eseguire filtri complessi::
+
+    use Symfony\Component\DomCrawler\Crawler;
+    // ...
 
     $crawler = $crawler->filter('body > p')->reduce(function ($node, $i) {
         // filtra anche i nodi
@@ -137,9 +150,17 @@ Estrarre l'attributo e/o il valore di un nodo da una lista di nodi::
 
 Chiamare una funzione anonima su ogni nodo della lista::
 
+    use Symfony\Component\DomCrawler\Crawler;
+    // ...
+
     $nodeValues = $crawler->filter('p')->each(function ($nodo, $i) {
         return $nodo->nodeValue;
     });
+
+.. versionadded::
+    In Symfony 2.3, alle funzioni Closure ``each`` e ``reduce`` viene
+    passato un ``Crawler`` come primo parametro. In precedenza, tale parametro
+    era un :phpclass:`DOMNode`.
 
 La funzione anonima riceve la posizione e il nodo come argomenti.
 Il risultato è un array contenente i valori restituiti dalle chiamate alla funzione anonima.
@@ -184,6 +205,8 @@ e :phpclass:`DOMNode`:
     $crawler->addNode($nodo);
     $crawler->add($documento);
 
+.. _component-dom-crawler-dumping:
+
 .. sidebar:: Manipolare ed esportare un ``Crawler``
 
     Questi metodi di ``Crawler`` servono per popolare inizialmente il proprio
@@ -193,12 +216,19 @@ e :phpclass:`DOMNode`:
     in :phpclass:`DOMElement`, :phpclass:`DOMNode` o :phpclass:`DOMDocument`.
     Per esempio, si può ottenre l'HTML di un ``Crawler`` con qualcosa del
     genere::
-    
+
         $html = '';
 
         foreach ($crawler as $domElement) {
             $html .= $domElement->ownerDocument->saveHTML($domElement);
         }
+
+    Oppure si può ottenere l'HTML del primo nodo con
+    :method:`Symfony\\Component\\DomCrawler\\Crawler::html`::
+
+        $html = $crawler->html();
+
+    Il metodo ``html`` è nuovo in Symfony 2.3.
 
 Supporto per i collegamenti e per i form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -233,8 +263,8 @@ avere ulteriori informazioni relative al collegamento selezionato::
     con il suffisso ``#foo``. Il valore restituito da ``getUri()`` è sempre un URI completo,
     sul quale è possibile lavorare.
 
-I Form
-......
+Form
+....
 
 Un trattamento speciale è riservato anche ai form. È disponibile, in Crawler,
 un metodo ``selectButton()`` che restituisce un altro Crawler relativo
@@ -243,9 +273,9 @@ il testo dato. Questo metodo è specialmente utile perché può essere usato per
 un oggetto :class:`Symfony\\Component\\DomCrawler\\Form`, che rappresenta 
 il form all'interno del quale il pulsante è definito::
 
-    $form = $crawler->selectButton('Valida')->form();
+    $form = $crawler->selectButton('valida')->form();
 
-    // o "riempie" i campi del form con dati
+    // oppure "riempire" i campi del form con dati
     $form = $crawler->selectButton('Valida')->form(array(
         'nome' => 'Ryan',
     ));
@@ -291,10 +321,10 @@ Per lavorare con i campi multi-dimensionali::
     $form->setValue('multi[0]', 'valore');
 
     // Imposta molteplici campi in una sola volta
-    $form->setValue('multi', array(
+    $form->setValues(array('multi' => array(
         1              => 'valore',
         'dimensionale' => 'un altro valore'
-    ));
+    )));
 
 Se questo è fantastico, il resto è anche meglio! L'oggetto ``Form`` permette di
 interagire con il form come se si usasse il browser, selezionando i valori dei radio,

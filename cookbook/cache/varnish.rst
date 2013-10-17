@@ -6,7 +6,7 @@ Come usare Varnish per accelerare il proprio sito
 
 Poiché la cache di Symfony2 usa gli header standard della cache HTTP,
 :ref:`symfony-gateway-cache` può essere facilmente sostituito da qualsiasi altro reverse
-proxy. Varnish è un acceleratore HTTP potente e open source, che è in grado di servire
+proxy. `Varnish`_ è un acceleratore HTTP potente e open source, che è in grado di servire
 contenuti in cache in modo veloce e che include il supporto per :ref:`Edge Side Include<edge-side-includes>`.
 
 .. index::
@@ -206,5 +206,6 @@ assoluti generati:
     nella configurazione di Symfony, in modo che Varnish sia visto come proxy fidato
     e gli header ``X-Forwarded-`` usati.
 
+.. _`Varnish`: https://www.varnish-cache.org
 .. _`Architettura Edge`: http://www.w3.org/TR/edge-arch
 .. _`GZIP e Varnish`:  https://www.varnish-cache.org/docs/3.0/phk/gzip.html

@@ -117,10 +117,58 @@ e non::
 
     $builder->add('nome', new TipoPersonalizzato());
 
+.. _override-validation:
+
 Meta-dati di validazione
 ------------------------
 
-In corso...
+Symfony carica tutti i file di configurazione per la validazione da ogni bundle e
+li combina un albero di meta-dati di validazione. Questo vuol dire che si possono
+aggiungere nuovi vincoli a una proprietà, ma non si possono ridefinire.
+
+Per risolvere il problema, il bundle di terze parti deve avere una configurazione per i
+:ref:`gruppi di validazione <book-validation-validation-groups>`. Per esempio,
+FOSUserBundle ha questa configurazione. Per creare la propria validazione, aggiungere
+i vincoli in un nuovo gruppo di validazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/validation.yml
+        Fos\UserBundle\Model\User:
+            properties:
+                plainPassword:
+                    - NotBlank:
+                        groups: [AcmeValidation]
+                    - Length:
+                        min: 6
+                        minMessage: fos_user.password.short
+                        groups: [AcmeValidation]
+
+    .. code-block:: xml
+
+        <!-- src/Acme/UserBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Fos\UserBundle\Model\User">
+                <property name="password">
+                    <constraint name="Length">
+                        <option name="min">6</option>
+                        <option name="minMessage">fos_user.password.short</option>
+                        <option name="groups">
+                            <value>AcmeValidation</value>
+                        </option>
+                    </constraint>
+                </property>
+            </class>
+        </constraint-mapping>
+
+Ora, aggiornare la configurazione di FosUserBundle, in modo che usi i nuovi gruppi di validazione
+al posto di quelli originari.
 
 .. _override-translations:
 

@@ -59,6 +59,24 @@ Nascodere la risposta dell'utente
 .. versionadded:: 2.2
     Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
 
+Si possono anche specificare delle risposte possibili alla domanda data. Saranno
+completate man mano che l'utente scrive::
+
+    $dialog = $this->getHelperSet()->get('dialog');
+    $bundleNames = array('AcmeDemoBundle', 'AcmeBlogBundle', 'AcmeStoreBundle');
+    $name = $dialog->ask(
+        $output,
+        'Prego inserire il nome del bundle',
+        'FooBundle',
+        $bundleNames
+    );
+
+Nascondere la risposta dell'utente
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.2
+    Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
+
 Si può anche fare una domanda e nascodere la risposta. Ciò risulta utile
 in particolare per le password::
 
@@ -105,10 +123,10 @@ avere il suffisso ``Bundle``. Lo si può validare, usando il metodo
 Il metodo ha due nuovi parametri. La sua firma completa è::
 
     askAndValidate(
-        OutputInterface $output, 
-        string|array $question, 
-        callback $validator, 
-        integer $attempts = false, 
+        OutputInterface $output,
+        string|array $question,
+        callback $validator,
+        integer $attempts = false,
         string $default = null
     )
 
@@ -169,17 +187,17 @@ da una lista predefinita::
 
     $dialog = $app->getHelperSet()->get('dialog');
     $colors = array('rosso', 'blu', 'giallo');
-    
+
     $color = $dialog->select(
-        $output, 
-        'Scegli il tuo colore preferito (predefinito: rosso)', 
-        $colors, 
+        $output,
+        'Scegli il tuo colore preferito (predefinito: rosso)',
+        $colors,
         0
     );
     $output->writeln('Hai scelto: ' . $colors[$color]);
-    
+
     // ... fare qualcosa con il colore
-    
+
 L'opzione selezionata come predefinita va fornita come quarto
 parametro. Il valore predefinito è ``null``, che significa che nessuna opzione è predefinita.
 
@@ -189,6 +207,36 @@ raggiunge il numero massimo di tentativi (definibile nel quinto
 parametro). Il valore predefinito per i tentativi è ``false``, che equivale a
 infiniti tentativi. Si può definire un messaggio di errore personalizzato nel sesto parametro.
 
+.. versionadded:: 2.3
+    Il supporto alla selezione multipla è stato aggiunto in Symfony 2.3.
+
+Scelte multiple
+...............
+
+A volte si possono dare più risposte. DialogHelper lo supporta tramite
+l'uso di valori separati da virgole. Per abilitare questa possibilità,
+occorre impostare il settimo parametro a ``true``::
+
+    // ...
+
+    $selected = $dialog->select(
+        $output,
+        'Scegli il tuo colore preferito (predefinito: rosso)',
+        $colors,
+        0,
+        false,
+        'Il valore "%s" non è valido',
+        true // abilita la selezione multipla
+    );
+
+    $selectedColors = array_map(function($c) use ($colors) {
+        return $colors[$c];
+    }, $selected);
+
+    $output->writeln('Hai scelto: ' . implode(', ', $selectedColors));
+
+Se ora l'utente inserisce ``1,2``, il risultato sarà: ``Hai scelto: blu, giallo``.
+
 Testare un comando con un input atteso
 --------------------------------------
 
@@ -197,23 +245,23 @@ da linea di omando, occorre sovrascrivere HelperSet usato dal comando::
 
     use Symfony\Component\Console\Helper\DialogHelper;
     use Symfony\Component\Console\Helper\HelperSet;
-    
+
     // ...
     public function testExecute()
     {
         // ...
         $commandTester = new CommandTester($command);
-        
+
         $dialog = $command->getHelper('dialog');
         $dialog->setInputStream($this->getInputStream('Test\n')); 
         // Equivale all'inserimento di "Test" e pressione di ENTER
         // Se occorre una conferma, va bene anche "yes\n"
-        
+
         $commandTester->execute(array('command' => $command->getName()));
-    
+
         // $this->assertRegExp('/.../', $commandTester->getDisplay());
     }
-    
+
     protected function getInputStream($input)
     {
         $stream = fopen('php://memory', 'r+', false);
@@ -222,7 +270,7 @@ da linea di omando, occorre sovrascrivere HelperSet usato dal comando::
 
         return $stream;
     }
-    
+
 Impostando il flusso di input di ``DialogHelper``, si imita ciò che la
 console farebbe internamente con l'input dell'utente tramite cli. In questo modo,
 si può testare ogni interazione, anche complessa, passando un appropriato

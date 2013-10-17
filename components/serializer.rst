@@ -11,6 +11,9 @@ Il componente Serializer
 Per raggiungere questo scopo, il componente Serializer segue il semplice
 schema seguente.
 
+.. _component-serializer-encoders:
+.. _component-serializer-normalizers:
+
 .. image:: /images/components/serializer/serializer_workflow.png
 
 Come si può vedere nell'immagine, viene usato un array come tramite.
@@ -100,6 +103,29 @@ Il primo parametro di :method:`Symfony\\Component\\Serializer\\Serializer::seria
 è l'oggetto da serializzare e il secondo è usato per scegliere l'Encoder giusto,
 in questo caso :class:`Symfony\\Component\\Serializer\\Encoder\\JsonEncoder`.
 
+Ignorare attributi durante la serializzazione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.3
+    Il metodo :method:`GetSetMethodNormalizer::setIgnoredAttributes<Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer::setIgnoredAttributes>`
+    è stato aggiunto in Symfony 2.3.
+
+C'è un modo opzionale per ignorare attributi dall'oggetto originario, durante la
+serializzazione. Per rimuovere attributi, usare il metodo
+:method:`Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer::setIgnoredAttributes`
+nella definizione del normalizzatore::
+
+    use Symfony\Component\Serializer\Serializer;
+    use Symfony\Component\Serializer\Encoder\JsonEncoder;
+    use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+
+    $normalizer = new GetSetMethodNormalizer();
+    $normalizer->setIgnoredAttributes(array('age'));
+    $encoder = new JsonEncoder();
+
+    $serializer = new Serializer(array($normalizer), array($encoder));
+    $serializer->serialize($person, 'json'); // Output: {"name":"foo"}
+
 Deserializzare un oggetto
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -122,8 +148,41 @@ ha bisogno di tre parametri:
 2. il nome della classe in cui questa informazione sarà decodificata
 3. l'Encoder usato per convertire questa informazione in un array
 
-JMSSerializationBundle
-----------------------
+Usare nomi in CamelCase per attributi con trattini bassi
+--------------------------------------------------------
+
+.. versionadded:: 2.3
+    Il metodo :method:`GetSetMethodNormalizer::setCamelizedAttributes<Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer::setCamelizedAttributes>`
+    è stato aggiunto in Symfony 2.3.
+
+A volte i nomi di proprietà del contenuto serializzato hanno trattini bassi (p.e.
+``first_name``).  Di solito, questi attributi usano metodi get o set come
+``getFirst_name``, mentre quello che si vuole è ``getFirstName``. Per cambiare
+questo comportamento, usare il metodo
+:method:`Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer::setCamelizedAttributes`
+nella definizione del normalizzatore::
+
+    $encoder = new JsonEncoder();
+    $normalizer = new GetSetMethodNormalizer();
+    $normalizer->setCamelizedAttributes(array('first_name'));
+
+    $serializer = new Serializer(array($normalizer), array($encoder));
+
+    $json = <<<EOT
+    {
+        "name":       "pippo",
+        "age":        "19",
+        "first_name": "pluto"
+    }
+    EOT;
+
+    $person = $serializer->deserialize($json, 'Acme\Person', 'json');
+
+Come risultato, il deserializzatore usa l'attributo ``first_name`` come se fosse
+stato ``firstName`` e quindi usa i metodi ``getFirstName`` e ``setFirstName``.
+
+JMSSerializer
+-------------
 
 Una popolare libreria, `JMS serializer`_, fornisce una soluzione
 più sofisticata, sebbene più complessa. La libreria include la

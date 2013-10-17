@@ -105,10 +105,11 @@ al posto di
             $command = $application->find('demo:greet');
             $commandTester = new CommandTester($command);
             $commandTester->execute(
-               array(
-                  'name'    => 'Fabien',
-                  '--yell'  => true,
-               )
+                array(
+                    'command' => $command->getName(),
+                    'name'    => 'Fabien',
+                    '--yell'  => true,
+                )
             );
 
             $this->assertRegExp('/.../', $commandTester->getDisplay());
@@ -145,10 +146,11 @@ si può estendere il test da
             $command = $application->find('demo:greet');
             $commandTester = new CommandTester($command);
             $commandTester->execute(
-               array(
-                  'name'    => 'Fabien',
-                  '--yell'  => true,
-               )
+                array(
+                    'command' => $command->getName(),
+                    'name'    => 'Fabien',
+                    '--yell'  => true,
+                )
             );
 
             $this->assertRegExp('/.../', $commandTester->getDisplay());

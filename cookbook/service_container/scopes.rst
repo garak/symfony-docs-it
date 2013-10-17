@@ -16,14 +16,16 @@ Lo scope di un servizio controlla quanto a lungo un'istanza di un servizio è us
 dal contenitore. Il componente Dependency Injection fornisce due scope
 generici:
 
-- `container` (quello predefinito): la stessa istanza è usata ogni volta che la si
+- ``container`` (quello predefinito): la stessa istanza è usata ogni volta che la si
   richiede da questo contenitore.
 
-- `prototype`: viene creata una nuova istanza, ogni volta che si richiede il servizio.
+- ``prototype``: viene creata una nuova istanza, ogni volta che si richiede il servizio.
 
-FrameworkBundle definisce anche un terzo scope: `request`. Questi scope sono legati
-alla richiesta, il che vuol dire che viene creata una nuova istanza per ogni sotto-richiesta,
-non disponibile al di fuori della richiesta stessa (per esempio nella CLI).
+La classe
+:class:`Symfony\\Component\\HttpKernel\\DependencyInjection\\ContainerAwareHttpKernel`
+definisce anche un terzo scope: ``request``. Questo scope è legato alla richiesta,
+il che vuol dire che viene creata una nuova istanza per ogni sotto-richiesta, non
+disponibile al di fuori della richiesta stessa (per esempio nella CLI).
 
 Gli scope aggiungono un vincolo sulle dipendenze di un servizio: un servizio non può
 dipendere da servizi con scope più stretti. Per esempio, se si crea un generico servizio
@@ -37,7 +39,7 @@ alla compilazione del contenitore. Leggere la nota seguente sotto per maggiori d
     lo scope del servizio, quindi ha `container`. In altre parole, ogni volta che si
     chiede al contenitore il servizio `posta`, si ottiene lo stesso
     oggetto. Solitamente, si vuole che un servizio funzioni in questo modo.
-    
+
     Si immagini, tuttavia, di aver bisogno del servizio `request` da dentro `posta`,
     magari perché si deve leggere l'URL della richiesta corrente.
     Lo si aggiunge quindi come parametro del costruttore. Vediamo quali problemi si
@@ -69,10 +71,150 @@ alla compilazione del contenitore. Leggere la nota seguente sotto per maggiori d
     Ovviamente, un servizio può dipendere senza alcun problema da un altro servizio
     che abbia uno scope più ampio, . 
 
-Impostare lo scope nella definizione
-------------------------------------
+Usare un servizio da uno scope più limitato
+-------------------------------------------
 
-Lo scope di un servizio è definito nella definizione del servizio stesso:
+Se un servizio ha una dipendenza da un servizio con scope (come ``request``),
+si hanno tre possibili opzioni:
+
+* Usare l'iniezione tramite setter, se la dipendenza è "sincronizzata"; questa è
+  l'opzione consigliata e la soluzione migliore per l'istanza ``request``, perché è
+  sincronizzata con lo scope ``request`` (vedere
+  :ref:`using-synchronized-service`).
+
+* Inserire il servizio nello stesso scope della dipendenza (o in uno più limitatato). Se
+  si dipende dal servizio ``request``, questo vuol dire inserire il nuovo servizio
+  nello scope ``request`` (vedere :ref:`changing-service-scope`);
+
+* Passare l'intero contenitore al servizio e recuperare la dipendenza dal
+  contenitore, ogni volta che occorre, per assicurarsi di avere l'istanza giusta:
+  il servizio può trovarsi nello scope predefinito ``container`` (vedere
+  :ref:`passing-container`);
+
+Ciascuno scenario è analizzato in dettaglio nelle sezioni seguenti.
+
+.. _using-synchronized-service:
+
+Usare un servizio sincronizzato
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.3
+    I servizi sincronizzati sono nuovi in Symfony 2.3.
+
+Iniettare il contenitore o impostare un servizio a uno scopo più limitato hanno
+dei contro. Per i servizi sincronizzati (come ``request``), usare l'iniezione tramite
+setter è l'opzione migliore, perché non ha controindicazioni e tutto funziona
+senza aggiungere codice al servizio o alla definizione::
+
+    // src/Acme/HelloBundle/Mail/Mailer.php
+    namespace Acme\HelloBundle\Mail;
+
+    use Symfony\Component\HttpFoundation\Request;
+
+    class Mailer
+    {
+        protected $request;
+
+        public function setRequest(Request $request = null)
+        {
+            $this->request = $request;
+        }
+
+        public function sendEmail()
+        {
+            if (null === $this->request) {
+                // lanciare un errore?
+            }
+
+            // ... fare qualcosa con la richiesta
+        }
+    }
+
+Ogni volta che entra o esce dallo scope ``request``, il contenitore
+richiamerà automaticamente il metodo ``setRequest()`` con l'istanza di ``request``
+corrente.
+
+Si può notare che il metodo ``setRequest()`` accetta anche ``null`` come
+valore valido per il parametro ``request`. Questo perché, uscendo dallo scope
+``request`, l'istanza di ``request`` può essere ``null`` (per esempio, per
+la richeista principale). Ovviamente, bisogna tener conto di questa possibilità
+all'interno del codice. Occorre tenerne conto anche nella dichiarazione del servizio:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/HelloBundle/Resources/config/services.yml
+        services:
+            greeting_card_manager:
+                class: Acme\HelloBundle\Mail\GreetingCardManager
+                calls:
+                    - [setRequest, ['@?request=']]
+
+    .. code-block:: xml
+
+        <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
+        <services>
+            <service id="greeting_card_manager"
+                class="Acme\HelloBundle\Mail\GreetingCardManager"
+            >
+                <call method="setRequest">
+                    <argument type="service" id="request" on-invalid="null" strict="false" />
+                </call>
+            </service>
+        </services>
+
+    .. code-block:: php
+
+        // src/Acme/HelloBundle/Resources/config/services.php
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\ContainerInterface;
+
+        $definition = $container->setDefinition(
+            'greeting_card_manager',
+            new Definition('Acme\HelloBundle\Mail\GreetingCardManager')
+        )
+        ->addMethodCall('setRequest', array(
+            new Reference('request', ContainerInterface::NULL_ON_INVALID_REFERENCE, false)
+        ));
+
+.. tip::
+
+    You can declare your own ``synchronized`` services very easily; here is
+    the declaration of the ``request`` service for reference:
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+
+            services:
+                request:
+                    scope: request
+                    synthetic: true
+                    synchronized: true
+
+        .. code-block:: xml
+
+            <services>
+                <service id="request" scope="request" synthetic="true" synchronized="true" />
+            </services>
+
+        .. code-block:: php
+
+            use Symfony\Component\DependencyInjection\Definition;
+            use Symfony\Component\DependencyInjection\ContainerInterface;
+
+            $definition = $container->setDefinition('request')
+                ->setScope('request')
+                ->setSynthetic(true)
+                ->setSynchronized(true);
+
+.. _changing-service-scope:
+
+Cambiare lo scope del servizio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lo scope di un servizio può essere modificato nella definizione del servizio stesso:
 
 .. configuration-block::
 
@@ -83,12 +225,17 @@ Lo scope di un servizio è definito nella definizione del servizio stesso:
             greeting_card_manager:
                 class: Acme\HelloBundle\Mail\GreetingCardManager
                 scope: request
+                arguments: [@request]
 
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <services>
-            <service id="greeting_card_manager" class="Acme\HelloBundle\Mail\GreetingCardManager" scope="request" />
+            <service id="greeting_card_manager"
+                class="Acme\HelloBundle\Mail\GreetingCardManager"
+                scope="request"
+            />
+            <argument type="service" id="request" />
         </services>
 
     .. code-block:: php
@@ -96,28 +243,23 @@ Lo scope di un servizio è definito nella definizione del servizio stesso:
         // src/Acme/HelloBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
-        $container->setDefinition(
+        $definition = $container->setDefinition(
             'greeting_card_manager',
-            new Definition('Acme\HelloBundle\Mail\GreetingCardManager')
+            new Definition(
+                'Acme\HelloBundle\Mail\GreetingCardManager',
+                array(new Reference('request'),
+            ))
         )->setScope('request');
 
-Se non si specifica lo scope, viene usato `container`, che è quello che si desidera
-la maggior parte delle volte. A meno che il proprio servizio non dipenda da un altro
-servizio con uno scope più stretto (solitamente, il servizio `request`),
-probabilmente non si avrà bisogno di impostare lo scope.
+.. _passing-container:
 
-Usare un servizio da uno scope più stretto
-------------------------------------------
+Passare il contenitore al servizio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Se il proprio servizio dipende da un servizio con scope, la soluzione migliore è
-metterlo nello stesso scope (o in uno pià stretto). Di solito, questo vuol dire
-mettere il proprio servizio nello scope `request`.
-
-Ma questo non è sempre possibile (per esempio, un'estensione di Twig deve stare nello
-scope `container`, perché l'ambiente di Twig ne ha bisogno per le sue dipendenze).
-In questi casi, si dovrebbe passare l'intero contenitore dentro il proprio servizio e
-recuperare le proprie dipendenze dal contenitore ogni volta che servono, per assicurarsi
-di avere l'istanza giusta::
+Impostare uno scope più limitato non è sempre possibile (per esempio,
+un'estensione di Twig deve stare nello scope ``container``, perché l'ambiente di Twig
+ne ha bisogno per le sue dipendenze). In questi casi, si dovrebbe passare l'intero contenitore
+dentro al servizio::
 
     // src/Acme/HelloBundle/Mail/Mailer.php
     namespace Acme\HelloBundle\Mail;
@@ -141,7 +283,7 @@ di avere l'istanza giusta::
     }
 
 .. caution::
-   
+
     Si faccia attenzione a non memorizzare la richiesta in una proprietà dell'oggetto
     per una chiamata futura del servizio, perché causerebbe lo stesso problema spiegato
     nella prima sezione (tranne per il fatto che Symfony non è in grado di individuare
@@ -156,24 +298,23 @@ La configurazione del servizio per questa classe assomiglia a questa:
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
             # ...
-            posta.class: Acme\HelloBundle\Mail\Mailer
+            my_mailer.class: Acme\HelloBundle\Mail\Mailer
         services:
-            posta:
-                class:     %posta.class%
-                arguments:
-                    - "@service_container"
-                # scope: container può essere omesso, perché è il predefinito
+            my_mailer:
+                class:     "%my_mailer.class%"
+                arguments: ["@service_container"]
+                # scope: container può essere omesso, essendo il valore predefinito
 
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <parameters>
             <!-- ... -->
-            <parameter key="posta.class">Acme\HelloBundle\Mail\Mailer</parameter>
+            <parameter key="my_mailer.class">Acme\HelloBundle\Mail\Mailer</parameter>
         </parameters>
 
         <services>
-            <service id="posta" class="%posta.class%">
+            <service id="my_mailer" class="%my_mailer.class%">
                  <argument type="service" id="service_container" />
             </service>
         </services>
@@ -185,20 +326,21 @@ La configurazione del servizio per questa classe assomiglia a questa:
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('posta.class', 'Acme\HelloBundle\Mail\Mailer');
+        $container->setParameter('my_mailer.class', 'Acme\HelloBundle\Mail\Mailer');
 
-        $container->setDefinition('posta', new Definition(
-            '%posta.class%',
+        $container->setDefinition('my_mailer', new Definition(
+            '%my_mailer.class%',
             array(new Reference('service_container'))
         ));
 
 .. note::
 
     Iniettare l'intero contenitore in un servizio di solito non è una buona
-    idea (iniettare solo ciò che serve). In alcuni rari casi, è necessario
-    quando si ha un servizio nello scope ``container`` che necessita di un
-    servizio nello scope ``request``.
+    idea (è meglio iniettare solo ciò che serve).
 
-Se si definisce un controllore come servizio, si può ottenere l'oggetto ``Request``
-senza iniettare il contenitore, facendoselo passare come parametro nel metodo
-dell'azione. Vedere :ref:`book-controller-request-argument` per maggiori dettagli.
+.. tip::
+
+    Se si definisce un controllore come servizio, si può ottenere l'oggetto ``Request``
+    senza iniettare il contenitore, facendoselo passare come parametro nel metodo
+    dell'azione. Vedere
+    :ref:`book-controller-request-argument` per maggiori dettagli.

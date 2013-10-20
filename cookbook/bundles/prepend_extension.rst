@@ -132,4 +132,3 @@ per ``acme_hello`` sia impostata a ``non_default``:
             ...,
             'use_acme_goodbye' => false,
         ));
-

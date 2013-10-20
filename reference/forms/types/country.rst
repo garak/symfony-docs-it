@@ -50,8 +50,7 @@ choices
 
 **predefinito**: :method:`Symfony\\Component\\Locale\\Locale::getDisplayCountries`
 
-Questa opzione ha come valore predefinito tutti i locale restituiti da
-:method:`Symfony\\Component\\Locale\\Locale::getDisplayCountries`.
+Questa opzione ha come valore predefinito tutti i locale.
 Usa il locale predefinito per determinare la lingua.
 
 Opzioni ereditate

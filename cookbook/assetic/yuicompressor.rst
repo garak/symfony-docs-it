@@ -87,7 +87,7 @@ livello della vista, questo lavoro dovrà essere svolto nei template:
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' filter='yui_js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -115,7 +115,7 @@ ripetuto per minimizzare i fogli di stile.
     .. code-block:: html+jinja
 
         {% stylesheets '@AcmeFooBundle/Resources/public/css/*' filter='yui_css' %}
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
         {% endstylesheets %}
 
     .. code-block:: html+php
@@ -124,7 +124,7 @@ ripetuto per minimizzare i fogli di stile.
             array('@AcmeFooBundle/Resources/public/css/*'),
             array('yui_css')
         ) as $url): ?>
-        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $view->escape($url) ?>" />
+            <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $view->escape($url) ?>" />
         <?php endforeach; ?>
 
 Disabilitare la minimizzazione in modalità debug
@@ -141,7 +141,7 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' filter='?yui_js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -150,9 +150,8 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
             array('@AcmeFooBundle/Resources/public/js/*'),
             array('?yui_js')
         ) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>"></script>
+            <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
-
 
 .. tip::
 
@@ -162,7 +161,6 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
     in produzione, aggiungerlo al file config_prod invece che al file comune
     config. Per dettagli sull'applicazione dei filtri per estensione di file,
     vedere :ref:`cookbook-assetic-apply-to`.
-
 
 .. _`YUI Compressor`: http://developer.yahoo.com/yui/compressor/
 .. _`scaricare il file JAR`: http://yuilibrary.com/projects/yuicompressor/

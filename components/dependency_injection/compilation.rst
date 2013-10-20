@@ -264,7 +264,6 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
         $container->loadFromExtension($extension->getAlias());
         $container->compile();
 
-
 .. note::
 
     Se si deve manipolare la configurazione caricata da un'estensione,

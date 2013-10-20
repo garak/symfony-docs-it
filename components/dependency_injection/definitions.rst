@@ -1,7 +1,6 @@
 ﻿.. index::
    single: Dependency Injection; Definizione di servizi
 
-
 Lavorare con parametri e definizioni del contenitore
 ====================================================
 
@@ -77,7 +76,7 @@ Il parametro può essere una stringa, un array, il parametro di un servizio, se 
 ``%paramater_name%``, oppure l'id di un servizio, se si usa::
 
     use Symfony\Component\DependencyInjection\Reference;
-  
+
     // ...
 
     $definition->addArgument(new Reference('id_servizio'));

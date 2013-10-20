@@ -79,7 +79,7 @@ Come sempio, aggiungiamo i seguenti trasporti come servizi:
             acme_mailer.transport.smtp:
                 class: \Swift_SmtpTransport
                 arguments:
-                    - %mailer_host%
+                    - "%mailer_host%"
                 tags:
                     -  { name: acme_mailer.transport }
             acme_mailer.transport.sendmail:
@@ -219,14 +219,13 @@ Per rispondere, cambiare la dichiarazione del servizio:
             acme_mailer.transport.smtp:
                 class: \Swift_SmtpTransport
                 arguments:
-                    - %mailer_host%
+                    - "%mailer_host%"
                 tags:
                     -  { name: acme_mailer.transport, alias: foo }
             acme_mailer.transport.sendmail:
                 class: \Swift_SendmailTransport
                 tags:
                     -  { name: acme_mailer.transport, alias: bar }
-        
 
     .. code-block:: xml
 
@@ -238,7 +237,7 @@ Per rispondere, cambiare la dichiarazione del servizio:
         <service id="acme_mailer.transport.sendmail" class="\Swift_SendmailTransport">
             <tag name="acme_mailer.transport" alias="bar" />
         </service>
-        
+
 Si noti che è stata aggiunta una chiave generica ``alias`` al tag. Per usarla
 effettivamente, aggiornare il compilatore::
 

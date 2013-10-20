@@ -18,7 +18,7 @@ di abilitarlo nel file di configurazione della propria applicazione:
 .. configuration-block::
 
     .. code-block:: yaml
-    
+
         # app/config/config.yml
         framework:
             # ...
@@ -27,9 +27,9 @@ di abilitarlo nel file di configurazione della propria applicazione:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ... >
+        <framework:config ...>
             <!-- ... -->
-            <framework:templating ... >
+            <framework:templating ...>
                 <framework:engine id="twig" />
                 <framework:engine id="php" />
             </framework:templating>
@@ -40,10 +40,10 @@ di abilitarlo nel file di configurazione della propria applicazione:
         $container->loadFromExtension('framework', array(
             // ...
 
-            'templating'      => array(
+            'templating' => array(
                 'engines' => array('twig', 'php'),
             ),
-        )); 
+        ));
 
 Ora si può rendere un template PHP invece di uno Twig, semplicemente usando nel nome
 del template l'estensione ``.php`` al posto di ``.twig``. Il controllore sottostante
@@ -52,7 +52,6 @@ rende il template ``index.html.php``::
     // src/Acme/HelloBundle/Controller/HelloController.php
 
     // ...
-
     public function indexAction($name)
     {
         return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
@@ -226,10 +225,12 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 .. code-block:: html+php
 
     <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
-    <?php echo $view['actions']->render('AcmeHelloBundle:Hello:fancy', array(
-        'name'  => $name,
-        'color' => 'green'
-    )) ?>
+    <?php echo $view['actions']->render(
+        new ControllerReference('AcmeHelloBundle:Hello:fancy', array(
+            'name'  => $name,
+            'color' => 'green',
+        ))
+    ) ?>
 
 Qui la stringa ``HelloBundle:Hello:fancy`` si riferisce all'azione ``fancy`` del
 controllore ``Hello``::
@@ -289,7 +290,7 @@ della rotta:
 
     # src/Acme/HelloBundle/Resources/config/routing.yml
     ciao: # Nome della rotta
-        pattern:  /hello/{name}
+        path:  /hello/{name}
         defaults: { _controller: AcmeHelloBundle:Hello:index }
 
 Usare le risorse: immagini, JavaScript e fogli di stile

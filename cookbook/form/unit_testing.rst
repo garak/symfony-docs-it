@@ -176,6 +176,7 @@ da altre estensioni. Occorre aggiungere tali estensioni all'oggetto factory::
             parent::setUp();
 
             $this->factory = Forms::createFormFactoryBuilder()
+                ->addExtensions($this->getExtensions())
                 ->addTypeExtension(
                     new FormTypeValidatorExtension(
                         $this->getMock('Symfony\Component\Validator\ValidatorInterface')

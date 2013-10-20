@@ -86,7 +86,6 @@ in cui sono gestite le eccezioni:
     codice, ma c'è un alto rischio che qualcosa si rompa negli aggiornamenti
     futuri di Symfony.
 
-
 .. code-block:: php
 
     // src/Acme/DemoBundle/Console/Application.php

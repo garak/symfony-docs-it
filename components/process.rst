@@ -79,21 +79,21 @@ verificare che il processo sia finito e il metodo
 
     $process = new Process('ls -lsa');
     $process->start();
-    
+
     while ($process->isRunning()) {
         // aspetta che il processo finisca
     }
 
     echo $process->getOutput();
-    
+
 Si può anche aspettare che un processo finisca, se è stato fatto partire in modo asincrono e
 si sta facendo altro::
 
     $process = new Process('ls -lsa');
     $process->start();
-    
+
     // ... fare altre cose
-    
+
     $process->wait(function ($type, $buffer) {
         if (Process:ERR === $type) {
             echo 'ERR > '.$buffer;
@@ -102,22 +102,34 @@ si sta facendo altro::
         }
     });
 
+.. note::
+
+    Il metodo :method:`Symfony\\Component\\Process\\Process::wait` è bloccante,
+    il che vuol dire che il codice si fermerà a quella linea, finché il processo esterno
+    non sarà finito.
+
 Fermare un processo
 -------------------
 
-Any asynchronous process can be stopped at any time with the
-:method:`Symfony\\Component\\Process\\Process::stop` method. This method takes
-a timeout as its argument. Once the timeout is reached, the process is terminated.
+.. versionadded:: 2.3
+    Il parametro ``signal`` del metodo ``stop`` è stato aggiunto in Symfony 2.3.
+
+Ogni processo asincrono può essere fermato in qualsiasi momento, con il metodo
+:method:`Symfony\\Component\\Process\\Process::stop`. Questo metodo accetta
+due parametri: una scadenza e un segnale. Una volta raggiunta la scadenza, il segnale
+viene inviato al processo in esecuzione. Il segnale predefinito inviato al processo è ``SIGKILL``.
+Si legga la :ref:`documentazione sui segnali<reference-process-signal>`
+per approfondire la gestione dei segnali nel componente Process::
 
     $process = new Process('ls -lsa');
     $process->start();
 
-    // ... do other things
+    // ... fare altre cose
 
-    $process->stop(3);
+    $process->stop(3, SIGINT);
 
-Executing PHP Code in Isolation
--------------------------------
+Eseguire codice PHP in isolamento
+---------------------------------
 
 Se si vuole eseguire del codice PHP in isolamento, usare invece
 ``PhpProcess``::
@@ -130,9 +142,6 @@ Se si vuole eseguire del codice PHP in isolamento, usare invece
     );
     $process->run();
 
-.. versionadded:: 2.1
-    La classe ``ProcessBuilder`` è stata aggiunta nella 2.1.
-
 Per far funzionare meglio il proprio codice su tutte le piattaforme, potrebbe essere
 preferibile usare la classe :class:`Symfony\\Component\\Process\\ProcessBuilder`::
 
@@ -141,11 +150,39 @@ preferibile usare la classe :class:`Symfony\\Component\\Process\\ProcessBuilder`
     $builder = new ProcessBuilder(array('ls', '-lsa'));
     $builder->getProcess()->run();
 
-Timeout del processo
---------------------
+.. versionadded:: 2.3
+    Il metodo :method:`ProcessBuilder::setPrefix<Symfony\\Component\\Process\\ProcessBuilder::setPrefix>`
+    è stato aggiunto in Symfony 2.3.
+
+Se si sta costruendo un driver binario, si può usare il metodo
+:method:`Symfony\\Component\\Process\\Process::setPrefix` per prefissare tutti
+i comandi del processo generato.
+
+L'esempio seguente genererà due comandi di processo per un adattatore binario
+di tar::
+
+    use Symfony\Component\Process\ProcessBuilder;
+
+    $builder = new ProcessBuilder();
+    $builder->setPrefix('/usr/bin/tar');
+
+    // '/usr/bin/tar' '--list' '--file=archive.tar.gz'
+    echo $builder
+        ->setArguments(array('--list', '--file=archive.tar.gz'))
+        ->getProcess()
+        ->getCommandLine();
+
+    // '/usr/bin/tar' '-xzf' 'archive.tar.gz'
+    echo $builder
+        ->setArguments(array('-xzf', 'archive.tar.gz'))
+        ->getProcess()
+        ->getCommandLine();
+
+Scadenza del processo
+---------------------
 
 Si può limitare il tempo a disposizione di un processo per essere completato, impostando
-un timeout (in secondi)::
+una scadenza (in secondi)::
 
     use Symfony\Component\Process\Process;
 
@@ -171,4 +208,61 @@ il timeout a intervalli regolari::
         usleep(200000);
     }
 
+.. _reference-process-signal:
+
+Segnali di processo
+-------------------
+
+.. versionadded:: 2.3
+    Il metodo ``signal`` è stato aggiunto in Symfony 2.3.
+
+Durante l'esecuzione di un programma asincrono, si possono inviare segnali posiz, con il metodo
+:method:`Symfony\\Component\\Process\\Process::signal`::
+
+    use Symfony\Component\Process\Process;
+
+    $process = new Process('find / -name "rabbit"');
+    $process->start();
+
+    // invierà un SIGKILL al processo
+    $process->signal(SIGKILL);
+
+.. caution::
+
+    A causa di alcune limitazioni in PHP,  se si usano segnali con il componente Process,
+    potrebbe essere necessario prefissare i comandi con `exec`_. Si leggano la
+    `issue #5759 di Symfony`_ e il `bug #39992 di PHP`_ per capire perché questo accada.
+
+    I segnali POSIX non sono disponibili su piattaforme Windows, si faccia riferimento
+    alla `documentazione di PHP`_ per i segnali disponibili.
+
+Pid del processo
+----------------
+
+.. versionadded:: 2.3
+    Il metodo ``getPid`` è stato aggiunto in Symfony 2.3.
+
+Si può avere accesso al `pid`_ di un processo in esecuzione, con il metodo
+:method:`Symfony\\Component\\Process\\Process::getPid`.
+
+.. code-block:: php
+
+    use Symfony\Component\Process\Process;
+
+    $process = new Process('/usr/bin/php worker.php');
+    $process->start();
+
+    $pid = $process->getPid();
+
+.. caution::
+
+    A causa di alcune limitazioni in PHP, se si vuole ottenere il pid di un processo,
+    potrebbe essere necessario prefissare i comandi con `exec`_. Si legga la
+    `issue #5759 di Symfony`_ per capire perché questo accada.
+
+.. _`issue #5759 di Symfony`: https://github.com/symfony/symfony/issues/5759
+.. _`bug #39992 di PHP`: https://bugs.php.net/bug.php?id=39992
+.. _`exec`: http://en.wikipedia.org/wiki/Exec_(operating_system)
+.. _`pid`: http://en.wikipedia.org/wiki/Process_identifier
+.. _`documentazione di PHP`: http://php.net/manual/it/pcntl.constants.php
 .. _Packagist: https://packagist.org/packages/symfony/process

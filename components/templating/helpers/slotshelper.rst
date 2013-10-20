@@ -53,9 +53,8 @@ Estendere i template
 
 Il metodo :method:`Symfony\\Component\\Templating\\PhpEngine::extend` viene richiamato nel
 sotto-template, per impostare il suo template genitore. Quindi, si può usare
-:method:`$view['slots']->set()
-<Symfony\\Component\\Translation\\Helper\\SlotsHelper::set>` per impostare
-il contenuto dello slot. Tutto il contenuto non impostato esplicitamente in uno slot
+:method:`$view['slots']->set()<Symfony\\Component\\Translation\\Helper\\SlotsHelper::set>`
+per impostare il contenuto dello slot. Tutto il contenuto non impostato esplicitamente in uno slot
 è nello slot ``_content``.
 
 .. code-block:: html+php

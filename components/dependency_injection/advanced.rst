@@ -15,14 +15,14 @@ di un'applicazione. Tali servizi sono chiamati "pubblici". Per esempio, il servi
    $doctrine = $container->get('doctrine');
 
 Ci sono tuttavia dei casi in cui non si desidera che un servizio sia pubblico.
-Di solito avviene quando un servizio è definito solo per essere usato come argomento
+Di solito avviene quando un servizio è definito solo per essere usato come parametro
 da un altro servizio.
 
 .. note::
 
-    Se si usa un servizio privato come argomento di più di un altro servizio,
-    ciò risulterà nell'uso di due diverse istanze del servizio privato, perché
-    l'istanza del servizio privata è eseguita internamente (p.e. ``new PippoPlutoPrivato()``).
+    Se si usa un servizio privato come parametro di più di un altro servizio,
+    ciò provocherà un'istanza in linea (p.e. ``new PippoPlutoPrivato()``) all'interno
+    di quest'altro servizio, rendendola non disponibile pubblicamente a runtime.
 
 In parole povere: un servizio sarà privato quanto non si vuole che sia accessibile
 direttamente dal codice.
@@ -58,6 +58,54 @@ alias (vedere sotto) per accedervi (tramite alias).
 .. note::
 
    I servizi sono predefiniti come pubblici.
+
+Servizi sintetici
+-----------------
+
+I servizi sintetici sono servizi che vengono iniettati nel contenitore, invece
+di essere creati dal contenitore stesso.
+
+Per esempio, se si usa il componente :doc:`HttpKernel </components/http_kernel/introduction>`
+con il componente DependencyInjection, il servizio ``request``
+è iniettato nel metodo
+:method:`ContainerAwareHttpKernel::handle() <Symfony\\Component\\HttpKernel\\DependencyInjection\\ContainerAwareHttpKernel::handle>`,
+quando entra nello :doc:`scope </cookbook/service_container/scopes>` della richiesta.
+Se non c'è una richiesta, la classe non esiste, quindi non può essere inclusa nella
+configurazione del contenitore. Inoltre, il servizio deve essere diverso per ogni
+sotto-richiesta nell'applicazione.
+
+Per creare un servizio sintetico, impostare ``synthetic`` a ``true``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            request:
+                synthetic: true
+
+    .. code-block:: xml
+
+        <service id="request"
+            synthetic="true" />
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+
+        // ...
+        $container->setDefinition('request', new Definition())
+            ->setSynthetic(true);
+
+Come si può vedere, viene impostata solo l'opzione ``synthetic``. Tutte le altre opzioni vengono solo usate
+per configurare il modo in cui un servizio viene creato dal contenitore. Non essendo il servizio
+creato dal contenitore, tali opzioni sono omesse.
+
+Si può ora iniettare la classe, usando
+:method:`Container::set <Symfony\\Component\\DependencyInjection\\Container::set>`::
+
+    // ...
+    $container->set('request', new MyRequest(...));
 
 Alias
 -----

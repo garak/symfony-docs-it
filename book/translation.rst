@@ -476,8 +476,7 @@ Symfony2 troverà questi file e li utilizzerà quando dovrà tradurre
                 'user.login' => 'Login',
             );
 
-.. index::
-   single: Traduzioni; Domini dei messaggi
+.. _translation-domains:
 
 
 .. _using-message-domains:
@@ -845,12 +844,12 @@ di testo* ed espressioni complesse:
 
     Si può impostare il dominio di traduzione per un intero template Twig con un singolo tag:
 
-     .. code-block:: jinja
+    .. code-block:: jinja
 
-            {% trans_default_domain "app" %}
+           {% trans_default_domain "app" %}
 
-     Notare che questo influenza solo il template attuale, non tutti i template "inclusi"
-     (in modo da evitare effetti collaterali).
+    Notare che questo influenza solo il template attuale, non tutti i template "inclusi"
+    (in modo da evitare effetti collaterali).
 
 Template PHP
 ~~~~~~~~~~~~

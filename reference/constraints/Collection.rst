@@ -169,8 +169,9 @@ siano consentite nell'insieme, si possono modificare rispettivamente le opzioni
 ``personal_email`` o ``short_bio`` fossero stati mancanti dalla proprietà
 ``$personalData``, non sarebbe occorso alcun errore di validazione.
 
-.. versionadded:: 2.1
-    I vincoli ``Required`` e ``Optional`` sono nuovi in Symfony 2.1.
+.. versionadded:: 2.3
+    I vincoli ``Required`` e ``Optional`` sono stati spostati nello spazio dei nomi
+    ``Symfony\Component\Validator\Constraints\`` in Symfony 2.3.
 
 Vincoli Required e Optional
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -213,8 +214,8 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
             /**
              * @Assert\Collection(
              *     fields={
-             *         "personal_email"  = @Assert\Collection\Required({@Assert\NotBlank, @Assert\Email}),
-             *         "alternate_email" = @Assert\Collection\Optional({@Assert\Email}),
+             *         "personal_email"  = @Assert\Required({@Assert\NotBlank, @Assert\Email}),
+             *         "alternate_email" = @Assert\Optional(@Assert\Email),
              *     }
              * )
              */
@@ -268,8 +269,8 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
             {
                 $metadata->addPropertyConstraint('profileData', new Assert\Collection(array(
                     'fields' => array(
-                        'personal_email'  => new Assert\Collection\Required(array(new Assert\NotBlank(), new Assert\Email())),
-                        'alternate_email' => new Assert\Collection\Optional(array(new Assert\Email())),
+                        'personal_email'  => new Assert\Required(array(new Assert\NotBlank(), new Assert\Email())),
+                        'alternate_email' => new Assert\Optional(new Assert\Email()),
                     ),
                 )));
             }

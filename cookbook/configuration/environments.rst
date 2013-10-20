@@ -38,7 +38,7 @@ della classe ``AppKernel``:
     // app/AppKernel.php
 
     // ...
-    
+
     class AppKernel extends Kernel
     {
         // ...
@@ -178,9 +178,8 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
     debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione, come
     il fatto che gli errori vengano mostrati o se la cache debba essere ricreata dinamicamente
-    a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre
-    configurata a ``true`` negli ambienti ``dev`` e ``test`` e a ``false`` per 
-    l'ambiente ``prod``.
+    a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre impostata a ``true`` negli ambienti ``dev``
+    e ``test`` e a ``false`` per l'ambiente ``prod``.
 
     Internamente il valore della modalità debug diventa il parametro ``kernel.debug``
     utilizzato all'interno del  :doc:`contenitore di servizi </book/service_container>`.
@@ -206,11 +205,14 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
             $container->loadFromExtension('doctrine', array(
                 'dbal' => array(
                     'logging'  => '%kernel.debug%',
-
                     // ...
                 ),
                 // ...
             ));
+
+    Da Symfony 2.3, la visualizzazione degli errori non dipende più dalla modalità di
+    debug. Occorrerà abilitarla nel fron controller, richiamando
+    :method:`Symfony\\Component\\Debug\\Debug::enable`.
 
 .. index::
    single: Ambienti; Creare un nuovo ambiente
@@ -255,7 +257,7 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
 
     .. code-block:: php
 
-        // app/config/config_benchmark.php     
+        // app/config/config_benchmark.php
         $loader->import('config_prod.php')
 
         $container->loadFromExtension('framework', array(
@@ -290,14 +292,14 @@ Il nuovo ambiente sarà accessibile tramite::
     http://localhost/app_benchmark.php
 
 .. note::
-   
-   Alcuni ambienti, come il ``dev``, non dovrebbero mai essere accessibile su di
+
+   Alcuni ambienti, come ``dev``, non dovrebbero mai essere accessibile su di
    un server pubblico di produzione. Questo perché alcuni ambienti, per facilitarne 
    il debug, potrebbero fornire troppe informazioni relative all'infrastruttura
    sottostante l'applicazione. Per essere sicuri che questi ambienti non siano
    accessibili, il front controller è solitamente protetto dall'accesso da parte di
    indirizzi IP esterni tramite il seguente codice, posto in cima al controllore:
-   
+
     .. code-block:: php
 
         if (!in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
@@ -344,7 +346,6 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 
     Si possono cambiare facilmente posizione e nome della cartella. Per maggiori informazioni,
     si legga la ricetta :doc:`/cookbook/configuration/override_dir_structure`.
-
 
 Approfondimenti
 ---------------

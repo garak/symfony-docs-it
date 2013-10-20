@@ -24,14 +24,18 @@ Uso
 ---
 
 Il punto di ingresso di questo componente è il factory
-:method:`PropertyAccess::getPropertyAccessor<Symfony\\Component\\PropertyAccess\\PropertyAccess::getPropertyAccessor>`.
+:method:`PropertyAccess::createPropertyAccessor<Symfony\\Component\\PropertyAccess\\PropertyAccess::createPropertyAccessor>`.
 Questo factory creerà una nuova istanza della classe
 :class:`Symfony\\Component\\PropertyAccess\\PropertyAccessor` con la
 configurazione predefinita::
 
     use Symfony\Component\PropertyAccess\PropertyAccess;
 
-    $accessor = PropertyAccess::getPropertyAccessor();
+    $accessor = PropertyAccess::createPropertyAccessor();
+
+.. versionadded:: 2.3
+    Prima di Symfony 2.3, il metodo :method:`Symfony\\Component\\PropertyAccess\\PropertyAccess::createPropertyAccessor`
+    si chiamava ``getPropertyAccessor()``.
 
 Lettura da array
 ----------------
@@ -175,6 +179,49 @@ Infine, ``getValue`` può usare anche il metodo magico ``__get``::
 
     echo $accessor->getValue($person, 'Wouter'); // array(...)
 
+Metodo magico ``__call()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Alla fine, ``getValue`` può usare il metodo magico ``__call``, ma occorre abilitare
+questa caratteristica, usando :class:`Symfony\\Component\\PropertyAccess\\PropertyAccessorBuilder`::
+
+    // ...
+    class Person
+    {
+        private $children = array(
+            'wouter' => array(...),
+        );
+
+        public function __call($name, $args)
+        {
+            $property = lcfirst(substr($name, 3));
+            if ('get' === substr($name, 0, 3)) {
+                return isset($this->children[$property]) ? $this->children[$property] : null;
+            } elseif ('set' === substr($name, 0, 3)) {
+                $value = 1 == count($args) ? $args[0] : null;
+                $this->children[$property] = $value;
+            }
+        }
+    }
+
+    $person = new Person();
+
+    // Abilita __call
+    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+        ->enableMagicCall()
+        ->getPropertyAccessor();
+
+    echo $accessor->getValue($person, 'wouter'); // array(...)
+
+.. versionadded:: 2.3
+    L'uso del metodo magico ``__call()`` è stato aggiunto in Symfony 2.3.
+
+.. caution::
+
+    Per impostazione predefinita, ``__call`` è disabilitato, lo si può abilitare richiamando
+    :method:`PropertyAccessorBuilder::enableMagicCallEnabled<Symfony\\Component\\PropertyAccess\\PropertyAccessorBuilder::enableMagicCallEnabled>`,
+    vedere `Abilitare altre caratteristiche`_.
+
 Scrittura su array
 ------------------
 
@@ -219,7 +266,7 @@ usare i setter, il metodo magico ``__set`` o le proprietà, per impostare i valo
     }
 
     $person = new Person();
-    
+
     $accessor->setValue($person, 'firstName', 'Wouter');
     $accessor->setValue($person, 'lastName', 'de Jong');
     $accessor->setValue($person, 'children', array(new Person()));
@@ -227,6 +274,40 @@ usare i setter, il metodo magico ``__set`` o le proprietà, per impostare i valo
     echo $person->firstName; // 'Wouter'
     echo $person->getLastName(); // 'de Jong'
     echo $person->children; // array(Person());
+
+Si può anche usare ``__call`` per impostare valori, ma occorre abilitarlo,
+vedere `Abilitare altre caratteristiche`_.
+
+.. code-block:: php
+
+    // ...
+    class Person
+    {
+        private $children = array();
+
+        public function __call($name, $args)
+        {
+            $property = lcfirst(substr($name, 3));
+            if ('get' === substr($name, 0, 3)) {
+                return isset($this->children[$property]) ? $this->children[$property] : null;
+            } elseif ('set' === substr($name, 0, 3)) {
+                $value = 1 == count($args) ? $args[0] : null;
+                $this->children[$property] = $value;
+            }
+        }
+
+    }
+
+    $person = new Person();
+
+    // Abilita __call
+    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+        ->enableMagicCall()
+        ->getPropertyAccessor();
+
+    $accessor->setValue($person, 'wouter', array(...));
+
+    echo $person->getWouter() // array(...)
 
 Mischiare oggetti e array
 -------------------------
@@ -260,5 +341,38 @@ Si possono anche mischiare oggetti e array::
 
     echo 'Hello '.$accessor->getValue($person, 'children[0].firstName'); // 'Wouter'
     // equivale a $person->getChildren()[0]->firstName
+
+Abilitare altre caratteristiche
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si può configurare :class:`Symfony\\Component\\PropertyAccess\\PropertyAccessor`
+per abilitare caratteristiche extra. Per poterlo fare, si può usare
+:class:`Symfony\\Component\\PropertyAccess\\PropertyAccessorBuilder`::
+
+    // ...
+    $accessorBuilder = PropertyAccess::getPropertyAccessorBuilder();
+
+    // Abilita __call
+    $accessorBuilder->enableMagicCall();
+
+    // Disabilita __call
+    $accessorBuilder->disableMagicCall();
+
+    // Verifica se la gestione di __call è abilitata
+    $accessorBuilder->isMagicCallEnabled() // true o false
+
+    // Alla fine ottiene l'accessor alla proprietà configurato
+    $accessor = $accessorBuilder->getPropertyAccessor();
+
+    // Oppure tutto insieme
+    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+        ->enableMagicCall()
+        ->getPropertyAccessor();
+
+Oppure si possono passsare parametri direttamente al costruttore (non raccomandato)::
+
+    // ...
+    $accessor = new PropertyAccessor(true) // abilita la gestione di __call
+
 
 .. _Packagist: https://packagist.org/packages/symfony/property-access

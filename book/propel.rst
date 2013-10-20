@@ -19,7 +19,7 @@ lo persisteremo nella base dati e lo recuperemo nuovamente.
 
     Se si vuole seguire il codice di questo capitolo, creare un
     ``AcmeStoreBundle``, tramite:
-    
+
     .. code-block:: bash
 
         $ php app/console generate:bundle --namespace=Acme/StoreBundle
@@ -479,5 +479,5 @@ Leggere la sezione dedicata ai `comandi Propel in Symfony2`_.
 .. _`Working With Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#installation
 .. _`configurazione di PropelBundle`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#configuration
 .. _`relazioni`: http://propelorm.org/documentation/04-relationships.html
-.. _`behavior`: http://propelorm.org/documentation/#behaviors_reference
-.. _`comandi Propel in Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2#the_commands
+.. _`behavior`: http://propelorm.org/documentation/#behaviors-reference
+.. _`comandi Propel in Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2#the-commands

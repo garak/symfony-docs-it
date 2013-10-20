@@ -113,7 +113,7 @@ consente di loggare facilmente i messaggi in molti modi.
         </container>
 
     .. code-block:: php
-        
+
         // app/config/config.php
         $container->loadFromExtension('monolog', array(
             'handlers' => array(
@@ -121,22 +121,22 @@ consente di loggare facilmente i messaggi in molti modi.
                     'type'  => 'stream',
                     'path'  => '/var/log/symfony.log',
                     'level' => 'error',
-                ),    
+                ),
                 'main' => array(
                     'type'         => 'fingers_crossed',
                     'action_level' => 'warning',
                     'handler'      => 'file',
-                ),    
+                ),
                 'file' => array(
                     'type'  => 'stream',
                     'level' => 'debug',
-                ),   
+                ),
                 'syslog' => array(
                     'type'  => 'syslog',
                     'level' => 'error',
-                ),    
+                ),
             ),
-        ));        
+        ));
 
 La configurazione appena vista definisce una pila di gestori, che saranno richiamati
 nell'ordine in cui sono stati definiti.
@@ -267,7 +267,6 @@ usando un processore.
         }
     }
 
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -281,7 +280,7 @@ usando un processore.
 
             monolog.processor.session_request:
                 class: Acme\MyBundle\SessionRequestProcessor
-                arguments:  [ @session ]
+                arguments:  ["@session"]
                 tags:
                     - { name: monolog.processor, method: processRecord }
 
@@ -303,7 +302,7 @@ usando un processore.
 
             <services>
                 <service id="monolog.formatter.session_request" class="Monolog\Formatter\LineFormatter">
-                    <argument>[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%%\n</argument>
+                    <argument>[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%%&#xA;</argument>
                 </service>
 
                 <service id="monolog.processor.session_request" class="Acme\MyBundle\SessionRequestProcessor">

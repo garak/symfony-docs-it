@@ -431,11 +431,6 @@ La validazione è una caratteristica molto potente di Symfony2 e dispone di un p
 Gruppi di validatori
 ~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
-
-    Se non si usano i :ref:`gruppi di validatori <book-validation-validation-groups>`,
-    è possibile saltare questa sezione.
-
 Se un oggetto si avvale dei :ref:`gruppi di validatori <book-validation-validation-groups>`,
 occorrerà specificare quali gruppi di convalida deve usare il form::
 
@@ -615,7 +610,8 @@ nella documentazione di ciascun tipo.
     qualsiasi campo. Per impostazione predefinita, l'opzione ``required`` è impostata a ``true`` e questo significa
     che i browser che interpretano l'HTML5 applicheranno la validazione lato client se il campo
     viene lasciato vuoto. Se non si desidera questo comportamento, impostare l'opzione ``required``
-    del campo a ``false`` o :ref:`disabilitare la validazione HTML5<book-forms-html5-validation-disable>`.
+    del campo a ``false`` oppure
+    :ref:`disabilitare la validazione HTML5 <book-forms-html5-validation-disable>`.
 
     Si noti inoltre che l'impostazione dell'opzione ``required`` a ``true`` **non**
     farà applicare la validazione lato server. In altre parole, se un
@@ -1073,6 +1069,10 @@ la scelta in ultima analisi, spetta allo sviluppatore.
     Si può accedere ai dati del campo in un controllore con::
 
         $form->get('dueDate')->getData();
+        
+    Inoltre, anche i dati di un campo non mappato si possono modificare direttamente::
+
+        $form->get('dueDate')->setData(new \DateTime());
 
 Definire i form come servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1817,9 +1817,9 @@ L'approccio generale è spiegato meglio nel :ref:`capitolo sulla validazione<boo
 ma ecco un breve esempio:
 
 .. versionadded:: 2.1
-   L'opzione ``constraints``, che accetta un singolo  vincolo o un array
+   L'opzione ``constraints``, che accetta un singolo vincolo o un array
    di vincoli (prima della 2.1, l'opzione era chiamata ``validation_constraint``
-   e accettava solo un singolo vincolo) è nuova in Symfony 2.1.
+   e accettava solo un singolo vincolo), è nuova in Symfony 2.1.
 
 .. code-block:: php
 

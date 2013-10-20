@@ -549,7 +549,8 @@ capitolo :doc:`Template </book/templating>`.
 .. tip::
 
     Si può anche evitare di richiamare il metodo ``render``, usando l'annotazione ``@Template``.
-    Si veda la :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/view>`
+    Si veda la
+    :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/view>`
     per maggiori dettagli.
 
 .. tip::

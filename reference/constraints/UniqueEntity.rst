@@ -256,7 +256,6 @@ Si consideri questo esempio:
 
 Con tale configurazione, il messaggio è legato al campo ``port``.
 
-
 ignoreNull
 ~~~~~~~~~~
 

@@ -25,11 +25,10 @@ che richiede i seguenti tre metodi:
 
     interface VoterInterface
     {
-        function supportsAttribute($attribute);
-        function supportsClass($class);
-        function vote(TokenInterface $token, $object, array $attributes);
+        public function supportsAttribute($attribute);
+        public function supportsClass($class);
+        public function vote(TokenInterface $token, $object, array $attributes);
     }
-
 
 Il metodo ``supportsAttribute()`` è usato per verificare che il votante supporti
 l'attributo utente dato (p.e.: un ruolo, un'ACL, ecc.)
@@ -128,7 +127,7 @@ e assegnargli il tag "security.voter":
                 arguments:  ["@service_container", [123.123.123.123, 171.171.171.171]]
                 public:     false
                 tags:
-                    -       { name: security.voter }
+                    - { name: security.voter }
 
     .. code-block:: xml
 

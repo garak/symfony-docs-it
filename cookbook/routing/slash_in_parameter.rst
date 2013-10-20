@@ -17,7 +17,7 @@ Configurare la rotta
 
 Per impostazione predefinita, il componente delle rotte di symfony richiede che i parametri 
 corrispondano alla seguente espressione regolare: ``[^/]+``. Questo significa che tutti i caratteri 
-sono permessi eccetto ``/``. 
+sono permessi eccetto ``/``.
 
 Bisogna consentire esplicitamente che il carattere ``/`` possa far parte del parametro specificando
 una espressione regolare più permissiva.
@@ -27,7 +27,7 @@ una espressione regolare più permissiva.
     .. code-block:: yaml
 
         _hello:
-            pattern: /hello/{name}
+            path:     /hello/{name}
             defaults: { _controller: AcmeDemoBundle:Demo:hello }
             requirements:
                 name: ".+"
@@ -40,7 +40,7 @@ una espressione regolare più permissiva.
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="_hello" pattern="/hello/{name}">
+            <route id="_hello" path="/hello/{name}">
                 <default key="_controller">AcmeDemoBundle:Demo:hello</default>
                 <requirement key="name">.+</requirement>
             </route>

@@ -56,4 +56,3 @@ separati, basta cambiare il sistema di memorizzazione con
     use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 
     $session = new Session(new MockFileSessionStorage());
-

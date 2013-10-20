@@ -8,7 +8,8 @@ L'aiutante Formatter fornisce funzioni per formattare l'output con colori.
 Si possono fare cose più avanzate con questo aiutante rispetto a
 :ref:`components-console-coloring`.
 
-L'aiutante ``formatter`` è incluso nell'insieme predefinito di aiutanti, ottenibile
+L'aiutante :class:`Symfony\\Component\\Console\\Helper\\FormatterHelper` è incluso
+nell'insieme predefinito di aiutanti, ottenibile
 richiamando :method:`Symfony\\Component\\Console\\Command\\Command::getHelperSet`::
 
     $formatter = $this->getHelperSet()->get('formatter');

@@ -412,7 +412,7 @@ Questo si fa includendolo nella collezione ``defaults``:
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog/{page}', array(
             '_controller' => 'AcmeBlogBundle:Blog:index',
-            'page' => 1,
+            'page'        => 1,
         )));
 
         return $collection;
@@ -1089,7 +1089,7 @@ il comando scrivendo il codice seguente dalla cartella radice del progetto
 
 .. code-block:: bash
 
-    php app/console router:debug
+    $ php app/console router:debug
 
 Il comando visualizzerà un utile elenco di *tutte* le rotte configurate
 nell'applicazione:
@@ -1198,7 +1198,7 @@ Per impostazione predefinita, il router genera URL relativi (ad esempio ``/blog`
 un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
 ``generate()``::
 
-    $router->generate('blog_show', array('slug' => 'my-blog-post'), true);
+    $this->get('router')->generate('blog_show', array('slug' => 'my-blog-post'), true);
     // http://www.example.com/blog/my-blog-post
 
 .. note::
@@ -1234,7 +1234,7 @@ una funzione aiutante per i template:
 
     .. code-block:: html+jinja
 
-        <a href="{{ path('blog_show', { 'slug': 'my-blog-post' }) }}">
+        <a href="{{ path('blog_show', {'slug': 'my-blog-post'}) }}">
           Leggere questo post del blog.
         </a>
 

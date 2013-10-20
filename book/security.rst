@@ -1851,7 +1851,7 @@ del contesto di sicurezza::
     public function indexAction()
     {
         // mostrare contenuti diversi agli utenti admin
-        if($this->get('security.context')->isGranted('ADMIN')) {
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // ... caricare qui contenuti di amministrazione
         }
 

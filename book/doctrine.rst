@@ -272,8 +272,8 @@ tramite annotazioni:
         class Product
         {
             /**
-             * @ORM\Id
              * @ORM\Column(type="integer")
+             * @ORM\Id
              * @ORM\GeneratedValue(strategy="AUTO")
              */
             protected $id;
@@ -700,7 +700,7 @@ Abbiamo già visto come l'oggetto repository consenta di eseguire query di base 
 alcuno sforzo::
 
     $repository->find($id);
-    
+
     $repository->findOneByName('Pippo');
 
 Ovviamente, Doctrine consente anche di scrivere query più complesse, usando
@@ -985,7 +985,7 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
                     mapped-by="category"
                 />
 
-                <!-- 
+                <!--
                     non dimenticare di inizializzare la collection
                     nel metodo __construct() dell'entità
                 -->
@@ -1397,7 +1397,7 @@ sui callback del ciclo di vita, vedere la `Documentazione sugli eventi del ciclo
     vita dovrebbero essere metodi semplici, riguardanti la trasformazione interna di dati
     nell'entità (p.e. impostare un campo di creazione/aggiornamento, generare un
     valore per uno slug).
-    
+
     Se occorre un lavoro più pesante, come eseguire un log o inviare una email, si
     dovrebbe registrare una classe esterna come ascoltatore di eventi e darle accesso
     a qualsiasi risorsa necessaria. Per maggiori informazioni, vedere
@@ -1474,7 +1474,7 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
          * Un campo stringa con lunghezza 150 che persiste su una colonna "email_address"
          * e ha un vincolo di unicità.
          *
-         * @ORM\Column(name="email_address", unique="true", length="150")
+         * @ORM\Column(name="email_address", unique=true, length=150)
          */
         protected $email;
 
@@ -1499,7 +1499,7 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 
         <!--
             Un campo stringa con lunghezza 255 che non può essere nullo
-            (riflette i valori predefiniti per le opzioni "type", "length" e *nullable*)
+            (riflette i valori predefiniti per le opzioni "length" e *nullable*)
             l'attributo type è necessario nelle definizioni yaml
         -->
         <field name="name" type="string" />

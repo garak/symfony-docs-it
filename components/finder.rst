@@ -96,6 +96,14 @@ Ogni schema deve risolvere almeno un percorso di cartella.
 
     $finder->in(__DIR__)->exclude('ruby');
 
+.. versionadded:: 2.3
+   Il metodo :method:`Symfony\\Component\\Finder\\Finder::ignoreUnreadableDirs`
+   è stato aggiunto in Symfony 2.3.
+
+È anche possibile ignorare le cartelle che non si ha il permesso di leggere::
+
+    $finder->ignoreUnreadableDirs()->in(__DIR__);
+
 Visto che Finder utilizza gli iteratori di PHP, è possibile passargli qualsiasi
 URL che sia supportata dal `protocollo`_::
 
@@ -182,9 +190,6 @@ Il metodo ``notNames()`` viene invece usato per escludere i file che corrispondo
 File Contents
 ~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-   I metodi ``contains()`` e ``notContains()`` sono stati introdotti nella versione 2.1.
-
 Restringere i file per contenuto con il metodo
 :method:`Symfony\\Component\\Finder\\Finder::contains`::
 
@@ -243,9 +248,6 @@ Si possono filtrare i file di dimensione compresa tra due valori, concatenando l
 È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, ``<=``,
 ``==``, ``!=``.
 
-.. versionadded:: 2.1
-   L'operatore ``!=`` è stato aggiunto nella versione 2.1.
-
 La dimensione può essere indicata usando l'indicazione in kilobyte (``k``, ``ki``),
 megabyte (``m``, ``mi``) o in gigabyte (``g``, ``gi``). Gli indicatori che terminano
 con ``i`` utilizzano l'appropriata versione ``2**n``, in accordo allo `standard IEC`_
@@ -295,9 +297,6 @@ Il file sarà escluso dal risultato della ricerca nel caso in cui la Closure res
 
 Leggere il contenuto dei file restituiti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-   Il metodo ``getContents()`` è stato introdotto nella versione 2.1.
 
 Il contenuto dei file restituiti può essere letto con
 :method:`Symfony\\Component\\Finder\\SplFileInfo::getContents`::

@@ -51,8 +51,9 @@ sostituire quelle di intl:
 Composer espone automaticamente tali classi nello spazio dei nomi globale.
 
 Se non si usa Composer, ma il
-:doc:`componente ClassLoader di Symfony</components/class_loader/introduction>`, occorre
-esporre a mano le classi, aggiungendo le linee seguenti al proprio autoloader::
+:doc:`componente ClassLoader di Symfony</components/class_loader/introduction>`,
+occorre esporre a mano le classi, aggiungendo le linee seguenti al proprio
+autoloader::
 
     if (!function_exists('intl_is_failure')) {
         require '/percorso/delle/funzioni/Icu/funzioni.php';

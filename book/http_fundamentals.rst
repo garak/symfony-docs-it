@@ -367,7 +367,7 @@ possono peggiorare rapidamente::
     $request = Request::createFromGlobals();
     $path = $request->getPathInfo(); // l'URL richiesto
 
-    if (in_array($path, array('', '/')) {
+    if (in_array($path, array('', '/'))) {
         $response = new Response('Benvenuto nella homepage.');
     } elseif ($path == '/contact') {
         $response = new Response('Contattaci');

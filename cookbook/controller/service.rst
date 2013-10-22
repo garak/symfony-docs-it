@@ -147,7 +147,7 @@ su come eseguire compiti comuni.
 
 Per esempio, se si vuole rendere un template invece di creare direttamente l'oggetto ``Response``,
 il codice somiglierà a questo, se si estende
-il controllore base di Symfohy::
+il controllore base di Symfony::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;

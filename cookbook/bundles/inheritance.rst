@@ -80,7 +80,7 @@ Anche molte risorse possono essere sovrascritte, semplicemente creando un file c
 stesso percorso del bundle genitore.
 
 Per esempio, è molto comune l'esigenza di sovrascrivere il template ``layout.html.twig`` di
-``FOSUserBundle``, in modo che usi il layout di base della propria applicazione.
+``FOSUserBundle``, in modo che usi il layout di base dell'applicazione.
 Poiché il file si trova in ``Resources/views/layout.html.twig`` di ``FOSUserBundle``,
 si può creare il proprio file nello stesso posto in ``AcmeUserBundle``.
 Symfony ignorerà completamente il file dentro ``FOSUserBundle`` e

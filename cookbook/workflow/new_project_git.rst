@@ -24,18 +24,18 @@ locale:
 
 2. Scompattare la distribuzione. Questo creerà una cartella chiamata "Symfony" con la
    struttura del nuovo progetto, i file di configurazione, ecc. Si può rinominare la cartella a piacere.
-   
+
 3. Creare un nuovo file chiamato ``.gitignore`` nella radice del nuovo progetto
    (ovvero vicino al file ``composer.json``) e copiarvi le righe seguenti. I file corrispondenti
    a questi schemi saranno ignorati da git:
 
-    .. code-block:: text
+   .. code-block:: text
 
         /web/bundles/
         /app/bootstrap*
         /app/cache/*
         /app/logs/*
-        /vendor/  
+        /vendor/
         /app/config/parameters.yml
 
 .. tip::
@@ -50,22 +50,22 @@ locale:
    il file ``parameters.yml.dist``, i nuovi sviluppatori potranno clonare rapidamente il
    progetto, copiando questo file in ``parameters.yml`` e personalizzandolo.
 
-5. Inizializzare il proprio repository git:
+5. Inizializzare il repository git:
 
    .. code-block:: bash
-    
+
         $ git init
 
 6. Aggiungere tutti i file in git:
 
    .. code-block:: bash
-    
+
         $ git add .
 
 7. Creare un commit iniziale con il nuovo progetto:
 
    .. code-block:: bash
-    
+
         $ git commit -m "Commit iniziale"
 
 8. Infine, scaricare tutte le librerie dei venditori, eseguendo
@@ -76,12 +76,13 @@ copiato su git. Si può iniziare subito a sviluppare, inviando i commit delle
 modifiche al proprio repository git.
 
 Si può continuare a seguire il capitolo :doc:`/book/page_creation` per imparare
-di più su come configurare e sviluppare la propria applicazione.
+di più su come configurare e sviluppare un'applicazione.
 
 .. tip::
 
     Symfony2 Standard Edition è distribuito con alcuni esempi di funzionamento. Per
-    rimuovere il codice di esempio, seguire le istruzioni nel file `Readme di Standard Edition`_.
+    rimuovere il codice di esempio, seguire le istruzioni nella ricetta
+    ":doc:`/cookbook/bundles/remove`".
 
 .. _cookbook-managing-vendor-libraries:
 
@@ -115,9 +116,8 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 
 .. _`git`: http://git-scm.com/
 .. _`Symfony2 Standard Edition`: http://symfony.com/download
-.. _`Readme di Standard Edition`: https://github.com/symfony/symfony-standard/blob/master/README.md
-.. _`sotto-moduli di git`: http://book.git-scm.com/5_submodules.html
+.. _`sotto-moduli di git`: http://git-scm.com/book/en/Git-Tools-Submodules
 .. _`GitHub`: https://github.com/
-.. _`repository privato`: http://progit.org/book/ch4-4.html
+.. _`repository privato`: http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository
 .. _`Gitolite`: https://github.com/sitaramc/gitolite
-.. _`Github .gitignore`: http://help.github.com/ignore-files/
+.. _`Github .gitignore`: https://help.github.com/articles/ignoring-files

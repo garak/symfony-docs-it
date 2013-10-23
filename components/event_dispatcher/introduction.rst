@@ -217,9 +217,9 @@ La classe statica ``Events``
 ............................
 
 Si supponga di voler creare un nuovo evento, chiamato ``negozio.ordine``, distribuito
-ogni volta che un ordine viene creato dentro la propria applicazione. Per mantenere le
-cose organizzate, iniziamo a creare una classe ``StoreEvents`` all'interno della propria
-applicazione, che serve a definire e documentare il proprio evento::
+ogni volta che un ordine viene creato dentro l'applicazione. Per mantenere le
+cose organizzate, iniziamo a creare una classe ``StoreEvents`` all'interno
+dell'applicazione, che serve a definire e documentare il proprio evento::
 
     namespace Acme\StoreBundle;
 

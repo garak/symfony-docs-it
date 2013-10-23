@@ -6,9 +6,9 @@ Capire come interagiscono front controller, Kernel e ambienti
 =============================================================
 
 La sezione :doc:`/cookbook/configuration/environments` ha spiegato le basi di come
-Symfony usi degli ambienti per eseguire la vostra applicazione con configurazioni diverse.
-Questa sezione spiegherà un po' più in dettaglio cosa succeda quando la vostra applicazione
-attraversa la fase di bootstrapp. Per agganciarsi a questo processo avete bisogno di capire
+Symfony usi degli ambienti per eseguire un'applicazione con configurazioni diverse.
+Questa sezione spiegherà un po' più in dettaglio cosa succede quando l'applicazione
+attraversa la fase di bootstrap. Per agganciarsi a questo processo, è necessario capire
 tre elementi che lavorano assieme:
 
 * `Il front controller`_
@@ -17,9 +17,9 @@ tre elementi che lavorano assieme:
 
 .. note::
 
-    Normalmente non avete bisogno di definire il vostro front controller
-    o la classe ``AppKernel`` dato che `Symfony2 Standard Edition`_ fornisce
-    delle ragionevoli implementazioni di default
+    Normalmente non si ha bisogno di definire un proprio front controller
+    o la classe ``AppKernel``, dato che `Symfony2 Standard Edition`_ fornisce
+    delle ragionevoli implementazioni predefinite
 
     Questa sezione di documentazione viene fornita per spiegare cosa succeda
     dietro le quinte.
@@ -64,18 +64,18 @@ come default.
 
 .. note::
 
-    Praticamente ogni webserver permette di ottenere un comportamento
+    Praticamente ogni server web permette di ottenere un comportamento
     simile a quello della RewriteRule descritta qui sopra.
-    Controllate la documentazione del vostro webserver per i dettagli o guardate
+    Controllare la documentazione del server web usato per i dettagli o vedere
     :doc:`/cookbook/configuration/web_server_configuration`.
 
 .. note::
 
-    Accertatevi di mettere in sicurezza il vostro front controller rispetto ad
-    accessi non autorizzati. Per esempio non volete che l'ambiente di debug
+    Accertarsi di mettere in sicurezza il front controller contro
+    accessi non autorizzati. Per esempio, non si vuole che l'ambiente di debug
     sia disponibile in ambiente di produzione.
 
-Tecnicamente lo script `app/console`_ usato quando si lancia Symfony da riga di comando
+Tecnicamente, lo script `app/console`_ usato quando si lancia Symfony da riga di comando
 è anche esso un front controller, solo che non viene usato per richieste web, bensì per 
 richieste da riga di comando
 
@@ -83,35 +83,35 @@ La classe Kernel
 ----------------
 
 La classe :class:`Symfony\\Component\\HttpKernel\\Kernel` è il cuore di 
-Symfony2. È responsabile del setup di tutti i bundle che compongono la vostra
-applicazione e fornisce loro la configurazione dell'applicazione.
-Il Kernel crea poi un service container prima di gestire le richieste col suo metodo
+Symfony2. È responsabile del setup di tutti i bundle che compongono
+l'applicazione e fornisce loro la configurazione dell'applicazione.
+Il Kernel crea poi un contenitore di servizi, prima di gestire le richieste col suo
+metodo
 :method:`Symfony\\Component\\HttpKernel\\HttpKernelInterface::handle`.
-
 
 Ci sono due metodi dichiarati nell'interfaccia
 :class:`Symfony\\Component\\HttpKernel\\KernelInterface` e che sono non implementati
-nella classe :class:`Symfony\\Component\\HttpKernel\\Kernel`
+nella classe :class:`Symfony\\Component\\HttpKernel\\Kernel`,
 servendo quindi come `metodi template`_:
 
 * :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerBundles`,
-  che deve ritornare un array di tutti i Bundle necessari per eseguire
+  che deve restituire un array di tutti i Bundle necessari per eseguire
   l'applicazione.
 
 * :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`,
   che carica la configurazione dell'applicazione.
 
-Per riempire questi (piccoli) buchi la vostra applicazione deve essere una sottoclasse 
+Per riempire questi (piccoli) buchi, l'applicazione deve essere una sottoclasse 
 del Kernel e implementare questi metodi. La classe che ne risulta viene convenzionalmente
 chiamata``AppKernel``.
 
 Ancora una volta Symfony2 Standard Edition fornisce un `AppKernel`_ nella cartella ``app/``. 
-Per decidere quali Bundle creare questa classe usa il nome dell'ambiente, che viene passato al 
-metodo del Kernel  :method:`constructor<Symfony\\Component\\HttpKernel\\Kernel::__construct>`
-ed è ottenibile tramite il metodo :method:`Symfony\\Component\\HttpKernel\\Kernel::getEnvironment` -.
-La logica per ottenere questo si trova nel metodo ``registerBundles()``,
-un metodo pensato per essere esteso da voi quando iniziate ad aggiungere bundles
-alla propria applicazione.
+Per decidere quali Bundle creare questa classe usa il nome dell'ambiente, che viene passato al
+:method:`costruttore<Symfony\\Component\\HttpKernel\\Kernel::__construct>` del Kernel
+ed è ottenibile tramite il metodo :method:`Symfony\\Component\\HttpKernel\\Kernel::getEnvironment`,
+per decidere quale bundle creare. Questa logica si trova in ``registerBundles()``,
+un metodo pensato per essere esteso dallo sviluppatore, quando inizia ad aggiungere bundle
+all'applicazione.
 
 Si è ovviamente liberi di creare la propria variante di ``AppKernel``,
 alternativa o aggiuntiva a quella di default. Tutto quello che occorre è adattare il
@@ -127,28 +127,28 @@ front controller (o aggiungerne uno nuovo) perché usi il nuovo kernel.
     controller sia in grado di creare una istanza del kernel
     appropriato.
 
-Avere diversi ``AppKernels`` può essere utile per abilitare diversi front-controller
-(potenzialmente su diversi server) per eseguire indipendentemente parti della vostra 
-applicazione (per esempio la UI lato admin, la UI del frontend e le migrazioni di database).
+Avere diversi ``AppKernels`` può essere utile per abilitare diversi front
+controller (potenzialmente su diversi server) per eseguire indipendentemente parti dell'applicazione
+(per esempio l'interfaccia di amministrazione, l'interfaccia utente e le migrazioni della base dati).
 
 .. note::
 
-    Ci sono molti altri casi in cui si può usare ``AppKernel``,
-    ad esempio :doc:`overriding the default directory structure </cookbook/configuration/override_dir_structure>`.
-    Ma ci sono ottime probabilità che non abbiate bisogno di cambiare cose di questo genere al volo
-    se avete varie implementazioni multiple dell'``AppKernel``.
+    Ci sono molti altri casi in cui si può usare ``AppKernel``, ad esempio per
+    :doc:`modificare la struttura predefinita della cartelle </cookbook/configuration/override_dir_structure>`.
+    Ma ci sono ottime probabilità che si abbia bisogno di cambiare cose di questo genere al volo,
+    se si hanno implementazioni multiple di ``AppKernel``.
 
 Gli ambienti
 ------------
 
-Abbiamo appena menzionato un altro metoodo che l'``AppKernel`` deve implementare -
+Abbiamo appena menzionato un altro metoodo che l'``AppKernel`` deve implementare:
 :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`.
 Questo metodo è responsabile del caricamento della configurazione dell'applicazione 
 dall'*ambiente* corretto.
 
-Gli ambienti sono stati trattati in amniera estesa
-:doc:`in the previous chapter</cookbook/configuration/environments>`,
-e probabilmente ricorderete che la Standard Edition ne ha tre:
+Gli ambienti sono stati trattati in amniera estesa nel
+:doc:`capitolo precedente </cookbook/configuration/environments>`,
+e probabilmente si ricorderà che la Standard Edition ne ha tre:
 ``dev``, ``prod`` e ``test``.
 
 Più tecnicamente, questi nomi non sono altro che stringhe passate dal
@@ -157,7 +157,7 @@ usato nel metodo :method:`Symfony\\Component\\HttpKernel\\KernelInterface::regis
 che decide quale file di configurazione caricare.
 
 La classe `AppKernel`_ della Standard Edition implementa questo metodo 
-caricando semplicemente  il file ``app/config/config_*environment*.yml`` .
+caricando semplicemente  il file ``app/config/config_*ambiente*.yml`` .
 Si è ovviamente liberi di implementare questo metodo diversamente,
 se serve un sistema più sofisticato per caricare la configurazione.
 

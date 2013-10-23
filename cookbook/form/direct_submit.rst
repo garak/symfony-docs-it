@@ -1,11 +1,11 @@
 .. index::
    single: Form; Form::submit()
 
-Come usare la funzione submit() per gestire l'invio di form
-===========================================================
+Usare la funzione submit() per gestire l'invio di form
+======================================================
 
-.. versionadded::
-    Prima di Symfony 2.3, il metodo ``submit`` era noto come ``bind``.
+.. versionadded:: 2.3
+    Il metodo ``handleRequest()`` è stato aggiunto in Symfony 2.3.
 
 In Symfony 2.3, è stato aggiunto un nuovo metodo :method:`Symfony\Component\Form\FormInterface::handleRequest`,
 che rende la gestione dell'invio di form più facile che mai::

@@ -2,13 +2,13 @@
    single: Sicurezza; Fornitore di utenti
    single: Sicurezza; Fornitore di entità
 
-Come caricare gli utenti dalla base dati (il fornitore di entità)
-=================================================================
+Caricare gli utenti dalla base dati (il fornitore di entità)
+============================================================
 
 Il livello della sicurezza è uno degli strumenti migliori di Symfony. Gestisce due
 aspetti: il processo di autenticazione e quello di autorizzazione. Sebbene possa
 sembrare difficile capirne il funzionamento interno, il sistema di sicurezza è
-molto flessibile e consente di integrare la propria applicazione con qualsiasi
+molto flessibile e consente di integrare un'applicazione con qualsiasi
 backend di autenticazione, come Active Directory, OAuth o una base dati.
 
 Introduzione

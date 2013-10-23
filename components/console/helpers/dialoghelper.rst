@@ -91,9 +91,9 @@ in particolare per le password::
 
     Quando si richiede una risposta nascosta, Symfony userà un binario, cambierà
     la modalità stty oppure userà un altro trucco per nascondere la risposta. Se nessuna opzione è
-    disponibili, si arrenderà e mostrerà la risposta, a meno che non si passi ``false``
+    disponibile, si arrenderà e mostrerà la risposta, a meno che non si passi ``false``
     come terzo parametro, come nell'esempio appena visto. In questo caso, sarà sollevata
-    una RuntimeException.
+    una ``RuntimeException``.
 
 Validare la risposta
 --------------------
@@ -141,8 +141,8 @@ nell'ultimo parametro. Usando ``false`` si indica che il numero di tentativi è 
 L'utente vedrà la domanda finché inserisce una risposta non valida e potrà
 procedere solo in caso di risposta valida.
 
-Nascodere la risposta dell'utente
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Nascondere la risposta dell'utente
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.2
     Il metodo ``askHiddenResponseAndValidate`` è stato aggiunto in Symfony 2.2.

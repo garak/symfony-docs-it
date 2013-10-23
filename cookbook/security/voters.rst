@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza, Votanti
 
-Come implementare i propri votanti per una lista nera di indirizzi IP
-=====================================================================
+Implementare i propri votanti per una lista nera di indirizzi IP
+================================================================
 
 Il componente della sicurezza di Symfony2 fornisce diversi livelli per autenticare gli
 utenti. Uno dei livelli è chiamato `voter` (votante). Un votante è una classe dedicata a verificare
@@ -180,7 +180,7 @@ Nel nostro caso, sceglieremo la strategia ``unanimous``. A differenza della stra
 nega.
 
 Per poterlo fare, sovrascrivere la sezione ``access_decision_manager`` del file di
-configurazione della propria applicazione con il codice seguente.
+configurazione dell'applicazione con il codice seguente.
 
 .. configuration-block::
 

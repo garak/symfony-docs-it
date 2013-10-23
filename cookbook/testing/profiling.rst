@@ -1,17 +1,17 @@
 .. index::
    single: Test; Profilazione
 
-Come usare il profilatore nei test funzionali
-=============================================
+Usare il profilatore nei test funzionali
+========================================
 
 È caldamente raccomandato che un test funzionale testi solo la risposta. Ma se si
-scrivono test funzionali che monitorano i propri server di produzione, si potrebbe
+scrivono test funzionali che monitorano i server di produzione, si potrebbe
 voler scrivere test sui dati di profilazione, che sono un ottimo strumento per
 verificare varie cose e controllare alcune metriche.
 
 Il :ref:`profilatore <internals-profiler>` di Symfony2 raccoglie diversi dati
 per ogni richiesta. Usare questi dati per verificare il numero di chiamate alla base dati,
-il tempo speso nel framework, eccetera. Ma prima di scrivere asserzioni, verificare
+il tempo speso nel framework, eccetera. Ma, prima di scrivere asserzioni, verificare
 sempre che il profilatore sia effettivamente una variabile (è abilitato per impostazione
 predefinita in ambiente ``test``)::
 
@@ -45,7 +45,7 @@ predefinita in ambiente ``test``)::
         }
     }
 
-Se un test fallisce a causa dei dati di profilazione (per esempio, troppe query al DB),
+Se un test fallisce a causa dei dati di profilazione (per esempio, troppe query alla base dati),
 si potrebbe voler usare il profilatore web per analizzare la richiesta, dopo che i test
 sono finiti. È facile, basta inserire il token nel messaggio di errore::
 
@@ -66,10 +66,10 @@ sono finiti. È facile, basta inserire il token nel messaggio di errore::
 
 .. note::
 
-    Le informazioni del profilatore sono disponibili anche se si isola client o se
-    se si usa un livello HTTP per i propri test.
+    Le informazioni del profilatore sono disponibili anche se si isola il client o se
+    se si usa un livello HTTP per i test.
 
 .. tip::
 
-    Leggere le API dei :doc:`raccoglitori di dati</cookbook/profiler/data_collector>`
+    Leggere le API dei :doc:`raccoglitori di dati </cookbook/profiler/data_collector>`
     per saperne di più sulle loro interfacce.

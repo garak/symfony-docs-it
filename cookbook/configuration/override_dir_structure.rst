@@ -1,7 +1,7 @@
 .. index::
-   single: Modificare la struttura della cartelle predefinita
+   single: Modificare la struttura predefinita della cartelle 
 
-Modificare la struttura della cartelle predefinita
+Modificare la struttura predefinita della cartelle
 ==================================================
 
 Symfony viene distribuito con una struttura di cartelle predefinita. Si può

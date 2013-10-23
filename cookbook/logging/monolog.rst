@@ -1,8 +1,8 @@
 .. index::
    single: Log
 
-Come usare Monolog per scrivere log
-===================================
+Usare Monolog per scrivere log
+==============================
 
 Monolog_ è una libreria di log per PHP 5.3 usata da Symfony2. È
 ispirata dalla libreria LogBook di Python.
@@ -36,7 +36,7 @@ per scrivere i log (i gestori possono essere condivisi).
 .. tip::
 
     Quando si inietta il logger in un servizio, si può
-    :ref:`usare un canale personalizzato<dic_tags-monolog>` per vedere facilmente
+    :ref:`usare un canale personalizzato <dic_tags-monolog>` per vedere facilmente
     quale parte dell'applicazione ha loggato il messaggio.
 
 Il gestore di base è ``StreamHandler``, che scrive log in un flusso
@@ -47,7 +47,7 @@ Monolog dispone anche di un potente gestore per il log in ambiente di
 produzione: ``FingersCrossedHandler``. Esso consente di memorizzare i
 messaggi in un buffer e di loggarli solo se un messaggio raggiunge il livello
 di azione (ERROR, nella configurazione fornita con la Standard
-Edition) girando i messaggi a un altro gestore.
+Edition), inoltrando i messaggi a un altro gestore.
 
 Usare diversi gestori
 ~~~~~~~~~~~~~~~~~~~~~
@@ -226,7 +226,7 @@ gestori oppure solo a un gestore specifico.
 Un processore è semplicemente una funzione che riceve il record come primo parametro.
 
 I processori sono configurati con il tag ``monolog.processor`` del DIC. Vedere il
-:ref:`riferimento<dic_tags-monolog-processor>`.
+:ref:`riferimento <dic_tags-monolog-processor>`.
 
 Aggiungere un token di sessione/richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -13,7 +13,7 @@ Rendere i template PHP
 ----------------------
 
 Se si vuole usare il motore di template PHP, occorre prima di tutto assicurarsi
-di abilitarlo nel file di configurazione della propria applicazione:
+di abilitarlo nel file di configurazione dell'applicazione:
 
 .. configuration-block::
 
@@ -307,7 +307,7 @@ Symfony2 fornisce il tag ``assets`` per gestirli facilmente:
 
 Lo scopo principale dell'aiutante ``assets`` è quello di rendere l'applicazione più
 portabile. Grazie a questo aiutante, si può spostare la cartella radice dell'applicazione
-in qualsiasi punto sotto la propria cartella radice del web, senza dover cambiare nulla
+in qualsiasi punto sotto la cartella radice del web, senza dover cambiare nulla
 nel codice dei template.
 
 Escape dell'output

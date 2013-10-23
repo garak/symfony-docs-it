@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza; Fornitore di autenticazione personalizzato
 
-Come creare un fornitore di autenticazione personalizzato
-=========================================================
+Creare un fornitore di autenticazione personalizzato
+====================================================
 
 Chi ha letto il capitolo sulla :doc:`/book/security` può capire
 la distinzione che fa Symfony2 tra autenticazione e autorizzazione,
@@ -10,7 +10,7 @@ nell'implementazione della sicurezza. Questo capitolo discute le classi
 di base coinvolte nel processo di autenticazione e come implementare un
 fornitore di autenticazione personalizzato. Poiché autenticazione e autorizzazione
 sono concetti separati, questa estensione sarà agnostica rispetto al fornitore
-di utenti e funzionerà con il fornitore di utenti della propria applicazione, sia
+di utenti e funzionerà con il fornitore di utenti dell'applicazione, sia
 esso basato sulla memoria, su una base dati o su qualsiasi altro supporto scelto.
 
 WSSE
@@ -29,7 +29,7 @@ REST.
 
 C'è molta buona documentazione su `WSSE`_, ma questo articolo non approfondirà
 il protocollo di sicurezza, quando il modo in cui un protocollo personalizzato
-possa essere aggiunto alla propria applicazione Symfony2. La base di WSSE è la
+possa essere aggiunto a un'applicazione Symfony2. La base di WSSE è la
 verifica degli header di richiesta tramite credenziali criptate, con l'uso di
 un timestamp e di `nonce`_, e la verifica dell'utente richiesto tramite un digest
 di password.
@@ -275,8 +275,8 @@ Il factory
 Abbiamo creato un token personalizzato, un ascoltatore personalizzato e un fornitore
 personalizzato. Ora dobbiamo legarli insieme. Come rendere disponibile il fornitore
 alla configurazione della sicurezza? La risposta è: usando un ``factory``. Un factory
-è quando ci si aggancia al componente della sicurezza, dicendogli il nome del proprio
-provider e qualsiasi opzione di configurazione disponibile per esso. Prima di tutto,
+è quando ci si aggancia al componente della sicurezza, dicendogli il nome del 
+fornitore e qualsiasi opzione di configurazione disponibile per esso. Prima di tutto,
 occorre creare una classe che implementi
 :class:`Symfony\\Bundle\\SecurityBundle\\DependencyInjection\\Security\\Factory\\SecurityFactoryInterface`.
 
@@ -354,7 +354,7 @@ firewall nella configurazione della sicurezza.
     Ci si potrebbe chiedere il motivo per cui sia necessaria una speciale classe factory
     per aggiungere ascoltatori e fornitori al contenitore di dipendenze. È una buona
     domanda. La ragione è che si può usare il proprio firewall più volte,
-    per proteggere diverse parti della propria applicazione. Per questo, ogni volta che
+    per proteggere diverse parti dell'applicazione. Per questo, ogni volta che
     si usa il proprio firewall, il contenitore di dipendenze crea un nuovo servizio.
     Il factory serve a creare questi nuovi servizi.
 
@@ -522,7 +522,7 @@ Occorre innanzitutto modificare ``WsseFactory`` e definire la nuova opzione nel 
 
 Ora, nel metodo ``create`` del factory, il parametro ``$config`` conterrà
 una chiave 'lifetime', impostata a 5 minuti (300 secondi), a meno che non sia specificato
-diversamente nella configurazione. Per usarlo, occorre passarlo come parametro al proprio
+diversamente nella configurazione. Per usarlo, occorre passarlo come parametro al
 fornitore di autenticazione.
 
 .. code-block:: php

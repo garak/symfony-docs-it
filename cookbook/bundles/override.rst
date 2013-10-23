@@ -19,12 +19,12 @@ Rotte
 -----
 
 Le rotte non sono mai importate automaticamente in Symfony2. Se si vogliono includere rotte
-da un bundle, occorre importarle manualmente da qualche parte nella
-propria applicazione (p.e. ``app/config/routing.yml``).
+da un bundle, occorre importarle manualmente da qualche parte nell'applicazione
+(p.e. ``app/config/routing.yml``).
 
 Il modo migliore per "sovrascrivere" le rotte di un bundle è quello di non importarle
 affatto. Invece di importare le rotte di un bundle di terze parti, meglio copiare
-il file delle rotte nella propria applicazione, modificarlo e importare quello.
+il file delle rotte nell'applicazione, modificarlo e importare quello.
 
 Controllori
 -----------

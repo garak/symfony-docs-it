@@ -51,13 +51,13 @@ più flessibile. Inoltre, mentre i *propri* bundle risiedono nella cartella ``sr
 bundle di terze parti risiederaano nella cartella ``vendor/``.
 
 Per avere un quadro più completo della cartella ``src/``, pensiamo a un'applicazione
-symfony1. Innanzitutto, parte del proprio codice probabilmente risiede in una o più
+symfony1. Innanzitutto, parte del codice probabilmente risiede in una o più
 applicazioni. Solitamente questo include dei moduli, ma potrebbe anche includere altre
-classi PHP inserite nella propria applicazione. Si potrebbe anche aver creato un file
+classi PHP inserite in un'applicazione. Si potrebbe anche aver creato un file
 ``schema.yml`` nella cartella ``config`` del progetto e costruito diversi file di modello.
 Infine, per aiutarsi con alcune funzionalità comuni, si usano diversi plugin di terze
-parte, che stanno nella cartella ``plugins/``.
-In altre parole, il codice che guida la propria applicazione risiede in molti posti
+parti, che stanno nella cartella ``plugins/``.
+In altre parole, il codice che guida un'applicazione risiede in molti posti
 diversi.
 
 In Symfony2, la vite è molto più semplice, perché *tutto* il codice di Symfony2 deve
@@ -67,8 +67,8 @@ Ipotizzando che tutti i moduli, le classi PHP, lo schema, la configurazione dell
 eccetera siano spostate in un plugin, la cartella ``plugins/`` di symfony1 sarebbe
 molto simile alla cartella ``src/`` di Symfony2.
 
-Detto semplicemente, la cartella ``src/`` è il posto in cui risiedono il proprio codice,
-le risorse, i template e quasi ogni altra cosa specifica del proprio progetto.
+Detto semplicemente, la cartella ``src/`` è il posto in cui risiedono il codice,
+le risorse, i template e quasi ogni altra cosa specifica di un progetto.
 
 La cartella ``vendor/``
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,10 +85,10 @@ La cartella ``web/``
 
 Non è cambiato molto nella cartella ``web/``. La differenza più notevole è
 l'assenza delle cartelle ``css/``, ``js/`` e ``images/``. La cosa è intenzionale.
-Come il proprio codice PHP, tutte le risorse dovrebbero risiedere all'interno di
+Come il codice PHP, tutte le risorse dovrebbero risiedere all'interno di
 un bundle. Con l'aiuto di un comando della console, la cartella ``Resources/public/``
 di ogni bundle viene copiata o collegata alla cartella ``web/bundles/``.
-Questo consente di mantenere le risorse organizzate nel proprio bundle, ma ancora
+Questo consente di mantenere le risorse organizzate nel bundle, ma ancora
 disponibili pubblicamente. Per assicurarsi che tutti i bundle siano disponibili,
 eseguire il seguente comando:
 
@@ -106,7 +106,7 @@ Auto-caricamento
 
 Uno dei vantaggi dei framework moderni è il non doversi preoccupare di richiedere
 i file. Utilizzando un autoloader, si può fare riferimento a qualsiasi classe
-nel proprio progetto e fidarsi che essa sia disponibile. L'auto-caricamento è
+nel progetto e fidarsi che essa sia disponibile. L'auto-caricamento è
 cambiato in Symfony2, per essere più universale, più veloce e indipendente
 dalla pulizia della cache.
 
@@ -212,7 +212,7 @@ di alcuni bundle, creare dei sotto-spazi per controller, delle sotto-cartelle
 per i template, configurazioni semantiche diverse, configurazioni di rotte
 separate e così via.
 
-Ovviamente non c'è nulla di sbagliato ad avere più di un'applicazione nel proprio
+Ovviamente non c'è nulla di sbagliato ad avere più di un'applicazione nel
 progetto, questa scelta è lasciata allo sviluppatore. Una seconda applicazione
 vorrebbe dire una nuova cartella, per esempio ``app2/``, con la stessa struttura di base della cartella ``app/``.
 
@@ -225,7 +225,7 @@ Bundle e plugin
 ---------------
 
 In un progetto symfony1, un plugin può contenere configurazioni, moduli, librerie PHP,
-risorse e qualsiasi altra cosa relativa al proprio progetto. In Symfony2,
+risorse e qualsiasi altra cosa relativa al progetto. In Symfony2,
 l'idea di plugin è stata rimpiazzata con quella di "bundle". Un bundle è ancora più
 potente di un plugin, perché il nucleo stesso del framework Symfony2 è costituito
 da una serie di bundle. In Symfony2, i bundle sono cittadini di prima classe e sono

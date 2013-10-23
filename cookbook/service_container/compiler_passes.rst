@@ -2,8 +2,8 @@
    single: Dependency Injection; Passi di compilatore
    single: Contenitore di servizi; Passi di compilatore
 
-Come lavorare con i passi di compilatore nei bundle
-===================================================
+Lavorare con i passi di compilatore nei bundle
+==============================================
 
 I passi di compilatore danno l'opportunità di manipolare definizioni di altri servizi,
 che sono stai registrati nel contenitore di servizi. Si può leggere come crearli nella

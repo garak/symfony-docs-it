@@ -1,8 +1,8 @@
 .. index::
    single: Console; Creare comandi
 
-Come creare un comando di console
-=================================
+Creare un comando di console
+============================
 
 La pagina Console della sezione dei componenti (:doc:`/components/console/introduction`) spiega
 come creare un comando di console. Questa ricetta spiega invece le differenze

@@ -149,9 +149,9 @@ disponibili sia l'oggetto entità dell'evento che lo stesso gestore di
 entità.
 
 Una cosa importante da notare è che un ascoltatore ascolterà *tutte* le
-entità della propria applicazione. Quindi, se si vuole gestire solo un tipo
+entità dell'applicazione. Quindi, se si vuole gestire solo un tipo
 specifico di entità (p.e. un'entità ``Product``, ma non un'entità ``BlogPost``),
-si dovrebbe verificare il nome della classe dell'entità nel proprio metodo
+si dovrebbe verificare il nome della classe dell'entità nel metodo
 (come precedentemente mostrato).
 
 Creare la classe Subscriber

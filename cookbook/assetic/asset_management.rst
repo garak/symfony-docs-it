@@ -186,7 +186,7 @@ file JavaScript.
 
 .. tip::
 
-    Se si è nuovi con Assetic e si prova a utilizzare la propria applicazione nell'ambiente
+    Se si è nuovi con Assetic e si prova a utilizzare un'applicazione in ambiente
     ``prod`` (utilizzando il controllore ``app.php``), probabilmente si vedrà
     che mancano tutti i CSS e JS. Non bisogna preoccuparsi! Accade di proposito.
     Per informazioni dettagliate sull'utilizzo di Assetic in ambiente `prod`, vedere :ref:`cookbook-assetic-dumping`.

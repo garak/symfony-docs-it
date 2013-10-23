@@ -160,8 +160,8 @@ in questo modo::
 
     $newsletterManager = $container->get('newsletter_manager');
 
-Evitare che il proprio codice dipenda dal contenitore
------------------------------------------------------
+Evitare che il codice dipenda dal contenitore
+---------------------------------------------
 
 Sebbene si possano recuperare servizi direttamente dal contenitore, sarebbe
 meglio minimizzarlo. Per esempio, in ``NewsletterManager`` abbiamo iniettato
@@ -171,7 +171,7 @@ ma allora sarebbe stato legato a questo particolare contenitore, rendendo
 difficile riusare la classe altrove.
 
 A un certo punto si avrà la necessità di ottenere un servizio dal contenitore,
-ma lo si dovrebbe fare il meno possibile e all'inizio della propria applicazione.
+ma lo si dovrebbe fare il meno possibile e all'inizio dell'applicazione.
 
 .. _components-dependency-injection-loading-config:
 

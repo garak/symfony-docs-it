@@ -5,7 +5,7 @@
 Come esporre una configurazione semantica per un bundle
 =======================================================
 
-Se si apre il file di configurazione della propria applicazione (di solito ``app/config/config.yml``),
+Se si apre il file di configurazione di un'applicazione (di solito ``app/config/config.yml``),
 si vedranno un certo numero di "spazi di nomi" di configurazioni, come ``framework``,
 ``twig`` e ``doctrine``. Ciascuno di questi configura uno specifico bundle, consentendo di
 configurare cose ad alto livello e quindi lasciando al bundle tutte le modifiche complesse
@@ -42,11 +42,11 @@ Quando si crea un bundle, si hanno due scelte sulla gestione della configurazion
 1. **Normale configurazione di servizi** (*facile*):
   
     Si possono specificare i propri servizi in un file di configurazione (p.e. ``services.yml``)
-    posto nel proprio bundle e quindi importarlo dalla configurazione principale della
-    propria applicazione. Questo è molto facile, rapido ed efficace. Se si usano i
+    posto nel bundle e quindi importarlo dalla configurazione principale
+    dell'applicazione. Questo è molto facile, rapido ed efficace. Se si usano i
     :ref:`parametri<book-service-container-parameters>`, si avrà ancora la
-    flessibilità di personalizzare il bundle dalla configurazione della propria
-    applicazione. Vedere ":ref:`service-container-imports-directive`" per ulteriori
+    flessibilità di personalizzare il bundle dalla configurazione
+    dell'applicazione. Vedere ":ref:`service-container-imports-directive`" per ulteriori
     dettagli.
 
 2. **Esporre una configurazione semantica** (*avanzato*):
@@ -96,9 +96,9 @@ Il secondo metodo ha diversi vantaggi:
 Creare una classe Extension
 ---------------------------
 
-Se si sceglie di esporre una configurazione semantica per il proprio bundle, si avrà
+Se si sceglie di esporre una configurazione semantica per un bundle, si avrà
 prima bisogno di creare una nuova classe "Extension", per gestire il processo.
-Tale classe va posta nella cartella ``DependencyInjection`` del proprio bundle
+Tale classe va posta nella cartella ``DependencyInjection`` del bundle
 e il suo nome va costruito sostituendo il postfisso ``Bundle`` del nome della classe
 del bundle con ``Extension``. Per esempio, la classe Extension di
 ``AcmeHelloBundle`` si chiamerebbe ``AcmeHelloExtension``::
@@ -170,11 +170,11 @@ Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
 .. tip::
 
     Seguendo le convenzioni di nomenclatura viste sopra, il metodo ``load()``
-    della propria estensione sarà sempre richiamato, a patto che il proprio bundle
+    della propria estensione sarà sempre richiamato, a patto che il bundle
     sia registrato nel Kernel. In altre parole, anche se l'utente non fornisce
     alcuna configurazione (cioè se la voce ``acme_hello`` non appare mai),
     il metodo ``load()`` sarà richiamato, passandogli un array ``$configs``
-    vuoto. Si possono comunque fornire valori predefiniti adeguati per il proprio
+    vuoto. Si possono comunque fornire valori predefiniti adeguati per il
     bundle, se lo si desidera.
 
 Analisi dell'array ``$configs``
@@ -267,7 +267,7 @@ fonderli a mano::
 
 .. caution::
 
-    Assicurarsi che la tecnica di fusione vista sopra abbia senso per il proprio bundle.
+    Assicurarsi che la tecnica di fusione vista sopra abbia senso per il bundle.
     Questo è solo un esempio e andrebbe usato con la dovuta cautela.
 
 Usare il metodo ``load()``
@@ -277,14 +277,14 @@ Con ``load()``, la variabile ``$container`` si riferisce a un contenitore che co
 la configurazione del proprio spazio dei nomi (cioè non contiene informazioni su servizi
 caricati da altri bundle). Lo scopo del metodo ``load()`` è quello di manipolare
 il contenitore, aggiungere e configurare ogni metodo o servizio necessario per il
-proprio bundle.
+bundle.
 
 Caricare risorse di configurazioni esterne
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Una cosa che si fa di solito è caricare un file di configurazione esterno, che potrebbe
-contenere i servizi necessari al proprio bundle. Per esempio, si supponga di avere
-un file ``services.xml``, che contiene molte delle configurazioni di servizio del proprio
+contenere i servizi necessari al bundle. Per esempio, si supponga di avere
+un file ``services.xml``, che contiene molte delle configurazioni di servizio del
 bundle::
 
     use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -326,7 +326,7 @@ Una volta caricati alcune configurazioni di servizi, si potrebbe aver bisogno di
 la configurazione in base ad alcuni valori inseriti. Per esempio, si supponga di avere
 un servizio il cui primo parametro è una stringa "type", che sarà usata
 internamente. Si vorrebbe che fosse facilmente configurata dall'utente del bundle, quindi
-nella proprio file di configurazione del servizio (``services.xml``), si definisce questo
+nel proprio file di configurazione del servizio (``services.xml``), si definisce questo
 servizio e si usa un parametro vuoto, come ``acme_hello.my_service_type``, come primo
 parametro:
 
@@ -348,7 +348,7 @@ parametro:
         </services>
     </container>
 
-Ma perché definire un parametro vuoto e poi passarlo al proprio servizio?
+Ma perché definire un parametro vuoto e poi passarlo al servizio?
 La risposa è che si imposterà questo parametro nella propria classe Extension, in base
 ai valori di configurazione in entrata. Si supponga, per esempio, di voler consentire
 all'utente di definire questa opzione *type* sotto una chiave di nome ``mio_tipo``.
@@ -570,9 +570,9 @@ Quando si crea un'estensione, seguire queste semplici convenzioni:
 
 * L'estensione deve fornire uno schema XSD.
 
-Se si seguono queste semplici convenzioni, la propria estensione sarà registrata
+Se si seguono queste semplici convenzioni, l'estensione sarà registrata
 automaticamente da Symfony2. In caso contrario, sovrascrivere il metodo
-:method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build` nel proprio
+:method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build` nel
 bundle::
 
     // ...

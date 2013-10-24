@@ -1,8 +1,8 @@
 .. index::
    single: Email; Gmail
 
-Come usare Gmail per l'invio delle email
-========================================
+Usare Gmail per l'invio delle email
+===================================
 
 In fase di sviluppo, invece di utilizzare un normale server SMTP per l'invio delle email, 
 potrebbe essere più semplice e pratico usare Gmail. Il bundle Swiftmailer ne rende 

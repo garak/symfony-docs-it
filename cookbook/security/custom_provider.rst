@@ -115,7 +115,7 @@ popolerà con i dati.
 Il fornitore utenti è semplicemente una classe PHP che deve implementare
 :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`, 
 la quale richiede la definizione di tre metodi: ``loadUserByUsername($username)``,
-``refreshUser(UserInterface $user)`` and ``supportsClass($class)``. Per maggiori
+``refreshUser(UserInterface $user)`` e ``supportsClass($class)``. Per maggiori
 dettagli, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`.
 
 Ecco un esempio di come potrebbe essere::

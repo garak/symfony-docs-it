@@ -17,8 +17,8 @@ in un'applicazione reale. È semplice da preparare e ci si può fidare abbastanz
 dei componenti di Symfony per usarla come base per i test.
 
 C'è già una classe che può beneficiare di semplici test dei FormType:
-:class:`Symfony\\Component\\Form\\Tests\\Extension\\Core\\Type\\TypeTestCase`.
-Questa classe viene usata per testare i tipi del nucleo e la si può usare per testare i propri tipi.
+:class:`Symfony\\Component\\Form\\Tests\\Extension\\Core\\Type\\TypeTestCase`. Questa
+classe viene usata per testare i tipi del nucleo e la si può usare per testare tipi personalizzati.
 
 .. versionadded:: 2.3
     ``TypeTestCase`` è stato spostato sotto lo spazio dei nomi ``Symfony\Component\Form\Test``
@@ -77,7 +77,7 @@ essere il primo test a essere scritto::
     $form = $this->factory->create($type);
 
 Questo test verifica che nessun trasformatore di dati usato dal form
-fallisca. Il metodo :method:`Symfony\\Component\\Form\\FormInterface::isSynchronized``
+fallisca. Il metodo :method:`Symfony\\Component\\Form\\FormInterface::isSynchronized`
 è impostato a ``false`` solo se un trasformatore di dati lancia un'eccezione::
 
     $form->submit($formData);
@@ -85,9 +85,9 @@ fallisca. Il metodo :method:`Symfony\\Component\\Form\\FormInterface::isSynchron
 
 .. note::
 
-    Non testare la validazione: viene applicata da un ascoltatore, c he non
-    è attivo in caso di test ed è basata sulla configurazione della validazione.
-    Invece, testare unitariamente i propri vincoli personalizzati, direttamente.
+    Non testare la validazione: viene applicata da un ascoltatore, che non
+    è attivo in caso di test, ed è basata sulla configurazione della validazione.
+    Invece, testare unitariamente i vincoli personalizzati, direttamente.
 
 Il passo successivo consiste nel verificare il bind e la mappatura del form. Il test
 seguente verifica se tutti i campi siano specificati correttamente::
@@ -156,7 +156,7 @@ Aggiungere estensioni personalizzate
 ------------------------------------
 
 Spesso accade di usare alcune opzioni aggiunte da
-:doc:`estensioni di form</cookbook/form/create_form_type_extension>`. Uno dei casi può
+:doc:`estensioni di form </cookbook/form/create_form_type_extension>`. Uno dei casi può
 essere ``ValidatorExtension``, con la sua opzione ``invalid_message``.
 ``TypeTestCase`` carica solo le estensioni base del form, quindi sarà lanciata
 un'eccezione "Invalid option", se si prova a usarlo per testare una classe che dipenda
@@ -249,6 +249,6 @@ dati. Questo consente di disaccoppiare le fixture dei test dai test stessi e
 di testare facilmente insiemi diversi di dati.
 
 Si può anche passare un altro parametro, come un booleano che dice se il form debba
-essere sincronizzato con il dato insiemi di dati o meno.
+essere o meno sincronizzato con l'insieme di dati fornito.
 
 .. _`data provider`: http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.data-providers

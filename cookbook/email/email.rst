@@ -1,8 +1,8 @@
 .. index::
    single: Email
 
-Come spedire un'email
-=====================
+Spedire un'email
+================
 
 Spedire email è una delle azioni classiche di ogni applicazione web, ma 
 rappresenta anche l'origine di potenziali problemi e complicazioni. Invece 

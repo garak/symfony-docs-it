@@ -1,8 +1,8 @@
 .. index::
    single: Test
 
-Come testare l'interazione con diversi client
-=============================================
+Testare l'interazione con diversi client
+========================================
 
 Se occorre simulare un'interazionoe tra diversi client (si pensi a una chat,
 per esempio), creare tanti client::

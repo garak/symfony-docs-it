@@ -230,7 +230,7 @@ aggiungere alcuni strumenti di debug:
 Estendere un bundle
 ~~~~~~~~~~~~~~~~~~~
 
-Oltre a essere un modo carino per organizzare e configurare il proprio codice, un bundle
+Oltre a essere un modo carino per organizzare e configurare il codice, un bundle
 può estendere un altro bundle. L'ereditarietà dei bundle consente di sovrascrivere un bundle
 esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro suo
 file. Qui sono d'aiuto i nomi logici (come ``@AcmeDemoBundle/Controller/SecuredController.php``),

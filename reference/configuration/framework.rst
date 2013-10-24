@@ -80,7 +80,7 @@ ide
 
 Se si usa un IDE, come TextMate o Mac Vim, allora Symfony può cambiare tutti i
 percorsi del file nei messaggi di eccezione in collegamenti, che apriranno i
-file nel proprio IDE.
+file nell'IDE specificato.
 
 Se si usa TextMate o Mac Vim, si possono usare semplicemente uno dei seguenti
 valori:
@@ -110,8 +110,8 @@ test
 **tipo**: ``booleano``
 
 Se questo parametro di configurazione è presente e non è ``false``, saranno
-caricati i servizi correlati ai test della propria applicazione (p.e. ``test.client``).
-Questa impostazione dovrebbe essere presete nel proprio ambiente ``test`` (solitamente
+caricati i servizi correlati ai test dell'applicazione (p.e. ``test.client``).
+Questa impostazione dovrebbe essere presente in ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
 .. _reference-framework-trusted-proxies:

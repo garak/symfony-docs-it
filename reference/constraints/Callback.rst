@@ -3,7 +3,7 @@ Callback
 
 Lo scopo del vincolo Callback è di poter creare delle regole di validazione
 completamente personalizzate e di assegnare qualsiasi errore di validazione a
-campi specifici del proprio oggetto. Se si usa la validazione con i form, questo vuol dire
+campi specifici di un oggetto. Se si usa la validazione con i form, questo vuol dire
 che si possono mostrare questi errori personalizzati accanto a campi specifici, invece di
 mostrarli semplicemente in cima al form.
 

@@ -561,7 +561,7 @@ vedere :doc:`/cookbook/security/form_login`.
 
 .. sidebar:: Come evitare gli errori più comuni
 
-    Quando si imposta il proprio form di login, bisogna fare attenzione a non incorrere in alcuni errori comuni.
+    Quando si imposta un form di login, bisogna fare attenzione a non incorrere in alcuni errori comuni.
 
     **1. Creare le rotte giuste**
 
@@ -1253,7 +1253,7 @@ tenterà di caricare un oggetto ``User`` dalla base dati, utilizzando il campo
     Questo esempio ha come unico scopo quello di mostrare l'idea di base dietro al fornitore
     ``entity``. Per un esempio completamente funzionante, vedere :doc:`/cookbook/security/entity_provider`.
 
-Per ulteriori informazioni sulla creazione di un proprio fornitore personalizzato (ad esempio se è necessario
+Per ulteriori informazioni sulla creazione di un fornitore personalizzato (ad esempio se è necessario
 caricare gli utenti tramite un servizio web), vedere :doc:`/cookbook/security/custom_provider`.
 
 .. _book-security-encoding-user-password:
@@ -2045,7 +2045,7 @@ Il tempo può essere usato da un attaccante, quando le due stringhe rappresentan
 per esempio. È noto come `Timing attack`_.
 
 Internamente, quando si confrontano due password, Symfony usa un algoritmo a
-tempo costante. Si può usare la stessa strategia nel proprio codice, grazie alla classe
+tempo costante. Si può usare la stessa strategia nel codice, grazie alla classe
 :class:`Symfony\\Component\\Security\\Core\\Util\\StringUtils`::
 
     use Symfony\Component\Security\Core\Util\StringUtils;

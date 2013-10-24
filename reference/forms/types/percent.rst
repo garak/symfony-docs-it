@@ -41,9 +41,9 @@ type
 
 **tipo**: ``stringa`` **predefinito**: ``fractional``
 
-Controlla come i dati sono memorizzati nel proprio oggetto. Per esempio, una
-percentuale di "55%" potrebbe essere memorizzata come ``.55`` o ``55`` nel proprio
-oggetto. I due tipi gestiscono questi due casi:
+Controlla come i dati sono memorizzati nell'oggetto. Per esempio, una
+percentuale di "55%" potrebbe essere memorizzata come ``.55`` o ``55``
+nell'oggetto. I due tipi gestiscono questi due casi:
 
 *   ``fractional``
     Se i dati sono memorizzati come decimale (p.e. ``.55``), usare questo tipo.
@@ -53,7 +53,7 @@ oggetto. I due tipi gestiscono questi due casi:
 
 *   ``integer``
     Se i dati sono memorizzati come intero (p.e. 55), usare questa opzione.
-    Il valore grezzo (``55``) è mostrato all'utente e memorizzato nel proprio oggetto.
+    Il valore grezzo (``55``) è mostrato all'utente e memorizzato nell'oggetto.
     Notare che ciò funziona solo per valori interi.
 
 precision

@@ -1,10 +1,10 @@
 .. index::
    single: Template PHP
 
-Come usare PHP al posto di Twig nei template
-============================================
+Usare PHP al posto di Twig nei template
+=======================================
 
-Anche se Twig è il motore predefinito di template in Symfony2, si può ancora usare
+Anche se Twig è il motore predefinito di template in Symfony2, si può sempre usare
 PHP, se lo si preferisce. Entrambi i motori di template sono supportati in ugual modo
 in Symfony2. Symfony2 aggiunge alcune caratteristiche interessanti sopra PHP, per rendere
 la scrittura dei template più potente.

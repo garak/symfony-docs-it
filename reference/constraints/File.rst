@@ -37,10 +37,10 @@ Qursto vincolo si usa solitamente in form con il tipo di form
 Uso di base
 -----------
 
-Questo vincolo si usa saolitamente su una proprietà che sarà resa in
+Questo vincolo si usa solitamente su una proprietà che sarà resa in
 un form come tipo di form :doc:`file</reference/forms/types/file>`. Per esempio,
 si supponga di aver creato un form autore, in cui si possa caricare un file PDF con
-una biografia. Nel proprio form, la proprietà ``bioFile`` è di tipo ``file``.
+una biografia. In tale form, la proprietà ``bioFile`` è di tipo ``file``.
 La classe ``Author`` potrebbe essere come la seguente::
 
     // src/Acme/BlogBundle/Entity/Author.php

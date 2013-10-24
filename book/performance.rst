@@ -37,7 +37,7 @@ del server assicurarsi che la cache sia svuotata a ogni modifica dei file sorgen
 gli aggiornamenti eseguiti non saranno mostrati.
 
 Per esempio, per disabilitare questi controlli in APC, aggiungere semplicemente ``apc.stat=0``
-al proprio file di configurazione php.ini.
+al file di configurazione php.ini.
 
 .. index::
    single: Prestazioni; Autoloader
@@ -56,7 +56,7 @@ non trova il file cercato.
 
 La soluzione più semplice è dire a Composer di costruire una "mappa di classi" (cioè un
 grosso array con le posizioni di tutte le classi). Lo si può fare da
-linea di comando e potrebbe diventare parte del proprio processo di deploy::
+linea di comando e potrebbe diventare parte del processo di deploy::
 
 .. code-block:: bash
 
@@ -115,7 +115,7 @@ non avrà più bisogno di includere alcuno dei file sorgente contenuti nelle cla
 Questo riduce un po' la lettura/scrittura su disco.
 
 Se si usa Symfony2 Standard Edition, probabilmente si usa già un file di avvio.
-Per assicurarsene, aprire il proprio front controller (solitamente
+Per assicurarsene, aprire il front controller (solitamente
 ``app.php``) e verificare che sia presente la seguente riga::
 
     require_once __DIR__.'/../app/bootstrap.php.cache';

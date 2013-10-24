@@ -148,14 +148,14 @@ Usare il nuovo validatore è molto facile, come quelli forniti da Symfony2:
             }
         }
 
-Se il proprio vincolo contiene opzioni, dovrebbero essere proprietà pubbliche
+Se un vincolo contiene opzioni, dovrebbero essere proprietà pubbliche
 nella classe Constraint creata in precedenza. Tali opzioni possono essere configurate,
 come le opzioni dei vincoli del nucleo di Symfony.
 
 Validatori di vincoli con dipendenze
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Se il proprio vincolo ha delle dipendenze, come una connessione alla base dati,
+Se un vincolo ha delle dipendenze, come una connessione alla base dati,
 sarà necessario configurarlo come servizio nel contenitore delle dipendenze.
 Questo servizio dovrà includere il tag ``validator.constraint_validator`` e
 l'attributo ``alias``:
@@ -192,7 +192,7 @@ validatore corretto::
     }
 
 Come già detto, Symfony2 cercherà automaticamente una classe il cui nome
-sia uguale a quello del vincolo ma con il suffisso ``Validator``. Se il proprio
+sia uguale a quello del vincolo ma con il suffisso ``Validator``. Se un
 validatore di vincoli è definito come servizio, è importante che si sovrascriva
 il metodo ``validatedBy()``, in modo tale che restituisca l'alias utilizzato
 nella definizione del servizio, altrimenti Symfony2 non utilizzerà il servizio di validazione

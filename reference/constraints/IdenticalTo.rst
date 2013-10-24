@@ -23,7 +23,7 @@ opzioni. Per forzare che un valore *non* sia identico, vedere
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\IdenticalTo`         |
 +----------------+--------------------------------------------------------------------------+
 | Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\IdenticalToValidator`|
-+----------------+-----------------------------------------------------------------------------+
++----------------+--------------------------------------------------------------------------+
 
 Uso di base
 -----------

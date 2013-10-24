@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza; "Ricordami"
 
-Come aggiungere la funzionalità "ricordami" al login
-====================================================
+Aggiungere la funzionalità "ricordami" al login
+===============================================
 
 Una volta che l'utente è autenticato, le sue credenziali sono solitamente salvate nella
 sessione. Questo vuol dire che quando la sessione finisce, l'utente sarà fuori dal sito e
@@ -60,7 +60,7 @@ mostrati di seguito:
 "ricordami", perché non sempre è appropriata. Il modo usuale per farlo è l'aggiunta di un
 checkbox al form di login. Dando al checkbox il nome ``_remember_me``, il cookie sarà
 automaticamente impostato quando il checkbox è spuntato e l'utente entra. Quindi, il
-proprio form di login potrebbe alla fine assomigliare a
+form di login potrebbe alla fine assomigliare a
 questo:
 
 .. configuration-block::

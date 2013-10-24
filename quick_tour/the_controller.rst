@@ -218,7 +218,7 @@ protetta da un ``firewall``.
 Mettere in cache le risorse
 ---------------------------
 
-Non appena il proprio sito inizia a generare più traffico, si vorrà evitare di
+Non appena il sito inizia a generare più traffico, si vorrà evitare di
 dover generare la stessa risorsa più volte. Symfony2 usa gli header di cache
 HTTP per gestire la cache delle risorse. Per semplici strategie di cache, si può
 usare l'annotazione ``@Cache()``::

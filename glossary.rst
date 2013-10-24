@@ -37,8 +37,8 @@ Glossario
         di un bundle. (si veda :ref:`page-creation-bundles`)
 
    Front controller
-        Un *front controller* è un piccolo script PHP che risiede nella cartella web del
-        proprio progetto. Solitamente, *ogni* richiesta è gestita eseguendo lo stesso
+        Un *front controller* è un piccolo script PHP che risiede nella cartella web di un
+        progetto. Solitamente, *ogni* richiesta è gestita eseguendo lo stesso
         front controller, il cui compito è quello di inizializzare l'applicazione
         Symfony.
    
@@ -86,7 +86,7 @@ Glossario
         Un *venditore* è un fornitore di librerie PHP e di bundle, incluso Symfony2
         stesso. A dispetto delle connotazioni commerciali del termine, i venditori
         in Symfony2 includono spesso e volentieri software libero. Qualsiasi libreria
-        si aggiunga al proprio progetto Symfony2 dovrebbe andare nella cartella ``vendor``.
+        si aggiunga a un progetto Symfony2 dovrebbe andare nella cartella ``vendor``.
         Si veda :ref:`L'architettura: usare i venditori <using-vendors>`.
 
    Acme

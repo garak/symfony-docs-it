@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza; Personalizzazione del form di login
 
-Come personalizzare il form di login
-====================================
+Personalizzare il form di login
+===============================
 
 L'uso di un :ref:`form di login<book-security-form-login>` per l'autenticazione è un
 metodo comune e flessibile per gestire l'autenticazione in Symfony2. Quasi ogni aspetto

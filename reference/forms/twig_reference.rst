@@ -166,7 +166,7 @@ form_rest(view, variables)
 --------------------------
 
 Rende tutti i campi che non sono ancora stati resi nel form dato. È sempre una
-buona idea averlo da qualche parte nel proprio form, perché renderà i campi
+buona idea averlo da qualche parte nel form, perché renderà i campi
 nascosti, oltre a tutti i campi che sono stati
 dimenticati.
 
@@ -186,7 +186,7 @@ form_enctype(view)
 
 Se il form contiene almeno un campo di caricamento file, renderà l'attributo
 obbligatorio ``enctype="multipart/form-data"``. È sempre una buona idea includerlo
-nel tag del proprio form:
+nel tag di un form:
 
 .. code-block:: html+jinja
 

@@ -272,7 +272,7 @@ form.type
 
 **Scopo**: Creare un tipo di campo personalizzato per i form
 
-Per dettagli su come creare il proprio tipo di campo, leggere la ricetta
+Per dettagli su come creare un tipo di campo, leggere la ricetta
 :doc:`/cookbook/form/create_custom_field_type`.
 
 form.type_extension
@@ -281,7 +281,7 @@ form.type_extension
 **Scopo**: Creare un "form extension" personalizzato
 
 Le estensioni dei form sono un modo per portare un "aggancio" nella creazione di qualsiasi
-campo del proprio form. Per esempio, l'aggiunta di un tokek per il CSRF si fa tramite
+campo di un form. Per esempio, l'aggiunta di un tokek per il CSRF si fa tramite
 un'estensione del form (:class:`Symfony\\Component\\Form\\Extension\\Csrf\\Type\\FormTypeCsrfExtension`).
 
 Un'estensione di form può modificare qualsiasi parte di qualsiasi campo di un form. Per
@@ -410,7 +410,7 @@ inizializzare ogni cache necessaria all'applicazione e prevenire un "cache hit",
 cioè una generazione dinamica della cache, da parte del primo
 utente.
 
-Per registrare il proprio preparatore di cache, creare innanzitutto un servizio che implementi
+Per registrare un preparatore di cache, creare innanzitutto un servizio che implementi
 l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerInterface`::
 
     // src/Acme/MainBundle/Cache/MyCustomWarmer.php
@@ -435,7 +435,7 @@ Il metodo ``isOptional`` deve resituire ``true`` se è possibile usare l'applica
 richiamare il preparatore di cache. In Symfony 2.0, i preparatori facoltativi
 vengono eseguiti ugualmente, quindi questa funzione non ha effetto.
 
-Per registrare il proprio preparatore di cache, usare il tag ``kernel.cache_warmer``:
+Per registrare un preparatore di cache, usare il tag ``kernel.cache_warmer``:
 
 .. configuration-block::
 
@@ -690,7 +690,7 @@ Si può aggiungere un processore globalmente:
 
 .. tip::
 
-    Se il proprio servizio non è richiamabile (usando ``__invoke``) si può aggiungere
+    Se il servizio non è richiamabile (usando ``__invoke``), si può aggiungere
     l'attributo ``method`` nel tag, per usare un metodo specifico.
 
 Si può anche aggiungere un processore per un gestore specifico, usando l'attributo
@@ -791,11 +791,11 @@ Questo tag è usato internamente per consentire il "ricordami" nell'autenticazio
 Se si ha un metodo di autenticazione personalizzato, in cui l'utente può essere
 ricordato, occorre usare questo tag.
 
-Se il proprio factory di autenticazione personalizzato estende
+Se il factory di autenticazione personalizzato estende
 :class:`Symfony\\Bundle\\SecurityBundle\\DependencyInjection\\Security\\Factory\\AbstractFactory`
-e il proprio ascoltatore di autenticazione personalizzato estende
+e l'ascoltatore di autenticazione personalizzato estende
 :class:`Symfony\\Component\\Security\\Http\\Firewall\\AbstractAuthenticationListener`,
-allora il proprio ascoltatore avrà automaticamente questo tag applicato e
+allora l'ascoltatore avrà automaticamente questo tag applicato e
 funzionerà tutto in modo automatico.
 
 security.voter
@@ -805,7 +805,7 @@ security.voter
 
 Quando si riciama ``isGranted`` nel contesto di sicurezza di Symfony, viene usato dietro
 le quinte un sistema di "votanti", per determinare se l'utente possa accedere. Il tag
-``security.voter`` consente di aggiungere il proprio votante personalizzato a tale sistema.
+``security.voter`` consente di aggiungere un votante personalizzato a tale sistema.
 
 Per maggiori informazioni, leggere la ricetta :doc:`/cookbook/security/voters`.
 
@@ -851,7 +851,7 @@ varie configurazioni. Per dettagli, vedere :doc:`/reference/configuration/swiftm
 templating.helper
 -----------------
 
-**Scopo**: Rendere i proprio servizi disponibili nei template PHP
+**Scopo**: Rendere dei servizi disponibili nei template PHP
 
 Per abilitare un aiutante personalizzato per i template, aggiungerlo come normale servizio
 in una configurazione, assegnarli il tag ``templating.helper`` e definire un attributo
@@ -913,7 +913,7 @@ creare una classe che implementi l'interfaccia
         }
     }
 
-Il proprio metodo ``load`` ha la responsabilità di restituire un
+Il metodo ``load`` ha la responsabilità di restituire un
 :Class:`Symfony\\Component\\Translation\\MessageCatalogue`.
 
 Registrare il caricatore come servizio e assegnargli il tag ``translation.loader``:
@@ -954,7 +954,7 @@ in modo da caricare le proprie traduzioni.
 Se si caricano traduzioni da una base dati, occorrerà comunque un file risorsa,
 ma potrebbe essere vuoto o contenere poche informazioni sul caricamento di tali
 risorse dalla base dati. Il file è la chiave per far scattare il metodo
-``load`` del proprio caricatore personalizzato.
+``load`` del caricatore personalizzato.
 
 translation.extractor
 ---------------------
@@ -970,7 +970,7 @@ ha un :class:`Symfony\\Bridge\\Twig\\Translation\\TwigExtractor` e un
 :class:`Symfony\\Bundle\\FrameworkBundle\\Translation\\PhpExtractor`, che
 aiutano a trovare ed estrarre chiavi di traduzione da template Twig e file PHP.
 
-Si può creare il proprio estrattore, creando una classe che implementi
+Si può creare un estrattore, creando una classe che implementi
 :class:`Symfony\\Component\\Translation\\Extractor\\ExtractorInterface` e
 assegnado al servizio il tag ``translation.extractor``. Il tag ha un'opzione
 obbligatoria: ``alias``, che definisce il nome dell'estrattore::
@@ -1050,7 +1050,7 @@ Symfony2 dispone di diversi esportatori:
 * :class:`Symfony\\Component\\Translation\\Dumper\\XliffFileDumper`
 * :class:`Symfony\\Component\\Translation\\Dumper\\YamlFileDumper`
 
-Si può creare un proprio estrattore, estendendo
+Si può creare un estrattore, estendendo
 :class:`Symfony\\Component\\Translation\\Dumper\\FileDumper` o implementando
 :class:`Symfony\\Component\\Translation\\Dumper\\DumperInterface` e assegnado al
 servizio il tag ``translation.dumper``. Il tag ha un'unica opzione: ``alias``
@@ -1183,7 +1183,7 @@ nuovo caricatore e assegnarli il tag ``twig.loader``:
 validator.constraint_validator
 ------------------------------
 
-**Scopo**: Creare il proprio vincolo di validazione personalizzato
+**Scopo**: Creare un vincolo di validazione personalizzato
 
 Questo tag consente di creare e registrare i propri vincoli di validazione.
 Per maggiori informazioni, leggere la ricetta :doc:`/cookbook/validation/custom_constraint`.

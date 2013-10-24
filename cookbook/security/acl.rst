@@ -34,7 +34,7 @@ Symfony2, due approcci di base (non esaustivi) sono:
   oggetto ``Comment``, p.e. ``ROLE_COMMENT_1``, ``ROLE_COMMENT_2``, ecc.
 
 Entrambi gli approcci sono perfettamente validi. Tuttavia, accoppiano la logica di
-autorizzazione al proprio codice, il che li rende meno riutilizzabili altrove, e inoltre
+autorizzazione al codice, il che li rende meno riutilizzabili altrove, e inoltre
 incrementano le difficoltà nei test unitari. D'altra parte, si potrebbero avere problemi
 di prestazioni, se molti utenti avessero accesso a un singolo oggetto del dominio.
 
@@ -190,7 +190,7 @@ uno di essi.
 
 .. note::
 
-    Si possono definire fino a 32 permessi base (a seconda del proprio sistema operativo,
+    Si possono definire fino a 32 permessi base (a seconda del sistema operativo,
     può variare tra 30 e 32). Inoltre, si possono anche definire dei permessi
     cumulativi.
 

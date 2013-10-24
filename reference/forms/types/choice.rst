@@ -41,7 +41,7 @@ Esempio di utilizzo
 
 Il modo più facile per usare questo campo è specificare le scelte direttamente con
 l'opzione ``choices``. La chiave dell'array diventa il valore effettivamente impostato
-nel proprio oggetto (p.e. ``m``), mentre il valore è quello che l'utente vede nel
+nell'oggetto (p.e. ``m``), mentre il valore è quello che l'utente vede nel
 form (p.e. ``Maschio``).
 
 .. code-block:: php

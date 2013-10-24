@@ -45,7 +45,7 @@ value
 **tipo**: ``mixed`` **predefinito**: ``1``
 
 Il valore usato effettivamente per il checkbox. Non ha effetti sul valore
-impostato nel proprio oggetto.
+impostato nell'oggetto.
 
 Opzioni ereditate
 -----------------

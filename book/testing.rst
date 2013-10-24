@@ -6,7 +6,7 @@ Test
 
 Ogni volta che si scrive una nuova riga di codice, si aggiungono potenzialmente nuovi
 bug. Per costruire applicazioni migliori e più affidabili, si dovrebbe sempre testare
-il proprio codice, usando sia i test funzionali che quelli unitari.
+il codice, usando sia i test funzionali che quelli unitari.
 
 Il framework dei test PHPUnit
 -----------------------------
@@ -21,8 +21,8 @@ ha comunque un'eccellente `documentazione`_.
     di Symfony occorre la versione 3.6.4.
 
 Ogni test, sia esso unitario o funzionale, è una classe PHP,
-che dovrebbe trovarsi in una sotto-cartella `Tests/` del proprio bundle.
-Seguendo questa regola, si possono eseguire tutti i test della propria applicazione con il seguente
+che dovrebbe trovarsi in una sotto-cartella `Tests/` del bundle.
+Seguendo questa regola, si possono eseguire tutti i test di un'applicazione con il seguente
 comando:
 
 .. code-block:: bash
@@ -49,7 +49,7 @@ testare il comportamento generale della propria applicazione, vedere la sezione 
 
 La scrittura di test unitari in Symfony2 non è diversa dalla scrittura standard di test
 unitari in PHPUnit. Si supponga, per esempio, di avere una classe *incredibilmente* semplice,
-chiamata ``Calculator``, nella cartella ``Utility/`` del proprio bundle::
+chiamata ``Calculator``, nella cartella ``Utility/`` del bundle::
 
     // src/Acme/DemoBundle/Utility/Calculator.php
     namespace Acme\DemoBundle\Utility;
@@ -63,7 +63,7 @@ chiamata ``Calculator``, nella cartella ``Utility/`` del proprio bundle::
     }
 
 Per testarla, creare un file ``CalculatorTest`` nella cartella ``Tests/Utility`` del
-proprio bundle::
+bundle::
 
     // src/Acme/DemoBundle/Tests/Utility/CalculatorTest.php
     namespace Acme\DemoBundle\Tests\Utility;
@@ -86,7 +86,7 @@ proprio bundle::
 
     Per convenzione, si raccomanda di replicare la struttura di cartella
     di un bundle nella sua sotto-cartella ``Tests/``. Quindi, se si testa una classe nella
-    cartella ``Utility/`` del proprio bundle, mettere il test nella cartella ``Tests/Utility/``.
+    cartella ``Utility/`` del bundle, mettere il test nella cartella ``Tests/Utility/``.
 
 Proprio come per l'applicazione reale, l'autoloading è abilitato automaticamente tramite il file
 ``bootstrap.php.cache`` (come configurato in modo predefinito nel file
@@ -125,7 +125,7 @@ Un primo test funzionale
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 I test funzionali sono semplici file PHP, che tipicamente risiedono nella cartella ``Tests/Controller``
-del proprio bundle. Se si vogliono testare le pagine gestite dalla propria classe
+del bundle. Se si vogliono testare le pagine gestite dalla classe
 ``DemoController``, si inizi creando un file ``DemoControllerTest.php``, che estende
 una classe speciale ``WebTestCase``.
 
@@ -158,7 +158,7 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
     kernel dell'applicazione. Nella maggior parte dei casi, questo avviene in modo automatico.
     Tuttavia, se il proprio kernel si trova in una cartella non standard, occorre modificare
     il file ``phpunit.xml.dist`` e impostare nella variabile d'ambiente ``KERNEL_DIR`` la
-    cartella del proprio kernel:
+    cartella del kernel:
 
     .. code-block:: xml
 
@@ -171,7 +171,7 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
         </phpunit>
 
 Il metodo ``createClient()`` restituisce un client, che è come un browser da usare per
-visitare il proprio sito::
+visitare un sito::
 
     $crawler = $client->request('GET', '/demo/hello/Fabien');
 
@@ -771,7 +771,7 @@ un file ``phpunit.xml`` per aggiustare la configurazione per la propria macchina
 
 .. tip::
 
-    Inserire il file ``phpunit.xml.dist`` nel proprio repository e ignorare il
+    Inserire il file ``phpunit.xml.dist`` nel repository e ignorare il
     file ``phpunit.xml``.
 
 Per impostazione predefinita, solo i test memorizzati nei bundle "standard" sono eseguiti

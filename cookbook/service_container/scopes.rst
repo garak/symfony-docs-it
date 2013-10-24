@@ -1,15 +1,15 @@
 .. index::
    single: Dependency Injection; Scope
 
-Come lavorare con gli scope
-===========================
+Lavorare con gli scope
+======================
 
 Questa ricetta parla di scope, un argomento alquanto avanzato, relativo al
 :doc:`/book/service_container`. Se si ottiene un errore che menziona gli
 "scopes" durante la creazione di servizi oppure se si ha l'esigenza di creare un
 servizio che dipenda dal servizio `request`, questa è la ricetta giusta.
 
-Capure gli scope
+Capire gli scope
 ----------------
 
 Lo scope di un servizio controlla quanto a lungo un'istanza di un servizio è usata

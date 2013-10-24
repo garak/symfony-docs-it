@@ -321,7 +321,7 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
 .. tip::
 
     L'elemento ``form.tags.get('prototype')`` è un elemento del form che assomiglia molto
-    ai singoli elementi ``form_widget(tag)`` dentro al proprio ciclo ``for``.
+    ai singoli elementi ``form_widget(tag)`` dentro a un ciclo ``for``.
     Questo vuol dire che si può richiamare su di esso ``form_widget``, ``form_row`` o
     ``form_label``. Si può anche scegliere di rendere solo uno dei suoi campi (p.e. il
     campo ``name``):

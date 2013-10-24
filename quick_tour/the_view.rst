@@ -10,7 +10,7 @@ più amichevoli per i designer.
 .. note::
 
     Invece di Twig, si può anche usare :doc:`PHP </cookbook/templating/PHP>`
-    per i proprio template. Entrambi i sistemi di template sono supportati da Symfony2.
+    per i template. Entrambi i sistemi di template sono supportati da Symfony2.
 
 Familiarizzare con Twig
 -----------------------
@@ -101,7 +101,7 @@ come i ben noti header e footer. In Symfony2, il problema è affrontato in
 modo diverso: un template può essere decorato da un altro template.
 Funziona esattamente come nelle classi di PHP: l'ereditarietà dei template consente
 di costruire un template di base "layout", che contiene tutti gli elementi comuni
-del proprio sito e definisce dei "blocchi", che i template figli possono sovrascrivere.
+di un sito e definisce dei "blocchi", che i template figli possono sovrascrivere.
 
 Il template ``hello.html.twig`` eredita da ``layout.html.twig``, grazie al tag
 ``extends``:
@@ -276,8 +276,8 @@ Considerazioni finali
 ---------------------
 
 Twig è semplice ma potente. Grazie a layout, blocchi, template e inclusioni
-di azioni, è molto facile organizzare i propri template in un modo logico ed
-estensibile. Tuttavia, chi non si trova a proprio agio con Twig può sempre usare
+di azioni, è molto facile organizzare i template in un modo logico ed
+estensibile. Tuttavia, chi non si trova a suo agio con Twig può sempre usare
 i template PHP in Symfony, senza problemi.
 
 Stiamo lavorando con Symfony2 da soli venti minuti e già siamo

@@ -45,7 +45,7 @@ Uso di base
 Questo tipo è usato quando si vuole gestire un insieme di elementi simili in un
 form. Per esempio, si supponga di avere un campo ``emails``, che corrisponde
 a un array di indirizzi email. Nel form, si vuole esporre ogni indirizzo email
-con il proprio campo testuale::
+con un campo testuale::
 
     $builder->add('emails', 'collection', array(
         // ogni elemento nell'array sarà un campo "email"

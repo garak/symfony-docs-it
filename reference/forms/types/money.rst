@@ -66,7 +66,7 @@ Per esempio::
 In questo caso, se il campo ``price`` è impostato a ``9900``, allora il valore reso
 all'utente sarà ``99``. Quando l'utente invia il valore
 ``99``, sarà moltiplicato per ``100`` e ``9900`` sarà infine inviato
-al proprio oggetto.
+all'oggetto.
 
 precision
 ~~~~~~~~~

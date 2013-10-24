@@ -134,7 +134,7 @@ Capire i fondamenti
 -------------------
 
 Uno degli obiettivi principali di un framework è quello di assicurare la `separazione degli ambiti`_.
-Ciò mantiene il proprio codice organizzato e consente all'applicazione di
+Ciò mantiene il codice organizzato e consente all'applicazione di
 evolvere facilmente nel tempo, evitando il miscuglio di chiamate alla base dati, tag HTML
 e logica di business nello stesso script. Per raggiungere questo obiettivo con Symfony,
 occorre prima imparare alcuni termini e concetti fondamentali.
@@ -281,7 +281,7 @@ necessità, l'oggetto risposta può essere manipolato prima di essere inviato al
         return $response;
     }
 
-Indipendentemente da come lo si raggiunge, lo scopo finale del proprio controllore
+Indipendentemente da come lo si raggiunge, lo scopo finale di un controllore
 è sempre quello di restituire l'oggetto ``Response`` da inviare all'utente. Questo
 oggetto ``Response`` può essere popolato con codice HTML, rappresentare un rinvio del
 client o anche restituire il contenuto di un'immagine JPG, con un header ``Content-Type`` del valore ``image/jpg``.

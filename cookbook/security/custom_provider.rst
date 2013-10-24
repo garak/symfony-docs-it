@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza; Fornitore utenti
 
-Come creare un fornitore utenti personalizzato
-==============================================
+Creare un fornitore utenti personalizzato
+=========================================
 
 Parte del processo standard di autenticazione di Symfony2 dipende dai "fornitori utenti".
 Quando un utente invia nome e password, il livello di autenticazione chiede al fornitore

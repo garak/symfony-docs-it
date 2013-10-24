@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza; Percorso di rinvio
 
-Come cambiare il comportamento del percorso di rinvio predefinito
-=================================================================
+Cambiare il comportamento del percorso di rinvio predefinito
+============================================================
 
 Per impostazione predefinita, il componente della sicurezza mantiene l'informazione
 sull'URI dell'ultima richiesta in una variabile di sessione chiamata ``_security.main.target_path`` (in cui ``main``

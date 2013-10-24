@@ -1,35 +1,35 @@
 .. index::
-   single: Rotte; Custom route loader
+   single: Rotte; Caricatore di rotte personalizzato
 
-Come creare un Custom Route Loader
-==================================
+Creare un caricatore di rotte personalizzato
+============================================
 
-Un Custom route loader permette di aggiungere rotte a una applicazione, senza 
-per esempio farne l'inclusione da un file Yaml. Questo può essere comodo quando si 
-ha un bundle, ma non si vuole aggiungere manualmente le rotte per quel bundle
+Un caricatore di rotte personalizzato permette di aggiungere rotte a un'applicazione, senza 
+per esempio doverle includere un file Yaml. Questo può essere comodo quando si 
+ha un bundle, ma non si vogliono aggiungere manualmente le rotte per quel bundle
 a ``app/config/routing.yml``. Questo può essere in special modo importante 
 quando si vuole rendere il bundle riusabile o quando lo si è reso open source, in quanto
 questo rallenterebbe il processo di installazione e lo renderebbe più incline agli errori.
 
 Alternativamente, si può usare un caricatore personalizzato di rotte, quando si vuole che le proprie 
 rotte siano generate o trovate automaticamente in base a qualche convenzione o schema.
-Un esempio è il `FOSRestBundle`_, nel quale le rotte sono generate in base ai nomi
+Un esempio è `FOSRestBundle`_, nel quale le rotte sono generate in base ai nomi
 dei metodi Action nei controllori.
 
 .. note::
 
-    Ci sono molti bundle che usano i propri loader per gestire 
-    casi come quello descritto qui  sopra, ad esempio `FOSRestBundle`_, 
-    `KnpRadBundle`_ and `SonataAdminBundle`_.
+    Ci sono molti bundle che usano i propri caticatori per gestire 
+    casi come quello descritto qui sopra, ad esempio `FOSRestBundle`_, 
+    `KnpRadBundle`_ e `SonataAdminBundle`_.
 
 Caricare le rotte
 -----------------
 
 Le rotte in una applicazione Symfony vengono caricate
-dalla :class:`Symfony\\Bundle\\FrameworkBundle\\Routing\\DelegatingLoader`.
-Questo loader usa svariati altri loader (delegates) per caricare risorse di 
+da :class:`Symfony\\Bundle\\FrameworkBundle\\Routing\\DelegatingLoader`.
+Questo caticatore usa svariati altri caricatori (delegati) per caricare risorse di 
 tipi differenti, per esempio file Yaml o annotazioni ``@Route`` e ``@Method`` 
-nei file dei controllori. I loader specializzati implementano 
+nei file dei controllori. I caricatori specializzati implementano 
 :class:`Symfony\\Component\\Config\\Loader\\LoaderInterface`
 e quindi hanno due metodi importanti:
 :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
@@ -46,23 +46,23 @@ Edition:
         type:     annotation
         prefix:   /demo
 
-Quando il loader principale li analizza, interpella ogni loader delegato e ne chiama
+Quando il caricatore principale li analizza, interpella ogni caricatore delegato e ne chiama
 il metodo :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
 con la risorsa data (``@AcmeDemoBundle/Controller/DemoController.php``) e
-il tipo (``annotation``) come parametri. Quando uno dei loader restituisce ``true``,
+il tipo (``annotation``) come parametri. Quando uno dei caricatori restituisce ``true``,
 il suo metodo :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::load` 
-verrà chiamato e dovrà restittuire una classe di tipo :class:`Symfony\\Component\\Routing\\RouteCollection`
+verrà chiamato e dovrà restituire una classe di tipo :class:`Symfony\\Component\\Routing\\RouteCollection`
 contenente oggetti di tipo :class:`Symfony\\Component\\Routing\\Route`
 
-Creare un Custom Loader
------------------------
+Creare un caricatore 
+--------------------
 
 Per caricare rotte da qualche fonte personalizzata (ossia da qualcosa di diverso da annotazioni, 
-file Yaml o XML), occorre creare un Custom Route Loader. Questo Loader
+file Yaml o XML), occorre creare un caricatore. Questo caricatore
 deve implementare l'interfaccia :class:`Symfony\\Component\\Config\\Loader\\LoaderInterface`.
 
-Il Loader d'esempio qui sotto supporta il caricamento di risorse di tipo
-``extra``. Il tipo ``extra`` non è importante,  si può inventare qualsiasi tiipo di risorsa
+Il caricatore d'esempio qui sotto supporta il caricamento di risorse di tipo
+``extra``. Il tipo ``extra`` non è importante, si può inventare qualsiasi tiipo di risorsa
 si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio::
 
     namespace Acme\DemoBundle\Routing;
@@ -79,7 +79,7 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
         public function load($resource, $type = null)
         {
             if (true === $this->loaded) {
-                throw new \RuntimeException('Do not add the "extra" loader twice');
+                throw new \RuntimeException('Non aggiungere due volte il caricatore "extra"');
             }
 
             $routes = new RouteCollection();
@@ -163,13 +163,13 @@ Adesso definire un servizio per l'``ExtraLoader``:
         ;
 
 Si noti il tag ``routing.loader``. Tutti i servizi con questo tag saranno marcati
-come potenziali loader di rotte e aggiunti come router specializzati alla classe
+come potenziali caricatori di rotte e aggiunti come router specializzati alla classe
 :class:`Symfony\\Bundle\\FrameworkBundle\\Routing\\DelegatingLoader`.
 
 Usare un Custom Loader
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Se non è stato fatto niente di diverso, il routing loader *non* sarà interpellato.
+Se non è stato fatto niente di diverso, il caricatore di rotte *non* sarà interpellato.
 Occorre solo aggiungere qualche riga extra alla configurazione del router.
 
 .. configuration-block::
@@ -208,12 +208,12 @@ quindi la impostiamo a ".".
 
 .. note::
 
-    Le rotte definite usando dei custom route loader vengono automaticamente messe in cache 
+    Le rotte definite usando dei caricatori di rotte personalizzati vengono automaticamente messe in cache 
     dal framework. Quindi, ogni volta che si cambia qualcosa nella 
-    classe del loader, non dimenticare di cancellare la cache.
+    classe del caricatore, non dimenticare di cancellare la cache.
 
-Loader più avanzati
--------------------
+Caricatori più avanzati
+-----------------------
 
 Nella maggior parte dei casi è meglio non implementare direttamente
 :class:`Symfony\\Component\\Config\\Loader\\LoaderInterface`,
@@ -258,7 +258,7 @@ Yaml, si può richiamare il metodo
 .. note::
 
     Il nome della risorsa e il tipo della configurazione di routing importata
-    possono essere qualsiasi cosa che sia normalmente supportata dal loader di 
+    possono essere qualsiasi cosa che sia normalmente supportata dal caricatore di 
     configurazioni di routing (Yaml, XML, PHP, annotation, ecc.).
 
 .. _`FOSRestBundle`: https://github.com/FriendsOfSymfony/FOSRestBundle

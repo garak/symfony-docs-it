@@ -249,7 +249,7 @@ Il form e il processo di login
     ogni richiesta (solo quelle ``POST``, per impostazione predefinita) a questo URL
     e processerà le credenziali di login inviate.
 
-    Assicurarsi che questo URL sia coperto dal proprio firewall principale (cioè non
+    Assicurarsi che questo URL sia coperto dal firewall principale (cioè non
     creare un firewall separato solo per l'URL ``check_path``).
 
 *   ``use_forward`` (tipo: ``booleano``, predefinito: ``false``)
@@ -257,17 +257,17 @@ Il form e il processo di login
     rinviato, impostare questa opzione a ``true``.
 
 *   ``username_parameter`` (tipo: ``stringa``, predefinito: ``_username``)
-    Questo il nome del campo che si dovrebbe dare al campo username del proprio
+    Questo il nome del campo che si dovrebbe dare al campo username di un 
     form di login. Quando si invia il form a ``check_path``, il sistema di
     sicurezza cercherà un parametro POST con questo nome.
 
 *   ``password_parameter`` (tipo: ``stringa``, predefinito: ``_password``)
-    Questo il nome del campo che si dovrebbe dare al campo password del proprio
+    Questo il nome del campo che si dovrebbe dare al campo password di un 
     form di login. Quando si invia il form a ``check_path``, il sistema di
     sicurezza cercherà un parametro POST con questo nome.
 
 *   ``post_only`` (tipo: ``booleano``, predefinito: ``true``)
-    Per impostazione predefinita, occorre inviare il proprio form di login
+    Per impostazione predefinita, occorre inviare un form di login
     all'URL ``check_path`` usando una richiesta POST. Impostando questa opzione
     a ``true``, si può inviare una richiesta GET all'URL ``check_path``.
 

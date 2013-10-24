@@ -2,8 +2,8 @@
    single: Configurazione; Semantica
    single: Bundle; Configurazione dell'estensione
 
-Come esporre una configurazione semantica per un bundle
-=======================================================
+Esporre una configurazione semantica per un bundle
+==================================================
 
 Se si apre il file di configurazione di un'applicazione (di solito ``app/config/config.yml``),
 si vedranno un certo numero di "spazi di nomi" di configurazioni, come ``framework``,

@@ -39,7 +39,7 @@ value
 **tipo**: ``mixed`` **predefinito**: ``1``
 
 Il valore usato effettivamente come valore del bottone radio. Non ha effetti sul
-valore impostato sul proprio oggetto.
+valore impostato sull'oggetto.
 
 Opzioni ereditate
 -----------------

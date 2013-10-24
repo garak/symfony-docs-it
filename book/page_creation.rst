@@ -79,7 +79,7 @@ salutare. Per creare la pagina, seguiamo il semplice processo in due passi.
 
     La guida presume che Symfony2 sia stato già scaricato e il server web
     configurato. L'URL precedente presume che ``localhost`` punti alla cartella
-    ``web`` del proprio nuovo progetto Symfony2. Per informazioni dettagliate su
+    ``web`` del nuovo progetto Symfony2. Per informazioni dettagliate su
     questo processo, vedere la documentazione del server web usato.
     Ecco le pagine di documentazione per alcuni server web:
 
@@ -248,8 +248,8 @@ sul metodo ``indexAction`` di una classe PHP chiamata
     {
     }
 
-In realtà il controllore non è nulla di più di un metodo PHP, che va creato e che
-Symfony eseguirà. È qui che il proprio codice usa l'informazione dalla richiesta per
+In realtà, il controllore non è nulla di più di un metodo PHP, che va creato e che
+Symfony eseguirà. È qui che il codice usa l'informazione dalla richiesta per
 costruire e preparare la risorsa che è stata richiesta. Tranne per alcuni casi avanzati,
 il prodotto finale di un controllore è sempre lo stesso: un oggetto ``Response`` di
 Symfony2.
@@ -304,9 +304,9 @@ Un terzo passo, facoltativo ma comune, del processo è quello di creare un templ
 
 .. note::
 
-   I controllori sono il punto principale di ingresso del proprio codice e un ingrediente
+   I controllori sono il punto principale di ingresso del codice e un ingrediente
    chiave della creazione di pagine. Si possono trovare molte più informazioni nel
-   :doc:`Capitolo sul controllore </book/controller>`.
+   :doc:`capitolo sul controllore </book/controller>`.
 
 Passo 3 (facoltativo): creare il template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -579,7 +579,7 @@ La cartella dei sorgenti (``src``)
 
 Detto semplicemente, la cartella ``src/`` contiene tutto il codice (codice PHP,
 template, file di configurazione, fogli di stile, ecc.) che guida la *propria*
-applicazione. Quando si sviluppa, la gran parte del proprio lavoro sarà svolto
+applicazione. Quando si sviluppa, gran parte del lavoro sarà svolto
 dentro uno o più bundle creati in questa cartella.
 
 Ma cos'è esattamente un :term:`bundle`?
@@ -879,8 +879,8 @@ Si può anche usare l'alias dell'estensione (voce di configurazione):
 
 .. note::
 
-    Vedere la ricetta :doc:`Come esporrre una configurazione semantica per un bundle</cookbook/bundles/extension>`
-    per informazioni sull'aggiunta di configurazioni per il proprio
+    Vedere la ricetta :doc:`esporrre una configurazione semantica per un bundle</cookbook/bundles/extension>`
+    per informazioni sull'aggiunta di configurazioni per un 
     bundle.
 
 .. index::
@@ -901,7 +901,7 @@ macchina e sono eseguiti nella stessa applicazione.
 
 Un progetto Symfony2 generalmente inizia con tre ambienti (``dev``, ``test``
 e ``prod``), ma creare nuovi ambienti è facile. Si può vedere la propria applicazione
-in ambienti diversi, semplicemente cambiando il front controller nel proprio
+in ambienti diversi, semplicemente cambiando il front controller nel
 browser. Per vedere l'applicazione in ambiente ``dev``, accedere all'applicazione
 tramite il front controller di sviluppo:
 

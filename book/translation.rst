@@ -1028,7 +1028,7 @@ passi:
 
 .. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
 .. _`L10n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
-.. _`funzione strtr`: http://www.php.net/manual/en/function.strtr.php
+.. _`funzione strtr`: http://php.net/manual/it/function.strtr.php
 .. _`ISO 31-11`: http://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals
 .. _`Estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions
 .. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes

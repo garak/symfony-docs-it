@@ -390,8 +390,8 @@ in cui si costruiscono e configurano i vari campi. Il costruttore di form
         {
             public function newAction(Request $request)
             {
-                // createFormBuilder is a shortcut to get the "form factory"
-                // and then call "createBuilder()" on it
+                // createFormBuilder è una scorciatoia per prendere il factory di form
+                // e richiamare createBuilder() su di esso
                 $form = $this->createFormBuilder()
                     ->add('task', 'text')
                     ->add('dueDate', 'date')

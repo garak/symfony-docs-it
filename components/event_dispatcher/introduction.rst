@@ -598,6 +598,6 @@ usato come parte della logica di processamento dell'ascoltatore::
     }
 
 .. _Observer: http://it.wikipedia.org/wiki/Observer_pattern
-.. _Closure: http://php.net/manual/en/functions.anonymous.php
-.. _callable PHP: http://www.php.net/manual/en/language.pseudo-types.php#language.types.callback
+.. _Closure: http://php.net/manual/it/functions.anonymous.php
+.. _callable PHP: http://php.net/manual/it/language.pseudo-types.php#language.types.callback
 .. _Packagist: https://packagist.org/packages/symfony/event-dispatcher

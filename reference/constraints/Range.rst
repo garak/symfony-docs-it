@@ -141,4 +141,4 @@ invalidMessage
 Il messaggio mostrato se il valore sottostante non è un numero (in base
 alla funzione `is_numeric`_ di PHP).
 
-.. _`is_numeric`: http://www.php.net/manual/en/function.is-numeric.php
+.. _`is_numeric`: http://php.net/manual/it/function.is-numeric.php

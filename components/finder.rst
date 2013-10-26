@@ -311,8 +311,8 @@ Il contenuto dei file restituiti può essere letto con
         ...
     }
 
-.. _strtotime:   http://www.php.net/manual/en/datetime.formats.php
-.. _protocollo:   http://www.php.net/manual/en/wrappers.php
-.. _stream:       http://www.php.net/streams
+.. _strtotime:   http://php.net/manual/it/datetime.formats.php
+.. _protocollo:   http://php.net/manual/it/wrappers.php
+.. _stream:       http://php.net/streams
 .. _standard IEC: http://physics.nist.gov/cuu/Units/binary.html
 .. _Packagist:    https://packagist.org/packages/symfony/finder

@@ -1602,7 +1602,7 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 .. _`Query Builder`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/query-builder.html
 .. _`Doctrine Query Language`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
 .. _`Documentazione sulla mappatura delle associazioni`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/association-mapping.html
-.. _`DateTime`: http://php.net/manual/en/class.datetime.php
+.. _`DateTime`: http://php.net/manual/it/class.datetime.php
 .. _`Documentazione sulla mappatura dei tipi`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#doctrine-mapping-types
 .. _`Documentazione sulla mappatura delle proprietà`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#property-mapping
 .. _`Documentazione sugli eventi del ciclo di vita`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#lifecycle-events

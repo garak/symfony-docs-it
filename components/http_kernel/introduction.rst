@@ -683,6 +683,6 @@ assomigliare a questo::
     }
 
 .. _Packagist: https://packagist.org/packages/symfony/http-kernel
-.. _reflection: http://php.net/manual/en/book.reflection.php
+.. _reflection: http://php.net/manual/it/book.reflection.php
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
 .. _`Create your own framework... on top of the Symfony2 Components`: http://fabien.potencier.org/article/50/create-your-own-framework-on-top-of-the-symfony2-components-part-1

@@ -2112,6 +2112,6 @@ Saperne di più con il ricettario
 
 .. _`JMSSecurityExtraBundle`: http://jmsyst.com/bundles/JMSSecurityExtraBundle/1.2
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
-.. _`implementare l'interfaccia \Serializable`: http://php.net/manual/en/class.serializable.php
+.. _`implementare l'interfaccia \Serializable`: http://php.net/manual/it/class.serializable.php
 .. _`functions-online.com`: http://www.functions-online.com/sha1.html
 .. _`Timing attack`: http://en.wikipedia.org/wiki/Timing_attack

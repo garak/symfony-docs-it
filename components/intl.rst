@@ -409,6 +409,6 @@ Questo è tutto quello che occorre sapere, per ora. Buon divertimento con il cod
 
 .. _Packagist: https://packagist.org/packages/symfony/intl
 .. _componente ICU: https://packagist.org/packages/symfony/icu
-.. _estensione intl: http://www.php.net/manual/en/book.intl.php
-.. _installare l'estensione intl: http://www.php.net/manual/en/intl.setup.php
+.. _estensione intl: http://php.net/manual/it/book.intl.php
+.. _installare l'estensione intl: http://php.net/manual/it/intl.setup.php
 .. _libreria ICU: http://site.icu-project.org/

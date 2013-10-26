@@ -69,6 +69,6 @@ XcacheClassLoader
     // disattiva il loader originale, non in cache, se era stato precedentemente registrato
     $loader->unregister();
 
-.. _APC:        http://php.net/manual/en/book.apc.php
+.. _APC:        http://php.net/manual/it/book.apc.php
 .. _autoloader: http://getcomposer.org/doc/01-basic-usage.md#autoloading
 .. _XCache:     http://xcache.lighttpd.net

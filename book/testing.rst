@@ -553,8 +553,8 @@ metodi, perché ogni metodo restituisce una nuova istanza di Crawler per i nodi 
 
 .. tip::
 
-    Usare la funzione ``count()`` per ottenere il numero di nodi memorizzati in un
-    crawler: ``count($crawler)``
+    Usare la funzione ``count()`` per ottenere il numero di nodi memorizzati in un crawler:
+    ``count($crawler)``
 
 Estrarre informazioni
 ~~~~~~~~~~~~~~~~~~~~~
@@ -570,7 +570,7 @@ Il crawler può estrarre informazioni dai nodi::
     // Estrae un array di attributi per tutti i nodi
     // (_text restituisce il valore del nodo)
     // restituisce un array per ogni elemento nel crawler,
-    // ciascuno con value e href
+    // ciascuno con valore e href
     $info = $crawler->extract(array('_text', 'href'));
 
     // Esegue una funzione lambda per ogni nodo e restituisce un array di risultati
@@ -673,12 +673,12 @@ tipo::
 
 .. tip::
 
-    Si possono ottenere i valori che saranno inviati, richiamando il metodo
-    ``getValues()``. I file caricati sono disponibili in un array separato, restituito dal
-    metodo ``getFiles()``. Anche i metodi ``getPhpValues()`` e ``getPhpFiles()`` restituiscono
-    i valori inviati, ma nel formato di PHP (convertendo le chiavi con parentesi quadre,
-    p.e. ``my_form[subject]`` da, nella notazione degli array di
-    PHP).
+    Si possono ottenere i valori che saranno inviati, richiamando il metodo ``getValues()``
+    sull'oggetto ``Form``. I file caricati sono disponibili in un array
+    separato, restituito dal metodo ``getFiles()``. Anche i metodi ``getPhpValues()`` e
+    ``getPhpFiles()`` restituiscono i valori inviati, ma nel formato
+    di PHP (convertendo le chiavi con parentesi quadre, p.e.
+    ``my_form[subject]``, in array PHP).
 
 .. index::
    pair: Test; Configurazione
@@ -688,8 +688,8 @@ Configurazione dei test
 
 Il client usato dai test funzionali crea un kernel che gira in uno speciale
 ambiente ``test``. Siccome Symfony carica ``app/config/config_test.yml``
-in ambiente ``test``, si possono modificare le impostazioni della propria
-applicazione specificatamente per i test.
+in ambiente ``test``, si possono modificare le impostazioni dell'applicazione
+specificatamente per i test.
 
 Per esempio, swiftmailer è configurato in modo predefinito per *non* inviare le email
 in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
@@ -754,8 +754,8 @@ Si possono anche sovrascrivere gli header HTTP a ogni richiesta::
 
 .. tip::
 
-    Il client dei test è disponibile come servizio nel contenitore, in ambiente
-    ``test`` (o dovunque sia abilitata l'opzione :ref:`framework.test<reference-framework-test>`).
+    Il client dei test è disponibile come servizio nel contenitore, in ambiente ``test``
+    (o dovunque sia abilitata l'opzione :ref:`framework.test<reference-framework-test>`).
     Questo vuol dire che si può ridefinire completamente il servizio, qualora se ne
     avesse la necessità.
 
@@ -784,7 +784,7 @@ parti:
 
     <!-- hello/phpunit.xml.dist -->
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="Test del progetto">
             <directory>../src/*/*Bundle/Tests</directory>
             <directory>../src/Acme/Bundle/*Bundle/Tests</directory>
         </testsuite>
@@ -819,5 +819,5 @@ Saperne di più
 * :doc:`/cookbook/testing/bootstrap`
 
 .. _`DemoControllerTest`: https://github.com/symfony/symfony-standard/blob/master/src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
-.. _`$_SERVER`: http://php.net/manual/en/reserved.variables.server.php
-.. _documentazione: http://www.phpunit.de/manual/3.5/en/
+.. _`$_SERVER`: http://php.net/manual/it/reserved.variables.server.php
+.. _documentazione: http://www.phpunit.de/manual/3.7/en/

@@ -1,8 +1,8 @@
 .. index::
    single: Form; Unire una collezione di form
 
-Come unire una collezione di form
-==================================
+Unire una collezione di form
+============================
 
 Con questa ricetta si apprenderà come creare un form che unisce una collezione
 di altri form. Ciò può essere utile, ad esempio, se si ha una classe ``Task``
@@ -17,7 +17,7 @@ questo Task, all'interno dello stesso form.
     di questa guida che si occupano effettivamente di "persistenza".
 
     Se si utilizza Doctrine, si avrà la necessità di aggiungere meta-dati Doctrine,
-    includendo una definizione della mappature della relazione ``ManyToMany`` sulla
+    includendo una definizione della mappatura della relazione ``ManyToMany`` sulla
     proprietà ``tags`` di Task.
 
 Iniziamo: supponiamo che ogni ``Task`` appartenga a più oggetti ``Tag``.
@@ -561,7 +561,7 @@ vedremo tra poco!).
 Permettere la rimozione di tag
 ------------------------------
 
-Il passo successivo è consentire la cancellazione di un deterimato elemento dell'elenco.
+Il passo successivo è consentire la cancellazione di un determinato elemento dell'elenco.
 La soluzione è simile a quella usata per consentire l'aggiunta di tag.
 
 Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::

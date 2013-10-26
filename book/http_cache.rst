@@ -5,14 +5,14 @@ Cache HTTP
 ==========
 
 Le applicazioni web sono dinamiche. Non importa quanto efficiente possa essere
-la propria applicazione, ogni richiesta conterrà sempre overhead rispetto a quando
+un'applicazione, ogni richiesta conterrà sempre overhead rispetto a quando
 si serve un file statico.
 
 Per la maggior parte delle applicazioni, questo non è un problema. Symfony2 è
 molto veloce e, a meno che non si stia facendo qualcosa di veramente molto pesante,
 ogni richiesta sarà gestita rapidamente, senza stressare troppo il server.
 
-Man mano che il proprio sito cresce, però, quell'overhead può diventare un problema.
+Man mano che il sito cresce, però, quell'overhead può diventare un problema.
 Il processo normalmente seguito a ogni richiesta andrebbe fatto una volta sola.
 Questo è proprio lo scopo che si prefigge la cache.
 
@@ -36,13 +36,13 @@ Per poter imparare come funziona la cache in Symfony2, procederemo in quattro
 passi:
 
 * **Passo 1**: Un :ref:`gateway cache <gateway-caches>`, o reverse proxy, è un livello
-  indipendente che si situa davanti alla propria applicazione. Il reverse proxy mette
-  in cache le risposte non appena sono restituite dalla propria applicazione e risponde
-  alle richieste con risposte in cache, prima che arrivino alla propria applicazione.
+  indipendente che si situa davanti all'applicazione. Il reverse proxy mette
+  in cache le risposte non appena sono restituite dall'applicazione e risponde
+  alle richieste con risposte in cache, prima che arrivino all'applicazione.
   Symfony2 fornisce il suo reverse proxy, ma se ne può usare uno qualsiasi.
 
 * **Passo 2**: Gli header di :ref:`cache HTTP <http-cache-introduction>` sono usati
-  per comunicare col gateway cache e con ogni altra cache tra la propria applicazione
+  per comunicare col gateway cache e con ogni altra cache tra l'applicazione
   e il client. Symfony2 fornisce impostazioni predefinite appropriate e una potente
   interfaccia per interagire con gli header di cache.
 
@@ -71,18 +71,18 @@ di Mark Nottingham.
 Cache con gateway cache
 -----------------------
 
-Quando si usa la cache con HTTP, la *cache* è completamente separata dalla propria applicazione
-e risiede in mezzo tra la propria applicazione e il client che effettua la richiesta.
+Quando si usa la cache con HTTP, la *cache* è completamente separata dall'applicazione
+e si trova in mezzo tra applicazione e client che effettua la richiesta.
 
-Il compito della cache è accettare le richieste dal client e passarle alla propria
-applicazione. La cache riceverà anche risposte dalla propria applicazione e le girerà
+Il compito della cache è accettare le richieste dal client e passarle
+all'applicazione. La cache riceverà anche risposte dall'applicazione e le girerà
 al client. La cache è un "uomo in mezzo" nella comunicazione richiesta-risposta tra
-il client e la propria applicazione.
+il client e l'applicazione.
 
 Lungo la via, la cache memorizzerà ogni risposta ritenuta "cacheable"
 (vedere :ref:`http-cache-introduction`). Se la stessa risorsa viene richiesta nuovamente,
-la cache invia la risposta in cache al client, ignorando completamente la propria
-applicazione.
+la cache invia la risposta in cache al client, ignorando completamente
+l'applicazione.
 
 Questo tipo di cache è nota come HTTP gateway cache e ne esistono diverse, come
 `Varnish`_, `Squid in modalità reverse proxy`_ e il reverse proxy di Symfony2.
@@ -94,7 +94,7 @@ Tipi di cache
 ~~~~~~~~~~~~~
 
 Ma il gateway cache non è l'unico tipo di cache. Infatti, gli header HTTP di cache
-inviati dalla propria applicazioni sono analizzati e interpretati da tre diversi
+inviati dall'applicazione sono analizzati e interpretati da tre diversi
 tipi di cache:
 
 * *Cache del browser*: Ogni browser ha la sua cache locale, usata principalmente
@@ -121,7 +121,7 @@ tipi di cache:
     si parlerà di mettere in cache risposte che contengono contenuti specifici
     per un singolo utente (p.e. informazioni sull'account).
 
-Ogni risposta dalla propria applicazione probabilmente attraverserà una o più
+Ogni risposta dall'applicazione probabilmente attraverserà una o più
 cache dei primi due tipi. Queste cache sono fuori dal nostro controllo, ma seguono
 le indicazioni di cache HTTP impostate nella risposta.
 
@@ -134,7 +134,7 @@ Il reverse proxy di Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Symfony2 ha un suo reverse proxy (detto anche gateway cache) scritto
-in PHP. Abilitandolo, le risposte in cache dalla propria applicazione
+in PHP. Abilitandolo, le risposte in cache dall'applicazione
 inizieranno a essere messe in cache. L'installazione è altrettanto facile.
 Ogni una applicazione Symfony2 ha la cache già configurata in ``AppCache``, che
 estende ``AppKernel``. Il kernel della cache *è* il reverse
@@ -160,7 +160,7 @@ il kernel della cache::
     $kernel->terminate($request, $response);
 
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
-le risposte della propria applicazione e restituendole al client.
+le risposte dell'applicazione e restituendole al client.
 
 .. tip::
 
@@ -237,12 +237,12 @@ cache.
 .. sidebar:: Cambiare da un reverse proxy a un altro
 
     Il reverse proxy di Symfony2 è un grande strumento da usare durante lo sviluppo
-    del proprio sito oppure quando il deploy del proprio sito è su un host condiviso,
-    dove non si può installare altro che codice PHP. Ma essendo scritto in PHP, non può
-    essere veloce quando un proxy scritto in C. Per questo raccomandiamo caldamente di
-    usare Varnish o Squid sul proprio server di produzione, se possibile. La buona notizia
+    di un sito oppure quando il deploy di un sito è su un host condiviso,
+    dove non si può installare altro che codice PHP. Ma, essendo scritto in PHP, non può
+    essere veloce quando un proxy scritto in C. Per questo si raccomanda caldamente di
+    usare Varnish o Squid sul server di produzione, se possibile. La buona notizia
     è che il cambio da un proxy a un altro è facile e trasparente, non implicando alcuna
-    modifica al codice della propria applicazione. Si può iniziare semplicemente con il
+    modifica al codice dell'applicazione. Si può iniziare semplicemente con il
     reverse proxy di Symfony2 e aggiornare successivamente a Varnish, quando il traffico
     aumenta.
 
@@ -263,7 +263,7 @@ cache.
 Introduzione alla cache HTTP
 ----------------------------
 
-Per sfruttare i livelli di cache disponibili, la propria applicazione deve poter
+Per sfruttare i livelli di cache disponibili, un'applicazione deve poter
 comunicare quale risposta può essere messa in cache e le regole che stabiliscono
 quando e come tale cache debba essere considerata vecchia. Lo si può fare impostando
 gli header di cache HTTP nella risposta.
@@ -357,15 +357,15 @@ sicuri vuol dire che lo stato dell'applicazione sul server non cambia mai quando
 si serve la richiesta (si può, certamente, memorizzare un'informazione sui log, mettere
 in cache dati, eccetera). Questo ha due conseguenze molto ragionevoli:
 
-* Non si dovrebbe *mai* cambiare lo stato della propria applicazione quando si risponde
+* Non si dovrebbe *mai* cambiare lo stato dell'applicazione quando si risponde
   a una richiesta GET o HEAD. Anche se non si usa una gateway cache, la presenza di
-  proxy cache vuol dire che ogni richiesta GET o HEAD potrebbe arrivare al proprio server,
+  proxy cache vuol dire che ogni richiesta GET o HEAD potrebbe arrivare al server,
   ma potrebbe anche non arrivare.
 
 * Non aspettarsi la cache dei metodi PUT, POST o DELETE. Questi metodi sono fatti per
-  essere usati quando si cambia lo stato della propria applicazione (p.e. si cancella un
-  post di un blog). Metterli in cache impedirebbe ad alcune richieste di arrivare alla
-  propria applicazione o di modificarla.
+  essere usati quando si cambia lo stato dell'applicazione (p.e. si cancella un
+  post di un blog). Metterli in cache impedirebbe ad alcune richieste di arrivare
+  all'applicazione o di modificarla.
 
 Regole e valori predefiniti della cache
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -521,12 +521,12 @@ finché la cache non diventa vecchia.
 Il modello a validazione si occupa di questo problema. Con questo modello, la cache
 continua a memorizzare risposte. La differenza è che, per ogni richiesta, la cache
 chiede all'applicazione se la risposta in cache è ancora valida. Se la cache *è*
-ancora valida, la propria applicazione dovrebbe restituire un codice di stato 304 e
+ancora valida, l'applicazione dovrebbe restituire un codice di stato 304 e
 nessun contenuto. Questo dice alla cache che è va bene restituire la risposta in cache.
 
 Con questo modello, principalmente si risparmia banda, perché la rappresentazione non è
 inviata due volte allo stesso client (invece è inviata una risposta 304). Ma se si
-progetta attentamente la propria applicazione, si potrebbe essere in grado di prendere il
+progetta attentamente l'applicazione, si potrebbe essere in grado di prendere il
 minimo dei dati necessari per inviare una risposta 304 e risparmiare anche CPU (vedere
 sotto per un esempio di implementazione).
 
@@ -549,9 +549,9 @@ Validazione con header ``ETag``
 
 L'header ``ETag`` è un header stringa (chiamato "tag entità") che identifica
 univocamente una rappresentazione della risorsa in questione. È interamente
-generato e impostato dalla propria applicazione, quindi si può dire, per esempio, se
-la risorsa ``/about`` che è in cache sia aggiornata con ciò che la propria
-applicazione restituirebbe. Un ``ETag`` è come un'impronta digitale ed è usato per
+generato e impostato dall'applicazione, quindi si può dire, per esempio, se
+la risorsa ``/about`` che è in cache sia aggiornata con ciò che
+l'applicazione restituirebbe. Un ``ETag`` è come un'impronta digitale ed è usato per
 confrontare rapidamente se due diverse versioni di una risorsa siano equivalenti. Come le
 impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazioni della stessa risorsa.
 
@@ -648,7 +648,7 @@ Ottimizzare il codice con la validazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Lo scopo principale di ogni strategia di cache è alleggerire il carico dell'applicazione.
-In altre parole, meno la propria applicazione fa per restituire una risposta 304,
+In altre parole, meno un'applicazione fa per restituire una risposta 304,
 meglio è. Il metodo ``Response::isNotModified()`` fa esattamente questo, esponendo
 uno schema semplice ed efficiente::
 
@@ -784,7 +784,7 @@ tramite il singolo metodo ``setCache()``::
 Usare Edge Side Includes
 ------------------------
 
-Le gateway cache sono un grande modo per rendere il proprio sito più prestante. Ma hanno
+Le gateway cache sono un grande modo per rendere un sito più prestante. Ma hanno
 una limitazione: possono mettere in cache solo pagine intere. Se non si possono mettere in
 cache pagine intere o se le pagine hanno più parti dinamiche, non vanno bene.
 Fortunatamente, Symfony2 fornisce una soluzione a questi casi, basata su una
@@ -825,7 +825,7 @@ stati risolti, il gateway cache li fonde nella pagina principale e invia il cont
 finale al client.
 
 Tutto questo avviene in modo trasparente a livello di gateway cache (quindi fuori
-dalla propria applicazione). Come vedremo, se si scegli di avvalersi dei tag ESI,
+dall'applicazione). Come vedremo, se si scegli di avvalersi dei tag ESI,
 Symfony2 rende quasi senza sforzo il processo di inclusione.
 
 Usare ESI in Symfony2
@@ -986,8 +986,8 @@ ascoltatore che va abilitato nella configurazione:
             'fragments' => array('path' => '/_fragment'),
         ));
 
-Un grosso vantaggio di questa strategia di cache è che si può rendere la propria
-applicazione tanto dinamica quanto necessario e, allo stesso tempo, mantenere gli
+Un grosso vantaggio di questa strategia di cache è che si può rendere
+l'applicazione tanto dinamica quanto necessario e, allo stesso tempo, mantenere gli
 accessi al minimo.
 
 .. tip::
@@ -1032,8 +1032,8 @@ si usa la scadenza e si ha l'esigenza di invalidare una risorsa, vuol dire che s
 .. note::
 
     Essendo l'invalidazione un argomento specifico di ogni reverse proxy, se non ci si
-    preoccupa dell'invalidazione, si può cambiare reverse proxy senza cambiare alcuna parte del codice della propria 
-    applicazione.
+    preoccupa dell'invalidazione, si può cambiare reverse proxy senza cambiare alcuna parte del codice
+    dell'applicazione.
 
 In realtà, ogni reverse proxy fornisce dei modi per pulire i dati in cache, ma
 andrebbero evitati, per quanto possibile. Il modo più standard è pulire la cache

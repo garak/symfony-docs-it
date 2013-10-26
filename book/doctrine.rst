@@ -115,7 +115,7 @@ file ``app/config/parameters.yml``:
     Separando le informazioni sula base dati in un file a parte, si possono mantenere
     facilmente diverse versioni del file su ogni server. Si possono anche facilmente
     memorizzare configurazioni di basi dati (o altre informazioni sensibili) fuori dal
-    proprio progetto, come per esempio dentro la configurazione di Apache. Per
+    progetto, come per esempio dentro la configurazione di Apache. Per
     ulteriori informazioni, vedere :doc:`/cookbook/configuration/external_parameters`.
 
 Ora che Doctrine ha informazioni sulla base dati, si può fare in modo che crei la
@@ -204,7 +204,7 @@ Creare una classe entità
 Supponiamo di star costruendo un'applicazione in cui i prodotti devono essere mostrati.
 Senza nemmeno pensare a Doctrine o alle basi dati, già sappiamo di aver bisogno di
 un oggetto ``Product`` che rappresenti questi prodotti. Creare questa classe dentro
-la cartella ``Entity`` del proprio ``AcmeStoreBundle``::
+la cartella ``Entity`` di ``AcmeStoreBundle``::
 
     // src/Acme/StoreBundle/Entity/Product.php
     namespace Acme\StoreBundle\Entity;
@@ -361,7 +361,7 @@ con le sue opzioni Per informazioni sui tipi disponibili, vedere la sezione
 
     Si faccia attenzione che il nome della classe e delle proprietà scelti non siano
     mappati a delle parole riservate di SQL (come ``group`` o ``user``). Per esempio,
-    se il proprio nome di classe entità è ``Group``, allora il nome predefinito della
+    se il nome di una classe entità è ``Group``, allora il nome predefinito della
     tabella sarà ``group``, che causerà un errore SQL in alcuni sistemi di basi dati.
     Vedere la `Documentazione sulle parole riservate di SQL`_ per sapere come fare
     correttamente escape di tali nomi. In alternativa, se si può scegliere liberamente lo schema della
@@ -445,7 +445,7 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
     Doctrine non si cura se le proprietà sono ``protected`` o ``private``,
     o se siano o meno presenti getter o setter per una proprietà.
     I getter e i setter sono generati qui solo perché necessari per
-    interagire col proprio oggetto PHP.
+    interagire col l'oggetto PHP.
 
 .. _book-doctrine-creating-the-database-tables-schema:
 
@@ -475,8 +475,8 @@ nella propria applicazione. Per farlo, eseguire:
     Un modo ancora migliore per trarre vantaggio da questa funzionalità è tramite
     le :doc:`migrazioni</bundles/DoctrineMigrationsBundle/index>`, che consentono di
     generare queste istruzioni SQL e di memorizzarle in classi di migrazione, che
-    possono essere eseguite sistematicamente sul proprio server di produzione, per
-    poter tracciare e migrare il proprio schema di base dati in modo sicuro e affidabile.
+    possono essere eseguite sistematicamente sul server di produzione, per
+    poter tracciare e migrare lo schema della base dati in modo sicuro e affidabile.
 
 La propria base dati ora ha una tabella ``product`` pienamente funzionante, con le colonne
 corrispondenti ai meta-dati specificati.
@@ -552,7 +552,7 @@ sezione, si vedrà come Doctrine sia abbastanza intelligente da usare una query
 .. tip::
 
     Doctrine fornisce una libreria che consente di caricare dati di test
-    nel proprio progetto (le cosiddette "fixture"). Per informazioni, vedere
+    in un progetto (le cosiddette "fixture"). Per informazioni, vedere
     :doc:`/bundles/DoctrineFixturesBundle/index`.
 
 Recuperare oggetti dalla base dati
@@ -596,10 +596,10 @@ accedere all'oggetto repository per una classe entità tramite::
 
     La stringa ``AcmeStoreBundle:Product`` è una scorciatoia utilizzabile ovunque in
     Doctrine al posto del nome intero della classe dell'entità (cioè ``Acme\StoreBundle\Entity\Product``).
-    Questo funzionerà finché le proprie entità rimarranno sotto lo spazio dei nomi ``Entity``
-    del proprio bundle.
+    Questo funzionerà finché le entità rimarranno sotto lo spazio dei nomi ``Entity``
+    del bundle.
 
-Una volta ottenuto il proprio repository, si avrà accesso a tanti metodi utili::
+Una volta ottenuto il repository, si avrà accesso a tanti metodi utili::
 
     // cerca per chiave primaria (di solito "id")
     $product = $repository->find($id);
@@ -1226,7 +1226,7 @@ In questo caso succedono le stesse cose: prima si cerca un singolo oggetto
     non sia effettivamente necessario (cioè fino alla chiamata di ``$category->getName()``).
 
     Le classy proxy sono generate da Doctrine e memorizzate in cache.
-    Sebbene probabilmente non si noterà mai che il proprio oggetto ``$category``
+    Sebbene probabilmente non si noterà mai che l'oggetto ``$category``
     sia in realtà un oggetto proxy, è importante tenerlo a mente.
 
     Nella prossima sezione, quando si recuperano i dati di prodotto e categoria
@@ -1243,7 +1243,7 @@ Negli esempi precedenti, sono state eseguite due query: una per l'oggetto origin
 .. tip::
 
     Si ricordi che è possibile vedere tutte le query eseguite durante una richiesta,
-    tramite la barra di web debug.
+    tramite la barra di debug del web.
 
 Ovviamente, se si sa in anticipo di aver bisogno di accedere a entrambi gli oggetti,
 si può evitare la seconda query, usando una join nella query originale. Aggiungere
@@ -1266,7 +1266,7 @@ il seguente metodo alla classe ``ProductRepository``::
         }
     }
 
-Ora si può usare questo metodo nel proprio controllore per cercare un oggetto
+Ora si può usare questo metodo nel controllore, per cercare un oggetto
 ``Product`` e la relativa ``Category`` con una sola query::
 
     public function showAction($id)
@@ -1572,9 +1572,9 @@ Alcuni task interessanti sono:
     interagire con Doctrine in altri punti dell'applicaizone. Il metodo
     :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::getDoctrine`
     del controllore restituisce il servizio ``doctrine``, con cui si può
-    interagire altrove, iniettandolo in un proprio
+    interagire altrove, iniettandolo in un
     servizio. Vedere :doc:`/book/service_container` per saperne di più su come
-    creare i propri servizi.
+    creare servizi.
 
 Riepilogo
 ---------

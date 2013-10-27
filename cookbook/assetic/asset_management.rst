@@ -4,8 +4,8 @@
 Come usare Assetic per la gestione delle risorse
 ================================================
 
-Assetic unisce due idee principali: :ref:`risorse<cookbook-assetic-assets>` e
-:ref:`filtri<cookbook-assetic-filters>`. Le risorse sono file come CSS,
+Assetic unisce due idee principali: :ref:`risorse <cookbook-assetic-assets>` e
+:ref:`filtri <cookbook-assetic-filters>`. Le risorse sono file come CSS,
 JavaScript e file di immagini. I filtri sono cose che possono essere applicate
 a questi file prima di essere serviti al browser. Questo permette una separazione
 tra i file delle risorse memorizzati nell'applicazione e i file effettivamente presentati
@@ -18,13 +18,13 @@ nell'applicazione:
 
     .. code-block:: html+jinja
 
-        <script src="{{ asset('js/script.js') }}" type="text/javascript" />
+        <script src="{{ asset('js/script.js') }}" type="text/javascript"></script>
 
     .. code-block:: php
 
-        <script src="<?php echo $view['assets']->getUrl('js/script.js') ?>" type="text/javascript" />
+        <script src="<?php echo $view['assets']->getUrl('js/script.js') ?>" type="text/javascript"></script>
 
-Ma *con* Assetic, è possibile manipolare queste risorse nel modo che si preferisce (o
+Ma *con* Assetic è possibile manipolare queste risorse nel modo che si preferisce (o
 caricarle da qualunque parte) prima di servirli. Questo significa che si può:
 
 * Minimizzare e combinare tutti i file CSS e JS
@@ -61,7 +61,7 @@ di blocchi predefiniti in Symfony Standard Distribution:
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+            <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -69,7 +69,7 @@ di blocchi predefiniti in Symfony Standard Distribution:
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmeFooBundle/Resources/public/js/*')
         ) as $url): ?>
-        <script type="text/javascript" src="<?php echo $view->escape($url) ?>"></script>
+            <script type="text/javascript" src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
 .. tip::
@@ -98,22 +98,22 @@ sopra, tranne per l'uso del tag ``stylesheets``. Se si usano i nomi di blocchi
 predefiniti in Symfony Standard Distribution, si troverà di solito
 in un blocco ``stylesheets``:
 
-    .. configuration-block::
+.. configuration-block::
 
-        .. code-block:: html+jinja
+    .. code-block:: html+jinja
 
-            {% stylesheets 'bundles/acme_foo/css/*' filter='cssrewrite' %}
-                <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
+        {% stylesheets 'bundles/acme_foo/css/*' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
 
-        .. code-block:: html+php
+    .. code-block:: html+php
 
-            <?php foreach ($view['assetic']->stylesheets(
-                array('bundles/acme_foo/css/*'),
-                array('cssrewrite')
-            ) as $url): ?>
-                <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
-            <?php endforeach; ?>
+        <?php foreach ($view['assetic']->stylesheets(
+            array('bundles/acme_foo/css/*'),
+            array('cssrewrite')
+        ) as $url): ?>
+            <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
+        <?php endforeach; ?>
 
 Ma poiché Assetic cambia i percorsi delle risorse, *non* funzioneranno tutte
 le immagini di sfondo (o altri percorsi) che usano percorsi relativi, a meno di
@@ -163,7 +163,7 @@ come un unico file:
             '@AcmeFooBundle/Resources/public/js/*'
             '@AcmeBarBundle/Resources/public/js/form.js'
             '@AcmeBarBundle/Resources/public/js/calendar.js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -186,8 +186,8 @@ file JavaScript.
 
 .. tip::
 
-    Se si è nuovi con Assetic e si prova a utilizzare un'applicazione in ambiente
-    ``prod`` (utilizzando il controllore ``app.php``), probabilmente si vedrà
+    Se si è nuovi con Assetic e si prova a utilizzare un'applicazione in ambiente ``prod``
+    (utilizzando il controllore ``app.php``), probabilmente si vedrà
     che mancano tutti i CSS e JS. Non bisogna preoccuparsi! Accade di proposito.
     Per informazioni dettagliate sull'utilizzo di Assetic in ambiente `prod`, vedere :ref:`cookbook-assetic-dumping`.
 
@@ -201,7 +201,7 @@ combinare risorse di terze parti (come jQuery) con i propri, in un singolo file:
         {% javascripts
             '@AcmeFooBundle/Resources/public/js/thirdparty/jquery.js'
             '@AcmeFooBundle/Resources/public/js/*' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -279,7 +279,7 @@ nel template:
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' filter='yui_js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -305,7 +305,7 @@ fatto dal template ed è relativo alla radice del documento pubblico:
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' output='js/compiled/main.js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -315,7 +315,7 @@ fatto dal template ed è relativo alla radice del documento pubblico:
             array(),
             array('output' => 'js/compiled/main.js')
         ) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>"></script>
+            <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
 .. note::
@@ -408,7 +408,7 @@ bisognerà copiarle manualmente. Per fare ciò, eseguire il seguente comando:
 
 .. code-block:: bash
 
-    php app/console assetic:dump
+    $ php app/console assetic:dump
 
 Questo scrive fisicamente tutti i file delle risorse necessari per l'ambiente
 ``dev``. Il grande svantaggio è che è necessario eseguire questa operazione ogni volta
@@ -417,7 +417,7 @@ comando rigenererà automaticamente le risorse *che sono cambiate*:
 
 .. code-block:: bash
 
-    php app/console assetic:dump --watch
+    $ php app/console assetic:dump --watch
 
 Dal momento che l'esecuzione di questo comando nell'ambiente ``dev`` può generare molti
 file, di solito è una buona idea far puntare i file con le risorse generate in
@@ -428,7 +428,7 @@ una cartella separata (ad esempio ``/js/compiled``), per mantenere ordinate le c
     .. code-block:: html+jinja
 
         {% javascripts '@AcmeFooBundle/Resources/public/js/*' output='js/compiled/main.js' %}
-        <script src="{{ asset_url }}"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
@@ -438,5 +438,5 @@ una cartella separata (ad esempio ``/js/compiled``), per mantenere ordinate le c
             array(),
             array('output' => 'js/compiled/main.js')
         ) as $url): ?>
-        <script src="<?php echo $view->escape($url) ?>"></script>
+            <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>

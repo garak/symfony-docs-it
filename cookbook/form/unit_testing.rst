@@ -168,6 +168,9 @@ da altre estensioni. Occorre aggiungere tali estensioni all'oggetto factory::
     use Acme\TestBundle\Form\Type\TestedType;
     use Acme\TestBundle\Model\TestObject;
     use Symfony\Component\Form\Test\TypeTestCase;
+    use Symfony\Component\Form\Forms;
+    use Symfony\Component\Form\FormBuilder;
+    use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 
     class TestedTypeTest extends TypeTestCase
     {
@@ -196,7 +199,7 @@ da altre estensioni. Occorre aggiungere tali estensioni all'oggetto factory::
         }
 
         // ... i test
-    } 
+    }
 
 Testare diversi insiemi di dati
 -------------------------------

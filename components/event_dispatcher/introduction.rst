@@ -20,11 +20,11 @@ o dopo che un metodo sia eseguito, senza interferire con altri plugin. Questo pr
 si risolve facilmente con l'ereditarietà singola, mentre l'ereditarietà multipla
 (dove sia possibile con PHP) ha i suoi difetti.
 
-Il componente Event Dispatcher di Symfony2 implementa il pattern `Observer`_ in modo
+Il componente Event Dispatcher di Symfony2 implementa il pattern `Mediator`_ in modo
 semplice ed efficace, per rendere possibile tutto questo e per rendere un progetto
 veramente estensibile.
 
-Prendiamo un semplice esempio da :doc:`/components/http_kernel/introduction`. Una volta creato
+Si prenda un semplice esempio da :doc:`/components/http_kernel/introduction`. Una volta creato
 un oggetto ``Response``, può essere utile consentirne la modifica ad altri elementi del
 sistema (p.e. aggiungere header di cache) prima del suo utilizzo effettivo.
 Per poterlo fare, il kernel di Symfony2 lancia un evento,
@@ -575,9 +575,6 @@ e così via...
 Introspezione del nome dell'evento
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    Aggiunto il nome dell'evento all'oggetto ``Event`` da Symfony 2.1
-
 Poiché ``EventDispatcher`` conosce già il nome dell'evento al momento della distribuzione,
 il nome dell'evento è iniettato anche negli oggetti
 :class:`Symfony\\Component\\EventDispatcher\\Event`, quindi è disponibile agli
@@ -597,7 +594,16 @@ usato come parte della logica di processamento dell'ascoltatore::
         }
     }
 
-.. _Observer: http://it.wikipedia.org/wiki/Observer_pattern
+Altri distributori
+------------------
+
+Oltre a ``EventDispatcher``, usato comunemente, il componente dispone di altri due
+distributori:
+
+* :doc:`/components/event_dispatcher/container_aware_dispatcher`
+* :doc:`/components/event_dispatcher/immutable_dispatcher`
+
+.. _Mediator: http://en.wikipedia.org/wiki/Mediator_pattern
 .. _Closure: http://php.net/manual/it/functions.anonymous.php
 .. _callable PHP: http://php.net/manual/it/language.pseudo-types.php#language.types.callback
 .. _Packagist: https://packagist.org/packages/symfony/event-dispatcher

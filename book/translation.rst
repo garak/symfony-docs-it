@@ -520,15 +520,13 @@ tramite l'oggetto ``request``::
 
     $request->setLocale('en_US');
 
+.. tip::
+
+    Leggere :doc:`/cookbook/session/locale_sticky_session` per sapere come memorizzare
+    il locale dell'utente in sessione.
+
 .. index::
    single: Traduzioni; Fallback e locale predefinito
-
-È anche possibile memorizzare il locale in sessione, invece che in ogni
-richiesta. Se lo si fa, ogni richiesta successiva avrà lo stesso locale.
-
-.. code-block:: php
-
-    $this->get('session')->set('_locale', 'en_US');
 
 Vedere la sezione :ref:`book-translation-locale-url` sotto,
 sull'impostazione del locale tramite rotte.
@@ -538,7 +536,7 @@ Fallback e locale predefinito
 
 Se il locale non è stato impostato in modo esplicito nella sessione, sarà
 utilizzato dal ``Translator`` il parametro di configurazione ``fallback_locale``. Il valore
-predefinito del parametro è ``en`` (vedere `Configurazione`_).
+predefinito del parametro è ``en`` (vedere la `Configurazione`_).
 
 In alternativa, è possibile garantire che un locale è impostato sulla sessione dell'utente
 definendo un ``default_locale`` per il servizio di sessione:
@@ -1000,7 +998,7 @@ Creare un file di traduzione sotto il catalogo ``validators`` per i messaggi dei
 
         // validators.it.php
         return array(
-            'author.name.not_blank' => 'Inserire un nome per l'autore.',
+            'author.name.not_blank' => 'Inserire un nome per l\'autore.',
         );
 
     .. code-block:: yaml

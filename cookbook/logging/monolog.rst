@@ -17,7 +17,7 @@ in un controllore::
     {
         $logger = $this->get('logger');
         $logger->info('Ho preso il logger');
-        $logger->err('SI è verificato un errore');
+        $logger->error('SI è verificato un errore');
 
         // ...
     }

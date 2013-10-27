@@ -75,10 +75,10 @@ mappa un URL su un controllore (#2).
     Anche se ha un nome simile, il "controllore principale" (front controller) è diverso dagli altri
     "controllori" di cui si parla in questo capitolo. Un controllore principale
     è un breve file PHP che è presente nella propria cartella web e sul quale sono
-    dirette tutte le richieste. Una tipica applicazione avrà un controllore
-    principale di produzione (ad esempio ``app.php``) e un controllore principale per lo sviluppo
+    dirette tutte le richieste. Una tipica applicazione avrà un front controller
+    produzione (ad esempio ``app.php``) e un frot controller per lo sviluppo
     (ad esempio ``app_dev.php``). Probabilmente non si avrà mai bisogno di modificare, visualizzare o preoccuparsi
-    del controllore principale dell'applicazione.
+    dei front controller dell'applicazione.
 
 .. index::
    single: Controllore; Semplice esempio
@@ -393,7 +393,7 @@ stessa.
     Estendere la classe base è *opzionale* in Symfony; essa contiene utili
     scorciatoie ma niente di obbligatorio. È inoltre possibile estendere
     :class:`Symfony\Component\DependencyInjection\ContainerAware`. L'oggetto
-    service container sarà quindi accessibile tramite la proprietà ``container``.
+    contenitore di servizi sarà quindi accessibile tramite la proprietà ``container``.
 
 .. note::
 
@@ -497,7 +497,7 @@ valore di ogni variabile.
     :ref:`sotto-richiesta<http-kernel-sub-requests>` viene eseguita, attraverso il servizio ``http_kernel``,
     ``HttpKernel`` restituisce un oggetto ``Response``::
     
-        use Symfony\Component\HttpKernel/HttpKernelInterface;
+        use Symfony\Component\HttpKernel\HttpKernelInterface;
     
         $path = array(
             '_controller' => 'AcmeHelloBundle:Hello:fancy',
@@ -555,8 +555,8 @@ capitolo :doc:`Template </book/templating>`.
 
 .. tip::
 
-    Il metodo ``renderView`` è una scorciatoia per utilizzare direttamente il servizio
-    ``templating``. Il servizio ``templating`` può anche essere utilizzato in modo diretto::
+    Il metodo ``renderView`` è una scorciatoia per usare direttamente il servizio ``templating``.
+    Il servizio ``templating`` può anche essere utilizzato in modo diretto::
 
         $templating = $this->get('templating');
         $content = $templating->render(
@@ -566,7 +566,7 @@ capitolo :doc:`Template </book/templating>`.
 
 .. note::
 
-    Si possono anche rendere template in ulterioi sotto-cartelle, ma si faccia attenzione
+    Si possono anche rendere template in ulteriori sottocartelle, ma si faccia attenzione
     a evitare l'errore di rendere la struttura delle cartelle eccessivamente
     elaborata::
 

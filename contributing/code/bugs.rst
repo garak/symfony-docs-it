@@ -8,7 +8,7 @@ a rendere migliore Symfony2.
 
     Se pensate di aver trovato un problema di sicurezza, per favore, seguite
     invece l'apposita :doc:`procedura <security>`.
-    
+
 Prima di inviare un bug:
 
  * Ricontrollare la `documentazione`_ ufficiale per verificare che non si stia facendo 
@@ -31,7 +31,7 @@ il bug `tracker`_ ufficiale e seguendo alcune regole:
  * *(facoltativo)* Allegare una :doc:`patch <patches>`.
 
 .. _documentazione: http://symfony.com/doc/2.1/index.html
-.. _lista degli utenti: http://groups.google.com/group/symfony-users
+.. _lista degli utenti: http://groups.google.com/group/symfony2
 .. _forum: http://forum.symfony-project.org/
 .. _canale IRC: irc://irc.freenode.net/symfony
 .. _tracker: https://github.com/symfony/symfony/issues

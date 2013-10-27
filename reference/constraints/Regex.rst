@@ -214,10 +214,10 @@ specificare lo schema compatibile HTML5 nell'opzione ``htmlPattern``:
         class Author
         {
             /**
-             * @Assert\Regex({
+             * @Assert\Regex(
              *     pattern     = "/^[a-z]+$/i",
              *     htmlPattern = "^[a-zA-Z]+$"
-             * })
+             * )
              */
             protected $name;
         }
@@ -259,7 +259,7 @@ specificare lo schema compatibile HTML5 nell'opzione ``htmlPattern``:
             }
         }
 
-Impostando ``htmlPattern`` a ``false`` disabilietà la validazione lato client.
+Impostando ``htmlPattern`` a ``false``, disabiliterà la validazione lato client.
 
 match
 ~~~~~

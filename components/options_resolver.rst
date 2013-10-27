@@ -194,6 +194,7 @@ Supponiamo di aggiungere un'opzione ``port`` alla classe ``Mailer``, il cui valo
 Closure come valore predefinito::
 
     use Symfony\Component\OptionsResolver\Options;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     // ...
     protected function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -202,7 +203,7 @@ Closure come valore predefinito::
 
         $resolver->setDefaults(array(
             'port' => function (Options $options) {
-                if (in_array($options['host'], array('127.0.0.1', 'localhost')) {
+                if (in_array($options['host'], array('127.0.0.1', 'localhost'))) {
                     return 80;
                 }
 
@@ -300,7 +301,7 @@ necessario utilizzare altre opzioni per normalizzare::
 
         $resolver->setNormalizers(array(
             'host' => function (Options $options, $value) {
-                if (!in_array(substr($value, 0, 7), array('http://', 'https://')) {
+                if (!in_array(substr($value, 0, 7), array('http://', 'https://'))) {
                     if ($options['ssl']) {
                         $value = 'https://'.$value;
                     } else {

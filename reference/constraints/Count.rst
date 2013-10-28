@@ -5,7 +5,7 @@ Valida che un dato insieme (p.e. un array o un oggetto che implementi Countable)
 abbia un conteggio *tra* un valore minimo e uno massimo.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `min`_                                                            |
 |                | - `max`_                                                            |

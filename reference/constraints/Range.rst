@@ -4,7 +4,7 @@ Range
 Valida che un dato numero sia *tra* un minimo e un massimo.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`property or method<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `min`_                                                            |
 |                | - `max`_                                                            |

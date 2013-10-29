@@ -440,14 +440,12 @@ che restituisce un booleano::
 Eventi e ascolatori consapevoli del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    L'oggetto ``Event`` contiene un riferimento al distributore che lo invoca, da Symfony 2.1
-
 ``EventDispatcher`` inietta sempre un riferimento a sé stesso nell'evento passato.
 Questo vuol dire che tutti gli ascoltatori hanno accesso diretto all'oggetto
 ``EventDispatcher`` notificante, tramite il metodo
 :method:`Symfony\\Component\\EventDispatcher\\Event::getDispatcher`
-dell'oggetto ``Event`` passato.
+dell'oggetto ``Event``
+passato.
 
 Questo può portare ad applicazioni avanzate per ``EventDispatcher``, incluse la
 possibilità per gli ascoltatori di distribuire altri eventi, il concatenamento degli eventi o anche il
@@ -534,9 +532,6 @@ per settere può essere l'unico modo, specialmente per dipendenze opzionali.
 
 Scorciatoie del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.1
-    Il metodo ``EventDispatcher::dispatch()`` restituisce l'evento da Symfony 2.1.
 
 Il metodo :method:`EventDispatcher::dispatch<Symfony\\Component\\EventDispatcher\\EventDispatcher::dispatch>`
 restiuisce sempre un oggetto :class:`Symfony\\Component\\EventDispatcher\\Event`.

@@ -2,7 +2,7 @@ DoctrineMigrationsBundle
 ========================
 
 Le migrazioni delle basi dati sono un'estensione del livello di astrazione della base dati
-e offrono l'opportunità di fare deploy programmatici di nuove versioni del proprio schema
+e offrono l'opportunità di fare deploy programmatici di nuove versioni di uno schema
 di base dati in modo sicuro, facile e standardizzato.
 
 .. tip::
@@ -71,7 +71,7 @@ Tutte le funzionalità di migrazione sono contenuto in alcuni comandi:
       :status   Mostra lo stato di un insieme di migrazioni.
       :version  Aggiunge e cancella manualmente versioni di migrazione nella tabella delle versioni.
 
-Iniziare verificando lo stato delle migrazioni della propria applicazione, eseguendo il
+Iniziare verificando lo stato delle migrazioni dell'applicazione, eseguendo il
 comando ``status``:
 
 .. code-block:: bash
@@ -160,13 +160,13 @@ Eseguire migrazioni durante il deploy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ovviamente, il fine ultimo della scrittura delle migrazioni è la possibilità di usarle per
-aggiornare la struttura della propria base dati al momento del deploy dell'applicazione.
+aggiornare la struttura della base dati al momento del deploy dell'applicazione.
 Eseguendo le migrazioni localmente (o su un server di stage), ci si può assicurare che
 esse funzionino come ci si aspetta.
 
-Quando infine si esegue il deploy della propria applicazione, occorre solo ricordarsi di
+Quando infine si esegue il deploy dell'applicazione, occorre solo ricordarsi di
 eseguire il comando ``doctrine:migrations:migrate``. Internamente, Doctrine crea
-una tabella ``migration_versions`` dentro la propria base dati e traccia le migrazioni
+una tabella ``migration_versions`` dentro la base dati e traccia le migrazioni
 eseguite al suo interno. Quindi, non importa quante migrazioni sono state create ed
 eseguite localmente, quando si esegue il comando durante il deploy, Doctrine saprà
 esattamente quali migrazioni non sono ancora state eseguite, guardando la tabella
@@ -179,7 +179,7 @@ Generare automaticamente le migrazioni
 
 In realtà, raramente si avrà bisogno di scrivere migrazioni a mano, perché la libreria
 delle migrazioni può generare automaticamente le classi delle migrazioni, confrontando
-le informazioni di mappatura di Doctine (cioè come la propria base dati *dovrebbe*
+le informazioni di mappatura di Doctine (cioè come la base dati *dovrebbe*
 essere) con l'attuale struttura della base dati.
 
 Per esempio, si supponga di creare una nuova entità ``User`` e di aggiungere le
@@ -258,7 +258,7 @@ comando:
 Un messaggio dovrebbe dire che una nuova classe migrazione è stata generata, in base
 alle differenze con lo schema. Aprendo questo file, si troverà il codice SQL necessario
 per creare la tabella ``hello_user``. Quindi, eseguire la migrazione per aggiungere
-la tabella alla propria base dati:
+la tabella alla base dati:
 
 .. code-block:: bash
 
@@ -266,13 +266,13 @@ la tabella alla propria base dati:
 
 La morale della favola è: dopo ogni modifica eseguita alle informazioni di mappatura di
 Docrtine, eseguire il comando ``doctrine:migrations:diff``, per generare automaticamente
-le proprie classi migrazione.
+le classi migrazione.
 
-Se lo si fa già dall'inizio del proprio progetto (cioè in modo tale che anche le prime
+Se lo si fa già dall'inizio di un progetto (cioè in modo tale che anche le prime
 tabelle siano caricate tramite una classe migrazione), si sarà sempre in grado di
-creare una nuova base dati ed eseguire le proprie migrazioni per portare lo schema al
-pieno aggiornamento. In effetti, è un modo di lavorare facile e affidabile per il
-proprio progetto.
+creare una nuova base dati ed eseguire le migrazioni per portare lo schema al
+pieno aggiornamento. In effetti, è un modo di lavorare facile e affidabile per un
+progetto.
 
 Migrazioni con contenitore
 --------------------------

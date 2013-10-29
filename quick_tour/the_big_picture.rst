@@ -100,7 +100,7 @@ Verifica della configurazione
 
 Per evitare mal di testa successivamente, Symfony2 dispone di uno strumento per testare
 la configurazione, per verificare configurazioni errate di PHP o del server web. Usare
-il seguente URL per avviare la diagnosi sulla propria macchina:
+il seguente URL per avviare la diagnosi sulla macchina locale:
 
 .. code-block:: text
 
@@ -110,8 +110,8 @@ il seguente URL per avviare la diagnosi sulla propria macchina:
 
     Tutti gli URL degli esempi ipotizzano una configurazione del server web che punti
     direttamente alla cartella ``web/`` del nuovo progetto, che è diverso
-    e più avanzato rispetto al processo mostrato sopra. Quindi, l'URL sulla propria
-    macchina varierà, per esempio ``http://localhost:8000/config.php``
+    e più avanzato rispetto al processo mostrato sopra. Quindi, l'URL sulla 
+    macchina locale varierà, per esempio ``http://localhost:8000/config.php``
     o ``http://localhost/Symfony/web/config.php``. Si veda
     :ref:`above section<quick-tour-big-picture-built-in-server>` per dettagli
     su come dovrebbe essere l'URL e usarlo in tutti gli esempi.

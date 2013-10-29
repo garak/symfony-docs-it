@@ -26,7 +26,7 @@ Opzioni disponibili
 -------------------
 
 * ``--namespace``: Lo spazio dei nomi del bundle da creare. Lo spazio dei nomi dovrebbe
-  iniziare con un nome di "venditore", come il nome della propria azienda, del proprio
+  iniziare con un nome di "venditore", come il nome della propria azienda, del
   progetto o del cliente, seguito da uno o più sotto-spazi dei nomi, facoltativi, e
   terminare col nome del bundle stesso (che deve avere "Bundle" come
   suffisso):

@@ -47,7 +47,7 @@ file `composer.json`::
     }
 
 La definizione ``@dev`` è necessaria, perché al momento non sono disponibili versioni del bundle e di
-ODM stabili. A seconda delle necessità del proprio progeto, si potrebbero usare altre stringhe della versione,
+ODM stabili. A seconda delle necessità di un progeto, si potrebbero usare altre stringhe della versione,
 come spiegato nella `documentazione sullo schema`_ di Composer.
 
 Ora si possono installare le nuove dipendenza, eseguendo il comando ``update``
@@ -133,7 +133,7 @@ Creare una classe documento
 Si supponga di dover costruire un'applicazione in cui devono essere mostrati dei prodotti.
 Senza nemmeno pensare a Doctrine o a MongoDB, già si sa di aver bisogno di un oggetto
 ``Product``, che rappresenti tali prodotti. Creare questa classe nella cartella
-``Document`` del proprio ``AcmeStoreBundle``::
+``Document`` di ``AcmeStoreBundle``::
 
     // src/Acme/StoreBundle/Document/Product.php
     namespace Acme\StoreBundle\Document;
@@ -146,8 +146,8 @@ Senza nemmeno pensare a Doctrine o a MongoDB, già si sa di aver bisogno di un o
     }
 
 La classe, chiamata spesso "documento", che significa *una classe di base che contiene
-dati*, è semplice e aiuta a soddisfare i requisiti per i prodotti della propria
-applicazione. Questa classe non può ancora essere persistita in MongoDB, è solo una
+dati*, è semplice e aiuta a soddisfare i requisiti per i prodotti
+dell'applicazione. Questa classe non può ancora essere persistita in MongoDB, è solo una
 semplice classe PHP.
 
 Aggiungere informazioni di mappatura
@@ -258,7 +258,7 @@ metodi già presenti).
     Doctrine non si cura se le proprietà sono ``protected`` o ``private``,
     o se siano o meno presenti getter o setter per una proprietà.
     I getter e i setter sono generati qui solo perché necessari per
-    interagire col proprio oggetto PHP.
+    interagire con l'oggetto PHP.
 
 Persistere gli oggetti in MongoDB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -313,7 +313,7 @@ Analizziamo questo esempio:
 
 .. note::
 
-    Di fatto, essendo Doctrine consapevole di tutte le proprie entità gestite,
+    Di fatto, essendo Doctrine consapevole di tutte le entità gestite,
     quando si chiama il metodo ``flush()``, esso calcola un insieme globale di
     modifiche ed esegue l'operazione più efficiente possibile.
 
@@ -324,7 +324,7 @@ che già esistono in MongoDB.
 .. tip::
 
     Doctrine fornisce una libreria che consente di caricare dati di test
-    nel proprio progetto (le cosiddette "fixture"). Per informazioni, vedere
+    in un progetto (le cosiddette "fixture"). Per informazioni, vedere
     :doc:`/bundles/DoctrineFixturesBundle/index`.
 
 Recuperare oggetti da MongoDB
@@ -360,10 +360,10 @@ accedere all'oggetto repository per una classe documento tramite::
 
     La stringa ``AcmeStoreBundle:Product`` è una scorciatoia utilizzabile ovunque in
     Doctrine al posto del nome intero della classe dell'entità (cioè ``Acme\StoreBundle\Entity\Product``).
-    Questo funzionerà finché i propri documenti rimarranno sotto lo spazio dei nomi ``Document``
-    del proprio bundle.
+    Questo funzionerà finché i documenti rimarranno sotto lo spazio dei nomi ``Document``
+    del bundle.
 
-Una volta ottenuto il proprio repository, si avrà accesso a tanti metodi utili::
+Una volta ottenuto il repository, si avrà accesso a tanti metodi utili::
 
     // cerca per chiave primaria (di solito "id")
     $product = $repository->find($id);
@@ -468,8 +468,8 @@ Da dentro un controllore::
 In questo caso, saranno restituiti 10 prodotti con nome "foo", ordinati da quello
 con il prezzo più basso a quello con il prezzo più alto.
 
-L'oggetto ``QueryBuilder`` contiene tutti i metodi necessari per costruire la
-propria query. Per maggiori informazioni su query builder, consultare la
+L'oggetto ``QueryBuilder`` contiene tutti i metodi necessari per costruire
+una query. Per maggiori informazioni su query builder, consultare la
 documentazione di Doctrine `Query Builder`_. Per la lista delle condizioni disponibili
 per una query, vedere la documentazione `Operatori condizionali`_.
 
@@ -478,10 +478,10 @@ Classi repository personalizzate
 
 Nelle sezioni precedenti, si è iniziato costruendo e usando query più complesse da
 dentro un controllore. Per isolare, testare e riusare queste query, è una buona idea
-creare una classe repository personalizzata per la propria entità e aggiungere
-metodi cone la propria logica di query al suo interno.
+creare una classe repository personalizzata per l'entità e aggiungere
+metodi, con la logica delle query, al suo interno.
 
-Per farlo, aggiungere il nome della classe del repository alla propria definizione di mappatura.
+Per farlo, aggiungere il nome della classe del repository alla definizione della mappatura.
 
 .. configuration-block::
 
@@ -551,7 +551,7 @@ ordinati alfabeticamente.
         }
     }
 
-Si può usare il metodo appena creato proprio come i metodi predefiniti del repository::
+Si può usare il metodo appena creato, proprio come i metodi predefiniti del repository::
 
     $products = $this->get('doctrine_mongodb')
         ->getManager()
@@ -568,7 +568,7 @@ Estensioni Doctrine: Timestampable, Sluggable, ecc.
 ---------------------------------------------------
 
 Doctrine è alquanto flessibile e diverse estensioni di terze parti sono disponibili,
-consentendo di eseguire facilmente compiti comuni e ripetitivi sui propri documenti.
+consentendo di eseguire facilmente compiti comuni e ripetitivi sui documenti.
 Sono inclusi *Sluggable*, *Timestampable*, *Loggable*, *Translatable* e
 *Tree*.
 
@@ -741,9 +741,9 @@ il fornitore di entità descritto :doc:`nel ricettario</cookbook/security/entity
 Riepilogo
 ---------
 
-Con Doctrine, ci si può concentrare sui propri oggetti e su come siano utili
+Con Doctrine, ci si può concentrare suglio oggetti e su come siano utili
 nell'applicazione e preoccuparsi della persistenza su MongoDB in un secondo momento. Questo perché 
-Doctrine consente di usare qualsiasi oggetto PHP per tenere i propri dati e si appoggia
+Doctrine consente di usare qualsiasi oggetto PHP per tenere dei dati e si appoggia
 su meta-dati di mappatura per mappare i dati di un oggetto su una collezione di MongoDB.
 
 Sebbene Doctrine giri intorno a un semplice concetto, è incredibilmente potente,

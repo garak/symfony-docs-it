@@ -1,8 +1,8 @@
 .. index::
     single: Cache; Varnish
 
-Come usare Varnish per accelerare il proprio sito
-=================================================
+Usare Varnish per accelerare il proprio sito
+============================================
 
 Poiché la cache di Symfony2 usa gli header standard della cache HTTP,
 :ref:`symfony-gateway-cache` può essere facilmente sostituito da qualsiasi altro reverse
@@ -16,7 +16,7 @@ Configurazione
 --------------
 
 Come visto in precedenza, Symfony2 è abbastanza intelligente da capire se sta parlando
-a un reverse proxy che capisca ESI o meno. Funziona immediatamente, se si usa il reverse
+a un reverse proxy che comprenda ESI o meno. Funziona immediatamente, se si usa il reverse
 proxy di Symfony2, mentre occorre una configurazione speciale per poter funzionare
 con Varnish. Fortunatamente, Symfony2 si appoggia a uno standard scritto
 da Akamaï (`Architettura Edge`_), quindi i suggerimenti di configurazione in questo

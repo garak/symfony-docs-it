@@ -82,8 +82,8 @@ in Symfony2, dalle caratteristiche del nucleo del framework al codice
 scritto per un'applicazione. I bundle sono cittadini di prima classe in Symfony2.
 Essi forniscono la flessibilità di usare delle caratteristiche pre-costruite impacchettate
 in bundle di terze parti o di distribuire i propri bundle. Questo rende
-molto facile scegliere quali caratteristiche abilitare nella propria
-applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
+molto facile scegliere quali caratteristiche abilitare in
+un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
 dell'applicazione è *importante* quanto il nucleo stesso del framework.
 
 Registrare un bundle
@@ -274,8 +274,8 @@ prima il controllore ``AcmeDemoBundle:Welcome:index`` da ``AcmeNewBundle`` e poi
 cercherà il secondo ``AcmeDemoBundle``. Questo vuol dire che un bundle può sovrascrivere
 quasi ogni parte di un altro bundle!
 
-Capite ora perché Symfony2 è così flessibile? Condividere i propri bundle tra le
-applicazioni, memorizzarli localmente o globalmente, a propria scelta.
+È chiaro ora perché Symfony2 è così flessibile? Condividere bundle tra le
+applicazioni, memorizzarli localmente o globalmente, a scelta.
 
 .. _using-vendors:
 

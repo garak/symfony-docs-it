@@ -9,7 +9,7 @@ Installazione
 -------------
 
 `Scaricare`_ il bundle e metterlo sotto lo spazio dei nomi ``Sensio\Bundle\``.
-Quindi, come per ogni altro bundle, includerlo nella propria classe Kernel::
+Quindi, come per ogni altro bundle, includerlo nella classe Kernel::
 
     public function registerBundles()
     {
@@ -32,7 +32,7 @@ Configurazione
 --------------
 
 Tutte le caratteristiche fornite dal bundle sono abilitate in modo predefinito alla
-registrazione del bundle stesso nella propria classe Kernel.
+registrazione del bundle stesso nella classe Kernel.
 
 La configurazione predefinita è la seguente:
 
@@ -72,7 +72,7 @@ impostazioni come ``false``.
 Annotazioni per i controllori
 -----------------------------
 
-Le annotazioni sono un bel modo per configurare facilmente i proprio controllori, dalle
+Le annotazioni sono un bel modo per configurare facilmente i controllori, dalle
 rotte alla configurazione della cache.
 
 Anche se le annotazioni non sono una caratteristica nativa di PHP, hanno comunque molti

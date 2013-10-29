@@ -1209,11 +1209,11 @@ qualità (vedere `KnpBundles.com`_) per un gran numero di diverse caratteristich
 Quando si usa un bundle di terze parti, probabilmente occorrerà sovrascrivere e
 personalizzare uno o più dei suoi template.
 
-Supponiamo di aver incluso l'immaginario bundle ``AcmeBlogBundle`` nel nostro
+Si supponga di aver incluso l'immaginario bundle ``AcmeBlogBundle`` in un
 progetto (p.e. nella cartella ``src/Acme/BlogBundle``). Pur essendo soddisfatti,
-vogliamo sovrascrivere la pagina "list" del blog, per personalizzare il codice e
-renderlo specifico per la nostra applicazione. Analizzando il controllore
-``Blog`` di ``AcmeBlogBundle``, troviamo::
+si vuole sovrascrivere la pagina "list" del blog, per personalizzare il codice e
+renderlo specifico per l'applicazione. Analizzando il controllore
+``Blog`` di ``AcmeBlogBundle``, si trova::
 
     public function indexAction()
     {
@@ -1242,7 +1242,7 @@ crearla). Ora si può personalizzare il template.
     Se si aggiunge un template in una nuova posizione, *potrebbe* essere necessario pulire
     la cache (``php app/console cache:clear``), anche in modalità debug.
 
-Questa logica si applica anche ai template base dei bundle. Supponiamo che ogni
+Questa logica si applica anche ai template base dei bundle. Si supponga che ogni
 template in ``AcmeBlogBundle`` erediti da un template base chiamato
 ``AcmeBlogBundle::layout.html.twig``. Esattamente come prima, Symfony2 cercherà
 il template i questi due posti:
@@ -1359,14 +1359,14 @@ o consentire a un utente malintenzionato di eseguire un attacco `Cross Site Scri
 
         Ciao <?php echo $name ?>
 
-Si immagini che l'utente inserisca nel suo nome il seguente codice::
+Si immagini che l'utente inserisca nel suo nome il seguente codice:
 
 .. code-block:: text
 
     <script>alert('ciao!')</script>
 
 Senza alcun escape dell'output, il template risultante causerebbe la comparsa
-di una finestra di alert Javascript::
+di una finestra di alert JavaScript:
 
 .. code-block:: html
 
@@ -1378,7 +1378,7 @@ all'interno dell'area di un utente legittimo e ignaro.
 
 La risposta a questo problema è l'escape dell'output. Con l'escape attivo,
 lo stesso template verrebbe reso in modo innocuo e scriverebbe alla lettera
-il tag ``script`` su schermo::
+il tag ``script`` su schermo:
 
 .. code-block:: html
 
@@ -1406,7 +1406,7 @@ Per renderlo normalmente, aggiungere il filtro ``raw``:
 
 .. code-block:: jinja
 
-     {{ article.body | raw }}
+    {{ article.body|raw }}
 
 Si può anche disabilitare l'escape dell'output dentro a un ``{% block %}`` o
 per un intero template. Per maggiori informazioni, vedere `Escape dell'output`_ nella

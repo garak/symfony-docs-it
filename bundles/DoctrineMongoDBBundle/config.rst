@@ -106,7 +106,7 @@ conrtollare. La mappatura ha le seguenti opzioni di configurazione:
 
 - ``dir`` percorso per la mappatura o per i file entità (a seconda del driver). Se
   questo percorso è relativo, si presume sia relativo alla radice del bundle.
-  Questo funziona se il nome della propria mappatura è il nome di un bundle. Se si vuole
+  Questo funziona se il nome della mappatura è il nome di un bundle. Se si vuole
   usare questa opzione per specificare un percorso assoluto, occorre aggiungere un prefisso
   con i parametri del kernel esistenti nel DIC (per esempio, %kernel.root_dir%).
 
@@ -129,7 +129,7 @@ conrtollare. La mappatura ha le seguenti opzioni di configurazione:
 Per evitare di dover configurare un sacco di informazioni per la mappatura, si
 dovrebbero seguire le seguenti convenzioni:
 
-1. Inserire tutti i documenti in una cartella ``Document/`` dentro al proprio bundle. Per
+1. Inserire tutti i documenti in una cartella ``Document/`` dentro a un bundle. Per
    esempio ``Acme/HelloBundle/Document/``.
 
 2. Se si usa una mappatura xml, yml o php, mettere tutti i file di configurazione

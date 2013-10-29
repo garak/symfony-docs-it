@@ -262,7 +262,7 @@ Symfony2 fornisce la funzione ``asset`` per gestirli facilmente.
 
 Lo scopo principale della funzione ``asset`` è quello di rendere le
 applicazioni maggiormente portabili. Grazie a questa funzione, si
-può spostare la cartella radice dell'applicazione ovunque, sotto la propria cartella
+può spostare la cartella radice dell'applicazione ovunque, sotto la cartella
 radice del web, senza cambiare nulla nel codice dei template.
 
 Escape delle variabili

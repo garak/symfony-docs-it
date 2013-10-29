@@ -1,8 +1,8 @@
 .. index::
    single: Bundle; Ereditarietà
 
-Come usare l'ereditarietà per sovrascrivere parti di un bundle
-==============================================================
+Usare l'ereditarietà per sovrascrivere parti di un bundle
+=========================================================
 
 Lavorando con bundle di terze parti, ci si troverà probabilmente in situazioni in cui
 si vuole sovrascrivere un file in quel bundle con un file del proprio bundle.
@@ -34,7 +34,7 @@ semplicemente creando un file con lo stesso nome.
 
 .. note::
 
-    A dispetto del nome del metodo, non c'è una relatzione genitore/figlio tra i
+    A dispetto del nome del metodo, non c'è una relazione genitore/figlio tra i
     bundle, è solo un modo per estendere e sovrascrivere un bundle esistente.
 
 Sovrascrivere i controllori

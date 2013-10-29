@@ -10,7 +10,7 @@ Installazione
 -------------
 
 `Scaricare`_ il bundle e metterlo sotto lo spazio dei nomi ``Sensio\\Bundle\\``.
-Quindi, come per ogni altro bundle, includerlo nella propria classe Kernel::
+Quindi, come per ogni altro bundle, includerlo nella classe Kernel::
 
     public function registerBundles()
     {

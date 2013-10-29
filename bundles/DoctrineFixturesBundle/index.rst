@@ -14,7 +14,7 @@ Le fixture di Doctrine sono mantenute in `DoctrineFixturesBundle`_. Il bundle us
 la libreria `Doctrine Data Fixtures`_.
 
 Seguire questi passi per installare bundle e libreria nella  Standard Edition.
-Aggiungere al proprio file ``composer.json``:
+Aggiungere al file ``composer.json``:
 
 .. code-block:: json
 
@@ -59,7 +59,7 @@ Scrivere semplici fixture
 
 Le fixture di Doctrine2 sono classi PHP, in cui si possono creare oggetti e persisterli
 nella base dati. Come tutte le classi in Symfony2, le fixture dovrebbero stare all'interno
-di bundle della propria applicazione.
+di bundle dell'applicazione.
 
 Per un bundle in ``src/Acme/HelloBundle``, le classi delle fixture dovrebbero stare
 in ``src/Acme/HelloBundle/DataFixtures/ORM`` oppure in
@@ -97,8 +97,8 @@ Si immagini di avere una classe ``User`` e di voler caricare un oggetto
     }
 
 In Doctrine2, le fixture sono semplici oggetti, in cui caricare dati tramite interazioni
-con le proprie entità, come si fa normalmente. Ciò consente di creare esattamente le
-fixture necessarie per la propria applicazione.
+con le entità, come si fa normalmente. Ciò consente di creare esattamente le
+fixture necessarie per un'applicazione.
 
 Il limite più grosso in questo approccio è l'impossibilità di condividere oggetti tramite
 le fixture. Più avanti, vedremo come superare questo limite.
@@ -353,7 +353,7 @@ mostrato sopra, vi si può accedere nel metodo ``load()``.
 .. note::
 
     Chi è troppo pigro per implementare il metodo :method:`Symfony\\Component\\DependencyInjection\\ContainerInterface::setContainer`
-    può estendere la propria classe con :class:`Symfony\\Component\\DependencyInjection\\ContainerAware`.
+    può estendere la classe da :class:`Symfony\\Component\\DependencyInjection\\ContainerAware`.
 
 .. _DoctrineFixturesBundle: https://github.com/doctrine/DoctrineFixturesBundle
 .. _`Doctrine Data Fixtures`: https://github.com/doctrine/data-fixtures

@@ -133,7 +133,7 @@ non usare il filtro :ref:`cssrewrite<cookbook-assetic-cssrewrite>`.
 Aggiustare i percorsi del CSS con il filtro ``cssrewrite``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Poiché Assetic generat nuovi URL per le risorse, qualsiasi percorso relativo dentro
+Poiché Assetic genera nuovi URL per le risorse, qualsiasi percorso relativo dentro
 ai file CSS non funzionerà. Per risolvere il problema, usare il filtro ``cssrewrite``
 nel tag ``stylesheets``. Tale filtro analizza i file CSS e corregge
 i percorsi interni, per riflettere la nuova posizione.

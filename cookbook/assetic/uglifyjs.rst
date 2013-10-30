@@ -29,19 +29,19 @@ privilegi di root.
 
 .. note::
 
-    È anche possibile installare UglifyJs all'interno di un unico progetto. Per fare ciò
-    sarà necessario omettere l'opzione ``-g`` e specificare il percorso d'installazione
+    È anche possibile installare UglifyJs solo all'interno di un progetto. Per poterlo
+    fare, sarà necessario omettere l'opzione ``-g`` e specificare il percorso d'installazione
     del modulo:
 
     .. code-block:: bash
 
-        $ cd /percorso/a/symfony
+        $ cd /percorso/di/symfony
         $ mkdir app/Resources/node_modules
         $ npm install uglify-js --prefix app/Resources
 
-    Si raccomanda di installare UglifyJs all'interno della propria cartella ``app/Resources``
-    e di aggiungere la cartella ``node_modules`` al controllo di versione. Alternativamente è
-    possibile creare un file `package.json`_ per npm e specificarne, all'interno
+    Si raccomanda di installare UglifyJs nella cartella ``app/Resources``
+    e di aggiungere la cartella ``node_modules`` al controllo di versione. In alternativ,
+    si può creare un file `package.json`_ per npm e specificarne all'interno
     le dipendenze.
 
 A seconda del metodo di installazione utilizzato, sarà possibile eseguire il
@@ -68,7 +68,7 @@ nel trattamento del codice javascript:
         assetic:
             filters:
                 uglifyjs2:
-                    # percorso all'eseguibile uglifyjs
+                    # percorso dell'eseguibile uglifyjs
                     bin: /usr/local/bin/uglifyjs
 
     .. code-block:: xml
@@ -90,20 +90,20 @@ nel trattamento del codice javascript:
                 ),
             ),
         ));
-        
+
 .. note::
 
     Il percorso di installazione di UglifyJs può essere differente a seconda del sistema utilizzato.
     Per scoprire dove npm salvi la propria cartella ``bin`` è possibile eseguire
     il seguente comando:
-    
+
     .. code-block:: bash
-    
+
         $ npm bin -g
-        
+
     Questo comando dovrebbe mostrare la cartella, all'interno del proprio sistema, 
     nella quale risiede l'eseguibile di UglifyJs.
-    
+
     Se si è installato UglifyJs localmente, la cartella bin si troverà
     all'interno della cartella ``node_modules``. In questo caso, il suo nome sarà ``.bin``.
 
@@ -188,10 +188,10 @@ L'utilizzo di UglifyCss segue le stesse regole di UglifyJs. Per iniziare,
 si installa il pacchetto npm:
 
 .. code-block:: bash
-    
+
     $ npm install -g uglifycss
-    
-Successivamente si aggiunge il filtro alla configurazione:
+
+Successivamente, aggiungere il filtro alla configurazione:
 
 .. configuration-block::
 
@@ -222,7 +222,7 @@ Successivamente si aggiunge il filtro alla configurazione:
                 ),
             ),
         ));
-        
+
 Per utilizzare il filtro sui file css, si aggiunge il filtro all'helper ``stylesheets``
 di Assetic:
 
@@ -236,14 +236,14 @@ di Assetic:
 
     .. code-block:: html+php
 
-        <?php foreach ($view['assetic']->javascripts(
+        <?php foreach ($view['assetic']->stylesheets(
             array('@AcmePippoBundle/Resources/public/css/*'),
             array('uglifycss')
         ) as $url): ?>
             <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
         <?php endforeach; ?>
 
-Così come per il filtro ``uglifyjs2``, se si premette il ``?`` al nome del filtro
+Così come per il filtro ``uglifyjs2``, se si premette ``?`` al nome del filtro
 (come in ``?uglifycss``), la minimizzazione avverrà solamente quando non si è
 in modalità debug.
 

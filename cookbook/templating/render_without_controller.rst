@@ -55,10 +55,10 @@ Il controllore ``FrameworkBundle:Template:template`` renderà semplicemente
 qualsiasi template passato nel valore di ``template``.
 
 Si può usare questo trucco anche quando si rendono controllori inclusi in
-un template. Ma poiché lo scopo di rendere un controllore da dentro un
+un template. Ma, poiché lo scopo di rendere un controllore da dentro un
 template è solitamente quello di preparare dei dati in un controllore,
-probabilmente non sarà molto utile, tranne per mettere facilmente in cache dei
-frammenti statici, una caratteristica che sarà disponibile in Symfony 2.2.
+probabilmente sarà utile solo per mettere in cache dei frammenti statici (vedere
+:ref:`cookbook-templating-no-controller-caching`).
 
 .. configuration-block::
 

@@ -1,8 +1,8 @@
 .. index::
    single: Doctrine; Generare entità da una base dati esistente
 
-Come generare entità da una base dati esistente
-===============================================
+Generare entità da una base dati esistente
+==========================================
 
 Quando si inizia a lavorare su un nuovo progetto, che usa una base dati, si pongono
 due situazioni diverse. Nella maggior parte dei casi, il modello della base dati è
@@ -19,7 +19,7 @@ strumenti che aiutano a generare classi del modello da una base dati esistente.
     associazioni inverse, i tipi di ereditarietà, le entità con chiavi esterne come
     chiavi primarie, né operazioni semantiche sulle associazioni, come le cascate o gli
     eventi del ciclo di vita. Sarà necessario un successivo lavoro manuale sulle entità
-    generate, perché tutto corrisponda alle specifiche del modello del proprio dominio.
+    generate, perché tutto corrisponda alle specifiche del modello del dominio.
 
 Questa guida ipotizza che si stia usando una semplice applicazione blog, con le seguenti
 due tabelle: ``blog_post`` e ``blog_comment``. Una riga di un commento è collegata alla
@@ -46,8 +46,8 @@ riga di un post tramite una chiave esterna.
       CONSTRAINT `blog_post_id` FOREIGN KEY (`post_id`) REFERENCES `blog_post` (`id`) ON DELETE CASCADE
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-Prima di addentrarsi nella ricetta, ci si assicuri di aver configurato correttamente
-i propri parametri di connessione, nel file ``app/config/parameters.yml`` (o in qualsiasi
+Prima di addentrarsi nella ricetta, assicurarsi di aver configurato correttamente
+i parametri di connessione, nel file ``app/config/parameters.yml`` (o in qualsiasi
 altro posto in cui la configurazione è memorizzata) e di aver inizializzato un bundle
 che possa ospitare le future classi entità. In questa guida, si ipotizza che esista
 un ``AcmeBlogBundle``, posto nella cartella

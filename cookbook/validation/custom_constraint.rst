@@ -1,8 +1,8 @@
 .. index::
    single: Validazione; Vincoli personalizzati
 
-Come creare vincoli di validazione personalizzati
--------------------------------------------------
+Creare vincoli di validazione personalizzati
+--------------------------------------------
 
 È possibile creare vincoli personalizzati estendendo la classe base
 :class:`Symfony\\Component\\Validator\\Constraint`. 

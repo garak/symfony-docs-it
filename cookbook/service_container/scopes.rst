@@ -209,6 +209,11 @@ all'interno del codice. Occorre tenerne conto anche nella dichiarazione del serv
                 ->setSynthetic(true)
                 ->setSynchronized(true);
 
+.. caution::
+
+    Il servizio che usa il servizio sincronizzato deve essere pubblico, per far sì
+    che il suo setter sia richiamato al cambio di scope.
+
 .. _changing-service-scope:
 
 Cambiare lo scope del servizio

@@ -29,7 +29,7 @@ Configurare la base dati
 
 Prima di iniziare, occorre configurare le informazioni sulla connessione alla
 base dati. Per convenzione, questa informazione solitamente è configurata in un
-file ``app/config/parameters.ini``:
+file ``app/config/parameters.yml``:
 
 .. code-block:: yaml
 
@@ -190,7 +190,7 @@ Recuperare oggetti dalla base dati
 Recuperare oggetti dalla base dati è anche più semplice. Per esempio, si supponga
 di aver configurato una rotta per mostrare uno specifico ``Product``, in base al
 valore del suo ``id``::
-    
+
     // ...
     use Acme\StoreBundle\Model\ProductQuery;
 
@@ -476,8 +476,8 @@ Comandi
 
 Leggere la sezione dedicata ai `comandi Propel in Symfony2`_.
 
-.. _`Working With Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#installation
-.. _`configurazione di PropelBundle`: http://propelorm.org/cookbook/symfony2/working-with-symfony2.html#configuration
-.. _`relazioni`: http://propelorm.org/documentation/04-relationships.html
-.. _`behavior`: http://propelorm.org/documentation/#behaviors-reference
-.. _`comandi Propel in Symfony2`: http://propelorm.org/cookbook/symfony2/working-with-symfony2#the-commands
+.. _`Working With Symfony2`: http://propelorm.org/Propel/cookbook/symfony2/working-with-symfony2.html#installation
+.. _`configurazione di PropelBundle`: http://propelorm.org/Propel/cookbook/symfony2/working-with-symfony2.html#configuration
+.. _`relazioni`: http://propelorm.org/Propel/documentation/04-relationships.html
+.. _`behavior`: http://propelorm.org/Propel/documentation/#behaviors-reference
+.. _`comandi Propel in Symfony2`: http://propelorm.org/Propel/cookbook/symfony2/working-with-symfony2#the-commands

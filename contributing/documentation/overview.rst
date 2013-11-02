@@ -29,17 +29,17 @@ Coerentemente con il codice sorgente di Symfony, il repository della documentazi
 vari rami, corrispondenti alle diverse versioni di Symfony stesso.
 Il ramo ``master`` contiene la documentazione per il ramo in sviluppo del codice.
 
-A meno di non documentare una caratteristica aggiunta *dopo* Symfony 2.2
-(p.e. in Symfony 2.3), le modifiche vanno sempre basate sul ramo 2.2.
-Per poterlo fare, eseguire un checkout del ramo 2.2 prima del prossimo passo:
+A meno di non documentare una caratteristica aggiunta *dopo* Symfony 2.3
+(p.e. in Symfony 2.4), le modifiche vanno sempre basate sul ramo 2.3.
+Per poterlo fare, eseguire un checkout del ramo 2.3 prima del prossimo passo:
 
 .. code-block:: bash
 
-    $ git checkout 2.2
+    $ git checkout 2.3
 
 .. tip::
 
-    Il ramo base (p.e. 2.2) diventerà "Applies to" nel :ref:`doc-contributing-pr-format`
+    Il ramo base (p.e. 2.3) diventerà "Applies to" nel :ref:`doc-contributing-pr-format`
     usato successivamente.
 
 Quindi, creare un ramo dedicato per le proprie modifiche (per questioni organizzative):
@@ -57,8 +57,8 @@ Richiedere un pull
 Seguend l'esempio, la richiesta di pull sarà tra il proprio ramo
 ``miglioramenti_di_pippo_e_pluto`` e il ramo ``master`` di ``symfony-docs``.
 
-Se le proprie modifiche sono basate sul ramo 2.2, occorre cambiare il
-ramo base in 2.2 sulla pagina di anteprima, cliccando sul pulsante ``edit``
+Se le proprie modifiche sono basate sul ramo 2.3, occorre cambiare il
+ramo base in 2.3 sulla pagina di anteprima, cliccando sul pulsante ``edit``
 in alto a sinistra:
 
 .. image:: /images/docs-pull-request-change-base.png
@@ -66,8 +66,8 @@ in alto a sinistra:
 
 .. note::
 
-  Tutte le modifiche fatte nel ramo 2.2 subiranno un merge nei rami più nuovi
-  (cioè 2.3, master, ecc.) per il prossimo rilascio, su base settimanale.
+  Tutte le modifiche fatte nel ramo 2.3 subiranno un merge nei rami più nuovi
+  (cioè 2.4, master, ecc.) per il prossimo rilascio, su base settimanale.
 
 GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
 
@@ -114,7 +114,7 @@ Un esempio di invio potrebbe essere come il seguente:
     | ------------- | ---
     | Doc fix?      | yes
     | New docs?     | yes (symfony/symfony#2500)
-    | Applies to    | all (or 2.3+)
+    | Applies to    | all (or 2.4+)
     | Fixed tickets | #1075
 
 .. tip::

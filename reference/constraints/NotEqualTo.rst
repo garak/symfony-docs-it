@@ -28,7 +28,7 @@ opzioni. Per forzare che un valore sia uguale, vedere
 Uso di base
 -----------
 
-Se ci si vuole assicurare che la proprietà ``age`` di una classe ``Person`` non sia uguale a
+Se ci si vuole assicurare che la proprietà ``age`` di un oggetto ``Person`` non sia uguale a
 ``15``, si può fare come segue:
 
 .. configuration-block::

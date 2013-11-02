@@ -573,8 +573,8 @@ si imposti `with_context`_ a ``false``.
     elementi, si può fare in questo modo: ``{'pippo': pippo, 'pluto': pluto}``.
 
 .. versionadded:: 2.2
-    La funzione `include()`_ è una nuova caratteristica di Twig, disponibile in
-    Symfony 2.2. Precedentemente, si usava il tag `{% include %}`_.
+    La funzione `include()`_ è una nuova caratteristica di Twig, disponibile in Symfony
+    2.2. Precedentemente, si usava il tag `{% include %}`_.
 
 .. index::
    single: Template; Inserire azioni
@@ -685,8 +685,8 @@ Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
 
     .. code-block:: jinja
 
-        {{ render_hinclude(controller('...')) %}
-        {{ render_hinclude(url('...')) %}
+        {{ render_hinclude(controller('...')) }}
+        {{ render_hinclude(url('...')) }}
 
     .. code-block:: php
 

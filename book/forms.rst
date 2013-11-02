@@ -806,7 +806,9 @@ si è utilizzato l'helper ``form_row``:
                 {{ form_widget(form.dueDate) }}
             </div>
 
-        <input type="submit" />
+            <div>
+                {{ form_widget(form.save) }}
+            </div>
 
         {{ form_end(form) }}
 
@@ -828,7 +830,9 @@ si è utilizzato l'helper ``form_row``:
                 <?php echo $view['form']->widget($form['dueDate']) ?>
             </div>
 
-            <input type="submit" />
+            <div>
+                <?php echo $view['form']->widget($form['save']) ?>
+            </div>
 
         <?php echo $view['form']->end($form) ?>
 

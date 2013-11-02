@@ -5,13 +5,13 @@ Configurare dati vuoti per una classe Form
 ===========================================
 
 L'opzione ``empty_data`` consente di specificare un insieme di dati vuoti per una
-classe forms. I dati vuoti saranno usati al bind del form, se non è stato richiamato
+classe form. I dati vuoti saranno usati all'invio del form, se non è stato richiamato
 ``setData()`` sul form né sono stati passati dati alla creazione
 del form. Per esempio::
 
     public function indexAction()
     {
-        $blog = // ...
+        $blog = ...;
 
         // $blog viene passato come dato, quindi l'opzione empty_data non è necessaria
         $form = $this->createForm(new BlogType(), $blog);
@@ -35,8 +35,8 @@ parametri. Si ricorda che l'opzione predefinita di ``data_class`` richiama
 il costruttore senza parametri::
 
     // src/Acme/DemoBundle/Form/Type/BlogType.php
-    // ...
 
+    // ...
     use Symfony\Component\Form\AbstractType;
     use Acme\DemoBundle\Entity\Blog;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;

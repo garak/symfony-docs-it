@@ -71,7 +71,7 @@ Azioni comuni post-deploy
 Dopo il deploy del codice sorgente, ci sono alcune azioni comuni che
 occorrerà intraprendere:
 
-A) Configurare il file ``app/config/parameters.ini``
+A) Configurare il file ``app/config/parameters.yml``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Questo file andrebbe personalizzato su ogni sistema. Il metodo usato per il

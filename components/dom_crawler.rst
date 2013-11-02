@@ -230,13 +230,8 @@ e :phpclass:`DOMNode`:
 
     Il metodo ``html`` è nuovo in Symfony 2.3.
 
-Supporto per i collegamenti e per i form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Per i collegamenti e i form, contenuti nell'albero DOM, è riservato un trattamento speciale.
-
 Collegamenti
-............
+~~~~~~~~~~~~
 
 Per trovare un collegamento tramite il suo nome (o un'immagine cliccabile tramite il suo
 attributo ``alt``) si usa il metodo ``selectLink`` in un crawler esistente. La chiamata
@@ -264,7 +259,7 @@ avere ulteriori informazioni relative al collegamento selezionato::
     sul quale è possibile lavorare.
 
 Form
-....
+~~~~
 
 Un trattamento speciale è riservato anche ai form. È disponibile, in Crawler,
 un metodo ``selectButton()`` che restituisce un altro Crawler relativo

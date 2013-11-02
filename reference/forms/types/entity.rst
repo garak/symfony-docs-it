@@ -33,7 +33,7 @@ presi dalla base dati.
 |               | - `error_mapping`_                                                  |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`choice</reference/forms/types/choice>`                        |
+| Tipo genitore | :doc:`choice </reference/forms/types/choice>`                       |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Bridge\\Doctrine\\Form\\Type\\EntityType`          |
 +---------------+---------------------------------------------------------------------+
@@ -121,9 +121,9 @@ dell'entità.
 em
 ~~
 
-**tipo**: ``stringa`` **predefinito**: l'entity manager predefinito
+**tipo**: ``stringa`` **predefinito**: il gestore di entità predefinito
 
-Se specificato, l'entity manager da usare per caricare le scelte, al posto
+Se specificato, il gestore di entità da usare per caricare le scelte, al posto
 di quello predefinito.
 
 Opzioni ridefinite
@@ -162,7 +162,7 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

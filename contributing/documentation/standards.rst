@@ -26,29 +26,29 @@ Esempio
     Esempio
     =======
 
-    When you are working on the docs, you should follow the `Symfony Docs`_
-    standards.
+    Quando si lavora sulla documentazione, si devono seguire gli
+    standard della `documentazione di Symfony`_.
 
     Livello 2
     ---------
 
-    A PHP example would be::
+    Un esempio in PHP può essere::
 
-        echo 'Hello World';
+        echo 'Ciao mondo';
 
     Livello 3
     ~~~~~~~~~
 
     .. code-block:: php
 
-        echo 'You cannot use the :: shortcut here';
+        echo 'Qui non si può usare la scorciatoia ::';
 
-    .. _`Symfony Docs`: http://symfony.com/doc/current/contributing/documentation/standards.html
+    .. _`documentazione di Symfony`: http://symfony.com/doc/current/contributing/documentation/standards.html
 
 Esempi di codice
 ----------------
 
-* Il codice segue gli :doc:`standard di codice di Symfony</contributing/code/standards>`
+* Il codice segue gli :doc:`standard di codice di Symfony </contributing/code/standards>`
   e gli `standard di codice di Twig`_;
 * Per evitare le barre orizzontali sui blocchi di codici, si preferisce interrompere una riga
   se va oltre l'85esimo carattere;
@@ -61,9 +61,9 @@ Esempi di codice
   se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``
   se si omette parte di una riga: la descrizione può essere posta prima della riga;
 * Se utile, un ``codeblock`` dovrebbe iniziare con un commento contenente il nome del
-  file nel blocco di codce. Inserire una riga vuota dopo il commento, a meno che la riga
+  file nel blocco di codice. Inserire una riga vuota dopo il commento, a meno che la riga
   successiva non sia anch'essa un commento;
-* Inserire il simbolo ``$`` all'inizio di ogni riga di bash;
+* Inserire il simbolo ``$`` all'inizio di ogni riga di bash.
 
 Formati
 ~~~~~~~
@@ -72,7 +72,7 @@ Gli esempi di configurazione vanno mostrati in tutti i formati supportati, usand
 :ref:`blocchi di configurazione <docs-configuration-blocks>`. I formati supportati
 (in ordine) sono:
 
-* **Configurazione** (inclusi servizis e rotte): Yaml, Xml, Php
+* **Configurazione** (inclusi servizi e rotte): Yaml, Xml, Php
 * **Validazione**: Yaml, Annotazioni, Xml, Php
 * **Mappatura Doctrine**: Annotazioni, Yaml, Xml, Php
 
@@ -102,7 +102,7 @@ Esempio
 .. caution::
 
     In Yaml va messo uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
-    ma non va fatto in Twig (p.e.  ``{'hello' : 'value'}``).
+    ma non va fatto in Twig (p.e.  ``{'ciao' : 'valore'}``).
 
 .. _`documentazione di Sphinx`: http://sphinx-doc.org/rest.html#source-code
 .. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html

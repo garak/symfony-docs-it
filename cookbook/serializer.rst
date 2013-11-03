@@ -18,7 +18,7 @@ Attivare il Serializer
 ----------------------
 
 .. versionadded:: 2.3
-Il serializer è sempre esistito dentro Symfony, ma prima di Symfony 2.3,
+    Il serializer è sempre esistito dentro Symfony, ma prima di Symfony 2.3,
     bisognava costruirsi il servizio ``serializer`` da soli.
 
 Il servizio ``serializer`` non è disponibile di default. Per abilitarlo attivatelo
@@ -52,8 +52,8 @@ nella configurazione
             ),
         ));
 
-Aggiungere Normalizers e Encoders
----------------------------------
+Aggiungere Normalizer ed Encoder
+--------------------------------
 
 Una volta attivato il servizio ``serializer`` sarà disponibile dentro il container
 e sarà caricato con due :ref:`encoders<component-serializer-encoders>`
@@ -106,6 +106,6 @@ la classe :class:`Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormal
     La classe :class:`Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer`
     non funziona di proposito. Appena si ha un grafo di oggetti circolare, viene
     creato un loop infinito quando si chiamano i getters. QUesto vuole essere un incoraggiamento
-    ad aggiungere i propri normalizer che siano adatti ai propri use-case.
+    ad aggiungere i propri normalizer che siano adatti ai propri casi d'uso.
 
 .. _JMSSerializerBundle: http://jmsyst.com/bundles/JMSSerializerBundle

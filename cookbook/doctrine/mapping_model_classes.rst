@@ -6,31 +6,31 @@ Fornire classi di modello per varie implementazioni Doctrine
 
 Quando si costruisce un bundle che può venire usato non solo con Doctrine, ma
 anche con CouchDB ODM, MongoDB ODM, PHPCR ODM, bisognerebbe scrivere comunque
-una sola classe per il modello. I bundle  di Doctrine forniscono uno step di compilazione per
-registrare i mapping delle proprie classi di modello.
+una sola classe per il modello. I bundle  di Doctrine forniscono un passo di compilatore per
+registrare la mappature di una classe del modello.
 
 .. note::
 
-    Per bundle di cui non riutilizzabili, l'opzione più semplice è quella di mettere le classi di modello
-    nella collocazione di default: ``Entity`` per Doctrine ORM o ``Document``
-    per uno degli altri ODM. Per bundle riutilizzabili, invece di duplicare le classi di modello
-    al solo fine di ottenere la mappatura automatica, si usi lo step di compilazione
+    Per bundle non riutilizzabili, l'opzione più semplice è quella di mettere le classi del modello
+    nella posizione predefinita: ``Entity`` per l'ORM di Doctrine o ``Document``
+    per uno degli altri ODM. Per bundle riutilizzabili, invece di duplicare le classi del modello
+    al solo fine di ottenere la mappatura automatica, si usi il passo di compilatore
 
 .. versionadded:: 2.3
-Lo step di compilazione del mapping di base è stato aggiunto in Symfony 2.3. I bundle di Doctrine
+    Il passo di compilatore della mappatura  di base è stato aggiunto in Symfony 2.3. I bundle di Doctrine
     lo supportano da DoctrineBundle >= 1.2.1, MongoDBBundle >= 3.0.0,
-    PHPCRBundle >= 1.0.0-alpha2 e il CouchDBBundle (senza versione) supporta lo step di
+    PHPCRBundle >= 1.0.0-alpha2 e CouchDBBundle (senza versione) supporta il passo di
     compilazione a partire da quando è stato fatto il merge della
-    `CouchDB Mapping Compiler Pass pull request`_
+    `pull request CouchDB Mapping Compiler Pass`_.
 
-    Se si vuole che il proprio bundle supporti versioni più vecchie di Symfony e
-    Doctrine, si può fornire una copia dello step di compilazione all'interno dell bundle.
-    Si veda per esempio `FOSUserBundle mapping configuration`_
+    Se si vuole che un bundle supporti versioni più vecchie di Symfony e
+    Doctrine, si può fornire una copia del passo di compilatore all'interno dell bundle.
+    Si veda per esempio nella `configurazione della mappatura di FOSUserBundle`_
     ``addRegisterMappingsPass``.
 
 
-Nella classe del proprio bundle si scriva il seguente codice per registrare lo step di compilazione.
-Questo esempio è stato scritto per il FOSUserBundle, quindi una parte di esso dovrà essere
+Nella classe del bundle, scrivere il seguente codice per registrare il passo di compilatore.
+Questo esempio è stato scritto per FOSUserBundle, quindi una parte di esso dovrà essere
 adattata al proprio caso::
 
     use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
@@ -96,17 +96,17 @@ Si noti il controllo :phpfunction:`class_exists`. Questo è cruciale, in quanto 
 bundle abbia una dipendenza diretta verso tutti i bundle Doctrine, ma si vuole lasciare che sia l'utente
 a decidere quale usare.
 
-Lo step di compilazione fornisce metodi factory per tutti i driver forniti da Doctrine:
-Annotazioni, XML, Yaml, PHP and StaticPHP. Gli argomenti sono:
+Il passo di compilatore fornisce metodi factory per tutti i driver forniti da Doctrine:
+Annotazioni, XML, Yaml, PHP and StaticPHP. I parametri sono:
 
-* una mappa/hash dei path assoluti al namespace;
-* un array di parametri di container che il proprio bundle usa per specificare il nome del
-  manager Doctrine che si usa. Nell'esempio precedente, il FOSUserBundle
-  salva il nome del manager che viene usato dentro il parametro ``fos_user.model_manager_name``.
-  Lo step di compilazione accoda il parametro che Doctrine sta usando
-  per specificare il nome del manager di default. Il primo parametro che viene trovato viene usato
-  e  i mapping vengono  registrati con quel manager;
-* un nome di parametro di container opzionale che viene usato dallo step di compilazione
+* una mappa/hash dei percorsi assoluti dello spazio dei nomi;
+* un array di parametri del contenitore che il bundle usa per specificare il nome del
+  gestore Doctrine che si usa. Nell'esempio precedente, FOSUserBundle
+  salva il nome del gestore che viene usato nel parametro ``fos_user.model_manager_name``.
+  Il passo di compilatore accoda il parametro che Doctrine sta usando
+  per specificare il nome del gestore predefinito. Il primo parametro che viene trovato viene usato
+  e le mappature vengono  registrate con quel gestore;
+* un nome di parametro del contenitore opzionale, che viene usato dal passo di compilatore
   perdeterminare se questo tipo di Doctrine viene usato in assoluto (questo è rilevante se
   l'utente ha più di un tipo di bundle di Doctrine installato e il proprio
   bundle viene utilizzato con solo un tipo di Doctrine.
@@ -114,13 +114,13 @@ Annotazioni, XML, Yaml, PHP and StaticPHP. Gli argomenti sono:
 .. note::
 
     Il metodo factory fa uso del ``SymfonyFileLocator`` di Doctrine, quindi
-    troverà file XML e YML solo se non contengono il
-    namespace completo come nome del file. Questa è una scelta di design: il ``SymfonyFileLocator``
+    troverà file XML e YML solo se non contengono lo spazio
+    dei nomi completo come nome del file. Questa è una scelta progettuale: il ``SymfonyFileLocator``
     semplifica le cose assumendo che i file usino semplicemente una versione "corta"
-    della classe come nome del file (ad es. ``BlogPost.orm.xml``)
+    della classe come nome del file (p.e. ``BlogPost.orm.xml``)
 
-    Se serve anche di mappare una classe di base, si può registrare lo step di compilazione
-    con il ``DefaultFileLocator`` come si vede qui. Questo codice è stato semplicemente preso dal
+    Se occorre anche mappare una classe di base, si può registrare il passo di compilatore
+    con il ``DefaultFileLocator``, come si vede qui. Questo codice è stato semplicemente preso dal
     ``DoctrineOrmMappingsPass`` e adattato per usare il ``DefaultFileLocator``
     al posto del ``SymfonyFileLocator``::
 
@@ -138,12 +138,12 @@ Annotazioni, XML, Yaml, PHP and StaticPHP. Gli argomenti sono:
             );
         }
 
-    Ora si piazzi il file di mapping dentro a ``/Resources/config/doctrine-base`` con il
-    FQCN, separato da ``.`` al posto di ``\``, ad esempio
-    ``Other.Namespace.Model.Name.orm.xml``. Non si possono mischiare i due  in quanto altrimenti
+    Ora si metta il file di mappatura dentro a ``/Resources/config/doctrine-base`` con il nome
+    completo della classe, separato da ``.`` al posto di ``\``, per esempio
+    ``Altro.SpazioDeiNomi.Nome.Modello.orm.xml``. Non si possono mischiare i due, in quanto altrimenti
     il SymfonyFileLocator si confonde.
 
-    Adattate in ragione delle altre implementazioni di Doctrine.
+    Adattare in ragione delle altre implementazioni di Doctrine.
 
-.. _`CouchDB Mapping Compiler Pass pull request`: https://github.com/doctrine/DoctrineCouchDBBundle/pull/27
-.. _`FOSUserBundle mapping configuration`: https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/FOSUserBundle.php
+.. _`pull request CouchDB Mapping Compiler Pass`: https://github.com/doctrine/DoctrineCouchDBBundle/pull/27
+.. _`configurazione della mappatura di FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/FOSUserBundle.php

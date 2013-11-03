@@ -107,6 +107,14 @@ l'oggetto.
 Si possono combinare questi gestori con altri gestori, in modo che gli errori siano
 comunque loggati sul server, oltre che inviati per email:
 
+.. caution::
+
+    L'impostazione predefinita dello spool per swiftmailer è ``memory``, che vuol
+    dire che le email sono inviate a fine richiesta. Tuttavia, non
+    funziona attualmente con log in buffer. Per abilitare i log via email
+    nell'esempio, occorre commentare la riga ``spool: { type: memory }``
+    nel file ``config.yml``.
+
 .. configuration-block::
 
     .. code-block:: yaml

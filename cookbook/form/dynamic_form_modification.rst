@@ -1,8 +1,8 @@
 .. index::
    single: Form; Eventi
 
-Come modificare dinamicamente form usando gli eventi
-====================================================
+Modificare dinamicamente form usando gli eventi
+===============================================
 
 Capita spesso che non un form non possa essere creato staticamente. In questa ricetta
 vedremo come personalizzare un form, in base a tre casi d'uso.

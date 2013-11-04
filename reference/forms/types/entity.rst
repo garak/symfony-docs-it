@@ -73,6 +73,22 @@ Se occorre specificare una query personalizzata da usare per recuperare le entit
         },
     ));
 
+.. _reference-forms-entity-choices:
+
+Usare Choices
+~~~~~~~~~~~~~
+
+Se si dispone già della collezione di entità che si vuole includere
+nell'elemento choice, si può semplicemente passarla tramite l'opzione ``choices``.
+Per esempio, se si ha una variabile ``$group`` (magari passata
+come opzione del form) e ``getUsers`` restitusice una collezione di entità ``User``,
+si può fornire direttamente l'opzione ``choices``::
+
+    $builder->add('users', 'entity', array(
+        'class' => 'AcmeHelloBundle:User',
+        'choices' => $group->getUsers(),
+    ));
+
 .. include:: /reference/forms/types/options/select_how_rendered.rst.inc
 
 Opzioni del campo
@@ -132,15 +148,21 @@ Opzioni ridefinite
 choices
 ~~~~~~~
 
-**predefinito**: ``null``
+**tipo**:  array || ``\Traversable`` **predefinito**: ``null``
+
+Invece di lasciare che `class`_ e `query_builder`_ recuperino le
+entità da inserire, si può passare direttamente l'opzione ``choices``.
+Vedere :ref:`reference-forms-entity-choices`.
 
 choice_list
 ~~~~~~~~~~~
 
-**predefinito**: tutte le entità scelte
+**predefinito**: :class:`Symfony\\Bridge\\Doctrine\\Form\\ChoiceList\\EntityChoiceList`
 
-Tutte le entità scelte con una delle opzioni documentate
-in precedenza.
+Lo scopo del tipo ``entity`` è creare e configurare ``EntityChoiceList``,
+usando una delle opzioni precedenti. Se occorre sovrascrivere questa
+opzione, si può prendere in considerazione l'uso diretto di :doc:`/reference/forms/types/choice`.
+
 
 Opzioni ereditate
 -----------------

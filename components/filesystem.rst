@@ -229,11 +229,11 @@ isAbsolutePath
     // restituisce false
     $fs->isAbsolutePath('../dir');
 
-.. versionadded:: 2.3
-    ``dumpFile`` è nuovo in Symfony 2.3
-
 dumpFile
 ~~~~~~~~
+
+.. versionadded:: 2.3
+    ``dumpFile`` è nuovo in Symfony 2.3
 
 :method:`Symfony\\Component\\Filesystem\\Filesystem::dumpFile` consente di
 esportare contenuti in un file. Lo fa in maniera atomica: scrive prima un file

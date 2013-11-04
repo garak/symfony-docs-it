@@ -50,6 +50,19 @@ la seguente configurazione:
 
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+.. caution::
+
+    In Apache 2.4, ``Order allow,deny`` è stato sostituito da ``Require all granted``,
+    quindi occorre modificare le impostazioni in questo modo:
+
+        .. code-block:: apache
+
+            <Directory /var/www/project/web>
+                # enable the .htaccess rewrites
+                AllowOverride All
+                Require all granted
+            </Directory>
+
 Nginx
 -----
 

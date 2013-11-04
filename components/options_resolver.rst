@@ -11,10 +11,10 @@ Il componente OptionsResolver
 Installazione
 -------------
 
-E' possibile installare i componente in due modi differenti:
+È possibile installare il componente in due modi differenti:
 
-* utilizzare il repository ufficiale Git (https://github.com/symfony/OptionsResolver
-* :doc:`installare il componente via Composer </components/using_components>` (``symfony/options-resolver`` su `Packagist`_)
+* :doc:`installarlo tramite Composer </components/using_components>` (``symfony/options-resolver`` su `Packagist`_)
+* utilizzare il repository ufficiale Git (https://github.com/symfony/OptionsResolver)
 
 Utilizzo
 --------
@@ -143,7 +143,7 @@ Opzioni Facoltative
 -------------------
 
 Qualche volta, un'opzione può essere facoltativa (per esempio l'opzione ``lastName`` nella classe
-``Person``). E' possibile configurare queste opzioni invocando
+``Person``). È possibile configurare queste opzioni invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setOptional`::
 
     // ...
@@ -243,8 +243,8 @@ set di valori consentiti.
 Configurare i Tipi consentiti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-E' possibile anche specificare i valori consentiti. Per esempio, l'opzione ``firstName`` può
-essere qualsiasi cosa, ma deve essere una stringa. E' possibile configurare questi tipi invocando
+È possibile anche specificare i valori consentiti. Per esempio, l'opzione ``firstName`` può
+essere qualsiasi cosa, ma deve essere una stringa. È possibile configurare questi tipi invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setAllowedTypes`::
 
     // ...
@@ -258,7 +258,7 @@ essere qualsiasi cosa, ma deve essere una stringa. E' possibile configurare ques
     }
 
 I possibili tipi sono quelli associati alle funzioni php ``is_*`` o al nome
-della classe. E' possibile passare anche un array di tipi come valore. Per esempio,
+della classe. È possibile passare anche un array di tipi come valore. Per esempio,
 ``array('null', 'string')`` consente a ``port`` di essere nullo o una stringa.
 
 Esiste anche un metodo

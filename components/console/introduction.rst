@@ -370,6 +370,7 @@ in grado di aiutare con diversi compiti:
 * :doc:`/components/console/helpers/dialoghelper`: chiede informazioni interattive all'utente
 * :doc:`/components/console/helpers/formatterhelper`: personalizza i colori dei testi
 * :doc:`/components/console/helpers/progresshelper`: mostra una barra di progressione
+* :doc:`/components/console/helpers/tablehelper`: mostra dati in una tabella
 
 Testare i comandi
 -----------------

@@ -180,7 +180,7 @@ del catalogo dei messaggi e la restituisce (se esiste).
 Segnaposto per i messaggi
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A volte, un messaggio contiene una variabile deve essere tradotta::
+A volte, un messaggio da tradurre contiene una variabile::
 
     // ...
     use Symfony\Component\HttpFoundation\Response;
@@ -194,7 +194,7 @@ A volte, un messaggio contiene una variabile deve essere tradotta::
 
 Tuttavia, la creazione di una traduzione per questa stringa è impossibile, poiché il traduttore
 proverà a cercare il messaggio esatto, includendo le parti con le variabili
-(per esempio "Ciao Ryan" o "Ciao Fabien"). Invece di scrivere una traduzione
+(per esempio "Hello Ryan" o "Hello Fabien"). Invece di scrivere una traduzione
 per ogni possibile iterazione della variabile ``$name``, si può sostituire la
 variabile con un "segnaposto"::
 
@@ -246,17 +246,17 @@ viene fatta esattamente come prima:
 
 .. note::
 
-    Il segnaposto può assumere qualsiasi forma visto che il messaggio è ricostruito
+    Il segnaposto può assumere qualsiasi forma, visto che il messaggio è ricostruito
     utilizzando la `funzione strtr`_ di PHP. Tuttavia, la notazione ``%var%`` è
     obbligatoria quando si traduce nei template Twig e in generale è una 
     convenzione che è consigliato seguire.
 
 Come si è visto, la creazione di una traduzione è un processo in due fasi:
 
-#. Astrarre il messaggio che si deve tradurre, processandolo tramite il
-   ``Translator``.
+#. Astrarre il messaggio che si deve tradurre, processandolo tramite
+   il ``Translator``.
 
-#. Creare una traduzione per il messaggio in ogni locale che si desideri
+#. Creare una traduzione per il messaggio in ogni locale che si vuole
    supportare.
 
 Il secondo passo si esegue creando cataloghi di messaggi, che definiscono le traduzioni

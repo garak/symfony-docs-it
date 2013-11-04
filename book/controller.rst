@@ -728,7 +728,7 @@ il messaggio ``notice``:
         <?php endforeach; ?>
 
 Per come sono stati progettati, i messaggi flash sono destinati a vivere esattamente per una richiesta (hanno la
-"durata di un flash"). Sono progettati per essere utilizzati in redirect esattamente come
+"durata di un flash"). Sono progettati per essere utilizzati con un rinvio, esattamente come
 è stato fatto in questo esempio.
 
 .. index::
@@ -739,7 +739,7 @@ L'oggetto Response
 
 L'unico requisito per un controllore è restituire un oggetto ``Response``. La
 classe :class:`Symfony\\Component\\HttpFoundation\\Response` è una astrazione PHP
-sulla risposta HTTP - il messaggio testuale che contiene gli header HTTP
+sulla risposta HTTP, il messaggio testuale che contiene gli header HTTP
 e il contenuto che viene inviato al client::
 
     use Symfony\Component\HttpFoundation\Response;

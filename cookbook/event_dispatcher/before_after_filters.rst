@@ -1,8 +1,8 @@
 .. index::
    single: Event Dispatcher
 
-Come impostare filtri prima e dopo
-==================================
+Impostare filtri prima e dopo
+=============================
 
 È molto comune, durante lo sviluppo di un'applicazione web, aver bisogno di eseguire un
 po' di logica subito prima o subito dopo che l'azione di un controllore abbia agito da

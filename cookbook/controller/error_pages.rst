@@ -2,8 +2,8 @@
    single: Controllore; Personalizzare le pagine di errore
    single: Pagine di errore
 
-Come personalizzare le pagine di errore
-=======================================
+Personalizzare le pagine di errore
+==================================
 
 Quando in Symfony2 viene lanciata una qualsiasi eccezione, l'eccezione viene catturata all'interno
 della classe ``Kernel`` ed eventualmente inoltrata a un controllore speciale,
@@ -14,7 +14,7 @@ il codice di stato che dovrebbe essere impostato per la data eccezione.
 Le pagine di errore possono essere personalizzate in due diversi modi, a seconda di quanto
 controllo si vuole avere:
 
-1. Personalizzare i template di errore delle diverse pagine di errore (spiegato qua sotto);
+1. Personalizzare i template di errore delle diverse pagine di errore (spiegato più avanti);
 
 2. Sostituire il controllore predefinito delle eccezioni ``TwigBundle::Exception:show``
    con il proprio controllore e gestirlo come si vuole (vedere

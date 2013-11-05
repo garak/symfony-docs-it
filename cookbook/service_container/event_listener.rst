@@ -1,8 +1,8 @@
 .. index::
    single: Eventi; Creare un ascoltatore
 
-Come creare un ascoltatore di eventi
-====================================
+Creare un ascoltatore di eventi
+===============================
 
 Symfony dispone di vari eventi e agganci, che si possono usare per far scattare comportamenti
 personalizzati in un'applicazione. Questi eventi sono lanciati dal componente HttpKernel 

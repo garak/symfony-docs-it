@@ -1,8 +1,8 @@
 .. index::
    single: Dispatcher di eventi
 
-Come personalizzare il comportamento di un metodo senza usare l'ereditarietà
-============================================================================
+Personalizzare il comportamento di un metodo senza usare l'ereditarietà
+=======================================================================
 
 Fare qualcosa prima o dopo la chiamata a un metodo
 --------------------------------------------------

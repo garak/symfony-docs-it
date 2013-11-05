@@ -92,12 +92,12 @@ adattata al proprio caso::
         }
     }
 
-Si noti il controllo :phpfunction:`class_exists`. Questo è cruciale, in quanto non di vuole  che il proprio
-bundle abbia una dipendenza diretta verso tutti i bundle Doctrine, ma si vuole lasciare che sia l'utente
+Si noti il controllo :phpfunction:`class_exists`. Questo è cruciale, in quanto non si vuole che un
+bundle abbia una dipendenza diretta verso tutti i bundle di Doctrine, ma si vuole lasciare che sia l'utente
 a decidere quale usare.
 
 Il passo di compilatore fornisce metodi factory per tutti i driver forniti da Doctrine:
-Annotazioni, XML, Yaml, PHP and StaticPHP. I parametri sono:
+Annotazioni, XML, Yaml, PHP e StaticPHP. I parametri sono:
 
 * una mappa/hash dei percorsi assoluti dello spazio dei nomi;
 * un array di parametri del contenitore che il bundle usa per specificare il nome del
@@ -140,7 +140,7 @@ Annotazioni, XML, Yaml, PHP and StaticPHP. I parametri sono:
 
     Ora si metta il file di mappatura dentro a ``/Resources/config/doctrine-base`` con il nome
     completo della classe, separato da ``.`` al posto di ``\``, per esempio
-    ``Altro.SpazioDeiNomi.Nome.Modello.orm.xml``. Non si possono mischiare i due, in quanto altrimenti
+    ``Altro.SpazioDeiNomi.Nome.Modello.orm.xml``. Non si possono mischiare i due, perché altrimenti
     il SymfonyFileLocator si confonde.
 
     Adattare in ragione delle altre implementazioni di Doctrine.

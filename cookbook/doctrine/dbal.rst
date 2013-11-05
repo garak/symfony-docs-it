@@ -1,12 +1,12 @@
 .. index::
    pair: Doctrine; DBAL
 
-Come usare il livello DBAL di Doctrine
-======================================
+Usare il livello DBAL di Doctrine
+=================================
 
 .. note::
 
-    Questo articolo riguarda il livello DBAL di Doctrine. Di solito si lavora con il livello
+    Questa ricetta riguarda il livello DBAL di Doctrine. Di solito si lavora con il livello
     dell'ORM di Doctrine, che è un livello più astratto e usa il DBAL dietro le
     quinte, per comunicare con la base dati. Per saperne di più sull'ORM
     di Docrine, si veda ":doc:`/book/doctrine`".

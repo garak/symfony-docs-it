@@ -1,19 +1,19 @@
 .. index::
    single: Doctrine; Gestori di entità multipli
 
-Come lavorare con gestori di entità multipli
-============================================
+Lavorare con gestori di entità multipli
+=======================================
 
 Si possono usare gestori di entità multipli in un'applicazione Symfony2.
 Questo si rende necessario quando si usano diverse basi dati o addirittura venditori
 con insiemi di entità completamente differenti. In altre parole, un gestore di entità
 che si connette a una base dati gestirà alcune entità, mentre un altro gestore di entità
-che si connette a un altra base dati potrebbe gestire il resto.
+che si connette a un'altra base dati potrebbe gestire il resto.
 
 .. note::
 
     L'uso di molti gestori di entità è facile, ma più avanzato e solitamente non
-    richiesto. Ci si assicuri di avere effettivamente bisogno di gestori di entità
+    richiesto. Assicurarsi di avere effettivamente bisogno di gestori di entità
     multipli, prima di aggiungere un tale livello di complessità.
 
 La configurazione seguente mostra come configurare due gestori di entità:

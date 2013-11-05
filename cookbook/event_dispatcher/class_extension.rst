@@ -1,8 +1,8 @@
 .. index::
    single: Dispatcher di eventi
 
-Come estendere una classe senza usare l'ereditarietà
-====================================================
+Estendere una classe senza usare l'ereditarietà
+===============================================
 
 Per consentire a molte classi di aggiungere metodi a un'altra classe, si può
 definire il metodo magico ``__call()`` nella classe che si vuole estendere, in questo modo:

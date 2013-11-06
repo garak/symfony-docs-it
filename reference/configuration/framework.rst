@@ -44,7 +44,7 @@ Configurazione
     * `assets_version_format`_
 * `profiler`_
     * `collect`_
-    * :ref:`enabled<profiler.enabled>`
+    * :ref:`enabled <profiler.enabled>`
 
 secret
 ~~~~~~
@@ -538,8 +538,8 @@ Configurazione predefinita completa
                 loaders:              []
                 packages:
 
-                    # Un insieme di nomi di pacchetti
-                    nome_di_un_pacchetto:
+                    # Prototipo
+                    nome:
                         version:              ~
                         version_format:       %%s?%%s
                         base_urls:

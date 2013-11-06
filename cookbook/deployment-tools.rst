@@ -93,7 +93,9 @@ fa normalmente:
 .. tip::
 
     L'opzione ``--optimize-autoloader`` rende l'autoloader di Composer più
-    performante, costruendo una "mappa di classi".
+    performante, costruendo una "mappa di classi". L'opzionoe ``--no-dev``
+    assicura che i pacchetti di sviluppo non siano installati in ambiente
+    di produzione.
 
 C) Pulire la cache di Symfony
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

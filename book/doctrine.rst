@@ -1441,12 +1441,19 @@ utilizzi. I seguenti tipi sono supportati in Doctrine:
   * ``date``
   * ``time``
   * ``datetime``
+  * ``datetimetz``
 
 * **Altri tipi**
 
   * ``boolean``
   * ``object`` (serializzato e memorizzato in un campo ``CLOB``)
   * ``array`` (serializzato e memorizzato in un campo ``CLOB``)
+  * ``blob`` (mappato sul flusso di una risorsa)
+  * ``simple_array`` (serializzato con :phpfunction:`implode()` e :phpfunction:`explode()`,
+    delimitato da virgola e memorizzato in un campo ``CLOB``)
+  * ``json_array`` (serializzato con :phpfunction:`json_encode()` e :phpfunction:`json_decode()`,
+    e memorizzato in un campo ``CLOB``)
+  * ``guid``
 
 Per maggiori informazioni, vedere `Documentazione sulla mappatura dei tipi`_.
 

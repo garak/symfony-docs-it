@@ -535,7 +535,7 @@ Fallback e locale predefinito
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Se il locale non è stato impostato in modo esplicito nella sessione, sarà
-utilizzato dal ``Translator`` il parametro di configurazione ``fallback_locale``. Il valore
+utilizzato dal ``Translator`` il parametro di configurazione ``fallback``. Il valore
 predefinito del parametro è ``en`` (vedere la `Configurazione`_).
 
 In alternativa, è possibile garantire che un locale è impostato sulla sessione dell'utente

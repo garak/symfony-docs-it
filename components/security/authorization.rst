@@ -29,6 +29,8 @@ Una decisione di autorizzazione sarà sempre basata su alcuni aspetti:
     Un oggetto per cui il controllo di accesso necessiti di essere verificato, come
     un oggetto articolo o un oggetto commento.
 
+.. _components-security-access-decision-manager:
+
 Gestore delle decisioni di accesso
 ----------------------------------
 
@@ -69,6 +71,11 @@ diverse strategie:
         $allowIfAllAbstainDecisions,
         $allowIfEqualGrantedDeniedDecisions
     );
+
+.. seealso::
+
+    Si può modificare la strategia predefinita nella
+    :ref:`configurazione <security-voters-change-strategy>`.
 
 Votanti
 -------

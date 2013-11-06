@@ -185,8 +185,8 @@ in un formato adatto a essere reso in un form HTML.
 
    Il sistema dei form è abbastanza intelligente da accedere al valore della proprietà
    protetta ``task`` attraverso i metodi ``getTask()`` e ``setTask()`` della
-   classe ``Task``. A meno che una proprietà non sia privata, *deve* avere un metodo
-   "getter" e uno "setter", in modo che il componente form possa ottenere e mettere dati nella
+   classe ``Task``. A meno che una proprietà non sia privata, *deve* avere un metodo "getter" e uno
+   "setter", in modo che il componente form possa ottenere e mettere dati nella
    proprietà. Per una proprietà booleana, è possibile utilizzare un metodo "isser" o "hasser"
    (per esempio ``isPublished()`` o ``hasReminder``) invece di un getter (per esempio
    ``getPublished()`` o ``getReminder()``).
@@ -1332,7 +1332,7 @@ dei campi ``Task`` originali:
 Quando l'utente invia il form, i dati inviati con i campi ``Category``
 sono utilizzati per costruire un'istanza di ``Category``, che viene poi impostata sul
 campo ``category`` dell'istanza ``Task``.
-    
+
 L'istanza ``Category`` è accessibile naturalmente attraverso ``$task->getCategory()``
 e può essere memorizzata nella base dati o utilizzata quando serve.
 
@@ -1412,7 +1412,7 @@ rende il form:
 
         {% form_theme form 'AcmeTaskBundle:Form:fields.html.twig' 'AcmeTaskBundle:Form:fields2.html.twig' %}
 
-        {{ form(form) }}
+        <!-- ... rendere il form -->
 
     .. code-block:: html+php
 
@@ -1421,7 +1421,7 @@ rende il form:
 
         <?php $view['form']->setTheme($form, array('AcmeTaskBundle:Form', 'AcmeTaskBundle:Form')) ?>
 
-        <?php echo $view['form']->form($form) ?>
+        <!-- ... rendere il form -->
 
 Il tag ``form_theme`` (in Twig) "importa" i frammenti definiti nel dato
 template e li usa quando deve rendere il form. In altre parole, quando la
@@ -1690,24 +1690,24 @@ Protezione da CSRF
 
 CSRF, o `Cross-site request forgery`_, è un metodo mediante il quale un utente
 malintenzionato cerca di fare inviare inconsapevolmente agli utenti legittimi dati che
-non intendono far conoscere. Fortunatamente, gli attacchi CSRF possono essere prevenuti
+non vorrebbero inviare. Fortunatamente, gli attacchi CSRF possono essere prevenuti,
 utilizzando un token CSRF all'interno dei form.
 
 La buona notizia è che, per impostazione predefinita, Symfony integra e convalida i token CSRF
 automaticamente. Questo significa che è possibile usufruire della protezione
-CSRF senza far nulla. Infatti, ogni form di questo capitolo
+CSRF, senza dover far nulla. Infatti, ogni form in questo capitolo
 sfrutta la protezione CSRF!
 
-La protezione CSRF funziona con l'aggiunta al form di un campo nascosto, chiamato per impostazione
-predefinita ``_token``, che contiene un valore che solo sviluppatore e utente conoscono. Questo
-garantisce che proprio l'utente, non qualcun altro, stia inviando i dati.
+La protezione CSRF funziona con l'aggiunta al form di un campo nascosto, il cui nome
+predefinito è ``_token``, che contiene un valore noto solo allo sviluppatore e all'utente. Questo
+garantisce che proprio l'utente, e non qualcun altro, stia inviando i dati.
 Symfony valida automaticamente la presenza e l'esattezza di questo token.
 
 Il campo ``_token`` è un campo nascosto e sarà reso automaticamente
-se si include la funzione ``form_rest()`` nel template, perché questa assicura
-che tutti i campi non resi vengano visualizzati.
+se si include la funzione ``form_end()`` nel template, perché questa assicura
+che tutti i campi non ancora resi vengano visualizzati.
 
-Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad esempio::
+Il token CSRF può essere personalizzato specificatamente per ciascun form. Per esempio::
 
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -1730,13 +1730,13 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Ad e
     }
 
 Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a ``false``.
-Le personalizzazioni possono essere fatte anche a livello globale nel progetto. Per ulteriori informazioni,
+Si può anche personalizzarei a livello globale nel progetto. Per ulteriori informazioni,
 vedere la sezione
 :ref:`riferimento della configurazione dei form <reference-framework-form>`.
 
 .. note::
 
-    L'opzione ``intention`` è opzionale, ma migliora notevolmente la sicurezza
+    L'opzione ``intention`` è facoltativa, ma migliora notevolmente la sicurezza
     del token generato, rendendolo diverso per ogni modulo.
 
 .. index:

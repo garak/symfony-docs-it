@@ -167,6 +167,8 @@ e assegnargli il tag "security.voter":
    vedere :ref:`service-container-imports-directive`. Per saperne di più sulla definizione
    di servizi in generale, vederre il capitolo :doc:`/book/service_container`.
 
+.. _security-voters-change-strategy:
+
 Cambiare la strategia decisionale per l'accesso
 -----------------------------------------------
 
@@ -212,3 +214,8 @@ configurazione dell'applicazione con il codice seguente.
 
 Ecco fatto! Ora, nella decisione sull'accesso di un utente, il nuovo votante negherà
 l'accesso a ogni utente nella lista nera degli IP.
+
+.. seealso::
+
+    Per un uno avanzato, vedere
+    :ref:`components-security-access-decision-manager`.

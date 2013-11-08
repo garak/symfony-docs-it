@@ -208,7 +208,7 @@ Installare le estensioni di Sphinx
     # usa PHP come dominio primario
     primary_domain = 'php'
 
-    # imposta url per collegamenti alle API
+    # imposta URL per collegamenti alle API
     api_url = 'http://api.symfony.com/master/%s'
 
 .. _reStructuredText:        http://docutils.sourceforge.net/rst.html

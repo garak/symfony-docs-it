@@ -286,7 +286,7 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 
 .. tip::
     
-    Per ottenere url brevi, si dovrebbe far puntare la cartella radice del
+    Per ottenere URL brevi, si dovrebbe far puntare la cartella radice del
     server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
     non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui
     l'applicazione va in produzione, perché tutti i file di sistema e di configurazione

@@ -17,6 +17,7 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `date_widget`_                                                            |
 |                          | - `time_widget`_                                                            |
+|                          | - `widget`_                                                                 |
 |                          | - `input`_                                                                  |
 |                          | - `date_format`_                                                            |
 |                          | - `hours`_                                                                  |
@@ -59,6 +60,15 @@ time_widget
 
 Definisce l'opzione ``widget`` per il tipo :doc:`time</reference/forms/types/time>`
 
+widget
+~~~~~~
+
+**tipo**: ``string`` **predefinito**: ``null``
+
+Definisce l'opzione ``widget`` sia per il tipo :doc:`date </reference/forms/types/date>`
+che per il tipo :doc:`time </reference/forms/types/time>`. Può essere ridefinito con
+le opzioni `date_widget`_ e `time_widget`_.
+
 input
 ~~~~~
 
@@ -83,7 +93,7 @@ date_format
 **tipo**: ``intero`` o ``stringa`` **predefinito**: ``IntlDateFormatter::MEDIUM``
 
 Definisce l'opzione ``format`` che sarà passata al campo date.
-Vedere le :ref:`opzioni per il formato date<reference-forms-type-date-format>`
+Vedere le :ref:`opzioni per il formato date <reference-forms-type-date-format>`
 per maggiori dettagli.
 
 .. include:: /reference/forms/types/options/hours.rst.inc
@@ -109,7 +119,7 @@ per maggiori dettagli.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

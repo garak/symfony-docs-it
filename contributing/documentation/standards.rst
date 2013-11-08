@@ -81,21 +81,21 @@ Esempio
 
 .. code-block:: php
 
-    // src/Foo/Bar.php
+    // src/Pippo/Pluto.php
 
     // ...
-    class Bar
+    class Pluto
     {
         // ...
 
-        public function foo($bar)
+        public function pippo($pluto)
         {
-            // set foo with a value of bar
-            $foo = ...;
+            // imposta pippo con il valore di pluto
+            $pippo = ...;
 
-            // ... check if $bar has the correct value
+            // ... verifica se $pluto ha il valore corretto
 
-            return $foo->baz($bar, ...);
+            return $pippo->paperino($pluto, ...);
         }
     }
 

@@ -10,9 +10,9 @@ nomi di dominio. Questo vuol dire che, se si generano URL assoluti da un comando
 da console, probabilmente si otterrà qualcosa come ``http://localhost/pippo/pluto``,
 il che non è molto utile.
 
-Per risolvere il problema, bisogna configrare il "contesto della richiesta", che un modo
-particolare per dire che occorre configurare il proprio ambiente, in modo tale che sappia
-quale URL va usata per la generazione.
+Per risolvere il problema, bisogna configrare il "contesto della richiesta", che è un modo
+particolare per dire che occorre configurare l'ambiente, in modo tale che sappia
+quale URL vada usato per la generazione.
 
 Ci sono due modi per configurare il contesto della richiesta: a livello di applicazione
 o per comando.

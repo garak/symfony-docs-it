@@ -94,14 +94,14 @@ nel trattamento del codice javascript:
 .. note::
 
     Il percorso di installazione di UglifyJs può essere differente a seconda del sistema utilizzato.
-    Per scoprire dove npm salvi la propria cartella ``bin`` è possibile eseguire
-    il seguente comando:
+    Per scoprire dove npm salvi la sua cartella ``bin``, si può usare il seguente
+    comando:
 
     .. code-block:: bash
 
         $ npm bin -g
 
-    Questo comando dovrebbe mostrare la cartella, all'interno del proprio sistema, 
+    Questo comando dovrebbe mostrare la cartella, all'interno del sistema, 
     nella quale risiede l'eseguibile di UglifyJs.
 
     Se si è installato UglifyJs localmente, la cartella bin si troverà

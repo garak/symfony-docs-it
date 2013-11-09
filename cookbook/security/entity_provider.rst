@@ -189,7 +189,7 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
 
     L'interfaccia :phpclass:`Serializable` e i suoi metodi ``serialize`` e ``unserialize``
     sono stati aggiunti per consentire alla classe ``User`` di essere serializzata
-    nella sessione. Questo potrebbe essere necessario o meno, a seconda della propria configurazione,
+    nella sessione. Questo potrebbe essere necessario o meno, a seconda della configurazione,
     ma probabilmente è una buona idea. Solo ``id`` ha bisogno di essere serializzato,
     perché il metodo :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
     ricarica l'utente a ogni richiesta, usando ``id``.

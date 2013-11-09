@@ -12,15 +12,15 @@ e i template ci sono ancora tutti.
 
 In questo capitolo analizzeremo le differenze tra symfony1 e Symfony2.
 Come vedremo, diverse cose sono implementate in modo un po' diverso. Si imparerà
-ad apprezzare tali differenze, in quanto esse promuovono nella propria
-applicazione Symfony2 un codice stabile, prevedibile, testabile e disaccoppiato.
+ad apprezzare tali differenze, in quanto esse promuovono in
+un'applicazione Symfony2 un codice stabile, prevedibile, testabile e disaccoppiato.
 
 Prendiamoci dunque un po' di relax, per andare da "allora" ad "adesso".
 
 Struttura delle cartelle
 ------------------------
 
-Guardando a un progetto Symfony2, per esempio `Symfony2 Standard`_, si noterà
+Guardando un progetto Symfony2, per esempio `Symfony2 Standard`_, si noterà
 una struttura di cartelle molto diversa rispetto a symfony1. Le differenze, tuttavia,
 sono in qualche modo superficiali.
 
@@ -43,12 +43,12 @@ Invece, è semplicemente il posto in cui risiedono la configurazione e altre ris
 La cartella ``src/``
 ~~~~~~~~~~~~~~~~~~~~
 
-Semplicemente, il proprio codice va messo qui. In Symfony, tutto il codice relativo
+Semplicemente, il codice va messo qui. In Symfony, tutto il codice relativo
 alle applicazioni risiede in un bundle (pressappoco equivalente a un plugin di symfony1)
 e ogni bundle risiede, per impostazione predefinita, nella cartella ``src``. In questo
 modo, la cartella ``src`` è un po' come la cartella ``plugins`` di symfony1, ma molto
 più flessibile. Inoltre, mentre i *propri* bundle risiedono nella cartella ``src``, i
-bundle di terze parti risiederaano nella cartella ``vendor/``.
+bundle di terze parti risiederanno nella cartella ``vendor/``.
 
 Per avere un quadro più completo della cartella ``src/``, pensiamo a un'applicazione
 symfony1. Innanzitutto, parte del codice probabilmente risiede in una o più
@@ -117,7 +117,7 @@ conteneva ciascuna classe. Nell'ambiente di produzione, questo causava la necess
 di dover pulire la cache quando una classe veniva aggiunta o spostata.
 
 In Symfony2, uno strumento chiamato `Composer`_ gestisce questo processo.
-L'idea dietro all'autoloader è semplice: il nome della propria classe (incluso lo
+L'idea dietro all'autoloader è semplice: il nome di una classe (incluso lo
 spazio dei nomi) deve corrispondere al percorso del file che contiene tale classe.
 Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di
 Symfony2::
@@ -328,10 +328,10 @@ lasciato allo sviluppatore il compito di usarle nell'applicazione:
 
 .. code-block:: yaml
 
-    # un file app.yml da symfony1
+    # un file app.yml di symfony1
     all:
       email:
-        from_address:  foo.bar@example.com
+        from_address:  pippo.pluto@example.com
 
 In Symfony2, si possono anche creare voci arbitrarie sotto la voce ``parameters``
 della configurazione:
@@ -341,17 +341,17 @@ della configurazione:
     .. code-block:: yaml
 
         parameters:
-            email.from_address: foo.bar@example.com
+            email.from_address: pippo.pluto@example.com
 
     .. code-block:: xml
 
         <parameters>
-            <parameter key="email.from_address">foo.bar@example.com</parameter>
+            <parameter key="email.from_address">pippo.pluto@example.com</parameter>
         </parameters>
 
     .. code-block:: php
 
-        $container->setParameter('email.from_address', 'foo.bar@example.com');
+        $container->setParameter('email.from_address', 'pippo.pluto@example.com');
 
 Si può ora accedervi da un controllore, per esempio::
 
@@ -361,7 +361,7 @@ Si può ora accedervi da un controllore, per esempio::
     }
 
 In realtà, la configurazione di Symfony2 è molto più potente ed è usata principalmente
-per configurare oggetti da usare. Per maggiori informazioni, vedere il capitolo
+per configurare oggetti da poter usare. Per maggiori informazioni, vedere il capitolo
 intitolato ":doc:`/book/service_container`".
 
 .. _`Composer`: http://getcomposer.org

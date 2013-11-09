@@ -4,8 +4,8 @@
 Ottimizzare l'ambiente di sviluppo per il debug
 ===============================================
 
-Lavorando a un progetto Symfony sulla propria macchina locale, si dovrebbe 
-utilizzare l'ambiente ``dev`` (il front controller ``app_dev.php``). La configurazione 
+Lavorando a un progetto Symfony su una macchina locale, si dovrebbe usare l'ambiente
+``dev`` (il front controller ``app_dev.php``). La configurazione 
 di questo ambiente è ottimizzata per due scopi principali:
 
  * Dare accurate informazioni al programmatore quando qualcosa non funziona (barra
@@ -55,7 +55,7 @@ la dichirazione del require, nel seguente modo::
 
 .. tip::
 
-    Una volta disabilitata la cache delle classi PHP, non bisogna dimenticare di riabilitarla 
+    Se si disabilita la cache delle classi PHP, non dimenticare di riabilitarla 
     alla fine della sessione di debug.
 
 Alcuni IDE non gradiscono il fatto che certe classi siano salvate in posti differenti. 

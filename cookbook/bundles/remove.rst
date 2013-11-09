@@ -63,7 +63,7 @@ file di configurazione.
 
 ``AcmeDemoBundle`` non ha configurazioni. Tuttavia, il bundle viene usato
 nella configurazione del file ``app/config/security.yml``. Lo si può
-usare come base per la propria sicurezza, ma si **può** anche rimuovere
+usare come base per la sicurezza, ma si **può** anche rimuovere
 tutto: a Symfony non importa se lo si rimuove o meno.
 
 3. Rimuovere il bundle dal filesystem

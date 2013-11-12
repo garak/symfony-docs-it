@@ -59,14 +59,14 @@ come se fosse un normale JavaScript:
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee' filter='coffee' %}
+        {% javascripts '@AcmePippoBundle/Resources/public/js/esempio.coffee' filter='coffee' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmeFooBundle/Resources/public/js/esempio.coffee'),
+            array('@AcmePippoBundle/Resources/public/js/esempio.coffee'),
             array('coffee')
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
@@ -84,8 +84,8 @@ Filtrare file multpili
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
-                       '@AcmeFooBundle/Resources/public/js/altro.coffee'
+        {% javascripts '@AcmePippoBundle/Resources/public/js/esempio.coffee'
+                       '@AcmePippoBundle/Resources/public/js/altro.coffee'
             filter='coffee' %}
             <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
@@ -94,8 +94,8 @@ Filtrare file multpili
 
         <?php foreach ($view['assetic']->javascripts(
             array(
-                '@AcmeFooBundle/Resources/public/js/esempio.coffee',
-                '@AcmeFooBundle/Resources/public/js/altro.coffee',
+                '@AcmePippoBundle/Resources/public/js/esempio.coffee',
+                '@AcmePippoBundle/Resources/public/js/altro.coffee',
             ),
             array('coffee')
         ) as $url): ?>
@@ -170,9 +170,9 @@ dal filtro CoffeeScript):
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmeFooBundle/Resources/public/js/esempio.coffee'
-                       '@AcmeFooBundle/Resources/public/js/altro.coffee'
-                       '@AcmeFooBundle/Resources/public/js/regolare.js' %}
+        {% javascripts '@AcmePippoBundle/Resources/public/js/esempio.coffee'
+                       '@AcmePippoBundle/Resources/public/js/altro.coffee'
+                       '@AcmePippoBundle/Resources/public/js/regolare.js' %}
             <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
 
@@ -180,9 +180,9 @@ dal filtro CoffeeScript):
 
         <?php foreach ($view['assetic']->javascripts(
             array(
-                '@AcmeFooBundle/Resources/public/js/esempio.coffee',
-                '@AcmeFooBundle/Resources/public/js/altro.coffee',
-                '@AcmeFooBundle/Resources/public/js/regolare.js',
+                '@AcmePippoBundle/Resources/public/js/esempio.coffee',
+                '@AcmePippoBundle/Resources/public/js/altro.coffee',
+                '@AcmePippoBundle/Resources/public/js/regolare.js',
             )
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>

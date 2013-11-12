@@ -8,7 +8,7 @@ Registrare ascoltatori e sottoscrittori di eventi
 
 Doctrine include un ricco sistema di eventi, lanciati quasi ogni volta che accade
 qualcosa nel sistema. Per lo sviluppatore, significa la possibilità di creare
-:doc:`servizi</book/service_container>` arbitrari e dire a Doctrine di notificare
+:doc:`servizi </book/service_container>` arbitrari e dire a Doctrine di notificare
 questi oggetti ogni volta che accade una certa azione (p.e. ``prePersist``).
 Questo può essere utile, per esempio, per creare un indice di ricerca indipendente
 ogni volta che un oggetto viene salvato nella base dati.
@@ -23,7 +23,7 @@ Configurare ascoltatori e sottoscrittori
 ----------------------------------------
 
 Per registrare un servizio come ascoltatore o sottoscrittore di eventi, basta assegnarli
-il :ref:`tag<book-service-container-tags>` appropriato. A seconda del caso,
+il :ref:`tag <book-service-container-tags>` appropriato. A seconda del caso,
 si può agganciare un ascoltatore a ogni connessione DBAL o gestore di entità
 dell'ORM, oppure solo a una specifica connessione DBAL e a tutti i gestori di entità
 che usano tale connessione.
@@ -124,22 +124,22 @@ Nell'esempio precedente, è stato configurato un servizio ``my.listener`` come a
 dell'evento ``postPersist``. La classe dietro al servizio deve avere un metodo
 ``postPersist``, che sarà richiamato al lancio dell'evento::
 
-    // src/Acme/SearchBundle/Listener/SearchIndexer.php
-    namespace Acme\SearchBundle\Listener;
-    
+    // src/Acme/SearchBundle/EventListener/SearchIndexer.php
+    namespace Acme\SearchBundle\EventListener;
+
     use Doctrine\ORM\Event\LifecycleEventArgs;
     use Acme\StoreBundle\Entity\Product;
-    
+
     class SearchIndexer
     {
         public function postPersist(LifecycleEventArgs $args)
         {
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
-            
+
             // si potrebbe voler fare qualcosa su un'entità Product
             if ($entity instanceof Product) {
-                // fare qualcosa con l'oggetto Product
+                // ... fare qualcosa con l'oggetto Product
             }
         }
     }
@@ -202,7 +202,7 @@ e avere un metodo per ogni evento sottoscritto::
 
 .. tip::
 
-    I sottoscrittori di eventi Doctrine non possono restituire un array flessibile di metodi daDoctrine event subscribers can not return a flexible array of methods to
+    I sottoscrittori di eventi Doctrine non possono restituire un array flessibile di metodi da
     richiamare per gli eventi, come invece possono fare i :ref:`sottoscrittore di eventi Symfony <event_dispatcher-using-event-subscribers>`.
     I sottoscrittori di eventi Doctrine devono restituire un semplice array di nomi di eventi
     sottoscritti. Doctrine quindi si aspetterà metodi del sottoscrittore

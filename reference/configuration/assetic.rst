@@ -12,19 +12,19 @@ Configurazione predefinita completa
     .. code-block:: yaml
 
         assetic:
-            debug:                %kernel.debug%
+            debug:                "%kernel.debug%"
             use_controller:
-                enabled:              %kernel.debug%
+                enabled:              "%kernel.debug%"
                 profiler:             false
-            read_from:            %kernel.root_dir%/../web
-            write_to:             %assetic.read_from%
+            read_from:            "%kernel.root_dir%/../web"
+            write_to:             "%assetic.read_from%"
             java:                 /usr/bin/java
             node:                 /usr/bin/node
             ruby:                 /usr/bin/ruby
             sass:                 /usr/bin/sass
             # Una coppia chiave-valore di un numero di elementi
             variables:
-                some_name:                 []
+                un_nome:                 []
             bundles:
 
                 # Predefiniti (tutti i bundle attualmente registrati):
@@ -38,20 +38,20 @@ Configurazione predefinita completa
                 - ...
             assets:
                 # Un array di risorse (p.e. una_risorsa, un_altra_risorsa)
-                some_asset:
+                una_risorsa:
                     inputs:               []
                     filters:              []
                     options:
                         # Un array chiave-valore di opzioni e valori
-                        some_option_name: []
+                        una_opzione: []
             filters:
 
                 # Un array di filtri (p.e. un_filtro, un_altro_filtro)
-                some_filter:                 []
+                un_filtro:                []
             twig:
                 functions:
                     # Un array di funzioni (p.e. una_funzione, un_altra_funzione)
-                    some_function:                 []
+                    una_funzione:         []
 
     .. code-block:: xml
 

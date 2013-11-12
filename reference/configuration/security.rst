@@ -65,38 +65,38 @@ Ogni parte sarà spiegata nella prossima sezione.
 
                 # Opzioni/valori di esempio di come potrebbe essere un encoder personalizzato
                 Acme\DemoBundle\Entity\User3:
-                    id:                   my.encoder.id
+                    id:                   id.codificatore
 
             providers:            # Obbligatorio
                 # Esempi:
-                my_in_memory_provider:
+                fornitore_memoria:
                     memory:
                         users:
-                            foo:
-                                password:           foo
+                            pippo:
+                                password:           pippo
                                 roles:              ROLE_USER
-                            bar:
-                                password:           bar
+                            pluto:
+                                password:           pluto
                                 roles:              [ROLE_USER, ROLE_ADMIN]
 
-                my_entity_provider:
+                fornitore_entita:
                     entity:
                         class:              SecurityBundle:User
                         property:           username
                         manager_name:       ~
 
                 # Esempio di fornitore personalizzato
-                my_some_custom_provider:
+                fornitore_personalizzato:
                     id:                   ~
 
                 # Concatena alcuni fornitori
-                my_chain_provider:
+                catena_fornitori:
                     chain:
-                        providers:          [ my_in_memory_provider, my_entity_provider ]
+                        providers:          [ fornitore_memoria, fornitore_entita ]
 
             firewalls:            # Obbligatorio
                 # Esempi:
-                somename:
+                nome:
                     pattern: .*
                     request_matcher: id.di.un.servizio
                     access_denied_url: /pippo/error403
@@ -143,7 +143,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                         # opzioni token csrf
                         csrf_parameter: _csrf_token
                         intention:      authenticate
-                        csrf_provider:  my.csrf_provider.id
+                        csrf_provider:  id.fornitore_crsf
 
                         # il login deve essere in POST, non in GET
                         post_only:      true
@@ -213,7 +213,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                 requires_channel:     ~
 
                 # usare il formato urldecoded
-                path:                 ~ # Esempio: ^/percorso della risorsa/
+                path:                 ~ # Esempio: ^/percorso_della_risorsa/
                 host:                 ~
                 ip:                   ~
                 methods:              []
@@ -397,21 +397,21 @@ più firewall, il "contesto" può essere effettivamente condiviso:
             # ...
 
             firewalls:
-                somename:
+                nome:
                     # ...
-                    context: my_context
-                othername:
+                    context: contesto
+                altronome:
                     # ...
-                    context: my_context
+                    context: contesto
 
     .. code-block:: xml
 
        <!-- app/config/security.xml -->
        <security:config>
-          <firewall name="somename" context="my_context">
+          <firewall name="nome" context="contesto">
             <! ... ->
           </firewall>
-          <firewall name="othername" context="my_context">
+          <firewall name="altronome" context="contesto">
             <! ... ->
           </firewall>
        </security:config>
@@ -421,13 +421,13 @@ più firewall, il "contesto" può essere effettivamente condiviso:
        // app/config/security.php
        $container->loadFromExtension('security', array(
             'firewalls' => array(
-                'somename' => array(
+                'nome' => array(
                     // ...
-                    'context' => 'my_context'
+                    'context' => 'contesto'
                 ),
-                'othername' => array(
+                'altronome' => array(
                     // ...
-                    'context' => 'my_context'
+                    'context' => 'contesto'
                 ),
             ),
        ));

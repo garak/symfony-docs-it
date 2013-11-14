@@ -322,8 +322,8 @@ piccolo "template", che contiene il codice HTML necessario a rendere qualsiasi n
 
     L'elemento ``form.tags.get('prototype')`` è un elemento del form che assomiglia molto
     ai singoli elementi ``form_widget(tag)`` dentro a un ciclo ``for``.
-    Questo vuol dire che si può richiamare su di esso ``form_widget``, ``form_row`` o
-    ``form_label``. Si può anche scegliere di rendere solo uno dei suoi campi (p.e. il
+    Questo vuol dire che si può richiamare su di esso ``form_widget``, ``form_row`` o ``form_label``.
+    Si può anche scegliere di rendere solo uno dei suoi campi (p.e. il
     campo ``name``):
 
     .. code-block:: html+jinja
@@ -349,27 +349,29 @@ collegare l'evento "click" a tale collegamento, in modo da poter aggiungere un n
 
 .. code-block:: javascript
 
-    // Prende il div che contiene la lista di tag
-    var collectionHolder = $('ul.tags');
+    var $collectionHolder;
 
     // prepara un collegamento "aggiungere un tag"
     var $addTagLink = $('<a href="#" class="add_tag_link">Aggiungere un tag</a>');
     var $newLinkLi = $('<li></li>').append($addTagLink);
 
     jQuery(document).ready(function() {
-        // aggiunge l'ancora "aggiungere un tag" e il li all'ul dei tag
-        collectionHolder.append($newLinkLi);
+        // Prende l'ul che contiene la lista di tag
+        $collectionHolder = $('ul.tags');
 
-        // contare gli input correnti (p.e. 2), usare il valore come nuovo
-        // indice da usare per inserire un nuovo elemento (p.e. 2)
-        collectionHolder.data('index', collectionHolder.find(':input').length);
+        // aggiunge l'ancora "aggiungere un tag" e il li all'ul dei tag
+        $collectionHolder.append($newLinkLi);
+
+        // conta gli input correnti (p.e. 2), usando il valore come nuovo
+        // indice per inserire un nuovo elemento (p.e. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
         $addTagLink.on('click', function(e) {
             // previene il "#" nell'URL
             e.preventDefault();
 
             // aggiunge un nuovo form tag (vedere il prossimo blocco di codice)
-            addTagForm(collectionHolder, $newLinkLi);
+            addTagForm($collectionHolder, $newLinkLi);
         });
     });
 
@@ -386,17 +388,17 @@ un esempio:
 
     function addTagForm() {
         // Prende data-prototype, come spiegato in precedenza
-        var prototype = collectionHolder.data('prototype');
+        var prototype = $collectionHolder.data('prototype');
 
         // prende il nuov indice
-        var index = collectionHolder.data('index');
+        var index = $collectionHolder.data('index');
 
         // Sostituisce '__name__' nell'HTML del prototipo per essere
         // invece un numero basato su quanti elementi ci sono
         var newForm = prototype.replace(/__name__/g, index);
 
         // incrementa l'indice di 1 per l'elemento successivo
-        collectionHolder.data('index', index + 1);
+        $collectionHolder.data('index', index + 1);
 
         // Mostra il form nella pagina, dentro un li, prima del collegamento "Aggiungere un tag"
         var $newFormLi = $('<li></li>').append(newForm);
@@ -527,9 +529,9 @@ vedremo tra poco!).
     della relazione.
 
     Il trucco sta nell'assicurarsi che un singolo "Task" sia impostato su ogni "Tag".   
-    Un modo facile per farlo è aggiungere un po' di logica a ``setTags()``,
-    che è richiamato dal framework dei form, poiché :ref:`by_reference<reference-form-types-by-reference>`
-    è impostato a ``false``::
+    Un modo facile per farlo è aggiungere un po' di logica a ``addTag()``,
+    che è richiamato dal framework dei form, poiché ``by_reference`` è impostato a
+    ``false``::
 
         // src/Acme/TaskBundle/Entity/Task.php
 
@@ -565,7 +567,7 @@ Il passo successivo è consentire la cancellazione di un determinato elemento de
 La soluzione è simile a quella usata per consentire l'aggiunta di tag.
 
 Iniziamo aggiungendo l'opzione ``allow_delete`` nel Type del form::
-    
+
     // src/Acme/TaskBundle/Form/Type/TaskType.php
 
     // ...
@@ -596,7 +598,7 @@ Ora occorre inserire del codice nel metodo ``removeTag`` di ``Task``::
 
 Modifiche ai template
 ~~~~~~~~~~~~~~~~~~~~~
-    
+
 L'opzione ``allow_delete`` ha una conseguenza: se un elemento dell'elenco non viene
 inviato, i dati relativi saranno rimossi dall'elenco. La soluzione quindi è quella di
 rimuovere l'elemento dal DOM.

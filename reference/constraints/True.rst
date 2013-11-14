@@ -50,7 +50,7 @@ Si può vincolare questo metodo con ``True``.
         Acme\BlogBundle\Entity\Author:
             getters:
                 tokenValid:
-                    - "True": { message: "The token is invalid." }
+                    - 'True': { message: "The token is invalid." }
 
     .. code-block:: php-annotations
 
@@ -115,6 +115,11 @@ Si può vincolare questo metodo con ``True``.
         }
 
 Se ``isTokenValid()`` restituisce ``false``, la validazione fallisce.
+
+.. caution::
+
+    Se si usa YAML, assicurarsi di aggiungere le virgolette a ``True`` (``'True'``),
+    altrimenti sarà convertito da YAML in un valore booleano ``true``.
 
 Opzioni
 -------

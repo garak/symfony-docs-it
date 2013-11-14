@@ -420,8 +420,24 @@ rispettivi errori visualizzati nel form.
    ma viene impedito dal browser, per esempio, inviando
    campi vuoti.
 
+   .. configuration-block::
+
+       .. code-block:: html+jinja
+
+           {# src/Acme/DemoBundle/Resources/views/Default/new.html.twig #}
+
+           {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+       .. code-block:: html+php
+
+           <!-- src/Acme/DemoBundle/Resources/views/Default/new.html.php -->
+
+           <?php echo $view['form']->form($form, array(
+               'attr' => array('novalidate' => 'novalidate'),
+           )) ?>
+
 La validazione è una caratteristica molto potente di Symfony2 e dispone di un proprio
-:doc:`capitolo dedicato</book/validation>`.
+:doc:`capitolo dedicato </book/validation>`.
 
 .. index::
    single: Form; Gruppi di validatori
@@ -688,7 +704,7 @@ i valori corretti di una serie di opzioni del campo.
     non genera i vincoli equivalenti lato server (ad esempio ``Assert\MaxLength``).
     E anche se si ha bisogno di aggiungere manualmente la validazione lato server, queste
     opzioni dei tipi di campo possono essere ricavate da queste informazioni.
-   
+
 * ``required``: L'opzione ``required`` può essere indovinata in base alle regole
   di validazione (cioè se il campo è ``NotBlank`` o ``NotNull``) o dai metadati di Doctrine
   (vale a dire se il campo è ``nullable``). Questo è molto utile, perché la validazione
@@ -755,7 +771,7 @@ Diamo uno sguardo a ogni parte:
 * ``form_end(form)`` - Rende il tag di chiusura del form e tutti i campi che non sono ancora
   stati resi. Questo è utile per rendere campi nascosti e per sfruttare
   i vantaggi della :ref:`protezione CSRF<forms-csrf>`.
-  
+
 La maggior parte del lavoro viene fatto dall'helper ``form_row``, che rende
 l'etichetta, gli errori e i widget HTML del form di ogni campo all'interno di un tag ``div``
 per impostazione predefinita. Nella sezione :ref:`form-theming`, si apprenderà come l'output
@@ -781,11 +797,11 @@ di ``form_row`` possa essere personalizzato su diversi livelli.
 Rendere manualmente ciascun campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-L'helper ``form_row`` è utile perché si può rendere ciascun campo del form
+L'aiutante ``form_row`` è utile, perché si può rendere ciascun campo del form
 molto facilmente (e il markup utilizzato per la "riga" può essere personalizzato
-come si vuole). Ma poiché la vita non è sempre così semplice, è anche possibile rendere ogni campo
+a piacere). Ma poiché la vita non è sempre così semplice, è anche possibile rendere ogni campo
 interamente a mano. Il risultato finale del codice che segue è lo stesso di quando
-si è utilizzato l'helper ``form_row``:
+si è utilizzato l'aiutante ``form_row``:
 
 .. configuration-block::
 
@@ -836,7 +852,7 @@ si è utilizzato l'helper ``form_row``:
 
         <?php echo $view['form']->end($form) ?>
 
-Se l'etichetta auto-generata di un campo non è giusta, si può specificarla
+Se la label auto-generata di un campo non è giusta, si può specificarla
 esplicitamente:
 
 .. configuration-block::

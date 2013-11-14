@@ -339,7 +339,7 @@ e quindi acceduto ovunque ci sia bisogno di costruire un form.
     questo oggetto in un qualche modo "globale", per potervi accedere ovunque.
 
 Il modo esatto in cui si accede al factory di form dipende dallo sviluppatore. Se si
-usa un :term`Contenitore di servizi`, si dovrebbe aggiungere il factory di form
+usa un :term:`Contenitore di servizi`, si dovrebbe aggiungere il factory di form
 al contenitore e recuperarlo all'occorrenza. Se l'applicazione usa
 variabili globali o statiche (di solito una cattiva idea), si può memorizzare
 l'oggetto in una classe statica o qualcosa del genere.

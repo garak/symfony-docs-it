@@ -4,7 +4,7 @@ Isbn
 .. versionadded:: 2.3
     Il vincolo Isbn è stato aggiunto in Symfony 2.3.
 
-Questo vincolo valida che un ISBN (International Standard Book Number)
+Questo vincolo valida che un `ISBN (International Standard Book Number)`_
 si valido rispetto allo standard ISBN-10 o a quello ISBN-13 (o a entrambi).
 
 +----------------+----------------------------------------------------------------------+
@@ -134,3 +134,5 @@ bothIsbnMessage
 
 Messaggio mostrato se entrambe le opzioni `isbn10`_ e `isbn13`_ sono ``true``
 e il valore dato non passa né la verifica ISBN-10 né quella ISBN-13.
+
+.. _`ISBN (International Standard Book Number)`: https://it.wikipedia.org/wiki/ISBN

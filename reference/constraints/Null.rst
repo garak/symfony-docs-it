@@ -77,6 +77,11 @@ una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
             }
         }
 
+.. caution::
+
+    Se si usa YAML, assicurarsi di aggiungere le virgolette a ``Null`` (``'Null'``),
+    altrimenti sarà convertito da YAML in un valore ``null``.
+
 Opzioni
 -------
 

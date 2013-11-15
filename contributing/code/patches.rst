@@ -34,7 +34,7 @@ Impostare le informazioni utente con il proprio nome reale e il proprio indirizz
 
 .. tip::
 
-    Se il proprio IDE crea dei file di configurazione dentro la cartella del progetto,
+    Se si usa un IDE che crea file di configurazione dentro la cartella del progetto,
     si può usare il file globale ``.gitignore`` (per tutti i progetti) o il file
     ``.git/info/exclude`` (per progetto) per ignorarli. Vedere la
     `documentazione di Github`_.
@@ -71,7 +71,7 @@ Ottenere il codice sorgente di Symfony:
 
 * Forkare il `repository di Symfony2`_ (cliccando sul bottone "Fork");
 
-* Dopo che l'azione "hardcore forking" è stata completata, clonare il proprio fork in locale
+* Dopo che l'azione "hardcore forking" è stata completata, clonare il fork in locale
   (creerà una cartella `symfony`):
 
 .. code-block:: bash
@@ -99,13 +99,13 @@ La licenza
 
 Prima di iniziare, occorre sapere che tutte le patch da inviare devono essere rilasciate
 sotto *licenza MIT*, a meno che non sia specificato diversamente nel proprio
-codice.
+commit.
 
 Scegliere il ramo giusto
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prima di lavorare su una patch, è necessario individuare il ramo giusto. Il ramo deve
-essere basato sul ramo `master` se si vuole aggiungere una nuova
+essere basato sul ramo `master`, se si vuole aggiungere una nuova
 funzionalità. Ma se si vuole risolvere un bug, utilizzare le versioni vecchie (ma ancora
 mantenute) di Symfony nelle quali appare il bug (come `2.2`).
 
@@ -141,14 +141,14 @@ Quindi creare un nuovo ramo dal ramo `2.2`:
 
 .. tip::
 
-    Usare un nome descrittivo per il proprio ramo (`ticket_XXX` dove `XXX` è il
-    numero di ticket è una buona convenzione per i bug).
+    Usare un nome descrittivo per il ramo (`ticket_XXX`, dove `XXX` è il
+    numero di ticket, è una buona convenzione per i bug).
 
 I comandi precedenti porteranno automaticamente sul ramo appena creato
 (verificare il ramo su cui si sta lavorando con `git branch`).
 
-Lavorare sulla propria patch
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Lavorare su una patch
+~~~~~~~~~~~~~~~~~~~~~
 
 È possibile lavorare sul codice quanto si vuole e committare tanto quanto si vuole; ma bisogna tenere a mente le
 seguenti indicazioni:
@@ -157,7 +157,7 @@ seguenti indicazioni:
   :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
   controllare i spazi alla fine);
 
-* Aggiungere test unitari per provare che il bug è stato fissato per mostrare che
+* Aggiungere test unitari per provare che il bug è stato risolto o per mostrare che
   la funzionalità è effettivamente funzionante;
 
 * Sforzarsi di non infrangere la retro-compatibilità (se lo si deve fare, provare a fornire
@@ -177,28 +177,28 @@ seguenti indicazioni:
 
 .. tip::
 
-    Si possono verificare gli standard del codice eseguente il seguente
+    Si possono verificare gli standard del codice, eseguendo il seguente
     `script` <http://cs.sensiolabs.org/get/php-cs-fixer.phar>`_
     (`sorgente <https://github.com/fabpot/PHP-CS-Fixer>`_):
 
     .. code-block:: bash
 
-        $ cd /path/to/symfony/src
+        $ cd /percorso/di/symfony
         $ php symfony-cs-fixer.phar fix . Symfony20Finder
 
 .. tip::
 
     Un buon messaggio di commit è composto dal riepilogo nella (prima linea),
     opzionalmente seguito da una linea vuota e da una descrizione dettagliata.
-    Il riepilogo dovrebbe cominciare con il componente sul quale si sta lavorando
-    posto fra parentesi quadre (``[DependencyInjection]``, ``[FrameworkBundle]``, ...) .
+    Il riepilogo dovrebbe cominciare con il componente sul quale si sta lavorando,
+    posto fra parentesi quadre (``[DependencyInjection]``, ``[FrameworkBundle]``, ...).
     Utilizzare un verbo (``fixed ...``, ``added ...``, ...) per iniziare e non
     utilizzare il punto finale.
 
-Preparare la propria patch
---------------------------
+Preparare la patch per l'invio
+------------------------------
 
-Quando la proprià patch non riguarda la sistemazione di un bug (quando si aggiunge una nuova
+Quando una patch non riguarda la sistemazione di un bug (quando si aggiunge una nuova
 caratteristica o se ne cambia una, per esempio), occorre includere quello che segue:
 
 * Una spiegazione delle modifiche nel file (o nei file) CHANGELOG rilevante (usare il prefisso
@@ -208,16 +208,16 @@ caratteristica o se ne cambia una, per esempio), occorre includere quello che se
   UPGRADE rilevante, se le modifiche infrangono la retro-compatibilità o se si sta
   deprecando qualcosa che alla fine infrangerà la retro-compatibilità.
 
-Passo 3: inviare la propria patch
----------------------------------
+Passo 3: inviare la patch
+-------------------------
 
-Quando si ritiene la propria patch pronta per l'invio, seguire i passi
+Quando si ritiene che la patch sia pronta per l'invio, seguire i passi
 seguenti.
 
 Fare un rebase
 ~~~~~~~~~~~~~~
 
-Prima di inviare una patch, aggiornare il proprio ramo (necessario se passa del 
+Prima di inviare una patch, aggiornare il ramo (necessario se passa del 
 tempo tra il checkout e il commit delle nuove funzionalità)
 
 .. code-block:: bash

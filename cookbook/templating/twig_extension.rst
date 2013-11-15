@@ -15,11 +15,11 @@ più veloce.
 
 .. tip::
 
-    Prima di scrivere la propria estensione, dare un'occhiata al
+    Prima di scrivere una nuova estensione, dare un'occhiata al
     `repository ufficiale delle estensioni Twig`_.
-    
+
 Creare la classe Extension
---------------------------    
+--------------------------
 
 .. note::
 
@@ -27,8 +27,8 @@ Creare la classe Extension
     da Twig 1.12. Se si usa una versione precedente, si legga la
     `vecchia documentazione delle estensioni di Twig`_.
 
-Per avere la propria funzionalità personalizzata, occorre prima di tutto creare una classe
-Extension. Come esempio, creeremo un filtro per i prezzi, che formatta un dato numero::
+Per avere una funzionalità personalizzata, occorre prima di tutto creare una classe Extension.
+Come esempio, creeremo un filtro per i prezzi, che formatta un dato numero::
 
     // src/Acme/DemoBundle/Twig/AcmeExtension.php
     namespace Acme\DemoBundle\Twig;
@@ -41,11 +41,11 @@ Extension. Come esempio, creeremo un filtro per i prezzi, che formatta un dato n
                 new \Twig_SimpleFilter('price', array($this, 'priceFilter')),
             );
         }
-        
+
         public function priceFilter($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',')
         {
             $price = number_format($number, $decimals, $decPoint, $thousandsSep);
-            $price = '$' . $price;
+            $price = '$'.$price;
 
             return $price;
         }
@@ -55,13 +55,13 @@ Extension. Come esempio, creeremo un filtro per i prezzi, che formatta un dato n
             return 'acme_extension';
         }
     }
-    
+
 .. tip::
 
     Oltre ai filtri, si possono aggiungere `funzioni`_ personalizzate e registrare
-     `variabili globali`_.
+    `variabili globali`_.
 
-Registrare un'estensione come servizio     
+Registrare un'estensione come servizio
 --------------------------------------
 
 Ora si deve rendere nota al contenitore di servizi l'estensione di Twig appena creata:
@@ -78,7 +78,7 @@ Ora si deve rendere nota al contenitore di servizi l'estensione di Twig appena c
                     - { name: twig.extension }
 
     .. code-block:: xml
-        
+
         <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
         <services>
             <service id="acme.twig.acme_extension" class="Acme\DemoBundle\Twig\AcmeExtension">
@@ -94,7 +94,7 @@ Ora si deve rendere nota al contenitore di servizi l'estensione di Twig appena c
         $container
             ->register('acme.twig.acme_extension', '\Acme\DemoBundle\Twig\AcmeExtension')
             ->addTag('twig.extension');
-         
+
 .. note::
 
    Tenere a mente che le estensioni di Twig non sono caricate in modalità pigra. Questo
@@ -116,7 +116,7 @@ L'estensione di Twig appena creata si può usare in modo non diverso da qualsias
 Si possono passare parametri al filtro:
 
 .. code-block:: jinja
-    
+
     {# mostra $5500,2516 #}
     {{ '5500.25155' | price(4, ',', '') }}
 
@@ -125,7 +125,7 @@ Saperne di più
 
 Per approfondire le estensioni di Twig, si può vedere la
 `documentazione sulle estensioni di Twig`_.
-     
+
 .. _`repository ufficiale delle estensioni Twig`: http://github.com/fabpot/Twig-extensions
 .. _`documentazione sulle estensioni di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`variabili globali`: http://twig.sensiolabs.org/doc/advanced.html#id1

@@ -295,7 +295,7 @@ XML/HTML::
         $this->assertTrue($client->getResponse()->isNotFound());
         // Asserire uno specifico codice di stato 200
         $this->assertEquals(
-            200,
+            Response::HTTP_OK,
             $client->getResponse()->getStatusCode()
         );
 
@@ -305,6 +305,9 @@ XML/HTML::
         );
         // o verificare semplicemente che la risposta sia un rinvio
         $this->assertTrue($client->getResponse()->isRedirect());
+
+    .. versionadded:: 2.4
+        Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 .. index::
    single: Test; Client
@@ -670,6 +673,11 @@ tipo::
 
     // Caricare un file
     $form['photo']->upload('/percorso/di/lucas.jpg');
+
+.. tip::
+
+    Se si vogliono selezionare apposta valori non validi per select o radio, si veda
+    :ref:`components-dom-crawler-invalid`.
 
 .. tip::
 

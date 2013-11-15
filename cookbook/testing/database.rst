@@ -20,13 +20,13 @@ Mock di ``Repository`` in un test unitario
 
 Se si vuole testare codice che dipende da un ``Repository`` Doctrine in isolamento,
 occorre un  mock di ``Repository``. Normalmente, si inietta ``EntityManager``
-nella propria classe e lo si usa per ottenere il repository. Questo rende le cose un po'
+in una classe e lo si usa per ottenere il repository. Questo rende le cose un po'
 più difficili, perché occorrono mock sia di ``EntityManager`` che della classe
 repository.
 
 .. tip::
 
-    È possibile (ed è una buona idea) iniiettare il repository direttamente
+    È possibile (ed è una buona idea) iniettare il repository direttamente,
     registrandolo come :doc:`servizio factory </components/dependency_injection/factories>`
     C'è da fare un po' di lavoro in più per la preparazione, ma facilita i test, perché
     serve solo il mock del repository.
@@ -74,7 +74,7 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
                 ->method('getBonus')
                 ->will($this->returnValue(1100));
 
-            // ora serve il mock del repository, in modo che restitsuica il mock di Employee
+            // ora serve il mock del repository, in modo che restituisca il mock di Employee
             $employeeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
                 ->disableOriginalConstructor()
                 ->getMock();
@@ -97,10 +97,10 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
 
 In questo esempio, i mock sono stati costruiti partendo dall'interno, creando prima
 Employee, restituito  da ``Repository``, restituito a sua volta
-da ``EntityManager``. IN questo modo, nessuna classe reale è stata coinvolta nel
+da ``EntityManager``. In questo modo, nessuna classe reale è stata coinvolta nel
 test.
 
-Modifica delle impostazioni per test funzionali    
+Modifica delle impostazioni per test funzionali
 -----------------------------------------------
 
 In caso di test funzionali, si vuole che interagiscano con una base dati reale.

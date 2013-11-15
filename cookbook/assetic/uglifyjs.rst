@@ -21,7 +21,7 @@ npm. Per iniziare è necessario `installare node.js`_. Successivamente si potrà
 utilizzando npm:
 
 .. code-block:: bash
-    
+
     $ npm install -g uglify-js
 
 Questo comando installerà UglifyJs globalmente e potrebbe quindi richiedere l'esecuzione con
@@ -94,14 +94,14 @@ nel trattamento del codice javascript:
 .. note::
 
     Il percorso di installazione di UglifyJs può essere differente a seconda del sistema utilizzato.
-    Per scoprire dove npm salvi la propria cartella ``bin`` è possibile eseguire
-    il seguente comando:
+    Per scoprire dove npm salvi la sua cartella ``bin``, si può usare il seguente
+    comando:
 
     .. code-block:: bash
 
         $ npm bin -g
 
-    Questo comando dovrebbe mostrare la cartella, all'interno del proprio sistema, 
+    Questo comando dovrebbe mostrare la cartella, all'interno del sistema, 
     nella quale risiede l'eseguibile di UglifyJs.
 
     Se si è installato UglifyJs localmente, la cartella bin si troverà
@@ -134,13 +134,13 @@ le risorse fanno parte del livello della vista, questo lavoro deve essere svolto
 
 .. note::
 
-    L'esempio precedente presuppone l'esistenza di un bundle chiamato``AcmePippoBundle``
-    e che i propri file javascript si trovino nella cartella ``Resources/public/js`` all'interno
-    del bundle. Tutto ciò non è comunque fondamentale, dato che è possibile includere i file javascript
+    L'esempio precedente presuppone l'esistenza di un bundle chiamato ``AcmePippoBundle``
+    e che i file JavaScript si trovino nella cartella ``Resources/public/js`` all'interno
+    del bundle. Tutto ciò non è comunque fondamentale, dato che è possibile includere i file JavaScript
     indipendentemente dal loro posizionamento.
 
 Con l'aggiunta del filtro ``uglifyjs2`` ai tag delle risorse precedenti, si vedranno
-i file javascript minimizzati fluire molto più velocemente sulla rete.
+i file JavaScript minimizzati fluire molto più velocemente sulla rete.
 
 Disabilitare la minimizzazione nella modalità debug
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

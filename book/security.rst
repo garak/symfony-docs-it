@@ -412,12 +412,8 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
 
     *Non* è necessario implementare un controllore per l'URL ``/login_check``
     perché il firewall catturerà ed elaborerà qualunque form inviato
-    a questo URL.
-
-.. versionadded:: 2.1
-    A partire da Symfony 2.1, si *devono* avere rotte configurate per i propri URL ``login_path``
-    (p.e. ``/login``), ``check_path`` (p.e. ``/login_check``) e ``logout``
-    (p.e. ``/logout``, vedere `Logout`_).
+    a questo URL. Tuttuavia, *occorre* avere una rotta (come mostrato qui) per questo
+    URL, come anche per il percorso di logout (vedere :ref:`book-security-logging-out`).
 
 Notare che il nome della rotta ``login`` corrisponde al valore di configurazione ``login_path``,
 in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di
@@ -785,7 +781,7 @@ Si prende il seguente ``access_control`` come esempio:
             # ...
             access_control:
                 - { path: ^/admin, roles: ROLE_USER_IP, ip: 127.0.0.1 }
-                - { path: ^/admin, roles: ROLE_USER_HOST, host: symfony.com }
+                - { path: ^/admin, roles: ROLE_USER_HOST, host: symfony\.com$ }
                 - { path: ^/admin, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
                 - { path: ^/admin, roles: ROLE_USER }
 
@@ -793,7 +789,7 @@ Si prende il seguente ``access_control`` come esempio:
 
             <access-control>
                 <rule path="^/admin" role="ROLE_USER_IP" ip="127.0.0.1" />
-                <rule path="^/admin" role="ROLE_USER_HOST" host="symfony.com" />
+                <rule path="^/admin" role="ROLE_USER_HOST" host="symfony\.com$" />
                 <rule path="^/admin" role="ROLE_USER_METHOD" method="POST, PUT" />
                 <rule path="^/admin" role="ROLE_USER" />
             </access-control>
@@ -809,7 +805,7 @@ Si prende il seguente ``access_control`` come esempio:
                 array(
                     'path' => '^/admin',
                     'role' => 'ROLE_USER_HOST',
-                    'host' => 'symfony.com',
+                    'host' => 'symfony\.com$',
                 ),
                 array(
                     'path' => '^/admin',
@@ -1701,6 +1697,8 @@ Nella configurazione sopra, gli utenti con ruolo ``ROLE_ADMIN`` avranno anche il
 ruolo ``ROLE_USER``. Il ruolo ``ROLE_SUPER_ADMIN`` ha ``ROLE_ADMIN``, ``ROLE_ALLOWED_TO_SWITCH``
 e ``ROLE_USER`` (ereditati da ``ROLE_ADMIN``).
 
+.. _book-security-logging-out:
+
 Logout
 ------
 
@@ -1801,11 +1799,6 @@ una rotta da poter utilizzare per generare l'URL:
         $collection->add('logout', new Route('/logout', array()));
 
         return $collection;
-
-.. caution::
-
-    Da Symfony 2.1, si *deve* averee una rotta corrispondente al percorso di disconnessone.
-    Senza tale rotta, la disconnessone non funzionerà.
 
 Una volta che l'utente è stato disconnesso, viene rinviato al percorso
 definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per

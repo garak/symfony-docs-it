@@ -174,8 +174,8 @@ Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
     sia registrato nel Kernel. In altre parole, anche se l'utente non fornisce
     alcuna configurazione (cioè se la voce ``acme_hello`` non appare mai),
     il metodo ``load()`` sarà richiamato, passandogli un array ``$configs``
-    vuoto. Si possono comunque fornire valori predefiniti adeguati per il
-    bundle, se lo si desidera.
+    vuoto. Si possono comunque fornire valori predefiniti adeguati per il bundle,
+    se lo si desidera.
 
 Analisi dell'array ``$configs``
 -------------------------------
@@ -292,7 +292,7 @@ bundle::
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // ... prepara la propria variabile $config
+        // ... preparare la variabile $config
 
         $loader = new XmlFileLoader(
             $container,
@@ -307,7 +307,7 @@ Per esempio, si supponga di voler caricare un insieme di servizi, ma solo se un'
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // ... prepara la propria variabile $config
+        // ... preparare la variabile $config
 
         $loader = new XmlFileLoader(
             $container,
@@ -356,7 +356,7 @@ Aggiungere al metodo ``load()`` il codice seguente::
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        // ... preparare la propria variabile $config
+        // ... preparare la variabile $config
 
         $loader = new XmlFileLoader(
             $container,
@@ -366,7 +366,7 @@ Aggiungere al metodo ``load()`` il codice seguente::
 
         if (!isset($config['mio_tipo'])) {
             throw new \InvalidArgumentException(
-                'The "mio_tipo" option must be set'
+                'Occorre definire l'\opzione "mio_tipo"'
             );
         }
 

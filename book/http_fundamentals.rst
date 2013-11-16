@@ -259,7 +259,7 @@ tramite una connessione sicura (cioè ``https``).
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all` e altri.
     In effetti, ogni proprietà pubblica usata nell'esempio precedente è un'istanza
     di ParameterBag.
-    
+
     .. _book-fundamentals-attributes:
     
     La classe Request ha anche una proprietà pubblica ``attributes``, che contiene
@@ -278,11 +278,14 @@ orientata agli oggetti per costruire la risposta che occorre restituire al clien
     $response = new Response();
 
     $response->setContent('<html><body><h1>Ciao mondo!</h1></body></html>');
-    $response->setStatusCode(200);
+    $response->setStatusCode(Response::HTTP_OK);
     $response->headers->set('Content-Type', 'text/html');
 
     // stampa gli header HTTP seguiti dal contenuto
     $response->send();
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 Se Symfony offrisse solo questo, si avrebbe già a disposizione un kit di strumenti per
 accedere facilmente alle informazioni di richiesta e un'interfaccia orientata agli oggetti
@@ -364,15 +367,16 @@ possono peggiorare rapidamente::
     // index.php
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
+
     $request = Request::createFromGlobals();
-    $path = $request->getPathInfo(); // l'URL richiesto
+    $path = $request->getPathInfo(); // il percorso dell'URI richiesto
 
     if (in_array($path, array('', '/'))) {
         $response = new Response('Benvenuto nella homepage.');
     } elseif ($path == '/contact') {
         $response = new Response('Contattaci');
     } else {
-        $response = new Response('Pagina non trovata.', 404);
+        $response = new Response('Pagina non trovata.', Response::HTTP_NOT_FOUND);
     }
     $response->send();
 

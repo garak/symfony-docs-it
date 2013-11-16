@@ -268,6 +268,10 @@ XML/HTML::
     Per iniziare più rapidamente, ecco una lista delle asserzioni
     più utili e comuni::
 
+        use Symfony\Component\HttpFoundation\Response;
+
+        // ...
+
         // Asserire che ci sia almeno un tag h2
         // con la classe "subtitle"
         $this->assertGreaterThan(

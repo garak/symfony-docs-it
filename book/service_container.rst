@@ -270,14 +270,6 @@ cerca il valore di ogni parametro e lo usa nella definizione del servizio.
 
         <argument type="string">http://symfony.com/?pippo=%%s&pluto=%%d</argument>
 
-.. caution::
-
-    Si potrebbe avere una
-    :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
-    passando il servizio ``request`` come argomento. Per capire meglio questo
-    problema e imparare a risolverlo, fare riferimento alla ricetta
-    :doc:`/cookbook/service_container/scopes`.
-
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
 I parametri, tuttavia, hanno diversi vantaggi:
@@ -761,6 +753,103 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
     Gli approcci presentati in questa sezione sono chiamati "iniezione del costruttore"
     e "iniezione del setter". Il contenitore dei servizi di Symfony2  supporta anche
     "iniezione di proprietà".
+
+.. _book-container-request-stack:
+
+Iniettare la richiesta
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.4
+    Il servizio ``request_stack`` è stato introdotto nella versione 2.4.
+
+A partire da Symfony 2.4, invece di iniettare il servizio ``request``, si dovrebbe
+iniettare il servizio ``request_stack`` e accedere alla richiesta con il
+metodo ``getCurrentRequest()``:
+
+    namespace Acme\HelloBundle\Newsletter;
+
+    use Symfony\Component\HttpFoundation\RequestStack;
+
+    class NewsletterManager
+    {
+        protected $requestStack;
+
+        public function __construct(RequestStack $requestStack)
+        {
+            $this->requestStack = $requestStack;
+        }
+
+        public function anyMethod()
+        {
+            $request = $this->requestStack->getCurrentRequest();
+            // ... fare qualcosa con la richiesta
+        }
+
+        // ...
+    }
+
+Ora, basta iniettare ``request_stack``, che si comporta come un normale servizio:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/HelloBundle/Resources/config/services.yml
+        services:
+            newsletter_manager:
+                class:     "Acme\HelloBundle\Newsletter\NewsletterManager"
+                arguments: ["@request_stack"]
+
+    .. code-block:: xml
+
+        <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="newsletter_manager"
+                    class="Acme\HelloBundle\Newsletter\NewsletterManager"
+                >
+                    <argument type="service" id="request_stack"/>
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        // src/Acme/HelloBundle/Resources/config/services.php
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Reference;
+
+        // ...
+        $container->setDefinition('newsletter_manager', new Definition(
+            'Acme\HelloBundle\Newsletter\NewsletterManager',
+            array(new Reference('request_stack'))
+        ));
+
+.. sidebar: Perché non iniettare il servizio request?
+
+    Quasi tutti i servizi presenti in Symfony2 si comportano allo stesso modo: viene creata
+    una singola istanza dal contenitore, restituita ogni volta che venga richiesta o che
+    venga iniettata in un altro servizio. C'è però un'eccezione in un'applicazione standard
+    Symfony2: il servizio ``request``.
+
+    Se si prova a iniettare ``request`` in un servizio, probabilmente si riceverà
+    un'eccezione
+    :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`.
+    Questo perché ``request`` può **cambiare** durante il ciclo di vita
+    di un contenitore (per esempio, quando viene creata una sottorichiesta).
+
+
+.. tip::
+
+    Se si definisce un controllore come servizio, si può ottenere l'oggetto ``Request``
+    senza iniettare il contenitore, passandolo come parametro di un
+    metodo azione. Vedere
+    :ref:`book-controller-request-argument` per maggiori dettagli.
 
 Rendere opzionali i riferimenti
 -------------------------------

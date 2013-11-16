@@ -1051,22 +1051,25 @@ metodo HTTP ``PURGE``::
 
     class AppCache extends HttpCache
     {
-        protected function invalidate(Request $request)
+        protected function invalidate(Request $request, $catch = false)
         {
             if ('PURGE' !== $request->getMethod()) {
-                return parent::invalidate($request);
+                return parent::invalidate($request, $catch);
             }
 
             $response = new Response();
             if (!$this->getStore()->purge($request->getUri())) {
-                $response->setStatusCode(404, 'Not purged');
+                $response->setStatusCode(Response::HTTP_NOT_FOUND, 'Not purged');
             } else {
-                $response->setStatusCode(200, 'Purged');
+                $response->setStatusCode(Response::HTTP_OK, 'Purged');
             }
 
             return $response;
         }
     }
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 .. caution::
 

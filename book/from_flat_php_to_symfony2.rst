@@ -183,7 +183,7 @@ di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``
    dovrebbe stare nel modello (invece che stare in un controllore). Diversamente da
    questo esempio, solo una parte (o niente) del modello riguarda effettivamente
    l'accesso a una base dati.
- 
+
 Il controllore (``index.php``) è ora molto semplice:
 
 .. code-block:: html+php
@@ -433,7 +433,7 @@ contenuto:
 
     {
         "require": {
-            "symfony/symfony": "2.1.*"
+            "symfony/symfony": "2.4.*"
         },
         "autoload": {
             "files": ["model.php","controllers.php"]
@@ -476,11 +476,14 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
         $response = show_action($request->query->get('id'));
     } else {
         $html = '<html><body><h1>Pagina non trovata</h1></body></html>';
-        $response = new Response($html, 404);
+        $response = new Response($html, Response::HTTP_NOT_FOUND);
     }
 
     // mostra gli header e invia la risposta
     $response->send();
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 I controllori sono ora responsabili di restituire un oggetto ``Response``.
 Per rendere le cose più facili, si può aggiungere una nuova funzione ``render_template()``,

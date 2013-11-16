@@ -571,11 +571,6 @@ definendo un ``default_locale`` per il servizio di sessione:
             'default_locale' => 'en',
         ));
 
-.. versionadded:: 2.1
-     Il parametro ``default_locale`` era originariamente definito sotto la chiave
-     ``session``. Tuttavia, dalla 2.1 è stato spostato. Questo perché il locale
-     è ora impostato nella richiesta, invece che nella sessione.
-
 .. _book-translation-locale-url:
 
 Il locale e gli URL
@@ -672,7 +667,7 @@ tutte le forme come una stringa separata da un pipe (``|``)::
 Per tradurre i messaggi pluralizzati, utilizzare il
 metodo :method:`Symfony\\Component\\Translation\\Translator::transChoice`::
 
-    $t = $this->get('translator')->transChoice(
+    $translated = $this->get('translator')->transChoice(
         'There is one apple|There are %count% apples',
         10,
         array('%count%' => 10)
@@ -887,7 +882,7 @@ locale da usare per la traduzione::
         'fr_FR'
     );
 
-Tradurre contenuti da una base dati 
+Tradurre contenuti da una base dati
 -----------------------------------
 
 La traduzione del contenuto di una base dati dovrebbero essere gestite da Doctrine attraverso

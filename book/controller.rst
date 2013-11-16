@@ -102,7 +102,7 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
     {
         public function indexAction($name)
         {
-          return new Response('<html><body>Ciao '.$name.'!</body></html>');
+            return new Response('<html><body>Ciao '.$name.'!</body></html>');
         }
     }
 
@@ -392,8 +392,13 @@ stessa.
 
     Estendere la classe base è *opzionale* in Symfony; essa contiene utili
     scorciatoie ma niente di obbligatorio. È inoltre possibile estendere
-    :class:`Symfony\Component\DependencyInjection\ContainerAware`. L'oggetto
-    contenitore di servizi sarà quindi accessibile tramite la proprietà ``container``.
+    :class:`Symfony\Component\DependencyInjection\ContainerAware`. oppure usare
+    il trait class:`Symfony\\Component\\DependencyInjection\\ContainerAwareTrait`
+    (con PHP 5.4 o successivi).  L'oggetto contenitore di servizi sarà quindi accessibile
+    tramite la proprietà ``container``.
+
+.. versionadded:: 2.4
+    ``ContainerAwareTrait`` è nuovo in Symfony 2.4.
 
 .. note::
 
@@ -496,9 +501,9 @@ valore di ogni variabile.
     direttamente, duplicando la richiesta corrente. Quando tale
     :ref:`sotto-richiesta<http-kernel-sub-requests>` viene eseguita, attraverso il servizio ``http_kernel``,
     ``HttpKernel`` restituisce un oggetto ``Response``::
-    
+
         use Symfony\Component\HttpKernel\HttpKernelInterface;
-    
+
         $path = array(
             '_controller' => 'AcmeHelloBundle:Hello:fancy',
             'name'        => $name,
@@ -750,6 +755,9 @@ e il contenuto che viene inviato al client::
     // crea una risposta JSON con un codice di stato 200
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 .. tip::
 

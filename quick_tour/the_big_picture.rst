@@ -232,7 +232,10 @@ possibile potrebbe creare la risposta a mano, basandosi sulla richiesta::
 
     $name = $request->query->get('name');
 
-    return new Response('Hello '.$name, 200, array('Content-Type' => 'text/plain'));
+    return new Response('Hello '.$name, Response::HTTP_OK, array('Content-Type' => 'text/plain'));
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 .. note::
 

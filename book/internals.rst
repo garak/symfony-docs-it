@@ -417,9 +417,16 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla::
 
         return new Response(
             'Error',
-            404 // ignorato,
-            array('X-Status-Code' => 200)
+            Response::HTTP_NOT_FOUND, // ignorato
+            array('X-Status-Code' => Response::HTTP_OK)
         );
+
+    .. versionadded:: 2.4
+        Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
+
+.. seealso::
+
+    Approfondire l':ref:`evento kernel.exception <component-http-kernel-kernel-exception>`.
 
 .. index::
    single: Distributore di eventi
@@ -430,10 +437,6 @@ Il distributore di eventi
 Event Dispatcher (distributore di eventi) è un componente, responsabile di gran parte
 della logica sottostante e del flusso dietro a una richiesta di Symfony. Per maggiori informazioni,
 vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
-
-.. seealso::
-
-    Approfondire l':ref:`evento kernel.exception <component-http-kernel-kernel-exception>`.
 
 .. index::
    single: Profilatore

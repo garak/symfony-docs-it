@@ -139,7 +139,7 @@ In questo capitolo, gli esempi dei template saranno mostrati sia in Twig che in 
     scrittura di template più facile e concisa. Si prenda il seguente esempio, che combina un
     ciclo con un'istruzione logica
     ``if``:
-    
+
     .. code-block:: html+jinja
 
         <ul>

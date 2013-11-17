@@ -23,7 +23,7 @@ servizi.
     iniettata a mano, è più ovvio (cioè se si hanno molti parametri del
     costruttore) quando il controllore diventa troppo grosso e potrebbe aver bisogno
     di essere separato in più controllori.
-  
+
     Quindi, anche se non si specificano i controllori come servizi, probabilmente lo
     si vedrà fatto in qualche bundle open source di Symfony2. È anche importante
     capire i pro e i contro di entrambi gli approcci.

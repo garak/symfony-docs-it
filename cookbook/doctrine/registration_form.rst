@@ -308,7 +308,7 @@ Aggiornare quindi le rotte. Se le rotte sono fuori dal bundle
         account_register:
            pattern:  /register
            defaults: { _controller: AcmeAccountBundle:Account:register }
-   
+
         account_create:
            pattern:  /register/create
            defaults: { _controller: AcmeAccountBundle:Account:create }

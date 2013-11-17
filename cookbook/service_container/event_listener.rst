@@ -32,7 +32,7 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
                 $exception->getMessage(),
                 $exception->getCode()
             );
-            
+
             // Personalizza l'oggetto risposta per mostrare i dettagli sull'eccezione
             $response = new Response();            
             $response->setContent($message);
@@ -45,7 +45,7 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
             } else {
                 $response->setStatusCode(500);
             }
-            
+
             // Invia la risposta modificata all'evento
             $event->setResponse($response);
         }
@@ -86,7 +86,7 @@ tag:
             ->register('kernel.listener.your_listener_name', 'Acme\DemoBundle\EventListener\AcmeExceptionListener')
             ->addTag('kernel.event_listener', array('event' => 'kernel.exception', 'method' => 'onKernelException'))
         ;
-        
+
 .. note::
 
     C'è un'ulteriore opzione del tag, ``priority``, facoltativa e con valore predefinito 0.

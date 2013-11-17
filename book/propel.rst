@@ -213,7 +213,7 @@ Aggiornare un oggetto
 
 Una volta recuperato un oggetto con Propel, aggiornarlo è facile. Si supponga di avere
 una rotta che mappi l'id di un prodotto all'azione di aggiornamento di un controllore::
-    
+
     // ...
     use Acme\StoreBundle\Model\ProductQuery;
 

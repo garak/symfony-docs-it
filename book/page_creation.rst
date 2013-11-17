@@ -793,7 +793,7 @@ del formato scelto:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
                                 http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd
                                 http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
-                                
+
             <imports>
                 <import resource="parameters.yml" />
                 <import resource="security.yml" />

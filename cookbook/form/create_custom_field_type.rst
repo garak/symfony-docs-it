@@ -192,7 +192,7 @@ nuova istanza del tipo in un form::
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
-    
+
     class AuthorType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
@@ -220,7 +220,7 @@ esempio, si supponga che i valori del genere siano memorizzati nella configurazi
 .. configuration-block::
 
     .. code-block:: yaml
-    
+
         # app/config/config.yml
         parameters:
             genders:
@@ -304,19 +304,19 @@ di ``GenderType`` un parametro, che riceverà la configurazione di gender::
     class GenderType extends AbstractType
     {
         private $genderChoices;
-        
+
         public function __construct(array $genderChoices)
         {
             $this->genderChoices = $genderChoices;
         }
-    
+
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $resolver->setDefaults(array(
                 'choices' => $this->genderChoices,
             ));
         }
-        
+
         // ...
     }
 

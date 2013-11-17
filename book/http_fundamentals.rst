@@ -30,9 +30,9 @@ l'ultima vignetta di `xkcd`_, ha luogo la seguente conversazione (approssimata):
 .. image:: /images/http-xkcd.png
    :align: center
 
-E mentre il linguaggio veramente usato è un po' più formale, è ancora assolutamente semplice.
+E sebbene il linguaggio usato in realtà sia un po' più formale, è ancora assolutamente semplice.
 HTTP è il termine usato per descrivere tale semplice linguaggio testuale. Non importa in
-quale linguaggio si sviluppi sul web, lo scopo del proprio server è *sempre* quello di
+quale linguaggio si sviluppi sul web, lo scopo di un server è *sempre* quello di
 interpretare semplici richieste testuali e restituire semplici risposte testuali.
 
 Symfony2 è costruito fin dalle basi attorno a questa realtà. Che lo si comprenda o
@@ -128,7 +128,7 @@ questa:
     Content-Type: text/html
 
     <html>
-      <!-- ... HTML for the xkcd comic -->
+      <!-- ... HTML della vignetta di xkcd -->
     </html>
 
 La risposta HTTP contiene la risorsa richiesta (il contenuto HTML, in questo caso).
@@ -144,7 +144,7 @@ Come la richiesta, una risposta HTTP contiene parti aggiuntive di informazioni, 
 header. Per esempio, un importante header di risposta HTTP è ``Content-Type``. 
 Il corpo della risorsa stessa potrebbe essere restituito in molti formati diversi, inclusi
 HTML, XML o JSON, mentre l'header ``Content-Type`` usa i tipi di media di Internet, come ``text/html``, per
-dire al client quale formato è restituito. Ua lista di tipi di media comuni si può
+dire al client quale formato è restituito. Una lista di tipi di media comuni si può
 trovare sulla voce di Wikipedia
 `Lista di tipi di media comuni`_.
 
@@ -259,9 +259,9 @@ tramite una connessione sicura (cioè ``https``).
     :method:`Symfony\\Component\\HttpFoundation\\ParameterBag::all` e altri.
     In effetti, ogni proprietà pubblica usata nell'esempio precedente è un'istanza
     di ParameterBag.
-    
+
     .. _book-fundamentals-attributes:
-    
+
     La classe Request ha anche una proprietà pubblica ``attributes``, che contiene
     dati speciali relativi a come l'applicazione funziona internamente. Per il
     framework Symfony2, ``attributes`` contiene valori restituiti dalla rotta
@@ -271,7 +271,7 @@ tramite una connessione sicura (cioè ``https``).
     e memorizzare informazioni sulla richiesta relative al contesto.
 
 Symfony fornisce anche una classe ``Response``: una semplice rappresentazione PHP di un
-messaggio di risposta HTTP. Questo consente alla propria applicazione di usare un'interfaccia
+messaggio di risposta HTTP. Questo consente a un'applicazione di usare un'interfaccia
 orientata agli oggetti per costruire la risposta che occorre restituire al client::
 
     use Symfony\Component\HttpFoundation\Response;
@@ -287,7 +287,7 @@ orientata agli oggetti per costruire la risposta che occorre restituire al clien
 Se Symfony offrisse solo questo, si avrebbe già a disposizione un kit di strumenti per
 accedere facilmente alle informazioni di richiesta e un'interfaccia orientata agli oggetti
 per creare la risposta. Anche imparando le molte potenti caratteristiche di Symfony,
-si tenga a mente che lo scopo della propria applicazione è sempre quello di *interpretare
+si tenga a mente che lo scopo di un'applicazione è sempre quello di *interpretare
 una richiesta e creare l'appropriata risposta, basata sulla logica dell'applicazione*.
 
 .. tip::
@@ -305,9 +305,9 @@ La parte difficile nella costruzione di un'applicazione è la scrittura di quell
 mezzo. In altre parole, il vero lavoro consiste nello scrivere il codice che interpreta
 l'informazione della richiesta e crea la risposta.
 
-La propria applicazione probabilmente fa molte cose, come inviare email, gestire invii di
+Un'applicazione probabilmente deve fare molte cose, come inviare email, gestire
 form, salvare dati in una base dati, rendere pagine HTML e proteggere contenuti. Come si
-può gestire tutto questo e mantenere al contempo il proprio codice organizzato e
+può gestire tutto questo e mantenere al contempo il codice organizzato e
 mantenibile?
 
 Symfony è stato creato per risolvere questi problemi.
@@ -331,7 +331,7 @@ necessari, in modo che la sicurezza, le connessioni alla base dati e l'aspetto d
 possano rimanere coerenti.
 
 Una soluzione molto migliore è usare un :term:`front controller`: un unico file PHP
-che gestisce ogni richiesta che arriva alla propria applicazione. Per esempio:
+che gestisce ogni richiesta che arriva all'applicazione. Per esempio:
 
 +------------------------+----------------------+
 | ``/index.php``         | esegue ``index.php`` |
@@ -349,15 +349,15 @@ che gestisce ogni richiesta che arriva alla propria applicazione. Per esempio:
 
 Ora ogni richiesta è gestita esattamente nello stesso modo. Invece di singoli URL che
 eseguono diversi file PHP, è *sempre* eseguito il front controller, e il dirottamento
-di URL diversi sulle diverse parti della propria applicazione è gestito internamente.
+di URL diversi sulle diverse parti dell'applicazione è gestito internamente.
 Questo risolve entrambi i problemi dell'approccio originario. Quasi tutte le applicazioni
 web moderne fanno in questo modo, incluse applicazioni come WordPress.
 
 Restare organizzati
 ~~~~~~~~~~~~~~~~~~~
 
-Ma all'interno del nostro front controller, come possiamo sapere quale pagina debba essere
-resa e come poterla renderla in modo facile? In un modo o nell'altro, occorre verificare
+Ma, all'interno del nostro front controller, come possiamo sapere quale pagina debba essere
+resa e come poterla rendere in modo facile? In un modo o nell'altro, occorre verificare
 l'URI in entrata ed eseguire parti diverse di codice, a seconda di tale valore. Le cose
 possono peggiorare rapidamente::
 
@@ -455,9 +455,9 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
 .. note::
 
-   L'esempio usa :doc:`YAML</components/yaml/yaml_format>` per definire la configurazione delle rotte.
-   La configurazione delle rotte può essere scritta anche in altri formati, come XML o
-   PHP.
+   L'esempio usa :doc:`YAML</components/yaml/yaml_format>` per definire la configurazione
+   delle rotte. La configurazione delle rotte può essere scritta anche in altri formati,
+   come XML o PHP.
 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
 specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
@@ -480,20 +480,20 @@ metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 In questo semplice esempio, il controllore semplicemente crea un oggetto
 :class:`Symfony\\Component\\HttpFoundation\\Response` con il codice HTML
 "<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
-si imparerà come un controllore possa rendere dei template, consentendo al proprio codice
+si imparerà come un controllore possa rendere dei template, consentendo al codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose
 difficili: interagire con la base dati, gestire l'invio di dati o l'invio di messaggi
 email. 
 
-Symfony2: costruire la propria applicazione, non i propri strumenti.
---------------------------------------------------------------------
+Symfony2: costruire un'applicazione, non degli strumenti
+--------------------------------------------------------
 
 Sappiamo dunque che lo scopo di un'applicazione è interpretare ogni richiesta in entrata
 e creare un'appropriata risposta. Al crescere di un'applicazione, diventa sempre più
-difficile mantenere il proprio codice organizzato e mantenibile. Invariabilmente, gli
+difficile mantenere il codice organizzato e mantenibile. Invariabilmente, gli
 stessi complessi compiti continuano a presentarsi: persistere nella base dati, rendere e
-riusare template, gestire invii di form, inviare email, validare i dati degli utenti e
+riusare template, gestire form, inviare email, validare i dati degli utenti e
 gestire la sicurezza.
 
 La buona notizia è che nessuno di questi problemi è unico. Symfony fornisce un framework

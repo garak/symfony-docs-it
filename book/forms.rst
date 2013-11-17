@@ -718,7 +718,7 @@ i valori corretti di una serie di opzioni del campo.
 
   Queste opzioni di campi vengono indovinate *solo* se si sta usando Symfony per ricavare
   il tipo di campo (ovvero omettendo o passando ``null`` nel secondo parametro di ``add()``).
-  
+
 Se si desidera modificare uno dei valori indovinati, è possibile sovrascriverlo
 passando l'opzione nell'array di opzioni del campo::
 
@@ -1089,7 +1089,7 @@ la scelta in ultima analisi, spetta allo sviluppatore.
     Si può accedere ai dati del campo in un controllore con::
 
         $form->get('dueDate')->getData();
-        
+
     Inoltre, anche i dati di un campo non mappato si possono modificare direttamente::
 
         $form->get('dueDate')->setData(new \DateTime());

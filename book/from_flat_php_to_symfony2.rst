@@ -183,7 +183,7 @@ di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``
    dovrebbe stare nel modello (invece che stare in un controllore). Diversamente da
    questo esempio, solo una parte (o niente) del modello riguarda effettivamente
    l'accesso a una base dati.
- 
+
 Il controllore (``index.php``) è ora molto semplice:
 
 .. code-block:: html+php
@@ -439,7 +439,7 @@ contenuto:
             "files": ["model.php","controllers.php"]
         }
     }
-    
+
 Quindi, `scaricare Composer`_ ed eseguire il seguente comando, che scaricherà Symfony
 in una cartella ``vendor/``:
 

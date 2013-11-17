@@ -199,7 +199,7 @@ Symfony stesso, nella cartella ``vendor/``.
 
     Passando ``relative`` invece di ``symlink`` a symfony-assets-install, il comando genererà
     collegamenti simbolici relativi.
-        
+
 Configurazione
 ~~~~~~~~~~~~~~
 
@@ -285,7 +285,7 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 .. image:: /images/quick_tour/welcome.png
 
 .. tip::
-    
+
     Per ottenere URL brevi, si dovrebbe far puntare la cartella radice del
     server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
     non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui

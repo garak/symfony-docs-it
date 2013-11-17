@@ -89,11 +89,11 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
-        
+
         class Author
         {
             protected $gender;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('gender', new Choice(
@@ -176,11 +176,11 @@ Si può passare il nome di questo metodo all'opzione `callback_` del vincolo
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
-        
+
         class Author
         {
             protected $gender;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('gender', new Assert\Choice(array(
@@ -248,7 +248,7 @@ si può passare il nome della classe e del metodo come array.
         class Author
         {
             protected $gender;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('gender', new Assert\Choice(array(

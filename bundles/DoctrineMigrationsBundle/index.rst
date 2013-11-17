@@ -287,22 +287,22 @@ per un pieno accesso al contenitore.
 .. code-block:: php
 
     // ...
-    
+
     class Version20130326212938 extends AbstractMigration implements ContainerAwareInterface
     {
-    
+
         private $container;
-    
+
         public function setContainer(ContainerInterface $container = null)
         {
             $this->container = $container;
         }
-    
+
         public function up(Schema $schema)
         {
             // ... contenuto della migrazione
         }
-    
+
         public function postUp(Schema $schema)
         {
             $em = $this->container->get('doctrine.orm.entity_manager');
@@ -324,18 +324,18 @@ basta aggiungere la seguente configurazione:
 .. configuration-block::
 
     .. code-block:: yaml
-    
+
         doctrine:
             dbal:        
                 schema_filter: ~^(?!t_)~
-                
+
     .. code-block:: xml
-    
+
         <doctrine:dbal schema-filter="~^(?!t_)~" ... />
 
-    
+
     .. code-block:: php
-    
+
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
                 'schema_filter'  => '~^(?!t_)~',

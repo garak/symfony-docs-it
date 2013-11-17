@@ -52,7 +52,7 @@ Swiftmailer con l'opzione memory, usare la seguente configurazione:
              ...,
             'spool' => array('type' => 'memory')
         ));
-        
+
 Spool in un file
 ----------------
 

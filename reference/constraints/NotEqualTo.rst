@@ -9,7 +9,7 @@ opzioni. Per forzare che un valore sia uguale, vedere
 :doc:`/reference/constraints/EqualTo`.
 
 .. caution::
-    
+
     Questo vincolo confronta tramite ``!=``, quindi ``3`` e ``"3"`` sono considerati
     uguali. Usare :doc:`/reference/constraints/NotIdenticalTo` per confrontare con
     ``!==``.

@@ -552,7 +552,7 @@ sono cambiati::
     class User implements AdvancedUserInterface, \Serializable
     {
         // ...
-        
+
         /**
          * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
          *
@@ -568,7 +568,7 @@ sono cambiati::
         {
             return $this->roles->toArray();
         }
-        
+
         // ...
 
     }

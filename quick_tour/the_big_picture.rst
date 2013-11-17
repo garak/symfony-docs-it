@@ -69,7 +69,7 @@ ora avere una cartella ``Symfony/``, come la seguente:
         $ php composer.phar create-project symfony/framework-standard-edition Symfony 2.3.0
 
 .. _`quick-tour-big-picture-built-in-server`:
-   
+
 Se si ha PHP 5.4, si può usare il server web incluso:
 
 .. code-block:: bash

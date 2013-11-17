@@ -1,6 +1,6 @@
 .. index::
    single: Requisiti
-   
+
 Requisiti per far girare Symfony2
 =================================
 

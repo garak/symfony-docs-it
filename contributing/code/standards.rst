@@ -72,7 +72,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
                 if ('values' === $mergedOptions['un_valore_predefinito']) {
                     return substr($dummy, 0, 5);
                 }
-                
+
                 return ucwords($dummy);
             }
             throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));

@@ -65,7 +65,7 @@ Uso di base
         </constraint-mapping>
 
     .. code-block:: php
-        
+
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
 

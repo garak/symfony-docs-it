@@ -35,7 +35,7 @@ del giorno in cui l'evento inizia:
 
         // src/Acme/EventBundle/Entity/Event.php
         namespace Acme\EventBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Event
@@ -62,10 +62,10 @@ del giorno in cui l'evento inizia:
         </constraint-mapping>
 
     .. code-block:: php
-        
+
         // src/Acme/EventBundle/Entity/Event.php
         namespace Acme\EventBundle\Entity;
-        
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
 

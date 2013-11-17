@@ -498,7 +498,7 @@ valore di ogni variabile.
     ``HttpKernel`` restituisce un oggetto ``Response``::
 
         use Symfony\Component\HttpKernel\HttpKernelInterface;
-    
+
         $path = array(
             '_controller' => 'AcmeHelloBundle:Hello:fancy',
             'name'        => $name,

@@ -191,10 +191,10 @@ sicurezza il controllore tramite annotazioni:
     Se si avesse anche un controllo di accesso nella propria configurazione della
     sicurezza, che richiede all'utente il ruolo ``ROLE_USER`` per poter accedere all'area
     dell'account, si avrebbe la seguente situazione:
-    
+
     * Se un utente non autenticato (o anonimo) tenta di accedere all'area dell'account,
       gli sarà chiesto di autenticarsi.
-    
+
     * Una volta inseriti nome utente e password, ipotizzando che l'utente riceva il ruolo
       ``ROLE_USER`` in base alla configurazione, l'utente avrà il ruolo
       ``IS_AUTHENTICATED_FULLY`` e potrà accedere a qualsiasi pagina della sezione

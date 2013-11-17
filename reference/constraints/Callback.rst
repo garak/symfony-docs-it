@@ -208,7 +208,7 @@ Ogni metodo può avere uno dei seguenti formati:
     in corso di validazione (p.e. ``Author``) che ``ExecutionContextInterface``::
 
         namespace Acme\BlogBundle;
-    
+
         use Symfony\Component\Validator\ExecutionContextInterface;
         use Acme\BlogBundle\Entity\Author;
 

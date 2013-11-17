@@ -8,7 +8,7 @@ Valida che un valore sia uguale a un altro valore, definito nelle opzioni. Per
 forzare che un valore *non* non sia uguale, vedere :doc:`/reference/constraints/NotEqualTo`.
 
 .. caution::
-    
+
     Questo vincolo confronta tramite ``==``, quindi ``3`` e ``"3"`` sono considerati
     uguali. Usare :doc:`/reference/constraints/IdenticalTo` per confrontanre con
     ``===``.

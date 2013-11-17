@@ -55,7 +55,7 @@ bundle e cambiarne le funzionalità::
         public function registerAction()
         {
             $response = parent::registerAction();
-            
+
             // ... fare qualcosa
             return $response;
         }

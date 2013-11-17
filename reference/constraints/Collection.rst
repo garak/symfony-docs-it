@@ -187,7 +187,7 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
 .. configuration-block::
 
     .. code-block:: yaml
-    
+
         # src/Acme/BlogBundle/Resources/config/validation.yml
         Acme\BlogBundle\Entity\Author:
             properties:
@@ -223,9 +223,9 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
                  'personal_email',
              );
         }
-    
+
     .. code-block:: xml
-    
+
         <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"

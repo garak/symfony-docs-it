@@ -77,7 +77,7 @@ certe dimensioni, aggiungere il seguente:
                         maxWidth: 400
                         minHeight: 200
                         maxHeight: 400
-                        
+
 
     .. code-block:: php-annotations
 

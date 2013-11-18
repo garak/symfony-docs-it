@@ -60,6 +60,11 @@ Esempi di codice
 * Descrizione del codice omesso (facoltativa):
   se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``
   se si omette parte di una riga: la descrizione può essere posta prima della riga;
+* Se utile per il lettore, un esempio di codice PHP dovrebbe iniziare con la dichiarazione dello
+  spazio dei nomi;
+* Facendo riferimento a una classe, assicurarsi di mostrare l''istruzione ``use`` in cima
+  al blocco di codice. Non occorre mostrare *tutte* le istruzioni ``use``
+  in ogni esempio, basta mostrare quelle usate effettivamente nel blocco di codice;
 * Se utile, un ``codeblock`` dovrebbe iniziare con un commento contenente il nome del
   file nel blocco di codice. Inserire una riga vuota dopo il commento, a meno che la riga
   successiva non sia anch'essa un commento;
@@ -82,8 +87,11 @@ Esempio
 .. code-block:: php
 
     // src/Pippo/Pluto.php
+    namespace Pippo;
 
+    use Acme\Demo\Gatto;
     // ...
+
     class Pluto
     {
         // ...
@@ -92,6 +100,8 @@ Esempio
         {
             // imposta pippo con il valore di pluto
             $pippo = ...;
+
+            $gatto = new Gattto($pippoo);
 
             // ... verifica se $pluto ha il valore corretto
 
@@ -104,5 +114,17 @@ Esempio
     In Yaml va messo uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
     ma non va fatto in Twig (p.e.  ``{'ciao' : 'valore'}``).
 
+Standard di linguaggio
+----------------------
+
+* Per le sezioni, usare la seguente regola per le maiuscole:
+  La prima lettera in maiuscolo, poi tutte le lettere in minuscolo:
+  Questo è un esempio di titolo
+* Non usare la virgola prima della congiunzione;
+* Si dovrebbe usare la forma impersonale, non *noi* o *voi* (quindi evitare il punto
+  di vista in prima persona).
+
 .. _`documentazione di Sphinx`: http://sphinx-doc.org/rest.html#source-code
 .. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html
+
+

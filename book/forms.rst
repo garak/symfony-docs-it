@@ -1028,7 +1028,7 @@ task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore u
 
     // src/Acme/TaskBundle/Controller/DefaultController.php
 
-    // add this new use statement at the top of the class
+    // aggiungere questa istruzione "use" in cima alla classe
     use Acme\TaskBundle\Form\Type\TaskType;
 
     public function newAction()

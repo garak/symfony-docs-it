@@ -26,22 +26,24 @@ dell'utente::
     il codice di *lingua* `ISO639-1`_, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
     (per esempio ``fr_FR`` per francese/Francia).
 
-In questo capitolo si imparerà a preparare un'applicazione per supportare più
-locale e poi a creare le traduzioni per più locale. Nel complesso,
-il processo ha diverse fasi comuni:
+In questo capitolo si imparerà a usare il componenten Translation nel
+framework Symfony2. Si può leggere la
+:doc:`documentazione del componente Translation </components/translation/usage>`
+per saperne di più. Nel complesso, il processo ha diverse fasi:
 
-1. Abilitare e configurare il componente ``Translation`` di Symfony;
+#. :ref:`Abilitare e configurare<book-translation-configuration>` il servizio
+   translation di Symfony;
 
-2. Astrarre le stringhe (i. "messaggi") avvolgendoli nelle chiamate al ``Translator``;
+#. Astrarre le stringhe (i. "messaggi") avvolgendoli nelle chiamate al
+   ``Translator`` (":ref:`book-translation-basic`");
 
-3. Creare risorse di traduzione per ogni lingua supportata che traducano tutti
-   i messaggio dell'applicazione;
+#. :ref:`Creare risorse di traduzione <book-translation-resources>`
+   per ogni lingua supportata che traducano tutti i messaggio dell'applicazione;
 
-4. Determinare, impostare e gestire le impostazioni locali dell'utente per la richiesta e,
-   facoltativamente, sull'intera sessione.
+#. Determinare, :ref:`impostare e gestire le impostazioni locali<book-translation-user-locale>`
+   dell'utente per la richiesta e, facoltativamente, sull'intera sessione.
 
-.. index::
-   single: Traduzioni; Configurazione
+.. _book-translation-configuration:
 
 Configurazione
 --------------
@@ -80,21 +82,13 @@ abilitare il ``Translator`` nella configurazione:
             'translator' => array('fallback' => 'en'),
         ));
 
-L'opzione ``fallback`` definisce il locale da utilizzare quando una traduzione non
-esiste nel locale dell'utente.
-
-.. tip::
-
-    Quando una traduzione non esiste per un locale, il traduttore prima prova
-    a trovare la traduzione per la lingua (ad esempio ``fr`` se il locale è
-    ``fr_FR``). Se non c'è, cerca una traduzione
-    utilizzando il locale di ripiego.
+Vedere :ref:`book-translation-fallback` per dettagli sulla voce ``fallback``
+e su cosa faccia Symfony quando non trova una traduzione.
 
 Il locale usato nelle traduzioni è quello memorizzato nella richiesta. Tipicamente,
 è impostato tramite un attributo ``_locale`` in una rotta (vedere :ref:`book-translation-locale-url`).
 
-.. index::
-   single: Traduzioni; Traduzioni di base
+.. _book-translation-basic:
 
 Traduzione di base
 ------------------
@@ -114,6 +108,8 @@ ad esempio, che stiamo traducendo un semplice messaggio all'interno del controll
 
         return new Response($translated);
     }
+
+.. _book-translation-resources:
 
 Quando questo codice viene eseguito, Symfony2 tenterà di tradurre il messaggio
 "Symfony2 is great" basandosi sul locale dell'utente. Perché questo funzioni,
@@ -151,8 +147,11 @@ ma XLIFF è il formato raccomandato:
         # messages.fr.yml
         Symfony2 is great: J'aime Symfony2
 
+Per informazioni sulla posizione di questi file, vedere :ref:`book-translation-resource-locations`.
+
 Ora, se la lingua del locale dell'utente è il francese (per esempio ``fr_FR`` o ``fr_BE``),
-il messaggio sarà tradotto in ``J'aime Symfony2``.
+il messaggio sarà tradotto in ``J'aime Symfony2``. Si può anche tradurre il
+messaggio da un :ref:`template <book-translation-tags>`.
 
 Il processo di traduzione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -182,7 +181,6 @@ Segnaposto per i messaggi
 
 A volte, un messaggio da tradurre contiene una variabile::
 
-    // ...
     use Symfony\Component\HttpFoundation\Response;
 
     public function indexAction($name)

@@ -1,8 +1,8 @@
 .. index::
    single: Form; Estensione di tipo form
 
-Come creare un'estensione di un tipo form
-=========================================
+Creare un'estensione di un tipo form
+====================================
 
 I :doc:`tipi di campo di form personalizzati<create_custom_field_type>` sono ottimi
 quando occorrono tipi di campo con uno scopo specifico, come un selettore di genere o

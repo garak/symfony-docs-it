@@ -433,7 +433,7 @@ contenuto:
 
     {
         "require": {
-            "symfony/symfony": "2.1.*"
+            "symfony/symfony": "2.3.*"
         },
         "autoload": {
             "files": ["model.php","controllers.php"]

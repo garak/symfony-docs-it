@@ -15,10 +15,10 @@ Il componente DomCrawler
 Installazione
 -------------
 
-È possibile installare il componente in diversi modi:
+È possibile installare il componente in due modi:
 
+* Installandolo :doc:`via Composer </components/using_components>` (``symfony/dom-crawler`` su `Packagist`_).
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DomCrawler);
-* Installandolo :doc:`via Composer</components/using_components>` (``symfony/dom-crawler`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -60,7 +60,7 @@ collegamenti html e i form durante la visita dell'albero HTML.
     Questo è il comportamento atteso e fa parte delle specifiche di HTML5. Se però si
     ottiene un comportamento inatteso, potrebbe esserne una causa. Pur non essendo ``DomCrawler``
     pensato per esportare contenuti, si può vedere la versione "sistemata" del codice HTML
-    :ref:`con un esportazione <component-dom-crawler-dumping>`.
+    :ref:`con un'esportazione <component-dom-crawler-dumping>`.
 
 Filtrare i nodi
 ~~~~~~~~~~~~~~~
@@ -139,7 +139,7 @@ Accedere al valore dell'attributo del primo nodo della selezione attuale::
 
 Estrarre l'attributo e/o il valore di un nodo da una lista di nodi::
 
-    $attributes = $crawler
+    $attributi = $crawler
         ->filterXpath('//body/p')
         ->extract(array('_text', 'class'))
     ;
@@ -153,8 +153,8 @@ Chiamare una funzione anonima su ogni nodo della lista::
     use Symfony\Component\DomCrawler\Crawler;
     // ...
 
-    $nodeValues = $crawler->filter('p')->each(function ($nodo, $i) {
-        return $nodo->nodeValue;
+    $valoriNodi = $crawler->filter('p')->each(function (Crawler $nodo, $i) {
+        return $nodo->text();
     });
 
 .. versionadded::
@@ -271,7 +271,7 @@ il form all'interno del quale il pulsante è definito::
     $form = $crawler->selectButton('valida')->form();
 
     // oppure "riempire" i campi del form con dati
-    $form = $crawler->selectButton('Valida')->form(array(
+    $form = $crawler->selectButton('valida')->form(array(
         'nome' => 'Ryan',
     ));
 
@@ -368,7 +368,7 @@ direttamente::
     $crawler = $client->request('GET', 'https://github.com/login');
 
     // seleziona il form e riempie alcuni valori 
-    $form = $crawler->selectButton('Log in')->form();
+    $form = $crawler->selectButton('Entra')->form();
     $form['login'] = 'fandisymfony';
     $form['password'] = 'unapassword';
 

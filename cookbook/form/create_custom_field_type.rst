@@ -1,8 +1,8 @@
 .. index::
    single: Form; Tipo di campo personalizzato
 
-Come creare un tipo di campo personalizzato di un form
-======================================================
+Creare un tipo di campo personalizzato di un form
+=================================================
 
 Symfony è dotato di una serie di tipi di campi per la costruzione dei form.
 Tuttavia ci sono situazioni in cui è necessario realizzare un campo personalizzato

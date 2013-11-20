@@ -1072,7 +1072,7 @@ la scelta in ultima analisi, spetta allo sviluppatore.
 
     Nel caso in cui servano campi extra nel form (per esempio, un checkbox "accetto
     i termini"), che non saranno mappati nell'oggetto sottostante,
-    occorre impostare l'opzione ``property_path`` a ``false``::
+    occorre impostare l'opzione ``mapped`` a ``false``::
 
         use Symfony\Component\Form\FormBuilderInterface;
 

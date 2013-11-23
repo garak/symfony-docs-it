@@ -25,6 +25,12 @@ classe viene usata per testare i tipi del nucleo e la si può usare per testare 
     nella versione 2.3. Precedentemente, la classe si trovava in
     ``Symfony\Component\Form\Tests\Extension\Core\Type``.
 
+.. note::
+
+    A seconda di come è stato installato Symfony o il componente Form di Symfony,
+    i test potrebbero non essere stati scaricati. Usare l'opzione ``--prefer-source`` di
+    Composer, se questo è il caso.
+
 I fondamentali
 --------------
 

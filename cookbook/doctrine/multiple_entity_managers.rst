@@ -157,7 +157,7 @@ connessioni, una per ogni gestore di entità.
 
 .. note::
 
-    Lavorando con più connessioni e gestori di enttià, si dovrebbe esplicitare
+    Lavorando con più connessioni e gestori di entità, si dovrebbe esplicitare
     la configurazione desiderata. Se si *omette* il nome della connessione
     o del gestore di entità, verrà usato quello predefinito (cioè ``default``).
 

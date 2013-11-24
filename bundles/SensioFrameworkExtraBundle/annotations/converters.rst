@@ -234,7 +234,7 @@ Per registrare il servizio contenitore, si deve aggiungere un tag
             <tag name="request.param_converter" priority="-2" converter="my_converter" />
         </service>
 
-Sei può registrare un convertitore per priorià, per nome (attributo "converter") o
+Si può registrare un convertitore per priorità, per nome (attributo "converter") o
 entrambi. Se non si specifica una priorità o un nome, il convertitore sarà aggiunto
 alla pila dei convertitori con priorità `0`. Per disabilitare esplicitamente la
 registrazione della priorità, occorre impostare `priority="false"` nella definizione

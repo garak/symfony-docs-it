@@ -86,7 +86,7 @@ caseSensitive
 
 **tipo**: ``booleano`` predefinito: ``false``
 
-Il validatore consentià valori ISSN che terminano con una 'x' minuscola.
+Il validatore consentirà valori ISSN che terminano con una 'x' minuscola.
 Se impostato a ``true``, il validatore richiederà una 'X' maiuscola.
 
 requireHyphen

@@ -241,7 +241,7 @@ e :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\Session
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
 inietta automaticamente i gestori della memorizzazione in un proxy per il gestore del
-salvataggio, a meno che non ce ne sia giù uno che lo avvolge.
+salvataggio, a meno che non ce ne sia già uno che lo avvolge.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
 è usato automaticamente sotto PHP 5.3, quando i gestori del salvataggio interni di PHP

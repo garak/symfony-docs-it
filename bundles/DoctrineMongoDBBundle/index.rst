@@ -90,7 +90,7 @@ Configurazione
 --------------
 
 Per iniziare, sono necessarie alcune configurazioni di base, che impostano il document
-manager. Il modo pià semplice è abilitare ``auto_mapping``, che attiverà
+manager. Il modo più semplice è abilitare ``auto_mapping``, che attiverà
 l'ODM MongoDB su tutta l'applicazione:
 
 .. code-block:: yaml

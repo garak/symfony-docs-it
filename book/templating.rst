@@ -1275,9 +1275,9 @@ Sovrascrivere template del nucleo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Essendo il framework Symfony2 esso stesso un bundle, i template del nucleo
-possono essere sovrascritti allo stesso modo. Per esempio, ``TwigBundle``
+possono essere sovrascritti allo stesso modo. Per esempio, TwigBundle
 contiene diversi template "exception" ed "error", che possono essere sovrascritti,
-copiandoli dalla cartella ``Resources/views/Exception`` di ``TwigBundle`` a,
+copiandoli dalla cartella ``Resources/views/Exception`` di TwigBundle a,
 come si può immaginare, la cartella
 ``app/Resources/TwigBundle/views/Exception``.
 

@@ -295,7 +295,7 @@ client o anche restituire il contenuto di un'immagine JPG, con un header ``Conte
 
 Il nome del template, ``AcmeDemoBundle:Welcome:index.html.twig``, è il
 *nome logico* del template e fa riferimento al file ``Resources/views/Welcome/index.html.twig``
-dentro ``AcmeDemoBundle`` (localizzato in ``src/Acme/DemoBundle``). La sezione successiva
+dentro AcmeDemoBundle (localizzato in ``src/Acme/DemoBundle``). La sezione successiva
 sui bundle ne spiega l'utilità.
 
 Diamo ora un altro sguardo al file di configurazione delle rotte e cerchiamo la voce

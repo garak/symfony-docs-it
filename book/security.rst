@@ -10,12 +10,12 @@ di impedire a un utente di accedere a una risorsa a cui non dovrebbe avere acces
 Nella prima fase del processo, il sistema di sicurezza identifica chi è
 l'utente, chiedendogli di presentare una sorta di identificazione.
 Quest'ultima è chiamata **autenticazione** e significa che il sistema
-sta cercando di scoprire chi sei.
+sta cercando di scoprire chi sia l'utente.
 
-Una volta che il sistema sa chi sei, il passo successivo è quello di determinare
-se dovresti avere accesso a una determinata risorsa. Questa parte del
+Una volta che il sistema sa chi è l'utente, il passo successivo è quello di determinare
+se può avere accesso a una determinata risorsa. Questa parte del
 processo è chiamato **autorizzazione** e significa che il sistema
-verifica se disponi dei privilegi per eseguire una certa azione.
+verifica se l'utente disponga dei privilegi per eseguire una certa azione.
 
 .. image:: /images/book/security_authentication_authorization.png
    :align: center
@@ -25,13 +25,13 @@ l'applicazione con l'autenticazione base HTTP.
 
 .. note::
 
-    Il `componente della sicurezza </components/security/introduction>` di Symfony è 
+    Il `componente Security </components/security/introduction>` di Symfony è 
     disponibile come libreria PHP a sé stante, per l'utilizzo all'interno di qualsiasi progetto PHP.
 
 Esempio di base: l'autenticazione HTTP
 --------------------------------------
 
-Il componente della sicurezza può essere configurato attraverso la configurazione dell'applicazione.
+Il componente Security può essere configurato attraverso la configurazione dell'applicazione.
 In realtà, per molte configurazioni standard di sicurezza basta solo usare la giusta
 configurazione. La seguente configurazione dice a Symfony di proteggere qualunque URL
 corrispondente a ``/admin/*`` e chiedere le credenziali all'utente  utilizzando l'autenticazione
@@ -1038,7 +1038,7 @@ quella vista nella sezione precedente. Per esempio, si supponga di avere un serv
 È possibile limitare l'uso di questa classe, non importa dove è stata utilizzata,
 per gli utenti che hanno un ruolo specifico.
 
-Per ulteriori informazioni su come utilizzare il componente della sicurezza per proteggere
+Per ulteriori informazioni su come utilizzare il componente Security per proteggere
 servizi e metodi diversi nell'applicazione, vedere :doc:`/cookbook/security/securing_services`.
 
 Access Control List (ACL): protezione dei singoli oggetti della base dati
@@ -1049,7 +1049,7 @@ messaggi. Si vuole che un utente possa modificare i propri commenti, ma non
 quelli degli altri. Inoltre, come utente admin, si vuole essere in grado
 di modificare *tutti* i commenti.
 
-Il componente della sicurezza viene fornito con un sistema opzionale di access control list (ACL), 
+Il componente Security viene fornito con un sistema opzionale di access control list (ACL), 
 che è possibile utilizzare quando è necessario controllare l'accesso alle singole istanze
 di un oggetto nel sistema. *Senza* ACL, è possibile proteggere il sistema in modo che
 solo certi utenti possono modificare i commenti sui blog. Ma *con* ACL,
@@ -2086,7 +2086,7 @@ Considerazioni finali
 ---------------------
 
 La sicurezza può essere un problema profondo e complesso nell'applicazione da risolvere in modo corretto.
-Per fortuna, il componente della sicurezza di Symfony segue un ben collaudato modello di
+Per fortuna, il componente Security di Symfony segue un ben collaudato modello di
 sicurezza basato su *autenticazione* e *autorizzazione*. L'autenticazione,
 che avviene sempre per prima, è gestita da un firewall il cui compito è quello di determinare
 l'identità degli utenti attraverso diversi metodi (ad esempio l'autenticazione HTTP,

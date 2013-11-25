@@ -839,7 +839,7 @@ del formato scelto:
 
 Ogni voce di primo livello, come ``framework`` o ``twig``, definisce la configurazione
 per un particolare bundle. Per esempio, la voce ``framework`` definisce la configurazione
-per il bundle del nucleo di Symfony ``FrameworkBundle`` e include configurazioni per
+per il bundle del nucleo di Symfony FrameworkBundle e include configurazioni per
 rotte, template e altri sistemi fondamentali.
 
 Per ora, non ci preoccupiamo delle opzioni di configurazione specifiche di ogni

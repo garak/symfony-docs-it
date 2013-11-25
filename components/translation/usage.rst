@@ -141,33 +141,32 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
 
 .. sidebar:: Usare messaggi reali o parole chiave
 
-    (TODO da finire traduzione....)
-    This example illustrates the two different philosophies when creating
-    messages to be translated::
+    Questo esempio illustra le due diverse filosofie di creazione di
+    messaggi da tradurre::
 
         $translator->trans('Symfony2 is great');
 
         $translator->trans('symfony2.great');
 
-    In the first method, messages are written in the language of the default
-    locale (English in this case). That message is then used as the "id"
-    when creating translations.
+    Nel primo metodo, i messaggi sono scritti nella lingua del locale
+    predefinito (in questo caso, inglese). Tali messaggi sono quindi usati come "id"
+    durante la creazione di traduzioni.
 
-    In the second method, messages are actually "keywords" that convey the
-    idea of the message. The keyword message is then used as the "id" for
-    any translations. In this case, translations must be made for the default
-    locale (i.e. to translate ``symfony2.great`` to ``Symfony2 is great``).
+    Nel secondo metodo, i messaggi sono in realtà "parole chiave", che portano
+    l'idea del messaggio. Le parole chiave sono quindi usate come "id" per
+    ogni traduzione. In questo c aso, occorre tradurre anche per il locale
+    predefinito (quindi tradurre ``symfony2.great`` in ``Symfony2 is great``).
 
-    The second method is handy because the message key won't need to be changed
-    in every translation file if you decide that the message should actually
-    read "Symfony2 is really great" in the default locale.
+    Il secondo metodo è comodo, perché la chiave del messaggio non ha mai bisogno di
+    essere cambiata, in ogni file di traduzione, se per esempio si decide di cambiare il messaggio
+    in "Symfony2 is really great" nel locale predefinito.
 
-    The choice of which method to use is entirely up to you, but the "keyword"
-    format is often recommended.
+    La scelta del metodo spetta allo sviluppatore, ma il formato "parola chiave"
+    spesso è raccomandato.
 
-    Additionally, the ``php`` and ``yaml`` file formats support nested ids to
-    avoid repeating yourself if you use keywords instead of real text for your
-    ids:
+    Inoltre, i formati di file ``php`` e ``yaml`` supportano id innestate,
+    che evitano di ripetere molte volte la stessa parte degli
+    id:
 
     .. configuration-block::
 
@@ -199,9 +198,9 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
                 ),
             );
 
-    The multiple levels are flattened into single id/translation pairs by
-    adding a dot (``.``) between every level, therefore the above examples are
-    equivalent to the following:
+    I livelli multipli vengono appiattiti in una singola coppia id/traduzione,
+    aggiungengo un punto (``.``) tra ogni livello, quindi l'esempio appena visto è
+    equivalente al seguente:
 
     .. configuration-block::
 
@@ -225,6 +224,8 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
 
 Pluralizzazione
 ---------------
+
+    (TODO da finire traduzione....)
 
 Message pluralization is a tough topic as the rules can be quite complex. For
 instance, here is the mathematic representation of the Russian pluralization

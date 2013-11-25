@@ -6,7 +6,7 @@
   * :doc:`Test </contributing/code/tests>`
   * :doc:`Standard del codice </contributing/code/standards>`
   * :doc:`Convenzioni del codice </contributing/code/conventions>`
-  * :doc:`Git</contributing/code/git>`
+  * :doc:`Git </contributing/code/git>`
   * :doc:`Licenza </contributing/code/license>`
 
 * **Documentazione**
@@ -20,5 +20,4 @@
 * **Comunità**
 
   * :doc:`Processo di rilascio </contributing/community/releases>`
-  * :doc:`Incontri su IRC </contributing/community/irc>`
   * :doc:`Altre risorse </contributing/community/other>`

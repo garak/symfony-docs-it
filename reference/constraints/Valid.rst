@@ -102,7 +102,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
              * @Assert\NotBlank
              */
             protected $lastName;
-            
+
             protected $address;
         }
 

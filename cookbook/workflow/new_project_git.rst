@@ -107,8 +107,9 @@ motivi di backup, sia per fare in modo che altri sviluppatori possano collaborar
 al progetto.
 
 Il modo più facile per memorizzare il proprio progetto su un server remoto è l'utilizzo
-di `GitHub`_. I repository pubblici sono gratuiti, mentre per quelli privati è necessario
-pagare mensilmente.
+di servizi come `GitHub`_ o `Bitbucket`. Ovviamente ci sono molti altri servizi
+in giro, si può iniziare una ricerca su
+`confronto tra servizi di hosting`_.
 
 In alternativa, si può ospitare un proprio repository git su un qualsiasi server, creando
 un `repository privato`_ e usando quello. Una libreria che può aiutare in tal senso
@@ -121,3 +122,5 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 .. _`repository privato`: http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository
 .. _`Gitolite`: https://github.com/sitaramc/gitolite
 .. _`Github .gitignore`: https://help.github.com/articles/ignoring-files
+.. _`Bitbucket`: https://bitbucket.org/
+.. _`confronto tra servizi di hosting`: http://en.wikipedia.org/wiki/Comparison_of_open-source_software_hosting_facilities

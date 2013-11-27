@@ -110,7 +110,7 @@ sono:
     anche assicurare se, se si pubblicano ``app_dev.php`` o ``config.php``,
     tali file siano protetti e non disponibili a utenti esterni (il codice
     di controllo a inizio file fa proprio questo).
-    
+
     Se si hanno altri file PHP nella cartella web e si vuole che siano eseguiti,
     assicurarsi di includerli nel blocco ``location`` visto sopra.
 

@@ -97,7 +97,7 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
             // aggiunge la nuova rotta all'insieme di rotte:
             $routeName = 'extraRoute';
             $routes->add($routeName, $route);
-            
+
             $this->loaded = true;
 
             return $routes;

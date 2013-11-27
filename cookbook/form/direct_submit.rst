@@ -26,7 +26,7 @@ che rende la gestione dell'invio di form più facile che mai::
 
             return $this->redirect($this->generateUrl('task_success'));
         }
-        
+
         return $this->render('AcmeTaskBundle:Default:new.html.twig', array(
             'form' => $form->createView(),
         ));

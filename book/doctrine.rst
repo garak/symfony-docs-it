@@ -111,7 +111,7 @@ file ``app/config/parameters.yml``:
                     'password' => '%database_password%',
                 ),
             ));
-    
+
     Separando le informazioni sula base dati in un file a parte, si possono mantenere
     facilmente diverse versioni del file su ogni server. Si possono anche facilmente
     memorizzare configurazioni di basi dati (o altre informazioni sensibili) fuori dal

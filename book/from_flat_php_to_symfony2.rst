@@ -439,7 +439,7 @@ contenuto:
             "files": ["model.php","controllers.php"]
         }
     }
-    
+
 Quindi, `scaricare Composer`_ ed eseguire il seguente comando, che scaricherà Symfony
 in una cartella ``vendor/``:
 

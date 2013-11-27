@@ -25,8 +25,8 @@ Il codice di Symfony2 è composto da diversi livelli indipendenti. Ogni livello
     dall'autoloader di Composer (``vendor/autoload.php``), incluso nel
     file ``src/autoload.php``.
 
-Il componente ``HttpFoundation``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Il componente HttpFoundation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Il livello più profondo è il componente :namespace:`Symfony\\Component\\HttpFoundation`.
 HttpFoundation fornisce gli oggetti principali necessari per trattare con HTTP.

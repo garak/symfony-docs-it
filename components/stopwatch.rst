@@ -9,15 +9,15 @@ Il componente Stopwatch fornisce uno strumento per profilare il codice.
 
 .. versionadded:: 2.2
     Il componente Stopwatch è nuovo in Symfony 2.2. Precedentemente, la classe ``Stopwatch``
-    si trovava nel componente ``HttpKernel`` (ed era nuova in 2.1).
+    si trovava nel componente HttpKernel (ed era nuova in 2.1).
 
 Installazione
 -------------
 
 Si può installare il componente in due modi:
 
-* Usare il repository GIT ufficiale (https://github.com/symfony/Stopwatch);
-* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/stopwatch`` su `Packagist`_).
+* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/stopwatch`` su `Packagist`_);
+* Usare il repository Git ufficiale (https://github.com/symfony/Stopwatch).
 
 Uso
 ---
@@ -46,8 +46,8 @@ Periodi
 -------
 
 Come sappiamo dal mondo reale, tutti i cronometri hanno due bottoni:
-uno per far partire e fermare il cronometro, l'atrlo per per le frazioni di tempo.
-Questo è esattamente cià che il metodo :method:``Symfony\\Component\\Stopwatch\\Stopwatch::lap``
+uno per far partire e fermare il cronometro, l'altro per per le frazioni di tempo.
+Questo è esattamente ciò che il metodo :method:`Symfony\\Component\\Stopwatch\\Stopwatch::lap`
 fa::
 
     $stopwatch = new Stopwatch();
@@ -91,7 +91,7 @@ nel profilatore. Ecco un esempio di uso di base delle sezioni::
 
     $events = $stopwatch->getSectionEvents('routing');
 
-Si può riaprire una sezione chiusa, richiamando il metodo :method:``Symfony\\Component\\Stopwatch\\Stopwatch::openSection``
+Si può riaprire una sezione chiusa, richiamando il metodo :method:`Symfony\\Component\\Stopwatch\\Stopwatch::openSection`
 e specificando l'id della sezione da riaprire::
 
     $stopwatch->openSection('routing');

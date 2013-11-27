@@ -306,12 +306,12 @@ Aggiornare quindi le rotte. Se le rotte sono fuori dal bundle
 
         # src/Acme/AccountBundle/Resources/config/routing.yml
         account_register:
-           pattern:  /register
-           defaults: { _controller: AcmeAccountBundle:Account:register }
-   
+            path:     /register
+            defaults: { _controller: AcmeAccountBundle:Account:register }
+
         account_create:
-           pattern:  /register/create
-           defaults: { _controller: AcmeAccountBundle:Account:create }
+            path:     /register/create
+            defaults: { _controller: AcmeAccountBundle:Account:create }
 
     .. code-block:: xml
 
@@ -351,6 +351,8 @@ Aggiornare lo schema della base dati
 
 Avendo aggiunto un'entità ``User``, occorre assicurarsi che lo
 schema della base dati sia aggiornato di conseguenza:
+
+.. code-block:: bash
 
    $ php app/console doctrine:schema:update --force
 

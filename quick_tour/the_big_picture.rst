@@ -69,7 +69,7 @@ ora avere una cartella ``Symfony/``, come la seguente:
         $ php composer.phar create-project symfony/framework-standard-edition Symfony 2.3.0
 
 .. _`quick-tour-big-picture-built-in-server`:
-   
+
 Se si ha PHP 5.4, si può usare il server web incluso:
 
 .. code-block:: bash
@@ -298,7 +298,7 @@ client o anche restituire il contenuto di un'immagine JPG, con un header ``Conte
 
 Il nome del template, ``AcmeDemoBundle:Welcome:index.html.twig``, è il
 *nome logico* del template e fa riferimento al file ``Resources/views/Welcome/index.html.twig``
-dentro ``AcmeDemoBundle`` (localizzato in ``src/Acme/DemoBundle``). La sezione successiva
+dentro AcmeDemoBundle (localizzato in ``src/Acme/DemoBundle``). La sezione successiva
 sui bundle ne spiega l'utilità.
 
 Diamo ora un altro sguardo al file di configurazione delle rotte e cerchiamo la voce

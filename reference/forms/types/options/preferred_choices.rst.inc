@@ -20,9 +20,9 @@ Il separatore può essere personalizzato durante la resa:
 .. configuration-block::
 
     .. code-block:: jinja
-    
+
         {{ form_widget(form.scelte_pippo, { 'separator': '=====' }) }}
 
     .. code-block:: php
-    
+
         <?php echo $view['form']->widget($form['scelte_pippo'], array('separator' => '=====')) ?>

@@ -124,8 +124,8 @@ Nell'esempio precedente, è stato configurato un servizio ``my.listener`` come a
 dell'evento ``postPersist``. La classe dietro al servizio deve avere un metodo
 ``postPersist``, che sarà richiamato al lancio dell'evento::
 
-    // src/Acme/SearchBundle/Listener/SearchIndexer.php
-    namespace Acme\SearchBundle\Listener;
+    // src/Acme/SearchBundle/EventListener/SearchIndexer.php
+    namespace Acme\SearchBundle\EventListener;
 
     use Doctrine\ORM\Event\LifecycleEventArgs;
     use Acme\StoreBundle\Entity\Product;

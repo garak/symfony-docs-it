@@ -125,14 +125,14 @@ Dopo aver creato ``schema.xml``, generare il modello, eseguendo:
 
     $ php app/console propel:model:build
 
-Questo comando genera ogni classe del modello, per sviluppare rapidamente la propria
-applicazione, nella cartella ``Model/`` di ``AcmeStoreBundle``.
+Questo comando genera ogni classe del modello, per sviluppare rapidamente
+un'applicazione, nella cartella ``Model/`` di ``AcmeStoreBundle``.
 
 Creare schema e tabelle della base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora si dispone di una classe ``Product`` e di tutto il necessario per poterla persistere.
-Ovviamente, non si ha ancora una corrispondente tabella ``product`` nella propria base
+Ovviamente, non si ha ancora una corrispondente tabella ``product`` nella base
 dati. Per fortuna, Propel può creare automaticamente tutte le tabelle della base dati,
 per ciascun modello dell'applicazione. Per farlo, eseguire:
 
@@ -175,7 +175,7 @@ bundle::
         return new Response('Creato prodotto con id '.$product->getId());
     }
 
-In questo pezzo di codice, abbiamo istanziato e usato un oggetto ``$product``.
+In questo pezzo di codice, è stato istanziato e usato un oggetto ``$product``.
 Richiamando il suo metodo ``save()``, lo si persiste nella base dati. Non occorre
 usare altri servizi, l'oggetto sa da solo come persistersi.
 
@@ -213,7 +213,7 @@ Aggiornare un oggetto
 
 Una volta recuperato un oggetto con Propel, aggiornarlo è facile. Si supponga di avere
 una rotta che mappi l'id di un prodotto all'azione di aggiornamento di un controllore::
-    
+
     // ...
     use Acme\StoreBundle\Model\ProductQuery;
 

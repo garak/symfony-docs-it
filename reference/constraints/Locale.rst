@@ -34,7 +34,7 @@ Uso di base
 
         // src/Acme/UserBundle/Entity/User.php
         namespace Acme\UserBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class User
@@ -64,10 +64,10 @@ Uso di base
 
         // src/Acme/UserBundle/Entity/User.php
         namespace Acme\UserBundle\Entity;
-        
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
-  
+
         class User
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)

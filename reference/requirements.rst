@@ -1,6 +1,6 @@
 .. index::
    single: Requisiti
-   
+
 Requisiti per far girare Symfony2
 =================================
 
@@ -23,6 +23,11 @@ Requisiti
 * JSON deve essere abilitato
 * ctype deve essere abilitato
 * ``php.ini`` deve avere l'impostazione ``date.timezone``
+
+.. caution::
+
+    Fare attenzione, perché Symfony2 ha alcuni limiti noti con versioni precedenti a PHP 5.3.8.
+    Per maggiori informazoni, vedere la `sezione Requisiti del README`_.
 
 Opzionali
 ---------
@@ -48,3 +53,5 @@ Doctrine
 Se si vuole usare Doctrine, bisogna avere PDO installato. Inoltre, bisogna avere
 installato il driver PDO per la base dati che si vuole
 utilizzare.
+
+.. _`sezione Requisiti del README`: https://github.com/symfony/symfony#requirements

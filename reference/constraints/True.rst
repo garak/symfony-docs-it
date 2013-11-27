@@ -96,11 +96,11 @@ Si può vincolare questo metodo con ``True``.
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\True;
-        
+
         class Author
         {
             protected $token;
-            
+
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addGetterConstraint('tokenValid', new True(array(

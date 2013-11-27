@@ -137,10 +137,17 @@ Tutti i blocchi hanno accesso all'oggetto ``collector``.
 
 .. tip::
 
-    I template predefiniti usano immagini codificate in base64 per la barra
-    (``<img src="src="data:image/png;base64,..."``). Si può calcolare facilmente
-    il valore base64 di un'immagine con questo piccolo script:
-    ``echo base64_encode(file_get_contents($_SERVER['argv'][1]));``.
+    I template predefiniti usano immagini codificate in base64 per la barra:
+
+    .. code-block:: html
+        <img src="data:image/png;base64,..." />
+
+    Si può calcolare facilmente il valore base64 di un'immagine con questo
+    piccolo script::
+
+        #!/usr/bin/env php
+        <?php
+        echo base64_encode(file_get_contents($_SERVER['argv'][1]));
 
 Per abilitare il template, aggiungere un attributo ``template`` al tag ``data_collector``
 nella propria configurazione. Per esempio, ipotizzando che il template sia in un

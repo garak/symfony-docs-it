@@ -5,7 +5,7 @@
 Il componente Form
 ==================
 
-    Il componente Form consente di crearem processare e riusare facilmente
+    Il componente Form consente di creare, processare e riusare facilmente
     form HTML.
 
 Il componente Form è uno strumento che aiuta a risolvere il problema di consentire agli utenti finali
@@ -19,8 +19,8 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* Usare il repository ufficiale Git (https://github.com/symfony/Form);
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/form`` su `Packagist`_).
+* Usare il repository ufficiale Git (https://github.com/symfony/Form);
 
 Configurazione
 --------------

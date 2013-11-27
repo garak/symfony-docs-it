@@ -35,7 +35,7 @@ una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-        
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -65,7 +65,7 @@ una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
 
         // src/Acme/BlogBundle/Entity/Author.php
         namespace Acme\BlogBundle\Entity;
-        
+
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
 

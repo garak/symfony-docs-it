@@ -40,7 +40,7 @@ l'integrazione di altri componenti correlati:
 Quando si crea un bundle, si hanno due scelte sulla gestione della configurazione:
 
 1. **Normale configurazione di servizi** (*facile*):
-  
+
     Si possono specificare i propri servizi in un file di configurazione (p.e. ``services.yml``)
     posto nel bundle e quindi importarlo dalla configurazione principale
     dell'applicazione. Questo è molto facile, rapido ed efficace. Se si usano i

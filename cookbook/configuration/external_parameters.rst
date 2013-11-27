@@ -41,13 +41,13 @@ essere configurate utilizzando la seguente configurazione del ``VirtualHost``:
     Il precedente esempio è relativo alla configurazione di Apache e utilizza la
     direttiva `SetEnv`_. Comunque, lo stesso concetto si applica a qualsiasi
     server web che supporti la configurazione delle variabili d'ambiente.
-    
+
     Inoltre, per far si che possa funzionare anche per la riga di comando (che non utilizza Apache),
     sarà necessario esportare i parametri come variabili di shell. Su di un sistema Unix,
     lo si può fare con il seguente comando:
-    
+
     .. code-block:: bash
-    
+
         $ export SYMFONY__UTENTE__DATABASE=utente
         $ export SYMFONY__PASSWORD__DATABASE=segreta
 

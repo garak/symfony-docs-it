@@ -1,8 +1,8 @@
 .. index::
    single: Form; Personalizzare la resa dei form
 
-Come personalizzare la resa dei form
-====================================
+Personalizzare la resa dei form
+===============================
 
 Symfony permette un'ampia varietà di modi per personalizzare la resa di un form.
 In questa guida, si apprenderà come personalizzare ogni possibile parte del

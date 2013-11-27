@@ -20,8 +20,8 @@ Scaricare una distribuzione Symfony2
 .. tip::
 
     Verificare innanzitutto di avere un server web (come Apache) installato
-    e funzionante con PHP 5.3.8 o successivi. Per ulteriori informazioni sui requisiti di Symfony2,
-    si veda il :doc:`riferimento sui requisiti</reference/requirements>`.
+    e funzionante con PHP. Per ulteriori informazioni sui requisiti di Symfony2,
+    si veda il :doc:`riferimento sui requisiti </reference/requirements>`.
 
 Symfony2 ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
 includono le librerie del nucleo di Symfony2, una selezione di bundle utili e alcune
@@ -199,7 +199,7 @@ Symfony stesso, nella cartella ``vendor/``.
 
     Passando ``relative`` invece di ``symlink`` a symfony-assets-install, il comando genererà
     collegamenti simbolici relativi.
-        
+
 Configurazione
 ~~~~~~~~~~~~~~
 
@@ -285,7 +285,7 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 .. image:: /images/quick_tour/welcome.png
 
 .. tip::
-    
+
     Per ottenere URL brevi, si dovrebbe far puntare la cartella radice del
     server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
     non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui

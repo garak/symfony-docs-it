@@ -11,8 +11,8 @@ Installazione
 
 Si può installare il componente in due modi:
 
+* Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/filesystem`` su `Packagist`_).
 * Usare il repository ufficiale su Git (https://github.com/symfony/Filesystem);
-* Installarlo tramite `Composer </components/using_components>` (``symfony/filesystem`` su `Packagist`_).
 
 Utilizzo
 --------
@@ -60,8 +60,8 @@ Su filesystem di tipo posix, le cartelle sono create in modalità predefinita
 Exists
 ~~~~~~
 
-Exists verifica la presenza di tutti i file o cartelle e restituisce `false` se un file
-manca::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::exists` verifica la
+presenza di tutti i file o cartelle e restituisce `false` se un file manca::
 
     // questa cartella esiste, restituisce true
     $fs->exists('/tmp/photos');
@@ -91,9 +91,9 @@ comportamento è modificabile tramite un terzo parametro booleano::
 Touch
 ~~~~~
 
-Touch imposta l'ora di accesso e modifica di un file. Per impostazione predefinita, usa
-l'ora attuale. Si può impostare un'ora diversa con il secondo parametro. Il terzo parametro
-è l'ora di accesso::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::touch` imposta l'ora di accesso
+e modifica di un file. Per impostazione predefinita, usa l'ora attuale. Si può
+impostare un'ora diversa con il secondo parametro. Il terzo parametro è l'ora di accesso::
 
     // imposta l'ora di accesso al timestamp attuale
     $fs->touch('file.txt');
@@ -110,8 +110,8 @@ l'ora attuale. Si può impostare un'ora diversa con il secondo parametro. Il ter
 Chown
 ~~~~~
 
-Chown è usato per cambiare il proprietario di un file. Il terzo parametro è un booleano per
-un'opzione ricorsiva::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::chown` è usato per cambiare
+il proprietario di un file. Il terzo parametro è un booleano per un'opzione ricorsiva::
 
     // imposta il proprietario del video lolcat a www-data
     $fs->chown('lolcat.mp4', 'www-data');
@@ -126,8 +126,8 @@ un'opzione ricorsiva::
 Chgrp
 ~~~~~
 
-Chgrp è usato per cambiare il gruppo di un file. Il terzo parametro è un booleano per
-un'opzione ricorsiva::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::chgrp` è usato per cambiare
+il gruppo di un file. Il terzo parametro è un booleano per un'opzione ricorsiva::
 
     // imposta il gruppo del video lolcat a nginx
     $fs->chgrp('lolcat.mp4', 'nginx');
@@ -142,8 +142,8 @@ un'opzione ricorsiva::
 Chmod
 ~~~~~
 
-Chmod modifica la modalità di un file. Il terzo parametro è un booleano con un'opzione
-ricorsiva::
+:method:`Symfony\\Component\\Filesystem\\Filesystem::chmod` è usato per modificare
+la modalità di un file. Il terzo parametro è un'opzione ricorsiva booleana::
 
     // imposta la modalità di video.ogg a 0600
     $fs->chmod('video.ogg', 0600);
@@ -218,7 +218,7 @@ isAbsolutePath
 ~~~~~~~~~~~~~~
 
 :method:`Symfony\\Component\\Filesystem\\Filesystem::isAbsolutePath` restiuisce
-`true` se il percorso dato è assoluto, `false` altrimenti::
+``true`` se il percorso dato è assoluto, ``false`` altrimenti::
 
     // restituisce true
     $fs->isAbsolutePath('/tmp');

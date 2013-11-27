@@ -78,7 +78,7 @@ Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle d
         )));
 
 Ora generiamo le regole di **url_rewrite**:
-    
+
 .. code-block:: bash
 
     $ php app/console router:dump-apache -e=prod --no-debug
@@ -126,7 +126,7 @@ Per risparmiare un po' di tempo di processore, sostituire tutte le ``Request``
 con ``ApacheRequest`` in ``web/app.php``::
 
     // web/app.php
-    
+
     require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
     //require_once __DIR__.'/../app/AppCache.php';

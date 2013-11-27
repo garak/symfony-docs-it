@@ -26,7 +26,7 @@ L'obiettivo di un controllore è sempre lo stesso: creare e restituire un oggett
 risorsa da una base dati, inviare un'email, o impostare informazioni sulla sessione dell'utente.
 Ma in ogni caso, il controllore alla fine restituirà un oggetto ``Response``
 che verrà restituito al client.
-	
+
 Non c'è nessuna magia e nessun altro requisito di cui preoccuparsi! Di seguito alcuni
 esempi comuni:
 

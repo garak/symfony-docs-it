@@ -718,7 +718,7 @@ i valori corretti di una serie di opzioni del campo.
 
   Queste opzioni di campi vengono indovinate *solo* se si sta usando Symfony per ricavare
   il tipo di campo (ovvero omettendo o passando ``null`` nel secondo parametro di ``add()``).
-  
+
 Se si desidera modificare uno dei valori indovinati, è possibile sovrascriverlo
 passando l'opzione nell'array di opzioni del campo::
 
@@ -1028,7 +1028,7 @@ task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore u
 
     // src/Acme/TaskBundle/Controller/DefaultController.php
 
-    // add this new use statement at the top of the class
+    // aggiungere questa istruzione "use" in cima alla classe
     use Acme\TaskBundle\Form\Type\TaskType;
 
     public function newAction()
@@ -1072,7 +1072,7 @@ la scelta in ultima analisi, spetta allo sviluppatore.
 
     Nel caso in cui servano campi extra nel form (per esempio, un checkbox "accetto
     i termini"), che non saranno mappati nell'oggetto sottostante,
-    occorre impostare l'opzione ``property_path`` a ``false``::
+    occorre impostare l'opzione ``mapped`` a ``false``::
 
         use Symfony\Component\Form\FormBuilderInterface;
 
@@ -1089,7 +1089,7 @@ la scelta in ultima analisi, spetta allo sviluppatore.
     Si può accedere ai dati del campo in un controllore con::
 
         $form->get('dueDate')->getData();
-        
+
     Inoltre, anche i dati di un campo non mappato si possono modificare direttamente::
 
         $form->get('dueDate')->setData(new \DateTime());

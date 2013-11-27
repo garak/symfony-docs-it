@@ -98,14 +98,14 @@ della coda da soli. Usare il codice seguente per inviare email da dentro un
 comando di console::
 
     $message = new \Swift_Message();
-    
+
     // ... preparare il messaggio
-    
+
     $container = $this->getContainer();
     $mailer = $container->get('mailer');
-    
+
     $mailer->send($message);
-    
+
     // flush manuale della coda
     $spool = $mailer->getTransport()->getSpool();
     $transport = $container->get('swiftmailer.transport.real');

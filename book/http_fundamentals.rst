@@ -30,9 +30,9 @@ l'ultima vignetta di `xkcd`_, ha luogo la seguente conversazione (approssimata):
 .. image:: /images/http-xkcd.png
    :align: center
 
-E mentre il linguaggio veramente usato è un po' più formale, è ancora assolutamente semplice.
+E sebbene il linguaggio usato in realtà sia un po' più formale, è ancora assolutamente semplice.
 HTTP è il termine usato per descrivere tale semplice linguaggio testuale. Non importa in
-quale linguaggio si sviluppi sul web, lo scopo del proprio server è *sempre* quello di
+quale linguaggio si sviluppi sul web, lo scopo di un server è *sempre* quello di
 interpretare semplici richieste testuali e restituire semplici risposte testuali.
 
 Symfony2 è costruito fin dalle basi attorno a questa realtà. Che lo si comprenda o
@@ -128,7 +128,7 @@ questa:
     Content-Type: text/html
 
     <html>
-      <!-- ... HTML for the xkcd comic -->
+      <!-- ... HTML della vignetta di xkcd -->
     </html>
 
 La risposta HTTP contiene la risorsa richiesta (il contenuto HTML, in questo caso).
@@ -144,7 +144,7 @@ Come la richiesta, una risposta HTTP contiene parti aggiuntive di informazioni, 
 header. Per esempio, un importante header di risposta HTTP è ``Content-Type``. 
 Il corpo della risorsa stessa potrebbe essere restituito in molti formati diversi, inclusi
 HTML, XML o JSON, mentre l'header ``Content-Type`` usa i tipi di media di Internet, come ``text/html``, per
-dire al client quale formato è restituito. Ua lista di tipi di media comuni si può
+dire al client quale formato è restituito. Una lista di tipi di media comuni si può
 trovare sulla voce di Wikipedia
 `Lista di tipi di media comuni`_.
 
@@ -261,7 +261,7 @@ tramite una connessione sicura (cioè ``https``).
     di ParameterBag.
 
     .. _book-fundamentals-attributes:
-    
+
     La classe Request ha anche una proprietà pubblica ``attributes``, che contiene
     dati speciali relativi a come l'applicazione funziona internamente. Per il
     framework Symfony2, ``attributes`` contiene valori restituiti dalla rotta
@@ -271,7 +271,7 @@ tramite una connessione sicura (cioè ``https``).
     e memorizzare informazioni sulla richiesta relative al contesto.
 
 Symfony fornisce anche una classe ``Response``: una semplice rappresentazione PHP di un
-messaggio di risposta HTTP. Questo consente alla propria applicazione di usare un'interfaccia
+messaggio di risposta HTTP. Questo consente a un'applicazione di usare un'interfaccia
 orientata agli oggetti per costruire la risposta che occorre restituire al client::
 
     use Symfony\Component\HttpFoundation\Response;
@@ -290,7 +290,7 @@ orientata agli oggetti per costruire la risposta che occorre restituire al clien
 Se Symfony offrisse solo questo, si avrebbe già a disposizione un kit di strumenti per
 accedere facilmente alle informazioni di richiesta e un'interfaccia orientata agli oggetti
 per creare la risposta. Anche imparando le molte potenti caratteristiche di Symfony,
-si tenga a mente che lo scopo della propria applicazione è sempre quello di *interpretare
+si tenga a mente che lo scopo di un'applicazione è sempre quello di *interpretare
 una richiesta e creare l'appropriata risposta, basata sulla logica dell'applicazione*.
 
 .. tip::

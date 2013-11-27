@@ -117,9 +117,9 @@ della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singol
         return $bundles;
     }
 
-Oltre a ``AcmeDemoBundle``, di cui abbiamo già parlato, si noti che il kernel
-abilita anche ``FrameworkBundle``, ``DoctrineBundle``,
-``SwiftmailerBundle`` e ``AsseticBundle``. Fanno tutti parte del nucleo del
+Oltre a AcmeDemoBundle, di cui abbiamo già parlato, si noti che il kernel
+abilita anche FrameworkBundle, DoctrineBundle,
+SwiftmailerBundle e AsseticBundle. Fanno tutti parte del nucleo del
 framework.
 
 Configurare un bundle

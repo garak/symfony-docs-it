@@ -102,7 +102,7 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
     {
         public function indexAction($name)
         {
-          return new Response('<html><body>Ciao '.$name.'!</body></html>');
+            return new Response('<html><body>Ciao '.$name.'!</body></html>');
         }
     }
 
@@ -220,7 +220,7 @@ passati a tale metodo::
     {
         public function indexAction($name)
         {
-          // ...
+            // ...
         }
     }
 

@@ -86,7 +86,7 @@ I Loader predefiniti sono:
 * :class:`Symfony\\Component\\Translation\\Loader\\XliffFileLoader` - per caricare
   cataloghi da file Xliff.
 * :class:`Symfony\\Component\\Translation\\Loader\\YamlFileLoader` - per caricare
-  cataloghi da file Yaml (richiede il :doc:`componente Yaml</components/yaml>`).
+  cataloghi da file Yaml (richiede il :doc:`componente Yaml</components/yaml/introduction>`).
 
 .. versionadded:: 2.1
     I loader ``IcuDatFileLoader``, ``IcuResFileLoader``, ``IniFileLoader``,

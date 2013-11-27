@@ -52,8 +52,10 @@ L'implementazione predefinita usa cinque tabelle della base dati, elencate sotto
 tabelle sono ordinate dalla più piccola alla più grande, in una tipica applicazione:
 
 - *acl_security_identities*: questa tabella registra tutte le identità di sicurezza (SID)
-  che contengono ACE. L'implementazione predefinita ha due identità di sicurezza,
-  ``RoleSecurityIdentity`` e ``UserSecurityIdentity``
+  che contengono ACE. L'implementazione predefinita ha due identità di
+  sicurezza:
+  :class:`Symfony\\Component\\Security\\Acl\\Domain\\RoleSecurityIdentity` e
+  :class:`Symfony\\Component\\Security\\Acl\\Domain\\UserSecurityIdentity`.
 - *acl_classes*: questa tabella mappa i nomi delle classi con identificatori univoci, a
   cui possono fare riferimento le altre tabelle
 - *acl_object_identities*: ogni riga in questa tabella rappresebta un'istanza di un
@@ -173,9 +175,10 @@ Processo di determinazione dell'autorizzazione
 La classe ACL fornisce due metodi per determinare se un'identità di sicurezza abbia
 i bit richiesti, ``isGranted`` e ``isFieldGranted``. Quando l'ACL riceve una richiesta
 di autorizzazione tramite uno di questi metodi, delega la
-richiesta a un'implementazione di ``PermissionGrantingStrategy``. Questo consente di
-sostituire il modo in cui sono prese le decisioni di accesso, senza dover modificare
-la classe ACL stessa.
+richiesta a un'implementazione di
+:class:`Symfony\\Component\\Security\\Acl\\Domain\\PermissionGrantingStrategy`.
+Questo consente di sostituire il modo in cui sono prese le decisioni di accesso, senza
+dover modificare la classe ACL stessa.
 
 ``PermissionGrantingStrategy`` verifica prima tutti gli ACE con visibilità di oggetto. Se
 nessuno è applicabile, verifica gli ACE con visibilità di classe. Se nessuno è applicabile,

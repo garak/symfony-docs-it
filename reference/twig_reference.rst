@@ -104,7 +104,7 @@ Filtri
 |                                                                                 | :ref:`filtri di traduzione<book-translation-filters>`.            |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``text|transchoice(conta, parametri = {}, dominio = 'messages', locale = null)``| Tradurrà il testo con il plurale, maggiori informazioni           |
-|                                                                                 | in :ref:`book-translation-twig`.                                  |
+|                                                                                 | in :ref:`Filtri di traduzione <book-translation-filters>`.        |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | ``variable|yaml_encode(inline = 0)``                                            | Trasformerà il testo della variabile in sintassi YAML.            |
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
@@ -141,10 +141,10 @@ Tag
 |                                                   | maggiori informazioni in :doc:`/cookbook/form/form_customization`.|
 +---------------------------------------------------+-------------------------------------------------------------------+
 | ``{% trans with {variabili} %}...{% endtrans %}`` | Tradurrà e renderà il testo, maggiori informazioni in             |
-|                                                   | :ref:`book-translation-twig`                                      |
+|                                                   | :ref:`book-translation-tags`                                      |
 +---------------------------------------------------+-------------------------------------------------------------------+
 | ``{% transchoice count with {variabili} %}``      | Tradurrà e renderà il testo con il plurale, maggiori              |
-| ...                                               | informazioni in :ref:`book-translation-twig`                      |
+| ...                                               | informazioni in :ref:`book-translation-tags`                      |
 | ``{% endtranschoice %}``                          |                                                                   |
 +---------------------------------------------------+-------------------------------------------------------------------+
 | ``{% trans_default_domain lingua %}``             | Imposterà il dominio predefinito per i cataloghi dei messaggi     |

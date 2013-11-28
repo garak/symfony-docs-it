@@ -24,36 +24,65 @@ Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         monolog:
             handlers:
                 main:
-                    type: stream
-                    path: /var/log/symfony.log
-                    channels: !doctrine
+                    type:     stream
+                    path:     /var/log/symfony.log
+                    channels: [!doctrine]
                 doctrine:
-                    type: stream
-                    path: /var/log/doctrine.log
-                    channels: doctrine
+                    type:     stream
+                    path:     /var/log/doctrine.log
+                    channels: [doctrine]
 
     .. code-block:: xml
 
-        <monolog:config>
-            <monolog:handlers>
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:monolog="http://symfony.com/schema/dic/monolog"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/monolog
+                http://symfony.com/schema/dic/monolog/monolog-1.0.xsd"
+        >
+            <monolog:config>
                 <monolog:handler name="main" type="stream" path="/var/log/symfony.log">
                     <monolog:channels>
-                        <type>exclusive</type>
-                        <channel>doctrine</channel>
+                        <monolog:channel>!doctrine</monolog:channel>
                     </monolog:channels>
                 </monolog:handler>
 
-                <monolog:handler name="doctrine" type="stream" path="/var/log/doctrine.log" />
+                <monolog:handler name="doctrine" type="stream" path="/var/log/doctrine.log">
                     <monolog:channels>
-                        <type>inclusive</type>
-                        <channel>doctrine</channel>
+                        <monolog:channel>doctrine</monolog:channel>
                     </monolog:channels>
                 </monolog:handler>
-            </monolog:handlers>
-        </monolog:config>
+            </monolog:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'main'     => array(
+                    'type'     => 'stream',
+                    'path'     => '/var/log/symfony.log',
+                    'channels' => array(
+                        '!doctrine',
+                    ),
+                ),
+                'doctrine' => array(
+                    'type'     => 'stream',
+                    'path'     => '/var/log/doctrine.log',
+                    'channels' => array(
+                        'doctrine',
+                    ),
+                ),
+            ),
+        ));
 
 Specifiche YAML
 ---------------
@@ -70,23 +99,66 @@ Si può specificare la configurazione in molte forme:
     channels: [pippo, pluto]   # Include solo i canali "pippo" e "pluto"
     channels: [!pippo, !pluto] # Include tutti i canali, tranne "pippo" e "pluto"
 
-    channels:
-        type:     inclusive # Include solo quelli elencati sotto
-        elements: [ pippo, pluto ]
-    channels:
-        type:     exclusive # Include tutto, tranne quelli elencati sotto
-        elements: [ pippo, pluto ]
-
 Creare il proprio canale
 ------------------------
 
 Si può cambiare il canale usato da monolog su un servizio alla volta. Lo si può fare
-aggiungendo il tag ``monolog.logger`` a un servizio e specificando quale canale il
-servizio dovrebbe usare per i log. In questo modo, il logger iniettato in questo
-servizio viene preconfigurarto per usare il canale specificato.
+tramite :ref:`configurazione <cookbook-monolog-channels-config>`, come mostrato qui sotto,
+o aggiungendo il tag :ref:`monolog.logger<dic_tags-monolog>` a un servizio e
+specificando quale canale il servizio dovrebbe usare per i log. In questo modo, il logger
+iniettato in questo servizio viene preconfigurarto per usare il canale
+specificato.
 
-Per maggiori informazioni, incluso un esempio completo, leggere ":ref:`dic_tags-monolog`",
-nella sezione di riferimento sui tag della dependency injection.
+.. _cookbook-monolog-channels-config:
+
+Configure Additional Channels without Tagged Services
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.3
+    Questa caratteristica è stata introdotto in MonologBundle nella versione 2.4. Questa
+    versione è compatibile con Symfony 2.3, che però installa MonologBundle 2.3.
+    Per usare questa caratteristica, occorre aggiornare il bundle a mano.
+
+Con MonologBundle 2.4 si possono configurare canali aggiuntivi, senza aver
+bisogno di tag per i servizi:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        monolog:
+            channels: ["pippo", "pluto"]
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:monolog="http://symfony.com/schema/dic/monolog"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/monolog
+                http://symfony.com/schema/dic/monolog/monolog-1.0.xsd"
+        >
+            <monolog:config>
+                <monolog:channel>pippo</monolog:channel>
+                <monolog:channel>pluto</monolog:channel>
+            </monolog:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('monolog', array(
+            'channels' => array(
+                'pippo',
+                'pluto',
+            ),
+        ));
+
+In questo modo si possono loggare messaggi al canale ``pippo`` usando
+il servizio logger, registrato automaticamente, ``monolog.logger.pippo``.
 
 Imparare di più con il ricettario
 ---------------------------------

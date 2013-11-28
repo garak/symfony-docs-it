@@ -242,4 +242,4 @@ del tag.
 
 .. tip::
 
-   Si può usare la classe ``DoctrineConverter`` come modello per i propri convertitori.
+   Si può usare la classe ``DoctrineParamConverter`` come modello per i propri convertitori.

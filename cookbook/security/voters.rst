@@ -67,6 +67,10 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
 
     class ClientIpVoter implements VoterInterface
     {
+        private $container;
+
+        private $blacklistedIp;
+            
         public function __construct(ContainerInterface $container, array $blacklistedIp = array())
         {
             $this->container     = $container;
@@ -85,7 +89,7 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
             return true;
         }
 
-        function vote(TokenInterface $token, $object, array $attributes)
+        public function vote(TokenInterface $token, $object, array $attributes)
         {
             $request = $this->container->get('request');
             if (in_array($request->getClientIp(), $this->blacklistedIp)) {

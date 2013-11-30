@@ -43,9 +43,10 @@ L'utilizzo di Assetic consente molti vantaggi rispetto a servire direttamente i 
 I file non devono essere memorizzati dove vengono serviti e possono
 provenire da varie fonti come quelle all'interno di un bundle.
 
-Si può usare Assetic per processare sia :ref:`fogli di stile CSS<cookbook-assetic-including-css>`
-che :ref:`file JavaScript<cookbook-assetic-including-javascript>`. La filosofia
-dietro all'aggiunta di entrambi è di base la stessa, ma con una sintassi leggermente diversa.
+Si può usare Assetic per processare :ref:`fogli di stile CSS <cookbook-assetic-including-css>`,
+:ref:`file JavaScript <cookbook-assetic-including-javascript>` e
+:ref:`immagini <cookbook-assetic-including-image>`. La filosofia
+dietro all'aggiunta di tutti e tre è di base la stessa, ma con una sintassi leggermente diversa.
 
 .. _cookbook-assetic-including-javascript:
 
@@ -127,6 +128,32 @@ non usare il filtro :ref:`cssrewrite<cookbook-assetic-cssrewrite>`.
     percorso, accessibile pubblicamente: ``bundles/acme_foo/css``. Si possono usare entrambi, tranne
     per il fatto che c'è un problema noto, che non fa funzionare ``cssrewrite`` quando
     si usa la sintassi ``@AcmePippoBundle`` per i fogli di stile CSS.
+
+.. _cookbook-assetic-including-image:
+
+Includere immagini
+~~~~~~~~~~~~~~~~~~
+
+Per includere un'immagine, si può usare il tag ``image``.
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% image '@AcmePippoBundle/Resources/public/images/esempio.jpg' %}
+            <img src="{{ asset_url }}" alt="Esempio" />
+        {% endimage %}
+
+    .. code-block:: html+php
+
+        <?php foreach ($view['assetic']->image(
+            array('@AcmePippoBundle/Resources/public/images/esempio.jpg')
+        ) as $url): ?>
+            <img src="<?php echo $view->escape($url) ?>" alt="Esempio" />
+        <?php endforeach; ?>
+
+Si può usare Assetic anche per l'ottimizzazione delle immagini. Maggiori informazioni in
+:doc:`/cookbook/assetic/jpeg_optimize`.
 
 .. _cookbook-assetic-cssrewrite:
 

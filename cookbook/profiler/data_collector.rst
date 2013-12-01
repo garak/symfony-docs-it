@@ -150,7 +150,7 @@ Tutti i blocchi hanno accesso all'oggetto ``collector``.
         echo base64_encode(file_get_contents($_SERVER['argv'][1]));
 
 Per abilitare il template, aggiungere un attributo ``template`` al tag ``data_collector``
-nella propria configurazione. Per esempio, ipotizzando che il template sia in un
+nella configurazione. Per esempio, ipotizzando che il template sia in un
 ``AcmeDebugBundle``:
 
 .. configuration-block::
@@ -158,23 +158,23 @@ nella propria configurazione. Per esempio, ipotizzando che il template sia in un
     .. code-block:: yaml
 
         services:
-            data_collector.your_collector_name:
-                class: Acme\DebugBundle\Collector\Class\Name
+            data_collector.nome_del_collector:
+                class: Acme\DebugBundle\Nome\Classe\Collector
                 tags:
-                    - { name: data_collector, template: "AcmeDebugBundle:Collector:templatename", id: "your_collector_name" }
+                    - { name: data_collector, template: "AcmeDebugBundle:Collector:nometemplate", id: "nome_del_collector" }
 
     .. code-block:: xml
 
-        <service id="data_collector.your_collector_name" class="Acme\DebugBundle\Collector\Class\Name">
-            <tag name="data_collector" template="AcmeDebugBundle:Collector:templatename" id="your_collector_name" />
+        <service id="data_collector.your_collector_name" class="Acme\DebugBundle\Nome\Classe\Collector">
+            <tag name="data_collector" template="AcmeDebugBundle:Collector:nometemplate" id="nome_del_collector" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('data_collector.your_collector_name', 'Acme\DebugBundle\Collector\Class\Name')
+            ->register('data_collector.your_collector_name', 'Acme\DebugBundle\Nome\Classe\Collector')
             ->addTag('data_collector', array(
-                'template' => 'AcmeDebugBundle:Collector:templatename',
-                'id'       => 'your_collector_name',
+                'template' => 'AcmeDebugBundle:Collector:nometemplate',
+                'id'       => 'nome_del_collector',
             ))
         ;

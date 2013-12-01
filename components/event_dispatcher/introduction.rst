@@ -60,8 +60,8 @@ Eventi
 
 Quando un evento viene distribuito, è identificato da un nome univoco (p.e.
 ``kernel.response``), che può essere ascoltato da un numero qualsiasi di ascoltatori.
-Inoltre un'istanza di :class:`Symfony\\Component\\EventDispatcher\\Event`  viene creata
-e passata a tutti gli ascoltatori. Come vedremo più aventi, l'oggetto ``Event`` stesso
+Inoltre, un'istanza di :class:`Symfony\\Component\\EventDispatcher\\Event`  viene creata
+e passata a tutti gli ascoltatori. Come si vedrà più avanti, l'oggetto ``Event`` stesso
 spesso contiene dei dati sull'evento distribuito.
 
 .. index::
@@ -75,7 +75,7 @@ alcune semplici convenzioni di nomenclatura:
 
 * usa solo lettere minuscole, numeri, punti (``.``) e trattini bassi (``_``);
 
-* ha un pressi con uno spazio dei nomi, seguito da un punto (p.e. ``kernel.``);
+* ha un prefisso con uno spazio dei nomi, seguito da un punto (p.e. ``kernel.``);
 
 * termina con un verbo, che indica l'azione intrapresa (p.e.
   ``request``).

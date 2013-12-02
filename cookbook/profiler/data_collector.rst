@@ -140,6 +140,7 @@ Tutti i blocchi hanno accesso all'oggetto ``collector``.
     I template predefiniti usano immagini codificate in base64 per la barra:
 
     .. code-block:: html
+
         <img src="data:image/png;base64,..." />
 
     Si può calcolare facilmente il valore base64 di un'immagine con questo

@@ -660,6 +660,11 @@ ha bisogno del servizio ``my_mailer`` per poter funzionare. Quando si definisce
 questa dipendenza nel contenitore dei servizi, il contenitore si prende cura di tutto
 il lavoro di istanziare degli oggetti.
 
+Usare Expression Language
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+(TODO)
+
 Dipendenze opzionali: iniettare i setter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -764,7 +769,8 @@ Iniettare la richiesta
 
 A partire da Symfony 2.4, invece di iniettare il servizio ``request``, si dovrebbe
 iniettare il servizio ``request_stack`` e accedere alla richiesta con il
-metodo ``getCurrentRequest()``:
+metodo
+:method:`Symfony\\Component\\HttpFoundation\\RequestStack::getCurrentRequest`::
 
     namespace Acme\HelloBundle\Newsletter;
 

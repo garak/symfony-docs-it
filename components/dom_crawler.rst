@@ -340,6 +340,9 @@ spuntando i checkbox e caricando file::
     // può anche imitare l'upload di un file
     $form['registrazione[foto]']->upload('/percorso/al/file/lucas.jpg');
 
+Usare i dati del form
+.....................
+
 A cosa serve tutto questo? Se si stanno eseguendo i test interni, è possibile
 recuperare informazioni da tutti i form esattamente come se fossero stati inviati
 utilizzando i valori PHP::
@@ -374,6 +377,17 @@ direttamente::
 
     // invia il form
     $crawler = $client->submit($form);
+
+.. _components-dom-crawler-invalid:
+
+Scegliere valori non validi
+...........................
+
+.. versionadded:: 2.4
+    Il metodo :method:`Symfony\\Component\\DomCrawler\\Form::disableValidation`
+    è stato aggiunto in Symfony 2.4.
+
+TODO
 
 .. _`Goutte`:  https://github.com/fabpot/goutte
 .. _Packagist: https://packagist.org/packages/symfony/dom-crawler

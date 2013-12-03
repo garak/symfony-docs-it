@@ -88,11 +88,6 @@ I Loader predefiniti sono:
 * :class:`Symfony\\Component\\Translation\\Loader\\YamlFileLoader` - per caricare
   cataloghi da file Yaml (richiede il :doc:`componente Yaml</components/yaml/introduction>`).
 
-.. versionadded:: 2.1
-    I loader ``IcuDatFileLoader``, ``IcuResFileLoader``, ``IniFileLoader``,
-    ``MofileLoader``, ``PoFileLoader`` e ``QtFileLoader`` sono nuovi in
-    Symfony 2.1
-
 Tutti i Loader di file richiedono il :doc:`componente Config</components/config/index>`.
 
 Per prima cosa, aggiungere uno o più Loader a ``Translator``::

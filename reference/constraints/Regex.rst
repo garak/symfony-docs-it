@@ -177,9 +177,6 @@ Se tuttavia `match`_ è ``false``, la validazione fallisce se la stringa inserit
 htmlPattern
 ~~~~~~~~~~~
 
-.. versionadded:: 2.1
-    L'opzione ``htmlPattern`` è stata aggiunta in Symfony 2.1
-
 **tipo**: ``stringa|booleano`` **predefinito**: null
 
 Questa opzione specifica lo schema da usare nell'attributo HTML5 ``pattern``.

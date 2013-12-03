@@ -99,9 +99,9 @@ di nodo. I tipi di nodo disponibili sono:
 
 * scalare
 * booleano
-* intero (nuovo in 2.2)
-* enum (nuovo in 2.2)
-* virgola mobile (nuovo in 2.1)
+* intero
+* virgola mobile
+* enum
 * array
 * variabile (nessuna validazione)
 
@@ -135,9 +135,6 @@ che consentono di  validare il valore::
 
 Nodi enum
 ~~~~~~~~~~
-
-.. versionadded:: 2.1
-    Il nodo enum è nuovo in Symfony 2.1
 
 I nodi enum forniscono un vincolo che fa corrispondere il dato inserito a una
 serie divalori::
@@ -568,8 +565,8 @@ Altrimenti, il risultato è un array pulito di valori di configurazione::
     $configs = array($config1, $config2);
 
     $processor = new Processor();
-    $configuration = new DatabaseConfiguration;
+    $configuration = new DatabaseConfiguration();
     $processedConfiguration = $processor->processConfiguration(
         $configuration,
-        $configs)
-    ;
+        $configs
+    );

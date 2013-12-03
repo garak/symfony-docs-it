@@ -45,6 +45,14 @@ di errore. In alternativa, i metodi :method:`Symfony\\Component\\Process\\Proces
 e :method:`Symfony\\Component\\Process\\Process::getIncrementalErrorOutput`
 restituiscono i nuovi output dall'ultima chiamata.
 
+.. versionadded:: 2.4
+    I metodi ``flushOutput()`` e ``flushErrorOutput()`` sono stati aggiunti in Symfony 2.4.
+
+Il metodo :method:`Symfony\\Component\\Process\\Process::flushOutput` aggiorna il
+contenuto dell'output e
+:method:`Symfony\\Component\\Process\\Process::flushErrorOutput` aggiorna
+il contenuto degli errori.
+
 Output  del processo in tempo reale
 -----------------------------------
 
@@ -63,9 +71,6 @@ funzione anonima al metodo
             echo 'OUT > '.$buffer;
         }
     });
-
-.. versionadded:: 2.1
-    La caratteristica di non bloccagio è stata aggiunta in 2.1.
 
 Esecuzione asincrona dei processi
 ---------------------------------
@@ -95,7 +100,7 @@ si sta facendo altro::
     // ... fare altre cose
 
     $process->wait(function ($type, $buffer) {
-        if (Process:ERR === $type) {
+        if (Process::ERR === $type) {
             echo 'ERR > '.$buffer;
         } else {
             echo 'OUT > '.$buffer;
@@ -209,6 +214,25 @@ il timeout a intervalli regolari::
     }
 
 .. _reference-process-signal:
+
+Scadenza del processo inattivo
+------------------------------
+
+.. versionadded:: 2.4
+   Il metodo :method:`Symfony\\Component\\Process\\Process::setIdleTimeout` è stato aggiunto in Symfony 2.4.
+
+Contrariamente alla scadenza vista nel paragrafo precedente, la scadenza inattiva considera
+solo il tempo dall'ultimo output prodotto dal processo::
+
+   use Symfony\Component\Process\Process;
+   
+   $process = new Process('qualcosa-con-runtime-variabile');
+   $process->setTimeout(3600);
+   $process->setIdleTimeout(60);
+   $process->run();
+
+In questo caso, si considera scaduto un processo se il tempo totale
+eccede 3600 secondi o se il processo non produce output per 60 secondi.
 
 Segnali di processo
 -------------------

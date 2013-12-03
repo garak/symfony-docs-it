@@ -4,9 +4,6 @@
 Class Loader PSR-0
 ==================
 
-.. versionadded:: 2.1
-    La classe ``ClassLoader`` è stata aggiunta in Symfony 2.1.
-
 Se si usano classi e librerie di terze parti che seguono lo standard `PSR-0`_,
 si può usare la classe :class:`Symfony\\Component\\ClassLoader\\ClassLoader`
 per caricare tutte le classi del progetto.

@@ -4,9 +4,6 @@
 L'Event Dispatcher Immutable 
 ============================
 
-.. versionadded:: 2.1
-    Questa caratteristica è stata aggiunta in Symfony 2.1.
-
 :class:`Symfony\\Component\\EventDispatcher\\ImmutableEventDispatcher` è un
 distributore di eventi bloccato o congelato. Il distributore non può registrare nuovi
 ascolatori o sottoscrittori.

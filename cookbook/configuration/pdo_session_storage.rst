@@ -14,13 +14,6 @@ Symfony2 ha, al suo interno, una soluzione per l'archiviazione delle sessioni su
 Per utilizzarla è sufficiente cambiare alcuni parametri di ``config.yml`` (o del
 proprio formato di configurazione):
 
-.. versionadded:: 2.1
-    In Symfony2.1 sono stati leggermenti modificati classe e spazio dei nomi. Ora si può
-    trovare la classe `PdoSessionStorage` nello spazio dei nomi `Session\\Storage`:
-    ``Symfony\Component\HttpFoundation\Session\Storage\PdoSessionStorage``. Si noti inoltre
-    che in Symfony 2.1 va configurato ``handler_id`` e non ``storage_id``, come in Symfony2.0.
-    Più avanti, si noterà che ``%session.storage.options%`` non è più usato.
-
 .. configuration-block::
 
     .. code-block:: yaml

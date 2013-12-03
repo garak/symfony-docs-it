@@ -26,9 +26,6 @@ di una classe.
 ApcClassLoader
 --------------
 
-.. versionadded:: 2.1
-    La classe ``ApcClassLoader`` è stata aggiunta in Symfony 2.1.
-
 ``ApcClassLoader`` è un wrapper di un class loader esistente e mette in cache le chiamate al suo
 metodo ``findFile()``, usando `APC`_::
 
@@ -48,9 +45,6 @@ metodo ``findFile()``, usando `APC`_::
 
 XcacheClassLoader
 -----------------
-
-.. versionadded:: 2.1
-    La classe ``XcacheClassLoader`` è stata aggiunta in Symfony 2.1.
 
 ``XcacheClassLoader`` usa `XCache`_ per mettere in cache un class loader. La registrazione
 è semplice::

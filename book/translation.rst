@@ -41,7 +41,8 @@ per saperne di più. Nel complesso, il processo ha diverse fasi:
    per ogni lingua supportata che traducano tutti i messaggio dell'applicazione;
 
 #. Determinare, :ref:`impostare e gestire le impostazioni locali<book-translation-user-locale>`
-   dell'utente per la richiesta e, facoltativamente, sull'intera sessione.
+   dell'utente per la richiesta e, facoltativamente, 
+   :doc:`sull'intera sessione </cookbook/session/locale_sticky_session>`.
 
 .. _book-translation-configuration:
 
@@ -147,7 +148,8 @@ ma XLIFF è il formato raccomandato:
         # messages.fr.yml
         Symfony2 is great: J'aime Symfony2
 
-Per informazioni sulla posizione di questi file, vedere :ref:`book-translation-resource-locations`.
+Per informazioni sulla posizione di questi file, vedere
+:ref:`book-translation-resource-locations`.
 
 Ora, se la lingua del locale dell'utente è il francese (per esempio ``fr_FR`` o ``fr_BE``),
 il messaggio sarà tradotto in ``J'aime Symfony2``. Si può anche tradurre il
@@ -304,9 +306,6 @@ variabili* ed espressioni complesse:
 
     Notare che questo influenza solo in template attuale, non i template "inclusi"
     (per evitare effetti collaterali).
-
-.. versionadded:: 2.1
-    Il tag ``trans_default_domain`` è nuovo in Symfony2.1
 
 Template PHP
 ~~~~~~~~~~~~
@@ -483,8 +482,10 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
         return $collection;
 
-Quando si utilizza il parametro speciale `_locale` in una rotta, il locale corrispondente
-verrà *automaticamente impostato sulla sessione dell'utente*. In altre parole, se un utente
+Quando si utilizza il parametro speciale ``_locale`` in una rotta, il locale corrispondente
+verrà *automaticamente impostato sulla sessione dell'utente* e potrò essere recuperato tramite il metodo
+:method:`Symfony\\Component\\HttpFoundation\\Request::getLocale`.
+In altre parole, se un utente
 visita l'URI ``/fr/contact``, il locale ``fr`` viene impostato automaticamente
 come locale per la sessione dell'utente.
 
@@ -519,11 +520,6 @@ il framework:
         $container->loadFromExtension('framework', array(
             'default_locale' => 'en',
         ));
-
-.. versionadded:: 2.1
-     Il parametro ``default_locale`` era in precedenza definito sotto la chiave ``session``,
-     ma è stato spostato a partire dalla versione 2.1. Questo perché ora il
-     locale è impostato nella richiesta, non più nella sessione.
 
 .. _book-translation-constraint-messages:
 

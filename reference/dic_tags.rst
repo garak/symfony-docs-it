@@ -29,6 +29,8 @@ esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `assetic.templating.twig`_        | Rimuovere questo servizio se i template Twig sono disabilitati            |
 +-----------------------------------+---------------------------------------------------------------------------+
+| `console.command`_                | Aggiunge un comando                                                       |
++-----------------------------------+---------------------------------------------------------------------------+
 | `data_collector`_                 | Creare una classe che raccolga dati personalizzati per il profilatore     |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `doctrine.event_listener`_        | Aggiungere un ascoltatore di eventi Doctrine                              |
@@ -240,6 +242,18 @@ assetic.templating.twig
 
 Il servizio sarà rimosso dal contenitore, se la sezione 
 ``framework.templating.engines`` non contiene twig.
+
+console.command
+---------------
+
+.. versionadded:: 2.4
+   Il supporto per registrare comandi nel contenitore di servizi è stato aggiunto nella
+   versione 2.4.
+
+**Scopo**: Aggiungere un comand all'applicazione
+
+Per dettagli su come registrare comandi nel contenitore di servizi, leggere
+:ref:`the cookbook article<cookbook-console-dic>`.
 
 data_collector
 --------------
@@ -649,6 +663,12 @@ quando si inietta il logger in un servizio.
         $definition->addTag('monolog.logger', array('channel' => 'acme'));
         $container->register('mio_servizio', $definition);;
 
+.. tip::
+
+    Se si usa MonologBundle 2.4 o successivi, si possono configurare canali personalizzati
+    nella configurazione e recuperare il corrispondente servizio logger direttamente dal
+    contenitore di servizi (vedere :ref:`cookbook-monolog-channels-config`).
+
 .. _dic_tags-monolog-processor:
 
 monolog.processor
@@ -840,7 +860,13 @@ swiftmailer.plugin
 
 Se si usa (o si vuole creare) un plugin di SwiftMailer, lo si può registrare con
 SwiftMailer creando un servizio per il plugin e assegnadogli il tag
-``swiftmailer.plugin`` (che non ha opzioni).
+``swiftmailer.default.plugin`` (che non ha opzioni).
+
+.. note::
+
+    In questo tag, ``default`` è il nome del mailer. Se si hanno più
+    mailer configurati o se per qualche motivo è stato cambiato il nome del mailer predefinito,
+    anche in questo tag il nome va cambiato di conseguenza.
 
 Un plugin di SwiftMailer deve implementare l'interfaccia ``Swift_Events_EventListener``.
 Per maggiori informazioni sui plugin, vedere la `documentazione dei plugin di SwiftMailer`_.
@@ -961,9 +987,6 @@ translation.extractor
 
 **Scopo**: Registrare un servizio personalizzato che estragga messaggi da un file
 
-.. versionadded:: 2.1
-   La possibilità di aggiungere estrattori di messaggi è nuova in Symfony 2.1.
-
 Quando si esegue il comando ``translation:update``, esso usa degli estrattori per
 estrarre messaggi di traduzione da un file. Per impostazione predefinita, Symfony2
 ha un :class:`Symfony\\Bridge\\Twig\\Translation\\TwigExtractor` e un
@@ -1031,9 +1054,6 @@ translation.dumper
 ------------------
 
 **Scopo**: Registrare un servizio personalizzato che esporti messaggi in un file
-
-.. versionadded:: 2.1
-   La possibilità di aggiungere esportatori di messaggi è nuova in Symfony 2.1.
 
 Dopo che un `Extractor <translation.extractor>`_ ha estratto tutti i messaggi dai
 template, vengono eseguiti gli esportatori, per esportare i messaggi in un file di

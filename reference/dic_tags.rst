@@ -652,7 +652,7 @@ quando si inietta il logger in un servizio.
 .. tip::
 
     Se si usa MonologBundle 2.4 o successivi, si possono configurare canali personalizzati
-    nella configurazione e recupare il servizio logger corrispondente direttamente dal
+    nella configurazione e recuperare il corrispondente servizio logger direttamente dal
     contenitore di servizi (vedere :ref:`cookbook-monolog-channels-config`).
 
 .. _dic_tags-monolog-processor:

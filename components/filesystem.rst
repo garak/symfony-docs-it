@@ -6,6 +6,10 @@ Il componente Filesystem
 
     Il componente Filesystem fornisce utilità di base per il filesystem.
 
+.. versionadded:: 2.1
+    Il componente Filesystem è nuovo in Symfony 2.1. In precedenza, la classe ``Filesystem``
+    si trovava nel componente HttpKernel.
+
 Installazione
 -------------
 

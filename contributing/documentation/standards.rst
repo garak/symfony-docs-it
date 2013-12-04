@@ -124,6 +124,8 @@ Standard di linguaggio
 * Si dovrebbe usare la forma impersonale, non *noi* o *voi* (quindi evitare il punto
   di vista in prima persona).
 
+
+
 .. _`documentazione di Sphinx`: http://sphinx-doc.org/rest.html#source-code
 .. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html
 

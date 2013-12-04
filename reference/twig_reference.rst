@@ -93,6 +93,9 @@ Funzioni
 Filtri
 ------
 
+.. versionadded:: 2.1
+    Il filtro ``humanize`` è stato aggiunto in Symfony 2.1
+
 +---------------------------------------------------------------------------------+-------------------------------------------------------------------+
 | Sintassi del filtro                                                             | Uso                                                               |
 +=================================================================================+===================================================================+
@@ -177,12 +180,11 @@ Estensioni di Symfony Standard Edition
 Symfony Standard Edition aggiunge alcuni bundle al nucleo di Symfony2.
 Questi bundle possono avere altre estensioni di Twig:
 
-* **Twig Extension** include tutte le estensioni che non appartengono al nucleo
-  di Twig, ma che possono essere interessanti. Si può approfondire nella
-  `documentazione ufficiale delle estensioni di Twig`_
+* **Twig Extension** include alcune estensioni interessanti, che non appartengono al nucleo
+  di Twig. Si può approfondire nella `documentazione ufficiale delle estensioni di Twig`_
 * **Assetic** aggiunge i tag ``{% stylesheets %}``, ``{% javascripts %}`` e 
   ``{% image %}``. Si può approfondire nella 
-  :doc:`documentazione di Assetic</cookbook/assetic/asset_management>`;
+  :doc:`documentazione di Assetic </cookbook/assetic/asset_management>`.
 
 .. _`documentazione ufficiale delle estensioni di Twig`: http://twig.sensiolabs.org/doc/extensions/index.html
 .. _`http://twig.sensiolabs.org/documentation`: http://twig.sensiolabs.org/documentation

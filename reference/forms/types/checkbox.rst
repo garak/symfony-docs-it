@@ -9,19 +9,20 @@ valore booleano: se il box è spuntato, il campo sarà impostato a vero, altrime
 il campo sarà impostato a falso.
 
 +---------------+------------------------------------------------------------------------+
-| Reso come     | campo ``input`` ``text``                                               |
+| Reso come     | campo ``input`` ``checkbox``                                           |
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | - `value`_                                                             |
 +---------------+------------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                          |
-| ereditate     | - `label`_                                                             |
+| Opzioni       | - `data`_                                                              |
+| ereditate     | - `required`_                                                          |
+|               | - `label`_                                                             |
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
 |               | - `error_bubbling`_                                                    |
 |               | - `error_mapping`_                                                     |
 |               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>`                               |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                              |
 +---------------+------------------------------------------------------------------------+
 | Classee       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType` |
 +---------------+------------------------------------------------------------------------+
@@ -47,10 +48,16 @@ value
 Il valore usato effettivamente per il checkbox. Non ha effetti sul valore
 impostato nell'oggetto.
 
+.. caution::
+
+    Per fare in modo che un un checkbox sia già selezionato, usare l'opzione `data`_.
+
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

@@ -676,6 +676,9 @@ maggior parte del codice dovrebbe trovarsi nei :doc:`services</book/service_cont
 Contenuto asincrono con hinclude.js
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. versionadded:: 2.1
+    Il supporto per hinclude.js è stato aggiunto in Symfony 2.1
+
 Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
 Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:

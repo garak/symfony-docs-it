@@ -608,8 +608,11 @@ Primo, aggiungere un collegamento "eliminare questo tag" a ogni form tag:
 .. code-block:: javascript
 
     jQuery(document).ready(function() {
+        // l'ul che contiene i tag
+        $collectionHolder = $('ul.tags');
+
         // aggiunge un collegamento di eliminazione a ogni elemento tag esistente
-        collectionHolder.find('li').each(function() {
+        $collectionHolder.find('li').each(function() {
             addTagFormDeleteLink($(this));
         });
 

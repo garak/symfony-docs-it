@@ -3,12 +3,12 @@ Locale
 
 Valida che un valore sia un locale valido.
 
-Il valore di ogni locale è ubn codice di *lingua* ISO639-1 (p.e. ``fr``) oppure
+Il valore di ogni locale è ubn codice di *lingua* `ISO 639-1`_ (p.e. ``fr``) oppure
 il codice di lingua seguito dal trattino basso (``_``), quindi
-un codice *paese* ISO3166 (p.e. ``fr_FR`` per Francese/Francia).
+un codice *paese* `ISO 3166-1 alpha-2`_ (p.e. ``fr_FR`` per Francese/Francia).
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                 |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
@@ -28,7 +28,7 @@ Uso di base
         Acme\UserBundle\Entity\User:
             properties:
                 locale:
-                    - Locale:
+                    - Locale: ~
 
     .. code-block:: php-annotations
 
@@ -85,3 +85,6 @@ message
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid locale``
 
 Messaggio mostrato se la stringa non è un locale valido.
+
+.. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes

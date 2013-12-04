@@ -1,10 +1,10 @@
 Country
 =======
 
-Valida che un valore sia un codice valido per un paese.
+Valida che un valore sia un codice `ISO 3166-1 alpha-2`_ valido per un paese.
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                 |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                           |
 +----------------+------------------------------------------------------------------------+
@@ -24,7 +24,7 @@ Uso di base
         Acme\UserBundle\Entity\User:
             properties:
                 country:
-                    - Country:
+                    - Country: ~
 
     .. code-block:: php-annotations
 
@@ -81,3 +81,5 @@ message
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid country``
 
 Messaggio mostrato se la stringa non è un codice valido per un paese.
+
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes

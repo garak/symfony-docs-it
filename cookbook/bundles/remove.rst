@@ -48,9 +48,8 @@ riferimento al bundle.
 2.1 Rimuovere le rotte del bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Le rotte di AcmeDemoBundle si trovano in
-``app/config/routing_dev.yml``. Le rotte sono ``_welcome``, ``_demo_secured``
-e ``_demo``. Rimuoverle tutte e tre.
+Le rotte di AcmeDemoBundle si trovano in ``app/config/routing_dev.yml``.
+Rimuovere la voce ``_acme_demo`` alla fine di questo file.
 
 2.2 Rimuovere la configurazione del bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

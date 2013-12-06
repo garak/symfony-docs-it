@@ -57,12 +57,7 @@ Standard:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.3.0
-
-.. tip::
-
-    Per una versione esatta, sostituire "2.3.0" con l'ultima versione di Symfony.
-    Per dettagli, si veda la `pagina di installazione di Symfony`_
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.4.*
 
 .. tip::
 
@@ -75,8 +70,8 @@ si dovrebbe avere una cartella simile a questa:
 
 .. code-block:: text
 
-    percorso/web/ <- la cartella radice del web
-        Symfony/ <- l'archivio scompattato
+    percorso/web/ <- la cartella radice del web (a volte chiamata htdocs o public)
+        Symfony/ <- la nuova cartella
             app/
                 cache/
                 config/

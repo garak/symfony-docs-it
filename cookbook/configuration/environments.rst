@@ -141,20 +141,14 @@ utilizzando il front controller ``app_dev.php`` (per l'ambiente ``dev``):
    :doc:`Installare Symfony2</book/installation>`.
 
 Guardando il contenuto di questi file, si vede come l'ambiente utilizzato da entrambi,
-sia definito in modo esplicito:
+sia definito in modo esplicito::
 
-.. code-block:: php
-   :linenos:
+    // web/app.php
+    // ... 
 
-    <?php
+    $kernel = new AppKernel('prod', false);
 
-    require_once __DIR__.'/../app/bootstrap_cache.php';
-    require_once __DIR__.'/../app/AppCache.php';
-
-    use Symfony\Component\HttpFoundation\Request;
-
-    $kernel = new AppCache(new AppKernel('prod', false));
-    $kernel->handle(Request::createFromGlobals())->send();
+    // ...
 
 Si può vedere come la chiave ``prod`` specifica che l'ambiente di esecuzione
 sarà l'ambiente ``prod``. Un'applicazione Symfony2 può essere esguita in qualsiasi
@@ -173,15 +167,16 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
 .. sidebar:: Modalità *debug*
 
     Importante, ma non collegato all'argomento *ambienti*, è il valore ``false``
-    in riga 8 del precedente front controller. Questo valore specifica se
+    come secondo parametro di ``AppKernel``. Questo valore specifica se
     l'applicazione dovrà essere eseguità in "modalità debug" o meno. Indipendentemente
     dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
-    debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione, come
-    il fatto che gli errori vengano mostrati o se la cache debba essere ricreata dinamicamente
-    a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug è sempre impostata a ``true`` negli ambienti ``dev``
-    e ``test`` e a ``false`` per l'ambiente ``prod``.
+    debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione,
+    come il fatto che gli errori vengano mostrati o se la cache debba essere ricreata
+    dinamicamente a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug
+    è sempre impostata a ``true`` negli ambienti ``dev`` e ``test`` e
+    a ``false`` nell'ambiente ``prod``.
 
-    Internamente il valore della modalità debug diventa il parametro ``kernel.debug``
+    Internamente, il valore della modalità debug diventa il parametro ``kernel.debug``
     utilizzato all'interno del  :doc:`contenitore di servizi </book/service_container>`.
     Dando uno sguardo al file di configurazione dell'applicazione, si vede come
     il parametro venga utilizzato, ad esempio, per avviare o interrompere il logging
@@ -273,19 +268,15 @@ e la modifica. Così si garantice che l'ambiente sia identico a quello
 
 Siccome sarà necessario che l'ambiente sia accessibile tramite browser, sarà
 necessario creare un apposito front controller. Basterà copiare il file ``web/app.php``
-nel file ``web/app_benchmark.php`` e modificare l'ambiente in modo che punti a ``benchmark``:
+nel file ``web/app_benchmark.php`` e modificare l'ambiente in modo che punti a ``benchmark``::
 
-.. code-block:: php
+    // web/app_benchmark.php
 
-    <?php
 
-    require_once __DIR__.'/../app/bootstrap.php';
-    require_once __DIR__.'/../app/AppKernel.php';
-
-    use Symfony\Component\HttpFoundation\Request;
-
+    // basta cambiare questa riga
     $kernel = new AppKernel('benchmark', false);
-    $kernel->handle(Request::createFromGlobals())->send();
+
+    // ...
 
 Il nuovo ambiente sarà accessibile tramite::
 
@@ -333,10 +324,10 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 * ``appDevDebugProjectContainer.php`` - il "contenitore di servizi" salvato in cache
   che rappresenta la configurazione dell'applicazione;
 
-* ``appdevUrlGenerator.php`` - la classe PHP generata a partire dalla configurazione
+* ``appDevUrlGenerator.php`` - la classe PHP generata a partire dalla configurazione
   delle rotte e usata nella generazione degli URL;
 
-* ``appdevUrlMatcher.php`` - la classe PHP utilizzata per ricercare le rotte: qui
+* ``appDevUrlMatcher.php`` - la classe PHP utilizzata per ricercare le rotte: qui
   è possibile vedere le espressioni regolari utilizzate per associare gli URL in ingresso
   con le rotte disponibili;
 
@@ -350,4 +341,4 @@ il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 Approfondimenti
 ---------------
 
-Si legga la ricetta :doc:`/cookbook/configuration/external_parameters`.
+Leggere la ricetta :doc:`/cookbook/configuration/external_parameters`.

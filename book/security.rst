@@ -894,6 +894,14 @@ proxy.
     Prima della 2.3, era necessario creare una regola per ogni indirizzo IP e usare
     la chiave ``ip`` al posto di ``ips``.
 
+.. caution::
+
+    Come si può vedere nella spiegazione sotto all'esempio, l'opzione ``ip``
+    non limita a uno specifico indirizzo IP. Invece, usando la chiave ``ip``
+    si ottiene che la voce ``access_control`` avrà una corrispondenza solo per il corrispondente indirizzo IP
+    e gli utenti che accedono da diversi indirizzi IP continueranno nelle successive
+    voci dell'elenco ``acces_control``.
+
 Ecco un esempio di come si possano garantire tutte le rotte ESI che iniziano per
 un certo prefisso, ``/esi``, da intrusioni esterne:
 
@@ -957,7 +965,9 @@ Protezione tramite canale
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si può anche richiedere di accedere a un URL tramite SSL, basta
-usare la voce aggiungere il parametro ``requires_channel`` in una voce ``access_control``:
+usare la voce aggiungere il parametro ``requires_channel`` in una voce ``access_control``. Se
+tale ``access_control`` trova corrispondenza e la richiesta usa il canale ``http``,
+l'utente sarà rinviato a ``https``:
 
 .. configuration-block::
 

@@ -225,11 +225,9 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
 Pluralizzazione
 ---------------
 
-    (TODO da finire traduzione....)
-
-Message pluralization is a tough topic as the rules can be quite complex. For
-instance, here is the mathematic representation of the Russian pluralization
-rules::
+La pluralizzazione dei messaggi è un argomento difficile, con regole che possono essere molto complesse.
+Per esempio, questa è una rappresentazione matematica delle regole di pluralizzazione
+russe::
 
     (($number % 10 == 1) && ($number % 100 != 11))
         ? 0
@@ -241,17 +239,17 @@ rules::
                 : 2
     );
 
-As you can see, in Russian, you can have three different plural forms, each
-given an index of 0, 1 or 2. For each form, the plural is different, and
-so the translation is also different.
+Come si può, vedere possono essere tre diverse forme plurali in russo, a cui
+si può dare indice 0, 1, 2. Per ciascuna forma, il plurale è diverso e quindi
+anche la traduzione è diversa.
 
-When a translation has different forms due to pluralization, you can provide
-all the forms as a string separated by a pipe (``|``)::
+Quanto ha una traduzione ha diverse forme di pluralizzazione, si possono
+fornire tutte le forme, come stringa separata da barre (``|``)::
 
     'There is one apple|There are %count% apples'
 
-To translate pluralized messages, use the
-:method:`Symfony\\Component\\Translation\\Translator::transChoice` method::
+Per tradurre messaggi pluralizzati, usare il metodo
+:method:`Symfony\\Component\\Translation\\Translator::transChoice`::
 
     $translator->transChoice(
         'There is one apple|There are %count% apples',
@@ -259,102 +257,102 @@ To translate pluralized messages, use the
         array('%count%' => 10)
     );
 
-The second argument (``10`` in this example), is the *number* of objects being
-described and is used to determine which translation to use and also to populate
-the ``%count%`` placeholder.
+Il secondo parametro (``10`` in questo esempio), è il *numero* di oggetti
+descritti e viene usato per determinare la traduzione da usare e anche per popolare
+il segnaposto ``%count%``.
 
-Based on the given number, the translator chooses the right plural form.
-In English, most words have a singular form when there is exactly one object
-and a plural form for all other numbers (0, 2, 3...). So, if ``count`` is
-``1``, the translator will use the first string (``There is one apple``)
-as the translation. Otherwise it will use ``There are %count% apples``.
+In base al numero fornito, il traduttore sceglie la forma corretta di plurale.
+In inglese, la maggior parte delle parole ha una forma singolare, quando c'è esattamente un oggetto,
+e una forma plurale, per tutti gli altri numeri (0, 2, 3...). Quindi, se ``count`` è
+``1``, il traduttore userà la prima stringa (``There is one apple``)
+come traduzione. Altrimenti, userà ``There are %count% apples``.
 
-Here is the French translation:
+Ecco la traduzione in francese:
 
 .. code-block:: text
 
     'Il y a %count% pomme|Il y a %count% pommes'
 
-Even if the string looks similar (it is made of two sub-strings separated by a
-pipe), the French rules are different: the first form (no plural) is used when
-``count`` is ``0`` or ``1``. So, the translator will automatically use the
-first string (``Il y a %count% pomme``) when ``count`` is ``0`` or ``1``.
+Anche se la stringa sembra simile (è fatta di due sottostringhe separate da una
+barra), le regole francesi sono diverse: la prima forma (senza plurale) è usata quando
+``count`` è ``0`` o ``1``. Quindi, il traduttore usera automaticamente la
+prima stringa (``Il y a %count% pomme``) quando ``count`` è ``0`` o ``1``.
 
-Each locale has its own set of rules, with some having as many as six different
-plural forms with complex rules behind which numbers map to which plural form.
-The rules are quite simple for English and French, but for Russian, you'd
-may want a hint to know which rule matches which string. To help translators,
-you can optionally "tag" each string:
+Ogni locale ha il suo insieme di regole, alcuni con fino a sei diverse
+forme plurali, con regole complesse in base a cui mappare i numeri alle forme plurali.
+Le regole sono smeplici per inglese e francese, ma per il russo si potrebbe
+volere un sugerrimento su quale regola corrisponda a quale stringa. Per aiutare i traduttori,
+si può, facoltativamente, assegnare un tag a ogni stringa:
 
 .. code-block:: text
 
-    'one: There is one apple|some: There are %count% apples'
+    'uno: There is one apple|some: There are %count% apples'
 
-    'none_or_one: Il y a %count% pomme|some: Il y a %count% pommes'
+    'nessuno_o_uno: Il y a %count% pomme|some: Il y a %count% pommes'
 
-The tags are really only hints for translators and don't affect the logic
-used to determine which plural form to use. The tags can be any descriptive
-string that ends with a colon (``:``). The tags also do not need to be the
-same in the original message as in the translated one.
+I tag sono solo suggerimenti per il traduttore e non hanno effetto sulla logica
+usata per determinare la forma plurale da usare. I tag possono essere qualsiasi stringa
+descrittiva che finisca con duepunti (``:``). I tag inoltre non devono necessariamente essere
+uguali nel messaggio originale e in quello tradotto.
 
 .. tip::
 
-    As tags are optional, the translator doesn't use them (the translator will
-    only get a string based on its position in the string).
+    Essendo i tag opzionali, il traduttore non li usa (il traduttore otterrà
+    solo una stringa basata sulle loro posizioni nella stringa).
 
 Intervallo di pluralizzazione esplicito
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The easiest way to pluralize a message is to let the Translator use internal
-logic to choose which string to use based on a given number. Sometimes, you'll
-need more control or want a different translation for specific cases (for
-``0``, or when the count is negative, for example). For such cases, you can
-use explicit math intervals:
+Il modo più facile per pluralizzare un messaggio è lasciare che il traduttore usi
+la logica interna per scegliere la stringa da usare in base al numero dato. A volte,
+sarà necessario maggior controllo o si vorrà una traduzione diversa per casi specifici (per
+``0`` o quanto il conteggio è negativo, per esempio). Per questi casi, si possono usare
+intervalli matematici espliciti:
 
 .. code-block:: text
 
     '{0} There are no apples|{1} There is one apple|]1,19] There are %count% apples|[20,Inf] There are many apples'
 
-The intervals follow the `ISO 31-11`_ notation. The above string specifies
-four different intervals: exactly ``0``, exactly ``1``, ``2-19``, and ``20``
-and higher.
+Gli intervalli seguono la notazione `ISO 31-11`. La stringa vista sopra specifica
+quattro diversi intervalli: esattamente ``0``, esattamente ``1``, ``2-19`` e da ``20``
+in poi.
 
-You can also mix explicit math rules and standard rules. In this case, if
-the count is not matched by a specific interval, the standard rules take
-effect after removing the explicit rules:
+Si possono anche mischiare regole matematiche espliciti e regole standard. In questo caso, se
+il conteggio non corrisponde a un intervallo specifico, le regole standard hanno
+effetto dopo la rimozione delle regole esplicite:
 
 .. code-block:: text
 
     '{0} There are no apples|[20,Inf] There are many apples|There is one apple|a_few: There are %count% apples'
 
-For example, for ``1`` apple, the standard rule ``There is one apple`` will
-be used. For ``2-19`` apples, the second standard rule ``There are %count%
-apples`` will be selected.
+Per esempio, per ``1`` mela, sarà usata la regola standard ``There is one apple``.
+Per ``2-19`` mele, sarà scelta la seconda regola standard, ``There are %count%
+apples``.
 
-An :class:`Symfony\\Component\\Translation\\Interval` can represent a finite set
-of numbers:
+Un oggetto :class:`Symfony\\Component\\Translation\\Interval` può rappresentare un insieme finito
+di numeri:
 
 .. code-block:: text
 
     {1,2,3,4}
 
-Or numbers between two other numbers:
+Oppure numeri compresi tra due numeri:
 
 .. code-block:: text
 
     [1, +Inf[
     ]-1,2[
 
-The left delimiter can be ``[`` (inclusive) or ``]`` (exclusive). The right
-delimiter can be ``[`` (exclusive) or ``]`` (inclusive). Beside numbers, you
-can use ``-Inf`` and ``+Inf`` for the infinite.
+Il delimitatore sinistro può essere ``[`` (inclusivo) o ``]`` (esclusivo). Il
+delimitatore destro può essere ``[`` (esclusivo) o ``]`` (inclusivo). Oltre ai numeri, si
+possono usare ``-Inf`` e ``+Inf`` per l'infinito.
 
 Forzare il locale in Translator
 -------------------------------
 
-When translating a message, the Translator uses the specified locale or the
-``fallback`` locale if necessary. You can also manually specify the locale to
-use for translation::
+Durante la traduzione di un messaggio, Translator usa il locale specificato o il locale
+``fallback``, se necessario. Si può anche specificare manualmente il locale
+da usare::
 
     $translator->trans(
         'Symfony2 is great',

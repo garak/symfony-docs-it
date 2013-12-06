@@ -26,8 +26,9 @@ Requisiti
 
 .. caution::
 
-    Fare attenzione, perché Symfony2 ha alcuni limiti noti con versioni precedenti a PHP 5.3.8.
-    Per maggiori informazoni, vedere la `sezione Requisiti del README`_.
+    Fare attenzione, perché Symfony2 ha alcuni limiti noti con versioni precedenti
+    a PHP 5.3.8 o uguali a 5.3.16. Per maggiori informazoni, vedere la
+    `sezione Requisiti del README`_.
 
 Opzionali
 ---------

@@ -649,6 +649,12 @@ quando si inietta il logger in un servizio.
         $definition->addTag('monolog.logger', array('channel' => 'acme'));
         $container->register('mio_servizio', $definition);;
 
+.. tip::
+
+    Se si usa MonologBundle 2.4 o successivi, si possono configurare canali personalizzati
+    nella configurazione e recuperare il corrispondente servizio logger direttamente dal
+    contenitore di servizi (vedere :ref:`cookbook-monolog-channels-config`).
+
 .. _dic_tags-monolog-processor:
 
 monolog.processor
@@ -840,7 +846,13 @@ swiftmailer.plugin
 
 Se si usa (o si vuole creare) un plugin di SwiftMailer, lo si può registrare con
 SwiftMailer creando un servizio per il plugin e assegnadogli il tag
-``swiftmailer.plugin`` (che non ha opzioni).
+``swiftmailer.default.plugin`` (che non ha opzioni).
+
+.. note::
+
+    In questo tag, ``default`` è il nome del mailer. Se si hanno più
+    mailer configurati o se per qualche motivo è stato cambiato il nome del mailer predefinito,
+    anche in questo tag il nome va cambiato di conseguenza.
 
 Un plugin di SwiftMailer deve implementare l'interfaccia ``Swift_Events_EventListener``.
 Per maggiori informazioni sui plugin, vedere la `documentazione dei plugin di SwiftMailer`_.

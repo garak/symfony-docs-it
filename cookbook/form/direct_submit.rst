@@ -5,7 +5,8 @@ Usare la funzione submit() per gestire l'invio di form
 ======================================================
 
 .. versionadded:: 2.3
-    Il metodo ``handleRequest()`` è stato aggiunto in Symfony 2.3.
+    Il metodo :method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
+    è stato aggiunto in Symfony 2.3.
 
 In Symfony 2.3, è stato aggiunto un nuovo metodo :method:`Symfony\Component\Form\FormInterface::handleRequest`,
 che rende la gestione dell'invio di form più facile che mai::

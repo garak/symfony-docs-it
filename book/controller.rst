@@ -220,7 +220,7 @@ passati a tale metodo::
     {
         public function indexAction($name)
         {
-          // ...
+            // ...
         }
     }
 

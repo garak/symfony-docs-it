@@ -618,10 +618,11 @@ Personalizzare un singolo campo
 
 Finora, sono stati mostrati i vari modi per personalizzare l'output di un widget
 di tutti i tipi di campo testuali. Ma è anche possibile personalizzare singoli campi. Per esempio,
-si supponga di avere due campi di ``testo``, ``first_name`` e ``last_name``, ma
-si vuole personalizzare solo uno dei campi. LO si può fare
-personalizzando un frammento, in cui il nome è una combinazione dell'attributo id del campo e
-in cui parte del campo viene personalizzato. Per esempio:
+si supponga di avere due campi testuali in un form ``product``, chiamati ``name`` e
+``description``, ma di voler personalizzare solo uno dei campi. Lo si può fare
+personalizzando un frammento, in cui il nome è una combinazione dell'attributo
+``id`` del campo e in cui parte del campo viene personalizzato. Per esempio, per
+personalizzare solo il campo ``name``:
 
 .. configuration-block::
 
@@ -876,6 +877,17 @@ template originale:
 .. tip::
 
     Si veda :ref:`cookbook-form-theming-methods` per sapere come effettuare questa personalizzazione.
+
+.. sidebar:: Usare solo CSS
+
+    La resa predefinita dei tag ``label`` dei campi obbligatori ha una classe CSS
+    ``required``. Si può quindi aggiungere un asterisco usando solo CSS:
+
+    .. code-block:: css
+
+        label.required:before {
+            content: "* ";
+        }
 
 Aggiungere messaggi di aiuto
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

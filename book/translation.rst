@@ -40,8 +40,9 @@ per saperne di più. Nel complesso, il processo ha diverse fasi:
 #. :ref:`Creare risorse di traduzione <book-translation-resources>`
    per ogni lingua supportata che traducano tutti i messaggio dell'applicazione;
 
-#. Determinare, :ref:`impostare e gestire le impostazioni locali<book-translation-user-locale>`
-   dell'utente per la richiesta e, facoltativamente, sull'intera sessione.
+#. Determinare, :ref:`impostare e gestire le impostazioni locali <book-translation-user-locale>`
+   dell'utente per la richiesta e, facoltativamente,
+   :doc:`sull'intera sessione </cookbook/session/locale_sticky_session>`.
 
 .. _book-translation-configuration:
 
@@ -147,7 +148,8 @@ ma XLIFF è il formato raccomandato:
         # messages.fr.yml
         Symfony2 is great: J'aime Symfony2
 
-Per informazioni sulla posizione di questi file, vedere :ref:`book-translation-resource-locations`.
+Per informazioni sulla posizione di questi file, vedere
+:ref:`book-translation-resource-locations`.
 
 Ora, se la lingua del locale dell'utente è il francese (per esempio ``fr_FR`` o ``fr_BE``),
 il messaggio sarà tradotto in ``J'aime Symfony2``. Si può anche tradurre il
@@ -218,7 +220,7 @@ nativo sia per i template Twig che per quelli PHP.
 
 .. _book-translation-tags:
 
-Template Twig 
+Template Twig
 ~~~~~~~~~~~~~
 
 Symfony2 fornisce tag specifici per Twig (``trans`` e ``transchoice``), che aiutano
@@ -484,9 +486,11 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
         return $collection;
 
 Quando si utilizza il parametro speciale `_locale` in una rotta, il locale corrispondente
-verrà *automaticamente impostato sulla sessione dell'utente*. In altre parole, se un utente
+verrà *automaticamente impostato sulla richiesta* e potrà essere recuperate tramite il metodo
+:method:`Symfony\\Component\\HttpFoundation\\Request::getLocale`.
+In altre parole, se un utente
 visita l'URI ``/fr/contact``, il locale ``fr`` viene impostato automaticamente
-come locale per la sessione dell'utente.
+come locale per la richiesta corrente.
 
 È ora possibile utilizzare il locale dell'utente per creare rotte ad altre pagine tradotte
 nell'applicazione.

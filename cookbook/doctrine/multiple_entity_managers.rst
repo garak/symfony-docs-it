@@ -27,20 +27,20 @@ La configurazione seguente mostra come configurare due gestori di entità:
                 default_connection:   default
                 connections:
                     default:
-                        driver:   %database_driver%
-                        host:     %database_host%
-                        port:     %database_port%
-                        dbname:   %database_name%
-                        user:     %database_user%
-                        password: %database_password%
+                        driver:   "%database_driver%"
+                        host:     "%database_host%"
+                        port:     "%database_port%"
+                        dbname:   "%database_name%"
+                        user:     "%database_user%"
+                        password: "%database_password%"
                         charset:  UTF8
                     customer:
-                        driver:   %database_driver2%
-                        host:     %database_host2%
-                        port:     %database_port2%
-                        dbname:   %database_name2%
-                        user:     %database_user2%
-                        password: %database_password2%
+                        driver:   "%database_driver2%"
+                        host:     "%database_host2%"
+                        port:     "%database_port2%"
+                        dbname:   "%database_name2%"
+                        user:     "%database_user2%"
+                        password: "%database_password2%"
                         charset:  UTF8
 
             orm:
@@ -206,22 +206,23 @@ Lo stesso principio si applica alle chiamate ai repository::
     {
         public function indexAction()
         {
-            // Recupera un repository gestito da "default"
+            // Recupera un repository gestito dal gestore "default"
             $products = $this->get('doctrine')
                 ->getRepository('AcmeStoreBundle:Product')
                 ->findAll()
             ;
 
-            // Esplicita la richiesta a "default"
+            // Esplicita la richiesta al gestore "default"
             $products = $this->get('doctrine')
                 ->getRepository('AcmeStoreBundle:Product', 'default')
                 ->findAll()
             ;
 
-            // Recupera un repository gestito da "customer"
+            // Recupera un repository gestito dal gestore "customer"
             $customers = $this->get('doctrine')
                 ->getRepository('AcmeCustomerBundle:Customer', 'customer')
                 ->findAll()
             ;
         }
     }
+

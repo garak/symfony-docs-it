@@ -17,15 +17,16 @@ Se si desidera un campo booleano, usare :doc:`checkbox</reference/forms/types/ch
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `value`_                                                          |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                       |
-| ereditate     | - `label`_                                                          |
+| Opzioni       | - `data`_                                                           |
+| ereditate     | - `required`_                                                       |
+|               | - `label`_                                                          |
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
 |               | - `error_mapping`_                                                  |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                           |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\RadioType` |
 +---------------+---------------------------------------------------------------------+
@@ -41,10 +42,16 @@ value
 Il valore usato effettivamente come valore del bottone radio. Non ha effetti sul
 valore impostato sull'oggetto.
 
+.. caution::
+
+    Per fare in modo che un un bottone radio sia già selezionato, usare l'opzione `data`_.
+
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

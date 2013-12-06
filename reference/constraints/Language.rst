@@ -1,7 +1,8 @@
 Language
 ========
 
-Valida che un valore sia un codice di lingua valido.
+Valida che un valore sia un codice di lingua valido *Unicode*
+(come ``fr`` or ``zh-Hant``).
 
 +----------------+------------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                  |
@@ -24,7 +25,7 @@ Uso di base
         Acme\UserBundle\Entity\User:
             properties:
                 preferredLanguage:
-                    - Language:
+                    - Language: ~
 
     .. code-block:: php-annotations
 

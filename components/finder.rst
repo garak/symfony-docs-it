@@ -11,13 +11,13 @@ Il componente Finder
 Installazione
 -------------
 
-È possibile installare il componente in diversi modi:
+È possibile installare il componente in due modi:
 
-* Utilizzando il repository ufficiale su Git (https://github.com/symfony/Finder);
-* Installandolo tramite Composer (``symfony/finder`` su `Packagist`_).
+* Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/finder`` su `Packagist`_);
+* Usando il repository ufficiale su Git (https://github.com/symfony/Finder).
 
-Utilizzo
---------
+Uso
+---
 
 La classe :class:`Symfony\\Component\\Finder\\Finder` trova i file e/o le
 cartelle::
@@ -159,8 +159,8 @@ Ordinamento
 
 .. note::
 
-    Si noti che i metodi ``sort*``, per poter funzionare, richiedono tutti gli 
-    elementi ricercati. In caso di iteratori molto grandi, l'ordinamento potrebbe risultare lento.
+    Si noti che i metodi ``sort*``, per poter funzionare, richiedono tutti gli elementi
+    ricercati. In caso di iteratori molto grandi, l'ordinamento potrebbe risultare lento.
 
 È anche possibile definire algoritmi di ordinamento personalizzati, grazie al metodo ``sort()``::
 
@@ -187,10 +187,10 @@ Il metodo ``notNames()`` viene invece usato per escludere i file che corrispondo
 
     $finder->files()->notName('*.rb');
 
-File Contents
-~~~~~~~~~~~~~
+Contenuti dei file
+~~~~~~~~~~~~~~~~~~
 
-Restringere i file per contenuto con il metodo
+Si possono filtrare file per contenuto, con il metodo
 :method:`Symfony\\Component\\Finder\\Finder::contains`::
 
     $finder->files()->contains('lorem ipsum');
@@ -203,13 +203,13 @@ Il metodo ``notContains()`` esclude file che contengono lo schema dato::
 
     $finder->files()->notContains('dolor sit amet');
 
-Path
-~~~~
+Percorso
+~~~~~~~~
 
 .. versionadded:: 2.2
    I metodi ``path()`` e ``notPath()`` sono stati aggiunti nella versione 2.2.
 
-Si possono restringere file e cartelle per percorso, con il
+Si possono filtrare file e cartelle per percorso, con il
 metodo :method:`Symfony\\Component\\Finder\\Finder::path`::
 
     $finder->path('una/cartella/particolare');
@@ -222,7 +222,7 @@ Il metodo ``path()`` accetta stringhe o espressioni regolari::
     $finder->path('/^pippo\/pluto/');
 
 Internamente, le stringhe sono convertite in espressioni regolari, tramite escape delle barre
-e l'aggiunta di delimitatori:
+e aggiunta di delimitatori:
 
 .. code-block:: text
 
@@ -261,7 +261,7 @@ Data dei file
     $finder->date('since yesterday');
 
 È possibile utilizzare uno qualsiasi dei seguenti operatori di confronto: ``>``, ``>=``, ``<``, '<=',
-'=='. È anche possibile usare i sostantivi ``since`` o ``after`` come degli alias di ``>``, e
+'=='. È anche possibile usare i sostantivi ``since`` o ``after`` come degli alias di ``>`` e
 ``until`` o ``before`` come alias di ``<``.
 
 Il valore usato può essere una data qualsiasi tra quelle supportate dalla funzione `strtotime`_.
@@ -311,7 +311,7 @@ Il contenuto dei file restituiti può essere letto con
         ...
     }
 
-.. _strtotime:   http://php.net/manual/it/datetime.formats.php
+.. _strtotime:    http://php.net/manual/it/datetime.formats.php
 .. _protocollo:   http://php.net/manual/it/wrappers.php
 .. _stream:       http://php.net/streams
 .. _standard IEC: http://physics.nist.gov/cuu/Units/binary.html

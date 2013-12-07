@@ -31,6 +31,10 @@ punto finale per le operazioni su filesystem::
         echo "Errore durante la creazione della cartella";
     }
 
+.. versionadded:: 2.4
+    ``IOExceptionInterface`` e il suo metodo ``getPath`` sono nuovi in Symfony
+    2.4. Prima della 2.4, occorreva catturare la classe ``IOException``.
+
 .. note::
 
     I metodi :method:`Symfony\\Component\\Filesystem\\Filesystem::mkdir`,
@@ -250,15 +254,13 @@ Si può passare come terzo parametro una modalità di file.
 Gestione degli errori
 ---------------------
 
-Quando si verifica un problema, viene sollevata un'eccezione che
-implementa la classe
+Quando si verifica un problema, viene sollevata un'eccezione che implementa 
+:class:`Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface` o
 :class:`Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface`.
 
 .. note::
 
-    Prima della versione 2.1, ``mkdir`` restituiva un booleano e non lanciava
-    eccezioni. Dalla 2.1, viene sollevata una
-    :class:`Symfony\\Component\\Filesystem\\Exception\\IOException` se
+    Viene sollevata una :class:`Symfony\\Component\\Filesystem\\Exception\\IOException` se
     la creazione della cartella fallisce.
 
 .. _`Packagist`: https://packagist.org/packages/symfony/filesystem

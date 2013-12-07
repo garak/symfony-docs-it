@@ -129,7 +129,14 @@ semplice esempio dall'interno di un controllore::
         $errors = $validator->validate($autore);
 
         if (count($errors) > 0) {
-            return new Response(print_r($errors, true));
+            /*
+             * Usa un metodo a __toString sulla variabile $errors, che è un oggetto
+             * ConstraintViolationList. Questo fornisce una stringa adatta
+             * al debug
+             */
+            $errorsString = (string) $errors;
+
+            return new Response($errorsString);
         }
 
         return new Response('L\'autore è valido! Sì!');
@@ -148,10 +155,10 @@ successo.
 
 .. tip::
 
-    La maggior parte delle volte, non si interagirà direttamente con il servizio
-    ``validator``, né ci si dovrà occupare di stampare gli errori. La maggior parte
-    delle volte, si userà indirettamente la validazione, durante la gestione di dati
-    inviati tramite form. Per maggiori informazioni, vedere :ref:`book-validation-forms`.
+    La maggior parte delle volte, non si interagirà direttamente con il servizio ``validator``,
+    né ci si dovrà occupare di stampare gli errori. La maggior parte delle volte,
+    si userà indirettamente la validazione, durante la gestione di dati inviati tramite form. Per
+    maggiori informazioni, vedere :ref:`book-validation-forms`.
 
 Si può anche passare un insieme di errori in un template.
 

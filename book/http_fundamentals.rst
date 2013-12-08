@@ -246,7 +246,7 @@ si hanno a portata di mano tutte le informazioni sulla richiesta::
 Come bonus, la classe ``Request`` fa un sacco di lavoro in sottofondo, di cui non ci si
 dovrà mai preoccupare. Per esempio, il metodo ``isSecure()`` verifica **tre**
 diversi valori in PHP che possono indicare se l'utente si stia connettendo o meno
-tramite una connessione sicura (cioè ``https``).
+tramite una connessione sicura (cioè HTTPS).
 
 .. sidebar:: ParameterBags e attributi di Request
 

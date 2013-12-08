@@ -10,7 +10,7 @@ di un progetto, ma probabilmente si vorrà rimuoverlo in un secondo momento.
 
 .. tip::
 
-    Quesa ricetta usa ``AcmeDemoBundle`` come esempio, ma si possono usare questi
+    Quesa ricetta usa AcmeDemoBundle come esempio, ma si possono usare questi
     passi per rimuovere qualsiasi bundle.
 
 1. De-registrare il bundle in ``AppKernel``
@@ -57,10 +57,10 @@ Rimuovere la voce ``_acme_demo`` alla fine di questo file.
 Alcuni bundle contengono configurazione nei file ``app/config/config*.yml``.
 Assicurarsi di rimuovere la configurazione relativa da questi file. Si può
 trovare rapidamente la configurazione del bundle, cercando la stringa ``acme_demo`` (o il
-nome del bundle, p.e. ``fos_user`` per ``FOSUserBundle``) nei
+nome del bundle, p.e. ``fos_user`` per FOSUserBundle) nei
 file di configurazione.
 
-``AcmeDemoBundle`` non ha configurazioni. Tuttavia, il bundle viene usato
+AcmeDemoBundle non ha configurazioni. Tuttavia, il bundle viene usato
 nella configurazione del file ``app/config/security.yml``. Lo si può
 usare come base per la sicurezza, ma si **può** anche rimuovere
 tutto: a Symfony non importa se lo si rimuove o meno.
@@ -76,7 +76,7 @@ rimuovere anche la cartella ``Acme``.
 .. tip::
 
     Se non si conosce la posizione di un bundle, si può usare  il metodo
-    :method:`Symfony\\Bundle\\FrameworkBundle\\Bundle\\Bundle::getPath`
+    :method:`Symfony\\Component\\HttpKernel\\Bundle\\BundleInterface::getPath`
     per ottenerne il percorso::
 
         echo $this->container->get('kernel')->getBundle('AcmeDemoBundle')->getPath();
@@ -86,7 +86,7 @@ rimuovere anche la cartella ``Acme``.
 
 .. note::
 
-    Questa parte non si applica a ``AcmeDemoBundle``, non essendoci altri bundle
+    Questa parte non si applica a AcmeDemoBundle, non essendoci altri bundle
     che dipendono da esso, quindi si può saltare questo passo.
 
 Alcuni bundle dipendono da altri bundle: rimuovendone solo uno, l'altro

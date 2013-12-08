@@ -247,7 +247,7 @@ Il template (``templates/list.php``) ora può essere semplificato, per
 Qui abbiamo introdotto una metodologia che consente il riuso del layout.
 Sfortunatamente, per poterlo fare, si è costretti a usare alcune brutte
 funzioni PHP (``ob_start()``, ``ob_get_clean()``) nel template. Symfony2
-usa un componente ``Templating``, che consente di poter fare ciò in modo
+usa un componente Templating, che consente di poter fare ciò in modo
 pulito e facile. Lo vedremo in azione tra poco.
 
 Aggiungere al blog una pagina "show"

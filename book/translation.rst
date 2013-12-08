@@ -40,8 +40,8 @@ per saperne di più. Nel complesso, il processo ha diverse fasi:
 #. :ref:`Creare risorse di traduzione <book-translation-resources>`
    per ogni lingua supportata che traducano tutti i messaggio dell'applicazione;
 
-#. Determinare, :ref:`impostare e gestire le impostazioni locali <book-translation-user-locale>`
-   dell'utente per la richiesta e, facoltativamente,
+#. Determinare, :ref:`impostare e gestire le impostazioni locali<book-translation-user-locale>`
+   dell'utente per la richiesta e, facoltativamente, 
    :doc:`sull'intera sessione </cookbook/session/locale_sticky_session>`.
 
 .. _book-translation-configuration:
@@ -307,9 +307,6 @@ variabili* ed espressioni complesse:
     Notare che questo influenza solo in template attuale, non i template "inclusi"
     (per evitare effetti collaterali).
 
-.. versionadded:: 2.1
-    Il tag ``trans_default_domain`` è nuovo in Symfony2.1
-
 Template PHP
 ~~~~~~~~~~~~
 
@@ -523,11 +520,6 @@ il framework:
         $container->loadFromExtension('framework', array(
             'default_locale' => 'en',
         ));
-
-.. versionadded:: 2.1
-     Il parametro ``default_locale`` era in precedenza definito sotto la chiave ``session``,
-     ma è stato spostato a partire dalla versione 2.1. Questo perché ora il
-     locale è impostato nella richiesta, non più nella sessione.
 
 .. _book-translation-constraint-messages:
 

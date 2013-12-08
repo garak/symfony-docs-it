@@ -507,9 +507,10 @@ per il parametro ``{page}``.
 | /blog/my-blog-post | blog  | {page} = my-blog-post |
 +--------------------+-------+-----------------------+
 
-La risposta al problema è aggiungere rotte *obbligatorie*. Le rotte in questo
-esempio potrebbero funzionare perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo*
-per gli URL dove ``{page}`` fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
+La risposta al problema è aggiungere *requisiti* o *condizioni* alle rotte
+(vedere :ref:`book-routing-conditions`). Le rotte in questo esempio potrebbero funzionare
+perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo* per gli URL dove ``{page}``
+fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
 espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
 .. configuration-block::
@@ -716,6 +717,95 @@ Aggiungere un host
 Si può anche far corrispondere un *host* HTTP della richiesta in arrivo. Per maggiori
 informazioni, vedere :doc:`/components/routing/hostname_pattern` nella documentazione
 del componente Routing.
+
+.. _book-routing-conditions:
+
+Corrispondenza di rotte tramite condizioni
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.4
+    Le condizioni sulle rotte sono state aggiunte in Symfony 2.4.
+
+Come visto, una rotta può essere fatta per corrispondere solo ad alcuni caratteri jolly
+(tramite espressioni regolari), metodi HTTP o nomi di host. Ma il sistema delle rotte
+può essere esteso per una flessibilità pressoché infiinta, usando le condizioni:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        contact:
+            path:     /contact
+            defaults: { _controller: AcmeDemoBundle:Main:contact }
+            condition: "context.getMethod() in ['GET', 'HEAD'] and request.headers.get('User-Agent') matches '/firefox/i'"
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <routes xmlns="http://symfony.com/schema/routing"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/routing
+                http://symfony.com/schema/routing/routing-1.0.xsd">
+
+            <route id="contact"
+                path="/contact"
+                condition="context.getMethod() in ['GET', 'HEAD'] and request.headers.get('User-Agent') matches '/firefox/i'"
+            >
+                <default key="_controller">AcmeDemoBundle:Main:contact</default>
+            </route>
+        </routes>
+
+    .. code-block:: php
+
+        use Symfony\Component\Routing\RouteCollection;
+        use Symfony\Component\Routing\Route;
+
+        $collection = new RouteCollection();
+        $collection->add('contact', new Route(
+            '/contact', array(
+                '_controller' => 'AcmeDemoBundle:Main:contact',
+            ),
+            array(),
+            array(),
+            '',
+            array(),
+            array(),
+            'context.getMethod() in ["GET", "HEAD"] and request.headers.get("User-Agent") matches "/firefox/i"'
+        ));
+
+        return $collection;
+
+La voce ``condition`` è un'espressione, la cui sintassi si può approfondire
+in :doc:`/components/expression_language/syntax`. Grazie a essa, la rotta
+non corrisponderà a meno che il metodo HTTP non sia GET o HEAD *e* se l'header ``User-Agent``
+sarà ``firefox``.
+
+Si può usare qualsiasi logica complessa necessaria nell'espressione, sfruttando due
+variabili passate all'espressione stessa:
+
+* ``context``: un'istanza di :class:`Symfony\\Component\\Routing\\RequestContext`,
+  che contiene informazioni essenziali sulla rotta corrisposta;
+* ``request``: l'oggetto :class:`Symfony\\Component\\HttpFoundation\\Request` di Symfony
+  (vedere :ref:`component-http-foundation-request`).
+
+.. caution::
+
+    Le condizioni *non* sono considerate durante la generazione di un URL.
+
+.. sidebar:: Le espressioni sono compilate in PHP
+
+    Dietro le quinte, le espressioni sono compilate in PHP puro. L'esempio precedente
+    genererà il seguente codice PHP nella cartella della cache::
+
+        if (rtrim($pathinfo, '/contact') === '' && (
+            in_array($context->getMethod(), array(0 => "GET", 1 => "HEAD"))
+            && preg_match("/firefox/i", $request->headers->get("User-Agent"))
+        )) {
+            // ...
+        }
+
+    Per questo motivo, l'uso di ``condition`` non causerà un sovraccarico,
+    a parte il tempo necessario all'esecuzione del codice PHP.
 
 .. index::
    single: Rotte; Esempio avanzato

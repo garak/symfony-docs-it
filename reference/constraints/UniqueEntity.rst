@@ -160,9 +160,6 @@ errorPath
 
 **tipo**: ``stringa`` **predefinito**: Nome del primo campo in `fields`_
 
-.. versionadded:: 2.1
-    L'opzione ``errorPath`` è stata aggiunta in Symfony 2.1.
-
 Se l'entità viola il vincolo, il messaggio di errore è legato al primo
 campo in `fields`_. Se ci sono più campi, si può scegliere di legare il
 messaggio di errore a un altro campo.

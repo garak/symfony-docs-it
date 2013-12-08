@@ -29,6 +29,8 @@ esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `assetic.templating.twig`_        | Rimuovere questo servizio se i template Twig sono disabilitati            |
 +-----------------------------------+---------------------------------------------------------------------------+
+| `console.command`_                | Aggiunge un comando                                                       |
++-----------------------------------+---------------------------------------------------------------------------+
 | `data_collector`_                 | Creare una classe che raccolga dati personalizzati per il profilatore     |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `doctrine.event_listener`_        | Aggiungere un ascoltatore di eventi Doctrine                              |
@@ -240,6 +242,18 @@ assetic.templating.twig
 
 Il servizio sarà rimosso dal contenitore, se la sezione 
 ``framework.templating.engines`` non contiene twig.
+
+console.command
+---------------
+
+.. versionadded:: 2.4
+   Il supporto per registrare comandi nel contenitore di servizi è stato aggiunto nella
+   versione 2.4.
+
+**Scopo**: Aggiungere un comand all'applicazione
+
+Per dettagli su come registrare comandi nel contenitore di servizi, leggere
+:ref:`the cookbook article<cookbook-console-dic>`.
 
 data_collector
 --------------
@@ -973,9 +987,6 @@ translation.extractor
 
 **Scopo**: Registrare un servizio personalizzato che estragga messaggi da un file
 
-.. versionadded:: 2.1
-   La possibilità di aggiungere estrattori di messaggi è nuova in Symfony 2.1.
-
 Quando si esegue il comando ``translation:update``, esso usa degli estrattori per
 estrarre messaggi di traduzione da un file. Per impostazione predefinita, Symfony2
 ha un :class:`Symfony\\Bridge\\Twig\\Translation\\TwigExtractor` e un
@@ -1043,9 +1054,6 @@ translation.dumper
 ------------------
 
 **Scopo**: Registrare un servizio personalizzato che esporti messaggi in un file
-
-.. versionadded:: 2.1
-   La possibilità di aggiungere esportatori di messaggi è nuova in Symfony 2.1.
 
 Dopo che un `Extractor <translation.extractor>`_ ha estratto tutti i messaggi dai
 template, vengono eseguiti gli esportatori, per esportare i messaggi in un file di

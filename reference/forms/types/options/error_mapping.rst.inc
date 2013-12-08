@@ -1,6 +1,3 @@
-.. versionadded:: 2.1
-    L'opzione ``error_mapping`` è nuova in Symfony 2.1.
-
 error_mapping
 ~~~~~~~~~~~~~
 
@@ -38,16 +35,3 @@ Ecco le regole per i lati destro e sinistro della mappatura:
   al campo stesso. Questo significa che un errore aggiunto al campo è aggiunto
   invece al dato campo innnestato.
 * Il lato destro contiene semplicemente i nomi dei campi nel form.
-
-
-
-
-
-
-
-
-
-
-
-
-

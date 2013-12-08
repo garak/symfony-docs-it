@@ -308,9 +308,9 @@ La parte difficile nella costruzione di un'applicazione è la scrittura di quell
 mezzo. In altre parole, il vero lavoro consiste nello scrivere il codice che interpreta
 l'informazione della richiesta e crea la risposta.
 
-La propria applicazione probabilmente fa molte cose, come inviare email, gestire invii di
+Un'applicazione probabilmente deve fare molte cose, come inviare email, gestire
 form, salvare dati in una base dati, rendere pagine HTML e proteggere contenuti. Come si
-può gestire tutto questo e mantenere al contempo il proprio codice organizzato e
+può gestire tutto questo e mantenere al contempo il codice organizzato e
 mantenibile?
 
 Symfony è stato creato per risolvere questi problemi.
@@ -334,7 +334,7 @@ necessari, in modo che la sicurezza, le connessioni alla base dati e l'aspetto d
 possano rimanere coerenti.
 
 Una soluzione molto migliore è usare un :term:`front controller`: un unico file PHP
-che gestisce ogni richiesta che arriva alla propria applicazione. Per esempio:
+che gestisce ogni richiesta che arriva all'applicazione. Per esempio:
 
 +------------------------+----------------------+
 | ``/index.php``         | esegue ``index.php`` |
@@ -352,7 +352,7 @@ che gestisce ogni richiesta che arriva alla propria applicazione. Per esempio:
 
 Ora ogni richiesta è gestita esattamente nello stesso modo. Invece di singoli URL che
 eseguono diversi file PHP, è *sempre* eseguito il front controller, e il dirottamento
-di URL diversi sulle diverse parti della propria applicazione è gestito internamente.
+di URL diversi sulle diverse parti dell'applicazione è gestito internamente.
 Questo risolve entrambi i problemi dell'approccio originario. Quasi tutte le applicazioni
 web moderne fanno in questo modo, incluse applicazioni come WordPress.
 
@@ -459,9 +459,9 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
 .. note::
 
-   L'esempio usa :doc:`YAML</components/yaml/yaml_format>` per definire la configurazione delle rotte.
-   La configurazione delle rotte può essere scritta anche in altri formati, come XML o
-   PHP.
+   L'esempio usa :doc:`YAML</components/yaml/yaml_format>` per definire la configurazione
+   delle rotte. La configurazione delle rotte può essere scritta anche in altri formati,
+   come XML o PHP.
 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
 specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
@@ -484,20 +484,20 @@ metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 In questo semplice esempio, il controllore semplicemente crea un oggetto
 :class:`Symfony\\Component\\HttpFoundation\\Response` con il codice HTML
 "<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
-si imparerà come un controllore possa rendere dei template, consentendo al proprio codice
+si imparerà come un controllore possa rendere dei template, consentendo al codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose
 difficili: interagire con la base dati, gestire l'invio di dati o l'invio di messaggi
 email. 
 
-Symfony2: costruire la propria applicazione, non i propri strumenti.
---------------------------------------------------------------------
+Symfony2: costruire un'applicazione, non degli strumenti
+--------------------------------------------------------
 
 Sappiamo dunque che lo scopo di un'applicazione è interpretare ogni richiesta in entrata
 e creare un'appropriata risposta. Al crescere di un'applicazione, diventa sempre più
-difficile mantenere il proprio codice organizzato e mantenibile. Invariabilmente, gli
+difficile mantenere il codice organizzato e mantenibile. Invariabilmente, gli
 stessi complessi compiti continuano a presentarsi: persistere nella base dati, rendere e
-riusare template, gestire invii di form, inviare email, validare i dati degli utenti e
+riusare template, gestire form, inviare email, validare i dati degli utenti e
 gestire la sicurezza.
 
 La buona notizia è che nessuno di questi problemi è unico. Symfony fornisce un framework

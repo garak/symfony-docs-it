@@ -49,7 +49,7 @@ cartella:
         twig:
             # ...
             paths:
-                "%kernel.root_dir%/../vendor/acme/pippo-pluto/templates": foo_bar
+                "%kernel.root_dir%/../vendor/acme/pippo-pluto/templates": pippo_pluto
 
     .. code-block:: xml
 
@@ -61,7 +61,7 @@ cartella:
         >
 
             <twig:config debug="%kernel.debug%" strict-variables="%kernel.debug%">
-                <twig:path namespace="foo_bar">%kernel.root_dir%/../vendor/acme/pippo-pluto/templates</twig:path>
+                <twig:path namespace="pippo_pluto">%kernel.root_dir%/../vendor/acme/pippo-pluto/templates</twig:path>
             </twig:config>
         </container>
 
@@ -70,7 +70,7 @@ cartella:
         // app/config/config.php
         $container->loadFromExtension('twig', array(
             'paths' => array(
-                '%kernel.root_dir%/../vendor/acme/pippo-pluto/templates' => 'foo_bar',
+                '%kernel.root_dir%/../vendor/acme/pippo-pluto/templates' => 'pippo_pluto',
             );
         ));
 
@@ -80,4 +80,4 @@ di nome ``sidebar.twig`` in tale cartella, si può usare facilmente:
 
 .. code-block:: jinja
 
-    {% include '@pippo_pluto/sidebar.twig` %}
+    {% include '@pippo_pluto/side.bar.twig' %}

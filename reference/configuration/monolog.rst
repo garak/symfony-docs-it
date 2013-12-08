@@ -29,7 +29,10 @@ Riferimento configurazione
                     type:                service
                     id:                  my_handler
 
-                # Opzioni e valori predfiniti per un "mio_gestore"
+                # Opzioni e valori predefiniti per un "mio_gestore"
+                # Nota: molte di queste opzioni dipendono da "type".
+                # Per esempio, il tipo "service" non usa alcuna opzione,
+                # tranne id e channels
                 mio_gestore:
                     type:                 ~ # Obbligatorio
                     id:                   ~

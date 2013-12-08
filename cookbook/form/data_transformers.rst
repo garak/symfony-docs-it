@@ -129,17 +129,16 @@ un form.
 
             public function setDefaultOptions(OptionsResolverInterface $resolver)
             {
-                $resolver->setDefaults(array(
-                    'data_class' => 'Acme\TaskBundle\Entity\Task',
-                ));
-
-                $resolver->setRequired(array(
-                    'em',
-                ));
-
-                $resolver->setAllowedTypes(array(
-                    'em' => 'Doctrine\Common\Persistence\ObjectManager',
-                ));
+                $resolver
+                    ->setDefaults(array(
+                        'data_class' => 'Acme\TaskBundle\Entity\Task',
+                    ))
+                    ->setRequired(array(
+                        'em',
+                    ))
+                    ->setAllowedTypes(array(
+                        'em' => 'Doctrine\Common\Persistence\ObjectManager',
+                    ));
 
                 // ...
             }

@@ -57,7 +57,7 @@ Standard:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.3.*
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.4.*
 
 .. tip::
 

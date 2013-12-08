@@ -487,7 +487,7 @@ Per gestire l'invio del form, usare il metodo
 
     .. code-block:: php-standalone
 
-        use Symfony\HttpFoundation\Request;
+        use Symfony\Component\HttpFoundation\Request;
         use Symfony\Component\HttpFoundation\RedirectResponse;
 
         $form = $formFactory->createBuilder()

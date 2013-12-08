@@ -608,8 +608,11 @@ Primo, aggiungere un collegamento "eliminare questo tag" a ogni form tag:
 .. code-block:: javascript
 
     jQuery(document).ready(function() {
+        // l'ul che contiene i tag
+        $collectionHolder = $('ul.tags');
+
         // aggiunge un collegamento di eliminazione a ogni elemento tag esistente
-        collectionHolder.find('li').each(function() {
+        $collectionHolder.find('li').each(function() {
             addTagFormDeleteLink($(this));
         });
 
@@ -666,6 +669,8 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
 
         // src/Acme/TaskBundle/Controller/TaskController.php
 
+        use Doctrine\Common\Collections\ArrayCollection;
+
         // ...
         public function editAction($id, Request $request)
         {
@@ -676,11 +681,11 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
                 throw $this->createNotFoundException('No task found for is '.$id);
             }
 
-            $originalTags = array();
+            $originalTags = new ArrayCollection();
 
             // Crea un array degli oggetti Tag attualmente nella base dati
             foreach ($task->getTags() as $tag) {
-                $originalTags[] = $tag;
+                $originalTags->add($tag);
             }
 
             $editForm = $this->createForm(new TaskType(), $task);
@@ -689,27 +694,20 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
 
             if ($editForm->isValid()) {
 
-                // filtra $originalTags per contenere i tag non più presenti
-                foreach ($task->getTags() as $tag) {
-                    foreach ($originalTags as $key => $toDel) {
-                        if ($toDel->getId() === $tag->getId()) {
-                            unset($originalTags[$key]);
-                        }
-                    }
-                }
-
                 // rimuove la relazione tra tag e Task
                 foreach ($originalTags as $tag) {
-                    // rimuove il Task dal Tag
-                    $tag->getTasks()->removeElement($task);
+                    if (false === $task->getTags()->contains($tag)) {
+                        // rimuove il Task dal Tag
+                        $tag->getTasks()->removeElement($task);
 
-                    // se ci fosse una relazione ManyToOne, rimuoverla in questo modo
-                    // $tag->setTask(null);
+                        // se ci fosse una relazione ManyToOne, rimuoverla in questo modo
+                        // $tag->setTask(null);
 
-                    $em->persist($tag);
+                        $em->persist($tag);
 
-                    // se si vuole eliminare del tutto il Tag, si può anche fare così
-                    // $em->remove($tag);
+                        // se si vuole eliminare del tutto il Tag, si può anche fare così
+                        // $em->remove($tag);
+                    }
                 }
 
                 $em->persist($task);

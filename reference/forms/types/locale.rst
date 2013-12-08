@@ -8,9 +8,10 @@ Il tipo ``locale`` è un sotto-insieme di ``ChoiceType``, che consente all'utent
 scegliere tra una lunga lista di locale (lingua + paese). Come bonus aggiuntivo,
 i nomi dei locale sono mostrati nella lingua dell'utente.
 
-Il valore di ogni locale è un codice di *lingua* a due lettere ISO639-1
+Il valore di ogni locale è un codice di *lingua* a due lettere `ISO 639-1`_
 (p.e. ``it``) oppure il codice della lingua seguito da un trattino basso (``_``) e
-dal codice del *paese* ISO3166 (p.e. ``it_IT`` per Italiano/Italia).
+dal codice del *paese* `ISO 3166-1 alpha-2`_ (p.e. ``it_IT``
+per Italiano/Italia).
 
 .. note::
 
@@ -39,9 +40,9 @@ dovrebbe usare il tipo ``choice`` direttamente.
 |               | - `disabled`_                                                          |
 |               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
-| Tipo genitore | :doc:`choice</reference/forms/types/choice>`                           |
+| Tipo genitore | :doc:`choice </reference/forms/types/choice>`                          |
 +---------------+------------------------------------------------------------------------+
-| Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\LanguageType` |
+| Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\LocaleType`   |
 +---------------+------------------------------------------------------------------------+
 
 Opzioni ridefinite
@@ -55,11 +56,10 @@ choices
 Questa opzione ha come valore predefinito tutti i locale. Usa il
 locale predefinito per specificare la lingua.
 
-
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choice>`:
+Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -73,7 +73,7 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
@@ -84,3 +84,6 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes

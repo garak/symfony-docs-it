@@ -486,8 +486,8 @@ intero negli altri altri casi).
     dal Web, sarebbe meglio provare a rifattorizzare il codice e spostare la logica
     all'interno di una nuova classe.
 
-Sapene di più
--------------
+Saperne di più
+--------------
 
 * :doc:`/components/console/usage`
 * :doc:`/components/console/single_command_tool`

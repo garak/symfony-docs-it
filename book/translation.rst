@@ -220,7 +220,7 @@ nativo sia per i template Twig che per quelli PHP.
 
 .. _book-translation-tags:
 
-Template Twig 
+Template Twig
 ~~~~~~~~~~~~~
 
 Symfony2 fornisce tag specifici per Twig (``trans`` e ``transchoice``), che aiutano
@@ -482,12 +482,12 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
         return $collection;
 
-Quando si utilizza il parametro speciale ``_locale`` in una rotta, il locale corrispondente
-verrà *automaticamente impostato sulla sessione dell'utente* e potrò essere recuperato tramite il metodo
+Quando si utilizza il parametro speciale `_locale` in una rotta, il locale corrispondente
+verrà *automaticamente impostato sulla richiesta* e potrà essere recuperate tramite il metodo
 :method:`Symfony\\Component\\HttpFoundation\\Request::getLocale`.
 In altre parole, se un utente
 visita l'URI ``/fr/contact``, il locale ``fr`` viene impostato automaticamente
-come locale per la sessione dell'utente.
+come locale per la richiesta corrente.
 
 È ora possibile utilizzare il locale dell'utente per creare rotte ad altre pagine tradotte
 nell'applicazione.

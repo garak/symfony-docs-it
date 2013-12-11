@@ -50,7 +50,7 @@ i metodi restituiscono un'istanza di Finder.
 
     Un Finder è un'istanza di un :phpclass:`Iterator` PHP. Perciò, invece di dover iterare attraverso
     Finder con un ciclo ``foreach``, è possibile convertirlo in un array, tramite il metodo
-    :phpfunction:`iterator_to_array`, o ottenere il numero di oggetto in esso contenuti con
+    :phpfunction:`iterator_to_array`, oppure ottenere il numero di oggetti in esso contenuti, con
     :phpfunction:`iterator_count`.
 
 .. caution::
@@ -105,7 +105,7 @@ Ogni schema deve risolvere almeno un percorso di cartella.
     $finder->ignoreUnreadableDirs()->in(__DIR__);
 
 Visto che Finder utilizza gli iteratori di PHP, è possibile passargli qualsiasi
-URL che sia supportata dal `protocollo`_::
+URL con `protocollo`_ supportato::
 
     $finder->in('ftp://example.com/pub/');
 

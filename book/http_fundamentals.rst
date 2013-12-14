@@ -364,8 +364,9 @@ possono peggiorare rapidamente::
     // index.php
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
+
     $request = Request::createFromGlobals();
-    $path = $request->getPathInfo(); // l'URL richiesto
+    $path = $request->getPathInfo(); // il percorso dell'URI richiesto
 
     if (in_array($path, array('', '/'))) {
         $response = new Response('Benvenuto nella homepage.');

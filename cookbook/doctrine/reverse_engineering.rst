@@ -55,7 +55,7 @@ un ``AcmeBlogBundle``, posto nella cartella
 
 Il primo passo nella costruzione di classi entità da una base dati esistente è quello di
 chiedere a Doctrine un'introspezione della base dati e una generazione dei file dei
-meta-dati corrispondenti. I file dei meta-dati descrivono le classi entità da generare
+metadati corrispondenti. I file dei metadati descrivono le classi entità da generare
 in base ai campi delle tabelle.
 
 .. code-block:: bash
@@ -63,16 +63,16 @@ in base ai campi delle tabelle.
     $ php app/console doctrine:mapping:convert xml ./src/Acme/BlogBundle/Resources/config/doctrine --from-database --force
 
 Questo comando del terminale chiede a Doctrine l'introspezione della base dati e la
-generazione dei file di meta-dati XML sotto la cartella ``src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm``
+generazione dei file di metadati XML sotto la cartella ``src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm``
 del bundle. I file generati sono ``BlogPost.orm.xml`` e
 ``BlogComment.orm.xml``.
 
 .. tip::
 
-    Le classi dei meta-dati possono anche essere generate in YAML, modificando il
+    Le classi dei metadati possono anche essere generate in YAML, modificando il
     primo parametro in `yml`.
 
-Il file dei meta-dati ``BlogPost.dcm.xml`` assomiglia a questo:
+Il file dei metadati ``BlogPost.dcm.xml`` assomiglia a questo:
 
 .. code-block:: xml
 
@@ -88,7 +88,7 @@ Il file dei meta-dati ``BlogPost.dcm.xml`` assomiglia a questo:
       </entity>
     </doctrine-mapping>
 
-Una volta generati i file dei meta-dati, si può chiedere a Doctrine di importare lo
+Una volta generati i file dei metadati, si può chiedere a Doctrine di importare lo
 schema e costruire le relative classi entità, eseguendo i seguenti comandi.
 
 .. code-block:: bash

@@ -507,7 +507,7 @@ per il parametro ``{page}``.
 | /blog/my-blog-post | blog  | {page} = my-blog-post |
 +--------------------+-------+-----------------------+
 
-La risposta al problema è aggiungere rotte *obbligatorie*. Le rotte in questo
+La risposta al problema è aggiungere *requisiti* alle rotte. Le rotte in questo
 esempio potrebbero funzionare perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo*
 per gli URL dove ``{page}`` fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
 espressioni regolari e aggiunti per ogni parametro. Per esempio:

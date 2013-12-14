@@ -4,7 +4,7 @@
 Basi di dati e Doctrine ("Il modello")
 ======================================
 
-Ammettiamolo, uno dei compiti più comuni e impegnativi per qualsiasi applicazione
+Uno dei compiti più comuni e impegnativi per qualsiasi applicazione
 implica la persistenza e la lettura di informazioni da una base dati. Fortunatamente,
 Symfony è integrato con `Doctrine`_, una libreria il cui unico scopo è quello di
 fornire potenti strumenti per facilitare tali compiti. In questo capitolo, si imparerà
@@ -15,9 +15,9 @@ con una base dati.
 
     Doctrine è totalmente disaccoppiato da Symfony e il suo utilizzo è facoltativo.
     Questo capitolo è tutto su Doctrine, che si prefigge lo scopo di consentire una mappatura
-    tra oggetti una base dati relazionale (come *MySQL*, *PostgreSQL* o *Microsoft SQL*).
-    Se si preferisce l'uso di query grezze, lo si può fare facilmente, come spiegato
-    nella ricetta ":doc:`/cookbook/doctrine/dbal`".
+    tra oggetti una base dati relazionale (come *MySQL*, *PostgreSQL* o
+    *Microsoft SQL*). Se si preferisce l'uso di query grezze, lo si può fare facilmente,
+    come spiegato nella ricetta ":doc:`/cookbook/doctrine/dbal`".
 
     Si possono anche persistere dati su `MongoDB`_ usando la libreria ODM Doctrine. Per
     ulteriori informazioni, leggere la documentazione
@@ -52,7 +52,7 @@ file ``app/config/parameters.yml``:
     parameters:
         database_driver:    pdo_mysql
         database_host:      localhost
-        database_name:      test_project
+        database_name:      progetto_test
         database_user:      root
         database_password:  password
 
@@ -130,7 +130,7 @@ base dati al posto nostro:
     Uno sbaglio che anche programmatori esperti commettono all'inizio di un progetto Symfony2
     è dimenticare di impostare charset e collation nella base dati,
     finendo con collation di tipo latin, che sono predefinite la maggior parte delle volte.
-    Lo si potrebbe fare anche solo all'inizio, ma spesso si dimenticat che lo si
+    Lo si potrebbe fare anche solo all'inizio, ma spesso si dimentica che lo si
     può fare anche durante lo sviluppo, in modo abbastanza semplice:
 
     .. code-block:: bash
@@ -219,8 +219,8 @@ la cartella ``Entity`` di ``AcmeStoreBundle``::
     }
 
 La classe, spesso chiamata "entità" (che vuol dire *una classe di base che contiene dati*),
-è semplice e aiuta a soddisfare i requisiti di business di necessità di prodotti della
-propria applicazione. Questa classe non può ancora essere persistita in una base dati, è
+è semplice e aiuta a soddisfare i requisiti di business di necessità di prodotti
+dell'applicazione. Questa classe non può ancora essere persistita in una base dati, è
 solo una semplice classe PHP.
 
 .. tip::
@@ -234,7 +234,7 @@ solo una semplice classe PHP.
         $ php app/console doctrine:generate:entity
 
 .. index::
-    single: Doctrine; Aggiungere meta-dati di mappatura
+    single: Doctrine; Aggiungere metadati di mappatura
 
 .. _book-doctrine-adding-mapping:
 
@@ -250,11 +250,11 @@ proprietà della classe PHP sulle colonne della tabella:
 .. image:: /images/book/doctrine_image_1.png
    :align: center
 
-Per fare in modo che Doctrine possa fare ciò, occorre solo creare dei "meta-dati", ovvero
+Per fare in modo che Doctrine possa fare ciò, occorre solo creare dei "metadati", ovvero
 la configurazione che dice esattamente a Doctrine come la classe ``Product`` e le sue
-proprietà debbano essere *mappate* sula base dati. Questi meta-dati possono essere specificati
-in diversi formati, inclusi YAML, XML o direttamente dentro la classe ``Product``,
-tramite annotazioni:
+proprietà debbano essere *mappate* sula base dati. Questi metadati possono essere specificati
+in diversi formati, inclusi YAML, XML o direttamente dentro la classe
+``Product``, tramite annotazioni:
 
 .. configuration-block::
 
@@ -335,8 +335,8 @@ tramite annotazioni:
 
 .. note::
 
-    Un bundle può accettare un solo formato di definizione dei meta-dati. Per esempio, non
-    è possibile mischiare definizioni di meta-dati in YAML con definizioni tramite
+    Un bundle può accettare un solo formato di definizione dei metadati. Per esempio, non
+    è possibile mischiare definizioni di metadati in YAML con definizioni tramite
     annotazioni.
 
 .. tip::
@@ -390,8 +390,8 @@ Generare getter e setter
 
 Sebbene ora Doctrine sappia come persistere un oggetto ``Product`` nella base dati,
 la classe stessa non è molto utile. Poiché ``Product`` è solo una normale classe
-PHP, occorre creare dei metodi getter e setter (p.e. ``getName()``, ``setName()``)
-per poter accedere alle sue proprietà (essendo le proprietà protette).
+PHP, occorre creare dei metodi getter e setter (p.e. ``getName()``,
+``setName()``) per poter accedere alle sue proprietà (essendo le proprietà protette).
 Fortunatamente, Doctrine può farlo al posto nostro, basta eseguire:
 
 .. code-block:: bash
@@ -413,12 +413,12 @@ metodi già presenti).
 
     Con il comando ``doctrine:generate:entities`` si può:
 
-    * generare getter e setter,
+        * generare getter e setter,
 
-    * generare classi repository configurate con l'annotazione
-        ``@ORM\Entity(repositoryClass="...")``,
+        * generare classi repository configurate con l'annotazione
+            ``@ORM\Entity(repositoryClass="...")``,
 
-    * generare il costruttore appropriato per relazioni 1:n e n:m.
+        * generare il costruttore appropriato per relazioni 1:n e n:m.
 
     Il comando ``doctrine:generate:entities`` salva una copia di backup del file
     originale ``Product.php``, chiamata ``Product.php~``. In alcuni casi, la presenza
@@ -442,7 +442,7 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. note::
 
-    Doctrine non si cura se le proprietà sono ``protected`` o ``private``,
+    Doctrine non si cura se le proprietà siano protette o private,
     o se siano o meno presenti getter o setter per una proprietà.
     I getter e i setter sono generati qui solo perché necessari per
     interagire col l'oggetto PHP.
@@ -468,18 +468,18 @@ nella propria applicazione. Per farlo, eseguire:
     *dovrebbe* essere (basandosi sulle informazioni di mappatura delle entità) con
     ciò che *effettivamente* è, quindi genera le istruzioni SQL necessarie per
     *aggiornare* la base dati e portarlo a ciò che dovrebbe essere. In altre parole,
-    se si aggiunge una nuova proprietà con meta-dati di mappatura a ``Product`` e si
+    se si aggiunge una nuova proprietà con metadati di mappatura a ``Product`` e si
     esegue nuovamente il task, esso genererà l'istruzione "alter table" necessaria
     per aggiungere questa nuova colonna alla tabella ``product`` esistente.
 
     Un modo ancora migliore per trarre vantaggio da questa funzionalità è tramite
-    le :doc:`migrazioni</bundles/DoctrineMigrationsBundle/index>`, che consentono di
+    le :doc:`migrazioni </bundles/DoctrineMigrationsBundle/index>`, che consentono di
     generare queste istruzioni SQL e di memorizzarle in classi di migrazione, che
     possono essere eseguite sistematicamente sul server di produzione, per
     poter tracciare e migrare lo schema della base dati in modo sicuro e affidabile.
 
 La propria base dati ora ha una tabella ``product`` pienamente funzionante, con le colonne
-corrispondenti ai meta-dati specificati.
+corrispondenti ai metadati specificati.
 
 Persistere gli oggetti nella base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -519,15 +519,15 @@ del bundle:
 
 Analizziamo questo esempio:
 
-* **righe 8-11** In questa sezione, si istanzia e si lavora con l'oggetto
-  ``$product``, come qualsiasi altro normale oggetto PHP;
+* **righe 8-11** In questa sezione, si istanzia e si lavora con l'oggetto ``$product``,
+  come qualsiasi altro normale oggetto PHP;
 
 * **riga 13** Questa riga recupera l'oggetto *gestore di entità* di Doctrine,
   responsabile della gestione del processo di persistenza e del recupero di
   oggetti dalla base dati;
 
-* **riga 14** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto
-  ``$product``. Questo non fa (ancora) eseguire una query sula base dati.
+* **riga 14** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto ``$product``.
+  Questo non fa (ancora) eseguire una query sula base dati.
 
 * **riga 15** Quando il metodo ``flush()`` è richiamato, Doctrine cerca tutti
   gli oggetti che sta gestendo, per vedere se hanno bisogno di essere persistiti
@@ -714,8 +714,8 @@ Doctrine, oppure usare il Query Builder di Doctrine.
 Cercare oggetti con DQL
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Si immagini di voler cercare dei prodotti, ma solo quelli che costino più di
-``19.99``, ordinati dal più economico al più caro. Da dentro un controllore,
+Si immagini di voler cercare dei prodotti, ma solo quelli che costino più
+di ``19.99``, ordinati dal più economico al più caro. Da dentro un controllore,
 fare come segue::
 
     $em = $this->getDoctrine()->getManager();
@@ -928,8 +928,8 @@ Doctrine stesso a creare la classe.
 Questo task genera l'entità ``Category``, con un campo ``id``,
 un campo ``name`` e le relative funzioni getter e setter.
 
-Meta-dati di mappatura delle relazioni
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Metadati di mappatura delle relazioni
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per correlare le entità ``Category`` e ``Product``, iniziamo creando una proprietà
 ``products`` nella classe ``Category``:
@@ -1079,14 +1079,14 @@ setter:
 
     $ php app/console doctrine:generate:entities Acme
 
-Ignoriamo per un momento i meta-dati di Doctrine. Abbiamo ora due classi, ``Category``
+Ignoriamo per un momento i metadati di Doctrine. Abbiamo ora due classi, ``Category``
 e ``Product``, con una relazione naturale uno-a-molti. La classe ``Category``
 contiene un array di oggetti ``Product`` e l'oggetto ``Product`` può contenere un
 oggetto ``Category``. In altre parole, la classe è stata costruita in un modo che ha
 senso per le proprie necessità. Il fatto che i dati necessitino di essere persistiti
 su una base dati è sempre secondario.
 
-Diamo ora uno sguardo ai meta-dati nella proprietà ``$category`` della classe
+Diamo ora uno sguardo ai metadati nella proprietà ``$category`` della classe
 ``Product``. Qui le informazioni dicono a Doctrine che la classe correlata è
 ``Category`` e che dovrebbe memorizzare il valore ``id`` della categoria in un campo
 ``category_id`` della tabella ``product``. In altre parole, l'oggetto ``Category``
@@ -1097,7 +1097,7 @@ colonna ``category_id`` della tabella ``product``.
 .. image:: /images/book/doctrine_image_2.png
    :align: center
 
-I meta-dati della proprietà ``$products`` dell'oggetto ``Category`` sono meno
+I metadati della proprietà ``$products`` dell'oggetto ``Category`` sono meno
 importanti e dicono semplicemente a Doctrine di cercare la proprietà ``Product.category``
 per sapere come mappare la relazione.
 
@@ -1111,8 +1111,8 @@ Prima di continuare, accertarsi di dire a Doctrine di aggiungere la nuova tabell
 .. note::
 
     Questo task andrebbe usato solo durante lo sviluppo. Per un metodo più robusto
-    di aggiornamento sistematico della propria base dati di produzione, leggere
-    :doc:`Migrazioni doctrine</bundles/DoctrineFixturesBundle/index>`.
+    di aggiornamento sistematico della propria base dati di produzione, vedere le 
+    :doc:`migrazioni di Doctrine </bundles/DoctrineMigrationsBundle/index>`.
 
 Salvare le entità correlate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1199,11 +1199,11 @@ Si può anche cercare nella direzione opposta::
         // ...
     }
 
-In questo caso succedono le stesse cose: prima si cerca un singolo oggetto
-``Category``, poi Doctrine esegue una seconda query per recuperare l'oggetto
-``Product`` correlato, ma solo quando/se richiesto (cioè al richiamo di
-``->getProducts()``). La variabile ``$products`` è un array di tutti gli oggetti
-``Product`` correlati con il dato oggetto ``Category`` tramite il loro valore ``category_id``.
+In questo caso succedono le stesse cose: prima si cerca un singolo oggetto ``Category``,
+poi Doctrine esegue una seconda query per recuperare l'oggetto ``Product`
+correlato, ma solo quando/se richiesto (cioè al richiamo di ``->getProducts()``).
+La variabile ``$products`` è un array di tutti gli oggetti ``Product``
+correlati con il dato oggetto ``Category`` tramite il loro valore ``category_id``.
 
 .. sidebar:: Relazioni e classi proxy
 
@@ -1230,8 +1230,8 @@ In questo caso succedono le stesse cose: prima si cerca un singolo oggetto
     sia in realtà un oggetto proxy, è importante tenerlo a mente.
 
     Nella prossima sezione, quando si recuperano i dati di prodotto e categoria
-    in una volta sola (tramite una *join*), Doctrine restituirà il *vero* oggetto
-    ``Category``, poiché non serve alcun lazy load.
+    in una volta sola (tramite una *join*), Doctrine restituirà il *vero* oggetto ``Category``,
+    poiché non serve alcun lazy load.
 
 Join di record correlati
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1311,7 +1311,7 @@ del "ciclo di vita", perché sono metodi callback che occorre eseguire durante i
 diversi stadi del ciclo di vita di un'entità (p.e. l'entità è inserita, aggiornata,
 cancellata, eccetera). 
 
-Se si usano le annotazioni per i meta-dati, iniziare abilitando i callback del
+Se si usano le annotazioni per i metadati, iniziare abilitando i callback del
 ciclo di vita. Questo non è necessario se si usa YAML o XML per la mappatura:
 
 .. code-block:: php-annotations
@@ -1589,7 +1589,7 @@ Riepilogo
 Con Doctrine, ci si può concentrare sui propri oggetti e su come siano utili nella
 propria applicazione e preoccuparsi della persistenza su base dati in un secondo momento.
 Questo perché Doctrine consente di usare qualsiasi oggetto PHP per tenere i propri dati e
-si appoggia su meta-dati di mappatura per mappare i dati di un oggetto su una
+si appoggia su metadati di mappatura per mappare i dati di un oggetto su una
 particolare tabella di base dati.
 
 Sebbene Doctrine giri intorno a un semplice concetto, è incredibilmente potente,

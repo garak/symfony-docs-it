@@ -41,7 +41,7 @@ Configurazione di esempio
                 default:
                     server: %mongodb_server%
 
-Se si vuole usare memcache per la cache dei meta-dati, occorre configurare
+Se si vuole usare memcache per la cache dei metadati, occorre configurare
 l'istanza ``Memcache``. Per esempio, si può fare come segue:
 
 .. configuration-block::
@@ -102,7 +102,7 @@ necessaria per l'ODM e ci sono numerose opzioni di configurazione che si possono
 conrtollare. La mappatura ha le seguenti opzioni di configurazione:
 
 - ``type`` uno tra ``annotations``, ``xml``, ``yml``, ``php`` o ``staticphp``.
-  Specifica il tipo di meta-dati usati dalla mappatura.
+  Specifica il tipo di metadati usati dalla mappatura.
 
 - ``dir`` percorso per la mappatura o per i file entità (a seconda del driver). Se
   questo percorso è relativo, si presume sia relativo alla radice del bundle.
@@ -123,7 +123,7 @@ conrtollare. La mappatura ha le seguenti opzioni di configurazione:
 - ``is_bundle`` questa opzione ha un valore derivato da ``dir`` ed è impostata in modo predefinito a ``true``
   se ``dir`` è relativa, verificata con ``file_exists()`` che restituisca ``false``. È invece ``false``
   se il controllo di esistenza restituisce ``true``. In questo caso, è stato specificato un percorso
-  assoluto e i file dei meta-dati sono molto probabilmente in una cartella fuori
+  assoluto e i file dei metadati sono molto probabilmente in una cartella fuori
   da un bundle.
 
 Per evitare di dover configurare un sacco di informazioni per la mappatura, si

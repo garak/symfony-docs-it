@@ -123,7 +123,7 @@ Meta-dati di validazione
 ------------------------
 
 Symfony carica tutti i file di configurazione per la validazione da ogni bundle e
-li combina un albero di meta-dati di validazione. Questo vuol dire che si possono
+li combina un albero di metadati di validazione. Questo vuol dire che si possono
 aggiungere nuovi vincoli a una proprietà, ma non si possono ridefinire.
 
 Per risolvere il problema, il bundle di terze parti deve avere una configurazione per i

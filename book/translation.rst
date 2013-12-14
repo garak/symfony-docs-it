@@ -40,8 +40,8 @@ per saperne di più. Nel complesso, il processo ha diverse fasi:
 #. :ref:`Creare risorse di traduzione <book-translation-resources>`
    per ogni lingua supportata che traducano tutti i messaggio dell'applicazione;
 
-#. Determinare, :ref:`impostare e gestire le impostazioni locali<book-translation-user-locale>`
-   dell'utente per la richiesta e, facoltativamente, 
+#. Determinare, :ref:`impostare e gestire le impostazioni locali <book-translation-user-locale>`
+   dell'utente per la richiesta e, facoltativamente,
    :doc:`sull'intera sessione </cookbook/session/locale_sticky_session>`.
 
 .. _book-translation-configuration:

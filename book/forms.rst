@@ -712,7 +712,7 @@ i valori corretti di una serie di opzioni del campo.
 
 * ``max_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione ``max_length``
   può essere indovinata dai vincoli di validazione (se viene utilizzato ``Length`` o
-  ``Range``) o dai meta-dati Doctrine (tramite la lunghezza del campo).
+  ``Range``) o dai metadati Doctrine (tramite la lunghezza del campo).
 
 .. note::
 
@@ -1181,7 +1181,7 @@ form HTML e quindi tradurre i dati inviati dall'utente indietro all'oggetto orig
 tale, il tema della persistenza dell'oggetto ``Task`` nella base dati è interamente
 non correlato al tema dei form. Ma, se la classe ``Task`` è stata configurata
 per essere salvata attraverso Doctrine (vale a dire che per farlo si è aggiunta la
-:ref:`mappatura dei meta-dati<book-doctrine-adding-mapping>`), allora si può salvare 
+:ref:`mappatura dei metadati <book-doctrine-adding-mapping>`), allora si può salvare 
 dopo l'invio di un form, quando il form stesso è valido::
 
     if ($form->isValid()) {

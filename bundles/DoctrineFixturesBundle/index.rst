@@ -111,13 +111,13 @@ usando il comando ``doctrine:fixtures:load``:
 
 .. code-block:: bash
 
-    php app/console doctrine:fixtures:load
+    $ php app/console doctrine:fixtures:load
 
 Se si usa l'ODM, usare invece il comando ``doctrine:mongodb:fixtures:load``:
 
 .. code-block:: bash
 
-    php app/console doctrine:mongodb:fixtures:load
+    $ php app/console doctrine:mongodb:fixtures:load
 
 Il comando cercherà nella cartella ``DataFixtures/ORM`` (o ``DataFixtures/MongoDB``
 per l'ODM) di ogni bundle ed eseguirà ogni classe che implementa
@@ -143,7 +143,7 @@ Un esempio completo potrebbe assomigliare a questo:
 
 .. code-block:: bash
 
-   php app/console doctrine:fixtures:load --fixtures=/percorso/di/fixture1 --fixtures=/percorso/di/fixture2 --append --em=foo_manager
+   $ php app/console doctrine:fixtures:load --fixtures=/percorso/di/fixture1 --fixtures=/percorso/di/fixture2 --append --em=foo_manager
 
 Condividere oggetti tra le fixture
 ----------------------------------

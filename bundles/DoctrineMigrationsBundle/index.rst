@@ -76,7 +76,7 @@ comando ``status``:
 
 .. code-block:: bash
 
-    php app/console doctrine:migrations:status
+    $ php app/console doctrine:migrations:status
 
      == Configuration
 
@@ -317,8 +317,8 @@ Può essere un'esigenza comune avere, oltre alla struttura della base dati gener
 partenedo dalle entità di Doctrine, delle tabelle personalizzate. Per impostazione predefinita,
 tali tabelle sarebbero rimosse dal comando ``doctrine:migrations:diff``.
 
-Seguendo uno schema specifico, si può configurare Doctrine per ignorare tali
-tabelle. Supponiamo che tutte le tabelle personalizzate abbiano un nome che iniza per 't\_'. In questo caso,
+Seguendo uno schema specifico, si può configurare doctrine/dbal per ignorare tali
+tabelle. Supponiamo che tutte le tabelle personalizzate abbiano un nome che iniza per ``t_``. In questo caso,
 basta aggiungere la seguente configurazione:
 
 .. configuration-block::

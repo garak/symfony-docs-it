@@ -864,6 +864,8 @@ Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
   (internamente, viene lanciata
   :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`);
 
+* ``allow_if`` Se l'espressione restituisce ``false``, l'accesso viene negato;
+
 * ``requires_channel`` Se il canale della richiesta in arrivo (p.e. ``http``)
   non corrisponde a questo valore (p.e. ``https``), l'utente sarà rinviato
   (p.e. rinviato da ``http`` a ``https``, o viceversa).
@@ -958,6 +960,58 @@ in IPv6):
   ``IS_AUTHENTICATED_ANONYMOUSLY``.
 
 * La seconda regola di accesso non viene esaminata, perché la prima corrispondeva.
+
+.. _book-security-allow-if:
+
+Protezione tramite espressione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.4
+    La funzionalità ``allow_if`` è stata introdotta in Symfony 2.4.
+
+Una volta corrisposta una voce ``access_control``, si può negare l'accesso tramite la chiave
+``roles`` oppure usare una logica più complessa, con un'espressione nella chiave
+``allow_if``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+            access_control:
+                -
+                    path: ^/_internal/secure
+                    allow_if: "'127.0.0.1' == request.getClientIp() or has_role('ROLE_ADMIN')"
+
+    .. code-block:: xml
+
+            <access-control>
+                <rule path="^/_internal/secure"
+                    allow-if="'127.0.0.1' == request.getClientIp() or has_role('ROLE_ADMIN')" />
+            </access-control>
+
+    .. code-block:: php
+
+            'access_control' => array(
+                array(
+                    'path' => '^/_internal/secure',
+                    'allow_if' => '"127.0.0.1" == request.getClientIp() or has_role("ROLE_ADMIN")',
+                ),
+            ),
+
+In questo caso, quando l'utente prova ad accedere a un URL che inizia per ``/_internal/secure``,
+gli sarà consentito l'accesso solo se l'indirizzo IP è ``127.0.0.1`` o se
+l'utente ha il ruolo ``ROLE_ADMIN``.
+
+All'interno dell'espressione, si ha accesso a diverse variabili
+e funzioni, inclusa ``request``,  che è l'oggetto
+:class:`Symfony\\Component\\HttpFoundation\\Request` di Symfony (vedere
+:ref:`component-http-foundation-request`).
+
+Per una lista di altre funzioni e variabili, vedere
+:ref:`funzioni e variabili <book-security-expression-variables>`.
 
 .. _book-security-securing-channel:
 
@@ -1666,6 +1720,8 @@ non ha bisogno di essere definito ovunque, è sufficiente iniziare a usarlo.
     Symfony2. Se si definiscono i propri ruoli con una classe ``Role`` dedicata
     (caratteristica avanzata), non bisogna usare il prefisso ``ROLE_``.
 
+.. _book-security-role-hierarchy:
+
 I ruoli gerarchici
 ~~~~~~~~~~~~~~~~~~
 
@@ -1844,6 +1900,33 @@ la funzione aiutante:
     idea avere un firewall principale che copra tutti gli URL (come si è visto
     in questo capitolo).
 
+.. _book-security-template-expression:
+
+.. versionadded:: 2.4
+    La funzionalità ``expression`` è stata introdotta in Symfony 2.4.
+
+Si possono anche usare le espressioni dentro ai template:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted(expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        )) %}
+            <a href="...">Delete</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted(new Expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        ))): ?>
+            <a href="...">Delete</a>
+        <?php endif; ?>
+
+Per maggiori dettagli su espressioni e sicurezza, vedere :ref:`book-security-expressions`.
+
 Verifica dell'accesso nei controllori
 -------------------------------------
 
@@ -1865,6 +1948,91 @@ del contesto di sicurezza::
 
     Un firewall deve essere attivo o verrà lanciata un'eccezione quando viene
     chiamato il metodo ``isGranted``. Vedere la nota precedente sui template per maggiori dettagli.
+
+.. _book-security-expressions:
+
+Controlli di accesso complessi con le espressioni
+-------------------------------------------------
+
+.. versionadded:: 2.4
+    La funzionalità delle espressioni è stata introdotta in Symfony 2.4.
+
+Oltre a ruoli come ``ROLE_ADMIN``, il metodo ``isGranted`` accetta anche
+un oggetto :class:`Symfony\\Component\\ExpressionLanguage\\Expression`::
+
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+    use Symfony\Component\ExpressionLanguage\Expression;
+    // ...
+
+    public function indexAction()
+    {
+        if (!$this->get('security.context')->isGranted(new Expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        ))) {
+            throw new AccessDeniedException();
+        }
+
+        // ...
+    }
+
+In questo esempio, se l'utente ha ``ROLE_ADMIN`` o se il metodo ``isSuperAdmin()``
+dell'oggetto utente restitsuice ``true``, sarà garantito
+l'accesso (nota: l'oggetto ``User`` potrebbe non avere il metodo ``isSuperAdmin``,
+tale metodo è stato inventato per questo esempio).
+
+Per far questo, si usa un'espressione. Si può approfondire la sintassi di Expression Language
+in :doc:`/components/expression_language/syntax`.
+
+.. _book-security-expression-variables:
+
+All'interno dell'espressione, si ha accesso a diverse variabili:
+
+* ``user`` L'oggetto utente (o la stringa ``anon`` se non si è autenticati);
+* ``roles`` L'array di ruoli dell'utente, inclusi quelli della
+  :ref:`gerarchia <book-security-role-hierarchy>`, ma esclusi
+  gli attributi ``IS_AUTHENTICATED_*`` (vedere le funzioni, sotto);
+* ``object``: L'oggetto (se presente) passato come secondo parametro a
+  ``isGranted`` ;
+* ``token`` L'oggetto token;
+* ``trust_resolver``: L'oggetto :class:`Symfony\\Component\\Security\\Core\\Authentication\\AuthenticationTrustResolverInterface`:
+   probabilmente si useranno invece le funzioni ``is_*``.
+
+Inoltre, si ha accesso a diverse funzioni:
+
+* ``is_authenticated``: Restituisce ``true`` se l'utente è autenticato tramite "ricordami"
+  o autenticato pienamente (cioè se ha eseguit esplicitamente un login);
+* ``is_anonymous``: Equivale a usare ``IS_AUTHENTICATED_ANONYMOUSLY`` con
+  la funzione ``isGranted``;
+* ``is_remember_me``: Simile, ma non uguale a ``IS_AUTHENTICATED_REMEMBERED``,
+  vedere sotto;
+* ``is_fully_authenticated``: Simile, ma non uguale a ``IS_AUTHENTICATED_FULLY``,
+  vedere sotto;
+* ``has_role``: Verifica se l'utente ha il ruolo dato. Equivalente a
+  un'espressione come ``'ROLE_ADMIN' in roles``.
+
+.. sidebar:: ``is_remember_me`` è diverso da ``IS_AUTHENTICATED_REMEMBERED``
+
+    Le funzioni ``is_remember_me`` e ``is_authenticated_fully`` sono *simili*
+    a usare ``IS_AUTHENTICATED_REMEMBERED`` e ``IS_AUTHENTICATED_FULLY``
+    con la funzione ``isGranted``, ma **non** sono la stessa cosa. Ecco
+    le differenze::
+
+        use Symfony\Component\ExpressionLanguage\Expression;
+        // ...
+
+        $sc = $this->get('security.context');
+        $access1 = $sc->isGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $access2 = $sc->isGranted(new Expression(
+            'is_remember_me() or is_fully_authenticated()'
+        ));
+
+    Qui, ``$access1`` e ``$access2`` avranno lo stesso valore. Diversamente dal
+    comportamento di ``IS_AUTHENTICATED_REMEMBERED`` e ``IS_AUTHENTICATED_FULLY``,
+    la funzione ``is_remember_me`` restituisce ``true`` *solo* se l'utente è autenticato
+    tramite un cookie "ricordami" e ``is_fully_authenticated`` *solo*
+    se l'utente ha eseguito il login durante la sessione (quindi è
+    pienamente riconosciuto).
 
 Impersonare un utente
 ---------------------

@@ -258,9 +258,6 @@ ignoreNull
 
 **type**: ``booleano`` **default**: ``true``
 
-.. versionadded:: 2.1
-    L'opzione ``ignoreNull`` è stata aggiunta in Symfony 2.1.
-
 Se quest'opzione è impostata a ``true`` il vincolo permetterà di avere diverse
 entità con valore ``null`` per un campo specifico senza far fallire la validazione.
 Se impostata a ``false`` solamente un valore ``null`` sarà permesso, in caso di un

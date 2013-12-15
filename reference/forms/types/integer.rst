@@ -48,24 +48,32 @@ Per impostazione predefinita, se l'utente inserisce un numero non intero, sarà 
 per difetto. Ci sono molti altri metodi di arrotondamento e ognuno è una costante di
 :class:`Symfony\\Component\\Form\\Extension\\Core\\DataTransformer\\IntegerToLocalizedStringTransformer`:
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` Arrotondamento verso
-    lo zero.
+* ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` Arrotondamento verso lo zero.
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_FLOOR`` Arrotondamento verso
-    meno infinito.
+* ``IntegerToLocalizedStringTransformer::ROUND_FLOOR`` Arrotondamento verso
+  meno infinito.
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_UP`` Arrotondamento verso
-    l'alto.
+* ``IntegerToLocalizedStringTransformer::ROUND_UP`` Arrotondamento verso l'alto.
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_CEILING`` Arrotondamento
-    verso infinito.
+* ``IntegerToLocalizedStringTransformer::ROUND_CEILING`` Arrotondamento
+  verso infinito.
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_DOWN`` Arrotondamento verso
+  il numero più vicino. Se entrambi i numeri più vicini sono equidistanti, arrotonda verso il basso.
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_EVEN`` Arrotondamento verso
+  il numero più vicino. Se entrambi i numeri più vicini sono equidistanti, arrotonda
+  verso numero pari più vicino.
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_UP`` Arrotondamento verso
+  il numero più vicino. Se entrambi i numeri più vicini sono equidistanti, arrotonda verso l'alto.
 
 .. include:: /reference/forms/types/options/grouping.rst.inc
 
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

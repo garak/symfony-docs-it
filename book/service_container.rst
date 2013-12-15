@@ -627,10 +627,114 @@ ha bisogno del servizio ``my_mailer`` per poter funzionare. Quando si definisce
 questa dipendenza nel contenitore dei servizi, il contenitore si prende cura di tutto
 il lavoro di istanziare degli oggetti.
 
+.. _book-services-expressions:
+
 Usare Expression Language
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-(TODO)
+.. versionadded:: 2.4
+    La funzionalità Expression Language è stata introdotta in Symfony 2.4.
+
+Il contenitore di servizi supporta anche un'"espressione", che consente di iniettare
+valori molto specifici in un servizio.
+
+Per esempio, su supponga di avere un terzo servizio (non mostrato qui), chiamato ``mailer_configuration``,
+che ha un metodo ``getMailerMethod()``, che restituisce una stringa
+come ``sendmail`` a seconda di una qualche configurazione. Si ricordi che il primo parametro del
+servizio ``my_mailer`` è la semplice stringa ``sendmail``:
+
+.. include includes/_service_container_my_mailer.rst.inc
+
+Invece di scrivere direttamente la stringa, come si può ottenere tale valore da ``getMailerMethod()``
+del servizio ``mailer_configuration``? Un possibile modo consiste nell'usare un'espressione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        services:
+            my_mailer:
+                class:        Acme\HelloBundle\Mailer
+                arguments:    ["@=service('mailer_configuration').getMailerMethod()"]
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd"
+            >
+
+            <services>
+                <service id="my_mailer" class="Acme\HelloBundle\Mailer">
+                    <argument type="expression">service('mailer_configuration').getMailerMethod()</argument>
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\ExpressionLanguage\Expression;
+
+        $container->setDefinition('my_mailer', new Definition(
+            'Acme\HelloBundle\Mailer',
+            array(new Expression('service("mailer_configuration").getMailerMethod()'))
+        ));
+
+Per approfondire la sintassi di Expression Language, vedere :doc:`/components/expression_language/syntax`.
+
+In questo contesto, si ha accesso a due funzioni:
+
+* ``service`` - restituisce un servizio dato (vedere l'esempio precedente);
+* ``parameter`` - restituisce un parametro specifico (la sintassi è proprio come ``service``)
+
+Si ha anche accesso a :class:`Symfony\\Component\\DependencyInjection\\ContainerBuilder`,
+tramite una variabile ``container``. Ecco un altro esempio:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        services:
+            my_mailer:
+                class:     Acme\HelloBundle\Mailer
+                arguments: ["@=container.hasParameter('un_param') ? parameter('un_param') : 'valore_predefinito'"]
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd"
+            >
+
+            <services>
+                <service id="my_mailer" class="Acme\HelloBundle\Mailer">
+                    <argument type="expression">@=container.hasParameter('un_param') ? parameter('un_param') : 'valore_predefinito'</argument>
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\ExpressionLanguage\Expression;
+
+        $container->setDefinition('my_mailer', new Definition(
+            'Acme\HelloBundle\Mailer',
+            array(new Expression(
+                "@=container.hasParameter('un_param') ? parameter('un_param') : 'valore_predefinito'"
+            ))
+        ));
+
+Si possono usare espressioni in ``arguments``, ``properties``, come parametri con
+``configurator`` e come parametri di ``calls`` (chiamate di metodi).
 
 Dipendenze opzionali: iniettare i setter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

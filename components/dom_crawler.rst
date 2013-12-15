@@ -387,7 +387,17 @@ Scegliere valori non validi
     Il metodo :method:`Symfony\\Component\\DomCrawler\\Form::disableValidation`
     è stato aggiunto in Symfony 2.4.
 
-TODO
+Per impostazione predefinita, i campi di scelta (select, radio) hanno una validazione interna,
+che previene l'impostazione di valori non validi. Se si vuole poter impostare
+valori non validi, si può usare il metodo ``disableValidation()``, sia sull'intero
+form, sia su campi specifici::
+
+    // Disabilita la validazione per un campo specifico
+    $form['country']->disableValidation()->select('Valore non  valido');
+
+    // Disabilita la validazione per l'intero form
+    $form->disableValidation();
+    $form['country']->select('Valore non  valido');
 
 .. _`Goutte`:  https://github.com/fabpot/goutte
 .. _Packagist: https://packagist.org/packages/symfony/dom-crawler

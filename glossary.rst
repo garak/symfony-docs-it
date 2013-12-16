@@ -8,7 +8,7 @@ Glossario
 
    Distribuzione
         Una *distribuzione* è una modalità di impacchettamento dei componenti di Symfony2,
-        una selezione di bundle, una struttura di cartelle sensibile, una
+        una selezione di bundle, una struttura di cartelle adeguata, una
         configurazione predefinita e un sistema di configurazione opzionale.
 
    Dependency Injection
@@ -41,7 +41,7 @@ Glossario
         progetto. Solitamente, *ogni* richiesta è gestita eseguendo lo stesso
         front controller, il cui compito è quello di inizializzare l'applicazione
         Symfony.
-   
+
    Controllore
         Un *controllore* è una funzione PHP che ospita tutta la logica necessaria a
         restituire un oggetto ``Response`` che rappresenta una particolare pagina.
@@ -56,7 +56,7 @@ Glossario
         i servizi sono spesso configurati e recuperati da un contenitore di servizi.
         Un'applicazione con molti servizi non accoppiati segue una
         `architettura orientata ai servizi`_.
-        
+
    Contenitore di servizi
         Un *contenitore di servizi*, conosciuto anche come *Dependency Injection Container*,
         è un oggetto speciale che gestisce le istanze di servizi all'interno di
@@ -119,7 +119,7 @@ Glossario
         parti di essa. Si vedano i capitoli
        :doc:`/book/security`.
 
-   Yaml 
+   YAML
         *YAML* è un acronimo ricorsivo, che sta per "YAML Ain't a Markup Language". È un
         linguaggio di serializzazione dei dati leggero e umano, molto usato nei file
         di configurazione di Symfony2. Si veda il capitolo

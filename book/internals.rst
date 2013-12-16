@@ -48,8 +48,8 @@ PHP:
 
     Si può approfondire nel :doc:`componente HttpFoundation </components/http_foundation/introduction>`.
 
-Il componente ``HttpKernel``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Il componente HttpKernel
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sopra HttpFoundation c'è il componente :namespace:`Symfony\\Component\\HttpKernel`.
 HttpKernel gestisce la parte dinamica di HTTP e incapsula in modo leggero
@@ -66,8 +66,8 @@ componente Dependency Injection e a un potente sistema di plugin (bundle).
     su :doc:`dependency injection </book/service_container>` e
     sui :doc:`bundle </cookbook/bundles/best_practices>`.
 
-Il bundle ``FrameworkBundle``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Il bundle FrameworkBundle
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Il bundle :namespace:`Symfony\\Bundle\\FrameworkBundle` è il bundle che lega insieme i
 componenti e le librerie principali, per fare un framework MVC leggero e
@@ -237,7 +237,7 @@ aggiungere il seguente codice all'inizio del proprio metodo ascoltatore::
 
     Se non si ha familiarità con il distributore di eventi di Symfony2, leggere prima
     la
-    :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
+    :doc:`documentazione del componente Event Dispatcher </components/event_dispatcher/introduction>`.
 
 .. index::
    single: Evento; kernel.request
@@ -254,7 +254,7 @@ impostare delle variabili in modo che il controllore sia richiamato dopo l'event
 Qualsiasi ascoltatore può restituire un oggetto ``Response``, tramite il metodo
 ``setResponse()`` sull'evento. In questo caso, tutti gli altri ascoltatori non saranno richiamati.
 
-Questo evento è usato da ``FrameworkBundle`` per popolare l'attributo ``_controller`` della
+Questo evento è usato da FrameworkBundle per popolare l'attributo ``_controller`` della
 ``Request``, tramite
 :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\RouterListener`. RequestListener
 usa un oggetto :class:`Symfony\\Component\\Routing\\RouterInterface` per corrispondere alla
@@ -273,7 +273,7 @@ Evento ``kernel.controller``
 
 *Classe evento*: :class:`Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent`
 
-Questo evento non è usato da ``FrameworkBundle``, ma può essere un punto di ingresso usato
+Questo evento non è usato da FrameworkBundle, ma può essere un punto di ingresso usato
 per modificare il controllore da eseguire::
 
     use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -299,7 +299,7 @@ Evento ``kernel.view``
 
 *Classe evento*: :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForControllerResultEvent`
 
-Questo evento non è usato da ``FrameworkBundle``, ma può essere usato per implementare un
+Questo evento non è usato da FrameworkBundle, ma può essere usato per implementare un
 sotto-sistema di viste. Questo evento è chiamato *solo* se il controllore *non*
 restituisce un oggetto ``Response``. Lo scopo dell'evento è di consentire a qualcun altro
 di restituire un valore da convertire in una ``Response``.
@@ -342,7 +342,7 @@ l'oggetto ``Response`` dopo la sua creazione::
         // ... modificare l'oggetto Response
     }
 
-``FrameworkBundle`` registra diversi ascoltatori:
+FrameworkBundle registra diversi ascoltatori:
 
 * :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`:
   raccoglie dati per la richiesta corrente;
@@ -384,7 +384,7 @@ Evento ``kernel.exception``
 
 *Classe evento*: :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent`
 
-``FrameworkBundle`` registra un
+FrameworkBundle registra un
 :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`, che
 gira la ``Request`` a un controllore dato (il valore del parametro
 ``exception_listener.controller``, che deve essere nel formato

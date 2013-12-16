@@ -15,7 +15,7 @@ in base ai dati sull'oggetto Product sottostante.
 2) :ref:`cookbook-form-events-user-data`
 
 Eesempio: si crea un form "Friend Message" e occorre costruire un menù a tendina,
-che contenga solo utenti che sono amici con l'utente attualmente
+che contenga solo utenti che sono amici dell'utente attualmente
 autenticato.
 
 3) :ref:`cookbook-form-events-submitted-data`
@@ -66,12 +66,12 @@ alla classe dei form::
     probabilmente è necessario tornare indietro e come prima cosa leggere il :doc:`capitolo sui form</book/forms>` 
     prima di andare avanti.
 
-Si assuma per un momento che questo form utilizzi una classe immaginaria "Product"
-questa ha solo due attributi rilevanti ("name" e "price"). Il form generato 
+Si assuma per un momento che questo form utilizzi una classe immaginaria "Product",
+che ha solo due attributi rilevanti ("name" e "price"). Il form generato 
 da questa classe avrà lo stesso aspetto, indipendentemente se sta per essere creato un nuovo prodotto
 oppure se sta per essere modificato un prodotto esistente (cioè un prodotto ottenuto da base dati).
 
-Si supponga ora, di non voler abilitare l'utente alla modifica del campo ``name``
+Si supponga ora di non voler abilitare l'utente alla modifica del campo ``name``,
 una volta che l'oggetto è stato creato. Lo si può fare grazie al componente
 :doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
 che analizza l'oggetto e modifica il form basato sull'

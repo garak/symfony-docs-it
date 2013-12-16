@@ -456,13 +456,13 @@ con lo scopo di realizzare due cose:
   essere configurato senza interagire con i parametri "piatti" della configurazione del contenitore
   dei servizi del bundle.
 
-In altre parole, una estensione dei contenitore dei servizi configura i servizi per
-il bundle per voi. E, come si vedrà tra poco, l'estensione fornisce
-una interfaccia sensibile e ad alto livello per configurare il bundle.
+In altre parole, una estensione dei contenitore dei servizi configura i servizi del
+il bundle per lo sviluppatore. E, come si vedrà tra poco, l'estensione fornisce
+un'interfaccia comoda e ad alto livello per configurare il bundle.
 
-Si prenda il ``FrameworkBundle``, il bundle del nucleo del framework Symfony2, come
+Si prenda FrameworkBundle, il bundle del nucleo del framework Symfony2, come
 esempio. La presenza del seguente codice nella configurazione dell'applicazione
-invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundle``:
+invoca l'estensione del contenitore dei servizi all'interno di FrameworkBundle:
 
 .. configuration-block::
 
@@ -510,8 +510,8 @@ invoca l'estensione del contenitore dei servizi all'interno del ``FrameworkBundl
 
 Quando viene analizzata la configurazione, il contenitore cerca un'estensione che
 sia in grado di gestire la direttiva di configurazione ``framework``. L'estensione in questione,
-che si trova in ``FrameworkBundle``, viene invocata e la configurazione del servizio
-per ``FrameworkBundle`` viene caricata. Se si rimuove del tutto la chiave ``framework``
+che si trova in FrameworkBundle, viene invocata e la configurazione del servizio
+per FrameworkBundle viene caricata. Se si rimuove del tutto la chiave ``framework``
 dal file di configurazione dell'applicazione, i servizi del nucleo di Symfony2
 non vengono caricati. Il punto è che è tutto sotto controllo: il framework Symfony2
 non contiene nessuna magia e non esegue nessuna azione su cui non si abbia
@@ -522,9 +522,9 @@ del contenitore dei servizi di ``FrameworkBundle``. Ogni estensione consente fac
 di personalizzare il bundle, senza preoccuparsi di come i servizi interni siano
 definiti.
 
-In questo caso, l'estensione consente di personalizzare la configurazione di
-``charset``, ``error_handler``, ``csrf_protection``, ``router`` e di molte altre. Internamente,
-``FrameworkBundle`` usa le opzioni qui specificate per definire e configurare
+In questo caso, l'estensione consente di personalizzare la configurazione di ``error_handler``,
+``csrf_protection``, ``router`` e di molte altre. Internamente,
+FrameworkBundle usa le opzioni qui specificate per definire e configurare
 i servizi a esso specifici. Il bundle si occupa di creare tutte i necessari
 ``parameters`` e ``services`` per il contenitore dei servizi, pur consentendo
 di personalizzare facilmente gran parte della configurazione. Come bonus aggiuntivo, la maggior parte
@@ -533,12 +533,12 @@ notificando le opzioni mancanti o con un tipo di dato sbagliato.
 
 Durante l'installazione o la configurazione di un bundle, consultare la documentazione del bundle
 per vedere come devono essere installati e configurati i suoi servizi. Le opzioni
-disponibili per i  bundle del nucleo si possono trovare all'interno della :doc:`guida di riferimento</reference/index>`.
+disponibili per i  bundle del nucleo si possono trovare all'interno della :doc:`guida di riferimento </reference/index>`.
 
 .. note::
 
-   Nativamente, il contenitore dei servizi riconosce solo le direttive
-   ``parameters``, ``services`` e ``imports``. Ogni altra direttiva
+   Nativamente, il contenitore dei servizi riconosce solo le direttive ``parameters``,
+   ``services`` e ``imports``. Ogni altra direttiva
    è gestita dall'estensione del contenitore dei servizi.
 
 Se si vogliono esporre in modo amichevole le configurazioni dei propri bundle, leggere la ricetta

@@ -66,31 +66,40 @@ di form.
 Gestione della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Per processare i dati di un form, occorre ricavare informazioni dalla richiesta (solitamente
-dai dati ``$_POST``) e passare l'array dei dati inseriti a
-:method:`Symfony\\Component\\Form\\Form::bind`. Il componente Form può
-integrarsi con il componente :doc:`HttpFoundation </components/http_foundation/introduction>`,
-per rendere le cose ancora più facili.
+.. versionadded:: 2.3
+    Il metodo ``handleRequest()`` è stato aggiunto in Symfony 2.3.
 
-Per l'integrazione con HttpFoundation, aggiungere
-:class:`Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension`
-al factory di form::
+Per processare i dati di un form, occorre richiamare :method:`Symfony\\Component\\Form\\Form::handleRequest`
+method::
 
-    use Symfony\Component\Form\Forms;
-    use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
+    $form->handleRequest();
 
-    $formFactory = Forms::createFormFactoryBuilder()
-        ->addExtension(new HttpFoundationExtension())
-        ->getFormFactory();
+Dietro le quinte, viene usato un oggetto :class:`Symfony\\Component\\Form\\NativeRequestHandler`
+per leggere i dati dalle opportune variabili di PHP (``$_POST`` o
+``$_GET``), in base al metodo HTTP configurato nel form (quello predefinito è POST).
 
-Ora, quando si processa un form, si può passare l'oggetto :class:`Symfony\\Component\\HttpFoundation\\Request`
-a :method:`Symfony\\Component\\Form\\Form::bind`, invece
-dell'array dei valori inseriti.
+.. sidebar:: Integration with the HttpFoundation Component
 
-.. note::
+    Per l'integrazione con HttpFoundation, aggiungere
+    :class:`Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension`
+    al factory di form::
 
-    Per maggiori informazioni sul componente ``HttpFoundation`` e su come
-    installarlo, vedere :doc:`/components/http_foundation/introduction`.
+        use Symfony\Component\Form\Forms;
+        use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
+
+        $formFactory = Forms::createFormFactoryBuilder()
+            ->addExtension(new HttpFoundationExtension())
+            ->getFormFactory();
+
+    Ora, quando si processa un form, si può passare l'oggetto :class:`Symfony\\Component\\HttpFoundation\\Request`
+    a :method:`Symfony\\Component\\Form\\Form::handleRequest`::
+
+        $form->handleRequest($request);
+
+    .. note::
+
+        Per maggiori informazioni sul componente HttpFoundation e su come
+        installarlo, vedere :doc:`/components/http_foundation/introduction`.
 
 Protezione da CSRF
 ~~~~~~~~~~~~~~~~~~
@@ -481,7 +490,7 @@ Gestione dell'invio di form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per gestire l'invio del form, usare il metodo
-:method:`Symfony\\Component\\Form\\Form::bind`:
+:method:`Symfony\\Component\\Form\\Form::handleRequest`:
 
 .. configuration-block::
 
@@ -497,19 +506,17 @@ Per gestire l'invio del form, usare il metodo
 
         $request = Request::createFromGlobals();
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                $data = $form->getData();
+        if ($form->isValid()) {
+            $data = $form->getData();
 
-                // ... fare qualcosa, come salvare i dati
+            // ... fare qualcosa, come salvare i dati
 
-                $response = new RedirectResponse('/task/success');
-                $response->prepare($request);
+            $response = new RedirectResponse('/task/success');
+            $response->prepare($request);
 
-                return $response->send();
-            }
+            return $response->send();
         }
 
         // ...
@@ -525,17 +532,14 @@ Per gestire l'invio del form, usare il metodo
                 ->add('dueDate', 'date')
                 ->getForm();
 
-            // processa il form solo in caso di richiesta POST if the request is a POST request
-            if ($request->isMethod('POST')) {
-                $form->bind($request);
+            $form->handleRequest($request);
 
-                if ($form->isValid()) {
-                    $data = $form->getData();
+            if ($form->isValid()) {
+                $data = $form->getData();
 
-                    // ... fare qualcosa, come salvare i dati
+                // ... fare qualcosa, come salvare i dati
 
-                    return $this->redirect($this->generateUrl('task_success'));
-                }
+                return $this->redirect($this->generateUrl('task_success'));
             }
 
             // ...
@@ -546,25 +550,15 @@ In questo modo  si definisce un flusso comune per i form, con tre diverse possib
 1) Nella richiesta GET iniziale (cioè quando l'utente apre la pagina),
    costruire e mostrare il form;
 
-Se la richiesta è POST, processare i dati inseriti (tramite ``bind``). Quindi:
+Se la richiesta è POST, processare i dati inseriti (tramite ``handleRequest()``).
+Quindi:
 
 2) se il form non è valido, rendere nuovamente il form (che ora contiene errori)
-3) se il the è valido, eseguire delle azioni e redirigere;
+3) se il the è valido, eseguire delle azioni e redirigere.
 
-.. note::
-
-    Se non si usa HttpFoundation, passare solo i dati in POST direttamente
-    a ``bind``::
-
-        if (isset($_POST[$form->getName()])) {
-            $form->bind($_POST[$form->getName()]);
-
-            // ...
-        }
-
-    Se si vogliono caricare file, occorrerà un po' di lavoro in più,
-    per fondere l'array ``$_POST`` con l'array ``$_FILES``, prima di passarlo
-    a ``bind``.
+Per fortuna, non serve decidere se il form sia stato inviato o meno.
+Basta passare la richiesta al metodo ``handleRequest()``. Quindi, il componente Form
+svolgerà tutto il lavoro necessario.
 
 .. _component-form-intro-validation:
 

@@ -373,10 +373,10 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
 
         # app/config/routing.yml
         login:
-            pattern:   /login
+            path:   /login
             defaults:  { _controller: AcmeSecurityBundle:Security:login }
         login_check:
-            pattern:   /login_check
+            path:   /login_check
 
     .. code-block:: xml
 
@@ -387,11 +387,11 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="login" pattern="/login">
+            <route id="login" path="/login">
                 <default key="_controller">AcmeSecurityBundle:Security:login</default>
             </route>
 
-            <route id="login_check" pattern="/login_check" />
+            <route id="login_check" path="/login_check" />
         </routes>
 
     ..  code-block:: php
@@ -565,9 +565,9 @@ vedere :doc:`/cookbook/security/form_login`.
 
     **1. Creare le rotte giuste**
 
-    In primo luogo, essere sicuri di aver definito correttamente le rotte 
-    ``/login`` e ``/login_check`` e che corrispondano ai valori di configurazione
-    ``login_path`` e ``check_path``. Un errore di configurazione qui può significare che si viene
+    In primo luogo, essere sicuri di aver definito correttamente le rotte ``/login`` e ``/login_check``
+    e che corrispondano ai valori di configurazione ``login_path`` e
+    ``check_path``. Un errore di configurazione qui può significare che si viene
     rinviati a una pagina 404 invece che nella pagina di login, o che inviando
     il form di login non succede nulla (continuando a vedere sempre il form
     di login).
@@ -665,8 +665,8 @@ vedere :doc:`/cookbook/security/form_login`.
     Quindi, assicurarsi che l'URL ``check_path`` (ad esempio ``/login_check``)
     sia dietro al firewall che si sta usando per il form di login (in questo esempio,
     l'unico firewall fa passare *tutti* gli URL, includendo ``/login_check``). Se
-    ``/login_check`` non corrisponde a nessun firewall, si riceverà un'eccezione
-    ``Unable to find the controller for path "/login_check"``.
+    ``/login_check`` non corrisponde a nessun firewall, si riceverà un'eccezione ``Unable to
+    find the controller for path "/login_check"``.
 
     **4. Più firewall non condividono il contesto di sicurezza**
 
@@ -785,7 +785,7 @@ Si prende il seguente ``access_control`` come esempio:
             # ...
             access_control:
                 - { path: ^/admin, roles: ROLE_USER_IP, ip: 127.0.0.1 }
-                - { path: ^/admin, roles: ROLE_USER_HOST, host: symfony.com }
+                - { path: ^/admin, roles: ROLE_USER_HOST, host: symfony\.com$ }
                 - { path: ^/admin, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
                 - { path: ^/admin, roles: ROLE_USER }
 
@@ -793,7 +793,7 @@ Si prende il seguente ``access_control`` come esempio:
 
             <access-control>
                 <rule path="^/admin" role="ROLE_USER_IP" ip="127.0.0.1" />
-                <rule path="^/admin" role="ROLE_USER_HOST" host="symfony.com" />
+                <rule path="^/admin" role="ROLE_USER_HOST" host="symfony\.com$" />
                 <rule path="^/admin" role="ROLE_USER_METHOD" method="POST, PUT" />
                 <rule path="^/admin" role="ROLE_USER" />
             </access-control>
@@ -809,7 +809,7 @@ Si prende il seguente ``access_control`` come esempio:
                 array(
                     'path' => '^/admin',
                     'role' => 'ROLE_USER_HOST',
-                    'host' => 'symfony.com',
+                    'host' => 'symfony\.com$',
                 ),
                 array(
                     'path' => '^/admin',
@@ -1448,8 +1448,8 @@ In un controllore, si può usare una scorciatoia:
 
 .. note::
 
-    Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo
-    ``isAuthenticated()`` dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se 
+    Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo ``isAuthenticated()``
+    dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se 
     l'utente sia effettivamente autenticato, verificare il ruolo 
     ``IS_AUTHENTICATED_FULLY``.
 
@@ -1542,59 +1542,6 @@ un nuovo fornitore, che li unisca:
 Ora, tutti i meccanismi di autenticazione utilizzeranno il ``chain_provider``, dal momento che
 è il primo specificato. Il ``chain_provider``, a sua volta, tenta di caricare
 l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
-
-.. tip::
-
-    Se non ci sono ragioni per separare gli utenti ``in_memory`` dagli
-    utenti ``user_db``, è possibile ottenere ancora più facilmente questo risultato combinando
-    le due sorgenti in un unico fornitore:
-
-    .. configuration-block::
-
-        .. code-block:: yaml
-
-            # app/config/security.yml
-            security:
-                providers:
-                    main_provider:
-                        memory:
-                            users:
-                                foo: { password: test }
-                        entity:
-                            class: Acme\UserBundle\Entity\User,
-                            property: username
-
-        .. code-block:: xml
-
-            <!-- app/config/security.xml -->
-            <config>
-                <provider name=="main_provider">
-                    <memory>
-                        <user name="foo" password="test" />
-                    </memory>
-
-                    <entity class="Acme\UserBundle\Entity\User"
-                        property="username" />
-                </provider>
-            </config>
-
-        .. code-block:: php
-
-            // app/config/security.php
-            $container->loadFromExtension('security', array(
-                'providers' => array(
-                    'main_provider' => array(
-                        'memory' => array(
-                            'users' => array(
-                                'foo' => array('password' => 'test'),
-                            ),
-                        ),
-                        'entity' => array(
-                        'class' => 'Acme\UserBundle\Entity\User',
-                        'property' => 'username'),
-                    ),
-                ),
-            ));
 
 È anche possibile configurare il firewall o meccanismi di autenticazione individuali
 per utilizzare un provider specifico. Ancora una volta, a meno che un provider sia specificato esplicitamente,

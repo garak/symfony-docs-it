@@ -41,9 +41,9 @@ resi usando la funzione di Twig ``form_row`` oppure il metodo dell'helper PHP
     .. code-block:: php
 
         <div>
-            <?php echo $view['form']->label($form['age']) }} ?>
-            <?php echo $view['form']->errors($form['age']) }} ?>
-            <?php echo $view['form']->widget($form['age']) }} ?>
+            <?php echo $view['form']->label($form['age']); ?>
+            <?php echo $view['form']->errors($form['age']); ?>
+            <?php echo $view['form']->widget($form['age']); ?>
         </div>
 
 In entrambi i casi le label, gli errori e i widget HTML del form, sono resi utilizzando
@@ -646,7 +646,6 @@ personalizzare solo il campo ``name``:
         <?php echo $view['form']->widget($form['name']); ?>
 
         <!-- src/Acme/DemoBundle/Resources/views/Form/_product_name_widget.html.php -->
-
         <div class="text_widget">
               echo $view['form']->block('form_widget_simple') ?>
         </div>
@@ -667,7 +666,6 @@ campo del quale l'*id* è ``product_name`` (e il nome è ``product[name]``).
 
     .. code-block:: html+jinja
 
-        {# _product_name_row.html.twig #}
         {% form_theme form _self %}
 
         {% block _product_name_row %}
@@ -678,10 +676,16 @@ campo del quale l'*id* è ``product_name`` (e il nome è ``product[name]``).
             </div>
         {% endblock %}
 
+        {{ form_row(form.name) }}
+
     .. code-block:: html+php
 
-        <!-- _product_name_row.html.php -->
+        <!-- Template principale -->
+        <?php echo $view['form']->setTheme($form, array('AcmeDemoBundle:Form')); ?>
 
+        <?php echo $view['form']->row($form['name']); ?>
+
+        <!-- src/Acme/DemoBundle/Resources/views/Form/_product_name_row.html.php -->
         <div class="name_row">
             <?php echo $view['form']->label($form) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -723,7 +727,7 @@ quando si utilizza l'helper ``form_errors``:
 
         <?php echo $view['form']->errors($form['age']); ?>
 
-Di default, gli errori sono resi dentro una lista non ordinata:
+Per impostazione predefinita, gli errori sono resi dentro una lista non ordinata:
 
 .. code-block:: html
 
@@ -731,8 +735,8 @@ Di default, gli errori sono resi dentro una lista non ordinata:
         <li>Questo campo è obbligatorio</li>
     </ul>
 
-Per sovrascrivere come gli errori sono resi per *tutti* i campi, basta semplicemente copiare,
-incollare e personalizzare il frammento ``field_errors``.
+Per sovrascrivere il modo in cui gli errori sono resi per *tutti* i campi, basta semplicemente copiare,
+incollare e personalizzare il frammento ``form_errors``.
 
 .. configuration-block::
 
@@ -818,7 +822,7 @@ classe all'elemento  ``div`` per ogni riga:
 
 .. tip::
 
-    Si veda :ref:`cookbook-form-theming-methods` per conoscere come applicare questa personalizzazione.
+    Si veda :ref:`cookbook-form-theming-methods` per come applicare questa personalizzazione.
 
 Aggiungere un asterisco "obbligatorio" alle label del campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -931,7 +935,7 @@ template originale:
 
     <!-- form_widget_simple.html.php -->
 
-    <!-- contenuto originale -->
+    <!-- Contenuto originale -->
     <input
         type="<?php echo isset($type) ? $view->escape($type) : 'text' ?>"
         <?php if (!empty($value)): ?>value="<?php echo $view->escape($value) ?>"<?php endif ?>

@@ -97,6 +97,12 @@ della conversione da numero di issue a oggetto Issue e viceversa::
     Se si vuole che sia create una nuova issue all'inserimento di un numero non trovato, si
     può crearne l'istanza invece di lanciare ``TransformationFailedException``.
 
+.. note::
+
+    Se si passa ``null`` al metodo ``transform()``, il trasformatore dovrebbe
+    restituire un valore equivalente al tipo in cui sta trasformando (p.e.
+    una stringa vuota, 0 per gli interi o 0.0 per i numeri a virgola mobile).
+
 Usare il trasformatore
 ----------------------
 

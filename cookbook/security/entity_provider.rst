@@ -83,7 +83,7 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         private $salt;
 
         /**
-         * @ORM\Column(type="string", length=40)
+         * @ORM\Column(type="string", length=64)
          */
         private $password;
 
@@ -149,6 +149,9 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         {
             return serialize(array(
                 $this->id,
+                $this->username,
+                $this->salt,
+                $this->password,
             ));
         }
 
@@ -159,9 +162,19 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         {
             list (
                 $this->id,
+                $this->username,
+                $this->salt,
+                $this->password,
             ) = unserialize($serialized);
         }
     }
+
+.. note::
+
+    Quando si implementa
+    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
+    occorre specificare quali proprietà debbano essere confrontate per dintinguere
+    gli oggetti utente.
 
 .. tip::
 
@@ -237,7 +250,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
 
             role_hierarchy:
                 ROLE_ADMIN:       ROLE_USER
-                ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+                ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
             providers:
                 administrators:
@@ -358,7 +371,7 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-    class User implements AdvancedUserInterface, \Serializable 
+    class User implements AdvancedUserInterface, \Serializable
     {
         // ...
 
@@ -385,6 +398,13 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
 
 Se proviamo ora ad autenticare  un untente inattivo, l'accesso sarà
 negato.
+
+.. note::
+
+    Quando si usa ``AdvancedUserInterface``, si deve aggiungere anche una delle
+    proprietà usate da tali metodi (come ``isActive()``) al metodo ``serialize()``.
+    Se *non* lo si fa, l'oggetto utente potrebbe non essere deserializzato correttamente
+    dalla sessione a ogni richiesta.
 
 La prossima parte analizzerà il modo in cui scrivere fornitori di utenti personalizzati,
 per autenticare un utente con il suo nome oppure con la sua email.

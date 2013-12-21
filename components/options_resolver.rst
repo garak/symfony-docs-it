@@ -177,15 +177,6 @@ sovrascritto. Non è necessario configurare ``username`` come una opzione facolt
 ``OptionsResolver`` sa già che le opzioni con un valore predefinito sono
 facoltative.
 
-Il componente ``OptionsResolver`` ha anche un
-metodo :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::replaceDefaults`. 
-Questo può essere usato per sovrascrivere il valore precedente. La closure
-che è passata ha 2 parametri:
-
-* ``$options`` (un'istanza di :class:`Symfony\\Component\\OptionsResolver\\Options`), 
-  con tutti i valori predefiniti
-* ``$value``, il set precedente di valori predefiniti
-
 Valori predefiniti che dipendono da altre Opzioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -216,6 +207,80 @@ Closure come valore predefinito::
 
     Il primo parametro della Closure deve essere di tipo ``Options``,
     altrimenti sarà considerata come il valore.
+
+Sovrascrivere i valori predefiniti
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Un valore predefinito, impostato in precedenza, può essere sovrascritto invocando di nuovo
+:method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setDefaults`.
+Se si usa una closure come nuovo valore, riceverà due parametri:
+
+* ``$options``: un'istanza di :class:`Symfony\\Component\\OptionsResolver\\Options`, 
+  con tutti i valori predefiniti
+* ``$previousValue``: il precedente valore predefinito
+
+.. code-block:: php
+
+    use Symfony\Component\OptionsResolver\Options;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    // ...
+    protected function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        // ...
+        $resolver->setDefaults(array(
+            'encryption' => 'ssl',
+            'host' => 'localhost',
+        ));
+
+        // ...
+        $resolver->setDefaults(array(
+            'encryption' => 'tls', // sovrascrittura semplice
+            'host' => function (Options $options, $previousValue) {
+                return 'localhost' == $previousValue ? '127.0.0.1' : $previousValue;
+            },
+        ));
+    }
+
+.. tip::
+
+    Se il precedente valore predefinito è calcolato da una closure impegnativa e
+    non si ha bisogno di accedervi, si può usare invece il metodo
+    :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::replaceDefaults`.
+    Questo metodo agisce come ``setDefaults``, ma cancella semplicemente il
+    valore precedente, per migliorare le prestazioni. Questo vuol dire che il precedente
+    valore predefinito non è disponibile se si sovrascrive con un'altra closure::
+
+        use Symfony\Component\OptionsResolver\Options;
+        use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+        // ...
+        protected function setDefaultOptions(OptionsResolverInterface $resolver)
+        {
+            // ...
+            $resolver->setDefaults(array(
+                'encryption' => 'ssl',
+                'heavy' => function (Options $options) {
+                    // dei calcoli pesanti per creare $result
+
+                    return $result;
+                },
+            ));
+
+            $resolver->replaceDefaults(array(
+                'encryption' => 'tls', // sovrascrittura semplice
+                'heavy' => function (Options $options) {
+                    // $previousValue non disponibile
+                    // ...
+
+                    return $someOtherResult;
+                },
+            ));
+        }
+
+.. note::
+
+    Le chiavi di opzioni esistenti non menzionate durante la sovrascrittura saranno preseervate.
 
 Configurare i Valori consentiti
 -------------------------------

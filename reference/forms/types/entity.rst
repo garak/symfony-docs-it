@@ -182,6 +182,11 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc
 
+.. note::
+    
+    Questa opzione si aspetta un array di oggetti entità, diversamente dal campo ``choice``,
+    che richiede un array di chiavi.
+
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:

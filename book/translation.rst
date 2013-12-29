@@ -22,8 +22,8 @@ dell'utente::
 
     Il termine *locale* si riferisce all'incirca al linguaggio dell'utente e al paese.
     Può essere qualsiasi stringa che l'applicazione utilizza poi per gestire le traduzioni
-    e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare
-    il codice di *lingua* `ISO639-1`_, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
+    e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare il codice di *lingua* `ISO 639-1`_,
+    un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO 3166-1 alpha-2`_
     (per esempio ``fr_FR`` per francese/Francia).
 
 In questo capitolo si imparerà a usare il componenten Translation nel
@@ -49,9 +49,9 @@ per saperne di più. Nel complesso, il processo ha diverse fasi:
 Configurazione
 --------------
 
-Le traduzioni sono gestire da un :term:`servizio` ``Translator``, che utilizza i
+Le traduzioni sono gestire da un :term:`servizio` ``translator``, che utilizza i
 locale dell'utente per cercare e restituire i messaggi tradotti. Prima di utilizzarlo,
-abilitare il ``Translator`` nella configurazione:
+abilitare ``translator`` nella configurazione:
 
 .. configuration-block::
 
@@ -411,12 +411,14 @@ Gestire il locale dell'utente
 Il locale dell'utente attuale è memorizzato nella richiesta e accessibile
 tramite l'oggetto ``request``::
 
-    // accesso all'oggetto request in un controllore
-    $request = $this->getRequest();
+    use Symfony\Component\HttpFoundation\Request;
 
-    $locale = $request->getLocale();
+    public function indexAction(Request $request)
+    {
+        $locale = $request->getLocale();
 
-    $request->setLocale('en_US');
+        $request->setLocale('en_US');
+    }
 
 .. tip::
 
@@ -673,6 +675,6 @@ passi:
   anche essere memorizzato nella sessione.
 
 .. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
-.. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
-.. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 .. _`estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions

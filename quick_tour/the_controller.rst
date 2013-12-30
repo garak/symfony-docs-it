@@ -90,17 +90,22 @@ Ottenere informazioni dalla richiesta
 -------------------------------------
 
 Oltre ai valori dei segnaposto delle rotte, il controllore ha anche accesso
-all'oggetto ``Request``::
+all'oggetto ``Request``. Il framework inietta l'oggetto ``Request`` nel
+controllolre, se una variabile è forzata a
+`Symfony\Component\HttpFoundation\Request`::
 
-    $request = $this->getRequest();
+    use Symfony\Component\HttpFoundation\Request;
 
-    $request->isXmlHttpRequest(); // è una richiesta Ajax?
+    public function indexAction(Request $request)
+    {
+        $request->isXmlHttpRequest(); // è una richiesta Ajax?
 
-    $request->getPreferredLanguage(array('en', 'fr'));
+        $request->getPreferredLanguage(array('en', 'fr'));
 
-    $request->query->get('page'); // prende un parametro $_GET
+        $request->query->get('page'); // prende un parametro $_GET
 
-    $request->request->get('page'); // prende un parametro $_POST
+        $request->request->get('page'); // prende un parametro $_POST
+    }
 
 In un template, si può anche avere accesso all'oggetto ``Request`` tramite la
 variabile ``app.request``:
@@ -122,16 +127,21 @@ le sessioni native di PHP.
 Si possono memorizzare e recuperare informazioni dalla sessione in modo facile, da
 un qualsiasi controllore::
 
-    $session = $this->getRequest()->getSession();
+    use Symfony\Component\HttpFoundation\Request;
 
-    // memorizza un attributo per riusarlo più avanti durante una richiesta utente
-    $session->set('foo', 'bar');
+    public function indexAction(Request $request)
+    {
+        $session = $request->getSession();
 
-    // in un altro controllore per un'altra richiesta
-    $foo = $session->get('foo');
+        // memorizza un attributo per riusarlo più avanti durante una richiesta utente
+        $session->set('foo', 'bar');
 
-    // usa una valore predefinito se la chiave non esiste
-    $filters = $session->set('filters', array());
+        // in un altro controllore per un'altra richiesta
+        $foo = $session->get('foo');
+
+        // usa una valore predefinito se la chiave non esiste
+        $filters = $session->get('filters', array());
+    }
 
 Si possono anche memorizzare piccoli messaggi che saranno disponibili solo per
 la richiesta successiva::

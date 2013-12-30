@@ -11,6 +11,7 @@ Il tipo ``file`` rappresenta un input per caricare file.
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                       |
 | ereditate     | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
@@ -79,11 +80,13 @@ come gestire un caricamento di file associato con un'entità Doctrine.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

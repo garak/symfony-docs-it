@@ -27,13 +27,15 @@ dovrebbe usare direttamente il tipo ``choice``.
 |               | - `empty_value`_                                                       |
 |               | - `required`_                                                          |
 |               | - `label`_                                                             |
+|               | - `label_attr`_                                                        |
+|               | - `data`_                                                              |
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
 |               | - `error_bubbling`_                                                    |
 |               | - `error_mapping`_                                                     |
 |               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
-| Tipo genitore | :doc:`choice</reference/forms/types/choice>`                           |
+| Tipo genitore | :doc:`choice </reference/forms/types/choice>`                          |
 +---------------+------------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimezoneType` |
 +---------------+------------------------------------------------------------------------+
@@ -52,7 +54,7 @@ Tutti i fusi orari restituiti da
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choice>`:
+Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -62,11 +64,15 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

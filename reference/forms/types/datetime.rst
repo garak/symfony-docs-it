@@ -31,14 +31,15 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 |                          | - `view_timezone`_                                                          |
 |                          | - `empty_value`_                                                            |
 +--------------------------+-----------------------------------------------------------------------------+
-| Opzioni                  | - `invalid_message`_                                                        |
-| ereditate                | - `invalid_message_parameters`_                                             |
+| Opzioni                  | - `data`_                                                                   |
+| ereditate                | - `invalid_message`_                                                        |
+|                          | - `invalid_message_parameters`_                                             |
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
 |                          | - `mapped`_                                                                 |
 |                          | - `inherit_data`_                                                           |
 +--------------------------+-----------------------------------------------------------------------------+
-| Tipo genitore            | :doc:`form</reference/forms/types/form>`                                    |
+| Tipo genitore            | :doc:`form </reference/forms/types/form>`                                   |
 +--------------------------+-----------------------------------------------------------------------------+
 | Classe                   | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\DateTimeType`      |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -120,6 +121,8 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

@@ -15,6 +15,7 @@ Maggiori informazioni su `DiveIntoHTML5.info`_
 | Opzioni       | - `max_length`_                                                      |
 | ereditate     | - `required`_                                                        |
 |               | - `label`_                                                           |
+|               | - `label_attr`_                                                      |
 |               | - `trim`_                                                            |
 |               | - `read_only`_                                                       |
 |               | - `disabled`_                                                        |
@@ -30,13 +31,15 @@ Maggiori informazioni su `DiveIntoHTML5.info`_
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/trim.rst.inc
 

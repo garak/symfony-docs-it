@@ -15,6 +15,7 @@ A button that resets all fields to their original values.
 | Opzioni              | - `attr`_                                                           |
 | ereditate            | - `disabled`_                                                       |
 |                      | - `label`_                                                          |
+|                      | - `label_attr`_                                                     |
 |                      | - `translation_domain`_                                             |
 +----------------------+---------------------------------------------------------------------+
 | Tipo genitore        | :doc:`button</reference/forms/types/button>`                        |
@@ -30,5 +31,7 @@ Opzioni ereditate
 .. include:: /reference/forms/types/options/button_disabled.rst.inc
 
 .. include:: /reference/forms/types/options/button_label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/button_translation_domain.rst.inc

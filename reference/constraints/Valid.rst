@@ -13,6 +13,8 @@ e tutti i sotto-oggetti a esso associati.
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Type`           |
 +----------------+---------------------------------------------------------------------+
 
+.. include:: /reference/forms/types/options/_error_bubbling_hint.rst.inc
+
 Uso di base
 -----------
 

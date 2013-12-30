@@ -592,3 +592,35 @@ scelta dello sport. Lo si può gestire tramite una chiamata AJAX
 all'applicazione. Nel controllore, si può eseguire il bind del form e,
 invece di processarlo, usare semplicemente il form per rendere i campi
 aggiornati. La risposta della chiamata AJAX può quindi essere usata per aggiornare la vista.
+
+.. _cookbook-dynamic-form-modification-suppressing-form-validation:
+
+Sopprimere la validazione
+-------------------------
+
+Per sopprimere la validazione di un form, si può usare l'evento ``POST_SUBMIT`` e impedire
+che :class:`Symfony\\Component\\Form\\Extension\\Validator\\EventListener\\ValidationListener`
+sia richiamato.
+
+Una possibile ragione per farlo è che, pur avendo impostato ``group_validation``
+a ``false``, ci sono alcune verifiche di integrità. Per esempio,
+c'è una verifica che un file caricato non sia troppo grosso e il form
+verificherà se siano stati inviati campi inesistenti. Per disabilitare
+tutto ciò. usare un ascoltatore::
+
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\Form\FormEvents;
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function($event) {
+            $event->stopPropagation();
+        }, 900); // Impostare sempre una priorità maggiore di ValidationListener
+
+        // ...
+    }
+
+.. caution::
+
+    In questo modo, si potrebbe disabilitare erroneamente qualcosa di più della
+    sola validazione di form, perché l'evento ``POST_SUBMIT`` potrebbe avere altri ascoltatori.

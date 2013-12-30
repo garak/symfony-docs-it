@@ -269,9 +269,9 @@ Estendere i bundle
 Se si seguono queste convenzioni, si può usare
 l':doc:`ereditarietà dei bundle</cookbook/bundles/inheritance>`
 per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
-chiamato ``AcmeNewBundle`` estende ``AcmeDemoBundle``, Symfony proverà a caricare
-prima il controllore ``AcmeDemoBundle:Welcome:index`` da ``AcmeNewBundle`` e poi
-cercherà il secondo ``AcmeDemoBundle``. Questo vuol dire che un bundle può sovrascrivere
+chiamato ``AcmeNewBundle`` estende AcmeDemoBundle, Symfony proverà a caricare
+prima il controllore ``AcmeDemoBundle:Welcome:index`` da AcmeNewBundle e poi
+cercherà in AcmeDemoBundle. Questo vuol dire che un bundle può sovrascrivere
 quasi ogni parte di un altro bundle!
 
 È chiaro ora perché Symfony2 è così flessibile? Condividere bundle tra le
@@ -335,7 +335,5 @@ imparare diverse cose per padroneggiare Symfony2. Pronti per approfondire questi
 temi? Senza indugi, basta andare nella pagine del :doc:`libro</book/index>` e
 scegliere un argomento a piacere.
 
-.. _standard:    http://symfony.com/PSR0
-.. _convenzione: http://pear.php.net/
-.. _Composer:    http://getcomposer.org
+.. _Composer:   http://getcomposer.org
 .. _`Composer-Autoloader`: http://getcomposer.org/doc/01-basic-usage.md#autoloading

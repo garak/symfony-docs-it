@@ -20,6 +20,7 @@ Se si desidera un campo booleano, usare :doc:`checkbox</reference/forms/types/ch
 | Opzioni       | - `data`_                                                           |
 | ereditate     | - `required`_                                                       |
 |               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
@@ -56,6 +57,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

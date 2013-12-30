@@ -12,7 +12,9 @@ Rende un elemento HTML ``textarea``.
 | Opzioni       | - `max_length`_                                                        |
 | ereditate     | - `required`_                                                          |
 |               | - `label`_                                                             |
+|               | - `label_attr`_                                                        |
 |               | - `trim`_                                                              |
+|               | - `data`_                                                              |
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
 |               | - `error_bubbling`_                                                    |
@@ -27,7 +29,7 @@ Rende un elemento HTML ``textarea``.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
 
@@ -35,7 +37,11 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/label.rst.inc
 
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/trim.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

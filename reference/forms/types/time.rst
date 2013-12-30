@@ -10,36 +10,37 @@ Può essere reso come campo testuale, una serie di campi testuali (p.e. ora,
 minuto, secondo) o una serie di select. I dati sottostanti possono essere memorizzati
 come oggetto ``DateTime``, stringa, timestamp o array.
 
-+-------------------------+---------------------------------------------------------------------+
-| Tipo di dato sottstante | ``DateTime``, stringa, timestamp o array (vedere opzione ``input``) |
-+-------------------------+---------------------------------------------------------------------+
-| Reso come               | può essere vari tag (vedere sotto)                                  |
-+-------------------------+---------------------------------------------------------------------+
-| Opzioni                 | - `widget`_                                                         |
-|                         | - `input`_                                                          |
-|                         | - `with_seconds`_                                                   |
-|                         | - `hours`_                                                          |
-|                         | - `minutes`_                                                        |
-|                         | - `seconds`_                                                        |
-|                         | - `model_timezone`_                                                 |
-|                         | - `view_timezone`_                                                  |
-|                         | - `empty_value`_                                                    |
-+-------------------------+---------------------------------------------------------------------+
-| Opzioni                 | - `by_reference`_                                                   |
-| ridefinite              | - `error_bubbling`_                                                 |
-+-------------------------+---------------------------------------------------------------------+
-| Opzioni                 | - `invalid_message`_                                                |
-| ereditate               | - `invalid_message_parameters`_                                     |
-|                         | - `read_only`_                                                      |
-|                         | - `disabled`_                                                       |
-|                         | - `mapped`_                                                         |
-|                         | - `inherit_data`_                                                   |
-|                         | - `error_mapping`_                                                  |
-+-------------------------+---------------------------------------------------------------------+
-| Tipo genitore           | :doc:`form</reference/forms/types/form>`                            |
-+-------------------------+---------------------------------------------------------------------+
-| Classe                  | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimeType`  |
-+-------------------------+---------------------------------------------------------------------+
++--------------------------+---------------------------------------------------------------------+
+| Tipo di dato sottostante | ``DateTime``, stringa, timestamp o array (vedere opzione ``input``) |
++--------------------------+---------------------------------------------------------------------+
+| Reso come                | può essere vari tag (vedere sotto)                                  |
++--------------------------+---------------------------------------------------------------------+
+| Opzioni                  | - `widget`_                                                         |
+|                          | - `input`_                                                          |
+|                          | - `with_seconds`_                                                   |
+|                          | - `hours`_                                                          |
+|                          | - `minutes`_                                                        |
+|                          | - `seconds`_                                                        |
+|                          | - `model_timezone`_                                                 |
+|                          | - `view_timezone`_                                                  |
+|                          | - `empty_value`_                                                    |
++--------------------------+---------------------------------------------------------------------+
+| Opzioni                  | - `by_reference`_                                                   |
+| ridefinite               | - `error_bubbling`_                                                 |
++--------------------------+---------------------------------------------------------------------+
+| Opzioni                  | - `invalid_message`_                                                |
+| ereditate                | - `invalid_message_parameters`_                                     |
+|                          | - `data`_                                                           |
+|                          | - `read_only`_                                                      |
+|                          | - `disabled`_                                                       |
+|                          | - `mapped`_                                                         |
+|                          | - `inherit_data`_                                                   |
+|                          | - `error_mapping`_                                                  |
++--------------------------+---------------------------------------------------------------------+
+| Tipo genitore            | form                                                                |
++--------------------------+---------------------------------------------------------------------+
+| Classe                   | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\TimeType`  |
++--------------------------+---------------------------------------------------------------------+
 
 Utilizzo di base
 ----------------
@@ -142,6 +143,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

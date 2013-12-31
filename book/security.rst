@@ -415,9 +415,9 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
     a questo URL.
 
 .. versionadded:: 2.1
-    A partire da Symfony 2.1, si *devono* avere rotte configurate per i propri URL ``login_path``
-    (p.e. ``/login``), ``check_path`` (p.e. ``/login_check``) e ``logout``
-    (p.e. ``/logout``, vedere `Logout`_).
+    A partire da Symfony 2.1, si *devono* avere rotte configurate per gli URL ``login_path``
+    e ``check_path``. Queste voci possono essere nomi di rotte (come mostrato in questo esempio)
+    o URL con rotte configurate.
 
 Notare che il nome della rotta ``login`` corrisponde al valore di configurazione ``login_path``,
 in quanto è lì che il sistema di sicurezza rinvierà gli utenti che necessitano di

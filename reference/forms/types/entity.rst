@@ -21,12 +21,14 @@ presi dalla base dati.
 | Opzioni       | - `choices`_                                                        |
 | ridefinite    | - `choice_list`_                                                    |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                       |
-| ereditate     | - `label`_                                                          |
-|               | - `multiple`_                                                       |
-|               | - `expanded`_                                                       |
+| Opzioni       | - `multiple`_                                                       |
+| ereditate     | - `expanded`_                                                       |
 |               | - `preferred_choices`_                                              |
 |               | - `empty_value`_                                                    |
+|               | - `required`_                                                       |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
+|               | - `data`_                                                           |
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
@@ -194,6 +196,10 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

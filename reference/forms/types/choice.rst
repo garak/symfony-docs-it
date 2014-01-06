@@ -22,6 +22,8 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 +---------------+------------------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                                |
 | ereditate     | - `label`_                                                                   |
+|               | - `label_attr`_                                                              |
+|               | - `data`_                                                                    |
 |               | - `read_only`_                                                               |
 |               | - `disabled`_                                                                |
 |               | - `error_bubbling`_                                                          |
@@ -31,7 +33,7 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 |               | - `by_reference`_                                                            |
 |               | - `empty_data`_                                                              |
 +---------------+------------------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>` (se expanded), altrimenti ``field`` |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                                    |
 +---------------+------------------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType`         |
 +---------------+------------------------------------------------------------------------------+
@@ -110,11 +112,15 @@ questa interfaccia e fornisca le scelte.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

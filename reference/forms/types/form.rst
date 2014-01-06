@@ -9,9 +9,15 @@ Vedere :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FormType`.
 Il tipo ``form`` predefinisce alcune opzioni, che sono disponibili
 su tutti i campi:
 
+.. include:: /reference/forms/types/options/compound.rst.inc
+
 .. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
+
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/constraints.rst.inc
 

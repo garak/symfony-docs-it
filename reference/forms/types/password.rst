@@ -39,13 +39,15 @@ Se impostato a ``true``, il campo sarà reso *sempre* vuoto, anche se il campo
 corrispondente ha un valore. Quando impostato a ``false``, il campo password sarà
 reso con l'attributo ``value`` impostate all'effettivo valore.
 
-In parole povere, se per qualche ragione si vuole rendere il campo password *con* la
-password già inserita nel campo, impostare questa opzione a ``false``.
+In parole povere, se per qualche ragione si vuole rendere il campo password
+*con* la password già inserita nel campo, impostare questa opzione a ``false``
+e inviare il form.
+
 
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
 

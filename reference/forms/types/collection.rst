@@ -21,13 +21,15 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 |             | - `prototype_name`_                                                         |
 +-------------+-----------------------------------------------------------------------------+
 | Opzioni     | - `label`_                                                                  |
-| ereditate   | - `error_bubbling`_                                                         |
+| ereditate   | - `label_attr`_                                                             |
+|             | - `error_bubbling`_                                                         |
 |             | - `error_mapping`_                                                          |
 |             | - `by_reference`_                                                           |
 |             | - `empty_data`_                                                             |
+|             | - `required`_                                                               |
 |             | - `mapped`_                                                                 |
 +-------------+-----------------------------------------------------------------------------+
-| Tipo padre  | :doc:`form</reference/forms/types/form>`                                    |
+| Tipo padre  | :doc:`form </reference/forms/types/form>`                                   |
 +-------------+-----------------------------------------------------------------------------+
 | Classe      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CollectionType`    |
 +-------------+-----------------------------------------------------------------------------+
@@ -336,14 +338,12 @@ siano sostituiti con il medesimo valore.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`.
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`.
 Non sono elencate tutte le opzioni, solo quelle più attinenti a questo tipo:
 
 .. include:: /reference/forms/types/options/label.rst.inc
 
-.. include:: /reference/forms/types/options/mapped.rst.inc
-
-.. include:: /reference/forms/types/options/error_mapping.rst.inc
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 error_bubbling
 ~~~~~~~~~~~~~~
@@ -352,8 +352,14 @@ error_bubbling
 
 .. include:: /reference/forms/types/options/_error_bubbling_body.rst.inc
 
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
 .. _reference-form-types-by-reference:
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc
 
 .. include:: /reference/forms/types/options/empty_data.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc

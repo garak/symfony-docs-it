@@ -21,6 +21,8 @@ Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arro
 +---------------+-----------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                         |
 | ereditate     | - `label`_                                                            |
+|               | - `label_attr`_                                                       |
+|               | - `data`_                                                             |
 |               | - `read_only`_                                                        |
 |               | - `disabled`_                                                         |
 |               | - `error_bubbling`_                                                   |
@@ -65,11 +67,15 @@ per difetto. Ci sono molti altri metodi di arrotondamento e ognuno è una costan
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

@@ -561,13 +561,15 @@ non sarà più abbinata a un URL tipo ``/blog/my-blog-post`` (perché ``my-blog-
 Come risultato, un URL tipo ``/blog/my-blog-post`` ora verrà correttamente abbinato alla
 rotta ``blog_show``.
 
-+--------------------+-----------+-----------------------+
-| URL                | rotta     | parametri             |
-+====================+===========+=======================+
-| /blog/2            | blog      | {page} = 2            |
-+--------------------+-----------+-----------------------+
-| /blog/my-blog-post | blog_show | {slug} = my-blog-post |
-+--------------------+-----------+-----------------------+
++----------------------+-----------+-------------------------+
+| URL                  | rotta     | parametri               |
++======================+===========+=========================+
+| /blog/2              | blog      | {page} = 2              |
++----------------------+-----------+-------------------------+
+| /blog/my-blog-post   | blog_show | {slug} = my-blog-post   |
++----------------------+-----------+-------------------------+
+| /blog/2-my-blog-post | blog_show | {slug} = 2-my-blog-post |
++----------------------+-----------+-------------------------+
 
 .. sidebar:: Vincono sempre le rotte che compaiono prima
 

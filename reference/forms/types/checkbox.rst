@@ -16,6 +16,7 @@ il campo sarà impostato a falso.
 | Opzioni       | - `data`_                                                              |
 | ereditate     | - `required`_                                                          |
 |               | - `label`_                                                             |
+|               | - `label_attr`_                                                        |
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
 |               | - `error_bubbling`_                                                    |
@@ -50,7 +51,7 @@ impostato nell'oggetto.
 
 .. caution::
 
-    Per fare in modo che un un checkbox sia già selezionato, usare l'opzione `data`_.
+    Per fare in modo che un un checkbox sia già selezionato, impostare l'opzione `data`_ a ``true``.
 
 Opzioni ereditate
 -----------------
@@ -62,6 +63,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

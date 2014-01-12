@@ -177,14 +177,12 @@ seguenti indicazioni:
 
 .. tip::
 
-    Si possono verificare gli standard del codice, eseguendo il seguente
-    `script` <http://cs.sensiolabs.org/get/php-cs-fixer.phar>`_
-    (`sorgente <https://github.com/fabpot/PHP-CS-Fixer>`_):
+    Quando si inviano richieste di pull, `fabbot`_ può verificarne il codice,
+    cercando errori comuni e controllando gli standard di codice
+    definiti in `PSR-1`_ e `PSR-2`_.
 
-    .. code-block:: bash
-
-        $ cd /percorso/di/symfony
-        $ php symfony-cs-fixer.phar fix . Symfony20Finder
+    Uno stato viene inviato sotto alla descrizione della richiesta di pull, con un
+    sommario di eventuali problemi trovati o fallimenti delle build di Travis CI.
 
 .. tip::
 
@@ -383,10 +381,10 @@ convertiranno molti commit in uno solo. Per farlo, usare il comando ``rebase``:
 
 .. code-block:: bash
 
-    $ git rebase -i HEAD~3
+    $ git rebase -i upstream/master
     $ git push -f origin NOME_RAMO
 
-Il numero 3 deve essere uguale al numero di commit nel proprio ramo. Dopo aver scritto
+Dopo aver scritto
 questo comando, si aprirà un programma di modifica, con una lista di commit:
 
 .. code-block:: text
@@ -395,9 +393,9 @@ questo comando, si aprirà un programma di modifica, con una lista di commit:
     pick 7fc64b4 secondo commit
     pick 7d33018 terzo commit
 
-Per unificare tutti i commit nel primo, rimuovere la parola "pick" prima del secondo
-e dell'ultimo commit e sostituirla con la parola "squash", o anche solo "s".
-Quando si salva, git inizierà il rebase e, in caso di successo, chiederà di modificare
+Per unificare tutti i commit nel primo, rimuovere la parola ``pick`` prima del secondo
+e dell'ultimo commit e sostituirla con la parola ``squash``, o anche solo
+``s``. Quando si salva, git inizierà il rebase e, in caso di successo, chiederà di modificare
 il messaggio di commit, che come predefinito è una lista di messaggi di commit di tutti
 i commit. Dopo aver finito, eseguire il push.
 
@@ -410,3 +408,6 @@ i commit. Dopo aver finito, eseguire il push.
 .. _`icona di stato di travis-ci.org`:     http://about.travis-ci.org/docs/user/status-images/
 .. _`travis-ci.org Getting Started Guide`: http://about.travis-ci.org/docs/user/getting-started/
 .. _`repository della documentazione`:     https://github.com/symfony/symfony-docs
+.. _`fabbot`:                              http://fabbot.io
+.. _`PSR-1`:                               http://www.php-fig.org/psr/psr-1/
+.. _`PSR-2`:                               http://www.php-fig.org/psr/psr-2/

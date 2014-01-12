@@ -11,7 +11,8 @@ Il campo ``email`` è un campo di testo reso usando il tag
 | Reso come     | campo ``input`` ``email`` (casella di testo)                        |
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `max_length`_                                                     |
-| ereditate     | - `required`_                                                       |
+| ereditate     | - `empty_data`_                                                     |
+|               | - `required`_                                                       |
 |               | - `label`_                                                          |
 |               | - `label_attr`_                                                     |
 |               | - `data`_                                                           |
@@ -22,7 +23,7 @@ Il campo ``email`` è un campo di testo reso usando il tag
 |               | - `error_mapping`_                                                  |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                           |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType` |
 +---------------+---------------------------------------------------------------------+
@@ -33,6 +34,8 @@ Opzioni ereditate
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

@@ -574,8 +574,7 @@ Il crawler può estrarre informazioni dai nodi::
     $info = $crawler->extract(array('_text', 'href'));
 
     // Esegue una funzione lambda per ogni nodo e restituisce un array di risultati
-    $data = $crawler->each(function ($node, $i)
-    {
+    $data = $crawler->each(function ($node, $i) {
         return $node->attr('href');
     });
 

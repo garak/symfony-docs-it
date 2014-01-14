@@ -14,7 +14,8 @@ protocollo.
 | Opzioni       | - `default_protocol`_                                             |
 +---------------+-------------------------------------------------------------------+
 | Opzioni       | - `max_length`_                                                   |
-| ereditate     | - `required`_                                                     |
+| ereditate     | - `empty_data`_                                                   |
+|               | - `required`_                                                     |
 |               | - `label`_                                                        |
 |               | - `label_attr`_                                                   |
 |               | - `data`_                                                         |
@@ -40,7 +41,7 @@ default_protocol
 
 Se un valore inserito non inizia per nessun protocollo (p.e. ``http://``,
 ``ftp://``, ecc.), questo protocollo sarà aggiunto come prefisso alla stringa, quando
-i dati saranno legati al form.
+i dati saranno inviati al form.
 
 Opzioni ereditate
 -----------------
@@ -48,6 +49,8 @@ Opzioni ereditate
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

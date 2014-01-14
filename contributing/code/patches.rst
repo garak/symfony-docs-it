@@ -228,7 +228,8 @@ tempo tra il checkout e il commit delle nuove funzionalità)
 
 .. tip::
 
-    Sostituire `master` con `2.3` se si sta lavorando sulla risoluzione di un bug
+    Sostituire ``master`` con il ramo su cui si sta lavorando (p.e. ``2.3.``)
+    sulla risoluzione di un bug
 
 Quando si esegue il comando ``rebase``, potrebbe essere necessario risolvere
 conflitti. Il comando ``git status`` metterà in mostra

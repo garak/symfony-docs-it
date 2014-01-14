@@ -15,8 +15,9 @@ per i numeri.
 |               | - `precision`_                                                       |
 |               | - `grouping`_                                                        |
 +---------------+----------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                        |
-| ereditate     | - `label`_                                                           |
+| Opzioni       | - `empty_data`_                                                      |
+| ereditate     | - `required`_                                                        |
+|               | - `label`_                                                           |
 |               | - `label_attr`_                                                      |
 |               | - `data`_                                                            |
 |               | - `read_only`_                                                       |
@@ -27,7 +28,7 @@ per i numeri.
 |               | - `invalid_message_parameters`_                                      |
 |               | - `mapped`_                                                          |
 +---------------+----------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>`                             |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                            |
 +---------------+----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\NumberType` |
 +---------------+----------------------------------------------------------------------+
@@ -76,6 +77,8 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

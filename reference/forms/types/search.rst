@@ -13,7 +13,8 @@ Maggiori informazioni su `DiveIntoHTML5.info`_
 | Reso come     | campo ``input search``                                               |
 +---------------+----------------------------------------------------------------------+
 | Opzioni       | - `max_length`_                                                      |
-| ereditate     | - `required`_                                                        |
+| ereditate     | - `empty_data`_                                                      |
+|               | - `required`_                                                        |
 |               | - `label`_                                                           |
 |               | - `label_attr`_                                                      |
 |               | - `trim`_                                                            |
@@ -23,7 +24,7 @@ Maggiori informazioni su `DiveIntoHTML5.info`_
 |               | - `error_mapping`_                                                   |
 |               | - `mapped`_                                                          |
 +---------------+----------------------------------------------------------------------+
-| Tipo genitore | :doc:`text</reference/forms/types/text>`                             |
+| Tipo genitore | :doc:`text </reference/forms/types/text>`                            |
 +---------------+----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\SearchType` |
 +---------------+----------------------------------------------------------------------+
@@ -34,6 +35,8 @@ Opzioni ereditate
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

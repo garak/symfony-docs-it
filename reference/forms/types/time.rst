@@ -17,6 +17,7 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 +--------------------------+---------------------------------------------------------------------+
 | Opzioni                  | - `widget`_                                                         |
 |                          | - `input`_                                                          |
+|                          | - `with_minutes`_                                                   |
 |                          | - `with_seconds`_                                                   |
 |                          | - `hours`_                                                          |
 |                          | - `minutes`_                                                        |
@@ -83,12 +84,20 @@ widget
 
 Il modo di base in cui il campo andrebbe reso. Può essere uno dei seguenti:
 
-* ``choice``: rende due (o tre, se `with_seconds`_ è ``true``) select.
+* ``choice``: rende uno, due (predefinito) o tre input select (ore, minuti,
+  secondi), a seconda delle opzioni `with_minutes`_ e `with_seconds`_.
 
-* ``text``: rende due o tre input testuali (ora, minuto, secondo).
+* ``text``: rende uno, due (predefinito) o tre input testuali (ore, minuti,
+  secondi), a seconda delle opzioni `with_minutes`_ e `with_seconds`_.
 
 * ``single_text``: rende un singolo input testuale. Il valore inserito dall'utente
   sarà validato nella forma ``hh:mm`` (o ``hh:mm:ss``, se si usano i secondi).
+
+.. caution::
+
+    la combinazione dell'opzione widget a ``single_text`` e `with_minutes`_
+    a ``false`` può portare a comportamenti inattesi, perché l'input
+    ``time`` potrebbe non supportare la selezione solo dell'ora.
 
 input
 ~~~~~
@@ -105,6 +114,8 @@ nell'oggetto sottostante. Valori validi sono:
 
 Il valore proveniente dal form sarà normalizzato nello stesso
 formato.
+
+.. include:: /reference/forms/types/options/with_minutes.rst.inc
 
 .. include:: /reference/forms/types/options/with_seconds.rst.inc
 

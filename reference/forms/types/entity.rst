@@ -13,6 +13,7 @@ presi dalla base dati.
 | Reso come     | possono essere vari tag (vedere :ref:`forms-reference-choice-tags`) |
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `class`_                                                          |
+|               | - `data_class`_                                                     |
 |               | - `property`_                                                       |
 |               | - `group_by`_                                                       |
 |               | - `query_builder`_                                                  |
@@ -25,6 +26,7 @@ presi dalla base dati.
 | ereditate     | - `expanded`_                                                       |
 |               | - `preferred_choices`_                                              |
 |               | - `empty_value`_                                                    |
+|               | - `empty_data`_                                                     |
 |               | - `required`_                                                       |
 |               | - `label`_                                                          |
 |               | - `label_attr`_                                                     |
@@ -104,6 +106,8 @@ class
 La classe dell'entità (p.e. ``AcmeStoreBundle:Category``). Può essere
 un nome di classe pienamente qualificato (p.e. ``Acme\StoreBundle\Entity\Category``)
 o il suo alias (come mostrato sopra).
+
+.. include:: /reference/forms/types/options/data_class.rst.inc
 
 property
 ~~~~~~~~
@@ -192,6 +196,8 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

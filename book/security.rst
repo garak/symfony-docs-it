@@ -465,7 +465,7 @@ Se l'utente ha inviato un nome utente o una password non validi,
 questo controllore legge l'errore di invio del form dal sistema di sicurezza, in modo che
 possano essere visualizzati all'utente.
 
-In altre parole, il vostro compito è quello di visualizzare il form di login e gli eventuali errori di login
+In altre parole, il compito dello sviluppatore è quello di visualizzare il form di login e gli eventuali errori di login
 che potrebbero essersi verificati, ma è il sistema di sicurezza stesso che si prende cura di verificare
 il nome utente e la password inviati e di autenticare l'utente.
 
@@ -554,7 +554,7 @@ Rivediamo l'intero processo:
    lo rinvia al form di login.
 
 Per impostazione predefinita, se le credenziali inviate sono corrette, l'utente verrà rinviato
-alla pagina originale che è stata richiesta (ad esempio ``/admin/foo``). Se l'utente
+alla pagina originale che è stata richiesta (ad esempio ``/admin/pippo``). Se l'utente
 originariamente è andato direttamente alla pagina di login, sarà rinviato alla pagina iniziale.
 Questo comportamento può essere personalizzato, consentendo, ad esempio, di rinviare
 l'utente a un URL specifico.
@@ -665,7 +665,7 @@ vedere :doc:`/cookbook/security/form_login`.
                 ),
             ),
 
-    **3. Assicurarsi che ``/login_check`` sia dietro al firewall**
+    **3. Assicurarsi che ``/login_check`` sia dietro a un firewall**
 
     Quindi, assicurarsi che l'URL ``check_path`` (ad esempio ``/login_check``)
     sia dietro al firewall che si sta usando per il form di login (in questo esempio,

@@ -374,7 +374,7 @@ un servizio::
 
     }
 
-Quindi registrare la classe e assegnarle il tag ``kernel.cache:clearer``:
+Quindi registrare la classe e assegnarle il tag ``kernel.cache_clearer``:
 
 .. configuration-block::
 
@@ -431,7 +431,7 @@ l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerIn
         }
     }
 
-Il metodo ``isOptional`` deve resituire ``true`` se è possibile usare l'applicazione senza
+Il metodo ``isOptional`` deve restituire ``true`` se è possibile usare l'applicazione senza
 richiamare il preparatore di cache. In Symfony 2.0, i preparatori facoltativi
 vengono eseguiti ugualmente, quindi questa funzione non ha effetto.
 
@@ -1220,6 +1220,5 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`repository ufficiale delle estensioni di Twig`: https://github.com/fabpot/Twig-extensions
-.. _`KernelEvents`: https://github.com/symfony/symfony/blob/2.2/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
 .. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders

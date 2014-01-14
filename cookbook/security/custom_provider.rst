@@ -299,7 +299,7 @@ la password può essere codificata più volte e poi codificata in base64.
 
     Inoltre, per impostazione predefinita, l'hash è codificato più volte e poi codificato 
     in base64. Per i dettagli, si veda `MessageDigestPasswordEncoder`_.
-    Se lo si vuole evitare, configurarlo in ``security.yml``:
+    Se lo si vuole evitare, impostarlo nel file di configurazione:
 
     .. configuration-block::
 

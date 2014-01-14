@@ -6,6 +6,7 @@ Sicurezza
 
     entity_provider
     remember_me
+    impersonating_user
     voters
     acl
     acl_advanced
@@ -15,3 +16,4 @@ Sicurezza
     custom_provider
     custom_authentication_provider
     target_path
+    csrf_in_login_form

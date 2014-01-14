@@ -32,6 +32,7 @@ dovrebbe usare il tipo ``choice`` direttamente.
 |               | - `empty_value`_                                                       |
 |               | - `error_bubbling`_                                                    |
 |               | - `error_mapping`_                                                     |
+|               | - `empty_data`_                                                        |
 |               | - `required`_                                                          |
 |               | - `label`_                                                             |
 |               | - `label_attr`_                                                        |
@@ -74,6 +75,8 @@ Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choi
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

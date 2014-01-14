@@ -26,6 +26,7 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 |                          | - `years`_                                                                  |
 |                          | - `months`_                                                                 |
 |                          | - `days`_                                                                   |
+|                          | - `with_minutes`_                                                           |
 |                          | - `with_seconds`_                                                           |
 |                          | - `model_timezone`_                                                         |
 |                          | - `view_timezone`_                                                          |
@@ -108,6 +109,8 @@ per maggiori dettagli.
 .. include:: /reference/forms/types/options/months.rst.inc
 
 .. include:: /reference/forms/types/options/days.rst.inc
+
+.. include:: /reference/forms/types/options/with_minutes.rst.inc
 
 .. include:: /reference/forms/types/options/with_seconds.rst.inc
 

@@ -28,7 +28,7 @@ WSSE è molto utile per proteggere i servizi web, siano essi SOAP o
 REST.
 
 C'è molta buona documentazione su `WSSE`_, ma questo articolo non approfondirà
-il protocollo di sicurezza, quando il modo in cui un protocollo personalizzato
+il protocollo di sicurezza, quanto il modo in cui un protocollo personalizzato
 possa essere aggiunto a un'applicazione Symfony2. La base di WSSE è la
 verifica degli header di richiesta tramite credenziali criptate, con l'uso di
 un timestamp e di `nonce`_, e la verifica dell'utente richiesto tramite un digest
@@ -37,7 +37,7 @@ di password.
 .. note::
 
     WSSE supporta anche la validazione di chiavi dell'applicazione, che è utile per
-    i servizi web, ma è fuori dallo scopo di questo capitolo.
+    i servizi web, ma va oltre lo scopo di questo capitolo.
 
 Il token
 --------
@@ -45,9 +45,9 @@ Il token
 Il ruolo del token nel contesto della sicurezza di Symfony2 è importante.
 Un token rappresenta i dati di autenticazione dell'utente presenti nella richiesta.
 Una volta autenticata la richiesta, il token mantiene i dati dell'utente e fornisce
-tali dati attraverso il contesto della sicurezza. Prima di tutto, creeremo la nostra
+tali dati attraverso il contesto della sicurezza. Prima di tutto, va creata una
 classe per il token. Questo consentirà il passaggio di tutte le informazioni rilevanti
-al nostro fornitore di autenticazione.
+al fornitore di autenticazione.
 
 .. code-block:: php
 
@@ -80,9 +80,9 @@ al nostro fornitore di autenticazione.
 
     La classe ``WsseUserToken`` estende la classe
     :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\AbstractToken`
-    del componente della sicurezza, la quale fornisce funzionalità di base per il token.
-    Si può implementare
-    :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\TokenInterface` su una qualsiasi classe da usare come token.
+    del componente della sicurezza, la quale fornisce funzionalità di base per il token. Si può implementare
+    :class:`Symfony\\Component\\Security\\Core\\Authentication\\Token\\TokenInterface` su
+    una qualsiasi classe da usare come token.
 
 L'ascoltatore
 -------------
@@ -181,6 +181,13 @@ viene restituita una risposta 403.
     fornire gestori di successo/fallimento, login da URL, eccetera. Poiché WSSE
     non richiede di mantenere sessioni di autenticazione né form di login, non sarà
     usata per questo esempio.
+
+.. note::
+
+    Il return prematuro nell'ascoltatore è rilevante solo se vogliono concatenare più
+    fornitori di autenticazione (per esempio per consentire utenti anonimi). Se si vuole
+    impedire l'accesso a utenti anonimi e avere un errore 403, si dovrebbe impostare
+    il codice di stato della risposta prima del return.
 
 Il fornitore di autenticazione
 ------------------------------
@@ -282,7 +289,7 @@ Il factory
 Abbiamo creato un token personalizzato, un ascoltatore personalizzato e un fornitore
 personalizzato. Ora dobbiamo legarli insieme. Come rendere disponibile il fornitore
 alla configurazione della sicurezza? La risposta è: usando un ``factory``. Un factory
-è quando ci si aggancia al componente della sicurezza, dicendogli il nome del 
+è quando ci si aggancia al componente Security, dicendogli il nome del 
 fornitore e qualsiasi opzione di configurazione disponibile per esso. Prima di tutto,
 occorre creare una classe che implementi
 :class:`Symfony\\Bundle\\SecurityBundle\\DependencyInjection\\Security\\Factory\\SecurityFactoryInterface`.
@@ -360,19 +367,19 @@ firewall nella configurazione della sicurezza.
 
     Ci si potrebbe chiedere il motivo per cui sia necessaria una speciale classe factory
     per aggiungere ascoltatori e fornitori al contenitore di dipendenze. È una buona
-    domanda. La ragione è che si può usare il proprio firewall più volte,
-    per proteggere diverse parti dell'applicazione. Per questo, ogni volta che
-    si usa il proprio firewall, il contenitore di dipendenze crea un nuovo servizio.
+    domanda. La ragione è che si può usare un firewall più volte,
+    per proteggere diverse parti di un'applicazione. Per questo, ogni volta che
+    si usa un firewall, il contenitore di dipendenze crea un nuovo servizio.
     Il factory serve a creare questi nuovi servizi.
 
 Configurazione
 --------------
 
-È tempo di vedere in azione il nostro fornitore di autenticazione. Servono ancora alcune
+È tempo di vedere in azione il nuovo fornitore di autenticazione. Servono ancora alcune
 cose per farlo funzionare. La prima cosa è aggiungere i servizi di cui sopra al
 contenitore di servizi. La classe factory vista prima fa riferimento a degli id di
 servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
-``wsse.security.authentication.listener``. Ora definiremo questi servizi.
+``wsse.security.authentication.listener``. È tempo di definire questi servizi.
 
 .. configuration-block::
 
@@ -398,7 +405,7 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
             <services>
                 <service id="wsse.security.authentication.provider"
                     class="Acme\DemoBundle\Security\Authentication\Provider\WsseProvider" public="false">
-                    <argument /> <!-- User Provider -->
+                    <argument /> <!-- Fornitore di utenti -->
                     <argument>%kernel.cache_dir%/security/nonces</argument>
                 </service>
 

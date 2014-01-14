@@ -24,6 +24,7 @@ si dovrebbe usare il tipo ``choice`` direttamente.
 |               | - `preferred_choices`_                                                 |
 |               | - `empty_value`_                                                       |
 |               | - `error_bubbling`_                                                    |
+|               | - `empty_data`_                                                        |
 |               | - `required`_                                                          |
 |               | - `label`_                                                             |
 |               | - `label_attr`_                                                        |
@@ -63,6 +64,8 @@ Queste opzioni sono eredidate dal tipo :doc:`choice </reference/forms/types/choi
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
 Queste opzioni sono eredidate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

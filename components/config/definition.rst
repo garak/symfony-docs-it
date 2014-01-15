@@ -23,13 +23,13 @@ applicate (come: "il valore per ``auto_connect`` deve essere booleano"):
         mysql:
             host: localhost
             driver: mysql
-            username: user
+            username: utente
             password: pass
         sqlite:
             host: localhost
             driver: sqlite
             memory: true
-            username: user
+            username: utente
             password: pass
 
 Quando si caricano diversi file di configurazione, dovrebbe essere possibile
@@ -78,11 +78,11 @@ riflettere la reale struttura dei valori di configurazione::
 
     $rootNode
         ->children()
-            ->booleanNode('auto_connect')
+            ->booleanNode('auto_connessione')
                 ->defaultTrue()
             ->end()
-            ->scalarNode('default_connection')
-                ->defaultValue('default')
+            ->scalarNode('connessione_predefinita')
+                ->defaultValue('predefinito')
             ->end()
         ->end()
     ;
@@ -121,13 +121,13 @@ che consentono di  validare il valore::
 
     $rootNode
         ->children()
-            ->integerNode('positive_value')
+            ->integerNode('valore_positivo')
                 ->min(0)
             ->end()
-            ->floatNode('big_value')
+            ->floatNode('valore_grosso')
                 ->max(5E45)
             ->end()
-            ->integerNode('value_inside_a_range')
+            ->integerNode('valore_tra_estremi')
                 ->min(-50)->max(50)
             ->end()
         ->end()
@@ -164,7 +164,7 @@ array. Il nodo array stesso potrebbe avere un insieme predefinito di nodi variab
                 ->children()
                     ->scalarNode('driver')->end()
                     ->scalarNode('host')->end()
-                    ->scalarNode('username')->end()
+                    ->scalarNode('utente')->end()
                     ->scalarNode('password')->end()
                 ->end()
             ->end()
@@ -180,7 +180,7 @@ Oppure si può definire un prototipo per ogni nodo dentro un nodo array::
                     ->children()
                         ->scalarNode('driver')->end()
                         ->scalarNode('host')->end()
-                        ->scalarNode('username')->end()
+                        ->scalarNode('utente')->end()
                         ->scalarNode('password')->end()
                     ->end()
                 ->end()
@@ -213,10 +213,10 @@ Un esempio::
             ->arrayNode('parameters')
                 ->isRequired()
                 ->requiresAtLeastOneElement()
-                ->useAttributeAsKey('name')
+                ->useAttributeAsKey('nome')
                 ->prototype('array')
                     ->children()
-                        ->scalarNode('value')->isRequired()->end()
+                        ->scalarNode('valore')->isRequired()->end()
                     ->end()
                 ->end()
             ->end()
@@ -229,7 +229,7 @@ In YAML, la configurazione potrebbe essere come questa:
 
     database:
         parameters:
-            param1: { value: param1val }
+            param1: { valore: param1val }
 
 In XML, ciascun nodo ``parameters`` avrebbe un attributo ``name`` (insieme a
 ``value``), che sarebbe rimosso e usato come chiave per tale elemento nell'array
@@ -277,10 +277,10 @@ abbia un determinato valore:
             ->arrayNode('settings')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->scalarNode('name')
+                    ->scalarNode('nome')
                         ->isRequired()
                         ->cannotBeEmpty()
-                        ->defaultValue('value')
+                        ->defaultValue('valore')
                     ->end()
                 ->end()
             ->end()
@@ -354,7 +354,7 @@ principale con ``append()``::
                         ->scalarNode('host')
                             ->defaultValue('localhost')
                         ->end()
-                        ->scalarNode('username')->end()
+                        ->scalarNode('utente')->end()
                         ->scalarNode('password')->end()
                         ->booleanNode('memory')
                             ->defaultFalse()
@@ -376,10 +376,10 @@ principale con ``append()``::
         $node
             ->isRequired()
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('name')
+            ->useAttributeAsKey('nome')
             ->prototype('array')
                 ->children()
-                    ->scalarNode('value')->isRequired()->end()
+                    ->scalarNode('valore')->isRequired()->end()
                 ->end()
             ->end()
         ;
@@ -437,7 +437,7 @@ in XML. Si può specificare se si vuole una chiave pluralizzata in tal modo con
         ->end()
     ;
 
-Se la pluralizzazione è irregolare, si può specificare il pluare da usare,
+Se la pluralizzazione è irregolare, si può specificare il plurale da usare,
 come secondo parametro::
 
     $rootNode
@@ -452,16 +452,16 @@ siano modificati in array. Quindi si potrebbe avere:
 
 .. code-block:: xml
 
-    <connection>default</connection>
-    <connection>extra</connection>
+    <connessione>predefinito</connessione>
+    <connessione>extra</connessione>
 
 e a volte solo:
 
 .. code-block:: xml
 
-    <connection>default</connection>
+    <connessione>default</connessione>
 
-Per impostazione predefinita, ``connection`` sarebbe un array nel primo caso e una stringa
+Per impostazione predefinita, ``connessione`` sarebbe un array nel primo caso e una stringa
 nel secondo, rendendo difficile la validazione. Ci si può assicurare che sia sempre
 un array con ``fixXmlConfig``.
 
@@ -472,11 +472,11 @@ in questa configurazione:
 
 .. code-block:: yaml
 
-    connection:
-        name: my_mysql_connection
+    connessione:
+        name: connessione_mysql
         host: localhost
         driver: mysql
-        username: user
+        username: utente
         password: pass
 
 si può consentire anche il seguente:
@@ -489,7 +489,7 @@ Cambiando un valore stringa in un array associativo con ``name`` come chiave::
 
     $rootNode
         ->children()
-            ->arrayNode('connection')
+            ->arrayNode('connessione')
                 ->beforeNormalization()
                     ->ifString()
                     ->then(function($v) { return array('name'=> $v); })
@@ -512,13 +512,13 @@ Si può usare per aggiungere regole di validazione avanzate alle definizioni dei
 
     $rootNode
         ->children()
-            ->arrayNode('connection')
+            ->arrayNode('connessione')
                 ->children()
                     ->scalarNode('driver')
                         ->isRequired()
                         ->validate()
                         ->ifNotInArray(array('mysql', 'sqlite', 'mssql'))
-                            ->thenInvalid('Invalid database driver "%s"')
+                            ->thenInvalid('Valore non valido "%s"')
                         ->end()
                     ->end()
                 ->end()
@@ -568,8 +568,8 @@ Altrimenti, il risultato è un array pulito di valori di configurazione::
     $configs = array($config1, $config2);
 
     $processor = new Processor();
-    $configuration = new DatabaseConfiguration;
+    $configuration = new DatabaseConfiguration();
     $processedConfiguration = $processor->processConfiguration(
         $configuration,
-        $configs)
-    ;
+        $configs
+    );

@@ -204,8 +204,21 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
     sono stati aggiunti per consentire alla classe ``User`` di essere serializzata
     nella sessione. Questo potrebbe essere necessario o meno, a seconda della configurazione,
     ma probabilmente è una buona idea. Solo ``id`` ha bisogno di essere serializzato,
-    perché il metodo :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
-    ricarica l'utente a ogni richiesta, usando ``id``.
+    perché il metodo 
+    :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
+    ricarica l'utente a ogni richiesta, usando ``id``. In pratica,
+    questo vuole dire che l'oggetto User è ricaricato dalla base dati a ogni
+    richiesta, tramite l'``id`` dell'oggetto serializzato. Questo assicura che
+    tutti i dati dell'utente siano aggiornati.
+
+    Symfony usa anche ``username``, ``salt`` e ``password`` per verificare
+    che l'utente non sia stato modificato tra una richiesta e l'altra. Se non
+    si serializzano correttamente queste proprietà, l'utente potrebbe subire un logout. Se User implementa
+    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
+    invece di verificare ogni singola proprietà, basta richiamare il metodo ``isEqualTo``
+    e verificare qualsiasi proprietà si voglia. Se questo punto non
+    è chiaro, probabilmente *non* si avrà bisogno di implementare tale interfaccia
+    né di preoccuparsene.
 
 Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL, con utente ``admin`` e
 password (codificata) ``admin``. Per dettagli sulla creazione

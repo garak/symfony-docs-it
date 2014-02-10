@@ -45,7 +45,7 @@ base HTTP (cioè il classico vecchio box nome utente/password):
         security:
             firewalls:
                 secured_area:
-                    pattern:    ^/
+                    pattern:   ^/
                     anonymous: ~
                     http_basic:
                         realm: "Area demo protetta"
@@ -1094,6 +1094,7 @@ non sono memorizzati in una base dati. L'oggetto utente effettivo è fornito
 da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
 
 .. tip::
+
     Qualsiasi fornitore utenti può caricare gli utenti direttamente dalla configurazione, specificando    
     il parametro di configurazione ``users`` ed elencando gli utenti sotto di esso.
 
@@ -1205,8 +1206,8 @@ tenterà di caricare un oggetto ``User`` dalla base dati, utilizzando il campo
 ``username`` di questa classe.
 
 .. note::
-    Questo esempio ha come unico scopo quello di mostrare l'idea di base dietro al fornitore
-    ``entity``. Per un esempio completamente funzionante, vedere :doc:`/cookbook/security/entity_provider`.
+    Questo esempio ha come unico scopo quello di mostrare l'idea di base dietro al fornitore ``entity``.
+    Per un esempio completamente funzionante, vedere :doc:`/cookbook/security/entity_provider`.
 
 Per ulteriori informazioni sulla creazione di un fornitore personalizzato (ad esempio se è necessario
 caricare gli utenti tramite un servizio web), vedere :doc:`/cookbook/security/custom_provider`.
@@ -1221,7 +1222,7 @@ in formato testuale (se tali utenti sono memorizzati in un file di configurazion
 una base dati). Naturalmente, in un'applicazione reale si consiglia, per ragioni
 di sicurezza, di codificare le password degli utenti. Questo è facilmente realizzabile
 mappando la classe User in uno dei numerosi "encoder" disponibili. Per esempio,
-per salvare gli utenti in memoria, ma oscurare le loro password tramite ``sha1``,
+per salvare gli utenti in memoria, ma oscurare le loro password tramite ``bcrypt``,
 si può fare come segue:
 
 .. configuration-block::
@@ -1235,14 +1236,17 @@ si può fare come segue:
                 in_memory:
                     memory:
                         users:
-                            ryan:  { password: bb87a29949f3a1ee0559f8a57357487151281386, roles: 'ROLE_USER' }
-                            admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: 'ROLE_ADMIN' }
+                            ryan:
+                                password: $2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO
+                                roles: 'ROLE_USER'
+                            admin:
+                                password: $2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW
+                                roles: 'ROLE_ADMIN'
 
             encoders:
                 Symfony\Component\Security\Core\User\User:
-                    algorithm: sha1
-                    iterations: 1
-                    encode_as_base64: false
+                    algorithm: bcrypt
+                    cost: 12
 
     .. code-block:: xml
 
@@ -1252,18 +1256,18 @@ si può fare come segue:
             <provider name="in_memory">
                 <memory>
                     <user name="ryan"
-                        password="bb87a29949f3a1ee0559f8a57357487151281386"
+                        password="$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO"
                         roles="ROLE_USER" />
                     <user name="admin"
-                        password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620"
+                        password="$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW"
                         roles="ROLE_ADMIN" />
                 </memory>
             </provider>
 
             <encoder class="Symfony\Component\Security\Core\User\User"
-                algorithm="sha1"
-                iterations="1"
-                encode_as_base64="false" />
+                algorithm="bcrypt"
+                cost="12"
+            />
         </config>
 
     .. code-block:: php
@@ -1276,11 +1280,11 @@ si può fare come segue:
                     'memory' => array(
                         'users' => array(
                             'ryan' => array(
-                                'password' => 'bb87a29949f3a1ee0559f8a57357487151281386',
+                                'password' => '$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO',
                                 'roles' => 'ROLE_USER',
                             ),
                             'admin' => array(
-                                'password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620',
+                                'password' => '$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW',
                                 'roles' => 'ROLE_ADMIN',
                             ),
                         ),
@@ -1289,77 +1293,36 @@ si può fare come segue:
             ),
             'encoders' => array(
                 'Symfony\Component\Security\Core\User\User' => array(
-                    'algorithm'         => 'sha1',
-                    'iterations'        => 1,
-                    'encode_as_base64'  => false,
+                    'algorithm'         => 'bcrypt',
+                    'iterations'        => 12,
                 ),
             ),
         ));
 
-Impostando ``iterations`` a ``1`` ed ``encode_as_base64`` a ``false``,
-viene eseguito una sola volta l'algoritmo ``sha1`` sulla password, senza
-alcuna codifica supplementare. È ora possibile calcolare l'hash della password a livello di codice
-(ad esempio ``hash('sha1', 'ryanpass')``) o tramite qualche strumento online come `functions-online.com`_
+.. versionadded:: 2.2
+    Il codificatore BCrypt è stato introdotto in Symfony 2.2.
 
-.. tip::
+Ora si può calcolare la password cifrata, manualmente
+(p.e. ``password_hash('ryanpass', PASSWORD_BCRYPT, array('cost' => 12));``)
+oppure usando uno strumento online.
 
-    Gli algoritmi supportati da questo metodo dipendono dalla versione di PHP.
-    Un elenco completo è disponibile richiamando la funzione :phpfunction:`hash_algos`.
+.. include:: /cookbook/security/_ircmaxwell_password-compat.rst.inc
 
-Se si stanno creando i propri utenti in modo dinamico (memorizzandoli in una base dati),
-è possibile utilizzare algoritmi di hash ancora più complessi e poi contare su un oggetto
-encoder, che aiuti a codificare le password. Per esempio, supponiamo che l'oggetto
-User sia ``Acme\UserBundle\Entity\User`` (come nell'esempio precedente). In primo luogo,
-configurare l'encoder per questo utente:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/security.yml
-        security:
-            # ...
-
-            encoders:
-                Acme\UserBundle\Entity\User: sha512
-
-    .. code-block:: xml
-
-        <!-- app/config/security.xml -->
-        <config>
-            <!-- ... -->
-
-            <encoder class="Acme\UserBundle\Entity\User" algorithm="sha512" />
-        </config>
-
-    .. code-block:: php
-
-        // app/config/security.php
-        $container->loadFromExtension('security', array(
-            // ...
-            'encoders' => array(
-                'Acme\UserBundle\Entity\User' => 'sha512',
-            ),
-        ));
-
-In questo caso, si utilizza il più forte algoritmo ``sha512``. Inoltre, poiché
-si è semplicemente specificato l'algoritmo (``sha512``) come stringa, il sistema
-per impostazione predefinita farà l'hash della password 5000 volte di seguito e poi la codificherà
-in base64. In altre parole, la password è stata notevolmente offuscata in modo
-che il suo hash non possa essere decodificato (cioè non è possibile determinare la password
-partendo dal suo hash).
+Gli algoritmi supportati da questo metodo dipendono dalla versione di PHP.
+Un elenco completo è disponibile richiamando la funzione :phpfunction:`hash_algos`.
 
 .. versionadded:: 2.2
-    Da Symfony 2.2, si possono usare anche i codificatori :ref:`PBKDF2<reference-security-pbkdf2>`
-    e :ref:`BCrypt<reference-security-bcrypt>`.
+    Da Symfony 2.2, si può usare anche il codificatore
+    :ref:`PBKDF2 <reference-security-pbkdf2>`.
 
 Determinare la password con hash
 ................................
 
-Se si ha un form di registrazione per gli utenti, è necessario essere in grado
-di determinare l'hash della password, in modo che sia possibile impostarla per l'utente.
-Indipendentemente dall'algoritmo configurato per l'oggetto User, l'hash della password
-può essere determinato nel seguente modo da un controllore::
+Se si memorizzano gli utenti sulla base dati e si ha un form di registrazione
+per gli utenti, è necessario essere in grado di determinare l'hash della password, in
+modo che sia possibile impostarla per l'utente prima di inserirlo. Indipendentemente dall'algoritmo
+configurato per l'oggetto User, l'hash della password può essere determinato
+nel seguente modo da un controllore::
 
     $factory = $this->get('security.encoder_factory');
     $user = new Acme\UserBundle\Entity\User();
@@ -1367,6 +1330,10 @@ può essere determinato nel seguente modo da un controllore::
     $encoder = $factory->getEncoder($user);
     $password = $encoder->encodePassword('ryanpass', $user->getSalt());
     $user->setPassword($password);
+
+Per poter funzionare, assicurarsi di avere il codificatore per la
+classe utente, (p.e. ``Acme\UserBundle\Entity\User``) configurato sotto la chiave ``encoders``
+in ``app/config/security.yml``.
 
 .. caution::
 
@@ -1956,5 +1923,4 @@ Saperne di più con il ricettario
 .. _`JMSSecurityExtraBundle`: http://jmsyst.com/bundles/JMSSecurityExtraBundle/1.2
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/it/class.serializable.php
-.. _`functions-online.com`: http://www.functions-online.com/sha1.html
 .. _`Timing attack`: http://en.wikipedia.org/wiki/Timing_attack

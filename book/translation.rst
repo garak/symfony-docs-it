@@ -452,8 +452,8 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
     .. code-block:: yaml
 
         contact:
-            path:      /{_locale}/contact
-            defaults:  { _controller: AcmeDemoBundle:Contact:index, _locale: en }
+            path:     /{_locale}/contact
+            defaults: { _controller: AcmeDemoBundle:Contact:index }
             requirements:
                 _locale: en|fr|de
 
@@ -467,7 +467,6 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
             <route id="contact" path="/{_locale}/contact">
                 <default key="_controller">AcmeDemoBundle:Contact:index</default>
-                <default key="_locale">en</default>
                 <requirement key="_locale">en|fr|de</requirement>
             </route>
         </routes>
@@ -478,12 +477,15 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('contact', new Route('/{_locale}/contact', array(
-            '_controller' => 'AcmeDemoBundle:Contact:index',
-            '_locale'     => 'en',
-        ), array(
-            '_locale'     => 'en|fr|de',
-        )));
+        $collection->add('contact', new Route(
+            '/{_locale}/contact',
+            array(
+                '_controller' => 'AcmeDemoBundle:Contact:index',
+            ),
+            array(
+                '_locale'     => 'en|fr|de',
+            )
+        ));
 
         return $collection;
 

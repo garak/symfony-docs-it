@@ -28,6 +28,7 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 |             | - `empty_data`_                                                             |
 |             | - `required`_                                                               |
 |             | - `mapped`_                                                                 |
+|             | - `cascade_validation`_                                                     |
 +-------------+-----------------------------------------------------------------------------+
 | Tipo padre  | :doc:`form </reference/forms/types/form>`                                   |
 +-------------+-----------------------------------------------------------------------------+
@@ -363,3 +364,5 @@ error_bubbling
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/cascade_validation.rst.inc

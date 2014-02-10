@@ -108,8 +108,8 @@ Riferimento configurazione
                 # cercare la classe "ResolveTargetEntityListener" per una ricetta a riguardo
                 resolve_target_entities: []
                 entity_managers:
-                    # Un insieme di nomi di gestori di entità (p.e. un_em, un_atrlo_em)
-                    some_em:
+                    # Un insieme di nomi di gestori di entità (p.e. un_em, un_altro_em)
+                    un_em:
                         query_cache_driver:
                             type:                 array # Obbligatorio
                             host:                 ~

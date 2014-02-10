@@ -31,7 +31,7 @@ costruzione della classe di definizione del bundle::
 
 Uno dei più comuni casi d'uso dei passi di compilatore è lavorare con i servizi con tag
 (leggere di più sui tag nella sezione dei componenti ":doc:`/components/dependency_injection/tags`").
-Se si usando tag personalizzati nei bundle, i nomi di tag sono composti dal nome
+Se si stanno usando tag personalizzati nei bundle, i nomi di tag sono composti dal nome
 del bundle (in minuscolo, con trattini bassi come separatori), seguito da un
 punto e quindi dal nome "reale". Per esempio, se si vuole introdurre una sorta di tag
 "trasporto" in un AcmeMailerBundle, lo si dovrebbe chiamare

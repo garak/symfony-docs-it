@@ -169,10 +169,12 @@ il nome definito nel ``php.ini`` con la direttiva ``session.name``.
 cookie_lifetime
 ...............
 
-**tipo**: ``intero`` **predefinito**: ``0``
+**tipo**: ``intero`` **predefinito**: ``null``
 
-Determina la durata della sessione in secondi. Per impostazione predefinita, sarà
-``0``, che vuol dire che il cookie è valido per la durata della sessione del browser.
+Determina la durata della sessione in secondi. Per impostazione predefinita, sarà ``null``,
+che vuol dire che sarà usato il valore di ``session.cookie_lifetime`` preso da ``php.ini``.
+Se si imposta questo valore a ``0``, il cookie è valido per la durata della sessione del
+browser.
 
 cookie_path
 ...........

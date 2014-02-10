@@ -432,6 +432,13 @@ corrispondenza, dando al parametro ``page`` il valore ``2``. Perfetto.
 | /blog/2            | blog  | {page} = 2            |
 +--------------------+-------+-----------------------+
 
+.. caution::
+
+    Si possono ovviamente avere più segnaposto opzionali (p.e. ``/blog/{slug}/{page}``),
+    ma ogni cosa dopo un segnaposto opzionale deve essere opzionale a sua volta. Per esempio,
+    ``/{page}/blog`` è un percorso valido, ma ``page`` sarà sempre obbligatorio
+    (cioè richiamando solo ``/blog`` la rotta non corrisponderà).
+
 .. tip::
 
     Le rotte con parametri facoltativi alla fine non avranno corrispondenza da richieste

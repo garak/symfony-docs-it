@@ -52,7 +52,7 @@ In altre parole, se si crea un ``Constraint``, ovvero un vincolo personalizzato 
 Symfony2 cercherà automaticamente anche un'altra la classe, ``MioVincoloValidator``,
 per effettuare la validazione vera e propria.
 
-Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio: ``validate``::
+Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio, ``validate``::
 
     // src/Acme/DemoBundle/Validator/Constraints/ContainsAlphanumericValidator.php
     namespace Acme\DemoBundle\Validator\Constraints;

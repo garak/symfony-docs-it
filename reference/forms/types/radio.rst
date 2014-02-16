@@ -4,18 +4,16 @@
 Tipo di campo radio
 ===================
 
-Crea un singolo bottone radio. Dovrebbe essere sempre usato per un campo con un valore
-booleano: se il radio è selezionato, il campo sarà impostato a ``true``, altrimenti
-sarà impostato a ``false``.
+Crea un singolo bottone radio. Se il bottone radio è selezionato, il campo
+sarà impostato al valore specificato. I bottoni radio non possono essere deselezionati, il valore
+cambia solo se un altro bottone radio con lo stesso nome viene selezionato.
 
 Il tipo ``radio`` solitamente non è usato direttamente. Più comunemente, è usato
-internamente da altri tipo, come :doc:`choice</reference/forms/types/choice>`.
-Se si desidera un campo booleano, usare :doc:`checkbox</reference/forms/types/checkbox>`.
+internamente da altri tipo, come :doc:`choice </reference/forms/types/choice>`.
+Se si desidera un campo booleano, usare :doc:`checkbox </reference/forms/types/checkbox>`.
 
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``radio``                                           |
-+---------------+---------------------------------------------------------------------+
-| Opzioni       | - `value`_                                                          |
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `data`_                                                           |
 | ereditate     | - `empty_data`_                                                     |
@@ -33,23 +31,13 @@ Se si desidera un campo booleano, usare :doc:`checkbox</reference/forms/types/ch
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\RadioType` |
 +---------------+---------------------------------------------------------------------+
 
-Opzioni del campo
------------------
-
-value
-~~~~~
-
-**tipo**: ``mixed`` **predefinito**: ``1``
-
-Il valore usato effettivamente come valore del bottone radio. Non ha effetti sul
-valore impostato sull'oggetto.
-
-.. caution::
-
-    Per fare in modo che un un bottone radio sia già selezionato, usare l'opzione `data`_.
-
 Opzioni ereditate
 -----------------
+
+Queste opzioni sono ereditate dal tipo :doc:`checkbox </reference/forms/types/checkbox>`:
+
+
+.. include:: /reference/forms/types/options/value.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 

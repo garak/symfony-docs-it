@@ -1352,7 +1352,7 @@ Incorporare un insieme di form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 È anche possibile incorporare un insieme di form in un form (si immagini un form
-``Category`` con tanti sotto-form ``Product``.
+``Category`` con tanti sotto-form ``Product``).
 Lo si può fare utilizzando il tipo di campo ``collection``.
 
 Per maggiori informazioni, vedere la ricetta ":doc:`/cookbook/form/form_collections`" e il

@@ -366,7 +366,7 @@ Aggiungere al metodo ``load()`` il codice seguente::
 
         if (!isset($config['mio_tipo'])) {
             throw new \InvalidArgumentException(
-                'Occorre definire l'\opzione "mio_tipo"'
+                'Occorre definire l\'opzione "mio_tipo"'
             );
         }
 

@@ -77,7 +77,7 @@ questo tipo di estensione di classe:
             $this->stopPropagation();
         }
 
-        public function getReturnValue($val)
+        public function getReturnValue()
         {
             return $this->returnValue;
         }

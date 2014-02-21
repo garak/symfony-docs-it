@@ -66,6 +66,7 @@ Si può anche semplificare come eseguire l'applicazione::
     #!/usr/bin/env php
     <?php
     // command.php
+
     use Acme\Tool\MyApplication;
 
     $application = new MyApplication();

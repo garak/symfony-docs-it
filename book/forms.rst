@@ -48,6 +48,7 @@ classe ``Task`` che rappresenta e memorizza i dati di una singola attività::
         {
             return $this->dueDate;
         }
+        
         public function setDueDate(\DateTime $dueDate = null)
         {
             $this->dueDate = $dueDate;
@@ -477,14 +478,10 @@ Disabilitare la validazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.3
-    La possibilità di impostare ``validation_groups`` a ``false`` è stata aggiunta in Symfony 2.3,
-    sebbene impostarla a un array vuoto producesse lo stesso risultato nelle versioni
-    precedenti.
+    La possibilità di impostare ``validation_groups`` a ``false`` è stata aggiunta in Symfony 2.3.
 
 A volte è utile sopprimere la validazione per un intero form. Per questi
-casi, si può saltare il richiamo a to :method:`Symfony\\Component\\Form\\FormInterface::isValid`
-nel controllore. Se questo non è possibile, si può in alternativa impostare
-l'opzione ``validation_groups`` a ``false`` o a un array vuoto::
+casi, si può impostare l'opzione ``validation_groups`` a ``false``::
 
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -497,9 +494,8 @@ l'opzione ``validation_groups`` a ``false`` o a un array vuoto::
 
 Notare che in questo caso il form eseguirà comunque alcune verifiche basilari di integrità,
 per esempio se un file caricato è troppo grande o se dei campi non esistenti
-sono stati inviati. Se si vuole sopprimere completamente la validazione, rimuovere
-la chiamata a :method:`Symfony\\Component\\Form\\FormInterface::isValid` dal
-controllore.
+sono stati inviati. Se si vuole sopprimere completamente la validazione, si può usare
+:ref:`l'evento POST_SUBMIT <cookbook-dynamic-form-modification-suppressing-form-validation>`.
 
 .. index::
    single: Form; Gruppi di validazione basati su dati inseriti
@@ -649,7 +645,8 @@ nella documentazione di ciascun tipo.
         ))
 
     La label per un campo può anche essere impostata nel template che rende il
-    form, vedere sotto.
+    form, vedere sotto. Se non occorre alcuna label, la si
+    può disabilitare impostandone il valore a ``false``.
 
 .. index::
    single: Form; Indovinare il tipo di campo
@@ -1011,7 +1008,8 @@ che ospiterà la logica per la costruzione del form task::
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $builder->add('task')
+            $builder
+                ->add('task')
                 ->add('dueDate', null, array('widget' => 'single_text'))
                 ->add('save', 'submit');
         }
@@ -1356,7 +1354,7 @@ Incorporare un insieme di form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 È anche possibile incorporare un insieme di form in un form (si immagini un form
-``Category`` con tanti sotto-form ``Product``.
+``Category`` con tanti sotto-form ``Product``).
 Lo si può fare utilizzando il tipo di campo ``collection``.
 
 Per maggiori informazioni, vedere la ricetta ":doc:`/cookbook/form/form_collections`" e il

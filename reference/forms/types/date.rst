@@ -32,8 +32,9 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 | Opzioni                  | - `by_reference`_                                                           |
 | ridefinite               | - `error_bubbling`_                                                         |
 +--------------------------+-----------------------------------------------------------------------------+
-| Opzioni                  | - `invalid_message`_                                                        |
-| ereditate                | - `invalid_message_parameters`_                                             |
+| Opzioni                  | - `data`_                                                                   |
+| ereditate                | - `invalid_message`_                                                        |
+|                          | - `invalid_message_parameters`_                                             |
 |                          | - `read_only`_                                                              |
 |                          | - `disabled`_                                                               |
 |                          | - `mapped`_                                                                 |
@@ -137,6 +138,8 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

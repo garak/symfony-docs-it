@@ -10,9 +10,9 @@ per caricare tutte le classi del progetto.
 
 .. tip::
 
-    Si possono usare sia ``ApcClassLoader`` che ``XcacheClassLoader`` per mettere in
+    Si possono usare sia ``ApcClassLoader`` sia ``XcacheClassLoader`` per mettere in
     :doc:`cache </components/class_loader/cache_class_loader>` un'istanza di ``ClassLoader``
-    o ``DebugClassLoader`` per il debug :doc:`debug </components/class_loader/debug_class_loader>`.
+    o di ``DebugClassLoader`` per il :doc:`debug </components/class_loader/debug_class_loader>`.
 
 
 Uso

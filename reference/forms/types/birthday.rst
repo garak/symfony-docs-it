@@ -30,6 +30,7 @@ ma con valori predefiniti più appropriati per l'opzione `years`_. L'opzione
 |                          | - `format`_                                                                   |
 |                          | - `model_timezone`_                                                           |
 |                          | - `view_timezone`_                                                            |
+|                          | - `data`_                                                                     |
 |                          | - `invalid_message`_                                                          |
 |                          | - `invalid_message_parameters`_                                               |
 |                          | - `read_only`_                                                                |
@@ -37,7 +38,7 @@ ma con valori predefiniti più appropriati per l'opzione `years`_. L'opzione
 |                          | - `mapped`_                                                                   |
 |                          | - `inherit_data`_                                                             |
 +--------------------------+-------------------------------------------------------------------------------+
-| Tipo genitore            | :doc:`date</reference/forms/types/date>`                                      |
+| Tipo genitore            | :doc:`date </reference/forms/types/date>`                                     |
 +--------------------------+-------------------------------------------------------------------------------+
 | Classe                   | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\BirthdayType`        |
 +--------------------------+-------------------------------------------------------------------------------+
@@ -56,7 +57,7 @@ quando l'opzione ``widget`` è impostata a ``choice``.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/date>`:
+Queste opzioni sono ereditate dal tipo :doc:`date </reference/forms/types/date>`:
 
 .. include:: /reference/forms/types/options/date_widget.rst.inc
 
@@ -74,7 +75,9 @@ Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/date>`:
 
 .. include:: /reference/forms/types/options/view_timezone.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`date</reference/forms/types/date>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

@@ -28,7 +28,8 @@ PHP o forniti da estensioni di PHP, come PHP-Sqlite, PHP-Memcached e così via.
 Tutti i gestori di salvataggio nativi sono interni a PHP e quindi non hanno API pubbliche.
 Vanno configurati tramite direttive ni, solitamente ``session.save_path``, e
 potenzialmente altre direttive specifiche. Si possono trovare altri dettagli nei docblock
-dei metodi ``setOptions()`` di ciascuna classe.
+dei metodi ``setOptions()`` di ciascuna classe. Per esempio, quello
+fornito dall'estensione Memcached si può trovare in `php.net/memcached.setoption`_.
 
 Sebbene i gestori di salvataggio nativi possano essere attivati direttamente, usando
 ``ini_set('session.save_handler', $nome);``, Symfony2 fornisce un modo conveniente
@@ -234,6 +235,11 @@ funzionalità di PHP 5.4, se disponibile.
 Proxy per il gestore del salvataggio
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+un proxy per il gestore del salvataggio di base avvolge un gestore di salvataggio, che è
+stato introdotto per supportare senza problemi la migrazione da PHP 5.4 a PHP 5.4+.
+Inoltre, crea un punto di estensione da cui di può aggiungere una logica personalizzata, che
+funnzioni indipendentemente da quale gestore sia all'interno.
+
 Ci sono due tpi di classi di proxy per il gestore del salvataggio, che ereditano da
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\AbstractProxy`:
 sono :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
@@ -249,7 +255,7 @@ vengono specificati tramite le classi `Native*SessionHandler` classes, mentre
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`
 sarà usato per avvolgere qualsiasi gestore del salvataggio personalizzato, che implementi :phpclass:`SessionHandlerInterface`.
 
-Sotto PHP 5.4 e successivi, tutti i gestori di sessione implementano :phpclass:`SessionHandlerInterface`,
+A partire da PHP 5.4, tutti i gestori di sessione implementano :phpclass:`SessionHandlerInterface`,
 incluse le classi `Native*SessionHandler` che ereditano da :phpclass:`SessionHandler`.
 
 Il meccanismo del proxy consente di essere coinvolto in modo più approfondito nelle classi
@@ -263,3 +269,4 @@ transazione di una sessione, senza sapere nulla del gestore del salvataggio spec
 
 .. _`php.net/session.customhandler`: http://php.net/session.customhandler
 .. _`php.net/session.configuration`: http://php.net/session.configuration
+.. _`php.net/memcached.setoption`: http://php.net/memcached.setoption

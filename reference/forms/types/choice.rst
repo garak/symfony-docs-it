@@ -20,18 +20,22 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 |               | - `preferred_choices`_                                                       |
 |               | - `empty_value`_                                                             |
 +---------------+------------------------------------------------------------------------------+
+| Opzioni       | - `empty_data`_                                                              |
+| ridefinite    | - `compound`_                                                                |
+|               | - `error_bubbling`_                                                          |
++---------------+------------------------------------------------------------------------------+
 | Opzioni       | - `required`_                                                                |
 | ereditate     | - `label`_                                                                   |
+|               | - `label_attr`_                                                              |
+|               | - `data`_                                                                    |
 |               | - `read_only`_                                                               |
 |               | - `disabled`_                                                                |
-|               | - `error_bubbling`_                                                          |
 |               | - `error_mapping`_                                                           |
 |               | - `mapped`_                                                                  |
 |               | - `inherit_data`_                                                            |
 |               | - `by_reference`_                                                            |
-|               | - `empty_data`_                                                              |
 +---------------+------------------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>` (se expanded), altrimenti ``field`` |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                                    |
 +---------------+------------------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType`         |
 +---------------+------------------------------------------------------------------------------+
@@ -107,20 +111,43 @@ questa interfaccia e fornisca le scelte.
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
+Opzioni ridefinite
+------------------
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+
+compound
+~~~~~~~~
+
+**tipo**: ``booleano`` **predefinito**: stesso valore dell'opzione ``expanded``
+
+Questa opzione specifica se il form è un composto. Il valore predefinito è
+sovrascritto dal valore dell'opzione ``expanded``.
+
+error_bubbling
+~~~~~~~~~~~~~~
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Set that error on this field must be attached to the field instead of 
+the parent field (the form in most cases).
+
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
 
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
+
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
-
-.. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
@@ -129,5 +156,3 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/inherit_data.rst.inc
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc
-
-.. include:: /reference/forms/types/options/empty_data.rst.inc

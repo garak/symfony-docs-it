@@ -159,9 +159,9 @@ consente di persistere interi *oggetti* in MongoDB e di recuperare interi oggett
 da MongoDB. Funziona mappando una classe PHP le sue proprietà su elementi di
 una collezione di MongoDB.
 
-Per fare in modo che Doctrine possa fare ciò, occorre solo creare dei "meta-dati", ovvero
+Per fare in modo che Doctrine possa fare ciò, occorre solo creare dei "metadati", ovvero
 la configurazione che dice esattamente a Doctrine come la classe ``Product`` e le sue
-proprietà debbano essere *mappate* su MongoDB. Questi meta-dati possono essere specificati
+proprietà debbano essere *mappate* su MongoDB. Questi metadati possono essere specificati
 in diversi formati, inclusi YAML, XML o direttamente dentro la classe ``Product``,
 tramite annotazioni:
 
@@ -744,7 +744,7 @@ Riepilogo
 Con Doctrine, ci si può concentrare suglio oggetti e su come siano utili
 nell'applicazione e preoccuparsi della persistenza su MongoDB in un secondo momento. Questo perché 
 Doctrine consente di usare qualsiasi oggetto PHP per tenere dei dati e si appoggia
-su meta-dati di mappatura per mappare i dati di un oggetto su una collezione di MongoDB.
+su metadati di mappatura per mappare i dati di un oggetto su una collezione di MongoDB.
 
 Sebbene Doctrine giri intorno a un semplice concetto, è incredibilmente potente,
 consentendo di creare query complesse e sottoscrivere eventi che consentono

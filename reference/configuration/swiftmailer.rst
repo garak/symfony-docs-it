@@ -11,6 +11,9 @@ opzioni predefinite di configurazione, vedere `Configurazione`_
 La chiave ``swiftmailer`` configura l'integrazione di Symfony con Swiftmailer,
 che si occupa di creare e spedire messaggi email.
 
+La sezione seguente elenca tutte le opzioni disponibili per configurare un
+mailer. Si possono anche configurare più mailer (vedere `Usare più mailer`_).
+
 Configurazione
 --------------
 
@@ -220,3 +223,65 @@ Configurazione predefinita completa
                 threshold="99"
             />
         </swiftmailer:config>
+
+Usare più mailer
+----------------
+
+Si possono configurare più mailer, raggruppandoli sotto la voce ``mailers``
+(il mailer predefinito è identificato dall'opzione ``default_mailer``):
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        swiftmailer:
+            default_mailer: second_mailer
+            mailers:
+                first_mailer:
+                    # ...
+                second_mailer:
+                    # ...
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/swiftmailer
+                http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd"
+        >
+            <swiftmailer:config default-mailer="second_mailer">
+                <swiftmailer:mailer name="first_mailer"/>
+                <swiftmailer:mailer name="second_mailer"/>
+            </swiftmailer:config>
+        </container>
+
+    .. code-block:: php
+
+        $container->loadFromExtension('swiftmailer', array(
+            'default_mailer' => 'second_mailer',
+            'mailers' => array(
+                'first_mailer' => array(
+                    // ...
+                ),
+                'second_mailer' => array(
+                    // ...
+                ),
+            ),
+        ));
+
+Ogni mailer è registrato come servizio::
+
+    // ...
+
+    // restituisce il primo mailer
+    $container->get('swiftmailer.mailer.first_mailer');
+
+    // restituisce anche il secondo mailer, poiché è quello predefinito
+    $container->get('swiftmailer.mailer');
+
+    // restituisce il secondo mailer
+    $container->get('swiftmailer.mailer.second_mailer');

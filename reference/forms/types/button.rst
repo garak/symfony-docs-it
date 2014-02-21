@@ -7,7 +7,7 @@ Tipo di campo button
 .. versionadded:: 2.3
     Il tipo ``button`` è stato aggiunto in Symfony 2.3
 
-A simple, non-responsive button.
+Un semplice bottone, non interattivo.
 
 +----------------------+----------------------------------------------------------------------+
 | Reso come            | tag ``button``                                                       |
@@ -15,7 +15,10 @@ A simple, non-responsive button.
 | Opzioni              | - `attr`_                                                            |
 |                      | - `disabled`_                                                        |
 |                      | - `label`_                                                           |
+|                      | - `label_attr`_                                                      |
 |                      | - `translation_domain`_                                              |
++----------------------+----------------------------------------------------------------------+
+| Opzioni ridefinite   | - `auto_initialize`                                                  |
 +----------------------+----------------------------------------------------------------------+
 | Tipo genitore        | nessuno                                                              |
 +----------------------+----------------------------------------------------------------------+
@@ -31,4 +34,11 @@ Opzioni
 
 .. include:: /reference/forms/types/options/button_label.rst.inc
 
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/button_translation_domain.rst.inc
+
+Opzioni ridefinite
+------------------
+
+.. include:: /reference/forms/types/options/button_auto_initialize.rst.inc

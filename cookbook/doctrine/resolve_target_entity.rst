@@ -11,7 +11,7 @@ in altre applicazioni, senza includere cose non strettamente necessarie.
 
 Doctrine 2.2 include una nuova utility chiamata ``ResolveTargetEntityListener``,
 che funziona intercettando alcune chiamate in Doctrine e riscrivendo i parametri
-``targetEntity`` dei propri meta-dati di mappatura a runtime. Ciò vuol dire che
+``targetEntity`` dei propri metadati di mappatura a runtime. Ciò vuol dire che
 si ha la possibilità nel proprio bundle di usare interfacce o classi astratte nelle
 mappature e aspettarsi mappature corrette su entità concrete a runtime.
 

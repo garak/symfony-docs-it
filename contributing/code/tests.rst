@@ -7,25 +7,20 @@ tutti i test di Symfony2, per assicurarsi di non aver rotto nulla.
 PHPUnit
 -------
 
-Per eseguire i test di Symfony2, `installare`_ prima PHPUnit 3.6.4 o successivi.
-
-.. code-block:: bash
-
-    $ pear config-set auto_discover 1
-    $ pear install pear.phpunit.de/PHPUnit
+Per eseguire i test di Symfony2, `installare`_ prima PHPUnit 3.7 o successivi.
 
 Dipendenze (opzionali)
 ----------------------
 
 Per eseguire tutti i test, inclusi quelli che hanno dipendenze esterne,
 Symfony2 deve poterle scaricare. Per impostazione predefinita, sono
-auto-caricati dalla cartella `vendor/` (vedere
-`autoload.php.dist`).
+auto-caricati dalla cartella ``vendor/`` (vedere
+``autoload.php.dist``).
 
 I test necessitano delle seguenti librerie di terze parti:
 
 * Doctrine
-* Swiftmailer
+* Swift Mailer
 * Twig
 * Monolog
 
@@ -35,7 +30,7 @@ Passo 1: installare `Composer`_
 
 .. code-block:: bash
 
-    curl -s http://getcomposer.org/installer | php
+    $ curl -s http://getcomposer.org/installer | php
 
 Assicurasi di scaricare ``composer.phar`` nella stessa cartella in cui si trova
 il file ``composer.json``.
@@ -101,13 +96,13 @@ Copertura del codice
 --------------------
 
 Se si aggiunge una nuova caratteristica, occorre anche verificare la copertura del codice,
-usando l'opzione `coverage-html`:
+usando l'opzione ``coverage-html``:
 
 .. code-block:: bash
 
     $ phpunit --coverage-html=cov/
 
-Verificare la copertura del codice, aprendo la pagina generata `cov/index.html` in
+Verificare la copertura del codice, aprendo la pagina generata ``cov/index.html`` in
 un browser.
 
 .. tip::

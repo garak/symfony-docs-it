@@ -380,9 +380,9 @@ di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTeste
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::
 
+    use Acme\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
-    use Acme\DemoBundle\Command\SalutaCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
@@ -409,9 +409,9 @@ Si può testare l'invio di argomenti e opzioni al comando, passandoli come
 array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::execute`::
 
+    use Acme\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
-    use Acme\DemoBundle\Command\GreetCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
@@ -420,15 +420,15 @@ array al metodo
         public function testNameIsOutput()
         {
             $application = new Application();
-            $application->add(new GreetCommand());
+            $application->add(new SalutaCommand());
 
-            $command = $application->find('demo:saluta');
-            $commandTester = new CommandTester($command);
-            $commandTester->execute(
-                array('command' => $command->getName(), 'name' => 'Fabien')
+            $comando = $application->find('demo:saluta');
+            $testDelComando = new CommandTester($command);
+            $testDelComando->execute(
+                array('command' => $comando->getName(), 'name' => 'Fabien')
             );
 
-            $this->assertRegExp('/Fabien/', $commandTester->getDisplay());
+            $this->assertRegExp('/Fabien/', $testDelComando->getDisplay());
         }
     }
 
@@ -491,6 +491,7 @@ Saperne di più
 
 * :doc:`/components/console/usage`
 * :doc:`/components/console/single_command_tool`
+* :doc:`/components/console/events`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
 .. _ANSICON: https://github.com/adoxa/ansicon/downloads

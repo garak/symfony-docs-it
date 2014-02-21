@@ -32,9 +32,11 @@ Aggiungere al comando il codice seguente::
     }
 
 In questo caso, all'utente sarà chiesto "Continuare con questa azione", e si otterrà
-``true`` se l'utente risponde ``y`` o ``false`` in caso contrario. Il terzo
-parametro di ``askConfirmation`` è il valore predefinito da restituire se l'utente
-non inserisce alcun input.
+``true`` se l'utente risponde ``y`` o ``false`` se l'utente risponde
+``n``. Il terzo parametro di
+:method:`Symfony\\Component\\Console\\Helper\\DialogHelper::askConfirmation`
+è il valore predefinito da restituire se l'utente non inserisce alcun input. Qualsiasi
+altro input farà ripetere la domanda.
 
 Chiedere informazioni all'utente
 --------------------------------

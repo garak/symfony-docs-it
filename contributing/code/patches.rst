@@ -177,14 +177,12 @@ seguenti indicazioni:
 
 .. tip::
 
-    Si possono verificare gli standard del codice, eseguendo il seguente
-    `script` <http://cs.sensiolabs.org/get/php-cs-fixer.phar>`_
-    (`sorgente <https://github.com/fabpot/PHP-CS-Fixer>`_):
+    Quando si inviano richieste di pull, `fabbot`_ può verificarne il codice,
+    cercando errori comuni e controllando gli standard di codice
+    definiti in `PSR-1`_ e `PSR-2`_.
 
-    .. code-block:: bash
-
-        $ cd /percorso/di/symfony
-        $ php symfony-cs-fixer.phar fix . Symfony20Finder
+    Uno stato viene inviato sotto alla descrizione della richiesta di pull, con un
+    sommario di eventuali problemi trovati o fallimenti delle build di Travis CI.
 
 .. tip::
 
@@ -230,7 +228,8 @@ tempo tra il checkout e il commit delle nuove funzionalità)
 
 .. tip::
 
-    Sostituire `master` con `2.3` se si sta lavorando sulla risoluzione di un bug
+    Sostituire ``master`` con il ramo su cui si sta lavorando (p.e. ``2.4.``)
+    sulla risoluzione di un bug
 
 Quando si esegue il comando ``rebase``, potrebbe essere necessario risolvere
 conflitti. Il comando ``git status`` metterà in mostra
@@ -410,3 +409,6 @@ i commit. Dopo aver finito, eseguire il push.
 .. _`icona di stato di travis-ci.org`:     http://about.travis-ci.org/docs/user/status-images/
 .. _`travis-ci.org Getting Started Guide`: http://about.travis-ci.org/docs/user/getting-started/
 .. _`repository della documentazione`:     https://github.com/symfony/symfony-docs
+.. _`fabbot`:                              http://fabbot.io
+.. _`PSR-1`:                               http://www.php-fig.org/psr/psr-1/
+.. _`PSR-2`:                               http://www.php-fig.org/psr/psr-2/

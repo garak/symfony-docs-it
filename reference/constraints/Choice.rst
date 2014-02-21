@@ -124,7 +124,7 @@ un elemento select di un form.
         }
     }
 
-Si può passare il nome di questo metodo all'opzione `callback_` del vincolo
+Si può passare il nome di questo metodo all'opzione `callback`_ del vincolo
 ``Choice``.
 
 .. configuration-block::

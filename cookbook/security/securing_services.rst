@@ -5,9 +5,9 @@
 Proteggere servizi e metodi di un'applicazione
 ==============================================
 
-Nel capitolo sulla sicurezza, si può vedere come
-:ref:`proteggere un controllore<book-security-securing-controller>`, richiedendo il
-servizio ``security.context`` dal contenitore di servizi e verificando il ruolo dell'utente attuale::
+Nel capitolo sulla sicurezza, si può vedere come :ref:`proteggere un controllore <book-security-securing-controller>`,
+richiedendo il servizio ``security.context`` dal contenitore di servizi
+e verificando il ruolo dell'utente attuale::
 
     // ...
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -80,7 +80,7 @@ Quindi, nella configurazione dei servizi, si può iniettare il servizio:
         services:
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
-                arguments: [@security.context]
+                arguments: ["@security.context"]
 
     .. code-block:: xml
 
@@ -132,7 +132,7 @@ quando il metodo ``sendNewsletter()`` viene richiamato::
                 throw new AccessDeniedException();
             }
 
-            //--
+            // ...
         }
 
         // ...
@@ -158,8 +158,8 @@ Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags
     .. code-block:: yaml
 
         # src/Acme/HelloBundle/Resources/config/services.yml
-        # ...
 
+        # ...
         services:
             newsletter_manager:
                 # ...
@@ -219,7 +219,7 @@ Si possono ottenere gli stessi risultati usando le annotazioni::
     le annotazioni su metodi pubblici e protetti, non si possono usare su metodi
     privati o su metodi finali.
 
-Il bundle ``JMSSecurityExtraBundle`` consente anche di proteggere i parametri e
+Il bundle JMSSecurityExtraBundle consente anche di proteggere i parametri e
 i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazione di
 `JMSSecurityExtraBundle`_.
 
@@ -243,16 +243,15 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
 
         .. code-block:: xml
 
+            <!-- app/config/config.xml -->
             <?xml version="1.0" ?>
-
             <container xmlns="http://symfony.com/schema/dic/services"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:acme_hello="http://www.example.com/symfony/schema/"
+                xmlns:jms-security-extra="http://example.org/schema/dic/jms_security_extra"
                 xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
 
-                <!-- app/config/config.xml -->
-
-                <jms_security_extra secure_controllers="true" secure_all_services="true" />
+                <!-- ... -->
+                <jms-security-extra:config secure-controllers="true" secure-all-services="true" />
 
             </srv:container>
 
@@ -261,7 +260,6 @@ i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazion
             // app/config/config.php
             $container->loadFromExtension('jms_security_extra', array(
                 // ...
-
                 'secure_all_services' => true,
             ));
 

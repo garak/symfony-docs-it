@@ -4,13 +4,13 @@
 Tipo di campo repeated
 ======================
 
-Un campo speciale "group", che crea due campi identici, i cui valori devono
+Uno speciale "gruppo" di campi, che crea due campi identici, i cui valori devono
 combaciare (altrimenti, viene lanciato un errore di validazionoe). L'uso più
 comune è quando serve che l'utente ripeta la sua password o la sua email, per
 verificarne l'accuratezza.
 
 +---------------+------------------------------------------------------------------------+
-| Reso come     | solitamente campo ``input`` ``text``, ma vedere l'opzione `type`_      |
+| Reso come     | solitamente campo input ``text``, ma vedere l'opzione `type`_          |
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | - `type`_                                                              |
 |               | - `options`_                                                           |
@@ -22,12 +22,13 @@ verificarne l'accuratezza.
 | Opzioni       | - `error_bubbling`_                                                    |
 | ridefinite    |                                                                        |
 +---------------+------------------------------------------------------------------------+
-| Opzioni       | - `invalid_message`_                                                   |
-| ereditate     | - `invalid_message_parameters`_                                        |
+| Opzioni       | - `data`_                                                              |
+| ereditate     | - `invalid_message`_                                                   |
+|               | - `invalid_message_parameters`_                                        |
 |               | - `mapped`_                                                            |
 |               | - `error_mapping`_                                                     |
 +---------------+------------------------------------------------------------------------+
-| Tipo genitore | :doc:`field</reference/forms/types/form>`                              |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                              |
 +---------------+------------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\RepeatedType` |
 +---------------+------------------------------------------------------------------------+
@@ -91,7 +92,7 @@ Per rendere ogni campo singolarmente, usare qualcosa come:
 .. note::
 
     I nomi ``first`` e ``second`` sono i predefiniti per i due
-    sotto-campi. Tuttavia, tali nomi possono essere controllati tramite opzioni `first_name`_
+    sottocampi. Tuttavia, tali nomi possono essere controllati tramite opzioni `first_name`_
     e `second_name`_. Se sei impostano tali opzioni, occorre usare i valori impostati,
     al posto di ``first`` e ``second``, durante la resa.
 
@@ -158,7 +159,7 @@ first_name
 
 L'effettivo nome del campo usato per il primo campo. Per lo più non ha significato,
 tuttavia, essendo i dati effettivi inseriti in entrambi i campi disponibili sotto
-la chiave associata al campo ``repeated`` medesimo (p.e
+la chiave associata al campo ``repeated`` medesimo (p.e.
 ``password``). Tuttavia, se non si specifica una label, questo nome di campo è
 usato per "indovinare" la label.
 
@@ -180,7 +181,9 @@ error_bubbling
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 

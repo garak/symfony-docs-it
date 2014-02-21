@@ -623,7 +623,9 @@ Si possono anche usare gli utili metodi ``findBy`` e ``findOneBy`` per
 recuperare facilmente oggetti in base a condizioni multiple::
 
     // cerca un prodotto in base a nome e prezzo
-    $product = $repository->findOneBy(array('name' => 'pippo', 'price' => 19.99));
+    $product = $repository->findOneBy(
+        array('name' => 'pippo', 'price' => 19.99)
+    );
 
     // cerca tutti i prodotti in base al nome, ordinati per prezzo
     $product = $repository->findBy(
@@ -1144,7 +1146,8 @@ Vediamo ora il codice in azione. Immaginiamo di essere dentro un controllore::
             $em->flush();
 
             return new Response(
-                'Creati prodotto con id: '.$product->getId().' e categoria con id: '.$category->getId()
+                'Creati prodotto con id: '.$product->getId()
+                .' e categoria con id: '.$category->getId()
             );
         }
     }
@@ -1489,8 +1492,9 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 
         fields:
             # Un campo stringa con lunghezza 255 che non può essere nullo
-            # (riflette i valori predefiniti per le opzioni "type", "length" e *nullable*)
-            # l'attributo type è necessario nelle definizioni yaml
+            # (riflette i valori predefiniti per le opzioni "type", "length"
+            # e *nullable*) l'attributo type è necessario
+            # nelle definizioni yaml
             name:
                 type: string
 
@@ -1506,8 +1510,9 @@ e ``nullable``. Vediamo alcuni esempi con le annotazioni:
 
         <!--
             Un campo stringa con lunghezza 255 che non può essere nullo
-            (riflette i valori predefiniti per le opzioni "length" e *nullable*)
-            l'attributo type è necessario nelle definizioni yaml
+            (riflette i valori predefiniti per le opzioni "length"
+            e *nullable*) l'attributo type è necessario
+            nelle definizioni XML
         -->
         <field name="name" type="string" />
         <field name="email"

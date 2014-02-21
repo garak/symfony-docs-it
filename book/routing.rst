@@ -432,6 +432,13 @@ corrispondenza, dando al parametro ``page`` il valore ``2``. Perfetto.
 | /blog/2            | blog  | {page} = 2            |
 +--------------------+-------+-----------------------+
 
+.. caution::
+
+    Si possono ovviamente avere più segnaposto opzionali (p.e. ``/blog/{slug}/{page}``),
+    ma ogni cosa dopo un segnaposto opzionale deve essere opzionale a sua volta. Per esempio,
+    ``/{page}/blog`` è un percorso valido, ma ``page`` sarà sempre obbligatorio
+    (cioè richiamando solo ``/blog`` la rotta non corrisponderà).
+
 .. tip::
 
     Le rotte con parametri facoltativi alla fine non avranno corrispondenza da richieste
@@ -507,10 +514,9 @@ per il parametro ``{page}``.
 | /blog/my-blog-post | blog  | {page} = my-blog-post |
 +--------------------+-------+-----------------------+
 
-La risposta al problema è aggiungere *requisiti* o *condizioni* alle rotte
-(vedere :ref:`book-routing-conditions`). Le rotte in questo esempio potrebbero funzionare
-perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo* per gli URL dove ``{page}``
-fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
+La risposta al problema è aggiungere *requisiti* alle rotte. Le rotte in questo
+esempio potrebbero funzionare perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo*
+per gli URL dove ``{page}`` fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
 espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
 .. configuration-block::
@@ -562,13 +568,15 @@ non sarà più abbinata a un URL tipo ``/blog/my-blog-post`` (perché ``my-blog-
 Come risultato, un URL tipo ``/blog/my-blog-post`` ora verrà correttamente abbinato alla
 rotta ``blog_show``.
 
-+--------------------+-----------+-----------------------+
-| URL                | rotta     | parametri             |
-+====================+===========+=======================+
-| /blog/2            | blog      | {page} = 2            |
-+--------------------+-----------+-----------------------+
-| /blog/my-blog-post | blog_show | {slug} = my-blog-post |
-+--------------------+-----------+-----------------------+
++----------------------+-----------+-------------------------+
+| URL                  | rotta     | parametri               |
++======================+===========+=========================+
+| /blog/2              | blog      | {page} = 2              |
++----------------------+-----------+-------------------------+
+| /blog/my-blog-post   | blog_show | {slug} = my-blog-post   |
++----------------------+-----------+-------------------------+
+| /blog/2-my-blog-post | blog_show | {slug} = 2-my-blog-post |
++----------------------+-----------+-------------------------+
 
 .. sidebar:: Vincono sempre le rotte che compaiono prima
 

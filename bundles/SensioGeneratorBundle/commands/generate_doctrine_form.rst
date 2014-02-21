@@ -5,7 +5,7 @@ Utilizzo
 --------
 
 Il comando ``generate:doctrine:form`` genera una classe type di base per un form, usando
-i meta-dati di mappatura della classe dell'entità fornita:
+i metadati di mappatura della classe dell'entità fornita:
 
 .. code-block:: bash
 

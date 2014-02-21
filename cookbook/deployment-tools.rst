@@ -47,7 +47,7 @@ eseguire dei passi manuali dopo il trasferimento dei file (vedere `Azioni comuni
 Uso di un controllo dei sorgenti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Se si usa un controllo dei sorgenti (come git o svn), si può semplificare rendendo
+Se si usa un controllo dei sorgenti (come Git o SVN), si può semplificare rendendo
 l'installazione una copia del repository. Quando si è pronti per
 aggiornare, basta recuperare l'ultimo aggiornamento dal sistema di controllo
 dei sorgenti.

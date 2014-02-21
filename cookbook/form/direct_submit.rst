@@ -8,8 +8,8 @@ Usare la funzione submit() per gestire l'invio di form
     Il metodo :method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
     è stato aggiunto in Symfony 2.3.
 
-In Symfony 2.3, è stato aggiunto un nuovo metodo :method:`Symfony\Component\Form\FormInterface::handleRequest`,
-che rende la gestione dell'invio di form più facile che mai::
+Con il metodo ``handleRequest``, la gestione dell'invio di form
+è veramente facile::
 
     use Symfony\Component\HttpFoundation\Request;
     // ...
@@ -45,9 +45,9 @@ Richiamare Form::submit() a mano
 
 In alcuni casi, si desidera un maggior controllo sull'esatto invio del form e su quali
 dati siano passati. Invece di usare il metodo
-:method:`Symfony\Component\Form\FormInterface::handleRequest`
+:method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
 method, si possono passare i dati inviati direttamente a
-:method:`Symfony\Component\Form\FormInterface::submit`::
+:method:`Symfony\\Component\\Form\\FormInterface::submit`::
 
     use Symfony\Component\HttpFoundation\Request;
     // ...
@@ -76,8 +76,8 @@ method, si possono passare i dati inviati direttamente a
 .. tip::
 
     I form con campi innestati si aspettano un array in
-    :method:`Symfony\Component\Form\FormInterface::submit`. Si possono anche inviare
-    singoli campi, richiamando :method:`Symfony\Component\Form\FormInterface::submit`
+    :method:`Symfony\\Component\\Form\\FormInterface::submit`. Si possono anche inviare
+    singoli campi, richiamando :method:`Symfony\\Component\\Form\\FormInterface::submit`
     direttamente sul campo::
 
         $form->get('firstName')->submit('Fabien');
@@ -90,7 +90,7 @@ Passare Request a Form::submit() (deprecato)
 .. versionadded::
     Prima di Symfony 2.3, il metodo ``submit`` era noto come ``bind``.
 
-Prima di Symfony 2.3, il metodo :method:`Symfony\Component\Form\FormInterface::submit`
+Prima di Symfony 2.3, il metodo :method:`Symfony\\Component\\Form\\FormInterface::submit`
 accettava un oggetto :class:`Symfony\\Component\\HttpFoundation\\Request` come
 scorciatoria per l'esempio precedente::
 
@@ -118,7 +118,7 @@ scorciatoria per l'esempio precedente::
         ));
     }
 
-Si può ancora passare :class:`Symfony\\Component\HttpFoundation\\Request` direttamente a
+Si può ancora passare :class:`Symfony\\Component\\HttpFoundation\\Request` direttamente a
 :method:`Symfony\\Component\\Form\\FormInterface::submit`, ma ora è
 deprecato e sarà rimosso in Symfony 3.0. Si dovrebbe usare invece
-:method:`Symfony\Component\Form\FormInterface::handleRequest`.
+:method:`Symfony\\Component\\Form\\FormInterface::handleRequest`.

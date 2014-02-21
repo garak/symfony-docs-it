@@ -177,6 +177,52 @@ Si può iniziare specificando la configurazione sotto questo spazio dei nomi:
     vuoto. Si possono comunque fornire valori predefiniti adeguati per il bundle,
     se lo si desidera.
 
+Registrare la classe Extension
+------------------------------
+
+Symfony registra automaticamente ogni classe Extension che segua
+queste semplici convenzioni:
+
+* L'estensione deve essere nello sottospazio dei nomi ``DependencyInjection``;
+
+* L'estensione deve chiamarsi come il undle e avere come suffisso
+  ``Extension`` (``AcmeHelloExtension`` per ``AcmeHelloBundle``);
+
+* L'estensione *dovrebbe* fonire uno schema XSD (ma sarà comunque registrata, anche
+  in caso contrario).
+
+Registrare a mano una classe Extension
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Se non si seguono tali convenzioni, occorrerà registrare a mano
+un'estensione. Per registrare a mano una classe Extension, sovrascrivere il metodo
+:method:`Bundle::build() <Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build>`
+nel bundle::
+
+    // ...
+    use Acme\HelloBundle\DependencyInjection\UnconventionalExtensionClass;
+
+    class AcmeHelloBundle extends Bundle
+    {
+        public function build(ContainerBuilder $container)
+        {
+            parent::build($container);
+
+            // registra a mano estensioni che non seguono le convenzioni
+            $container->registerExtension(new UnconventionalExtensionClass());
+        }
+    }
+
+In questo caso, la classe Extension deve anche implementare un metodo ``getAlias()``
+e registrare un alias univoco, con nome che dipende dal bundle (p.e. ``acme_hello``). Questo
+requisito dipende dal fatto che il nome della classe non segue le convenzioni di avere un
+suffisso ``Extension``.
+
+Inoltre, il metodo ``load()`` dell'estensione sarà richiamato *solo* se
+l'utente specifica l'alias ``acme_hello`` almeno in un file di
+configurazione. Anche qui, il motivo è che la classe Extension non segue le
+convenzioni viste in precedenza, quindi niente avviene automaticamente.
+
 Analisi dell'array ``$configs``
 -------------------------------
 
@@ -301,9 +347,9 @@ bundle::
         $loader->load('services.xml');
     }
 
-Lo si potrebbe anche con una condizione, basata su uno dei valori di configurazione.
-Per esempio, si supponga di voler caricare un insieme di servizi, ma solo se un'opzione
-``enabled`` è impostata a ``true``::
+Lo si può fare anche con una condizione, basata su uno dei valori di configurazione.
+Per esempio, si supponga di voler caricare un insieme di servizi, ma solo se un'opzione ``enabled``
+è impostata a ``true``::
 
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -556,7 +602,7 @@ Il testo apparirà come commenti YAML nell'output del comando
 ``config:dump-reference``.
 
 .. index::
-   pair: Convenzione; Configuration
+   pair: Convenzione; Configurazione
 
 Convenzioni per l'estensione
 ----------------------------

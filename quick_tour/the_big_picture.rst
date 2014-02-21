@@ -62,7 +62,7 @@ ora avere una cartella ``Symfony/``, come la seguente:
 
     Se si ha familiarità con `Composer`_, lo si può scaricare e quindi eseguire
     il comando seguente, invece di scaricare l'archivio (sostituire
-    ``2.3.0`` la versione più recente di Symfony, per esempio ``2.3.1``:
+    ``2.3.0`` la versione più recente di Symfony, per esempio ``2.3.1``):
 
     .. code-block:: bash
 

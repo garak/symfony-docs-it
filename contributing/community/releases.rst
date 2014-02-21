@@ -127,7 +127,7 @@ Deprecati
 Quando non è possibile migliorare l'implementazione di una caratteristica senza
 infrangere la retrocompatibilità, resta la possibilità di deprecare
 la vecchia implementazione e aggiungerne una nuova. Leggere il documento sulle
-:ref:`convenzioni<contributing-code-conventions-deprecations>` per saperne
+:ref:`convenzioni <contributing-code-conventions-deprecations>` per saperne
 di più suglia gestione dei depracati in Symfony.
 
 Motivazioni

@@ -48,6 +48,7 @@ classe ``Task`` che rappresenta e memorizza i dati di una singola attività::
         {
             return $this->dueDate;
         }
+        
         public function setDueDate(\DateTime $dueDate = null)
         {
             $this->dueDate = $dueDate;
@@ -644,7 +645,8 @@ nella documentazione di ciascun tipo.
         ))
 
     La label per un campo può anche essere impostata nel template che rende il
-    form, vedere sotto.
+    form, vedere sotto. Se non occorre alcuna label, la si
+    può disabilitare impostandone il valore a ``false``.
 
 .. index::
    single: Form; Indovinare il tipo di campo

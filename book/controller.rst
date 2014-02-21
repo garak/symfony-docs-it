@@ -508,7 +508,10 @@ valore di ogni variabile.
         $subRequest = $request->duplicate(array(), null, $path);
 
         $httpKernel = $this->container->get('http_kernel');
-        $response = $httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        $response = $httpKernel->handle(
+            $subRequest,
+            HttpKernelInterface::SUB_REQUEST
+        );
 
 .. index::
    single: Controllore; Rendere i template
@@ -575,6 +578,7 @@ capitolo :doc:`Template </book/templating>`.
             array('name' => $name)
         );
         // viene reso index.html.twig trovato in Resources/views/Hello/Greetings
+
 
 .. index::
    single: Controllore; Accedere ai servizi

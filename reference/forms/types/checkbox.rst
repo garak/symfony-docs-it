@@ -13,9 +13,11 @@ il campo sarà impostato a falso.
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | - `value`_                                                             |
 +---------------+------------------------------------------------------------------------+
+| Opzioni       | - `empty_data`_                                                        |
+| ridefinite    | - `compound`_                                                          |
++---------------+------------------------------------------------------------------------+
 | Opzioni       | - `data`_                                                              |
-| ereditate     | - `empty_data`_                                                        |
-|               | - `required`_                                                          |
+| ereditate     | - `required`_                                                          |
 |               | - `label`_                                                             |
 |               | - `label_attr`_                                                        |
 |               | - `read_only`_                                                         |
@@ -42,17 +44,14 @@ Esempio di utilizzo
 Opzioni del campo
 -----------------
 
-value
-~~~~~
+.. include:: /reference/forms/types/options/value.rst.inc
 
-**tipo**: ``mixed`` **predefinito**: ``1``
+Opzioni ridefinite
+------------------
 
-Il valore usato effettivamente per il checkbox. Non ha effetti sul valore
-impostato nell'oggetto.
+.. include:: /reference/forms/types/options/checkbox_empty_data.rst.inc
 
-.. caution::
-
-    Per fare in modo che un un checkbox sia già selezionato, impostare l'opzione `data`_ a ``true``.
+.. include:: /reference/forms/types/options/checkbox_compound.rst.inc
 
 Opzioni ereditate
 -----------------
@@ -60,8 +59,6 @@ Opzioni ereditate
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/data.rst.inc
-
-.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 

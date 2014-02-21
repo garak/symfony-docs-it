@@ -685,7 +685,7 @@ ognuno possa fornire una validazione personalizzata.
 Gruppi di validazione
 ---------------------
 
-Finora, si è stati in grado di aggiungere vincoli a una classe e chiedere se tale
+Finora, è stato possibile aggiungere vincoli a una classe e chiedere se tale
 classe passasse o meno tutti i vincoli definiti. In alcuni casi, tuttavia, occorre
 validare un oggetto solo per *alcuni* vincoli della sua classe. Per poterlo fare,
 si può organizzare ogni vincolo in uno o più "gruppi di validazione" e quindi

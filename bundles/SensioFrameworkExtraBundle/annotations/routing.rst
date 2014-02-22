@@ -115,7 +115,8 @@ Prefisso della rotta
 --------------------
 
 Un'annotazione ``@Route`` in una classe controllore definisce un prefisso per le rotte
-di tutte le azioni::
+di tutte le azioni (notare che non si possono avere più annotazioni ``@Route`` sulla stessa
+classe)::
 
     /**
      * @Route("/blog")

@@ -11,7 +11,7 @@ documentazione.
 .. tip::
 
     Chi volesse partecipare alla documentazione di Symfony può dare un'occhiata
-    all'articolo ":doc:`/contributing/documentation`".
+    all'articolo ":doc:`/contributing/documentation/index`".
 
 Gennaio 2014
 ------------

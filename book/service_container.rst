@@ -237,14 +237,6 @@ cerca il valore di ogni parametro e lo usa nella definizione del servizio.
 
         <argument type="string">http://symfony.com/?pippo=%%s&pluto=%%d</argument>
 
-.. caution::
-
-    Si potrebbe avere una
-    :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
-    passando il servizio ``request`` come argomento. Per capire meglio questo
-    problema e imparare a risolverlo, fare riferimento alla ricetta
-    :doc:`/cookbook/service_container/scopes`.
-
 Lo scopo dei parametri è quello di inserire informazioni dei servizi. Naturalmente
 non c'è nulla di sbagliato a definire il servizio senza l'uso di parametri.
 I parametri, tuttavia, hanno diversi vantaggi:

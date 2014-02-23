@@ -11,6 +11,5 @@ anche i dati di ``CategoryType``.
 Invece di usare questa opzione, si può anche usare il vincolo ``Valid`` nel modello,
 per forzare la validazione di un oggetto figlio memorizzato su una proprietà.
 
-
-
+.. include:: /reference/forms/types/options/_error_bubbling_hint.rst.inc
 

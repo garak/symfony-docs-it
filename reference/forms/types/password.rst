@@ -12,8 +12,10 @@ Il campo ``password`` rende una casella di testo per una password.
 | Opzioni       | - `always_empty`_                                                      |
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | - `max_length`_                                                        |
-| ereditate     | - `required`_                                                          |
+| ereditate     | - `empty_data`_                                                        |
+|               | - `required`_                                                          |
 |               | - `label`_                                                             |
+|               | - `label_attr`_                                                        |
 |               | - `trim`_                                                              |
 |               | - `read_only`_                                                         |
 |               | - `disabled`_                                                          |
@@ -21,7 +23,7 @@ Il campo ``password`` rende una casella di testo per una password.
 |               | - `error_mapping`_                                                     |
 |               | - `mapped`_                                                            |
 +---------------+------------------------------------------------------------------------+
-| Tipo genitore | :doc:`text</reference/forms/types/text>`                               |
+| Tipo genitore | :doc:`text </reference/forms/types/text>`                              |
 +---------------+------------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType` |
 +---------------+------------------------------------------------------------------------+
@@ -38,19 +40,25 @@ Se impostato a ``true``, il campo sarà reso *sempre* vuoto, anche se il campo
 corrispondente ha un valore. Quando impostato a ``false``, il campo password sarà
 reso con l'attributo ``value`` impostate all'effettivo valore.
 
-In parole povere, se per qualche ragione si vuole rendere il campo password *con* la
-password già inserita nel campo, impostare questa opzione a ``false``.
+In parole povere, se per qualche ragione si vuole rendere il campo password
+*con* la password già inserita nel campo, impostare questa opzione a ``false``
+e inviare il form.
+
 
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/trim.rst.inc
 

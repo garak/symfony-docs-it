@@ -16,7 +16,7 @@ questo Task, all'interno dello stesso form.
     una connessione a base dati), il tutto è pressapoco simile. Ci sono solo alcune parti
     di questa guida che si occupano effettivamente di "persistenza".
 
-    Se si utilizza Doctrine, si avrà la necessità di aggiungere meta-dati Doctrine,
+    Se si utilizza Doctrine, si avrà la necessità di aggiungere metadati Doctrine,
     includendo una definizione della mappatura della relazione ``ManyToMany`` sulla
     proprietà ``tags`` di Task.
 
@@ -477,7 +477,7 @@ vedremo tra poco!).
 
     Per risolverlo, si può scegliere una "cascata" per persistere automaticamente l'operazione
     dall'oggetto  ``Task`` a ogni tag correlato. Per farlo, aggiungere l'opzione ``cascade``
-    ai meta-dati ``ManyToMany``:
+    ai metadati ``ManyToMany``:
 
     .. configuration-block::
 

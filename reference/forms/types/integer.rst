@@ -10,7 +10,7 @@ una casella di testo, ma con alcune funzionalità aggiuntive, a patto che il bro
 dell'utente supporti HTML5.
 
 Questo campo ha diverse opzioni su come gestire i valori ricevuti che non siano interi.
-Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arrotondati per difetto (p.e. 6)
+Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arrotondati per difetto (p.e. 6).
 
 +---------------+-----------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``text``                                              |
@@ -19,8 +19,11 @@ Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arro
 |               | - `precision`_                                                        |
 |               | - `grouping`_                                                         |
 +---------------+-----------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                         |
-| ereditate     | - `label`_                                                            |
+| Opzioni       | - `empty_data`_                                                       |
+| ereditate     | - `required`_                                                         |
+|               | - `label`_                                                            |
+|               | - `label_attr`_                                                       |
+|               | - `data`_                                                             |
 |               | - `read_only`_                                                        |
 |               | - `disabled`_                                                         |
 |               | - `error_bubbling`_                                                   |
@@ -29,7 +32,7 @@ Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arro
 |               | - `invalid_message_parameters`_                                       |
 |               | - `mapped`_                                                           |
 +---------------+-----------------------------------------------------------------------+
-| Tipo genitore | :doc:`field</reference/forms/types/form>`                             |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                             |
 +---------------+-----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType` |
 +---------------+-----------------------------------------------------------------------+
@@ -65,11 +68,17 @@ per difetto. Ci sono molti altri metodi di arrotondamento e ognuno è una costan
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

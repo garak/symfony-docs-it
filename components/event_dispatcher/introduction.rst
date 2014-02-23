@@ -1,9 +1,9 @@
 .. index::
-   single: Event Dispatcher
+   single: EventDispatcher
    single: Componenti; EventDispatcher
 
-Il componente Event Dispatcher
-==============================
+Il componente EventDispatcher
+=============================
 
 Introduzione
 ------------
@@ -123,7 +123,7 @@ gli ascoltatori registrati a tale evento::
     $dispatcher = new EventDispatcher();
 
 .. index::
-   single: Event Dispatcher; Ascoltatori
+   single: EventDispatcher; Ascoltatori
 
 Connettere gli ascoltatori
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,8 +143,9 @@ Il metodo ``addListener()`` accetta fino a tre parametri:
 * Un callabel PHP, che sarà notificato quando viene lanciato un evento che sta
   ascoltando;
 
-* Un intero opzionale di priorità (più alto equivale a più importante), che determina
-  quando far scattare un ascoltatore, rispetto ad altri (predefinito a ``0``). Se due
+* Un intero opzionale di priorità (più alto equivale a più importante, quindi
+  l'ascoltatore scatterà prima), che determina quando far
+  scattare un ascoltatore, rispetto ad altri (predefinito a ``0``). Se due
   ascoltatori hanno la medesima priorità, sono eseguiti nell'ordine in cui sono stati
   aggiunti al distributore.
 
@@ -203,7 +204,7 @@ passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
 .. _event_dispatcher-closures-as-listeners:
 
 .. index::
-   single: Event Dispatcher; Creare e distribuire un evento
+   single: EventDispatcher; Creare e distribuire un evento
 
 Creare e distribuire un evento
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -315,7 +316,7 @@ metodo ``dispatch``. Ora ogni ascoltatore dell'evento ``negozio.ordino`` ricever
     }
 
 .. index::
-   single: Event Dispatcher; Sottoscrittori
+   single: EventDispatcher; Sottoscrittori
 
 .. _event_dispatcher-using-event-subscribers:
 
@@ -433,38 +434,38 @@ che restituisce un booleano::
     }
 
 .. index::
-   single: Event Dispatcher; Eventi e ascoltatori consapevoli del distributore
+   single: EventDispatcher; Eventi e ascoltatori consapevoli del distributore
 
 .. _event_dispatcher-dispatcher-aware-events:
 
 Eventi e ascolatori consapevoli del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``EventDispatcher`` inietta sempre un riferimento a sé stesso nell'evento passato.
-Questo vuol dire che tutti gli ascoltatori hanno accesso diretto all'oggetto
-``EventDispatcher`` notificante, tramite il metodo
-:method:`Symfony\\Component\\EventDispatcher\\Event::getDispatcher`
-dell'oggetto ``Event``
-passato.
+.. versionadded:: 2.4
+    Da Symfony 2.4 il nome dell'evento corrente ed ``EventDispatcher``
+    stesso sono passati agli ascoltatori come parametri aggiuntivi.
 
-Questo può portare ad applicazioni avanzate per ``EventDispatcher``, incluse la
-possibilità per gli ascoltatori di distribuire altri eventi, il concatenamento degli eventi o anche il
-caricamento pigro di più ascoltatori nell'oggetto distributore. Ecco degli esempi:
+``EventDispatcher`` inietta sempre l'evento distribuito, il nome dell'evento
+e un riferimento a sé stesso agli ascoltatori. Questo può portare ad applicazioni
+avanzate per ``EventDispatcher``, incluse la possibilità per gli ascoltatori di distribuire altri eventi,
+il concatenamento degli eventi o anche il caricamento pigro di più ascoltatori
+nell'oggetto distributore. Ecco degli esempi:
 
 Caricamento pigro degli ascoltatori::
 
     use Symfony\Component\EventDispatcher\Event;
+    use Symfony\Component\EventDispatcher\EventDispatcherInterface;
     use Acme\StoreBundle\Event\StoreSubscriber;
 
     class Foo
     {
         private $started = false;
 
-        public function myLazyListener(Event $event)
+        public function myLazyListener(Event $event, $eventName, EventDispatcherInterface $dispatcher)
         {
             if (false === $this->started) {
                 $subscriber = new StoreSubscriber();
-                $event->getDispatcher()->addSubscriber($subscriber);
+                $dispatcher->addSubscriber($subscriber);
             }
 
             $this->started = true;
@@ -476,12 +477,13 @@ Caricamento pigro degli ascoltatori::
 Distribuzione di altri eventi da dentro un ascoltatore::
 
     use Symfony\Component\EventDispatcher\Event;
+    use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
     class Foo
     {
-        public function myFooListener(Event $event)
+        public function myFooListener(Event $event, $eventName, EventDispatcherInterface $dispatcher)
         {
-            $event->getDispatcher()->dispatch('log', $event);
+            $dispatcher->dispatch('log', $event);
 
             // ... eccetera
         }
@@ -506,7 +508,7 @@ Iniezione per costruttore::
         }
     }
 
-Iniezione per setter::
+Iniezione tramite setter::
 
     use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -526,14 +528,14 @@ costruzione. Ma quando si ha una lunga lista di dipendenze, l'utilizzo dell'inie
 per settere può essere l'unico modo, specialmente per dipendenze opzionali.
 
 .. index::
-   single: Event Dispatcher; Scorciatoie del distributore
+   single: EventDispatcher; Scorciatoie del distributore
 
 .. _event_dispatcher-shortcuts:
 
 Scorciatoie del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Il metodo :method:`EventDispatcher::dispatch<Symfony\\Component\\EventDispatcher\\EventDispatcher::dispatch>`
+Il metodo :method:`EventDispatcher::dispatch <Symfony\\Component\\EventDispatcher\\EventDispatcher::dispatch>`
 restiuisce sempre un oggetto :class:`Symfony\\Component\\EventDispatcher\\Event`.
 Questo conente diverse scorciatoie. Per esempio, se non si ha bisogno di un oggetto
 evento personalizzato, ci si può appoggiare semplicemente su un oggetto
@@ -543,7 +545,7 @@ non venga passato specificatamente::
 
     $dispatcher->dispatch('foo.event');
 
-Inoltre, ``EventDispatcher`` restituisce sempre quale oggetto evento è stato
+Inoltre, EventDispatcher restituisce sempre quale oggetto evento è stato
 distribuito, cioè o l'evento passato o l'evento creato internamente dal
 distributore. Questo consente utili scorciatoie::
 
@@ -558,12 +560,12 @@ Oppure::
 
 Oppure::
 
-    $response = $dispatcher->dispatch('bar.event', new BarEvent())->getBar();
+    $bar = $dispatcher->dispatch('bar.event', new BarEvent())->getBar();
 
 e così via...
 
 .. index::
-   single: Event Dispatcher; Introspezione del nome dell'evento
+   single: EventDispatcher; Introspezione del nome dell'evento
 
 .. _event_dispatcher-event-name-introspection:
 

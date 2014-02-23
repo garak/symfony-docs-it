@@ -45,7 +45,7 @@ base HTTP (cioè il classico vecchio box nome utente/password):
         security:
             firewalls:
                 secured_area:
-                    pattern:    ^/
+                    pattern:   ^/
                     anonymous: ~
                     http_basic:
                         realm: "Area demo protetta"
@@ -300,11 +300,11 @@ In primo luogo, abilitare il form di login sotto il firewall:
         security:
             firewalls:
                 secured_area:
-                    pattern:    ^/
+                    pattern:   ^/
                     anonymous: ~
                     form_login:
-                        login_path:  login
-                        check_path:  login_check
+                        login_path: login
+                        check_path: login_check
 
     .. code-block:: xml
 
@@ -319,7 +319,7 @@ In primo luogo, abilitare il form di login sotto il firewall:
             <config>
                 <firewall name="secured_area" pattern="^/">
                     <anonymous />
-                    <form-login login_path="login" check_path="login_check" />
+                    <form-login login-path="login" check-path="login_check" />
                 </firewall>
             </config>
         </srv:container>
@@ -373,10 +373,10 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
 
         # app/config/routing.yml
         login:
-            pattern:   /login
-            defaults:  { _controller: AcmeSecurityBundle:Security:login }
+            path:     /login
+            defaults: { _controller: AcmeSecurityBundle:Security:login }
         login_check:
-            pattern:   /login_check
+            path: /login_check
 
     .. code-block:: xml
 
@@ -387,11 +387,11 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="login" pattern="/login">
+            <route id="login" path="/login">
                 <default key="_controller">AcmeSecurityBundle:Security:login</default>
             </route>
 
-            <route id="login_check" pattern="/login_check" />
+            <route id="login_check" path="/login_check" />
         </routes>
 
     ..  code-block:: php
@@ -425,13 +425,13 @@ Successivamente, creare il controllore che visualizzerà il form di login::
     namespace Acme\SecurityBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Security\Core\SecurityContext;
 
     class SecurityController extends Controller
     {
-        public function loginAction()
+        public function loginAction(Request $request)
         {
-            $request = $this->getRequest();
             $session = $request->getSession();
 
             // verifica di eventuali errori
@@ -461,7 +461,7 @@ Se l'utente ha inviato un nome utente o una password non validi,
 questo controllore legge l'errore di invio del form dal sistema di sicurezza, in modo che
 possano essere visualizzati all'utente.
 
-In altre parole, il vostro compito è quello di visualizzare il form di login e gli eventuali errori di login
+In altre parole, il compito dello sviluppatore è quello di visualizzare il form di login e gli eventuali errori di login
 che potrebbero essersi verificati, ma è il sistema di sicurezza stesso che si prende cura di verificare
 il nome utente e la password inviati e di autenticare l'utente.
 
@@ -515,6 +515,11 @@ Infine, creare il template corrispondente:
             <button type="submit">login</button>
         </form>
 
+.. caution::
+
+    Questo form di login al momento non è protetto da attacchi CSRF. Leggere
+    :doc:`/cookbook/security/csrf_in_login_form` per sapere come proteggere i form.
+
 .. tip::
 
     La variabile ``error`` passata nel template è un'istanza di
@@ -545,7 +550,7 @@ Rivediamo l'intero processo:
    lo rinvia al form di login.
 
 Per impostazione predefinita, se le credenziali inviate sono corrette, l'utente verrà rinviato
-alla pagina originale che è stata richiesta (ad esempio ``/admin/foo``). Se l'utente
+alla pagina originale che è stata richiesta (ad esempio ``/admin/pippo``). Se l'utente
 originariamente è andato direttamente alla pagina di login, sarà rinviato alla pagina iniziale.
 Questo comportamento può essere personalizzato, consentendo, ad esempio, di rinviare
 l'utente a un URL specifico.
@@ -561,9 +566,9 @@ vedere :doc:`/cookbook/security/form_login`.
 
     **1. Creare le rotte giuste**
 
-    In primo luogo, essere sicuri di aver definito correttamente le rotte 
-    ``/login`` e ``/login_check`` e che corrispondano ai valori di configurazione
-    ``login_path`` e ``check_path``. Un errore di configurazione qui può significare che si viene
+    In primo luogo, essere sicuri di aver definito correttamente le rotte ``/login`` e ``/login_check``
+    e che corrispondano ai valori di configurazione ``login_path`` e
+    ``check_path``. Un errore di configurazione qui può significare che si viene
     rinviati a una pagina 404 invece che nella pagina di login, o che inviando
     il form di login non succede nulla (continuando a vedere sempre il form
     di login).
@@ -628,8 +633,8 @@ vedere :doc:`/cookbook/security/form_login`.
 
             firewalls:
                 login_firewall:
-                    pattern:    ^/login$
-                    anonymous:  ~
+                    pattern:   ^/login$
+                    anonymous: ~
                 secured_area:
                     pattern:    ^/
                     form_login: ~
@@ -656,13 +661,13 @@ vedere :doc:`/cookbook/security/form_login`.
                 ),
             ),
 
-    **3. Assicurarsi che ``/login_check`` sia dietro al firewall**
+    **3. Assicurarsi che ``/login_check`` sia dietro a un firewall**
 
     Quindi, assicurarsi che l'URL ``check_path`` (ad esempio ``/login_check``)
     sia dietro al firewall che si sta usando per il form di login (in questo esempio,
     l'unico firewall fa passare *tutti* gli URL, includendo ``/login_check``). Se
-    ``/login_check`` non corrisponde a nessun firewall, si riceverà un'eccezione
-    ``Unable to find the controller for path "/login_check"``.
+    ``/login_check`` non corrisponde a nessun firewall, si riceverà un'eccezione ``Unable to
+    find the controller for path "/login_check"``.
 
     **4. Più firewall non condividono il contesto di sicurezza**
 
@@ -672,6 +677,13 @@ vedere :doc:`/cookbook/security/form_login`.
     definire esplicitamente lo stesso :ref:`reference-security-firewall-context`
     per firewall diversi. Ma, per la maggior parte delle applicazioni, un solo
     firewall è sufficiente.
+
+    **5. Le pagine di errore non sono coperte da firewall**
+
+    Poiché le rotte sono attivate *prima* della sicurezza, le pagine di errore non sono coperte
+    da alcun firewall. Questo vuol dire che non si possono verificare sicurezza né accessi
+    a oggetti utente in tali pagine. Vedere :doc:`/cookbook/controller/error_pages`
+    per ulteriori dettagli.
 
 Autorizzazione
 --------------
@@ -864,6 +876,8 @@ Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
   (internamente, viene lanciata
   :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`);
 
+* ``allow_if`` Se l'espressione restituisce ``false``, l'accesso viene negato;
+
 * ``requires_channel`` Se il canale della richiesta in arrivo (p.e. ``http``)
   non corrisponde a questo valore (p.e. ``https``), l'utente sarà rinviato
   (p.e. rinviato da ``http`` a ``https``, o viceversa).
@@ -959,6 +973,58 @@ in IPv6):
 
 * La seconda regola di accesso non viene esaminata, perché la prima corrispondeva.
 
+.. _book-security-allow-if:
+
+Protezione tramite espressione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.4
+    La funzionalità ``allow_if`` è stata introdotta in Symfony 2.4.
+
+Una volta corrisposta una voce ``access_control``, si può negare l'accesso tramite la chiave
+``roles`` oppure usare una logica più complessa, con un'espressione nella chiave
+``allow_if``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+            access_control:
+                -
+                    path: ^/_internal/secure
+                    allow_if: "'127.0.0.1' == request.getClientIp() or has_role('ROLE_ADMIN')"
+
+    .. code-block:: xml
+
+            <access-control>
+                <rule path="^/_internal/secure"
+                    allow-if="'127.0.0.1' == request.getClientIp() or has_role('ROLE_ADMIN')" />
+            </access-control>
+
+    .. code-block:: php
+
+            'access_control' => array(
+                array(
+                    'path' => '^/_internal/secure',
+                    'allow_if' => '"127.0.0.1" == request.getClientIp() or has_role("ROLE_ADMIN")',
+                ),
+            ),
+
+In questo caso, quando l'utente prova ad accedere a un URL che inizia per ``/_internal/secure``,
+gli sarà consentito l'accesso solo se l'indirizzo IP è ``127.0.0.1`` o se
+l'utente ha il ruolo ``ROLE_ADMIN``.
+
+All'interno dell'espressione, si ha accesso a diverse variabili
+e funzioni, inclusa ``request``,  che è l'oggetto
+:class:`Symfony\\Component\\HttpFoundation\\Request` di Symfony (vedere
+:ref:`component-http-foundation-request`).
+
+Per una lista di altre funzioni e variabili, vedere
+:ref:`funzioni e variabili <book-security-expression-variables>`.
+
 .. _book-security-securing-channel:
 
 Protezione tramite canale
@@ -1019,21 +1085,21 @@ l'autorizzazione dall'interno di un controllore::
 
 .. _book-security-securing-controller-annotations:
 
-È anche possibile scegliere di installare e utilizzare l'opzionale ``JMSSecurityExtraBundle``,
-che può proteggere il controllore utilizzando le annotazioni::
+Con SensioFrameworkExtraBundle, si possono anche proteggere i controllori tramite annotazioni::
 
     // ...
-    use JMS\SecurityExtraBundle\Annotation\Secure;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function helloAction($name)
     {
         // ...
     }
 
-Per maggiori informazioni, vedere la documentazione di `JMSSecurityExtraBundle`_.
+Per maggiori informazioni, vedere la
+:doc:`documentazione di FrameworkExtraBundle  </bundles/SensioFrameworkExtraBundle/annotations/security>`.
 
 Protezione degli altri servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1070,8 +1136,8 @@ Nelle sezioni precedenti, si è appreso come sia possibile proteggere diverse ri
 richiedendo una serie di *ruoli* per una risorsa. In questa sezione, esploreremo
 l'altro lato delle autorizzazioni: gli utenti.
 
-Da dove provengono gli utenti? (*User Provider*)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Da dove provengono gli utenti? (*fornitori di utenti*)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Durante l'autenticazione, l'utente invia un insieme di credenziali (di solito un nome utente
 e una password). Il compito del sistema di autenticazione è quello di soddisfare queste credenziali 
@@ -1080,7 +1146,7 @@ con l'insieme degli utenti. Quindi da dove proviene questa lista di utenti?
 In Symfony2, gli utenti possono arrivare da qualsiasi parte: un file di configurazione, una tabella
 di una base dati, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
 uno o più utenti nel sistema di autenticazione è noto come "fornitore di utenti".
-Symfony2 viene fornito con i due fornitori utenti più diffusi; uno che
+Symfony2 dispone dei due fornitori di utenti più diffusi: uno che
 carica gli utenti da un file di configurazione e uno che carica gli utenti da una tabella
 di una base dati.
 
@@ -1145,6 +1211,7 @@ non sono memorizzati in una base dati. L'oggetto utente effettivo è fornito
 da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
 
 .. tip::
+
     Qualsiasi fornitore utenti può caricare gli utenti direttamente dalla configurazione, specificando    
     il parametro di configurazione ``users`` ed elencando gli utenti sotto di esso.
 
@@ -1208,10 +1275,10 @@ implementi questa interfaccia.
 
 .. note::
 
-     L'oggetto utente verrà serializzato e salvato nella sessione durante le richieste,
-     quindi si consiglia di `implementare l'interfaccia \Serializable`_
-     nel proprio oggetto utente. Ciò è particolarmente importante se la classe ``User``
-     ha una classe genitore con proprietà private.
+    L'oggetto utente verrà serializzato e salvato nella sessione durante le richieste,
+    quindi si consiglia di `implementare l'interfaccia \Serializable`_
+    nel proprio oggetto utente. Ciò è particolarmente importante se la classe ``User``
+    ha una classe genitore con proprietà private.
 
 Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
 ``User``:
@@ -1256,8 +1323,8 @@ tenterà di caricare un oggetto ``User`` dalla base dati, utilizzando il campo
 ``username`` di questa classe.
 
 .. note::
-    Questo esempio ha come unico scopo quello di mostrare l'idea di base dietro al fornitore
-    ``entity``. Per un esempio completamente funzionante, vedere :doc:`/cookbook/security/entity_provider`.
+    Questo esempio ha come unico scopo quello di mostrare l'idea di base dietro al fornitore ``entity``.
+    Per un esempio completamente funzionante, vedere :doc:`/cookbook/security/entity_provider`.
 
 Per ulteriori informazioni sulla creazione di un fornitore personalizzato (ad esempio se è necessario
 caricare gli utenti tramite un servizio web), vedere :doc:`/cookbook/security/custom_provider`.
@@ -1272,7 +1339,7 @@ in formato testuale (se tali utenti sono memorizzati in un file di configurazion
 una base dati). Naturalmente, in un'applicazione reale si consiglia, per ragioni
 di sicurezza, di codificare le password degli utenti. Questo è facilmente realizzabile
 mappando la classe User in uno dei numerosi "encoder" disponibili. Per esempio,
-per salvare gli utenti in memoria, ma oscurare le loro password tramite ``sha1``,
+per salvare gli utenti in memoria, ma oscurare le loro password tramite ``bcrypt``,
 si può fare come segue:
 
 .. configuration-block::
@@ -1286,14 +1353,17 @@ si può fare come segue:
                 in_memory:
                     memory:
                         users:
-                            ryan:  { password: bb87a29949f3a1ee0559f8a57357487151281386, roles: 'ROLE_USER' }
-                            admin: { password: 74913f5cd5f61ec0bcfdb775414c2fb3d161b620, roles: 'ROLE_ADMIN' }
+                            ryan:
+                                password: $2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO
+                                roles: 'ROLE_USER'
+                            admin:
+                                password: $2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW
+                                roles: 'ROLE_ADMIN'
 
             encoders:
                 Symfony\Component\Security\Core\User\User:
-                    algorithm: sha1
-                    iterations: 1
-                    encode_as_base64: false
+                    algorithm: bcrypt
+                    cost: 12
 
     .. code-block:: xml
 
@@ -1303,18 +1373,18 @@ si può fare come segue:
             <provider name="in_memory">
                 <memory>
                     <user name="ryan"
-                        password="bb87a29949f3a1ee0559f8a57357487151281386"
+                        password="$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO"
                         roles="ROLE_USER" />
                     <user name="admin"
-                        password="74913f5cd5f61ec0bcfdb775414c2fb3d161b620"
+                        password="$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW"
                         roles="ROLE_ADMIN" />
                 </memory>
             </provider>
 
             <encoder class="Symfony\Component\Security\Core\User\User"
-                algorithm="sha1"
-                iterations="1"
-                encode_as_base64="false" />
+                algorithm="bcrypt"
+                cost="12"
+            />
         </config>
 
     .. code-block:: php
@@ -1327,11 +1397,11 @@ si può fare come segue:
                     'memory' => array(
                         'users' => array(
                             'ryan' => array(
-                                'password' => 'bb87a29949f3a1ee0559f8a57357487151281386',
+                                'password' => '$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO',
                                 'roles' => 'ROLE_USER',
                             ),
                             'admin' => array(
-                                'password' => '74913f5cd5f61ec0bcfdb775414c2fb3d161b620',
+                                'password' => '$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW',
                                 'roles' => 'ROLE_ADMIN',
                             ),
                         ),
@@ -1340,72 +1410,36 @@ si può fare come segue:
             ),
             'encoders' => array(
                 'Symfony\Component\Security\Core\User\User' => array(
-                    'algorithm'         => 'sha1',
-                    'iterations'        => 1,
-                    'encode_as_base64'  => false,
+                    'algorithm'         => 'bcrypt',
+                    'iterations'        => 12,
                 ),
             ),
         ));
 
-Impostando ``iterations`` a ``1`` ed ``encode_as_base64`` a ``false``,
-viene eseguito una sola volta l'algoritmo ``sha1`` sulla password, senza
-alcuna codifica supplementare. È ora possibile calcolare l'hash della password a livello di codice
-(ad esempio ``hash('sha1', 'ryanpass')``) o tramite qualche strumento online come `functions-online.com`_
+.. versionadded:: 2.2
+    Il codificatore BCrypt è stato introdotto in Symfony 2.2.
 
-Se si stanno creando i propri utenti in modo dinamico (memorizzandoli in una base dati),
-è possibile utilizzare algoritmi di hash ancora più complessi e poi contare su un oggetto
-encoder, che aiuti a codificare le password. Per esempio, supponiamo che l'oggetto
-User sia ``Acme\UserBundle\Entity\User`` (come nell'esempio precedente). In primo luogo,
-configurare l'encoder per questo utente:
+Ora si può calcolare la password cifrata, manualmente
+(p.e. ``password_hash('ryanpass', PASSWORD_BCRYPT, array('cost' => 12));``)
+oppure usando uno strumento online.
 
-.. configuration-block::
+.. include:: /cookbook/security/_ircmaxwell_password-compat.rst.inc
 
-    .. code-block:: yaml
-
-        # app/config/security.yml
-        security:
-            # ...
-
-            encoders:
-                Acme\UserBundle\Entity\User: sha512
-
-    .. code-block:: xml
-
-        <!-- app/config/security.xml -->
-        <config>
-            <!-- ... -->
-
-            <encoder class="Acme\UserBundle\Entity\User" algorithm="sha512" />
-        </config>
-
-    .. code-block:: php
-
-        // app/config/security.php
-        $container->loadFromExtension('security', array(
-            // ...
-            'encoders' => array(
-                'Acme\UserBundle\Entity\User' => 'sha512',
-            ),
-        ));
-
-In questo caso, si utilizza il più forte algoritmo ``sha512``. Inoltre, poiché
-si è semplicemente specificato l'algoritmo (``sha512``) come stringa, il sistema
-per impostazione predefinita farà l'hash della password 5000 volte di seguito e poi la codificherà
-in base64. In altre parole, la password è stata notevolmente offuscata in modo
-che il suo hash non possa essere decodificato (cioè non è possibile determinare la password
-partendo dal suo hash).
+Gli algoritmi supportati da questo metodo dipendono dalla versione di PHP.
+Un elenco completo è disponibile richiamando la funzione :phpfunction:`hash_algos`.
 
 .. versionadded:: 2.2
-    Da Symfony 2.2, si possono usare anche i codificatori :ref:`PBKDF2<reference-security-pbkdf2>`
-    e :ref:`BCrypt<reference-security-bcrypt>`.
+    As of Symfony 2.2 you can also use the :ref:`PBKDF2 <reference-security-pbkdf2>`
+    password encoder.
 
 Determinare la password con hash
 ................................
 
-Se si ha un form di registrazione per gli utenti, è necessario essere in grado
-di determinare l'hash della password, in modo che sia possibile impostarla per l'utente.
-Indipendentemente dall'algoritmo configurato per l'oggetto User, l'hash della password
-può essere determinato nel seguente modo da un controllore::
+Se si memorizzano gli utenti sulla base dati e si ha un form di registrazione
+per gli utenti, è necessario essere in grado di determinare l'hash della password, in
+modo che sia possibile impostarla per l'utente prima di inserirlo. Indipendentemente dall'algoritmo
+configurato per l'oggetto User, l'hash della password può essere determinato
+nel seguente modo da un controllore::
 
     $factory = $this->get('security.encoder_factory');
     $user = new Acme\UserBundle\Entity\User();
@@ -1413,6 +1447,10 @@ può essere determinato nel seguente modo da un controllore::
     $encoder = $factory->getEncoder($user);
     $password = $encoder->encodePassword('ryanpass', $user->getSalt());
     $user->setPassword($password);
+
+Per poter funzionare, assicurarsi di avere il codificatore per la
+classe utente, (p.e. ``Acme\UserBundle\Entity\User``) configurato sotto la chiave ``encoders``
+in ``app/config/security.yml``.
 
 .. caution::
 
@@ -1444,8 +1482,8 @@ In un controllore, si può usare una scorciatoia:
 
 .. note::
 
-    Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo
-    ``isAuthenticated()`` dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se 
+    Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo ``isAuthenticated()``
+    dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se 
     l'utente sia effettivamente autenticato, verificare il ruolo 
     ``IS_AUTHENTICATED_FULLY``.
 
@@ -1539,59 +1577,6 @@ Ora, tutti i meccanismi di autenticazione utilizzeranno il ``chain_provider``, d
 è il primo specificato. Il ``chain_provider``, a sua volta, tenta di caricare
 l'utente da entrambi i fornitori ``in_memory`` e ``user_db``.
 
-.. tip::
-
-    Se non ci sono ragioni per separare gli utenti ``in_memory`` dagli
-    utenti ``user_db``, è possibile ottenere ancora più facilmente questo risultato combinando
-    le due sorgenti in un unico fornitore:
-
-    .. configuration-block::
-
-        .. code-block:: yaml
-
-            # app/config/security.yml
-            security:
-                providers:
-                    main_provider:
-                        memory:
-                            users:
-                                foo: { password: test }
-                        entity:
-                            class: Acme\UserBundle\Entity\User,
-                            property: username
-
-        .. code-block:: xml
-
-            <!-- app/config/security.xml -->
-            <config>
-                <provider name=="main_provider">
-                    <memory>
-                        <user name="foo" password="test" />
-                    </memory>
-
-                    <entity class="Acme\UserBundle\Entity\User"
-                        property="username" />
-                </provider>
-            </config>
-
-        .. code-block:: php
-
-            // app/config/security.php
-            $container->loadFromExtension('security', array(
-                'providers' => array(
-                    'main_provider' => array(
-                        'memory' => array(
-                            'users' => array(
-                                'foo' => array('password' => 'test'),
-                            ),
-                        ),
-                        'entity' => array(
-                        'class' => 'Acme\UserBundle\Entity\User',
-                        'property' => 'username'),
-                    ),
-                ),
-            ));
-
 È anche possibile configurare il firewall o meccanismi di autenticazione individuali
 per utilizzare un provider specifico. Ancora una volta, a meno che un provider sia specificato esplicitamente,
 viene sempre utilizzato il primo fornitore:
@@ -1666,6 +1651,8 @@ non ha bisogno di essere definito ovunque, è sufficiente iniziare a usarlo.
     Symfony2. Se si definiscono i propri ruoli con una classe ``Role`` dedicata
     (caratteristica avanzata), non bisogna usare il prefisso ``ROLE_``.
 
+.. _book-security-role-hierarchy:
+
 I ruoli gerarchici
 ~~~~~~~~~~~~~~~~~~
 
@@ -1707,10 +1694,210 @@ Nella configurazione sopra, gli utenti con ruolo ``ROLE_ADMIN`` avranno anche il
 ruolo ``ROLE_USER``. Il ruolo ``ROLE_SUPER_ADMIN`` ha ``ROLE_ADMIN``, ``ROLE_ALLOWED_TO_SWITCH``
 e ``ROLE_USER`` (ereditati da ``ROLE_ADMIN``).
 
+Verifica dell'accesso
+---------------------
+
+Una volta che si dispone di utenti e di ruoli, si può andare oltre
+l'autorizzazione basata su schemi di URL.
+
+Verifica dell'accesso nei controllori
+-------------------------------------
+
+Proteggere l'applicazione basandosi su schemi di URL è semplice, ma in
+alcuni casi può non essere abbastanza granulare. Quando necessario, si può facilmente forzare
+l'autorizzazione dall'interno di un controllore::
+
+    // ...
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+    public function helloAction($name)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
+        // ...
+    }
+
+.. caution::
+
+    Un firewall deve essere attivo o verrà lanciata un'eccezione quando viene
+    chiamato il metodo ``isGranted``. Spesso è una buona idea avere un firewall principale,
+    che copra tutti gli URL (come mostrato in questo capitolo).
+
+.. _book-security-expressions:
+
+Controlli di accesso complessi con espressioni
+----------------------------------------------
+
+.. versionadded:: 2.4
+    La funzionalità delle espressioni è stata introdotta in Symfony 2.4.
+
+Oltre a un ruolo, come ``ROLE_ADMIN``, il metodo ``isGranted`` accetta
+acnhe un oggetto :class:`Symfony\\Component\\ExpressionLanguage\\Expression`::
+
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+    use Symfony\Component\ExpressionLanguage\Expression;
+    // ...
+
+    public function indexAction()
+    {
+        if (!$this->get('security.context')->isGranted(new Expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        ))) {
+            throw new AccessDeniedException();
+        }
+
+        // ...
+    }
+
+In questo esempio, se l'utente ha ``ROLE_ADMIN`` o se il metodo
+``isSuperAdmin()`` dell'oggetto utente restituisce ``true``, sarà garantito
+l'accesso (nota: l'oggetto User potrebbe non avere un metodo ``isSuperAdmin``,
+tale metodo è stato inventato per questo esempio).
+
+Si può approfondire la sintassi del linguaggio delle espressioni
+in :doc:`/components/expression_language/syntax`.
+
+.. _book-security-expression-variables:
+
+All'interno dell'espressione si ha accesso a diverse variabili:
+
+* ``user`` L'oggetto utente (o la stringa ``anon`` se non autenticato);
+* ``roles`` L'array di ruoli dell'utente, inclusi quelli provenienti dalla
+  :ref:`gerarchia dei ruoli <book-security-role-hierarchy>` ma esclusi
+  gli attributi ``IS_AUTHENTICATED_*``  (vedere le funzioni, qui sotto);
+* ``object``: L'eventuale oggetto passato come secondo parametro a
+  ``isGranted`` ;
+* ``token`` L'oggetto token;
+* ``trust_resolver``: L'oggetto :class:`Symfony\\Component\\Security\\Core\\Authentication\\AuthenticationTrustResolverInterface`:
+  probabilmente si useranno le funzioni ``is_*`` al suo posto.
+
+Inoltre, si ha accesso a varie funzioni:
+
+* ``is_authenticated``: Restituisce ``true`` se l'utente è autenticato tramite "ricordami"
+  o autenticato "pienamente", in pratica dice se l'utente è entrato;
+* ``is_anonymous``: Equivalente all'uso di ``IS_AUTHENTICATED_ANONYMOUSLY`` con
+  la funzione ``isGranted``;
+* ``is_remember_me``: Simile, ma non uguale a ``IS_AUTHENTICATED_REMEMBERED``,
+  vedere sotto;
+* ``is_fully_authenticated``: Simile, ma non uguale a ``IS_AUTHENTICATED_FULLY``,
+  vedere sotto;
+* ``has_role``: Verifica se l'utente ha il ruolo dato, equivalente
+  a un'espressione come ``'ROLE_ADMIN' in roles``.
+
+.. sidebar:: ``is_remember_me`` è diverso da ``IS_AUTHENTICATED_REMEMBERED``
+
+    Le funzioni ``is_remember_me`` e ``is_authenticated_fully`` sono *simili*
+    a ``IS_AUTHENTICATED_REMEMBERED`` e ``IS_AUTHENTICATED_FULLY``
+    con la funzione ``isGranted`` , ma **non** sono la stessa cosa. Ecco
+    le differenze::
+
+        use Symfony\Component\ExpressionLanguage\Expression;
+        // ...
+
+        $sc = $this->get('security.context');
+        $access1 = $sc->isGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        $access2 = $sc->isGranted(new Expression(
+            'is_remember_me() or is_fully_authenticated()'
+        ));
+
+    Qui, ``$access1`` e ``$access2`` avranno lo stesso valore. Diversamente dal
+    comportamento di ``IS_AUTHENTICATED_REMEMBERED`` e ``IS_AUTHENTICATED_FULLY``,
+    la funzione ``is_remember_me`` restituisce ``true`` *solo* se l'utente è autenticato
+    tramite un cookie "ricordami" e ``is_fully_authenticated`` restituisce ``true`` *solo*
+    se l'utente è effettivamente entrato durante la sessione corrente (cioè è
+    pienamente autenticato).
+
+Protezione degli altri servizi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In realtà, con Symfony si può proteggere qualunque cosa, utilizzando una strategia simile a
+quella vista nella sezione precedente. Per esempio, si supponga di avere un servizio
+(ovvero una classe PHP) il cui compito è quello di inviare email da un utente all'altro.
+È possibile limitare l'uso di questa classe, non importa dove è stata utilizzata,
+per gli utenti che hanno un ruolo specifico.
+
+Per ulteriori informazioni su come utilizzare il componente Security per proteggere
+servizi e metodi diversi nell'applicazione, vedere :doc:`/cookbook/security/securing_services`.
+
+.. _book-security-template:
+
+Controllare l'accesso nei template
+----------------------------------
+
+Nel caso si voglia controllare all'interno di un template se l'utente corrente ha un ruolo, usare
+la funzione aiutante:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="...">Delete</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted('ROLE_ADMIN')): ?>
+            <a href="...">Delete</a>
+        <?php endif; ?>
+
+.. note::
+
+    Se si utilizza questa funzione e *non* si è in un URL dove c'è un firewall
+    attivo, viene lanciata un'eccezione. Anche in questo caso, è quasi sempre una buona
+    idea avere un firewall principale che copra tutti gli URL (come si è visto
+    in questo capitolo).
+
+.. _book-security-template-expression:
+
+.. versionadded:: 2.4
+    La funzionalità ``expression`` è stata introdotta in Symfony 2.4.
+
+Si possono anche usare espressioni all'interno dei template:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted(expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        )) %}
+            <a href="...">Delete</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted(new Expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        ))): ?>
+            <a href="...">Delete</a>
+        <?php endif; ?>
+
+Per maggiori dettagli su espressioni e sicurezza, vedere :ref:`book-security-expressions`.
+
+Access Control List (ACL): protezione dei singoli oggetti della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si immagini di progettare un sistema di blog, in cui gli utenti possono commentare i
+messaggi. Si vuole che un utente possa modificare i propri commenti, ma non
+quelli degli altri. Inoltre, come utente admin, si vuole essere in grado
+di modificare *tutti* i commenti.
+
+Il componente Security viene fornito con un sistema opzionale di access control list (ACL), 
+che è possibile utilizzare quando è necessario controllare l'accesso alle singole istanze
+di un oggetto nel sistema. *Senza* ACL, è possibile proteggere il sistema in modo che
+solo certi utenti possono modificare i commenti sui blog. Ma *con* ACL,
+si può limitare o consentire l'accesso commento per commento.
+
+Per maggiori informazioni, vedere l'articolo del ricettario: :doc:`/cookbook/security/acl`.
+
 .. _book-security-logging-out:
 
-Logout
-------
+Logging Out
+-----------
 
 Generalmente, si vuole che gli utenti possano disconnettersi tramite logout. Fortunatamente,
 il firewall può gestire automaticamente questo caso quando si attiva il
@@ -1754,12 +1941,12 @@ parametro di configurazione ``logout``:
             // ...
         ));
 
-Una volta che questo viene configurato sotto il firewall, l'invio di un utente in ``/logout``
-(o qualunque debba essere il percorso) farà disconnettere
-l'utente corrente. L'utente sarà quindi inviato alla pagina iniziale (il valore definito
-dal parametro  ``target``). Entrambi i parametri di configurazione ``path`` e ``target``
-assumono come impostazione predefinita ciò che è specificato qui. In altre parole, se non è necessario personalizzarli,
-è possibile ometterli completamente e accorciare la configurazione:
+Una volta inserita questa condigurazione in un firewall, inviare un utente a ``/logout``
+(o a un altro percorso configurato in ``path``) lo farà uscire dall'autenticazione.
+L'utente sarà quindi rinviato alla pagina iniziale (il valore definito
+nel parametro ``target``). Entrambi i parametri ``path`` e ``target`` hanno come valore
+predefinito quello specificato qui. In altre parole, a meno che non si desideri personalizzarli,
+possono essere omessi e quindi abbreviare la configurazione:
 
 .. configuration-block::
 
@@ -1775,9 +1962,9 @@ assumono come impostazione predefinita ciò che è specificato qui. In altre par
 
         'logout' => array(),
 
-Si noti che *non* è necessario implementare un controllore per l'URL ``/logout``,
-perché il firewall si occupa di tutto. Si può, tuttavia, creare
-una rotta da poter utilizzare per generare l'URL:
+Si noti che *non* occorre implementare un controllore per l'URL ``/logout``,
+perché il firewall se ne occuperà. Tuttavia, *occorre* creare una
+rotta, in modo da poterla usare per generare l'URL:
 
 .. configuration-block::
 
@@ -1810,181 +1997,10 @@ una rotta da poter utilizzare per generare l'URL:
 
         return $collection;
 
-Una volta che l'utente è stato disconnesso, viene rinviato al percorso
-definito dal parametro ``target`` sopra (ad esempio, la ``homepage``). Per
-ulteriori informazioni sulla configurazione di logout, vedere il
-:doc:`Riferimento della configurazione di sicurezza</reference/configuration/security>`.
-
-.. _book-security-template:
-
-Controllare l'accesso nei template
-----------------------------------
-
-Nel caso si voglia controllare all'interno di un template se l'utente corrente ha un ruolo, usare
-la funzione aiutante:
-
-.. configuration-block::
-
-    .. code-block:: html+jinja
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="...">Delete</a>
-        {% endif %}
-
-    .. code-block:: html+php
-
-        <?php if ($view['security']->isGranted('ROLE_ADMIN')): ?>
-            <a href="...">Delete</a>
-        <?php endif; ?>
-
-.. note::
-
-    Se si utilizza questa funzione e *non* si è in un URL dove c'è un firewall
-    attivo, viene lanciata un'eccezione. Anche in questo caso, è quasi sempre una buona
-    idea avere un firewall principale che copra tutti gli URL (come si è visto
-    in questo capitolo).
-
-Verifica dell'accesso nei controllori
--------------------------------------
-
-Quando si vuole verificare se l'utente corrente abbia un ruolo nel controllore, usare
-il metodo :method:`Symfony\\Component\\Security\\Core\\SecurityContext::isGranted`
-del contesto di sicurezza::
-
-    public function indexAction()
-    {
-        // mostrare contenuti diversi agli utenti admin
-        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // ... caricare qui contenuti di amministrazione
-        }
-
-        // ... caricare qui altri contenuti normali 
-    }
-
-.. note::
-
-    Un firewall deve essere attivo o verrà lanciata un'eccezione quando viene
-    chiamato il metodo ``isGranted``. Vedere la nota precedente sui template per maggiori dettagli.
-
-Impersonare un utente
----------------------
-
-A volte, è utile essere in grado di passare da un utente all'altro senza
-dover uscire e rientrare tutte le volte (per esempio quando si esegue il debug o si cerca
-di capire un bug che un utente vede ma che non si riesce a riprodurre). Lo si può fare
-facilmente, attivando l'ascoltatore ``switch_user`` del firewall:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/security.yml
-        security:
-            firewalls:
-                main:
-                    # ...
-                    switch_user: true
-
-    .. code-block:: xml
-
-        <!-- app/config/security.xml -->
-        <config>
-            <firewall>
-                <!-- ... -->
-                <switch-user />
-            </firewall>
-        </config>
-
-    .. code-block:: php
-
-        // app/config/security.php
-        $container->loadFromExtension('security', array(
-            'firewalls' => array(
-                'main'=> array(
-                    // ...
-                    'switch_user' => true
-                ),
-            ),
-        ));
-
-Per passare a un altro utente, basta aggiungere una stringa query all'URL corrente,
-con il parametro ``_switch_user`` e il nome utente come valore :
-
-.. code-block:: text
-
-    http://example.com/indirizzo?_switch_user=thomas
-
-Per tornare indietro all'utente originale, usare il nome utente speciale ``_exit``:
-
-.. code-block:: text
-
-    http://example.com/indirizzo?_switch_user=_exit
-
-Mentre impersona, all'utente viene fornito un ruolo speciale, chiamato
-``ROLE_PREVIOUS_ADMIN``. In un template, per esempio, si può usare tale ruolo
-per mostrare un collegamento per tornare all'utente precedente:
-
-.. configuration-block::
-
-    .. code-block:: html+jinja
-
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-            <a href="{{ path('homepage', {_switch_user: '_exit'}) }}">Tornare all'utente precedente</a>
-        {% endif %}
-
-    .. code-block:: html+php
-
-        <?php if ($view['security']->isGranted('ROLE_PREVIOUS_ADMIN')): ?>
-            <a
-                href="<?php echo $view['router']->generate('homepage', array(
-                    '_switch_user' => '_exit',
-                ) ?>"
-            >
-                Tornare all'utente precedente
-            </a>
-        <?php endif; ?>
-
-Naturalmente, questa funzionalità deve essere messa a disposizione di un piccolo gruppo di utenti.
-Per impostazione predefinita, l'accesso è limitato agli utenti che hanno il ruolo ``ROLE_ALLOWED_TO_SWITCH``.
-Il nome di questo ruolo può essere modificato tramite l'impostazione ``role``. Per
-maggiore sicurezza, è anche possibile modificare il nome del parametro della query tramite l'impostazione
-``parameter``:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/security.yml
-        security:
-            firewalls:
-                main:
-                    # ...
-                    switch_user: { role: ROLE_ADMIN, parameter: _want_to_be_this_user }
-
-    .. code-block:: xml
-
-        <!-- app/config/security.xml -->
-        <config>
-            <firewall>
-                <!-- ... -->
-                <switch-user role="ROLE_ADMIN" parameter="_want_to_be_this_user" />
-            </firewall>
-        </config>
-
-    .. code-block:: php
-
-        // app/config/security.php
-        $container->loadFromExtension('security', array(
-            'firewalls' => array(
-                'main'=> array(
-                    // ...
-                    'switch_user' => array(
-                        'role' => 'ROLE_ADMIN',
-                        'parameter' => '_want_to_be_this_user',
-                    ),
-                ),
-            ),
-        ));
+Una volta che l'utente sia uscito, sarà rinviato al percorso
+definito in ``target`` (per esempio alla pagina iniziale). Per
+maggiori informazioni, vedere il
+:doc:`riferimento alla configurazione della sicurezza </reference/configuration/security>`.
 
 Autenticazione senza stato
 --------------------------
@@ -2109,12 +2125,12 @@ Saperne di più con il ricettario
 --------------------------------
 
 * :doc:`Forzare HTTP/HTTPS </cookbook/security/force_https>`
+* :doc:`Impersonare un utente </cookbook/security/impersonating_user>`
 * :doc:`Blacklist di utenti per indirizzo IP </cookbook/security/voters>`
 * :doc:`Access Control List (ACL) </cookbook/security/acl>`
 * :doc:`/cookbook/security/remember_me`
+* :doc:`How to Restrict Firewalls to a Specific Host </cookbook/security/host_restriction>`
 
-.. _`JMSSecurityExtraBundle`: http://jmsyst.com/bundles/JMSSecurityExtraBundle/1.2
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/it/class.serializable.php
-.. _`functions-online.com`: http://www.functions-online.com/sha1.html
 .. _`Timing attack`: http://en.wikipedia.org/wiki/Timing_attack

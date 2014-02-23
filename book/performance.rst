@@ -29,7 +29,7 @@ Ulteriori ottimizzazioni
 
 Le cache bytecode solitamente monitorano i cambiamenti dei file sorgente. Questo assicura
 che, se la sorgente del file cambia, il bytecode sia ricompilato automaticamente.
-Questo è molto conveniente, ma ovviamente aggiunge un overhead.
+Questo è molto conveniente, ma ovviamente ha un costo.
 
 Per questa ragione, alcune cache bytecode offrono un'opzione per disabilitare questi
 controlli. Ovviamente, quando si disabilitano i controlli, sarà compito dell'amministratore
@@ -42,8 +42,8 @@ al file di configurazione php.ini.
 .. index::
    single: Prestazioni; Autoloader
 
-Usare un autoloader con caches (p.e. ``ApcUniversalClassLoader``)
------------------------------------------------------------------
+Usare un autoloader con cache (p.e. ``ApcUniversalClassLoader``)
+----------------------------------------------------------------
 
 Per impostazione predefinita, Symfony2 standard edition usa ``UniversalClassLoader``
 nel file `autoloader.php`_. Questo autoloader è facile da usare, perché troverà
@@ -62,7 +62,7 @@ linea di comando e potrebbe diventare parte del processo di deploy::
 
     php composer.phar dump-autoload --optimize
 
-Internamente, costruire un grosso array di mappature delle classi in ``vendor/composer/autoload_namespaces.php``.
+Internamente, costruisce un grosso array di mappature delle classi in ``vendor/composer/autoload_classmap.php``.
 
 Cache dell'autoloader con APC
 -----------------------------

@@ -18,8 +18,11 @@ Questo campo aggiunge un simbolo di percentuale,  "``%``", dopo l'input.
 | Opzioni       | - `type`_                                                             |
 |               | - `precision`_                                                        |
 +---------------+-----------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                         |
-| ereditate     | - `label`_                                                            |
+| Opzioni       | - `empty_data`_                                                       |
+| ereditate     | - `required`_                                                         |
+|               | - `label`_                                                            |
+|               | - `label_attr`_                                                       |
+|               | - `data`_                                                             |
 |               | - `read_only`_                                                        |
 |               | - `disabled`_                                                         |
 |               | - `error_bubbling`_                                                   |
@@ -28,7 +31,7 @@ Questo campo aggiunge un simbolo di percentuale,  "``%``", dopo l'input.
 |               | - `invalid_message_parameters`_                                       |
 |               | - `mapped`_                                                           |
 +---------------+-----------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>`                              |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                             |
 +---------------+-----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\PercentType` |
 +---------------+-----------------------------------------------------------------------+
@@ -67,11 +70,17 @@ ultetiori posizioni decimali, usare questa opzione.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

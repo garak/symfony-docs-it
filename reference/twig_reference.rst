@@ -21,6 +21,9 @@ Funzioni
     Le funzioni ``render`` e ``controller`` sono nuove in Symfony 2.2. Precedentemente,
     si usava il tag ``{% render %}``, che aveva una firma diversa.
 
+.. versionadded:: 2.4
+    La funzione ``expression`` è stata introdotta in Symfony 2.4.
+
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | Sintassi della funzione                            | Uso                                                                                        |
 +====================================================+============================================================================================+
@@ -89,6 +92,9 @@ Funzioni
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``url(nome, parametri = {})``                      | Equivalente a ``path(...)``, ma genera un URL assoluto                                     |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
+| ``expression(espressione)``                        | Crea una :class:`Symfony\\Component\\ExpressionLanguage\\Expression` in Twig. Vedere       |
+|                                                    | ":ref:`Template Expressions <book-security-template-expression>`".                         |
++----------------------------------------------------+--------------------------------------------------------------------------------------------+
 
 Filtri
 ------
@@ -134,6 +140,9 @@ Filtri
 Tag
 ---
 
+.. versionadded:: 2.4
+    Il tag stopwatch è stato aggiunto in Symfony 2.4.
+
 +---------------------------------------------------+-------------------------------------------------------------------+
 | Sintassi del tag                                  | Uso                                                               |
 +===================================================+===================================================================+
@@ -149,6 +158,9 @@ Tag
 +---------------------------------------------------+-------------------------------------------------------------------+
 | ``{% trans_default_domain lingua %}``             | Imposterà il dominio predefinito per i cataloghi dei messaggi     |
 |                                                   | nel template corrente                                             |
++---------------------------------------------------+-------------------------------------------------------------------+
+| ``{% stopwatch 'nome' %}...{% endstopwatch %}``   | Conterà il tempo di esecuzione del codice all'interno e lo        |
+|                                                   | inserirà nella linea temporale di WebProfilerBundle.              |
 +---------------------------------------------------+-------------------------------------------------------------------+
 
 Test

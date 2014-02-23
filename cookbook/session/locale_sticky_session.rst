@@ -13,8 +13,8 @@ successiva.
 Creazione di LocaleListener
 ---------------------------
 
-Per simulare che il locale sia memorizzato in sessione, occorre creare r
-registrare un :doc:`ascoltatore di eventi</cookbook/service_container/event_listener>`.
+Per simulare che il locale sia memorizzato in sessione, occorre creare e
+registrare un :doc:`ascoltatore di eventi </cookbook/service_container/event_listener>`.
 L'ascoltatore sarà simile al seguente. Tipicamente, ``_locale`` è usato
 come parametro di rotta per indicare il locale, sebbene non sia veramente importante
 il modo in cui si ricavi il locale dalla richiesta::
@@ -100,4 +100,9 @@ use the :method:`Request::getLocale<Symfony\\Component\\HttpFoundation\\Request:
 per ottenere il locale dell'utente::
 
     // da un controllore...
-    $locale = $this->getRequest()->getLocale();
+    use Symfony\Component\HttpFoundation\Request;
+
+    public function indexAction(Request $request)
+    {
+        $locale = $request->getLocale();
+    }

@@ -1,13 +1,13 @@
 .. index::
-   single: Request; Trusted Proxies
+   single: Request; Proxy fidati
 
-Trusting Proxies
-================
+Proxy fidati
+============
 
 Se ci si trova dietro un proxy, come un bilanciatore di carico, è possibile che
-siano inviate alcune informazioni, con gli header speciali ``X-Forwarded-*``.
-Per esempio, l'header HTTP ``Host`` di solito si uda per restituire
-l'host richiesto. Ma quando ci si trova dietro a un proxy, il vero host potrebbe
+siano inviate alcune informazioni con gli header speciali ``X-Forwarded-*``.
+Per esempio, l'header HTTP ``Host`` di solito si usa per restituire
+l'host richiesto. Ma, quando ci si trova dietro a un proxy, il vero host potrebbe
 trovarsi nell'header``X-Forwarded-Host``.
 
 Poiché gli header HTTP possono essere falsificati, Symfony2 *non* si fida degli
@@ -16,16 +16,14 @@ tale proxy è fidato.
 
 .. versionadded:: 2.3
     È stato aggiunto il supporto alla notazione CIDR , quindi si possono inserire
-    intere sotto-reti (p.e. ``10.0.0.0/8``, ``fc00::/7``).
+    intere sottoreti (p.e. ``10.0.0.0/8``, ``fc00::/7``).
 
 .. code-block:: php
 
     use Symfony\Component\HttpFoundation\Request;
 
-    $request = Request::createFromGlobals();
-
     // fidarsi solo degli header dei proxy che vengono da questo indirizzo IP
-    $request->setTrustedProxies(array('192.0.0.1', '10.0.0.0/8'));
+    Request::setTrustedProxies(array('192.0.0.1', '10.0.0.0/8'));
 
 Configurare i nomi degli header
 -------------------------------
@@ -40,10 +38,10 @@ I seguenti proxy sono fidati per impostazione predefinita:
 Se un reverse proxy usa un nome diverso per uno di questi header, lo si può
 configurare tramite :method:`Symfony\\Component\\HttpFoundation\\Request::setTrustedHeaderName`::
 
-    $request->setTrustedHeaderName(Request::HEADER_CLIENT_IP, 'X-Proxy-For');
-    $request->setTrustedHeaderName(Request::HEADER_CLIENT_HOST, 'X-Proxy-Host');
-    $request->setTrustedHeaderName(Request::HEADER_CLIENT_PORT, 'X-Proxy-Port');
-    $request->setTrustedHeaderName(Request::HEADER_CLIENT_PROTO, 'X-Proxy-Proto');
+    Request::setTrustedHeaderName(Request::HEADER_CLIENT_IP, 'X-Proxy-For');
+    Request::setTrustedHeaderName(Request::HEADER_CLIENT_HOST, 'X-Proxy-Host');
+    Request::setTrustedHeaderName(Request::HEADER_CLIENT_PORT, 'X-Proxy-Port');
+    Request::setTrustedHeaderName(Request::HEADER_CLIENT_PROTO, 'X-Proxy-Proto');
 
 Diffidare di alcuni header
 --------------------------

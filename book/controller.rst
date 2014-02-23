@@ -513,7 +513,10 @@ valore di ogni variabile.
         $subRequest = $request->duplicate(array(), null, $path);
 
         $httpKernel = $this->container->get('http_kernel');
-        $response = $httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        $response = $httpKernel->handle(
+            $subRequest,
+            HttpKernelInterface::SUB_REQUEST
+        );
 
 .. index::
    single: Controllore; Rendere i template
@@ -581,6 +584,7 @@ capitolo :doc:`Template </book/templating>`.
         );
         // viene reso index.html.twig trovato in Resources/views/Hello/Greetings
 
+
 .. index::
    single: Controllore; Accedere ai servizi
 
@@ -589,8 +593,6 @@ Accesso ad altri servizi
 
 Quando si estende la classe base del controllore, è possibile accedere a qualsiasi servizio di Symfony2
 attraverso il metodo ``get()``. Di seguito si elencano alcuni servizi comuni che potrebbero essere utili::
-
-    $request = $this->getRequest();
 
     $templating = $this->get('templating');
 
@@ -660,16 +662,21 @@ utilizzando le sessioni PHP native.
 Memorizzare e recuperare informazioni dalla sessione può essere fatto
 da qualsiasi controllore::
 
-    $session = $this->getRequest()->getSession();
+    use Symfony\Component\HttpFoundation\Request;
 
-    // memorizza un attributo per riutilizzarlo durante una successiva richiesta dell'utente
-    $session->set('foo', 'bar');
+    public function indexAction(Request $request)
+    {
+        $session = $request->getSession();
 
-    // in un altro controllore per un'altra richiesta
-    $foo = $session->get('foo');
+        // memorizza un attributo per riutilizzarlo durante una successiva richiesta dell'utente
+        $session->set('pippo', 'pluto');
 
-    // usa un valore predefinito, se la chiave non esiste
-    $filters = $session->set('filters', array());
+        // in un altro controllore per un'altra richiesta
+        $foo = $session->get('pippo');
+
+        // usa un valore predefinito, se la chiave non esiste
+        $filters = $session->get('filters', array());
+    }
 
 Questi attributi rimarranno sull'utente per il resto della sessione
 utente.
@@ -687,11 +694,13 @@ I messaggi di questo tipo sono chiamati messaggi "flash".
 
 Per esempio, immaginiamo che si stia elaborando un form inviato::
 
-    public function updateAction()
+    use Symfony\Component\HttpFoundation\Request;
+
+    public function updateAction(Request $request)
     {
         $form = $this->createForm(...);
 
-        $form->handleRequest($this->getRequest());
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             // fare una qualche elaborazione
@@ -783,20 +792,25 @@ L'oggetto Request
 -----------------
 
 Oltre ai valori dei segnaposto delle rotte, il controllore ha anche accesso
-all'oggetto ``Request`` quando si estende la classe base ``Controller``::
+all'oggetto ``Request``. Il framework inietta l'oggetto ``Request`` nel
+controllore, se una variabile è forzata a
+`Symfony\Component\HttpFoundation\Request`::
 
-    $request = $this->getRequest();
+    use Symfony\Component\HttpFoundation\Request;
 
-    $request->isXmlHttpRequest(); // è una richiesta Ajax?
+    public function indexAction(Request $request)
+    {
+        $request->isXmlHttpRequest(); // è una richiesta Ajax?
 
-    $request->getPreferredLanguage(array('en', 'fr'));
+        $request->getPreferredLanguage(array('en', 'fr'));
 
-    $request->query->get('page'); // recupera un parametro $_GET
+        $request->query->get('page'); // recupera un parametro $_GET
 
-    $request->request->get('page'); // recupera un parametro $_POST
+        $request->request->get('page'); // recupera un parametro $_POST
+    }
 
-Come l'oggetto ``Response``, le intestazioni della richiesta sono memorizzate in un oggetto
-``HeaderBag`` e sono facilmente accessibili.
+Come l'oggetto ``Response``, le intestazioni della richiesta sono memorizzate in un oggetto ``HeaderBag``
+e sono facilmente accessibili.
 
 Considerazioni finali
 ---------------------

@@ -246,7 +246,7 @@ si hanno a portata di mano tutte le informazioni sulla richiesta::
 Come bonus, la classe ``Request`` fa un sacco di lavoro in sottofondo, di cui non ci si
 dovrà mai preoccupare. Per esempio, il metodo ``isSecure()`` verifica **tre**
 diversi valori in PHP che possono indicare se l'utente si stia connettendo o meno
-tramite una connessione sicura (cioè ``https``).
+tramite una connessione sicura (cioè HTTPS).
 
 .. sidebar:: ParameterBags e attributi di Request
 
@@ -359,8 +359,8 @@ web moderne fanno in questo modo, incluse applicazioni come WordPress.
 Restare organizzati
 ~~~~~~~~~~~~~~~~~~~
 
-Ma all'interno del nostro front controller, come possiamo sapere quale pagina debba essere
-resa e come poterla renderla in modo facile? In un modo o nell'altro, occorre verificare
+Ma, all'interno del nostro front controller, come possiamo sapere quale pagina debba essere
+resa e come poterla rendere in modo facile? In un modo o nell'altro, occorre verificare
 l'URI in entrata ed eseguire parti diverse di codice, a seconda di tale valore. Le cose
 possono peggiorare rapidamente::
 

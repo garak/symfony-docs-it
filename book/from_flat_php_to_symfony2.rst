@@ -75,8 +75,6 @@ da mantenere. Ci sono diversi problemi che occorre considerare:
     Sebbene non affrontato qui, Symfony2 integra in pieno `Doctrine`_,
     una libreria dedicata all'astrazione e alla mappatura della base dati.
 
-Cerchiamo di metterci al lavoro per risolvere questi e altri problemi.
-
 Isolare la presentazione
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -179,7 +177,7 @@ di accesso ai dati dell'applicazioni siano isolati in un nuovo file, chiamato ``
 
    Il nome ``model.php`` è usato perché la logica e l'accesso ai dati di un'applicazione
    sono tradizionalmente noti come il livello del "modello". In un'applicazione ben
-   organizzata, la maggior parte del codice che rappresenta la "logica di business"
+   organizzata la maggior parte del codice che rappresenta la "logica di business"
    dovrebbe stare nel modello (invece che stare in un controllore). Diversamente da
    questo esempio, solo una parte (o niente) del modello riguarda effettivamente
    l'accesso a una base dati.
@@ -247,7 +245,7 @@ Il template (``templates/list.php``) ora può essere semplificato, per
 Qui abbiamo introdotto una metodologia che consente il riuso del layout.
 Sfortunatamente, per poterlo fare, si è costretti a usare alcune brutte
 funzioni PHP (``ob_start()``, ``ob_get_clean()``) nel template. Symfony2
-usa un componente ``Templating``, che consente di poter fare ciò in modo
+usa un componente Templating, che consente di poter fare ciò in modo
 pulito e facile. Lo vedremo in azione tra poco.
 
 Aggiungere al blog una pagina "show"

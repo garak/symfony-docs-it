@@ -244,9 +244,9 @@ XML/HTML::
         )
 
     L'array ``server`` contiene i valori grezzi che ci si aspetta di trovare normalmente
-    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP `Content-Type`,
-    `Referer` e `X-Requested-With', passare i seguenti (ricordare il
-    prefisso `HTTP_` per gli header non standard)::
+    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP ``Content-Type``,
+    ``Referer`` e ``X-Requested-With``, passare i seguenti (ricordare il
+    prefisso ``HTTP_`` per gli header non standard)::
 
         $client->request(
             'GET',
@@ -280,7 +280,7 @@ XML/HTML::
         );
 
         // Asserire che ci sono esattamente 4 tag h2 nella pagina
-        $this->assertEquals(4, $crawler->filter('h2')->count());
+        $this->assertCount(4, $crawler->filter('h2'));
 
         // Asserire che il "Content-Type" header sia "application/json"
         $this->assertTrue(
@@ -581,8 +581,7 @@ Il crawler può estrarre informazioni dai nodi::
     $info = $crawler->extract(array('_text', 'href'));
 
     // Esegue una funzione lambda per ogni nodo e restituisce un array di risultati
-    $data = $crawler->each(function ($node, $i)
-    {
+    $data = $crawler->each(function ($node, $i) {
         return $node->attr('href');
     });
 

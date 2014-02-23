@@ -17,7 +17,7 @@ definire il metodo magico ``__call()`` nella classe che si vuole estendere, in q
         {
             // crea un evento chiamato 'pippo.metodo_non_trovato'
             $event = new HandleUndefinedMethodEvent($this, $method, $arguments);
-            $this->dispatcher->dispatch($this, 'pippo.metodo_non_trovato', $event);
+            $this->dispatcher->dispatch('pippo.metodo_non_trovato', $event);
 
             // nessun ascoltatore ha potuto processare l'evento? Il metodo non esiste
             if (!$event->isProcessed()) {
@@ -77,7 +77,7 @@ questo tipo di estensione di classe:
             $this->stopPropagation();
         }
 
-        public function getReturnValue($val)
+        public function getReturnValue()
         {
             return $this->returnValue;
         }

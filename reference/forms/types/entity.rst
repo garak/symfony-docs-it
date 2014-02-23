@@ -13,6 +13,7 @@ presi dalla base dati.
 | Reso come     | possono essere vari tag (vedere :ref:`forms-reference-choice-tags`) |
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `class`_                                                          |
+|               | - `data_class`_                                                     |
 |               | - `property`_                                                       |
 |               | - `group_by`_                                                       |
 |               | - `query_builder`_                                                  |
@@ -21,12 +22,15 @@ presi dalla base dati.
 | Opzioni       | - `choices`_                                                        |
 | ridefinite    | - `choice_list`_                                                    |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                       |
-| ereditate     | - `label`_                                                          |
-|               | - `multiple`_                                                       |
-|               | - `expanded`_                                                       |
+| Opzioni       | - `multiple`_                                                       |
+| ereditate     | - `expanded`_                                                       |
 |               | - `preferred_choices`_                                              |
 |               | - `empty_value`_                                                    |
+|               | - `empty_data`_                                                     |
+|               | - `required`_                                                       |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
+|               | - `data`_                                                           |
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
@@ -102,6 +106,8 @@ class
 La classe dell'entità (p.e. ``AcmeStoreBundle:Category``). Può essere
 un nome di classe pienamente qualificato (p.e. ``Acme\StoreBundle\Entity\Category``)
 o il suo alias (come mostrato sopra).
+
+.. include:: /reference/forms/types/options/data_class.rst.inc
 
 property
 ~~~~~~~~
@@ -182,13 +188,24 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc
 
+.. note::
+    
+    Questa opzione si aspetta un array di oggetti entità, diversamente dal campo ``choice``,
+    che richiede un array di chiavi.
+
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

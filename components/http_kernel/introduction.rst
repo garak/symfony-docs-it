@@ -569,21 +569,23 @@ ogni vento ha il suo oggetto evento:
 
 .. _component-http-kernel-event-table:
 
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| **Nome**          | **Costante** ``KernelEvents`` | **Parametro passato all'ascoltatore**                                               |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.request    | ``KernelEvents::REQUEST``     | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent`                    |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.controller | ``KernelEvents::CONTROLLER``  | :class:`Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent`               |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.view       | ``KernelEvents::VIEW``        | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForControllerResultEvent` |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.response   | ``KernelEvents::RESPONSE``    | :class:`Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent`                 |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.terminate  | ``KernelEvents::TERMINATE``   | :class:`Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent`                   |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.exception  | ``KernelEvents::EXCEPTION``   | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent`        |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| **Nome**              | **Costante** ``KernelEvents``    | **Parametro passato all'ascoltatore**                                               |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| kernel.request        | ``KernelEvents::REQUEST``        | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent`                    |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| kernel.controller     | ``KernelEvents::CONTROLLER``     | :class:`Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent`               |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| kernel.view           | ``KernelEvents::VIEW``           | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForControllerResultEvent` |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| kernel.response       | ``KernelEvents::RESPONSE``       | :class:`Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent`                 |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| kernel.finish_request | ``KernelEvents::FINISH_REQUEST`` | :class:`Symfony\\Component\\HttpKernel\\Event\\FinishRequestEvent`                  |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| kernel.terminate      | ``KernelEvents::TERMINATE``      | :class:`Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent`                   |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| kernel.exception      | ``KernelEvents::EXCEPTION``      | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent`        |
++-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
 
 .. _http-kernel-working-example:
 
@@ -601,6 +603,7 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
     use Symfony\Component\HttpKernel\HttpKernel;
     use Symfony\Component\EventDispatcher\EventDispatcher;
     use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+    use Symfony\Component\HttpKernel\EventListener\RouterListener;
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Route;
     use Symfony\Component\Routing\Matcher\UrlMatcher;
@@ -609,7 +612,9 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
     $routes = new RouteCollection();
     $routes->add('hello', new Route('/hello/{name}', array(
             '_controller' => function (Request $request) {
-                return new Response(sprintf("Ciao %s", $request->get('name')));
+                return new Response(
+                    sprintf("Ciao %s", $request->get('name'))
+                );
             }
         )
     ));

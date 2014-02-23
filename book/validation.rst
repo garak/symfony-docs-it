@@ -113,8 +113,9 @@ Successivamente, per validare veramente un oggetto ``Author``, usare il metodo
 ``validate`` sul servizio ``validator`` (classe :class:`Symfony\\Component\\Validator\\Validator`).
 Il compito di ``validator`` è semplice: leggere i vincoli (cioè le regole) di una
 classe e verificare se i dati dell'oggetto soddisfino o no tali vincoli.
-Se la validazione fallisce, viene restituito un array di errori. Prendiamo questo
-semplice esempio dall'interno di un controllore::
+Se la validazione fallisce, viene restituito un array di errori
+(class :class:`Symfony\\Component\\Validator\\ConstraintViolationList`).
+Prendiamo questo semplice esempio dall'interno di un controllore::
 
     // ...
     use Symfony\Component\HttpFoundation\Response;
@@ -684,7 +685,7 @@ ognuno possa fornire una validazione personalizzata.
 Gruppi di validazione
 ---------------------
 
-Finora, si è stati in grado di aggiungere vincoli a una classe e chiedere se tale
+Finora, è stato possibile aggiungere vincoli a una classe e chiedere se tale
 classe passasse o meno tutti i vincoli definiti. In alcuni casi, tuttavia, occorre
 validare un oggetto solo per *alcuni* vincoli della sua classe. Per poterlo fare,
 si può organizzare ogni vincolo in uno o più "gruppi di validazione" e quindi

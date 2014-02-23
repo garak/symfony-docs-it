@@ -295,6 +295,9 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
             <?php echo $view['form']->get('name')->vars['label'] ?>
         </label>
 
+.. versionadded:: 2.4
+    La variabile ``submitted`` è stata aggiunta in Symfony 2.4.
+
 +-----------------+-----------------------------------------------------------------------------------------+
 | Variabile       | Uso                                                                                     |
 +=================+=========================================================================================+
@@ -309,6 +312,8 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 |                 | Si noti che non si può usare ``form.errors`` per stabilire se un form sia valido,       |
 |                 | perché questo restituisce solo gli errori "globali": alcuni singoli campo possono avere |
 |                 | errori. Usare invece l'opzione ``valid``                                                |
++-----------------+-----------------------------------------------------------------------------------------+
+| ``submitted``   | Restituisce ``true`` o ``false``, a seconda che il form sia stato inviato               |
 +-----------------+-----------------------------------------------------------------------------------------+
 | ``valid``       | ``true`` o ``false``, a seconda che il form sia valido o meno                           |
 +-----------------+-----------------------------------------------------------------------------------------+

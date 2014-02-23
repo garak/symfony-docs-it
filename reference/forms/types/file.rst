@@ -9,15 +9,17 @@ Il tipo ``file`` rappresenta un input per caricare file.
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``file``                                            |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                       |
-| ereditate     | - `label`_                                                          |
+| Opzioni       | - `empty_data`_                                                     |
+| ereditate     | - `required`_                                                       |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
 |               | - `error_bubbling`_                                                 |
 |               | - `error_mapping`_                                                  |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`form</reference/forms/types/form>`                            |
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                           |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType`  |
 +---------------+---------------------------------------------------------------------+
@@ -79,11 +81,15 @@ come gestire un caricamento di file associato con un'entità Doctrine.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

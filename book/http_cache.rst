@@ -301,9 +301,11 @@ L'header ``Cache-Control`` è unico, perché non contiene una, ma vari pezzi
 di informazione sulla possibilità di una risposta di essere messa in cache.
 Ogni pezzo di informazione è separato da una virgola:
 
-     Cache-Control: private, max-age=0, must-revalidate
+.. code-block:: text
 
-     Cache-Control: max-age=3600, must-revalidate
+    Cache-Control: private, max-age=0, must-revalidate
+
+    Cache-Control: max-age=3600, must-revalidate
 
 Symfony fornisce un'astrazione sull'header ``Cache-Control``, per rendere la sua
 creazione più gestibile::
@@ -557,12 +559,14 @@ impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazio
 
 Vediamo una semplice implementazione, che genera l'ETag come un md5 del contenuto::
 
-    public function indexAction()
+    use Symfony\Component\HttpFoundation\Request;
+
+    public function indexAction(Request $request)
     {
         $response = $this->render('MyBundle:Main:index.html.twig');
         $response->setETag(md5($response->getContent()));
-        $response->setPublic(); // make sure the response is public/cacheable
-        $response->isNotModified($this->getRequest());
+        $response->setPublic(); // assicurarsi che la risposta sia pubblica
+        $response->isNotModified($request);
 
         return $response;
     }
@@ -604,7 +608,9 @@ Per esempio, si può usare la data di ultimo aggiornamento per tutti gli oggetti
 necessari per calcolare la rappresentazione della risorsa come valore dell'header
 ``Last-Modified``::
 
-    public function showAction($articleSlug)
+    use Symfony\Component\HttpFoundation\Request;
+
+    public function showAction($articleSlug, Request $request)
     {
         // ...
 
@@ -617,7 +623,7 @@ necessari per calcolare la rappresentazione della risorsa come valore dell'heade
         // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
         $response->setPublic();
 
-        if ($response->isNotModified($this->getRequest())) {
+        if ($response->isNotModified($request)) {
             return $response;
         }
 
@@ -653,8 +659,9 @@ meglio è. Il metodo ``Response::isNotModified()`` fa esattamente questo, espone
 uno schema semplice ed efficiente::
 
     use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpFoundation\Request;
 
-    public function showAction($articleSlug)
+    public function showAction($articleSlug, Request $request)
     {
         // Prende l'informazione minima per calcolare
         // l'ETag o o il valore di Last-Modified
@@ -671,20 +678,20 @@ uno schema semplice ed efficiente::
         $response->setPublic();
 
         // Verifica che la Response non sia modificata per la Request data
-        if ($response->isNotModified($this->getRequest())) {
+        if ($response->isNotModified($request)) {
             // restituisce subito la Response 304
             return $response;
-        } else {
-            // qui fare qualcosa, come recuperare altri dati
-            $comments = ...;
-
-            // o rendere un template con la $response già iniziata
-            return $this->render(
-                'MyBundle:MyController:article.html.twig',
-                array('article' => $article, 'comments' => $comments),
-                $response
-            );
         }
+
+        // qui fare qualcosa, come recuperare altri dati
+        $comments = ...;
+
+        // o rendere un template con la $response già iniziata
+        return $this->render(
+            'MyBundle:MyController:article.html.twig',
+            array('article' => $article, 'comments' => $comments),
+            $response
+        );
     }
 
 Quando la ``Response`` non è stata modificata, ``isNotModified()`` imposta automaticamente
@@ -951,8 +958,9 @@ componente delle news avrà una cache che dura per soli 60 secondi.
 Quando si fa riferimento a un controllore, il tag ESI dovrebbe far riferimento all'azione
 inclusa con un URL accessibile, in modo che il gateway della cache possa recuperarla indipendentemente
 dal resto della pagina. Symfony2 si occupa di generare un URL univoco per ogni
-riferimento a controllori ed è in grado di puntare correttamente le rotte, grazie a un
-ascoltatore che va abilitato nella configurazione:
+riferimento a controllori ed è in grado di puntare correttamente le rotte, grazie all'ascoltatore
+:class:`Symfony\\Component\\HttpKernel\\EventListener\\FragmentListener`,
+che va abilitato nella configurazione:
 
 .. configuration-block::
 
@@ -997,10 +1005,10 @@ accessi al minimo.
 
 .. note::
 
-    Una volta iniziato a usare ESI, si ricordi di usare sempre la direttiva
-    ``s-maxage`` al posto di ``max-age``. Poiché il browser riceve la risorsa
-    aggregata, non ha visibilità sui sotto-componenti, quindi obbedirà alla direttiva
-    ``max-age`` e metterà in cache l'intera pagina. E questo non è quello che
+    Una volta iniziato a usare ESI, si ricordi di usare sempre la direttiva ``s-maxage``
+    al posto di ``max-age``. Poiché il browser riceve la risorsa
+    aggregata, non ha visibilità sui sotto-componenti, quindi obbedirà alla
+    direttiva ``max-age`` e metterà in cache l'intera pagina. E questo non è quello che
     vogliamo.
 
 L'aiutante ``render`` supporta due utili opzioni:
@@ -1099,6 +1107,6 @@ Imparare di più con le ricette
 .. _`modello a validazione`: http://tools.ietf.org/html/rfc2616#section-13.3
 .. _`RFC 2616`: http://tools.ietf.org/html/rfc2616
 .. _`HTTP Bis`: http://tools.ietf.org/wg/httpbis/
-.. _`P4 - Richieste condizionali`: http://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional-12
-.. _`P6 - Cache: Browser e cache intermedie`: http://tools.ietf.org/html/draft-ietf-httpbis-p6-cache-12
+.. _`P4 - Richieste condizionali`: http://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional
+.. _`P6 - Cache: Browser e cache intermedie`: http://tools.ietf.org/html/draft-ietf-httpbis-p6-cache
 .. _`ESI`: http://www.w3.org/TR/esi-lang

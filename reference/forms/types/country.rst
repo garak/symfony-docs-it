@@ -4,7 +4,7 @@
 Tipo di campo country
 =====================
 
-Il tipo ``country`` è un sotto-insieme di ``ChoiceType``, che mostra i paesi del mondo.
+Il tipo ``country`` è un sottoinsieme di ``ChoiceType``, che mostra i paesi del mondo.
 Come bonus aggiuntivo, i nomi dei paesi sono mostrati nella lingua
 dell'utente.
 
@@ -31,13 +31,16 @@ usare il tipo ``choice`` direttamente.
 |               | - `empty_value`_                                                      |
 |               | - `error_bubbling`_                                                   |
 |               | - `error_mapping`_                                                    |
+|               | - `empty_data`_                                                       |
 |               | - `required`_                                                         |
 |               | - `label`_                                                            |
+|               | - `label_attr`_                                                       |
+|               | - `data`_                                                             |
 |               | - `read_only`_                                                        |
 |               | - `disabled`_                                                         |
 |               | - `mapped`_                                                           |
 +---------------+-----------------------------------------------------------------------+
-| Tipo genitore | :doc:`choice</reference/forms/types/choice>`                          |
+| Tipo genitore | :doc:`choice </reference/forms/types/choice>`                         |
 +---------------+-----------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CountryType` |
 +---------------+-----------------------------------------------------------------------+
@@ -56,7 +59,7 @@ Usa il locale predefinito per determinare la lingua.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choice>`:
+Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -70,11 +73,17 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
 .. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/read_only.rst.inc
 

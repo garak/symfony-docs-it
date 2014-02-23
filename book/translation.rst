@@ -22,8 +22,8 @@ dell'utente::
 
     Il termine *locale* si riferisce all'incirca al linguaggio dell'utente e al paese.
     Può essere qualsiasi stringa che l'applicazione utilizza poi per gestire le traduzioni
-    e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare
-    il codice di *lingua* `ISO639-1`_, un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO3166 Alpha-2`_
+    e altre differenze di formati (ad esempio il formato di valuta). Si consiglia di utilizzare il codice di *lingua* `ISO 639-1`_,
+    un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO 3166-1 alpha-2`_
     (per esempio ``fr_FR`` per francese/Francia).
 
 In questo capitolo si imparerà a usare il componenten Translation nel
@@ -40,8 +40,8 @@ per saperne di più. Nel complesso, il processo ha diverse fasi:
 #. :ref:`Creare risorse di traduzione <book-translation-resources>`
    per ogni lingua supportata che traducano tutti i messaggio dell'applicazione;
 
-#. Determinare, :ref:`impostare e gestire le impostazioni locali<book-translation-user-locale>`
-   dell'utente per la richiesta e, facoltativamente, 
+#. Determinare, :ref:`impostare e gestire le impostazioni locali <book-translation-user-locale>`
+   dell'utente per la richiesta e, facoltativamente,
    :doc:`sull'intera sessione </cookbook/session/locale_sticky_session>`.
 
 .. _book-translation-configuration:
@@ -49,9 +49,9 @@ per saperne di più. Nel complesso, il processo ha diverse fasi:
 Configurazione
 --------------
 
-Le traduzioni sono gestire da un :term:`servizio` ``Translator``, che utilizza i
+Le traduzioni sono gestire da un :term:`servizio` ``translator``, che utilizza i
 locale dell'utente per cercare e restituire i messaggi tradotti. Prima di utilizzarlo,
-abilitare il ``Translator`` nella configurazione:
+abilitare ``translator`` nella configurazione:
 
 .. configuration-block::
 
@@ -408,12 +408,14 @@ Gestire il locale dell'utente
 Il locale dell'utente attuale è memorizzato nella richiesta e accessibile
 tramite l'oggetto ``request``::
 
-    // accesso all'oggetto request in un controllore
-    $request = $this->getRequest();
+    use Symfony\Component\HttpFoundation\Request;
 
-    $locale = $request->getLocale();
+    public function indexAction(Request $request)
+    {
+        $locale = $request->getLocale();
 
-    $request->setLocale('en_US');
+        $request->setLocale('en_US');
+    }
 
 .. tip::
 
@@ -447,8 +449,8 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
     .. code-block:: yaml
 
         contact:
-            path:      /{_locale}/contact
-            defaults:  { _controller: AcmeDemoBundle:Contact:index, _locale: en }
+            path:     /{_locale}/contact
+            defaults: { _controller: AcmeDemoBundle:Contact:index }
             requirements:
                 _locale: en|fr|de
 
@@ -462,7 +464,6 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
             <route id="contact" path="/{_locale}/contact">
                 <default key="_controller">AcmeDemoBundle:Contact:index</default>
-                <default key="_locale">en</default>
                 <requirement key="_locale">en|fr|de</requirement>
             </route>
         </routes>
@@ -473,12 +474,15 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('contact', new Route('/{_locale}/contact', array(
-            '_controller' => 'AcmeDemoBundle:Contact:index',
-            '_locale'     => 'en',
-        ), array(
-            '_locale'     => 'en|fr|de',
-        )));
+        $collection->add('contact', new Route(
+            '/{_locale}/contact',
+            array(
+                '_controller' => 'AcmeDemoBundle:Contact:index',
+            ),
+            array(
+                '_locale'     => 'en|fr|de',
+            )
+        ));
 
         return $collection;
 
@@ -665,6 +669,6 @@ passi:
   anche essere memorizzato nella sessione.
 
 .. _`i18n`: http://it.wikipedia.org/wiki/Internazionalizzazione_e_localizzazione
-.. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
-.. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 .. _`estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions

@@ -90,6 +90,10 @@ Iniziare
 Tornando al piccolo esempio iniziale, implementiamo una
 ACL.
 
+Una volta creata l'ACL, si può garantire accesso agli oggetti creando una
+Access Control Entity (ACE) per concretizzare la relazione tra entitàe
+e utente.
+
 Creare una ACL e aggiungere un ACE
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

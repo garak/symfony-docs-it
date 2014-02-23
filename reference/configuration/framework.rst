@@ -20,11 +20,14 @@ Configurazione
 * `ide`_
 * `test`_
 * `trusted_proxies`_
-* `form`_
-    * enabled
 * `csrf_protection`_
     * enabled
-    * field_name
+    * field_name (deprecated)
+* `form`_
+    * enabled
+    * csrf_protection
+        * enabled
+        * field_name
 * `session`_
     * `name`_
     * `cookie_lifetime`_
@@ -454,12 +457,16 @@ Configurazione predefinita completa
             test:                 ~
             default_locale:       en
 
+            csrf_protection:
+                enabled:              false
+                field_name:           _token # Deprecato da 2.4, da rimuovere in 3.0. Usare invece form.csrf_protection.field_name
+
             # configurazione dei form
             form:
                 enabled:              false
-            csrf_protection:
-                enabled:              false
-                field_name:           _token
+                csrf_protection:
+                    enabled:          true
+                    field_name:       ~
 
             # configurazione di esi
             esi:
@@ -475,7 +482,7 @@ Configurazione predefinita completa
                 enabled:              false
                 collect:              true
                 only_exceptions:      false
-                only_master_requests:  false
+                only_master_requests: false
                 dsn:                  file:%kernel.cache_dir%/profiler
                 username:
                 password:

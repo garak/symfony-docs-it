@@ -83,10 +83,12 @@ In questo modo è possibile usare lo stile jQuery per l'attraversamento::
     use Symfony\Component\DomCrawler\Crawler;
     // ...
 
-    $crawler = $crawler->filter('body > p')->reduce(function ($node, $i) {
-        // filtra anche i nodi
-        return ($i % 2) == 0;
-    });
+    $crawler = $crawler
+        ->filter('body > p')
+        ->reduce(function (Crawler $node, $i) {
+            // filtra anche i nodi
+            return ($i % 2) == 0;
+        });
 
 Per rimuovere i nodi, la funzione anonima dovrà restituire false.
 

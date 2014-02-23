@@ -601,6 +601,7 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
     use Symfony\Component\HttpKernel\HttpKernel;
     use Symfony\Component\EventDispatcher\EventDispatcher;
     use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+    use Symfony\Component\HttpKernel\EventListener\RouterListener;
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Route;
     use Symfony\Component\Routing\Matcher\UrlMatcher;
@@ -609,7 +610,9 @@ ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
     $routes = new RouteCollection();
     $routes->add('hello', new Route('/hello/{name}', array(
             '_controller' => function (Request $request) {
-                return new Response(sprintf("Ciao %s", $request->get('name')));
+                return new Response(
+                    sprintf("Ciao %s", $request->get('name'))
+                );
             }
         )
     ));

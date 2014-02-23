@@ -22,14 +22,15 @@ di abilitarlo nel file di configurazione dell'applicazione:
         # app/config/config.yml
         framework:
             # ...
-            templating:    { engines: ['twig', 'php'] }
+            templating:
+                engines: ['twig', 'php']
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ...>
+        <framework:config>
             <!-- ... -->
-            <framework:templating ...>
+            <framework:templating>
                 <framework:engine id="twig" />
                 <framework:engine id="php" />
             </framework:templating>
@@ -39,7 +40,6 @@ di abilitarlo nel file di configurazione dell'applicazione:
 
         $container->loadFromExtension('framework', array(
             // ...
-
             'templating' => array(
                 'engines' => array('twig', 'php'),
             ),
@@ -54,7 +54,10 @@ rende il template ``index.html.php``::
     // ...
     public function indexAction($name)
     {
-        return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+        return $this->render(
+            'AcmeHelloBundle:Hello:index.html.php',
+            array('name' => $name)
+        );
     }
 
 Si può anche usare la scorciatoia :doc:`/bundles/SensioFrameworkExtraBundle/annotations/view`

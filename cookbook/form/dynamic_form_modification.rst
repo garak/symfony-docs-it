@@ -78,7 +78,7 @@ che analizza l'oggetto e modifica il form basato sull'
 oggetto Product. In questa ricetta si imparerà come aggiungere questo livello di
 flessibilità ai form.
 
-.. _`cookbook-forms-event-subscriber`:
+.. _`cookbook-forms-event-listener`:
 
 Aggiungere un evento sottoscrittore alla classe di un form
 ----------------------------------------------------------
@@ -168,7 +168,7 @@ Dentro la classe dell'evento sottoscrittore
 
 L'obiettivo è di creare un campo "name" *solo* se l'oggetto Prodotto sottostante
 è nuovo (cioè non è stato persistito nella base dati). Basandosi su questo, l'sottoscrittore
-potrebbe essere simile a questo:
+potrebbe essere simile a questo::
 
     // src/Acme/DemoBundle/Form/Type/ProductType.php
     namespace Acme\DemoBundle\Form\Type;

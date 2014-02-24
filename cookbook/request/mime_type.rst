@@ -4,14 +4,14 @@
 Registrare un nuovo formato di richiesta e un nuovo tipo mime
 =============================================================
 
-Ogni ``Richiesta`` ha a un "formato" (come ``html``, ``json``), che viene usato
-per determinare il tipo di contenuto che dovrà essere restituito nell ``Risposta``.
+Ogni richiesta ha a un "formato" (come ``html``, ``json``), che viene usato
+per determinare il tipo di contenuto che dovrà essere restituito nella risposta.
 Il formato della richiesta, accessibile tramite
 :method:`Symfony\\Component\\HttpFoundation\\Request::getRequestFormat`,
 viene infatti utilizzato per definire il tipo MIME dell'intestazione ``Content-Type`` 
-dell'oggetto ``Risposta``. Symfony contiene una mappa dei formati più comuni (come 
+dell'oggetto ``Response``. Symfony contiene una mappa dei formati più comuni (come 
 ``html``, ``json``) e del corrispettivo tipo MIME (come ``text/html``,
-``application/json``). È comunque possibile aggiungere nuovi formati-MIME.
+``application/json``). È comunque possibile aggiungere nuovi formati/tipi MIME.
 In questo documento si vedrà come aggiungere un nuovo formato ``jsonp``
 e il corrispondente tipo MIME.
 
@@ -48,21 +48,6 @@ configurazione e registrarlo come tale aggiungendogli il tag ``kernel.event_list
 
 .. configuration-block::
 
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" ?>
-
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-            <services>
-            <service id="acme.demobundle.listener.request" class="Acme\DemoBundle\RequestListener">
-                <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
-            </service>
-            </services>
-        </container>
-
     .. code-block:: yaml
 
         # app/config/config.yml
@@ -71,6 +56,24 @@ configurazione e registrarlo come tale aggiungendogli il tag ``kernel.event_list
                 class: Acme\DemoBundle\RequestListener
                 tags:
                     - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            <services>
+                <service id="acme.demobundle.listener.request"
+                    class="Acme\DemoBundle\RequestListener">
+                    <tag name="kernel.event_listener"
+                        event="kernel.request"
+                        method="onKernelRequest"
+                    />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 

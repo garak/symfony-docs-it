@@ -101,7 +101,7 @@ Occorre quindi configurare il servizio:
         services:
             acme_demo.profiler.matcher.super_admin:
                 class: "%acme_demo.profiler.matcher.super_admin.class%"
-                arguments: [@security.context]
+                arguments: ["@security.context"]
 
     .. code-block:: xml
 
@@ -150,6 +150,7 @@ profilatore per usare questo servizio come matcher:
 
         <!-- app/config/config.xml -->
         <framework:config>
+            <!-- ... -->
             <framework:profiler
                 service="acme_demo.profiler.matcher.super_admin"
             />
@@ -159,6 +160,7 @@ profilatore per usare questo servizio come matcher:
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
+            // ...
             'profiler' => array(
                 'service' => 'acme_demo.profiler.matcher.super_admin',
             ),

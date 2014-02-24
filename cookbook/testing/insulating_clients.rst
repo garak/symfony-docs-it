@@ -7,18 +7,25 @@ Testare l'interazione con diversi client
 Se occorre simulare un'interazionoe tra diversi client (si pensi a una chat,
 per esempio), creare tanti client::
 
+    // ...
+
     $harry = static::createClient();
     $sally = static::createClient();
 
     $harry->request('POST', '/say/sally/Hello');
     $sally->request('GET', '/messages');
 
-    $this->assertEquals(201, $harry->getResponse()->getStatusCode());
+    $this->assertEquals(Response::HTTP_CREATED, $harry->getResponse()->getStatusCode());
     $this->assertRegExp('/Hello/', $sally->getResponse()->getContent());
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 Questo non funziona se il proprio codice mantiene uno stato globale o se dipende da
 librerie di terze parti che abbiano un qualche tipo di stato globale. In questo caso,
 si possono isolare i client::
+
+    // ...
 
     $harry = static::createClient();
     $sally = static::createClient();
@@ -29,7 +36,7 @@ si possono isolare i client::
     $harry->request('POST', '/say/sally/Hello');
     $sally->request('GET', '/messages');
 
-    $this->assertEquals(201, $harry->getResponse()->getStatusCode());
+    $this->assertEquals(Response::HTTP_CREATED, $harry->getResponse()->getStatusCode());
     $this->assertRegExp('/Hello/', $sally->getResponse()->getContent());
 
 Client isolati possono eseguire trasparentemente le loro richieste in un processo PHP

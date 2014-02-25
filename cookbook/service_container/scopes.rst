@@ -135,9 +135,9 @@ richiamerà automaticamente il metodo ``setRequest()`` con l'istanza di ``reques
 corrente.
 
 Si può notare che il metodo ``setRequest()`` accetta anche ``null`` come
-valore valido per il parametro ``request`. Questo perché, uscendo dallo scope
-``request`, l'istanza di ``request`` può essere ``null`` (per esempio, per
-la richeista principale). Ovviamente, bisogna tener conto di questa possibilità
+valore valido per il parametro ``request``. Questo perché, uscendo dallo scope
+``request``, l'istanza di ``request`` può essere ``null`` (per esempio, per
+la richiesta principale). Ovviamente, bisogna tener conto di questa possibilità
 all'interno del codice. Occorre tenerne conto anche nella dichiarazione del servizio:
 
 .. configuration-block::
@@ -180,8 +180,8 @@ all'interno del codice. Occorre tenerne conto anche nella dichiarazione del serv
 
 .. tip::
 
-    You can declare your own ``synchronized`` services very easily; here is
-    the declaration of the ``request`` service for reference:
+    Si possono dichiarare servizi ``synchronized`` Molto facilmente. Ecco
+    la dichiarazione del servizio ``request``, come riferimento:
 
     .. configuration-block::
 

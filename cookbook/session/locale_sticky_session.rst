@@ -95,7 +95,7 @@ Registrare l'ascoltatore:
         ;
 
 Ecco fatto! Si può ora provare a modificare il locale dell'utente e vedere
-che resta invaariato tra le richieste. Ricordarsi di usare sempre il metodo
+che resta invariato tra le richieste. Ricordarsi di usare sempre il metodo
 use the :method:`Request::getLocale<Symfony\\Component\\HttpFoundation\\Request::getLocale>`
 per ottenere il locale dell'utente::
 

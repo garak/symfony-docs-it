@@ -405,11 +405,9 @@ Per definire il form come servizio, creare un normale serizio e aggiungere il ta
         services:
             acme.form.friend_message:
                 class: Acme\DemoBundle\Form\Type\FriendMessageFormType
-                arguments: [@security.context]
+                arguments: ["@security.context"]
                 tags:
-                    -
-                        name: form.type
-                        alias: acme_friend_message
+                    - { name: form.type, alias: acme_friend_message }
 
     .. code-block:: xml
 

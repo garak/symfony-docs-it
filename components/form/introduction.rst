@@ -181,8 +181,10 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     $defaultFormTheme = 'form_div_layout.html.twig';
 
     $vendorDir = realpath(__DIR__ . '/../vendor');
-    // percorso di TwigBridge, che consente a Twig di trovare il file form_div_layout.html.twig
-    $vendorTwigBridgeDir = $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
+    // percorso di TwigBridge, che consente a Twig di trovare il file
+    // form_div_layout.html.twig
+    $vendorTwigBridgeDir = 
+        $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
     // percorso degli altri template
     $viewsDir = realpath(__DIR__ . '/../views');
 
@@ -193,7 +195,9 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     $formEngine = new TwigRendererEngine(array($defaultFormTheme));
     $formEngine->setEnvironment($twig);
     // aggiunge FormExtension a Twig
-    $twig->addExtension(new FormExtension(new TwigRenderer($formEngine, $csrfProvider)));
+    $twig->addExtension(
+        new FormExtension(new TwigRenderer($formEngine, $csrfProvider))
+    );
 
     // creare il factory, come al solito
     $formFactory = Forms::createFormFactoryBuilder()
@@ -307,7 +311,8 @@ L'integrazione con il componente Validation sarà simile a questa::
 
     $vendorDir = realpath(__DIR__ . '/../vendor');
     $vendorFormDir = $vendorDir . '/symfony/form/Symfony/Component/Form';
-    $vendorValidatorDir = $vendorDir . '/symfony/validator/Symfony/Component/Validator';
+    $vendorValidatorDir = 
+        $vendorDir . '/symfony/validator/Symfony/Component/Validator';
 
     // creare il validatore (i dettagli possono variare)
     $validator = Validation::createValidator();

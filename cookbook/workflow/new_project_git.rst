@@ -44,31 +44,25 @@ locale:
    nel qual caso, si possono trovare ulteriori informazioni qui: `Github .gitignore`_
    In questo modo, si possono escludere i file e le cartelle usati più spesso dal proprio IDE per ogni progetto.
 
-4. Copiare ``app/config/parameters.yml`` in ``app/config/parameters.yml.dist``.
-   Il file ``parameters.yml`` è ignorato da git (vedi sopra), quindi le impostazioni
-   specifiche della macchina, come le password della base dati, non saranno inviate. Creando
-   il file ``parameters.yml.dist``, i nuovi sviluppatori potranno clonare rapidamente il
-   progetto, copiando questo file in ``parameters.yml`` e personalizzandolo.
-
-5. Inizializzare il repository git:
+4. Inizializzare il repository git:
 
    .. code-block:: bash
 
         $ git init
 
-6. Aggiungere tutti i file in git:
+5. Aggiungere tutti i file in git:
 
    .. code-block:: bash
 
         $ git add .
 
-7. Creare un commit iniziale con il nuovo progetto:
+6. Creare un commit iniziale con il nuovo progetto:
 
    .. code-block:: bash
 
         $ git commit -m "Commit iniziale"
 
-8. Infine, scaricare tutte le librerie dei venditori, eseguendo
+7. Infine, scaricare tutte le librerie dei venditori, eseguendo
    composer. Per dettagli, vedere :ref:`installation-updating-vendors`.
 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante e correttamente
@@ -88,25 +82,25 @@ di più su come configurare e sviluppare un'applicazione.
 
 .. include:: _vendor_deps.rst.inc
 
-Venditori e sotto-moduli
-~~~~~~~~~~~~~~~~~~~~~~~~
+Venditori e sottomoduli
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Invece di usare il sistema basato su ``composer.json`` per gestire le librerie
-dei venditori, si potrebbe invece voler usare i `sotto-moduli di git`_.
+dei venditori, si potrebbe invece voler usare i `sottomoduli di git`_.
 Non c'è nulla di sbagliato in questo approccio, ma il sistema ``composer.json`` è la via
 ufficiale per risolvere questo problema e probabilmente è più facile da gestire.
-Diversamente dai sotto-moduli di git, ``Composer`` è abbaatanza intelligente da calcolare
+Diversamente dai sottomoduli di git, ``Composer`` è abbastanza intelligente da calcolare
 le dipendenze tra le librerie.
 
 Memorizzare il progetto su un server remoto
 -------------------------------------------
 
-Si è ora in possesso di un progetto Symfony2 pienamente funzionante e copiato in git.
-Tuttavia, spesso si vuole memorizzare il proprio progetto un server remoto, sia per
-motivi di backup, sia per fare in modo che altri sviluppatori possano collaborare
-al progetto.
+Si è ora in possesso di un progetto Symfony2 pienamente funzionante e memorizzato in git.
+Tuttavia, spesso si vuole memorizzare un progetto un server remoto, sia per
+questioni di backup, sia per fare in modo che altri sviluppatori possano collaborare
+al progetto stesso.
 
-Il modo più facile per memorizzare il proprio progetto su un server remoto è l'utilizzo
+Il modo più facile per memorizzare un progetto su un server remoto è l'utilizzo
 di servizi come `GitHub`_ o `Bitbucket`. Ovviamente ci sono molti altri servizi
 in giro, si può iniziare una ricerca su
 `confronto tra servizi di hosting`_.
@@ -117,7 +111,7 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 
 .. _`git`: http://git-scm.com/
 .. _`Symfony2 Standard Edition`: http://symfony.com/download
-.. _`sotto-moduli di git`: http://git-scm.com/book/en/Git-Tools-Submodules
+.. _`sottomoduli di git`: http://git-scm.com/book/en/Git-Tools-Submodules
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository
 .. _`Gitolite`: https://github.com/sitaramc/gitolite

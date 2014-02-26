@@ -52,16 +52,17 @@ se si vuole sapere il nome di un bundle, si può aggiungere al comando::
     );
 
 All'utente sarà chiesto "Prego inserire il nome del bundle". L'utente potrà inserire
-un nome, che sarà restituito dal metodo ``ask``. Se lasciato vuoto, sarà
-restituito il valore predefinito (``AcmeDemoBundle``).
+un nome, che sarà restituito dal metodo
+:method:`Symfony\\Component\\Console\\Helper\\DialogHelper::ask`. Se
+lasciato vuoto, sarà restituito il valore predefinito (qui ``AcmeDemoBundle``).
 
-Nascodere la risposta dell'utente
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Autcompletamento
+~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.2
-    Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
+    L'autocompletamento è stato aggiunto in Symfony 2.2.
 
-Si possono anche specificare delle risposte possibili alla domanda data. Saranno
+Si possono anche specificare delle possibili risposte alla domanda data. Saranno
 completate man mano che l'utente scrive::
 
     $dialog = $this->getHelperSet()->get('dialog');
@@ -69,7 +70,7 @@ completate man mano che l'utente scrive::
     $name = $dialog->ask(
         $output,
         'Prego inserire il nome del bundle',
-        'FooBundle',
+        'PippoBundle',
         $bundleNames
     );
 
@@ -235,9 +236,12 @@ occorre impostare il settimo parametro a ``true``::
         return $colors[$c];
     }, $selected);
 
-    $output->writeln('Hai scelto: ' . implode(', ', $selectedColors));
+    $output->writeln(
+        'Hai scelto: ' . implode(', ', $selectedColors)
+    );
 
-Se ora l'utente inserisce ``1,2``, il risultato sarà: ``Hai scelto: blu, giallo``.
+Se ora l'utente inserisce ``1,2``, il risultato sarà:
+``Hai scelto: blu, giallo``.
 
 Testare un comando con un input atteso
 --------------------------------------

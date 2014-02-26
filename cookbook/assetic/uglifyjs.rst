@@ -75,6 +75,7 @@ nel trattamento del codice javascript:
 
         <!-- app/config/config.xml -->
         <assetic:config>
+            <!-- bin: percorso dell'eseguibile uglifyjs -->
             <assetic:filter
                 name="uglifyjs2"
                 bin="/usr/local/bin/uglifyjs" />
@@ -86,6 +87,7 @@ nel trattamento del codice javascript:
         $container->loadFromExtension('assetic', array(
             'filters' => array(
                 'uglifyjs2' => array(
+                    // percorso dell'eseguibile uglifyjs
                     'bin' => '/usr/local/bin/uglifyjs',
                 ),
             ),
@@ -230,9 +232,9 @@ di Assetic:
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/css/*' filter='uglifycss' %}
+        {% stylesheets '@AcmePippoBundle/Resources/public/css/*' filter='uglifycss' %}
              <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endjavascripts %}
+        {% endstylesheets %}
 
     .. code-block:: html+php
 

@@ -60,19 +60,19 @@ in base ai campi delle tabelle.
 
 .. code-block:: bash
 
-    $ php app/console doctrine:mapping:convert xml ./src/Acme/BlogBundle/Resources/config/doctrine --from-database --force
+    $ php app/console doctrine:mapping:import --force AcmeBlogBundle xml
 
 Questo comando del terminale chiede a Doctrine l'introspezione della base dati e la
-generazione dei file di metadati XML sotto la cartella ``src/Acme/BlogBundle/Resources/config/doctrine/metadata/orm``
+generazione dei file di metadati XML sotto la cartella ``src/Acme/BlogBundle/Resources/config/doctrine``
 del bundle. I file generati sono ``BlogPost.orm.xml`` e
 ``BlogComment.orm.xml``.
 
 .. tip::
 
     Le classi dei metadati possono anche essere generate in YAML, modificando il
-    primo parametro in `yml`.
+    primo parametro in ``yml``.
 
-Il file dei metadati ``BlogPost.dcm.xml`` assomiglia a questo:
+Il file dei metadati ``BlogPost.orm.xml`` è simile a questo:
 
 .. code-block:: xml
 
@@ -168,7 +168,7 @@ nella classe ``BlogComment``.
 .. note::
 
     Se si vuole una relazione ``oneToMany``, occorrerà aggiungerla manualmente
-    nell'entità o nei file ``xml`` o ``yml``.
+    nell'entità o nei file XML o YAML.
     Aggiungere una sezione nelle specifiche entità per ``oneToMany``, definendo
     le parti ``inversedBy`` e ``mappedBy``.
 

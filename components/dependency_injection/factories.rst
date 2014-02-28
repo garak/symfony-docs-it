@@ -125,7 +125,7 @@ factory stesso come servizio:
 
         $container->setDefinition('newsletter_factory', new Definition(
             '%newsletter_factory.class%'
-        ))
+        ));
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%'
         ))->setFactoryService(

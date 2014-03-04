@@ -216,6 +216,7 @@ Quindi, creare il form per il modello ``Registration``::
                 'checkbox',
                 array('property_path' => 'termsAccepted')
             );
+            $builder->add('Register', 'submit');
         }
 
         public function getName()
@@ -239,7 +240,6 @@ controllore, per mostrare il form di registrazione::
     namespace Acme\AccountBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-    use Symfony\Component\HttpFoundation\Response;
 
     use Acme\AccountBundle\Form\Type\RegistrationType;
     use Acme\AccountBundle\Form\Model\Registration;
@@ -270,9 +270,12 @@ e il suo template:
 Infine, creare il controllare che gestisce l'invio del form. Questo esegue la
 validazione e salva i dati nella base dati::
 
+    use Symfony\Component\HttpFoundation\Request;
+    // ...
+
     public function createAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(new RegistrationType(), new Registration());
 

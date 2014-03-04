@@ -24,7 +24,7 @@ La configurazione seguente mostra come configurare due gestori di entità:
 
         doctrine:
             dbal:
-                default_connection:   default
+                default_connection: default
                 connections:
                     default:
                         driver:   "%database_driver%"
@@ -44,22 +44,21 @@ La configurazione seguente mostra come configurare due gestori di entità:
                         charset:  UTF8
 
             orm:
-                default_entity_manager:   default
+                default_entity_manager: default
                 entity_managers:
                     default:
-                        connection:       default
+                        connection: default
                         mappings:
-                            AcmeDemoBundle: ~
+                            AcmeDemoBundle:  ~
                             AcmeStoreBundle: ~
                     customer:
-                        connection:       customer
+                        connection: customer
                         mappings:
                             AcmeCustomerBundle: ~
 
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8"?>
-
         <srv:container xmlns="http://symfony.com/schema/dic/doctrine"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
@@ -188,11 +187,14 @@ si otterrà il gestore di entità predefinito (cioè ``default``)::
     {
         public function indexAction()
         {
-            // entrambi restiuiscono il gestore "default"
+            // entrambi restituiscono il gestore "default"
             $em = $this->get('doctrine')->getManager();
             $em = $this->get('doctrine')->getManager('default');
+            $em = $this->get('doctrine.orm.default_entity_manager');
 
-            $customerEm =  $this->get('doctrine')->getManager('customer');
+            // entrambi restituiscono il gestore "customer"
+            $customerEm = $this->get('doctrine')->getManager('customer');
+            $customerEm = $this->get('doctrine.orm.customer_entity_manager');
         }
     }
 

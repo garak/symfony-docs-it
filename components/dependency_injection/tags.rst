@@ -199,9 +199,6 @@ Per iniziare, cambiare la classe ``TransportChain``::
             if (array_key_exists($alias, $this->transports)) {
                return $this->transports[$alias];
             }
-            else {
-               return;
-            }
         }
     }
 

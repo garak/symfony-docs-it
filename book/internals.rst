@@ -23,7 +23,7 @@ Il codice di Symfony2 è composto da diversi livelli indipendenti. Ogni livello
 
     L'auto-caricamento non viene gestito direttamente dal framework, ma
     dall'autoloader di Composer (``vendor/autoload.php``), incluso nel
-    file ``src/autoload.php``.
+    file ``app/autoload.php``.
 
 Il componente HttpFoundation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -7,27 +7,23 @@ sul sistema dei template di Symfony2, `Twig`_. Twig è un sistema di template ve
 flessibile e sicuro per PHP. Rende i propri template più leggibili e concisi e anche
 più amichevoli per i designer.
 
-.. note::
-
-    Invece di Twig, si può anche usare :doc:`PHP </cookbook/templating/PHP>`
-    per i template. Entrambi i sistemi di template sono supportati da Symfony2.
-
 Familiarizzare con Twig
 -----------------------
 
-.. tip::
-
-    Se si vuole imparare Twig, suggeriamo caldamente di leggere la sua 
-    `documentazione`_ ufficiale. Questa sezione è solo un rapido sguardo ai
-    concetti principali.
+La `documentazione`_ ufficiale di Twig è la migliore risorsa per sapere tutto su
+questo motore di template. Questa sezione è solo un rapido sguardo ai
+concetti principali.
 
 Un template Twig è un file di test che può generare ogni tipo di contenuto (HTML,
-XML, CSV, LaTeX, ...). Twig definisce due tipi di delimitatori:
+XML, CSV, LaTeX, ...). Gli elementi di Twig sono separati dal resto del contenuto
+del template tramite alcuni delimitatori:
 
 * ``{{ ... }}``: Stampa una variabile o il risultato di un'espressione;
 
 * ``{% ... %}``: Controlla la logica del template; è usato per eseguire dei cicli
   ``for`` e delle istruzioni ``if``, per esempio.
+
+* ``{# ... #}``: consente l'inserimento di commenti all'interno dei template.
 
 Segue un template minimale, che illustra alcune caratteristiche di base, usando due
 variabili, ``page_title`` e ``navigation``, che dovrebbero essere passate al template:
@@ -44,15 +40,11 @@ variabili, ``page_title`` e ``navigation``, che dovrebbero essere passate al tem
 
             <ul id="navigation">
                 {% for item in navigation %}
-                    <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+                    <li><a href="{{ item.url }}">{{ item.label }}</a></li>
                 {% endfor %}
             </ul>
         </body>
     </html>
-
-.. tip::
-
-   Si possono inserire commenti nei template, usando i delimitatori ``{# ... #}``.
 
 Per rendere un template in Symfony, usare il metodo ``render`` dal controllore e passargli
 qualsiasi variabile necessaria al template::
@@ -63,44 +55,39 @@ qualsiasi variabile necessaria al template::
 
 Le variabili passate a un template possono essere stringhe, array o anche oggetti. Twig
 astrae le differenze tra essi e consente di accedere agli "attributi" di una variabie
-con la notazione del punto (``.``):
+con la notazione del punto (``.``). Il codice seguente mostra come
+visualizzare il contenuto di una variabile, a seconda del tipo di variabile passata
+dal controllore:
 
 .. code-block:: jinja
 
+    {# 1. Variabile semplice #}
     {# array('name' => 'Fabien') #}
     {{ name }}
 
+    {# 2. Array #}
     {# array('user' => array('name' => 'Fabien')) #}
     {{ user.name }}
 
-    {# forza la ricerca nell'array #}
+    {# sintassi alternativa per array #}
     {{ user['name'] }}
 
+    {# 3. Oggetti #}
     {# array('user' => new User('Fabien')) #}
     {{ user.name }}
     {{ user.getName }}
 
-    {# forza la ricerca del nome del metodo #}
+    {# sintassi alternativa per oggetti #}
     {{ user.name() }}
     {{ user.getName() }}
-
-    {# passa parametri a un metodo #}
-    {{ user.date('Y-m-d') }}
-
-.. note::
-
-    È importante sapere che le parentesi graffe non sono parte della variabile,
-    ma istruzioni di stampa. Se si accede alle variabili dentro ai tag, non inserire
-    le parentesi graffe.
 
 Decorare i template
 -------------------
 
 Molto spesso, i template in un progetto condividono alcuni elementi comuni,
-come i ben noti header e footer. In Symfony2, il problema è affrontato in
-modo diverso: un template può essere decorato da un altro template.
-Funziona esattamente come nelle classi di PHP: l'ereditarietà dei template consente
-di costruire un template di base "layout", che contiene tutti gli elementi comuni
+come i ben noti header e footer. In Twig, il problema è affrontato in modo diverso,
+chiamato "ereditarietà dei template". Questo consente
+di costruire un template di base, chiamato "layout", che contiene tutti gli elementi comuni
 di un sito e definisce dei "blocchi", che i template figli possono sovrascrivere.
 
 Il template ``hello.html.twig`` eredita da ``layout.html.twig``, grazie al tag
@@ -127,25 +114,35 @@ Diamo ora un'occhiata a una versione semplificata di ``layout.html.twig``:
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/layout.html.twig #}
-    <div class="symfony-content">
+    <div>
         {% block content %}
         {% endblock %}
     </div>
 
-I tag ``{% block %}`` definiscono blocchi che i template figli possono riempire.
-Tutto ciò che fa un tag di blocco è dire al sistema di template che un template figlio
-può sovrascrivere quelle porzioni di template.
-
-In questo esempio, il template ``hello.html.twig`` sovrascrive il blocco ``content``,
-quindi il testo "Hello Fabien" viene reso all'interno dell'elemento
-``div.symfony-content``.
+I tag ``{% block %}`` dicono al sistema di template che un template figlio può
+sovrascrivere quelle porzioni di template. In questo esempio, il template ``hello.html.twig``
+sovrascrive il blocco ``content``, quindi il testo "Hello Fabien" viene
+reso all'interno dell'elemento ``div``.
 
 Usare tag, filtri e funzioni
 ----------------------------
 
 Una delle migliori caratteristiche di Twig è la sua estensibilità tramite tag, filtri e
-funzioni. Symfony2 ha dei bundle con molti di questi, per facilitare il lavoro dei
-designer.
+funzioni. Si veda nell'esempio seguente un template che usa filtri in modo estensivo,
+per modificare le informazioni prima che siano mostrate all'utente:
+
+.. code-block:: jinja
+
+    <h1>{{ article.title|trim|capitalize }}</h1>
+
+    <p>{{ article.content|striptags|slice(0, 1024) }}</p>
+
+    <p>Tag: {{ article.tags|sort|join(", ") }}</p>
+
+    <p>Il prossimo articolo sarà pubblicato il {{ 'next Monday'|date('M j, Y')}}</p>
+
+Non dimenticare di dare uno sguardo alla `documentazione`_ ufficiale di Twig, per imparare
+tutto su filtri, funzioni e tag.
 
 Includere altri template
 ------------------------
@@ -179,32 +176,31 @@ Cosa fare se si vuole inserire il risultato di un altro controllore in un templa
 Può essere molto utile quando si lavora con Ajax o quando il template incluso necessita
 di alcune variabili, non disponibili nel template principale.
 
-Supponiamo di aver creato un metodo ``fancyAction`` in un controllore e di volerlo
+Supponiamo di aver creato un metodo ``topArticlesAction`` in un controllore e di volerlo
 "rendere" dentro al template ``index``, che vuol dire inserire il risultato
-(cioè il codice HTML) del controllore. Per farlo, si usa la funzione ``render``:
+(cioè il codice HTML) del controllore. Per farlo, si usa la funzione
+``render``:
 
 .. code-block:: jinja
 
     {# src/Acme/DemoBundle/Resources/views/Demo/index.html.twig #}
-    {{ render(controller("AcmeDemoBundle:Demo:fancy", {'name': name, 'color': 'green'})) }}
+    {{ render(controller("AcmeDemoBundle:Demo:topArticles", {'num': 10})) }}
 
-Qui, la stringa ``AcmeDemoBundle:Demo:fancy`` si riferisce all'azione ``fancy`` del
-controllore ``Demo``. I parametri (``name`` e ``color``) agiscono come variabili simulate
-della richiesta (come se ``fancyAction`` stesse gestendo una richiesta completamente
-nuova) e sono rese disponibili al controllore::
+Qui, la stringa ``AcmeDemoBundle:Demo:topArticles`` si riferisce all'azione
+``topArticlesAction`` del controllore ``Demo``. Il parametro ``num``
+è reso disponibile al controllore::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
 
     class DemoController extends Controller
     {
-        public function fancyAction($name, $color)
+        public function topArticlesAction($num)
         {
-            // creare un oggetto, in base alla variabile $color
-            $object = ...;
+            // cercare i $num articoli più popolari nella base dati
+            $articles = ...;
 
-            return $this->render('AcmeDemoBundle:Demo:fancy.html.twig', array(
-                'name' => $name,
-                'object' => $object,
+            return $this->render('AcmeDemoBundle:Demo:topArticles.html.twig', array(
+                'articles' => $articles,
             ));
         }
 
@@ -223,10 +219,9 @@ modo, tutti gli URL saranno facilmente aggiornati al cambiare della configurazio
 
     <a href="{{ path('_demo_hello', { 'name': 'Thomas' }) }}">Ciao Thomas!</a>
 
-La funzione  ``path()`` accetta come parametri un nome di rotta e un
-array di parametri. Il nome della rotta è la chiave principale sotto
-cui le rotte sono elencate e i parametri sono i valori dei segnaposto
-definiti nello schema della rotta::
+La funzione  ``path`` accetta come parametri un nome di rotta e un array di parametri.
+Il nome della rotta è la chiave principale sotto cui le rotte sono elencate e
+i parametri sono i valori dei segnaposto definiti nello schema della rotta::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -245,8 +240,9 @@ definiti nello schema della rotta::
 
 .. tip::
 
-    La funzione ``url`` genera URL *assoluti*: ``{{ url('_demo_hello', {
-    'name': 'Thomas'}) }}``.
+    La funzione ``url`` è simile alla funzione ``path``, ma genera
+    URL *assoluti*, il che è utile per rendere email o file RSS:
+    ``{{ url('_demo_hello', {'name': 'Thomas'}) }}``.
 
 Includere risorse: immagini, JavaScript e fogli di stile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -264,13 +260,6 @@ Lo scopo principale della funzione ``asset`` è quello di rendere le
 applicazioni maggiormente portabili. Grazie a questa funzione, si
 può spostare la cartella radice dell'applicazione ovunque, sotto la cartella
 radice del web, senza cambiare nulla nel codice dei template.
-
-Escape delle variabili
-----------------------
-
-Twig è configurato in modo predefinito per l'escape automatico di ogni output. Si legga
-la `documentazione`_ di Twig per sapere di più sull'escape dell'output e sull'estensione
-Escaper.
 
 Considerazioni finali
 ---------------------

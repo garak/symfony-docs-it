@@ -55,10 +55,10 @@ collegamenti html e i form durante la visita dell'albero HTML.
 .. note::
 
     DomCrawler proverà a sistemare automaticamente il codice HTML, per farlo corrispondere
-    alle specifiche ufficiali. Per esempio, se si inserisce un tag `` <p>`` dentro a
-    un altro tag `` <p>``, sarà spostato come fratello del tag genitore.
+    alle specifiche ufficiali. Per esempio, se si inserisce un tag ``<p>`` dentro a
+    un altro tag ``<p>``, sarà spostato come fratello del tag genitore.
     Questo è il comportamento atteso e fa parte delle specifiche di HTML5. Se però si
-    ottiene un comportamento inatteso, potrebbe esserne una causa. Pur non essendo ``DomCrawler``
+    ottiene un comportamento inatteso, potrebbe esserne una causa. Pur non essendo DomCrawler
     pensato per esportare contenuti, si può vedere la versione "sistemata" del codice HTML
     :ref:`con un'esportazione <component-dom-crawler-dumping>`.
 
@@ -83,10 +83,12 @@ In questo modo è possibile usare lo stile jQuery per l'attraversamento::
     use Symfony\Component\DomCrawler\Crawler;
     // ...
 
-    $crawler = $crawler->filter('body > p')->reduce(function ($node, $i) {
-        // filtra anche i nodi
-        return ($i % 2) == 0;
-    });
+    $crawler = $crawler
+        ->filter('body > p')
+        ->reduce(function (Crawler $node, $i) {
+            // filtra anche i nodi
+            return ($i % 2) == 0;
+        });
 
 Per rimuovere i nodi, la funzione anonima dovrà restituire false.
 
@@ -162,7 +164,7 @@ Chiamare una funzione anonima su ogni nodo della lista::
     passato un ``Crawler`` come primo parametro. In precedenza, tale parametro
     era un :phpclass:`DOMNode`.
 
-La funzione anonima riceve la posizione e il nodo come argomenti.
+La funzione anonima riceve la posizione e il nodo (come Crawler) come parametri.
 Il risultato è un array contenente i valori restituiti dalle chiamate alla funzione anonima.
 
 Aggiungere contenuti

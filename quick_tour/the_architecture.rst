@@ -11,8 +11,7 @@ Capire la struttura delle cartelle
 ----------------------------------
 
 La struttura delle cartelle di un':term:`applicazione` Symfony2 è alquanto flessibile,
-ma la struttura delle cartelle della distribuzione *Standard Edition* riflette
-la struttura tipica e raccomandata di un'applicazione Symfony2:
+ma la struttura raccomandata è la seguente:
 
 * ``app/``:    La configurazione dell'applicazione;
 * ``src/``:    Il codice PHP del progetto;
@@ -36,11 +35,10 @@ stanno i :term:`front controller`::
     $kernel->loadClassCache();
     $kernel->handle(Request::createFromGlobals())->send();
 
-Il kernel inizialmente richiede il file ``bootstrap.php.cache``, che lancia
-l'applicazione e registra l'autoloader (vedi sotto).
-
-Come ogni front controller, ``app.php`` usa una classe Kernel, ``AppKernel``,
-per inizializzare l'applicazione.
+Il front controller inizializza l'applicazione, usando una classe kernel (``AppKernel``,
+in questo caso). Quindi, crea l'oggetto ``Request``, usando le variabili globali di PHP,
+e lo passa al kernel. L'ultimo passo è l'invio del contenuto della risposta,
+restituito dal kernel all'utente.
 
 .. _the-app-dir:
 
@@ -59,16 +57,10 @@ Questa classe deve implementare due metodi:
   (approfondito più avanti);
 
 Il caricamento automatico essere configurato tramite `Composer`_, che vuol dire che si
-può usare qualsiasi classe PHP senza dover far nulla! Se occorre maggiore flessibilità,
-si può estendere l'autoloader nel file ``app/autoload.php``. Tutte le dipendenze sono
+può usare qualsiasi classe PHP senza dover far nulla! Tutte le dipendenze sono
 memorizzate sotto la cartella ``vendor/``, ma è solo una convenzione.
 Si possono memorizzare dove si preferisce, globalmente sul poprio server o localmente
 nei propri progetti.
-
-.. note::
-
-    Se si vuole approfondire l'argomento flessibilità dell'autoloader di Symfony2, leggere `Composer-Autoloader`_.
-    Symfony dispone anche di un componente specifico, si veda ":doc:`/components/class_loader/class_loader`".
 
 Capire il sistema dei bundle
 ----------------------------
@@ -79,10 +71,11 @@ potenti caratteristiche di Symfony2, il sistema dei :term:`bundle`.
 Un bundle è molto simile a un plugin in un altro software. Ma perché
 allora si chiama *bundle* e non *plugin*? Perché *ogni cosa* è un bundle
 in Symfony2, dalle caratteristiche del nucleo del framework al codice
-scritto per un'applicazione. I bundle sono cittadini di prima classe in Symfony2.
-Essi forniscono la flessibilità di usare delle caratteristiche pre-costruite impacchettate
-in bundle di terze parti o di distribuire i propri bundle. Questo rende
-molto facile scegliere quali caratteristiche abilitare in
+scritto per un'applicazione.
+
+I bundle sono cittadini di prima classe in Symfony2. Essi forniscono la flessibilità
+di usare delle caratteristiche pre-costruite impacchettate in bundle di terze parti o di distribuire 
+i propri bundle. Questo rende molto facile scegliere quali caratteristiche abilitare in
 un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
 dell'applicazione è *importante* quanto il nucleo stesso del framework.
 
@@ -160,7 +153,7 @@ XML o PHP. Si veda la configurazione predefinita:
         debug:          "%kernel.debug%"
         use_controller: false
         bundles:        [ ]
-        # java: /usr/bin/java
+        #java: /usr/bin/java
         filters:
             cssrewrite: ~
             #closure:
@@ -297,7 +290,8 @@ configurazione dell'applicazione è analizzata solo per la prima richiesta
 e poi compilata in semplice file PHP, memorizzato nella cartella ``app/cache/``
 dell'applicazione. Nell'ambiente di sviluppo, Symfony2 è abbastanza
 intelligente da pulire la cache quando cambiano dei file. In produzione, invece,
-occorre pulire la cache manualmente quando si aggiorna il codice o si modifica la configurazione.
+occorre pulire la cache manualmente quando si aggiorna il codice o si modifica la
+configurazione.
 
 Sviluppando un'applicazione web, le cose possono andar male in diversi modi.
 I file di log nella cartella ``app/logs/`` dicono tutto a proposito delle richieste
@@ -336,4 +330,3 @@ temi? Senza indugi, basta andare nella pagine del :doc:`libro</book/index>` e
 scegliere un argomento a piacere.
 
 .. _Composer:   http://getcomposer.org
-.. _`Composer-Autoloader`: http://getcomposer.org/doc/01-basic-usage.md#autoloading

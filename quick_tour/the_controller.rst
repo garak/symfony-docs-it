@@ -50,7 +50,12 @@ rotta::
     // ...
 
     /**
-     * @Route("/hello/{name}.{_format}", defaults={"_format"="html"}, requirements={"_format"="html|xml|json"}, name="_demo_hello")
+     * @Route(
+     *     "/hello/{name}.{_format}",
+     *     defaults = { "_format" = "html" },
+     *     requirements = { "_format" = "html|xml|json" },
+     *     name = "_demo_hello"
+     * )
      * @Template()
      */
     public function helloAction($name)
@@ -58,7 +63,7 @@ rotta::
         return array('name' => $name);
     }
 
-Ora il controller sarà richiamato per URL come ``/demo/hello/Fabien.xml`` o
+Ora il controllore sarà richiamato per URL come ``/demo/hello/Fabien.xml`` o
 ``/demo/hello/Fabien.json``.
 
 La voce ``requirements`` definisce delle espressioni regolari che i segnaposto
@@ -78,21 +83,33 @@ Il metodo ``generateUrl()`` è lo stesso della funzione ``path()`` che abbiamo u
 template. Accetta come parametri il nome della rotta e un array di parametri e restituisce
 l'URL amichevole associato.
 
-Si può anche facilmente rimandare l'azione a un'altra, col metodo ``forward()``.
-Internamente, Symfony effettua una "sotto-richiesta" e restituisce un oggetto ``Response``
-da tale sotto-richiesta::
+Si può anche rimandare internamente l'azione a un'altra, col metodo
+``forward()``::
 
-    $response = $this->forward('AcmeDemoBundle:Hello:fancy', array('name' => $name, 'color' => 'green'));
+    return $this->forward('AcmeDemoBundle:Hello:fancy', array(
+        'name'  => $name,
+        'color' => 'green'
+    ));
 
-    // fare qualcosa con la risposta o restituirla direttamente
+Mostrare pagine di errore
+-------------------------
+
+Inevitabilmente, accadono degli errori durante l'esecuzione di un'applicazione.
+In caso di errori ``404``, Symfony include una comoda scorciatoia da usare
+nei controllori::
+
+    throw $this->createNotFoundException();
+
+Per gli errori ``500``, basta sollevare una normale eccezione PHP all'interno del controllore,
+Symfony la trasformerà in una pagina di errore ``500``::
+
+    throw new \Exception('Qualcosa è andato storto!');
 
 Ottenere informazioni dalla richiesta
 -------------------------------------
 
-Oltre ai valori dei segnaposto delle rotte, il controllore ha anche accesso
-all'oggetto ``Request``. Il framework inietta l'oggetto ``Request`` nel
-controllolre, se una variabile è forzata a
-`Symfony\Component\HttpFoundation\Request`::
+Symfony inietta l'oggetto ``Request`` nel controllolre, se
+una variabile è forzata a ``Symfony\Component\HttpFoundation\Request``::
 
     use Symfony\Component\HttpFoundation\Request;
 
@@ -102,7 +119,7 @@ controllolre, se una variabile è forzata a
 
         $request->getPreferredLanguage(array('en', 'fr'));
 
-        $request->query->get('page'); // prende un parametro $_GET
+        $request->query->get('page');   // prende un parametro $_GET
 
         $request->request->get('page'); // prende un parametro $_POST
     }
@@ -144,86 +161,16 @@ un qualsiasi controllore::
     }
 
 Si possono anche memorizzare piccoli messaggi che saranno disponibili solo per
-la richiesta successiva::
+la richiesta successiva. Sono utili quando occorre impostare un messaggio prima di rimandare
+l'utente a un'altra pagina (che mostrerà il messaggio)::
 
     // memorizza un messaggio per la richiesta successiva (in un controllore)
     $session->getFlashBag()->set('notice', 'Congratulazioni, azione eseguita con successo!');
 
-    // mostra il messaggio nella richiesta successiva (in un template)
+.. code-block:: html+jinja
 
-    {% for flashMessage in app.session.flashbag.get('notice') %}
-        <div>{{ flashMessage }}</div>
-    {% endfor %}
-
-Ciò risulta utile quando occorre impostare un messaggio di successo, prima di rinviare
-l'utente a un'altra pagina (la quale mostrerà il messaggio). Si noti che l'uso di
-``has()`` al posto di ``get()`` fa sì che il messaggio non venga cancellato o quindi rimanga
-disponibile per le richieste successive.
-
-Proteggere le risorse
----------------------
-
-La Standard Edition di Symfony possiede una semplice configurazione di sicurezza, che
-soddisfa i bisogni più comuni:
-
-.. code-block:: yaml
-
-    # app/config/security.yml
-    security:
-        encoders:
-            Symfony\Component\Security\Core\User\User: plaintext
-
-        role_hierarchy:
-            ROLE_ADMIN:       ROLE_USER
-            ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-
-        providers:
-            in_memory:
-                memory:
-                    users:
-                        user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                        admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
-
-        firewalls:
-            dev:
-                pattern:  ^/(_(profiler|wdt)|css|images|js)/
-                security: false
-
-            login:
-                pattern:  ^/demo/secured/login$
-                security: false
-
-            secured_area:
-                pattern:    ^/demo/secured/
-                form_login:
-                    check_path: /demo/secured/login_check
-                    login_path: /demo/secured/login
-                logout:
-                    path:   /demo/secured/logout
-                    target: /demo/
-
-Questa configurazione richiede agli utenti di effettuare login per ogni URL che inizi
-per ``/demo/secured/`` e definisce due utenti validi: ``user`` e ``admin``.
-Inoltre, l'utente ``admin`` ha il ruolo ``ROLE_ADMIN``, che include il ruolo
-``ROLE_USER`` (si veda l'impostazione ``role_hierarchy``).
-
-.. tip::
-
-    Per leggibilità, le password sono memorizzate in chiaro in questa semplice
-    configurazione, ma si può usare un qualsiasi algoritmo di hash, modificando
-    la sezione ``encoders``.
-
-Andando all'URL ``http://localhost/Symfony/web/app_dev.php/demo/secured/hello``,
-si verrà automaticamente rinviati al form di login, perché questa risorsa è
-protetta da un ``firewall``.
-
-.. note::
-
-    Il livello di sicurezza di Symfony2 è molto flessibile e fornisce diversi provider
-    per gli utenti (come quello per l'ORM Doctrine) e provider di autenticazione
-    (come HTTP basic, HTTP digest o certificati X509). Si legga il capitolo
-    ":doc:`/book/security`" del libro per maggiori informazioni su come
-    usarli e configurarli.
+    {# mostra il messaggio nella richiesta successiva (in un template) #}
+    <div>{{ app.session.flashbag.get('notice') }}</div>
 
 Mettere in cache le risorse
 ---------------------------
@@ -247,19 +194,10 @@ usare l'annotazione ``@Cache()``::
         return array('name' => $name);
     }
 
-In questo esempio, la risorsa sarà in cache per un giorno. Ma si può anche usare
-la validazione invece della scadenza o una combinazione di entrambe, se questo
-soddisfa meglio le proprie esigenze.
-
+In questo esempio, la risorsa sarà in cache per un giorno (``86400`` secondi).
 La cache delle risorse è gestita dal reverse proxy predefinito di Symfony2. Ma, poiché la
 cache è gestita usando i normali header di cache di HTTP, è possibile rimpiazzare il
 reverse proxy predefinito con Varnish o Squid e far scalare facilmente un'applicazione.
-
-.. note::
-
-    E se non si volesse mettere in cache l'intera pagina? Symfony2 ha una soluzione,
-    tramite Edge Side Includes (ESI), supportate nativamente. Si possono avere
-    maggiori informazioni nel capitolo ":doc:`/book/http_cache`" del libro.
 
 Considerazioni finali
 ---------------------

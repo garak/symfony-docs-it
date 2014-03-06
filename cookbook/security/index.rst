@@ -8,6 +8,7 @@ Sicurezza
     remember_me
     impersonating_user
     voters
+    voters_data_permission
     acl
     acl_advanced
     force_https

@@ -5,9 +5,9 @@ Prestazioni
 ===========
 
 Symfony2 è veloce, senza alcuna modifica. Ovviamente, se occorre maggiore velocità,
-ci sono molti modi per rendere Symfony2 ancora più veloce. In questo capitolo,
-saranno esplorati molti dei modi più comuni e potenti per rendere la propria
-applicazione Symfony più veloce.
+ci sono molti modi per rendere Symfony2 ancora più veloce. In questo capitolo
+saranno esplorati molti dei modi più comuni e potenti per rendere
+un'applicazione Symfony più veloce.
 
 .. index::
    single: Prestazioni; Cache bytecode
@@ -47,7 +47,7 @@ Usare un autoloader con cache (p.e. ``ApcUniversalClassLoader``)
 
 Per impostazione predefinita, Symfony2 standard edition usa ``UniversalClassLoader``
 nel file `autoloader.php`_. Questo autoloader è facile da usare, perché troverà
-automaticamente ogni nuova classe inserita nelle cartella
+automaticamente ogni nuova classe inserita nelle cartelle
 registrate.
 
 Sfortunatamente, questo ha un costo, perché il caricatore itera tutti gli spazi dei nomi

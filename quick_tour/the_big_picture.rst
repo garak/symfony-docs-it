@@ -40,7 +40,7 @@ progetto. Per questo primo progetto, si possono anche ignorare tali configurazio
 lasciando tutti i valori predefiniti.
 
 Eseguire Symfony2
-----------------
+-----------------
 
 Prima di eseguire Symfony2 per la prima volta, eseguire il comando seguente,
 per assicurarsi che il sistema soddisfi i requisiti tecnici:

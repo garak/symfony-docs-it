@@ -147,7 +147,6 @@ esiste::
     $request->query->get('bar', 'bar');
     // restituisce 'bar'
 
-
 Quando PHP importa la query della richiesta, gestisce i parametri della richiesta, come
 ``foo[bar]=bar``, in modo speciale, creando un array. In questo modo, si può richiedere il
 parametro ``foo`` e ottenere un array con un elemento ``bar``. A volte, però,
@@ -172,9 +171,10 @@ parametro::
 Infine, ma non meno importante, si possono anche memorizzare dati aggiuntivi nella
 richiesta, grazie alla proprietà pubblica ``attributes``, che è anche un'istanza di
 :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`. La si usa soprattutto
-per allegare informazioni che appartengono alla richiesta e a cui si deve accedere in
-diversi punti della propria applicazione. Per informazioni su come viene usata
-nel framework Symfony2, vedere :ref:`saperne di più<book-fundamentals-attributes>`.
+per allegare informazioni che appartengono alla richiesta e a cui si deve accedere
+in diversi punti dell'applicazione. Per informazioni su come viene
+usata nel framework Symfony2, vedere
+:ref:`il libro <book-fundamentals-attributes>`.
 
 Identificare una richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -259,7 +259,8 @@ Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
     }
 
     // accepts items are sorted by descending quality
-    $accepts = AcceptHeader::fromString($request->headers->get('Accept'))->all();
+    $accepts = AcceptHeader::fromString($request->headers->get('Accept'))
+        ->all();
 
 Accedere ad altri dati
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -432,7 +433,10 @@ astrae l'ingrato compito dietro una semplice API::
 
     use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-    $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'foo.pdf');
+    $d = $response->headers->makeDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        'foo.pdf'
+    );
 
     $response->headers->set('Content-Disposition', $d);
 
@@ -459,8 +463,11 @@ in caso positivo::
 
 Si può ancora impostare il ``Content-Type`` del file inviato o cambiarne il ``Content-Disposition``::
 
-    $response->headers->set('Content-Type', 'text/plain')
-    $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'nomefile.txt');
+    $response->headers->set('Content-Type', 'text/plain');
+    $response->setContentDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        'nomefile.txt'
+    );
 
 .. _component-http-foundation-json-response:
 

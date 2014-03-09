@@ -350,7 +350,7 @@ con le sue opzioni Per informazioni sui tipi disponibili, vedere la sezione
 
 .. seealso::
 
-    Si può anche consultare la `Documentazione di base sulla mappatura`_ di Doctrine
+    Si può anche consultare `Basic Mapping Documentation`_ di Doctrine
     per tutti i dettagli sulla mappatura. Se si usano le annotazioni, occorrerà
     aggiungere a ogni annotazione il prefisso ``ORM\`` (p.e. ``ORM\Column(..)``),
     che non è mostrato nella documentazione di Doctrine. Occorrerà anche includere
@@ -363,10 +363,10 @@ con le sue opzioni Per informazioni sui tipi disponibili, vedere la sezione
     mappati a delle parole riservate di SQL (come ``group`` o ``user``). Per esempio,
     se il nome di una classe entità è ``Group``, allora il nome predefinito della
     tabella sarà ``group``, che causerà un errore SQL in alcuni sistemi di basi dati.
-    Vedere la `Documentazione sulle parole riservate di SQL`_ per sapere come fare
+    Vedere `Reserved SQL keywords documentation`_ di Doctrine per sapere come fare
     correttamente escape di tali nomi. In alternativa, se si può scegliere liberamente lo schema della
-    base dati, usare semplicemente un nome diverso di tabella o di colonna. Vedere la
-    documentazione di Doctrine `Classi persistenti`_ e `Mappatura delle proprietà`_
+    base dati, usare semplicemente un nome diverso di tabella o di colonna. Vedere
+    `Persistent classes`_ e `Property Mapping`_ nella documentazione di Doctrine.
 
 .. note::
 
@@ -517,19 +517,28 @@ del bundle:
     Se si sta seguendo questo esempio, occorrerà creare una
     rotta che punti a questa azione, per poterla vedere in azione.
 
+.. tip::
+
+    Questo articolo mostra come si interagisce con Doctrine dall'interno di un controllore, usando article shows working with Doctrine from within a controller by using
+    il metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::getDoctrine`
+    del controllore. Tale metodo è una scorciatoia per ottenere il servizio
+    ``doctrine``. Si può interagire con Doctrine in altri contesti,
+    iniettandolo come servizio. Vedere
+    :doc:`/book/service_container` per maggiori informazioni sulla creazione di servizi.
+
 Analizziamo questo esempio:
 
-* **righe 8-11** In questa sezione, si istanzia e si lavora con l'oggetto ``$product``,
+* **righe 9-12** In questa sezione, si istanzia e si lavora con l'oggetto ``$product``,
   come qualsiasi altro normale oggetto PHP;
 
-* **riga 13** Questa riga recupera l'oggetto *gestore di entità* di Doctrine,
+* **riga 14** Questa riga recupera l'oggetto *gestore di entità* di Doctrine,
   responsabile della gestione del processo di persistenza e del recupero di
   oggetti dalla base dati;
 
-* **riga 14** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto ``$product``.
+* **riga 15** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto ``$product``.
   Questo non fa (ancora) eseguire una query sula base dati.
 
-* **riga 15** Quando il metodo ``flush()`` è richiamato, Doctrine cerca tutti
+* **riga 16** Quando il metodo ``flush()`` è richiamato, Doctrine cerca tutti
   gli oggetti che sta gestendo, per vedere se hanno bisogno di essere persistiti
   sulla base dati. In questo esempio, l'oggetto ``$product`` non è stato ancora
   persistito, quindi il gestore di entità esegue una query ``INSERT`` e crea
@@ -717,8 +726,44 @@ Cercare oggetti con DQL
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Si immagini di voler cercare dei prodotti, ma solo quelli che costino più
-di ``19.99``, ordinati dal più economico al più caro. Da dentro un controllore,
-fare come segue::
+di ``19.99``, ordinati dal più economico al più caro. Si può usare
+``QueryBuilder`` di Doctrine, come segue::
+
+    $repository = $this->getDoctrine()
+        ->getRepository('AcmeStoreBundle:Product');
+
+    $query = $repository->createQueryBuilder('p')
+        ->where('p.price > :price')
+        ->setParameter('price', '19.99')
+        ->orderBy('p.price', 'ASC')
+        ->getQuery();
+
+    $products = $query->getResult();
+
+L'oggetto ``QueryBuilder`` contiene tutti i metodi necessari per costruire una
+query. Richiamando il metodo ``getQuery()``, ``QueryBuilder`` restituisce un
+oggetto ``Query``, che può essere usato per ottenere il risultato della query.
+
+.. tip::
+
+    Prendere nota del metodo ``setParameter()``. Interagendo con Doctrine,
+    è sempre una buona idea impostare valori esterni tramite "segnaposto"
+    (``:price`` nell'esempio appena visto), per preveniore attacchi di tipo SQL injection.
+
+Il metodo ``getResult()`` restituisce un array di risultati. Se si cerca un solo
+oggetto, si può usare invece il metodo ``getSingleResult()`` (che lancia un'eccezione se
+non ci sono risultati) o ``getOneOrNullResult()``::
+
+    $product = $query->getOneOrNullResult();
+
+Per maggiori informazioni su ``QueryBuilder``, consultare la documetazione `Query Builder`_
+di Doctrine.
+
+Cercare oggetti usando DQL
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Invece di usare ``QueryBuilder``, is possono scrivere query direttamente,
+usando DQL::
 
     $em = $this->getDoctrine()->getManager();
     $query = $em->createQuery(
@@ -733,88 +778,13 @@ fare come segue::
 Se ci si trova a proprio agio con SQL, DQL dovrebbe sembrare molto naturale. La
 maggiore differenza è che occorre pensare in termini di "oggetti" invece che di
 righe di basi dati. Per questa ragione, si cerca *da* ``AcmeStoreBundle:Product``
-e poi si usa ``p`` come suo alias.
-
-Il metodo ``getResult()`` restituisce un array di risultati. Se si cerca un solo
-oggetto, si può usare invece il metodo ``getSingleResult()``::
-
-    $product = $query->getSingleResult();
-
-.. caution::
-
-    Il metodo ``getSingleResult()`` solleva un'eccezione ``Doctrine\ORM\NoResultException``
-    se non ci sono risultati e una ``Doctrine\ORM\NonUniqueResultException``
-    se c'è *più* di un risultato. Se si usa questo metodo, si potrebbe voler inserirlo
-    in un blocco try-catch, per assicurarsi che sia restituito un solo risultato
-    (nel caso in cui sia possibile che siano restituiti più
-    risultati)::
-
-        $query = $em->createQuery('SELECT ...')
-            ->setMaxResults(1);
-
-        try {
-            $product = $query->getSingleResult();
-        } catch (\Doctrine\Orm\NoResultException $e) {
-            $product = null;
-        }
-        // ...
+e poi si usa ``p`` come suo alias (che è quello che stato fatto
+nella sezione precedente).
 
 La sintassi DQL è incredibilmente potente e consente di fare join tra entità
-(l'argomento :ref:`relazioni<book-doctrine-relations>` sarà affrontato
+(l'argomento :ref:`relazioni <book-doctrine-relations>` sarà affrontato
 successivamente), raggruppare, ecc. Per maggiori informazioni, vedere la
 documentazione ufficiale di Doctrine `Doctrine Query Language`_.
-
-.. sidebar:: Impostare i parametri
-
-    Si prenda nota del metodo ``setParameter()``. Lavorando con Doctrine,
-    è sempre una buona idea impostare ogni valore esterno come "segnaposto",
-    come è stato fatto nella query precedente:
-
-    .. code-block:: text
-
-        ... WHERE p.price > :price ...
-
-    Si può quindi impostare il valore del segnaposto ``price``, richiamando il
-    metodo ``setParameter()``::
-
-        ->setParameter('price', '19.99')
-
-    L'uso di parametri al posto dei valori diretti nella stringa della query 
-    serve a prevenire attacchi di tipo SQL injection e andrebbe fatto *sempre*.
-    Se si usano più parametri, si possono impostare i loro valori in una volta
-    sola, usando il metodo ``setParameters()``::
-
-        ->setParameters(array(
-            'price' => '19.99',
-            'name'  => 'Pippo',
-        ))
-
-Usare query builder di Doctrine
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Invece di scrivere direttamente le query, si può invece usare ``QueryBuilder``,
-per fare lo stesso lavoro usando un'interfaccia elegante e orientata agli oggetti.
-Se si usa un IDE, si può anche trarre vantaggio dall'auto-completamento durante
-la scrittura dei nomi dei metodi. Da dentro un controllore::
-
-    $repository = $this->getDoctrine()
-        ->getRepository('AcmeStoreBundle:Product');
-
-    $query = $repository->createQueryBuilder('p')
-        ->where('p.price > :price')
-        ->setParameter('price', '19.99')
-        ->orderBy('p.price', 'ASC')
-        ->getQuery();
-
-    $products = $query->getResult();
-
-L'oggetto ``QueryBuilder`` contiene tutti i metodi necessari per costruire la
-propria query. Richiamando il metodo ``getQuery()``, query builder restituisce
-un normale oggetto ``Query``, che è lo stesso oggetto costruito direttamente
-nella sezione precedente.
-
-Per maggiori informazioni su query builder, consultare la documentazione di
-Doctrine `Query Builder`_.
 
 Classi repository personalizzate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1289,7 +1259,7 @@ Ulteriori informazioni sulle associazioni
 Questa sezione è stata un'introduzione a un tipo comune di relazione tra entità,
 la relazione uno-a-molti. Per dettagli ed esempi più avanzati su come usare altri
 tipi di relazioni (p.e. uno-a-uno, molti-a-molti), vedere
-la `Documentazione sulla mappatura delle associazioni`_.
+la `Association Mapping Documentation`_ di Doctrine.
 
 .. note::
 
@@ -1379,19 +1349,9 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
 Ora, appena prima che l'entità sia persistita per la prima volta, Doctrine richiamerà
 automaticamente questo metodo e il campo ``created`` sarà valorizzato con la data attuale.
 
-Si può ripetere questa operazione per ogni altro evento del ciclo di vita:
-
-* ``preRemove``
-* ``postRemove``
-* ``prePersist``
-* ``postPersist``
-* ``preUpdate``
-* ``postUpdate``
-* ``postLoad``
-* ``loadClassMetadata``
-
-Per maggiori informazioni sul significato di questi eventi del ciclo di vita e in generale
-sui callback del ciclo di vita, vedere la `Documentazione sugli eventi del ciclo di vita`_
+Ci sono molti altri eventi del ciclo di vita, a cui ci si può agganciare. Per maggiori
+informazioni, vedere la documentazione di Doctrine
+`Lifecycle Events documentation`_.
 
 .. sidebar:: Callback del ciclo di vita e ascoltatori di eventi
 
@@ -1406,17 +1366,6 @@ sui callback del ciclo di vita, vedere la `Documentazione sugli eventi del ciclo
     a qualsiasi risorsa necessaria. Per maggiori informazioni, vedere
     :doc:`/cookbook/doctrine/event_listeners_subscribers`.
 
-Estensioni di Doctrine: Timestampable, Sluggable, ecc.
-------------------------------------------------------
-
-Doctrine è alquanto flessibile e diverse estensioni di terze parti sono disponibili,
-consentendo di eseguire facilmente compiti comuni e ripetitivi sulle proprie entità.
-Sono inclusi *Sluggable*, *Timestampable*, *Loggable*, *Translatable* e
-*Tree*.
-
-Per maggiori informazioni su come trovare e usare tali estensioni, vedere la ricetta
-:doc:`usare le estensioni comuni di Doctrine</cookbook/doctrine/common_extensions>`.
-
 .. _book-doctrine-field-types:
 
 Riferimento sui tipi di campo di Doctrine
@@ -1424,169 +1373,10 @@ Riferimento sui tipi di campo di Doctrine
 
 Doctrine ha un gran numero di tipi di campo a disposizione. Ognuno di questi mappa
 un tipo di dato PHP su un tipo specifico di colonna in qualsiasi base dati si
-utilizzi. I seguenti tipi sono supportati in Doctrine:
-
-* **Stringhe**
-
-  * ``string`` (per stringhe più corte)
-  * ``text`` (per stringhe più lunghe)
-
-* **Numeri**
-
-  * ``integer``
-  * ``smallint``
-  * ``bigint``
-  * ``decimal``
-  * ``float``
-
-* **Date e ore** (usare un oggetto `DateTime`_ per questi campi in PHP)
-
-  * ``date``
-  * ``time``
-  * ``datetime``
-  * ``datetimetz``
-
-* **Altri tipi**
-
-  * ``boolean``
-  * ``object`` (serializzato e memorizzato in un campo ``CLOB``)
-  * ``array`` (serializzato e memorizzato in un campo ``CLOB``)
-  * ``blob`` (mappato sul flusso di una risorsa)
-  * ``simple_array`` (serializzato con :phpfunction:`implode()` e :phpfunction:`explode()`,
-    delimitato da virgola e memorizzato in un campo ``CLOB``)
-  * ``json_array`` (serializzato con :phpfunction:`json_encode()` e :phpfunction:`json_decode()`,
-    e memorizzato in un campo ``CLOB``)
-  * ``guid``
-
-Per maggiori informazioni, vedere `Documentazione sulla mappatura dei tipi`_.
-
-Opzioni dei campi
-~~~~~~~~~~~~~~~~~
-
-Ogni campo può avere un insieme di opzioni da applicare. Le opzioni disponibili
-includono ``type`` (predefinito ``string``), ``name``, ``length``, ``unique``
-e ``nullable``. Vediamo alcuni esempi con le annotazioni:
-
-.. configuration-block::
-
-    .. code-block:: php-annotations
-
-        /**
-         * Un campo stringa con lunghezza 255 che non può essere nullo
-         * (riflette i valori predefiniti per le opzioni "type", "length"
-         * e *nullable*)
-         *
-         * @ORM\Column()
-         */
-        protected $name;
-
-        /**
-         * Un campo stringa con lunghezza 150 che persiste su una colonna "email_address"
-         * e ha un vincolo di unicità.
-         *
-         * @ORM\Column(name="email_address", unique=true, length=150)
-         */
-        protected $email;
-
-    .. code-block:: yaml
-
-        fields:
-            # Un campo stringa con lunghezza 255 che non può essere nullo
-            # (riflette i valori predefiniti per le opzioni "type", "length"
-            # e *nullable*) l'attributo type è necessario
-            # nelle definizioni yaml
-            name:
-                type: string
-
-            # Un campo stringa con lunghezza 150 che persiste su una colonna "email_address"
-            # e ha un vincolo di unicità.
-            email:
-                type: string
-                column: email_address
-                length: 150
-                unique: true
-
-    .. code-block:: xml
-
-        <!--
-            Un campo stringa con lunghezza 255 che non può essere nullo
-            (riflette i valori predefiniti per le opzioni "length"
-            e *nullable*) l'attributo type è necessario
-            nelle definizioni XML
-        -->
-        <field name="name" type="string" />
-        <field name="email"
-            type="string"
-            column="email_address"
-            length="150"
-            unique="true"
-        />
-
-.. note::
-
-    Ci sono alcune altre opzioni, non elencate qui. Per maggiori dettagli,
-    vedere la `Documentazione sulla mappatura delle proprietà`_
-
-.. index::
-   single: Doctrine; Comandi da console ORM
-   single: CLI; ORM Doctrine
-
-Comandi da console
-------------------
-
-L'integrazione con l'ORM Doctrine2 offre diversi comandi da console, sotto lo spazio
-dei nomi ``doctrine``. Per vedere la lista dei comandi, si può eseguire la
-console senza parametri:
-
-.. code-block:: bash
-
-    $ php app/console
-
-Verrà mostrata una lista dei comandi disponibili, molti dei quali iniziano
-col prefisso ``doctrine:``. Si possono trovare maggiori informazioni eseguendo il
-comando ``help``. Per esempio, per ottenere dettagli sul task
-``doctrine:database:create``, eseguire:
-
-.. code-block:: bash
-
-    $ php app/console help doctrine:database:create
-
-Alcuni task interessanti sono:
-
-* ``doctrine:ensure-production-settings`` - verifica se l'ambiente attuale
-  sia configurato efficientemente per la produzione. Dovrebbe essere sempre
-  eseguito nell'ambiente ``prod``:
-
-  .. code-block:: bash
-
-      $ php app/console doctrine:ensure-production-settings --env=prod
-
-* ``doctrine:mapping:import`` - consente a Doctrine l'introspezione di una base dati
-  esistente e di creare quindi le informazioni di mappatura. Per ulteriori informazioni,
-  vedere :doc:`/cookbook/doctrine/reverse_engineering`.
-
-* ``doctrine:mapping:info`` - elenca tutte le entità di cui Doctrine è a
-  conoscenza e se ci sono o meno errori di base con la mappatura.
-
-* ``doctrine:query:dql`` e ``doctrine:query:sql`` - consente l'esecuzione di
-  query DQL o SQL direttamente dalla linea di comando.
-
-.. note::
-
-   Per poter caricare fixture nella propria base dati, occorrerà avere il bundle
-   ``DoctrineFixturesBundle`` installato. Per sapere come farlo, leggere
-   la voce ":doc:`/bundles/DoctrineFixturesBundle/index`" della
-   documentazione.
-
-.. tip::
-
-    Questa pagina mostra come interagire con Doctrine in un controllore. Si potrebbe anche voler
-    interagire con Doctrine in altri punti dell'applicaizone. Il metodo
-    :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::getDoctrine`
-    del controllore restituisce il servizio ``doctrine``, con cui si può
-    interagire altrove, iniettandolo in un
-    servizio. Vedere :doc:`/book/service_container` per saperne di più su come
-    creare servizi.
+utilizzi. Per ciascun tipo di campo, si può configurare ulteriormente ``Column``, impostando
+le opzioni ``length``, ``nullable``, ``name`` e altre ancora. Per una lista completa
+di tipi e per maggiori informazioni vedere la documentazione di Doctrine
+`Mapping Types documentation`_.
 
 Riepilogo
 ---------
@@ -1602,22 +1392,25 @@ consentendo di creare query complesse e sottoscrivere eventi che consentono
 di intraprendere diverse azioni, mentre gli oggetti viaggiano lungo il loro ciclo
 di vita della persistenza.
 
+Saperne di più
+~~~~~~~~~~~~~~
+
 Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 :doc:`ricettario</cookbook/index>`, che include i seguenti articoli:
 
-* :doc:`/bundles/DoctrineFixturesBundle/index`
 * :doc:`/cookbook/doctrine/common_extensions`
+* :doc:`/cookbook/doctrine/console`
+* :doc:`/bundles/DoctrineFixturesBundle/index`
+* :doc:`/bundles/DoctrineMongoDBBundle/index`
 
 .. _`Doctrine`: http://www.doctrine-project.org/
 .. _`MongoDB`: http://www.mongodb.org/
-.. _`Documentazione di base sulla mappatura`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html
+.. _`Basic Mapping Documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html
 .. _`Query Builder`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/query-builder.html
 .. _`Doctrine Query Language`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/dql-doctrine-query-language.html
-.. _`Documentazione sulla mappatura delle associazioni`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/association-mapping.html
-.. _`DateTime`: http://php.net/manual/it/class.datetime.php
-.. _`Documentazione sulla mappatura dei tipi`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#doctrine-mapping-types
-.. _`Documentazione sulla mappatura delle proprietà`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#property-mapping
-.. _`Documentazione sugli eventi del ciclo di vita`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#lifecycle-events
-.. _`Documentazione sulle parole riservate di SQL`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#quoting-reserved-words
-.. _`Classi persistenti`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#persistent-classes
-.. _`Mappatura delle proprietà`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#property-mapping
+.. _`Association Mapping Documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/association-mapping.html
+.. _`Mapping Types Documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#property-mappings
+.. _`Property Mapping`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#property-mapping
+.. _`Lifecycle Events documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#lifecycle-events
+.. _`Reserved SQL keywords documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#quoting-reserved-words
+.. _`Persistent classes`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#persistent-classes

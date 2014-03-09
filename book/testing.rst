@@ -327,6 +327,12 @@ all'applicazione Symfony2::
 Il metodo ``request()`` accetta come parametri il metodo HTTP e un URL e
 restituisce un'istanza di ``Crawler``.
 
+.. tip::
+
+    Inserire gli URL a mano è preferibile per i test funzionali. Se un test
+    generasse URL usando le rotte di Symfony, non si accorgerebbe di eventuali modifiche
+    agli URL dell'applicazione, che potrebbero aver impatto sugli utenti finali.
+
 Usare il crawler per cercare elementi del DOM nella risposta. Questi elementi possono
 poi essere usati per cliccare su collegamenti e inviare form::
 

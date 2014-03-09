@@ -51,7 +51,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                         realm: "Area demo protetta"
 
             access_control:
-                - { path: ^/admin, roles: ROLE_ADMIN }
+                - { path: ^/admin/, roles: ROLE_ADMIN }
+                # Includere anche la riga seguente per proteggere il percorso /admin
+                # - { path: ^/admin$, roles: ROLE_ADMIN }
 
             providers:
                 in_memory:
@@ -79,7 +81,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 </firewall>
 
                 <access-control>
-                    <rule path="^/admin" role="ROLE_ADMIN" />
+                    <rule path="^/admin/" role="ROLE_ADMIN" />
+                    <!-- Includere anche la riga seguente per proteggere il percorso /admin -->
+                    <!-- <rule path="^/admin$" role="ROLE_ADMIN" /> -->
                 </access-control>
 
                 <provider name="in_memory">
@@ -633,8 +637,8 @@ vedere :doc:`/cookbook/security/form_login`.
 
             firewalls:
                 login_firewall:
-                    pattern:   ^/login$
-                    anonymous: ~
+                    pattern:    ^/login$
+                    anonymous:  ~
                 secured_area:
                     pattern:    ^/
                     form_login: ~
@@ -1206,7 +1210,7 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
             ),
         ));
 
-Questo fornitore utenti è chiamato "in-memory" , dal momento che gli utenti
+Questo fornitore di utenti è chiamato "in-memory" , dal momento che gli utenti
 non sono memorizzati in una base dati. L'oggetto utente effettivo è fornito
 da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
 
@@ -1429,8 +1433,8 @@ Gli algoritmi supportati da questo metodo dipendono dalla versione di PHP.
 Un elenco completo è disponibile richiamando la funzione :phpfunction:`hash_algos`.
 
 .. versionadded:: 2.2
-    As of Symfony 2.2 you can also use the :ref:`PBKDF2 <reference-security-pbkdf2>`
-    password encoder.
+    Da Symfony 2.2, si può usare anche il codificatore
+    :ref:`PBKDF2 <reference-security-pbkdf2>`.
 
 Determinare la password con hash
 ................................

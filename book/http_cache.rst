@@ -576,6 +576,13 @@ confronta l'``ETag`` inviato con la ``Request`` con quello impostato nella
 ``Response``. Se i due combaciano, il metodo imposta automaticamente il codice
 di stato della ``Response`` a 304.
 
+.. note::
+
+    L'header ``If-None-Match`` della richiesta corrisponde all'header ``ETag``
+    dell'ultima risposta inviata al client per una particolare risorsa. In questo modo
+    il client e il server comunicano a vicenda e decidono se la
+    risorsa sia stata aggiornata o meno, rispetto a quando è stata messa in cache.
+
 Questo algoritmo è abbastanza semplice e molto generico, ma occorre creare
 l'intera ``Response`` prima di poter calcolare l'ETag, che non è ottimale.
 In altre parole, fa risparmiare banda, ma non cicli di CPU.
@@ -911,12 +918,12 @@ Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
 
         <?php echo $view['actions']->render(
             new ControllerReference('...:news', array('max' => 5)),
-            array('renderer' => 'esi'))
+            array('strategy' => 'esi'))
         ?>
 
         <?php echo $view['actions']->render(
             $view['router']->generate('latest_news', array('max' => 5), true),
-            array('renderer' => 'esi'),
+            array('strategy' => 'esi'),
         ) ?>
 
 Usando l'opzione ``esi``(che usa a sua volta la funzoine Twig ``render_esi``), si dice

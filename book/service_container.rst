@@ -1146,12 +1146,10 @@ con ``twig.extension`` e li registra automaticamente come estensioni.
 I tag, quindi, sono un modo per dire a Symfony2 o a un altro bundle di terze parti che
 il servizio dovrebbe essere registrato o utilizzato in un qualche modo speciale dal bundle.
 
-Quello che segue è un elenco dei tag disponibili con i bundle del nucleo di Symfony2.
-Ognuno di essi ha un differente effetto sul servizio e molti tag richiedono
-parametri aggiuntivi (oltre al solo ``name`` del parametro).
-
 Per una lista completa dei tag disponibili in Symfony, dare un'occhiata
-a :doc:`/reference/dic_tags`.
+a :doc:`/reference/dic_tags`. Ognuno di essi ha un differente effetto sul
+servizio e molti tag richiedono parametri aggiuntivi (oltre al solo ``name``
+del parametro).
 
 Debug dei servizi
 -----------------

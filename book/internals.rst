@@ -521,13 +521,16 @@ Usare il metodo :method:`Symfony\\Component\\HttpKernel\\Profiler\\Profiler::fin
 per accedere ai token, in base a determinati criteri::
 
     // gli ultimi 10 token
-    $tokens = $container->get('profiler')->find('', '', 10);
+    $tokens = $container->get('profiler')->find('', '', 10, '', '');
 
     // gli ultimi 10 token per URL che contengono /admin/
-    $tokens = $container->get('profiler')->find('', '/admin/', 10);
+    $tokens = $container->get('profiler')->find('', '/admin/', 10, '', '');
 
     // gli ultimi 10 token per richieste locali
-    $tokens = $container->get('profiler')->find('127.0.0.1', '', 10);
+    $tokens = $container->get('profiler')->find('127.0.0.1', '', 10, '', '');
+
+    // gli ultimi 10 token per richieste tra 2 e 4 giorni fa
+    $tokens = $container->get('profiler')->find('', '', 10, '4 days ago', '2 days ago');
 
 Se si vogliono manipolare i dati di profilo su macchine diverse da quella che
 ha generato le informazioni, usare i metodi

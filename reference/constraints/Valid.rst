@@ -36,7 +36,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
 .. code-block:: php
 
     // src/Acme/HelloBundle/Entity/Author.php
-    namespace Amce\HelloBundle\Entity;
+    namespace Acme\HelloBundle\Entity;
 
     class Author
     {
@@ -249,8 +249,10 @@ proprietà ``$address``.
 Se ora si valida un autore con indirizzo non valido, si può vedere che la
 validazione dei campi ``Address`` non passa.
 
-    Acme\HelloBundle\Author.address.zipCode:
-    This value is too long. It should have 5 characters or less
+.. code-block:: text
+
+    Acme\\HelloBundle\\Author.address.zipCode:
+        This value is too long. It should have 5 characters or less.
 
 Opzioni
 -------

@@ -1,6 +1,11 @@
 Documentazione Symfony2
 =======================
 
+.. toctree::
+    :hidden:
+
+    changelog
+
 Giro rapido
 -----------
 

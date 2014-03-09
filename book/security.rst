@@ -51,7 +51,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                         realm: "Area demo protetta"
 
             access_control:
-                - { path: ^/admin, roles: ROLE_ADMIN }
+                - { path: ^/admin/, roles: ROLE_ADMIN }
+                # Includere anche la riga seguente per proteggere il percorso /admin
+                # - { path: ^/admin$, roles: ROLE_ADMIN }
 
             providers:
                 in_memory:
@@ -79,7 +81,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 </firewall>
 
                 <access-control>
-                    <rule path="^/admin" role="ROLE_ADMIN" />
+                    <rule path="^/admin/" role="ROLE_ADMIN" />
+                    <!-- Includere anche la riga seguente per proteggere il percorso /admin -->
+                    <!-- <rule path="^/admin$" role="ROLE_ADMIN" /> -->
                 </access-control>
 
                 <provider name="in_memory">
@@ -108,7 +112,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 ),
             ),
             'access_control' => array(
-                array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
+                array('path' => '^/admin/', 'role' => 'ROLE_ADMIN'),
+                // Includere anche la riga seguente per proteggere il percorso /admin
+                // array('path' => '^/admin$', 'role' => 'ROLE_ADMIN'),
             ),
             'providers' => array(
                 'in_memory' => array(
@@ -300,11 +306,11 @@ In primo luogo, abilitare il form di login sotto il firewall:
         security:
             firewalls:
                 secured_area:
-                    pattern:    ^/
+                    pattern:   ^/
                     anonymous: ~
                     form_login:
-                        login_path:  login
-                        check_path:  login_check
+                        login_path: login
+                        check_path: login_check
 
     .. code-block:: xml
 
@@ -373,10 +379,10 @@ nella configurazione della sicurezza: : la rotta `login`, che visualizzerà il f
 
         # app/config/routing.yml
         login:
-            path:   /login
-            defaults:  { _controller: AcmeSecurityBundle:Security:login }
+            path:     /login
+            defaults: { _controller: AcmeSecurityBundle:Security:login }
         login_check:
-            path:   /login_check
+            path: /login_check
 
     .. code-block:: xml
 

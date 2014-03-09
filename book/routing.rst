@@ -833,11 +833,6 @@ speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
 * ``_locale``: Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più<book-translation-locale-url>`);
 
-.. tip::
-
-    Se si usa il parametro ``_locale`` in una rotta, il valore sarà memorizzato
-    nella sessione, in modo che le richieste successive lo mantengano.
-
 .. index::
    single: Rotte; Controllori
    single: Controllore; Formato dei nomi delle stringhe

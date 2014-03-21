@@ -182,7 +182,7 @@ la configurazione XML::
         return 'http://www.example.com/symfony/schema/';
     }
 
-..note::
+.. note::
 
     La validazione XSD è facoltativa, restituendo ``false`` dal metodo ``getXsdValidationBasePath``
     sarà disabilitata.
@@ -204,7 +204,7 @@ La versione XML della configurazione sarà dunque simile a questa:
 
     </container>
 
-..note::
+.. note::
 
     Nel framework completo Symfony2 c'è una classe base ``Extension``, che
     implementa questi metodi e un metodo scorciatoia per processare la
@@ -273,7 +273,7 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
 
 .. _components-dependency-injection-compiler-passes:
 
-Prependere la configurazione passatta all'estensione
+Prependere la configurazione passata all'estensione
 ----------------------------------------------------
 
 .. versionadded:: 2.2

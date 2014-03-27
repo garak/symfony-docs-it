@@ -1193,29 +1193,6 @@ In una delle prossime sezioni, si imparerà a generare URL dall'interno di un te
     Per ultetiori informazioni, vedere la documentazione del bundle.
 
 .. index::
-   single: Rotte; URL assoluti
-
-Generare URL assoluti
-~~~~~~~~~~~~~~~~~~~~~
-
-Per impostazione predefinita, il router genera URL relativi (ad esempio ``/blog``). Per generare
-un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
-``generate()``::
-
-    $this->get('router')->generate('blog_show', array('slug' => 'my-blog-post'), true);
-    // http://www.example.com/blog/my-blog-post
-
-.. note::
-
-    L'host che viene usato quando si genera un URL assoluto è l'host
-    dell'oggetto ``Request`` corrente. Questo viene rilevato automaticamente in base
-    alle informazioni sul server fornite da PHP. Quando si generano URL assolute per
-    script che devono essere eseguiti da riga di comando, sarà necessario impostare manualmente l'host
-    desiderato sull'oggetto ``RequestContext``::
-
-        $this->get('router')->getContext()->setHost('www.example.com');
-
-.. index::
    single: Rotte; Generare URL in un template
 
 Generare URL con query string
@@ -1250,7 +1227,20 @@ una funzione aiutante per i template:
             Leggere questo post del blog.
         </a>
 
-Possono anche essere generati URL assoluti.
+.. index::
+   single: Rotte; URL assoluti
+
+Generare URL assoluti
+~~~~~~~~~~~~~~~~~~~~~
+
+Per impostazione predefinita, il router genera URL relativi (ad esempio ``/blog``). Per generare
+un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
+``generate()``::
+
+    $this->generateUrl('blog_show', array('slug' => 'my-blog-post'), true);
+    // http://www.example.com/blog/my-blog-post
+
+In un template, sarebbe così:
 
 .. configuration-block::
 
@@ -1267,6 +1257,14 @@ Possono anche essere generati URL assoluti.
         ), true) ?>">
             Leggere questo post del blog.
         </a>
+
+.. note::
+
+    L'host che viene usato quando si genera un URL assoluto è l'host
+    dell'oggetto ``Request`` corrente. Questo viene rilevato automaticamente. Quando
+    si generano URL assoluti per script che devono essere eseguiti da riga di comando,
+    questo non si può fare. Vedere :doc:`/cookbook/console/sending_emails`
+    per una possibile soluzione.
 
 Riassunto
 ---------

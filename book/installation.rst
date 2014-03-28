@@ -212,6 +212,8 @@ seguente URL per la verifica della configurazione:
 
 Se ci sono problemi, correggerli prima di proseguire.
 
+.. _book-installation-permissions:
+
 .. sidebar:: Impostare i permessi
 
     Un problema comune è che le cartelle ``app/cache`` e ``app/logs`` devono essere
@@ -224,15 +226,15 @@ Se ci sono problemi, correggerli prima di proseguire.
 
     Molti sistemi consento di usare il comando ``chmod +a``. Provare prima questo e, in
     caso di errore, provare il metodo successivo. Viene usato un comando per cercare di
-    determinare l'utente con cui gira il server web e impostarlo come ``APACHEUSER``:
+    determinare l'utente con cui gira il server web e impostarlo come ``HTTPDUSER``:
 
     .. code-block:: bash
 
         $ rm -rf app/cache/*
         $ rm -rf app/logs/*
 
-        $ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
-        $ sudo chmod +a "$APACHEUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+        $ HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+        $ sudo chmod +a "$HTTPDUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
         $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
 
@@ -246,10 +248,10 @@ Se ci sono problemi, correggerli prima di proseguire.
 
     .. code-block:: bash
 
-		$ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1`
-		$ sudo setfacl -R -m u:"$APACHEUSER":rwx -m u:`whoami`:rwx app/cache app/logs
-		$ sudo setfacl -dR -m u:"$APACHEUSER":rwx -m u:`whoami`:rwx app/cache app/logs
-		
+		$ HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+		$ sudo setfacl -Rn -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwx app/cache app/logs
+		$ sudo setfacl -dRn -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwx app/cache app/logs
+
     **3. Senza usare ACL**
 
     Se non è possibile modificare l'ACL delle cartelle, occorrerà modificare
@@ -267,6 +269,15 @@ Se ci sono problemi, correggerli prima di proseguire.
 
     Si noti che l'uso di ACL è raccomandato quando si ha accesso al server,
     perché la modifica di umask non è thread-safe.
+
+    **4. Use the same user for the CLI and the web server**
+
+    In ambienti di sviluppo, è pratica comune usare lo stesso utente
+    per CLI e server web, evitando così problemi di permessi
+    per nuovi progetti. Lo si può fare modificando la configurazione del server web
+    (cioè solitamente httpd.conf o apache2.conf per Apache) e impostandone
+    l'utente in modo che sia lo stesso di CLI (p.e. per Apache, aggiornare i valori User
+    e Group).
 
 Quando tutto è a posto, cliccare su "Go to the Welcome page" per accedere alla
 prima "vera" pagina di Symfony2:
@@ -303,7 +314,7 @@ Per chi è nuovo in Symfony, in ":doc:`page_creation`" si può imparare come cre
 pagine, cambiare configurazioni e tutte le altre cose di cui si avrà bisogno nella
 nuova applicazione.
 
-Dare un'occhiata anche al :doc:`ricettario</cookbook/index>`, che contiene
+Dare un'occhiata anche al :doc:`ricettario </cookbook/index>`, che contiene
 una varietà di articoli su come risolvere problemi specifici con Symfony.
 
 .. note::

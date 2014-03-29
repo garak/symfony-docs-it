@@ -1,7 +1,7 @@
 .. index::
-    single: Form; Type Guesser personalizzato
+    single: Form; Indovino di tipi personalizzato
 
-Creare un Type Guesser
-======================
+Creare un indovino di tipi
+==========================
 
 (TODO da tradurre...)

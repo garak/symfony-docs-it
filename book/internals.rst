@@ -174,6 +174,9 @@ sugli oggetti
 
 #. Viene restituita la risposta.
 
+#. Gli ascoltatori dell'evento ``kernel.terminate`` possono eseguire dei compiti, dopo che la
+   risposta sia stata servita.
+
 Se viene lanciata un'eccezione durante il processo, viene notificato l'evento
 ``kernel.exception`` e gli ascoltatori possono convertire l'eccezione in una risposta.
 Se funziona, viene notificato l'evento ``kernel.response``, altrimenti l'eccezione
@@ -367,6 +370,8 @@ FrameworkBundle registra diversi ascoltatori:
 Evento ``kernel.terminate``
 ...........................
 
+*Classe evento*: :class:`Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent`
+
 Lo scopo di questo evento è quello di eseguire compiti più "pesanti", dopo che la risposta
 sia stata inviata al client.
 
@@ -421,6 +426,10 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla::
             array('X-Status-Code' => 200)
         );
 
+.. seealso::
+
+    Approfondire l'evento :ref:`kernel.exception <component-http-kernel-kernel-exception>`.
+
 .. index::
    single: Distributore di eventi
 
@@ -430,10 +439,6 @@ Il distributore di eventi
 Event Dispatcher (distributore di eventi) è un componente, responsabile di gran parte
 della logica sottostante e del flusso dietro a una richiesta di Symfony. Per maggiori informazioni,
 vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
-
-.. seealso::
-
-    Approfondire l':ref:`evento kernel.exception <component-http-kernel-kernel-exception>`.
 
 .. index::
    single: Profilatore

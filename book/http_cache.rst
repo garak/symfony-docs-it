@@ -526,11 +526,9 @@ chiede all'applicazione se la risposta in cache è ancora valida. Se la cache *�
 ancora valida, l'applicazione dovrebbe restituire un codice di stato 304 e
 nessun contenuto. Questo dice alla cache che è va bene restituire la risposta in cache.
 
-Con questo modello, principalmente si risparmia banda, perché la rappresentazione non è
-inviata due volte allo stesso client (invece è inviata una risposta 304). Ma se si
-progetta attentamente l'applicazione, si potrebbe essere in grado di prendere il
-minimo dei dati necessari per inviare una risposta 304 e risparmiare anche CPU (vedere
-sotto per un esempio di implementazione).
+Con questo modello, si risparmiare solo CPU, se si è in grado di determinare che la
+risposta in cache sia ancora  valida, facendo *meno* lavoro rispetto alla generazione
+dell'intera pagina (vedere sotto per un esempio di implementazione).
 
 .. tip::
 

@@ -771,8 +771,9 @@ Configurazione di PHPUnit
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ogni applicazione ha la sua configurazione di PHPUnit, memorizzata nel file
-``phpunit.xml.dist``. Si può modificare tale file per cambiare i default, oppure creare
-un file ``phpunit.xml`` per aggiustare la configurazione per la propria macchina locale.
+``app/phpunit.xml.dist``. Si può modificare tale file, per cambiare i parameteri predefiniti, oppure
+creare un file ``app/phpunit.xml``, per adattare la configurazione per la propria
+macchina locale.
 
 .. tip::
 
@@ -781,37 +782,59 @@ un file ``phpunit.xml`` per aggiustare la configurazione per la propria macchina
 
 Per impostazione predefinita, solo i test memorizzati nei bundle "standard" sono eseguiti
 dal comando ``phpunit`` (per "standard" si intendono i test nelle cartelle
-``src/*/Bundle/Tests`` o ``src/*/Bundle/*Bundle/Tests``). Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
-la configurazione seguente aggiunge i test per i bundle installati di terze
-parti:
+``src/*/Bundle/Tests`` o ``src/*/Bundle/*Bundle/Tests``).
 
 .. code-block:: xml
 
-    <!-- hello/phpunit.xml.dist -->
-    <testsuites>
-        <testsuite name="Test del progetto">
-            <directory>../src/*/*Bundle/Tests</directory>
-            <directory>../src/Acme/Bundle/*Bundle/Tests</directory>
-        </testsuite>
-    </testsuites>
+    <!-- app/phpunit.xml.dist -->
+    <phpunit>
+        <!-- ... -->
+        <testsuites>
+            <testsuite name="Project Test Suite">
+                <directory>../src/*/*Bundle/Tests</directory>
+                <directory>../src/*/Bundle/*Bundle/Tests</directory>
+            </testsuite>
+        </testsuites>
+        <!-- ... -->
+    </phpunit>
+
+Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
+la configurazione seguente aggiunge i test per la cartella ``lib/tests``:
+
+.. code-block:: xml
+
+    <!-- app/phpunit.xml.dist -->
+    <phpunit>
+        <!-- ... -->
+        <testsuites>
+            <testsuite name="Project Test Suite">
+                <!-- ... --->
+                <directory>../lib/tests</directory>
+            </testsuite>
+        </testsuites>
+        <!-- ... --->
+    </phpunit>
 
 Per includere altre cartelle nella copertura del codice, modificare anche la
 sezione ``<filter>``:
 
 .. code-block:: xml
 
-    <!-- ... -->
-    <filter>
-        <whitelist>
-            <directory>../src</directory>
-            <exclude>
-                <directory>../src/*/*Bundle/Resources</directory>
-                <directory>../src/*/*Bundle/Tests</directory>
-                <directory>../src/Acme/Bundle/*Bundle/Resources</directory>
-                <directory>../src/Acme/Bundle/*Bundle/Tests</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+    <!-- app/phpunit.xml.dist -->
+    <phpunit>
+        <!-- ... -->
+        <filter>
+            <whitelist>
+                <!-- ... -->
+                <directory>../lib</directory>
+                <exclude>
+                    <!-- ... -->
+                    <directory>../lib/tests</directory>
+                </exclude>
+            </whitelist>
+        </filter>
+        <!-- ... --->
+    </phpunit>
 
 Saperne di più
 --------------

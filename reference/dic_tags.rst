@@ -332,21 +332,22 @@ La chiave ``alias`` del tag è il tipo di campo a cui questa estensione va appli
 Per esempio, per applicare l'estensione a qualsiasi campo, usare il valore
 "field".
 
+.. _reference-dic-type_guesser:
+
 form.type_guesser
 -----------------
 
 **Scopo**: Aggiungere la propria logica per "indovinare" il tipo di form
 
-Questo tag consente di aggiungere la propria logica al processo per
-:ref:`indovinare<book-forms-field-guessing>` il form. Per impostazione predefinita, il form
-viene indovinato dagli "indovini", in base ai meta-dati di validazione e ai meta-dati di Doctrine (se si usa Doctrine).
+Questo tag consente di aggiungere la propria logica al processo per :ref:`indovinare <book-forms-field-guessing>` il form.
+Per impostazione predefinita, il form viene indovinato dagli "indovini", in base ai metadati
+di validazione e ai metadati di Doctrine (se si usa Doctrine) o di Propel
+(se si usa Propel).
 
-Per aggiungere i propri indovini, creare una classe che implementi l'interfaccia
-:class:`Symfony\\Component\\Form\\FormTypeGuesserInterface`. Quindi, assegnare al
-servizio il tag ``form.type_guesser`` (che non ha opzioni).
+.. seealso::
 
-Per avere un'idea della classe, dare un'occhiata alla classe ``ValidatorTypeGuesser``
-nel componente ``Form``.
+    Per sapere come aggiungere i propri indovini, vedere
+    :doc:`/components/form/type_guesser`.
 
 kernel.cache_clearer
 --------------------
@@ -405,7 +406,8 @@ kernel.cache_warmer
 **Scopo**: Registrare un servizio da richiamare durante il processo di preparazione della cache
 
 Ogni volta che si richiama il task ``cache:warmup`` o ``cache:clear``, la cache viene
-preparata (a meno che non si passi ``--no-warmup`` a ``cache:clear``). Lo scopo è di
+preparata (a meno che non si passi ``--no-warmup`` a ``cache:clear``). Questo accade anche
+durante la gestione della richiesta, in mancanza di un precedente comando. Lo scopo è di
 inizializzare ogni cache necessaria all'applicazione e prevenire un "cache hit",
 cioè una generazione dinamica della cache, da parte del primo
 utente.
@@ -432,8 +434,9 @@ l'interfaccia :class:`Symfony\\Component\\HttpKernel\\CacheWarmer\\CacheWarmerIn
     }
 
 Il metodo ``isOptional`` deve restituire ``true`` se è possibile usare l'applicazione senza
-richiamare il preparatore di cache. In Symfony 2.0, i preparatori facoltativi
-vengono eseguiti ugualmente, quindi questa funzione non ha effetto.
+richiamare il preparatore di cache. In Symfony, i preparatori facoltativi
+vengono eseguiti ugualmente (lo si può cambiare, usando l'opzione
+``--no-optional-warmers`` durante l'esecuzione del comando).
 
 Per registrare un preparatore di cache, usare il tag ``kernel.cache_warmer``:
 

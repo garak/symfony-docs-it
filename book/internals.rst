@@ -409,7 +409,7 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla::
         $event->setResponse($response);
 
         // in alternativa si può impostare una nuova eccezione
-        // $exception = new \Exception('Una qualche ecccezione speciale');
+        // $exception = new \Exception('Una qualche eccezione speciale');
         // $event->setException($exception);
     }
 

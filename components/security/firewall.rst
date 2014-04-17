@@ -89,7 +89,7 @@ area protetta corrispondente alla richiesta restituirà un insieme di ascoltator
 firewall corrispondenti (ciascuno dei quali implementa :class:`Symfony\\Component\\Security\\Http\\Firewall\\ListenerInterface`).
 A questi ascoltatori sarà chiesto di gestire la richiesta corrente. Questo, di base, vuol
 dire: trovare se la richiesta corrente contiene informazioni su come l'utente
-possa essere autenticato (per esempio il listenere basic HTTP authentication
+possa essere autenticato (per esempio il listener basic HTTP authentication
 verifica se la richiesta ha un header chiamato ``PHP_AUTH_USER``).
 
 Ascoltatore delle eccezioni

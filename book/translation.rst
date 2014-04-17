@@ -342,7 +342,7 @@ Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 I posti sono elencati in ordine di priorità. Quindi, si possono sovrascrivere i
 messaggi di traduzione di un bundle in una qualsiasi delle due cartelle superiori.
 
-Il meccanismo di priorità si basa sulle chiavi: occoore dichiarare solamente le chiavi
+Il meccanismo di priorità si basa sulle chiavi: occorre dichiarare solamente le chiavi
 da sovrascrivere in un file di messaggi a priorità superiore. Se una chiave non viene trovata
 in un file di messaggi, il traduttore si appoggerà automaticamente ai file di messaggi
 a priorità inferiore.

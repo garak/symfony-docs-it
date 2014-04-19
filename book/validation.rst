@@ -44,7 +44,7 @@ seguente:
 
     .. code-block:: yaml
 
-        # src/Acme/BlogBundle/Resources/config/validation.yml
+        # src/Acme/BlogBundle/Resources/config/validators.yml
         Acme\BlogBundle\Entity\Author:
             properties:
                 name:
@@ -67,7 +67,7 @@ seguente:
 
     .. code-block:: xml
 
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <!-- src/Acme/BlogBundle/Resources/config/validators.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

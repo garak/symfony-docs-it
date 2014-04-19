@@ -212,6 +212,8 @@ seguente URL per la verifica della configurazione:
 
 Se ci sono problemi, correggerli prima di proseguire.
 
+.. _book-installation-permissions:
+
 .. sidebar:: Impostare i permessi
 
     Un problema comune è che le cartelle ``app/cache`` e ``app/logs`` devono essere
@@ -267,6 +269,15 @@ Se ci sono problemi, correggerli prima di proseguire.
 
     Si noti che l'uso di ACL è raccomandato quando si ha accesso al server,
     perché la modifica di umask non è thread-safe.
+
+    **4. Usare lo stesso utente per CLI e server web**
+
+    In ambienti di sviluppo, è una pratica comune usare lo stesso utente
+    per CLI e server web, poiché ciò evita tutti questi problemi di permessi
+    per i nuovi progetti. Lo si può fare modificando la configurazione del server web
+    (solitamente httpd.conf o apache2.conf per Apache) e impostandone
+    l'utente allo stesso della CLI (p.e. per Apache, aggiornare i valori User
+    e Group).
 
 Quando tutto è a posto, cliccare su "Go to the Welcome page" per accedere alla
 prima "vera" pagina di Symfony2:

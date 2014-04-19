@@ -75,3 +75,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+Variabili di form
+-----------------
+
+.. include:: /reference/forms/types/variables/check_or_radio_table.rst.inc

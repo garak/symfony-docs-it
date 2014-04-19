@@ -20,6 +20,10 @@ tutto ciò che non possiede esplicitamente il tag non fa parte dell'API stabile.
 
 .. tip::
 
+    Si può approfondire l'API stabile in :doc:`/contributing/code/bc`.
+
+.. tip::
+
     Ogni bundle di terze parti dovrebbe a sua volta pubblicare la sua API stabile.
 
 A partire da Symfony 2.0, i seguenti componenti hanno un tag API pubblico:
@@ -35,7 +39,6 @@ A partire da Symfony 2.0, i seguenti componenti hanno un tag API pubblico:
 * Finder
 * HttpFoundation
 * HttpKernel
-* Locale
 * Process
 * Routing
 * Templating

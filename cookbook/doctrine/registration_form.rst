@@ -88,9 +88,9 @@ classe.
 
 .. _cookbook-registration-password-max:
 
-.. sidebar:: Why the 4096 Password Limit?
+.. sidebar:: Perché il limite a 4096 per la password?
 
-    Si noti che ``plainPassword`` ha una lunghezza massima di ``4096`` caratteri.
+    Si noti che ``plainPassword`` ha una lunghezza massima di 4096 caratteri.
     Per motivi di sicurezza (`CVE-2013-5750`_), Symfony limita la lunghezza delle
     password a 4096 caratteri, prima della codifica. L'aggiunta di questo vincolo
     assicura che il form darà un errore di validazione, se qualcuno tenta di inserire

@@ -35,6 +35,11 @@ microtime da soli. Basta usare la semplice classe
     // ... un po' di codice
     $event = $stopwatch->stop('nomeEvento');
 
+Si può recuperare l'oggetto :class:`Symfony\\Component\\Stopwatch\StopwatchEvent`
+dai metodi :method:`Symfony\\Component\\Stopwatch\\Stopwatch::start`, 
+:method:`Symfony\\Component\\Stopwatch\\Stopwatch::stop` e
+:method:`Symfony\\Component\\Stopwatch\\Stopwatch::lap`.
+
 Si può anche fornire un nome di categoria per un evento::
 
     $stopwatch->start('nomeEvento', 'nomeCategoria');
@@ -68,13 +73,13 @@ sulle frazioni, richiamare::
 Oltre ai periodi, si possono ottenere informazioni utili dall'oggetto evento.
 Per esempio::
 
-    $event->getCategory();      // Restituisce la categoria dell'evento
-    $event->getOrigin();        // Restituisce il tempo di inizio dell'evento, in millisecondi
-    $event->ensureStopped();    // Ferma tutti i periodi ancora in corso
-    $event->getStartTime();     // Restituisce il tempo di inizio del primo periodo
-    $event->getEndTime();       // Restituisce il tempo di inizio dell'ultimo periodo
-    $event->getDuration();      // Restituisce la durata dell'evento, inclusi tutti i periodi
-    $event->getMemory();        // Restituisce l'utilizzo massimo di memoria di tutti i periodi
+    $event->getCategory();   // Restituisce la categoria dell'evento
+    $event->getOrigin();     // Restituisce il tempo di inizio dell'evento, in millisecondi
+    $event->ensureStopped(); // Ferma tutti i periodi ancora in corso
+    $event->getStartTime();  // Restituisce il tempo di inizio del primo periodo
+    $event->getEndTime();    // Restituisce il tempo di inizio dell'ultimo periodo
+    $event->getDuration();   // Restituisce la durata dell'evento, inclusi tutti i periodi
+    $event->getMemory();     // Restituisce l'utilizzo massimo di memoria di tutti i periodi
 
 Sezioni
 -------

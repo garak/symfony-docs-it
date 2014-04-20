@@ -2,8 +2,11 @@
    single: Doctrine; Riferimento configurazione ORM
    single: Riferimento configurazione; ORM Doctrine
 
-Riferimento configurazione
-==========================
+Configurazione di DoctrineBundle
+================================
+
+Configurazione predefinita completa
+-----------------------------------
 
 .. configuration-block::
 
@@ -102,9 +105,9 @@ Riferimento configurazione
 
             orm:
                 default_entity_manager:  ~
-                auto_generate_proxy_classes:    false
+                auto_generate_proxy_classes:  false
                 proxy_dir:            %kernel.cache_dir%/doctrine/orm/Proxies
-                proxy_namespace:                Proxies
+                proxy_namespace:      Proxies
                 # cercare la classe "ResolveTargetEntityListener" per una ricetta a riguardo
                 resolve_target_entities: []
                 entity_managers:

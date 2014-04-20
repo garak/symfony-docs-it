@@ -124,3 +124,8 @@ schema) della rotta:
     Tuttavia, poiché i caratteri ``%`` inclusi un un URL sono automaticamente codificati,
     l'URL risultante da questo esempio sarebbe ``/score-50%25`` (``%25`` è il
     risultati della codifica del carattere ``%``).
+
+.. seealso::
+
+    Per gestire parametri in una classe della Dependency Injection, vedere
+    :doc:`/cookbook/configuration/using_parameters_in_dic`.

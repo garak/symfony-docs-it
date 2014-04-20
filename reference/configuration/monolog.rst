@@ -1,8 +1,11 @@
 .. index::
    pair: Monolog; Riferimento configurazione
 
-Riferimento configurazione
-==========================
+Configurazione di MonologBundle
+===============================
+
+Configurazione predefinita completa
+-----------------------------------
 
 .. configuration-block::
 

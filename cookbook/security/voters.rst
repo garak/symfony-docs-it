@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza, Votanti
 
-Implementare i propri votanti per una lista nera di indirizzi IP
-================================================================
+Implementare dei votanti per una lista nera di indirizzi IP
+===========================================================
 
 Il componente della sicurezza di Symfony2 fornisce diversi livelli per autenticare gli
 utenti. Uno dei livelli è chiamato `voter` (votante). Un votante è una classe dedicata a verificare
@@ -166,7 +166,7 @@ e assegnargli il tag "security.voter":
 
 .. tip::
 
-   Assicurarsi di importare questo file di configurazione dal proprio file di configurazione
+   Assicurarsi di importare questo file di configurazione dal file di configurazione
    principale (p.e. ``app/config/config.yml``). Per ulteriori informazioni,
    vedere :ref:`service-container-imports-directive`. Per saperne di più sulla definizione
    di servizi in generale, vederre il capitolo :doc:`/book/service_container`.

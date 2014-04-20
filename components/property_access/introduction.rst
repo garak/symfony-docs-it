@@ -157,16 +157,16 @@ getter, quindi si può fare qualcosa come::
 
 Produrrà: ``È un autore``
 
-Metodi magici
-~~~~~~~~~~~~~
+Metodo magico ``__get()``
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Infine, ``getValue`` può usare anche il metodo magico ``__get``::
+Il metodo ``getValue`` può usare anche il metodo magico ``__get``::
 
     // ...
     class Person
     {
         private $children = array(
-            'wouter' => array(...),
+            'Wouter' => array(...),
         );
 
         public function __get($id)
@@ -196,7 +196,9 @@ questa caratteristica, usando :class:`Symfony\\Component\\PropertyAccess\\Proper
         {
             $property = lcfirst(substr($name, 3));
             if ('get' === substr($name, 0, 3)) {
-                return isset($this->children[$property]) ? $this->children[$property] : null;
+                return isset($this->children[$property])
+                    ? $this->children[$property]
+                    : null;
             } elseif ('set' === substr($name, 0, 3)) {
                 $value = 1 == count($args) ? $args[0] : null;
                 $this->children[$property] = $value;
@@ -289,7 +291,9 @@ vedere `Abilitare altre caratteristiche`_.
         {
             $property = lcfirst(substr($name, 3));
             if ('get' === substr($name, 0, 3)) {
-                return isset($this->children[$property]) ? $this->children[$property] : null;
+                return isset($this->children[$property])
+                    ? $this->children[$property]
+                    : null;
             } elseif ('set' === substr($name, 0, 3)) {
                 $value = 1 == count($args) ? $args[0] : null;
                 $this->children[$property] = $value;
@@ -322,7 +326,7 @@ Si possono anche mischiare oggetti e array::
 
         public function setChildren($children)
         {
-            return $this->children;
+            $this->children = $children;
         }
 
         public function getChildren()

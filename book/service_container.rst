@@ -1001,6 +1001,13 @@ Vengono mostrati solo i servizi pubblici, ma si possono vedere anche quelli priv
 
     $ php app/console container:debug --show-private
 
+.. note::
+
+    Se un servizio privato è usato solo come parametro di *un solo* altro servizio,
+    non sarà mostrato dal comando ``container:debug``, anche usando
+    l'opzione ``--show-private``. vedere :ref:`servizi privati in linea <inlined-private-services>`
+    per maggiori dettagli.
+
 Si possono ottenere informazioni più dettagliate su un singolo servizio, specificando
 il suo id:
 

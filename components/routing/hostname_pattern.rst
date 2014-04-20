@@ -176,16 +176,16 @@ instance, if you want to match both ``m.example.com`` and
 
         return $collection;
 
-.. tip::
-
-    Assicurarsi di includere anche un'opzione per il segnaposto ``subdomain``,
-    atrlimenti occorrerà includere i valori dei sottodomini ogni volta
-    che si genera la rotta.
-
-.. sidebar:: Using Service Parameters
+.. sidebar:: Uso dei parametri dei servizi
 
     Si possono anche usare i parametri dei servizi, se non si vuole scrivere il
     nome dell'host direttamente:
+
+    .. tip::
+
+       Assicurarsi di includere anche un'opzione per il segnaposto ``subdomain``,
+       atrlimenti occorrerà includere i valori dei sottodomini ogni volta
+       che si genera la rotta.
 
     .. configuration-block::
 
@@ -194,7 +194,9 @@ instance, if you want to match both ``m.example.com`` and
             mobile_homepage:
                 path:     /
                 host:     "m.{domain}"
-                defaults: { _controller: AcmeDemoBundle:Main:mobileHomepage }
+                defaults:
+                    _controller: AcmeDemoBundle:Main:mobileHomepage
+                    domain: "%domain%"
                 requirements:
                     domain: "%domain%"
 
@@ -212,6 +214,7 @@ instance, if you want to match both ``m.example.com`` and
 
                 <route id="mobile_homepage" path="/" host="m.example.com">
                     <default key="_controller">AcmeDemoBundle:Main:mobileHomepage</default>
+                    <default key="domain">%domain%</requirement>
                     <requirement key="domain">%domain%</requirement>
                 </route>
 
@@ -228,6 +231,7 @@ instance, if you want to match both ``m.example.com`` and
             $collection = new RouteCollection();
             $collection->add('mobile_homepage', new Route('/', array(
                 '_controller' => 'AcmeDemoBundle:Main:mobileHomepage',
+                'domain' => '%domain%',
             ), array(
                 'domain' => '%domain%',
             ), array(), 'm.{domain}'));

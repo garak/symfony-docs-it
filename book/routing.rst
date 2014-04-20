@@ -1171,9 +1171,22 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
     In controllori che estendono la classe base di Symfony
     :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`,
     si può usare il metodo
-    :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::generateUrl`,
-    che richiama il metodo
-    :method:`Symfony\\Component\\Routing\\Router::generate` del servizio router.
+    :method:`Symfony\\Component\\Routing\\Router::generate` del servizio ``router`::
+
+        use Symfony\Component\DependencyInjection\ContainerAware;
+
+        class MainController extends ContainerAware
+        {
+            public function showAction($slug)
+            {
+                // ...
+
+                $url = $this->container->get('router')->generate(
+                    'blog_show',
+                    array('slug' => 'my-blog-post')
+                );
+            }
+        }
 
 In una delle prossime sezioni, si imparerà a generare URL dall'interno di un template.
 
@@ -1240,7 +1253,9 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     $this->generateUrl('blog_show', array('slug' => 'my-blog-post'), true);
     // http://www.example.com/blog/my-blog-post
 
-In un template, sarebbe così:
+In un template Twig, basta usare la funzione ``url()`` (che genera un URL assoluto) al posto
+della funzione ``path()}} (che genera un URL relativo). In PHP, passare ``ŧrue``
+a ``generateUrl()``:
 
 .. configuration-block::
 

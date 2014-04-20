@@ -39,6 +39,7 @@ classe ``Task`` che rappresenta e memorizza i dati di una singola attività::
         {
             return $this->task;
         }
+
         public function setTask($task)
         {
             $this->task = $task;
@@ -48,7 +49,7 @@ classe ``Task`` che rappresenta e memorizza i dati di una singola attività::
         {
             return $this->dueDate;
         }
-        
+
         public function setDueDate(\DateTime $dueDate = null)
         {
             $this->dueDate = $dueDate;
@@ -267,7 +268,8 @@ possibili percorsi:
 .. note::
 
    Reindirizzare un utente dopo aver inviato con successo un form impedisce l'utente
-   di essere in grado di premere il tasto "aggiorna" e re-inviare i dati.
+   di essere in grado di premere il tasto "aggiorna" del suo browser e re-inviare
+   i dati.
 
 .. index::
    single: Form; Bottoni di submit multipli
@@ -1076,7 +1078,8 @@ la scelta in ultima analisi, spetta allo sviluppatore.
 
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $builder->add('task')
+            $builder
+                ->add('task')
                 ->add('dueDate', null, array('mapped' => false))
                 ->add('save', 'submit');
         }
@@ -1097,6 +1100,12 @@ Definire i form come servizi
 
 La definizione dei form type come servizi è una buona pratica e li rende riusabili 
 facilmente in un'applicazione.
+
+.. note::
+
+    I servizi e il contenitore di servizi saranno trattati
+    :doc:`più avanti nel libro </book/service_container>`. Le cose saranno
+    più chiaro dopo aver letto quel capitolo.
 
 .. configuration-block::
 
@@ -1316,8 +1325,7 @@ l'opzione ``cascade_validation`` a ``TaskType``::
         ));
     }
 
-Rendere i campi di ``Category`` allo stesso modo
-dei campi ``Task`` originali:
+Rendere i campi di ``Category`` allo stesso modo dei campi ``Task`` originali:
 
 .. configuration-block::
 

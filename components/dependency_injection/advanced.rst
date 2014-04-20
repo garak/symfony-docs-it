@@ -1,5 +1,5 @@
 .. index::
-   single: Dependency Injection; Configurazione avanzata
+   single: DependencyInjection; Configurazione avanzata
 
 Configurazione avanzata del contenitore
 =======================================
@@ -17,6 +17,8 @@ di un'applicazione. Tali servizi sono chiamati "pubblici". Per esempio, il servi
 Ci sono tuttavia dei casi in cui non si desidera che un servizio sia pubblico.
 Di solito avviene quando un servizio è definito solo per essere usato come parametro
 da un altro servizio.
+
+.. _inlined-private-services:
 
 .. note::
 
@@ -142,6 +144,18 @@ Ciò vuol dire che, quando si usa direttamente il contenitore, si può accedere 
 
     $container->get('pluto'); // restituisce il servizio pippo
 
+.. tip::
+
+    In YAML, si può anche usare una scorciatoia come alias di un servizio:
+
+    .. code-block:: yaml
+
+        services:
+           pippo:
+             class: Esempio\Pippo
+           pluto: "@pippo"
+
+
 Richiesta di file
 -----------------
 
@@ -155,7 +169,7 @@ servizio stesso sia caricato. Per poterlo fare, si può usare la direttiva ``fil
         services:
            foo:
              class: Esempio\Pippo\Pluto
-             file: %kernel.root_dir%/src/percorso/del/file/pippo.php
+             file: "%kernel.root_dir%/src/percorso/del/file/pippo.php"
 
     .. code-block:: xml
 
@@ -169,5 +183,5 @@ servizio stesso sia caricato. Per poterlo fare, si può usare la direttiva ``fil
         $definition->setFile('%kernel.root_dir%/src/percorso/del/file/pippo.php');
         $container->setDefinition('foo', $definition);
 
-Si noti che Symfony richiamerà internamente la funzione require_once di PHP, il
+Si noti che Symfony richiamerà internamente la funzione ``require_once`` di PHP, il
 che vuol dire che il file sarà incluso una sola volta per richiesta. 

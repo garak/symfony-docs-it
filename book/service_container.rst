@@ -103,7 +103,7 @@ per noi. Affinché questo funzioni, bisogna *insegnare* al contenitore come
 creare il servizio ``Mailer``. Questo viene fatto tramite la configurazione, che può
 essere specificata in YAML, XML o PHP:
 
-.. include includes/_service_container_my_mailer.rst.inc
+.. include:: includes/_service_container_my_mailer.rst.inc
 
 .. note::
 
@@ -874,7 +874,7 @@ Ora, basta iniettare ``request_stack``, che si comporta come un normale servizio
         # src/Acme/HelloBundle/Resources/config/services.yml
         services:
             newsletter_manager:
-                class:     "Acme\HelloBundle\Newsletter\NewsletterManager"
+                class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@request_stack"]
 
     .. code-block:: xml
@@ -1166,6 +1166,13 @@ Vengono mostrati solo i servizi pubblici, ma si possono vedere anche quelli priv
 .. code-block:: bash
 
     $ php app/console container:debug --show-private
+
+.. note::
+
+    Se un servizio privato è usato solo come parametro di *un solo* altro servizio,
+    non sarà mostrato dal comando ``container:debug``, anche usando
+    l'opzione ``--show-private``. vedere :ref:`servizi privati in linea <inlined-private-services>`
+    per maggiori dettagli.
 
 Si possono ottenere informazioni più dettagliate su un singolo servizio, specificando
 il suo id:

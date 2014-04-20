@@ -112,7 +112,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 ),
             ),
             'access_control' => array(
-                array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
+                array('path' => '^/admin/', 'role' => 'ROLE_ADMIN'),
+                // Includere anche la riga seguente per proteggere il percorso /admin
+                // array('path' => '^/admin$', 'role' => 'ROLE_ADMIN'),
             ),
             'providers' => array(
                 'in_memory' => array(
@@ -178,6 +180,11 @@ al valore ``pattern`` dell'espressione regolare del firewall configurato. In que
 firewall venga attivato *non* significa tuttavia che venga visualizzato
 il box di autenticazione con nome utente e password per ogni URL. Per esempio, qualunque utente
 può accedere a ``/foo`` senza che venga richiesto di autenticarsi.
+
+.. tip::
+
+    Si può anche far corrispondere una richiesta in base ad altri dettagli (p.e. l'host).
+    Per maggiori informazioni ed esempi, leggere :doc:`/cookbook/security/firewall_restriction`.
 
 .. image:: /images/book/security_anonymous_user_access.png
    :align: center
@@ -637,8 +644,8 @@ vedere :doc:`/cookbook/security/form_login`.
 
             firewalls:
                 login_firewall:
-                    pattern:    ^/login$
-                    anonymous:  ~
+                    pattern:   ^/login$
+                    anonymous: ~
                 secured_area:
                     pattern:    ^/
                     form_login: ~

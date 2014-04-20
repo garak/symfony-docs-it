@@ -13,20 +13,23 @@ Un semplice bottone, non interattivo.
 | Reso come            | tag ``button``                                                       |
 +----------------------+----------------------------------------------------------------------+
 | Opzioni              | - `attr`_                                                            |
-|                      | - `disabled`_                                                        |
+| ereditate            | - `disabled`_                                                        |
 |                      | - `label`_                                                           |
-|                      | - `label_attr`_                                                      |
 |                      | - `translation_domain`_                                              |
-+----------------------+----------------------------------------------------------------------+
-| Opzioni ridefinite   | - `auto_initialize`                                                  |
 +----------------------+----------------------------------------------------------------------+
 | Tipo genitore        | nessuno                                                              |
 +----------------------+----------------------------------------------------------------------+
 | Classe               | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType` |
 +----------------------+----------------------------------------------------------------------+
 
-Opzioni
--------
+Opzioni ereditate
+-----------------
+
+Le seguenti opzioni sono definite nella classe
+:class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\BaseType`.
+La classe ``BaseType`` è il genitore sia del tipo ``button`` sia del
+tipo :doc:`form </reference/forms/types/form>`, ma non fa parte
+dell'albero dei tipi di form (cioè non può essere usato come tipo form a sé stante).
 
 .. include:: /reference/forms/types/options/button_attr.rst.inc
 
@@ -34,11 +37,4 @@ Opzioni
 
 .. include:: /reference/forms/types/options/button_label.rst.inc
 
-.. include:: /reference/forms/types/options/label_attr.rst.inc
-
 .. include:: /reference/forms/types/options/button_translation_domain.rst.inc
-
-Opzioni ridefinite
-------------------
-
-.. include:: /reference/forms/types/options/button_auto_initialize.rst.inc

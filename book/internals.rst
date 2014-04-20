@@ -365,6 +365,19 @@ FrameworkBundle registra diversi ascoltatori:
     Approfondire l':ref:`evento kernel.response <component-http-kernel-kernel-response>`.
 
 .. index::
+    single: Evento; kernel.finish_request
+
+Evento ``kernel.finish_request``
+................................
+
+*Classe evento*: :class:`Symfony\\Component\\HttpKernel\\Event\\FinishRequestEvent`
+
+Lo scopo di questo evento è quello di gestire compiti da eseguire dopo che
+la richiesta è stata gestita, ma che non necessitano di modificare la risposta.
+Gli ascoltatori dell'evento ``kernel.finish_request`` sono richiamati sia in caso
+di successo sia in caso di eccezioni.
+
+.. index::
    single: Evento; kernel.terminate
 
 Evento ``kernel.terminate``

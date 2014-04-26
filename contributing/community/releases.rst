@@ -7,6 +7,13 @@ ospitato sul `repository Git`_ symfony/symfony).
 Symfony gestisce i suoi rilasci con un *modello temporale*; un nuovo rilascio di Symfony
 esce ogni *sei mesi*: uno in *maggio* e uno in *novembre*.
 
+.. tip::
+
+    Il significato di "minore" proviene dalla strategia di `versionamento semantico`_.
+
+Ciascuna versione minore si attiene al medesimo processo, che inizia con un
+periodo di sviluppo, seguito da un periodo di manutenzione.
+
 .. note::
 
     Tale processo di rilascio è stato adottato a partire da Symfony 2.2 e ogni
@@ -109,16 +116,26 @@ Tutto ciò produrrà date e periodi di manutenzione molto attendibili:
     si può usare il `calcolatore di linea temporale`_. Si possono anche ottenere tutti i dati come JSON
     via URL, per esempio `http://symfony.com/roadmap.json?version=2.x`.
 
+.. tip::
+
+    Ogni volta che accade un evento importante legato alle versioni di Symfony (una versione
+    raggiunge la fine della manutenzione o una nuova versione patch viene rilasciata, per
+    esempio), si può ricevere una notifica automatica via email, se ci iscrive
+    alla pagina `roadmap`_.
+
 Retrocompatibilità
 ------------------
 
-Dopo il rilascio di Symfony 2.3, la retrocompatibilità sarà mantenuta a ogni
-costo. Se non fosse possibile, la caratteristica, il miglioramento o la chiusura del bug
-saranno programmati per la versione maggiore successiva: Symfony 3.0.
+Esiste una  :doc:`promessa di retrocompatibilità </contributing/code/bc>` molto
+stretta, che consente agli sviluppatori di aggiornare con fiducia da una versione minore
+di Symfony a quella successiva.
+
+Ogni volta che la retrocompatibilità non sarà possibile, la caratteristica,
+il miglioramento o la sistemazione del bug saranno programmate per la versione maggiore successiva.
 
 .. note::
 
-    Il lavoro su Symfony 3.0 inizierà nel momento in cui ci saranno abbastanza
+    Il lavoro su una nuova versione maggiore di Symfony inizierà nel momento in cui ci saranno abbastanza
     caratteristiche non retrocompatibili in attesa sulla lista delle cose da fare.
 
 Deprecati
@@ -156,9 +173,9 @@ La doppia modalità di manutenzione è stata adottata per far felice ogni utente
 Chi preferisce rilasci veloci e vuole usare le ultime versioni potrà usare i rilasci
 standard: una nuova versione ogni sei mesi e due mesi di tempo per
 aggiornare. Le aziende che desiderano maggiore stabilità possono usare i rilasci LTS:
-una nuova versione ogni due anni e un anno di tempo per
-aggiornare.
+una nuova versione ogni due anni e un anno di tempo per aggiornare.
 
+.. _versionamento semantico: http://semver.org/
 .. _repository Git: https://github.com/symfony/symfony
 .. _SensioLabs:     http://sensiolabs.com/
 .. _roadmap:        http://symfony.com/roadmap

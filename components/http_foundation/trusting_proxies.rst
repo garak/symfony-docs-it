@@ -24,6 +24,12 @@ tale proxy è fidato.
 
     // fidarsi solo degli header dei proxy che vengono da questo indirizzo IP
     Request::setTrustedProxies(array('192.0.0.1', '10.0.0.0/8'));
+    
+.. note::
+
+   Quando si usa il reverse proxy interno di Symfony (``AppCache.php``), assicurarsi di aggiungere
+   ``127.0.0.1`` alla lista dei proxy fidati.
+
 
 Configurare i nomi degli header
 -------------------------------
@@ -51,4 +57,4 @@ elencati sopra saranno fidati. Se occorre indicare come fidati alcuni di questi 
 non altri, lo si può fare::
 
     // disabilita la fiducia nell'header ``X-Forwarded-Proto``, sarà usato l'header predefinito
-    $request->setTrustedHeaderName(Request::HEADER_CLIENT_PROTO, '');
+    Request::setTrustedHeaderName(Request::HEADER_CLIENT_PROTO, '');

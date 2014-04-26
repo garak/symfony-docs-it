@@ -12,14 +12,17 @@ determinata azione o risorsa dell'applicazione::
 
     use Symfony\Component\Security\Core\SecurityContext;
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-    
+
     // istanza di Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface
     $authenticationManager = ...;
 
     // istanza di Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
     $accessDecisionManager = ...;
 
-    $securityContext = new SecurityContext($authenticationManager, $accessDecisionManager);
+    $securityContext = new SecurityContext(
+        $authenticationManager,
+        $accessDecisionManager
+    );
 
     // ... autenticare l'utente
 
@@ -71,7 +74,10 @@ distributore di eventi, che è usato da :class:`Symfony\\Component\\HttpKernel\\
 
     $firewall = new Firewall($map, $dispatcher);
 
-    $dispatcher->addListener(KernelEvents::REQUEST, array($firewall, 'onKernelRequest');
+    $dispatcher->addListener(
+        KernelEvents::REQUEST,
+        array($firewall, 'onKernelRequest')
+    );
 
 Il firewall viene registrato per ascoltare l'evento ``kernel.request``, che sarà
 distribuito da ``HttpKernel`` all'inizio di ogni richiesta che

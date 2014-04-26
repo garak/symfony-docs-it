@@ -2,7 +2,7 @@
    single: Form; Campi; money
 
 Tipo di campo money
-====================
+===================
 
 Rende un campo di testo specializzato nella gestione di dati di
 valuta (money).
@@ -50,7 +50,7 @@ mostrato accanto alla casella di testo. A seconda della valuta, il simbolo potre
 essere mostrato prima o dopo la casella di
 testo.
 
-Può essere un codice `ISO 4217` a tre lettere. Può anche essere impostato a ``false``,
+Può essere un codice `ISO 4217`_ a tre lettere. Può anche essere impostato a ``false``,
 per nascondere il simbolo della valuta.
 
 divisor
@@ -112,4 +112,13 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
-.. _`ISO 4217`: http://en.wikipedia.org/wiki/ISO_4217
+Variabili di form
+-----------------
+
+============= =========== ===============================================================
+Variabile     Tipo       Uso
+============= =========== ===============================================================
+money_pattern ``stringa`` Formato da usare per mostrare la valuta, incluso il simbolo
+============= =========== ===============================================================
+
+.. _`ISO 4217`: http://it.wikipedia.org/wiki/ISO_4217

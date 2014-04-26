@@ -15,7 +15,7 @@ Se si desidera un campo booleano, usare :doc:`checkbox </reference/forms/types/c
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``radio``                                           |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `value`_                                                           |
+| Opzioni       | - `value`_                                                          |
 | ereditate     | - `data`_                                                           |
 |               | - `empty_data`_                                                     |
 |               | - `required`_                                                       |

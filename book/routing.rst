@@ -1171,7 +1171,7 @@ questa rotta. Con queste informazioni, qualsiasi URL può essere generata facilm
     In controllori che estendono la classe base di Symfony
     :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`,
     si può usare il metodo
-    :method:`Symfony\\Component\\Routing\\Router::generate` del servizio ``router`::
+    :method:`Symfony\\Component\\Routing\\Router::generate` del servizio ``router``::
 
         use Symfony\Component\DependencyInjection\ContainerAware;
 

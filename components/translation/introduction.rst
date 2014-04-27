@@ -45,8 +45,8 @@ Il costruttore della classe ``Translator`` ha bisogno di un solo parametro: il l
 
     Il termine *locale* si riferisce più o meno a lingua e paese dell'utente. Può
     essere unq qualsiasi stringa usata da un'applicazione per gestire traduzioni e
-    altre variazioni di formato (p.e. la valuta). Si raccomanda un codice `ISO639-1`_ della
-    *lingua*, un trattino basso (``_``), quindi il codice `ISO3166 Alpha-2`_ del
+    altre variazioni di formato (p.e. la valuta). Si raccomanda un codice `ISO 639-1`_ della
+    *lingua*, un trattino basso (``_``), quindi il codice `ISO3166-1 alpha-2`_ del
     *paese* (p.e. ``fr_FR`` per francese/Francia).
 
 .. _component-translator-message-catalogs:
@@ -190,7 +190,12 @@ caricata in questo modo::
 
     $translator->addResource('xliff', 'messages.fr.xliff', 'fr_FR');
     $translator->addResource('xliff', 'admin.fr.xliff', 'fr_FR', 'admin');
-    $translator->addResource('xliff', 'navigation.fr.xliff', 'fr_FR', 'navigation');
+    $translator->addResource(
+        'xliff',
+        'navigation.fr.xliff',
+        'fr_FR',
+        'navigation'
+    );
 
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
 si deve specificare il dominio come terzo parametro di ``trans()``::
@@ -206,5 +211,5 @@ Uso
 Leggere come usare il componente Translation in ":doc:`/components/translation/usage`".
 
 .. _Packagist: https://packagist.org/packages/symfony/translation
-.. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
-.. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

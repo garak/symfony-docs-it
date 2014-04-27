@@ -300,6 +300,15 @@ che è quanto viene restituito dopo l'invio di un campo di tipo ``file``::
 Utilizzare i callback del ciclo di vita delle entità
 ----------------------------------------------------
 
+.. caution::
+
+    L'uso dei callback del ciclo di vita è una tecnica limitata, con alcuni difetti.
+    Se si vuole rimuovere il riferimento a ``__DIR__`` dal metodo
+    ``Document::getUploadRootDir()``, il modo migliore è iniziare a usare
+    in modo esplicito gli :doc:`ascoltatori di Doctrine </cookbook/doctrine/event_listeners_subscribers>`.
+    In questo modo, si potranno iniettare parametri del kernel, come ``kernel.root_dir``,
+    per poter costruire percorsi assoluti.
+
 Anche se l'implementazione funziona, essa presenta un grave difetto: cosa succede
 se si verifica un problema mentre l'entità viene memorizzata? Il file potrebbe
 già essere stato spostato nella sua posizione finale anche se la proprietà
@@ -400,6 +409,14 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
             }
         }
     }
+
+.. caution::
+
+   Se un ascoltatore di eventi Doctrine gestisce modifiche all'entità,
+   il callback ``preUpdate()`` deve notificare a Doctrine le modifiche
+   che sta eseguendo.
+   Per approfondimenti sulle restrizioni degli eventi "preUpdate", vedere `preUpdate`_ 
+   nella documentazione sugli eventi di Doctrine.
 
 La classe ora ha tutto quello che serve: genera un nome di file univoco prima
 della memorizzazione, sposta il file dopo la memorizzazione, rimuove il file se
@@ -537,3 +554,5 @@ Si noterà che in questo caso occorre un po' più di lavoro per poter rimuovere
 il file. Prima che sia rimosso, si deve memorizzare il percorso del file
 (perché dipende dall'id). Quindi, una volta che l'oggetto è completamente rimosso
 dalla base dati, si può cancellare il file in sicurezza (dentro ``PostRemove``).
+
+.. _`preUpdate`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#preupdate

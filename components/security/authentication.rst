@@ -198,10 +198,36 @@ uno nuovo, basta seguire le seguenti tre regole:
 
 #. La classe deve implementare :class:`Symfony\\Component\\Security\\Core\\Encoder\\PasswordEncoderInterface`;
 
-#. La prima riga in ``encodePassword`` e ``isPasswordValid`` deve
-   assicurarsi che la password non sia troppo lunga (p.e. 4096). Questo per ragioni di sicurezza
-   (vedere `CVE-2013-5750`_). Si può copiare l'implementazione di `BasePasswordEncoder::checkPasswordLength`_
-   da Symfony 2.4.
+#. Le implementazioni di
+   :method:`Symfony\\Component\\Security\\Core\\Encoder\\PasswordEncoderInterface::encodePassword`
+   e
+   :method:`Symfony\\Component\\Security\\Core\\Encoder\\PasswordEncoderInterface::isPasswordValid`
+   devono innanzitutto assicurarsi che la password non sia troppo lunga, vale a dire che la password non superi
+   i 4096 caratteri. Questo per motivi di sicurezza (vedere `CVE-2013-5750`_). Si può usare il metodo
+   :method:`Symfony\\Component\\Security\\Core\\Encoder\\BasePasswordEncoder::isPasswordTooLong`
+   per eseguire questo controllo::
+
+       use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+
+       class FoobarEncoder extends BasePasswordEncoder
+       {
+           public function encodePassword($raw, $salt)
+           {
+               if ($this->isPasswordTooLong($raw)) {
+                   throw new BadCredentialsException('Invalid password.');
+               }
+
+               // ...
+           }
+
+           public function isPasswordValid($encoded, $raw, $salt)
+           {
+               if ($this->isPasswordTooLong($raw)) {
+                   return false;
+               }
+
+               // ...
+       }
 
 Usare codificatori di password
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

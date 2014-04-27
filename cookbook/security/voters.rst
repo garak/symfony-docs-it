@@ -21,28 +21,7 @@ Un votante personalizzato deve implementare
 :class:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface`,
 che richiede i seguenti tre metodi:
 
-.. code-block:: php
-
-    interface VoterInterface
-    {
-        public function supportsAttribute($attribute);
-        public function supportsClass($class);
-        public function vote(TokenInterface $token, $object, array $attributes);
-    }
-
-Il metodo ``supportsAttribute()`` è usato per verificare che il votante supporti
-l'attributo utente dato (p.e.: un ruolo, un'ACL, ecc.)
-
-Il metodo ``supportsClass()`` è usato per verificare che il votante supporti l'attuale
-classe per il token dell'utente.
-
-Il metodo ``vote()`` deve implementare la logica di business che verifica se l'utente
-possa avere accesso o meno. Questo metodo deve restituire uno dei seguenti
-valori:
-
-* ``VoterInterface::ACCESS_GRANTED``: L'utente può accedere all'applicazione
-* ``VoterInterface::ACCESS_ABSTAIN``: Il votante non può decidere se l'utente possa accedere o meno
-* ``VoterInterface::ACCESS_DENIED``: L'utente non può accedere all'applicazione
+.. include:: /cookbook/security/voter_interface.rst.inc
 
 In questo esempio, verificheremo la corrispondenza dell'indirizzo IP dell'utente con una
 lista nera di indirizzi. Se l'IP dell'utente è nella lista nera, restituiremo

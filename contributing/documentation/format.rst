@@ -96,9 +96,9 @@ Il precedente snippet reST mostra un blocco come di seguito:
 
 Ecco la lista dei formati attualmente supportati:
 
-===============  ================
- Formato markup  Mostrato
-===============  ================
+===============  =================
+Formato markup   Mostrato
+===============  =================
 html             HTML
 xml              XML
 php              PHP

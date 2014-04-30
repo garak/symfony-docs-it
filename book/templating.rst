@@ -559,7 +559,7 @@ Includere questo template da un altro template è semplice:
             <?php endforeach; ?>
         <?php $view['slots']->stop() ?>
 
-Il template è incluso usando il tag ``{{ include ]}``. Si noti che il nome del
+Il template è incluso usando il tag ``{{ include }}``. Si noti che il nome del
 template segue le stesse tipiche convenzioni. Il template ``articleDetails.html.twig``
 usa una variabile ``article``, che viene passata. In questo caso,
 lo si può evitare, perché tutte le variabili disponibili in

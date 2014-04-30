@@ -349,7 +349,7 @@ lavora con i form, ad esempio::
 Creare pagine statiche
 ----------------------
 
-Si può creare una pagina statica, senza nemmeno creare un controllre (basta una rotta
+Si può creare una pagina statica, senza nemmeno creare un controllore (basta una rotta
 e un template).
 
 Vedere :doc:`/cookbook/templating/render_without_controller`.

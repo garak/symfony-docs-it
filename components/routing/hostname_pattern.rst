@@ -114,9 +114,9 @@ dire che si possono usare segnaposto nel nome dell'host:
 
         return $collection;
 
-You can also set requirements and default options for these placeholders. For
-instance, if you want to match both ``m.example.com`` and
-``mobile.example.com``, you use this:
+Si possono anche impostare requisiti e opzioni predefinite per i segnaposto. Per
+esempio, se si vuole che ``m.example.com`` e
+``mobile.example.com`` corrispondano, si può usare:
 
 .. configuration-block::
 

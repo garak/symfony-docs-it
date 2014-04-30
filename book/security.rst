@@ -1745,7 +1745,7 @@ Controlli di accesso complessi con espressioni
     La funzionalità delle espressioni è stata introdotta in Symfony 2.4.
 
 Oltre a un ruolo, come ``ROLE_ADMIN``, il metodo ``isGranted`` accetta
-acnhe un oggetto :class:`Symfony\\Component\\ExpressionLanguage\\Expression`::
+anche un oggetto :class:`Symfony\\Component\\ExpressionLanguage\\Expression`::
 
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     use Symfony\Component\ExpressionLanguage\Expression;

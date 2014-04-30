@@ -201,5 +201,5 @@ Uso
 Leggere come usare il componente Translation in ":doc:`/components/translation/usage`".
 
 .. _Packagist: https://packagist.org/packages/symfony/translation
-.. _`ISO3166 Alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
-.. _`ISO639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _ISO3166 Alpha-2: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _ISO639-1: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

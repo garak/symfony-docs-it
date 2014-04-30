@@ -349,7 +349,7 @@ lavora con i form, ad esempio::
 Creare pagine statiche
 ----------------------
 
-Si può creare una pagina statica, senza nemmeno creare un controllre (basta una rotta
+Si può creare una pagina statica, senza nemmeno creare un controllore (basta una rotta
 e un template).
 
 Vedere :doc:`/cookbook/templating/render_without_controller`.
@@ -672,7 +672,7 @@ da qualsiasi controllore::
         $session->set('pippo', 'pluto');
 
         // in un altro controllore per un'altra richiesta
-        $foo = $session->get('pippo');
+        $pippo = $session->get('pippo');
 
         // usa un valore predefinito, se la chiave non esiste
         $filters = $session->get('filters', array());

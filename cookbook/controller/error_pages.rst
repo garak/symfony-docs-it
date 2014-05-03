@@ -8,7 +8,7 @@ Personalizzare le pagine di errore
 Quando in Symfony2 viene lanciata una qualsiasi eccezione, questa viene catturata all'interno
 della classe ``Kernel`` e successivamente inoltrata a un controllore speciale,
 ``TwigBundle:Exception:show``, per la gestione. Questo controllore, che si trova
-all'interno di ``TwigBundle``, determina quale template di errore visualizzare e
+all'interno di TwigBundle, determina quale template di errore visualizzare e
 il codice di stato che dovrebbe essere impostato per la data eccezione.
 
 Le pagine di errore possono essere personalizzate in due diversi modi, a seconda di quanto
@@ -16,9 +16,9 @@ controllo si vuole avere:
 
 1. Personalizzare i template di errore delle diverse pagine di errore (spiegato più avanti);
 
-2. Sostituire il controllore predefinito delle eccezioni ``TwigBundle::Exception:show``
+2. Sostituire il controllore predefinito delle eccezioni ``twig.controller.exception:showAction``
    con il proprio controllore e gestirlo come si vuole (vedere
-   :ref:`exception_controller nella guida di riferimento di Twig<config-twig-exception-controller>`);
+   :ref:`exception_controller nella guida di riferimento di Twig <config-twig-exception-controller>`);
    il controllore predefinito delle eccezioni è registrato come servizio, la classe
    effettiva è ``Symfony\Bundle\TwigBundle\Controller\ExceptionController``.
 
@@ -28,6 +28,23 @@ controllo si vuole avere:
     di quanto scritto qui. Viene lanciato un evento interno, ``kernel.exception``,
     che permette un controllo completo sulla gestione delle eccezioni. Per maggiori
     informazioni, vedere :ref:`kernel-kernel.exception`.
+
+L'``ExceptionController`` predefinito mostrerà una pagina di
+*eccezione* o di *errore*, a seconda dell'impostazione di ``kernel.debug``.
+Mentre le pagine di *eccezione* forniscono varie informazioni utili
+durante lo sviluppo, le pagine di *errore* sono rivolte
+all'utente finale.
+
+.. sidebar:: Test delle pagine di errore durante lo sviluppo
+
+    Non si dovrebbe impostare ``kernel.debug`` a ``false`` per poter vedere una
+    pagina di errore durante lo sviluppo. Questo impedirebbe anche a
+    Symfony2 di ricompilare i template Twig, tra le altre cose.
+
+    Il bundle `WebfactoryExceptionsBundle`_ fornisce uno speciale controllore
+    che consente di mostrare le pagine di errore personalizzate
+    per codici di stato HTTP arbitrari, anche quando
+    ``kernel.debug`` è impostato a ``true``.
 
 Tutti i template degli errori sono presenti all'interno di ``TwigBundle``. Per sovrascrivere i
 template, si può semplicemente utilizzare il metodo standard per sovrascrivere i template che
@@ -100,13 +117,15 @@ Symfony utilizza il seguente algoritmo per determinare quale template deve usare
     Per vedere l'elenco completo dei template di errore predefiniti, vedere la
     cartella ``Resources/views/Exception`` del ``TwigBundle``. In una
     installazione standard di Symfony2, il ``TwigBundle`` può essere trovato in
-    ``vendor/symfony/src/symfony/symfony/Bundle/TwigBundle``. Spesso, il modo più semplice
-    per personalizzare una pagina di errore è quello di copiarlo da ``TwigBundle`` in
-    ``app/Resources/TwigBundle/views/Exception`` e poi modificarlo.
+    ``vendor/symfony/symfony/src/Symfony/Bundle/TwigBundle``. Spesso, il modo più semplice
+    per personalizzare una pagina di errore è quello di copiarla da TwigBundle in
+    ``app/Resources/TwigBundle/views/Exception`` e poi modificarla.
 
 .. note::
 
-    Le pagine "amichevoli" di debug delle eccezione mostrate allo sviluppatore possono anche loro
-    essere personalizzate nello stesso modo creando template come
+    Le pagine "amichevoli" di debug delle eccezioni mostrate allo sviluppatore possono ugualmente
+    essere personalizzate, creando template come
     ``exception.html.twig`` per la pagina di eccezione standard in HTML o
     ``exception.json.twig`` per la pagina di eccezione JSON.
+
+.. _`WebfactoryExceptionsBundle`: https://github.com/webfactory/exceptions-bundle

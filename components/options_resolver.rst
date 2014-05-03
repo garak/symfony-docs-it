@@ -50,17 +50,17 @@ I vantaggi di operare in questo modo saranno più ovvi andando avanti::
         $this->options = $resolver->resolve($options);
     }
 
-La proprietà ``$options`` è ora un array ben definito, con tutte le opzioni risolte rese disponibili::
+La proprietà ``$options`` è ora un array ben definito, con tutte le opzioni
+risolte rese disponibili::
 
     // ...
-    public function getHost()
+    public function sendMail($from, $to)
     {
-        return $this->options['host'];
-    }
-
-    public function getPassword()
-    {
-        return $this->options['password'];
+        $mail = ...;
+        $mail->setHost($this->options['host']);
+        $mail->setUsername($this->options['username']);
+        $mail->setPassword($this->options['password']);
+        // ...
     }
 
 Configurare OptionsResolver
@@ -70,6 +70,7 @@ Adesso, si provi a utilizzare effettivamente la classe::
 
     $mailer = new Mailer(array(
         'host'     => 'smtp.example.org',
+        'username' => 'user',
         'password' => 'pa$$word',
     ));
 
@@ -99,22 +100,44 @@ la classe ``OptionsResolver``::
         public function __construct(array $options = array())
         {
             $resolver = new OptionsResolver();
-            $this->setDefaultOptions($resolver);
+            $this->configureOptions($resolver);
 
             $this->options = $resolver->resolve($options);
         }
 
-        protected function setDefaultOptions(OptionsResolverInterface $resolver)
+        protected function configureOptions(OptionsResolverInterface $resolver)
         {
-            // ... configura il resolver, come si apprendererà nelle sezioni successive
+            // ... configura il resolver, come si apprendererà nelle
+            // sezioni successive
         }
     }
+
+Impostare valori predefiniti
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Spesso le opzioni hanno un valore predefinito. Lo si può configurare 
+richiamando :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setDefaults`::
+
+    // ...
+    protected function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        // ...
+
+        $resolver->setDefaults(array(
+            'username' => 'root',
+        ));
+    }
+
+Questo aggiunge un'opzione ``username`` con un valore predefinito
+``root``. Se l'utente passerà un'opzione ``username``, il suo valore
+sovrascriverà quello predefinito. Non occorre configurare ``username`` come
+opzione facoltativa.
 
 Opzioni Obbligatorie
 --------------------
 
-Supponiamo che l'opzione ``firstName`` sia obbligatoria: la classe non può funzionare senza
-di essa. Si possono settare le opzioni obbligatorie invocando
+Supponiamo che l'opzione ``host`` sia obbligatoria: la classe non può funzionare senza
+di essa. Si possono impostare le opzioni obbligatorie invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setRequired`::
 
     // ...
@@ -131,20 +154,23 @@ A questo punto è possible usare la classe senza errori::
 
     echo $mailer->getHost(); // 'smtp.example.org'
 
-Se un'opzione obbligatoria non viene passata, una
-:class:`Symfony\\Component\\OptionsResolver\\Exception\\MissingOptionsException`
-sarà lanciata.
+Se un'opzione obbligatoria non viene passata, sarà sollevata una
+:class:`Symfony\\Component\\OptionsResolver\\Exception\\MissingOptionsException`.
 
-Per determinare se un'opzione è obbligatoria, si può usare il
-metodo
-:method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::isRequired`.
+
+.. tip::
+
+    Per determinare se un'opzione è obbligatoria, si può usare il metodo
+    :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::isRequired`.
+
 
 Opzioni Facoltative
 -------------------
 
-Qualche volta, un'opzione può essere facoltativa (per esempio l'opzione ``lastName`` nella classe
-``Person``). È possibile configurare queste opzioni invocando
+A volte un'opzione può essere facoltativa (per esempio l'opzione ``password`` nella classe
+``Mailer``). È possibile configurare queste opzioni invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setOptional`::
+
 
     // ...
     protected function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -154,28 +180,17 @@ Qualche volta, un'opzione può essere facoltativa (per esempio l'opzione ``lastN
         $resolver->setOptional(array('password'));
     }
 
-Settare Valori Predefiniti
---------------------------
+Le opzioni con valori predefiniti sono sempre impostate come facoltative.
 
-La maggior parte delle opzioni facoltative hanno un valore predefinito. È possibile configurare queste
-opzioni invocando
-:method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setDefaults`::
+.. tip::
 
-    // ...
-    protected function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        // ...
+    Se si imposta un'opzione come facoltatva, non si può essere sicuri che sia compresa o meno
+    nell'array. Occorre verificarne l'esistenza prima di poterla usare.
 
-        $resolver->setDefaults(array(
-            'username' => 'root',
-        ));
-    }
-
-È stata aggiunta una terza opzione, ``username``, con un valore predefinito di
-``root``. Se l'utente passerà un'opzione ``username``, tale valore sarà
-sovrascritto. Non è necessario configurare ``username`` come una opzione facoltativa.
-``OptionsResolver`` sa già che le opzioni con un valore predefinito sono
-facoltative.
+    Per evitare di doverla verificare ogni volta, si può anche impostare un valore predefinito di
+    ``null``, usando il metodo ``setDefaults()`` (vedere `Impostare valori predefiniti`_),
+    il che vuol dire che l'elemento esisterà sempre nell'array, ma con un valore predefinito di
+    ``null``.
 
 Valori predefiniti che dipendono da altre Opzioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,15 +208,20 @@ Closure come valore predefinito::
         // ...
 
         $resolver->setDefaults(array(
+            'encryption' => null,
             'port' => function (Options $options) {
-                if (in_array($options['host'], array('127.0.0.1', 'localhost'))) {
-                    return 80;
+                if ('ssl' === $options['encryption']) {
+                    return 465;
                 }
 
                 return 25;
             },
         ));
     }
+
+La classe :class:`Symfony\\Component\\OptionsResolver\\Options` implementa
+:phpclass:`ArrayAccess`, :phpclass:`Iterator` e :phpclass:`Countable`. Ciò vuol
+dire che la si può gestire come un normale array che contenga le opzioni.
 
 .. caution::
 
@@ -237,7 +257,9 @@ Se si usa una closure come nuovo valore, riceverà due parametri:
         $resolver->setDefaults(array(
             'encryption' => 'tls', // sovrascrittura semplice
             'host' => function (Options $options, $previousValue) {
-                return 'localhost' == $previousValue ? '127.0.0.1' : $previousValue;
+                return 'localhost' == $previousValue
+                    ? '127.0.0.1'
+                    : $previousValue;
             },
         ));
     }
@@ -296,7 +318,7 @@ un'opzione ``transport``, che può valere solo ``sendmail``, ``mail`` o
         // ...
 
         $resolver->setAllowedValues(array(
-            'transport' => array('sendmail', 'mail', 'smtp'),
+            'encryption' => array(null, 'ssl', 'tls'),
         ));
     }
 

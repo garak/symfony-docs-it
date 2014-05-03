@@ -46,7 +46,7 @@ Il costruttore della classe ``Translator`` ha bisogno di un solo parametro: il l
     Il termine *locale* si riferisce più o meno a lingua e paese dell'utente. Può
     essere unq qualsiasi stringa usata da un'applicazione per gestire traduzioni e
     altre variazioni di formato (p.e. la valuta). Si raccomanda un codice `ISO 639-1`_ della
-    *lingua*, un trattino basso (``_``), quindi il codice `ISO3166-1 alpha-2`_ del
+    *lingua*, un trattino basso (``_``), quindi il codice `ISO 3166-1 alpha-2`_ del
     *paese* (p.e. ``fr_FR`` per francese/Francia).
 
 .. _component-translator-message-catalogs:

@@ -101,7 +101,10 @@ Struttura
 
 * Dichiarare le proprietà di una classe prima dei metodi;
 
-* Dichiarare prima i metodi pubblici, poi quelli protetti e infine quelli privati;
+* Dichiarare prima i metodi pubblici, poi quelli protetti e infine quelli privati.
+  Fanno eccezione a questa regola il costruttore della classe e i metodi ``setUp`` e
+  ``tearDown`` delle classi dei test di PHPUnit, che vanno dichiarati all'inizio, per
+  aumentare la leggibilità;
 
 * Usare le parentesi per istanziare le classi, indipendentemente dal numero di
   parametri del costruttore.

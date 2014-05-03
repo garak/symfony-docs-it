@@ -463,9 +463,23 @@ Per registrare un preparatore di cache, usare il tag ``kernel.cache_warmer``:
             ->addTag('kernel.cache_warmer', array('priority' => 0))
         ;
 
-Il valore ``priority`` è facoltativo ed è predefinito a 0. Questo valore può essere tra
--255 e 255 e i prepratori saranno eseguiti con un ordine basato sulla loro
-priorità.
+.. note::
+
+    Il valore ``priority`` è facoltativo ed è predefinito a 0. I prepratori saranno
+    eseguiti con un ordine basato sulla loro priorità.
+
+Preparatori di cache del nucleo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
++-------------------------------------------------------------------------------------------+-----------+
+| Nome della classe del preparatore                                                         | Priorità  |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Bundle\\FrameworkBundle\\CacheWarmer\\TemplatePathsCacheWarmer`          | 20        |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Bundle\\FrameworkBundle\\CacheWarmer\\RouterCacheWarmer`                 | 0         |
++-------------------------------------------------------------------------------------------+-----------+
+| :class:`Symfony\\Bundle\\TwigBundle\\CacheWarmer\\TemplateCacheCacheWarmer`               | 0         |
++-------------------------------------------------------------------------------------------+-----------+
 
 .. _dic-tags-kernel-event-listener:
 

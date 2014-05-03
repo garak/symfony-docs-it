@@ -2,8 +2,10 @@
 
   * :doc:`Bug </contributing/code/bugs>`
   * :doc:`Patch </contributing/code/patches>`
+  * :doc:`La squadra </contributing/code/core_team>`
   * :doc:`Sicurezza </contributing/code/security>`
   * :doc:`Test </contributing/code/tests>`
+  * :doc:`Retrocompatibilità </contributing/code/bc>`
   * :doc:`Standard del codice </contributing/code/standards>`
   * :doc:`Convenzioni del codice </contributing/code/conventions>`
   * :doc:`Git </contributing/code/git>`

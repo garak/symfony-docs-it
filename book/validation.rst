@@ -1082,10 +1082,7 @@ Cambiare ora la classe ``User`` per implementare
 :class:`Symfony\\Component\\Validator\\GroupSequenceProviderInterface` e
 aggiungere
 :method:`Symfony\\Component\\Validator\\GroupSequenceProviderInterface::getGroupSequence`,
-che deve restituire un array di gruppi da usare. Inoltre, aggiungere l'annotazione
-``@Assert\GroupSequenceProvider`` alla classe (o ``group_sequence_provider: true`` allo YAML). Se si ipotizza che
-un metodo di nome ``isPremium`` restituisce ``true`` quando un utente è premium,
-il codice potrebbe assomigliare a questo::
+che deve restituire un array di gruppi da usare::
 
     // src/Acme/DemoBundle/Entity/User.php
     namespace Acme\DemoBundle\Entity;
@@ -1093,10 +1090,6 @@ il codice potrebbe assomigliare a questo::
     // ...
     use Symfony\Component\Validator\GroupSequenceProviderInterface;
 
-    /**
-     * @Assert\GroupSequenceProvider
-     * ...
-     */
     class User implements GroupSequenceProviderInterface
     {
         // ...
@@ -1112,6 +1105,66 @@ il codice potrebbe assomigliare a questo::
             return $groups;
         }
     }
+
+Infine, occorre notificare al componente Validator che la classe ``User``
+fornisce una sequenza di gruppi da validare:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/DemoBundle/Resources/config/validation.yml
+        Acme\DemoBundle\Entity\User:
+            group_sequence_provider: ~
+
+    .. code-block:: php-annotations
+
+        // src/Acme/DemoBundle/Entity/User.php
+        namespace Acme\DemoBundle\Entity;
+
+        // ...
+
+        /**
+         * @Assert\GroupSequenceProvider
+         */
+        class User implements GroupSequenceProviderInterface
+        {
+            // ...
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/DemoBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd"
+        >
+            <class name="Acme\DemoBundle\Entity\User">
+                <group-sequence-provider />
+                <!-- ... -->
+            </class>
+        </constraint-mapping>
+
+    .. code-block:: php
+
+        // src/Acme/DemoBundle/Entity/User.php
+        namespace Acme\DemoBundle\Entity;
+
+        // ...
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+
+        class User implements GroupSequenceProviderInterface
+        {
+            // ...
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->setGroupSequenceProvider(true);
+                // ...
+            }
+        }
 
 .. _book-validation-raw-values:
 
@@ -1154,12 +1207,12 @@ Richiamando ``validateValue`` sul validatore, si può passare un valore grezzo e
 l'oggetto vincolo su cui si vuole validare tale valore. Una lista completa di vincoli
 disponibili, così come i nomi completi delle classi per ciascun vincolo, è
 disponibile nella sezione
-:doc:`riferimento sui vincoli</reference/constraints>`.
+:doc:`riferimento sui vincoli </reference/constraints>`.
 
 Il metodo ``validateValule`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
 che si comporta come un array di errori. Ciascun errore della lista è un oggetto
 :class:`Symfony\\Component\\Validator\\ConstraintViolation`, che contiene
-il messaggio di errore nel suo metodo `getMessage`.
+il messaggio di errore nel suo metodo ``getMessage``.
 
 Considerazioni finali
 ---------------------

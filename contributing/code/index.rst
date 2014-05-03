@@ -6,6 +6,7 @@ Contribuire al codice
 
     bugs
     patches
+    core_team
     security
     tests
     bc

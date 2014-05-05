@@ -9,8 +9,8 @@ Il componente DomCrawler
 
 .. note::
 
-    Dove possibile, il componente DomCrawler non è progettato per manipolare
-    il DOM o per ri-esportare HTML/XML.
+    Il componente DomCrawler non è progettato per manipolare  il DOM o per
+    ri-esportare HTML/XML, anche se sarebbe tecnicamente possibile utilizzarlo in tal modo.
 
 Installazione
 -------------

@@ -49,7 +49,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
         /**
          * @param string $dummy Una descrizione del parametro
-         * @param array $options
+         * @param array  $options
          *
          * @return string|null Input trasformato
          *
@@ -68,6 +68,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
             if (true === $dummy) {
                 return;
             }
+
             if ('string' === $dummy) {
                 if ('values' === $mergedOptions['un_valore_predefinito']) {
                     return substr($dummy, 0, 5);
@@ -75,6 +76,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
                 return ucwords($dummy);
             }
+
             throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));
         }
     }
@@ -122,7 +124,7 @@ Convenzioni sui nomi
 * Usare gli spazi dei nomi per tutte le classi;
 
 * Aggiungere il prefisso ``Abstract`` alle classi astratte. Si noti che alcune vecchie classi di Symfony2
-  non seguono questa convenzione e non sono state rinominate per questioni di retro-compatibilità.
+  non seguono questa convenzione e non sono state rinominate per questioni di retrocompatibilità.
   Tuttavia, tutte le nuove classi astratte devono seguire questa convenzione;
 
 * Aggiungere il suffisso ``Interface`` alle interfacce;
@@ -132,6 +134,10 @@ Convenzioni sui nomi
 * Aggiungere il suffisso ``Exception`` alle eccezioni;
 
 * Usare caratteri alfanumerici e trattini bassi per i nomi di file;
+
+* Per i tipi di PHPDocs e per i casting, usare ``bool`` (al posto di ``boolean``
+  o ``Boolean``), ``int`` (al posto di ``integer``), ``float`` (al posto di
+  ``double`` o ``real``);
 
 * Non dimenticare di dare un'occhiata al documento più prolisso sulle :doc:`conventions`,
   per considerazioni più soggettive sulla nomenclatura.

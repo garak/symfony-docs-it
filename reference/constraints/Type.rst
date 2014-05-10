@@ -112,6 +112,23 @@ dei tipi di dato di PHP, come stabilito dalle funzioni ``is_`` di PHP.
 * `scalar <http://php.net/is_scalar>`_
 * `string <http://php.net/is_string>`_
 
+Si possono anche usare le funzioni ``ctype_`` della corrispondente `estensione di PHP <http://php.net/manual/it/book.ctype.php>`_.
+Si consideri `una lista di funzioni ctype <http://php.net/manual/it/ref.ctype.php>`_:
+
+* :phpfunction:`alnum <ctype_alnum>`
+* :phpfunction:`alpha <ctype_alpha>`
+* :phpfunction:`cntrl <ctype_cntrl>`
+* :phpfunction:`digit <ctype_digit>`
+* :phpfunction:`graph <ctype_graph>`
+* :phpfunction:`lower <ctype_lower>`
+* :phpfunction:`print <ctype_print>`
+* :phpfunction:`punct <ctype_punct>`
+* :phpfunction:`space <ctype_space>`
+* :phpfunction:`upper <ctype_upper>`
+* :phpfunction:`xdigit <ctype_xdigit>`
+
+Assicurarsi che il :phpfunction:`locale <setlocale>` adatto sia impostato, prima dell'uso.
+
 message
 ~~~~~~~
 

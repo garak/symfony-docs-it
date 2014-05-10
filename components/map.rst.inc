@@ -68,6 +68,7 @@
 * :doc:`/components/form/index`
 
   * :doc:`/components/form/introduction`
+  * :doc:`/components/form/form_events`
   * :doc:`/components/form/type_guesser`
 
 * :doc:`/components/http_foundation/index`
@@ -87,7 +88,7 @@
 
   * :doc:`/components/intl`
 
-* **Options Resolver**
+* **OptionsResolver**
 
   * :doc:`/components/options_resolver`
 

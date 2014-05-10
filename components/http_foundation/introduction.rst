@@ -176,6 +176,14 @@ in diversi punti dell'applicazione. Per informazioni su come viene
 usata nel framework Symfony2, vedere
 :ref:`il libro <book-fundamentals-attributes>`.
 
+Infine, si può accedere ai dati grezzi inviati nel corpo della richiesta usando
+:method:`Symfony\\Component\\HttpFoundation\\Request::getContent()`::
+
+    $content = $request->getContent();
+
+Questo potrebbe essere utile, per esempio, per processare una stringa JSON inviata
+all'applicazione da un servizio remoto tramite metodo HTTP POST.
+
 Identificare una richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -243,7 +251,8 @@ usando i seguenti metodi:
   restituisce la lista dei charset accettati, ordinata per qualità discendente
 
 .. versionadded:: 2.2
-    La classe :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` è nuova in Symfony 2.2.
+    La classe :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` è stata
+    introdotta in Symfony 2.2.
 
 Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
 ``Accept-Charset`` o ``Accept-Encoding``, si può usare la classe

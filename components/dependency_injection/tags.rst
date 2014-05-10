@@ -27,7 +27,7 @@ Per iniziare, definiamo la classe ``TransportChain``::
             $this->transports = array();
         }
 
-        public function addTransport(\Swift_Transport  $transport)
+        public function addTransport(\Swift_Transport $transport)
         {
             $this->transports[] = $transport;
         }
@@ -218,22 +218,34 @@ Per rispondere, cambiare la dichiarazione del servizio:
                 arguments:
                     - "%mailer_host%"
                 tags:
-                    -  { name: acme_mailer.transport, alias: foo }
+                    -  { name: acme_mailer.transport, alias: pippo }
             acme_mailer.transport.sendmail:
                 class: \Swift_SendmailTransport
                 tags:
-                    -  { name: acme_mailer.transport, alias: bar }
+                    -  { name: acme_mailer.transport, alias: pluto }
 
     .. code-block:: xml
 
         <service id="acme_mailer.transport.smtp" class="\Swift_SmtpTransport">
             <argument>%mailer_host%</argument>
-            <tag name="acme_mailer.transport" alias="foo" />
+            <tag name="acme_mailer.transport" alias="pippo" />
         </service>
 
         <service id="acme_mailer.transport.sendmail" class="\Swift_SendmailTransport">
-            <tag name="acme_mailer.transport" alias="bar" />
+            <tag name="acme_mailer.transport" alias="pluto" />
         </service>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $definitionSmtp = new Definition('\Swift_SmtpTransport', array('%mailer_host%'));
+        $definitionSmtp->addTag('acme_mailer.transport', array('alias' => 'pippo'));
+        $container->setDefinition('acme_mailer.transport.smtp', $definitionSmtp);
+
+        $definitionSendmail = new Definition('\Swift_SendmailTransport');
+        $definitionSendmail->addTag('acme_mailer.transport', array('alias' => 'pluto'));
+        $container->setDefinition('acme_mailer.transport.sendmail', $definitionSendmail);
 
 Si noti che è stata aggiunta una chiave generica ``alias`` al tag. Per usarla
 effettivamente, aggiornare il compilatore::

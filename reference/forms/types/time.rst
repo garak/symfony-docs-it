@@ -149,7 +149,7 @@ error_bubbling
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
@@ -166,3 +166,19 @@ Queste opzioni sono ereditate dal tipo :doc:`form</reference/forms/types/form>`:
 .. include:: /reference/forms/types/options/inherit_data.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+Variabili di form
+-----------------
+
++--------------+--------------+---------------------------------------------------------------------+
+| Variabile    | Tipo         | Uso                                                                 |
++==============+==============+=====================================================================+
+| widget       | ``mixed``    | Il valore dell'opzione `widget`_.                                   |
++--------------+--------------+---------------------------------------------------------------------+
+| with_minutes | ``Booleano`` | Il valore dell'opzione `with_minutes`_.                             |
++--------------+--------------+---------------------------------------------------------------------+
+| with_seconds | ``Booleano`` | Il valore dell'opzione `with_seconds`_ .                            |
++--------------+--------------+---------------------------------------------------------------------+
+| type         | ``stringa``  | Presente solo se widget è ``single_text`` HTML5 è attivo, contiene  |
+|              |              | il tipo di input da usare (``datetime``, ``date`` o ``time``).      |
++--------------+--------------+---------------------------------------------------------------------+

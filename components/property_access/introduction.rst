@@ -122,11 +122,11 @@ maiuscolo il nome (``first_name`` diventa ``FirstName``) e aggiunge il prefisso
 
     echo $accessor->getValue($person, 'first_name'); // 'Wouter'
 
-Uso di Hasser/Isser
+Uso di hasser/isser
 ~~~~~~~~~~~~~~~~~~~
 
 Se non viene trovato un getter, l'accessor cercherà
-un isser o un hasser. Tale metodo è creto nello stesso modo dei
+un isser o un hasser. Tale metodo è creato nello stesso modo dei
 getter, quindi si può fare qualcosa come::
 
     // ...

@@ -99,7 +99,7 @@ il form.
 :ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
 
 +-------------------+------------------------------------------------------+
-| **Tipo di dati**  | **Valore** |
+| **Tipo di dati**  | **Valore**                                           |
 +-------------------+------------------------------------------------------+
 | Dati modello      | Model data injected into ``setData()``               |
 +-------------------+------------------------------------------------------+

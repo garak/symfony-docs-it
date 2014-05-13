@@ -87,15 +87,39 @@ valori:
 
 * ``textmate``
 * ``macvim``
+* ``emacs``
+* ``sublime``
+
+.. versionadded:: 2.3.14
+    Gli editor ``emacs`` e ``sublime`` sono stati introdotti in Symfony 2.3.14.
 
 Si può anche specificare una stringa con un collegamento personalizzato. Se lo si fa,
 tutti i simboli percentuale (``%``) devono essere raddoppiati, per escape. Per esempio,
-la stringa completa per TextMate sarebbe come questa:
+la stringa completa per `PhpStormOpener`_ sarebbe come questa:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    framework:
-        ide:  "txmt://open?url=file://%%f&line=%%l"
+    .. code-block:: yaml
+
+        framework:
+            ide: "pstorm://%%f:%%l"
+            
+    .. code-block:: xml
+    
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/service"
+            xmlns:framework="http://symfony.com/schema/dic/symfony">
+            
+            <framework:config ide="pstorm://%%f:%%l" />
+            
+        </container>
+        
+    .. code-block:: php
+    
+        $container->loadFromExtension('framework', array(
+            'ide' => 'pstorm://%%f:%%l',
+        ));
+
 
 Ovviamente, poiché ogni sviluppatore usa un IDE diverso, è meglio impostarlo a livello
 di sistema. Lo si può fare impostando il valore ``xdebug.file_link_format``
@@ -567,3 +591,4 @@ Configurazione predefinita completa
                 debug:                %kernel.debug%
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
+.. _`PhpStormOpener`: https://github.com/pinepain/PhpStormOpener

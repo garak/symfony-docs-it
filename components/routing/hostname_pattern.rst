@@ -125,7 +125,7 @@ esempio, se si vuole che ``m.example.com`` e
         mobile_homepage:
             path:     /
             host:     "{subdomain}.example.com"
-            defaults: 
+            defaults:
                 _controller: AcmeDemoBundle:Main:mobileHomepage
                 subdomain: m
             requirements:
@@ -282,3 +282,19 @@ Si può impostare l'opzione ``host`` sulle rotte importate:
 
 L'host ``hello.example.com`` sarà impostato su ciascuna rotta caricata dalla nuova
 risorsa delle rotte.
+
+Testare i controllori
+---------------------
+
+Se si vuole far funzionare la corrispondenza degli URL nei test funzionali, occorre
+impostare l'header ``HTTP_HOST`` negli oggetti richiesta.
+
+ .. code-block:: php
+
+     $crawler = $client->request(
+         'GET',
+         '/homepage',
+         array(),
+         array(),
+         array('HTTP_HOST' => 'm.' . $client->getContainer()->getParameter('domain'))
+     );

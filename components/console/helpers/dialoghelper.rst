@@ -117,6 +117,7 @@ avere il suffisso ``Bundle``. Lo si può validare, usando il metodo
                     'Il nome del bundle deve avere \'Bundle\' come suffisso'
                 );
             }
+
             return $answer;
         },
         false,
@@ -155,9 +156,11 @@ Si può anche fare una domanda e validare una risposta nascosta::
     $dialog = $this->getHelperSet()->get('dialog');
 
     $validator = function ($value) {
-        if (trim($value) == '') {
+        if ('' === trim($value)) {
             throw new \Exception('La password non può essere vuota');
         }
+        
+        return $value;
     };
 
     $password = $dialog->askHiddenResponseAndValidate(

@@ -70,7 +70,7 @@ importanti:
   impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creazione del template per il campo`_
   per maggiori dettagli.
 
-* ``getDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form
+* ``setDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form
   che possono essere utilizzate in ``buildForm()`` e ``buildView()``. Ci sono molte 
   opzioni comuni a tutti i campi (vedere `FieldType`_), ma è possibile crearne altre,
   quante sono necessarie.

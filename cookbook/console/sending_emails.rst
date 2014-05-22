@@ -7,10 +7,10 @@ Generare URL e inviare email da console
 
 Sfortunatamente, la linea di comando non sa nulla degli host virtuali o dei
 nomi di dominio. Questo vuol dire che, se si generano URL assoluti da un comando
-da console, probabilmente si otterrà qualcosa come ``http://localhost/pippo/pluto``,
+di console, probabilmente si otterrà qualcosa come ``http://localhost/pippo/pluto``,
 il che non è molto utile.
 
-Per risolvere il problema, bisogna configrare il "contesto della richiesta", che è un modo
+Per risolvere il problema, bisogna configurare il "contesto della richiesta", che è un modo
 particolare per dire che occorre configurare l'ambiente, in modo tale che sappia
 quale URL vada usato per la generazione.
 

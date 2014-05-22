@@ -99,7 +99,7 @@ rispetto ad averla legata e nascosta nella definizione del servizio:
 
 .. caution::
 
-    Gli spazin ei valori tra i tag ``parameter`` nei file di configurazione XML non
+    Gli spazi nei valori tra i tag ``parameter`` nei file di configurazione XML non
     sono eliminati.
 
     Questo vuol dire che il seguente pezzo di configurazione avrà come valore

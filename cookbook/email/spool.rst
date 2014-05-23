@@ -1,10 +1,10 @@
 .. index::
-   single: Emails; Spool
+   single: Email; Spool
 
 Lo spool della posta
 ====================
 
-Quando si utilizza ``SwiftmailerBundle`` per l'invio delle email da un'applicazione
+Quando si utilizza SwiftmailerBundle per l'invio delle email da un'applicazione
 Symfony2, queste vengono inviate immediatamente. È però possibile evitare il 
 rallentamento dovuto dalla comunicazione tra ``Swiftmailer`` e  il servizio di
 trasporto delle email, che potrebbe mettere l'utente in attesa del caricamento della
@@ -74,8 +74,8 @@ Per usare lo spool con un file, usare la seguente configurazione:
         <!-- app/config/config.xml -->
 
         <!--
-        xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-        http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config>
@@ -93,7 +93,7 @@ Per usare lo spool con un file, usare la seguente configurazione:
             'spool' => array(
                 'type' => 'file',
                 'path' => '/percorso/file/di/spool',
-            )
+            ),
         ));
 
 .. tip::
@@ -104,7 +104,7 @@ Per usare lo spool con un file, usare la seguente configurazione:
 
     .. code-block:: yaml
 
-        path: %kernel.root_dir%/spool
+        path: "%kernel.root_dir%/spool"
 
 Fatto questo, quando un'applicazione invia un'email, questa non verrà inviata subito
 ma aggiunta allo spool. L'invio delle email dallo spool viene fatto da un processo separato.
@@ -114,7 +114,7 @@ Sarà un comando della console a inviare i messaggi dallo spool:
 
     $ php app/console swiftmailer:spool:send --env=prod
 
-È possibili limitare il numero di messaggi da inviare con un'apposita opzione:
+È possibile limitare il numero di messaggi da inviare con un'apposita opzione:
 
 .. code-block:: bash
 
@@ -127,5 +127,5 @@ Sarà un comando della console a inviare i messaggi dallo spool:
     $ php app/console swiftmailer:spool:send --time-limit=10 --env=prod
 
 Ovviamente questo comando non dovrà essere eseguito manualmente. Il comando
-dovrebbe perciò essere eseguito, a intervalli regolari, come un lavoro di 
+dovrebbe invece essere eseguito, a intervalli regolari, come un lavoro di 
 cron o come un'operazione pianificata.

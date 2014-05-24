@@ -197,7 +197,7 @@ Parametri array
 ---------------
 
 I parametri non devono necessariamente essere semplici stringhe, possono anche essere
-array. Per il formato YAML, occorre usare l'attributo type="collection" per tutti i
+array. Per il formato XML, occorre usare l'attributo type="collection" per tutti i
 parametri che sono array.
 
 .. configuration-block::

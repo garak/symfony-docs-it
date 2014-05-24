@@ -144,13 +144,17 @@ Ecco un esempio di come potrebbe essere::
                 return new WebserviceUser($username, $password, $salt, $roles)
             }
 
-            throw new UsernameNotFoundException(sprintf('Nome utente "%s" non trovato.', $username));
+            throw new UsernameNotFoundException(
+                sprintf('Nome utente "%s" non trovato.', $username)
+            );
         }
 
         public function refreshUser(UserInterface $user)
         {
             if (!$user instanceof WebserviceUser) {
-                throw new UnsupportedUserException(sprintf('Istanza di "%s" non supportata.', get_class($user)));
+                throw new UnsupportedUserException(
+                    sprintf('Istanza di "%s" non supportata.', get_class($user))
+                );
             }
 
             return $this->loadUserByUsername($user->getUsername());
@@ -221,7 +225,7 @@ lista di fornitori nella sezione "security". Scegliere un nome per il fornitore 
 
     .. code-block:: yaml
 
-        // app/config/security.yml
+        # app/config/security.yml
         security:
             providers:
                 webservice:

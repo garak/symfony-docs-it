@@ -65,7 +65,10 @@ Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio, 
         public function validate($value, Constraint $constraint)
         {
             if (!preg_match('/^[a-zA-Za0-9]+$/', $value, $matches)) {
-                $this->context->addViolation($constraint->message, array('%string%' => $value));
+                $this->context->addViolation(
+                    $constraint->message,
+                    array('%string%' => $value)
+                );
             }
         }
     }
@@ -216,7 +219,12 @@ In questo modo, il metodo ``validate()`` del validatore accetta un oggetto come 
         public function validate($protocol, Constraint $constraint)
         {
             if ($protocol->getPippo() != $protocol->getPluto()) {
-                $this->context->addViolationAt('pippo', $constraint->message, array(), null);
+                $this->context->addViolationAt(
+                    'pippo',
+                    $constraint->message,
+                    array(),
+                    null
+                );
             }
         }
     }

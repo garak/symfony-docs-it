@@ -154,6 +154,12 @@ specifico di entità (p.e. un'entità ``Product``, ma non un'entità ``BlogPost`
 si dovrebbe verificare il nome della classe dell'entità nel metodo
 (come precedentemente mostrato).
 
+.. tip::
+
+    In Doctrine 2.4, sono stati introdotti degli ascoltatori di entità.
+    Sono delle classi ascoltatori del ciclo di vita per entità. Si può
+    approfondire nella `documentazione di Doctrine`_.
+
 Creare la classe Subscriber
 ---------------------------
 
@@ -211,3 +217,4 @@ e avere un metodo per ogni evento sottoscritto::
 Per ulteriori riferimenti, si veda il capitolo `The Event System`_ nella documentazione di Doctrine.
 
 .. _`The Event System`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html
+.. _`documentazione di Doctrine`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#entity-listeners

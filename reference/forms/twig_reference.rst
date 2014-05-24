@@ -192,6 +192,24 @@ nel tag di un form:
 
     <form action="{{ path('form_submit') }}" method="post" {{ form_enctype(form) }}>
 
+Riferimento sui test dei form
+-----------------------------
+
+Si possono eseguire test, usando l'operatore ``is`` in Twig per creare una
+condizione. Si veda la `documentazione di Twig`_ per maggiori informazioni.
+
+.. _form-twig-selectedchoice:
+
+selectedchoice(selected_value)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This test will check if the current choice is equal to the ``selected_value``
+or if the current choice is in the array (when ``selected_value`` is an array).
+
+.. code-block:: jinja
+
+    <option {% if choice is selectedchoice(value) %} selected="selected"{% endif %} ...>
+
 .. _`twig-reference-form-variables`:
 
 Approfondimento sulle variabili dei form
@@ -298,49 +316,65 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 .. versionadded:: 2.4
     La variabile ``submitted`` è stata aggiunta in Symfony 2.4.
 
-+-----------------+-----------------------------------------------------------------------------------------+
-| Variabile       | Uso                                                                                     |
-+=================+=========================================================================================+
-| ``id``          | Attributo HTML ``id`` da rendere                                                        |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``name``        | Nome del campo (p.e. ``title``), ma non l'attributo HTML ``name``,                      |
-|                 | che invece è ``full_name``                                                              |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``full_name``   | Attributo HTML ``name`` da rendere                                                      |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``errors``      | Un array di errori allegati a *questo* specifico campo (p.e. ``form.title.errors``).    |
-|                 | Si noti che non si può usare ``form.errors`` per stabilire se un form sia valido,       |
-|                 | perché questo restituisce solo gli errori "globali": alcuni singoli campo possono avere |
-|                 | errori. Usare invece l'opzione ``valid``                                                |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``submitted``   | Restituisce ``true`` o ``false``, a seconda che il form sia stato inviato               |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``valid``       | ``true`` o ``false``, a seconda che il form sia valido o meno                           |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``value``       | Valore che sarà usato per la resa (solitamente è l'attributo HTML ``value``)            |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``read_only``   | Se ``true``, viene aggiunto ``readonly="readonly"`` al campo                            |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``disabled``    | Se ``true``, viene aggiunto ``disabled="disabled"`` al campo                            |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``required``    | Se ``true``, viene aggiunto un attributo ``required`` al campo, per attivare la         |
-|                 | validazione HTML5. Inoltre, viene aggiunta una classe ``required`` alla label.          |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``max_length``  | Aggiunge un attributo HTML ``maxlength`` all'elemento                                   |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``pattern``     | Aggiunge un attributo HTML ``pattern`` all'elemento                                     |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``label``       | La stringa da rendere per la  label                                                     |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``multipart``   | Se ``true``, ``form_enctype``renderà ``enctype="multipart/form-data"``.                 |
-|                 | Si applica solo all'elemento form principale.                                           |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``attr``        | Un array chiave-valore resi come attributi HTML del campo                               |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``label_attr``  | Un array chiave-valore resi come attributi HTML della label                             |
-+-----------------+-----------------------------------------------------------------------------------------+
-| ``compound``    | Se il campo è effettivamente un contenitore di campi figli                              |
-|                 | (per esempio, un campo ``choice``, che effettivamente è un grupo di checkbox            |
-+-----------------+-----------------------------------------------------------------------------------------+
++------------------------+--------------------------------------------------------------------------------------+
+| Variabile              | Uso                                                                                  |
++========================+======================================================================================+
+| ``form``               | L'istanza corrente di ``FormView``.                                                  |
++------------------------+--------------------------------------------------------------------------------------+
+| ``id``                 | Attributo HTML ``id`` da rendere                                                     |
++------------------------+--------------------------------------------------------------------------------------+
+| ``name``               | Nome del campo (p.e. ``title``), ma non l'attributo HTML ``name``,                   |
+|                        | che invece è ``full_name``                                                           |
++------------------------+--------------------------------------------------------------------------------------+
+| ``full_name``          | Attributo HTML ``name`` da rendere                                                   |
++------------------------+--------------------------------------------------------------------------------------+
+| ``errors``             | Un array di errori allegati a *questo* specifico campo (p.e. ``form.title.errors``). |
+|                        | Si noti che non si può usare ``form.errors`` per stabilire se un form sia valido,    |
+|                        | perché questo restituisce solo gli errori "globali": alcuni singoli campo possono    |
+|                        | avere errori. Usare invece l'opzione ``valid``                                       |
+|                        |                                                                                      |
++------------------------+--------------------------------------------------------------------------------------+
+| ``submitted``          | Restituisce ``true`` o ``false`` a seconda che il form sia stato sottomesso o meno   | 
++------------------------+--------------------------------------------------------------------------------------+
+| ``valid``              | ``true`` o ``false``, a seconda che il form sia valido o meno                        |
++------------------------+--------------------------------------------------------------------------------------+
+| ``value``              | Valore che sarà usato per la resa (solitamente è l'attributo HTML ``value``)         |
++------------------------+--------------------------------------------------------------------------------------+
+| ``read_only``          | Se ``true``, viene aggiunto ``readonly="readonly"`` al campo                         |
++------------------------+--------------------------------------------------------------------------------------+
+| ``disabled``           | Se ``true``, viene aggiunto ``disabled="disabled"`` al campo                         |
++------------------------+--------------------------------------------------------------------------------------+
+| ``required``           | Se ``true``, viene aggiunto un attributo ``required`` al campo, per attivare la      |
+|                        | validazione HTML5. Inoltre, viene aggiunta una classe ``required`` alla label.       |
++------------------------+--------------------------------------------------------------------------------------+
+| ``max_length``         | Aggiunge un attributo HTML ``maxlength`` all'elemento                                |
++------------------------+--------------------------------------------------------------------------------------+
+| ``pattern``            | Aggiunge un attributo HTML ``pattern`` all'elemento                                  |
++------------------------+--------------------------------------------------------------------------------------+
+| ``label``              | La stringa da rendere per la  label                                                  |
++------------------------+--------------------------------------------------------------------------------------+
+| ``multipart``          | Se ``true``, ``form_enctype``renderà ``enctype="multipart/form-data"``.              |
+|                        | Si applica solo all'elemento form principale.                                        |
++------------------------+--------------------------------------------------------------------------------------+
+| ``attr``               | Un array chiave-valore resi come attributi HTML del campo                            |
++------------------------+--------------------------------------------------------------------------------------+
+| ``label_attr``         | Un array chiave-valore resi come attributi HTML della label                          |
++------------------------+--------------------------------------------------------------------------------------+
+| ``compound``           | Se il campo è effettivamente un contenitore di campi figli                           |
+|                        | (per esempio, un campo ``choice``, che effettivamente è un grupo di checkbox         |
++------------------------+--------------------------------------------------------------------------------------+
+| ``block_prefixes``     | Un array con tutti i nomi dei tipi genitore.                                         |
++------------------------+--------------------------------------------------------------------------------------+
+| ``translation_domain`` | Il dominio di traduzione di questo form.                                             |
++------------------------+--------------------------------------------------------------------------------------+
+| ``cache_key``          | Una chiave unica, usata per la cache.                                                |
++------------------------+--------------------------------------------------------------------------------------+
+| ``data``               | I dati normalizzati del tipo.                                                        |
++------------------------+--------------------------------------------------------------------------------------+
+| ``method``             | Il metodo del form (POST, GET, ecc.).                                                |
++------------------------+--------------------------------------------------------------------------------------+
+| ``action``             | L'azione del form.                                                                   |
++------------------------+--------------------------------------------------------------------------------------+
 
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+.. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/templates.html#test-operator

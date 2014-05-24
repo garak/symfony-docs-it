@@ -34,22 +34,25 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
             );
 
             // Personalizza l'oggetto risposta per mostrare i dettagli sull'eccezione
-            $response = new Response();            
+            $response = new Response();
             $response->setContent($message);
 
             // HttpExceptionInterface è un tipo speciale di eccezione, che
             // contiene il codice di stato e altri dettagli sugli header
             if ($exception instanceof HttpExceptionInterface) {
-            $response->setStatusCode($exception->getStatusCode());
+                $response->setStatusCode($exception->getStatusCode());
                 $response->headers->replace($exception->getHeaders());
             } else {
-                $response->setStatusCode(500);
+                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
             // Invia la risposta modificata all'evento
             $event->setResponse($response);
         }
     }
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato introdotto in Symfony 2.4.
 
 .. tip::
 

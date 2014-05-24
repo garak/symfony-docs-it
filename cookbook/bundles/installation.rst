@@ -33,15 +33,10 @@ Se non c'è, si può usare la versione che si vuole. Se si sceglie una versione 
 compatibile, Composer solleverà un'eccezione quando si proverà a installarla. Quando
 succede, si può provare con una versione diversa.
 
-Nel caso di FOSUserBundle, il file ``README`` avverte che la versione
-1.2.0 va usata per Symfony 2.0 e la 1.3+ per Symfony 2.1+. Packagist mostra
-delle istruzioni ``require`` di esempio per ogni versione di un pacchetto. La versione
-attualmente in sviluppo di FOSUserBundle è ``"friendsofsymfony/user-bundle": "2.0.*@dev"``.
-
 Ora si può aggiungere il bundle al file ``composer.json`` e aggiornare le
 dipendenze. Lo si può fare a mano:
 
-1. **Aggiungere al file composer.json:**
+1. **Aggiungere al file ``composer.json``:**
 
    .. code-block:: json
 

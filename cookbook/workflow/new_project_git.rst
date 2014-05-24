@@ -44,31 +44,25 @@ locale:
    nel qual caso, si possono trovare ulteriori informazioni qui: `Github .gitignore`_
    In questo modo, si possono escludere i file e le cartelle usati più spesso dal proprio IDE per ogni progetto.
 
-4. Copiare ``app/config/parameters.yml`` in ``app/config/parameters.yml.dist``.
-   Il file ``parameters.yml`` è ignorato da git (vedi sopra), quindi le impostazioni
-   specifiche della macchina, come le password della base dati, non saranno inviate. Creando
-   il file ``parameters.yml.dist``, i nuovi sviluppatori potranno clonare rapidamente il
-   progetto, copiando questo file in ``parameters.yml`` e personalizzandolo.
-
-5. Inizializzare il repository git:
+4. Inizializzare il repository git:
 
    .. code-block:: bash
 
         $ git init
 
-6. Aggiungere tutti i file in git:
+5. Aggiungere tutti i file in git:
 
    .. code-block:: bash
 
         $ git add .
 
-7. Creare un commit iniziale con il nuovo progetto:
+6. Creare un commit iniziale con il nuovo progetto:
 
    .. code-block:: bash
 
         $ git commit -m "Commit iniziale"
 
-8. Infine, scaricare tutte le librerie dei venditori, eseguendo
+7. Infine, scaricare tutte le librerie dei venditori, eseguendo
    composer. Per dettagli, vedere :ref:`installation-updating-vendors`.
 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante e correttamente

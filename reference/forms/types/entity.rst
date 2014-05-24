@@ -118,6 +118,20 @@ La proprietà da usare per mostrare le entità come testi nell'elemento HTML.
 Se lasciata vuota, gli oggetti saranno formattati come stringhe, quindi
 occorre avere un metodo ``__toString()``.
 
+.. note::
+
+    L'opzione ``property`` è il percorso della proprietà usato per mostrare l'opzione.
+    Si può quindi usare qualsiasi cosa supportata dal
+    :doc:`componente PropertyAccessor </components/property_access/introduction>`
+
+    Per esempio, se la proprietà translations è un array associativo di
+    oggetti, ciascuno con una proprietà name, si potrebbe fare così::
+
+        $builder->add('gender', 'entity', array(
+           'class' => 'MyBundle:Gender',
+           'property' => 'translations[en].name',
+        ));
+
 group_by
 ~~~~~~~~
 
@@ -173,7 +187,7 @@ opzione, si può prendere in considerazione l'uso diretto di :doc:`/reference/fo
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choice>`:
+Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -189,7 +203,7 @@ Queste opzioni sono ereditate dal tipo :doc:`choice</reference/forms/types/choic
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc
 
 .. note::
-    
+
     Questa opzione si aspetta un array di oggetti entità, diversamente dal campo ``choice``,
     che richiede un array di chiavi.
 

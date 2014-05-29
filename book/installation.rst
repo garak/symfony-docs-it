@@ -316,7 +316,7 @@ Per chi è nuovo in Symfony, in ":doc:`page_creation`" si può imparare come cre
 pagine, cambiare configurazioni e tutte le altre cose di cui si avrà bisogno nella
 nuova applicazione.
 
-Dare un'occhiata anche al :doc:`ricettario</cookbook/index>`, che contiene
+Dare un'occhiata anche al :doc:`ricettario </cookbook/index>`, che contiene
 una varietà di articoli su come risolvere problemi specifici con Symfony.
 
 .. note::

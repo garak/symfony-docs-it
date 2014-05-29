@@ -272,7 +272,7 @@ Se ci sono problemi, correggerli prima di proseguire.
     Si noti che l'uso di ACL è raccomandato quando si ha accesso al server,
     perché la modifica di umask non è thread-safe.
 
-    **4. Use the same user for the CLI and the web server**
+    **4. Usare lo stesso utente per CLI e server web**
 
     In ambienti di sviluppo, è pratica comune usare lo stesso utente
     per CLI e server web, evitando così problemi di permessi

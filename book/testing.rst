@@ -408,8 +408,9 @@ Accesso agli oggetti interni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.3
-    I metodi ``getInternalRequest()`` e ``getInternalResponse()`` sono stati
-    aggiunti in Symfony 2.3.
+    I metodi :method:`Symfony\\Component\\BrowserKit\\Client::getInternalRequest`
+    e  :method:`Symfony\\Component\\BrowserKit\\Client::getInternalResponse`
+    sono stati aggiunti in Symfony 2.3.
 
 Se si usa il client per testare la propria applicazione, si potrebbe voler accedere
 agli oggetti interni del client::
@@ -492,6 +493,11 @@ Se si vuole che il client segua automaticamente tutti i rinvii, si può
 forzarlo con il metodo ``followRedirects()``::
 
     $client->followRedirects();
+
+Se si passa ``false`` al metodo ``followRedirects()``, i rinvii
+non saranno più seguiti::     
+
+    $client->followRedirects(false);
 
 .. index::
    single: Test; Crawler

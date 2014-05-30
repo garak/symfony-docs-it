@@ -375,4 +375,4 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 +------------------------+--------------------------------------------------------------------------------------+
 
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
-.. _`documenazione di Twig`: http://twig.sensiolabs.org/doc/templates.html#test-operator
+.. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/templates.html#test-operator

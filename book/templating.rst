@@ -1559,7 +1559,7 @@ comuni.
 
 Complessivamente, l'argomento template dovrebbe essere considerato come un potente
 strumento a disposizione. In alcuni casi, si potrebbe non aver bisogno di rendere un
-template , in Symfony2, questo non è assolutamente un problema.
+template, in Symfony2, questo non è assolutamente un problema.
 
 Imparare di più con il ricettario
 ---------------------------------

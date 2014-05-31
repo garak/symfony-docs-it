@@ -64,6 +64,7 @@ ottenuto facilmente e in modo trasparente:
 
         imports:
             - { resource: config.yml }
+
         # ...
 
     .. code-block:: xml
@@ -71,11 +72,13 @@ ottenuto facilmente e in modo trasparente:
         <imports>
             <import resource="config.xml" />
         </imports>
+
         <!-- ... -->
 
     .. code-block:: php
 
         $loader->import('config.php');
+
         // ...
 
 Per condividere una configurazione comune, i file di configurazione di ogni ambiente

@@ -75,7 +75,9 @@ La rotta è semplice:
 Lo schema definito dalla rotta ``blog_show`` si comporta come ``/blog/*``, dove
 al carattere jolly viene dato il nome ``slug``. Per l'URL ``/blog/my-blog-post``,
 la variabile ``slug`` ottiene il valore ``my-blog-post``, che è disponibile
-per l'utilizzo nel controllore (proseguire nella lettura).
+per l'utilizzo nel controllore (proseguire nella lettura). ``blog_show`` è il
+nome interno della rotta, che non ha ancora senso e che necessita solamente di
+essere unico. Sarà usato più avanti per generare URL.
 
 Il parametro ``_controller`` è una chiave speciale che dice a Symfony quale controllore
 dovrebbe essere eseguito quando un URL corrisponde a questa rotta. La stringa ``_controller``

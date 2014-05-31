@@ -14,8 +14,8 @@ che agirà da ascoltatore di eccezioni, consentendo di modificare il modo in cui
 mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPTION``
 è solo uno degli eventi del nucleo::
 
-    // src/Acme/DemoBundle/Listener/AcmeExceptionListener.php
-    namespace Acme\DemoBundle\Listener;
+    // src/Acme/DemoBundle/EventListener/AcmeExceptionListener.php
+    namespace Acme\DemoBundle\EventListener;
 
     use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
     use Symfony\Component\HttpFoundation\Response;
@@ -100,13 +100,17 @@ tag:
 Eventi richiesta, verifica dei tipi
 -----------------------------------
 
-Una singola pagina può eseguire diverse richieste (una principale e poi diverse
-sotto-richieste); per questo, quando si ha a che fare con l'evento
-``KernelEvents::REQUEST``, si potrebbe voler verificare il tipo di richiesta. Lo si
-può fare facilmente, come segue::
+.. versionadded:: 2.4
+    Il metodo ``isMasterRequest()`` è stato introdotto in Symfony 2.4.
+    In precedenza veniva usato il metodo ``getRequestType()``.
 
-    // src/Acme/DemoBundle/Listener/AcmeRequestListener.php
-    namespace Acme\DemoBundle\Listener;
+Una singola pagina può eseguire diverse richieste (una principale e poi diverse
+sotto-richieste); per questo, quando si ha a che fare con l'evento ``KernelEvents::REQUEST``,
+si potrebbe voler verificare il tipo di richiesta. Lo si può fare facilmente,
+come segue::
+
+    // src/Acme/DemoBundle/EventListener/AcmeRequestListener.php
+    namespace Acme\DemoBundle\EventListener;
 
     use Symfony\Component\HttpKernel\Event\GetResponseEvent;
     use Symfony\Component\HttpKernel\HttpKernel;
@@ -115,7 +119,7 @@ può fare facilmente, come segue::
     {
         public function onKernelRequest(GetResponseEvent $event)
         {
-            if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
+            if (!$event->isMasterRequest()) {
                 // non fare niente se non si è nella richiesta principale
                 return;
             }

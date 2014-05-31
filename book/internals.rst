@@ -208,6 +208,10 @@ Il tipo è passato a tutti gli eventi e gli ascoltatori possono agire di consegu
 Eventi
 ~~~~~~
 
+.. versionadded:: 2.4
+    Il metodo ``isMasterRequest()`` è stato introdotto in Symfony 2.4.
+    In precedenza veniva usato il metodo ``getRequestType()``.
+
 Ogni evento lanciato dal kernel è una sotto-classe di
 :class:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent`. Questo vuol dire che
 ogni evento ha accesso alle stesse informazioni di base:
@@ -216,23 +220,26 @@ ogni evento ha accesso alle stesse informazioni di base:
   il *tipo* della richiesta (``HttpKernelInterface::MASTER_REQUEST``
   o ``HttpKernelInterface::SUB_REQUEST``);
 
+* :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::isMasterRequest`
+  - verifica se è una richiesta principale;
+
 * :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getKernel` - restituisce
   il kernel che gestisce la richiesta;
 
 * :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequest` - restituisce
   la ``Request`` attualmente in gestione.
 
-``getRequestType()``
-....................
+``isMasterRequest()``
+.....................
 
-Il metodo ``getRequestType()`` consente di sapere il tipo di richiesta. Per esempio,
+Il metodo ``isMasterRequest()`` consente di sapere il tipo di richiesta. Per esempio,
 se un ascoltatore deve essere attivo solo per richieste principali,
 aggiungere il seguente codice all'inizio del proprio metodo ascoltatore::
 
     use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-    if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
-        // restituire immediatamente
+    if (!$event->isMasterRequest()) {
+        // uscire subito
         return;
     }
 

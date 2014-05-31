@@ -446,20 +446,25 @@ Successivamente, creare il controllore che visualizzerà il form di login::
             $session = $request->getSession();
 
             // verifica di eventuali errori
-            if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
                 $error = $request->attributes->get(
-                    SecurityContext::AUTHENTICATION_ERROR
+                    SecurityContextInterface::AUTHENTICATION_ERROR
                 );
+            } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+                $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+                $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
             } else {
-                $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-                $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+                $error = '';
             }
+            
+            // last username entered by the user
+            $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
 
             return $this->render(
                 'AcmeSecurityBundle:Security:login.html.twig',
                 array(
                     // ultimo nome utente inserito
-                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'last_username' => $lastUsername,
                     'error'         => $error,
                 )
             );
@@ -2061,7 +2066,8 @@ Utilità
 -------
 
 .. versionadded:: 2.2
-    Le classi ``StringUtils`` e ``SecureRandom`` sono state aggiunte in Symfony 2.2
+    Le classi ``StringUtils`` e ``SecureRandom`` sono state aggiunte in Symfony
+    2.2
 
 Il componente Security di Symfony dispone di una serie di utilità che riguardano
 la sicurezza. Queste utilità sono usate da Symfony2, ma si possono usare anche

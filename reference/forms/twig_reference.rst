@@ -313,6 +313,9 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
             <?php echo $view['form']->get('name')->vars['label'] ?>
         </label>
 
+.. versionadded:: 2.3
+    Le variabili ``method`` e ``action`` sono state introdotte in Symfony 2.3.
+
 .. versionadded:: 2.4
     La variabile ``submitted`` è stata aggiunta in Symfony 2.4.
 

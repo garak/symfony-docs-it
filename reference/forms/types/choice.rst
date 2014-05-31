@@ -156,3 +156,35 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/inherit_data.rst.inc
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc
+
+Variabili di campo
+------------------
+
++------------------------+---------------+-------------------------------------------------------------------+
+| Variabile              | Tipo          | Uso                                                               |
++========================+===============+===================================================================+
+| multiple               | ``Booleano``  | Il valore dell'opzione `multiple`_.                               |
++------------------------+---------------+-------------------------------------------------------------------+
+| expanded               | ``Booleano``  | Il valore dell'opzione `expanded`_.                               |
++------------------------+---------------+-------------------------------------------------------------------+
+| preferred_choices      | ``array``     | Un array con gli oggetti ``ChoiceView`` delle scelte              |
+|                        |               | che vanno mostrare all'utente con precedenza.                     |
++------------------------+---------------+-------------------------------------------------------------------+
+| choices                | ``array``     | Un array con gli oggetti ``ChoiceView`` delle scelte              |
+|                        |               | restanti.                                                         |
++------------------------+---------------+-------------------------------------------------------------------+
+| separator              | ``stringa``   | Il separatore da usare tra i gruppi.                              |
++------------------------+---------------+-------------------------------------------------------------------+
+| empty_value            | ``mixed``     | Il valore vuoto, se non già presente nella lista, altrimenti      |
+|                        |               | ``null``.                                                         |
++------------------------+---------------+-------------------------------------------------------------------+
+| is_selected            | ``callable``  | Una funziona che accetta un ``ChoiceView`` e i valori selezionati |
+|                        |               | e dice se la scelta fa parte dei valori selezionati.              |
++------------------------+---------------+-------------------------------------------------------------------+
+| empty_value_in_choices | ``Booleano``  | Se il valore vuoto è nella lista di scelte                        |
++------------------------+---------------+-------------------------------------------------------------------+
+
+.. tip::
+
+    È molto più veloce usare invece il test :ref:`form-twig-selectedchoice`,
+    quando si usa Twig.

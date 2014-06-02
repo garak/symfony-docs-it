@@ -60,7 +60,6 @@ modifica di un particolare oggetto. Ecco una possibile implementazione::
     namespace Acme\DemoBundle\Security\Authorization\Voter;
 
     use Symfony\Component\Security\Core\Exception\InvalidArgumentException;
-    use Symfony\Component\DependencyInjection\ContainerInterface;
     use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
     use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
     use Symfony\Component\Security\Core\User\UserInterface;
@@ -205,7 +204,7 @@ del contesto della sicurezza.
 
     class PostController extends Controller
     {
-        public function showAction()
+        public function showAction($id)
         {
             // prende un'istanza del post
             $post = ...;
@@ -214,10 +213,6 @@ del contesto della sicurezza.
             if (false === $this->get('security.context')->isGranted('view', $post)) {
                 throw new AccessDeniedException('Accesso non autorizzato!');
             }
-
-            $product = $this->getDoctrine()
-                ->getRepository('AcmeStoreBundle:Post')
-                ->find($id);
 
             return new Response('<h1>'.$post->getName().'</h1>');
         }

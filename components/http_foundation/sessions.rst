@@ -12,6 +12,12 @@ interfaccia orientata agli oggetti, usando una varietà di driver per memorizzar
 Le sessioni sono usate tramite la semplice implementazione :class:`Symfony\\Component\\HttpFoundation\\Session\\Session`
 dell'interfaccia :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionInterface`.
 
+.. caution::
+
+    Assicurarsi che la sessione di PHP non sia già partita, prima di usare la classe Session.
+    Se si ha un vecchio sistema che fa partire una sessione, vedere
+    http://symfony.com/doc/current/components/http_foundation/session_php_bridge.html
+
 Un rapido esempio::
 
     use Symfony\Component\HttpFoundation\Session\Session;

@@ -13,7 +13,7 @@ Questo campo ha diverse opzioni su come gestire i valori ricevuti che non siano 
 Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arrotondati per difetto (p.e. 6).
 
 +---------------+-----------------------------------------------------------------------+
-| Reso come     | campo ``input`` ``text``                                              |
+| Reso come     | campo ``input`` ``number``                                            |
 +---------------+-----------------------------------------------------------------------+
 | Opzioni       | - `rounding_mode`_                                                    |
 |               | - `precision`_                                                        |
@@ -51,17 +51,25 @@ Per impostazione predefinita, se l'utente inserisce un numero non intero, sarà 
 per difetto. Ci sono molti altri metodi di arrotondamento e ognuno è una costante di
 :class:`Symfony\\Component\\Form\\Extension\\Core\\DataTransformer\\IntegerToLocalizedStringTransformer`:
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` Arrotondamento verso
-    lo zero.
+* ``IntegerToLocalizedStringTransformer::ROUND_DOWN`` Arrotondamento verso lo zero.
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_FLOOR`` Arrotondamento verso
-    meno infinito.
+* ``IntegerToLocalizedStringTransformer::ROUND_FLOOR`` Arrotondamento verso
+  meno infinito.
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_UP`` Arrotondamento verso
-    l'alto.
+* ``IntegerToLocalizedStringTransformer::ROUND_UP`` Arrotondamento verso l'alto.
 
-*   ``IntegerToLocalizedStringTransformer::ROUND_CEILING`` Arrotondamento
-    verso infinito.
+* ``IntegerToLocalizedStringTransformer::ROUND_CEILING`` Arrotondamento
+  verso infinito.
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_DOWN`` Arrotondamento verso il
+  numero più vicino. In caso di equidistanza, arrotondamento verso il basso.
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_EVEN`` Arrotondamento verso il
+  numero più vicino. In caso di equidistanza, arrotondamento verso il numero pari
+  più vicino.
+
+* ``IntegerToLocalizedStringTransformer::ROUND_HALF_UP`` Arrotondamento verso il
+  numero più vicino. In caso di equidistanza, arrotondamento verso l'alto.
 
 .. include:: /reference/forms/types/options/grouping.rst.inc
 

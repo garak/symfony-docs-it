@@ -89,6 +89,11 @@ Il secondo metodo ha diversi vantaggi:
     pubblicamente, per i quali sarà mantenuta
     una retro-compatibilità. 
 
+.. seealso::
+
+    Per la gestione di parametri in un classe della Dependency Injection, vedere
+    :doc:`/cookbook/configuration/using_parameters_in_dic`.
+
 .. index::
    single: Bundle; Estensione
    single: Dependency Injection, Estensione
@@ -603,47 +608,6 @@ Il testo apparirà come commenti YAML nell'output del comando
 
 .. index::
    pair: Convenzione; Configurazione
-
-Convenzioni per l'estensione
-----------------------------
-
-Quando si crea un'estensione, seguire queste semplici convenzioni:
-
-* L'estensione deve trovarsi nel sotto-spazio dei nomi ``DependencyInjection``;
-
-* l'estensione deve avere lo stesso nome del bundle, ma con
-  ``Extension`` (``AcmeHelloExtension`` per ``AcmeHelloBundle``);
-
-* L'estensione deve fornire uno schema XSD.
-
-Se si seguono queste semplici convenzioni, l'estensione sarà registrata
-automaticamente da Symfony2. In caso contrario, sovrascrivere il metodo
-:method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::build` nel
-bundle::
-
-    // ...
-    use Acme\HelloBundle\DependencyInjection\UnconventionalExtensionClass;
-
-    class AcmeHelloBundle extends Bundle
-    {
-        public function build(ContainerBuilder $container)
-        {
-            parent::build($container);
-
-            // registrare a mano estensioni che non seguono le convenzioni
-            $container->registerExtension(new UnconventionalExtensionClass());
-        }
-    }
-
-In questo caso, la classe Extension deve implementare anche un metodo ``getAlias()`` e
-restituire un alias univoco, con nome che dipende dal bundle (p.e. ``acme_hello``). 
-Questo perché il nome della classe non segue le convenzioni e non finisce per
-``Extension``.
-
-Inoltre, il metodo ``load()`` dell'estensione sarà richiamato *solo* se l'utente
-specifica l'alias ``acme_hello`` in almeno un file di configurazione. Ancora,
-questo perché la classe Extension non segue le convenzioni viste sopra, quindi
-non succede nulla in modo automatico.
 
 .. _`FrameworkBundle`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/DependencyInjection/Configuration.php
 .. _`TwigBundle`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/TwigBundle/DependencyInjection/Configuration.php

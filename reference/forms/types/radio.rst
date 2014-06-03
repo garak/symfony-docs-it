@@ -15,8 +15,9 @@ Se si desidera un campo booleano, usare :doc:`checkbox </reference/forms/types/c
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``radio``                                           |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `data`_                                                           |
-| ereditate     | - `empty_data`_                                                     |
+| Opzioni       | - `value`_                                                          |
+| ereditate     | - `data`_                                                           |
+|               | - `empty_data`_                                                     |
 |               | - `required`_                                                       |
 |               | - `label`_                                                          |
 |               | - `label_attr`_                                                     |
@@ -26,7 +27,7 @@ Se si desidera un campo booleano, usare :doc:`checkbox </reference/forms/types/c
 |               | - `error_mapping`_                                                  |
 |               | - `mapped`_                                                         |
 +---------------+---------------------------------------------------------------------+
-| Tipo genitore | :doc:`form </reference/forms/types/form>`                           |
+| Tipo genitore | :doc:`checkbox </reference/forms/types/checkbox>`                   |
 +---------------+---------------------------------------------------------------------+
 | Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\RadioType` |
 +---------------+---------------------------------------------------------------------+
@@ -60,3 +61,8 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+Variabili di form
+-----------------
+
+.. include:: /reference/forms/types/variables/check_or_radio_table.rst.inc

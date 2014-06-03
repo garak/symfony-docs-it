@@ -8,9 +8,11 @@ Sicurezza
     remember_me
     impersonating_user
     voters
+    voters_data_permission
     acl
     acl_advanced
     force_https
+    firewall_restriction
     host_restriction
     form_login
     securing_services

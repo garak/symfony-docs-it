@@ -22,14 +22,15 @@ di abilitarlo nel file di configurazione dell'applicazione:
         # app/config/config.yml
         framework:
             # ...
-            templating:    { engines: ['twig', 'php'] }
+            templating:
+                engines: ['twig', 'php']
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ...>
+        <framework:config>
             <!-- ... -->
-            <framework:templating ...>
+            <framework:templating>
                 <framework:engine id="twig" />
                 <framework:engine id="php" />
             </framework:templating>
@@ -39,7 +40,6 @@ di abilitarlo nel file di configurazione dell'applicazione:
 
         $container->loadFromExtension('framework', array(
             // ...
-
             'templating' => array(
                 'engines' => array('twig', 'php'),
             ),
@@ -54,7 +54,10 @@ rende il template ``index.html.php``::
     // ...
     public function indexAction($name)
     {
-        return $this->render('AcmeHelloBundle:Hello:index.html.php', array('name' => $name));
+        return $this->render(
+            'AcmeHelloBundle:Hello:index.html.php',
+            array('name' => $name)
+        );
     }
 
 Si può anche usare la scorciatoia :doc:`/bundles/SensioFrameworkExtraBundle/annotations/view`
@@ -309,6 +312,21 @@ Lo scopo principale dell'aiutante ``assets`` è quello di rendere l'applicazione
 portabile. Grazie a questo aiutante, si può spostare la cartella radice dell'applicazione
 in qualsiasi punto sotto la cartella radice del web, senza dover cambiare nulla
 nel codice dei template.
+
+Profilare i template
+~~~~~~~~~~~~~~~~~~~~
+
+Usando l'aiutante ``stopwatch``, è possibile misurare i tempi di parti di template
+e mostrarli sulla linea temporalre di WebProfilerBundle::
+
+    <?php $view['stopwatch']->start('foo') ?>
+    ... cose che richiedono tempo
+    <?php $view['stopwatch']->stop('foo') ?>
+
+.. tip::
+
+    Se si usa lo stesso nome più volte in un template, i tempi
+    saranno raggruppato su una stessa riga nella linea temporale.
 
 Escape dell'output
 ------------------

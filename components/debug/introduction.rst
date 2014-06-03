@@ -30,9 +30,8 @@ Per abilitarlo, bastano poche istruzioni::
     Debug::enable();
 
 Il metodo :method:`Symfony\\Component\\Debug\\Debug::enable` registra un
-gestore di errori e un gestore di eccezioni. Se è disponibile il
-:doc:`componente ClassLoader </components/class_loader/introduction>`, viene registrato
-anche uno speciale caricatore di classi.
+gestore di errori e un gestore di eccezioni e uno
+:doc:`speciale caricatore di classi </components/debug/class_loader>`.
 
 Leggere le sezioni seguenti per maggiori informazioni sui vari strumenti
 a disposizione.

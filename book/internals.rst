@@ -23,7 +23,7 @@ Il codice di Symfony2 è composto da diversi livelli indipendenti. Ogni livello
 
     L'auto-caricamento non viene gestito direttamente dal framework, ma
     dall'autoloader di Composer (``vendor/autoload.php``), incluso nel
-    file ``src/autoload.php``.
+    file ``app/autoload.php``.
 
 Il componente HttpFoundation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,6 +174,9 @@ sugli oggetti
 
 #. Viene restituita la risposta.
 
+#. Gli ascoltatori dell'evento ``kernel.terminate`` possono eseguire dei compiti, dopo che la
+   risposta sia stata servita.
+
 Se viene lanciata un'eccezione durante il processo, viene notificato l'evento
 ``kernel.exception`` e gli ascoltatori possono convertire l'eccezione in una risposta.
 Se funziona, viene notificato l'evento ``kernel.response``, altrimenti l'eccezione
@@ -205,6 +208,10 @@ Il tipo è passato a tutti gli eventi e gli ascoltatori possono agire di consegu
 Eventi
 ~~~~~~
 
+.. versionadded:: 2.4
+    Il metodo ``isMasterRequest()`` è stato introdotto in Symfony 2.4.
+    In precedenza veniva usato il metodo ``getRequestType()``.
+
 Ogni evento lanciato dal kernel è una sotto-classe di
 :class:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent`. Questo vuol dire che
 ogni evento ha accesso alle stesse informazioni di base:
@@ -213,23 +220,26 @@ ogni evento ha accesso alle stesse informazioni di base:
   il *tipo* della richiesta (``HttpKernelInterface::MASTER_REQUEST``
   o ``HttpKernelInterface::SUB_REQUEST``);
 
+* :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::isMasterRequest`
+  - verifica se è una richiesta principale;
+
 * :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getKernel` - restituisce
   il kernel che gestisce la richiesta;
 
 * :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequest` - restituisce
   la ``Request`` attualmente in gestione.
 
-``getRequestType()``
-....................
+``isMasterRequest()``
+.....................
 
-Il metodo ``getRequestType()`` consente di sapere il tipo di richiesta. Per esempio,
+Il metodo ``isMasterRequest()`` consente di sapere il tipo di richiesta. Per esempio,
 se un ascoltatore deve essere attivo solo per richieste principali,
 aggiungere il seguente codice all'inizio del proprio metodo ascoltatore::
 
     use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-    if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
-        // restituire immediatamente
+    if (!$event->isMasterRequest()) {
+        // uscire subito
         return;
     }
 
@@ -362,10 +372,25 @@ FrameworkBundle registra diversi ascoltatori:
     Approfondire l':ref:`evento kernel.response <component-http-kernel-kernel-response>`.
 
 .. index::
+    single: Evento; kernel.finish_request
+
+Evento ``kernel.finish_request``
+................................
+
+*Classe evento*: :class:`Symfony\\Component\\HttpKernel\\Event\\FinishRequestEvent`
+
+Lo scopo di questo evento è quello di gestire compiti da eseguire dopo che
+la richiesta è stata gestita, ma che non necessitano di modificare la risposta.
+Gli ascoltatori dell'evento ``kernel.finish_request`` sono richiamati sia in caso
+di successo sia in caso di eccezioni.
+
+.. index::
    single: Evento; kernel.terminate
 
 Evento ``kernel.terminate``
 ...........................
+
+*Classe evento*: :class:`Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent`
 
 Lo scopo di questo evento è quello di eseguire compiti più "pesanti", dopo che la risposta
 sia stata inviata al client.
@@ -404,7 +429,7 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla::
         $event->setResponse($response);
 
         // in alternativa si può impostare una nuova eccezione
-        // $exception = new \Exception('Una qualche ecccezione speciale');
+        // $exception = new \Exception('Una qualche eccezione speciale');
         // $event->setException($exception);
     }
 
@@ -424,6 +449,10 @@ e impostare un nuovo oggetto ``Exception``, oppure non fare nulla::
     .. versionadded:: 2.4
         Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
+.. seealso::
+
+    Approfondire l'evento :ref:`kernel.exception <component-http-kernel-kernel-exception>`.
+
 .. index::
    single: Distributore di eventi
 
@@ -433,10 +462,6 @@ Il distributore di eventi
 Event Dispatcher (distributore di eventi) è un componente, responsabile di gran parte
 della logica sottostante e del flusso dietro a una richiesta di Symfony. Per maggiori informazioni,
 vedere la :doc:`documentazione del componente Event Dispatcher</components/event_dispatcher/introduction>`.
-
-.. seealso::
-
-    Approfondire l':ref:`evento kernel.exception <component-http-kernel-kernel-exception>`.
 
 .. index::
    single: Profilatore
@@ -521,13 +546,16 @@ Usare il metodo :method:`Symfony\\Component\\HttpKernel\\Profiler\\Profiler::fin
 per accedere ai token, in base a determinati criteri::
 
     // gli ultimi 10 token
-    $tokens = $container->get('profiler')->find('', '', 10);
+    $tokens = $container->get('profiler')->find('', '', 10, '', '');
 
     // gli ultimi 10 token per URL che contengono /admin/
-    $tokens = $container->get('profiler')->find('', '/admin/', 10);
+    $tokens = $container->get('profiler')->find('', '/admin/', 10, '', '');
 
     // gli ultimi 10 token per richieste locali
-    $tokens = $container->get('profiler')->find('127.0.0.1', '', 10);
+    $tokens = $container->get('profiler')->find('127.0.0.1', '', 10, '', '');
+
+    // gli ultimi 10 token per richieste tra 2 e 4 giorni fa
+    $tokens = $container->get('profiler')->find('', '', 10, '4 days ago', '2 days ago');
 
 Se si vogliono manipolare i dati di profilo su macchine diverse da quella che
 ha generato le informazioni, usare i metodi

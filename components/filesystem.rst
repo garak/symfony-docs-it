@@ -208,7 +208,7 @@ il percorso relativo di una cartella, data un'altra::
         '/var/lib/symfony/src/Symfony/Component'
     );
     // restituisce 'videos'
-    $fs->makePathRelative('/tmp', '/tmp/videos');
+    $fs->makePathRelative('/tmp/videos', '/tmp')
 
 mirror
 ~~~~~~

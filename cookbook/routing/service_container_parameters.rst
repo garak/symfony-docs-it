@@ -18,16 +18,17 @@ servizi, dentro alla configurazione delle rotte:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         contact:
             path:     /{_locale}/contact
             defaults: { _controller: AcmeDemoBundle:Main:contact }
             requirements:
-                _locale: %acme_demo.locales%
+                _locale: "%acme_demo.locales%"
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
@@ -40,6 +41,7 @@ servizi, dentro alla configurazione delle rotte:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -82,14 +84,15 @@ schema) della rotta:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         some_route:
             path:     /%acme_demo.route_prefix%/contact
             defaults: { _controller: AcmeDemoBundle:Main:contact }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
@@ -101,6 +104,7 @@ schema) della rotta:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -120,3 +124,8 @@ schema) della rotta:
     Tuttavia, poiché i caratteri ``%`` inclusi un un URL sono automaticamente codificati,
     l'URL risultante da questo esempio sarebbe ``/score-50%25`` (``%25`` è il
     risultati della codifica del carattere ``%``).
+
+.. seealso::
+
+    Per gestire parametri in un classe della Dependency Injection, vedere
+    :doc:`/cookbook/configuration/using_parameters_in_dic`.

@@ -122,11 +122,11 @@ maiuscolo il nome (``first_name`` diventa ``FirstName``) e aggiunge il prefisso
 
     echo $accessor->getValue($person, 'first_name'); // 'Wouter'
 
-Uso di Hasser/Isser
+Uso di hasser/isser
 ~~~~~~~~~~~~~~~~~~~
 
 Se non viene trovato un getter, l'accessor cercherà
-un isser o un hasser. Tale metodo è creto nello stesso modo dei
+un isser o un hasser. Tale metodo è creato nello stesso modo dei
 getter, quindi si può fare qualcosa come::
 
     // ...
@@ -157,8 +157,8 @@ getter, quindi si può fare qualcosa come::
 
 Produrrà: ``È un autore``
 
-Metodi magici
-~~~~~~~~~~~~~
+Metodo magico ``__get()``
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Infine, ``getValue`` può usare anche il metodo magico ``__get``::
 
@@ -166,7 +166,7 @@ Infine, ``getValue`` può usare anche il metodo magico ``__get``::
     class Person
     {
         private $children = array(
-            'wouter' => array(...),
+            'Wouter' => array(...),
         );
 
         public function __get($id)
@@ -196,7 +196,9 @@ questa caratteristica, usando :class:`Symfony\\Component\\PropertyAccess\\Proper
         {
             $property = lcfirst(substr($name, 3));
             if ('get' === substr($name, 0, 3)) {
-                return isset($this->children[$property]) ? $this->children[$property] : null;
+                return isset($this->children[$property])
+                    ? $this->children[$property]
+                    : null;
             } elseif ('set' === substr($name, 0, 3)) {
                 $value = 1 == count($args) ? $args[0] : null;
                 $this->children[$property] = $value;
@@ -289,7 +291,9 @@ vedere `Abilitare altre caratteristiche`_.
         {
             $property = lcfirst(substr($name, 3));
             if ('get' === substr($name, 0, 3)) {
-                return isset($this->children[$property]) ? $this->children[$property] : null;
+                return isset($this->children[$property])
+                    ? $this->children[$property]
+                    : null;
             } elseif ('set' === substr($name, 0, 3)) {
                 $value = 1 == count($args) ? $args[0] : null;
                 $this->children[$property] = $value;

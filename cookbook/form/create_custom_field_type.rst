@@ -70,7 +70,7 @@ importanti:
   impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creazione del template per il campo`_
   per maggiori dettagli.
 
-* ``getDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form
+* ``setDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form
   che possono essere utilizzate in ``buildForm()`` e ``buildView()``. Ci sono molte 
   opzioni comuni a tutti i campi (vedere `FieldType`_), ma è possibile crearne altre,
   quante sono necessarie.
@@ -110,21 +110,21 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
 
         {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
         {% block gender_widget %}
-        {% spaceless %}
-            {% if expanded %}
-                <ul {{ block('widget_container_attributes') }}>
-                {% for child in form %}
-                    <li>
-                        {{ form_widget(child) }}
-                        {{ form_label(child) }}
-                    </li>
-                {% endfor %}
-                </ul>
-            {% else %}
-                {# far rendere il tag select al widget choice #}
-                {{ block('choice_widget') }}
-            {% endif %}
-        {% endspaceless %}
+            {% spaceless %}
+                {% if expanded %}
+                    <ul {{ block('widget_container_attributes') }}>
+                    {% for child in form %}
+                        <li>
+                            {{ form_widget(child) }}
+                            {{ form_label(child) }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    {# far rendere il tag select al widget choice #}
+                    {{ block('choice_widget') }}
+                {% endif %}
+            {% endspaceless %}
         {% endblock %}
 
     .. code-block:: html+php

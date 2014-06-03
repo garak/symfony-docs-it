@@ -4,19 +4,17 @@
 Forzare HTTPS o HTTP per URL diversi
 ====================================
 
-Si possono forzare aree del proprio sito a usare il protocollo ``HTTPS`` nella
+Si possono forzare delle aree di un sito a usare il protocollo HTTPS nella
 configurazione della sicurezza. Lo si può fare tramite le regole ``access_control``,
 usando l'opzione ``requires_channel``. Per esempio, se si vogliono forzare tutti gli URL
-che iniziano per ``/secure`` a usare ``HTTPS``, si può usare la seguente configurazione:
+che iniziano per ``/secure`` a usare HTTPS, si può usare la seguente configurazione:
 
 .. configuration-block::
 
         .. code-block:: yaml
 
             access_control:
-                - path: ^/secure
-                  roles: ROLE_ADMIN
-                  requires_channel: https
+                - { path: ^/secure, roles: ROLE_ADMIN, requires_channel: https }
 
         .. code-block:: xml
 
@@ -29,7 +27,7 @@ che iniziano per ``/secure`` a usare ``HTTPS``, si può usare la seguente config
             'access_control' => array(
                 array(
                     'path'             => '^/secure',
-                     'role'            => 'ROLE_ADMIN', 
+                    'role'             => 'ROLE_ADMIN',
                     'requires_channel' => 'https',
                 ),
             ),
@@ -44,15 +42,13 @@ le regole ``access_control`` con il ruolo
         .. code-block:: yaml
 
             access_control:
-                - path: ^/login
-                  roles: IS_AUTHENTICATED_ANONYMOUSLY
-                  requires_channel: https
+                - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
 
         .. code-block:: xml
 
             <access-control>
-                <rule path="^/login" 
-                      role="IS_AUTHENTICATED_ANONYMOUSLY" 
+                <rule path="^/login"
+                      role="IS_AUTHENTICATED_ANONYMOUSLY"
                       requires_channel="https" />
             </access-control>
 
@@ -61,10 +57,10 @@ le regole ``access_control`` con il ruolo
             'access_control' => array(
                 array(
                     'path'             => '^/login',
-                     'role'            => 'IS_AUTHENTICATED_ANONYMOUSLY', 
+                    'role'             => 'IS_AUTHENTICATED_ANONYMOUSLY',
                     'requires_channel' => 'https',
                 ),
             ),
 
-È anche possibile specificare l'uso di ``HTTPS`` nella configurazione delle rotte,
+È anche possibile specificare l'uso di HTTPS nella configurazione delle rotte,
 vedere :doc:`/cookbook/routing/scheme` per maggiori dettagli.

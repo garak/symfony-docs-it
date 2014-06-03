@@ -32,11 +32,16 @@ la resa della tabella: con nomi di formato o personalizzando le opzioni di resa.
 Personalizzare il formato della tabella con i nomi di formati
 -------------------------------------------------------------
 
+.. versionadded:: 2.4
+    Il formato ``TableHelper::LAYOUT_COMPACT`` è stato introdotto in Symfony 2.4.
+
 L'aiutante Table dispone di due formati di tabella preconfigurati:
 
 * ``TableHelper::LAYOUT_DEFAULT``
 
 * ``TableHelper::LAYOUT_BORDERLESS``
+
+* ``TableHelper::LAYOUT_COMPACT``
 
 Si può impostare il formato con il metodo :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setLayout`.
 
@@ -48,8 +53,8 @@ Si può anche controllare la resa della tabella impostando i valori delle opzion
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setPaddingChar`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setHorizontalBorderChar`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVerticalBorderChar`
-*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVrossingChar`
-*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVellHeaderFormat`
-*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVellRowFormat`
+*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setCrossingChar`
+*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setCellHeaderFormat`
+*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setCellRowFormat`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setBorderFormat`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setPadType`

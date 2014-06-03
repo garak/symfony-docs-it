@@ -77,13 +77,8 @@ sono:
         root /var/www/project/web;
 
         location / {
-            # prova a servire direttamente i file, fallback su riscrittura
-            try_files $uri @rewriteapp;
-        }
-
-        location @rewriteapp {
-            # riscrittura di tutto su app.php
-            rewrite ^(.*)$ /app.php/$1 last;
+            # prova a servire direttamente i file, fallback su app.php
+            try_files $uri /app.php$is_args$args;
         }
 
         location ~ ^/(app|app_dev|config)\.php(/|$) {

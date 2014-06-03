@@ -13,12 +13,13 @@ leggibile, in testo semplice e WYSIWYG".
 Si può imparare di più su questa sintassi leggendo i `documenti`_ di Symfony2
 oppure leggendo `reStructuredText Primer`_ nel sito web di Sphinx.
 
-Se si ha dimestichezza con Markdown, bisogna fare attenzione alle cose simili, ma
-differenti: 
+.. caution::
 
-* Le liste cominciano all'inizio della riga (non hanno bisogno di indentazione)
+    Se si ha dimestichezza con Markdown, bisogna fare attenzione alle cose simili, ma
+    differenti: 
 
-* I blocchi di codice utilizzano i doppi apici (````come questi````).
+    * Le liste cominciano all'inizio della riga (non hanno bisogno di indentazione)
+    * I blocchi di codice utilizzano i doppi apici (````come questi````).
 
 Sphinx
 ------
@@ -39,7 +40,7 @@ con la direttiva ``code-block``:
 
         { foo: bar, bar: { foo: bar, bar: baz } }
 
-Se il proprio codice PHP comincia con ``<?php``, allora si avrà bisogno di utilizzare ``html+php`` come
+Se del codice PHP comincia con ``<?php``, allora si avrà bisogno di utilizzare ``html+php`` come
 pseudo-linguaggio:
 
 .. code-block:: rst
@@ -95,27 +96,21 @@ Il precedente snippet reST mostra un blocco come di seguito:
 
 Ecco la lista dei formati attualmente supportati:
 
-+-----------------+-------------+
-| Formato markup  | Mostrato    |
-+=================+=============+
-| html            | HTML        |
-+-----------------+-------------+
-| xml             | XML         |
-+-----------------+-------------+
-| php             | PHP         |
-+-----------------+-------------+
-| yaml            | YAML        |
-+-----------------+-------------+
-| jinja           | Twig        |
-+-----------------+-------------+
-| html+jinja      | Twig        |
-+-----------------+-------------+
-| html+php        | PHP         |
-+-----------------+-------------+
-| ini             | INI         |
-+-----------------+-------------+
-| php-annotations | Annotazioni |
-+-----------------+-------------+
+===============  =================
+Formato markup   Mostrato
+===============  =================
+html             HTML
+xml              XML
+php              PHP
+yaml             YAML
+jinja            Twig
+html+jinja       Twig
+html+php         PHP
+ini              INI
+php-annotations  Annotazioni
+php-standalone   Uso in PHP puro
+php-symfony      Uso nel framework
+===============  =================
 
 Collegamenti
 ~~~~~~~~~~~~
@@ -141,7 +136,7 @@ anche specificare un testo alternativo per il collegamento:
 
 .. code-block:: rst
 
-    :doc:`Spool di email</cookbook/email/spool>`
+    :doc:`Spool di email </cookbook/email/spool>`
 
 Si possono anche aggiungere collegamenti alla documentazione delle API:
 
@@ -169,47 +164,9 @@ Test della documentazione
 Per fare un test della documentazione, prima di un commit:
 
 * Installare `Sphinx`_;
-
-* Eseguire la `preparazione rapida di Sphinx`_;
-
-* Installare le estensioni di Sphinx (vedere sotto);
-
+* Installare le estensioni di Sphinx, eseguendo ``git submodule update --init``;
+* (Opzionale) Installare la documentazione dei bundle e di CMF: ``bash install.sh``;
 * Eseguire ``make html`` e controllare l'HTML generato nella cartella ``build``.
-
-Installare le estensioni di Sphinx
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* Scaricare l'estensione dal repository dei `sorgenti`_
-
-* Copiare la cartella ``sensio`` nella cartella ``_exts`` della propria
-  cartella dei sorgenti (in cui si trova ``conf.py``)
-
-* Aggiungere le righe seguenti al file ``conf.py``:
-
-.. code-block:: py
-
-    # ...
-    sys.path.append(os.path.abspath('_exts'))
-
-    # aggiunge PhpLexer
-    from sphinx.highlighting import lexers
-    from pygments.lexers.web import PhpLexer
-
-    # ...
-    # aggiunge le estensioni alla lista di estensioni
-    extensions = [..., 'sensio.sphinx.refinclude', 'sensio.sphinx.configurationblock', 'sensio.sphinx.phpcode']
-
-    # abilita la colorazione per il codice PHP non compreso tra ``<?php ... ?>``
-    lexers['php'] = PhpLexer(startinline=True)
-    lexers['php-annotations'] = PhpLexer(startinline=True)
-    lexers['php-standalone'] = PhpLexer(startinline=True)
-    lexers['php-symfony'] = PhpLexer(startinline=True)
-
-    # usa PHP come dominio primario
-    primary_domain = 'php'
-
-    # imposta URL per collegamenti alle API
-    api_url = 'http://api.symfony.com/master/%s'
 
 .. _reStructuredText:        http://docutils.sourceforge.net/rst.html
 .. _Sphinx:                  http://sphinx-doc.org/
@@ -217,5 +174,4 @@ Installare le estensioni di Sphinx
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 .. _markup:                  http://sphinx-doc.org/markup/
 .. _sito di Pygments:        http://pygments.org/languages/
-.. _sorgenti:                https://github.com/fabpot/sphinx-php
-.. _preparazione rapida di Sphinx:  http://sphinx-doc.org/tutorial.html#setting-up-the-documentation-sources
+

@@ -147,7 +147,6 @@ esiste::
     $request->query->get('bar', 'bar');
     // restituisce 'bar'
 
-
 Quando PHP importa la query della richiesta, gestisce i parametri della richiesta, come
 ``foo[bar]=bar``, in modo speciale, creando un array. In questo modo, si può richiedere il
 parametro ``foo`` e ottenere un array con un elemento ``bar``. A volte, però,
@@ -172,9 +171,18 @@ parametro::
 Infine, ma non meno importante, si possono anche memorizzare dati aggiuntivi nella
 richiesta, grazie alla proprietà pubblica ``attributes``, che è anche un'istanza di
 :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`. La si usa soprattutto
-per allegare informazioni che appartengono alla richiesta e a cui si deve accedere in
-diversi punti della propria applicazione. Per informazioni su come viene usata
-nel framework Symfony2, vedere :ref:`saperne di più<book-fundamentals-attributes>`.
+per allegare informazioni che appartengono alla richiesta e a cui si deve accedere
+in diversi punti dell'applicazione. Per informazioni su come viene
+usata nel framework Symfony2, vedere
+:ref:`il libro <book-fundamentals-attributes>`.
+
+Infine, si può accedere ai dati grezzi inviati nel corpo della richiesta usando
+:method:`Symfony\\Component\\HttpFoundation\\Request::getContent()`::
+
+    $content = $request->getContent();
+
+Questo potrebbe essere utile, per esempio, per processare una stringa JSON inviata
+all'applicazione da un servizio remoto tramite metodo HTTP POST.
 
 Identificare una richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -242,8 +250,15 @@ usando i seguenti metodi:
 * :method:`Symfony\\Component\\HttpFoundation\\Request::getCharsets`:
   restituisce la lista dei charset accettati, ordinata per qualità discendente
 
+* :method:`Symfony\\Component\\HttpFoundation\\Request::getEncodings`:
+  restituisce la lista delle codifiche accettate, ordinata per qualità discendente
+
+  .. versionadded:: 2.4
+      Il metodo ``getEncodings()`` è stato introdotto in Symfony 2.4.
+
 .. versionadded:: 2.2
-    La classe :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` è nuova in Symfony 2.2.
+    La classe :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` è stata
+    introdotta in Symfony 2.2.
 
 Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
 ``Accept-Charset`` o ``Accept-Encoding``, si può usare la classe
@@ -259,7 +274,8 @@ Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
     }
 
     // accepts items are sorted by descending quality
-    $accepts = AcceptHeader::fromString($request->headers->get('Accept'))->all();
+    $accepts = AcceptHeader::fromString($request->headers->get('Accept'))
+        ->all();
 
 Accedere ad altri dati
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -268,6 +284,42 @@ La classe ``Request`` ha molti altri metodi, che si possono usare per accedere a
 informazioni della richiesta. Si dia uno sguardo alle 
 :class:`API di Request<Symfony\\Component\\HttpFoundation\\Request>`
 per maggiori informazioni.
+
+Sovrascrivere la richiesta
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.4
+    Il metodo :method:`Symfony\\Component\\HttpFoundation\\Request::setFactory`
+    è stato introdotto in Symfony 2.4.
+
+La classe ``Request`` non andrebbe sovrascritta, perché è un oggetto che rappresenta
+un messaggio HTTP. Ma, migrando da un sistema obsoleto, l'aggiunta
+di metodi o la modifica di alcuni comportamenti potrebbero aiutare. In questo caso, registrare un
+callable che sia in grado di creare un'istanza della classe ``Request``::
+
+    use Symfony\Component\HttpFoundation\Request;
+
+    Request::setFactory(function (
+        array $query = array(),
+        array $request = array(),
+        array $attributes = array(),
+        array $cookies = array(),
+        array $files = array(),
+        array $server = array(),
+        $content = null
+    ) {
+        return SpecialRequest::create(
+            $query,
+            $request,
+            $attributes,
+            $cookies,
+            $files,
+            $server,
+            $content
+        );
+    });
+
+    $request = Request::createFromGlobals();
 
 .. _component-http-foundation-response:
 
@@ -283,9 +335,12 @@ e un array di header HTTP::
 
     $response = new Response(
         'Contenuto',
-        200,
+        Response::HTTP_OK,
         array('content-type' => 'text/html')
     );
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato introdotto in Symfony 2.4.
 
 Queste informazioni possono anche essere manipolate dopo la creazione di Response::
 
@@ -432,7 +487,10 @@ astrae l'ingrato compito dietro una semplice API::
 
     use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-    $d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'foo.pdf');
+    $d = $response->headers->makeDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        'foo.pdf'
+    );
 
     $response->headers->set('Content-Disposition', $d);
 
@@ -459,8 +517,11 @@ in caso positivo::
 
 Si può ancora impostare il ``Content-Type`` del file inviato o cambiarne il ``Content-Disposition``::
 
-    $response->headers->set('Content-Type', 'text/plain')
-    $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'nomefile.txt');
+    $response->headers->set('Content-Type', 'text/plain');
+    $response->setContentDisposition(
+        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        'nomefile.txt'
+    );
 
 .. _component-http-foundation-json-response:
 

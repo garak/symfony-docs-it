@@ -56,19 +56,22 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
             # ...
             newsletter_manager.class: NewsletterManager
             greeting_card_manager.class: GreetingCardManager
+
         services:
             my_mailer:
                 # ...
+
             my_email_formatter:
                 # ...
+
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class: "%newsletter_manager.class%"
                 calls:
                     - [setMailer, ["@my_mailer"]]
                     - [setEmailFormatter, ["@my_email_formatter"]]
 
             greeting_card_manager:
-                class:     "%greeting_card_manager.class%"
+                class: "%greeting_card_manager.class%"
                 calls:
                     - [setMailer, ["@my_mailer"]]
                     - [setEmailFormatter, ["@my_email_formatter"]]
@@ -82,12 +85,14 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
         </parameters>
 
         <services>
-            <service id="my_mailer" ... >
+            <service id="my_mailer">
               <!-- ... -->
             </service>
-            <service id="my_email_formatter" ... >
+
+            <service id="my_email_formatter">
               <!-- ... -->
             </service>
+
             <service id="newsletter_manager" class="%newsletter_manager.class%">
                 <call method="setMailer">
                      <argument type="service" id="my_mailer" />
@@ -96,10 +101,12 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
                      <argument type="service" id="my_email_formatter" />
                 </call>
             </service>
+
             <service id="greeting_card_manager" class="%greeting_card_manager.class%">
                 <call method="setMailer">
                      <argument type="service" id="my_mailer" />
                 </call>
+
                 <call method="setEmailFormatter">
                      <argument type="service" id="my_email_formatter" />
                 </call>
@@ -108,36 +115,41 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
 
     .. code-block:: php
 
-        use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
         $container->setParameter('newsletter_manager.class', 'NewsletterManager');
         $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
-        $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%'
-        ))->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
-        ));
-        $container->setDefinition('greeting_card_manager', new Definition(
-            '%greeting_card_manager.class%'
-        ))->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
-        ));
+        $container->register('my_mailer', ...);
+        $container->register('my_email_formatter', ...);
+
+        $container
+            ->register('newsletter_manager', '%newsletter_manager.class%')
+            ->addMethodCall('setMailer', array(
+                new Reference('my_mailer'),
+            ))
+            ->addMethodCall('setEmailFormatter', array(
+                new Reference('my_email_formatter'),
+            ))
+        ;
+
+        $container
+            ->register('greeting_card_manager', '%greeting_card_manager.class%')
+            ->addMethodCall('setMailer', array(
+                new Reference('my_mailer'),
+            ))
+            ->addMethodCall('setEmailFormatter', array(
+                new Reference('my_email_formatter'),
+            ))
+        ;
 
 Ci sono diverse ripetizioni, sia nelle classi che nella configurazione. Questo vuol dire
 che, se per esempio si cambiano le classi ``Mailer`` o ``EmailFormatter`` per essere
-iniettate tramite costruttore, si avrà bisogno di aggiornare la configurazione in due
-punti. In modo simile, se fosse necessario cambiare i metodi setter, si avrebbe bisogno
-di farlo in entrambe le classi. Il tipico modo di trattare i metodi comuni di queste
-classi correlate sarebbe estrarli in una classe superiore::
+iniettate tramite costruttore, si avrà bisogno di aggiornare la configurazione in
+due punti. In modo simile, se fosse necessario cambiare i metodi setter, si avrebbe
+bisogno di farlo in entrambe le classi. Il tipico modo di trattare i metodi comuni
+di queste classi correlate sarebbe estrarli in una classe superiore::
 
     abstract class MailManager
     {
@@ -180,54 +192,47 @@ genitore per un servizio.
 
     .. code-block:: yaml
 
-        parameters:
-            # ...
-            newsletter_manager.class: NewsletterManager
-            greeting_card_manager.class: GreetingCardManager
+        # ...
         services:
-            my_mailer:
-                # ...
-            my_email_formatter:
-                # ...
+            # ...
             mail_manager:
                 abstract:  true
                 calls:
                     - [setMailer, ["@my_mailer"]]
                     - [setEmailFormatter, ["@my_email_formatter"]]
-            
+
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class:  "%newsletter_manager.class%"
                 parent: mail_manager
-            
+
             greeting_card_manager:
-                class:     "%greeting_card_manager.class%"
+                class:  "%greeting_card_manager.class%"
                 parent: mail_manager
-            
+
     .. code-block:: xml
 
-        <parameters>
-            <!-- ... -->
-            <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-            <parameter key="greeting_card_manager.class">GreetingCardManager</parameter>
-        </parameters>
-
+        <!-- ... -->
         <services>
-            <service id="my_mailer" ... >
-              <!-- ... -->
-            </service>
-            <service id="my_email_formatter" ... >
-              <!-- ... -->
-            </service>
+            <!-- ... -->
             <service id="mail_manager" abstract="true">
                 <call method="setMailer">
                      <argument type="service" id="my_mailer" />
                 </call>
+
                 <call method="setEmailFormatter">
                      <argument type="service" id="my_email_formatter" />
                 </call>
             </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%" parent="mail_manager"/>
-            <service id="greeting_card_manager" class="%greeting_card_manager.class%" parent="mail_manager"/>
+
+            <service id="newsletter_manager"
+                class="%newsletter_manager.class%"
+                parent="mail_manager"
+            />
+
+            <service id="greeting_card_manager"
+                class="%greeting_card_manager.class%"
+                parent="mail_manager"
+            />
         </services>
 
     .. code-block:: php
@@ -237,29 +242,26 @@ genitore per un servizio.
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'NewsletterManager');
-        $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
-        $container->setDefinition('mail_manager', new Definition(
-        ))->setAbstract(
-            true
-        )->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
-        ));
-        $container->setDefinition('newsletter_manager', new DefinitionDecorator(
-            'mail_manager'
-        ))->setClass(
-            '%newsletter_manager.class%'
-        );
-        $container->setDefinition('greeting_card_manager', new DefinitionDecorator(
-            'mail_manager'
-        ))->setClass(
-            '%greeting_card_manager.class%'
-        );
+        $mailManager = new Definition();
+        $mailManager
+            ->setAbstract(true);
+            ->addMethodCall('setMailer', array(
+                new Reference('my_mailer'),
+            ))
+            ->addMethodCall('setEmailFormatter', array(
+                new Reference('my_email_formatter'),
+            ))
+        ;
+        $container->setDefinition('mail_manager', $mailManager);
+
+        $newsletterManager = new DefinitionDecorator('mail_manager');
+        $newsletterManager->setClass('%newsletter_manager.class%');
+        $container->setDefinition('newsletter_manager', $newsletterManager);
+
+        $greetingCardManager = new DefinitionDecorator('mail_manager');
+        $greetingCardManager->setClass('%greeting_card_manager.class%');
+        $container->setDefinition('greeting_card_manager', $greetingCardManager);
 
 In questo contesto, avere un servizio ``parent`` implica che i parametri e le chiamate a
 metodi del servizio genitore andrebbero usati per i servizi figli. Specificatamente,
@@ -290,6 +292,13 @@ provocherebbe un'eccezione per un servizio non astratto.
    precedentemente compilato. Si veda :doc:`/components/dependency_injection/compilation` 
    per maggiori dettagli.
 
+.. tip::
+
+    Negli esempi mostrati c'è una relazione simile tra servizi padre e figlio
+    e classi padre e figlio sottostanti. Sebbene non sia detto che questo debba
+    sempre essere il caso, si possono estrarre le parti comuni di definizioni
+    simili di servizi in un servizio padre, senza ereditare anche una classe padre in PHP.
+
 Sovrascrivere le dipendenze del genitore
 ----------------------------------------
 
@@ -303,65 +312,61 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
 
     .. code-block:: yaml
 
-        parameters:
-            # ...
-            newsletter_manager.class: NewsletterManager
-            greeting_card_manager.class: GreetingCardManager
+        # ...
         services:
-            my_mailer:
-                # ...
+            # ...
             my_alternative_mailer:
                 # ...
-            my_email_formatter:
-                # ...
+
             mail_manager:
-                abstract:  true
+                abstract: true
                 calls:
                     - [setMailer, ["@my_mailer"]]
                     - [setEmailFormatter, ["@my_email_formatter"]]
-            
+
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class:  "%newsletter_manager.class%"
                 parent: mail_manager
                 calls:
                     - [setMailer, ["@my_alternative_mailer"]]
-            
+
             greeting_card_manager:
-                class:     "%greeting_card_manager.class%"
+                class:  "%greeting_card_manager.class%"
                 parent: mail_manager
-            
+
     .. code-block:: xml
 
-        <parameters>
-            <!-- ... -->
-            <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-            <parameter key="greeting_card_manager.class">GreetingCardManager</parameter>
-        </parameters>
+        <!-- ... -->
 
         <services>
-            <service id="my_mailer" ... >
+            <!-- ... -->
+            <service id="my_alternative_mailer">
               <!-- ... -->
             </service>
-            <service id="my_alternative_mailer" ... >
-              <!-- ... -->
-            </service>
-            <service id="my_email_formatter" ... >
-              <!-- ... -->
-            </service>
+
             <service id="mail_manager" abstract="true">
                 <call method="setMailer">
                      <argument type="service" id="my_mailer" />
                 </call>
+
                 <call method="setEmailFormatter">
                      <argument type="service" id="my_email_formatter" />
                 </call>
             </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%" parent="mail_manager">
+
+            <service id="newsletter_manager"
+                class="%newsletter_manager.class%"
+                parent="mail_manager"
+            >
                  <call method="setMailer">
                      <argument type="service" id="my_alternative_mailer" />
                 </call>
             </service>
-            <service id="greeting_card_manager" class="%greeting_card_manager.class%" parent="mail_manager"/>
+
+            <service id="greeting_card_manager"
+                class="%greeting_card_manager.class%"
+                parent="mail_manager"
+            />
         </services>
 
     .. code-block:: php
@@ -371,150 +376,42 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'NewsletterManager');
-        $container->setParameter('greeting_card_manager.class', 'GreetingCardManager');
+        $container->setDefinition('my_alternative_mailer', ...);
 
-        $container->setDefinition('my_mailer', ... );
-        $container->setDefinition('my_alternative_mailer', ... );
-        $container->setDefinition('my_email_formatter', ... );
-        $container->setDefinition('mail_manager', new Definition(
-        ))->setAbstract(
-            true
-        )->addMethodCall('setMailer', array(
-            new Reference('my_mailer')
-        ))->addMethodCall('setEmailFormatter', array(
-            new Reference('my_email_formatter')
-        ));
-        $container->setDefinition('newsletter_manager', new DefinitionDecorator(
-            'mail_manager'
-        ))->setClass(
-            '%newsletter_manager.class%'
-        )->addMethodCall('setMailer', array(
-            new Reference('my_alternative_mailer')
-        ));
-        $container->setDefinition('greeting_card_manager', new DefinitionDecorator(
-            'mail_manager'
-        ))->setClass(
-            '%greeting_card_manager.class%'
-        );
+        $mailManager = new Definition();
+        $mailManager
+            ->setAbstract(true);
+            ->addMethodCall('setMailer', array(
+                new Reference('my_mailer'),
+            ))
+            ->addMethodCall('setEmailFormatter', array(
+                new Reference('my_email_formatter'),
+            ))
+        ;
+        $container->setDefinition('mail_manager', $mailManager);
+
+        $newsletterManager = new DefinitionDecorator('mail_manager');
+        $newsletterManager->setClass('%newsletter_manager.class%');
+            ->addMethodCall('setMailer', array(
+                new Reference('my_alternative_mailer'),
+            ))
+        ;
+        $container->setDefinition('newsletter_manager', $newsletterManager);
+
+        $greetingCardManager = new DefinitionDecorator('mail_manager');
+        $greetingCardManager->setClass('%greeting_card_manager.class%');
+        $container->setDefinition('greeting_card_manager', $greetingCardManager);
 
 La classe ``GreetingCardManager`` riceverà le stesse dipendenze di prima,
 ma a ``NewsletterManager`` sarà passato il servizio ``my_alternative_mailer``, invece
 di ``my_mailer``.
 
-Insiemi di dipendenze
----------------------
+.. caution::
 
-Va notato che il metodo setter sovrascritto nell'esempio precedente è in effetti
-richiamato due volte: una per la definizione del genitore e una per la definizione
-del figlio. Nell'esempio precedente, questo andava bene, perché la seconda chiamata a
-``setMailer`` sostituiva l'oggetto mailer impostato dalla prima chiamata.
-
-In alcuni casi, tuttavia, questo potrebbe rappresentare un problema. Per esempio, se il
-metodo sovrascritto coinvolge l'aggiunta di qualcosa a un insieme, i due oggetti saranno
-aggiunti all'insieme. Di seguito viene mostrato un caso simile, in cui la classe
-genitore è::
-
-    abstract class MailManager
-    {
-        protected $filters;
-
-        public function setFilter($filter)
-        {
-            $this->filters[] = $filter;
-        }
-
-        // ...
-    }
-
-Se si ha la seguente configurazione:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        parameters:
-            # ...
-            newsletter_manager.class: NewsletterManager
-        services:
-            my_filter:
-                # ...
-            another_filter:
-                # ...
-            mail_manager:
-                abstract:  true
-                calls:
-                    - [setFilter, ["@my_filter"]]
-                    
-            newsletter_manager:
-                class:     "%newsletter_manager.class%"
-                parent: mail_manager
-                calls:
-                    - [setFilter, ["@another_filter"]]
-            
-    .. code-block:: xml
-
-        <parameters>
-            <!-- ... -->
-            <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-        </parameters>
-
-        <services>
-            <service id="my_filter" ... >
-              <!-- ... -->
-            </service>
-            <service id="another_filter" ... >
-              <!-- ... -->
-            </service>
-            <service id="mail_manager" abstract="true">
-                <call method="setFilter">
-                     <argument type="service" id="my_filter" />
-                </call>
-            </service>
-            <service id="newsletter_manager" class="%newsletter_manager.class%" parent="mail_manager">
-                 <call method="setFilter">
-                     <argument type="service" id="another_filter" />
-                </call>
-            </service>
-        </services>
-
-    .. code-block:: php
-
-        use Symfony\Component\DependencyInjection\Definition;
-        use Symfony\Component\DependencyInjection\DefinitionDecorator;
-        use Symfony\Component\DependencyInjection\Reference;
-
-        // ...
-        $container->setParameter('newsletter_manager.class', 'NewsletterManager');
-        $container->setParameter('mail_manager.class', 'MailManager');
-
-        $container->setDefinition('my_filter', ... );
-        $container->setDefinition('another_filter', ... );
-        $container->setDefinition('mail_manager', new Definition(
-        ))->setAbstract(
-            true
-        )->addMethodCall('setFilter', array(
-            new Reference('my_filter')
-        ));
-        $container->setDefinition('newsletter_manager', new DefinitionDecorator(
-            'mail_manager'
-        ))->setClass(
-            '%newsletter_manager.class%'
-        )->addMethodCall('setFilter', array(
-            new Reference('another_filter')
-        ));
-
-In questo esempi, il metodo ``setFilter`` del servizio ``newsletter_manager`` sarà
-richiamato due volte, risultando in un array ``$filters`` che conterrà sia l'oggetto
-``my_filter`` che l'oggetto ``another_filter``. Questa cosa va bene se si vuole
-effettivamente aggiungere filtri alla sotto-classe. Se invece si vuole sostituire il
-filtro passato alla sotto-classe, la rimozione dell'impostazione del genitore dalla
-configurazione impedisce la chiamata a ``setFilter`` dalla classe base.
-
-.. tip::
-
-    Negli esempi mostrati c'è una relazione simile tra servizi padre e figlio
-    e classi padre e figlio sottostanti. Sebbene non sia detto che questo debba
-    sempre essere il caso, si possono estrarre le parti comuni di definizioni
-    simili di servizi in un servizio padre, senza ereditare anche una classe
-    padre.
+    Non si possono sovrascrivere le chiamate a metodi. Dopo aver definito nuove chiamate a metodi nel
+    servizio figlio, queste sono aggiunte all'insieme attuale di chiamate a metodi. Questo vuol dire
+    che funzionerà quando il setter sovrascrive la proprietà corrente, ma non funzionerà
+    come ci si aspetta quando il setter appende a dati esistenti (p.e. un
+    metodo ``addFilters()``).
+    In questi casi, l'unica soluzione è *non* estendere il servizio padre e configurare
+    il servizio, come si farebbe senza questa caratteristica.

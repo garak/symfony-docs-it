@@ -809,9 +809,11 @@ si registra che quando aggiorna successivamente le sue informazioni:
 
 Con questa configurazione, ci sono tre gruppi di validazione:
 
-* ``User`` - contiene i vincoli che non appartengono ad altri gruppi
-  ed è considerato come gruppo ``Default``. (Questo gruppo è utile per
-  una :ref:`book-validation-group-sequence`);
+* ``Default`` - contiene i vincoli, nella classe corrente e in tutte le
+  classi referenziate, che non appartengono ad altri gruppi;
+
+* ``User`` - equivalente a tutti i i vincoli dell'oggetto ``User`` nel
+  gruppo ``Default``;
 
 * ``registration`` - contiene solo i vincoli sui campi ``email`` e
   ``password``.
@@ -840,11 +842,6 @@ A  volte si vogliono validare i gruppi in passi separati. Lo si può fare, usand
 ``GroupSequence``. In questo caso, un oggetto definisce una sequenza di gruppi
 e i gruppi in tale sequenza sono validati in ordine.
 
-.. tip::
-
-    Le sequenze di gruppi non possono contenere il gruppo ``Default``, altrimenti si creerebbe
-    un loop. Usare invece il gruppo ``{ClassName}`` (p.e. ``User``).
-
 Per esempio, si supponga di avere una classe ``User`` e di voler validare che
 nome utente e password siano diversi, solo se le altre validazioni passano
 (per evitare messaggi di errore multipli).
@@ -861,7 +858,7 @@ nome utente e password siano diversi, solo se le altre validazioni passano
             getters:
                 passwordLegal:
                     - "True":
-                        message: "The password cannot match your username"
+                        message: "La password deve essere diversa dal nome utente"
                         groups: [Strict]
             properties:
                 username:
@@ -893,7 +890,7 @@ nome utente e password siano diversi, solo se le altre validazioni passano
             private $password;
 
             /**
-             * @Assert\True(message="The password cannot match your username", groups={"Strict"})
+             * @Assert\True(message="La password deve essere diversa dal nome utente", groups={"Strict"})
              */
             public function isPasswordLegal()
             {
@@ -918,7 +915,7 @@ nome utente e password siano diversi, solo se le altre validazioni passano
                 </property>
                 <getter property="passwordLegal">
                     <constraint name="True">
-                        <option name="message">The password cannot match your username</option>
+                        <option name="message"La password deve essere diversa dal nome utente</option>
                         <option name="groups">
                             <value>Strict</value>
                         </option>
@@ -968,6 +965,20 @@ In questo esempio, prima saranno validati i vincoli del gruppo ``User``
 (che corrispondono a quelli del gruppo ``Default``). Solo se tutti i vincoli in
 tale gruppo sono validi, sarà validato il secondo gruppo, ``Strict``.
 
+.. caution::
+
+    Come già visto nella precedente sezione, il gruppo ``Default`` e
+    il gruppo contenente il nome della classe (p.e. ``User``) erano identici.
+    Tuttavia, quando si usando le sequenza di gruppo, non lo sono più. Il gruppo
+    ``Default`` farà ora riferimento alla sequenza digruppo, al posto di tutti i
+    vincoli che non appartengono ad alcun gruppo.
+
+    Questo vuol dire che si deve usare il gruppo ``{NomeClasse}`` (p.e. ``User``)
+    quando si specifica una sequenza di gruppo. Quando si usa ``Default``, si avrà
+    una ricorsione infinita (poiché il gruppo ``Default`` si riferisce alla sequenza di
+    gruppo, che contiene il gruppo ``Default``, che si riferisce alla
+    stessa sequenza di gruppo, ecc...).
+
 Fornitori di sequenza di gruppo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -985,9 +996,9 @@ l'entità e aggiungere un nuovo gruppo di vincoli, chiamato ``Premium``:
         Acme\DemoBundle\Entity\User:
             properties:
                 name:
-                    - NotBlank
+                    - NotBlank: ~
                 creditCard:
-                    - CardScheme
+                    - CardScheme:
                         schemes: [VISA]
                         groups: [Premium]
 
@@ -1068,13 +1079,10 @@ l'entità e aggiungere un nuovo gruppo di vincoli, chiamato ``Premium``:
         }
 
 Cambiare ora la classe ``User`` per implementare
-:class:`Symfony\\Component\\Validation\\GroupSequenceProviderInterface` e
+:class:`Symfony\\Component\\Validator\\GroupSequenceProviderInterface` e
 aggiungere
-:method:`Symfony\\Component\\Validation\\GroupSequenceProviderInterface::getGroupSequence`,
-che deve restituire un array di gruppi da usare. Inoltre, aggiungere l'annotazione
-``@Assert\GroupSequenceProvider`` alla classe. Se si ipotizza che
-un metodo di nome ``isPremium`` restituisce ``true`` quando un utente è premium,
-il codice potrebbe assomigliare a questo::
+:method:`Symfony\\Component\\Validator\\GroupSequenceProviderInterface::getGroupSequence`,
+che deve restituire un array di gruppi da usare::
 
     // src/Acme/DemoBundle/Entity/User.php
     namespace Acme\DemoBundle\Entity;
@@ -1082,10 +1090,6 @@ il codice potrebbe assomigliare a questo::
     // ...
     use Symfony\Component\Validator\GroupSequenceProviderInterface;
 
-    /**
-     * @Assert\GroupSequenceProvider
-     * ...
-     */
     class User implements GroupSequenceProviderInterface
     {
         // ...
@@ -1101,6 +1105,66 @@ il codice potrebbe assomigliare a questo::
             return $groups;
         }
     }
+
+Infine, occorre notificare al componente Validator che la classe ``User``
+fornisce una sequenza di gruppi da validare:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/DemoBundle/Resources/config/validation.yml
+        Acme\DemoBundle\Entity\User:
+            group_sequence_provider: ~
+
+    .. code-block:: php-annotations
+
+        // src/Acme/DemoBundle/Entity/User.php
+        namespace Acme\DemoBundle\Entity;
+
+        // ...
+
+        /**
+         * @Assert\GroupSequenceProvider
+         */
+        class User implements GroupSequenceProviderInterface
+        {
+            // ...
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/DemoBundle/Resources/config/validation.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd"
+        >
+            <class name="Acme\DemoBundle\Entity\User">
+                <group-sequence-provider />
+                <!-- ... -->
+            </class>
+        </constraint-mapping>
+
+    .. code-block:: php
+
+        // src/Acme/DemoBundle/Entity/User.php
+        namespace Acme\DemoBundle\Entity;
+
+        // ...
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+
+        class User implements GroupSequenceProviderInterface
+        {
+            // ...
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->setGroupSequenceProvider(true);
+                // ...
+            }
+        }
 
 .. _book-validation-raw-values:
 
@@ -1131,7 +1195,7 @@ assomiglia a questo::
             // è un indirizzo email valido, fare qualcosa
         } else {
             // *non* è un indirizzo email valido
-            $errorMessage = $errorList[0]->getMessage()
+            $errorMessage = $errorList[0]->getMessage();
 
             // fare qualcosa con l'errore
         }
@@ -1143,12 +1207,12 @@ Richiamando ``validateValue`` sul validatore, si può passare un valore grezzo e
 l'oggetto vincolo su cui si vuole validare tale valore. Una lista completa di vincoli
 disponibili, così come i nomi completi delle classi per ciascun vincolo, è
 disponibile nella sezione
-:doc:`riferimento sui vincoli</reference/constraints>`.
+:doc:`riferimento sui vincoli </reference/constraints>`.
 
 Il metodo ``validateValule`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
 che si comporta come un array di errori. Ciascun errore della lista è un oggetto
 :class:`Symfony\\Component\\Validator\\ConstraintViolation`, che contiene
-il messaggio di errore nel suo metodo `getMessage`.
+il messaggio di errore nel suo metodo ``getMessage``.
 
 Considerazioni finali
 ---------------------

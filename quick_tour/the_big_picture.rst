@@ -8,150 +8,83 @@ partire subito con Symfony2, mostrando la struttura di un semplice progetto già
 Chi ha già usato un framework per il web si troverà come a casa con Symfony2. Altrimenti,
 benvenuti in un nuovo mondo per sviluppare applicazioni web!
 
-.. tip::
+Installare Symfony2
+-------------------
 
-    Si vuole imparare perché e quando si ha bisogno di un framework? Si legga il
-    documento "`Symfony in 5 minuti`_".
-
-Scaricare Symfony2
-------------------
-
-Prima di tutto, verificare di aver installato e configurato correttamente un server web (come
-Apache) con PHP 5.3.3 o successivi.
-
-.. tip::
-
-    Se si ha PHP 5.4, si può usare il server web incluso. Basta
-    seguire le apposite
-    :ref:`istruzioni<quick-tour-big-picture-built-in-server>`.
-
-Pronti? Iniziamo scaricando "`Symfony2 Standard Edition`_", una :term:`distribuzione`
-di Symfony preconfigurata per gli usi più comuni e che contiene anche del codice
-che dimostra come usare Symfony2 (con l'archivio che include i *venditori*, si
-parte ancora più velocemente).
-
-Scaricare l'archivio e scompattarlo nella cartella radice del web (se si
-usa il server web di PHP, lo si può scompattare ovunque). Si dovrebbe
-ora avere una cartella ``Symfony/``, come la seguente:
-
-.. code-block:: text
-
-    www/ <- cartella radice del web
-        Symfony/ <- archivio scompattato
-            app/
-                cache/
-                config/
-                logs/
-                Resources/
-            bin/
-            src/
-                Acme/
-                    DemoBundle/
-                        Controller/
-                        Resources/
-                        ...
-            vendor/
-                symfony/
-                doctrine/
-                ...
-            web/
-                app.php
-                ...
-
-.. note::
-
-    Se si ha familiarità con `Composer`_, lo si può scaricare e quindi eseguire
-    il comando seguente, invece di scaricare l'archivio (sostituire
-    ``2.3.0`` la versione più recente di Symfony, per esempio ``2.3.1``):
-
-    .. code-block:: bash
-
-        $ php composer.phar create-project symfony/framework-standard-edition Symfony 2.3.0
-
-.. _`quick-tour-big-picture-built-in-server`:
-
-Se si ha PHP 5.4, si può usare il server web incluso:
+Prima di tutto, verificare di aver installato una versione di PHP compatibile con i requisiti
+di Symfony2: 5.3.3 o successivi. Quindi, apire una finestra di terminale ed eseguire il comando
+seguente, per installare l'ultima versione di Symfony2 nella cartella
+``progetto/``:
 
 .. code-block:: bash
 
-    # verifica la configurazione di PHP CLI
+    $ composer create-project symfony/framework-standard-edition progetto/ ~2.4
+
+.. note::
+
+    `Composer`_ è il gestore di pacchetti usato dalle applicazioni PHP recenti a
+    l'unico modo raccomandato di installare Symfony2. Per installare Composer su
+    Linux o Mac, eseguire i seguenti comandi:
+
+    .. code-block:: bash
+
+        $ curl -sS https://getcomposer.org/installer | php
+        $ sudo mv composer.phar /usr/local/bin/composer
+
+    Per installare Composer su Windows, scaricare l'`installer`_.
+
+La prima installazione di Symfony2 potrebbe richiedere vari minuti, per
+scaricare tutti i componenti. Alla fine del processo di installazione,
+l'installatore chiederà di fornire alcune opzioni di configurazione per il
+progetto. Per questo primo progetto, si possono anche ignorare tali configurazioni,
+lasciando tutti i valori predefiniti.
+
+Eseguire Symfony2
+-----------------
+
+Prima di eseguire Symfony2 per la prima volta, eseguire il comando seguente,
+per assicurarsi che il sistema soddisfi i requisiti tecnici:
+
+.. code-block:: bash
+
+    $ cd progetto/
     $ php app/check.php
 
-    # esegue il server web incluso
+Sistemare ogni eventuale problema segnato, quindi usare il server web incluso in PHP
+per far girare Symfony:
+
+.. code-block:: bash
+
     $ php app/console server:run
 
-Quindi l'URL dell'applicazione sarà "http://localhost:8000/app_dev.php"
+In caso di errore `There are no commands defined in the "server" namespace.`,
+probabilmente si sta usando PHP 5.3. Va bene lo stesso, la il server web è
+disponibile solo da PHP 5.4.0 in poi. Per vecchie versioni di PHP o se si
+preferisce un server web tradizionale, come Apache o Nginx, leggere la ricetta
+:doc:`/cookbook/configuration/web_server_configuration`.
 
-Il server web incluso andrebbe usato solo durante lo sviluppo, ma può
-aiutare a iniziare unprogetto in modo rapido e facile.
-
-Se si usa un server web classico, come Apache, l'URL dipende dalla
-configurazione. Se Symfony è stato scompattato sotto la cartella radice, in
-una cartella ``Symfony``, l'URL dell'applicazione sarà:
-"http://localhost/Symfony/web/app_dev.php".
-
-.. note::
-
-    Maggiori informazioni nella sezione :doc:`/cookbook/configuration/web_server_configuration`.
-
-
-Verifica della configurazione
------------------------------
-
-Per evitare mal di testa successivamente, Symfony2 dispone di uno strumento per testare
-la configurazione, per verificare configurazioni errate di PHP o del server web. Usare
-il seguente URL per avviare la diagnosi sulla macchina locale:
-
-.. code-block:: text
-
-    http://localhost/config.php
-
-.. note::
-
-    Tutti gli URL degli esempi ipotizzano una configurazione del server web che punti
-    direttamente alla cartella ``web/`` del nuovo progetto, che è diverso
-    e più avanzato rispetto al processo mostrato sopra. Quindi, l'URL sulla 
-    macchina locale varierà, per esempio ``http://localhost:8000/config.php``
-    o ``http://localhost/Symfony/web/config.php``. Si veda
-    :ref:`above section<quick-tour-big-picture-built-in-server>` per dettagli
-    su come dovrebbe essere l'URL e usarlo in tutti gli esempi.
-
-Se ci sono dei problemi, correggerli. Si potrebbe anche voler modificare la
-configurazione, seguendo le raccomandazioni fornite. Quando è tutto a posto,
-cliccare su "*Bypass configuration and go to the Welcome page*" per richiedere
-la prima "vera" pagina di Symfony2:
-
-.. code-block:: text
-
-    http://localhost/app_dev.php/
-
-Symfony2 dovrebbe congratularsi per il duro lavoro svolto finora!
+Aprire un browser e accedere all'URL ``http://localhost:8000`` per vedere
+la pagina di benvenuto di Symfony2:
 
 .. image:: /images/quick_tour/welcome.png
    :align: center
+   :alt:   Pagina di benvenuto di Symfony2
 
 Capire i fondamenti
 -------------------
 
-Uno degli obiettivi principali di un framework è quello di assicurare la `separazione degli ambiti`_.
-Ciò mantiene il codice organizzato e consente all'applicazione di
-evolvere facilmente nel tempo, evitando il miscuglio di chiamate alla base dati, tag HTML
-e logica di business nello stesso script. Per raggiungere questo obiettivo con Symfony,
-occorre prima imparare alcuni termini e concetti fondamentali.
+Uno degli obiettivi principali di un framework è quello di mantenere il codice organizzato e
+consentire all'applicazione di evolvere facilmente nel tempo, evitando il miscuglio di chiamate
+alla base dati, tag HTML e logica di business nello stesso script. Per raggiungere questo obiettivo
+con Symfony, occorre prima imparare alcuni termini e concetti fondamentali.
 
-.. tip::
-
-    Chi volesse la prova che usare un framework sia meglio che mescolare tutto nello
-    stesso script, legga il capitolo ":doc:`/book/from_flat_php_to_symfony2`" del
-    libro.
-
-La distribuzione offre alcuni esempi di codice, che possono essere usati per capire meglio
+Symfony offre alcuni esempi di codice, che possono essere usati per capire meglio
 i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati da Symfony2
 (sostituire *Fabien* col proprio nome):
 
 .. code-block:: text
 
-    http://localhost/app_dev.php/demo/hello/Fabien
+    http://localhost:8000/demo/hello/Fabien
 
 .. image:: /images/quick_tour/hello_fabien.png
    :align: center
@@ -172,12 +105,8 @@ Rotte
 ~~~~~
 
 Symfony2 dirige la richiesta al codice che la gestisce, cercando la corrispondenza
-tra l'URL richiesto e alcuni schemi configurati. Per impostazione predefinita, questi
-schemi (chiamate "rotte") sono definite nel file di configurazione ``app/config/routing.yml``.
-Se si è nell':ref:`ambiente<quick-tour-big-picture-environments>` ``dev``,
-indicato dal front controller app_**dev**.php, viene caricato il file di configurazione
-``app/config/routing_dev.yml``. Nella Standard Edition, le rotte delle pagine di demo
-sono in quel file:
+tra l'URL richiesto e alcuni schemi configurati. Le rotte delle pagine di demo
+sono nel file di configurazione ``app/config/routing_dev.yml``:
 
 .. code-block:: yaml
 
@@ -194,7 +123,7 @@ Questo importa un file ``routing.yml``, che si trova in AcmeDemoBundle:
 
     # src/Acme/DemoBundle/Resources/config/routing.yml
     _welcome:
-        path:  /
+        path:     /
         defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
     _demo:
@@ -211,12 +140,10 @@ eseguito. Nella prossima sezione, si imparerà esattamente quello che significa.
 
 .. tip::
 
-    La Standard Edition usa :doc:`YAML</components/yaml/yaml_format>`
-    per i suoi file di configurazione, ma Symfony2 supporta nativamente anche XML, PHP e
-    le annotazioni. I diversi formati sono compatibili e possono essere usati
-    alternativamente in un'applicazione. Inoltre, le prestazioni dell'applicazione
-    non dipendono dal formato scelto, perché tutto viene messo in cache
-    alla prima richiesta.
+    Oltre ai file YAML, Symfony2 supporta nativamente anche XML, PHP e
+    le annotazioni. Questa flessibilità è uno dei punti di forza di
+    Symfony2, un framework che non impone mai un formato di configurazione
+    particolare.
 
 Controllori
 ~~~~~~~~~~~
@@ -230,19 +157,9 @@ possibile potrebbe creare la risposta a mano, basandosi sulla richiesta::
 
     use Symfony\Component\HttpFoundation\Response;
 
-    $name = $request->query->get('name');
+    $name = $request->get('name');
 
-    return new Response('Hello '.$name, Response::HTTP_OK, array('Content-Type' => 'text/plain'));
-
-.. versionadded:: 2.4
-    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
-
-.. note::
-
-    Symfony2 abbraccia le specifiche HTTP, che sono delle regole che governano
-    tutte le comunicazioni sul web. Si legga il capitolo ":doc:`/book/http_fundamentals`"
-    del libro per sapere di più sull'argomento e sulle sue
-    potenzialità.
+    return new Response('Hello '.$name);
 
 Symfony2 sceglie il controllore basandosi sul valore ``_controller`` della configurazione
 delle rotte: ``AcmeDemoBundle:Welcome:index``. Questa stringa è il *nome logico* del
@@ -289,13 +206,6 @@ Indipendentemente da come lo si raggiunge, lo scopo finale di un controllore
 oggetto ``Response`` può essere popolato con codice HTML, rappresentare un rinvio del
 client o anche restituire il contenuto di un'immagine JPG, con un header ``Content-Type`` del valore ``image/jpg``.
 
-.. tip::
-
-    Estendere la classe base ``Controller`` è facoltativo. Di fatto, un controllore
-    può essere una semplice funzione PHP, o anche una funzione anonima PHP.
-    Il capitolo ":doc:`Il controllore</book/controller>`" del libro dice tutto
-    sui controllori di Symfony2.
-
 Il nome del template, ``AcmeDemoBundle:Welcome:index.html.twig``, è il
 *nome logico* del template e fa riferimento al file ``Resources/views/Welcome/index.html.twig``
 dentro AcmeDemoBundle (localizzato in ``src/Acme/DemoBundle``). La sezione successiva
@@ -313,11 +223,10 @@ Diamo ora un altro sguardo al file di configurazione delle rotte e cerchiamo la 
         type:     annotation
         prefix:   /demo
 
-Symfony2 può leggere e importare informazioni sulle rotte da diversi file, scritti
-in YAML, XML, PHP o anche inseriti in annotazioni PHP. Qui, il *nome logico*
-del file è ``@AcmeDemoBundle/Controller/DemoController.php`` e si riferisce al file
-``src/Acme/DemoBundle/Controller/DemoController.php``.
-In questo file, le rotte sono definite come annotazioni sui metodi delle azioni::
+Il *nome logico* del file che contiene le rotte ``_demo`` è
+``@AcmeDemoBundle/Controller/DemoController.php`` e si riferisce al
+file ``src/Acme/DemoBundle/Controller/DemoController.php``. In
+questo file, le rotte sono definite come annotazioni sui metodi delle azioni::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -342,12 +251,6 @@ L'annotazione ``@Route()`` definisce una nuova rotta con uno schema
 Una stringa racchiusa tra parentesi graffe, come ``{name}``, è chiamata segnaposto.
 Come si può vedere, il suo valore può essere recuperato tramite il parametro ``$name`` del metodo.
 
-.. note::
-
-    Anche se le annotazioni sono sono supportate nativamente da PHP, possono
-    essere usate in Symfony2 come mezzo conveniente per configurare i comportamenti
-    del framework e mantenere la configurazione accanto al codice.
-
 Dando un'occhiata più attenta al codice del controllore, si può vedere che invece di
 rendere un template e restituire un oggetto ``Response`` come prima, esso restituisce
 solo un array di parametri. L'annotazione ``@Template()`` dice a Symfony di rendere
@@ -355,12 +258,6 @@ il template al posto nostro, passando ogni variabili dell'array al template. Il 
 del template resto segue il nome del controllore. Quindi, nel nostro esempio, viene
 reso il template ``AcmeDemoBundle:Demo:hello.html.twig`` (localizzato in
 ``src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig``).
-
-.. tip::
-
-    Le annotazioni ``@Route()`` e ``@Template()`` sono più potenti dei semplici
-    esempi mostrati in questa guida. Si può approfondire l'argomento "`annotazioni
-    nei controllori`_" nella documentazione ufficiale.
 
 Template
 ~~~~~~~~
@@ -380,8 +277,9 @@ Il controllore rende il template ``src/Acme/DemoBundle/Resources/views/Demo/hell
     {% endblock %}
 
 Per impostazione predefinita, Symfony2 usa `Twig`_ come sistema di template, ma si
-possono anche usare i tradizionali template PHP, se si preferisce. Il prossimo
-capitolo introdurrà il modo in cui funzionano i template in in Symfony2.
+possono anche usare i tradizionali template PHP, se si preferisce. Il
+:doc:`prossimo capitolo</quick_tour/the_view>` introdurrà
+il modo in cui funzionano i template in in Symfony2.
 
 Bundle
 ~~~~~~
@@ -414,29 +312,23 @@ utile di Symfony2: il profilatore.
 .. image:: /images/quick_tour/profiler.png
    :align: center
 
-.. note::
-
-    Si possono ottenere rapidamente maggiori informazioni posizionando il cursore
-    sopra gli elementi della barra di debug del web o cliccandovi sopra, per andare
-    alle rispettive pagine del profilatore.
-
-Se caricato e abilitato (lo è in :ref:`ambiente<quick-tour-big-picture-environments-intro>` ``dev``),
-il profilatore fornisce un'interfaccia web a un *immenso* ammontare di informazioni registrate
-a ogni richiesta, inclusi log, tempi di richiesta, parametri GET o POST,
-dettagli di sicurezza, query alla base dati e così via.
-
 Ovviamente, questo strumento non deve essere mostrato quando si rilascia l'applicazione
 su un server di produzione. Per questo motivo, si troverà un altro front controller (``app.php``)
 nella cartella ``web/``, ottimizzato per l'ambiente di produzione:
 
 .. _quick-tour-big-picture-environments-intro:
 
-Ma che cos'è un ambiente? Un :term:`Ambiente` è una stringa (come
-``dev`` o ``prod``) che rappresenta un gruppo di configurazioni usate
-per far girare l'applicazione.
+Che cos'è un ambiente?
+~~~~~~~~~~~~~~~~~~~~~~
 
-Di solito, la configurazione comune è posta in ``config.yml`` e sovrascritta
-ove necessario, per ciascun ambiente. Per esempio:
+Un :term:`Ambiente` è una stringa che rappresenta un gruppo di configurazioni
+usate per far girare un'applicazione. Symfony2 definisce due ambienti di base: ``dev``
+(adatto per lo sviluppo in locale) e ``prod`` (ottimizzato
+per eseguire l'applicazione in produzione).
+
+Di solito, gli ambienti contengono una grande quantità di opzioni di configurazione. Per
+questo motivo, si tiene la configurazione comune ``config.yml`` e si sovrascrive,
+ove necessario, la configurazione per ciascun ambiente:
 
 .. code-block:: yaml
 
@@ -454,33 +346,26 @@ abilitando la barra di debug del web.
 
 Richiamando il file ``app_dev.php`` nel browser, si esegue
 l'applicazione Symfony in ambiente ``dev``. Per vedere l'applicazione
-in ambiente ``prod``, richiamare invece ``app.php``. Le rotte di demo
-nell'applicazione sono disponibili solo in ambiente ``dev``, ma se
+in ambiente ``prod``, richiamare invece ``app.php``.
+
+Le rotte di demo nell'applicazione sono disponibili solo in ambiente ``dev``, ma se
 lo fossero anche in ambiente ``prod``, si potrebbe vederle
 in ambiente ``prod`` andando su:
 
-.. code-block:: text
+.. tip::
 
-    http://localhost/app.php/demo/hello/Fabien
+    Se, invece di usare il server web di PHP, si usa Apache con
+    ``mod_rewrite`` abilitato, sfruttando il file ``.htaccess`` fornito da
+    Symfony2  in ``web/``, si può anche omettere la parte ``app.php`` dell'URL.
+    Il file ``.htaccess`` punta tutte le richieste al front controller
+    ``app.php``:
 
-Se, invece di usare il server web di PHP, si usa Apache con ``mod_rewrite``
-abilitato, sfruttando il file ``.htaccess`` fornito da Symfony2
-in ``web/``, si può anche omettere la parte ``app.php`` dell'URL. Il file
-``.htaccess`` punta tutte le richieste al front controller ``app.php``:
+    .. code-block:: text
 
-.. code-block:: text
+        http://localhost/demo/hello/Fabien
 
-    http://localhost/demo/hello/Fabien
-
-.. note::
-
-    Si noti che i tre URL qui forniti sono solo **esempi** di come un URL potrebbe
-    apparire in produzione usando un front controller. Se li si
-    prova effettivamente in un'installazione base della *Standard Edition di Symfony*,
-    si otterrà un errore 404, perché *AcmeDemoBundle* è abilitato solo in
-    ambiente ``dev`` e le sue rotte importate in ``app/config/routing_dev.yml``.
-
-Per maggiori dettagli sugli ambienti, vedere ":ref:`Ambienti e front controller<page-creation-environments>`".
+Per maggiori dettagli sugli ambienti, vedere
+":ref:`Ambienti e front controller <page-creation-environments>`".
 
 Considerazioni finali
 ---------------------
@@ -491,10 +376,6 @@ già vedere come Symfony2 rende veramente facile implementare siti web in modo
 migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossima
 sezione: ":doc:`la vista<the_view>`".
 
-.. _Symfony2 Standard Edition:      http://symfony.com/download
-.. _Symfony in 5 minuti:            http://symfony.com/symfony-in-five-minutes
-.. _`Composer`:                     http://getcomposer.org/
-.. _separazione degli ambiti:       http://en.wikipedia.org/wiki/Separation_of_concerns
-.. _annotazioni nei controllori:    http://symfony.com/it/doc/current/bundles/SensioFrameworkExtraBundle/index.html#annotazioni-per-i-controllori
-.. _Twig:                           http://twig.sensiolabs.org/
-.. _`pagina di installazione di Symfony`: http://symfony.com/download
+.. _Composer:             http://getcomposer.org/
+.. _installer:            http://getcomposer.org/download
+.. _Twig:                 http://twig.sensiolabs.org/

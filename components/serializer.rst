@@ -181,6 +181,37 @@ nella definizione del normalizzatore::
 Come risultato, il deserializzatore usa l'attributo ``first_name`` come se fosse
 stato ``firstName`` e quindi usa i metodi ``getFirstName`` e ``setFirstName``.
 
+Uso di callback per serializzare proprietà con istanze di oggetti
+-----------------------------------------------------------------
+
+Quando si serializza, si può impostare un callback, per formattare una specifica proprietà di un oggetto::
+
+    use Acme\Person;
+    use Symfony\Component\Serializer\Encoder\JsonEncoder;
+    use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+    use Symfony\Component\Serializer\Serializer;
+
+    $encoder = new JsonEncoder();
+    $normalizer = new GetSetMethodNormalizer();
+
+    $callback = function ($dateTime) {
+        return $dateTime instanceof \DateTime
+            ? $dateTime->format(\DateTime::ISO8601)
+            : '';
+    }
+
+    $normalizer->setCallbacks(array('createdAt' => $callback));
+
+    $serializer = new Serializer(array($normalizer), array($encoder));
+
+    $person = new Person();
+    $person->setName('cordoval');
+    $person->setAge(34);
+    $person->setCreatedAt(new \DateTime('now'));
+
+    $serializer->serialize($person, 'json');
+    // Output: {"name":"cordoval", "age": 34, "createdAt": "2014-03-22T09:43:12-0500"}
+
 JMSSerializer
 -------------
 

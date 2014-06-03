@@ -6,7 +6,7 @@ Come testare i repository Doctrine
 
 I test unitari dei repository Doctrine in un progetto Symfony non sono raccomandati.
 Quando si ha a che fare con un repository, si sta trattando qualcosa che ha effettivamente
-bisogno di essere testata con una versa connessione alla base dati.
+bisogno di essere testata con una vera connessione alla base dati.
 
 Per fortuna, si possono facilmente testare le query su una base dati reale, come descritto
 qui sotto.

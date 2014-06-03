@@ -100,3 +100,12 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+Variabili di form
+-----------------
+
+========= =========== =====================================================================================
+Variabile Tipo        Uso
+========= =========== =====================================================================================
+type      ``stringa`` La variabile tipo è impostata a ``file``, per poter essere reso come campo input file
+========= =========== =====================================================================================

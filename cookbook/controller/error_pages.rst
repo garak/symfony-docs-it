@@ -5,8 +5,8 @@
 Personalizzare le pagine di errore
 ==================================
 
-Quando in Symfony2 viene lanciata una qualsiasi eccezione, l'eccezione viene catturata all'interno
-della classe ``Kernel`` ed eventualmente inoltrata a un controllore speciale,
+Quando in Symfony2 viene lanciata una qualsiasi eccezione, questa viene catturata all'interno
+della classe ``Kernel`` e successivamente inoltrata a un controllore speciale,
 ``TwigBundle:Exception:show``, per la gestione. Questo controllore, che si trova
 all'interno di ``TwigBundle``, determina quale template di errore visualizzare e
 il codice di stato che dovrebbe essere impostato per la data eccezione.
@@ -19,7 +19,7 @@ controllo si vuole avere:
 2. Sostituire il controllore predefinito delle eccezioni ``TwigBundle::Exception:show``
    con il proprio controllore e gestirlo come si vuole (vedere
    :ref:`exception_controller nella guida di riferimento di Twig<config-twig-exception-controller>`);
-   Il controllore predefinito delle eccezioni è registrato come servizio, la classe
+   il controllore predefinito delle eccezioni è registrato come servizio, la classe
    effettiva è ``Symfony\Bundle\TwigBundle\Controller\ExceptionController``.
 
 .. tip::
@@ -54,7 +54,7 @@ all'utente finale, creare un nuovo template posizionato in
 
 .. caution::
 
-    **Non si deve** usare ``is_granted`` nelle pagine di erroe (o nei layout usati
+    **Non si deve** usare ``is_granted`` nelle pagine di errore (o nei layout usati
     dalle pagine di errore), perché il router gira prima del firewall. Se
     il router lancia un'eccezione (per esempio, quando la rotta non
     esiste), l'uso di ``is_granted`` lancerà un'ulteriore eccezione. Si

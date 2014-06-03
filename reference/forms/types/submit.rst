@@ -44,3 +44,12 @@ Opzioni ereditate
 .. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/button_translation_domain.rst.inc
+
+Variabili di form
+-----------------
+
+========= ============ ==============================================================
+Variabile Tipo         Uso
+========= ============ ==============================================================
+clicked   ``Booleano`` Se il bottone sia stato cliccato o meno.
+========= ============ ==============================================================

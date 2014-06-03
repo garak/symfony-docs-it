@@ -49,7 +49,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
         /**
          * @param string $dummy Una descrizione del parametro
-         * @param array $options
+         * @param array  $options
          *
          * @return string|null Input trasformato
          *
@@ -58,16 +58,17 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
         private function transformText($dummy, array $options = array())
         {
             $mergedOptions = array_merge(
-                $options,
                 array(
                     'un_valore_predefinito' => 'valori',
                     'un_altro_valore_predefinito' => 'altri valori',
-                )
+                ),
+                $options
             );
 
             if (true === $dummy) {
                 return;
             }
+
             if ('string' === $dummy) {
                 if ('values' === $mergedOptions['un_valore_predefinito']) {
                     return substr($dummy, 0, 5);
@@ -75,6 +76,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
                 return ucwords($dummy);
             }
+
             throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));
         }
     }
@@ -101,7 +103,10 @@ Struttura
 
 * Dichiarare le proprietà di una classe prima dei metodi;
 
-* Dichiarare prima i metodi pubblici, poi quelli protetti e infine quelli privati;
+* Dichiarare prima i metodi pubblici, poi quelli protetti e infine quelli privati.
+  Fanno eccezione a questa regola il costruttore della classe e i metodi ``setUp`` e
+  ``tearDown`` delle classi dei test di PHPUnit, che vanno dichiarati all'inizio, per
+  aumentare la leggibilità;
 
 * Usare le parentesi per istanziare le classi, indipendentemente dal numero di
   parametri del costruttore.
@@ -119,7 +124,7 @@ Convenzioni sui nomi
 * Usare gli spazi dei nomi per tutte le classi;
 
 * Aggiungere il prefisso ``Abstract`` alle classi astratte. Si noti che alcune vecchie classi di Symfony2
-  non seguono questa convenzione e non sono state rinominate per questioni di retro-compatibilità.
+  non seguono questa convenzione e non sono state rinominate per questioni di retrocompatibilità.
   Tuttavia, tutte le nuove classi astratte devono seguire questa convenzione;
 
 * Aggiungere il suffisso ``Interface`` alle interfacce;
@@ -130,13 +135,19 @@ Convenzioni sui nomi
 
 * Usare caratteri alfanumerici e trattini bassi per i nomi di file;
 
+* Per i tipi di PHPDocs e per i casting, usare ``bool`` (al posto di ``boolean``
+  o ``Boolean``), ``int`` (al posto di ``integer``), ``float`` (al posto di
+  ``double`` o ``real``);
+
 * Non dimenticare di dare un'occhiata al documento più prolisso sulle :doc:`conventions`,
   per considerazioni più soggettive sulla nomenclatura.
+
+.. _service-naming-conventions:
 
 Convenzioni sui nomi dei servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Il nome di un servizio contiene grupii, separati da punti;
+* Il nome di un servizio contiene gruppi, separati da punti;
 * L'alias DI del bundle è il primo gruppo (p.e. ``fos_user``);
 * Usare lettere minuscole per nomi di servizi e parametri;
 * Un nome di gruppo usa la notazione con trattini bassi;
@@ -148,9 +159,9 @@ Documentazione
 
 * Aggiungere blocchi PHPDoc per ogni classe, metodo e funzione;
 
-* Omettere il tag `@return`, se il metodo non restituisce nulla;
+* Omettere il tag ``@return``, se il metodo non restituisce nulla;
 
-* Le annotazioni `@package` e `@subpackage` non sono usate.
+* Le annotazioni ``@package`` e ``@subpackage`` non sono usate.
 
 Licenza
 -------
@@ -158,6 +169,6 @@ Licenza
 * Symfony è rilasciato sotto licenza MIT e il blocco della licenza deve essere presente
   in cima a ogni file PHP, prima dello spazio dei nomi.
 
-.. _`PSR-0`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
-.. _`PSR-1`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
-.. _`PSR-2`: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
+.. _`PSR-0`: http://www.php-fig.org/psr/psr-0/
+.. _`PSR-1`: http://www.php-fig.org/psr/psr-1/
+.. _`PSR-2`: http://www.php-fig.org/psr/psr-2/

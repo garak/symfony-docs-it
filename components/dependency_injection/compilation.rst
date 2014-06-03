@@ -7,7 +7,9 @@ Compilazione del contenitore
 Ci sono diverse ragioni per compilare il contenitore di servizi. Tra queste, poter
 verificare potenziali problemi, come i riferimenti circolari, e rendere il contenitore più
 efficiente, risolvendo i parametri e rimuovendo i servizi
-inutilizzati.
+inutilizzati. Inoltre, alcune caratteristiche, come l'uso
+di :doc:`servizi genitori </components/dependency_injection/parentservices>`,
+necessitano di un contenitore compilato.
 
 La compilazione avviene eseguendo::
 
@@ -144,7 +146,7 @@ questo::
         array(
             'pippo' => 'valoreDiPippo',
             'pluto' => 'valoreDiPluto',
-        )
+        ),
     )
 
 Sebbene sia possibile gestire manualmente la fusione dei vari file, è molto meglio
@@ -182,7 +184,7 @@ la configurazione XML::
         return 'http://www.example.com/symfony/schema/';
     }
 
-..note::
+.. note::
 
     La validazione XSD è facoltativa, restituendo ``false`` dal metodo ``getXsdValidationBasePath``
     sarà disabilitata.
@@ -204,7 +206,7 @@ La versione XML della configurazione sarà dunque simile a questa:
 
     </container>
 
-..note::
+.. note::
 
     Nel framework completo Symfony2 c'è una classe base ``Extension``, che
     implementa questi metodi e un metodo scorciatoia per processare la
@@ -273,11 +275,12 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
 
 .. _components-dependency-injection-compiler-passes:
 
-Prependere la configurazione passatta all'estensione
-----------------------------------------------------
+Prependere la configurazione passata all'estensione
+---------------------------------------------------
 
 .. versionadded:: 2.2
-    La possibilità di prependere la configurazione di un bundle è nuova in Symfony 2.2.
+    La possibilità di prependere la configurazione di un bundle è nuova in
+    Symfony 2.2.
 
 Una Extension può prependere la configurazione di un altro bundle, prima della chiamata al metodo ``load()``,
 implementando :class:`Symfony\\Component\\DependencyInjection\\Extension\\PrependExtensionInterface`::

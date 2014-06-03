@@ -51,7 +51,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                         realm: "Area demo protetta"
 
             access_control:
-                - { path: ^/admin, roles: ROLE_ADMIN }
+                - { path: ^/admin/, roles: ROLE_ADMIN }
+                # Includere anche la riga seguente per proteggere il percorso /admin
+                # - { path: ^/admin$, roles: ROLE_ADMIN }
 
             providers:
                 in_memory:
@@ -79,7 +81,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 </firewall>
 
                 <access-control>
-                    <rule path="^/admin" role="ROLE_ADMIN" />
+                    <rule path="^/admin/" role="ROLE_ADMIN" />
+                    <!-- Includere anche la riga seguente per proteggere il percorso /admin -->
+                    <!-- <rule path="^/admin$" role="ROLE_ADMIN" /> -->
                 </access-control>
 
                 <provider name="in_memory">
@@ -108,7 +112,9 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                 ),
             ),
             'access_control' => array(
-                array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
+                array('path' => '^/admin/', 'role' => 'ROLE_ADMIN'),
+                // Includere anche la riga seguente per proteggere il percorso /admin
+                // array('path' => '^/admin$', 'role' => 'ROLE_ADMIN'),
             ),
             'providers' => array(
                 'in_memory' => array(
@@ -174,6 +180,11 @@ al valore ``pattern`` dell'espressione regolare del firewall configurato. In que
 firewall venga attivato *non* significa tuttavia che venga visualizzato
 il box di autenticazione con nome utente e password per ogni URL. Per esempio, qualunque utente
 può accedere a ``/foo`` senza che venga richiesto di autenticarsi.
+
+.. tip::
+
+    Si può anche far corrispondere una richiesta in base ad altri dettagli (p.e. l'host).
+    Per maggiori informazioni ed esempi, leggere :doc:`/cookbook/security/firewall_restriction`.
 
 .. image:: /images/book/security_anonymous_user_access.png
    :align: center
@@ -426,7 +437,7 @@ Successivamente, creare il controllore che visualizzerà il form di login::
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Component\Security\Core\SecurityContext;
+    use Symfony\Component\Security\Core\SecurityContextInterface;
 
     class SecurityController extends Controller
     {
@@ -435,20 +446,25 @@ Successivamente, creare il controllore che visualizzerà il form di login::
             $session = $request->getSession();
 
             // verifica di eventuali errori
-            if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
                 $error = $request->attributes->get(
-                    SecurityContext::AUTHENTICATION_ERROR
+                    SecurityContextInterface::AUTHENTICATION_ERROR
                 );
+            } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+                $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+                $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
             } else {
-                $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-                $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+                $error = '';
             }
+            
+            // last username entered by the user
+            $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
 
             return $this->render(
                 'AcmeSecurityBundle:Security:login.html.twig',
                 array(
                     // ultimo nome utente inserito
-                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'last_username' => $lastUsername,
                     'error'         => $error,
                 )
             );
@@ -1206,7 +1222,7 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
             ),
         ));
 
-Questo fornitore utenti è chiamato "in-memory" , dal momento che gli utenti
+Questo fornitore di utenti è chiamato "in-memory" , dal momento che gli utenti
 non sono memorizzati in una base dati. L'oggetto utente effettivo è fornito
 da Symfony (:class:`Symfony\\Component\\Security\\Core\\User\\User`).
 
@@ -1429,8 +1445,8 @@ Gli algoritmi supportati da questo metodo dipendono dalla versione di PHP.
 Un elenco completo è disponibile richiamando la funzione :phpfunction:`hash_algos`.
 
 .. versionadded:: 2.2
-    As of Symfony 2.2 you can also use the :ref:`PBKDF2 <reference-security-pbkdf2>`
-    password encoder.
+    Da Symfony 2.2, si può usare anche il codificatore
+    :ref:`PBKDF2 <reference-security-pbkdf2>`.
 
 Determinare la password con hash
 ................................
@@ -1734,7 +1750,7 @@ Controlli di accesso complessi con espressioni
     La funzionalità delle espressioni è stata introdotta in Symfony 2.4.
 
 Oltre a un ruolo, come ``ROLE_ADMIN``, il metodo ``isGranted`` accetta
-acnhe un oggetto :class:`Symfony\\Component\\ExpressionLanguage\\Expression`::
+anche un oggetto :class:`Symfony\\Component\\ExpressionLanguage\\Expression`::
 
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     use Symfony\Component\ExpressionLanguage\Expression;
@@ -2050,7 +2066,8 @@ Utilità
 -------
 
 .. versionadded:: 2.2
-    Le classi ``StringUtils`` e ``SecureRandom`` sono state aggiunte in Symfony 2.2
+    Le classi ``StringUtils`` e ``SecureRandom`` sono state aggiunte in Symfony
+    2.2
 
 Il componente Security di Symfony dispone di una serie di utilità che riguardano
 la sicurezza. Queste utilità sono usate da Symfony2, ma si possono usare anche

@@ -5,18 +5,21 @@ Aiutante Progress
 =================
 
 .. versionadded:: 2.2
-    L'aiutante ``progress`` è stato aggiunto in Symfony 2.2.
+    L'aiutante ``progress`` è stato introdotto in Symfony 2.2.
 
 .. versionadded:: 2.3
-    Il metodo ``setCurrent`` è stato aggiunto in Symfony 2.3.
+    Il metodo ``setCurrent`` è stato introdotto in Symfony 2.3.
 
-Quando si eseguono comandi che devono girare a lungo, può essere utile mostrare una barra di progresso,
+.. versionadded:: 2.4
+    Il metodo  ``clear`` è stato introdotto in Symfony 2.4.
+
+Quando si eseguono comandi che devono girare a lungo, può essere utile mostrare una barra di progressione,
 che si aggiorna durante l'esecuzione:
 
 .. image:: /images/components/console/progress.png
 
-Per mostrare dettagli sul progresso, usare la classe :class:`Symfony\\Component\\Console\\Helper\\ProgressHelper`,
-passargli un numero totale di unità e avanzare il progresso man mano che il comando gira::
+Per mostrare dettagli sulla progressione, usare la classe :class:`Symfony\\Component\\Console\\Helper\\ProgressHelper`,
+passando il numero totale di unità e avanzando la progressione man mano che il comando gira::
 
     $progress = $this->getHelperSet()->get('progress');
 
@@ -25,7 +28,7 @@ passargli un numero totale di unità e avanzare il progresso man mano che il com
     while ($i++ < 50) {
         // ... fare qualcosa
 
-        // avanzare la barra di progresso di 1 unità
+        // avanzare la barra di progressione di 1 unità
         $progress->advance();
     }
 
@@ -33,11 +36,17 @@ passargli un numero totale di unità e avanzare il progresso man mano che il com
 
 .. tip::
 
-    Si può anche impostare il progresso attaule, richiamando il metodo
+    Si può anche impostare la progressione attaule, richiamando il metodo
     :method:`Symfony\\Component\\Console\\Helper\\ProgressHelper::setCurrent`.
 
 
-Si può anche personalizzare il modo in cui il progresso viene mostrato, con vari
+Se si vuole mostrare qualcosa mentre la barra di progressione avanza,
+richiamare prima :method:`Symfony\\Component\\Console\\Helper\\ProgressHelper::clear`.
+Dopo aver finito, richiamre
+:method:`Symfony\\Component\\Console\\Helper\\ProgressHelper::display`
+per mostrare di nuovo la barra di progressione.
+
+Si può anche personalizzare il modo in cui la progressione viene mostrata, con vari
 livelli di verbosità. Ciascuno di questi mostra diversi possibili
 elementi, come la percentuale di completamento, una barra mobile, o informazioni
 su attuale/totale (p.e. 10/50)::

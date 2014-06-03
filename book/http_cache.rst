@@ -526,11 +526,9 @@ chiede all'applicazione se la risposta in cache è ancora valida. Se la cache *�
 ancora valida, l'applicazione dovrebbe restituire un codice di stato 304 e
 nessun contenuto. Questo dice alla cache che è va bene restituire la risposta in cache.
 
-Con questo modello, principalmente si risparmia banda, perché la rappresentazione non è
-inviata due volte allo stesso client (invece è inviata una risposta 304). Ma se si
-progetta attentamente l'applicazione, si potrebbe essere in grado di prendere il
-minimo dei dati necessari per inviare una risposta 304 e risparmiare anche CPU (vedere
-sotto per un esempio di implementazione).
+Con questo modello, si risparmiare solo CPU, se si è in grado di determinare che la
+risposta in cache sia ancora  valida, facendo *meno* lavoro rispetto alla generazione
+dell'intera pagina (vedere sotto per un esempio di implementazione).
 
 .. tip::
 
@@ -575,6 +573,13 @@ Il metodo :method:`Symfony\\Component\\HttpFoundation\\Response::isNotModified`
 confronta l'``ETag`` inviato con la ``Request`` con quello impostato nella
 ``Response``. Se i due combaciano, il metodo imposta automaticamente il codice
 di stato della ``Response`` a 304.
+
+.. note::
+
+    L'header ``If-None-Match`` della richiesta corrisponde all'header ``ETag``
+    dell'ultima risposta inviata al client per una particolare risorsa. In questo modo
+    il client e il server comunicano a vicenda e decidono se la
+    risorsa sia stata aggiornata o meno, rispetto a quando è stata messa in cache.
 
 Questo algoritmo è abbastanza semplice e molto generico, ma occorre creare
 l'intera ``Response`` prima di poter calcolare l'ETag, che non è ottimale.
@@ -911,12 +916,12 @@ Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
 
         <?php echo $view['actions']->render(
             new ControllerReference('...:news', array('max' => 5)),
-            array('renderer' => 'esi'))
+            array('strategy' => 'esi'))
         ?>
 
         <?php echo $view['actions']->render(
             $view['router']->generate('latest_news', array('max' => 5), true),
-            array('renderer' => 'esi'),
+            array('strategy' => 'esi'),
         ) ?>
 
 Usando l'opzione ``esi``(che usa a sua volta la funzoine Twig ``render_esi``), si dice
@@ -1066,10 +1071,10 @@ metodo HTTP ``PURGE``::
             }
 
             $response = new Response();
-            if (!$this->getStore()->purge($request->getUri())) {
-                $response->setStatusCode(Response::HTTP_NOT_FOUND, 'Not purged');
-            } else {
+            if ($this->getStore()->purge($request->getUri())) {
                 $response->setStatusCode(Response::HTTP_OK, 'Purged');
+            } else {
+                $response->setStatusCode(Response::HTTP_NOT_FOUND, 'Not purged');
             }
 
             return $response;

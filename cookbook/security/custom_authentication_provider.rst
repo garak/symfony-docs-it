@@ -4,6 +4,15 @@
 Creare un fornitore di autenticazione personalizzato
 ====================================================
 
+.. tip::
+
+    La creazione di un fornitore di autenticazione personalizzato è difficile: questa ricetta guiderà
+    passo passo nel procedimento. Ma, a seconda delle eseigenze, si potrebbe
+    risolvere la questione in modo più semplice, usando questi documenti:
+
+    * :doc:`/cookbook/security/custom_password_authenticator`
+    * :doc:`/cookbook/security/api_key_authentication`
+
 Chi ha letto il capitolo sulla :doc:`/book/security` può capire
 la distinzione che fa Symfony2 tra autenticazione e autorizzazione,
 nell'implementazione della sicurezza. Questo capitolo discute le classi
@@ -153,17 +162,20 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
 
                 // Negare l'autenticazione con una risposta HTTP '403 Forbidden'
                 $response = new Response();
-                $response->setStatusCode(403);
+                $response->setStatusCode(Response::HTTP_FORBIDDEN);
                 $event->setResponse($response);
 
             }
 
             // Negare autenticazione per impostazione predefinita
             $response = new Response();
-            $response->setStatusCode(403);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
             $event->setResponse($response);
         }
     }
+
+.. versionadded:: 2.4
+    Il supporto per le costanti dei codici di stato HTTP è stato introdotto in Symfony 2.4.
 
 Questo ascoltatore verifica che la richiesta contenga l'header `X-WSSE`, confronta il
 valore restituito con l'informazione WSSE attesa, crea un token usando tale informazione
@@ -388,11 +400,11 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
             wsse.security.authentication.provider:
-                class:  Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
+                class: Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
                 arguments: ["", "%kernel.cache_dir%/security/nonces"]
 
             wsse.security.authentication.listener:
-                class:  Acme\DemoBundle\Security\Firewall\WsseListener
+                class: Acme\DemoBundle\Security\Firewall\WsseListener
                 arguments: ["@security.context", "@security.authentication.manager"]
 
     .. code-block:: xml

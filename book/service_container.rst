@@ -103,7 +103,7 @@ per noi. Affinché questo funzioni, bisogna *insegnare* al contenitore come
 creare il servizio ``Mailer``. Questo viene fatto tramite la configurazione, che può
 essere specificata in YAML, XML o PHP:
 
-.. include includes/_service_container_my_mailer.rst.inc
+.. include:: includes/_service_container_my_mailer.rst.inc
 
 .. note::
 
@@ -874,7 +874,7 @@ Ora, basta iniettare ``request_stack``, che si comporta come un normale servizio
         # src/Acme/HelloBundle/Resources/config/services.yml
         services:
             newsletter_manager:
-                class:     "Acme\HelloBundle\Newsletter\NewsletterManager"
+                class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@request_stack"]
 
     .. code-block:: xml
@@ -1146,12 +1146,10 @@ con ``twig.extension`` e li registra automaticamente come estensioni.
 I tag, quindi, sono un modo per dire a Symfony2 o a un altro bundle di terze parti che
 il servizio dovrebbe essere registrato o utilizzato in un qualche modo speciale dal bundle.
 
-Quello che segue è un elenco dei tag disponibili con i bundle del nucleo di Symfony2.
-Ognuno di essi ha un differente effetto sul servizio e molti tag richiedono
-parametri aggiuntivi (oltre al solo ``name`` del parametro).
-
 Per una lista completa dei tag disponibili in Symfony, dare un'occhiata
-a :doc:`/reference/dic_tags`.
+a :doc:`/reference/dic_tags`. Ognuno di essi ha un differente effetto sul
+servizio e molti tag richiedono parametri aggiuntivi (oltre al solo ``name``
+del parametro).
 
 Debug dei servizi
 -----------------
@@ -1168,6 +1166,13 @@ Vengono mostrati solo i servizi pubblici, ma si possono vedere anche quelli priv
 .. code-block:: bash
 
     $ php app/console container:debug --show-private
+
+.. note::
+
+    Se un servizio privato è usato solo come parametro di *un solo* altro servizio,
+    non sarà mostrato dal comando ``container:debug``, anche usando
+    l'opzione ``--show-private``. vedere :ref:`servizi privati in linea <inlined-private-services>`
+    per maggiori dettagli.
 
 Si possono ottenere informazioni più dettagliate su un singolo servizio, specificando
 il suo id:

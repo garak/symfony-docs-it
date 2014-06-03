@@ -24,6 +24,7 @@
 
   * :doc:`/cookbook/configuration/environments`
   * :doc:`/cookbook/configuration/override_dir_structure`
+  * :doc:`/cookbook/configuration/using_parameters_in_dic`
   * :doc:`/cookbook/configuration/front_controllers_and_kernel`
   * :doc:`/cookbook/configuration/external_parameters`
   * :doc:`/cookbook/configuration/pdo_session_storage`
@@ -36,6 +37,7 @@
   * :doc:`/cookbook/console/usage`
   * :doc:`/cookbook/console/sending_emails`
   * :doc:`/cookbook/console/logging`
+  * :doc:`/cookbook/console/commands_as_services`
 
 * :doc:`/cookbook/controller/index`
 
@@ -62,11 +64,13 @@
   * :doc:`/cookbook/doctrine/resolve_target_entity`
   * :doc:`/cookbook/doctrine/mapping_model_classes`
   * :doc:`/cookbook/doctrine/registration_form`
+  * :doc:`/cookbook/doctrine/console`
 
 * :doc:`/cookbook/email/index`
 
   * :doc:`/cookbook/email/email`
   * :doc:`/cookbook/email/gmail`
+  * :doc:`/cookbook/email/cloud`
   * :doc:`/cookbook/email/dev_environment`
   * :doc:`/cookbook/email/spool`
   * :doc:`/cookbook/email/testing`
@@ -132,6 +136,7 @@
   * :doc:`/cookbook/security/remember_me`
   * :doc:`/cookbook/security/impersonating_user`
   * :doc:`/cookbook/security/voters`
+  * :doc:`/cookbook/security/voters_data_permission`
   * :doc:`/cookbook/security/acl`
   * :doc:`/cookbook/security/acl_advanced`
   * :doc:`/cookbook/security/force_https`

@@ -41,7 +41,7 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 |                          | - `inherit_data`_                                                           |
 |                          | - `error_mapping`_                                                          |
 +--------------------------+-----------------------------------------------------------------------------+
-| Tipo genitore            | ``field`` (se testo), ``form`` altrimenti                                   |
+| Tipo genitore            | :doc:`form </reference/forms/types/form>`                                   |
 +--------------------------+-----------------------------------------------------------------------------+
 | Classe                   | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\DateType`          |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -154,3 +154,17 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 .. include:: /reference/forms/types/options/inherit_data.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+Variabili del campo
+-------------------
+
++--------------+------------+----------------------------------------------------------------------+
+| Variabile    | Tipo       | Uso                                                                  |
++==============+============+======================================================================+
+| widget       | ``mixed``  | Il valore dell'opzione `widget`_.                                    |
++--------------+------------+----------------------------------------------------------------------+
+| type         | ``string`` | Presente solo quando widget è ``single_text`` e HTML5 è attivo,      |
+|              |            | contiene il tipo di input (``datetime``, ``date`` o ``time``).       |
++--------------+------------+----------------------------------------------------------------------+
+| date_pattern | ``string`` | Una stringa con il formato di data.                                  |
++--------------+------------+----------------------------------------------------------------------+

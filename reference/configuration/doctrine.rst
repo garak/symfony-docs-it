@@ -5,6 +5,9 @@
 Riferimento configurazione
 ==========================
 
+Configurazione completa predefinita
+-----------------------------------
+
 .. configuration-block::
 
     .. code-block:: yaml
@@ -15,7 +18,7 @@ Riferimento configurazione
                 types:
                     # Un insieme di tipi personalizzati
                     # Esempio
-                    some_custom_type:
+                    un_tipo_personalizzato:
                         class:                Acme\HelloBundle\MioTipoPersonalizzato
                         commented:            true
 
@@ -129,7 +132,7 @@ Riferimento configurazione
                             instance_class:       ~
                             class:                ~
                         connection:           ~
-                        class_metadata_factory_name:    Doctrine\ORM\Mapping\ClassMetadataFactory
+                        class_metadata_factory_name:  Doctrine\ORM\Mapping\ClassMetadataFactory
                         default_repository_class:  Doctrine\ORM\EntityRepository
                         auto_mapping:         false
                         hydrators:

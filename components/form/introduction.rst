@@ -66,31 +66,40 @@ di form.
 Gestione della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Per processare i dati di un form, occorre ricavare informazioni dalla richiesta (solitamente
-dai dati ``$_POST``) e passare l'array dei dati inseriti a
-:method:`Symfony\\Component\\Form\\Form::bind`. Il componente Form può
-integrarsi con il componente :doc:`HttpFoundation </components/http_foundation/introduction>`,
-per rendere le cose ancora più facili.
+.. versionadded:: 2.3
+    Il metodo ``handleRequest()`` è stato introdotto in Symfony 2.3.
 
-Per l'integrazione con HttpFoundation, aggiungere
-:class:`Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension`
-al factory di form::
+Per processare i dati di un form, occorre richiamare il metodo :method:`Symfony\\Component\\Form\\Form::handleRequest`::
 
-    use Symfony\Component\Form\Forms;
-    use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
 
-    $formFactory = Forms::createFormFactoryBuilder()
-        ->addExtension(new HttpFoundationExtension())
-        ->getFormFactory();
+    $form->handleRequest();
 
-Ora, quando si processa un form, si può passare l'oggetto :class:`Symfony\\Component\\HttpFoundation\\Request`
-a :method:`Symfony\\Component\\Form\\Form::bind`, invece
-dell'array dei valori inseriti.
+Dietro le quinte, viene usato un oggetto a :class:`Symfony\\Component\\Form\\NativeRequestHandler`
+per leggere i dati dalle variabili globali di PHP (cioè da ``$_POST`` o da
+``$_GET``), a seconda del metodo HTTP configurato nel form (POST è quello predefinito).
 
-.. note::
+.. sidebar:: Integrazione con il componente HttpFoundation
 
-    Per maggiori informazioni sul componente ``HttpFoundation`` e su come
-    installarlo, vedere :doc:`/components/http_foundation/introduction`.
+    Per l'integrazione con HttpFoundation, aggiungere
+    :class:`Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension`
+    al factory di form::
+
+        use Symfony\Component\Form\Forms;
+        use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
+
+        $formFactory = Forms::createFormFactoryBuilder()
+            ->addExtension(new HttpFoundationExtension())
+            ->getFormFactory();
+
+    Ora, quando si processa un form, si può passare l'oggetto :class:`Symfony\\Component\\HttpFoundation\\Request`
+    a :method:`Symfony\\Component\\Form\\Form::handleRequest`::
+
+        $form->handleRequest($request);
+
+    .. note::
+
+        Per maggiori informazioni sul componente HttpFoundation e su come
+        installarlo, vedere :doc:`/components/http_foundation/introduction`.
 
 Protezione da CSRF
 ~~~~~~~~~~~~~~~~~~
@@ -172,8 +181,10 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     $defaultFormTheme = 'form_div_layout.html.twig';
 
     $vendorDir = realpath(__DIR__ . '/../vendor');
-    // percorso di TwigBridge, che consente a Twig di trovare il file form_div_layout.html.twig
-    $vendorTwigBridgeDir = $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
+    // percorso di TwigBridge, che consente a Twig di trovare il file
+    // form_div_layout.html.twig
+    $vendorTwigBridgeDir =
+        $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
     // percorso degli altri template
     $viewsDir = realpath(__DIR__ . '/../views');
 
@@ -184,7 +195,9 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     $formEngine = new TwigRendererEngine(array($defaultFormTheme));
     $formEngine->setEnvironment($twig);
     // aggiunge FormExtension a Twig
-    $twig->addExtension(new FormExtension(new TwigRenderer($formEngine, $csrfProvider)));
+    $twig->addExtension(
+        new FormExtension(new TwigRenderer($formEngine, $csrfProvider))
+    );
 
     // creare il factory, come al solito
     $formFactory = Forms::createFormFactoryBuilder()
@@ -298,7 +311,8 @@ L'integrazione con il componente Validation sarà simile a questa::
 
     $vendorDir = realpath(__DIR__ . '/../vendor');
     $vendorFormDir = $vendorDir . '/symfony/form/Symfony/Component/Form';
-    $vendorValidatorDir = $vendorDir . '/symfony/validator/Symfony/Component/Validator';
+    $vendorValidatorDir =
+        $vendorDir . '/symfony/validator/Symfony/Component/Validator';
 
     // creare il validatore (i dettagli possono variare)
     $validator = Validation::createValidator();

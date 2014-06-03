@@ -51,13 +51,15 @@ Esempio di utilzzo::
 .. note::
 
     Con l'eccezione del gestore ``files``, nativo di PHP e sempre disponibile,
-    la disponibilità di altri gestore dipende da quali estensioni PHP sono attive a runtime.
+    la disponibilità di altri gestore dipende da quali estensioni PHP sono attive
+    a runtime.
 
 .. note::
 
     I gestori di salvataggio nativi forniscono una soluzione rapida alla memorizzazione di sessioni, tuttavia
-    in sistemi complessi, in cui occorre maggior controllo, i gestori di salvataggio personalizzati possono fornire più
-    libertà e flessibilità. Symfony2 fornisce varie implementazioni, personalizzabili a piacimento.
+    in sistemi complessi, in cui occorre maggior controllo, i gestori di salvataggio personalizzati possono
+    fornire più libertà e flessibilità. Symfony2 fornisce varie implementazioni,
+    personalizzabili a piacimento.
 
 Gestori di salvataggio personalizzati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,7 +83,8 @@ Esempio::
     use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
     use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
-    $storage = new NativeSessionStorage(array(), new PdoSessionHandler());
+    $pdo = new \PDO('mysql:dbname=testdb;host=127.0.0.1');
+    $storage = new NativeSessionStorage(array(), new PdoSessionHandler($pdo));
     $session = new Session($storage);
 
 Configurare le sessioni di PHP

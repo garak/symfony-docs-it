@@ -9,7 +9,6 @@ Il componente Intl
     accesso ai dati di localizzazione della `libreria ICU`_.
 
 .. versionadded:: 2.3
-
     Il componente Intl è stato aggiunto in Symfony 2.3. Nelle precedenti versioni di Symfony,
     va usato il componente Locale al suo posto.
 
@@ -282,7 +281,12 @@ valori multipli (array), il valore del locale specifico e di quello a cascata
 saranno fusi. Per evitare tale comportamento, si può impostare il parametro
 ``$fallback`` a ``false``::
 
-    echo $reader->readEntry('/percorso/del/bundle', 'en', array('Data', 'entry1'), false);
+    echo $reader->readEntry(
+        '/percorso/del/bundle',
+        'en',
+        array('Data', 'entry1'),
+        false
+    );
 
 Accesso ai dati ICU
 -------------------

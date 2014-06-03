@@ -25,6 +25,13 @@ e impostare un parametro nel contenitore con::
 
     $container->setParameter('mailer.transport', 'sendmail');
 
+.. caution::
+
+    La notazione ``.`` usata è solo una
+    :ref:`convenzione di Symfony <service-naming-conventions>` per rendere più
+    leggibili i parametri. I parametri sono solo elementi chiave-vlore e non possono
+    essere organizzati in array.
+
 .. note::
 
     Si può impostare un parametro solo prima che il contenitore sia compilato. Per saperne
@@ -99,7 +106,7 @@ rispetto ad averla legata e nascosta nella definizione del servizio:
 
 .. caution::
 
-    Gli spazin ei valori tra i tag ``parameter`` nei file di configurazione XML non
+    Gli spazi nei valori tra i tag ``parameter`` nei file di configurazione XML non
     sono eliminati.
 
     Questo vuol dire che il seguente pezzo di configurazione avrà come valore
@@ -134,8 +141,8 @@ rendendo un parametro la classe di un servizio:
 
         services:
             mailer:
-                class:     '%mailer.class%'
-                arguments: ['%mailer.transport%']
+                class:     "%mailer.class%"
+                arguments: ["%mailer.transport%"]
 
     .. code-block:: xml
 
@@ -148,7 +155,6 @@ rendendo un parametro la classe di un servizio:
             <service id="mailer" class="%mailer.class%">
                 <argument>%mailer.transport%</argument>
             </service>
-
         </services>
 
     .. code-block:: php
@@ -327,7 +333,7 @@ formati. Si può configurare il comportamento in caso di non esistenza del
 servizio a cui si fa riferimento. Il comportamento predefinito è lanciare
 un eccezione.
 
-Yaml
+YAML
 ~~~~
 
 Aggiungere un ``@`` o ``@?`` a inizio stringa per fare riferimento a un servizio in Yaml.
@@ -337,13 +343,22 @@ Aggiungere un ``@`` o ``@?`` a inizio stringa per fare riferimento a un servizio
 * ``@?mailer`` fa riferimento al servizio ``mailer``. Se il servizio non
   esiste, sarà ignorato;
 
+.. code-block:: yaml
+
+    parameters:
+        # se il servizio 'my_mailer' non è definito, sarà sollevata un'eccezione
+        foo: @my_mailer
+
+        # se il servizio 'my_logger' non è definito, 'bar' sarà nullo
+        bar: @?my_logger
+
 .. tip::
 
     Usare ``@@`` per l'escape del simbolo ``@`` in Yaml. ``@@mailer`` sarà
     convertito nella stringa ``"@mailer"`` invece di fare riferimento al
     servizio ``mailer``.
 
-Xml
+XML
 ~~~
 
 In XML, usare il tipo ``service``. Il comportamento in caso di servizio non esistente
@@ -352,7 +367,17 @@ lanciare un'eccezione. Valori accettabili per ``on-invalid`` sono ``null`` (usa 
 servizio mancante) o ``ignored`` (molto simile, tranne che, se usato su una
 chiamata a metodo, la chiamata viene rimossa).
 
-Php
+.. code-block:: xml
+
+    <parameters>
+        <!-- se il servizio 'my_mailer' non è definito, sarà sollevata un'eccezione -->
+        <parameter key="foo" type="service" id="my_mailer" />
+
+        <!-- se il servizio 'my_logger' non è definito, 'bar' sarà nullo -->
+        <parameter key="bar" type="service" id="my_logger" on-invalid="null" />
+    </parameters>
+
+PHP
 ~~~
 
 In PHP, si può usare la classe
@@ -360,3 +385,15 @@ In PHP, si può usare la classe
 a un servizio. Il comportamento invalido si configura usando il secondo parametro del
 costruttore e le costenati di
 :class:`Symfony\\Component\\DependencyInjection\\ContainerInterface`.
+
+.. code-block:: php
+
+    use Symfony\Component\DependencyInjection\Reference;
+
+    // se il servizio 'my_mailer' non è definito, sarà sollevata un'eccezione
+    $container->setParameter('foo', new Reference('my_mailer'));
+
+    // se il servizio 'my_logger' non è definito, 'bar' sarà nullo
+    $container->setParameter('bar', new Reference('my_logger',
+        ContainerInterface::NULL_ON_INVALID_REFERENCE
+    ));

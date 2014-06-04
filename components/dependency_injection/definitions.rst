@@ -1,5 +1,5 @@
 ﻿.. index::
-   single: Dependency Injection; Definizione di servizi
+   single: DependencyInjection; Definizione di servizi
 
 Lavorare con parametri e definizioni del contenitore
 ====================================================

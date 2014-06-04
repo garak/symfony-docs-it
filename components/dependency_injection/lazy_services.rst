@@ -1,5 +1,5 @@
 .. index::
-   single: Dependency Injection; Servizi pigri
+   single: DependencyInjection; Servizi pigri
 
 Servizi pigri
 =============

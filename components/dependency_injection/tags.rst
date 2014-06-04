@@ -1,8 +1,8 @@
 ﻿.. index::
-   single: Service Container; Tag
+   single: DependencyInjection; Tag
 
-Come far usare i tag ai servizi
-===============================
+Usare i tag nei servizi
+=======================
 
 I tag sono generiche stinghe (con alcune opzioni) che si possono applicare a un
 servizio. Di per sé, i tag non alterano la funzionalità di un servizio in
@@ -16,7 +16,7 @@ una "catena di trasporto", che è un insieme di classi che implementano
 ``\Swift_Transport``. Usando una catena, si vogliono offrire a SwiftMailer diversi
 modi di trasportare un messsaggio, finché uno non ha successo.
 
-Per iniziare, definiamo la classe ``TransportChain``::
+Per iniziare, definire la classe ``TransportChain``::
 
     class TransportChain
     {
@@ -33,7 +33,7 @@ Per iniziare, definiamo la classe ``TransportChain``::
         }
     }
 
-Quindi, definiamo la catena come servizio:
+Quindi, definire la catena come servizio:
 
 .. configuration-block::
 
@@ -69,7 +69,7 @@ Definire servizi con un tag personalizzato
 
 Ora vogliamo che diverse classi ``\Swift_Transport`` siano istanziate e aggiunte
 alla catena automaticamente, usando il metodo ``addTransport()``.
-Come sempio, aggiungiamo i seguenti trasporti come servizi:
+Come esempio, aggiungere i seguenti trasporti come servizi:
 
 .. configuration-block::
 
@@ -117,7 +117,7 @@ che dà un significato a questo tag.
 Creare un ``CompilerPass``
 --------------------------
 
-Il nostro passo di compilatore ora chiede al contenitore ogni servizio che abbia il
+Il passo di compilatore ora chiede al contenitore ogni servizio che abbia il
 tag personalizzato::
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -158,7 +158,7 @@ stesso.
 Registrare il passo con il contenitore
 --------------------------------------
 
-Occorer anche registrare il passo con il contenitore, sarà poi eseguito quando
+Occorerà anche registrare il passo con il contenitore, sarà poi eseguito quando
 il contenitore viene compilato::
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;

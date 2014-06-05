@@ -240,10 +240,10 @@ Proxy per il gestore del salvataggio
 
 Un proxy per il gestore del salvataggio di base avvolge un gestore di salvataggio, che è
 stato introdotto per supportare senza problemi la migrazione da PHP 5.3 a PHP 5.4+.
-Inoltre, crea un punto di estensione da cui di può aggiungere una logica personalizzata, che
-funnzioni indipendentemente da quale gestore sia all'interno.
+Inoltre, crea un punto di estensione da cui si può aggiungere una logica personalizzata, che
+funzioni indipendentemente da quale gestore sia all'interno.
 
-Ci sono due tpi di classi di proxy per il gestore del salvataggio, che ereditano da
+Ci sono due tipi di classi di proxy per il gestore del salvataggio, che ereditano da
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\AbstractProxy`:
 sono :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeProxy`
 e :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\SessionHandlerProxy`.

@@ -484,11 +484,11 @@ per ottenere questo tipo di layout:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <twig:config ...>
-                <twig:form>
-                    <resource>form_table_layout.html.twig</resource>
-                </twig:form>
-                <!-- ... -->
+        <twig:config>
+            <twig:form>
+                <resource>form_table_layout.html.twig</resource>
+            </twig:form>
+            <!-- ... -->
         </twig:config>
 
     .. code-block:: php
@@ -536,7 +536,7 @@ form viene reso.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ...>
+        <framework:config>
             <framework:templating>
                 <framework:form>
                     <resource>AcmeDemoBundle:Form</resource>
@@ -579,7 +579,7 @@ tuttavia, potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ...>
+        <framework:config>
             <framework:templating>
                 <framework:form>
                     <resource>FrameworkBundle:FormTable</resource>
@@ -659,6 +659,23 @@ campo del quale l'*id* è ``product_name`` (e il nome è ``product[name]``).
    manualmente o generato automaticamente basandosi sul tipo di nome del form (es.
    ``ProductType`` equivale a ``product``). Se non si è sicuri di cosa sia
    il nome del form, basta semplicemente vedere il sorgente del form generato.
+
+   Se si vuole cambiare la porzione ``product`` o quella ``name`` del nome
+   ``_product_name_widget`` del blocco, si può impostare l'opzione ``block_name`` nel
+   tipo di form::
+
+        use Symfony\Component\Form\FormBuilderInterface;
+
+        public function buildForm(FormBuilderInterface $builder, array $options)
+        {
+            // ...
+
+            $builder->add('name', 'text', array(
+                'block_name' => 'nome_diverso',
+            ));
+        }
+
+   Il nome del blocco sarà quindi ``_product_nome_diverso_widget``.
 
 È possibile sovrascrivere il markup per un intera riga di campo utilizzando lo stesso metodo:
 
@@ -771,8 +788,17 @@ incollare e personalizzare il frammento ``form_errors``.
     Si veda :ref:`cookbook-form-theming-methods` per come applicare questa personalizzazione.
 
 È anche possibile personalizzare l'output dell'errore per uno specifico tipo di campo.
-Per esempio, alcuni errori che sono globali al form (es. non specifici
-a un singolo campo) sono resi separatamente, di solito all'inizio del form:
+Per personalizzare *solo* il markup usato per tali errori, seguire le stesse istruzioni
+viste sopra, ma inserire i contenuti nel blocco ``_errors`` (o nel file, in caso
+di template PHP). Per esempio, ``text_errors`` (o ``text_errors.html.php``).
+
+.. tip::
+
+    Vedere :ref:`form-template-blocks` per capire quale blocco o file occorra
+    personalizzare.
+
+Alcuni errori, che sono più globali in un form (cioè non sono specifici di un solo
+campo), sono resi a parte, di solito in cima al form:
 
 .. configuration-block::
 
@@ -785,9 +811,46 @@ a un singolo campo) sono resi separatamente, di solito all'inizio del form:
         <?php echo $view['form']->render($form); ?>
 
 Per personalizzare *solo* il markup utilizzato per questi errori, si segue la stesa strada
-de codice sopra ma verrà chiamato il blocco ``form_errors`` (Twig) / il file ``form_errors.html.php``
-(PHP). Ora, quando sono resi gli errori per il ``form``, i frammenti
-personalizzati verranno utilizzati al posto dei ``field_errors`` predefinito.
+del codice sopra verificare che la variabile ``compound`` valga ``true``. Se è
+``true``, vuol dire che ciò che viene reso al momento è una collezione di
+campi (p.e. un form intero) e non solo un campo singolo.
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {# form_errors.html.twig #}
+        {% block form_errors %}
+            {% spaceless %}
+                {% if errors|length > 0 %}
+                    {% if compound %}
+                        <ul>
+                            {% for error in errors %}
+                                <li>{{ error.message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {# ... display the errors for a single field #}
+                    {% endif %}
+                {% endif %}
+            {% endspaceless %}
+        {% endblock form_errors %}
+
+    .. code-block:: html+php
+
+        <!-- form_errors.html.php -->
+        <?php if ($errors): ?>
+            <?php if ($compound): ?>
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php echo $error->getMessage() ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <!-- ... render the errors for a single field -->
+            <?php endif; ?>
+        <?php endif ?>
+
 
 Personalizzare una "riga del form"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -822,7 +885,7 @@ classe all'elemento  ``div`` per ogni riga:
 
 .. tip::
 
-    Si veda :ref:`cookbook-form-theming-methods` per come applicare questa personalizzazione.
+    Si veda :ref:`cookbook-form-theming-methods` per capire come applicare questa personalizzazione.
 
 Aggiungere un asterisco "obbligatorio" alle label del campo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -126,7 +126,7 @@ Dovrebbe essere familiare, essendo la stessa sintassi usata nella configurazione
              ),
         ));
 
-Usare un'estenzione Twig
+Usare un'estensione Twig
 ------------------------
 
 Se la variabile globale da impostare è più complicata, come un oggetto,

@@ -70,7 +70,7 @@ tag:
 
         # app/config/config.yml
         services:
-            kernel.listener.your_listener_name:
+            kernel.listener.nome_ascoltatore:
                 class: Acme\DemoBundle\EventListener\AcmeExceptionListener
                 tags:
                     - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
@@ -78,7 +78,7 @@ tag:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <service id="kernel.listener.your_listener_name" class="Acme\DemoBundle\EventListener\AcmeExceptionListener">
+        <service id="kernel.listener.nome_ascoltatore" class="Acme\DemoBundle\EventListener\AcmeExceptionListener">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
         </service>
 
@@ -86,7 +86,7 @@ tag:
 
         // app/config/config.php
         $container
-            ->register('kernel.listener.your_listener_name', 'Acme\DemoBundle\EventListener\AcmeExceptionListener')
+            ->register('kernel.listener.nome_ascoltatore', 'Acme\DemoBundle\EventListener\AcmeExceptionListener')
             ->addTag('kernel.event_listener', array('event' => 'kernel.exception', 'method' => 'onKernelException'))
         ;
 

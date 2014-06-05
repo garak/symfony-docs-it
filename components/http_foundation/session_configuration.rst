@@ -26,7 +26,7 @@ I gestori cosiddetti 'nativi' sono gestori di sessione che sono o compilati in
 PHP o forniti da estensioni di PHP, come PHP-Sqlite, PHP-Memcached e così via.
 
 Tutti i gestori di salvataggio nativi sono interni a PHP e quindi non hanno API pubbliche.
-Vanno configurati tramite direttive ni, solitamente ``session.save_path``, e
+Vanno configurati tramite direttive ini, solitamente ``session.save_path``, e
 potenzialmente altre direttive specifiche. Si possono trovare altri dettagli nei docblock
 dei metodi ``setOptions()`` di ciascuna classe. Per esempio, quello
 fornito dall'estensione Memcached si può trovare in `php.net/memcached.setoption`_.
@@ -238,8 +238,8 @@ funzionalità di PHP 5.4, se disponibile.
 Proxy per il gestore del salvataggio
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-un proxy per il gestore del salvataggio di base avvolge un gestore di salvataggio, che è
-stato introdotto per supportare senza problemi la migrazione da PHP 5.4 a PHP 5.4+.
+Un proxy per il gestore del salvataggio di base avvolge un gestore di salvataggio, che è
+stato introdotto per supportare senza problemi la migrazione da PHP 5.3 a PHP 5.4+.
 Inoltre, crea un punto di estensione da cui di può aggiungere una logica personalizzata, che
 funnzioni indipendentemente da quale gestore sia all'interno.
 

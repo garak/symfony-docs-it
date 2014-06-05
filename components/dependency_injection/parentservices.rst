@@ -1,5 +1,5 @@
 .. index::
-   single: Dependency Injection; Servizi genitori
+   single: DependencyInjection; Servizi genitori
 
 Come gestire le dipendenze comuni con servizi genitori
 ======================================================

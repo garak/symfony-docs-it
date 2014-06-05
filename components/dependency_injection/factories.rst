@@ -1,5 +1,5 @@
 .. index::
-   single: Dependency Injection; Factory
+   single: DependencyInjection; Factory
 
 Come usare un factory per creare servizi
 ========================================
@@ -20,9 +20,9 @@ Si supponga di avere un factory che configura e restituisce un nuovo oggetto
         public function get()
         {
             $newsletterManager = new NewsletterManager();
-            
+
             // ...
-            
+
             return $newsletterManager;
         }
     }
@@ -41,9 +41,9 @@ il contenitore di servizi per usare la classe factory
             newsletter_factory.class: NewsletterFactory
         services:
             newsletter_manager:
-                class:          %newsletter_manager.class%
-                factory_class:  %newsletter_factory.class%
-                factory_method: get 
+                class:          "%newsletter_manager.class%"
+                factory_class:  "%newsletter_factory.class%"
+                factory_method: get
 
     .. code-block:: xml
 
@@ -54,7 +54,7 @@ il contenitore di servizi per usare la classe factory
         </parameters>
 
         <services>
-            <service id="newsletter_manager" 
+            <service id="newsletter_manager"
                      class="%newsletter_manager.class%"
                      factory-class="%newsletter_factory.class%"
                      factory-method="get"
@@ -92,11 +92,11 @@ factory stesso come servizio:
             newsletter_factory.class: NewsletterFactory
         services:
             newsletter_factory:
-                class:            %newsletter_factory.class%
+                class:            "%newsletter_factory.class%"
             newsletter_manager:
-                class:            %newsletter_manager.class%
+                class:            "%newsletter_manager.class%"
                 factory_service:  newsletter_factory
-                factory_method:   get 
+                factory_method:   get
 
     .. code-block:: xml
 
@@ -108,7 +108,7 @@ factory stesso come servizio:
 
         <services>
             <service id="newsletter_factory" class="%newsletter_factory.class%"/>
-            <service id="newsletter_manager" 
+            <service id="newsletter_manager"
                      class="%newsletter_manager.class%"
                      factory-service="newsletter_factory"
                      factory-method="get"
@@ -156,13 +156,13 @@ dell'esempio precedente accetti un servizio ``templating`` come parametro:
             newsletter_factory.class: NewsletterFactory
         services:
             newsletter_factory:
-                class:            %newsletter_factory.class%
+                class:            "%newsletter_factory.class%"
             newsletter_manager:
-                class:            %newsletter_manager.class%
+                class:            "%newsletter_manager.class%"
                 factory_service:  newsletter_factory
                 factory_method:   get
                 arguments:
-                    -             @templating
+                    - "@templating"
 
     .. code-block:: xml
 
@@ -174,7 +174,7 @@ dell'esempio precedente accetti un servizio ``templating`` come parametro:
 
         <services>
             <service id="newsletter_factory" class="%newsletter_factory.class%"/>
-            <service id="newsletter_manager" 
+            <service id="newsletter_manager"
                      class="%newsletter_manager.class%"
                      factory-service="newsletter_factory"
                      factory-method="get"
@@ -193,7 +193,7 @@ dell'esempio precedente accetti un servizio ``templating`` come parametro:
 
         $container->setDefinition('newsletter_factory', new Definition(
             '%newsletter_factory.class%'
-        ))
+        ));
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
             array(new Reference('templating'))

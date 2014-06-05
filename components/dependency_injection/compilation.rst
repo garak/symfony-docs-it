@@ -1,5 +1,5 @@
 ﻿.. index::
-   single: Dependency Injection; Compilazione
+   single: DependencyInjection; Compilazione
 
 Compilazione del contenitore
 ============================

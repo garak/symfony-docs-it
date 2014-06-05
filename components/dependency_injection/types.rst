@@ -1,5 +1,5 @@
 ﻿.. index::
-   single: Dependency Injection; Tipi di iniezione
+   single: DependencyInjection; Tipi di iniezione
 
 Tipi di iniezione
 =================

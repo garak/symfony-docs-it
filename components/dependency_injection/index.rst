@@ -1,5 +1,5 @@
-﻿Dependency injection
-====================
+﻿DependencyInjection
+===================
 
 .. toctree::
     :maxdepth: 2

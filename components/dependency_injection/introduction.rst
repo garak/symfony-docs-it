@@ -1,9 +1,9 @@
 .. index::
-    single: Dependency Injection
+    single: DependencyInjection
     single: Componenti; DependencyInjection
 
-Il componente Dependency Injection
-==================================
+Il componente DependencyInjection
+=================================
 
     Il componente Dependency Injection consente di standardizzare e centralizzare
     il modo in cui gli oggetti sono costruiti nelle applicazioni.
@@ -269,7 +269,7 @@ da file di configurazione:
         $container->setParameter('mailer.transport', 'sendmail');
         $container
             ->register('mailer', 'Mailer')
-           ->addArgument('%mailer.transport%');
+            ->addArgument('%mailer.transport%');
 
         $container
             ->register('newsletter_manager', 'NewsletterManager')

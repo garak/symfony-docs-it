@@ -594,7 +594,7 @@ su un form dato.
 
 Un pezzo ancora mancante è l'aggiornamento lato client del form, dopo la
 scelta dello sport. Lo si può gestire tramite una chiamata AJAX
-all'applicazione. Ipotizzando di avere un controllore per la creazione:
+all'applicazione. Ipotizzando di avere un controllore per la creazione::
 
     // src/Acme/DemoBundle/Controller/MeetupController.php
     namespace Acme\DemoBundle\Controller;

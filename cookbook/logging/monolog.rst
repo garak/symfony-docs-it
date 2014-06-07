@@ -401,7 +401,7 @@ tag ``monolog.processor``:
             ->addArgument(new Reference('session'))
             ->addTag('monolog.processor', array('method' => 'processRecord', 'handler' => 'main'));
 
-Registrare processori per gestore
+Registrare processori per canale
 --------------------------------
 
 Si può registrare processori per canale, usando l'opzione ``channel`` del

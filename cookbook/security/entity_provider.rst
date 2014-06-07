@@ -78,11 +78,6 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         private $username;
 
         /**
-         * @ORM\Column(type="string", length=32)
-         */
-        private $salt;
-
-        /**
          * @ORM\Column(type="string", length=64)
          */
         private $password;
@@ -100,7 +95,8 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         public function __construct()
         {
             $this->isActive = true;
-            $this->salt = md5(uniqid(null, true));
+            // potrebbe non essere necessario, vedere la sezione sul sale più avanti
+            // $this->salt = md5(uniqid(null, true));
         }
 
         /**
@@ -116,7 +112,9 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
          */
         public function getSalt()
         {
-            return $this->salt;
+            // *potrebbe* non essere necessario un vero sale, a seconda del codificatore
+            // vedere la sezione sul sale più avanti
+            return null;
         }
 
         /**
@@ -150,8 +148,9 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
             return serialize(array(
                 $this->id,
                 $this->username,
-                $this->salt,
                 $this->password,
+                // vedere la sezione sul sale più avanti
+                // $this->salt,
             ));
         }
 
@@ -163,8 +162,9 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
             list (
                 $this->id,
                 $this->username,
-                $this->salt,
                 $this->password,
+                // vedere la sezione sul sale più avanti
+                // $this->salt
             ) = unserialize($serialized);
         }
     }
@@ -204,7 +204,7 @@ Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Securit
     sono stati aggiunti per consentire alla classe ``User`` di essere serializzata
     nella sessione. Questo potrebbe essere necessario o meno, a seconda della configurazione,
     ma probabilmente è una buona idea. Solo ``id`` ha bisogno di essere serializzato,
-    perché il metodo 
+    perché il metodo
     :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
     ricarica l'utente a ogni richiesta, usando ``id``. In pratica,
     questo vuole dire che l'oggetto User è ricaricato dalla base dati a ogni
@@ -226,16 +226,30 @@ delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-secu
 
 .. code-block:: bash
 
-    $ mysql> select * from acme_users;
-    +----+----------+------+------------------------------------------+--------------------+-----------+
-    | id | username | salt | password                                 | email              | is_active |
-    +----+----------+------+------------------------------------------+--------------------+-----------+
-    |  1 | admin    |      | d033e22ae348aeb5660fc2140aec35850c4da997 | admin@example.com  |         1 |
-    +----+----------+------+------------------------------------------+--------------------+-----------+
+    $ mysql> SELECT * FROM acme_users;
+    +----+----------+------------------------------------------+--------------------+-----------+
+    | id | username | password                                 | email              | is_active |
+    +----+----------+------------------------------------------+--------------------+-----------+
+    |  1 | admin    | d033e22ae348aeb5660fc2140aec35850c4da997 | admin@example.com  |         1 |
+    +----+----------+------------------------------------------+--------------------+-----------+
 
 Nella prossima parte, vedremo come autenticare uno di questi utenti,
 grazie al fornitore di entità di Doctrine e a un paio di righe di
 configurazione.
+
+.. sidebar:: Occorre usare un sale?
+
+    Sì. L'hash di una password con un sale è un passo necessario, in modo che le
+    password non possano essere decodificate. Tuttavia, alcuni codificatori, come Bcrypt, hanno
+    un meccanismo predefinito per il sale. Se si configura ``bcrypt`` come codificatore
+    in ``security.yml`` (vedere la  sezione successiva), allora ``getSalt()`` dovrebbe
+    restituire ``null``, poiché Bcrypt genera il sale da solo.
+
+    Se tuttavia si usa un codificatore che *non* abbia un meccanismo predefinito
+    per il sale (come ``sha512``), si *deve* (dal punto di vista della sicurezza) generare
+    il proprio sale, in modo casuale, e memorizzarlo in una proprietà ``salt``, che sia salvata
+    nella base dati e restituita da ``getSalt()``. Il codice necessario
+    è presente nell'esempio precedente, commentato.
 
 Autenticazione con utenti sulla base dati
 -----------------------------------------
@@ -257,9 +271,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
         security:
             encoders:
                 Acme\UserBundle\Entity\User:
-                    algorithm:        sha1
-                    encode_as_base64: false
-                    iterations:       1
+                    algorithm: bcrypt
 
             role_hierarchy:
                 ROLE_ADMIN:       ROLE_USER
@@ -282,9 +294,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
         <!-- app/config/security.xml -->
         <config>
             <encoder class="Acme\UserBundle\Entity\User"
-                algorithm="sha1"
-                encode-as-base64="false"
-                iterations="1"
+                algorithm="bcrypt"
             />
 
             <role id="ROLE_ADMIN">ROLE_USER</role>
@@ -307,9 +317,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
         $container->loadFromExtension('security', array(
             'encoders' => array(
                 'Acme\UserBundle\Entity\User' => array(
-                    'algorithm'         => 'sha1',
-                    'encode_as_base64'  => false,
-                    'iterations'        => 1,
+                    'algorithm' => 'bcrypt',
                 ),
             ),
             'role_hierarchy' => array(
@@ -335,11 +343,13 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
             ),
         ));
 
-La sezione ``encoders`` associa il codificatore ``sha1`` alla classe entità.
+La sezione ``encoders`` associa il codificatore ``bcrypt`` alla classe entità.
 Ciò vuol dire che Symfony si aspetta che le password siano codificate nella
 base dati, tramite tale algoritmo. Per maggiori dettagli su come creare un nuovo
 oggetto utente, vedere la sezione
 :ref:`book-security-encoding-user-password` del capitolo sulla sicurezza.
+
+.. include:: /cookbook/security/_ircmaxwell_password-compat.rst.inc
 
 La sezione ``providers`` definsice un fornitore di utenti ``administrators``. Un
 fornitore di utenti è una "sorgente" da cui gli utenti vengono caricati durante
@@ -619,7 +629,7 @@ dell'applicazione::
     use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @ORM\Table(name="acme_roles")
+     * @ORM\Table(name="acme_role")
      * @ORM\Entity()
      */
     class Role implements RoleInterface
@@ -749,3 +759,45 @@ In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una 
 Il metodo ``QueryBuilder::leftJoin()`` recupera con un join i ruoli correlati dalla
 classe del modello ``AcmeUserBundle:User``, quando un utente viene recuperato con la sua
 email o con il suo nome.
+
+.. _`cookbook-security-serialize-equatable`:
+
+Capire la serializzazione e come un utente è salvato in sessione
+----------------------------------------------------------------
+
+Questa sezione è per chi fosse curioso riguardo all'importanza del metodo ``serialize()``
+della classe ``User`` o su come l'oggetto utente sia serializzato e
+deserializzato.
+
+Una volta che l'utente ha eseguito l'accesso l'intero oggetto ``User`` è serializzato
+in sessione. Alla richiesta successiva, l'oggetto ``User`` è deserializzato. Quindi,
+viene usato il valore della proprietà ``id`` per cercare nuovamente l'oggetto ``User``
+nella base dati. Infine, il nuovo oggetto ``User`` viene confrontato in qualche modo
+all'oggetto deserializzato, per assicurarsi che rappresenti lo stesso utente. Per esempio, se
+per qualche motivo la proprietà ``username`` non corrisponde, l'utente
+sarà buttato fuori, per questioni di sicurezza.
+
+Anche se tutto ciò avviene in modo automatico, ci sono alcuni importanti effetti collaterali.
+
+Primo, l'interfaccia :phpclass:`Serializable` e i suoi metodi ``serialize`` e ``unserialize``
+sono stati aggiunti, per consentire alla classe ``User`` di essere serializzata
+in sessione. Questo potrebbe essere necessario o meno, a seconda della propria configurazione,
+ma è probabilmente una buona idea. In teoria, basterebbe serializzare solo ``id``,
+perché il metodo :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
+aggiorna l'utente a ciascuna richiesta, usando ``id`` (come spiegato
+sopra). In pratica, tuttavia, questo vuol dire che l'oggetto ``User`` viene ricaricato
+dalla base dati a ogni richiesta, usando ``id`` dall'oggetto serializzato.
+Questo assicura che tutti i dati dell'utente siano aggiornati.
+
+Symfony usa anche ``username``, ``salt`` e ``password`` per verificare che
+l'utente non sia cambiato tra una richiesta e l'altra. Non serializzare queste informazioni
+potrebbe causare il logout dell'utente. Se ``User`` implementa
+:class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
+invece di confrontare queste proprietà, viene semplicemente richiamato il metodo ``isEqualTo``
+e si possono verificare tutte le proprietà desiderate. Se questo aspetto non è chiaro,
+probabilmente è meglio non implementare questa interfaccia.
+
+
+.. versionadded:: 2.1
+    In Symfony 2.1, è stato rimosso il metodo ``equals`` da ``UserInterface``
+    ed è stata introdotta l'interfaccia ``EquatableInterface`` al suo posto.

@@ -81,3 +81,55 @@ di nome ``sidebar.twig`` in tale cartella, si può usare facilmente:
 .. code-block:: jinja
 
     {% include '@pippo_pluto/side.bar.twig' %}
+
+Percorsi multipli per spazio dei nomi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si possono anche assegnare più percorsi allo stesso spazio dei nomi di template. L'ordine in
+cui i percorsi sono configurati è molto importante, perché Twig cercherà sempre di caricare
+il primo template che esiste, iniziando dal primo percorso configurato. Questa
+caratteristica può essere usata come meccanismo di fallback, per caricare template generici quando
+il template specifico non esiste.
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        twig:
+            # ...
+            paths:
+                "%kernel.root_dir%/../vendor/acme/themes/theme1": theme
+                "%kernel.root_dir%/../vendor/acme/themes/theme2": theme
+                "%kernel.root_dir%/../vendor/acme/themes/common": theme
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+                   xmlns:twig="http://symfony.com/schema/dic/twig"
+        >
+
+            <twig:config debug="%kernel.debug%" strict-variables="%kernel.debug%">
+                <twig:path namespace="theme">%kernel.root_dir%/../vendor/acme/themes/theme1</twig:path>
+                <twig:path namespace="theme">%kernel.root_dir%/../vendor/acme/themes/theme2</twig:path>
+                <twig:path namespace="theme">%kernel.root_dir%/../vendor/acme/themes/common</twig:path>
+            </twig:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('twig', array(
+            'paths' => array(
+                '%kernel.root_dir%/../vendor/acme/themes/theme1' => 'theme',
+                '%kernel.root_dir%/../vendor/acme/themes/theme2' => 'theme',
+                '%kernel.root_dir%/../vendor/acme/themes/common' => 'theme',
+            );
+        ));
+
+Ora si può usare lo stesso spazio dei nomi ``@theme`` per fare riferimento a qualsiasi template che si trovi
+nelle precedenti tre cartelle:
+
+.. code-block:: jinja
+
+    {% include '@theme/header.twig' %}

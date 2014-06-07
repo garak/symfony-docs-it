@@ -80,6 +80,7 @@ consente di loggare facilmente i messaggi in molti modi.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -180,6 +181,7 @@ Il proprio formattatore deve implementare
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -294,6 +296,8 @@ usando un processore.
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:monolog="http://symfony.com/schema/dic/monolog"
@@ -348,6 +352,99 @@ usando un processore.
 .. note::
 
     Se si usano molti gestori, si può anche registrare il processore a livello
-    di gestore, invece che globalmente.
+    di gestore o a livello di canale, invece che globalmente
+    (vedere le sezioni seguenti).
+
+Registrare processori per gestore
+---------------------------------
+
+Si può registrare processori per gestore, usando l'opzione ``handler`` del
+tag ``monolog.processor``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        services:
+            monolog.processor.session_request:
+                class: Acme\MyBundle\SessionRequestProcessor
+                arguments:  ["@session"]
+                tags:
+                    - { name: monolog.processor, method: processRecord, handler: main }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:monolog="http://symfony.com/schema/dic/monolog"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/monolog
+                http://symfony.com/schema/dic/monolog/monolog-1.0.xsd"
+        >
+            <services>
+                <service id="monolog.processor.session_request" class="Acme\MyBundle\SessionRequestProcessor">
+                    <argument type="service" id="session" />
+                    <tag name="monolog.processor" method="processRecord" handler="main" />
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container
+            ->register('monolog.processor.session_request', 'Acme\MyBundle\SessionRequestProcessor')
+            ->addArgument(new Reference('session'))
+            ->addTag('monolog.processor', array('method' => 'processRecord', 'handler' => 'main'));
+
+Registrare processori per gestore
+--------------------------------
+
+Si può registrare processori per canale, usando l'opzione ``channel`` del
+tag ``monolog.processor``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        services:
+            monolog.processor.session_request:
+                class: Acme\MyBundle\SessionRequestProcessor
+                arguments:  ["@session"]
+                tags:
+                    - { name: monolog.processor, method: processRecord, channel: main }
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:monolog="http://symfony.com/schema/dic/monolog"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/monolog
+                http://symfony.com/schema/dic/monolog/monolog-1.0.xsd"
+        >
+            <services>
+                <service id="monolog.processor.session_request" class="Acme\MyBundle\SessionRequestProcessor">
+                    <argument type="service" id="session" />
+                    <tag name="monolog.processor" method="processRecord" channel="main" />
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container
+            ->register('monolog.processor.session_request', 'Acme\MyBundle\SessionRequestProcessor')
+            ->addArgument(new Reference('session'))
+            ->addTag('monolog.processor', array('method' => 'processRecord', 'channel' => 'main'));
 
 .. _Monolog: https://github.com/Seldaek/monolog

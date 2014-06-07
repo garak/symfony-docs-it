@@ -24,6 +24,10 @@ Eesempio: in un form di registrazione, si ha un campo "country" e un campo "stat
 che va popolato automaticamente in base al valore del campo
 "country".
 
+Se si vuole approfondire le basi che stanno dietro agli eventi dei form, si può
+dare un'occhiata alla documentazione sugli
+the :doc:`eventi dei form </components/form/form_events>`.
+
 .. _cookbook-form-events-underlying-data:
 
 Personalizzare un form in base ai dati sottostanti
@@ -80,11 +84,11 @@ flessibilità ai form.
 
 .. _`cookbook-forms-event-listener`:
 
-Aggiungere un evento sottoscrittore alla classe di un form
-----------------------------------------------------------
+Aggiungere un ascoltatore di eventi alla classe di un form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Invece di aggiungere direttamente il widget ``name``, si delega la responsabilità di
-creare questo particolare campo a un ascoltatore di eventi::
+Quindi, invece di aggiungere direttamente ``name``, la responsabilità di
+creare tale campo è delegata a un ascoltatore di eventi::
 
     // src/Acme/DemoBundle/Form/Type/ProductType.php
     namespace Acme\DemoBundle\Form\Type;
@@ -100,7 +104,7 @@ creare questo particolare campo a un ascoltatore di eventi::
             $builder->add('price');
 
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-                // ... aggiungere il nome del campo, se necessario
+                // ... aggiungere il campo name, se necessario
             });
         }
 
@@ -108,9 +112,9 @@ creare questo particolare campo a un ascoltatore di eventi::
     }
 
 
-Lo scopo è quello di creare un campo ``name`` *solo* se l'oggetto ``Product``
-sottostante è novo (cioè se non è stato persistito). In base a questo,
-l'ascoltatore di eventi potrebbe assomigliare al sequente::
+Lo scopo è quello di creare un campo ``name`` *solo* se l'oggetto ``Product`` sottostante
+è nuovo (cioè se non è stato persistito sulla base dati). In base a questo,
+l'ascoltatore di eventi potrebbe somigliare a questo::
 
     // ...
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -121,9 +125,9 @@ l'ascoltatore di eventi potrebbe assomigliare al sequente::
             $form = $event->getForm();
 
             // verifica se l'oggetto Product sia "nuovo"
-            // In assenza di dati passati al form, i dati sono nulli,
-            // quindi il prodotto va considerato "nuovo"
-            if (!$product || null === $product->getId()) {
+            // Se non sono stati passati dati al form, i dati sono "null".
+            // Questo va considerato un nuovo Product
+            if (!$product || null !== $product->getId()) {
                 $form->add('name', 'text');
             }
         });
@@ -135,40 +139,22 @@ l'ascoltatore di eventi potrebbe assomigliare al sequente::
     è stata aggiunta in Symfony 2.2.
 
 .. note::
-    Al posto di una closure, si può usare un qualsiasi callback, cioè una chiamata
-    a metodo sull'oggetto ``ProductType`` stesso, per maggiore leggibilità::
 
-        // ...
-        class ProductType extends AbstractType
-        {
-            public function buildForm(FormBuilderInterface $builder, array $options)
-            {
-                // ...
-                $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
-            }
-
-            public function onPreSetData(FormEvent $event){
-                // ...
-            }
-        }
-
-.. note::
-
-    La riga ``FormEvents::PRE_SET_DATA`` si risolve effettivamente nella stringa
+    La riga ``FormEvents::PRE_SET_DATA`` viene risolta in
     ``form.pre_set_data``. :class:`Symfony\\Component\\Form\\FormEvents`
-    ha uno scopo organizzativo. È un posto centralizzato in cui si
-    possono trovare tutti gli eventi disponibili per i form. Si può vedere
-    l'elenco completo degli eventi dei form tramite la classe
-    :class:`Symfony\\Component\\Form\\FormEvents`.
+    ha uno scopo organizzativo. È un posto centralizzato in cui
+    si possono trovare tutti i vari eventi disponibili per i form. La lista
+    completa degli eventi è nella classe
+    class:`Symfony\\Component\\Form\\FormEvents`.
 
 .. _`cookbook-forms-event-subscriber`:
 
-Dentro la classe dell'evento sottoscrittore
--------------------------------------------
+Aggiungere un sottoscrittore di eventi alla classe di un form
+-------------------------------------------------------------
 
-L'obiettivo è di creare un campo "name" *solo* se l'oggetto Prodotto sottostante
-è nuovo (cioè non è stato persistito nella base dati). Basandosi su questo, l'sottoscrittore
-potrebbe essere simile a questo::
+Per una migliore riusabilità o se c'è della logica in un ascoltatore di eventi,
+si può spostare la logica per creare il campo ``name`` in un
+:ref:`sottoscrittore di eventi <event_dispatcher-using-event-subscribers>`::
 
     // src/Acme/DemoBundle/Form/Type/ProductType.php
     namespace Acme\DemoBundle\Form\Type;
@@ -329,13 +315,13 @@ e scrivere la logica dell'ascoltatore::
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) use ($user) {
+                function (FormEvent $event) use ($user) {
                     $form = $event->getForm();
 
                     $formOptions = array(
                         'class' => 'Acme\DemoBundle\Entity\User',
                         'property' => 'fullName',
-                        'query_builder' => function(EntityRepository $er) use ($user) {
+                        'query_builder' => function (EntityRepository $er) use ($user) {
                             // usare una query personalizzata 
                             // return $er->createQueryBuilder('u')->addOrderBy('fullName', 'DESC');
 
@@ -476,6 +462,7 @@ accedere a ciascuno sport in questo modo::
     // src/Acme/DemoBundle/Form/Type/SportMeetupType.php
     namespace Acme\DemoBundle\Form\Type;
 
+    use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\Form\FormEvent;
     use Symfony\Component\Form\FormEvents;
@@ -486,23 +473,33 @@ accedere a ciascuno sport in questo modo::
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder
-                ->add('sport', 'entity', array(...))
+                ->add('sport', 'entity', array(
+                    'class'       => 'AcmeDemoBundle:Sport',
+                    'empty_value' => '',
+                ))
             ;
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) {
+                function (FormEvent $event) {
                     $form = $event->getForm();
 
                     // questa sarà l'entità, p.e. SportMeetup
                     $data = $event->getData();
 
-                    $positions = $data->getSport()->getAvailablePositions();
+                    $sport = $data->getSport();
+                    $positions = null === $sport ? array() : $sport->getAvailablePositions();
 
-                    $form->add('position', 'entity', array('choices' => $positions));
+                    $form->add('position', 'entity', array(
+                        'class'       => 'AcmeDemoBundle:Position',
+                        'empty_value' => '',
+                        'choices'     => $positions,
+                    ));
                 }
             );
         }
+
+        // ...
     }
 
 Quando si costruisce il form per mostrarlo per la prima volta all'utente,
@@ -539,26 +536,33 @@ La classe ora sarà così::
     namespace Acme\DemoBundle\Form\Type;
 
     // ...
-    use Acme\DemoBundle\Entity\Sport;
     use Symfony\Component\Form\FormInterface;
+    use Acme\DemoBundle\Entity\Sport;
 
     class SportMeetupType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder
-                ->add('sport', 'entity', array(...))
+                ->add('sport', 'entity', array(
+                    'class'       => 'AcmeDemoBundle:Sport',
+                    'empty_value' => '',
+                ));
             ;
 
-            $formModifier = function(FormInterface $form, Sport $sport) {
-                $positions = $sport->getAvailablePositions();
+            $formModifier = function (FormInterface $form, Sport $sport = null) {
+                $positions = null === $sport ? array() : $sport->getAvailablePositions();
 
-                $form->add('position', 'entity', array('choices' => $positions));
+                $form->add('position', 'entity', array(
+                    'class'       => 'AcmeDemoBundle:Position',
+                    'empty_value' => '',
+                    'choices'     => $positions,
+                ));
             };
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) use ($formModifier) {
+                function (FormEvent $event) use ($formModifier) {
                     // questa sarebbe l'entità, p.e. SportMeetup
                     $data = $event->getData();
 
@@ -579,46 +583,155 @@ La classe ora sarà così::
                 }
             );
         }
+
+        // ...
     }
 
 Si può vedere come occorra scoltare questi due eventi e avere callback diversi,
-solo perché in due scenari diversi i dati che si possono usare vengono restituiti in eventi diversi.
-Oltre a questo, gli ascoltatori eseguono esattamente le stesse cose su un form dato.
+solo perché in due scenari diversi i dati che si possono usare vengono restituiti in
+eventi diversi. Oltre a questo, gli ascoltatori eseguono esattamente le stesse cose
+su un form dato.
 
 Un pezzo ancora mancante è l'aggiornamento lato client del form, dopo la
 scelta dello sport. Lo si può gestire tramite una chiamata AJAX
-all'applicazione. Nel controllore, si può eseguire il bind del form e,
-invece di processarlo, usare semplicemente il form per rendere i campi
-aggiornati. La risposta della chiamata AJAX può quindi essere usata per aggiornare la vista.
+all'applicazione. Ipotizzando di avere un controllore per la creazione:
+
+    // src/Acme/DemoBundle/Controller/MeetupController.php
+    namespace Acme\DemoBundle\Controller;
+
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Component\HttpFoundation\Request;
+    use Acme\DemoBundle\Entity\SportMeetup;
+    use Acme\DemoBundle\Form\Type\SportMeetupType;
+    // ...
+
+    class MeetupController extends Controller
+    {
+        public function createAction(Request $request)
+        {
+            $meetup = new SportMeetup();
+            $form = $this->createForm(new SportMeetupType(), $meetup);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                // ... salvare, rinviare, ecc.
+            }
+
+            return $this->render(
+                'AcmeDemoBundle:Meetup:create.html.twig',
+                array('form' => $form->createView())
+            );
+        }
+
+        // ...
+    }
+
+Il template associato usa un po' di JavaScript per aggiornare il campo ``position`` del form,
+a seconda del valore selezionato nel campo ``sport``:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {# src/Acme/DemoBundle/Resources/views/Meetup/create.html.twig #}
+        {{ form_start(form) }}
+            {{ form_row(form.sport) }}    {# <select id="meetup_sport" ... #}
+            {{ form_row(form.position) }} {# <select id="meetup_position" ... #}
+            {# ... #}
+        {{ form_end(form) }}
+
+        <script>
+        var $sport = $('#meetup_sport');
+        // Quando è stato selezionato lo sport ...
+        $sport.change(function() {
+          // ... recupera il form corrispondente.
+          var $form = $(this).closest('form');
+          // Simula i dati del form, ma include solo il valore selezionato di sport.
+          var data = {};
+          data[$sport.attr('name')] = $sport.val();
+          // Invia i dati tramite AJAX al percorso dell'azione del form
+          $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data,
+            success: function(html) {
+              // Sostituisce il campo della posizione attuale ...
+              $('#meetup_position').replaceWith(
+                // ... con quello restituito dalla risposta AJAX.
+                $(html).find('#meetup_position')
+              );
+              // Il campo position ora mostra le posizioni appropriate.
+            }
+          });
+        });
+        </script>
+
+    .. code-block:: html+php
+
+        <!-- src/Acme/DemoBundle/Resources/views/Meetup/create.html.php -->
+        <?php echo $view['form']->start($form) ?>
+            <?php echo $view['form']->row($form['sport']) ?>    <!-- <select id="meetup_sport" ... -->
+            <?php echo $view['form']->row($form['position']) ?> <!-- <select id="meetup_position" ... -->
+            <!-- ... -->
+        <?php echo $view['form']->end($form) ?>
+
+        <script>
+        var $sport = $('#meetup_sport');
+        // Quando è stato selezionato lo sport ...
+        $sport.change(function() {
+          // ... recupera il form corrispondente.
+          var $form = $(this).closest('form');
+          // Simula i dati del form, ma include solo il valore selezionato di sport.
+          var data = {};
+          data[$sport.attr('name')] = $sport.val();
+          // Invia i dati tramite AJAX al percorso dell'azione del form
+          $.ajax({
+            url : $form.attr('action'),
+            type: $form.attr('method'),
+            data : data,
+            success: function(html) {
+              // Sostituisce il campo della posizione attuale ...
+              $('#meetup_position').replaceWith(
+                // ... con quello restituito dalla risposta AJAX.
+                $(html).find('#meetup_position')
+              );
+              // Il campo position ora mostra le posizioni appropriate.
+            }
+          });
+        });
+        </script>
+
+Il vantaggio maggiore di inviare l'intero form per estrarre solo il campo
+``position`` aggiornato è che non serve alcun codice aggiuntivo lato server: tutto
+il codice precedente per generare il form inviato può essere riutilizzato.
 
 .. _cookbook-dynamic-form-modification-suppressing-form-validation:
 
-Sopprimere la validazione di un form
-------------------------------------
+Sopprimere la validazione
+-------------------------
 
-Per sopprimere la validazione di un form, si può usare l'evento ``POST_SUBMIT`` ed evitare che
-:class:`Symfony\\Component\\Form\\Extension\\Validator\\EventListener\\ValidationListener`
+Per sopprimere la validazione di un form, si può usare l'evento ``POST_SUBMIT`` e impedire
+che :class:`Symfony\\Component\\Form\\Extension\\Validator\\EventListener\\ValidationListener`
 sia richiamato.
 
-Un possibile motivo per farlo è che, anche impostando ``group_validation``
-a ``false``, ci sono comunque alcune verifiche di integrità. Per esempio,
-un file caricato verrà comunque controllato per vedere se è troppo grosso e il form
-verificherà eventuali campi non esistenti. Per disabilitare tutto,
-usare un ascoltatore::
+Una possibile ragione per farlo è che, pur avendo impostato ``group_validation``
+a ``false``, ci sono alcune verifiche di integrità. Per esempio,
+c'è una verifica che un file caricato non sia troppo grosso e il form
+verificherà se siano stati inviati campi inesistenti. Per disabilitare
+tutto ciò. usare un ascoltatore::
 
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\Form\FormEvents;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function($event) {
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
             $event->stopPropagation();
-        }, 900); // Impostare sempre una priorità maggiore di quella di ValidationListener
+        }, 900); // Impostare sempre una priorità maggiore di ValidationListener
 
         // ...
     }
 
 .. caution::
 
-    In questo modo, si potrebbe disbilitare involontariamente qualcos'altro, oltre alla
-    validazione del form, poiché l'evento ``POST_SUBMIT`` potrebbe avere altri ascoltatori.
+    In questo modo, si potrebbe disabilitare erroneamente qualcosa di più della
+    sola validazione di form, perché l'evento ``POST_SUBMIT`` potrebbe avere altri ascoltatori.

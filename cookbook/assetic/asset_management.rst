@@ -54,8 +54,6 @@ Includere file JavaScript
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per includere file JavaScript, usare il tag ``javascript`` in un template.
-Solitamente lo si farà nel blocck ``javascripts``, se si usano i nomi
-di blocchi predefiniti in Symfony Standard Distribution:
 
 .. configuration-block::
 
@@ -72,6 +70,22 @@ di blocchi predefiniti in Symfony Standard Distribution:
         ) as $url): ?>
             <script type="text/javascript" src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
+
+.. note::
+
+    Se si usano i nomi di blocchi predefiniti di Symfony Standard Edition,
+    il tag ``javascripts`` si troverà solitamente nel blocco ``javascripts``:
+
+
+    .. code-block:: html+jinja
+
+        {# ... #}
+        {% block javascripts %}
+            {% javascripts '@AcmeFooBundle/Resources/public/js/*' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+        {# ... #}
 
 .. tip::
 
@@ -95,9 +109,7 @@ Includere fogli di stile CSS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per usare fogli di stile CSS, si può usare la stessa metodologia vista
-sopra, tranne per l'uso del tag ``stylesheets``. Se si usano i nomi di blocchi
-predefiniti in Symfony Standard Distribution, si troverà di solito
-in un blocco ``stylesheets``:
+sopra, tranne per l'uso del tag ``stylesheets``.
 
 .. configuration-block::
 
@@ -115,6 +127,22 @@ in un blocco ``stylesheets``:
         ) as $url): ?>
             <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
         <?php endforeach; ?>
+
+.. note::
+
+    Se si usano i nomi di blocchi predefiniti di Symfony Standard Edition,
+    il tag ``stylesheets``si troverà di solito in un blocco ``stylesheets``:
+
+
+    .. code-block:: html+jinja
+
+        {# ... #}
+        {% block stylesheets %}
+            {% stylesheets 'bundles/acme_foo/css/*' filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        {# ... #}
 
 Ma poiché Assetic cambia i percorsi delle risorse, *non* funzioneranno tutte
 le immagini di sfondo (o altri percorsi) che usano percorsi relativi, a meno di
@@ -188,8 +216,8 @@ come un unico file:
 
         {% javascripts
             '@AcmePippoBundle/Resources/public/js/*'
-            '@AcmeBarBundle/Resources/public/js/form.js'
-            '@AcmeBarBundle/Resources/public/js/calendar.js' %}
+            '@AcmePlutoBundle/Resources/public/js/form.js'
+            '@AcmePlutoBundle/Resources/public/js/calendar.js' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
@@ -198,8 +226,8 @@ come un unico file:
         <?php foreach ($view['assetic']->javascripts(
             array(
                 '@AcmePippoBundle/Resources/public/js/*',
-                '@AcmeBarBundle/Resources/public/js/form.js',
-                '@AcmeBarBundle/Resources/public/js/calendar.js',
+                '@AcmePlutoBundle/Resources/public/js/form.js',
+                '@AcmePlutoBundle/Resources/public/js/calendar.js',
             )
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>"></script>
@@ -242,6 +270,79 @@ combinare risorse di terze parti (come jQuery) con i propri, in un singolo file:
             <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
 
+Uso di risorse per nome
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Le direttive della configuraizone di AsseticBundle consentono di definire insiemi di risorse per nome.
+Lo si può fare definendo i file di input, i filtri e i file di output nella
+configurazione, nella sezione ``assetic``. Si può approfondire nel
+:doc:`riferimento sulla configurazione di assetic </reference/configuration/assetic>`.
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        assetic:
+            assets:
+                jquery_and_ui:
+                    inputs:
+                        - '@AcmePippoBundle/Resources/public/js/thirdparty/jquery.js'
+                        - '@AcmePippoBundle/Resources/public/js/thirdparty/jquery.ui.js'
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:assetic="http://symfony.com/schema/dic/assetic">
+
+            <assetic:config>
+                <assetic:asset name="jquery_and_ui">
+                    <assetic:input>@AcmePippoBundle/Resources/public/js/thirdparty/jquery.js</assetic:input>
+                    <assetic:input>@AcmePippoBundle/Resources/public/js/thirdparty/jquery.ui.js</assetic:input>
+                </assetic:asset>
+            </assetic:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('assetic', array(
+            'assets' => array(
+                'jquery_and_ui' => array(
+                    'inputs' => array(
+                        '@AcmePippoBundle/Resources/public/js/thirdparty/jquery.js',
+                        '@AcmePippoBundle/Resources/public/js/thirdparty/jquery.ui.js',
+                    ),
+                ),
+            ),
+        );
+
+Dopo aver definito risorse per nome, vi si può fare riferimento nei template,
+usando la notazione ``@nome_risorsa``:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% javascripts
+            '@jquery_and_ui'
+            '@AcmePippoBundle/Resources/public/js/*' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+    .. code-block:: html+php
+
+        <?php foreach ($view['assetic']->javascripts(
+            array(
+                '@jquery_and_ui',
+                '@AcmePippoBundle/Resources/public/js/*',
+            )
+        ) as $url): ?>
+            <script src="<?php echo $view->escape($url) ?>"></script>
+        <?php endforeach; ?>
+
 .. _cookbook-assetic-filters:
 
 Filtri
@@ -275,16 +376,16 @@ seguente:
         # app/config/config.yml
         assetic:
             filters:
-                yui_js:
-                    jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
+                uglifyjs2:
+                    bin: /usr/local/bin/uglifyjs
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <assetic:config>
             <assetic:filter
-                name="yui_js"
-                jar="%kernel.root_dir%/Resources/java/yuicompressor.jar" />
+                name="uglifyjs2"
+                bin="/usr/local/bin/uglifyjs" />
         </assetic:config>
 
     .. code-block:: php
@@ -292,8 +393,8 @@ seguente:
         // app/config/config.php
         $container->loadFromExtension('assetic', array(
             'filters' => array(
-                'yui_js' => array(
-                    'jar' => '%kernel.root_dir%/Resources/java/yuicompressor.jar',
+                'uglifyjs2' => array(
+                    'bin' => '/usr/local/bin/uglifyjs',
                 ),
             ),
         ));
@@ -305,7 +406,7 @@ nel template:
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/js/*' filter='yui_js' %}
+        {% javascripts '@AcmePippoBundle/Resources/public/js/*' filter='uglifyjs2' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
@@ -313,7 +414,7 @@ nel template:
 
         <?php foreach ($view['assetic']->javascripts(
             array('@AcmePippoBundle/Resources/public/js/*'),
-            array('yui_js')
+            array('uglifyjs2')
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>"></script>
         <?php endforeach; ?>
@@ -379,7 +480,7 @@ nei sorgenti, è probabile che si veda qualcosa di questo tipo:
 
 .. code-block:: html
 
-    <script src="/app_dev.php/js/abcd123.js"></script>
+    <script src="/js/abcd123.js"></script>
 
 Questo file in realtà **non** esiste, né viene reso dinamicamente
 da Symfony (visto che i file di risorse sono nell'ambiente ``dev``).

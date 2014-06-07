@@ -483,7 +483,7 @@ Configurazione predefinita completa
                 collect:              true
                 only_exceptions:      false
                 only_master_requests: false
-                dsn:                  file:%kernel.cache_dir%/profiler
+                dsn:                  "file:%kernel.cache_dir%/profiler"
                 username:
                 password:
                 lifetime:             86400
@@ -520,7 +520,7 @@ Configurazione predefinita completa
                 gc_divisor:           ~
                 gc_probability:       ~
                 gc_maxlifetime:       ~
-                save_path:            %kernel.cache_dir%/sessions
+                save_path:            "%kernel.cache_dir%/sessions"
 
             # configurazione dei serializer
             serializer:
@@ -529,7 +529,7 @@ Configurazione predefinita completa
             # configurazione dei template
             templating:
                 assets_version:       ~
-                assets_version_format:  %%s?%%s
+                assets_version_format:  "%%s?%%s"
                 hinclude_default_template:  ~
                 form:
                     resources:
@@ -550,7 +550,7 @@ Configurazione predefinita completa
                     # Prototipo
                     nome:
                         version:              ~
-                        version_format:       %%s?%%s
+                        version_format:       "%%s?%%s"
                         base_urls:
                             http:                 []
                             ssl:                  []
@@ -570,7 +570,7 @@ Configurazione predefinita completa
             # configurazione delle annotazioni
             annotations:
                 cache:                file
-                file_cache_dir:       %kernel.cache_dir%/annotations
-                debug:                %kernel.debug%
+                file_cache_dir:       "%kernel.cache_dir%/annotations"
+                debug:                "%kernel.debug%"
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2

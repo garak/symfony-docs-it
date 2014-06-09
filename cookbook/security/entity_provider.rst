@@ -377,11 +377,14 @@ per poter beneficiare di comportamenti semplici e avanzati di autenticazione.
 L'interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`
 aggiunge altri quattro metodi, per validare lo stato degli utenti:
 
-* ``isAccountNonExpired()`` verifica se l'utente è scaduto,
-* ``isAccountNonLocked()`` verifica se l'utente è bloccato,
-* ``isCredentialsNonExpired()`` verifica se la password dell'utente è
-  scaduta,
-* ``isEnabled()`` verifica se l'utente è abilitato
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isAccountNonExpired`
+   verifica se l'utente è scaduto,
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isAccountNonLocked`
+  verifica se l'utente è bloccato,
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isCredentialsNonExpired`
+  verifica se le credenziali (la password) dell'utente siano scadute,
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isEnabled`
+  verifica se l'utente è abilitato.
 
 Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
 ``isEnabled()`` restituire il valore booleano del campo  ``isActive``.

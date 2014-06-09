@@ -5,12 +5,9 @@
 Il componente Config
 ====================
 
-Introduzione
-------------
-
-Il componente Config fornisce diverse classi che aiutano a trovare, caricare, combinare,
-riempire e validare valori di configurazione di ogni tipo, indipendentemente dal tipo
-di sorgente (file Yaml, XML o INI, oppure ad esempio una base dati).
+    Il componente Config fornisce diverse classi che aiutano a trovare, caricare, combinare,
+    riempire e validare valori di configurazione di ogni tipo, indipendentemente dal tipo
+    di sorgente (file YAML, XML o INI, oppure ad esempio una base dati).
 
 .. caution::
 
@@ -25,7 +22,7 @@ Installazione
 Si può installare il componente in molti modi diversi:
 
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/config`` su `Packagist`_);
-* Usare il repository ufficiale su Git (https://github.com/symfony/Config);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Config).
 
 Sezioni
 -------

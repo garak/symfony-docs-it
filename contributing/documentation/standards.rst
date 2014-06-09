@@ -81,6 +81,23 @@ Gli esempi di configurazione vanno mostrati in tutti i formati supportati, usand
 * **Validazione**: Yaml, Annotazioni, Xml, Php
 * **Mappatura Doctrine**: Annotazioni, Yaml, Xml, Php
 
+File e cartelle
+~~~~~~~~~~~~~~~
+
+* Quando si fa riferimento a cartelle, aggiungere sempre una barra finale, per evitare confusioni
+  con file normali (p.e. *"eseguire lo script ``console``, che si trova nella
+  cartella ``app/``"*).
+* Quando si fa riferimento esplicito a estensioni di file, si dovrebbe includere il punto iniziale,
+  per ogni estensione (p.e. "i file *XML usano l'estensione ``.xml``*").
+* Quando si elenca una gerarchia di file e cartelle di Symfony, usare ``progetto/`` come
+  cartella iniziale. P.e.
+
+      progetto/
+      ├─ app/
+      ├─ src/
+      ├─ vendor/
+      └─ ...
+
 Esempio
 ~~~~~~~
 

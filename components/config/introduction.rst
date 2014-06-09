@@ -5,12 +5,9 @@
 Il componente Config
 ====================
 
-Introduzione
-------------
-
-Il componente Config fornisce diverse classi che aiutano a trovare, caricare, combinare,
-riempire e validare valori di configurazione di ogni tipo, indipendentemente dal tipo
-di sorgente (file YAML, XML o INI, oppure ad esempio una base dati).
+    Il componente Config fornisce diverse classi che aiutano a trovare, caricare, combinare,
+    riempire e validare valori di configurazione di ogni tipo, indipendentemente dal tipo
+    di sorgente (file YAML, XML o INI, oppure ad esempio una base dati).
 
 .. caution::
 

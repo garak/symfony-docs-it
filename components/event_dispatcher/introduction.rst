@@ -1,9 +1,13 @@
 .. index::
-   single: Event Dispatcher
+   single: EventDispatcher
    single: Componenti; EventDispatcher
 
-Il componente Event Dispatcher
-==============================
+Il componente EventDispatcher
+=============================
+
+    Il componente EventDispatcher fornisce strumenti che consentono ai componenti di un'applicazione
+    di comunicare tra di loro, distrubuendo eventi e ascoltandoli.
+
 
 Introduzione
 ------------
@@ -147,6 +151,7 @@ Il metodo ``addListener()`` accetta fino a tre parametri:
   quando far scattare un ascoltatore, rispetto ad altri (predefinito a ``0``). Se due
   ascoltatori hanno la medesima priorità, sono eseguiti nell'ordine in cui sono stati
   aggiunti al distributore.
+
 
 .. note::
 

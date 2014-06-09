@@ -83,11 +83,9 @@ Twig definisce due tipi di sintassi speciali:
 * ``{% ... %}``: "Fa qualcosa": un **tag** che controlla la logica del
   template; è usato per eseguire istruzioni, come il ciclo ``for`` dell'esempio.
 
-.. note::
-
-   C'è una terza sintassi usata per creare commenti: ``{# questo è un commento #}``.
-   Questa sintassi può essere usata su righe multiple, come il suo equivalente PHP
-   ``/* commento */``.
+* ``{# ... #}``: "Commenta qualcosa": è l'equivalente della sintassi
+  ``/* commento */`` di PHP. È usato per aggiungere commenti su riga singola o su righe multiple.
+  Il contenuto dei commenti non viene incluso nella resa delle pagine.
 
 Twig contiene anche dei **filtri**, che modificano il contenuto prima che sia reso.
 L'esempio seguente rende la variabile ``title`` tutta maiuscola, prima di
@@ -399,14 +397,14 @@ specifico:
   template per una determinata pagina. Le tre parti della stringa, ognuna separata da
   due-punti (``:``), hanno il seguente significato:
 
-    * ``AcmeBlogBundle``: (*bundle*) il template è dentro
-      ``AcmeBlogBundle`` (p.e. ``src/Acme/BlogBundle``);
+  * ``AcmeBlogBundle``: (*bundle*) il template è dentro
+    ``AcmeBlogBundle`` (p.e. ``src/Acme/BlogBundle``);
 
-    * ``Blog``: (*controllore*) indica che il template è nella sotto-cartella
-      ``Blog`` di ``Resources/views``;
+  * ``Blog``: (*controllore*) indica che il template è nella sotto-cartella
+    ``Blog`` di ``Resources/views``;
 
-    * ``index.html.twig``: (*template*) il nome del file è
-      ``index.html.twig``.
+  * ``index.html.twig``: (*template*) il nome del file è
+    ``index.html.twig``.
 
   Ipotizzando che ``AcmeBlogBundle`` sia dentro ``src/Acme/BlogBundle``, il percorso
   finale del layout sarebbe ``src/Acme/BlogBundle/Resources/views/Blog/index.html.twig``.

@@ -92,6 +92,8 @@ File e cartelle
 * Quando si elenca una gerarchia di file e cartelle di Symfony, usare ``progetto/`` come
   cartella iniziale. P.e.
 
+  .. code-block:: text
+
       progetto/
       ├─ app/
       ├─ src/
@@ -140,6 +142,14 @@ Standard di linguaggio
 * Non usare la virgola prima della congiunzione;
 * Si dovrebbe usare la forma impersonale, non *noi* o *voi* (quindi evitare il punto
   di vista in prima persona).
+
+
+
+
+
+
+
+
 
 
 

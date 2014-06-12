@@ -125,7 +125,7 @@ esempio, se si vuole che ``m.example.com`` e
         mobile_homepage:
             path:     /
             host:     "{subdomain}.example.com"
-            defaults: 
+            defaults:
                 _controller: AcmeDemoBundle:Main:mobileHomepage
                 subdomain: m
             requirements:
@@ -176,13 +176,7 @@ esempio, se si vuole che ``m.example.com`` e
 
         return $collection;
 
-.. tip::
-
-    Assicurarsi di includere anche un'opzione per il segnaposto ``subdomain``,
-    atrlimenti occorrerà includere i valori dei sottodomini ogni volta
-    che si genera la rotta.
-
-.. sidebar:: Using Service Parameters
+.. sidebar:: Uso dei parametri dei servizi
 
     Si possono anche usare i parametri dei servizi, se non si vuole scrivere il
     nome dell'host direttamente:
@@ -194,7 +188,9 @@ esempio, se si vuole che ``m.example.com`` e
             mobile_homepage:
                 path:     /
                 host:     "m.{domain}"
-                defaults: { _controller: AcmeDemoBundle:Main:mobileHomepage }
+                defaults:
+                    _controller: AcmeDemoBundle:Main:mobileHomepage
+                    domain: "%domain%"
                 requirements:
                     domain: "%domain%"
 
@@ -212,6 +208,7 @@ esempio, se si vuole che ``m.example.com`` e
 
                 <route id="mobile_homepage" path="/" host="m.example.com">
                     <default key="_controller">AcmeDemoBundle:Main:mobileHomepage</default>
+                    <default key="domain">%domain%</requirement>
                     <requirement key="domain">%domain%</requirement>
                 </route>
 
@@ -228,6 +225,7 @@ esempio, se si vuole che ``m.example.com`` e
             $collection = new RouteCollection();
             $collection->add('mobile_homepage', new Route('/', array(
                 '_controller' => 'AcmeDemoBundle:Main:mobileHomepage',
+                'domain' => '%domain%',
             ), array(
                 'domain' => '%domain%',
             ), array(), 'm.{domain}'));
@@ -237,6 +235,12 @@ esempio, se si vuole che ``m.example.com`` e
             )));
 
             return $collection;
+
+    .. tip::
+
+       Assicurarsi di includere anche un'opzione per il segnaposto ``subdomain``,
+       atrlimenti occorrerà includere i valori dei sottodomini ogni volta
+       che si genera la rotta.
 
 .. _component-routing-host-imported:
 
@@ -278,3 +282,19 @@ Si può impostare l'opzione ``host`` sulle rotte importate:
 
 L'host ``hello.example.com`` sarà impostato su ciascuna rotta caricata dalla nuova
 risorsa delle rotte.
+
+Testare i controllori
+---------------------
+
+Se si vuole far funzionare la corrispondenza degli URL nei test funzionali, occorre
+impostare l'header ``HTTP_HOST`` negli oggetti richiesta.
+
+.. code-block:: php
+
+    $crawler = $client->request(
+        'GET',
+        '/homepage',
+        array(),
+        array(),
+        array('HTTP_HOST' => 'm.' . $client->getContainer()->getParameter('domain'))
+    );

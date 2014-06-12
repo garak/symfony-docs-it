@@ -52,6 +52,12 @@ file `views/hello.php` e restituisce il testo di output. Il secondo parametro
 di ``render`` è un array di variabili da usare nel template. In questo
 esempio, il risultato sarà ``Ciao, Fabien!``.
 
+.. note::
+
+    I template saranno messi in cache all'interno della memoria del motore. Questo vuol dire
+    che se si rende lo stesso template più volte nella stessa richiesta, il
+    template sarà caricato un'unica volta dal filesystem.
+
 La variabile ``$view``
 ----------------------
 
@@ -72,6 +78,33 @@ rendere originariamente il template) all'interno del template, per rendere un al
     <?php foreach ($names as $name) : ?>
         <?php echo $view->render('hello.php', array('firstname' => $name)) ?>
     <?php endforeach ?>
+
+Variabili globali
+-----------------
+
+A volte si ha bisogno di impostare una variabile che sia disponibile in tutti i template
+resi da un motore (come la variabile ``$app`` quando si usa il framework Symfony2).
+Tali variabili possono essere impostate usando il metodo
+:method:`Symfony\\Component\\Templating\\PhpEngine::addGlobal` e vi si può
+accedere nel template come normali variabili::
+
+    $templating->addGlobal('ga_tracking', 'UA-xxxxx-x');
+
+In un template:
+
+.. code-block:: html+php
+
+    <p>Il codice di tracking di google è: <?php echo $ga_tracking ?></p>
+
+.. caution::
+
+    Le variabili globali non possono chiamrasi ``this`` o ``view``, poiché tali nomi
+    sono usati dal motore PHP.
+
+.. note::
+
+    Le variabili globali possono essere sovrascritte da variabili locali nel template
+    che abbiano lo stesson nome.
 
 Escape dell'output
 ------------------
@@ -127,5 +160,42 @@ la maggior parte delle volte si estenderà
 La classe ``Helper`` ha un metodo obbligatorio:
 :method:`Symfony\\Component\\Templating\\Helper\\HelperInterface::getName`.
 Resituisce il nome da usare per ottenere l'aiutante dall'oggetto ``$view``.
+
+Creare un motore personalizzato
+-------------------------------
+
+Oltre a fornire un motore di template PHP, si può anche creare un proprio motore,
+usando il componente Templating. Per poterlo fare, creare una nuova classe che
+implementi :class:`Symfony\\Component\\Templating\\EngineInterface`. L'interfaccia
+richiede tre metodi:
+
+* :method:`render($name, array $parameters = array()) <Symfony\\Component\\Templating\\EngineInterface::render>`
+  - Rende un template
+* :method:`exists($name) <Symfony\\Component\\Templating\\EngineInterface::exists>`
+  - Verifica se il template esiste
+* :method:`supports($name) <Symfony\\Component\\Templating\\EngineInterface::supports>`
+  - Verifica se il template dato possa essere gestito dal motore.
+
+Usare più motori
+----------------
+
+Si possono usare più motori contemporaneamente, usando la classe
+:class:`Symfony\\Component\\Templating\\DelegatingEngine`. Questa classe
+accetta una lista di motori e agisce come un normale motore di template. La
+sola differenza è che delega le chiamate a uno degli altri motori. Per
+scegliere quale motore usare per il template, viene usato il metodo
+:method:`EngineInterface::supports() <Symfony\\Component\\Templating\\EngineInterface::supports>`.
+
+
+.. code-block:: php
+
+    use Acme\Templating\CustomEngine;
+    use Symfony\Component\Templating\PhpEngine;
+    use Symfony\Component\Templating\DelegatingEngine;
+
+    $templating = new DelegatingEngine(array(
+        new PhpEngine(...),
+        new CustomEngine(...)
+    ));
 
 .. _Packagist: https://packagist.org/packages/symfony/templating

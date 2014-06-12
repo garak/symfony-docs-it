@@ -159,12 +159,6 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
                 //     $this->securityContext->setToken(null);
                 // }
                 // return;
-
-                // Negare l'autenticazione con una risposta HTTP '403 Forbidden'
-                $response = new Response();
-                $response->setStatusCode(Response::HTTP_FORBIDDEN);
-                $event->setResponse($response);
-
             }
 
             // Negare autenticazione per impostazione predefinita
@@ -400,11 +394,11 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
             wsse.security.authentication.provider:
-                class: Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
+                class:  Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
                 arguments: ["", "%kernel.cache_dir%/security/nonces"]
 
             wsse.security.authentication.listener:
-                class: Acme\DemoBundle\Security\Firewall\WsseListener
+                class:  Acme\DemoBundle\Security\Firewall\WsseListener
                 arguments: ["@security.context", "@security.authentication.manager"]
 
     .. code-block:: xml

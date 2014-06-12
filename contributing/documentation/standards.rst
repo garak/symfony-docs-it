@@ -92,6 +92,8 @@ File e cartelle
 * Quando si elenca una gerarchia di file e cartelle di Symfony, usare ``progetto/`` come
   cartella iniziale. P.e.
 
+  .. code-block:: text
+
       progetto/
       ├─ app/
       ├─ src/

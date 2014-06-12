@@ -150,12 +150,6 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
                 //     $this->securityContext->setToken(null);
                 // }
                 // return;
-
-                // Negare l'autenticazione con una risposta HTTP '403 Forbidden'
-                $response = new Response();
-                $response->setStatusCode(403);
-                $event->setResponse($response);
-
             }
 
             // Negare autenticazione per impostazione predefinita

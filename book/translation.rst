@@ -445,7 +445,7 @@ la stessa risorsa indipendentemente dall'utente. Inoltre, quale
 versione del contenuto dovrebbe essere indicizzata dai motori di ricerca?
 
 Una politica migliore è quella di includere il locale nell'URL. Questo è completamente
-dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
+supportato dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
 .. configuration-block::
 

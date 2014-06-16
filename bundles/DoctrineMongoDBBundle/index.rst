@@ -8,7 +8,7 @@ DoctrineMongoDBBundle
    form
 
 L'Object Document Mapper (ODM) `MongoDB`_ assomiglia all'ORM di Doctrine2 per
-filosofia e funzionamento, In altre parole, come l':doc:`ORDM di Doctrine2</book/doctrine>`,
+filosofia e funzionamento, In altre parole, come l':doc:`ORM di Doctrine2</book/doctrine>`,
 con l'ODM di Doctrine si ha a che fare solo con oggetti PHP puri, che sono persistiti
 in modo trasparente a MongoDB.
 

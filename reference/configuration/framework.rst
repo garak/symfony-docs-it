@@ -410,11 +410,6 @@ risorsa sarà ``/images/logo.png?version=5``.
 profiler
 ~~~~~~~~
 
-.. versionadded:: 2.2
-    L'opzione ``enabled`` è stata aggiunta in Symfony 2.2. Precedentemente il profiler
-    poteva essere disabilitato solamente omettendo interamente la configurazione
-    ``framework.profiler``.
-
 .. _profiler.enabled:
 
 enabled

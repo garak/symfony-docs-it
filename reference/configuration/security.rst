@@ -290,9 +290,6 @@ Rinvio dopo il login
 Uso del codificatore PBKDF2: sicurezza e velocità
 -------------------------------------------------
 
-.. versionadded:: 2.2
-    Il codificatore di password PBKDF2 è stato aggiunto in Symfony 2.2.
-
 Il codificatore `PBKDF2`_ fornisce un altro livello di sicurezza crittografica, come
 raccomandato dal National Institute of Standards and Technology (NIST).
 
@@ -314,9 +311,6 @@ Uso del codificatore di password BCrypt
 
     Per usare questo codificatore, occorre la versione 5.5 di PHP oppure
     la libreria `ircmaxell/password-compat`_, installabile tramite Composer.
-
-.. versionadded:: 2.2
-    Il codificatore di password BCrypt è stato aggiunto in Symfony 2.2.
 
 .. configuration-block::
 

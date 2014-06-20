@@ -373,11 +373,6 @@ Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da te
 Nomi e posizioni dei template
 -----------------------------
 
-.. versionadded:: 2.2
-    Il supporto a percorsi con spazi dei nomi è stato aggiunto nella 2.2, consentendo nomi di template
-    come ``@AcmeDemo/layout.html.twig``. Vedere :doc:`/cookbook/templating/namespaced_paths`
-    per ulteriori dettagli.
-
 Per impostazione predefinita, i template possono stare in una di queste posizioni:
 
 * ``app/Resources/views/``: La cartella ``views`` di un'applicazione può contenere
@@ -569,10 +564,6 @@ si imposti `with_context`_ a ``false``.
     La sintassi ``{'article': article}`` è la sintassi standard di Twig per gli
     array associativi (cioè con chiavi non numeriche). Se si avesse bisogno di passare più
     elementi, si può fare in questo modo: ``{'pippo': pippo, 'pluto': pluto}``.
-
-.. versionadded:: 2.2
-    La funzione `include()`_ è una nuova caratteristica di Twig, disponibile in Symfony
-    2.2. Precedentemente, si usava il tag `{% include %}`_.
 
 .. index::
    single: Template; Inserire azioni
@@ -779,9 +770,6 @@ essere impostato in modo globale nella configurazione dell'applicazione:
                 ),
             ),
         ));
-
-.. versionadded:: 2.2
-    I template predefiniti per funzioni di resa sono stati aggiunti in Symfony 2.2
 
 Si possono definire template predefiniti per funzione ``render`` (che sovrascriveranno
 qualsiasi template predefinito globale):

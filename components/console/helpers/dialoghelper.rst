@@ -58,9 +58,6 @@ restituito il valore predefinito (``AcmeDemoBundle``).
 Nascodere la risposta dell'utente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.2
-    Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
-
 Si possono anche specificare delle risposte possibili alla domanda data. Saranno
 completate man mano che l'utente scrive::
 
@@ -75,9 +72,6 @@ completate man mano che l'utente scrive::
 
 Nascondere la risposta dell'utente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.2
-    Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
 
 Si può anche fare una domanda e nascodere la risposta. Ciò risulta utile
 in particolare per le password::
@@ -146,9 +140,6 @@ procedere solo in caso di risposta valida.
 Nascondere la risposta dell'utente
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.2
-    Il metodo ``askHiddenResponseAndValidate`` è stato aggiunto in Symfony 2.2.
-
 Si può anche fare una domanda e validare una risposta nascosta::
 
     $dialog = $this->getHelperSet()->get('dialog');
@@ -172,10 +163,6 @@ per qualche ragione, passare ``true`` come quinto parametro.
 
 Consentire una scelta da una lista di risposte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.2
-    Il metodo :method:`Symfony\\Component\\Console\\Helper\\DialogHelper::select` è
-    stato aggiunto in Symfony 2.2.
 
 Se si ha un insieme predefinito di risposte tra cui l'utente può scegliere, si
 può usare il metodo ``ask`` descritto in precedenza oppure, per assicurarsi che l'utente

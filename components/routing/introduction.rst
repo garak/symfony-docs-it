@@ -93,9 +93,6 @@ solitamente, sono la parte di cui meno ci si interessa.
 7. Un array di metodi. Restringe a specifici metodi di richiesta HTTP (``HEAD``,
    ``GET``, ``POST``, ...).
 
-.. versionadded:: 2.2
-   Il supporto per l'host è stato aggiunto in Symfony 2.2
-
 Si prenda la seguente rotta, che combina diversi dei concetti esposti::
 
    $route = new Route(
@@ -159,10 +156,6 @@ il metodo :method:`Symfony\\Component\\Routing\\RouteCollection::addPrefix`::
     );
 
     $collezioneRadice->addCollection($subCollezione);
-
-.. versionadded:: 2.2
-    Il metodo ``addPrefix`` è stato aggiunto in Symfony2.2. Nelle versioni precedenti,
-    faceva parte del metodo ``addCollection``.
 
 Configurare i parametri della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -9,7 +9,10 @@ Gli aiutanti della console
 
     dialoghelper
     formatterhelper
+    progressbar
     progresshelper
+    questionhelper
+    table
     tablehelper
 
 I componenti della console dispongono alcuni utili aiutanti. Questi aiutanti

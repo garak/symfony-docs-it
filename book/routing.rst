@@ -68,10 +68,6 @@ La rotta è semplice:
 
         return $collection;
 
-.. versionadded:: 2.2
-    L'opzione ``path`` è nuova in Symfony2.2,  nelle precedenti versioni veniva
-    usata l'opzione ``pattern``.
-
 Lo schema definito dalla rotta ``blog_show`` si comporta come ``/blog/*``, dove
 al carattere jolly viene dato il nome ``slug``. Per l'URL ``/blog/my-blog-post``,
 la variabile ``slug`` ottiene il valore ``my-blog-post``, che è disponibile
@@ -706,10 +702,6 @@ essere realizzato con la seguente configurazione per le rotte:
 
         return $collection;
 
-.. versionadded:: 2.2
-    L'opzione ``methods`` è stata aggiunta in Symfony2.2. Usare il requisito ``_method``
-    in versioni precedenti.
-
 Nonostante il fatto che queste due rotte abbiano schemi identici (``/contact``),
 la prima rotta corrisponderà solo a richieste GET e la seconda rotta corrisponderà
 solo a richieste POST. Questo significa che è possibile visualizzare il form e inviarlo
@@ -721,9 +713,6 @@ utilizzando lo stesso URL ma controllori distinti per le due azioni.
 
 Aggiungere un host
 ~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.2
-    Il supporto per gli host è stato aggiunto in Symfony 2.2
 
 Si può anche far corrispondere un *host* HTTP della richiesta in arrivo. Per maggiori
 informazioni, vedere :doc:`/components/routing/hostname_pattern` nella documentazione
@@ -1165,9 +1154,6 @@ caricata dalla nuova risorsa delle rotte.
 
 Espressioni regolari per gli host nelle rotte importate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.2
-    Il supporto per gli host è stato aggiunto in Symfony 2.2
 
 Si può impostare un'espressione regolare sull'host nelle rotte importate. Per maggiori informazioni, vedere
 :ref:`component-routing-host-imported`.

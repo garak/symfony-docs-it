@@ -35,9 +35,25 @@ seguente, per installare l'ultima versione di Symfony2 nella cartella
 
 La prima installazione di Symfony2 potrebbe richiedere vari minuti, per
 scaricare tutti i componenti. Alla fine del processo di installazione,
-l'installatore chiederà di fornire alcune opzioni di configurazione per il
-progetto. Per questo primo progetto, si possono anche ignorare tali configurazioni,
-lasciando tutti i valori predefiniti.
+l'installatore porrà alcune domande:
+
+1. **Would you like to use Symfony 3 directory structure? [y/N]** La futura versione
+   Symfony 3 modificherà la struttura predefinita delle cartelle per le applicazioni Symfony.
+   Se si vuole provare la nuova struttura, rispondere ``y``.
+   Per poter seguire questa guida, premere "Invio" per accettare il valore
+   predefinito ``N`` e mantenere la struttura predefinita di Symfony2.
+2. **Would you like to install Acme demo bundle? [y/N]** Le versioni di Symfony precedenti
+   a 2.5 includevano un'applicazione dimostrativa, per provare alcune caratteristiche del
+   framework. Tuttavia, poiché l'applicazione dimostrativa è utile solo per i principianti,
+   la sua installazione ora è facoltativa. Per poter seguire questa guida, rispondere
+   ``y`` e installare l'applicazione dimostrativa.
+3. **Some parameters are missing. Please provide them.** Symfony2 chiede i
+   valori dei parametri di configurazione. Per questo primo progetto,
+   si può tranquillamente sorvolare e premere "Invio"
+   ripetutamente.
+4. **Do you want to remove the existing VCS (.git, .svn..) history? [Y,n]?**
+   La cronologia di sviluppo di grandi progetti, come Symfony, può occupare
+   molto spazio. Premere "Invio" per rimuovere senza problemi tutti i dati della cronologia.
 
 Eseguire Symfony2
 -----------------
@@ -84,7 +100,7 @@ i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati 
 
 .. code-block:: text
 
-    http://localhost:8000/demo/hello/Fabien
+    http://localhost:8000/app_dev.php/demo/hello/Fabien
 
 .. image:: /images/quick_tour/hello_fabien.png
    :align: center
@@ -365,7 +381,7 @@ in ambiente ``prod`` andando su:
         http://localhost/demo/hello/Fabien
 
 Per maggiori dettagli sugli ambienti, vedere
-":ref:`Ambienti e front controller <page-creation-environments>`".
+":ref:`ambienti e front controller <page-creation-environments>`".
 
 Considerazioni finali
 ---------------------
@@ -376,6 +392,6 @@ già vedere come Symfony2 rende veramente facile implementare siti web in modo
 migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossima
 sezione: ":doc:`la vista<the_view>`".
 
-.. _Composer:             http://getcomposer.org/
+.. _Composer:             https://getcomposer.org/
 .. _installer:            http://getcomposer.org/download
 .. _Twig:                 http://twig.sensiolabs.org/

@@ -583,8 +583,11 @@ Getter
 
 I vincoli si possono anche applicare ai valori restituiti da un metodo. Symfony2
 consente di aggiungere un vincolo a qualsiasi metodo il cui nome inizi per
-"get" o "is". In questa guida, si fa riferimento a questi due tipi di metodi come
-"getter".
+"get", "is" o "has". In questa guida, si fa riferimento a questi tipi di metodi
+come "getter".
+
+.. versionadded:: 2.5
+    Il supporto per metodi che iniziano per ``has`` è stato introdotto in Symfony 2.5.
 
 Il vantaggio di questa tecnica è che consente di validare i proprio oggetti
 dinamicamente. Per esempio, supponiamo che ci si voglia assicurare che un campo

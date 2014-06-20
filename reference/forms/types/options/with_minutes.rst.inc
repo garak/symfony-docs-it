@@ -1,6 +1,3 @@
-.. versionadded:: 2.2
-    L'opzione ``with_minutes`` è stata introdotta in Symfony 2.2.
-
 with_minutes
 ~~~~~~~~~~~~
 

@@ -1432,9 +1432,6 @@ si può fare come segue:
             ),
         ));
 
-.. versionadded:: 2.2
-    Il codificatore BCrypt è stato introdotto in Symfony 2.2.
-
 Ora si può calcolare la password cifrata, manualmente
 (p.e. ``password_hash('ryanpass', PASSWORD_BCRYPT, array('cost' => 12));``)
 oppure usando uno strumento online.
@@ -1443,10 +1440,6 @@ oppure usando uno strumento online.
 
 Gli algoritmi supportati da questo metodo dipendono dalla versione di PHP.
 Un elenco completo è disponibile richiamando la funzione :phpfunction:`hash_algos`.
-
-.. versionadded:: 2.2
-    Da Symfony 2.2, si può usare anche il codificatore
-    :ref:`PBKDF2 <reference-security-pbkdf2>`.
 
 Determinare la password con hash
 ................................
@@ -2064,10 +2057,6 @@ alcun cookie):
 
 Utilità
 -------
-
-.. versionadded:: 2.2
-    Le classi ``StringUtils`` e ``SecureRandom`` sono state aggiunte in Symfony
-    2.2
 
 Il componente Security di Symfony dispone di una serie di utilità che riguardano
 la sicurezza. Queste utilità sono usate da Symfony2, ma si possono usare anche

@@ -256,10 +256,6 @@ usando i seguenti metodi:
   .. versionadded:: 2.4
       Il metodo ``getEncodings()`` è stato introdotto in Symfony 2.4.
 
-.. versionadded:: 2.2
-    La classe :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader` è stata
-    introdotta in Symfony 2.2.
-
 Se occorre pieno accesso ai dati analizzati da ``Accept``, ``Accept-Language``,
 ``Accept-Charset`` o ``Accept-Encoding``, si può usare la classe
 :class:`Symfony\\Component\\HttpFoundation\\AcceptHeader`::
@@ -493,10 +489,6 @@ astrae l'ingrato compito dietro una semplice API::
     );
 
     $response->headers->set('Content-Disposition', $d);
-
-.. versionadded:: 2.2
-    La classe :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`
-    è stata aggiunta in Symfony 2.2.
 
 In alternativa, se si sta servendo un file statico, si può usare
 :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`::

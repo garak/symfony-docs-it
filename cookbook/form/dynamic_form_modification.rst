@@ -133,11 +133,6 @@ l'ascoltatore di eventi potrebbe somigliare a questo::
         });
     }
 
-.. versionadded:: 2.2
-    La possibilità di passare una stringa a
-    :method:`FormInterface::add <Symfony\\Component\\Form\\FormInterface::add>`
-    è stata aggiunta in Symfony 2.2.
-
 .. note::
 
     La riga ``FormEvents::PRE_SET_DATA`` viene risolta in
@@ -520,10 +515,6 @@ In un form, possiamo solitamente ascoltare questi eventi:
 .. versionadded:: 2.3
     Gli eventi ``PRE_SUBMIT``, ``SUBMIT`` e ``POST_SUBMIT`` sono stati aggiunti in
     Symfony 2.3. In precedenza, si chiamavano ``PRE_BIND``, ``BIND`` e ``POST_BIND``.
-
-.. versionadded:: 2.2.6
-    Il comportamento dell'evento ``POST_SUBMIT`` è cambiato leggermento in 2.2.6, usato
-    dall'esempio seguente.
 
 La chiave sta nell'aggiungere un ascoltatore ``POST_SUBMIT`` al campo da cui dipende il nuovo
 campo. Se si aggiunge un ascoltatore ``POST_SUBMIT`` a un form figlio (p.e. ``sport``),

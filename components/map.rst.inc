@@ -4,6 +4,7 @@
 
   * :doc:`/components/class_loader/introduction`
   * :doc:`/components/class_loader/class_loader`
+  * :doc:`/components/class_loader/psr4_class_loader`
   * :doc:`/components/class_loader/map_class_loader`
   * :doc:`/components/class_loader/cache_class_loader`
   * :doc:`/components/class_loader/debug_class_loader`
@@ -20,7 +21,9 @@
   * :doc:`/components/console/introduction`
   * :doc:`/components/console/usage`
   * :doc:`/components/console/single_command_tool`
+  * :doc:`/components/console/changing_default_command`
   * :doc:`/components/console/events`
+  * :doc:`/components/console/logger`
   * :doc:`/components/console/helpers/index`
 
 * **CssSelector**
@@ -57,6 +60,7 @@
   * :doc:`/components/event_dispatcher/container_aware_dispatcher`
   * :doc:`/components/event_dispatcher/generic_event`
   * :doc:`/components/event_dispatcher/immutable_dispatcher`
+  * :doc:`/components/event_dispatcher/traceable_dispatcher`
 
 * :doc:`/components/expression_language/index`
 
@@ -76,6 +80,7 @@
 * :doc:`/components/form/index`
 
   * :doc:`/components/form/introduction`
+  * :doc:`/components/form/form_events`
   * :doc:`/components/form/type_guesser`
 
 * :doc:`/components/http_foundation/index`

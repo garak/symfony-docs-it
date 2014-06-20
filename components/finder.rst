@@ -82,9 +82,6 @@ Per cercare in diverse posizioni, è possibile concatenare diverse chiamate a
 
     $finder->files()->in(__DIR__)->in('/altraparte');
 
-.. versionadded:: 2.2
-   Il supporto per i caratteri jolly è stato aggiunto nella  versione 2.2.
-
 Si possono usare caretteri jolly nelle cartelle, per cercare uno schema::
 
     $finder->in('src/Symfony/*/*/Resources');
@@ -205,9 +202,6 @@ Il metodo ``notContains()`` esclude file che contengono lo schema dato::
 
 Percorso
 ~~~~~~~~
-
-.. versionadded:: 2.2
-   I metodi ``path()`` e ``notPath()`` sono stati aggiunti nella versione 2.2.
 
 Si possono filtrare file e cartelle per percorso, con il
 metodo :method:`Symfony\\Component\\Finder\\Finder::path`::

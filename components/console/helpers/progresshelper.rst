@@ -4,9 +4,6 @@
 Aiutante Progress
 =================
 
-.. versionadded:: 2.2
-    L'aiutante ``progress`` è stato introdotto in Symfony 2.2.
-
 .. versionadded:: 2.3
     Il metodo ``setCurrent`` è stato introdotto in Symfony 2.3.
 

@@ -1,9 +1,6 @@
 Luhn
 ====
 
-.. versionadded:: 2.2
-    La validazione Luhn è nuova in Symfony 2.2.
-
 Questo vincolo è usato per assicurarsi che un numero di carta di credito passi la `formula di Luhn`_.
 È utile come primo passo per validare una carta di credito: prima di comunicare con
 gateway di pagamento.

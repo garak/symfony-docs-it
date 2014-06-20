@@ -17,10 +17,6 @@ Ci sono anche alcuni tag nei bundle, non elencati qui.
 Funzioni
 --------
 
-.. versionadded:: 2.2
-    Le funzioni ``render`` e ``controller`` sono nuove in Symfony 2.2. Precedentemente,
-    si usava il tag ``{% render %}``, che aveva una firma diversa.
-
 .. versionadded:: 2.4
     La funzione ``expression`` è stata introdotta in Symfony 2.4.
 

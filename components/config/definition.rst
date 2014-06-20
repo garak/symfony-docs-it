@@ -111,9 +111,6 @@ e sono creati con ``node($nome, $tipo)`` o con i relativi metodi scorciatoia
 Nodi di vincoli numerici
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.2
-    I nodi numerici (virgola mobile e intero) sono nuovi in 2.2
-
 I nodi numerici (virgola mobile e intero) foniscono due vincoli extra,
 :method:`Symfony\\Component\\Config\\Definition\\Builder::min` e
 :method:`Symfony\\Component\\Config\\Definition\\Builder::max`,
@@ -286,9 +283,6 @@ abbia un determinato valore:
 
 Sezioni facoltative
 -------------------
-
-.. versionadded:: 2.2
-    I metodi ``canBeEnabled`` e ``canBeDisabled`` sono nuovi in Symfony 2.2
 
 Se si hanno intere sezioni facoltative e che possono essere abilitate/disabilitate,
 si possono sfruttare le scorciatoie

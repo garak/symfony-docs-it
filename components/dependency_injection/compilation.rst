@@ -278,10 +278,6 @@ ma anche di carne uno secondario solo se un certo parametro è impostato::
 Prependere la configurazione passata all'estensione
 ---------------------------------------------------
 
-.. versionadded:: 2.2
-    La possibilità di prependere la configurazione di un bundle è nuova in
-    Symfony 2.2.
-
 Una Extension può prependere la configurazione di un altro bundle, prima della chiamata al metodo ``load()``,
 implementando :class:`Symfony\\Component\\DependencyInjection\\Extension\\PrependExtensionInterface`::
 

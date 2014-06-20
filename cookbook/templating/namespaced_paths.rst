@@ -4,9 +4,6 @@
 Usare e registrare percorsi di Twig con spazi di nomi
 =====================================================
 
-.. versionadded:: 2.2
-    I percorsi con spazi di nomi sono stati aggiunti nella 2.2.
-
 DI solito, quando ci si riferisce a un template, si usa il formato ``MioBundle:Cartella:filename.html.twig``
 (vedere :ref:`template-naming-locations`).
 

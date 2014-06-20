@@ -77,10 +77,6 @@ probabilmente sarà utile solo per mettere in cache dei frammenti statici (veder
 Template statici in cache
 -------------------------
 
-.. versionadded:: 2.2
-    La possibilità di mettere in cache i template resi tramite ``FrameworkBundle:Template:template``
-    è nuova in Symfony 2.2.
-
 Poiché i template resi in questo modo sono tipicamente statici, può aver
 senso metterli in cache. Per fortuna, questo è facile! Configurando alcune
 variabili in più nella rotta, si può controllare esattamente il modo in cui la pagina è messa in cache:

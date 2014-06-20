@@ -1,9 +1,6 @@
 CardScheme
 ==========
 
-.. versionadded:: 2.2
-    La validazione CardScheme è nuova in Symfony 2.2.
-
 Questo vincolo assicura che un numero di carta di credito sia valido per una data compagnia
 di carte di credito. Può essere usato per validare il numero prima di provare a iniziare un pagamento
 tramite un gateway.

@@ -8,10 +8,6 @@ Il componente PropertyAccess
     Il componente PropertyAccess fornisce funzioni per leggere e scrivere da/a
     oggetti o array, usando una semplice notazione stringa.
 
-.. versionadded:: 2.2
-    Il componente PropertyAccess è nuovo in Symfony 2.2. In precedenza, la
-    classe ``PropertyPath`` si trovava nel componente ``Form``.
-
 Installazione
 -------------
 

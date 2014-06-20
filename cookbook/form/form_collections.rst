@@ -234,14 +234,14 @@ ha tag, appena viene creato).
         <!-- ... -->
 
 Quando l'utente invia il form, i dati inviati per i campi di ``Tags``
-sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``,che viene poi
+sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``, che viene poi
 impostato sul campo ``tag`` dell'istanza ``Task``.
 
 L'insieme ``Tags`` è acessibile tramite ``$task->getTags()``
-e può essere persistito nella base dati, oppure utilizzato. dove necessario.
+e può essere persistito nella base dati, oppure utilizzato dove necessario.
 
-Finora, tutto ciò funziona bene, ma questo non permette di aggiungere nuovi dinamicamente 
-tag o eliminare tag esistenti. Quindi, la modifica dei tag esistenti funziona 
+Finora, tutto ciò funziona bene, ma questo non è ancora possibile aggiungere dinamicamente 
+nuovi tag o eliminare tag esistenti. Quindi, la modifica dei tag esistenti funziona 
 bene, ma ancora non si possono aggiungere nuovi tag.
 
 .. caution::
@@ -250,7 +250,7 @@ bene, ma ancora non si possono aggiungere nuovi tag.
     a questo. Si possono anche includere insiemi innestati, in quanti livelli
     si desidera. Ma, se si usa Xdebug durante lo sviluppo, si potrebbe ricevere
     l'errore ``Maximum function nesting level of '100' reached, aborting!``.
-    Questo a casua dell'impostazione ``xdebug.max_nesting_level`` di PHP setting, che
+    Questo a causa dell'impostazione ``xdebug.max_nesting_level`` di PHP, che
     ha come valore predefinito ``100``.
 
     Questa direttiva limita la ricorsione a 100 chiamate, che potrebbe non bastare per
@@ -270,7 +270,7 @@ utilizzare JavaScript. Precedentemente, sono stati aggiunti due tag al nostro fo
 Ora si ha la necessità che l'utente possa aggiungere diversi form di tag, secondo le sue necessità, direttamente dal browser.
 Questo può essere fatto attraverso un po' di JavaScript.
 
-La prima cosa di cui si ha bisogno è di far capire alla collezione di form, che
+La prima cosa di cui si ha bisogno è di far capire alla collezione di form che
 riceverà un numero indeterminato di tag. Finora sono stati aggiunti due tag e il form
 si aspetta di riceverne esattamente due, altrimenti verrà lanciato un errore:
 ``Questo form non può contenere campi extra``. Per rendere flessibile il form,
@@ -337,11 +337,11 @@ Nella pagina resa, il risultato assomiglierà a questo:
     <ul class="tags" data-prototype="&lt;div&gt;&lt;label class=&quot; required&quot;&gt;__name__&lt;/label&gt;&lt;div id=&quot;task_tags___name__&quot;&gt;&lt;div&gt;&lt;label for=&quot;task_tags___name___name&quot; class=&quot; required&quot;&gt;Name&lt;/label&gt;&lt;input type=&quot;text&quot; id=&quot;task_tags___name___name&quot; name=&quot;task[tags][__name__][name]&quot; required=&quot;required&quot; maxlength=&quot;255&quot; /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">
 
 Lo scopo di questa sezione sarà usare JavaScript per leggere questo attributo
-e aggiungere dinamicamente nuovi form tag, quando l'utente clicca su "Aggiunti un tag".
+e aggiungere dinamicamente nuovi form tag, quando l'utente clicca su "Aggiungi un tag".
 Per facilitare le cose, useremo jQuery e ipotizzeremo di averlo incluso da qualche parte
-nella nostra pagine.
+nella nostra pagina.
 
-Aggiungere un tag ``script`` nella pagine, in modo da poter scrivere del codice JavaScript.
+Aggiungere un tag ``script`` nella pagina, in modo da poter scrivere del codice JavaScript.
 
 Prima di tutto, aggiungere un collegamento in fondo alla lista "tags", tramite JavaScript. Poi,
 collegare l'evento "click" a tale collegamento, in modo da poter aggiungere un nuovo form tag

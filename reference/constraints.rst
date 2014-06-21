@@ -18,6 +18,7 @@ Riferimento per i vincoli di validazione
    constraints/Url
    constraints/Regex
    constraints/Ip
+   constraints/Uuid
 
    constraints/Range
 

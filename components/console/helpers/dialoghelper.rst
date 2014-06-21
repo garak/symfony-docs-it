@@ -131,7 +131,8 @@ Il metodo ha due nuovi parametri. La sua firma completa è::
         string|array $question,
         callback $validator,
         integer $attempts = false,
-        string $default = null
+        string $default = null,
+        array $autocomplete = null
     )
 
 Il parametro ``$validator`` è un callback, che gestisce la validazione. Dovrebbe

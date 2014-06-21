@@ -68,7 +68,7 @@ nel caso in cui un altro specifico bundle non sia registrato::
                 switch ($name) {
                     case 'acme_something':
                     case 'acme_other':
-                        // imposta use_acme_goodbye a false nella configurzione di acme_something e acme_other
+                        // imposta use_acme_goodbye a false nella configurazione di acme_something e acme_other
                         // notaree che se l'utente configura a mano use_acme_goodbye a true in
                         // app/config/config.yml, l'impostazione finale sarà true e non false
                         $container->prependExtensionConfig($name, $config);

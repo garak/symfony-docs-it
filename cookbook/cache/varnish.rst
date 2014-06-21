@@ -57,6 +57,14 @@ Symfony2 aggiunge automaticamente:
             // per Varnish < 3.0
             // esi;
         }
+        /* Per impostazione predefinita, Varnish ignora Cache-Control: nocache 
+        (https://www.varnish-cache.org/docs/3.0/tutorial/increasing_your_hitrate.html#cache-control),
+        quindi per evitare la messa in cache va reso esplicito */
+        if (beresp.http.Pragma ~ "no-cache" ||
+             beresp.http.Cache-Control ~ "no-cache" ||
+             beresp.http.Cache-Control ~ "private") {
+            return (hit_for_pass);
+        }
     }
 
 .. caution::
@@ -79,7 +87,7 @@ che invalida la cache per una data risorsa:
 
 .. code-block:: text
 
-    /* 
+    /*
      Connessione al server di backend
      sulla porta 8080 della macchina locale
      */
@@ -89,11 +97,11 @@ che invalida la cache per una data risorsa:
     }
 
     sub vcl_recv {
-        /* 
+        /*
         Il comportamento predefinito di Varnish non supporta PURGE.
         Individua le richieste PURGE e fa immediatamente una ricerca in cache, 
         altrimenti Varnish girerebbe direttamente la richiesta al backend
-        e aggirerebbe la cache        
+        e aggirerebbe la cache
         */
         if (req.request == "PURGE") {
             return(lookup);
@@ -128,7 +136,7 @@ che invalida la cache per una data risorsa:
 
     .. code-block:: text
 
-        /* 
+        /*
          Connessione al server di backend
          sulla porta 8080 della macchina locale
          */
@@ -137,7 +145,7 @@ che invalida la cache per una data risorsa:
             .port = "8080";
         }
 
-        // Le acl possono contenere IP, sottoreti e nomi di host
+        // Le ACL possono contenere IP, sottoreti e nomi di host
         acl purge {
             "localhost";
             "192.168.55.0"/24;
@@ -208,4 +216,4 @@ assoluti generati:
 
 .. _`Varnish`: https://www.varnish-cache.org
 .. _`Architettura Edge`: http://www.w3.org/TR/edge-arch
-.. _`GZIP e Varnish`:  https://www.varnish-cache.org/docs/3.0/phk/gzip.html
+.. _`GZIP e Varnish`: https://www.varnish-cache.org/docs/3.0/phk/gzip.html

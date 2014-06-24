@@ -54,7 +54,7 @@ fare il push di quest ramo nel *proprio* fork su GitHub e richiedere un pull.
 Richiedere un pull
 ~~~~~~~~~~~~~~~~~~
 
-Seguend l'esempio, la richiesta di pull sarà tra il proprio ramo
+Seguendo l'esempio, la richiesta di pull sarà tra il proprio ramo
 ``miglioramenti_di_pippo_e_pluto`` e il ramo ``master`` di ``symfony-docs``.
 
 Se le proprie modifiche sono basate sul ramo 2.3, occorre cambiare il

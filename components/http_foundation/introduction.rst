@@ -525,8 +525,8 @@ Si può ancora impostare il ``Content-Type`` del file inviato o cambiarne il ``C
 
 .. _component-http-foundation-json-response:
 
-Creare una rispota JSON
-~~~~~~~~~~~~~~~~~~~~~~~
+Creare una risposta JSON
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Si può creare qualsiasi tipo di rispsota tramite la classe
 :class:`Symfony\\Component\\HttpFoundation\\Response`, impostando il contenuto

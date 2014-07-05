@@ -4,14 +4,21 @@ Isbn
 .. versionadded:: 2.3
     Il vincolo Isbn è stato aggiunto in Symfony 2.3.
 
+.. caution::
+
+    Le opzioni ``isbn10`` e ``isbn13`` sono deprecate da Symfony 2.5
+    e saranno rimosse in Symfony 3.0. Usare invece l'opzione ``type``.
+    Inoltre, quando si usa l'opzione ``type``, i caratteri minuscoli non sono
+    più supportati a partire da Symfony 2.5, non essendo consentiti negli ISBN.
+
 Questo vincolo valida che un `ISBN (International Standard Book Number)`_
 si valido rispetto allo standard ISBN-10 o a quello ISBN-13 (o a entrambi).
 
 +----------------+----------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                |
 +----------------+----------------------------------------------------------------------+
-| Opzioni        | - `isbn10`_                                                          |
-|                | - `isbn13`_                                                          |
+| Opzioni        | - `type`_                                                            |
+|                | - `message`_                                                         |
 |                | - `isbn10Message`_                                                   |
 |                | - `isbn13Message`_                                                   |
 |                | - `bothIsbnMessage`_                                                 |
@@ -36,9 +43,8 @@ su un oggetto che conterrà un ISBN.
             properties:
                 isbn:
                     - Isbn:
-                        isbn10: true
-                        isbn13: true
-                        bothIsbnMessage: This value is neither a valid ISBN-10 nor a valid ISBN-13.
+                        type: isbn10
+                        message: This value is not  valid.
 
     .. code-block:: php-annotations
 
@@ -49,9 +55,8 @@ su un oggetto che conterrà un ISBN.
         {
             /**
              * @Assert\Isbn(
-             *     isbn10 = true,
-             *     isbn13 = true,
-             *     bothIsbnMessage = "This value is neither a valid ISBN-10 nor a valid ISBN-13."
+             *     type = isbn10,
+             *     message: This value is not  valid.
              * )
              */
             protected $isbn;
@@ -63,9 +68,8 @@ su un oggetto che conterrà un ISBN.
         <class name="Acme\BookcaseBundle\Entity\Book">
             <property name="isbn">
                 <constraint name="Isbn">
-                    <option name="isbn10">true</option>
-                    <option name="isbn13">true</option>
-                    <option name="bothIsbnMessage">This value is neither a valid ISBN-10 nor a valid ISBN-13.</option>
+                    <option name="type">isbn10</option>
+                    <option name="message">This value is not  valid.</option>
                 </constraint>
             </property>
         </class>
@@ -85,9 +89,8 @@ su un oggetto che conterrà un ISBN.
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('isbn', new Assert\Isbn(array(
-                    'isbn10'          => true,
-                    'isbn13'          => true,
-                    'bothIsbnMessage' => 'This value is neither a valid ISBN-10 nor a valid ISBN-13.'
+                    'type'    => isbn10,
+                    'message' => 'This value is not valid.'
                 )));
             }
         }
@@ -95,21 +98,21 @@ su un oggetto che conterrà un ISBN.
 Opzioni disponibili
 -------------------
 
-isbn10
-~~~~~~
+type
+~~~~
 
-**tipo**: ``booleano`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``stringa`` **predefinito**: ``null``
 
-Se questa opzione obbligatoria è ``true``, il vincolo verificherà che il codice
-sia valido rispetto a ISBN-10.
+Il tipo di ISBN da validare.
+Valori validi sono ``isbn10``, ``isbn13`` e ``null`` (per accettare ogni tipo di ISBN).
 
-isbn13
-~~~~~~
+message
+~~~~~~~
 
-**tipo**: ``booleano`` [:ref:`default option<validation-default-option>`]
+**tipo**: ``stringa`` **predefinito**: ``null``
 
-Se questa opzione obbligatoria è ``true``, il vincolo verificherà che il codice
-sia valido rispetto a ISBN-13.
+Messaggio mostrato se il valore non è valido.
+Se non ``null`, questo messaggio ha priorità sugli altri messaggi.
 
 isbn10Message
 ~~~~~~~~~~~~~

@@ -1,5 +1,5 @@
 .. index::
-   single: Deploy
+   single: Deploy; Strumenti di deploy
 
 Deploy di un'applicazione Symfony2
 ==================================
@@ -88,7 +88,7 @@ fa normalmente:
 
 .. code-block:: bash
 
-    $ php composer.phar install --optimize-autoloader
+    $ php composer.phar install --no-dev --optimize-autoloader
 
 .. tip::
 

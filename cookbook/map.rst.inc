@@ -50,7 +50,8 @@
 
 * **Deploy**
 
-  * :doc:`/cookbook/deployment-tools`
+  * :doc:`/cookbook/deployment/tools`
+  * :doc:`/cookbook/deployment/azure-website`
 
 * :doc:`/cookbook/doctrine/index`
 

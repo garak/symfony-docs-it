@@ -112,14 +112,14 @@ message
 **tipo**: ``stringa`` **predefinito**: ``null``
 
 Messaggio mostrato se il valore non è valido.
-Se non ``null`, questo messaggio ha priorità sugli altri messaggi.
+Se non ``null``, questo messaggio ha priorità sugli altri messaggi.
 
 isbn10Message
 ~~~~~~~~~~~~~
 
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid ISBN-10.``
 
-Messaggio mostrato se l'opzione `isbn10`_ è ``true`` e il valore dato
+Messaggio mostrato se l'opzione `type`_ è ``isbn10`` e il valore dato
 non passa la verifica ISBN-10.
 
 isbn13Message
@@ -127,7 +127,7 @@ isbn13Message
 
 **tipo**: ``stringa`` **predefinito**: ``This value is not a valid ISBN-13.``
 
-Messaggio mostrato se l'opzione `isbn13`_ è ``true`` e il valore dato
+Messaggio mostrato se l'opzione `type`_ è ``isbn13`` e il valore dato
 non passa la verifica ISBN-13.
 
 bothIsbnMessage
@@ -135,7 +135,7 @@ bothIsbnMessage
 
 **tipo**: ``stringa`` **predefinito**: ``This value is neither a valid ISBN-10 nor a valid ISBN-13.``
 
-Messaggio mostrato se entrambe le opzioni `isbn10`_ e `isbn13`_ sono ``true``
-e il valore dato non passa né la verifica ISBN-10 né quella ISBN-13.
+Messaggio mostrato se l'opzione `type`_ è ``null``
+e il valore dato non passa nessuna verifica ISBN.
 
 .. _`ISBN (International Standard Book Number)`: https://it.wikipedia.org/wiki/ISBN

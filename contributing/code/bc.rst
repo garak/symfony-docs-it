@@ -307,6 +307,9 @@ Aggiungere tipo forzato a un parametro              Sì              Sì
 Rimuovere tipo forzato da un parametro              Sì              Sì
 Cambiare tipo di parametro                          Sì              Sì
 Cambiare tipo restituito                            Sì              Sì
+**Metodi statici**
+Cmabiare non statico in statico                     No              No
+Cmabiare statico in non statico                     No              No
 ==================================================  ==============  ==============
 
 .. [1] Il codice dell'applicazione potrebbe rompersi in conseguenza di modifiche al codice di Symfony. Tali

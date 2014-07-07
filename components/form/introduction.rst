@@ -69,8 +69,8 @@ Gestione della richiesta
 .. versionadded:: 2.3
     Il metodo ``handleRequest()`` è stato aggiunto in Symfony 2.3.
 
-Per processare i dati di un form, occorre richiamare :method:`Symfony\\Component\\Form\\Form::handleRequest`
-method::
+Per processare i dati di un form, occorre richiamare il metodo :method:`Symfony\\Component\\Form\\Form::handleRequest`::
+
 
     $form->handleRequest();
 
@@ -78,7 +78,7 @@ Dietro le quinte, viene usato un oggetto :class:`Symfony\\Component\\Form\\Nativ
 per leggere i dati dalle opportune variabili di PHP (``$_POST`` o
 ``$_GET``), in base al metodo HTTP configurato nel form (quello predefinito è POST).
 
-.. sidebar:: Integration with the HttpFoundation Component
+.. sidebar:: Integrazione con il componente HttpFoundation
 
     Per l'integrazione con HttpFoundation, aggiungere
     :class:`Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension`
@@ -183,7 +183,7 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     $vendorDir = realpath(__DIR__ . '/../vendor');
     // percorso di TwigBridge, che consente a Twig di trovare il file
     // form_div_layout.html.twig
-    $vendorTwigBridgeDir = 
+    $vendorTwigBridgeDir =
         $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
     // percorso degli altri template
     $viewsDir = realpath(__DIR__ . '/../views');
@@ -311,7 +311,7 @@ L'integrazione con il componente Validation sarà simile a questa::
 
     $vendorDir = realpath(__DIR__ . '/../vendor');
     $vendorFormDir = $vendorDir . '/symfony/form/Symfony/Component/Form';
-    $vendorValidatorDir = 
+    $vendorValidatorDir =
         $vendorDir . '/symfony/validator/Symfony/Component/Validator';
 
     // creare il validatore (i dettagli possono variare)
@@ -341,7 +341,7 @@ Per approfondire, vedere la sezione :ref:`component-form-intro-validation`.
 Accesso al factory dei form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-L'applicaizone ha bisogno di un unico factory di form, quello che andrebbe
+L'applicazione ha bisogno di un unico factory di form, quello che andrebbe
 usato per creare tutti gli oggetti form nell'applicazione. Questo vuol
 dire che andrebbe creato in una parte centralizzata iniziale dell'applicazione
 e quindi acceduto ovunque ci sia bisogno di costruire un form.

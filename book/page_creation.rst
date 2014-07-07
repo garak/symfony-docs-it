@@ -51,7 +51,7 @@ un front controller utilizzabile con qualsiasi ambiente.)
 
 Quando il front controller inizializza il kernel, fornisce due parametri:
 l'ambiente e la modalità di debug con cui il kernel deve girare.
-Per far rispondere velocemente l'applicaizone, Symfony2 mantiene una cache sotto la
+Per far rispondere velocemente l'applicazione, Symfony2 mantiene una cache sotto la
 cartella ``app/cache/``. Quando il debug è abilitato (come in ``app_dev.php``),
 la cache viene rinfrescata automaticamente a ogni modifica del
 codice o della configurazione. In debug, Symfony2 va più

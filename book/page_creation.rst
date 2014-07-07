@@ -484,7 +484,7 @@ La cartella web
 ~~~~~~~~~~~~~~~
 
 La cartella radice del web è la casa di tutti i file pubblici e statici, inclusi
-immagini, fogli di stile, file JavaScript. È anche li posto in cui stanno tutti
+immagini, fogli di stile, file JavaScript. È anche il posto in cui stanno tutti
 i :term:`front controller`::
 
     // web/app.php
@@ -725,7 +725,7 @@ predefinita, il sistema dei bundle segue un insieme di convenzioni, che aiutano 
 mantenere il codice coerente tra tutti i bundle di Symfony2. Si dia un'occhiata a
 ``AcmeHelloBundle``, perché contiene alcuni degli elementi più comuni di un bundle:
 
-* ``Controller/`` contiene i controllori del (p.e. ``HelloController.php``);
+* ``Controller/`` contiene i controllori del bundle (p.e. ``HelloController.php``);
 
 * ``DependencyInjection/`` contiene alcune estensioni di classi,
   che possono importare configurazioni di servizi, registrare passi di compilatore o altro
@@ -895,7 +895,7 @@ Un'applicazione può girare in vari ambienti. I diversi ambienti condividono lo 
 codice PHP (tranne per il front controller), ma usano differenti configurazioni.
 Per esempio, un ambiente ``dev`` salverà nei log gli avvertimenti e gli errori,
 mentre un ambiente ``prod`` solamente gli errori. Alcuni file sono ricostruiti a
-ogni richiesta nell'ambiente ``dev`` (per facilitare gli sviluppatori=, ma salvati
+ogni richiesta nell'ambiente ``dev`` (per facilitare gli sviluppatori), ma salvati
 in cache nell'ambiente ``prod``. Tutti gli ambienti stanno insieme nella stessa
 macchina e sono eseguiti nella stessa applicazione.
 
@@ -948,7 +948,7 @@ Configurazione degli ambienti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 La classe ``AppKernel`` è responsabile del caricare effettivamente i file
-di conigurazione scelti::
+di configurazione scelti::
 
     // app/AppKernel.php
     public function registerContainerConfiguration(LoaderInterface $loader)

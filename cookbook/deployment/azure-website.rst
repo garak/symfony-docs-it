@@ -4,11 +4,11 @@
 Deploy su Microsoft Azure
 =========================
 
-Questa ricetta descrivere come eseguire passo-passo il deploy di una piccola
+Questa ricetta descrive come eseguire passo-passo il deploy di una piccola
 applicazione Symfony2 sulla piattaforma di cloud Microsoft Azure. Spiegherà come
 preparare un nuovo sito Azure, inclusa la configurazione della corretta versione di PHP e
 delle variabili di ambiente. Verrà anche mostrato come si possono sfruttare
-Git and Composer per il deploy di un'applicaizone Symfony nel cloud.
+Git e Composer per il deploy di un'applicazione Symfony nel cloud.
 
 Preparazione di Azure Website
 -----------------------------
@@ -161,7 +161,7 @@ Abilitare l'estensione intl di PHP
 Questa è la parte difficoltosa. Al momento della scrittura di questa ricetta,
 Microsoft Azure Website forniva l'estensione ``intl``, ma non abilitata in modo
 predefinito. Per abilitare l'estensione ``intl``, non è necessario caricare
-alcun file DLL, poiché il file ``php_intl.dll`` esiste già su Azure. In effeteti,
+alcun file DLL, poiché il file ``php_intl.dll`` esiste già su Azure. In effetti,
 basta spostare tale file nella cartella delle estensioni personalizzate.
 
 .. note::
@@ -286,32 +286,31 @@ cartella radice del progetto Symfony:
     $ git remote add azure https://<nomeutente>@<nome-website>.scm.azurewebsites.net:443/<nome-website>.git
     $ git push azure master
 
-(TODO traduzione da finire...)
-Don't forget to replace the values enclosed by ``<`` and ``>`` with your custom
-settings displayed in the **Deployment** tab of your Azure Website panel. The
-``git remote`` command connects the Azure Website remote Git repository and
-assigns an alias to it with the name ``azure``. The second ``git push`` command
-pushes all your commits to the remote ``master`` branch of your remote ``azure``
-Git repository.
+Non dimenticare di sostituire i valori compresi tra ``<`` e ``>`` con le impostazioni
+personalizzate mostrate sotto la voce **Deployment** del pannello Azure Website. Il comando
+``git remote`` connette il repository remoto Git di Azure Website e gli
+assegna un alias chiamato ``azure``. Il comando ``git push`` esegue un
+push di tutti i commit al ramo remoto ``master`` del repository remoto Git
+``azure``.
 
-The deployment with Git should produce an output similar to the screenshot
-below:
+Il deploy con Git dovrebbe produrre un output simile a quello della schermata
+seguente:
 
 .. image:: /images/cookbook/deployment/azure-website/step-15.png
-   :alt: Deploying files to the Git Azure Website repository
+   :alt: Deploy di file nel repository Git di Azure Website
 
-The code of the Symfony application has now been deployed to the Azure Website
-which you can browse from the file explorer of the Kudu application. You should
-see the ``app/``, ``src/`` and ``web/`` directories under your ``site/wwwroot``
-directory on the Azure Website filesystem.
+Il codice dell'applicazione Symfony ora è su Azure Website e
+può essere sfogliato dal gestore di file dell'applicazione Kudu. Si dovrebbero
+vedere le cartelle ``app/``, ``src/`` e ``web/`` sotto la cartella ``site/wwwroot``
+sul filesystem Azure Website.
 
 Configurare l'applicazione Symfony
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PHP has been configured and your code has been pushed with Git. The last
-step is to configure the application and install the third party dependencies
-it requires that aren't tracked by Git. Switch back to the online **Console**
-of the Kudu application and execute the following commands in it:
+PHP è stato configurato e il codice inviato su Git. L'ultimo passo
+è configurare l'applicazione e installare le dipendenze di terze parti,
+che non sono tracciate da Git. Tornare al **terminale** online
+dell'applicazione Kudu ed eseguire i seguenti comandi:
 
 .. code-block:: bash
 
@@ -319,48 +318,48 @@ of the Kudu application and execute the following commands in it:
     $ curl -sS https://getcomposer.org/installer | php
     $ php -d extension=php_intl.dll composer.phar install
 
-The ``curl`` command retrieves and downloads the Composer command line tool and
-installs it at the root of the ``site/wwwroot`` directory. Then, running
-the Composer ``install`` command downloads and installs all necessary third-party
-libraries.
+Il comando ``curl`` scarica lo strumento Composer e lo
+installa nella cartella radice ``site/wwwroot``. Quindi, si esegue il comando
+di Composer ``install``, che scarica e installa le necessarie librerie di
+terze parti.
 
-This may take a while depending on the number of third-party dependencies
-you've configured in your ``composer.json`` file.
+Ci potrebbe volere un po' di tempo, a seconda del numero di dipendenze di terze parti
+configurate nel file ``composer.json``.
 
 .. note::
 
-    The ``-d`` switch allows you to quickly override/add any ``php.ini`` settings.
-    In this command, we are forcing PHP to use the ``intl`` extension, because
-    it is not enabled by default in Azure Website at the moment. Soon, this
-    ``-d`` option will no longer be needed since Microsoft will enable the
-    ``intl`` extension by default.
+    L'opzione ``-d`` consente di sovrascrivere velocemente impostazioni di ``php.ini``.
+    In questo comando, PHP viene forzato a usare l'estensione ``intl``, perché
+    attualmente Azure Website non la abilita in modo predefinito. Questa opzione
+    ``-d`` sarà presto superflua, perché Microsoft abiliterà l'estensione
+    ``intl`` in modo predefinito.
 
-At the end of the ``composer install`` command, you will be prompted to fill in
-the values of some Symfony settings like database credentials, locale, mailer
-credentials, CSRF token protection, etc. These parameters come from the
-``app/config/parameters.yml.dist`` file.
+Alla fine del comando ``composer install``, verrà richiesto di compilare alcuni
+valori di impostazioni di Symfony, come credenziali per la base dati, locale, credenziali
+per il mailer, CSRF, ecc. Questi parametri provengono dal file
+``app/config/parameters.yml.dist``.
 
 .. image:: /images/cookbook/deployment/azure-website/step-16.png
-   :alt: Configuring Symfony global parameters
+   :alt: Configurazione dei parametri globali di Symfony
 
-The most important thing in this cookbook is to correctly setup your database
-settings. You can get your MySQL database settings on the right sidebar of the
-**Azure Website Dashboard** panel. Simply click on the
-**View Connection Strings** link to make them appear in a pop-in.
+La cosa più importante in questa ricetta è configurare correttamente le impostazioni
+della base dati. Si possono verificare le impostazioni di MySQL nella barra di destra del
+pannello del cruscotto di Azure Website. Basta cliccare sul collegamento
+**View Connection Strings** per farli apparire.
 
 .. image:: /images/cookbook/deployment/azure-website/step-17.png
-   :alt: MySQL database settings
+   :alt: Impostazioni di MySQL
 
-The displayed MySQL database settings should be something similar to the code
-below. Of course, each value depends on what you've already configured.
+Le impostazioni della base dati MySQL mostrate dovrebbero assomigliare al codice
+seguente. Ovviamente, i valori dipendono da quanto configurato.
 
 .. code-block:: text
 
     Database=mysymfony2MySQL;Data Source=eu-cdbr-azure-north-c.cloudapp.net;User Id=bff2481a5b6074;Password=bdf50b42
 
-Switch back to the console and answer the prompted questions and provide the
-following answers. Don't forget to adapt the values below with your real values
-from the MySQL connection string.
+Tornare al terminale e rispondere alle domande, fornendo le seguenti
+risposte. Non dimenticare di adattare i valori seguenti ai valori reali
+della stringa di connessione MySQL.
 
 .. code-block:: text
 
@@ -372,53 +371,53 @@ from the MySQL connection string.
     database_password: bdf50b42
     // ...
 
-Don't forget to answer all the questions. It's important to set a unique random
-string for the ``secret`` variable. For the mailer configuration, Azure Website
-doesn't provide a built-in mailer service. You should consider configuring
-the host-name and credentials of some other third-party mailing service if
-your application needs to send emails.
+Non dimenticare di rispondere a tutte le domande. È importante impostare una stringa unica
+e casuale per la variabile ``secret``. Per la configurazione del mailer, Azure Website
+non fornisce un servizio mailer predefinito. Si consideri l'ipotesi di configurare
+nome host e credenziali di un qualche servizio di mailer esterno, se
+l'applicazione ha bisogno di inviare email.
 
 .. image:: /images/cookbook/deployment/azure-website/step-18.png
-   :alt: Configuring Symfony
+   :alt: Configuazione di Symfony
 
-Your Symfony application is now configured and should be almost operational. The
-final step is to build the database schema. This can easily be done with the
-command line interface if you're using Doctrine. In the online **Console** tool
-of the Kudu application, run the following command to mount the tables into your
-MySQL database.
+L'applicazione Symfony è ora configurata e dovrebbe essere quasi operativa. Il passo
+finale è costruire lo schema della base dati. Lo si può fare facilmente con
+l'interfaccia a linea di comando, se si usa Doctrine. Nel terminale online
+dell'applicazione Kudu, eseguire i comandi seguenti per creare le tabelle nella
+base dati MySQL.
 
 .. code-block:: bash
 
     $ php app/console doctrine:schema:update --force
 
-This command builds the tables and indexes for your MySQL database. If your
-Symfony application is more complex than a basic Symfony Standard Edition, you
-may have additional commands to execute for setup (see :doc:`/cookbook/deployment/tools`).
+Questo comando costruisce tabelle e indici per la base dati MySQL. Se
+l'applicazione Symfony è più complessa della semplice Standard Edition, potrebbero
+essere necessari comandi aggiuntivi (vedere :doc:`/cookbook/deployment/tools`).
 
-Make sure that your application is running by browsing the ``app.php`` front
-controller with your web browser and the following url:
+Assicurarsi che l'applicazione funzioni, aprendo il front controller ``app.php``
+con un browser, nel seguente URL:
 
 .. code-block:: bash
 
-    http://<your-website-name>.azurewebsites.net/web/app.php
+    http://<nome-website>.azurewebsites.net/web/app.php
 
-If Symfony is correctly installed, you should see the front page of your Symfony
-application showing.
+Se Symfony è installato correttamente, si dovrebbe vedere la pagina iniziale
+dell'applicazione Symfony.
 
 Configurare il server web
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-At this point, the Symfony application has been deployed and works perfectly on
-the Azure Website. However, the ``web`` folder is still part of the url, which
-you definitely don't want. But don't worry! You can easily configure the web
-server to point to the ``web`` folder and remove the ``web`` in the URL (and
-guarantee that nobody can access files outside of the ``web`` directory.)
+A questo punto, l'applicazione Symfony funziona perfettamente su
+Azure Website. Tuttavia, l'URL comprende ancora la cartella ``web``, che non
+è desiderabile. Niente paura! Si può facilmente configurare il server web
+per puntare alla cartella ``web`` e rimuovere quindi la parte ``web`` dell'URL (e
+garantire che nessuno possa accedere a file esterni alla cartella ``web``.)
 
-To do this, create and deploy (see previous section about Git) the following
-``web.config`` file. This file must be located at the root of your project
-next to the ``composer.json`` file. This file is the Microsoft IIS Server
-equivalent to the well-known ``.htaccess`` file from Apache. For a Symfony
-application, configure it with the following content:
+Per poterlo fare, creare (come visto nella precedente sezione su Git) il seguente file
+``web.config``. Questo file deve trovarsi nella radice del progetto, accanto
+al file ``composer.json``. Questo file è l'equivalente per Microsoft IIS Server
+del ben noto file ``.htaccess`` di Apache. Per un'applicazione Symfony,
+configurarlo con il seguente contenuto:
 
 .. code-block:: xml
 
@@ -453,31 +452,27 @@ application, configure it with the following content:
       </system.webServer>
     </configuration>
 
-As you can see, the latest rule ``RewriteRequestsToPublic`` is responsible for
-rewriting any urls to the ``web/app.php`` front controller which allows you to
-skip the ``web/`` folder in the URL. The first rule called ``BlockAccessToPublic``
-matches all url patterns that contain the ``web/`` folder and serves a
-``403 Forbidden`` HTTP response instead. This example is based on Benjamin
-Eberlei's sample you can find on Github in the `SymfonyAzureEdition`_ bundle.
+Come si può vedere, l'ultima regola ``RewriteRequestsToPublic`` si occupa
+di riscrivere ogni URL verso il front controller ``web/app.php``, il che consente
+di evitare la cartella ``web/`` nell'URL. La prima regola ``BlockAccessToPublic``
+corrisponde a tutti gli schemi di URL che contengano la cartella ``web/`` e serve invece una risposta HTTP
+``403 Forbidden``. Questo esempio è basato su un codice di Benjamin
+Eberlei, che si può trovare nel bundle `SymfonyAzureEdition`_ su Github.
 
-Deploy this file under the ``site/wwwroot`` directory of the Azure Website and
-browse to your application without the ``web/app.php`` segment in the URL.
+Inviare questo file sotto la cartella ``site/wwwroot`` di Azure Website e
+navigare l'applicazione senza parte ``web/app.php`` dell'URL.
 
 Conclusione
 -----------
 
-Nice work! You've now deployed your Symfony application to the Microsoft
-Azure Website Cloud platform. You also saw that Symfony can be easily configured
-and executed on a Microsoft IIS web server. The process is simple and easy
-to implement. And as a bonus, Microsoft is continuing to reduce the number
-of steps needed so that deployment becomes even easier.
+Bel lavoro! Il deploy dell'applicazione Symfony sulla piattaforma Microsoft
+Azure Website Cloud è completo. Abbiamo anche visto quanto sia facile configurare ed eseguire
+Symfony su un server web Microsoft IIS. Il processo e semplice e facile
+da implementare. Come bonus, Microsoft sta riducendo gradualmente il numero di
+passi necessari, per rendere il deploy ancora più facile.
 
 .. _`iscriversi ad Azure`: https://signup.live.com/signup.aspx
 .. _`Azure Portal`: https://manage.windowsazure.com
 .. _`documentazione MSDN su PHP`: http://blogs.msdn.com/b/silverlining/archive/2012/07/10/configuring-php-in-windows-azure-websites-with-user-ini-files.aspx
 .. _`git-scm.com`: http://git-scm.com/download
 .. _`SymfonyAzureEdition`: https://github.com/beberlei/symfony-azure-edition/
-
-
-
-

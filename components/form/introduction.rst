@@ -341,7 +341,7 @@ Per approfondire, vedere la sezione :ref:`component-form-intro-validation`.
 Accesso al factory dei form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-L'applicaizone ha bisogno di un unico factory di form, quello che andrebbe
+L'applicazione ha bisogno di un unico factory di form, quello che andrebbe
 usato per creare tutti gli oggetti form nell'applicazione. Questo vuol
 dire che andrebbe creato in una parte centralizzata iniziale dell'applicazione
 e quindi acceduto ovunque ci sia bisogno di costruire un form.

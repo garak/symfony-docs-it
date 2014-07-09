@@ -260,7 +260,7 @@ Gestione degli errori
 
 Quando si verifica un problema, viene sollevata un'eccezione che implementa 
 :class:`Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface` o
-:class:`Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface`.
+:class:`Symfony\\Component\\Filesystem\\Exception\\IOExceptionInterface`.
 
 .. note::
 

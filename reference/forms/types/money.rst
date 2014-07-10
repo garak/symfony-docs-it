@@ -76,7 +76,7 @@ precision
 
 **tipo**: ``intero`` **predefinito**: ``2``
 
-Se, per qualche ragione, occore una precisione diversa da due cifre decimali,
+Se, per qualche ragione, occorre una precisione diversa da due cifre decimali,
 si può modificare questo valore. Probabilmente non se ne avrà bisogno, a meno che,
 per esempio, non si voglia arrotondare all'unità più vicina (impostare in questo caso
 a ``0``).

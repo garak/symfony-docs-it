@@ -1,6 +1,11 @@
 Callback
 ========
 
+.. versionadded:: 2.4
+    Il vincolo ``Callback`` è stato semplificato in Symfony 2.4. Per esempi
+    di utilizzo con precedenti versioni di Symfonu, vedere le versioni corrispondenti
+    di questa pagina.
+
 Lo scopo del vincolo Callback è di poter creare delle regole di validazione
 completamente personalizzate e di assegnare qualsiasi errore di validazione a
 campi specifici di un oggetto. Se si usa la validazione con i form, questo vuol dire
@@ -18,9 +23,9 @@ fare qualsiasi cosa, incluso creare e assegnare errori di validazione.
     "violazioni" al validatore.
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`classi<validation-class-target>`                                 |
+| Si applica a   | :ref:`classi <validation-class-target>`                                |
 +----------------+------------------------------------------------------------------------+
-| Opzioni        | - `methods`_                                                           |
+| Opzioni        | - :ref:`callback <callback-option>`                                    |
 +----------------+------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Callback`          |
 +----------------+------------------------------------------------------------------------+
@@ -46,12 +51,17 @@ Preparazione
         namespace Acme\BlogBundle\Entity;
 
         use Symfony\Component\Validator\Constraints as Assert;
+        use Symfony\Component\Validator\ExecutionContextInterface;
 
-        /**
-         * @Assert\Callback(methods={"isAuthorValid"})
-         */
         class Author
         {
+            /**
+             * @Assert\Callback
+             */
+            public function validate(ExecutionContextInterface $context)
+            {
+                // ...
+            }
         }
 
     .. code-block:: xml
@@ -63,11 +73,7 @@ Preparazione
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
             <class name="Acme\BlogBundle\Entity\Author">
-                <constraint name="Callback">
-                    <option name="methods">
-                        <value>isAuthorValid</value>
-                    </option>
-                </constraint>
+                <constraint name="Callback">validate</constraint>
             </class>
         </constraint-mapping>
 
@@ -83,9 +89,7 @@ Preparazione
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addConstraint(new Assert\Callback(array(
-                    'methods' => array('isAuthorValid'),
-                )));
+                $metadata->addConstraint(new Assert\Callback('validate'));
             }
         }
 
@@ -97,24 +101,29 @@ impostare le "violazioni" direttamente su questo oggetto e determinare a quale c
 questi errori vadano attribuiti::
 
     // ...
-    use Symfony\Component\Validator\ExecutionContext;
+    use Symfony\Component\Validator\ExecutionContextInterface;
 
     class Author
     {
         // ...
         private $firstName;
 
-        public function isAuthorValid(ExecutionContext $context)
+        public function validate(ExecutionContextInterface $context)
         {
             // si ha in qualche modo un array di nomi fasulli
-            $fakeNames = array();
+            $fakeNames = array(/* ... */);
 
             // verifica se il nome è in effetti un nome fasullo
             if (in_array($this->getFirstName(), $fakeNames)) {
-                $context->addViolationAtSubPath('firstname', 'Questo nome  sembra proprio falso!', array(), null);
+                $context->addViolationAt(
+                    'firstname',
+                    'Questo nome  sembra proprio falso!',
+                    array(),
+                    null
+                );
             }
         }
-     }
+    }
 
 Opzioni
 -------

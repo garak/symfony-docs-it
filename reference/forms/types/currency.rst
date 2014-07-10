@@ -46,7 +46,7 @@ choices
 
 **default**: ``Symfony\Component\Intl\Intl::getCurrencyBundle()->getCurrencyNames()``
 
-L'opzione choices è impostata di default a tutte le valute.
+L'opzione ``choices`` è impostata in modo predefinito a tutte le valute.
 
 Opzioni ereditate
 -----------------
@@ -63,7 +63,7 @@ Queste opzioni sono eredidate dal tipo :doc:`choice </reference/forms/types/choi
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
-Queste opzioni sono eredidate dal tipo :doc:`form </reference/forms/types/form>`:
+Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
 .. include:: /reference/forms/types/options/empty_data.rst.inc
 

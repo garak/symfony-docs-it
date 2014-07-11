@@ -21,8 +21,6 @@ Configurazione predefinita completa
                     level:               ERROR
                     bubble:              false
                     formatter:           mio_formattatore
-                    processors:
-                        - un_callable
                 main:
                     type:                fingers_crossed
                     action_level:        WARNING

@@ -18,7 +18,7 @@ Configurazione predefinita completa
                 types:
                     # Un insieme di tipi personalizzati
                     # Esempio
-                    some_custom_type:
+                    un_tipo_personalizzato:
                         class:                Acme\HelloBundle\MioTipoPersonalizzato
                         commented:            true
 
@@ -105,9 +105,9 @@ Configurazione predefinita completa
 
             orm:
                 default_entity_manager:  ~
-                auto_generate_proxy_classes:  false
+                auto_generate_proxy_classes:    false
                 proxy_dir:            %kernel.cache_dir%/doctrine/orm/Proxies
-                proxy_namespace:      Proxies
+                proxy_namespace:                Proxies
                 # cercare la classe "ResolveTargetEntityListener" per una ricetta a riguardo
                 resolve_target_entities: []
                 entity_managers:
@@ -132,7 +132,7 @@ Configurazione predefinita completa
                             instance_class:       ~
                             class:                ~
                         connection:           ~
-                        class_metadata_factory_name:    Doctrine\ORM\Mapping\ClassMetadataFactory
+                        class_metadata_factory_name:  Doctrine\ORM\Mapping\ClassMetadataFactory
                         default_repository_class:  Doctrine\ORM\EntityRepository
                         auto_mapping:         false
                         hydrators:
@@ -255,8 +255,8 @@ determinate classi, ma sono solo per casi molto avanzati.
 Driver per la cache
 ~~~~~~~~~~~~~~~~~~~
 
-Per i driver della cache, si può specificare "array", "apc", "memcache"
-o "xcache".
+Per i driver della cache, si può specificare "array", "apc", "memcache", "memcached",
+"xcache" o "service".
 
 L'esempio seguente mostra una panoramica delle configurazioni di cache:
 
@@ -411,3 +411,38 @@ Ogni connessione è anche accessibile tramite il servizio ``doctrine.dbal.[nome]
 in cui ``[nome]`` è il nome della connessione.
 
 .. _documentazione DBAL: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
+
+Sintassi configurazione abbreviata
+----------------------------------
+
+Se si una singolo gestore di entità, tutte le opzioni disponibili
+possono essere inserite direttamente sotto il livello ``doctrine.orm``. 
+
+.. code-block:: yaml
+
+    doctrine:
+        orm:
+            # ...
+            query_cache_driver:
+               # ...
+            metadata_cache_driver:
+                # ...
+            result_cache_driver:
+                # ...
+            connection: ~
+            class_metadata_factory_name:  Doctrine\ORM\Mapping\ClassMetadataFactory
+            default_repository_class:  Doctrine\ORM\EntityRepository
+            auto_mapping: false
+            hydrators:
+                # ...
+            mappings:
+                # ...
+            dql:
+                # ...
+            filters:
+                # ...
+
+Questa versione abbreviata è usata comunemente in altre sezioni della documentazione.
+Tenere a mente che non si possono usare entrambe le sintassi allo stesso tempo.
+
+

@@ -298,6 +298,22 @@ Quando il widget ``form.age`` è reso, Symfony utilizzerà il blocco ``integer_w
 dal nuovo template e il tag ``input`` sarà incorporato nel
 ``div`` specificato nel blocco personalizzato.
 
+Template multipli
+.................
+
+Si può anche personalizzare un form applicando più template. Per poterlo fare, passare i
+nomi di tutti i template come array, usando la parola chiave ``with``:
+
+.. code-block:: html+jinja
+
+    {% form_theme form with ['::common.html.twig', ':Form:fields.html.twig',
+                             'AcmeDemoBundle:Form:fields.html.twig'] %}
+
+    {# ... #}
+
+I template possono essere in bundle diversi e possono anche trovarsi
+nella cartella globale ``app/Resources/views/``.
+
 Form figli
 ..........
 

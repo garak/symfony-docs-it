@@ -38,6 +38,11 @@ sottostante:
         set req.http.Surrogate-Capability = "abc=ESI/1.0";
     }
 
+.. note::
+
+    La parte ``abc`` dell'header non è importante, a meno che non si abbiano più "surrogati"
+    che debbano avveritire delle loro capacità. Vedere `Header Surrogate-Capability`_ per dettagli.
+
 Quindi, ottimizzare Varnish in modo che analizzi i contenuti della risposta solo quando
 ci sia almeno un tag ESI, verificando l'header ``Surrogate-Control``, che
 Symfony2 aggiunge automaticamente:
@@ -45,7 +50,7 @@ Symfony2 aggiunge automaticamente:
 .. code-block:: text
 
     sub vcl_fetch {
-        /* 
+        /*
         Verifica il riconoscimento di ESI  
         e rimuove l'header Surrogate-Control
         */
@@ -217,3 +222,4 @@ assoluti generati:
 .. _`Varnish`: https://www.varnish-cache.org
 .. _`Architettura Edge`: http://www.w3.org/TR/edge-arch
 .. _`GZIP e Varnish`: https://www.varnish-cache.org/docs/3.0/phk/gzip.html
+.. _`Header Surrogate-Capability`: http://www.w3.org/TR/edge-arch

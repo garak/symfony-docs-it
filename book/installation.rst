@@ -338,9 +338,9 @@ memorizzato in git, si veda :doc:`/cookbook/workflow/new_project_git`.
 Ignorare la cartella ``vendor/``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Chi ha scelto di scaricare l'archivio *senza venditori* può tranquillamente
-ignorare l'intera cartella ``vendor/`` e non inviarla in commit al controllo di sorgenti.
-Con ``Git``, lo si può fare aggiungendo al file ``.gitignore`` la
+Chi ha scelto di scaricare l'archivio *senza venditori* può tranquillamente ignorare
+l'intera cartella ``vendor/`` e non inviarla in commit al controllo di sorgenti. Con
+``Git``, lo si può fare aggiungendo al file ``.gitignore`` la
 seguente riga:
 
 .. code-block:: text

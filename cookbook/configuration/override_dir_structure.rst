@@ -10,18 +10,19 @@ predefinita è:
 
 .. code-block:: text
 
-    app/
-        cache/
-        config/
-        logs/
-        ...
-    src/
-        ...
-    vendor/
-        ...
-    web/
-        app.php
-        ...
+    progetto/
+    ├─ app/
+    │  ├─ cache/
+    │  ├─ config/
+    │  ├─ logs/
+    │  └─ ...
+    ├─ src/
+    │  └─ ...
+    ├─ vendor/
+    │  └─ ...
+    └─ web/
+       ├─ app.php
+       └─ ...
 
 .. _override-cache-dir:
 
@@ -94,7 +95,7 @@ necesario modificare i percorsi nei file::
 Da Symfony 2.1 (in cui è stato introdotto Composer), occorre anche modificare
 l'opzione ``extra.symfony-web-dir`` nel file ``composer.json``:
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
         ...
@@ -115,8 +116,8 @@ l'opzione ``extra.symfony-web-dir`` nel file ``composer.json``:
 
 .. note::
 
-    Se si usa AsseticBundle, occorre configurarlo in modo che possa usare la cartella
-    ``web`` corretta:
+    Se si usa AsseticBundle, occorre configurarlo in modo che possa usare la
+    cartella ``web`` corretta:
 
     .. configuration-block::
 

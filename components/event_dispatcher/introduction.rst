@@ -449,8 +449,7 @@ Eventi e ascolatori consapevoli del distributore
 Questo vuol dire che tutti gli ascoltatori hanno accesso diretto all'oggetto
 ``EventDispatcher`` notificante, tramite il metodo
 :method:`Symfony\\Component\\EventDispatcher\\Event::getDispatcher`
-dell'oggetto ``Event``
-passato.
+dell'oggetto ``Event`` passato.
 
 Questo può portare ad applicazioni avanzate per ``EventDispatcher``, incluse la
 possibilità per gli ascoltatori di distribuire altri eventi, il concatenamento degli eventi o anche il

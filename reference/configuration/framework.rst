@@ -120,7 +120,6 @@ la stringa completa per `PhpStormOpener`_ sarebbe come questa:
             'ide' => 'pstorm://%%f:%%l',
         ));
 
-
 Ovviamente, poiché ogni sviluppatore usa un IDE diverso, è meglio impostarlo a livello
 di sistema. Lo si può fare impostando il valore ``xdebug.file_link_format``
 di php.ini alla stringa del collegamento. Se questo valore di configurazione è

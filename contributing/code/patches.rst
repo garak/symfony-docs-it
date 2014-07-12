@@ -310,23 +310,23 @@ nei file di traduzione, usare la versione breve della lista:
 
 Alcune risposte alle domande richiedono ulteriori requisiti:
 
- * Se si risponde affermativamente a "Bug fix?", verificare se il bug sia già elencato
-   tra le issue di Symfony e referenziarlo in "Fixed tickets";
+* Se si risponde affermativamente a "Bug fix?", verificare se il bug sia già elencato
+  tra le issue di Symfony e referenziarlo in "Fixed tickets";
 
- * Se si risponde affermativamente a "New feature?", si deve inviare una richiesta di pull alla
-   documentazione e referenziarla sotto la sezione "Doc PR";
+* Se si risponde affermativamente a "New feature?", si deve inviare una richiesta di pull alla
+  documentazione e referenziarla sotto la sezione "Doc PR";
 
- * Se si risponde affermativamente a "BC breaks?", la patch deve contenere aggiornamenti ai file
-   CHANGELOG e UPGRADE rilevanti;
+* Se si risponde affermativamente a "BC breaks?", la patch deve contenere aggiornamenti ai file
+  CHANGELOG e UPGRADE rilevanti;
 
- * Se si risponde affermativamente a "Deprecations?", la patch deve contenere aggiornamenti ai file
-   CHANGELOG e UPGRADE rilevanti;
+* Se si risponde affermativamente a "Deprecations?", la patch deve contenere aggiornamenti ai file
+  CHANGELOG e UPGRADE rilevanti;
 
- * Se si risponde negativamente a "Tests pass", si deve aggiungere un elemento a una lista di todo con
-   la zioni da eseguire per sistemare i test;
+* Se si risponde negativamente a "Tests pass", si deve aggiungere un elemento a una lista di todo con
+  le azioni da eseguire per sistemare i test;
 
- * Se "license" non è MIT, non inviare la richiesta di pull, perché non
-   sarà comunque accettata.
+* Se "license" non è MIT, non inviare la richiesta di pull, perché non
+  sarà comunque accettata.
 
 Se alcuni dei precedenti requisiti non sono soddisfatti, creare una lista di todo e
 aggiungere gli elementi rilevanti:
@@ -369,7 +369,7 @@ eseguire il rebase con il ramo master, ma non unire attraverso il merge; e forza
 .. code-block:: bash
 
     $ git rebase -f upstream/master
-    $ git push -f origin NOME_RAMO
+    $ git push --force origin NOME_RAMO
 
 .. note::
 
@@ -383,10 +383,9 @@ convertiranno molti commit in uno solo. Per farlo, usare il comando ``rebase``:
 .. code-block:: bash
 
     $ git rebase -i upstream/master
-    $ git push -f origin NOME_RAMO
+    $ git push --force origin NOME_RAMO
 
-Dopo aver scritto
-questo comando, si aprirà un programma di modifica, con una lista di commit:
+Dopo aver scritto questo comando, si aprirà un programma di modifica, con una lista di commit:
 
 .. code-block:: text
 

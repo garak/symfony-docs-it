@@ -37,7 +37,8 @@ Il metodo si prende cura delle sottili differenze tra le varie piattaforme, dura
 l'esecuzione del comando.
 
 .. versionadded:: 2.2
-    I metodi ``getIncrementalOutput()`` e ``getIncrementalErrorOutput()`` sono stati aggiunti in Symfony 2.2.
+    I metodi ``getIncrementalOutput()`` e ``getIncrementalErrorOutput()`` sono stati
+    aggiunti in Symfony 2.2.
 
 Il metodo ``getOutput()`` restituisce sempre l'intero contenuto dell'output standard
 del comando, mentre ``getErrorOutput()`` restituisce l'intero contenuto dell'output

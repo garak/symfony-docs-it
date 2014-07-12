@@ -71,11 +71,11 @@ punti del flusso della sessione.
 HttpFoundation di Symfony2 ne fornisce alcuni predefiniti, che possono facilmente servire
 da esempi, se se ne vuole scrivere uno.
 
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MongoDbSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MongoDbSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`
 
 Esempio::
 
@@ -83,7 +83,8 @@ Esempio::
     use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
     use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
-    $storage = new NativeSessionStorage(array(), new PdoSessionHandler());
+    $pdo = new \PDO('mysql:dbname=testdb;host=127.0.0.1');
+    $storage = new NativeSessionStorage(array(), new PdoSessionHandler($pdo));
     $session = new Session($storage);
 
 Configurare le sessioni di PHP

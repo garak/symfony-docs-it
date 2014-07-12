@@ -257,7 +257,6 @@ di processamento.
 +--------------------+-------------------------------+-------------------+
 
 .. versionadded:: 2.3
-
     Prima di Symfony 2.3, ``FormEvents::PRE_SUBMIT``, ``FormEvents::SUBMIT``
     e ``FormEvents::POST_SUBMIT`` si chiamavano ``FormEvents::PRE_BIND``,
     ``FormEvents::BIND`` e ``FormEvents::POST_BIND``.

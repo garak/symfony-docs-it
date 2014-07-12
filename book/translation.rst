@@ -654,8 +654,8 @@ Tradurre contenuti della base dati
 ----------------------------------
 
 La traduzione di contenuti della base dati andrebbe affidata a Doctrine, tramite
-l'`estensione Translatable`_. Per maggiori informazioni, fare riferimento alla
-documentazione della libreria.
+l'`estensione Translatable`_ o il `behavior Translatable`_ (per PHP 5.4+).
+Per maggiori informazioni, vedere la documentazione di queste librerie.
 
 Riepilogo
 ---------
@@ -680,3 +680,4 @@ passi:
 .. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
 .. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 .. _`estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions
+.. _`behavior Translatable`: https://github.com/KnpLabs/DoctrineBehaviors

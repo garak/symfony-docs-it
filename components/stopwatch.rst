@@ -8,8 +8,9 @@ Il componente Stopwatch
 Il componente Stopwatch fornisce uno strumento per profilare il codice.
 
 .. versionadded:: 2.2
-    Il componente Stopwatch è nuovo in Symfony 2.2. Precedentemente, la classe ``Stopwatch``
-    si trovava nel componente HttpKernel (ed era nuova in 2.1).
+    Il componente Stopwatch è stato introdotto in Symfony 2.2. Precedentemente, la classe
+    ``Stopwatch`` si trovava nel componente HttpKernel (ed è stata introdotta
+    in Symfony 2.1).
 
 Installazione
 -------------

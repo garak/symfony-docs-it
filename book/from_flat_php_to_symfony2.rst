@@ -550,7 +550,8 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
     {
         public function listAction()
         {
-            $posts = $this->get('doctrine')->getManager()
+            $posts = $this->get('doctrine')
+                ->getManager()
                 ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
@@ -565,8 +566,7 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
             $post = $this->get('doctrine')
                 ->getManager()
                 ->getRepository('AcmeBlogBundle:Post')
-                ->find($id)
-            ;
+                ->find($id);
 
             if (!$post) {
                 // mostra la pagina 404 page not found
@@ -687,16 +687,16 @@ da PHP puro a Symfony2 ci abbia migliorato la vita:
   alcuni).
 
 * L'applicazione ora gode di **URL pienamente flessibili**, grazie al componente
-  ``Routing``.
+  Routing.
 
 * L'architettura HTTP-centrica di Symfony2 dà accesso a strumenti potenti, come
   la **cache HTTP** fornita dalla **cache HTTP interna di Symfony2** o a strumenti ancora
   più potenti, come `Varnish`_. Questi aspetti sono coperti in un capitolo successivo,
-  tutto dedicato alla :doc:`cache</book/http_cache>`.
+  tutto dedicato alla :doc:`cache </book/http_cache>`.
 
 Ma forse la parte migliore nell'usare Symfony2 è l'accesso all'intero insieme di
 **strumenti open source di alta qualità sviluppati dalla comunità di Symfony2**!
-Si possono trovare dei buoni bundle su `KnpBundles.com`_
+Si possono trovare dei buoni bundle su `KnpBundles.com`_.
 
 Template migliori
 -----------------

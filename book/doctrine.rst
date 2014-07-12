@@ -1,8 +1,8 @@
 .. index::
    single: Doctrine
 
-Basi di dati e Doctrine ("Il modello")
-======================================
+Basi di dati e Doctrine
+=======================
 
 Uno dei compiti più comuni e impegnativi per qualsiasi applicazione
 implica la persistenza e la lettura di informazioni da una base dati. Fortunatamente,
@@ -1226,8 +1226,8 @@ il seguente metodo alla classe ``ProductRepository``::
     public function findOneByIdJoinedToCategory($id)
     {
         $query = $this->getEntityManager()
-            ->createQuery('
-                SELECT p, c FROM AcmeStoreBundle:Product p
+            ->createQuery(
+                'SELECT p, c FROM AcmeStoreBundle:Product p
                 JOIN p.category c
                 WHERE p.id = :id'
             )->setParameter('id', $id);
@@ -1396,7 +1396,7 @@ Saperne di più
 ~~~~~~~~~~~~~~
 
 Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
-:doc:`ricettario</cookbook/index>`, che include i seguenti articoli:
+:doc:`ricettario </cookbook/index>`, che include i seguenti articoli:
 
 * :doc:`/cookbook/doctrine/common_extensions`
 * :doc:`/cookbook/doctrine/console`

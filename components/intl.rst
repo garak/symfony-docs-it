@@ -9,7 +9,6 @@ Il componente Intl
     accesso ai dati di localizzazione della `libreria ICU`_.
 
 .. versionadded:: 2.3
-
     Il componente Intl è stato aggiunto in Symfony 2.3. Nelle precedenti versioni di Symfony,
     va usato il componente Locale al suo posto.
 

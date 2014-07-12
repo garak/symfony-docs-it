@@ -19,6 +19,7 @@ che è utile quando si creano form che espongono relazioni molti-a-molti
 |             | - `allow_delete`_                                                           |
 |             | - `prototype`_                                                              |
 |             | - `prototype_name`_                                                         |
+|             | - `delete_empty`_                                                           |
 +-------------+-----------------------------------------------------------------------------+
 | Opzioni     | - `label`_                                                                  |
 | ereditate   | - `label_attr`_                                                             |
@@ -335,6 +336,19 @@ prototype_name
 Se si hanno molti insiemi in un form o, peggio, si hanno insiemi annidati,
 si potrebbe voler modificare il segnaposto, in modo che i segnaposto senza relazioni non
 siano sostituiti con il medesimo valore.
+
+delete_empty
+~~~~~~~~~~~~
+
+.. versionadded:: 2.5
+    L'opzione ``delete_empty`` è stata introdotta in Symfony 2.5.
+
+**tipo**: ``Booleano`` **predefinito**: ``false``
+
+Se si vogliono rimuovere esplicitamente gli elementi vuoti della collezione dal
+form, si deve impostare questa opzione a ``true``. Tuttavia, gli elementi esistenti della collezione
+saranno rimossi solo se l'opzione ``allow_delete_`` è abilitata. In caso contrario,
+i valori vuoti saranno mantenuti.
 
 Opzioni ereditate
 -----------------

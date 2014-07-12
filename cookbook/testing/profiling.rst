@@ -73,3 +73,52 @@ sono finiti. È facile, basta inserire il token nel messaggio di errore::
 
     Leggere le API dei :doc:`raccoglitori di dati </cookbook/profiler/data_collector>`
     per saperne di più sulle loro interfacce.
+
+Accellerare i test non raccogliendo dati dal profilatore
+--------------------------------------------------------
+
+Per evitare di raccogliere dati in ogni test, si può impostare il parametro ``collect``
+nella configurazione:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config_test.yml
+
+        # ...
+        framework:
+            profiler:
+                enabled: true
+                collect: false
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                        http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <!-- ... -->
+
+            <framework:config>
+                <framework:profiler enabled="true" collect="false" />
+            </framework:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+
+        // ...
+        $container->loadFromExtension('framework', array(
+            'profiler' => array(
+                'enabled' => true,
+                'collect' => false,
+            ),
+        ));
+
+In questo modo, solo i test che richiamano ``$client->enableProfiler()`` raccoglieranno dati.

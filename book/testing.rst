@@ -487,52 +487,6 @@ Si può ottenere il profilatore dell'ultima richiesta in questo modo::
 Per dettagli specifici sull'uso del profilatore in un test, vedere la ricetta
 :doc:`/cookbook/testing/profiling`.
 
-Per evitare di raccogliere dati in ogni test, si può impostare il parametro ``collect``
-nella configurazione:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config_test.yml
-
-        # ...
-        framework:
-            profiler:
-                enabled: true
-                collect: false
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                        http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
-
-            <!-- ... -->
-
-            <framework:config>
-                <framework:profiler enabled="true" collect="false" />
-            </framework:config>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-
-        // ...
-        $container->loadFromExtension('framework', array(
-            'profiler' => array(
-                'enabled' => true,
-                'collect' => false,
-            ),
-        ));
-
-In questo modo, solo i test che richiamano ``enableProfiler()`` raccoglieranno dati.
-
 Rinvii
 ~~~~~~
 
@@ -540,7 +494,7 @@ Quando una richiesta restituisce una risposta di rinvio, il client la segue auto
 Se si vuole esaminare la risposta prima del rinvio, si può forzare il client a non
 seguire i rinvii, usando il metodo ``followRedirect()``::
 
-    $crawler = $client->followRedirect(false);
+    $crawler = $client->followRedirect();
 
 Se si vuole che il client segua automaticamente tutti i rinvii, si può
 forzarlo con il metodo ``followRedirects()``::

@@ -17,6 +17,9 @@ la classe. Symfony2 fornisce due autoloader, capaci di caricare classi:
 * :doc:`/components/class_loader/class_loader`: carica classi che seguono
   lo standard dei nomi `PSR-0`;
 
+* :doc:`/components/class_loader/psr4_class_loader`: carica classi che seguono
+  lo standard dei nomi `PSR-4`;
+
 * :doc:`/components/class_loader/map_class_loader`: carica classi che usano
   una mappa statica dal nome della classe al percorso del file.
 

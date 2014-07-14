@@ -9,12 +9,12 @@ predefinite, oltre che alcuni comandi predefiniti per il componente Console.
 
 .. note::
 
-    Questi esempi ipotizzano che sia stato aggiunto un file ``app/console``, da eseguire
+    Questi esempi ipotizzano che sia stato aggiunto un file ``application.php``, da eseguire
     dalla linea di comando::
 
         #!/usr/bin/env php
-        # app/console
         <?php
+        // application.php
 
         use Symfony\Component\Console\Application;
 
@@ -30,26 +30,26 @@ opzioni disponibili:
 
 .. code-block:: bash
 
-    $ php app/console list
+    $ php application.php list
 
 Si può ottenere lo stesso risultato, non eseguendo alcun comando
 
 .. code-block:: bash
 
-    $ php app/console
+    $ php application.php
 
 Il comando help elenca le informazioni di aiuto per il comando specificato. Per
 esempio, per ottenere aiuto sul comando ``list``:
 
 .. code-block:: bash
 
-    $ php app/console help list
+    $ php application.php help list
 
 Eseguendo ``help`` senza specificare alcun comando mostrerà le opzioni globali:
 
 .. code-block:: bash
 
-    $ php app/console help
+    $ php application.php help
 
 Opzioni globali
 ~~~~~~~~~~~~~~~
@@ -59,33 +59,33 @@ aiuto per il comando ``list``:
 
 .. code-block:: bash
 
-    $ php app/console list --help
-    $ php app/console list -h
+    $ php application.php list --help
+    $ php application.php list -h
 
 Si può avere in elenco meno verboso con:
 
 .. code-block:: bash
 
-    $ php app/console list --quiet
-    $ php app/console list -q
+    $ php application.php list --quiet
+    $ php application.php list -q
 
 Si possono ottenere messaggi più verbosi (se supportato dal comando)
 con:
 
 .. code-block:: bash
 
-    $ php app/console list --verbose
-    $ php app/console list -v
+    $ php application.php list --verbose
+    $ php application.php list -v
 
 Le opzioni sulla verbosità hanno un parametro opzionale, tra 1 (predefinito) e 3,
 per mostrare messaggi ancora più verbosi:
 
 .. code-block:: bash
 
-    $ php app/console list --verbose=2
-    $ php app/console list -vv
-    $ php app/console list --verbose=3
-    $ php app/console list -vvv
+    $ php application.php list --verbose=2
+    $ php application.php list -vv
+    $ php application.php list --verbose=3
+    $ php application.php list -vvv
 
 Se si impostano, in modo facoltativo, nome e versione dell'applicazione::
 
@@ -95,8 +95,8 @@ si può usare:
 
 .. code-block:: bash
 
-    $ php app/console list --version
-    $ php app/console list -V
+    $ php application.php list --version
+    $ php application.php list -V
 
 per ottnere queste informazioni:
 
@@ -114,20 +114,20 @@ Si può forzare la colorazione ANSI con:
 
 .. code-block:: bash
 
-    $ php app/console list --ansi
+    $ php application.php list --ansi
 
 o disattivarla con:
 
 .. code-block:: bash
 
-    $ php app/console list --no-ansi
+    $ php application.php list --no-ansi
 
 Si possono aggirare le domande interattive del comando in esecuzione con:
 
 .. code-block:: bash
 
-    $ php app/console list --no-interaction
-    $ php app/console list -n
+    $ php application.php list --no-interaction
+    $ php application.php list -n
 
 Sintassi breve
 ~~~~~~~~~~~~~~
@@ -138,7 +138,7 @@ simile, si può richiamare ``help`` in questo modo:
 
 .. code-block:: bash
 
-    $ php app/console h
+    $ php application.php h
 
 Se si hanno comandi che usano ``:`` per gli spazi dei nomi, occorre scrivere un pezzo
 di testo non ambiguo per ogni parte. Se è stato creato il comando
@@ -147,7 +147,7 @@ eseguire con:
 
 .. code-block:: bash
 
-    $ php app/console d:g Fabien
+    $ php application.php d:s Fabien
 
 Se si sceglie un comando troppo breve e quindi ambiguo (cioè più di un comando
 corrisponde), non verrà eseguito alcun comando,

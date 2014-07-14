@@ -8,17 +8,17 @@ Il componente Console
     Il componente Console semplifica la creazione di eleganti e testabili comandi
     da terminale.
 
-Symfony2 viene distribuito con un componente Console che permette di creare
+Symfony2 viene distribuito con un componente Console, che permette di creare
 comandi da terminale. I comandi da terminale possono essere utilizzati per qualsiasi
-lavoro ripetivo come i lavori di cron, le importazioni o lavori batch.
+lavoro ripetivo, come i lavori di cron, importazioni o lavori batch.
 
 Installazione
 -------------
 
-Il componente può essere installato in diversi modi:
+Il componente può essere installato in due modi:
 
-* Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
-* Installandolo :doc:`via Composer</components/using_components>` (``symfony/console`` in `Packagist`_).
+* Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/console`` su `Packagist`_);
+* Utilizzando il repository Git ufficiale (https://github.com/symfony/Console).
 
 .. note::
 
@@ -160,6 +160,8 @@ Si possono anche impostare colori e opzioni dentro il tag::
     // testo grassetto su sfondo giallo
     $output->writeln('<bg=yellow;options=bold>pippo</bg=yellow;options=bold>');
 
+.. _verbosity-levels:
+
 Livelli di verbosità
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -232,8 +234,8 @@ Il comando potrà essere utilizzato in uno qualsiasi dei seguenti modi:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien
-    $ app/console demo:saluta Fabien Potencier
+    $ php application.php demo:saluta Fabien
+    $ php application.php demo:saluta Fabien Potencier
 
 È anche possibile consentire una lista di valori a un parametro (si immagini di
 voler salutare tutti gli amici). Lo si deve fare alla fine della lista dei
@@ -251,7 +253,7 @@ In questo modo, si possono specificare più nomi:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien Ryan Bernhard
+    $ php application.php demo:saluta Fabien Ryan Bernhard
 
 Si può accedere al parametro ``nmoi`` come un array::
 
@@ -321,8 +323,8 @@ l'impostazione ``--ripetizioni``:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien
-    $ app/console demo:saluta Fabien --ripetizioni=5
+    $ php application.php demo:saluta Fabien
+    $ php application.php demo:saluta Fabien --ripetizioni=5
 
 Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
 il suo valore predefinito è ``1`` (l'ultimo argomento di ``addOption``). Nel secondo esempio, il
@@ -333,8 +335,8 @@ seguenti esempi funzioneranno correttamente:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien --ripetizioni=5 --urla
-    $ app/console demo:saluta Fabien --urla --ripetizioni=5
+    $ php application.php demo:saluta Fabien --ripetizioni=5 --urla
+    $ php application.php demo:saluta Fabien --urla --ripetizioni=5
 
 Ci sono 4 possibili varianti per le opzioni:
 
@@ -371,6 +373,7 @@ in grado di aiutare con diversi compiti:
 * :doc:`/components/console/helpers/formatterhelper`: personalizza i colori dei testi
 * :doc:`/components/console/helpers/progresshelper`: mostra una barra di progressione
 * :doc:`/components/console/helpers/tablehelper`: mostra dati in una tabella
+* :doc:`/components/console/helpers/dialoghelper`: (deprecato) pone domande interattive all'utente
 
 Testare i comandi
 -----------------
@@ -491,7 +494,8 @@ Saperne di più
 
 * :doc:`/components/console/usage`
 * :doc:`/components/console/single_command_tool`
+* :doc:`/components/console/changing_default_command`
 * :doc:`/components/console/events`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
-.. _ANSICON: https://github.com/adoxa/ansicon/downloads
+.. _ANSICON: https://github.com/adoxa/ansicon/releases

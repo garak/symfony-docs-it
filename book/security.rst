@@ -183,8 +183,9 @@ può accedere a ``/foo`` senza che venga richiesto di autenticarsi.
 
 .. tip::
 
-    Si può anche far corrispondere una richiesta in base ad altri dettagli (p.e. l'host).
-    Per maggiori informazioni ed esempi, leggere :doc:`/cookbook/security/firewall_restriction`.
+    Si può anche far corrispondere una richiesta in base ad altri dettagli (p.e. l'host
+    o il metodo).  Per maggiori informazioni ed esempi, leggere
+    :doc:`/cookbook/security/firewall_restriction`.
 
 .. image:: /images/book/security_anonymous_user_access.png
    :align: center
@@ -1088,18 +1089,24 @@ alcuni casi può non essere abbastanza granulare. Quando necessario, si può fac
 l'autorizzazione dall'interno di un controllore::
 
     // ...
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
         if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedException();
+            throw $this->createAccessDeniedException('Unable to access this page!');
         }
 
         // ...
     }
 
 .. _book-security-securing-controller-annotations:
+
+.. versionadded:: 2.5
+    Il metodo ``createAccessDeniedException`` è stato introdotto in Symfony 2.5.
+
+Il metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::createAccessDeniedException`
+crea un oggetto speciale :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`,
+che alla fine lancia una risposta HTTP 403 in Symfony.
 
 Con SensioFrameworkExtraBundle, si possono anche proteggere i controllori tramite annotazioni::
 
@@ -1440,6 +1447,11 @@ oppure usando uno strumento online.
 
 Gli algoritmi supportati da questo metodo dipendono dalla versione di PHP.
 Un elenco completo è disponibile richiamando la funzione :phpfunction:`hash_algos`.
+
+.. tip::
+
+    Si possono anche usare diversi algoritmi di hash per utenti
+    diversi. Vedere :doc:`/cookbook/security/named_encoders` per maggiori dettagli.
 
 Determinare la password con hash
 ................................

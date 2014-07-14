@@ -20,9 +20,6 @@ o per comando.
 Configurare il contesto della richiesta globalmente
 ---------------------------------------------------
 
-.. versionadded: 2.2
-    Il parametro ``base_url`` è disponibile da Symfony 2.2
-
 Per configurare il contesto della richiesta, usato dal generatore di URL, si possono
 ridefinire i parametri che usa come valori predefiniti, per cambiare l'host
 (localhost) e lo schema (http) predefiniti. Si noti che ciò non impatta sugli URL

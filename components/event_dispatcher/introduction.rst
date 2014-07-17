@@ -144,7 +144,7 @@ Il metodo ``addListener()`` accetta fino a tre parametri:
 
 * Il nome dell'evento (stringa) che questo ascoltatore vuole ascoltare;
 
-* Un callabel PHP, che sarà notificato quando viene lanciato un evento che sta
+* Un callable PHP, che sarà notificato quando viene lanciato un evento che sta
   ascoltando;
 
 * Un intero opzionale di priorità (più alto equivale a più importante), che determina

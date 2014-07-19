@@ -123,37 +123,38 @@ In questo caso la rotta viene trovata con ``/archivio/2012/01``, perché il segn
 *non* verrà trovata nessuna corrispondenza perché "pippo" non rispetta i requisiti del segnaposto.
 
 .. tip::
-    
+
     Per creare una corrispondenza che trovi tutti gli URL che inizino con un determinato percorso e
     terminino con un suffisso arbitrario, è possibile usare la seguente definizione::
-        
+
         $rotta = new Route(
             '/inizio/{suffisso}',
             array('suffisso' => ''),
             array('suffisso' => '.*')
         );
-    
+
 Usare i prefissi
 ~~~~~~~~~~~~~~~~
 
 È possibile aggiungere sia rotte che nuove istanze di
 :class:`Symfony\\Component\\Routing\\RouteCollection` ad *un'altra* collezione.
 In questo modo si possono creare alberi di rotte. Inoltre è possibile definire dei prefissi,
-requisiti predefiniti e opzioni predefinite per tutte le rotte di un sotto albero, con
-il metodo :method:`Symfony\\Component\\Routing\\RouteCollection::addPrefix`::
+requisiti predefiniti e opzioni predefinite per tutte le rotte di un sotto-albero, con
+i metodi forniti dalla classe
+``RouteCollection`` class::
 
     $collezioneRadice = new RouteCollection();
 
     $subCollezione = new RouteCollection();
     $subCollezione->add(...);
     $subCollezione->add(...);
-    $subCollezione->addPrefix(
-        '/prefisso', // prefisso
-        array(), // requisiti
-        array(), // opzioni
-        'admin.example.com', // host
-        array('https') // schemi
-    );
+    $subCollezione->addPrefix('/prefisso');
+    $subCollezione->addDefaults(array(...));
+    $subCollezione->addRequirements(array(...));
+    $subCollezione->addOptions(array(...));
+    $subCollezione->setHost('admin.example.com');
+    $subCollezione->setMethods(array('POST'));
+    $subCollezione->setSchemes(array('https'));
 
     $collezioneRadice->addCollection($subCollezione);
 
@@ -170,7 +171,9 @@ relative alla richiesta attuale. Con questa classe, tramite il suo costruttore,
         $host = 'localhost',
         $scheme = 'http',
         $httpPort = 80,
-        $httpsPort = 443
+        $httpsPort = 443,
+        $path = '/',
+        $queryString = ''
     )
 
 .. _components-routing-http-foundation:
@@ -233,12 +236,12 @@ Si utilizza il caricatore ``YamlFileLoader``, allora la definizione delle rotte 
 
     # routes.yml
     rotta1:
-        pattern: /pippo
-        defaults: { controller: 'MioControllore::pippoAction' }
+        pattern:  /pippo
+        defaults: { _controller: 'MioControllore::pippoAction' }
 
     rotta2:
-        pattern: /pippo/pluto
-        defaults: { controller: 'MioControllore::pippoPlutoAction' }
+        pattern:  /pippo/pluto
+        defaults: { _controller: 'MioControllore::pippoPlutoAction' }
 
 Per caricare questo file, è possibile usare il seguente codice.  Si presume che il file
 ``routes.yml`` sia nella stessa cartella in cui si trova i codice::
@@ -322,7 +325,7 @@ nello sfondo, qualora la si volesse utilizzare. Un semplice esempio di come sia 
 
     $router = new Router(
         new YamlFileLoader($cercatore),
-        "routes.yml",
+        'routes.yml',
         array('cache_dir' => __DIR__.'/cache'),
         $contestoRichiesta,
     );

@@ -65,7 +65,7 @@ fare tramite l'opzione ``delivery_address``:
 
         # app/config/config_dev.yml
         swiftmailer:
-            delivery_address:  dev@example.com
+            delivery_address: dev@example.com
 
     .. code-block:: xml
 
@@ -76,8 +76,7 @@ fare tramite l'opzione ``delivery_address``:
             http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
-        <swiftmailer:config
-            delivery-address="dev@example.com" />
+        <swiftmailer:config delivery-address="dev@example.com" />
 
     .. code-block:: php
 
@@ -136,13 +135,6 @@ nella pagina finale.
 file ``config_dev.yml``, fermare il rinvio, in modo da permettere la visualizzazione
 del rapporto con il dettaglio delle email inviate.
 
-.. tip::
-
-    Alternativamente, è possibile aprire il profilatore in seguito al rinvio e
-    cercare l'URL utilizzato nella richiesta precedente (p.e. ``/contatti/gestione``).
-    Questa funzionalità di ricerca del profilatore permette di ottenere informazioni relative
-    a qualsiasi richiesta pregressa.
-
 .. configuration-block::
 
     .. code-block:: yaml
@@ -171,3 +163,10 @@ del rapporto con il dettaglio delle email inviate.
         $container->loadFromExtension('web_profiler', array(
             'intercept_redirects' => 'true',
         ));
+
+.. tip::
+
+    Alternativamente, è possibile aprire il profilatore in seguito al rinvio e
+    cercare l'URL utilizzato nella richiesta precedente (p.e. ``/contatti/gestione``).
+    Questa funzionalità di ricerca del profilatore permette di ottenere informazioni relative
+    a qualsiasi richiesta pregressa.

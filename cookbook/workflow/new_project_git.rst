@@ -20,50 +20,50 @@ Preparazione del progetto
 Per iniziare, occorre scaricare Symfony e inizializzare il repository
 locale:
 
-1. Scaricare `Symfony2 Standard Edition`_ senza venditori.
+#. Scaricare `Symfony2 Standard Edition`_, usando Composer:
 
-2. Scompattare la distribuzione. Questo creerà una cartella chiamata "Symfony" con la
-   struttura del nuovo progetto, i file di configurazione, ecc. Si può rinominare la cartella a piacere.
+   .. code-block:: bash
 
-3. Creare un nuovo file chiamato ``.gitignore`` nella radice del nuovo progetto
-   (ovvero vicino al file ``composer.json``) e copiarvi le righe seguenti. I file corrispondenti
-   a questi schemi saranno ignorati da git:
+        $ php composer.phar create-project symfony/framework-standard-edition path/ ~2.3
 
-   .. code-block:: text
+   Composer scaricherà la Standard Edition, insieme a tutti le necessarie
+   librerie dei venditori. Per maggiori informazioni su come scaricare Symfony con
+   Composer, vedere `installare Symfony usando Composer`_.
 
-        /web/bundles/
-        /app/bootstrap*
-        /app/cache/*
-        /app/logs/*
-        /vendor/
-        /app/config/parameters.yml
-
-.. tip::
-
-   Si potrebbe anche voler creare un file .gitignore, da usare su tutto il sistema,
-   nel qual caso, si possono trovare ulteriori informazioni qui: `Github .gitignore`_
-   In questo modo, si possono escludere i file e le cartelle usati più spesso dal proprio IDE per ogni progetto.
-
-4. Inizializzare il repository git:
+#. Inizializzare il repository git:
 
    .. code-block:: bash
 
         $ git init
 
-5. Aggiungere tutti i file in git:
+#. Aggiungere tutti i file in git:
 
    .. code-block:: bash
 
         $ git add .
 
-6. Creare un commit iniziale con il nuovo progetto:
+   .. tip::
+
+      Non tutti i file che sono stati scaricati da Composer nel primo passo
+      verranno aggiunti a Git. Alcuni file e cartelle non vanno in Git, come le dipendenze del progetto
+      (gestite da Composer), ``parameters.yml`` (che contiene informazioni sensibili,
+      come le credenziali per la base dati), i file di log e di cache e le risorse esportate (che sono
+      create automaticamente dal progetto). Per evitare di aggiungere accidentalmente tali file
+      e cartelle, la Standard Edition dispone di un
+      file chiamato ``.gitignore``, che contiene una lista di file e cartelle che Git deve
+      ignorare.
+
+   .. tip::
+
+      Si può anche creare un file ``.gitignore`` da usare per tutto il sistema.
+      Questo consente di escludere file e cartelle, in ogni progetto, che vengono creati
+      da un IDE o dal sistema operativo. Per maggiori dettagli, vedere `GitHub .gitignore`_.
+
+#. Creare un commit iniziale con il nuovo progetto:
 
    .. code-block:: bash
 
         $ git commit -m "Commit iniziale"
-
-7. Infine, scaricare tutte le librerie dei venditori, eseguendo
-   composer. Per dettagli, vedere :ref:`installation-updating-vendors`.
 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante e correttamente
 copiato su git. Si può iniziare subito a sviluppare, inviando i commit delle
@@ -111,10 +111,11 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 
 .. _`git`: http://git-scm.com/
 .. _`Symfony2 Standard Edition`: http://symfony.com/download
+.. _`installare Symfony usando Composer`: http://symfony.com/doc/current/book/installation.html#option-1-composer
 .. _`sottomoduli di git`: http://git-scm.com/book/en/Git-Tools-Submodules
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository
 .. _`Gitolite`: https://github.com/sitaramc/gitolite
-.. _`Github .gitignore`: https://help.github.com/articles/ignoring-files
+.. _`GitHub .gitignore`: https://help.github.com/articles/ignoring-files
 .. _`Bitbucket`: https://bitbucket.org/
 .. _`confronto tra servizi di hosting`: http://en.wikipedia.org/wiki/Comparison_of_open-source_software_hosting_facilities

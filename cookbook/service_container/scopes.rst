@@ -149,7 +149,7 @@ all'interno del codice. Occorre tenerne conto anche nella dichiarazione del serv
             greeting_card_manager:
                 class: Acme\HelloBundle\Mail\GreetingCardManager
                 calls:
-                    - [setRequest, ['@?request=']]
+                    - [setRequest, ["@?request="]]
 
     .. code-block:: xml
 
@@ -230,17 +230,17 @@ Lo scope di un servizio può essere modificato nella definizione del servizio st
             greeting_card_manager:
                 class: Acme\HelloBundle\Mail\GreetingCardManager
                 scope: request
-                arguments: [@request]
+                arguments: ["@request"]
 
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <services>
             <service id="greeting_card_manager"
-                class="Acme\HelloBundle\Mail\GreetingCardManager"
-                scope="request"
-            />
-            <argument type="service" id="request" />
+                    class="Acme\HelloBundle\Mail\GreetingCardManager"
+                    scope="request">
+                <argument type="service" id="request" />
+            </service>
         </services>
 
     .. code-block:: php
@@ -283,7 +283,7 @@ dentro al servizio::
         public function sendEmail()
         {
             $request = $this->container->get('request');
-            // Fare qualcosa con la richiesta in questo punto
+            // ... fare qualcosa con la richiesta in questo punto
         }
     }
 
@@ -304,6 +304,7 @@ La configurazione del servizio per questa classe assomiglia a questa:
         parameters:
             # ...
             my_mailer.class: Acme\HelloBundle\Mail\Mailer
+
         services:
             my_mailer:
                 class:     "%my_mailer.class%"

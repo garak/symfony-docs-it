@@ -113,8 +113,8 @@ mantenute) di Symfony nelle quali appare il bug (come `2.2`).
 
     Tutti i bug risolti in rami di manutenzione sono inseriti anche i rami più recenti,
     su base regolare. Per esempio, se si invia una patch
-    per il ramo `2.3`, la patch sarà applicata anche sul ramo
-    `master`.
+    per il ramo ``2.3``, la patch sarà applicata anche sul ramo
+    ``master``.
 
 Creare un ramo
 ~~~~~~~~~~~~~~
@@ -131,13 +131,13 @@ in locale:
 
 .. code-block:: bash
 
-    $ git checkout -t origin/2.2
+    $ git checkout -t origin/2.3
 
-Quindi creare un nuovo ramo dal ramo `2.2`:
+Quindi creare un nuovo ramo dal ramo ``2.3``:
 
 .. code-block:: bash
 
-    $ git checkout -b NOME_RAMO 2.2
+    $ git checkout -b NOME_RAMO 2.3
 
 .. tip::
 
@@ -145,7 +145,7 @@ Quindi creare un nuovo ramo dal ramo `2.2`:
     numero di ticket, è una buona convenzione per i bug).
 
 I comandi precedenti porteranno automaticamente sul ramo appena creato
-(verificare il ramo su cui si sta lavorando con `git branch`).
+(verificare il ramo su cui si sta lavorando con ``git branch``).
 
 Lavorare su una patch
 ~~~~~~~~~~~~~~~~~~~~~
@@ -154,7 +154,7 @@ Lavorare su una patch
 seguenti indicazioni:
 
 * Seguire le :doc:`convenzioni <conventions>` di Symfony e gli
-  :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
+  :doc:`standard <standards>` del codice (utilizzare ``git diff --check`` per
   controllare i spazi alla fine);
 
 * Aggiungere test unitari per provare che il bug è stato risolto o per mostrare che
@@ -164,7 +164,7 @@ seguenti indicazioni:
   un livello di compatibilità che supporti il vecchio modo), le patch che infrangono la
   retro-compatbilità hanno meno probabilità di essere accettate;
 
-* Fare commit separati e atomici (utilizzare le funzionalità di `git rebase` 
+* Fare commit separati e atomici (utilizzare le funzionalità di ``git rebase`` 
   per ottenere uno storico chiaro e pulito);
 
 * Comprimere i commit irrilevanti, che sistemano solamente gli standard di codice o gli errori
@@ -228,7 +228,7 @@ tempo tra il checkout e il commit delle nuove funzionalità)
 
 .. tip::
 
-    Sostituire ``master`` con il ramo su cui si sta lavorando (p.e. ``2.3.``)
+    Sostituire ``master`` con il ramo su cui si sta lavorando (p.e. ``2.3``)
     sulla risoluzione di un bug
 
 Quando si esegue il comando ``rebase``, potrebbe essere necessario risolvere

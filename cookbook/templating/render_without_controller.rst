@@ -22,7 +22,7 @@ senza creare un controllore:
             path: /privacy
             defaults:
                 _controller: FrameworkBundle:Template:template
-                template: 'AcmeBundle:Static:privacy.html.twig'
+                template:    'AcmeBundle:Static:privacy.html.twig'
 
     .. code-block:: xml
 
@@ -92,10 +92,10 @@ variabili in più nella rotta, si può controllare esattamente il modo in cui la
         acme_privacy:
             path: /privacy
             defaults:
-                _controller: FrameworkBundle:Template:template
-                template: 'AcmeBundle:Static:privacy.html.twig'
-                maxAge: 86400
-                sharedMaxAge: 86400
+                _controller:  FrameworkBundle:Template:template
+                template:     'AcmeBundle:Static:privacy.html.twig'
+                maxAge:       86400
+                sharedAge:    86400
 
     .. code-block:: xml
 
@@ -109,7 +109,7 @@ variabili in più nella rotta, si può controllare esattamente il modo in cui la
                 <default key="_controller">FrameworkBundle:Template:template</default>
                 <default key="template">AcmeBundle:Static:privacy.html.twig</default>
                 <default key="maxAge">86400</default>
-                <default key="sharedMaxAge">86400</default>
+                <default key="sharedAge">86400</default>
             </route>
         </routes>
 
@@ -123,15 +123,15 @@ variabili in più nella rotta, si può controllare esattamente il modo in cui la
             '_controller'  => 'FrameworkBundle:Template:template',
             'template'     => 'AcmeBundle:Static:privacy.html.twig',
             'maxAge'       => 86400,
-            'sharedMaxAge' => 86400,
+            'sharedAge'    => 86400,
         )));
 
         return $collection;
 
-I valori ``maxAge`` e ``sharedMaxAge`` sono usati per modificare l'oggetto della risposta
+I valori ``maxAge`` e ``sharedAge`` sono usati per modificare l'oggetto della risposta
 creato dal controllore. Per maggiori informazioni sulla cache, vedere
 :doc:`/book/http_cache`.
 
 C'è anche una variabile ``private`` (non mostrata qui). Per impostazione preferinita, la risposta
-sarà pubblica, purché vengano passati ``maxAge`` o ``sharedMaxAge``.
+sarà pubblica, purché vengano passati ``maxAge`` o ``sharedAge``.
 Se impostata a ``true``, la risposta sarà privata.

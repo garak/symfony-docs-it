@@ -19,8 +19,8 @@ dei metodi Action nei controllori.
 .. note::
 
     Ci sono molti bundle che usano i propri caticatori per gestire 
-    casi come quello descritto qui sopra, ad esempio `FOSRestBundle`_, 
-    `KnpRadBundle`_ e `SonataAdminBundle`_.
+    casi come quello descritto qui sopra, ad esempio
+    `FOSRestBundle`_, `JMSI18nRoutingBundle`_, `KnpRadBundle`_ e `SonataAdminBundle`_.
 
 Caricare le rotte
 -----------------
@@ -114,7 +114,7 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
             // se lo si, è più facile usando la classe Loader base (vedere sotto)
         }
 
-        public function setResolver(LoaderResolver $resolver)
+        public function setResolver(LoaderResolverInterface $resolver)
         {
             // come sopra
         }
@@ -262,5 +262,6 @@ Yaml, si può richiamare il metodo
     configurazioni di routing (Yaml, XML, PHP, annotation, ecc.).
 
 .. _`FOSRestBundle`: https://github.com/FriendsOfSymfony/FOSRestBundle
+.. _`JMSI18nRoutingBundle`: https://github.com/schmittjoh/JMSI18nRoutingBundle
 .. _`KnpRadBundle`: https://github.com/KnpLabs/KnpRadBundle
 .. _`SonataAdminBundle`: https://github.com/sonata-project/SonataAdminBundle

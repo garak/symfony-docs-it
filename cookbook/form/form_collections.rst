@@ -77,8 +77,7 @@ Ora, si crei una classe ``Tag``. Come è possibile verificare, un ``Task`` può 
     La proprietà ``name`` qui è pubblica, ma può essere facilmente protetta
     o privata (ma in questo caso servono dei metodi ``getName`` e ``setName``).
 
-Si crei ora una classe di form, cosicché un oggetto ``Tag``
-possa essere modificato dall'utente::
+Si crei ora una classe di form, cosicché un oggetto ``Tag`` possa essere modificato dall'utente::
 
     // src/Acme/TaskBundle/Form/Type/TagType.php
     namespace Acme\TaskBundle\Form\Type;

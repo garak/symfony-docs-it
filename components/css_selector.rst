@@ -1,5 +1,5 @@
 .. index::
-   single: CSS Selector
+   single: CssSelector
    single: Componenti; CssSelector
 
 Il componente CssSelector
@@ -10,7 +10,7 @@ Il componente CssSelector
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
 * Installarlo via :doc:`Composer</components/using_components>` (``symfony/css-selector`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/CssSelector).
@@ -41,8 +41,8 @@ in equivalenti XPath. Queste espressioni XPath possono quindi essere usate con
 altre funzioni e classi che usano XPath per trovare elementi in un
 documento.
 
-Il componente ``CssSelector``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Il componente CssSelector
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 L'unico fine del componente è la conversione di selettori CSS nei loro equivalenti
 XPath::
@@ -63,7 +63,7 @@ Si può usare questa espressione, per esempio, con :phpclass:`DOMXPath` o
 .. tip::
 
     Il metodo :method:`Crawler::filter()<Symfony\\Component\\DomCrawler\\Crawler::filter>`
-    usa il componente ``CssSelector`` per trovare elementi in base a un selettore CSS.
+    usa il componente CssSelector per trovare elementi in base a un selettore CSS.
     Si veda :doc:`/components/dom_crawler` per ulteriori dettagli.
 
 Limiti del componente CssSelector

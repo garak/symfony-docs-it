@@ -9,7 +9,7 @@ Il componente Debug
 
 .. versionadded:: 2.3
     Il componente Debug è nuovo in Symfony 2.3. In precedenza, le classi si
-    trovavano nel componente ``HttpKernel``.
+    trovavano nel componente HttpKernel.
 
 Installazione
 -------------

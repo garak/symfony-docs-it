@@ -1209,7 +1209,7 @@ disponibili, così come i nomi completi delle classi per ciascun vincolo, è
 disponibile nella sezione
 :doc:`riferimento sui vincoli </reference/constraints>`.
 
-Il metodo ``validateValule`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
+Il metodo ``validateValue`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
 che si comporta come un array di errori. Ciascun errore della lista è un oggetto
 :class:`Symfony\\Component\\Validator\\ConstraintViolation`, che contiene
 il messaggio di errore nel suo metodo ``getMessage``.

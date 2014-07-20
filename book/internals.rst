@@ -597,17 +597,17 @@ la configurazione per l'ambiente di sviluppo:
 
         // carica il profilatore
         $container->loadFromExtension('framework', array(
-            'profiler' => array('only-exceptions' => false),
+            'profiler' => array('only_exceptions' => false),
         ));
 
         // abilita il profilatore web
         $container->loadFromExtension('web_profiler', array(
             'toolbar'             => true,
-            'intercept-redirects' => true,
+            'intercept_redirects' => true,
             'verbose'             => true,
         ));
 
-Quando ``only-exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
+Quando ``only_exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
 quando l'applicazione solleva un'eccezione.
 
 Quando ``intercept-redirects`` è impostata ``true``, il profilatore web intercetta i

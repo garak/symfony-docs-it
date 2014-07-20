@@ -19,9 +19,9 @@ Il componente Config
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Installarlo via :doc:`Composer </components/using_components>` (``symfony/config`` su `Packagist`_);
+* Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/config`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Config).
 
 Sezioni

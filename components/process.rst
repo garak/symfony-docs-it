@@ -10,10 +10,10 @@ Il componente Process
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/Process);
-* Installarlo via Composer (``symfony/process`` su `Packagist`_).
+* Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/process`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Process).
 
 Uso
 ---
@@ -96,7 +96,7 @@ si sta facendo altro::
     // ... fare altre cose
 
     $process->wait(function ($type, $buffer) {
-        if (Process:ERR === $type) {
+        if (Process::ERR === $type) {
             echo 'ERR > '.$buffer;
         } else {
             echo 'OUT > '.$buffer;

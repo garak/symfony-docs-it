@@ -46,15 +46,15 @@ Per poterlo fare, il kernel di Symfony2 lancia un evento,
   l'oggetto ``Response``.
 
 .. index::
-   single: Event Dispatcher; Eventi
+   single: EventDispatcher; Eventi
 
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher);
-* Installarlo via :doc:`Composer</components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_).
+* Installarlo via :doc:`Composer </components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher).
 
 Uso
 ---
@@ -90,7 +90,7 @@ Ecco alcuni buoni esempi di nomi di eventi:
 * ``form.pre_set_data``
 
 .. index::
-   single: Event Dispatcher; Sotto-classi di eventi
+   single: EventDispatcher; Sotto-classi di eventi
 
 Nomi di eventi e oggetti Event
 ..............................
@@ -127,7 +127,7 @@ gli ascoltatori registrati a tale evento::
     $dispatcher = new EventDispatcher();
 
 .. index::
-   single: Event Dispatcher; Ascoltatori
+   single: EventDispatcher; Ascoltatori
 
 Connettere gli ascoltatori
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -208,7 +208,7 @@ passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
 .. _event_dispatcher-closures-as-listeners:
 
 .. index::
-   single: Event Dispatcher; Creare e distribuire un evento
+   single: EventDispatcher; Creare e distribuire un evento
 
 Creare e distribuire un evento
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -320,7 +320,7 @@ metodo ``dispatch``. Ora ogni ascoltatore dell'evento ``negozio.ordino`` ricever
     }
 
 .. index::
-   single: Event Dispatcher; Sottoscrittori
+   single: EventDispatcher; Sottoscrittori
 
 .. _event_dispatcher-using-event-subscribers:
 
@@ -402,7 +402,7 @@ quando viene lanciato l'evento ``kernel.response``, i metodi
 sono richiamati in questo ordine.
 
 .. index::
-   single: Event Dispatcher; Bloccare il flusso degli eventi
+   single: EventDispatcher; Bloccare il flusso degli eventi
 
 .. _event_dispatcher-event-propagation:
 
@@ -438,7 +438,7 @@ che restituisce un booleano::
     }
 
 .. index::
-   single: Event Dispatcher; Eventi e ascoltatori consapevoli del distributore
+   single: EventDispatcher; Eventi e ascoltatori consapevoli del distributore
 
 .. _event_dispatcher-dispatcher-aware-events:
 
@@ -562,12 +562,12 @@ Oppure::
 
 Oppure::
 
-    $response = $dispatcher->dispatch('bar.event', new BarEvent())->getBar();
+    $bar = $dispatcher->dispatch('bar.event', new BarEvent())->getBar();
 
 e così via...
 
 .. index::
-   single: Event Dispatcher; Introspezione del nome dell'evento
+   single: EventDispatcher; Introspezione del nome dell'evento
 
 .. _event_dispatcher-event-name-introspection:
 

@@ -1377,8 +1377,8 @@ In un controllore, si può usare una scorciatoia:
 .. note::
 
     Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo ``isAuthenticated()``
-    dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se 
-    l'utente sia effettivamente autenticato, verificare il ruolo 
+    dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se
+    l'utente sia effettivamente autenticato, verificare il ruolo
     ``IS_AUTHENTICATED_FULLY``.
 
 In un template Twig, si può accedere a questo oggetto tramite la chiave ``app.user``,

@@ -73,7 +73,7 @@ Filtrare i nodi
 
     internamente viene usato ``DOMXPath::query`` per eseguire le query XPath.
 
-La ricerca è anche più semplice se si è installato il componente ``CssSelector``.
+La ricerca è anche più semplice se si è installato il componente CssSelector.
 In questo modo è possibile usare lo stile jQuery per l'attraversamento::
 
     $crawler = $crawler->filter('body > p');
@@ -86,7 +86,7 @@ In questo modo è possibile usare lo stile jQuery per l'attraversamento::
     $crawler = $crawler
         ->filter('body > p')
         ->reduce(function (Crawler $node, $i) {
-            // filtra anche i nodi
+            // filtra i nodi pari
             return ($i % 2) == 0;
         });
 

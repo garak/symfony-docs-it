@@ -230,11 +230,11 @@ e altre stringhe.
 
 Per aggiungere questi filtri, si può usare
 :class:`Symfony\\Bridge\\Twig\\Extension\\TranslationExtension`, che si integra
-con il componente ``Translation``, oppure aggiungere i due filtri a mano,
+con il componente Translation, oppure aggiungere i due filtri a mano,
 tramite un'estensione Twig.
 
 Per usare l'integrazione predefinita, assicurarsi che il progetto abbia i componenti
-``Translation`` e :doc:`Config </components/config/introduction>` installati.
+Translation e :doc:`Config </components/config/introduction>` installati.
 Se si usa Composer, si possono ottenere le versioni 2.3 più recenti di
 entrambi aggiungendo le seguenti righe al file ``composer.json``:
 

@@ -14,10 +14,10 @@ Il componente HttpKernel
 Installazione
 -------------
 
-È possibile installare il componente in diversi modi:
+È possibile installare il componente in due modi:
 
-* Utilizzando il repository ufficiale su Git (https://github.com/symfony/HttpKernel);
-* Installandolo :doc:`via Composer</components/using_components>` (``symfony/http-kernel`` su Packagist).
+* Installandolo :doc:`via Composer</components/using_components>` (``symfony/http-kernel`` su Packagist);
+* Utilizzando il repository ufficiale su Git (https://github.com/symfony/HttpKernel).
 
 Il flusso di una richiesta
 --------------------------
@@ -115,9 +115,9 @@ Vedere ":ref:`http-kernel-working-example`" per un'implementazione più concreta
 Per informazioni generali sull'aggiunta di ascoltatori agli eventi qui sotto, vedere
 :ref:`http-kernel-creating-listener`.
 
-.. tip:: 
+.. tip::
 
-    Fabien Potencier ha anche scritto una bella serie sull'uso del componente ``HttpKernel``
+    Fabien Potencier ha anche scritto una bella serie sull'uso del componente HttpKernel
     e altri componenti di Symfony2 per creare un proprio framework. Vedere
     `Create your own framework... on top of the Symfony2 Components`_.
 
@@ -511,7 +511,7 @@ eccezione e creerà un appropriata ``Response`` di errore.
 
 Per esempio, per generare una pagina 404, si potrebbe lanciare uno speciale tipo di eccezione
 e quindi aggiungere un ascoltatore a tale evento, che cerchi l'eccezione e
-crei e restituisca una ``Response`` 404. In effetti, il componente ``HttpKernel``
+crei e restituisca una ``Response`` 404. In effetti, il componente HttpKernel
 dispone di un :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`,
 che, se usato, farà questo e anche di più in modo predefinito (si vedano dettagli
 più avanti).
@@ -523,25 +523,25 @@ più avanti).
 
     **ExceptionListener in HttpKernel**
 
-    Il primo fa parte del componente ``HttpKernel``
+    Il primo fa parte del componente HttpKernel
     e si chiama :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`.
     L'ascoltatore ha diversi scopi:
 
     1) L'eccezione lanciata è convertita in un oggetto
-    :class:`Symfony\\Component\\HttpKernel\\Exception\\FlattenException`,
-    che contiene tutte le informazioni sulla richiesta, ma che
-    possa essere stampata e serializzata.
+       :class:`Symfony\\Component\\HttpKernel\\Exception\\FlattenException`,
+       che contiene tutte le informazioni sulla richiesta, ma che
+       possa essere stampata e serializzata.
 
     2) Se l'eccezione originale implementa
-    :class:`Symfony\\Component\\HttpKernel\\Exception\\HttpExceptionInterface`,
-    allora sono richiamati ``getStatusCode`` e ``getHeaders`` sull'eccezione
-    e usati per popolare gli header e il codice di stato dell'oggetto ``FlattenException``.
-    L'idea è che siano usati nel passo successivo, quando si crea la
-    risposta finale.
+       :class:`Symfony\\Component\\HttpKernel\\Exception\\HttpExceptionInterface`,
+       allora sono richiamati ``getStatusCode`` e ``getHeaders`` sull'eccezione
+       e usati per popolare gli header e il codice di stato dell'oggetto ``FlattenException``.
+       L'idea è che siano usati nel passo successivo, quando si crea la
+       risposta finale.
 
     3) Un controllore viene eseguito e gli viene passata l'eccezione appiattita.
-    Il controllore esatto da rendere viene passato come parametro del costruttore a questo
-    ascoltatore. Questo controllore restituirà la ``Response`` finale per questa pagina di errore.
+       Il controllore esatto da rendere viene passato come parametro del costruttore a questo
+       ascoltatore. Questo controllore restituirà la ``Response`` finale per questa pagina di errore.
 
     **ExceptionListener in Security**
 
@@ -570,8 +570,8 @@ ogni vento ha il suo oggetto evento:
 .. _component-http-kernel-event-table:
 
 +-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
-| **Nome**              | **Costante** ``KernelEvents``    | **Parametro passato all'ascoltatore**                                               |
-+-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
+| Nome                  | Costante ``KernelEvents``        | Parametro passato all'ascoltatore                                                   |
++=======================+==================================+=====================================================================================+
 | kernel.request        | ``KernelEvents::REQUEST``        | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent`                    |
 +-----------------------+----------------------------------+-------------------------------------------------------------------------------------+
 | kernel.controller     | ``KernelEvents::CONTROLLER``     | :class:`Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent`               |

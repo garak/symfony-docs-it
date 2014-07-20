@@ -28,10 +28,10 @@ che serializzano e deserializzano gli oggetti.
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/Serializer);
-* :doc:`Installarlo via Composer</components/using_components>` (``symfony/serializer`` su `Packagist`_).
+* :doc:`Installarlo via Composer</components/using_components>` (``symfony/serializer`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Serializer).
 
 Uso
 ---
@@ -108,7 +108,7 @@ Ignorare attributi durante la serializzazione
 
 .. versionadded:: 2.3
     Il metodo :method:`GetSetMethodNormalizer::setIgnoredAttributes<Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer::setIgnoredAttributes>`
-    è stato aggiunto in Symfony 2.3.
+    è stato introdotto in Symfony 2.3.
 
 C'è un modo opzionale per ignorare attributi dall'oggetto originario, durante la
 serializzazione. Per rimuovere attributi, usare il metodo

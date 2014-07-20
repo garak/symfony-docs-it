@@ -66,7 +66,7 @@ completate man mano che l'utente scrive::
     $name = $dialog->ask(
         $output,
         'Prego inserire il nome del bundle',
-        'FooBundle',
+        'PippoBundle',
         $bundleNames
     );
 
@@ -110,6 +110,7 @@ avere il suffisso ``Bundle``. Lo si può validare, usando il metodo
                     'Il nome del bundle deve avere \'Bundle\' come suffisso'
                 );
             }
+
             return $answer;
         },
         false,
@@ -145,9 +146,11 @@ Si può anche fare una domanda e validare una risposta nascosta::
     $dialog = $this->getHelperSet()->get('dialog');
 
     $validator = function ($value) {
-        if (trim($value) == '') {
+        if ('' === trim($value)) {
             throw new \Exception('La password non può essere vuota');
         }
+        
+        return $value;
     };
 
     $password = $dialog->askHiddenResponseAndValidate(
@@ -222,9 +225,12 @@ occorre impostare il settimo parametro a ``true``::
         return $colors[$c];
     }, $selected);
 
-    $output->writeln('Hai scelto: ' . implode(', ', $selectedColors));
+    $output->writeln(
+        'Hai scelto: ' . implode(', ', $selectedColors)
+    );
 
-Se ora l'utente inserisce ``1,2``, il risultato sarà: ``Hai scelto: blu, giallo``.
+Se ora l'utente inserisce ``1,2``, il risultato sarà:
+``Hai scelto: blu, giallo``.
 
 Testare un comando con un input atteso
 --------------------------------------

@@ -13,8 +13,8 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* Usare il repository Git ufficiale (https://github.com/symfony/PropertyAccess);
-* Installarlo :doc:`tramite Composer</components/using_components>` (``symfony/property-access`` su `Packagist`_).
+* Installarlo :doc:`tramite Composer</components/using_components>` (``symfony/property-access`` su `Packagist`_);
+* Usare il repository Git ufficiale (https://github.com/symfony/PropertyAccess).
 
 Uso
 ---
@@ -322,7 +322,7 @@ Si possono anche mischiare oggetti e array::
 
         public function setChildren($children)
         {
-            return $this->children;
+            $this->children = $children;
         }
 
         public function getChildren()

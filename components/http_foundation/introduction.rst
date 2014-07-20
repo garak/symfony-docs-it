@@ -19,10 +19,10 @@ funzioni di PHP con un livello orientato agli oggetti.
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation);
-* Installarlo via :doc:`Composer </components/using_components>` (``symfony/http-foundation`` su `Packagist`_).
+* Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/http-foundation`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation).
 
 .. _component-http-foundation-request:
 
@@ -559,7 +559,7 @@ a ``application/json``.
 Callback JSONP
 ~~~~~~~~~~~~~~
 
-Se si usa JSONP, si può impostare la funziona di callback
+Se si usa JSONP, si può impostare la funzione di callback
 a cui i dati vanno passati::
 
     $response->setCallback('handleResponse');

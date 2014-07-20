@@ -5,7 +5,7 @@ Oggetto evento generico
 =======================
 
 La classe base :class:`Symfony\\Component\\EventDispatcher\\Event` fornita dal
-componente ``Event Dispatcher`` è deliberatamente breve, per consentire la creazione
+componente Event Dispatcher è deliberatamente breve, per consentire la creazione
 di oggetti evento con API specifiche, usando l'ereditarietà. Questo consente un codice
 elegante e leggibile, anche in applicazioni complesse.
 
@@ -25,19 +25,19 @@ aggiunta alla classe base :class:`Symfony\\Component\\EventDispatcher\\Event`
 * :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::getSubject`:
   restituisce il soggetto;
 
-* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::setArg`:
+* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::setArgument`:
   imposta un parametro per chiave;
 
-* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::setArgs`:
+* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::setArguments`:
   imposta un array di parametri;
 
-* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::getArg`:
+* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::getArgument`:
   restituisce un parametro per chiave;
 
-* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::getArgs`:
+* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::getArguments`:
   restituisce un array di parametri;
 
-* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::hasArg`:
+* :method:`Symfony\\Component\\EventDispatcher\\GenericEvent::hasArgument`:
   restituisce ``true`` se il parametro esiste;
 
 ``GenericEvent`` implementa anche :phpclass:`ArrayAccess` sui parametri dell'evento,
@@ -71,7 +71,7 @@ parametri dell'evento::
 
     $event = new GenericEvent(
         $subject,
-        array('type' => 'pippo', 'counter' => 0))
+        array('type' => 'pippo', 'counter' => 0)
     );
     $dispatcher->dispatch('pippo', $event);
 
@@ -93,15 +93,15 @@ Filtrare i dati::
 
     use Symfony\Component\EventDispatcher\GenericEvent;
 
-    $event = new GenericEvent($subject, array('data' => 'pippo'));
-    $dispatcher->dispatch('pippo', $event);
+    $evento = new GenericEvent($subject, array('data' => 'pippo'));
+    $dispatcher->dispatch('pippo', $evento);
 
     echo $event['data'];
 
     class PippoListener
     {
-        public function filter(GenericEvent $event)
+        public function filter(GenericEvent $evento)
         {
-            strtolower($event['data']);
+            $event['data'] = strtolower($evento['data']);
         }
     }

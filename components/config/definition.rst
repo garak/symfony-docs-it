@@ -21,14 +21,14 @@ applicate (come: "il valore per ``auto_connect`` deve essere booleano"):
     default_connection: mysql
     connections:
         mysql:
-            host: localhost
-            driver: mysql
+            host:     localhost
+            driver:   mysql
             username: utente
             password: pass
         sqlite:
-            host: localhost
-            driver: sqlite
-            memory: true
+            host:     localhost
+            driver:   sqlite
+            memory:   true
             username: utente
             password: pass
 
@@ -464,9 +464,9 @@ in questa configurazione:
 .. code-block:: yaml
 
     connessione:
-        name: connessione_mysql
-        host: localhost
-        driver: mysql
+        name:     connessione_mysql
+        host:     localhost
+        driver:   mysql
         username: utente
         password: pass
 

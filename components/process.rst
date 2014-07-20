@@ -10,10 +10,10 @@ Il componente Process
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/Process);
-* Installarlo via Composer (``symfony/process`` su `Packagist`_).
+* Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/process`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Process).
 
 Uso
 ---
@@ -73,7 +73,7 @@ Esecuzione asincrona dei processi
 ---------------------------------
 
 Si può anche iniziare il sotto-processo e lasciarlo girare in modo asincrono, recuperando
-l'output e lo stato nel processo principali, quando occorre. Usare il metodo
+l'output e lo stato nel processo principale, quando occorre. Usare il metodo
 :method:`Symfony\\Component\\Process\\Process::start` per iniziare un processo asincrono,
 il metodo :method:`Symfony\\Component\\Process\\Process::isRunning` per
 verificare che il processo sia finito e il metodo
@@ -238,7 +238,7 @@ Segnali di processo
 .. versionadded:: 2.3
     Il metodo ``signal`` è stato aggiunto in Symfony 2.3.
 
-Durante l'esecuzione di un programma asincrono, si possono inviare segnali posiz, con il metodo
+Durante l'esecuzione di un programma asincrono, si possono inviare segnali posix, con il metodo
 :method:`Symfony\\Component\\Process\\Process::signal`::
 
     use Symfony\Component\Process\Process;

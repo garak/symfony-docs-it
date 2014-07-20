@@ -7,7 +7,7 @@ MapClassLoader
 La classe :class:`Symfony\\Component\\ClassLoader\\MapClassLoader` consente di
 auto-caricare file tramite una mappa statica, dalle classi ai file. È utile se si
 usano librerire di terze parti, che non seguono lo standard `PSR-0`_ e quindi non
-possono usare :doc:`class loader PSR-0</components/class_loader/class_loader>`.
+possono usare :doc:`class loader PSR-0 </components/class_loader/class_loader>`.
 
 Si può usare``MapClassLoader`` insieme a :doc:`class loader PSR-0 </components/class_loader/class_loader>`,
 configurando e richiamando su entrambi il metodo ``register()``.
@@ -36,4 +36,4 @@ un'istanza della classe ``MapClassLoader``::
     
     $loader->register();
 
-.. _PSR-0: http://symfony.com/PSR0
+.. _PSR-0: http://www.php-fig.org/psr/psr-0/

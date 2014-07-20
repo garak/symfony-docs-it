@@ -46,15 +46,15 @@ Per poterlo fare, il kernel di Symfony2 lancia un evento,
   l'oggetto ``Response``.
 
 .. index::
-   single: Event Dispatcher; Eventi
+   single: EventDispatcher; Eventi
 
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher);
-* Installarlo via :doc:`Composer</components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_).
+* Installarlo via :doc:`Composer </components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher).
 
 Uso
 ---
@@ -90,7 +90,7 @@ Ecco alcuni buoni esempi di nomi di eventi:
 * ``form.pre_set_data``
 
 .. index::
-   single: Event Dispatcher; Sotto-classi di eventi
+   single: EventDispatcher; Sotto-classi di eventi
 
 Nomi di eventi e oggetti Event
 ..............................
@@ -402,7 +402,7 @@ quando viene lanciato l'evento ``kernel.response``, i metodi
 sono richiamati in questo ordine.
 
 .. index::
-   single: Event Dispatcher; Bloccare il flusso degli eventi
+   single: EventDispatcher; Bloccare il flusso degli eventi
 
 .. _event_dispatcher-event-propagation:
 

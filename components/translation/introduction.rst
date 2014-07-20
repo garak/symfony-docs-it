@@ -185,7 +185,12 @@ caricata in questo modo::
 
     $translator->addResource('xliff', 'messages.fr.xliff', 'fr_FR');
     $translator->addResource('xliff', 'admin.fr.xliff', 'fr_FR', 'admin');
-    $translator->addResource('xliff', 'navigation.fr.xliff', 'fr_FR', 'navigation');
+    $translator->addResource(
+        'xliff',
+        'navigation.fr.xliff',
+        'fr_FR',
+        'navigation'
+    );
 
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
 si deve specificare il dominio come terzo parametro di ``trans()``::

@@ -181,7 +181,7 @@ servizio stesso sia caricato. Per poterlo fare, si può usare la direttiva ``fil
 
         $definition = new Definition('Esempio\Pippo\Pluto');
         $definition->setFile('%kernel.root_dir%/src/percorso/del/file/pippo.php');
-        $container->setDefinition('foo', $definition);
+        $container->setDefinition('pippo', $definition);
 
 Si noti che Symfony richiamerà internamente la funzione ``require_once`` di PHP, il
 che vuol dire che il file sarà incluso una sola volta per richiesta. 

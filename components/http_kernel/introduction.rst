@@ -540,8 +540,8 @@ più avanti).
        risposta finale.
 
     3) Un controllore viene eseguito e gli viene passata l'eccezione appiattita.
-      Il controllore esatto da rendere viene passato come parametro del costruttore a questo
-      ascoltatore. Questo controllore restituirà la ``Response`` finale per questa pagina di errore.
+       Il controllore esatto da rendere viene passato come parametro del costruttore a questo
+       ascoltatore. Questo controllore restituirà la ``Response`` finale per questa pagina di errore.
 
     **ExceptionListener in Security**
 

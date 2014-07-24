@@ -3,7 +3,7 @@ Callback
 
 .. versionadded:: 2.4
     Il vincolo ``Callback`` è stato semplificato in Symfony 2.4. Per esempi
-    di utilizzo con precedenti versioni di Symfonu, vedere le versioni corrispondenti
+    di utilizzo con precedenti versioni di Symfony, vedere le versioni corrispondenti
     di questa pagina.
 
 Lo scopo del vincolo Callback è di poter creare delle regole di validazione
@@ -92,10 +92,10 @@ Preparazione
             }
         }
 
-Il metod callback
------------------
+Il metodo callback
+------------------
 
-Il metod callback è passato a uno speciale oggetto ``ExecutionContext``. Si possono
+Al metodo callback è passato uno speciale oggetto ``ExecutionContextInterface``. Si possono
 impostare le "violazioni" direttamente su questo oggetto e determinare a quale campo
 questi errori vadano attribuiti::
 

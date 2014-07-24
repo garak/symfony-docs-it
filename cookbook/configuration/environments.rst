@@ -191,12 +191,12 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
 
             doctrine:
                dbal:
-                   logging:  "%kernel.debug%"
+                   logging: "%kernel.debug%"
                    # ...
 
         .. code-block:: xml
 
-            <doctrine:dbal logging="%kernel.debug%" ... />
+            <doctrine:dbal logging="%kernel.debug%" />
 
         .. code-block:: php
 
@@ -315,8 +315,12 @@ Comunque ogni ambiente usa il suo proprio insieme di file della cache:
 
 .. code-block:: text
 
-    app/cache/dev   - cartella per la cache dell'ambiente *dev*
-    app/cache/prod  - cartella per la cache dell'ambiente *prod*
+    <progetto>/
+    ├─ app/
+    │  ├─ cache/
+    │  │  ├─ dev/   # cartella per la cache dell'ambiente *dev*
+    │  │  └─ prod/  # cartella per la cache dell'ambiente *prod*
+    │  ├─ ...
 
 Alcune volte, durante il debug, può essere utile poter controllare i file
 salvati in cache, per capire come le cose stiano funzionando. In questi casi

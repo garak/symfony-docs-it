@@ -62,6 +62,9 @@ Il componente Translation usa della classi Loader per caricare i cataloghi. Si p
 più risorse per lo stesso locale, saranno combinato in un unico
 catalogo.
 
+.. versionadded:: 2.4
+    ``JsonFileLoader`` è stato introdotto in Symfony 2.4.
+
 Il componente dispone di alcuni Loader, ma se ne possono creare altri.
 I Loader predefiniti sono:
 
@@ -85,6 +88,8 @@ I Loader predefiniti sono:
   cataloghi da file QT XML.
 * :class:`Symfony\\Component\\Translation\\Loader\\XliffFileLoader` - per caricare
   cataloghi da file Xliff.
+* :class:`Symfony\\Component\\Translation\\Loader\\JsonFileLoader` - per caricare
+  cataloghi da file JSON.
 * :class:`Symfony\\Component\\Translation\\Loader\\YamlFileLoader` - per caricare
   cataloghi da file Yaml (richiede il :doc:`componente Yaml</components/yaml/introduction>`).
 

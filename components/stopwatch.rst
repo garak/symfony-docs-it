@@ -31,10 +31,16 @@ microtime da soli. Basta usare la semplice classe
     // ... un po' di codice
     $event = $stopwatch->stop('nomeEvento');
 
+.. versionadded:: 2.5
+    Il metodo ``getEvent()`` è stato introdotto in Symfony 2.5
+
 L'oggetto :class:`Symfony\\Component\\Stopwatch\\StopwatchEvent` può essere recuperato
 dai metodi  :method:`Symfony\\Component\\Stopwatch\\Stopwatch::start`,
-:method:`Symfony\\Component\\Stopwatch\\Stopwatch::stop` e
-:method:`Symfony\\Component\\Stopwatch\\Stopwatch::lap`.
+:method:`Symfony\\Component\\Stopwatch\\Stopwatch::stop`,
+:method:`Symfony\\Component\\Stopwatch\\Stopwatch::lap` e
+:method:`Symfony\\Component\\Stopwatch\\Stopwatch::getEvent`.
+L'ultimo metodo andrebbe usato quando occorre recuperare la durata di un evento,
+mentre è ancora in esecuzione.
 
 Si può anche fornire un nome di categoria per un evento::
 

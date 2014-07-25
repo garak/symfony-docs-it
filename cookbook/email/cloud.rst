@@ -7,7 +7,7 @@ Usare il cloud per inviare email
 I requisiti per inviare email da un sistema di produzione sono diversi da quelli
 di un sistema di sviluppo, perché non si desidera essere limitati nel numero di messaggi,
 il tasso di invio o l'indirizzo del mittente. Quindi,
-:doc:`usare Gmail </cookbook/email/gmail>` o servizi simili non èr similar services is not an
+:doc:`usare Gmail </cookbook/email/gmail>` o servizi simili non è
 un'opzione. Se configurare e mantenere un proprio sever di posta è troppo
 complesso, c'è una semplice soluzione: sfruttare il cloud per inviare
 email.
@@ -101,17 +101,17 @@ Ecco fatto, si è pronti per iniziare a inviare email tramite il cloud!
 
     Se si vuole usare SES di Amazon, si prenda nota di quanto segue:
 
-        * Occorre iscriversi ad `Amazon Web Services (AWS)`_;
+    * Occorre iscriversi ad `Amazon Web Services (AWS)`_;
 
-        * Ogni indirizzo mittente usato negli header ``From`` o ``Return-Path`` (indirizzo
-          di bounce) deve essere confermato dal proprietario. Si può anche confermare
-          un intero dominio;
+    * Ogni indirizzo mittente usato negli header ``From`` o ``Return-Path`` (indirizzo
+      di bounce) deve essere confermato dal proprietario. Si può anche confermare
+      un intero dominio;
 
-        * All'inizio ci si trova in una modalità sandbox ristretta. Occorre richiedere
-          l'accesso alla produzione prima di poter inviare a destinatari
-          arbitrari;
+    * All'inizio ci si trova in una modalità sandbox ristretta. Occorre richiedere
+      l'accesso alla produzione prima di poter inviare a destinatari
+      arbitrari;
 
-        * SES potrebbe essere soggetto a una tariffa.
+    * SES potrebbe essere soggetto a una tariffa.
 
 .. _`Simple Email Service (SES) di Amazon`: http://aws.amazon.com/ses
 .. _`console di SES`: https://console.aws.amazon.com/ses

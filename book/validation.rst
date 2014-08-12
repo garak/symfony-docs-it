@@ -101,7 +101,7 @@ seguente:
 .. tip::
 
     Anche le proprietà private e protette possono essere validate, così come i
-    metodi "getter" (vedere `validator-constraint-targets`).
+    metodi "getter" (vedere :ref:`validator-constraint-targets`).
 
 .. index::
    single: Validazione; Usare il validatore
@@ -113,8 +113,8 @@ Successivamente, per validare veramente un oggetto ``Author``, usare il metodo
 ``validate`` sul servizio ``validator`` (classe :class:`Symfony\\Component\\Validator\\Validator`).
 Il compito di ``validator`` è semplice: leggere i vincoli (cioè le regole) di una
 classe e verificare se i dati dell'oggetto soddisfino o no tali vincoli.
-Se la validazione fallisce, viene restituito un array di errori
-(class :class:`Symfony\\Component\\Validator\\ConstraintViolationList`).
+Se la validazione fallisce, viene restituita una lista di errori
+(classe :class:`Symfony\\Component\\Validator\\ConstraintViolationList`).
 Prendiamo questo semplice esempio dall'interno di un controllore::
 
     // ...
@@ -127,15 +127,15 @@ Prendiamo questo semplice esempio dall'interno di un controllore::
         // ... fare qualcosa con l'oggetto $autore
 
         $validator = $this->get('validator');
-        $errors = $validator->validate($autore);
+        $errori = $validator->validate($autore);
 
-        if (count($errors) > 0) {
+        if (count($errori) > 0) {
             /*
              * Usa un metodo a __toString sulla variabile $errors, che è un oggetto
              * ConstraintViolationList. Questo fornisce una stringa adatta
              * al debug
              */
-            $errorsString = (string) $errors;
+            $errorsString = (string) $errori;
 
             return new Response($errorsString);
         }

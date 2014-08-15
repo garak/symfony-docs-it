@@ -52,6 +52,7 @@
 
   * :doc:`/cookbook/deployment/tools`
   * :doc:`/cookbook/deployment/azure-website`
+  * :doc:`/cookbook/deployment/heroku`
 
 * :doc:`/cookbook/doctrine/index`
 
@@ -118,6 +119,7 @@
 
 * :doc:`/cookbook/request/index`
 
+  * :doc:`/cookbook/request/load_balancer_reverse_proxy`
   * :doc:`/cookbook/request/mime_type`
   * (sessione) :doc:`/cookbook/session/locale_sticky_session`
 

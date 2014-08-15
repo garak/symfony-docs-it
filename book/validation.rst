@@ -589,7 +589,7 @@ come "getter".
 .. versionadded:: 2.5
     Il supporto per metodi che iniziano per ``has`` è stato introdotto in Symfony 2.5.
 
-Il vantaggio di questa tecnica è che consente di validare i proprio oggetti
+Il vantaggio di questa tecnica è che consente di validare gli oggetti
 dinamicamente. Per esempio, supponiamo che ci si voglia assicurare che un campo
 password non corrisponda al nome dell'utente (per motivi di sicurezza). Lo si può
 fare creando un metodo ``isPasswordLegal`` e asserendo che tale metodo debba
@@ -1212,7 +1212,7 @@ disponibili, così come i nomi completi delle classi per ciascun vincolo, è
 disponibile nella sezione
 :doc:`riferimento sui vincoli </reference/constraints>`.
 
-Il metodo ``validateValule`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
+Il metodo ``validateValue`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
 che si comporta come un array di errori. Ciascun errore della lista è un oggetto
 :class:`Symfony\\Component\\Validator\\ConstraintViolation`, che contiene
 il messaggio di errore nel suo metodo ``getMessage``.

@@ -7,6 +7,7 @@
   * :doc:`/components/class_loader/map_class_loader`
   * :doc:`/components/class_loader/cache_class_loader`
   * :doc:`/components/class_loader/debug_class_loader`
+  * :doc:`/components/class_loader/class_map_generator`
 
 * :doc:`/components/config/index`
 
@@ -23,7 +24,7 @@
   * :doc:`/components/console/events`
   * :doc:`/components/console/helpers/index`
 
-* **CSS Selector**
+* **CssSelector**
 
   * :doc:`/components/css_selector`
 
@@ -46,7 +47,7 @@
   * :doc:`/components/dependency_injection/lazy_services`
   * :doc:`/components/dependency_injection/workflow`
 
-* **DOM Crawler**
+* **DomCrawler**
 
   * :doc:`/components/dom_crawler`
 
@@ -56,6 +57,7 @@
   * :doc:`/components/event_dispatcher/container_aware_dispatcher`
   * :doc:`/components/event_dispatcher/generic_event`
   * :doc:`/components/event_dispatcher/immutable_dispatcher`
+  * :doc:`/components/event_dispatcher/traceable_dispatcher`
 
 * **Filesystem**
 

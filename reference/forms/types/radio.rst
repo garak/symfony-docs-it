@@ -15,17 +15,22 @@ Se si desidera un campo booleano, usare :doc:`checkbox </reference/forms/types/c
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``radio``                                           |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `value`_                                                          |
-| ereditate     | - `data`_                                                           |
-|               | - `empty_data`_                                                     |
-|               | - `required`_                                                       |
-|               | - `label`_                                                          |
-|               | - `label_attr`_                                                     |
-|               | - `read_only`_                                                      |
+| Opzioni       | dal tipo :doc:`checkbox </reference/forms/types/checkbox>`:         |
+| ereditate     |                                                                     |
+|               | - `value`_                                                          |
+|               |                                                                     |
+|               | dal tipo :doc:`form </reference/forms/types/form>`:                 |
+|               |                                                                     |
+|               | - `data`_                                                           |
 |               | - `disabled`_                                                       |
+|               | - `empty_data`_                                                     |
 |               | - `error_bubbling`_                                                 |
 |               | - `error_mapping`_                                                  |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `mapped`_                                                         |
+|               | - `read_only`_                                                      |
+|               | - `required`_                                                       |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`checkbox </reference/forms/types/checkbox>`                   |
 +---------------+---------------------------------------------------------------------+
@@ -44,23 +49,23 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/data.rst.inc
 
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
-
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/checkbox_empty_data.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc
 
 Variabili di form
 -----------------

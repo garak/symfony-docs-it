@@ -103,7 +103,7 @@ all'interno di un controllore::
             $form = $this->createFormBuilder($task)
                 ->add('task', 'text')
                 ->add('dueDate', 'date')
-                ->add('save', 'submit')
+                ->add('save', 'submit', array('label' => 'Crea post'))
                 ->getForm();
 
             return $this->render('AcmeTaskBundle:Default:new.html.twig', array(
@@ -128,7 +128,9 @@ In questo esempio sono stati aggiunti due campi al form, ``task`` e ``dueDate``,
 corrispondenti alle proprietà ``task`` e ``dueDate`` della classe ``Task``.
 È stato anche assegnato un "tipo" ciascuno (ad esempio ``text``, ``date``), che, tra
 le altre cose, determina quale tag form HTML viene utilizzato per tale campo.
-Infine, è stato aggiunto un bottone submit per l'invio del form.
+
+Infine, è stato aggiunto un bottone submit per l'invio del form, con un'etichetta
+personalizzata.
 
 .. versionadded:: 2.3
     Il supporto per i bottoni submit è stato aggiunto in Symfony 2.3. Precedentemente,
@@ -1675,7 +1677,7 @@ con la configurazione dell'applicazione:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
                                 http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-            <framework:config ...>
+            <framework:config>
                 <framework:templating>
                     <framework:form>
                         <framework:resource>AcmeTaskBundle:Form</framework:resource>
@@ -1905,6 +1907,6 @@ Saperne di più con il ricettario
 .. _`Componente Form di Symfony2`: https://github.com/symfony/Form
 .. _`DateTime`: http://php.net/manual/it/class.datetime.php
 .. _`Twig Bridge`: https://github.com/symfony/symfony/tree/2.3/src/Symfony/Bridge/Twig
-.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.2/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.3/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 .. _`Cross-site request forgery`: http://it.wikipedia.org/wiki/Cross-site_request_forgery
 .. _`vedere su GitHub`: https://github.com/symfony/symfony/tree/2.3/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form

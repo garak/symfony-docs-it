@@ -162,6 +162,10 @@ il kernel della cache::
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
 le risposte dell'applicazione e restituendole al client.
 
+Ora che si sta usando un "proxy", si dovrà configurare ``127.0.0.1`` sotto la
+voce ``trusted_proxies`` (vedere :ref:`il riferimento <reference-framework-trusted-proxies>`).
+In caso contrario, l'indirizzo IP del client e alcune altre cose non saranno riportati correttamente.
+
 .. tip::
 
     Il kernel della cache ha uno speciale metodo ``getLog()``, che restituisce una
@@ -862,13 +866,13 @@ Per usare ESI, assicurarsi prima di tutto di abilitarlo nella configurazione del
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-            <framework:config ...>
+            <framework:config>
                 <!-- ... -->
                 <framework:esi enabled="true" />
             </framework:config>
-
         </container>
 
     .. code-block:: php
@@ -915,7 +919,7 @@ Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
     .. code-block:: php
 
         <?php echo $view['actions']->render(
-            new ControllerReference('...:news', array('max' => 5)),
+            new \Symfony\Component\HttpKernel\Controller\ControllerReference('...:news', array('max' => 5)),
             array('strategy' => 'esi'))
         ?>
 
@@ -1034,7 +1038,7 @@ Invalidazione della cache
 -------------------------
 
     "Ci sono solo due cose difficili in informatica: invalidazione della cache e
-    nomi delle cose." Phil Karlton
+    nomi delle cose." -- Phil Karlton
 
 Non si dovrebbe mai aver bisogno di invalidare i dati in cache, perché
 dell'invalidazione si occupano già nativamente i modelli di cache HTTP. Se si usa

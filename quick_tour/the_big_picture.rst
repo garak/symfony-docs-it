@@ -89,6 +89,14 @@ i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati 
 .. image:: /images/quick_tour/hello_fabien.png
    :align: center
 
+.. note::
+
+    Al posto della pagina con il saluto, si potrebbe vedere una pagina di errore.
+    La causa è una configurazione errata dei permessi delle cartelle. Ci sono varie
+    soluzioni possibili, a seconda del sistema operativo. Tutte queste soluzioni sono
+    spiegate nella sezione :ref:`impostazione dei permessi <book-installation-permissions>`
+    del libro.
+
 Cosa sta accadendo? Dissezioniamo l'URL:
 
 * ``app_dev.php``: È un :term:`front controller`. È l'unico punto di ingresso

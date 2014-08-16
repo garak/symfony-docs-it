@@ -9,15 +9,15 @@ Il tipo ``file`` rappresenta un input per caricare file.
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``file``                                            |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `empty_data`_                                                     |
-| ereditate     | - `required`_                                                       |
-|               | - `label`_                                                          |
-|               | - `label_attr`_                                                     |
-|               | - `read_only`_                                                      |
-|               | - `disabled`_                                                       |
+| Opzioni       | - `disabled`_                                                       |
+| ereditate     | - `empty_data`_                                                     |
 |               | - `error_bubbling`_                                                 |
 |               | - `error_mapping`_                                                  |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `mapped`_                                                         |
+|               | - `read_only`_                                                      |
+|               | - `required`_                                                       |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`form </reference/forms/types/form>`                           |
 +---------------+---------------------------------------------------------------------+
@@ -83,23 +83,29 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
-
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito è ``null``.
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc
 
 Variabili di form
 -----------------

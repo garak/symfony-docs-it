@@ -173,7 +173,7 @@ dell'applicazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
                 <!-- ... -->
@@ -210,12 +210,14 @@ array ``defaults``:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         _welcome:
             path:      /
             defaults:  { _controller: AcmeDemoBundle:Main:homepage }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -230,6 +232,7 @@ array ``defaults``:
 
     ..  code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -258,12 +261,14 @@ rotte conterranno uno o più segnaposto "jolly":
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         blog_show:
             path:      /blog/{slug}
             defaults:  { _controller: AcmeBlogBundle:Blog:show }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -277,6 +282,7 @@ rotte conterranno uno o più segnaposto "jolly":
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -307,12 +313,14 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         blog:
             path:      /blog
             defaults:  { _controller: AcmeBlogBundle:Blog:index }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -326,6 +334,7 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -345,12 +354,14 @@ del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         blog:
             path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -364,6 +375,7 @@ del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -388,12 +400,14 @@ Questo si fa includendolo nella collezione ``defaults``:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         blog:
             path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -408,6 +422,7 @@ Questo si fa includendolo nella collezione ``defaults``:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -458,6 +473,7 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         blog:
             path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
@@ -468,6 +484,7 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -486,6 +503,7 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -525,6 +543,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         blog:
             path:      /blog/{page}
             defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
@@ -533,6 +552,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -548,6 +568,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -597,6 +618,7 @@ all'URL:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         homepage:
             path:      /{culture}
             defaults:  { _controller: AcmeDemoBundle:Main:homepage, culture: en }
@@ -605,6 +627,7 @@ all'URL:
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -620,6 +643,7 @@ all'URL:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -662,6 +686,7 @@ essere realizzato con la seguente configurazione per le rotte:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         contact:
             path:     /contact
             defaults: { _controller: AcmeDemoBundle:Main:contact }
@@ -674,6 +699,7 @@ essere realizzato con la seguente configurazione per le rotte:
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -691,6 +717,7 @@ essere realizzato con la seguente configurazione per le rotte:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -745,6 +772,7 @@ può essere il sistema delle rotte:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         article_show:
           path:     /articles/{culture}/{year}/{title}.{_format}
           defaults: { _controller: AcmeDemoBundle:Article:show, _format: html }
@@ -755,6 +783,7 @@ può essere il sistema delle rotte:
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -775,12 +804,13 @@ può essere il sistema delle rotte:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
         $collection->add(
-            'homepage',
+            'article_show',
             new Route('/articles/{culture}/{year}/{title}.{_format}', array(
                 '_controller' => 'AcmeDemoBundle:Article:show',
                 '_format'     => 'html',
@@ -831,9 +861,9 @@ speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 * ``_controller``: Come si è visto, questo parametro viene utilizzato per determinare quale
   controllore viene eseguito quando viene trovata la rotta;
 
-* ``_format``: Utilizzato per impostare il formato della richiesta (:ref:`per saperne di più<book-routing-format-param>`);
+* ``_format``: Utilizzato per impostare il formato della richiesta (:ref:`per saperne di più <book-routing-format-param>`);
 
-* ``_locale``: Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più<book-translation-locale-url>`);
+* ``_locale``: Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più <book-translation-locale-url>`).
 
 .. index::
    single: Rotte; Controllori
@@ -1044,7 +1074,8 @@ invece di ``/hello/{name}``:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <import resource="@AcmeHelloBundle/Resources/config/routing.xml"
+            <import
+                resource="@AcmeHelloBundle/Resources/config/routing.xml"
                 prefix="/admin" />
         </routes>
 
@@ -1053,13 +1084,10 @@ invece di ``/hello/{name}``:
         // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
 
+        $acmeHello = $loader->import('@AcmeHelloBundle/Resources/config/routing.php');
+        $acmeHello->addPrefix('/admin');
+
         $collection = new RouteCollection();
-
-        $acmeHello = $loader->import(
-            "@AcmeHelloBundle/Resources/config/routing.php"
-        );
-        $acmeHello->setPrefix('/admin');
-
         $collection->addCollection($acmeHello);
 
         return $collection;

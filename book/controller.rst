@@ -170,9 +170,15 @@ nel controllore:
     .. code-block:: php
 
         // app/config/routing.php
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
         $collection->add('hello', new Route('/hello/{name}', array(
             '_controller' => 'AcmeHelloBundle:Hello:index',
         )));
+
+        return $collection;
 
 Andando in ``/hello/ryan`` ora viene eseguito il controllore ``HelloController::indexAction()``
 e viene passato ``ryan`` nella variabile ``$name``. Creare una
@@ -257,10 +263,16 @@ esempio:
     .. code-block:: php
 
         // app/config/routing.php
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
         $collection->add('hello', new Route('/hello/{firstName}/{lastName}', array(
             '_controller' => 'AcmeHelloBundle:Hello:index',
             'color'       => 'green',
         )));
+
+        return $collection;
 
 Per questo il controllore può richiedere diversi parametri::
 

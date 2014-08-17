@@ -1126,19 +1126,21 @@ facilmente in un'applicazione.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd>
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <service id="acme_demo.form.type.task"
-                class="Acme\TaskBundle\Form\Type\TaskType">
-                <tag name="form.type" alias="task" />
-            </service>
+            <services>
+                <service
+                    id="acme_demo.form.type.task"
+                    class="Acme\TaskBundle\Form\Type\TaskType">
+
+                    <tag name="form.type" alias="task" />
+                </service>
+            </services>
         </container>
 
     .. code-block:: php
 
         // src/Acme/TaskBundle/Resources/config/services.php
-        use Symfony\Component\DependencyInjection\Definition;
-
         $container
             ->register(
                 'acme_demo.form.type.task',
@@ -1898,7 +1900,7 @@ Saperne di più con il ricettario
 --------------------------------
 
 * :doc:`/cookbook/doctrine/file_uploads`
-* :doc:`Riferimento del tipo di campo file</reference/forms/types/file>`
+* :doc:`Riferimento del tipo di campo file </reference/forms/types/file>`
 * :doc:`Creare tipi di campo personalizzati </cookbook/form/create_custom_field_type>`
 * :doc:`/cookbook/form/form_customization`
 * :doc:`/cookbook/form/dynamic_form_modification`

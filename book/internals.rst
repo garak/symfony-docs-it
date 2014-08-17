@@ -578,7 +578,7 @@ la configurazione per l'ambiente di sviluppo:
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
                                 http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <!-- carica il profilatore -->
             <framework:config>
@@ -588,9 +588,7 @@ la configurazione per l'ambiente di sviluppo:
             <!-- abilita il profilatore web -->
             <webprofiler:config
                 toolbar="true"
-                intercept-redirects="true"
-                verbose="true"
-            />
+                intercept-redirects="true" />
         </container>
 
     .. code-block:: php
@@ -604,7 +602,6 @@ la configurazione per l'ambiente di sviluppo:
         $container->loadFromExtension('web_profiler', array(
             'toolbar'             => true,
             'intercept_redirects' => true,
-            'verbose'             => true,
         ));
 
 Quando ``only_exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
@@ -621,7 +618,7 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
     .. code-block:: yaml
 
         _profiler:
-            resource: @WebProfilerBundle/Resources/config/routing/profiler.xml
+            resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
             prefix:   /_profiler
 
     .. code-block:: xml
@@ -634,18 +631,18 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
 
             <import
                 resource="@WebProfilerBundle/Resources/config/routing/profiler.xml"
-                prefix="/_profiler"
-            />
+                prefix="/_profiler" />
         </routes>
 
     .. code-block:: php
 
-        $collection->addCollection(
-            $loader->import(
-                "@WebProfilerBundle/Resources/config/routing/profiler.xml"
-            ),
-            '/_profiler'
-        );
+        use Symfony\Component\Routing\RouteCollection;
+
+        $profiler = $loader->import('@WebProfilerBundle/Resources/config/routing/profiler.xml');
+        $profiler->addPrefix('/_profiler');
+
+        $collection = new RouteCollection();
+        $collection->addCollection($profiler);
 
 Poiché il profilatore aggiunge un po' di sovraccarico, probabilmente lo si abiliterà solo
 in alcune circostanze in ambiente di produzione. L'impostazione ``only-exceptions``

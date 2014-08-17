@@ -14,6 +14,7 @@
   * :doc:`/cookbook/bundles/override`
   * :doc:`/cookbook/bundles/remove`
   * :doc:`/cookbook/bundles/extension`
+  * :doc:`/cookbook/bundles/configuration`
   * :doc:`/cookbook/bundles/prepend_extension`
 
 * :doc:`/cookbook/cache/index`
@@ -30,6 +31,7 @@
   * :doc:`/cookbook/configuration/pdo_session_storage`
   * :doc:`/cookbook/configuration/apache_router`
   * :doc:`/cookbook/configuration/web_server_configuration`
+  * :doc:`/cookbook/configuration/configuration_organization`
 
 * :doc:`/cookbook/console/index`
 
@@ -47,10 +49,11 @@
 
   * :doc:`/cookbook/debugging`
 
-* **Deploy**
+* :doc:`/cookbook/deployment/index`
 
   * :doc:`/cookbook/deployment/tools`
   * :doc:`/cookbook/deployment/azure-website`
+  * :doc:`/cookbook/deployment/heroku`
 
 * :doc:`/cookbook/doctrine/index`
 
@@ -112,6 +115,7 @@
 
 * :doc:`/cookbook/request/index`
 
+  * :doc:`/cookbook/request/load_balancer_reverse_proxy`
   * :doc:`/cookbook/request/mime_type`
   * (sessione) :doc:`/cookbook/session/locale_sticky_session`
 
@@ -139,6 +143,7 @@
   * :doc:`/cookbook/security/securing_services`
   * :doc:`/cookbook/security/custom_provider`
   * :doc:`/cookbook/security/custom_authentication_provider`
+  * :doc:`/cookbook/security/pre_authenticated`
   * :doc:`/cookbook/security/target_path`
   * :doc:`/cookbook/security/csrf_in_login_form`
 

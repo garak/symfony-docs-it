@@ -658,7 +658,7 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
         <!-- ... -->
         <div id="sidebar">
             <?php echo $view['actions']->render(
-                new ControllerReference(
+                new \Symfony\Component\HttpKernel\Controller\ControllerReference(
                     'AcmeArticleBundle:Article:recentArticles',
                     array('max' => 3)
                 )
@@ -727,8 +727,9 @@ Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:framework="http://symfony.com/schema/dic/symfony"
                 xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                    http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                    http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
+                <!-- ... -->
                 <framework:config>
                     <framework:fragments path="/_fragment" />
                 </framework:config>
@@ -763,11 +764,11 @@ essere impostato in modo globale nella configurazione dell'applicazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
+            <!-- ... -->
             <framework:config>
-                <framework:templating
-                    hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
+                <framework:templating hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
             </framework:config>
         </container>
 
@@ -847,12 +848,14 @@ delle rotte:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         _welcome:
             path:     /
             defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.yml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -865,6 +868,10 @@ delle rotte:
         </routes>
 
     .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
 
         $collection = new RouteCollection();
         $collection->add('_welcome', new Route('/', array(
@@ -892,12 +899,14 @@ rotta più complessa:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         article_show:
             path:     /article/{slug}
             defaults: { _controller: AcmeArticleBundle:Article:show }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -910,6 +919,10 @@ rotta più complessa:
         </routes>
 
     .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
 
         $collection = new RouteCollection();
         $collection->add('article_show', new Route('/article/{slug}', array(
@@ -1169,11 +1182,12 @@ dell'applicazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
+            <!-- ... -->
             <framework:config>
                 <framework:templating>
-                    <framework:engine id="twig" />
+                    <framework:engine>twig</framework:engine>
                 </framework:templating>
             </framework:config>
         </container>

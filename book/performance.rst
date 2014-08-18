@@ -56,7 +56,7 @@ non trova il file cercato.
 
 La soluzione più semplice è dire a Composer di costruire una "mappa di classi" (cioè un
 grosso array con le posizioni di tutte le classi). Lo si può fare da
-linea di comando e potrebbe diventare parte del processo di deploy::
+linea di comando e potrebbe diventare parte del processo di deploy:
 
 .. code-block:: bash
 

@@ -154,3 +154,7 @@ Ora aggiungiamo il form location ai due form originari::
 
 Ecco fatto! La duplicazione delle definizioni dei campi è stata estratta in un form
 a parte, riutilizzabili ovunque sia necessario.
+
+.. caution::
+
+    Form con l'opzione ``inherit_data`` impostata non possono avere ascoltatori di eventi ``*_SET_DATA``.

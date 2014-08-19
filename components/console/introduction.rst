@@ -1,7 +1,7 @@
 .. index::
     single: Console; CLI
     single: Componenti; Console
-    
+
 Il componente Console
 =====================
 
@@ -35,7 +35,7 @@ Creazione di comandi di base
 Per creare un comando che porga il saluto dal terminale, creare il file  ``SalutaCommand.php``,
 contenente il seguente codice::
 
-    namespace Acme\DemoBundle\Command;
+    namespace Acme\Console\Command;
 
     use Symfony\Component\Console\Command\Command;
     use Symfony\Component\Console\Input\InputArgument;
@@ -85,10 +85,10 @@ Occorre anche creare il file da eseguire in linea di comando, che crea
 una ``Application`` e vi aggiunge comandi::
 
     #!/usr/bin/env php
-    <?php 
-    // app/console
+    <?php
+    // application.php
 
-    use Acme\DemoBundle\Command\GreetCommand;
+    use Acme\Console\Command\GreetCommand;
     use Symfony\Component\Console\Application;
 
     $application = new Application();
@@ -99,7 +99,7 @@ una ``Application`` e vi aggiunge comandi::
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien
+    $ php application.php demo:saluta Fabien
 
 Il comando scriverà, nel terminale, quello che segue:
 
@@ -111,7 +111,7 @@ Il comando scriverà, nel terminale, quello che segue:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien --urla
+    $ php application.php demo:saluta Fabien --urla
 
 Il cui risultato sarà::
 
@@ -140,9 +140,12 @@ l'output. Ad esempio::
 Si può definire un proprio stile, usando la classe
 :class:`Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle`::
 
+    use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+
+    // ...
     $style = new OutputFormatterStyle('red', 'yellow', array('bold', 'blink'));
     $output->getFormatter()->setStyle('fire', $style);
-    $output->writeln('<fire>foo</fire>');
+    $output->writeln('<fire>pippo</fire>');
 
 I colori di sfondo e di testo disponibili sono: ``black``, ``red``, ``green``,
 ``yellow``, ``blue``, ``magenta``, ``cyan`` e ``white``.
@@ -232,8 +235,8 @@ Il comando potrà essere utilizzato in uno qualsiasi dei seguenti modi:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien
-    $ app/console demo:saluta Fabien Potencier
+    $ php application.php demo:saluta Fabien
+    $ php application.php demo:saluta Fabien Potencier
 
 È anche possibile consentire una lista di valori a un parametro (si immagini di
 voler salutare tutti gli amici). Lo si deve fare alla fine della lista dei
@@ -251,7 +254,7 @@ In questo modo, si possono specificare più nomi:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien Ryan Bernhard
+    $ php application.php demo:saluta Fabien Ryan Bernhard
 
 Si può accedere al parametro ``nmoi`` come un array::
 
@@ -321,8 +324,8 @@ l'impostazione ``--ripetizioni``:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien
-    $ app/console demo:saluta Fabien --ripetizioni=5
+    $ php application.php demo:saluta Fabien
+    $ php application.php demo:saluta Fabien --ripetizioni=5
 
 Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
 il suo valore predefinito è ``1`` (l'ultimo argomento di ``addOption``). Nel secondo esempio, il
@@ -333,8 +336,8 @@ seguenti esempi funzioneranno correttamente:
 
 .. code-block:: bash
 
-    $ app/console demo:saluta Fabien --ripetizioni=5 --urla
-    $ app/console demo:saluta Fabien --urla --ripetizioni=5
+    $ php application.php demo:saluta Fabien --ripetizioni=5 --urla
+    $ php application.php demo:saluta Fabien --urla --ripetizioni=5
 
 Ci sono 4 possibili varianti per le opzioni:
 
@@ -347,7 +350,7 @@ InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5`
 InputOption::VALUE_OPTIONAL  L'opzione può avere un valore o meno (p.e. ``urla`` o ``urla=forte``)
 ===========================  =============================================================================================
 
-È possibile combinare VALUE_IS_ARRAY con VALUE_REQUIRED o con VALUE_OPTIONAL nel seguente modo:
+È possibile combinare ``VALUE_IS_ARRAY`` con ``VALUE_REQUIRED`` o con ``VALUE_OPTIONAL`` nel seguente modo:
 
 .. code-block:: php
 
@@ -380,7 +383,7 @@ di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTeste
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::
 
-    use Acme\Command\SalutaCommand;
+    use Acme\Console\Command\GreetCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
 
@@ -409,7 +412,7 @@ Si può testare l'invio di argomenti e opzioni al comando, passandoli come
 array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::execute`::
 
-    use Acme\Command\SalutaCommand;
+    use Acme\Console\Command\GreetCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
 
@@ -453,13 +456,13 @@ Richiamare un comando da un altro è molto semplice::
     {
         $comando = $this->getApplication()->find('demo:saluta');
 
-        $argomenti = array(
+        $parametri = array(
             'command' => 'demo:saluta',
             'nome'    => 'Fabien',
             '--urla'  => true,
         );
 
-        $input = new ArrayInput($argomenti);
+        $input = new ArrayInput($parametri);
         $codiceDiRitorno = $comando->run($input, $output);
 
         // ...
@@ -470,11 +473,11 @@ comando da eseguire usandone il nome come parametro.
 
 Quindi si dovrà creare un nuovo 
 :class:`Symfony\\Component\\Console\\Input\\ArrayInput` che 
-contenga gli argomenti e le opzioni da passare al comando.
+contenga i parametri e le opzioni da passare al comando.
 
 Infine, la chiamata al metodo ``run()`` manderà effettivamente in esecuzione il comando e
-restituirà il codice di ritorno del comando (``0`` se tutto è andato a buon fine, un qualsiasi altro 
-intero negli altri altri casi).
+restituirà il codice di ritorno del comando (il valore restituito dal metodo
+``execute`` del comando).
 
 .. note::
 
@@ -494,4 +497,4 @@ Saperne di più
 * :doc:`/components/console/events`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
-.. _ANSICON: https://github.com/adoxa/ansicon/downloads
+.. _ANSICON: https://github.com/adoxa/ansicon/releases

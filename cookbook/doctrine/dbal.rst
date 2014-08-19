@@ -61,7 +61,8 @@ Per iniziare, configurare i parametri di connessione alla base dati:
             ),
         ));
 
-Per un elenco completo delle opzioni di configurazione, vedere :ref:`reference-dbal-configuration`.
+Per un elenco completo delle opzioni di configurazione di DBAL o per sapere come con
+connessioni multiple, vedere :ref:`reference-dbal-configuration`.
 
 Si può quindi accedere alla connessione del DBAL di Doctrine usando il
 servizio ``database_connection``::
@@ -92,8 +93,8 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
         doctrine:
             dbal:
                 types:
-                    custom_first:  Acme\HelloBundle\Type\CustomFirst
-                    custom_second: Acme\HelloBundle\Type\CustomSecond
+                    primo:   Acme\HelloBundle\Type\Primo
+                    secondo: Acme\HelloBundle\Type\Secondo
 
     .. code-block:: xml
 
@@ -106,8 +107,8 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
 
             <doctrine:config>
                 <doctrine:dbal>
-                    <doctrine:type name="custom_first" class="Acme\HelloBundle\Type\CustomFirst" />
-                    <doctrine:type name="custom_second" class="Acme\HelloBundle\Type\CustomSecond" />
+                    <doctrine:type name="primo" class="Acme\HelloBundle\Type\Primo" />
+                    <doctrine:type name="secondo" class="Acme\HelloBundle\Type\Secondo" />
                 </doctrine:dbal>
             </doctrine:config>
         </container>
@@ -118,8 +119,8 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
                 'types' => array(
-                    'custom_first'  => 'Acme\HelloBundle\Type\CustomFirst',
-                    'custom_second' => 'Acme\HelloBundle\Type\CustomSecond',
+                    'primo'   => 'Acme\HelloBundle\Type\Primo',
+                    'secondo' => 'Acme\HelloBundle\Type\Secondo',
                 ),
             ),
         ));
@@ -141,11 +142,8 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
         # app/config/config.yml
         doctrine:
             dbal:
-                connections:
-                    default:
-                        # altri parametri di connessione
-                        mapping_types:
-                            enum: string
+               mapping_types:
+                  enum: string
 
     .. code-block:: xml
 
@@ -158,11 +156,7 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
 
             <doctrine:config>
                 <doctrine:dbal>
-                <doctrine:dbal default-connection="default">
-                    <doctrine:connection>
-                        <!-- altri parametri di connessione -->
-                        <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
-                    </doctrine:connection>
+                     <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
                 </doctrine:dbal>
             </doctrine:config>
         </container>
@@ -172,18 +166,13 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
         // app/config/config.php
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
-                'connections' => array(
-                    'default' => array(
-                        // altri parametri di connessione
-                        'mapping_types' => array(
-                            'enum'  => 'string',
-                        ),
-                    ),
-                ),
+               mapping_types' => array(
+                  'enum'  => 'string',
+               ),
             ),
         ));
 
-.. _`PDO`:           http://www.php.net/pdo
+.. _`PDO`:           http://php.net/manual/it/book.pdo.php
 .. _`Doctrine`:      http://www.doctrine-project.org
 .. _`DBAL Documentation`: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/index.html
 .. _`Custom Mapping Types`: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#custom-mapping-types

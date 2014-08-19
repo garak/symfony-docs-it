@@ -74,6 +74,8 @@ due pacchetti predefiniti:
 
 Si possono anche usare più pacchetti::
 
+    use Symfony\Component\Templating\Asset\PathPackage;
+    
     // ...
     $templateEngine->set(new AssetsHelper());
 

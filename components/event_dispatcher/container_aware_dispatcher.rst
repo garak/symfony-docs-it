@@ -1,5 +1,5 @@
 .. index::
-   single: Distributore di eventi; Consapevolezza del contenitore; Dependency Injection; DIC
+   single: EventDispatcher; Consapevolezza del contenitore
 
 Il distributore consapevole del contenitore
 ===========================================
@@ -9,9 +9,9 @@ Introduzione
 
 La classe :class:`Symfony\\Component\\EventDispatcher\\ContainerAwareEventDispatcher` è
 una speciale implementazione di distributore di eventi, accoppiata con il contenitore di servizi,
-che fa parte del :doc:`the Dependency Injection component</components/dependency_injection/introduction>`.
-Questo consente di specificare i servizi come ascoltatori di eventi, rendendo il distributore
-di eventi molto potente.
+che fa parte del :doc:`component DependencyInjection </components/dependency_injection/introduction>`.
+Questo consente di specificare i servizi come ascoltatori di eventi, rendendo EventDispatcher
+molto potente.
 
 Si servizi sono caricati in modo pigro, il che vuol dire che i servizi allegati come ascoltatori
 saranno creato solo se viene distribuito un evento che richieda tali ascoltatori.

@@ -25,12 +25,10 @@ Si può anche far corrispondere l'*host* HTTP della richiesta in entrata.
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing
-                http://symfony.com/schema/routing/routing-1.0.xsd"
-        >
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="mobile_homepage" path="/" host="m.example.com">
                 <default key="_controller">AcmeDemoBundle:Main:mobileHomepage</default>
@@ -82,12 +80,10 @@ dire che si possono usare segnaposto nel nome dell'host:
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing
-                http://symfony.com/schema/routing/routing-1.0.xsd"
-        >
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="projects_homepage" path="/" host="{nome progetto}.example.com">
                 <default key="_controller">AcmeDemoBundle:Main:mobileHomepage</default>
@@ -138,17 +134,14 @@ esempio, se si vuole che ``m.example.com`` e
     .. code-block:: xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing
-                http://symfony.com/schema/routing/routing-1.0.xsd"
-        >
+                http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="mobile_homepage" path="/" host="{subdomain}.example.com">
                 <default key="_controller">AcmeDemoBundle:Main:mobileHomepage</default>
                 <default key="subdomain">m</default>
-
                 <requirement key="subdomain">m|mobile</requirement>
             </route>
 
@@ -176,16 +169,10 @@ esempio, se si vuole che ``m.example.com`` e
 
         return $collection;
 
-.. sidebar:: Uso dei parametri dei servizi
+.. tip::
 
     Si possono anche usare i parametri dei servizi, se non si vuole scrivere il
     nome dell'host direttamente:
-
-    .. tip::
-
-       Assicurarsi di includere anche un'opzione per il segnaposto ``subdomain``,
-       atrlimenti occorrerà includere i valori dei sottodomini ogni volta
-       che si genera la rotta.
 
     .. configuration-block::
 
@@ -207,14 +194,13 @@ esempio, se si vuole che ``m.example.com`` e
         .. code-block:: xml
 
             <?xml version="1.0" encoding="UTF-8" ?>
-
             <routes xmlns="http://symfony.com/schema/routing"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-                <route id="mobile_homepage" path="/" host="m.example.com">
+                <route id="mobile_homepage" path="/" host="m.{domain}">
                     <default key="_controller">AcmeDemoBundle:Main:mobileHomepage</default>
-                    <default key="domain">%domain%</requirement>
+                    <default key="domain">%domain%</default>
                     <requirement key="domain">%domain%</requirement>
                 </route>
 
@@ -242,6 +228,12 @@ esempio, se si vuole che ``m.example.com`` e
 
             return $collection;
 
+.. tip::
+
+    Assicurarsi di includere anche un'opzione per il segnaposto ``subdomain``,
+    atrlimenti occorrerà includere i valori dei sottodomini ogni volta
+    che si genera la rotta.
+
 .. _component-routing-host-imported:
 
 Corrispondenza dell'host su rotte importate
@@ -253,16 +245,13 @@ Si può impostare l'opzione ``host`` sulle rotte importate:
 
     .. code-block:: yaml
 
-        # app/config/routing.yml
         acme_hello:
             resource: "@AcmeHelloBundle/Resources/config/routing.yml"
             host:     "hello.example.com"
 
     .. code-block:: xml
 
-        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
@@ -272,7 +261,6 @@ Si può impostare l'opzione ``host`` sulle rotte importate:
 
     .. code-block:: php
 
-        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
 
         $collection = new RouteCollection();
@@ -289,12 +277,12 @@ Testare i controllori
 Se si vuole far funzionare la corrispondenza degli URL nei test funzionali, occorre
 impostare l'header ``HTTP_HOST`` negli oggetti richiesta.
 
- .. code-block:: php
+.. code-block:: php
 
-     $crawler = $client->request(
-         'GET',
-         '/homepage',
-         array(),
-         array(),
-         array('HTTP_HOST' => 'm.' . $client->getContainer()->getParameter('domain'))
-     );
+    $crawler = $client->request(
+        'GET',
+        '/homepage',
+        array(),
+        array(),
+        array('HTTP_HOST' => 'm.' . $client->getContainer()->getParameter('domain'))
+    );

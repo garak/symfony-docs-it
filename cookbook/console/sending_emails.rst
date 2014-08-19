@@ -88,6 +88,10 @@ della richiesta e sovrascrivere le sue impostazioni::
 Usare lo spool memory
 ---------------------
 
+.. versionadded: 2.3
+    Se si usano Symfony 2.3+ e SwiftmailerBundle 2.3.5+, lo spool ``memory`` è
+    gestito automaticamente su CLI e il codice successivo non è più necessario.
+
 L'invio di email in un comando da console funziona nello stesso modo descritto in
 :doc:`/cookbook/email/email`, tranne per il fatto che viene usato lo spool memory.
 

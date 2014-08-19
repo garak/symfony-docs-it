@@ -391,6 +391,8 @@ principale con ``append()``::
 Questo è utile per evitare di ripetersi, nel caso in cui si abbiano sezioni
 della configurazione ripetute in posti diversi.
 
+.. _component-config-normalization:
+
 Normalizzazione
 ---------------
 
@@ -445,6 +447,8 @@ come secondo parametro::
         ->fixXmlConfig('uovo', 'uova')
         ->children()
             ->arrayNode('uova')
+                // ...
+            ->end()
         ->end()
     ;
 

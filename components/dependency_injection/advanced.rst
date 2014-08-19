@@ -42,9 +42,19 @@ Ecco un esempio:
 
     .. code-block:: xml
 
-        <service id="pippo" class="Esempio\Pippo" public="false" />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="pippo" class="Esempio\Pippo" public="false" />
+            </services>
+        </container>
 
     .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('Esempio\Pippo');
         $definition->setPublic(false);
@@ -88,15 +98,22 @@ Per creare un servizio sintetico, impostare ``synthetic`` a ``true``:
 
     .. code-block:: xml
 
-        <service id="request"
-            synthetic="true" />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="request" synthetic="true" />
+            </services>
+        </container>
 
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        // ...
-        $container->setDefinition('request', new Definition())
+        $container
+            ->setDefinition('request', new Definition())
             ->setSynthetic(true);
 
 Come si può vedere, viene impostata solo l'opzione ``synthetic``. Tutte le altre opzioni vengono solo usate
@@ -128,14 +145,23 @@ pubblico.
 
     .. code-block:: xml
 
-        <service id="pippo" class="Esempio\Pippo"/>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <service id="pluto" alias="pippo" />
+            <services>
+                <service id="pippo" class="Esempio\Pippo" />
+
+                <service id="pluto" alias="pippo" />
+            </services>
+        </container>
 
     .. code-block:: php
 
-        $definition = new Definition('Esempio\Pippo');
-        $container->setDefinition('pippo', $definition);
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container->setDefinition('pippo', new Definition('Esempio\Pippo'));
 
         $containerBuilder->setAlias('pluto', 'pippo');
 
@@ -173,15 +199,25 @@ servizio stesso sia caricato. Per poterlo fare, si può usare la direttiva ``fil
 
     .. code-block:: xml
 
-        <service id="foo" class="Esempio\Pippo\Pluto">
-            <file>%kernel.root_dir%/src/percorso/del/file/pippo.php</file>
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="foo" class="Esempio\Pippo\Pluto">
+                    <file>%kernel.root_dir%/src/percorso/del/file/pippo.php</file>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('Esempio\Pippo\Pluto');
         $definition->setFile('%kernel.root_dir%/src/percorso/del/file/pippo.php');
         $container->setDefinition('pippo', $definition);
 
-Si noti che Symfony richiamerà internamente la funzione ``require_once`` di PHP, il
-che vuol dire che il file sarà incluso una sola volta per richiesta. 
+Si noti che Symfony richiamerà internamente la funzione ``require_once`` di PHP,
+il che vuol dire che il file sarà incluso una sola volta per richiesta. 

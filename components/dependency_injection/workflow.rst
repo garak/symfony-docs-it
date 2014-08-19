@@ -1,5 +1,5 @@
 .. index::
-   single: Dependency Injection; Flusso
+   single: DependencyInjection; Flusso
 
 Flusso di costruzione del contenitore
 =====================================

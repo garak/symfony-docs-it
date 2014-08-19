@@ -413,6 +413,10 @@ Ora, ogni volta che un utente clicca sul link ``Aggiungi un tag``, apparirà un 
 form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in nuovi oggetti
 ``Tag`` e aggiunto alla proprietà ``tags`` dell'oggetto ``Task``
 
+.. seealso::
+
+    Si può trovare un esempio funzionante in questo `JSFiddle`_.
+
 Per gestire più facilmente questi nuovi tag, aggiungere dei metodi "adder" e "remover"
 alla classe  ``Task``::
 
@@ -726,3 +730,4 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     per ogni oggetto Tag.
 
 .. _`lato di appartenenza e il lato inverso`: http://docs.doctrine-project.org/en/latest/reference/unitofwork-associations.html
+.. _`JSFiddle`: http://jsfiddle.net/847Kf/4/

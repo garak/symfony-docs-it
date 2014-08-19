@@ -4,6 +4,11 @@
 Proxy fidati
 ============
 
+.. tip::
+
+    If you're using the Symfony Framework, start by reading
+    :doc:`/cookbook/request/load_balancer_reverse_proxy`.
+
 Se ci si trova dietro un proxy, come un bilanciatore di carico, è possibile che
 siano inviate alcune informazioni con gli header speciali ``X-Forwarded-*``.
 Per esempio, l'header HTTP ``Host`` di solito si usa per restituire

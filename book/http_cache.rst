@@ -1016,7 +1016,7 @@ accessi al minimo.
 .. tip::
 
     L'ascoltatore risponde solo agli indirizzi IP locali o ai
-   :doc:`proxy fidati </cookbook/request/load_balancer_reverse_proxy>`.
+    :doc:`proxy fidati </cookbook/request/load_balancer_reverse_proxy>`.
 
 .. note::
 

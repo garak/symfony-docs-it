@@ -9,6 +9,13 @@ Poiché la cache di Symfony2 usa gli header standard della cache HTTP,
 proxy. `Varnish`_ è un acceleratore HTTP potente e open source, che è in grado di servire
 contenuti in cache in modo veloce e che include il supporto per :ref:`Edge Side Include<edge-side-includes>`.
 
+Reverse proxy fidati
+--------------------
+
+Perch* ESI funzioni correttamente e per usare gli header :ref:`X-FORWARDED <varnish-x-forwarded-headers>`,
+occorre configurare Varnish come
+:doc:`proxy fidato </cookbook/request/load_balancer_reverse_proxy>`.
+
 .. index::
     single: Varnish; Configurazione
 
@@ -187,6 +194,8 @@ che invalida la cache per una data risorsa:
                 error 404 "Not purged";
             }
         }
+
+.. _varnish-x-forwarded-headers:
 
 Rotte e header X-FORWARDED
 --------------------------

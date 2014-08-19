@@ -1,5 +1,5 @@
 .. index::
-   single: Dependency Injection; Servizi genitori
+   single: DependencyInjection; Servizi genitori
 
 Come gestire le dipendenze comuni con servizi genitori
 ======================================================
@@ -78,40 +78,46 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
 
     .. code-block:: xml
 
-        <parameters>
-            <!-- ... -->
-            <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-            <parameter key="greeting_card_manager.class">GreetingCardManager</parameter>
-        </parameters>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="my_mailer">
-              <!-- ... -->
-            </service>
+            <parameters>
+                <!-- ... -->
+                <parameter key="newsletter_manager.class">NewsletterManager</parameter>
+                <parameter key="greeting_card_manager.class">GreetingCardManager</parameter>
+            </parameters>
 
-            <service id="my_email_formatter">
-              <!-- ... -->
-            </service>
+            <services>
+                <service id="my_mailer">
+                    <!-- ... -->
+                </service>
 
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
-                <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
-                </call>
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
-                </call>
-            </service>
+                <service id="my_email_formatter">
+                    <!-- ... -->
+                </service>
 
-            <service id="greeting_card_manager" class="%greeting_card_manager.class%">
-                <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
-                </call>
+                <service id="newsletter_manager" class="%newsletter_manager.class%">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
+                    <call method="setEmailFormatter">
+                        <argument type="service" id="my_email_formatter" />
+                    </call>
+                </service>
 
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
-                </call>
-            </service>
-        </services>
+                <service id="greeting_card_manager" class="%greeting_card_manager.class%">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
+
+                    <call method="setEmailFormatter">
+                        <argument type="service" id="my_email_formatter" />
+                    </call>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -211,29 +217,35 @@ genitore per un servizio.
 
     .. code-block:: xml
 
-        <!-- ... -->
-        <services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
             <!-- ... -->
-            <service id="mail_manager" abstract="true">
-                <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
-                </call>
+            <services>
+                <!-- ... -->
+                <service id="mail_manager" abstract="true">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
 
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
-                </call>
-            </service>
+                    <call method="setEmailFormatter">
+                        <argument type="service" id="my_email_formatter" />
+                    </call>
+                </service>
 
-            <service id="newsletter_manager"
-                class="%newsletter_manager.class%"
-                parent="mail_manager"
-            />
+                <service
+                    id="newsletter_manager"
+                    class="%newsletter_manager.class%"
+                    parent="mail_manager" />
 
-            <service id="greeting_card_manager"
-                class="%greeting_card_manager.class%"
-                parent="mail_manager"
-            />
-        </services>
+                <service
+                    id="greeting_card_manager"
+                    class="%greeting_card_manager.class%"
+                    parent="mail_manager" />
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -242,7 +254,6 @@ genitore per un servizio.
         use Symfony\Component\DependencyInjection\Reference;
 
         // ...
-
         $mailManager = new Definition();
         $mailManager
             ->setAbstract(true);
@@ -336,38 +347,44 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
 
     .. code-block:: xml
 
-        <!-- ... -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
             <!-- ... -->
-            <service id="my_alternative_mailer">
-              <!-- ... -->
-            </service>
+            <services>
+                <!-- ... -->
+                <service id="my_alternative_mailer">
+                    <!-- ... -->
+                </service>
 
-            <service id="mail_manager" abstract="true">
-                <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
-                </call>
+                <service id="mail_manager" abstract="true">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
 
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
-                </call>
-            </service>
+                    <call method="setEmailFormatter">
+                        <argument type="service" id="my_email_formatter" />
+                    </call>
+                </service>
 
-            <service id="newsletter_manager"
-                class="%newsletter_manager.class%"
-                parent="mail_manager"
-            >
-                 <call method="setMailer">
-                     <argument type="service" id="my_alternative_mailer" />
-                </call>
-            </service>
+                <service
+                    id="newsletter_manager"
+                    class="%newsletter_manager.class%"
+                    parent="mail_manager">
 
-            <service id="greeting_card_manager"
-                class="%greeting_card_manager.class%"
-                parent="mail_manager"
-            />
-        </services>
+                    <call method="setMailer">
+                        <argument type="service" id="my_alternative_mailer" />
+                    </call>
+                </service>
+
+                <service
+                    id="greeting_card_manager"
+                    class="%greeting_card_manager.class%"
+                    parent="mail_manager" />
+            </services>
+        </container>
 
     .. code-block:: php
 

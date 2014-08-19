@@ -1,5 +1,5 @@
 .. index::
-   single: Dependency Injection; Configuratori di servizi
+   single: DependencyInjection; Configuratori di servizi
 
 Configurare servizi con un configuratore di servizi
 ===================================================
@@ -76,7 +76,7 @@ nell'applicazione::
         public function loadFormatters()
         {
             // codice per configurare quali formattatori usare
-            $enabledFormatters = array();
+            $enabledFormatters = array(...);
             // ...
 
             $this->enabledFormatters = $enabledFormatters;
@@ -155,30 +155,40 @@ La configurazione del servizio per le classi viste sopra assomiglia a questa:
 
     .. code-block:: xml
 
-        <services>
-            <service id="my_mailer" ...>
-              <!-- ... -->
-            </service>
-            <service id="email_formatter_manager" class="EmailFormatterManager">
-              <!-- ... -->
-            </service>
-            <service id="email_configurator" class="EmailConfigurator">
-                <argument type="service" id="email_formatter_manager" />
-              <!-- ... -->
-            </service>
-            <service id="newsletter_manager" class="NewsletterManager">
-                <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
-                </call>
-                <configurator service="email_configurator" method="configure" />
-            </service>
-            <service id="greeting_card_manager" class="GreetingCardManager">
-                <call method="setMailer">
-                     <argument type="service" id="my_mailer" />
-                </call>
-                <configurator service="email_configurator" method="configure" />
-            </service>
-        </services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="my_mailer">
+                    <!-- ... -->
+                </service>
+
+                <service id="email_formatter_manager" class="EmailFormatterManager">
+                    <!-- ... -->
+                </service>
+
+                <service id="email_configurator" class="EmailConfigurator">
+                    <argument type="service" id="email_formatter_manager" />
+                    <!-- ... -->
+                </service>
+
+                <service id="newsletter_manager" class="NewsletterManager">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
+                    <configurator service="email_configurator" method="configure" />
+                </service>
+
+                <service id="greeting_card_manager" class="GreetingCardManager">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
+                    <configurator service="email_configurator" method="configure" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 

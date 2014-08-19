@@ -28,6 +28,8 @@ singolarmente.
                     type:       swift_mailer
                     from_email: error@example.com
                     to_email:   error@example.com
+                    # oppure una lista di destinatari
+                    # to_email:   [dev1@example.com, dev2@example.com, ...]
                     subject:    Si è verificato un errore!
                     level:      debug
 
@@ -80,6 +82,8 @@ singolarmente.
                     'type'       => 'swift_mailer',
                     'from_email' => 'error@example.com',
                     'to_email'   => 'error@example.com',
+                    // oppure una lista di destinatari
+                    // 'to_email'   => array('dev1@example.com', 'dev2@example.com', ...),
                     'subject'    => 'Si è verificato un errore!',
                     'level'      => 'debug',
                 ),

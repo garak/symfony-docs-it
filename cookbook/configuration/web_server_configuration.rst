@@ -9,7 +9,7 @@ un'applicazione, inclusi fogli di stile, file JavaScript e immagini. È anche il
 in cui si trovano i front controller. Per maggiori dettagli, vedere :ref:`the-web-directory`.
 
 La cartella web funge da document root nella configurazione del server web.
-Negli esempi seguenti, tale cartella è in ``/var/www/project/web/``.
+Negli esempi seguenti, tale cartella è in ``/var/www/progetto/web/``.
 
 Apache2
 -------
@@ -24,8 +24,8 @@ sono:
         ServerName domain.tld
         ServerAlias www.domain.tld
 
-        DocumentRoot /var/www/project/web
-        <Directory /var/www/project/web>
+        DocumentRoot /var/www/progetto/web
+        <Directory /var/www/progetto/web>
             # abilita la lettura di .htaccess
             AllowOverride All
             Order allow,deny
@@ -55,13 +55,114 @@ la seguente configurazione:
     In Apache 2.4, ``Order allow,deny`` è stato sostituito da ``Require all granted``,
     quindi occorre modificare le impostazioni in questo modo:
 
-        .. code-block:: apache
+    .. code-block:: apache
 
-            <Directory /var/www/project/web>
-                # enable the .htaccess rewrites
-                AllowOverride All
-                Require all granted
-            </Directory>
+        <Directory /var/www/progetto/web>
+            # enable the .htaccess rewrites
+            AllowOverride All
+            Require all granted
+        </Directory>
+
+Apache2 con PHP-FPM
+-------------------
+
+Per usare PHP5-FPM con Apache, occorre prima accertarsi di avere il
+binario di FastCGI ``php-fpm`` e il modulo FastCGI di Apache
+installato (per esempio, su un sistema basato su Debian, si devono installare i pacchetti
+``libapache2-mod-fastcgi`` e ``php5-fpm``).
+
+PHP-FPM usa dei cosiddetti *pool* per gestire le richieste FastCGI in arrivo. Si può
+configurare un numero arbitrario di pool nella configurazione di FPM. In un pool,
+si configura un socket TCP (IP e porta) o un socket di dominio su cui
+ascoltare. Ciascun pool può anche essere eseguito con UID e GID diversi:
+
+.. code-block:: ini
+
+    ; un pool chiamato www
+    [www]
+    user = www-data
+    group = www-data
+
+    ; usa un socket di dominio unix
+    listen = /var/run/php5-fpm.sock
+
+    ; oppure ascolta un socket TCP
+    listen = 127.0.0.1:9000
+
+Usare mod_proxy_fcgi con Apache 2.4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Se si usa Apache 2.4, si può usare ``mod_proxy_fcgi`` per passare le
+richieste in arrivo a PHP-FPM. Configurare PHP-FPM per ascoltare un socket TCP
+(``mod_proxy`` attualmente `non supporta i socket unix`_), abilitare ``mod_proxy``
+e ``mod_proxy_fcgi`` nella configurazione di Apache e usare la direttiva ``ProxyPassMatch``
+per passare richieste di file PHP a PHP FPM:
+
+.. code-block:: apache
+
+    <VirtualHost *:80>
+        ServerName dominio.tld
+        ServerAlias www.dominio.tld
+
+        ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
+
+        DocumentRoot /var/www/progetto/web
+        <Directory /var/www/progetto/web>
+            # enable the .htaccess rewrites
+            AllowOverride All
+            Require all granted
+        </Directory>
+
+        ErrorLog /var/log/apache2/project_error.log
+        CustomLog /var/log/apache2/project_access.log combined
+    </VirtualHost>
+
+.. caution::
+
+    Se si fa girare un'applicaizone Symfony in una sottocartella della document root,
+    l'espressione regolare usata nella direttiva ``ProxyPassMatch`` deve cambiare
+    di conseguenza:
+
+    .. code-block:: apache
+
+        ProxyPassMatch ^/percorso-applicazione/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
+
+PHP-FPM con Apache 2.2
+~~~~~~~~~~~~~~~~~~~~~~
+
+Su Apache 2.2 o precedenti, non si può usare ``mod_proxy_fcgi``. Si deve invece usare la
+direttiva `FastCgiExternalServer`_. Di conseguenza, la configurazione di Apache
+dovrebbe essere come questa:
+
+.. code-block:: apache
+
+    <VirtualHost *:80>
+        ServerName dominio.tld
+        ServerAlias www.dominio.tld
+
+        AddHandler php5-fcgi .php
+        Action php5-fcgi /php5-fcgi
+        Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
+        FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -host 127.0.0.1:9000 -pass-header Authorization
+
+        DocumentRoot /var/www/progetto/web
+        <Directory /var/www/progetto/web>
+            # enable the .htaccess rewrites
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+
+        ErrorLog /var/log/apache2/project_error.log
+        CustomLog /var/log/apache2/project_access.log combined
+    </VirtualHost>
+
+Se si preferisce usare un socket unix, si deve invece usare l'opzione
+``-socket``:
+
+.. code-block:: apache
+
+    FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
 
 Nginx
 -----
@@ -73,8 +174,8 @@ sono:
 .. code-block:: nginx
 
     server {
-        server_name domain.tld www.domain.tld;
-        root /var/www/project/web;
+        nome_server dominio.tld www.dominio.tld;
+        root /var/www/progetto/web;
 
         location / {
             # prova a servire direttamente i file, fallback su app.php
@@ -110,4 +211,6 @@ sono:
     assicurarsi di includerli nel blocco ``location`` visto sopra.
 
 .. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
+.. _`non supporta i socket unix`: https://issues.apache.org/bugzilla/show_bug.cgi?id=54101
+.. _`FastCgiExternalServer`: http://www.fastcgi.com/mod_fastcgi/docs/mod_fastcgi.html#FastCgiExternalServer
 .. _`Nginx`: http://wiki.nginx.org/Symfony

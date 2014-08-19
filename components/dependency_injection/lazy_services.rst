@@ -62,9 +62,19 @@ Si può definire un servizio come pigro, modificandone la definizione:
 
     .. code-block:: xml
 
-        <service id="pippo" class="Acme\Pippo" lazy="true" />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="pippo" class="Acme\Pippo" lazy="true" />
+            </services>
+        </container>
 
     .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
 
         $definizione = new Definition('Acme\Pippo');
         $definizione->setLazy(true);

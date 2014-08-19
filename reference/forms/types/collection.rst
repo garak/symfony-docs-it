@@ -10,31 +10,31 @@ campi ``emails``. In esempi più complessi, si potrebbero includere interi form,
 che è utile quando si creano form che espongono relazioni molti-a-molti
 (p.e. un prodotto in cui si possono gestire molte foto correlate).
 
-+-------------+-----------------------------------------------------------------------------+
-| Reso come   | dipende dall'opzione `type`_                                                |
-+-------------+-----------------------------------------------------------------------------+
-| Opzioni     | - `type`_                                                                   |
-|             | - `options`_                                                                |
-|             | - `allow_add`_                                                              |
-|             | - `allow_delete`_                                                           |
-|             | - `prototype`_                                                              |
-|             | - `prototype_name`_                                                         |
-|             | - `delete_empty`_                                                           |
-+-------------+-----------------------------------------------------------------------------+
-| Opzioni     | - `label`_                                                                  |
-| ereditate   | - `label_attr`_                                                             |
-|             | - `error_bubbling`_                                                         |
-|             | - `error_mapping`_                                                          |
-|             | - `by_reference`_                                                           |
-|             | - `empty_data`_                                                             |
-|             | - `required`_                                                               |
-|             | - `mapped`_                                                                 |
-|             | - `cascade_validation`_                                                     |
-+-------------+-----------------------------------------------------------------------------+
-| Tipo padre  | :doc:`form </reference/forms/types/form>`                                   |
-+-------------+-----------------------------------------------------------------------------+
-| Classe      | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CollectionType`    |
-+-------------+-----------------------------------------------------------------------------+
++---------------+-----------------------------------------------------------------------------+
+| Reso come     | dipende dall'opzione `type`_                                                |
++---------------+-----------------------------------------------------------------------------+
+| Opzioni       | - `allow_add`_                                                              |
+|               | - `allow_delete`_                                                           |
+|               | - `delete_empty`_                                                           |
+|               | - `options`_                                                                |
+|               | - `prototype`_                                                              |
+|               | - `prototype_name`_                                                         |
+|               | - `type`_                                                                   |
++---------------+-----------------------------------------------------------------------------+
+| Opzioni       | - `by_reference`_                                                           |
+| ereditate     | - `cascade_validation`_                                                     |
+|               | - `empty_data`_                                                             |
+|               | - `error_bubbling`_                                                         |
+|               | - `error_mapping`_                                                          |
+|               | - `label`_                                                                  |
+|               | - `label_attr`_                                                             |
+|               | - `mapped`_                                                                 |
+|               | - `required`_                                                               |
++---------------+-----------------------------------------------------------------------------+
+| Tipo genitore | :doc:`form </reference/forms/types/form>`                                   |
++---------------+-----------------------------------------------------------------------------+
+| Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CollectionType`    |
++---------------+-----------------------------------------------------------------------------+
 
 .. note::
 
@@ -212,39 +212,6 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 Opzioni del campo
 -----------------
 
-type
-~~~~
-
-**tipo**: ``stringa`` o :class:`Symfony\\Component\\Form\\FormTypeInterface` **obbligatorio**
-
-Il tipo per ogni elemento dell'insieme (p.e. ``text``, ``choice``,
-ecc.). Per esempio, con un array di indirizzi email, si userebbe il tipo
-:doc:`email</reference/forms/types/email>`. Se si vuole includere un insieme di
-un qualche altro form, creare una nuova istanza del tipo di form e passarlo
-in questa opzione.
-
-options
-~~~~~~~
-
-**tipo**: ``array`` **predefinito**: ``array()``
-
-L'array passato al tipo di form specificato nell'opzione `type`_.
-Per esempio, se si è usato il tipo :doc:`choice</reference/forms/types/choice>`
-come opzione `type`_ (p.e. per un insieme di menù a tendina), si dovrebbe
-passare almeno l'opzione ``choices`` al tipo sottostante::
-
-    $builder->add('favorite_cities', 'collection', array(
-        'type'   => 'choice',
-        'options'  => array(
-            'choices'  => array(
-                'nashville' => 'Nashville',
-                'paris'     => 'Paris',
-                'berlin'    => 'Berlin',
-                'london'    => 'London',
-            ),
-        ),
-    ));
-
 allow_add
 ~~~~~~~~~
 
@@ -264,7 +231,7 @@ client. Per maggiori informazioni, vedere l'esempio sopra e :ref:`cookbook-form-
     Se si includono altri form, per riflettere una relazione uno-a-molti nella base dati,
     potrebbe essere necessario assicurarsi a mano che la chiave esterna di questi nuovi
     oggetti sia impostata correttamente. Se si usa Doctrine, questo non avverrà
-    automaticamente. Vedere il collegamento sopra per maggiori dettagli.
+    automaticamente. Vedere il collegamento sopra per maggiori dettagli.    
 
 allow_delete
 ~~~~~~~~~~~~
@@ -288,6 +255,41 @@ Per maggiori informazioni, vedere :ref:`cookbook-form-collections-remove`.
     volerlo cancellare o almeno rimuovere la sua chiave esterna riferita all'oggetto
     principale. Questi casi non sono gestiti automaticamente. Per maggiori informazioni,
     vedere :ref:`cookbook-form-collections-remove`.
+
+delete_empty
+~~~~~~~~~~~~
+
+.. versionadded:: 2.5
+    L'opzione ``delete_empty`` è stata introdotta in Symfony 2.5.
+
+**tipo**: ``Booleano`` **predefinito**: ``false``
+
+Se si vogliono rimuovere esplicitamente gli elementi vuoti della collezione dal
+form, impostare questa opzione a ``true``. Tuttavia, gli elementi esistenti della collezion
+saranno cancellati se si ha abilitato l'opzione ``allow_delete``. Altrimenti,
+i valori vuoti saranno mantenuti.
+
+options
+~~~~~~~
+
+**tipo**: ``array`` **predefinito**: ``array()``
+
+L'array passato al tipo di form specificato nell'opzione `type`_.
+Per esempio, se si è usato il tipo :doc:`choice</reference/forms/types/choice>`
+come opzione `type`_ (p.e. per un insieme di menù a tendina), si dovrebbe
+passare almeno l'opzione ``choices`` al tipo sottostante::
+
+    $builder->add('favorite_cities', 'collection', array(
+        'type'   => 'choice',
+        'options'  => array(
+            'choices'  => array(
+                'nashville' => 'Nashville',
+                'paris'     => 'Paris',
+                'berlin'    => 'Berlin',
+                'london'    => 'London',
+            ),
+        ),
+    ));
 
 prototype
 ~~~~~~~~~
@@ -337,18 +339,16 @@ Se si hanno molti insiemi in un form o, peggio, si hanno insiemi annidati,
 si potrebbe voler modificare il segnaposto, in modo che i segnaposto senza relazioni non
 siano sostituiti con il medesimo valore.
 
-delete_empty
-~~~~~~~~~~~~
+type
+~~~~
 
-.. versionadded:: 2.5
-    L'opzione ``delete_empty`` è stata introdotta in Symfony 2.5.
+**tipo**: ``stringa`` o :class:`Symfony\\Component\\Form\\FormTypeInterface` **obbligatorio**
 
-**tipo**: ``Booleano`` **predefinito**: ``false``
-
-Se si vogliono rimuovere esplicitamente gli elementi vuoti della collezione dal
-form, si deve impostare questa opzione a ``true``. Tuttavia, gli elementi esistenti della collezione
-saranno rimossi solo se l'opzione ``allow_delete_`` è abilitata. In caso contrario,
-i valori vuoti saranno mantenuti.
+Il tipo per ogni elemento dell'insieme (p.e. ``text``, ``choice``,
+ecc.). Per esempio, con un array di indirizzi email, si userebbe il tipo
+:doc:`email</reference/forms/types/email>`. Se si vuole includere un insieme di
+un qualche altro form, creare una nuova istanza del tipo di form e passarlo
+in questa opzione.
 
 Opzioni ereditate
 -----------------
@@ -356,9 +356,19 @@ Opzioni ereditate
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`.
 Non sono elencate tutte le opzioni, solo quelle più attinenti a questo tipo:
 
-.. include:: /reference/forms/types/options/label.rst.inc
+.. _reference-form-types-by-reference:
 
-.. include:: /reference/forms/types/options/label_attr.rst.inc
+.. include:: /reference/forms/types/options/by_reference.rst.inc
+
+.. include:: /reference/forms/types/options/cascade_validation.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito è ``array()`` (array vuoto).
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
 
 error_bubbling
 ~~~~~~~~~~~~~~
@@ -369,17 +379,13 @@ error_bubbling
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
-.. _reference-form-types-by-reference:
+.. include:: /reference/forms/types/options/label.rst.inc
 
-.. include:: /reference/forms/types/options/by_reference.rst.inc
-
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
+.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
-.. include:: /reference/forms/types/options/cascade_validation.rst.inc
+.. include:: /reference/forms/types/options/required.rst.inc
 
 Variabili di campo
 ------------------

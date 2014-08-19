@@ -15,21 +15,21 @@ Questo campo aggiunge un simbolo di percentuale,  "``%``", dopo l'input.
 +---------------+-----------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``text``                                              |
 +---------------+-----------------------------------------------------------------------+
-| Opzioni       | - `type`_                                                             |
-|               | - `precision`_                                                        |
+| Opzioni       | - `precision`_                                                        |
+|               | - `type`_                                                             |
 +---------------+-----------------------------------------------------------------------+
-| Opzioni       | - `empty_data`_                                                       |
-| ereditate     | - `required`_                                                         |
-|               | - `label`_                                                            |
-|               | - `label_attr`_                                                       |
-|               | - `data`_                                                             |
-|               | - `read_only`_                                                        |
-|               | - `disabled`_                                                         |
+| Opzioni       | - `data`_                                                             |
+| ereditate     | - `disabled`_                                                         |
+|               | - `empty_data`_                                                       |
 |               | - `error_bubbling`_                                                   |
 |               | - `error_mapping`_                                                    |
 |               | - `invalid_message`_                                                  |
 |               | - `invalid_message_parameters`_                                       |
+|               | - `label`_                                                            |
+|               | - `label_attr`_                                                       |
 |               | - `mapped`_                                                           |
+|               | - `read_only`_                                                        |
+|               | - `required`_                                                         |
 +---------------+-----------------------------------------------------------------------+
 | Tipo genitore | :doc:`form </reference/forms/types/form>`                             |
 +---------------+-----------------------------------------------------------------------+
@@ -38,6 +38,14 @@ Questo campo aggiunge un simbolo di percentuale,  "``%``", dopo l'input.
 
 Opzioni
 -------
+
+precision
+~~~~~~~~~
+
+**tipo**: ``intero`` **predefinito**: ``0``
+
+Per impostazione predefinita, i numeri inseriti sono arrotondanti. Per consentire
+ultetiori posizioni decimali, usare questa opzione.
 
 type
 ~~~~
@@ -59,32 +67,21 @@ nell'oggetto. I due tipi gestiscono questi due casi:
     Il valore grezzo (``55``) è mostrato all'utente e memorizzato nell'oggetto.
     Notare che ciò funziona solo per valori interi.
 
-precision
-~~~~~~~~~
-
-**tipo**: ``intero`` **predefinito**: ``0``
-
-Per impostazione predefinita, i numeri inseriti sono arrotondanti. Per consentire
-ultetiori posizioni decimali, usare questa opzione.
-
 Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
-
 .. include:: /reference/forms/types/options/data.rst.inc
 
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
 .. include:: /reference/forms/types/options/disabled.rst.inc
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito è ``''`` (stringa vuota).
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
@@ -94,4 +91,12 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc

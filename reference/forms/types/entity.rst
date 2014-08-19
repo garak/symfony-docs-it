@@ -12,30 +12,35 @@ presi dalla base dati.
 +---------------+---------------------------------------------------------------------+
 | Reso come     | possono essere vari tag (vedere :ref:`forms-reference-choice-tags`) |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `class`_                                                          |
+| Oztioni       | - `class`_                                                          |
 |               | - `data_class`_                                                     |
-|               | - `property`_                                                       |
-|               | - `group_by`_                                                       |
-|               | - `query_builder`_                                                  |
 |               | - `em`_                                                             |
+|               | - `group_by`_                                                       |
+|               | - `property`_                                                       |
+|               | - `query_builder`_                                                  |
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `choices`_                                                        |
 | ridefinite    | - `choice_list`_                                                    |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `multiple`_                                                       |
-| ereditate     | - `expanded`_                                                       |
-|               | - `preferred_choices`_                                              |
+| Opzioni       | dal tipo :doc:`choice </reference/forms/types/choice>`:             |
+| ereditate     |                                                                     |
 |               | - `empty_value`_                                                    |
-|               | - `empty_data`_                                                     |
-|               | - `required`_                                                       |
-|               | - `label`_                                                          |
-|               | - `label_attr`_                                                     |
+|               | - `expanded`_                                                       |
+|               | - `multiple`_                                                       |
+|               | - `preferred_choices`_                                              |
+|               |                                                                     |
+|               | dal tipo :doc:`form </reference/forms/types/form>`:                 |
+|               |                                                                     |
 |               | - `data`_                                                           |
-|               | - `read_only`_                                                      |
 |               | - `disabled`_                                                       |
+|               | - `empty_data`_                                                     |
 |               | - `error_bubbling`_                                                 |
 |               | - `error_mapping`_                                                  |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `mapped`_                                                         |
+|               | - `read_only`_                                                      |
+|               | - `required`_                                                       |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`choice </reference/forms/types/choice>`                       |
 +---------------+---------------------------------------------------------------------+
@@ -109,6 +114,25 @@ o il suo alias (come mostrato sopra).
 
 .. include:: /reference/forms/types/options/data_class.rst.inc
 
+em
+~~
+
+**tipo**: ``stringa`` **predefinito**: il gestore di entità predefinito
+
+Se specificato, il gestore di entità da usare per caricare le scelte, al posto
+di quello predefinito.
+
+group_by
+~~~~~~~~
+
+**tipo**: ``stringa``
+
+Il percorso di proprietà (p.e. ``author.name``) usato per organizzare le scelte
+disponibili in gruppi. Funziona solo se reso come tag select e lo fa
+aggiungendo tag optgroup tra le opzioni. Le scelte che non restituiscono un
+valore per questo percorso di proprietà sono rese direttamente sotto il tag
+select, senza optgroup.
+
 property
 ~~~~~~~~
 
@@ -132,17 +156,6 @@ occorre avere un metodo ``__toString()``.
            'property' => 'translations[en].name',
         ));
 
-group_by
-~~~~~~~~
-
-**tipo**: ``stringa``
-
-Il percorso di proprietà (p.e. ``author.name``) usato per organizzare le scelte
-disponibili in gruppi. Funziona solo se reso come tag select e lo fa
-aggiungendo tag optgroup tra le opzioni. Le scelte che non restituiscono un
-valore per questo percorso di proprietà sono rese direttamente sotto il tag
-select, senza optgroup.
-
 query_builder
 ~~~~~~~~~~~~~
 
@@ -154,25 +167,8 @@ può essere un oggetto ``QueryBuilder`` oppure una closure. Se su usa una closur
 dovrebbe accettare un singolo parametro, che è l'``EntityRepository``
 dell'entità.
 
-em
-~~
-
-**tipo**: ``stringa`` **predefinito**: il gestore di entità predefinito
-
-Se specificato, il gestore di entità da usare per caricare le scelte, al posto
-di quello predefinito.
-
 Opzioni ridefinite
 ------------------
-
-choices
-~~~~~~~
-
-**tipo**:  array || ``\Traversable`` **predefinito**: ``null``
-
-Invece di lasciare che `class`_ e `query_builder`_ recuperino le
-entità da inserire, si può passare direttamente l'opzione ``choices``.
-Vedere :ref:`reference-forms-entity-choices`.
 
 choice_list
 ~~~~~~~~~~~
@@ -184,10 +180,23 @@ usando una delle opzioni precedenti. Se occorre sovrascrivere questa
 opzione, si può prendere in considerazione l'uso diretto di :doc:`/reference/forms/types/choice`.
 
 
+choices
+~~~~~~~
+
+**tipo**:  array || ``\Traversable`` **predefinito**: ``null``
+
+Invece di lasciare che `class`_ e `query_builder`_ recuperino le
+entità da inserire, si può passare direttamente l'opzione ``choices``.
+Vedere :ref:`reference-forms-entity-choices`.
+
 Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
+
+.. include:: /reference/forms/types/options/empty_value.rst.inc
+
+.. include:: /reference/forms/types/options/expanded.rst.inc
 
 .. include:: /reference/forms/types/options/multiple.rst.inc
 
@@ -198,8 +207,6 @@ Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choi
     In aggiunta, c'è un esempio completo nella ricetta
     :doc:`/cookbook/form/form_collections`.
 
-.. include:: /reference/forms/types/options/expanded.rst.inc
-
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc
 
 .. note::
@@ -207,26 +214,34 @@ Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choi
     Questa opzione si aspetta un array di oggetti entità, diversamente dal campo ``choice``,
     che richiede un array di chiavi.
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
-
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
-
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/data.rst.inc
 
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito effettivo di questa opzione dipende da altre opzioni:
+
+* Se ``multiple`` è ``false`` ed ``expanded`` è ``false``, allora ``''``
+  (stringa vuota);
+* Altrimenti ``array()`` (array vuoto).
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc

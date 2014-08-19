@@ -13,24 +13,24 @@ Questo campo ha diverse opzioni su come gestire i valori ricevuti che non siano 
 Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arrotondati per difetto (p.e. 6).
 
 +---------------+-----------------------------------------------------------------------+
-| Reso come     | campo ``input`` ``number``                                            |
+| Reso come     | campo ``input`` ``text``                                              |
 +---------------+-----------------------------------------------------------------------+
-| Opzioni       | - `rounding_mode`_                                                    |
+| Opzioni       | - `grouping`_                                                         |
 |               | - `precision`_                                                        |
-|               | - `grouping`_                                                         |
+|               | - `rounding_mode`_                                                    |
 +---------------+-----------------------------------------------------------------------+
-| Opzioni       | - `empty_data`_                                                       |
-| ereditate     | - `required`_                                                         |
-|               | - `label`_                                                            |
-|               | - `label_attr`_                                                       |
-|               | - `data`_                                                             |
-|               | - `read_only`_                                                        |
-|               | - `disabled`_                                                         |
+| Opzioni       | - `data`_                                                             |
+| ereditate     | - `disabled`_                                                         |
+|               | - `empty_data`_                                                       |
 |               | - `error_bubbling`_                                                   |
 |               | - `error_mapping`_                                                    |
 |               | - `invalid_message`_                                                  |
 |               | - `invalid_message_parameters`_                                       |
+|               | - `label`_                                                            |
+|               | - `label_attr`_                                                       |
 |               | - `mapped`_                                                           |
+|               | - `read_only`_                                                        |
+|               | - `required`_                                                         |
 +---------------+-----------------------------------------------------------------------+
 | Tipo genitore | :doc:`form </reference/forms/types/form>`                             |
 +---------------+-----------------------------------------------------------------------+
@@ -39,6 +39,8 @@ Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arro
 
 Opzioni del campo
 -----------------
+
+.. include:: /reference/forms/types/options/grouping.rst.inc
 
 .. include:: /reference/forms/types/options/precision.rst.inc
 
@@ -71,26 +73,22 @@ per difetto. Ci sono molti altri metodi di arrotondamento e ognuno è una costan
 * ``IntegerToLocalizedStringTransformer::ROUND_HALF_UP`` Arrotondamento verso il
   numero più vicino. In caso di equidistanza, arrotondamento verso l'alto.
 
-.. include:: /reference/forms/types/options/grouping.rst.inc
-
 Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
-
 .. include:: /reference/forms/types/options/data.rst.inc
 
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito è ``''`` (stringa vuota).
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
@@ -100,4 +98,12 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc

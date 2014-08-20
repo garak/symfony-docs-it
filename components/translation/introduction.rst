@@ -13,8 +13,8 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_).
-* Usare il repository ufficiale su Git (https://github.com/symfony/Translation);
+* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Translation).
 
 Costruire il Translator
 -----------------------
@@ -45,8 +45,8 @@ Il costruttore della classe ``Translator`` ha bisogno di un solo parametro: il l
 
     Il termine *locale* si riferisce più o meno a lingua e paese dell'utente. Può
     essere unq qualsiasi stringa usata da un'applicazione per gestire traduzioni e
-    altre variazioni di formato (p.e. la valuta). Si raccomanda un codice `ISO639-1`_ della
-    *lingua*, un trattino basso (``_``), quindi il codice `ISO3166 Alpha-2`_ del
+    altre variazioni di formato (p.e. la valuta). Si raccomanda un codice `ISO 639-1`_ della
+    *lingua*, un trattino basso (``_``), quindi il codice `ISO 3166-1 alpha-2`_ del
     *paese* (p.e. ``fr_FR`` per francese/Francia).
 
 .. _component-translator-message-catalogs:
@@ -211,5 +211,5 @@ Uso
 Leggere come usare il componente Translation in ":doc:`/components/translation/usage`".
 
 .. _Packagist: https://packagist.org/packages/symfony/translation
-.. _ISO3166 Alpha-2: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
-.. _ISO639-1: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

@@ -28,6 +28,7 @@ Ricettario
     templating/index
     testing/index
     validation/index
+    web_server/index
     web_services/index
     workflow/index
 

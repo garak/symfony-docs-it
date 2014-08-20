@@ -18,7 +18,7 @@ seguente, per installare l'ultima versione di Symfony2 nella cartella
 
 .. code-block:: bash
 
-    $ composer create-project symfony/framework-standard-edition progetto/ ~2.4
+    $ composer create-project symfony/framework-standard-edition progetto/ '~2.4'
 
 .. note::
 
@@ -57,6 +57,10 @@ per far girare Symfony:
 
     $ php app/console server:run
 
+.. seealso::
+
+    Si può sapere di più sul server interno sul :doc:`ricettario </cookbook/web_server/built_in>`.
+
 In caso di errore `There are no commands defined in the "server" namespace.`,
 probabilmente si sta usando PHP 5.3. Va bene lo stesso, la il server web è
 disponibile solo da PHP 5.4.0 in poi. Per vecchie versioni di PHP o se si
@@ -84,7 +88,7 @@ i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati 
 
 .. code-block:: text
 
-    http://localhost:8000/demo/hello/Fabien
+    http://localhost:8000/app_dev.php/demo/hello/Fabien
 
 .. image:: /images/quick_tour/hello_fabien.png
    :align: center
@@ -356,9 +360,9 @@ Richiamando il file ``app_dev.php`` nel browser, si esegue
 l'applicazione Symfony in ambiente ``dev``. Per vedere l'applicazione
 in ambiente ``prod``, richiamare invece ``app.php``.
 
-Le rotte di demo nell'applicazione sono disponibili solo in ambiente ``dev``, ma se
-lo fossero anche in ambiente ``prod``, si potrebbe vederle
-in ambiente ``prod`` andando su:
+Le rotte di demo nell'applicazione sono disponibili solo in ambiente ``dev``.
+Quindi se si provar ad accedere all'URL ``http://localhost/app.php/demo/hello/Fabien``,
+si ottiene un errore 404.
 
 .. tip::
 
@@ -372,8 +376,8 @@ in ambiente ``prod`` andando su:
 
         http://localhost/demo/hello/Fabien
 
-Per maggiori dettagli sugli ambienti, vedere
-":ref:`Ambienti e front controller <page-creation-environments>`".
+Per maggiori dettagli sugli ambienti, vedere la pagina
+":ref:`ambienti e front controller <page-creation-environments>`".
 
 Considerazioni finali
 ---------------------
@@ -384,6 +388,6 @@ già vedere come Symfony2 rende veramente facile implementare siti web in modo
 migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossima
 sezione: ":doc:`la vista<the_view>`".
 
-.. _Composer:             http://getcomposer.org/
+.. _Composer:             https://getcomposer.org/
 .. _installer:            http://getcomposer.org/download
 .. _Twig:                 http://twig.sensiolabs.org/

@@ -13,8 +13,8 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_).
-* Usare il repository ufficiale su Git (https://github.com/symfony/Translation);
+* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Translation).
 
 Costruire il Translator
 -----------------------
@@ -89,9 +89,9 @@ I Loader predefiniti sono:
   cataloghi da file Yaml (richiede il :doc:`componente Yaml</components/yaml/introduction>`).
 
 .. versionadded:: 2.1
-    I loader ``IcuDatFileLoader``, ``IcuResFileLoader``, ``IniFileLoader``,
-    ``MofileLoader``, ``PoFileLoader`` e ``QtFileLoader`` sono nuovi in
-    Symfony 2.1
+    ``IcuDatFileLoader``, ``IcuResFileLoader``, ``IniFileLoader``,
+    ``MofileLoader``, ``PoFileLoader`` e ``QtFileLoader`` sono stati introdotti
+    in Symfony 2.1
 
 Tutti i Loader di file richiedono il :doc:`componente Config</components/config/index>`.
 

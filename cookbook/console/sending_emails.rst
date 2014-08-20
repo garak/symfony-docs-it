@@ -10,7 +10,7 @@ nomi di dominio. Questo vuol dire che, se si generano URL assoluti da un comando
 da console, probabilmente si otterrà qualcosa come ``http://localhost/pippo/pluto``,
 il che non è molto utile.
 
-Per risolvere il problema, bisogna configrare il "contesto della richiesta", che è un modo
+Per risolvere il problema, bisogna configurare il "contesto della richiesta", che è un modo
 particolare per dire che occorre configurare l'ambiente, in modo tale che sappia
 quale URL vada usato per la generazione.
 
@@ -88,7 +88,7 @@ della richiesta e sovrascrivere le sue impostazioni::
 Usare lo spool memory
 ---------------------
 
-.. versionadded: 2.3
+.. versionadded:: 2.3
     Se si usano Symfony 2.3+ e SwiftmailerBundle 2.3.5+, lo spool ``memory`` è
     gestito automaticamente su CLI e il codice successivo non è più necessario.
 

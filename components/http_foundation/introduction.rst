@@ -177,7 +177,7 @@ usata nel framework Symfony2, vedere
 :ref:`il libro <book-fundamentals-attributes>`.
 
 Infine, si può accedere ai dati grezzi inviati nel corpo della richiesta usando
-:method:`Symfony\\Component\\HttpFoundation\\Request::getContent()`::
+:method:`Symfony\\Component\\HttpFoundation\\Request::getContent`::
 
     $content = $request->getContent();
 

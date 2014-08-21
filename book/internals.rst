@@ -58,7 +58,7 @@ le richieste. Fornisce anche dei punti di estensione e degli strumenti che lo
 rendono il punto di partenza ideale per creare un framework web senza troppe sovrastrutture.
 
 Opzionalmente, aggiunge anche configurabilità ed estensibilità, grazie al
-componente Dependency Injection e a un potente sistema di plugin (bundle).
+componente DependencyInjection e a un potente sistema di plugin (bundle).
 
 .. seealso::
 
@@ -601,7 +601,7 @@ la configurazione per l'ambiente di sviluppo:
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
                                 http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <!-- carica il profilatore -->
             <framework:config>
@@ -611,9 +611,7 @@ la configurazione per l'ambiente di sviluppo:
             <!-- abilita il profilatore web -->
             <webprofiler:config
                 toolbar="true"
-                intercept-redirects="true"
-                verbose="true"
-            />
+                intercept-redirects="true" />
         </container>
 
     .. code-block:: php
@@ -626,8 +624,7 @@ la configurazione per l'ambiente di sviluppo:
         // abilita il profilatore web
         $container->loadFromExtension('web_profiler', array(
             'toolbar'             => true,
-            'intercept-redirects' => true,
-            'verbose'             => true,
+            'intercept_redirects' => true,
         ));
 
 Quando ``only-exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
@@ -644,7 +641,7 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
     .. code-block:: yaml
 
         _profiler:
-            resource: @WebProfilerBundle/Resources/config/routing/profiler.xml
+            resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
             prefix:   /_profiler
 
     .. code-block:: xml
@@ -657,18 +654,18 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
 
             <import
                 resource="@WebProfilerBundle/Resources/config/routing/profiler.xml"
-                prefix="/_profiler"
-            />
+                prefix="/_profiler" />
         </routes>
 
     .. code-block:: php
 
-        $collection->addCollection(
-            $loader->import(
-                "@WebProfilerBundle/Resources/config/routing/profiler.xml"
-            ),
-            '/_profiler'
-        );
+        use Symfony\Component\Routing\RouteCollection;
+
+        $profiler = $loader->import('@WebProfilerBundle/Resources/config/routing/profiler.xml');
+        $profiler->addPrefix('/_profiler');
+
+        $collection = new RouteCollection();
+        $collection->addCollection($profiler);
 
 Poiché il profilatore aggiunge un po' di sovraccarico, probabilmente lo si abiliterà solo
 in alcune circostanze in ambiente di produzione. L'impostazione ``only-exceptions``
@@ -685,4 +682,4 @@ Imparare di più dal ricettario
 * :doc:`/cookbook/event_dispatcher/class_extension`
 * :doc:`/cookbook/event_dispatcher/method_behavior`
 
-.. _`componente Dependency Injection di Symfony2`: https://github.com/symfony/DependencyInjection
+.. _`componente DependencyInjection di Symfony2`: https://github.com/symfony/DependencyInjection

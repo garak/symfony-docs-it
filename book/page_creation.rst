@@ -61,19 +61,20 @@ cache.
 .. index::
    single: Creazione di pagine; Esempio
 
-La pagina "Ciao Symfony!"
--------------------------
+La pagina "numero casuale"
+--------------------------
 
-Iniziamo con una variazione della classica applicazione "Ciao mondo!". Quando avremo
-finito, l'utente sarà in grado di ottenere un saluto personale (come "Ciao Symfony")
-andando al seguente URL:
+In questo capitolo, svilupperemo un'applicazione per generare numeri casuali.
+Quando avremo finito, l'utente sarà in grado di ottenere un numero casuale tra ``1``
+e il limite superiore, impostato da URL:
 
 .. code-block:: text
 
-    http://localhost/app_dev.php/hello/Symfony
+    http://localhost/app_dev.php/random/100
 
-In realtà, si potrà sostituire ``Symfony`` con qualsiasi altro nome da
-salutare. Per creare la pagina, seguiamo il semplice processo in due passi.
+In realtà, si potrà sostituire ``100`` con qualsiasi altro numero, che funga da limite
+superiore per il numero da generare. Per creare la pagina, seguiamo il semplice processo
+in due passi.
 
 .. note::
 
@@ -97,6 +98,12 @@ Un bundle non è nulla di più di una cartella che ospita ogni cosa correlata a 
 specifica caratteristica, incluse classi PHP, configurazioni e anche fogli di stile
 e file JavaScript (si veda :ref:`page-creation-bundles`).
 
+A seconda della modalità di installazione di Symfony, si potrebbe già a vere un bundle, chiamato
+``AcmeDemoBundle``. Controllare nella cartella ``src/`` del progetto se c'è
+una cartella ``DemoBundle/`` sotto la cartella ``Acme/``. Se tali
+cartelle esistono, saltare il resto di questa sezione e andare direttamente alla
+creazione della rotta.
+
 Per creare un bundle chiamato ``AcmeHelloBundle`` (un bundle creato appositamente in
 questo capitolo), eseguire il seguente comando e seguire le istruzioni su schermo
 (usando tutte le opzioni predefinite):
@@ -114,7 +121,7 @@ che il bundle sia registrato nel kernel::
     {
         $bundles = array(
             ...,
-            new Acme\HelloBundle\AcmeHelloBundle(),
+            new Acme\DemoBundle\AcmeDemoBundle(),
         );
         // ...
 
@@ -139,8 +146,8 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
     .. code-block:: yaml
 
         # app/config/routing.yml
-        acme_hello:
-            resource: "@AcmeHelloBundle/Resources/config/routing.yml"
+        acme_website:
+            resource: "@AcmeDemoBundle/Resources/config/routing.yml"
             prefix:   /
 
     .. code-block:: xml
@@ -152,7 +159,8 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <import resource="@AcmeHelloBundle/Resources/config/routing.xml"
+            <import
+                resource="@AcmeDemoBundle/Resources/config/routing.xml"
                 prefix="/" />
         </routes>
 
@@ -160,20 +168,26 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
 
         // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
-        use Symfony\Component\Routing\Route;
+
+        $acmeDemo = $loader->import('@AcmeDemoBundle/Resources/config/routing.php');
+        $acmeDemo->addPrefix('/');
 
         $collection = new RouteCollection();
-        $collection->addCollection(
-            $loader->import('@AcmeHelloBundle/Resources/config/routing.php'),
-            '/',
-        );
+        $collection->addCollection($acmeDemo);
 
         return $collection;
 
-Questa voce è molto basica: dice a Symfony2 di caricare la configurazione delle rotte
-dal file ``Resources/config/routing.yml``, che si trova dentro ``AcmeHelloBundle``.
+Questa voce è molto basica: dice a Symfony di caricare la configurazione delle rotte
+dal file ``Resources/config/routing.yml`` (``routing.xml`` o ``routing.php``
+rispettivamente negli esempi di codice XML e PHP), che si trova dentro ``AcmeDemoBundle``.
 Questo vuol dire che si mette la configurazione delle rotte direttamente in ``app/config/routing.yml``
 o si organizzano le proprie rotte attraverso la propria applicazione, e le si importano da qui.
+
+.. note::
+
+    Non si è limitati a caricare configurazioni di rotte che condividono lo stesso
+    formato. Per esempio, si potrebbe anche caricare un file YAML in una configurazione XML
+    e viceversa.
 
 Ora che il file ``routing.yml`` del bundle è stato importato, aggiungere la nuova rotta,
 che definisce l'URL della pagina che stiamo per creare:
@@ -182,43 +196,43 @@ che definisce l'URL della pagina che stiamo per creare:
 
     .. code-block:: yaml
 
-        # src/Acme/HelloBundle/Resources/config/routing.yml
-        hello:
-            path:     /hello/{name}
-            defaults: { _controller: AcmeHelloBundle:Hello:index }
+        # src/Acme/DemoBundle/Resources/config/routing.yml
+        random:
+            path:     /random/{limit}
+            defaults: { _controller: AcmeDemoBundle:Random:index }
 
     .. code-block:: xml
 
-        <!-- src/Acme/HelloBundle/Resources/config/routing.xml -->
+        <!-- src/Acme/DemoBundle/Resources/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="hello" path="/hello/{name}">
-                <default key="_controller">AcmeHelloBundle:Hello:index</default>
+            <route id="random" path="/random/{limit}">
+                <default key="_controller">AcmeDemoBundle:Random:index</default>
             </route>
         </routes>
 
     .. code-block:: php
 
-        // src/Acme/HelloBundle/Resources/config/routing.php
+        // src/Acme/DemoBundle/Resources/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('hello', new Route('/hello/{name}', array(
-            '_controller' => 'AcmeHelloBundle:Hello:index',
+        $collection->add('random', new Route('/random/{limit}', array(
+            '_controller' => 'AcmeDemoBundle:Random:index',
         )));
 
         return $collection;
 
-Il routing consiste di due pezzi di base: lo schema (``pattern``), che è l'URL
+Il routing consiste di due pezzi di base: il percorso (``path``), che è l'URL
 a cui la rotta corrisponderà, e un array ``defaults``, che specifica il controllore
-che sarà eseguito. La sintassi dei segnaposto nello schema (``{name}``) è un jolly.
-Vuol dire che  ``/hello/Ryan``, ``/hello/Fabien`` o ogni altro URL simile
-corrisponderanno a questa rotta. Il parametro del segnaposto ``{name}`` sarà anche
+che sarà eseguito. La sintassi dei segnaposto nello schema (``{limit}``) è un jolly.
+Vuol dire che  ``/number/10``, ``/number/327`` o ogni altro URL simile
+corrisponderanno a questa rotta. Il parametro del segnaposto ``{limit}`` sarà anche
 passato al controllore, in modo da poter usare il suo valore per salutare personalmente
 l'utente.
 
@@ -236,15 +250,15 @@ viene corrisposta e il controllore ``AcmeHelloBundle:Hello:index`` eseguito dal
 framework. Il secondo passo del processo di creazione della pagina è quello di creare
 tale controllore.
 
-Il controllore ha il nome *logico* ``AcmeHelloBundle:Hello:index`` ed è mappato
+Il controllore ha il nome *logico* ``AcmeDemoBundle:Random:index`` ed è mappato
 sul metodo ``indexAction`` di una classe PHP chiamata
-``Acme\HelloBundle\Controller\Hello``. Iniziamo creando questo file dentro il nostro
-``AcmeHelloBundle``::
+``Acme\DemoBundle\Controller\RandomController``. Iniziamo creando questo file dentro il nostro
+``AcmeDemoBundle``::
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
-    namespace Acme\HelloBundle\Controller;
+    // src/Acme/DemoBundle/Controller/RandomController.php
+    namespace Acme\DemoBundle\Controller;
 
-    class HelloController
+    class RandomController
     {
     }
 
@@ -257,16 +271,16 @@ Symfony2.
 Creare il metodo ``indexAction``, che Symfony2 eseguirà quando la rotta ``hello`` sarà
 corrisposta::
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
-    namespace Acme\HelloBundle\Controller;
+    // src/Acme/DemoBundle/Controller/RandomController.php
+    namespace Acme\DemoBundle\Controller;
 
     use Symfony\Component\HttpFoundation\Response;
 
-    class HelloController
+    class RandomController
     {
-        public function indexAction($name)
+        public function indexAction($limit)
         {
-            return new Response('<html><body>Ciao '.$name.'!</body></html>');
+            return new Response('<html><body>Numero: '.rand(1, $limit).'</body></html>');
         }
     }
 
@@ -280,18 +294,18 @@ applicazione dovrebbe salutare:
 
 .. code-block:: text
 
-    http://localhost/app_dev.php/hello/Ryan
+    http://localhost/app_dev.php/random/10
 
 .. _book-page-creation-prod-cache-clear:
 
 .. tip::
 
-    Si può anche vedere l'applicazione nell':ref:`ambiente<environments-summary>`
+    Si può anche vedere l'applicazione nell':ref:`ambiente <environments-summary>`
     "prod", visitando:
 
     .. code-block:: text
 
-        http://localhost/app.php/hello/Ryan
+        http://localhost/app.php/random/10
 
     Se si ottiene un errore, è probabilmente perché occorre pulire la cache,
     eseguendo:
@@ -318,33 +332,35 @@ HTML dentro al controllore, meglio rendere un template:
 .. code-block:: php
     :linenos:
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
-    namespace Acme\HelloBundle\Controller;
+    // src/Acme/DemoBundle/Controller/RandomController.php
+    namespace Acme\DemoBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-    class HelloController extends Controller
+    class RandomController extends Controller
     {
-        public function indexAction($name)
+        public function indexAction($limit)
         {
+            $number = rand(1, $limit);
+
             return $this->render(
-                'AcmeHelloBundle:Hello:index.html.twig',
-                array('name' => $name)
+                'AcmeDemoBundle:Random:index.html.twig',
+                array('number' => $number)
             );
 
             // rende invece un template PHP
             // return $this->render(
-            //     'AcmeHelloBundle:Hello:index.html.php',
-            //     array('name' => $name)
+            //     'AcmeDemoBundle:Random:index.html.php',
+            //     array('number' => $number)
             // );
         }
     }
 
 .. note::
 
-   Per poter usare il  metodo ``render()``, il controllore deve estendere la classe
-   ``Symfony\Bundle\FrameworkBundle\Controller\Controller`` (documentazione API:
-   :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`),
+   Per poter usare il  metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::render`,
+   il controllore deve estendere la classe
+   :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`,
    che aggiunge scorciatoie per compiti comuni nei controllori. Ciò viene fatto
    nell'esempio precedente aggiungendo l'istruzione ``use`` alla riga 4 ed
    estendendo ``Controller`` alla riga 6.
@@ -376,19 +392,19 @@ controllore e ``index.html.twig`` il template:
     .. code-block:: jinja
        :linenos:
 
-        {# src/Acme/HelloBundle/Resources/views/Hello/index.html.twig #}
+        {# src/Acme/DemoBundle/Resources/views/Random/index.html.twig #}
         {% extends '::base.html.twig' %}
 
         {% block body %}
-            Ciao {{ name }}!
+            Numero: {{ number }}!
         {% endblock %}
 
     .. code-block:: html+php
 
-        <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
+        <!-- src/Acme/DemoBundle/Resources/views/Random/index.html.php -->
         <?php $view->extend('::base.html.php') ?>
 
-        Ciao <?php echo $view->escape($name) ?>!
+        Numero: <?php echo $view->escape($number) ?>
 
 Analizziamo il template Twig riga per riga:
 
@@ -509,7 +525,7 @@ classe kernel, ``AppKernel``, per inizializzare l'applicazione.
 
     .. code-block:: text
 
-        http://localhost/app.php/hello/Ryan
+        http://localhost/app.php/random/10
 
     Il front controller, ``app.php``, viene eseguito e l'URL "interno" 
     ``/hello/Ryan`` è dirottato internamente, usando la configurazione delle rotte.
@@ -518,7 +534,7 @@ classe kernel, ``AppKernel``, per inizializzare l'applicazione.
 
     .. code-block:: text
 
-        http://localhost/hello/Ryan
+        http://localhost/random/10
 
 Sebbene i front controller siano essenziali nella gestione di ogni richiesta, raramente
 si avrà bisogno di modificarli o anche di pensarci. Saranno brevemente menzionati ancora
@@ -570,9 +586,9 @@ Ognuna di queste cartella sarà approfondita nei capitoli successivi.
     .. code-block:: text
 
         Nome della classe:
-            Acme\HelloBundle\Controller\HelloController
+            Acme\DemoBundle\Controller\RandomController
         Percorso:
-            src/Acme/HelloBundle/Controller/HelloController.php
+            src/Acme/DemoBundle/Controller/RandomController.php
 
 La cartella dei sorgenti (``src``)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -791,8 +807,8 @@ del formato scelto:
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xmlns:twig="http://symfony.com/schema/dic/twig"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd
-                                http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd
+                http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
 
             <imports>
                 <import resource="parameters.yml" />
@@ -812,16 +828,16 @@ del formato scelto:
 
     .. code-block:: php
 
+        // app/config/config.php
         $this->import('parameters.yml');
         $this->import('security.yml');
 
         $container->loadFromExtension('framework', array(
-            'secret'          => '%secret%',
-            'router'          => array(
+            'secret' => '%secret%',
+            'router' => array(
                 'resource' => '%kernel.root_dir%/config/routing.php',
             ),
             // ...
-            ),
         ));
 
         // Configurazione di Twig
@@ -867,15 +883,15 @@ Si può esportare la configurazione predefinita per un bundle in yaml sulla cons
 il comando ``config:dump-reference``. Ecco un esempio di esportazione della configurazione
 predefinita di FrameworkBundle:
 
-.. code-block:: text
+.. code-block:: bash
 
-    app/console config:dump-reference FrameworkBundle
+    $ app/console config:dump-reference FrameworkBundle
 
 Si può anche usare l'alias dell'estensione (voce di configurazione):
 
-.. code-block:: text
+.. code-block:: bash
 
-    app/console config:dump-reference framework
+    $ app/console config:dump-reference framework
 
 .. note::
 
@@ -907,14 +923,14 @@ tramite il front controller di sviluppo:
 
 .. code-block:: text
 
-    http://localhost/app_dev.php/hello/Ryan
+    http://localhost/app_dev.php/random/10
 
 Se si preferisce vedere come l'applicazione si comporta in ambiente di produzione,
 richiamare invece il front controller ``prod``:
 
 .. code-block:: text
 
-    http://localhost/app.php/hello/Ryan
+    http://localhost/app.php/random/10
 
 Essendo l'ambiente ``prod`` ottimizzato per la velocità, la configurazione, le
 rotte e i template Twig sono compilato in classi in puro PHP e messi in cache.
@@ -985,20 +1001,19 @@ il file di configurazione per l'ambiente ``dev``.
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <imports>
                 <import resource="config.xml" />
             </imports>
 
             <framework:config>
-                <framework:router
-                    resource="%kernel.root_dir%/config/routing_dev.xml"
-                />
+                <framework:router resource="%kernel.root_dir%/config/routing_dev.xml" />
                 <framework:profiler only-exceptions="false" />
             </framework:config>
 
             <!-- ... -->
+        </container>
 
     .. code-block:: php
 
@@ -1061,5 +1076,5 @@ applicazioni.
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`bundle di terze parti`: http://knpbundles.com
 .. _`Symfony Standard Edition`: http://symfony.com/download
-.. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/2.0/mod/mod_dir.html
+.. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/current/mod/mod_dir.html
 .. _`documentazione su HttpCoreModule di Nginx`: http://wiki.nginx.org/HttpCoreModule#location

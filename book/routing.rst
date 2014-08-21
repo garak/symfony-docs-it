@@ -1002,13 +1002,13 @@ essere fatto "importando" il file:
 
 .. note::
 
-   Quando si importano le risorse in formato YAML, la chiave (ad esempio ``acme_hello``) non ha senso.
+   Quando si importano le risorse in formato YAML, la chiave (ad esempio ``acme_hello``) non ha un significato particolare.
    Basta essere sicuri che sia unica, in modo che nessun'altra linea la sovrascriva.
 
 La chiave ``resource`` carica la data risorsa di rotte. In questo esempio
 la risorsa è il percorso completo di un file, dove la sintassi scorciatoia
 ``@AcmeHelloBundle`` viene risolta con il percorso del bundle. Il file importato potrebbe essere
-tipo questo:
+come questo:
 
 .. configuration-block::
 
@@ -1283,8 +1283,8 @@ un URL assoluto, è sufficiente passare ``true`` come terzo parametro del metodo
     $this->generateUrl('blog_show', array('slug' => 'my-blog-post'), true);
     // http://www.example.com/blog/my-blog-post
 
-In un template Twig, basta usare la funzione ``url()`` (che genera un URL assoluto) al posto
-della funzione ``path()}} (che genera un URL relativo). In PHP, passare ``ŧrue``
+In un template Twig, basta usare la funzione ``url()`` (che genera un URL assoluto)
+al posto della funzione ``path()`` (che genera un URL relativo). In PHP, passare ``true``
 a ``generateUrl()``:
 
 .. configuration-block::

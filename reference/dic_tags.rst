@@ -281,7 +281,7 @@ form.type_extension
 **Scopo**: Creare un "form extension" personalizzato
 
 Le estensioni dei form sono un modo per portare un "aggancio" nella creazione di qualsiasi
-campo di un form. Per esempio, l'aggiunta di un tokek per il CSRF si fa tramite
+campo di un form. Per esempio, l'aggiunta di un token per il CSRF si fa tramite
 un'estensione del form (:class:`Symfony\\Component\\Form\\Extension\\Csrf\\Type\\FormTypeCsrfExtension`).
 
 Un'estensione di form può modificare qualsiasi parte di qualsiasi campo di un form. Per

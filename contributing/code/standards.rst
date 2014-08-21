@@ -148,9 +148,13 @@ Convenzioni sui nomi dei servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Il nome di un servizio contiene gruppi, separati da punti;
+
 * L'alias DI del bundle è il primo gruppo (p.e. ``fos_user``);
+
 * Usare lettere minuscole per nomi di servizi e parametri;
+
 * Un nome di gruppo usa la notazione con trattini bassi;
+
 * Ogni servizio ha un parametro corrispondente, contenente il nome della classe,
   che segue la convenzione ``NOME SERVIZIO.classe``.
 

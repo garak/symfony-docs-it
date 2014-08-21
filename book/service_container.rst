@@ -443,7 +443,7 @@ invoca l'estensione del contenitore dei servizi all'interno di FrameworkBundle:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config secret="xxxxxxxxxx">
                 <framework:form />
@@ -588,7 +588,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
             </parameters>
 
             <services>
-                <service id="my_mailer" ...>
+                <service id="my_mailer">
                 <!-- ... -->
                 </service>
                 <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -794,7 +794,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
             </parameters>
 
             <services>
-                <service id="my_mailer" ...>
+                <service id="my_mailer">
                 <!-- ... -->
                 </service>
                 <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -960,7 +960,7 @@ esiste e in caso contrario non farà nulla:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="my_mailer" ...>
+                <service id="my_mailer">
                 <!-- ... -->
                 </service>
                 <service id="newsletter_manager" class="%newsletter_manager.class%">
@@ -1058,6 +1058,7 @@ La configurazione del contenitore dei servizi è semplice:
 
     .. code-block:: yaml
 
+        # src/Acme/HelloBundle/Resources/config/services.yml
         services:
             newsletter_manager:
                 class:     "%newsletter_manager.class%"
@@ -1065,6 +1066,7 @@ La configurazione del contenitore dei servizi è semplice:
 
     .. code-block:: xml
 
+        <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1078,6 +1080,7 @@ La configurazione del contenitore dei servizi è semplice:
 
     .. code-block:: php
 
+        // src/Acme/HelloBundle/Resources/config/services.php
         $container->setDefinition('newsletter_manager', new Definition(
             '%newsletter_manager.class%',
             array(
@@ -1112,6 +1115,7 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
             foo.twig.extension:
                 class: Acme\HelloBundle\Extension\FooExtension
@@ -1120,18 +1124,24 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
 
     .. code-block:: xml
 
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <service id="foo.twig.extension"
+            <service
+                id="foo.twig.extension"
                 class="Acme\HelloBundle\Extension\FooExtension">
+
                 <tag name="twig.extension" />
             </service>
         </container>
 
     .. code-block:: php
+
+        // app/config/services.php
+        use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('Acme\HelloBundle\Extension\FooExtension');
         $definition->addTag('twig.extension');

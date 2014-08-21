@@ -178,10 +178,6 @@ Traduzione
 
 Leggere la :doc:`documentazione <translations>`.
 
-.. _`fork`: https://help.github.com/articles/fork-a-repo
-.. _`richieste di pull`: https://help.github.com/articles/using-pull-requests
-.. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors
-
 Gestione dei rilasci
 --------------------
 
@@ -227,3 +223,6 @@ accade, vengono eseguite le seguenti azioni:
   per un'installazione. Come esempio, si vedano le modifiche eseguite nella `PR #2688`_.
 
 .. _`PR #2688`: https://github.com/symfony/symfony-docs/pull/2688
+.. _`fork`: https://help.github.com/articles/fork-a-repo
+.. _`richieste di pull`: https://help.github.com/articles/using-pull-requests
+.. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors

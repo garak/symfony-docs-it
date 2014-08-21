@@ -53,7 +53,7 @@ FrameworkBundle:
 
         # app/config/config.yml
         parameters:
-            translator.class:      Acme\HelloBundle\Translation\Translator
+            translator.class: Acme\HelloBundle\Translation\Translator
 
     .. code-block:: xml
 

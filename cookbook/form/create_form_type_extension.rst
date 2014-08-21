@@ -240,8 +240,6 @@ nella vista::
 
                 // imposta una variabile "image_url", che sarà disponibile quando si rende questo campo
                 $view->vars['image_url'] = $imageUrl;
-            } else {
-                $view->vars['image_url'] = null;
             }
         }
 

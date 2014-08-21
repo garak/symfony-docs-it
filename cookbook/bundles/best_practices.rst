@@ -125,7 +125,7 @@ Le seguenti classi e i seguenti file hanno postazioni specifiche:
 +------------------------------+-----------------------------+
 | Configurazione               | ``Resources/config/``       |
 +------------------------------+-----------------------------+
-| Risorse Web                  | ``Resources/public/``       |
+| Risorse web                  | ``Resources/public/``       |
 +------------------------------+-----------------------------+
 | File di traduzione           | ``Resources/translations/`` |
 +------------------------------+-----------------------------+

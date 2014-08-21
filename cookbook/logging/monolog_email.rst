@@ -56,6 +56,7 @@ singolarmente.
                 />
                 <monolog:handler
                     name="swift"
+                    type="swift_mailer"
                     from-email="error@example.com"
                     to-email="error@example.com"
                     subject="Si è verificato un errore!"

@@ -52,7 +52,7 @@ Symfony Standard Edition seguono questa struttura:
 
 Questa struttura è stata scelta per la sua semplicità: un file per ambiente.
 Ma, come ogni altra caratteristica di Symfony, la si può personalizzare per adattarsi alle proprie esigenze.
-Le sezioni seguenti spiegano vari modo per organizzare dei file di configuraizone.
+Le sezioni seguenti spiegano vari modo per organizzare dei file di configurazione.
 Per semplificare gli esempi, saranno presi in considerazione solo gli ambienti
 ``dev`` e ``prod``.
 

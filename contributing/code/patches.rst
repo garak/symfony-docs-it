@@ -160,9 +160,9 @@ seguenti indicazioni:
 * Aggiungere test unitari per provare che il bug è stato risolto o per mostrare che
   la funzionalità è effettivamente funzionante;
 
-* Sforzarsi di non infrangere la retro-compatibilità (se lo si deve fare, provare a fornire
+* Sforzarsi di non infrangere la retrocompatibilità (se lo si deve fare, provare a fornire
   un livello di compatibilità che supporti il vecchio modo), le patch che infrangono la
-  retro-compatbilità hanno meno probabilità di essere accettate;
+  retrocompatbilità hanno meno probabilità di essere accettate;
 
 * Fare commit separati e atomici (utilizzare le funzionalità di ``git rebase`` 
   per ottenere uno storico chiaro e pulito);
@@ -203,8 +203,8 @@ caratteristica o se ne cambia una, per esempio), occorre includere quello che se
   ``[BC BREAK]`` o ``[DEPRECATION]``, se rilevanti);
 
 * Una spiegazione di come aggiornare un'applicazione esistente, nel file (o nei file)
-  UPGRADE rilevante, se le modifiche infrangono la retro-compatibilità o se si sta
-  deprecando qualcosa che alla fine infrangerà la retro-compatibilità.
+  UPGRADE rilevante, se le modifiche infrangono la retrocompatibilità o se si sta
+  deprecando qualcosa che alla fine infrangerà la retrocompatibilità.
 
 Passo 3: inviare la patch
 -------------------------

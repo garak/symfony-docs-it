@@ -5,7 +5,14 @@ Aiutante Table
 ==============
 
 .. versionadded:: 2.3
-    L'aiutante ``table`` è stato aggiunto in Symfony 2.3.
+    L'aiutante ``table`` è stato introdotto in Symfony 2.3.
+
+.. caution::
+
+    L'aiutante Table è stato deprecato in Symfony 2.5 e sarà rimosso in
+    Symfony 3.0. Si dovrebbe usare ora la classe
+    :doc:`Table </components/console/helpers/table>`, che è
+    più potente.
 
 Quando si costruisce un'applicazione in console, può essere utile mostrare dati tabulari:
 
@@ -14,7 +21,7 @@ Quando si costruisce un'applicazione in console, può essere utile mostrare dati
 Per mostrare una tabella, usare :class:`Symfony\\Component\\Console\\Helper\\TableHelper`,
 impostanto testata e righe, e rendere::
 
-    $table = $app->getHelperSet()->get('table');
+    $table = $this->getHelper('table');
     $table
         ->setHeaders(array('ISBN', 'Titolo', 'Autore'))
         ->setRows(array(

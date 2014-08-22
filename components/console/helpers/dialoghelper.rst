@@ -4,12 +4,19 @@
 Aiutante Dialog 
 ===============
 
+.. caution::
+
+    L'aiutante Dialog è stato deprecato in Symfony 2.5 e sarà rimosso in
+    Symfony 3.0. Usare invece l'aiutante
+    :doc:`Question </components/console/helpers/questionhelper>`,
+    che è più facile da usare.
+
 :class:`Symfony\\Component\\Console\\Helper\\DialogHelper` fornisce 
 funzioni per chiedere informazioni all'utente. È incluso nell'insieme
 predefinito degli aiutanti, ottenibile richiamando
 :method:`Symfony\\Component\\Console\\Command\\Command::getHelperSet`::
 
-    $dialog = $this->getHelperSet()->get('dialog');
+    $dialog = $this->getHelper('dialog');
 
 Tutti i metodi all'interno dell'aiutante Dialog hanno
 :class:`Symfony\\Component\\Console\\Output\\OutputInterface` come primo
@@ -52,16 +59,17 @@ se si vuole sapere il nome di un bundle, si può aggiungere al comando::
     );
 
 All'utente sarà chiesto "Prego inserire il nome del bundle". L'utente potrà inserire
-un nome, che sarà restituito dal metodo ``ask``. Se lasciato vuoto, sarà
-restituito il valore predefinito (``AcmeDemoBundle``).
+un nome, che sarà restituito dal metodo
+:method:`Symfony\\Component\\Console\\Helper\\DialogHelper::ask`. Se
+lasciato vuoto, sarà restituito il valore predefinito (qui ``AcmeDemoBundle``).
 
-Nascodere la risposta dell'utente
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Autcompletamento
+~~~~~~~~~~~~~~~~
 
 Si possono anche specificare delle risposte possibili alla domanda data. Saranno
 completate man mano che l'utente scrive::
 
-    $dialog = $this->getHelperSet()->get('dialog');
+    $dialog = $this->getHelper('dialog');
     $bundleNames = array('AcmeDemoBundle', 'AcmeBlogBundle', 'AcmeStoreBundle');
     $name = $dialog->ask(
         $output,
@@ -76,7 +84,7 @@ Nascondere la risposta dell'utente
 Si può anche fare una domanda e nascodere la risposta. Ciò risulta utile
 in particolare per le password::
 
-    $dialog = $this->getHelperSet()->get('dialog');
+    $dialog = $this->getHelper('dialog');
     $password = $dialog->askHiddenResponse(
         $output,
         'Inserire la password della base dati',
@@ -106,7 +114,7 @@ avere il suffisso ``Bundle``. Lo si può validare, usando il metodo
         'Prego inserire il nome del bundle',
         function ($answer) {
             if ('Bundle' !== substr($answer, -6)) {
-                throw new \RunTimeException(
+                throw new \RuntimeException(
                     'Il nome del bundle deve avere \'Bundle\' come suffisso'
                 );
             }
@@ -124,7 +132,8 @@ Il metodo ha due nuovi parametri. La sua firma completa è::
         string|array $question,
         callback $validator,
         integer $attempts = false,
-        string $default = null
+        string $default = null,
+        array $autocomplete = null
     )
 
 Il parametro ``$validator`` è un callback, che gestisce la validazione. Dovrebbe
@@ -143,13 +152,13 @@ Nascondere la risposta dell'utente
 
 Si può anche fare una domanda e validare una risposta nascosta::
 
-    $dialog = $this->getHelperSet()->get('dialog');
+    $dialog = $this->getHelper('dialog');
 
     $validator = function ($value) {
         if ('' === trim($value)) {
             throw new \Exception('La password non può essere vuota');
         }
-        
+
         return $value;
     };
 
@@ -177,7 +186,7 @@ Si può invece usare il metodo
 che assicura che l'utente possa inserire solamente una stringa valida,
 da una lista predefinita::
 
-    $dialog = $app->getHelperSet()->get('dialog');
+    $dialog = $this->getHelper('dialog');
     $colors = array('rosso', 'blu', 'giallo');
 
     $color = $dialog->select(
@@ -248,7 +257,7 @@ da linea di omando, occorre sovrascrivere HelperSet usato dal comando::
         $commandTester = new CommandTester($command);
 
         $dialog = $command->getHelper('dialog');
-        $dialog->setInputStream($this->getInputStream('Test\n')); 
+        $dialog->setInputStream($this->getInputStream("Test\n"));
         // Equivale all'inserimento di "Test" e pressione di ENTER
         // Se occorre una conferma, va bene anche "yes\n"
 

@@ -4,6 +4,11 @@
 Proxy fidati
 ============
 
+.. tip::
+
+    Se si usa il framework Symfony, iniziare leggendo
+    :doc:`/cookbook/request/load_balancer_reverse_proxy`.
+
 Se ci si trova dietro un proxy, come un bilanciatore di carico, è possibile che
 siano inviate alcune informazioni con gli header speciali ``X-Forwarded-*``.
 Per esempio, l'header HTTP ``Host`` di solito si usa per restituire
@@ -24,7 +29,7 @@ tale proxy è fidato.
 
     // fidarsi solo degli header dei proxy che vengono da questo indirizzo IP
     Request::setTrustedProxies(array('192.0.0.1', '10.0.0.0/8'));
-    
+
 .. note::
 
    Quando si usa il reverse proxy interno di Symfony (``AppCache.php``), assicurarsi di aggiungere

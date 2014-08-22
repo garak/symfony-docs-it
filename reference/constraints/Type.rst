@@ -96,21 +96,38 @@ type
 Questa opzione obbligatoria è il nome pienamente qualificato della classe oppure uno
 dei tipi di dato di PHP, come stabilito dalle funzioni ``is_`` di PHP.
 
-* `array <http://php.net/is_array>`_
-* `bool <http://php.net/is_bool>`_
-* `callable <http://php.net/is_callable>`_
-* `float <http://php.net/is_float>`_
-* `double <http://php.net/is_double>`_
-* `int <http://php.net/is_int>`_
-* `integer <http://php.net/is_integer>`_
-* `long <http://php.net/is_long>`_
-* `null <http://php.net/is_null>`_
-* `numeric <http://php.net/is_numeric>`_
-* `object <http://php.net/is_object>`_
-* `real <http://php.net/is_real>`_
-* `resource <http://php.net/is_resource>`_
-* `scalar <http://php.net/is_scalar>`_
-* `string <http://php.net/is_string>`_
+* :phpfunction:`array <is_array>`
+* :phpfunction:`bool <is_bool>`
+* :phpfunction:`callable <is_callable>`
+* :phpfunction:`float <is_float>`
+* :phpfunction:`double <is_double>`
+* :phpfunction:`int <is_int>`
+* :phpfunction:`integer <is_integer>`
+* :phpfunction:`long <is_long>`
+* :phpfunction:`null <is_null>`
+* :phpfunction:`numeric <is_numeric>`
+* :phpfunction:`object <is_object>`
+* :phpfunction:`real <is_real>`
+* :phpfunction:`resource <is_resource>`
+* :phpfunction:`scalar <is_scalar>`
+* :phpfunction:`string <is_string>`
+
+Si possono anche usare le funzioni ``ctype_`` della corrispondente `estensione di PHP <http://php.net/manual/it/book.ctype.php>`_.
+Si consideri una `lista di funzioni ctype <http://php.net/manual/it/ref.ctype.php>`_:
+
+* :phpfunction:`alnum <ctype_alnum>`
+* :phpfunction:`alpha <ctype_alpha>`
+* :phpfunction:`cntrl <ctype_cntrl>`
+* :phpfunction:`digit <ctype_digit>`
+* :phpfunction:`graph <ctype_graph>`
+* :phpfunction:`lower <ctype_lower>`
+* :phpfunction:`print <ctype_print>`
+* :phpfunction:`punct <ctype_punct>`
+* :phpfunction:`space <ctype_space>`
+* :phpfunction:`upper <ctype_upper>`
+* :phpfunction:`xdigit <ctype_xdigit>`
+
+Assicurarsi di impostare il :phpfunction:`locale <setlocale>` adeguato prima dell'uso.
 
 message
 ~~~~~~~

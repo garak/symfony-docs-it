@@ -107,11 +107,17 @@ La configurazione dei servizi di queste classe potrebbe essere qualcosa del gene
                     </call>
                 </service>
 
-                <call method="setEmailFormatter">
-                     <argument type="service" id="my_email_formatter" />
-                </call>
-            </service>
-        </services>
+                <service id="greeting_card_manager" class="%greeting_card_manager.class%">
+                    <call method="setMailer">
+                        <argument type="service" id="my_mailer" />
+                    </call>
+
+                    <call method="setEmailFormatter">
+                        <argument type="service" id="my_email_formatter" />
+                    </call>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 

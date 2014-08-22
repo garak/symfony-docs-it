@@ -6,9 +6,10 @@ come proprietà su un oggetto in corso di validazione. Consente di validare un o
 e tutti i sotto-oggetti a esso associati.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`              |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `traverse`_                                                       |
+|                | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Type`           |
 +----------------+---------------------------------------------------------------------+
@@ -25,7 +26,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
 .. code-block:: php
 
     // src/Acme/HelloBundle/Entity/Address.php
-    namespace Amce\HelloBundle\Entity;
+    namespace Acme\HelloBundle\Entity;
 
     class Address
     {
@@ -193,7 +194,7 @@ proprietà ``$address``.
     .. code-block:: yaml
 
         # src/Acme/HelloBundle/Resources/config/validation.yml
-        Acme\HelloBundle\Author:
+        Acme\HelloBundle\Entity\Author:
             properties:
                 address:
                     - Valid: ~
@@ -265,3 +266,10 @@ traverse
 Se questo vincolo è applicato a una proprietà che contiene un array di oggetti,
 allora ogni oggetto in tale array sarà validato solo se questa opzione è
 ``true``.
+
+message
+~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``This value should be true.``
+
+Il messaggio mostrato se il valore è ``false``.

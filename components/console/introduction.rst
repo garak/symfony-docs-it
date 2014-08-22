@@ -140,6 +140,9 @@ l'output. Ad esempio::
 Si può definire un proprio stile, usando la classe
 :class:`Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle`::
 
+    use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+
+    // ...
     $style = new OutputFormatterStyle('red', 'yellow', array('bold', 'blink'));
     $output->getFormatter()->setStyle('fire', $style);
     $output->writeln('<fire>foo</fire>');
@@ -198,18 +201,51 @@ di verbosità. Per esempio::
         $output->writeln(...);
     }
 
-Quando si usa il livello quieto, viene soppresso ogni output, poiché iol metodo
-:method:`Symfony\Component\Console\Output::write<Symfony\\Component\\Console\\Output::write>`
-restituisce e non stampa nulla.
+.. versionadded:: 2.4
+   I metodi :method:`Symfony\\Component\\Console\\Output\\Output::isQuiet`,
+   :method:`Symfony\\Component\\Console\\Output\\Output::isVerbose`,
+   :method:`Symfony\\Component\\Console\\Output\\Output::isVeryVerbose` e
+   :method:`Symfony\\Component\\Console\\Output\\Output::isDebug`
+   sono stati introdotti in Symfony 2.4
 
-Utilizzo degli argomenti nei comandi
-------------------------------------
+Ci sono anche metodi più semantici da usare, per testare ciascun livello
+di verbosità::
+
+    if ($output->isQuiet()) {
+        // ...
+    }
+
+    if ($output->isVerbose()) {
+        // ...
+    }
+
+    if ($output->isVeryVerbose()) {
+        // ...
+    }
+
+    if ($output->isDebug()) {
+        // ...
+    }
+
+Quando si usa il livello quieto, viene soppresso ogni output, poiché il metodo
+:method:`Symfony\\Component\\Console\\Output::write`
+esce senza stampare nulla.
+
+.. tip::
+
+    MonologBridge fornisce una classe :class:`Symfony\\Bridge\\Monolog\\Handler\\ConsoleHandler`,
+    che consente di mostrare messaggi sulla console. Questo è un modo più pulito
+    rispetto a inserire le chiamate di output all'interno di condizioni. Per un esempio di utilizzo nel
+    framework Symfony, vedere :doc:`/cookbook/logging/monolog_console`.
+
+Utilizzo dei parametri nei comandi
+----------------------------------
 
 La parte più interessante dei comandi è data dalla possibilità di mettere a disposizione 
-parametri e argomenti. Gli argomenti sono delle stringhe, separate da spazi, che seguono
+parametri e opzioni. I parametri sono delle stringhe, separate da spazi, che seguono
 il nome stesso del comando. Devono essere inseriti in un ordine preciso e possono essere opzionali o 
-obbligatori. Ad esempio, per aggiungere un argomento opzionale ``cognome`` al precedente
-comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
+obbligatori. Ad esempio, per aggiungere un parametro opzionale ``cognome`` al precedente
+comando e rendere il parametro ``nome`` obbligatorio, si dovrà scrivere::
 
     $this
         // ...
@@ -224,7 +260,7 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
             'Il tuo cognome?'
         )
 
-A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
+A questo punto si può accedere al parametro ``cognome`` dal codice::
 
     if ($cognome = $input->getArgument('cognome')) {
         $testo .= ' '.$cognome;

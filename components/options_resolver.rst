@@ -171,7 +171,6 @@ A volte un'opzione può essere facoltativa (per esempio l'opzione ``password`` n
 ``Mailer``). È possibile configurare queste opzioni invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setOptional`::
 
-
     // ...
     protected function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -327,11 +326,33 @@ Esiste anche un metodo
 che è possibile utilizzare se si vuole aggiungere un valore consentito al precedente
 set di valori consentiti.
 
-Configurare i Tipi consentiti
+.. versionadded:: 2.5
+    Il supporto per i callback per i valori consentiti è stato introdotto in Symfony 2.5.
+
+Se si ha bisogno di aggiungere un po' di logica al processo di validazione del valore, si può passare un callable
+come valore consentito::
+
+    // ...
+    protected function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        // ...
+
+        $resolver->setAllowedValues(array(
+            'transport' => function($value) {
+                return false !== strpos($value, 'mail');
+            },
+        ));
+    }
+
+.. caution::
+
+    Si noti che questo utilizzo insieme ad ``addAllowedValues`` non funzionerà.
+
+Configurare i tipi consentiti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-È possibile anche specificare i valori consentiti. Per esempio, l'opzione ``firstName`` può
-essere qualsiasi cosa, ma deve essere una stringa. È possibile configurare questi tipi invocando
+È possibile anche specificare i valori consentiti. Per esempio, l'opzione ``port`` può
+essere qualsiasi cosa, ma deve essere un intero. È possibile configurare questi tipi invocando
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::setAllowedTypes`::
 
     // ...
@@ -346,7 +367,7 @@ essere qualsiasi cosa, ma deve essere una stringa. È possibile configurare ques
 
 I possibili tipi sono quelli associati alle funzioni php ``is_*`` o al nome
 della classe. È possibile passare anche un array di tipi come valore. Per esempio,
-``array('null', 'string')`` consente a ``port`` di essere nullo o una stringa.
+``array('null', 'string')`` consente che ``port`` sia nullo o una stringa.
 
 Esiste anche un metodo
 :method:`Symfony\\Component\\OptionsResolver\\OptionsResolver::addAllowedTypes`, 

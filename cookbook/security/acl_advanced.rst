@@ -45,6 +45,13 @@ Identità di sicurezza
 È analoga all'identità degli oggetti, ma rappresenta un utente o un ruolo
 nell'applicazione. Ogni ruolo, o utente, ha la sua identità di sicurezza.
 
+.. versionadded:: 2.5
+    Per gli utenti, l'identità di sicurezza si basa sul nome utente. Questo vuol dire che,
+    se per qualsiasi ragione il nome di un utente cambia, ci si deve assicurare che
+    anche la sua identità di sicurezza venga aggiornata. Il metodo
+    :method:`MutableAclProvider::updateUserSecurityIdentity() <Symfony\\Component\\Security\\Acl\\Dbal\\MutableAclProvider::updateUserSecurityIdentity>`
+    serve per gestire l'aggiornamento ed è stato introdotto in Symfony 2.5.
+
 Struttura delle tabelle della base dati 
 ---------------------------------------
 

@@ -4,15 +4,31 @@
 Configurare un server web
 =========================
 
-La cartella web è la casa di tutti i file pubblici e statici di
-un'applicazione, inclusi fogli di stile, file JavaScript e immagini. È anche il posto
-in cui si trovano i front controller. Per maggiori dettagli, vedere :ref:`the-web-directory`.
+La modalità preferita per lo sviluppo di un'applicazione Symfony2 è l'uso del
+:doc:`server web interno di PHP </cookbook/web_server/built_in>`. Tuttavia,
+quando si usa una vecchia versione di PHP o quando si esegue l'applicazione in produzione,
+occorrerà usare un server web "classico". Questa ricetta
+descrive vari modi per usare Symfony con Apache2 o Nginx.
 
-La cartella web funge da document root nella configurazione del server web.
-Negli esempi seguenti, tale cartella è in ``/var/www/progetto/web/``.
+Se si usa Apache2, si può configurare PHP come
+:ref:`modulo Apache <web-server-apache-mod-php>` oppure con FastCGI, usando
+:ref:`PHP FPM <web-server-apache-fpm>`. FastCGI è il modo preferito
+per usare PHP :ref:`con Nginx <web-server-nginx>`.
 
-Apache2
--------
+.. sidebar:: La cartella web
+
+    La cartella web è la casa di tutti i file pubblici e statici di un'applicazione,
+    incluse immagini, fogli di stile e file JavaScript. È
+    anche il posto in cui si trovano i front controller. Per maggiori dettagli, vedere :ref:`the-web-directory`.
+
+    La cartella web funge da document root, durante la configurazione del server
+    web. Negli esempi successivi, la cartella ``web/`` si troverà nella
+    document root. Questa cartella è ``/var/www/progetto/web/``.
+
+.. _web-server-apache-mod-php:
+
+Apache2 con mod_php/PHP-CGI
+---------------------------
 
 Per opzioni avanzate di configurazione di Apache, vedere la documentazione ufficiale di `Apache`_.
 La basi minime per far funzionare un'applicazione sotto Apache2
@@ -62,6 +78,8 @@ la seguente configurazione:
             AllowOverride All
             Require all granted
         </Directory>
+
+.. _web-server-apache-fpm:
 
 Apache2 con PHP-FPM
 -------------------
@@ -163,6 +181,8 @@ Se si preferisce usare un socket unix, si deve invece usare l'opzione
 .. code-block:: apache
 
     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
+
+.. _web-server-nginx:
 
 Nginx
 -----

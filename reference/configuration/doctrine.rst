@@ -21,6 +21,9 @@ Configurazione predefinita completa
                     un_tipo_personalizzato:
                         class:                Acme\HelloBundle\MioTipoPersonalizzato
                         commented:            true
+                # Se abilitato, tutte le tabelle non prefissate con "sf2_" saranno ignorate.
+                # Questo serve per tabelle personalizzate che non devono essere alterate automaticamente.
+                #schema_filter:        ^sf2_ 
 
                 connections:
                     default:

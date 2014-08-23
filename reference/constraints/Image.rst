@@ -8,29 +8,44 @@ automaticamente per lavorare specificatamente su file di tipo immagine.
 Inoltre, da Symfony 2.1, ha delle opzioni che consentono di validare larghezza e
 altezza dell'immagine.
 
+.. versionadded:: 2.4
+    Da Symfony 2.4, si può anche validare il rapporto tra le dimensioni dell'immagine
+    (cioè ``width / height``) e consentire orientamenti quadrato, panorama
+    e ritratto.
+
 Vedere il vincolo :doc:`File</reference/constraints/File>` per la documentazione completa
 su questo vincolo.
 
-+----------------+----------------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                      |
-+----------------+----------------------------------------------------------------------------+
-| Opzioni        | - `mimeTypes`_                                                             |
-|                | - `minWidth`_                                                              |
-|                | - `maxWidth`_                                                              |
-|                | - `maxHeight`_                                                             |
-|                | - `minHeight`_                                                             |
-|                | - `mimeTypesMessage`_                                                      |
-|                | - `sizeNotDetectedMessage`_                                                |
-|                | - `maxWidthMessage`_                                                       |
-|                | - `minWidthMessage`_                                                       |
-|                | - `maxHeightMessage`_                                                      |
-|                | - `minHeightMessage`_                                                      |
-|                | - Vedere :doc:`File</reference/constraints/File>` per le opzioni ereditate |
-+----------------+----------------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\File`                  |
-+----------------+----------------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\FileValidator`         |
-+----------------+----------------------------------------------------------------------------+
++----------------+--------------------------------------------------------------------------+
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                   |
++----------------+--------------------------------------------------------------------------+
+| Opzioni        | - `mimeTypes`_                                                           |
+|                | - `minWidth`_                                                            |
+|                | - `maxWidth`_                                                            |
+|                | - `maxHeight`_                                                           |
+|                | - `minHeight`_                                                           |
+|                | - `maxRatio`_                                                            |
+|                | - `minRatio`_                                                            |
+|                | - `allowSquare`_                                                         |
+|                | - `allowLandscape`_                                                      |
+|                | - `allowPortrait`_                                                       |
+|                | - `mimeTypesMessage`_                                                    |
+|                | - `sizeNotDetectedMessage`_                                              |
+|                | - `maxWidthMessage`_                                                     |
+|                | - `minWidthMessage`_                                                     |
+|                | - `maxHeightMessage`_                                                    |
+|                | - `minHeightMessage`_                                                    |
+|                | - `maxRatioMessage`_                                                     |
+|                | - `minRatioMessage`_                                                     |
+|                | - `allowSquareMessage`_                                                  |
+|                | - `allowLandscapeMessage`_                                               |
+|                | - `allowPortraitMessage`_                                                |
+|                | - Vedere :doc:`File </reference/constraints/File>` per opzioni ereditate |
++----------------+--------------------------------------------------------------------------+
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Image`               |
++----------------+--------------------------------------------------------------------------+
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\ImageeValidator`     |
++----------------+--------------------------------------------------------------------------+
 
 Uso di base
 -----------
@@ -82,6 +97,8 @@ certe dimensioni, aggiungere il seguente:
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -120,10 +137,10 @@ certe dimensioni, aggiungere il seguente:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
-        // ...
+        namespace Acme/BlogBundle/Entity
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
-        use Symfony\Component\Validator\Constraints\Image;
+        use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
@@ -131,7 +148,7 @@ certe dimensioni, aggiungere il seguente:
 
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('headshot', new Image(array(
+                $metadata->addPropertyConstraint('headshot', new Assert\Image(array(
                     'minWidth' => 200,
                     'maxWidth' => 400,
                     'minHeight' => 200,
@@ -143,10 +160,80 @@ certe dimensioni, aggiungere il seguente:
 La proprietà ``headshot`` è validata per assicurare che sia una vera immagine e
 e che abbia altezza e larghezza entro i limiti.
 
+Si potrebbe anche voler garantire che l'immagine ``headshot`` sia quadrata. In tal
+caso, si possono disabilitare gli orientamenti panorama e ritratto, come mostrato
+nel seguente codice:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author
+            properties:
+                headshot:
+                    - Image:
+                        allowLandscape: false
+                        allowPortrait: false
+
+
+    .. code-block:: php-annotations
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            /**
+             * @Assert\Image(
+             *     allowLandscape = false
+             *     allowPortrait = false
+             * )
+             */
+            protected $headshot;
+        }
+
+    .. code-block:: xml
+
+        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <class name="Acme\BlogBundle\Entity\Author">
+            <property name="headshot">
+                <constraint name="Image">
+                    <option name="allowLandscape">false</option>
+                    <option name="allowPortrait">false</option>
+                </constraint>
+            </property>
+        </class>
+
+    .. code-block:: php
+
+        // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
+        use Symfony\Component\Validator\Mapping\ClassMetadata;
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Author
+        {
+            // ...
+
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
+            {
+                $metadata->addPropertyConstraint('headshot', new Assert\Image(array(
+                    'allowLandscape'    => false,
+                    'allowPortrait'     => false,
+                )));
+            }
+        }
+
+Si possono mischiare tutte le opzioni dei vincoli, creando regole di validazione potenti.
+
 Opzioni
 -------
 
-Questo vincolo condivide tutte le sue opzioni con il vincolo :doc:`File</reference/constraints/File>`.
+Questo vincolo condivide tutte le sue opzioni con il vincolo :doc:`File </reference/constraints/File>`.
 Tuttavia, modifica due dei valori predefiniti delle opzioni e
 aggiunge diverse altre opzioni:
 
@@ -194,10 +281,49 @@ maxHeight
 Se impostato, l'altezza del file immagine deve essere minore o uguale di
 questo valore in pixel.
 
+maxRatio
+~~~~~~~~
+
+**tipo**: ``float``
+
+Se impostato, il rapporto ``width / height`` del file immagine deve essere minore
+o uguale a questo valore.
+
+minRatio
+~~~~~~~~
+
+**tipo**: ``float``
+
+Se impostato, il rapporto ``width / height`` del file immagine deve essere maggiore
+o uguale a questo valore.
+
+allowSquare
+~~~~~~~~~~~
+
+**tipo**: ``Booleano`` **predefinito**: ``true``
+
+Se questa opzione è ``false``, l'immagine non può essere quadrata. Se si vuole
+forzare un'immagine quadrata, lasciare questa opzione a ``true`` e
+impostare `allowLandscape`_ e `allowPortrait`_ a ``false``.
+
+allowLandscape
+~~~~~~~~~~~~~~
+
+**tipo**: ``Booleano`` **predefinito**: ``true``
+
+Se questa opzione è ``false``, l'immagine non può avere orientamento panorama.
+
+allowPortrait
+~~~~~~~~~~~~~
+
+**tipo**: ``Booleano`` **predefinito**: ``true``
+
+Se questa opzione è ``false``, l'immagine non può avere orientamento ritratto.
+
 sizeNotDetectedMessage
 ~~~~~~~~~~~~~~~~~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``The size of the image could not be detected``
+**tipo**: ``stringa`` **predefinito**: ``The size of the image could not be detected``
 
 Se il sistema non è in grado di determinare la dimensione dell'immagine, sarà
 mostrato questo errore. Questo si verificherà solo se almeno uno dei quattro vincoli
@@ -206,29 +332,73 @@ di dimensione è stato impostato.
 maxWidthMessage
 ~~~~~~~~~~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px``
+**tipo**: ``stringa`` **predefinito**: ``The image width is too big ({{ width }}px).
+Allowed maximum width is {{ max_width }}px``
 
 Il messaggio di errore se la larghezza dell'immagine eccede `maxWidth`_.
 
 minWidthMessage
 ~~~~~~~~~~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px``
+**tipo**: ``stringa`` **predefinito**: ``The image width is too small ({{ width }}px).
+Minimum width expected is {{ min_width }}px``
 
-Il messaggio di errore se la larghezza dell'immagine è inferiore a `maxWidth`_.
+Il messaggio di errore se la larghezza dell'immagine è inferiore a `minWidth`_.
 
 maxHeightMessage
 ~~~~~~~~~~~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px``
+**tipo**: ``stringa`` **predefinito**: ``The image height is too big ({{ height }}px).
+Allowed maximum height is {{ max_height }}px``
 
 Il messaggio di errore se l'altezza dell'immagine eccede `maxHeight`_.
 
 minHeightMessage
 ~~~~~~~~~~~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px``
+**tipo**: ``stringa`` **predefinito**: ``The image height is too small ({{ height }}px).
+Minimum height expected is {{ min_height }}px``
 
-Il messaggio di errore se l'altezza dell'immagine è inferiore a `maxHeight`_.
+Il messaggio di errore l'altezza dell'immagine è inferiore a `minHeight`_.
+
+maxRatioMessage
+~~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``The image ratio is too big ({{ ratio }}).
+Allowed maximum ratio is {{ max_ratio }}``
+
+Il messaggio di errore se il rapporto d'aspetto eccede `maxRatio`_.
+
+minRatioMessage
+~~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``The image ratio is too small ({{ ratio }}).
+Minimum ratio expected is {{ min_ratio }}``
+
+Il messaggio di errore se il rapporto d'aspetto è inferiore a `minRatio`_.
+
+allowSquareMessage
+~~~~~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``The image is square ({{ width }}x{{ height }}px).
+Square images are not allowed``
+
+Il messaggio di errore se l'immagine è quadrata e `allowSquare`_ è ``false``.
+
+allowLandscapeMessage
+~~~~~~~~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``The image is landscape oriented ({{ width }}x{{ height }}px).
+Landscape oriented images are not allowed``
+
+Il messaggio di errore se l'immagine ha orientamento panorama e `allowLandscape`_ è ``false``.
+
+allowPortraitMessage
+~~~~~~~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``The image is portrait oriented ({{ width }}x{{ height }}px).
+Portrait oriented images are not allowed``
+
+Il messaggio di errore se l'immagine ha orientamento ritratto e `allowPortrait`_ è ``false``.
 
 .. _`sito web di IANA`: http://www.iana.org/assignments/media-types/image/index.html

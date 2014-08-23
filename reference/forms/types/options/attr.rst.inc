@@ -10,6 +10,3 @@ chiavi. Può essere utile quando occorre impostare una classe personalizzata per
     $builder->add('body', 'textarea', array(
         'attr' => array('class' => 'tinymce'),
     ));
-
-
-

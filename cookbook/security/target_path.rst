@@ -19,7 +19,7 @@ e sovrascrivere il metodo chiamato ``setTargetPath()``.
 
 Sovrascrivere prima il parametro ``security.exception_listener.class`` nel file di
 configurazione. Lo si può fare nel file di configurazione principale (in
-`app/config`) o nel file di configurazione di un bundle:
+``app/config``) o nel file di configurazione di un bundle:
 
 .. configuration-block::
 
@@ -58,7 +58,8 @@ Creare quindi il proprio ``ExceptionListener``::
         {
             // Non salavre il percorso per richieste XHR o diverse da GET
             // Si può aggiungere altra logica a piacere
-            if ($request->isXmlHttpRequest() || 'GET' !== $request->getMethod()) {
+            // Notare che le richieste diverse da GET sono sempre ignorate
+            if ($request->isXmlHttpRequest()) {
                 return;
             }
 

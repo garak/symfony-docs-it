@@ -23,7 +23,7 @@ o l'equivalente:
 
 .. code-block:: bash
 
-    $ php app/console cache:clear -e=prod
+    $ php app/console cache:clear -e prod
 
 Oltre a cambiare ambiente, si può anche scegliere di disabilitare la modalità di debug.
 Ciò può tornare utile quando si vogliono eseguire comandi in ambiente ``dev``,

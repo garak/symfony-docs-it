@@ -2,8 +2,8 @@
    single: Doctrine; Riferimento configurazione ORM
    single: Riferimento configurazione; ORM Doctrine
 
-Configurazione di DoctrineBundle
-================================
+Configurazione di DoctrineBundle ("doctrine")
+=============================================
 
 Configurazione predefinita completa
 -----------------------------------
@@ -21,6 +21,9 @@ Configurazione predefinita completa
                     un_tipo_personalizzato:
                         class:                Acme\HelloBundle\MioTipoPersonalizzato
                         commented:            true
+                # Se abilitato, tutte le tabelle non prefissate con "sf2_" saranno ignorate.
+                # Questo serve per tabelle personalizzate che non devono essere alterate automaticamente.
+                #schema_filter:        ^sf2_ 
 
                 connections:
                     default:
@@ -137,10 +140,10 @@ Configurazione predefinita completa
                         auto_mapping:         false
                         hydrators:
 
-                            # An array of hydrator names
+                            # Un array di nomi di idratatori
                             hydrator_name:                 []
                         mappings:
-                            # An array of mappings, which may be a bundle name or something else
+                            # Un array di mappature, che può essere un nome di bundle o qualcosa d'altro
                             mapping_name:
                                 mapping:              true
                                 type:                 ~
@@ -342,7 +345,7 @@ Il blocco seguente mostra tutte le voci di configurazione:
                 path:                 "%kernel.data_dir%/data.sqlite"
                 memory:               true
                 unix_socket:          /tmp/mysql.sock
-                # the DBAL wrapperClass option
+                # opzione wrapperClass di DBAL
                 wrapper_class:        MyDoctrineDbalConnectionWrapper
                 charset:              UTF8
                 logging:              "%kernel.debug%"
@@ -412,8 +415,8 @@ in cui ``[nome]`` è il nome della connessione.
 
 .. _documentazione DBAL: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
 
-Sintassi configurazione abbreviata
-----------------------------------
+Sintassi abbreviata della configurazione
+----------------------------------------
 
 Se si una singolo gestore di entità, tutte le opzioni disponibili
 possono essere inserite direttamente sotto il livello ``doctrine.orm``. 
@@ -443,6 +446,6 @@ possono essere inserite direttamente sotto il livello ``doctrine.orm``.
                 # ...
 
 Questa versione abbreviata è usata comunemente in altre sezioni della documentazione.
-Tenere a mente che non si possono usare entrambe le sintassi allo stesso tempo.
+Tenere a mente che non si possono usare entrambe le sintassi contemporaneamente.
 
-
+.. _`DQL User Defined Functions`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/dql-user-defined-functions.html

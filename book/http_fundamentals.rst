@@ -22,10 +22,10 @@ o dal linguaggio di programmazione preferito, questo capitolo andrebbe letto da 
 HTTP è semplice
 ---------------
 
-HTTP (Hypertext Transfer Protocol) è un linguaggio testuale che consente a due
-macchine di comunicare tra loro. Tutto qui! Per esempio, quando controllate
-l'ultima vignetta di `xkcd`_, ha luogo la seguente conversazione (approssimata):
-
+HTTP (Hypertext Transfer Protocol per i geek) è un linguaggio testuale che consente a
+due macchine di comunicare tra loro. Tutto qui! Per esempio, se si controlla
+l'ultima vignetta di `xkcd`_, ha luogo la seguente conversazione
+(approssimata):
 
 .. image:: /images/http-xkcd.png
    :align: center
@@ -429,6 +429,7 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
     .. code-block:: xml
 
+        <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -443,8 +444,8 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
     .. code-block:: php
 
         // app/config/routing.php
-        use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
 
         $collection = new RouteCollection();
         $collection->add('contact', new Route('/contact', array(

@@ -5,7 +5,7 @@ empty_value
 
 Questa opzione determina se apparirà o meno una speciale opzione vuota (p.e. "Scegliere
 un'opzione") in cima al select. Questa opzione si applica solamente se entrambe le
-opzioni ``expanded`` e ``multiple`` sono impstate a ``false``.
+opzioni ``expanded`` e ``multiple`` sono impostate a ``false``.
 
 * Aggiungere un valore vuoto con "Scegliere un'opzione" come testo::
 

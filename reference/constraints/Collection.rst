@@ -290,9 +290,9 @@ fields
 
 **tipo**: ``array`` [:ref:`opzione predefinita<validation-default-option>`]
 
-Questa opzione, obbligatorio, è un array associativo, che definisce tutte le
+Questa opzione, obbligatoria, è un array associativo che definisce tutte le
 chiavi nell'insieme e, per ogni chiave, esattamente quale validatore (o quali validatori)
-vanno eseguiti su quell'elemento dell'insieme.
+vada eseguito su quell'elemento dell'insieme.
 
 allowExtraFields
 ~~~~~~~~~~~~~~~~

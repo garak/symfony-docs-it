@@ -487,7 +487,7 @@ Preparatori di cache del nucleo
 
 +-------------------------------------------------------------------------------------------+-----------+
 | Nome della classe del preparatore                                                         | Priorità  |
-+-------------------------------------------------------------------------------------------+-----------+
++===========================================================================================+===========+
 | :class:`Symfony\\Bundle\\FrameworkBundle\\CacheWarmer\\TemplatePathsCacheWarmer`          | 20        |
 +-------------------------------------------------------------------------------------------+-----------+
 | :class:`Symfony\\Bundle\\FrameworkBundle\\CacheWarmer\\RouterCacheWarmer`                 | 0         |
@@ -528,7 +528,7 @@ kernel.request
 
 +-------------------------------------------------------------------------------------------+-----------+
 | Nome della classe dell'ascoltatore                                                        | Priorità  |
-+-------------------------------------------------------------------------------------------+-----------+
++===========================================================================================+===========+
 | :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | 1024      |
 +-------------------------------------------------------------------------------------------+-----------+
 | :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\TestSessionListener`             | 192       |
@@ -547,7 +547,7 @@ kernel.controller
 
 +-------------------------------------------------------------------------------------------+----------+
 | Nome della classe dell'ascoltatore                                                        | Priorità |
-+-------------------------------------------------------------------------------------------+----------+
++===========================================================================================+==========+
 | :class:`Symfony\\Bundle\\FrameworkBundle\\DataCollector\\RequestDataCollector`            | 0        |
 +-------------------------------------------------------------------------------------------+----------+
 
@@ -556,7 +556,7 @@ kernel.response
 
 +-------------------------------------------------------------------------------------------+----------+
 | Nome della classe dell'ascoltatore                                                        | Priorità |
-+-------------------------------------------------------------------------------------------+----------+
++===========================================================================================+==========+
 | :class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`                       | 0        |
 +-------------------------------------------------------------------------------------------+----------+
 | :class:`Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener`                  | 0        |
@@ -577,7 +577,7 @@ kernel.exception
 
 +-------------------------------------------------------------------------------------------+----------+
 | Nome della classe dell'ascoltatore                                                        | Priorità |
-+-------------------------------------------------------------------------------------------+----------+
++===========================================================================================+==========+
 | :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | 0        |
 +-------------------------------------------------------------------------------------------+----------+
 | :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`                 | -128     |
@@ -588,7 +588,7 @@ kernel.terminate
 
 +-------------------------------------------------------------------------------------------+----------+
 | Nome della classe dell'ascoltatore                                                        | Priorità |
-+-------------------------------------------------------------------------------------------+----------+
++===========================================================================================+==========+
 | :class:`Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener`           | 0        |
 +-------------------------------------------------------------------------------------------+----------+
 
@@ -1245,5 +1245,6 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`repository ufficiale delle estensioni di Twig`: https://github.com/fabpot/Twig-extensions
+.. _`KernelEvents`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
 .. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders

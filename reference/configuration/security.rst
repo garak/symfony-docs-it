@@ -14,7 +14,7 @@ La seguente è la configurazione predefinita completa del sistema di sicurezza.
 Ogni parte sarà spiegata nella prossima sezione.
 
 .. versionadded:: 2.4
-    Il supporto per restringere i firewall a un host specifico è stato introdotto in
+    Il supporto per limitare i firewall a un host specifico è stato introdotto in
     Symfony 2.4.
 
 .. configuration-block::
@@ -102,7 +102,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                 # Esempi:
                 nome:
                     pattern: .*
-                    # restringe il firewall a un host specifico
+                    # limita il firewall a un host specifico
                     host: admin\.example\.com
                     request_matcher: id.di.un.servizio
                     access_denied_url: /pippo/error403

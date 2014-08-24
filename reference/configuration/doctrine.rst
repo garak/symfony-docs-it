@@ -2,10 +2,10 @@
    single: Doctrine; Riferimento configurazione ORM
    single: Riferimento configurazione; ORM Doctrine
 
-Riferimento configurazione
-==========================
+Configurazione di DoctrineBundle ("doctrine")
+=============================================
 
-Configurazione completa predefinita
+Configurazione predefinita completa
 -----------------------------------
 
 .. configuration-block::
@@ -137,10 +137,10 @@ Configurazione completa predefinita
                         auto_mapping:         false
                         hydrators:
 
-                            # An array of hydrator names
+                            # Un array di nomi di idratatori
                             hydrator_name:                 []
                         mappings:
-                            # An array of mappings, which may be a bundle name or something else
+                            # Un array di mappature, che può essere un nome di bundle o qualcosa d'altro
                             mapping_name:
                                 mapping:              true
                                 type:                 ~
@@ -342,7 +342,7 @@ Il blocco seguente mostra tutte le voci di configurazione:
                 path:                 "%kernel.data_dir%/data.sqlite"
                 memory:               true
                 unix_socket:          /tmp/mysql.sock
-                # the DBAL wrapperClass option
+                # opzione wrapperClass di DBAL
                 wrapper_class:        MyDoctrineDbalConnectionWrapper
                 charset:              UTF8
                 logging:              "%kernel.debug%"
@@ -411,3 +411,38 @@ Ogni connessione è anche accessibile tramite il servizio ``doctrine.dbal.[nome]
 in cui ``[nome]`` è il nome della connessione.
 
 .. _documentazione DBAL: http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
+
+Sintassi abbreviata della configurazione
+----------------------------------------
+
+Quando si usa un solo gestore di entità, si possono mettere tutte le opzioni disponibili
+direttamente sotto al livello di configurazione ``doctrine.orm``.
+
+.. code-block:: yaml
+
+    doctrine:
+        orm:
+            # ...
+            query_cache_driver:
+               # ...
+            metadata_cache_driver:
+                # ...
+            result_cache_driver:
+                # ...
+            connection: ~
+            class_metadata_factory_name:  Doctrine\ORM\Mapping\ClassMetadataFactory
+            default_repository_class:  Doctrine\ORM\EntityRepository
+            auto_mapping: false
+            hydrators:
+                # ...
+            mappings:
+                # ...
+            dql:
+                # ...
+            filters:
+                # ...
+
+Questa versione abbreviata è usata comunemente in altre sezioni della documentazione.
+Tenere a mente che non si possono usare entrambe le sintassi contemporaneamente.
+
+.. _`DQL User Defined Functions`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/dql-user-defined-functions.html

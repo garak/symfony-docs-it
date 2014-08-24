@@ -16,21 +16,21 @@ gestione dell'input e dell'output dei dati.
 +---------------+---------------------------------------------------------------------+
 | Opzioni       | - `currency`_                                                       |
 |               | - `divisor`_                                                        |
-|               | - `precision`_                                                      |
 |               | - `grouping`_                                                       |
+|               | - `precision`_                                                      |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `empty_data`_                                                     |
-| ereditate     | - `required`_                                                       |
-|               | - `label`_                                                          |
-|               | - `label_attr`_                                                     |
-|               | - `data`_                                                           |
-|               | - `read_only`_                                                      |
-|               | - `disabled`_                                                       |
+| Opzioni       | - `data`_                                                           |
+| ereditate     | - `disabled`_                                                       |
+|               | - `empty_data`_                                                     |
 |               | - `error_bubbling`_                                                 |
 |               | - `error_mapping`_                                                  |
 |               | - `invalid_message`_                                                |
 |               | - `invalid_message_parameters`_                                     |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `mapped`_                                                         |
+|               | - `read_only`_                                                      |
+|               | - `required`_                                                       |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`form </reference/forms/types/form>`                           |
 +---------------+---------------------------------------------------------------------+
@@ -71,36 +71,34 @@ all'utente sarà ``99``. Quando l'utente invia il valore
 ``99``, sarà moltiplicato per ``100`` e ``9900`` sarà infine inviato
 all'oggetto.
 
+.. include:: /reference/forms/types/options/grouping.rst.inc
+
 precision
 ~~~~~~~~~
 
 **tipo**: ``intero`` **predefinito**: ``2``
 
-Se, per qualche ragione, occore una precisione diversa da due cifre decimali,
+Se, per qualche ragione, occorre una precisione diversa da due cifre decimali,
 si può modificare questo valore. Probabilmente non se ne avrà bisogno, a meno che,
 per esempio, non si voglia arrotondare all'unità più vicina (impostare in questo caso
 a ``0``).
-
-.. include:: /reference/forms/types/options/grouping.rst.inc
 
 Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
-
 .. include:: /reference/forms/types/options/data.rst.inc
 
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito è ``''`` (stringa vuota).
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
@@ -110,7 +108,15 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc
 
 Variabili di form
 -----------------

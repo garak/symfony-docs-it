@@ -97,9 +97,9 @@ Lo stesso vale per i file delle rotte, della configurazione della validazione e 
 
 .. caution::
 
-   I file delle traduzioni non funzionano nel modo descritto sopra. Si legga
-   :ref:`override-translations`, se si vuole sapere come sovrascrivere le
-   traduzioni.
+   I file delle traduzioni e delle validazioni non funzionano nel modo descritto sopra.
+   Si legga ":ref:`override-translations`", se si vuole sapere come sovrascrivere le
+   traduzioni e si veda ":ref:`override-validation`" per trucchi su come
+   sovrascrivere la validazione.
 
 .. _`FOSUserBundle`: https://github.com/friendsofsymfony/fosuserbundle
-

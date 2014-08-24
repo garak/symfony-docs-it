@@ -87,11 +87,11 @@ Fortunatamente, c'è un task per farlo. Basta eseguire il comando seguente:
 Iniziare
 --------
 
-Tornando al piccolo esempio iniziale, implementiamo una
+Tornando al piccolo esempio iniziale, si può ora implementare una
 ACL.
 
-Una volta creata l'ACL, si può garantire accesso agli oggetti creando una
-Access Control Entity (ACE) per concretizzare la relazione tra entitàe
+Una volta creata l'ACL, si può consentire l'accesso a oggetti creando una
+Access Control Entity (ACE), per solidificare la relazione tra entità
 e utente.
 
 Creare una ACL e aggiungere un ACE

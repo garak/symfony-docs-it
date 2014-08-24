@@ -194,7 +194,7 @@ nella vista::
     use Symfony\Component\Form\AbstractTypeExtension;
     use Symfony\Component\Form\FormView;
     use Symfony\Component\Form\FormInterface;
-    use Symfony\Component\Form\Util\PropertyPath;
+    use Symfony\Component\PropertyAccess\PropertyAccess;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
     class ImageTypeExtension extends AbstractTypeExtension
@@ -232,14 +232,14 @@ nella vista::
                 $parentData = $form->getParent()->getData();
 
                 if (null !== $parentData) {
-                    $propertyPath = new PropertyPath($options['image_path']);
-                    $imageUrl = $propertyPath->getValue($parentData);
+                    $accessor = PropertyAccess::createPropertyAccessor();
+                    $imageUrl = $accessor->getValue($parentData, $options['image_path']);
                 } else {
                      $imageUrl = null;
                 }
 
                 // imposta una variabile "image_url", che sarà disponibile quando si rende questo campo
-                $view->set('image_url', $imageUrl);
+                $view->vars['image_url'] = $imageUrl;
             }
         }
 

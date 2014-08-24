@@ -10,18 +10,19 @@ predefinita è:
 
 .. code-block:: text
 
-    app/
-        cache/
-        config/
-        logs/
-        ...
-    src/
-        ...
-    vendor/
-        ...
-    web/
-        app.php
-        ...
+    progetto/
+    ├─ app/
+    │  ├─ cache/
+    │  ├─ config/
+    │  ├─ logs/
+    │  └─ ...
+    ├─ src/
+    │  └─ ...
+    ├─ vendor/
+    │  └─ ...
+    └─ web/
+       ├─ app.php
+       └─ ...
 
 .. _override-cache-dir:
 

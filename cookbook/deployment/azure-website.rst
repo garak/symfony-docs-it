@@ -4,7 +4,7 @@
 Deploy su Microsoft Azure
 =========================
 
-Questa ricetta descrivere come eseguire passo-passo il deploy di una piccola
+Questa ricetta descrive come eseguire passo-passo il deploy di una piccola
 applicazione Symfony2 sulla piattaforma di cloud Microsoft Azure. Spiegherà come
 preparare un nuovo sito Azure, inclusa la configurazione della corretta versione di PHP e
 delle variabili di ambiente. Verrà anche mostrato come si possono sfruttare
@@ -476,7 +476,3 @@ passi necessari, per rendere il deploy ancora più facile.
 .. _`documentazione MSDN su PHP`: http://blogs.msdn.com/b/silverlining/archive/2012/07/10/configuring-php-in-windows-azure-websites-with-user-ini-files.aspx
 .. _`git-scm.com`: http://git-scm.com/download
 .. _`SymfonyAzureEdition`: https://github.com/beberlei/symfony-azure-edition/
-
-
-
-

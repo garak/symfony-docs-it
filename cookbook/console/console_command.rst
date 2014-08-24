@@ -14,9 +14,8 @@ Registrare comandi automaticamente
 Per rendere disponibili automaticamente i comandi in Symfony2, creare una cartella
 ``Command`` nel proprio bundle e creare un file php, con suffisso
 ``Command.php``, per ciascun comando che si vuole fornire. Per esempio, se si vuole
-estendere ``AcmeDemoBundle`` (disponibile nella Standard Edition di Symfony),
-per mandare un saluto dalla linea di comando, creare ``GreetCommand.php`` e
-aggiungervi il codice seguente::
+estendere AcmeDemoBundle per mandare un saluto dalla linea di comando, creare
+``GreetCommand.php`` e aggiungervi il codice seguente::
 
     // src/Acme/DemoBundle/Command/GreetCommand.php
     namespace Acme\DemoBundle\Command;
@@ -71,63 +70,76 @@ Registrare comandi nel contenitore di servizi
    IL supporto per registrare comandi nel contenitore di servizi è stato aggiunto nella
    versione 2.4.
 
-Invece di inserire un comando nella cartella ``Command`` e farlo scoprire automaticamente
-a Symfony, si possono registrare comandi nel contenitore di servizi,
-usando il tag ``console.command``:
+Proprio come i controllori, i comandi possono essere dichiarati come servizi. Vedere la
+:doc:`ricetta dedicata </cookbook/console/commands_as_services>`
+per i dettagli.
 
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/config.yml
-        services:
-            acme_hello.command.my_command:
-                class: Acme\HelloBundle\Command\MyCommand
-                tags:
-                    -  { name: console.command }
-
-    .. code-block:: xml
-
-        <!-- app/config/config.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <service id="acme_hello.command.my_command"
-                class="Acme\HelloBundle\Command\MyCommand">
-                <tag name="console.command" />
-            </service>
-        </container>
-
-    .. code-block:: php
-
-        // app/config/config.php
-
-        $container
-            ->register('acme_hello.command.my_command', 'Acme\HelloBundle\Command\MyCommand')
-            ->addTag('console.command')
-        ;
-
-.. tip::
-
-    La registrazione di un comando fornisce maggiore controllo sulla
-    posizione e sui servizi inieettati. Non ci sono tuttavia
-    vantaggi funzionali, quindi non occorre registrare un comando come servizio.
-
-Recuperare servizi dal contenitore di servizi
----------------------------------------------
+Recuperare i servizi dal contenitore
+------------------------------------
 
 Usando :class:`Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand`
-come classe base per il comando (al posto della più basica
-:class:`Symfony\\Component\\Console\\Command\\Command`), si ha accesso al contenitore
-di servizi. In altre parole, si ha accesso a qualsiasi servizio configurato.
-Per esempio, si può facilmente estendere il task per essere traducibile::
+come classe base per il comando (invece della più basica
+:class:`Symfony\\Component\\Console\\Command\\Command`), si ha accesso al
+contenitore di servizi. In altre parole, si ha accesso a qualsiasi servizio configurato::
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $name = $input->getArgument('name');
+        $logger = $this->getContainer()->get('logger');
+
+        $logger->info('Esecuzione del comando per '.$name);
+        // ...
+    }
+
+Tuttavia, a causae degli `scope del contenitore </cookbook/service_container/scopes>`_, questo
+codice non funziona per alcuni servizi. Per esempio, se si prova a prednere il servizio ``request``
+o un altro servizio correlato, si otterrà il seguente errore:
+
+.. code-block:: text
+
+    You cannot create a service ("request") of an inactive scope ("request").
+
+Si consideri il seguente esempio, che usa il servizio ``translator`` per
+tradurre dei contenuti usando un comando di console::
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
         $translator = $this->getContainer()->get('translator');
+        if ($name) {
+            $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
+        } else {
+            $output->writeln($translator->trans('Hello!'));
+        }
+    }
+
+Se si dà un'occhiata alle classi del componente Translator, si vedrà che il servizio ``request``
+è necessario per ottenere il locale in cui tradurre i contenuti::
+
+    // vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Translation/Translator.php
+    public function getLocale()
+    {
+        if (null === $this->locale && $this->container->isScopeActive('request')
+            && $this->container->has('request')) {
+            $this->locale = $this->container->get('request')->getLocale();
+        }
+
+        return $this->locale;
+    }
+
+Quindi, quando si usa il servizio ``translator`` dall'interno di un comando, si otterrà,
+come prima, l'errore *"You cannot create a service of an inactive scope"*.
+In questo caso, la soluzione è facile, basta impostare il valore del locale
+prima di tradurre i contenuti::
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $name = $input->getArgument('name');
+        $locale = $input->getArgument('locale');
+
+        $translator = $this->getContainer()->get('translator');
+        $translator->setLocale($locale);
+
         if ($name) {
             $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
         } else {

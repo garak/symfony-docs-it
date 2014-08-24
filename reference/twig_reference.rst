@@ -78,7 +78,7 @@ Funzioni
 |                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-rest>`.                             |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``csrf_token(intention)``                          | Renderà un token CSRF. Funzione da usare se si vuole protezione CSRF senza                 |
-|                                                    | creaew un form                                                                             |
+|                                                    | creare un form                                                                             |
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | ``is_granted(ruolo, ogg = null, campo = null)``    | Restituirà ``true`` se l'utente attuale ha il ruolo richiesto, maggiori                    |
 |                                                    | informazioni in ":ref:`book-security-template`"                                            |

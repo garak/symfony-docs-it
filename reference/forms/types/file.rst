@@ -9,15 +9,17 @@ Il tipo ``file`` rappresenta un input per caricare file.
 +---------------+---------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``file``                                            |
 +---------------+---------------------------------------------------------------------+
-| Opzioni       | - `empty_data`_                                                     |
-| ereditate     | - `required`_                                                       |
-|               | - `label`_                                                          |
-|               | - `label_attr`_                                                     |
-|               | - `read_only`_                                                      |
-|               | - `disabled`_                                                       |
+| Opzioni       | - `multiple`_                                                       |
++---------------+---------------------------------------------------------------------+
+| Opzioni       | - `disabled`_                                                       |
+| ereditate     | - `empty_data`_                                                     |
 |               | - `error_bubbling`_                                                 |
 |               | - `error_mapping`_                                                  |
+|               | - `label`_                                                          |
+|               | - `label_attr`_                                                     |
 |               | - `mapped`_                                                         |
+|               | - `read_only`_                                                      |
+|               | - `required`_                                                       |
 +---------------+---------------------------------------------------------------------+
 | Tipo genitore | :doc:`form </reference/forms/types/form>`                           |
 +---------------+---------------------------------------------------------------------+
@@ -78,28 +80,47 @@ di utilizzarlo direttamente.
 Leggere il :doc:`ricettario </cookbook/doctrine/file_uploads>` per un esempio di
 come gestire un caricamento di file associato con un'entità Doctrine.
 
+Opzioni
+-------
+
+multiple
+~~~~~~~~
+
+.. versionadded:: 2.5
+    L'opzione ``multiple`` è stata introdotta in Symfony 2.5.
+
+**tipo**: ``Booleano`` **predefinito**: ``false``
+
+Se impostata a ``true``, l'utente potrà caricare più file contemporaneamente.
+
 Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
-.. include:: /reference/forms/types/options/empty_data.rst.inc
-
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
-
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito è ``null``.
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc
 
 Variabili di form
 -----------------

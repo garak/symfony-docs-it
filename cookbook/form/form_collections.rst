@@ -77,8 +77,7 @@ Ora, si crei una classe ``Tag``. Come è possibile verificare, un ``Task`` può 
     La proprietà ``name`` qui è pubblica, ma può essere facilmente protetta
     o privata (ma in questo caso servono dei metodi ``getName`` e ``setName``).
 
-Si crei ora una classe di form, cosicché un oggetto ``Tag``
-possa essere modificato dall'utente::
+Si crei ora una classe di form, cosicché un oggetto ``Tag`` possa essere modificato dall'utente::
 
     // src/Acme/TaskBundle/Form/Type/TagType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -112,7 +111,7 @@ finale è permettere la modifica dei tag di un task nello stesso form
 del task, bisogna creare un form per la classe ``Task``.
 
 Da notare che si unisce una collezione di form ``TagType`` utilizzando
-il tipo di campo :doc:`collection</reference/forms/types/collection>`::
+il tipo di campo :doc:`collection </reference/forms/types/collection>`::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -234,14 +233,14 @@ ha tag, appena viene creato).
         <!-- ... -->
 
 Quando l'utente invia il form, i dati inviati per i campi di ``Tags``
-sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``,che viene poi
+sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``, che viene poi
 impostato sul campo ``tag`` dell'istanza ``Task``.
 
 L'insieme ``Tags`` è acessibile tramite ``$task->getTags()``
-e può essere persistito nella base dati, oppure utilizzato. dove necessario.
+e può essere persistito nella base dati, oppure utilizzato dove necessario.
 
-Finora, tutto ciò funziona bene, ma questo non permette di aggiungere nuovi dinamicamente 
-tag o eliminare tag esistenti. Quindi, la modifica dei tag esistenti funziona 
+Finora, tutto ciò funziona bene, ma questo non è ancora possibile aggiungere dinamicamente 
+nuovi tag o eliminare tag esistenti. Quindi, la modifica dei tag esistenti funziona 
 bene, ma ancora non si possono aggiungere nuovi tag.
 
 .. caution::
@@ -250,7 +249,7 @@ bene, ma ancora non si possono aggiungere nuovi tag.
     a questo. Si possono anche includere insiemi innestati, in quanti livelli
     si desidera. Ma, se si usa Xdebug durante lo sviluppo, si potrebbe ricevere
     l'errore ``Maximum function nesting level of '100' reached, aborting!``.
-    Questo a casua dell'impostazione ``xdebug.max_nesting_level`` di PHP setting, che
+    Questo a causa dell'impostazione ``xdebug.max_nesting_level`` di PHP, che
     ha come valore predefinito ``100``.
 
     Questa direttiva limita la ricorsione a 100 chiamate, che potrebbe non bastare per
@@ -337,11 +336,11 @@ Nella pagina resa, il risultato assomiglierà a questo:
     <ul class="tags" data-prototype="&lt;div&gt;&lt;label class=&quot; required&quot;&gt;__name__&lt;/label&gt;&lt;div id=&quot;task_tags___name__&quot;&gt;&lt;div&gt;&lt;label for=&quot;task_tags___name___name&quot; class=&quot; required&quot;&gt;Name&lt;/label&gt;&lt;input type=&quot;text&quot; id=&quot;task_tags___name___name&quot; name=&quot;task[tags][__name__][name]&quot; required=&quot;required&quot; maxlength=&quot;255&quot; /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">
 
 Lo scopo di questa sezione sarà usare JavaScript per leggere questo attributo
-e aggiungere dinamicamente nuovi form tag, quando l'utente clicca su "Aggiunti un tag".
+e aggiungere dinamicamente nuovi form tag, quando l'utente clicca su "Aggiungi un tag".
 Per facilitare le cose, useremo jQuery e ipotizzeremo di averlo incluso da qualche parte
-nella nostra pagine.
+nella nostra pagina.
 
-Aggiungere un tag ``script`` nella pagine, in modo da poter scrivere del codice JavaScript.
+Aggiungere un tag ``script`` nella pagina, in modo da poter scrivere del codice JavaScript.
 
 Prima di tutto, aggiungere un collegamento in fondo alla lista "tags", tramite JavaScript. Poi,
 collegare l'evento "click" a tale collegamento, in modo da poter aggiungere un nuovo form tag
@@ -413,6 +412,10 @@ un esempio:
 Ora, ogni volta che un utente clicca sul link ``Aggiungi un tag``, apparirà un nuovo
 form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in nuovi oggetti
 ``Tag`` e aggiunto alla proprietà ``tags`` dell'oggetto ``Task``
+
+.. seealso::
+
+    Si può trovare un esempio funzionante in questo `JSFiddle`_.
 
 Per gestire più facilmente questi nuovi tag, aggiungere dei metodi "adder" e "remover"
 alla classe  ``Task``::
@@ -727,3 +730,4 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     per ogni oggetto Tag.
 
 .. _`lato di appartenenza e il lato inverso`: http://docs.doctrine-project.org/en/latest/reference/unitofwork-associations.html
+.. _`JSFiddle`: http://jsfiddle.net/847Kf/4/

@@ -18,15 +18,15 @@ password, ma deve inserire quella vecchia per motivi di sicurezza.
     Questo vincolo **non** va usato per la validazione di un form di login, che viene
     fatta automaticamente dal sistema di sicurezza.
 
-+----------------+-------------------------------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                                     |
-+----------------+-------------------------------------------------------------------------------------------+
-| Opzioni        | - `message`_                                                                              |
-+----------------+-------------------------------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraint\\UserPassword`          |
-+----------------+-------------------------------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraint\\UserPasswordValidator` |
-+----------------+-------------------------------------------------------------------------------------------+
++----------------+--------------------------------------------------------------------------------------------+
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                                     |
++----------------+--------------------------------------------------------------------------------------------+
+| Opzioni        | - `message`_                                                                               |
++----------------+--------------------------------------------------------------------------------------------+
+| Classe         | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraints\\UserPassword`          |
++----------------+--------------------------------------------------------------------------------------------+
+| Validatore     | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraints\\UserPasswordValidator` |
++----------------+--------------------------------------------------------------------------------------------+
 
 Uso di base
 -----------

@@ -192,7 +192,7 @@ In molti casi, viene passata all'ascoltatore una speciale sotto-classe ``Event``
 è specifica dell'evento dato. Questo dà accesso all'ascoltatore a informazioni speciali
 sull'evento. Leggere la documentazione o l'implementazione di ciascun evento, per
 determinare l'esatta istanza ``Symfony\Component\EventDispatcher\Event``
-passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
+passata. Per esempio, l'evento ``kernel.response`` passa un'istanza di
 ``Symfony\Component\HttpKernel\Event\FilterResponseEvent``::
 
     use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -204,6 +204,47 @@ passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
 
         // ...
     }
+
+.. sidebar:: Registrare ascoltatori di eventi nel contenitore di servizi
+
+    Se si usa il
+    :doc:`componente DependencyInjection </components/dependency_injection/introduction>`,
+    si può usare
+    :class:`Symfony\\Component\\HttpKernel\\DependencyInjection\\RegisterListenersPass`
+    del componente HttpKernel per aggiungere un tag ai servizi::
+
+        use Symfony\Component\DependencyInjection\ContainerBuilder;
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+        use Symfony\Component\HttpKernel\DependencyInjection\RegisterListenersPass;
+
+        $containerBuilder = new ContainerBuilder(new ParameterBag());
+        $containerBuilder->addCompilerPass(new RegisterListenersPass());
+
+        // registra il servizio distributore di eventi
+        $containerBuilder->register(
+            'event_dispatcher',
+            'Symfony\Component\EventDispatcher\EventDispatcher'
+        );
+
+        // registra il servizio ascoltatore di eventi
+        $listener = new Definition('AcmeListener');
+        $listener->addTag('kernel.event_listener', array(
+            'event' => 'foo.action',
+            'method' => 'onFooAction',
+        ));
+        $containerBuilder->setDefinition('listener_service_id', $listener);
+
+        // registra un sottoscrittore di eventi
+        $subscriber = new Definition('AcmeSubscriber');
+        $subscriber->addTag('kernel.event_subscriber');
+        $containerBuilder->setDefinition('subscriber_service_id', $subscriber);
+
+    Il passo degli ascoltatori ipotizza che l'id del servizio distributore di eventi
+    sia ``event_dispatcher``, che gli ascoltatori di eventi abbiano il tag
+    ``kernel.event_listener`` e che i sottoscrittori di eventi abbiano il
+    tag ``kernel.event_subscriber``. Si possono cambiare questi valori predefiniti,
+    passando valori personalizzati al costruttore di ``RegisterListenersPass``.
 
 .. _event_dispatcher-closures-as-listeners:
 

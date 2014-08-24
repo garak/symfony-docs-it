@@ -350,11 +350,11 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 | ``required``           | Se ``true``, viene aggiunto un attributo ``required`` al campo, per attivare la      |
 |                        | validazione HTML5. Inoltre, viene aggiunta una classe ``required`` alla label.       |
 +------------------------+--------------------------------------------------------------------------------------+
-| ``max_length``         | Aggiunge un attributo HTML ``maxlength`` all'elemento (deprecatp dalla 2.5, sarà     |
-|                        | rimosso nella 3.0, usare invece ``attr["maxlength"]``)                               |
+| ``max_length``         | Aggiunge un attributo HTML ``maxlength`` all'elemento (deprecata dalla 2.5, sarà     |
+|                        | rimossa nella 3.0, usare invece ``attr["maxlength"]``)                               |
 +------------------------+--------------------------------------------------------------------------------------+
-| ``pattern``            | Aggiunge un attributo HTML ``pattern`` all'elemento  (deprecatp dalla 2.5, sarà      |
-|                        | rimosso nella 3.0, usare invece ``attr["pattern"]``)                                 |
+| ``pattern``            | Aggiunge un attributo HTML ``pattern`` all'elemento  (deprecata dalla 2.5, sarà      |
+|                        | rimossa nella 3.0, usare invece ``attr["pattern"]``)                                 |
 +------------------------+--------------------------------------------------------------------------------------+
 | ``label``              | La stringa da rendere per la  label                                                  |
 +------------------------+--------------------------------------------------------------------------------------+

@@ -216,7 +216,7 @@ Quindi, creare il form per il modello ``Registration``::
                 'checkbox',
                 array('property_path' => 'termsAccepted')
             );
-            $builder->add('Register', 'submit');
+            $builder->add('Registrazione', 'submit');
         }
 
         public function getName()

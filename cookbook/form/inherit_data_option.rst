@@ -5,7 +5,7 @@ Ridurre la duplicazione di codice con "inherit_data"
 ====================================================
 
 .. versionadded:: 2.3
-    L'opzione ``inherit_data`` è stata introdotto in Symfony 2.3. In precedenza,
+    L'opzione ``inherit_data`` è stata introdotta in Symfony 2.3. In precedenza,
     era nota come ``virtual``.
 
 L'opzione ``inherit_data`` di un campo di form può essere molto utile quando si hanno
@@ -157,4 +157,4 @@ a parte, riutilizzabili ovunque sia necessario.
 
 .. caution::
 
-    Form con l'opzione ``inherit_data`` impostata non possono avere ascoltatori di eventi ``*_SET_DATA``.
+    I form con l'opzione ``inherit_data`` impostata non possono avere ascoltatori di eventi ``*_SET_DATA``.

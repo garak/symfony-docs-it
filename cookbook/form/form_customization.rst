@@ -71,7 +71,7 @@ semplicemente con una riga:
 
     .. code-block:: php
 
-        <?php echo $view['form']->widget($form) }} ?>
+        <?php echo $view['form']->widget($form); ?>
 
 Nella restante parte di questa ricetta, verrà mostrato come ogni parte del codice del form
 può essere modificato a diversi livelli. Per maggiori informazioni sulla resa dei
@@ -311,8 +311,8 @@ nomi di tutti i template come array, usando la parola chiave ``with``:
 
     {# ... #}
 
-I template possono essere in bundle diversi e possono anche trovarsi
-nella cartella globale ``app/Resources/views/``.
+I template possono trovarsi in bundle differenti e possono anche trovarsi nella
+cartella globale ``app/Resources/views/``.
 
 Form figli
 ..........
@@ -359,7 +359,7 @@ dire a Symfony di utilizzare il tema attraverso il metodo ``setTheme`` dell'help
 
 .. code-block:: php
 
-    <?php $view['form']->setTheme($form, array('AcmeDemoBundle:Form')) ;?>
+    <?php $view['form']->setTheme($form, array('AcmeDemoBundle:Form')); ?>
 
     <?php $view['form']->widget($form['age']) ?>
 
@@ -463,11 +463,11 @@ form verrà reso.
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <twig:config ...>
-                <twig:form>
-                    <resource>AcmeDemoBundle:Form:fields.html.twig</resource>
-                </twig:form>
-                <!-- ... -->
+        <twig:config>
+            <twig:form>
+                <resource>AcmeDemoBundle:Form:fields.html.twig</resource>
+            </twig:form>
+            <!-- ... -->
         </twig:config>
 
     .. code-block:: php
@@ -525,7 +525,7 @@ file di template piuttosto che aggiungere un template come risorsa:
 
 .. code-block:: html+jinja
 
-  {% form_theme form 'form_table_layout.html.twig' %}
+    {% form_theme form 'form_table_layout.html.twig' %}
 
 Si osservi che la variabile ``form`` nel codice sottostante è la variabile della vista form
 che è stata passata al template.

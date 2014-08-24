@@ -1,8 +1,8 @@
 .. index::
-   single: Security; Votanti per permessi sui dati
+   single: Sicurezza; Votanti su permessi di dati
 
-Usare i votanti per verificare i permessi utente
-================================================
+Usare votanti per verificare i permessi dell'utente
+===================================================
 
 In Symfony2, si possono verificare permessi di accesso ai dati, usando il
 :doc:`modulo ACL </cookbook/security/acl>`, che è un po' troppo complesso
@@ -97,7 +97,7 @@ modifica di un particolare oggetto. Ecco una possibile implementazione::
             // questo non è un requisito, ma solo un modo semplice per
             // progettare un votante
             if(1 !== count($attributes)) {
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     'È consentito un solo attributo per VIEW o EDIT'
                 );
             }

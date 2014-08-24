@@ -147,7 +147,7 @@ Guardando il contenuto di questi file, si vede come l'ambiente utilizzato da ent
 sia definito in modo esplicito::
 
     // web/app.php
-    // ... 
+    // ...
 
     $kernel = new AppKernel('prod', false);
 
@@ -191,12 +191,12 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
 
             doctrine:
                dbal:
-                   logging:  "%kernel.debug%"
+                   logging: "%kernel.debug%"
                    # ...
 
         .. code-block:: xml
 
-            <doctrine:dbal logging="%kernel.debug%" ... />
+            <doctrine:dbal logging="%kernel.debug%" />
 
         .. code-block:: php
 

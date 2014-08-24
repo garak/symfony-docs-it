@@ -12,7 +12,7 @@ contenuti in cache in modo veloce e che include il supporto per :ref:`Edge Side 
 Reverse proxy fidati
 --------------------
 
-Perch* ESI funzioni correttamente e per usare gli header :ref:`X-FORWARDED <varnish-x-forwarded-headers>`,
+Perché ESI funzioni correttamente e per usare gli header :ref:`X-FORWARDED <varnish-x-forwarded-headers>`,
 occorre configurare Varnish come
 :doc:`proxy fidato </cookbook/request/load_balancer_reverse_proxy>`.
 

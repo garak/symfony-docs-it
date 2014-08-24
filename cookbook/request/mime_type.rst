@@ -4,14 +4,14 @@
 Registrare un nuovo formato di richiesta e un nuovo tipo mime
 =============================================================
 
-Ogni ``Richiesta`` ha a un "formato" (come ``html``, ``json``), che viene usato
-per determinare il tipo di contenuto che dovrà essere restituito nell ``Risposta``.
+Ogni richiesta ha a un "formato" (come ``html``, ``json``), che viene usato
+per determinare il tipo di contenuto che dovrà essere restituito nella risposta.
 Il formato della richiesta, accessibile tramite
 :method:`Symfony\\Component\\HttpFoundation\\Request::getRequestFormat`,
 viene infatti utilizzato per definire il tipo MIME dell'intestazione ``Content-Type`` 
-dell'oggetto ``Risposta``. Symfony contiene una mappa dei formati più comuni (come 
+dell'oggetto ``Response``. Symfony contiene una mappa dei formati più comuni (come 
 ``html``, ``json``) e del corrispettivo tipo MIME (come ``text/html``,
-``application/json``). È comunque possibile aggiungere nuovi formati-MIME.
+``application/json``). È comunque possibile aggiungere nuovi formati/tipi MIME.
 In questo documento si vedrà come aggiungere un nuovo formato ``jsonp``
 e il corrispondente tipo MIME.
 

@@ -1,13 +1,13 @@
 .. index::
-   single: Dependency Injection; Scope
+   single: DependencyInjection; Scope
 
 Lavorare con gli scope
 ======================
 
 Questa ricetta parla di scope, un argomento alquanto avanzato, relativo al
 :doc:`/book/service_container`. Se si ottiene un errore che menziona gli
-"scopes" durante la creazione di servizi oppure se si ha l'esigenza di creare un
-servizio che dipenda dal servizio `request`, questa è la ricetta giusta.
+"scope" durante la creazione di servizi oppure se si ha l'esigenza di creare un
+servizio che dipenda dal servizio ``request``, questa è la ricetta giusta.
 
 Capire gli scope
 ----------------
@@ -29,33 +29,33 @@ disponibile al di fuori della richiesta stessa (per esempio nella CLI).
 
 Gli scope aggiungono un vincolo sulle dipendenze di un servizio: un servizio non può
 dipendere da servizi con scope più stretti. Per esempio, se si crea un generico servizio
-`pippo`, ma si prova a iniettare il componente `request`, si riceverà una
+``pippo``, ma si prova a iniettare il componente ``request``, si riceverà una
 :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
 alla compilazione del contenitore. Leggere la nota seguente sotto per maggiori dettagli.
 
 .. sidebar:: Scope e dipendenze
 
-    Si immagini di aver configurato un servizio `posta`. Non è stato configurato
-    lo scope del servizio, quindi ha `container`. In altre parole, ogni volta che si
-    chiede al contenitore il servizio `posta`, si ottiene lo stesso
+    Si immagini di aver configurato un servizio ``posta``. Non è stato configurato
+    lo scope del servizio, quindi ha ``container``. In altre parole, ogni volta che si
+    chiede al contenitore il servizio ``posta``, si ottiene lo stesso
     oggetto. Solitamente, si vuole che un servizio funzioni in questo modo.
 
-    Si immagini, tuttavia, di aver bisogno del servizio `request` da dentro `posta`,
+    Si immagini, tuttavia, di aver bisogno del servizio ``request`` da dentro ``posta``,
     magari perché si deve leggere l'URL della richiesta corrente.
     Lo si aggiunge quindi come parametro del costruttore. Vediamo quali problemi si
     presentano:
 
-    * Alla richiesta di `posta`, viene creata un'istanza di `posta` (chiamiamola
+    * Alla richiesta di `posta`, viene creata un'istanza di ``posta`` (chiamiamola
       *PostaA*), a cui viene passato il servizio `request` (chiamiamolo
       *RequestA*). Fin qui tutto bene.
 
     * Si effettua ora una sotto-richiesta in Symfony, che è un modo carino per dire che
-      è stata chiamata, per esempio, la funzione `{% render ... %}` di Twig,
-      che esegue un altro controllore. Internamente, il vecchio servizio `request`
+      è stata chiamata, per esempio, la funzione ``{{ render(...) }}`` di Twig,
+      che esegue un altro controllore. Internamente, il vecchio servizio ``request``
       (*RequestA*) viene effettivamente sostituito da una nuova istanza di richiesta
       (*RequestB*). Questo avviene in background ed è del tutto normale.
 
-    * Nel proprio controllore incluso, si richiede nuovamente il servizio `posta`.
+    * Nel proprio controllore incluso, si richiede nuovamente il servizio ``posta``.
       Poiché il servizio è nello scope `container` scope, viene riutilizzata
       la stessa istanza (*PostaA*). Ma ecco il problema: l'istanza *PostaA* contiene
       ancora il vecchio oggetto *RequestA*, che **non** è ora l'oggetto di richiesta

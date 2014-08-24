@@ -1,6 +1,6 @@
 .. index::
-   single: Come interagiscono front controller, ``AppKernel`` e 
-   ambienti
+    single: Come interagiscono front controller, ``AppKernel`` e
+    ambienti
 
 Capire come interagiscono front controller, Kernel e ambienti
 =============================================================
@@ -46,9 +46,9 @@ con caratteristiche aggiuntive. Fra gli esempi ci sono:
 * Aggiungere un livello di cache HTTP wrapperizzando il kernel in una istanza di
   :ref:`AppCache<symfony-gateway-cache>`;
 * Abilitare (o evitare) la :doc:`ClassCache </cookbook/debugging>`
-* Abilitare il :doc:`Debug Component </components/debug>`.
+* Abilitare il :doc:`componente Debug </components/debug/introduction>`.
 
-Il frint controller può essere scelto richiedendo URL come:
+Il front controller può essere scelto richiedendo URL come:
 
 .. code-block:: text
 
@@ -127,7 +127,7 @@ front controller (o aggiungerne uno nuovo) perché usi il nuovo kernel.
     controller sia in grado di creare una istanza del kernel
     appropriato.
 
-Avere diversi ``AppKernels`` può essere utile per abilitare diversi front
+Avere diversi ``AppKernel`` può essere utile per abilitare diversi front
 controller (potenzialmente su diversi server) per eseguire indipendentemente parti dell'applicazione
 (per esempio l'interfaccia di amministrazione, l'interfaccia utente e le migrazioni della base dati).
 

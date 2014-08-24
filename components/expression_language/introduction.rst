@@ -54,7 +54,7 @@ Uso
 
 Il componente ExpressionLanguage può compilare e valutare espressioni.
 Le espressioni sono righe che spesso restituiscono un booleano, che può essere usato
-nel codice che esegue l'espressione in un costrutto ``if`. Un semplice esempio
+nel codice che esegue l'espressione in un costrutto ``if``. Un semplice esempio
 di espressione è ``1 + 2``. Si possono usare espressioni più complesse,
 come ``unArray[3].unMetodo('pluto')``.
 

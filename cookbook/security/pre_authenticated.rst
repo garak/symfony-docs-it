@@ -5,7 +5,7 @@ Uso di firewall di sicurezza pre-autenticati
 ============================================
 
 Molti moduli di autenticazione sono già forniti da alcuni server web,
-comporeso Apache. Questi moduli generalmente impostano alcune variabili di ambiente,
+compreso Apache. Questi moduli generalmente impostano alcune variabili di ambiente,
 che possono essere usate per determinare quale utente stia accedendo a un'applicazione. In modo
 predefinito, Symfony supporta la maggior parte dei meccanismi di autenticazione.
 Tali richieste sono chiamate richieste "pre autenticate*, perché l'utente è già

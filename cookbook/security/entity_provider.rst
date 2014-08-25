@@ -27,7 +27,7 @@ per recuperare utenti dalla base dati con condizioni particolari.
 
 .. sidebar:: Codice con gli esempi
 
-    Se si voglino seguire gli esempi in questo capitolo, creare
+    Se si vogliono seguire gli esempi in questo capitolo, creare
     AcmeUserBundle:
 
     .. code-block:: bash

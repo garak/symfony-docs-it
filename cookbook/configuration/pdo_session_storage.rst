@@ -171,7 +171,7 @@ simile alla seguente (MySQL):
         `id_sessione` varchar(255) NOT NULL,
         `valore_sessione` text NOT NULL,
         `tempo_sessione` int(11) NOT NULL,
-        PRIMARY KEY (`session_id`)
+        PRIMARY KEY (`id_sessione`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 PostgreSQL
@@ -185,7 +185,7 @@ Per PostgreSQL, la dichiarazione sarà simile alla seguente:
         id_sessione character varying(255) NOT NULL,
         valore_sessione text NOT NULL,
         tempo_sessione integer NOT NULL,
-        CONSTRAINT session_pkey PRIMARY KEY (session_id),
+        CONSTRAINT session_pkey PRIMARY KEY (id_sessione),
     );
 
 Microsoft SQL Server
@@ -200,7 +200,7 @@ Per MSSQL, l'istruzione potrebbe essere come la seguente:
 	    [valore_sessione] [ntext] NOT NULL,
         [tempo_sessione] [int] NOT NULL,
 		PRIMARY KEY CLUSTERED(
-			[session_id] ASC
+			[id_sessione] ASC
 		) WITH (
 		    PAD_INDEX  = OFF,
 		    STATISTICS_NORECOMPUTE  = OFF,

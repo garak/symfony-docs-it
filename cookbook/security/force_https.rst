@@ -33,7 +33,7 @@ che iniziano per ``/secure`` a usare HTTPS, si può usare la seguente configuraz
             ),
 
 Il form di login deve consentire l'accesso anonimo, altrimenti l'utente sarebbe
-impossibilitato ad autenticarsi. Per forzarlo a usare ``HTTPS``, si possono usare ancora
+impossibilitato ad autenticarsi. Per forzarlo a usare HTTPS, si possono usare ancora
 le regole ``access_control`` con il ruolo
 ``IS_AUTHENTICATED_ANONYMOUSLY``:
 

@@ -190,11 +190,11 @@ di Symfony, la classe entità deve implementare
 :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`. Questa
 interfaccia costringe la classe a implementare i seguenti cinque metodi:
 
-* ``getRoles()``,
-* ``getPassword()``,
-* ``getSalt()``,
-* ``getUsername()``,
-* ``eraseCredentials()``
+* :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getRoles`
+* :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getPassword`
+* :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getSalt`
+* :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getUsername`
+* :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::eraseCredentials`
 
 Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 

@@ -13,7 +13,7 @@ Se ci si trova dietro un proxy, come un bilanciatore di carico, è possibile che
 siano inviate alcune informazioni con gli header speciali ``X-Forwarded-*``.
 Per esempio, l'header HTTP ``Host`` di solito si usa per restituire
 l'host richiesto. Ma, quando ci si trova dietro a un proxy, il vero host potrebbe
-trovarsi nell'header``X-Forwarded-Host``.
+trovarsi nell'header ``X-Forwarded-Host``.
 
 Poiché gli header HTTP possono essere falsificati, Symfony2 *non* si fida degli
 header dei proxy. Se si è dietro a un proxy, si deve indicare manualmente che

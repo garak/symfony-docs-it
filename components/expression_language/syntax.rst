@@ -128,7 +128,7 @@ Operatori supportati
 
 Il componente disponde di vari operatori:
 
-Arithmetic Operators
+Operatori aritmetici
 ~~~~~~~~~~~~~~~~~~~~
 
 * ``+`` (addizione)

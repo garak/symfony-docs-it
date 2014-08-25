@@ -5,7 +5,7 @@ Ridurre la duplicazione di codice con "inherit_data"
 ====================================================
 
 .. versionadded:: 2.3
-    L'opzione ``inherit_data``è stata introdotta in Symfony 2.3. In
+    L'opzione ``inherit_data`` è stata introdotta in Symfony 2.3. In
     precedenza, era nota come ``virtual``.
 
 L'opzione ``inherit_data`` di un campo di form può essere molto utile quando si hanno

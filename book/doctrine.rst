@@ -1173,7 +1173,7 @@ Si può anche cercare nella direzione opposta::
     }
 
 In questo caso succedono le stesse cose: prima si cerca un singolo oggetto ``Category``,
-poi Doctrine esegue una seconda query per recuperare l'oggetto ``Product`
+poi Doctrine esegue una seconda query per recuperare l'oggetto ``Product``
 correlato, ma solo quando/se richiesto (cioè al richiamo di ``->getProducts()``).
 La variabile ``$products`` è un array di tutti gli oggetti ``Product``
 correlati con il dato oggetto ``Category`` tramite il loro valore ``category_id``.

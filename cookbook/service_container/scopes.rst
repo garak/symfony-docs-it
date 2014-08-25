@@ -66,7 +66,7 @@ alla compilazione del contenitore. Leggere la nota seguente sotto per maggiori d
     Lo si aggiunge quindi come parametro del costruttore. Vediamo quali problemi si
     presentano:
 
-    * Alla richiesta di ``posta``, viene creata un'istanza di ``post`a` (chiamiamola
+    * Alla richiesta di ``posta``, viene creata un'istanza di ``posta`` (chiamiamola
       *PostaA*), a cui viene passato il servizio ``client_configuration`` (chiamiamolo
       *ConfigurationA*). Fin qui tutto bene.
 

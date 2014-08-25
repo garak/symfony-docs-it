@@ -14,7 +14,7 @@ Il flusso di lavoro
 -------------------
 
 I metodi :method:`Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage::evaluate`
-e``compile()`` necessitano entrambi di fare alcune cose, prima di poter restituire
+e ``compile()`` necessitano entrambi di fare alcune cose, prima di poter restituire
 valori. Per ``evaluate()``, questo overhead è più grande.
 
 Entrambi i metodi necessitano di spezzettare e analizzare l'espressione. Lo fanno tramite il metodo

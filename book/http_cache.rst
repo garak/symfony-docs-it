@@ -933,7 +933,7 @@ Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
             array('strategy' => 'esi'),
         ) ?>
 
-Usando l'opzione ``esi``(che usa a sua volta la funzoine Twig ``render_esi``), si dice
+Usando l'opzione ``esi`` (che usa a sua volta la funzione Twig ``render_esi``), si dice
 a Symfony2 che l'azione va resa come tag ESI. Ci si potrebbe chiedere
 perché voler usare un aiutante invece di scrivere direttamente il tag ESI.
 Il motivo è che un aiutante fa funzionare l'applicazione anche

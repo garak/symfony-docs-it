@@ -1,7 +1,8 @@
-Gestire le librerie dei venditori con composer.json
----------------------------------------------------
+Gestire le librerie dei venditori con ``composer.json``
+-------------------------------------------------------
 
-### Come funziona?
+Come funziona?
+~~~~~~~~~~~~~~
 
 Ogni progetto Symfony usa un gruppo di librerie di "venditori". In un modo o
 nell'altro, lo scopo è scaricare tali file nella propria cartella ``vendor/``
@@ -20,6 +21,32 @@ Il  file ``composer.phar`` legge anche un file ``composer.lock``, che consente
 di bloccare ogni libreria a una versione **esatta**. Di fatto se esiste un file ``composer.lock``,
 le versioni in esso contenute sovrascrivono quelle in ``composer.json``.
 Per aggiornare le librerie alle ultime versioni, eseguire ``php composer.phar update``.
+
+.. tip::
+
+    Se si vuole aggiungere un nuovo pacchetto a un'applicazione, modificare il
+    file ``composer.json``:
+
+    .. code-block:: json
+
+        {
+            "require": {
+                ...
+                "doctrine/doctrine-fixtures-bundle": "@dev"
+            }
+        }
+
+    e quindi eseguire il comando ``update`` per lo specifico pacchetto, quindi:
+
+    .. code-block:: bash
+
+        $ php composer.phar update doctrine/doctrine-fixtures-bundle
+
+    Si possono anche combinare i due passi in un singolo comando:
+
+    .. code-block:: bash
+
+        $ php composer.phar require doctrine/doctrine-fixtures-bundle:@dev
 
 Per saperne di più su Composer, vedere `GetComposer.org`_:
 
@@ -42,7 +69,7 @@ Quindi, ogni volta che uno sviluppatore usa il progetto, deve eseguire lo script
     aggiornare Symfony vuol dire semplicemente aggiornare questi due file, per far
     corrispondere il loro stato a quello dell'ultima Standard Edition di Symfony.
 
-    Ovviamente, se sono state aggiunte nuove voci a ````composer.json````, assicurarsi
+    Ovviamente, se sono state aggiunte nuove voci a ``composer.json``, assicurarsi
     di sostituire solo le parti originali (cioè assicurarsi di non cancellare alcuna
     delle proprie voci).
 

@@ -103,7 +103,7 @@ servendo quindi come `metodi template`_:
 
 Per riempire questi (piccoli) buchi, l'applicazione deve essere una sottoclasse 
 del Kernel e implementare questi metodi. La classe che ne risulta viene convenzionalmente
-chiamata``AppKernel``.
+chiamata ``AppKernel``.
 
 Ancora una volta Symfony2 Standard Edition fornisce un `AppKernel`_ nella cartella ``app/``. 
 Per decidere quali Bundle creare questa classe usa il nome dell'ambiente, che viene passato al

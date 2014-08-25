@@ -282,6 +282,34 @@ Si può avere accesso al `pid`_ di un processo in esecuzione, con il metodo
     potrebbe essere necessario prefissare i comandi con `exec`_. Si legga la
     `issue #5759 di Symfony`_ per capire perché questo accada.
 
+Disabling Output
+----------------
+
+.. versionadded:: 2.5
+    I metodi :method:`Symfony\\Component\\Process\\Process::disableOutput` e
+    :method:`Symfony\\Component\\Process\\Process::enableOutput` sono stati
+    introdotti in Symfony 2.5.
+
+Poiché l'output standard e l'output di errore sono sempre recuperati dal processo sottostante,
+in alcuni casi potrebbe essere conveniente disabilitare l'output, per risparmiare memoria.
+Usare :method:`Symfony\\Component\\Process\\Process::disableOutput` e
+:method:`Symfony\\Component\\Process\\Process::enableOutput` per abilitare questa caratteristica::
+
+    use Symfony\Component\Process\Process;
+
+    $process = new Process('/usr/bin/php worker.php');
+    $process->disableOutput();
+    $process->run();
+
+.. caution::
+
+    Non si può abilitare o disabilitare l'output mentre il processo sta girando.
+
+    Se si disabilita l'output, non si può accedere a ``getOutput``,
+    ``getIncrementalOutput``, ``getErrorOutput`` o ``getIncrementalErrorOutput``.
+    Inoltre, non si può passare un callback ai metodi ``start``, ``run`` o ``mustRun``
+    né usare ``setIdleTimeout``.
+
 .. _`issue #5759 di Symfony`: https://github.com/symfony/symfony/issues/5759
 .. _`bug #39992 di PHP`: https://bugs.php.net/bug.php?id=39992
 .. _`exec`: http://en.wikipedia.org/wiki/Exec_(operating_system)

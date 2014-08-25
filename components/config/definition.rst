@@ -21,14 +21,14 @@ applicate (come: "il valore per ``auto_connect`` deve essere booleano"):
     default_connection: mysql
     connections:
         mysql:
-            host: localhost
-            driver: mysql
+            host:     localhost
+            driver:   mysql
             username: utente
             password: pass
         sqlite:
-            host: localhost
-            driver: sqlite
-            memory: true
+            host:     localhost
+            driver:   sqlite
+            memory:   true
             username: utente
             password: pass
 
@@ -99,7 +99,7 @@ di nodo. I tipi di nodo disponibili sono:
 
 * scalare
 * booleano
-* intero
+* intero (nuovo in 2.2)
 * virgola mobile
 * enum
 * array
@@ -288,7 +288,8 @@ Sezioni facoltative
 -------------------
 
 .. versionadded:: 2.2
-    I metodi ``canBeEnabled`` e ``canBeDisabled`` sono nuovi in Symfony 2.2
+    I metodi ``canBeEnabled`` e ``canBeDisabled`` sono stati introdotti in
+    Symfony 2.2
 
 Se si hanno intere sezioni facoltative e che possono essere abilitate/disabilitate,
 si possono sfruttare le scorciatoie
@@ -387,6 +388,8 @@ principale con ``append()``::
 Questo è utile per evitare di ripetersi, nel caso in cui si abbiano sezioni
 della configurazione ripetute in posti diversi.
 
+.. _component-config-normalization:
+
 Normalizzazione
 ---------------
 
@@ -441,6 +444,8 @@ come secondo parametro::
         ->fixXmlConfig('uovo', 'uova')
         ->children()
             ->arrayNode('uova')
+                // ...
+            ->end()
         ->end()
     ;
 

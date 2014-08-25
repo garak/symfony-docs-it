@@ -104,21 +104,26 @@ la stringa completa per `PhpStormOpener`_ sarebbe come questa:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         framework:
             ide: "pstorm://%%f:%%l"
 
     .. code-block:: xml
 
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/service"
-            xmlns:framework="http://symfony.com/schema/dic/symfony">
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config ide="pstorm://%%f:%%l" />
-
         </container>
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('framework', array(
             'ide' => 'pstorm://%%f:%%l',
         ));
@@ -158,17 +163,26 @@ vedere :doc:`/components/http_foundation/trusting_proxies`.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         framework:
             trusted_proxies:  [192.0.0.1, 10.0.0.0/8]
 
     .. code-block:: xml
 
-        <framework:config trusted-proxies="192.0.0.1, 10.0.0.0/8">
-            <!-- ... -->
-        </framework>
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config trusted-proxies="192.0.0.1, 10.0.0.0/8" />
+        </container>
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('framework', array(
             'trusted_proxies' => array('192.0.0.1', '10.0.0.0/8'),
         ));
@@ -285,9 +299,17 @@ a ``null``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:session save-path="null" />
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <framework:session save-path="null" />
+            </framework:config>
+        </container>
 
     .. code-block:: php
 
@@ -373,15 +395,24 @@ Ora, attivare l'opzione ``assets_version``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:templating assets-version="v2">
-            <framework:engine id="twig" />
-        </framework:templating>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:templating assets-version="v2">
+                <!-- ... -->
+                <framework:engine>twig</framework:engine>
+            </framework:templating>
+        </container>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            ...,
+            // ...
             'templating'      => array(
                 'engines'        => array('twig'),
                 'assets_version' => 'v2',
@@ -391,10 +422,6 @@ Ora, attivare l'opzione ``assets_version``:
 Ora, la stessa risora sarà resa come ``/images/logo.png?v2``. Se si usa questa
 caratteristica, si *deve* incrementare a mano il valore di ``assets_version``, prima
 di ogni deploy, in modo che il parametro della query cambi.
-
-È anche possibile impostare il valore della versione per singola risorsa (invece
-di usare una versione globale, come fatto qui con ``v2``)). Vedere
-:ref:`versioni per risorsa <book-templating-version-by-asset>` per i dettagli.
 
 Si può anche contollare il funzionamento della stringa della query, tramite
 l'opzione `assets_version_format`_.

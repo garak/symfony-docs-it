@@ -222,7 +222,7 @@ accade, vengono eseguite le seguenti azioni:
   Per esempio, nei capitoli sull'installazione, si fa riferimento alla versione da usare
   per un'installazione. Come esempio, si vedano le modifiche eseguite nella `PR #2688`_.
 
-.. _`PR #2688`: https://github.com/symfony/symfony-docs/pull/2688
-.. _`fork`: https://help.github.com/articles/fork-a-repo
-.. _`richieste di pull`: https://help.github.com/articles/using-pull-requests
+.. _`fork`:                       https://help.github.com/articles/fork-a-repo
+.. _`richieste di pull`:              https://help.github.com/articles/using-pull-requests
 .. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors
+.. _`PR #2688`:                   https://github.com/symfony/symfony-docs/pull/2688

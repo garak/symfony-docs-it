@@ -128,9 +128,17 @@ Quindi registrarla come servizio:
 
     .. code-block:: xml
 
-        <service id="acme.my_worker" class="MyWorker>
-            <tag name="assetic.factory_worker" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="acme.my_worker" class="MyWorker>
+                    <tag name="assetic.factory_worker" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -179,9 +187,17 @@ Definire quindi un servizio:
 
     .. code-block:: xml
 
-        <service id="acme.my_filter" class="MyFilter">
-            <tag name="assetic.filter" alias="my_filter" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="acme.my_filter" class="MyFilter">
+                    <tag name="assetic.filter" alias="my_filter" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -331,9 +347,20 @@ tag `form.type_extension`:
 
     .. code-block:: xml
 
-        <service id="main.form.type.my_form_type_extension" class="Acme\MainBundle\Form\Type\MyFormTypeExtension">
-            <tag name="form.type_extension" alias="field" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="main.form.type.my_form_type_extension"
+                    class="Acme\MainBundle\Form\Type\MyFormTypeExtension">
+
+                    <tag name="form.type_extension" alias="field" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -396,21 +423,29 @@ Quindi registrare la classe e assegnarle il tag ``kernel.cache_clearer``:
     .. code-block:: yaml
 
         services:
-            my_cache_clearer:
-                class: Acme\MainBundle\Cache\MyClearer
+            mio_pulitore:
+                class: Acme\MainBundle\Cache\MioPulitore
                 tags:
                     - { name: kernel.cache_clearer }
 
     .. code-block:: xml
 
-        <service id="my_cache_clearer" class="Acme\MainBundle\Cache\MyClearer">
-            <tag name="kernel.cache_clearer" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_pulitore" class="Acme\MainBundle\Cache\MioPulitore">
+                    <tag name="kernel.cache_clearer" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         $container
-            ->register('my_cache_clearer', 'Acme\MainBundle\Cache\MyClearer')
+            ->register('mio_pulitore', 'Acme\MainBundle\Cache\MioPulitore')
             ->addTag('kernel.cache_clearer')
         ;
 
@@ -459,21 +494,29 @@ Per registrare un preparatore di cache, usare il tag ``kernel.cache_warmer``:
     .. code-block:: yaml
 
         services:
-            main.warmer.my_custom_warmer:
-                class: Acme\MainBundle\Cache\MyCustomWarmer
+            main.warmer.mio_preparatore:
+                class: Acme\MainBundle\Cache\MioPreparatore
                 tags:
                     - { name: kernel.cache_warmer, priority: 0 }
 
     .. code-block:: xml
 
-        <service id="main.warmer.my_custom_warmer" class="Acme\MainBundle\Cache\MyCustomWarmer">
-            <tag name="kernel.cache_warmer" priority="0" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="main.warmer.mio_preparatore" class="Acme\MainBundle\Cache\MioPreparatore">
+                    <tag name="kernel.cache_warmer" priority="0" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         $container
-            ->register('main.warmer.my_custom_warmer', 'Acme\MainBundle\Cache\MyCustomWarmer')
+            ->register('main.warmer.mio_preparatore', 'Acme\MainBundle\Cache\MioPreparatore')
             ->addTag('kernel.cache_warmer', array('priority' => 0))
         ;
 
@@ -604,21 +647,32 @@ configurazioni e assegnarli il tag ``kernel.event_subscriber``:
     .. code-block:: yaml
 
         services:
-            kernel.subscriber.your_subscriber_name:
+            kernel.subscriber.nome_sottoscrittore:
                 class: Nome\Pienamente\QUalificato\Classe\Subscriber
                 tags:
                     - { name: kernel.event_subscriber }
 
     .. code-block:: xml
 
-        <service id="kernel.subscriber.your_subscriber_name" class="Nome\Pienamente\QUalificato\Classe\Subscriber">
-            <tag name="kernel.event_subscriber" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="kernel.subscriber.nome_sottoscrittore"
+                    class="Nome\Pienamente\QUalificato\Classe\Subscriber">
+
+                    <tag name="kernel.event_subscriber" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         $container
-            ->register('kernel.subscriber.your_subscriber_name', 'Nome\Pienamente\QUalificato\Classe\Subscriber')
+            ->register('kernel.subscriber.nome_sottoscrittore', 'Nome\Pienamente\QUalificato\Classe\Subscriber')
             ->addTag('kernel.event_subscriber')
         ;
 
@@ -666,10 +720,18 @@ quando si inietta il logger in un servizio.
 
     .. code-block:: xml
 
-        <service id="mio_servizio" class="Nome\Pienamente\QUalificato\Classe\Loader">
-            <argument type="service" id="logger" />
-            <tag name="monolog.logger" channel="acme" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_servizio" class="Nome\Pienamente\QUalificato\Classe\Loader">
+                    <argument type="service" id="logger" />
+                    <tag name="monolog.logger" channel="acme" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -712,15 +774,24 @@ Si può aggiungere un processore globalmente:
 
     .. code-block:: xml
 
-        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
-            <tag name="monolog.processor" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
+                    <tag name="monolog.processor" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
-        $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
-        $definition->addTag('monolog.processor');
-        $container->register('mio_servizio', $definition);
+        $container
+            ->register('mio_servizio', 'Monolog\Processor\IntrospectionProcessor')
+            ->addTag('monolog.processor')
+        ;
 
 .. tip::
 
@@ -742,15 +813,24 @@ Si può anche aggiungere un processore per un gestore specifico, usando l'attrib
 
     .. code-block:: xml
 
-        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
-            <tag name="monolog.processor" handler="firephp" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
+                    <tag name="monolog.processor" handler="firephp" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
-        $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
-        $definition->addTag('monolog.processor', array('handler' => 'firephp');
-        $container->register('mio_servizio', $definition);
+        $container
+            ->register('mio_servizio', 'Monolog\Processor\IntrospectionProcessor')
+            ->addTag('monolog.processor', array('handler' => 'firephp'))
+        ;
 
 Si può anche aggiungere un processore per uno specifico canale di log, usando
 l'attributo ``channel``. Il seguente registrerà il processore solo per il canale di log
@@ -768,15 +848,24 @@ l'attributo ``channel``. Il seguente registrerà il processore solo per il canal
 
     .. code-block:: xml
 
-        <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
-            <tag name="monolog.processor" channel="security" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_servizio" class="Monolog\Processor\IntrospectionProcessor">
+                    <tag name="monolog.processor" channel="security" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
-        $definition = new Definition('Monolog\Processor\IntrospectionProcessor');
-        $definition->addTag('monolog.processor', array('channel' => 'security');
-        $container->register('mio_servizio', $definition);
+        $container
+            ->register('mio_servizio', 'Monolog\Processor\IntrospectionProcessor')
+            ->addTag('monolog.processor', array('channel' => 'security'))
+        ;
 
 .. note::
 
@@ -796,21 +885,32 @@ una configurazione e assegnargli il tag ``routing.loader``:
     .. code-block:: yaml
 
         services:
-            routing.loader.your_loader_name:
-                class: Nome\Pienamente\QUalificato\Classe\Loader
+            routing.loader.nome_caricatore:
+                class: Nome\Pienamente\QUalificato\Classe\Caricatore
                 tags:
                     - { name: routing.loader }
 
     .. code-block:: xml
 
-        <service id="routing.loader.your_loader_name" class="Nome\Pienamente\QUalificato\Classe\Loader">
-            <tag name="routing.loader" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="routing.loader.nome_caricatore"
+                    class="Nome\Pienamente\QUalificato\Classe\Caricatore">
+
+                    <tag name="routing.loader" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         $container
-            ->register('routing.loader.your_loader_name', 'Nome\Pienamente\QUalificato\Classe\Loader')
+            ->register('routing.loader.nome_caricatore', 'Nome\Pienamente\QUalificato\Classe\Caricatore')
             ->addTag('routing.loader')
         ;
 
@@ -903,21 +1003,32 @@ template):
     .. code-block:: yaml
 
         services:
-            templating.helper.il_mio_aiutante:
+            templating.helper.mio_aiutante:
                 class: Nome\Pienamente\QUalificato\Classe\Aiutante
                 tags:
                     - { name: templating.helper, alias: nome_alias }
 
     .. code-block:: xml
 
-        <service id="templating.helper.il_mio_aiutante" class="Nome\Pienamente\QUalificato\Classe\Aiutante">
-            <tag name="templating.helper" alias="nome_alias" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="templating.helper.mio_aiutante"
+                    class="Nome\Pienamente\QUalificato\Classe\Aiutante">
+
+                    <tag name="templating.helper" alias="_alias" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         $container
-            ->register('templating.helper.il_mio_aiutante', 'Nome\Pienamente\QUalificato\Classe\Aiutante')
+            ->register('templating.helper.mio_aiutante', 'Nome\Pienamente\QUalificato\Classe\Aiutante')
             ->addTag('templating.helper', array('alias' => 'nome_alias'))
         ;
 
@@ -963,21 +1074,32 @@ Registrare il caricatore come servizio e assegnargli il tag ``translation.loader
     .. code-block:: yaml
 
         services:
-            main.translation.my_custom_loader:
-                class: Acme\MainBundle\Translation\MyCustomLoader
+            main.translation.mio_caricatore:
+                class: Acme\MainBundle\Translation\MioCaricatore
                 tags:
                     - { name: translation.loader, alias: bin }
 
     .. code-block:: xml
 
-        <service id="main.translation.my_custom_loader" class="Acme\MainBundle\Translation\MyCustomLoader">
-            <tag name="translation.loader" alias="bin" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="main.translation.mio_caricatore"
+                    class="Acme\MainBundle\Translation\MioCaricatore">
+
+                    <tag name="translation.loader" alias="bin" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         $container
-            ->register('main.translation.my_custom_loader', 'Acme\MainBundle\Translation\MyCustomLoader')
+            ->register('main.translation.mio_caricatore', 'Acme\MainBundle\Translation\MioCaricatore')
             ->addTag('translation.loader', array('alias' => 'bin'))
         ;
 
@@ -1051,10 +1173,20 @@ obbligatoria: ``alias``, che definisce il nome dell'estrattore::
 
     .. code-block:: xml
 
-        <service id="acme_demo.translation.extractor.pippo"
-            class="Acme\DemoBundle\Translation\PippoExtractor">
-            <tag name="translation.extractor" alias="pippo" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="acme_demo.translation.extractor.foo"
+                    class="Acme\DemoBundle\Translation\PippoExtractor">
+
+                    <tag name="translation.extractor" alias="foo" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -1102,10 +1234,20 @@ servizio il tag ``translation.dumper``. Il tag ha un'unica opzione: ``alias``
 
     .. code-block:: xml
 
-        <service id="acme_demo.translation.dumper.json"
-            class="Acme\DemoBundle\Translation\JsonFileDumper">
-            <tag name="translation.dumper" alias="json" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="acme_demo.translation.dumper.json"
+                    class="Acme\DemoBundle\Translation\JsonFileDumper">
+
+                    <tag name="translation.dumper" alias="json" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -1130,21 +1272,32 @@ configurazione e assegnargli il tag ``twig.extension``:
     .. code-block:: yaml
 
         services:
-            twig.extension.your_extension_name:
+            twig.extension.nome_estensione:
                 class: Nome\Pienamente\QUalificato\Classe\Extension
                 tags:
                     - { name: twig.extension }
 
     .. code-block:: xml
 
-        <service id="twig.extension.your_extension_name" class="Nome\Pienamente\QUalificato\Classe\Extension">
-            <tag name="twig.extension" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="twig.extension.nome_estensione"
+                    class="Nome\Pienamente\QUalificato\Classe\Extension">
+
+                    <tag name="twig.extension" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         $container
-            ->register('twig.extension.your_extension_name', 'Nome\Pienamente\QUalificato\Classe\Extension')
+            ->register('twig.extension.nome_estensione', 'Nome\Pienamente\QUalificato\Classe\Extension')
             ->addTag('twig.extension')
         ;
 
@@ -1170,9 +1323,17 @@ devono essere aggiunte come normali servizi:
 
     .. code-block:: xml
 
-        <service id="twig.extension.intl" class="Twig_Extensions_Extension_Intl">
-            <tag name="twig.extension" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="twig.extension.intl" class="Twig_Extensions_Extension_Intl">
+                    <tag name="twig.extension" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -1203,9 +1364,20 @@ nuovo caricatore e assegnarli il tag ``twig.loader``:
 
     .. code-block:: xml
 
-        <service id="acme.demo_bundle.loader.caricatore_twig" class="Acme\DemoBundle\Loader\CaricatoreTwig">
-            <tag name="twig.loader" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service
+                    id="acme.demo_bundle.loader.caricatore_twig"
+                    class="Acme\DemoBundle\Loader\CaricatoreTwig">
+
+                    <tag name="twig.loader" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 

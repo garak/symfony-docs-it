@@ -25,8 +25,14 @@ Infine, la guida dimostrerà come creare una classe
 :class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` personalizzata,
 per recuperare utenti dalla base dati con condizioni particolari.
 
-Questa guida presume che ci sia un bundle ``Acme\UserBundle`` già pronto
-nell'applicazione.
+.. sidebar:: Codice con gli esempi
+
+    Se si vogliono seguire gli esempi in questo capitolo, creare
+    AcmeUserBundle:
+
+    .. code-block:: bash
+
+        $ php app/console generate:bundle --namespace=Acme/UserBundle
 
 Il modello dei dati
 -------------------
@@ -357,6 +363,69 @@ l'autenticazione. In questo caso, la chiave ``entity`` vuol dire che Symfony use
 il fornitore di entità di Doctrine per caricare gli oggetti ``User`` dalla base dati,
 usando il campo univoco ``username``. In altre parole, dice a Symfony come recuperare
 gli utenti dalla base dati, prima di verificare la validità della password.
+
+.. note::
+
+    Per impostazione predefinita, il fornitore di entità usa il gestore di entità predefinito
+    per recuperare dalla base dati le informazoni sugli utenti. Se si usano
+    :doc:`gestori di entità multipli </cookbook/doctrine/multiple_entity_managers>`,
+    si può specificare quale gestore usare, con l'opzione ``manager_name``:
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+
+            # app/config/config.yml
+            security:
+                # ...
+
+                providers:
+                    administrators:
+                        entity:
+                            class: AcmeUserBundle:User
+                            property: username
+                            manager_name: customer
+
+                # ...
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+            <?xml version="1.0" encoding="UTF-8"?>
+            <srv:container xmlns="http://symfony.com/schema/dic/security"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:srv="http://symfony.com/schema/dic/services"
+                xsi:schemaLocation="http://symfony.com/schema/dic/services
+                    http://symfony.com/schema/dic/services/services-1.0.xsd">
+                <config>
+                    <!-- ... -->
+
+                    <provider name="administrators">
+                        <entity class="AcmeUserBundle:User"
+                            property="username"
+                            manager-name="customer" />
+                    </provider>
+
+                    <!-- ... -->
+                </config>
+            </srv:container>
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $container->loadFromExtension('security', array(
+                // ...
+                'providers' => array(
+                    'administrator' => array(
+                        'entity' => array(
+                            'class' => 'AcmeUserBundle:User',
+                            'property' => 'username',
+                            'manager_name' => 'customer',
+                        ),
+                    ),
+                ),
+                // ...
+            ));
 
 Inibire gli utenti inattivi
 ---------------------------

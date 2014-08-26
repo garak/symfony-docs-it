@@ -32,7 +32,7 @@ dell'utente:
 
     .. code-block:: yaml
 
-        # src/UserBundle/Resources/config/validation.yml
+        # src/Acme/UserBundle/Resources/config/validation.yml
         Acme\UserBundle\Form\Model\ChangePassword:
             properties:
                 oldPassword:
@@ -65,8 +65,10 @@ dell'utente:
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
             <class name="Acme\UserBundle\Form\Model\ChangePassword">
-                <property name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword">
-                    <option name="message">Password attuale sbagliata</option>
+                <property name="oldPassword">
+                    <constraint name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword">
+                        <option name="message">Password attuale sbagliata</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>

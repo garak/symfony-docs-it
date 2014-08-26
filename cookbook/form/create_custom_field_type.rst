@@ -151,6 +151,8 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
     Inoltre, il file principale di configurazione dovrebbe puntare al template personalizzato
     del form, in modo che sia utilizzato per la resa di tutti i form.
 
+    Se si usa Twig:
+
     .. configuration-block::
 
         .. code-block:: yaml
@@ -177,6 +179,51 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
                 'form' => array(
                     'resources' => array(
                         'AcmeDemoBundle:Form:fields.html.twig',
+                    ),
+                ),
+            ));
+
+    Se invece si usano i template PHP, la configurazione dovrebbe essere simile a questa:
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+
+            # app/config/config.yml
+            framework:
+                templating:
+                    form:
+                        resources:
+                            - 'AcmeDemoBundle:Form'
+
+        .. code-block:: xml
+
+            <!-- app/config/config.xml -->
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <container xmlns="http://symfony.com/schema/dic/services"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:framework="http://symfony.com/schema/dic/symfony"
+                xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+                <framework:config>
+                    <framework:templating>
+                        <framework:form>
+                            <framework:resource>AcmeDemoBundle:Form</twig:resource>
+                        </framework:form>
+                    </framework:templating>
+                </framework:config>
+            </container>
+
+        .. code-block:: php
+
+            // app/config/config.php
+            $container->loadFromExtension('framework', array(
+                'templating' => array(
+                    'form' => array(
+                        'resources' => array(
+                            'AcmeDemoBundle:Form',
+                        ),
                     ),
                 ),
             ));

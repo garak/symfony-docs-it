@@ -9,15 +9,16 @@ Rende un elemento HTML ``textarea``.
 +---------------+------------------------------------------------------------------------+
 | Reso come     | tag ``textarea``                                                       |
 +---------------+------------------------------------------------------------------------+
-| Opzioni       | - `data`_                                                              |
-| ereditate     | - `disabled`_                                                          |
+| Opzioni       | - `attr`_                                                              |
+| ereditate     | - `data`_                                                              |
+|               | - `disabled`_                                                          |
 |               | - `empty_data`_                                                        |
 |               | - `error_bubbling`_                                                    |
 |               | - `error_mapping`_                                                     |
 |               | - `label`_                                                             |
 |               | - `label_attr`_                                                        |
 |               | - `mapped`_                                                            |
-|               | - `max_length`_                                                        |
+|               | - `max_length`_ (deprecata da 2.5)                                     |
 |               | - `read_only`_                                                         |
 |               | - `required`_                                                          |
 |               | - `trim`_                                                              |
@@ -31,6 +32,8 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
+.. include:: /reference/forms/types/options/attr.rst.inc
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

@@ -44,7 +44,7 @@ su questo vincolo.
 +----------------+--------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Image`               |
 +----------------+--------------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\ImageeValidator`     |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\ImageValidator`      |
 +----------------+--------------------------------------------------------------------------+
 
 Uso di base
@@ -93,7 +93,6 @@ certe dimensioni, aggiungere il seguente:
                         minHeight: 200
                         maxHeight: 400
 
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -137,15 +136,14 @@ certe dimensioni, aggiungere il seguente:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
-        namespace Acme/BlogBundle/Entity
+
+        namespace Acme\BlogBundle\Entity;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
         {
-            // ...
-
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('headshot', new Assert\Image(array(

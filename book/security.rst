@@ -123,7 +123,7 @@ base HTTP (cioè il classico vecchio box nome utente/password):
                             'ryan' => array(
                                 'password' => 'ryanpass',
                                 'roles' => 'ROLE_USER',
-                                ),
+                            ),
                             'admin' => array(
                                 'password' => 'kitten',
                                 'roles' => 'ROLE_ADMIN',
@@ -456,8 +456,8 @@ Successivamente, creare il controllore che visualizzerà il form di login::
             } else {
                 $error = '';
             }
-            
-            // last username entered by the user
+
+            // ultimo nome utente inserito
             $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
 
             return $this->render(
@@ -600,17 +600,26 @@ vedere :doc:`/cookbook/security/form_login`.
 
         .. code-block:: yaml
 
+            # app/config/security.yml
+
+            # ...
             access_control:
                 - { path: ^/, roles: ROLE_ADMIN }
 
         .. code-block:: xml
 
+            <!-- app/config/security.xml -->
+
+            <!-- ... -->
             <access-control>
                 <rule path="^/" role="ROLE_ADMIN" />
             </access-control>
 
         .. code-block:: php
 
+            // app/config/security.php
+
+            // ...
             'access_control' => array(
                 array('path' => '^/', 'role' => 'ROLE_ADMIN'),
             ),
@@ -621,12 +630,18 @@ vedere :doc:`/cookbook/security/form_login`.
 
         .. code-block:: yaml
 
+            # app/config/security.yml
+
+            # ...
             access_control:
                 - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
                 - { path: ^/, roles: ROLE_ADMIN }
 
         .. code-block:: xml
 
+            <!-- app/config/security.xml -->
+
+            <!-- ... -->
             <access-control>
                 <rule path="^/login" role="IS_AUTHENTICATED_ANONYMOUSLY" />
                 <rule path="^/" role="ROLE_ADMIN" />
@@ -634,6 +649,9 @@ vedere :doc:`/cookbook/security/form_login`.
 
         .. code-block:: php
 
+            // app/config/security.php
+
+            // ...
             'access_control' => array(
                 array('path' => '^/login', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY'),
                 array('path' => '^/', 'role' => 'ROLE_ADMIN'),
@@ -647,6 +665,9 @@ vedere :doc:`/cookbook/security/form_login`.
 
         .. code-block:: yaml
 
+            # app/config/security.yml
+
+            # ...
             firewalls:
                 login_firewall:
                     pattern:   ^/login$
@@ -657,6 +678,9 @@ vedere :doc:`/cookbook/security/form_login`.
 
         .. code-block:: xml
 
+            <!-- app/config/security.xml -->
+
+            <!-- ... -->
             <firewall name="login_firewall" pattern="^/login$">
                 <anonymous />
             </firewall>
@@ -666,6 +690,9 @@ vedere :doc:`/cookbook/security/form_login`.
 
         .. code-block:: php
 
+            // app/config/security.php
+
+            // ...
             'firewalls' => array(
                 'login_firewall' => array(
                     'pattern'   => '^/login$',
@@ -677,7 +704,7 @@ vedere :doc:`/cookbook/security/form_login`.
                 ),
             ),
 
-    **3. Assicurarsi che ``/login_check`` sia dietro a un firewall**
+    **3. Assicurarsi che /login_check sia dietro a un firewall**
 
     Quindi, assicurarsi che l'URL ``check_path`` (ad esempio ``/login_check``)
     sia dietro al firewall che si sta usando per il form di login (in questo esempio,
@@ -743,11 +770,21 @@ il ruolo ``ROLE_ADMIN``.
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <!-- ... -->
-            <rule path="^/admin/users" role="ROLE_SUPER_ADMIN" />
-            <rule path="^/admin" role="ROLE_ADMIN" />
-        </config>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <!-- ... -->
+                <access-control>
+                    <rule path="^/admin/users" role="ROLE_SUPER_ADMIN" />
+                    <rule path="^/admin" role="ROLE_ADMIN" />
+                </access-control>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -780,13 +817,13 @@ verrà usata per garantire l'accesso.
 Ogni ``access_control`` ha varie opzioni che configurano varie
 cose:
 
-* (a) :ref:`se la richiesta in arrivo deve corrispondere a questa voce di controllo di accesso<security-book-access-control-matching-options>`
-* (b) :ref:`una volta corrisposta, se alcune restrizioni di accesso debbano essere applicate<security-book-access-control-enforcement-options>`:
+#. :ref:`se la richiesta in arrivo deve corrispondere a questa voce di controllo di accesso <security-book-access-control-matching-options>`
+#. :ref:`una volta corrisposta, se alcune restrizioni di accesso debbano essere applicate <security-book-access-control-enforcement-options>`:
 
 .. _security-book-access-control-matching-options:
 
-(a) Opzioni di corrispondenza
-.............................
+1. Opzioni di corrispondenza
+............................
 
 Symfony2 crea un'istanza di :class:`Symfony\\Component\\HttpFoundation\\RequestMatcher`
 per ogni voce di ``access_control``, che determina se un dato controllo di accesso
@@ -815,15 +852,30 @@ Si prende il seguente ``access_control`` come esempio:
 
     .. code-block:: xml
 
-            <access-control>
-                <rule path="^/admin" role="ROLE_USER_IP" ip="127.0.0.1" />
-                <rule path="^/admin" role="ROLE_USER_HOST" host="symfony\.com$" />
-                <rule path="^/admin" role="ROLE_USER_METHOD" method="POST, PUT" />
-                <rule path="^/admin" role="ROLE_USER" />
-            </access-control>
+        <!-- app/config/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <!-- ... -->
+                <access-control>
+                    <rule path="^/admin" role="ROLE_USER_IP" ip="127.0.0.1" />
+                    <rule path="^/admin" role="ROLE_USER_HOST" host="symfony\.com$" />
+                    <rule path="^/admin" role="ROLE_USER_METHOD" method="POST, PUT" />
+                    <rule path="^/admin" role="ROLE_USER" />
+                </access-control>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            // ...
             'access_control' => array(
                 array(
                     'path' => '^/admin',
@@ -845,6 +897,7 @@ Si prende il seguente ``access_control`` come esempio:
                     'role' => 'ROLE_USER',
                 ),
             ),
+        ));
 
 Per ogni richiesta in arrivo, Symfony2 deciderà quale ``access_control``
 usare in base a URI, indirizzo IP del client, nome host in arrivo,
@@ -853,8 +906,8 @@ se ``ip``, ``host`` o ``method`` non sono specificati per una voce, ``access_con
 corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
 
 +-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
-| **URI**         | **IP**      | **HOST**    | **METODO** | ``access_control``             | Perché?                                                     |
-+-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
+| URI             | IP          | HOST        | METODO     | ``access_control``             | Perché?                                                     |
++=================+=============+=============+============+================================+=============================================================+
 | ``/admin/user`` | 127.0.0.1   | example.com | GET        | regola #1 (``ROLE_USER_IP``)   | L'URI corrisponde a ``path`` e l'IP a ``ip``.               |
 +-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
 | ``/admin/user`` | 127.0.0.1   | symfony.com | GET        | regola #1 (``ROLE_USER_IP``)   | ``path`` e ``ip`` corrispondono. Corrisponderebbe anche     |
@@ -881,8 +934,8 @@ corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
 
 .. _security-book-access-control-enforcement-options:
 
-(b) Controllo dell'accesso
-..........................
+2. Controllo dell'accesso
+.........................
 
 Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
 *applica* restrizioni di accesso in base alle opzioni ``roles`` e
@@ -948,14 +1001,29 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
 
     .. code-block:: xml
 
-            <access-control>
-                <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY"
-                    ips="127.0.0.1, ::1" />
-                <rule path="^/esi" role="ROLE_NO_ACCESS" />
-            </access-control>
+        <!-- app/config/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <!-- ... -->
+                <access-control>
+                    <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY"
+                        ips="127.0.0.1, ::1" />
+                    <rule path="^/esi" role="ROLE_NO_ACCESS" />
+                </access-control>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            // ...
             'access_control' => array(
                 array(
                     'path' => '^/esi',
@@ -967,6 +1035,7 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
                     'role' => 'ROLE_NO_ACCESS'
                 ),
             ),
+        ));
 
 Ecco come funziona quando il percorso è ``/esi/qualcosa`` dall'IP
 ``10.0.0.1``:
@@ -1063,13 +1132,25 @@ l'utente sarà rinviato a ``https``:
 
     .. code-block:: xml
 
+        <!-- app/config/security.xml -->
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
             <access-control>
-                <rule path="^/cart/checkout" role="IS_AUTHENTICATED_ANONYMOUSLY"
-                    requires_channel="https" />
+                <rule path="^/cart/checkout"
+                    role="IS_AUTHENTICATED_ANONYMOUSLY"
+                    requires-channel="https" />
             </access-control>
+        </srv:container>
 
     .. code-block:: php
 
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
             'access_control' => array(
                 array(
                     'path' => '^/cart/checkout',
@@ -1077,6 +1158,7 @@ l'utente sarà rinviato a ``https``:
                     'requires_channel' => 'https',
                 ),
             ),
+        ));
 
 .. _book-security-securing-controller:
 
@@ -1189,15 +1271,23 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <!-- ... -->
-            <provider name="default_provider">
-                <memory>
-                    <user name="ryan" password="ryanpass" roles="ROLE_USER" />
-                    <user name="admin" password="kitten" roles="ROLE_ADMIN" />
-                </memory>
-            </provider>
-        </config>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <!-- ... -->
+                <provider name="default_provider">
+                    <memory>
+                        <user name="ryan" password="ryanpass" roles="ROLE_USER" />
+                        <user name="admin" password="kitten" roles="ROLE_ADMIN" />
+                    </memory>
+                </provider>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -1314,11 +1404,19 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <provider name="main">
-                <entity class="Acme\UserBundle\Entity\User" property="username" />
-            </provider>
-        </config>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <provider name="main">
+                    <entity class="Acme\UserBundle\Entity\User" property="username" />
+                </provider>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -1384,24 +1482,34 @@ si può fare come segue:
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <!-- ... -->
-            <provider name="in_memory">
-                <memory>
-                    <user name="ryan"
-                        password="$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO"
-                        roles="ROLE_USER" />
-                    <user name="admin"
-                        password="$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW"
-                        roles="ROLE_ADMIN" />
-                </memory>
-            </provider>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <encoder class="Symfony\Component\Security\Core\User\User"
-                algorithm="bcrypt"
-                cost="12"
-            />
-        </config>
+            <config>
+                <!-- ... -->
+                <provider name="in_memory">
+                    <memory>
+                        <user
+                            name="ryan"
+                            password="$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO"
+                            roles="ROLE_USER" />
+                        <user
+                            name="admin"
+                            password="$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW"
+                            roles="ROLE_ADMIN" />
+                    </memory>
+                </provider>
+
+                <encoder
+                    class="Symfony\Component\Security\Core\User\User"
+                    algorithm="bcrypt"
+                    cost="12" />
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -1499,8 +1607,8 @@ In un controllore, si può usare una scorciatoia:
 .. note::
 
     Gli utenti anonimi sono tecnicamente autenticati, nel senso che il metodo ``isAuthenticated()``
-    dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se 
-    l'utente sia effettivamente autenticato, verificare il ruolo 
+    dell'oggetto di un utente anonimo restituirà ``true``. Per controllare se
+    l'utente sia effettivamente autenticato, verificare il ruolo
     ``IS_AUTHENTICATED_FULLY``.
 
 In un template Twig, si può accedere a questo oggetto tramite la chiave ``app.user``,
@@ -1546,22 +1654,30 @@ un nuovo fornitore, che li unisca:
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <provider name="chain_provider">
-                <chain>
-                    <provider>in_memory</provider>
-                    <provider>user_db</provider>
-                </chain>
-            </provider>
-            <provider name="in_memory">
-                <memory>
-                    <user name="foo" password="test" />
-                </memory>
-            </provider>
-            <provider name="user_db">
-                <entity class="Acme\UserBundle\Entity\User" property="username" />
-            </provider>
-        </config>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <provider name="chain_provider">
+                    <chain>
+                        <provider>in_memory</provider>
+                        <provider>user_db</provider>
+                    </chain>
+                </provider>
+                <provider name="in_memory">
+                    <memory>
+                        <user name="foo" password="test" />
+                    </memory>
+                </provider>
+                <provider name="user_db">
+                    <entity class="Acme\UserBundle\Entity\User" property="username" />
+                </provider>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -1606,6 +1722,7 @@ viene sempre utilizzato il primo fornitore:
             firewalls:
                 secured_area:
                     # ...
+                    pattern: ^/
                     provider: user_db
                     http_basic:
                         realm: "Demo area protetta"
@@ -1615,13 +1732,21 @@ viene sempre utilizzato il primo fornitore:
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <firewall name="secured_area" pattern="^/" provider="user_db">
-                <!-- ... -->
-                <http-basic realm="Demo area protetta" provider="in_memory" />
-                <form-login />
-            </firewall>
-        </config>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <firewall name="secured_area" pattern="^/" provider="user_db">
+                    <!-- ... -->
+                    <http-basic realm="Demo area protetta" provider="in_memory" />
+                    <form-login />
+                </firewall>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -1630,6 +1755,7 @@ viene sempre utilizzato il primo fornitore:
             'firewalls' => array(
                 'secured_area' => array(
                     // ...
+                    'pattern' => '^/',
                     'provider' => 'user_db',
                     'http_basic' => array(
                         // ...
@@ -1688,10 +1814,18 @@ dei ruoli creando una gerarchia di ruoli:
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <role id="ROLE_ADMIN">ROLE_USER</role>
-            <role id="ROLE_SUPER_ADMIN">ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH</role>
-        </config>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <role id="ROLE_ADMIN">ROLE_USER</role>
+                <role id="ROLE_SUPER_ADMIN">ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH</role>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -1936,13 +2070,21 @@ parametro di configurazione ``logout``:
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <firewall name="secured_area" pattern="^/">
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <firewall name="secured_area" pattern="^/">
+                    <!-- ... -->
+                    <logout path="/logout" target="/" />
+                </firewall>
                 <!-- ... -->
-                <logout path="/logout" target="/" />
-            </firewall>
-            <!-- ... -->
-        </config>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 
@@ -2042,11 +2184,19 @@ alcun cookie):
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
-        <config>
-            <firewall stateless="true">
-                <http-basic />
-            </firewall>
-        </config>
+        <?xml version="1.0" encoding="UTF-8"?>
+        <srv:container xmlns="http://symfony.com/schema/dic/security"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:srv="http://symfony.com/schema/dic/services"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <config>
+                <firewall stateless="true">
+                    <http-basic />
+                </firewall>
+            </config>
+        </srv:container>
 
     .. code-block:: php
 

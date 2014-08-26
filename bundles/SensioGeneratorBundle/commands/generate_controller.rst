@@ -54,7 +54,7 @@ Opzioni disponibili
         $ php app/console generate:controller --route-format=annotation
 
 * ``--template-format``: (**twig**) [valori: twig o php] Questa opzione determina
-  il formato da usare per i template. Il formato predefinito usato è``twig``:
+  il formato da usare per i template. Il formato predefinito usato è ``twig``:
 
 
     .. code-block:: bash

@@ -162,6 +162,10 @@ il kernel della cache::
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
 le risposte dell'applicazione e restituendole al client.
 
+Ora che si sta usando un "proxy", si dovrà configurare ``127.0.0.1`` sotto la
+voce ``trusted_proxies`` (vedere :ref:`il riferimento <reference-framework-trusted-proxies>`).
+In caso contrario, l'indirizzo IP del client e alcune altre cose non saranno riportati correttamente.
+
 .. tip::
 
     Il kernel della cache ha uno speciale metodo ``getLog()``, che restituisce una
@@ -759,6 +763,12 @@ entrambe. In altre parole, usando sia la scadenza che la validazione, si può
 istruire la cache per servire il contenuto in cache, controllando ogni tanto
 (la scadenza) per verificare che il contenuto sia ancora valido.
 
+.. tip::
+
+    Si possono anche definire header HTTP per la scadenza e la validazione della cache usando le
+    annotazioni. Vedere la 
+    :doc:`documentazione di FrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/annotations/cache>`.
+
 .. index::
     pair: Cache; Configurazione
 
@@ -862,13 +872,12 @@ Per usare ESI, assicurarsi prima di tutto di abilitarlo nella configurazione del
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
-            <framework:config ...>
+            <framework:config>
                 <!-- ... -->
                 <framework:esi enabled="true" />
             </framework:config>
-
         </container>
 
     .. code-block:: php
@@ -876,7 +885,7 @@ Per usare ESI, assicurarsi prima di tutto di abilitarlo nella configurazione del
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             // ...
-            'esi'    => array('enabled' => true),
+            'esi' => array('enabled' => true),
         ));
 
 Supponiamo ora di avere una pagina relativamente statica, tranne per un elenco di
@@ -912,10 +921,10 @@ Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
         {# ... o a un URL #}
         {{ render_esi(url('latest_news', { 'max': 5 })) }}
 
-    .. code-block:: php
+    .. code-block:: html+php
 
         <?php echo $view['actions']->render(
-            new ControllerReference('...:news', array('max' => 5)),
+            new \Symfony\Component\HttpKernel\Controller\ControllerReference('...:news', array('max' => 5)),
             array('strategy' => 'esi'))
         ?>
 
@@ -924,7 +933,7 @@ Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
             array('strategy' => 'esi'),
         ) ?>
 
-Usando l'opzione ``esi``(che usa a sua volta la funzoine Twig ``render_esi``), si dice
+Usando l'opzione ``esi`` (che usa a sua volta la funzione Twig ``render_esi``), si dice
 a Symfony2 che l'azione va resa come tag ESI. Ci si potrebbe chiedere
 perché voler usare un aiutante invece di scrivere direttamente il tag ESI.
 Il motivo è che un aiutante fa funzionare l'applicazione anche
@@ -984,8 +993,9 @@ che va abilitato nella configurazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:doctrine="http://symfony.com/schema/dic/framework"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
+            <!-- ... -->
             <framework:config>
                 <framework:fragments path="/_fragment" />
             </framework:config>

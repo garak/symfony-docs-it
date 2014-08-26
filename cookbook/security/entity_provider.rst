@@ -647,7 +647,7 @@ questa sezione.
 .. caution::
 
     In una configurazione tipica, si dovrebbe sempre restituire almeno un ruolo nel
-    metodo``getRoles()``. Per convenzione, solitamente si restituisce un ruolo chiamato
+    metodo ``getRoles()``. Per convenzione, solitamente si restituisce un ruolo chiamato
     ``ROLE_USER``. Se non si restituisce alcun ruolo, l'utente potrebbe apparire come
     non autenticato.
 

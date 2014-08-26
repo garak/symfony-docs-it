@@ -9,7 +9,7 @@ e molto altro.
 Contribuire
 -----------
 
-Prima di contribuire, è necessario famigliarizzare con il :doc:`linguaggio di markup<format>` 
+Prima di contribuire, è necessario familiarizzare con il :doc:`linguaggio di markup<format>` 
 usato per la documentazione.
 
 La documentazione di Symfony2 è ospitata da GitHub:

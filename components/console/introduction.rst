@@ -8,17 +8,17 @@ Il componente Console
     Il componente Console semplifica la creazione di eleganti e testabili comandi
     da terminale.
 
-Symfony2 viene distribuito con un componente Console che permette di creare
+Symfony2 viene distribuito con un componente Console, che permette di creare
 comandi da terminale. I comandi da terminale possono essere utilizzati per qualsiasi
-lavoro ripetivo come i lavori di cron, le importazioni o lavori batch.
+lavoro ripetivo, come i lavori di cron, importazioni o lavori batch.
 
 Installazione
 -------------
 
-Il componente può essere installato in diversi modi:
+Il componente può essere installato in due modi:
 
-* Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
-* Installandolo :doc:`via Composer</components/using_components>` (``symfony/console`` in `Packagist`_).
+* Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/console`` su `Packagist`_);
+* Utilizzando il repository Git ufficiale (https://github.com/symfony/Console).
 
 .. note::
 
@@ -140,6 +140,9 @@ l'output. Ad esempio::
 Si può definire un proprio stile, usando la classe
 :class:`Symfony\\Component\\Console\\Formatter\\OutputFormatterStyle`::
 
+    use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+
+    // ...
     $style = new OutputFormatterStyle('red', 'yellow', array('bold', 'blink'));
     $output->getFormatter()->setStyle('fire', $style);
     $output->writeln('<fire>foo</fire>');
@@ -159,6 +162,8 @@ Si possono anche impostare colori e opzioni dentro il tag::
 
     // testo grassetto su sfondo giallo
     $output->writeln('<bg=yellow;options=bold>pippo</bg=yellow;options=bold>');
+
+.. _verbosity-levels:
 
 Livelli di verbosità
 ~~~~~~~~~~~~~~~~~~~~
@@ -196,18 +201,51 @@ di verbosità. Per esempio::
         $output->writeln(...);
     }
 
-Quando si usa il livello quieto, viene soppresso ogni output, poiché iol metodo
-:method:`Symfony\Component\Console\Output::write<Symfony\\Component\\Console\\Output::write>`
-restituisce e non stampa nulla.
+.. versionadded:: 2.4
+   I metodi :method:`Symfony\\Component\\Console\\Output\\Output::isQuiet`,
+   :method:`Symfony\\Component\\Console\\Output\\Output::isVerbose`,
+   :method:`Symfony\\Component\\Console\\Output\\Output::isVeryVerbose` e
+   :method:`Symfony\\Component\\Console\\Output\\Output::isDebug`
+   sono stati introdotti in Symfony 2.4
 
-Utilizzo degli argomenti nei comandi
-------------------------------------
+Ci sono anche metodi più semantici da usare, per testare ciascun livello
+di verbosità::
+
+    if ($output->isQuiet()) {
+        // ...
+    }
+
+    if ($output->isVerbose()) {
+        // ...
+    }
+
+    if ($output->isVeryVerbose()) {
+        // ...
+    }
+
+    if ($output->isDebug()) {
+        // ...
+    }
+
+Quando si usa il livello quieto, viene soppresso ogni output, poiché il metodo
+:method:`Symfony\\Component\\Console\\Output::write`
+esce senza stampare nulla.
+
+.. tip::
+
+    MonologBridge fornisce una classe :class:`Symfony\\Bridge\\Monolog\\Handler\\ConsoleHandler`,
+    che consente di mostrare messaggi sulla console. Questo è un modo più pulito
+    rispetto a inserire le chiamate di output all'interno di condizioni. Per un esempio di utilizzo nel
+    framework Symfony, vedere :doc:`/cookbook/logging/monolog_console`.
+
+Utilizzo dei parametri nei comandi
+----------------------------------
 
 La parte più interessante dei comandi è data dalla possibilità di mettere a disposizione 
-parametri e argomenti. Gli argomenti sono delle stringhe, separate da spazi, che seguono
+parametri e opzioni. I parametri sono delle stringhe, separate da spazi, che seguono
 il nome stesso del comando. Devono essere inseriti in un ordine preciso e possono essere opzionali o 
-obbligatori. Ad esempio, per aggiungere un argomento opzionale ``cognome`` al precedente
-comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
+obbligatori. Ad esempio, per aggiungere un parametro opzionale ``cognome`` al precedente
+comando e rendere il parametro ``nome`` obbligatorio, si dovrà scrivere::
 
     $this
         // ...
@@ -222,7 +260,7 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
             'Il tuo cognome?'
         )
 
-A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
+A questo punto si può accedere al parametro ``cognome`` dal codice::
 
     if ($cognome = $input->getArgument('cognome')) {
         $testo .= ' '.$cognome;
@@ -380,7 +418,7 @@ di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTeste
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::
 
-    use Acme\Command\SalutaCommand;
+    use Acme\Console\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
 
@@ -409,7 +447,7 @@ Si può testare l'invio di argomenti e opzioni al comando, passandoli come
 array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::execute`::
 
-    use Acme\Command\SalutaCommand;
+    use Acme\Console\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
 
@@ -453,13 +491,13 @@ Richiamare un comando da un altro è molto semplice::
     {
         $comando = $this->getApplication()->find('demo:saluta');
 
-        $argomenti = array(
+        $parametri = array(
             'command' => 'demo:saluta',
             'nome'    => 'Fabien',
             '--urla'  => true,
         );
 
-        $input = new ArrayInput($argomenti);
+        $input = new ArrayInput($parametri);
         $codiceDiRitorno = $comando->run($input, $output);
 
         // ...
@@ -494,4 +532,4 @@ Saperne di più
 * :doc:`/components/console/events`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
-.. _ANSICON: https://github.com/adoxa/ansicon/downloads
+.. _ANSICON: https://github.com/adoxa/ansicon/releases

@@ -85,7 +85,7 @@ file ``app/config/parameters.yml``:
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
                 xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
                 <doctrine:config>
                     <doctrine:dbal
@@ -93,10 +93,8 @@ file ``app/config/parameters.yml``:
                         host="%database_host%"
                         dbname="%database_name%"
                         user="%database_user%"
-                        password="%database_password%"
-                    />
+                        password="%database_password%" />
                 </doctrine:config>
-
             </container>
 
         .. code-block:: php
@@ -175,16 +173,14 @@ base dati al posto nostro:
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
                 xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
-                <doctrine:config
-                    driver="pdo_sqlite"
-                    path="%kernel.root_dir%/sqlite.db"
-                    charset="UTF-8"
-                >
-                    <!-- ... -->
+                <doctrine:config>
+                    <doctrine:dbal
+                        driver="pdo_sqlite"
+                        path="%kernel.root_dir%/sqlite.db"
+                        charset="UTF-8" />
                 </doctrine:config>
-
             </container>
 
         .. code-block:: php
@@ -319,17 +315,17 @@ in diversi formati, inclusi YAML, XML o direttamente dentro la classe
         <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
             <entity name="Acme\StoreBundle\Entity\Product" table="product">
-                <id name="id" type="integer" column="id">
+                <id name="id" type="integer">
                     <generator strategy="AUTO" />
                 </id>
-                <field name="name" column="name" type="string" length="100" />
-                <field name="price" column="price" type="decimal" scale="2" />
-                <field name="description" column="description" type="text" />
+                <field name="name" type="string" length="100" />
+                <field name="price" type="decimal" scale="2" />
+                <field name="description" type="text" />
             </entity>
         </doctrine-mapping>
 
@@ -413,12 +409,12 @@ metodi già presenti).
 
     Con il comando ``doctrine:generate:entities`` si può:
 
-        * generare getter e setter,
+    * generare getter e setter;
 
-        * generare classi repository configurate con l'annotazione
-            ``@ORM\Entity(repositoryClass="...")``,
+    * generare classi repository configurate con l'annotazione
+      ``@ORM\Entity(repositoryClass="...")``;
 
-        * generare il costruttore appropriato per relazioni 1:n e n:m.
+    * generare il costruttore appropriato per relazioni 1:n e n:m.
 
     Il comando ``doctrine:generate:entities`` salva una copia di backup del file
     originale ``Product.php``, chiamata ``Product.php~``. In alcuni casi, la presenza
@@ -826,13 +822,15 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
         <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-            <entity name="Acme\StoreBundle\Entity\Product"
-                    repository-class="Acme\StoreBundle\Entity\ProductRepository">
-                    <!-- ... -->
+            <entity
+                name="Acme\StoreBundle\Entity\Product"
+                repository-class="Acme\StoreBundle\Entity\ProductRepository">
+
+                <!-- ... -->
             </entity>
         </doctrine-mapping>
 
@@ -945,17 +943,18 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
     .. code-block:: xml
 
         <!-- src/Acme/StoreBundle/Resources/config/doctrine/Category.orm.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
             <entity name="Acme\StoreBundle\Entity\Category">
                 <!-- ... -->
-                <one-to-many field="products"
+                <one-to-many
+                    field="products"
                     target-entity="Product"
-                    mapped-by="category"
-                />
+                    mapped-by="category" />
 
                 <!--
                     non dimenticare di inizializzare la collection
@@ -1023,22 +1022,21 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
     .. code-block:: xml
 
         <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+                http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
             <entity name="Acme\StoreBundle\Entity\Product">
                 <!-- ... -->
-                <many-to-one field="category"
+                <many-to-one
+                    field="category"
                     target-entity="Category"
                     inversed-by="products"
-                    join-column="category"
-                >
-                    <join-column
-                        name="category_id"
-                        referenced-column-name="id"
-                    />
+                    join-column="category">
+
+                    <join-column name="category_id" referenced-column-name="id" />
                 </many-to-one>
             </entity>
         </doctrine-mapping>
@@ -1173,7 +1171,7 @@ Si può anche cercare nella direzione opposta::
     }
 
 In questo caso succedono le stesse cose: prima si cerca un singolo oggetto ``Category``,
-poi Doctrine esegue una seconda query per recuperare l'oggetto ``Product`
+poi Doctrine esegue una seconda query per recuperare l'oggetto ``Product``
 correlato, ma solo quando/se richiesto (cioè al richiamo di ``->getProducts()``).
 La variabile ``$products`` è un array di tutti gli oggetti ``Product``
 correlati con il dato oggetto ``Category`` tramite il loro valore ``category_id``.
@@ -1226,8 +1224,8 @@ il seguente metodo alla classe ``ProductRepository``::
     public function findOneByIdJoinedToCategory($id)
     {
         $query = $this->getEntityManager()
-            ->createQuery('
-                SELECT p, c FROM AcmeStoreBundle:Product p
+            ->createQuery(
+                'SELECT p, c FROM AcmeStoreBundle:Product p
                 JOIN p.category c
                 WHERE p.id = :id'
             )->setParameter('id', $id);
@@ -1306,6 +1304,8 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
 
     .. code-block:: php-annotations
 
+        // src/Acme/StoreBundle/Entity/Product.php
+
         /**
          * @ORM\PrePersist
          */
@@ -1328,16 +1328,15 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
         <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
             <entity name="Acme\StoreBundle\Entity\Product">
-                    <!-- ... -->
-                    <lifecycle-callbacks>
-                        <lifecycle-callback type="prePersist"
-                            method="setCreatedAtValue" />
-                    </lifecycle-callbacks>
+                <!-- ... -->
+                <lifecycle-callbacks>
+                    <lifecycle-callback type="prePersist" method="setCreatedAtValue" />
+                </lifecycle-callbacks>
             </entity>
         </doctrine-mapping>
 
@@ -1396,7 +1395,7 @@ Saperne di più
 ~~~~~~~~~~~~~~
 
 Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
-:doc:`ricettario</cookbook/index>`, che include i seguenti articoli:
+:doc:`ricettario </cookbook/index>`, che include i seguenti articoli:
 
 * :doc:`/cookbook/doctrine/common_extensions`
 * :doc:`/cookbook/doctrine/console`

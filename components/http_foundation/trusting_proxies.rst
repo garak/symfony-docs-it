@@ -6,7 +6,7 @@ Proxy fidati
 
 .. tip::
 
-    If you're using the Symfony Framework, start by reading
+    Se si usa il framework Symfony, si inizi leggendo
     :doc:`/cookbook/request/load_balancer_reverse_proxy`.
 
 Se ci si trova dietro un proxy, come un bilanciatore di carico, è possibile che

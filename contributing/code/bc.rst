@@ -52,7 +52,7 @@ legato a tali regole.
     interfacce non andrebbero usate o implementate.
 
 Se si vuole implementare un'interfaccia, ci si deve prima assicurare che
-sia un'interfaccia API. Si possono riconoscere le interfacce API dal tag``@api``
+sia un'interfaccia API. Si possono riconoscere le interfacce API dal tag ``@api``
 nel codice sorgente::
 
     /**

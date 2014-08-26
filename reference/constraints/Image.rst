@@ -27,9 +27,9 @@ su questo vincolo.
 |                | - `minHeightMessage`_                                                      |
 |                | - Vedere :doc:`File</reference/constraints/File>` per le opzioni ereditate |
 +----------------+----------------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\File`                  |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Image`                 |
 +----------------+----------------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\FileValidator`         |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\ImageValidator`        |
 +----------------+----------------------------------------------------------------------------+
 
 Uso di base
@@ -78,10 +78,11 @@ certe dimensioni, aggiungere il seguente:
                         minHeight: 200
                         maxHeight: 400
 
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
+        namespace Acme\BlogBundle\Entity;
+
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -120,15 +121,13 @@ certe dimensioni, aggiungere il seguente:
     .. code-block:: php
 
         // src/Acme/BlogBundle/Entity/Author.php
-        // ...
+        namespace Acme\BlogBundle\Entity;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\Image;
 
         class Author
         {
-            // ...
-
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('headshot', new Image(array(
@@ -215,7 +214,7 @@ minWidthMessage
 
 **tipo**: ``string`` **predefinito**: ``The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px``
 
-Il messaggio di errore se la larghezza dell'immagine è inferiore a `maxWidth`_.
+Il messaggio di errore se la larghezza dell'immagine è inferiore a `minWidth`_.
 
 maxHeightMessage
 ~~~~~~~~~~~~~~~~
@@ -229,6 +228,6 @@ minHeightMessage
 
 **tipo**: ``string`` **predefinito**: ``The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px``
 
-Il messaggio di errore se l'altezza dell'immagine è inferiore a `maxHeight`_.
+Il messaggio di errore se l'altezza dell'immagine è inferiore a `minHeight`_.
 
 .. _`sito web di IANA`: http://www.iana.org/assignments/media-types/image/index.html

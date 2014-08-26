@@ -6,7 +6,7 @@ Si usa di solito, per esempio, per prevenire che un nuovo utente si registri
 usando un indirizzo email già esistente nel sistema.
 
 +----------------+-------------------------------------------------------------------------------------+
-| Si applica a   | :ref:`class<validation-class-target>`                                               |
+| Si applica a   | :ref:`class <validation-class-target>`                                              |
 +----------------+-------------------------------------------------------------------------------------+
 | Opzioni        | - `fields`_                                                                         |
 |                | - `message`_                                                                        |
@@ -17,15 +17,15 @@ usando un indirizzo email già esistente nel sistema.
 +----------------+-------------------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity`            |
 +----------------+-------------------------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity\\Validator` |
+| Validatore     | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntityValidator`   |
 +----------------+-------------------------------------------------------------------------------------+
 
 Uso di base
 -----------
 
 Si supponga di avere un ``AcmeUserBundle`` con un entità ``User``, che ha un campo
-``email``. Si può usare il vincolo ``Unique`` per garantire che il campo
-``email`` rimanga unico tra tutti i vincoli della propria tabella degli
+``email``. Si può usare il vincolo ``Unique`` per garantire che il
+campo ``email`` rimanga unico tra tutti i vincoli della propria tabella degli
 utenti:
 
 .. configuration-block::
@@ -42,7 +42,7 @@ utenti:
 
     .. code-block:: php-annotations
 
-        // Acme/UserBundle/Entity/User.php
+        // Acme/UserBundle/Entity/Author.php
         namespace Acme\UserBundle\Entity;
 
         use Symfony\Component\Validator\Constraints as Assert;
@@ -79,7 +79,6 @@ utenti:
             <class name="Acme\UserBundle\Entity\Author">
                 <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
                     <option name="fields">email</option>
-                    <option name="message">This email already exists.</option>
                 </constraint>
                 <property name="email">
                     <constraint name="Email" />
@@ -104,7 +103,6 @@ utenti:
             {
                 $metadata->addConstraint(new UniqueEntity(array(
                     'fields'  => 'email',
-                    'message' => 'This email already exists.',
                 )));
 
                 $metadata->addPropertyConstraint('email', new Assert\Email());
@@ -220,7 +218,7 @@ Si consideri questo esempio:
 
             <class name="Acme\AdministrationBundle\Entity\Service">
                 <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
-                    <option name="field">
+                    <option name="fields">
                         <value>host</value>
                         <value>port</value>
                     </option>

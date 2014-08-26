@@ -131,7 +131,7 @@ sopra, tranne per l'uso del tag ``stylesheets``.
 .. note::
 
     Se si usano i nomi di blocchi predefiniti di Symfony Standard Edition,
-    il tag ``stylesheets``si troverà di solito in un blocco ``stylesheets``:
+    il tag ``stylesheets`` si troverà di solito in un blocco ``stylesheets``:
 
 
     .. code-block:: html+jinja

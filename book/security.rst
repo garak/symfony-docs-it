@@ -703,7 +703,7 @@ vedere :doc:`/cookbook/security/form_login`.
                 ),
             ),
 
-    **3. Assicurarsi che ``/login_check`` sia dietro a un firewall**
+    **3. Assicurarsi che /login_check sia dietro a un firewall**
 
     Quindi, assicurarsi che l'URL ``check_path`` (ad esempio ``/login_check``)
     sia dietro al firewall che si sta usando per il form di login (in questo esempio,

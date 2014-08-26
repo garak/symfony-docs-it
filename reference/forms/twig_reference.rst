@@ -351,7 +351,7 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 +------------------------+--------------------------------------------------------------------------------------+
 | ``label``              | La stringa da rendere per la  label                                                  |
 +------------------------+--------------------------------------------------------------------------------------+
-| ``multipart``          | Se ``true``, ``form_enctype``renderà ``enctype="multipart/form-data"``.              |
+| ``multipart``          | Se ``true``, ``form_enctype`` renderà ``enctype="multipart/form-data"``.             |
 |                        | Si applica solo all'elemento form principale.                                        |
 +------------------------+--------------------------------------------------------------------------------------+
 | ``attr``               | Un array chiave-valore resi come attributi HTML del campo                            |

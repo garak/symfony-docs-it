@@ -26,7 +26,7 @@ valuta valida, si può fare come segue:
 
     .. code-block:: yaml
 
-        # src/EcommerceBundle/Resources/config/validation.yml
+        # src/Acme/EcommerceBundle/Resources/config/validation.yml
         Acme\EcommerceBundle\Entity\Order:
             properties:
                 currency:
@@ -50,11 +50,17 @@ valuta valida, si può fare come segue:
     .. code-block:: xml
 
         <!-- src/Acme/EcommerceBundle/Resources/config/validation.xml -->
-        <class name="Acme\EcommerceBundle\Entity\Order">
-            <property name="currency">
-                <constraint name="Currency" />
-            </property>
-        </class>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+            <class name="Acme\EcommerceBundle\Entity\Order">
+                <property name="currency">
+                    <constraint name="Currency" />
+                </property>
+            </class>
+        </constraint-mapping>
 
     .. code-block:: php
 

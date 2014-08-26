@@ -46,7 +46,7 @@ con caratteristiche aggiuntive. Fra gli esempi ci sono:
 * Aggiungere un livello di cache HTTP wrapperizzando il kernel in una istanza di
   :ref:`AppCache<symfony-gateway-cache>`;
 * Abilitare (o evitare) la :doc:`ClassCache </cookbook/debugging>`
-* Abilitare il :doc:`componente Debug </components/debug/introduction>`.
+* Abilitare il :doc:`componente Debug </components/debug>`.
 
 Il front controller può essere scelto richiedendo URL come:
 
@@ -103,7 +103,7 @@ servendo quindi come `metodi template`_:
 
 Per riempire questi (piccoli) buchi, l'applicazione deve essere una sottoclasse 
 del Kernel e implementare questi metodi. La classe che ne risulta viene convenzionalmente
-chiamata``AppKernel``.
+chiamata ``AppKernel``.
 
 Ancora una volta Symfony2 Standard Edition fornisce un `AppKernel`_ nella cartella ``app/``. 
 Per decidere quali Bundle creare questa classe usa il nome dell'ambiente, che viene passato al

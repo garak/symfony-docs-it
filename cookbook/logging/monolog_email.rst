@@ -58,10 +58,18 @@ singolarmente.
                     name="swift"
                     type="swift_mailer"
                     from-email="error@example.com"
-                    to-email="error@example.com"
                     subject="Si è verificato un errore!"
-                    level="debug"
-                />
+                    level="debug">
+
+                    <monolog:to-email>error@example.com</monolog:to-email>
+
+                    <!-- or multiple to-email elements -->
+                    <!--
+                    <monolog:to-email>dev1@example.com</monolog:to-email>
+                    <monolog:to-email>dev2@example.com</monolog:to-email>
+                    ...
+                    -->
+                </monolog:handler>
             </monolog:config>
         </container>
 
@@ -99,8 +107,8 @@ Esso logga ogni cosa, inclusi i messaggi sotto il livello di azione. Il livello
 
 .. tip::
 
-    Se si vuole che siano inviati per email sia gli errori 400 che i 500, impostare
-    ``action_level`` a ``error``, invece che a ``critical``.
+    Se si vuole che siano inviati per email sia gli errori 400 che i 500,
+    impostare ``action_level`` a ``error``, invece che a ``critical``.
 
 Il gestore ``buffered`` mantiene tutti i messaggi per una richiesta e quindi li passa
 al gestore annidato in un colpo. Se non si usa questo gestore, ogni messaggio sarà

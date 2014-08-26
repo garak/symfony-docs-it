@@ -50,7 +50,8 @@ Si può vincolare questo metodo con ``True``.
         Acme\BlogBundle\Entity\Author:
             getters:
                 tokenValid:
-                    - 'True': { message: "The token is invalid." }
+                    - 'True':
+                        message: The token is invalid.
 
     .. code-block:: php-annotations
 

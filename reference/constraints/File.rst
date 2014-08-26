@@ -79,7 +79,6 @@ una certa dimensione e un PDF valido, aggiungere il seguente:
                         mimeTypes: [application/pdf, application/x-pdf]
                         mimeTypesMessage: Please upload a valid PDF
 
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php

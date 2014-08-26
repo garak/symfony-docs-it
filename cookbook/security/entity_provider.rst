@@ -27,7 +27,7 @@ per recuperare utenti dalla base dati con condizioni particolari.
 
 .. sidebar:: Codice con gli esempi
 
-    Se si voglino seguire gli esempi in questo capitolo, creare
+    Se si vogliono seguire gli esempi in questo capitolo, creare
     AcmeUserBundle:
 
     .. code-block:: bash
@@ -647,7 +647,7 @@ questa sezione.
 .. caution::
 
     In una configurazione tipica, si dovrebbe sempre restituire almeno un ruolo nel
-    metodo``getRoles()``. Per convenzione, solitamente si restituisce un ruolo chiamato
+    metodo ``getRoles()``. Per convenzione, solitamente si restituisce un ruolo chiamato
     ``ROLE_USER``. Se non si restituisce alcun ruolo, l'utente potrebbe apparire come
     non autenticato.
 

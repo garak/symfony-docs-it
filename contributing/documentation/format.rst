@@ -58,9 +58,9 @@ pseudo-linguaggio:
 Blocchi di configurazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ogni volta che si mostra una configurazione, per mostrarla in tutti i formati supportati ,bisogna utilizzare la
-direttiva ``configuration-block`` (``PHP``, ``YAML`` e
-``XML``)
+Ogni volta che si mostra una configurazione, per mostrarla in tutti i formati supportati,
+bisogna utilizzare la direttiva ``configuration-block``
+(``PHP``, ``YAML`` e ``XML``)
 
 .. code-block:: rst
 
@@ -72,7 +72,7 @@ direttiva ``configuration-block`` (``PHP``, ``YAML`` e
 
         .. code-block:: xml
 
-            <!-- Configurazione in XML //-->
+            <!-- Configurazione in XML -->
 
         .. code-block:: php
 
@@ -88,7 +88,7 @@ Il precedente snippet reST mostra un blocco come di seguito:
 
     .. code-block:: xml
 
-        <!-- Configurazione in XML //-->
+        <!-- Configurazione in XML -->
 
     .. code-block:: php
 

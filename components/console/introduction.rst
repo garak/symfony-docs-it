@@ -15,10 +15,10 @@ lavoro ripetivo come i lavori di cron, le importazioni o lavori batch.
 Installazione
 -------------
 
-Il componente può essere installato in diversi modi:
+Il componente può essere installato in due modi:
 
-* Utilizzando il repository Git ufficiale (https://github.com/symfony/Console);
-* Installandolo :doc:`via Composer</components/using_components>` (``symfony/console`` in `Packagist`_).
+* Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/console`` su `Packagist`_);
+* Utilizzando il repository Git ufficiale (https://github.com/symfony/Console).
 
 .. note::
 
@@ -200,8 +200,8 @@ di verbosità. Per esempio::
     }
 
 Quando si usa il livello quieto, viene soppresso ogni output, poiché iol metodo
-:method:`Symfony\Component\Console\Output::write<Symfony\\Component\\Console\\Output::write>`
-restituisce e non stampa nulla.
+:method:`Symfony\\Component\\Console\\Output::write`
+esce senza stampare nulla.
 
 Utilizzo degli argomenti nei comandi
 ------------------------------------
@@ -223,7 +223,7 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
             'cognome',
             InputArgument::OPTIONAL,
             'Il tuo cognome?'
-        )
+        );
 
 A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
 
@@ -328,7 +328,7 @@ l'impostazione ``--ripetizioni``:
     $ php application.php demo:saluta Fabien --ripetizioni=5
 
 Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
-il suo valore predefinito è ``1`` (l'ultimo argomento di ``addOption``). Nel secondo esempio, il
+il suo valore predefinito è ``1`` (l'ultimo parametro di ``addOption``). Nel secondo esempio, il
 saluto verrà stampato 5 volte.
 
 Ricordiamo che le opzioni non devono essere specificate in un ordina predefinito. Perciò, entrambi i

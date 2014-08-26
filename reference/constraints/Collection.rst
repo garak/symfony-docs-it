@@ -85,7 +85,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
              *             @Assert\NotBlank(),
              *             @Assert\Length(
              *                 max = 100,
-             *                 maxMessage = "Your bio is too long!"
+             *                 maxMessage = "Your short bio is too long!"
              *             )
              *         }
              *     },
@@ -117,7 +117,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
                                 <constraint name="NotBlank" />
                                 <constraint name="Length">
                                     <option name="max">100</option>
-                                    <option name="maxMessage">Your bio is too long!</option>
+                                    <option name="maxMessage">Your short bio is too long!</option>
                                 </constraint>
                             </value>
                         </option>
@@ -146,7 +146,10 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
                         'personal_email' => new Assert\Email(),
                         'lastName' => array(
                             new Assert\NotBlank(),
-                            new Assert\Length(array("max" => 100)),
+                            new Assert\Length(array(
+                                'max' => 100,
+                                'maxMessage' => 'Your short bio is too long!',
+                            )),
                         ),
                     ),
                     'allowMissingFields' => true,
@@ -169,12 +172,12 @@ siano consentite nell'insieme, si possono modificare rispettivamente le opzioni
 ``personal_email`` o ``short_bio`` fossero stati mancanti dalla proprietà
 ``$personalData``, non sarebbe occorso alcun errore di validazione.
 
+Vincoli Required e Optional
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. versionadded:: 2.3
     I vincoli ``Required`` e ``Optional`` sono stati spostati nello spazio dei nomi
     ``Symfony\Component\Validator\Constraints\`` in Symfony 2.3.
-
-Vincoli Required e Optional
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 I vincoli per campi all'iterno di una collezione possono essere avvolti nel vincolo ``Required`` o
 ``Optional``, per controllare se debbano sempre essere applicati (``Required``)
@@ -195,11 +198,11 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
                     - Collection:
                         fields:
                             personal_email:
-                                - Collection\Required
+                                - Required
                                     - NotBlank: ~
                                     - Email: ~
                             alternate_email:
-                                - Collection\Optional:
+                                - Optional:
                                     - Email: ~
 
     .. code-block:: php-annotations
@@ -215,13 +218,11 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
              * @Assert\Collection(
              *     fields={
              *         "personal_email"  = @Assert\Required({@Assert\NotBlank, @Assert\Email}),
-             *         "alternate_email" = @Assert\Optional(@Assert\Email),
+             *         "alternate_email" = @Assert\Optional(@Assert\Email)
              *     }
              * )
              */
-             protected $profileData = array(
-                 'personal_email',
-             );
+             protected $profileData = array('personal_email');
         }
 
     .. code-block:: xml
@@ -237,13 +238,13 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
                     <constraint name="Collection">
                         <option name="fields">
                             <value key="personal_email">
-                                <constraint name="Collection\Required">
+                                <constraint name="Required">
                                     <constraint name="NotBlank" />
                                     <constraint name="Email" />
                                 </constraint>
                             </value>
                             <value key="alternate_email">
-                                <constraint name="Collection\Optional">
+                                <constraint name="Optional">
                                     <constraint name="Email" />
                                 </constraint>
                             </value>

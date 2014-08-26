@@ -101,21 +101,26 @@ la stringa completa per `PhpStormOpener`_ sarebbe come questa:
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         framework:
             ide: "pstorm://%%f:%%l"
-            
+
     .. code-block:: xml
-    
-        <?xml version="1.0" charset="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/service"
-            xmlns:framework="http://symfony.com/schema/dic/symfony">
-            
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
             <framework:config ide="pstorm://%%f:%%l" />
-            
         </container>
-        
+
     .. code-block:: php
-    
+
+        // app/config/config.php
         $container->loadFromExtension('framework', array(
             'ide' => 'pstorm://%%f:%%l',
         ));
@@ -155,17 +160,26 @@ vedere :doc:`/components/http_foundation/trusting_proxies`.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         framework:
             trusted_proxies:  [192.0.0.1, 10.0.0.0/8]
 
     .. code-block:: xml
 
-        <framework:config trusted-proxies="192.0.0.1, 10.0.0.0/8">
-            <!-- ... -->
-        </framework>
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config trusted-proxies="192.0.0.1, 10.0.0.0/8" />
+        </container>
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('framework', array(
             'trusted_proxies' => array('192.0.0.1', '10.0.0.0/8'),
         ));
@@ -282,9 +296,17 @@ a ``null``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:session save-path="null" />
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <framework:session save-path="null" />
+            </framework:config>
+        </container>
 
     .. code-block:: php
 
@@ -370,15 +392,24 @@ Ora, attivare l'opzione ``assets_version``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:templating assets-version="v2">
-            <framework:engine id="twig" />
-        </framework:templating>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:templating assets-version="v2">
+                <!-- ... -->
+                <framework:engine>twig</framework:engine>
+            </framework:templating>
+        </container>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            ...,
+            // ...
             'templating'      => array(
                 'engines'        => array('twig'),
                 'assets_version' => 'v2',
@@ -445,10 +476,10 @@ enabled
 Il profiler può essere disabilitato impostando questa chiave a ``false``.
 
 .. versionadded:: 2.3
-
-    L'opzione ``collect`` è nuova in Symfony 2.3. Precedentemente, quando ``profiler.enabled``
-    era ``false``, il profilatore *era* effettivamente attivo, ma i raccoglitori
-    disabilitati. Ora profilatore e raccoglitori sono controllabili separatamente.
+    L'opzione ``collect`` è nuova in Symfony 2.3. Precedentemente, quando
+    ``profiler.enabled``  era ``false``, il profilatore *era* effettivamente attivo,
+    ma i raccoglitori disabilitati. Ora profilatore e raccoglitori sono
+    controllabili separatamente.
 
 collect
 .......
@@ -498,7 +529,7 @@ Configurazione predefinita completa
                 enabled:              false
                 collect:              true
                 only_exceptions:      false
-                only_master_requests:  false
+                only_master_requests: false
                 dsn:                  file:%kernel.cache_dir%/profiler
                 username:
                 password:
@@ -545,7 +576,7 @@ Configurazione predefinita completa
             # configurazione dei template
             templating:
                 assets_version:       ~
-                assets_version_format:  %%s?%%s
+                assets_version_format:  "%%s?%%s"
                 hinclude_default_template:  ~
                 form:
                     resources:
@@ -566,7 +597,7 @@ Configurazione predefinita completa
                     # Prototipo
                     nome:
                         version:              ~
-                        version_format:       %%s?%%s
+                        version_format:       "%%s?%%s"
                         base_urls:
                             http:                 []
                             ssl:                  []
@@ -586,8 +617,8 @@ Configurazione predefinita completa
             # configurazione delle annotazioni
             annotations:
                 cache:                file
-                file_cache_dir:       %kernel.cache_dir%/annotations
-                debug:                %kernel.debug%
+                file_cache_dir:       "%kernel.cache_dir%/annotations"
+                debug:                "%kernel.debug%"
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
 .. _`PhpStormOpener`: https://github.com/pinepain/PhpStormOpener

@@ -17,7 +17,7 @@ Pur essendo facile, questo approccio ha alcuni limiti:
 * Il comando deve trovarsi nella cartella ``Command``;
 * Non ci sono modi per registrare in modo condizionale un servizio, in base all'ambiente
   o alla disponibilità di alcune dipendenze;
-*  Non si può accedere al contenitore nel metodo ``configure()``(perché
+* Non si può accedere al contenitore nel metodo ``configure()`` (perché
   ``setContainer`` non è ancora stato richiamato);
 * Non si può usare la stessa classe per creare molti comandi (p.e. ciascuno con
   una diversa configurazione).

@@ -137,7 +137,7 @@ per passare richieste di file PHP a PHP FPM:
 
 .. caution::
 
-    Se si fa girare un'applicaizone Symfony in una sottocartella della document root,
+    Se si fa girare un'applicazione Symfony in una sottocartella della document root,
     l'espressione regolare usata nella direttiva ``ProxyPassMatch`` deve cambiare
     di conseguenza:
 

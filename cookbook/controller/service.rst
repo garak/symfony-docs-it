@@ -60,7 +60,7 @@ Lo si può definire come servizio in questo modo:
 
         services:
             acme.hello.controller:
-                class:     "%acme.controller.hello.class%"
+                class: "%acme.controller.hello.class%"
 
     .. code-block:: xml
 
@@ -112,13 +112,13 @@ il valore ``_controller`` di una rotta:
 
         # app/config/routing.yml
         hello:
-            pattern:      /hello
-            defaults:     { _controller: acme.hello.controller:indexAction }
+            path:     /hello
+            defaults: { _controller: acme.hello.controller:indexAction }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" pattern="/hello">
+        <route id="hello" path="/hello">
             <default key="_controller">acme.hello.controller:indexAction</default>
         </route>
 
@@ -135,6 +135,10 @@ il valore ``_controller`` di una rotta:
     definito come servizio. Vedere la
     :doc:`documentazione di FrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/annotations/routing>`
     per maggiori dettagli.
+
+.. versionadded:: 2.6
+    Se il servizio controllore implementa il metodo ``__invoke``, basta fare riferimento all'id del servizio
+    (``acme.hello.controller``).
 
 Alternative ai metodi del controllore base
 ------------------------------------------

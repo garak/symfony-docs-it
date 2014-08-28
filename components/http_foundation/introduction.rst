@@ -515,6 +515,13 @@ Si può ancora impostare il ``Content-Type`` del file inviato o cambiarne il ``C
         'nomefile.txt'
     );
 
+.. versionadded:: 2.6
+    Il metodo ``deleteFileAfterSend()`` è stato introdotto in Symfony 2.6.
+
+È possibile eliminare il file dopo l'invio della richiesta, con il metodo
+:method:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse::deleteFileAfterSend`.
+Si noti che questo non funzionerà se è impostato l'header ``X-Sendfile``.
+
 .. _component-http-foundation-json-response:
 
 Creare una risposta JSON

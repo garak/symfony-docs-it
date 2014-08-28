@@ -20,9 +20,11 @@ Questo vincolo si usa solitamente in form con il tipo di form
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `maxSize`_                                                        |
+|                | - `binaryFormat`_                                                   |
 |                | - `mimeTypes`_                                                      |
 |                | - `maxSizeMessage`_                                                 |
 |                | - `mimeTypesMessage`_                                               |
+|                | - `disallowEmptyMessage`_                                           |
 |                | - `notFoundMessage`_                                                |
 |                | - `notReadableMessage`_                                             |
 |                | - `uploadIniSizeErrorMessage`_                                      |
@@ -78,7 +80,6 @@ una certa dimensione e un PDF valido, aggiungere il seguente:
                         maxSize: 1024k
                         mimeTypes: [application/pdf, application/x-pdf]
                         mimeTypesMessage: Please upload a valid PDF
-
 
     .. code-block:: php-annotations
 
@@ -154,19 +155,46 @@ Opzioni
 maxSize
 ~~~~~~~
 
+.. versionadded:: 2.6
+    I suffissi ``Ki`` e ``Mi`` sono stati introdotti in Symfony 2.6.
+
 **tipo**: ``mixed``
 
 Se impostata, la dimensione del file sottostante deve essere inferiore, per essere
 valido. La dimensione del file può essere fornita in uno dei seguenti formati:
 
-* **bytes**: Per specificare ``maxSize`` in byte, passare un valore che sia interamente
-  numerico (p.e. ``4096``);
++----------+------------+-----------------+------+
+| Suffisso | Nome unità |      valore     | p.e. |
++==========+============+=================+======+
+|          | byte       |          1 byte | 4096 |
++----------+------------+-----------------+------+
+| k        | kilobyte   |       1000 byte | 200k |
++----------+------------+-----------------+------+
+| M        | megabyte   |    1000000 byte |   2M |
++----------+------------+-----------------+------+
+| Ki       | kibibyte   |       1024 byte | 32Ki |
++----------+------------+-----------------+------+
+| Mi       | mebibyte   |    1048576 byte |  8Mi |
++----------+------------+-----------------+------+
 
-* **kilobytes**: Per specificare ``maxSize`` in kilobyte, passare un numero e un
-  suffisso con una "k" minuscola (p.e. ``200k``);
+Per maggiori informazioni sulla differenza tra prefissi binari e SI,
+vedere `Wikipedia: prefissi binari`_.
 
-* **megabytes**: Per specificare ``maxSize`` in megabyte, passare un numero e un
-  suffisso con una "M" maiuscola (p.e. ``4M``).
+binaryFormat
+~~~~~~~~~~~~
+
+.. versionadded:: 2.6
+    L'opzione ``binaryFormat`` è stata introdotta in Symfony 2.6.
+
+**tipo**: ``booleano`` **predefinito**: ``null``
+
+Se ``true``, le dimensioni saranno mostrate nei messaggi con unità con prefisso
+binario (KiB, MiB). Se ``false``, le dimensioni saranno mostrate nei messaggi con unità con prefisso
+SI (kB, MB). Se ``null``, il formato sarà indovinato dal valore
+definito nell'opzione ``maxSize``.
+
+Per maggiori informazioni sulla differenza tra prefissi binari e SI,
+vedere `Wikipedia: prefissi binari`_.
 
 mimeTypes
 ~~~~~~~~~
@@ -193,6 +221,18 @@ mimeTypesMessage
 
 Messaggio mostrato se il tipo mime del file non è un tipo mime valido, in
 base all'opzione `mimeTypes`_.
+
+disallowEmptyMessage
+~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.6
+    L'opzione ``disallowEmptyMessage`` è stata introdotta in Symfony 2.6. Prima della 2.6,
+    se l'utente caricava un file vuoto, non si verificava alcun errore di validazione.
+
+**tipo**: ``stringa`` **predefinito**: ``An empty file is not allowed.``
+
+Questo vincolo verifica se il file caricato sia vuoto (cioè 0 byte). Nel caso,
+viene mostrato questo messaggio.
 
 notFoundMessage
 ~~~~~~~~~~~~~~~
@@ -238,3 +278,4 @@ disco.
 
 
 .. _`sito web di IANA`: http://www.iana.org/assignments/media-types/index.html
+.. _`Wikipedia: prefissi binari`: http://it.wikipedia.org/wiki/Prefissi_per_multipli_binari

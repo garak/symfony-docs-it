@@ -193,6 +193,15 @@ Ottenere tutti i nodi figlio o padre::
 Accedere ai nodi tramite il loro valore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. versionadded:: 2.6
+    Il metodo :method:`Symfony\\Component\\DomCrawler\\Crawler::nodeName`
+    è stato introdotto in Symfony 2.6.
+
+Accedere al nome del nodo (nome del tag HTML) del primo nodo della selezione attuale (es. "p" o "div")::
+
+    // restituirà il nome del nodo (nome del tag HTML) del primo elemento figlio di <body>
+    $tag = $crawler->filterXPath('//body/*')->nodeName();
+
 Accedere al valore del primo nodo della selezione attuale::
 
     $message = $crawler->filterXPath('//body/p')->text();

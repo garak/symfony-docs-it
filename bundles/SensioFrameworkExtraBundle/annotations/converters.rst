@@ -41,6 +41,27 @@ del tutto l'annotazione ``@ParamConverter``::
     {
     }
 
+.. tip::
+
+    Si pul disabilitare la conversione automatica dei parametri con tipo,
+    impostando ``auto_convert`` a ``false``:
+
+    .. configuration-block::
+
+        .. code-block:: yaml
+
+            # app/config/config.yml
+            sensio_framework_extra:
+                request:
+                    converters: true
+                    auto_convert: false
+
+        .. code-block:: xml
+
+            <sensio-framework-extra:config>
+                <request converters="true" auto-convert="true" />
+            </sensio-framework-extra:config>
+
 Per determinare quale convertitore eseguire su un parametro, viene eseguito il seguente procedimento:
 
 * Se c'è una scelta esplicitia di convertitore, tramite
@@ -185,19 +206,18 @@ Qualsiasi formato di data che possa essere analizzato dal costruttore di ``DateT
 Creare un convertitore
 ----------------------
 
-Ogni convertitore deve implementare
-:class:`Sensio\\Bundle\\FrameworkExtraBundle\\Request\\ParamConverter\\ParamConverterInterface`::
+Ogni convertitore deve implementare ``ParamConverterInterface``::
 
     namespace Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter;
 
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
     use Symfony\Component\HttpFoundation\Request;
 
     interface ParamConverterInterface
     {
-        function apply(Request $request, ConfigurationInterface $configuration);
+        function apply(Request $request, ParamConverter $configuration);
 
-        function supports(ConfigurationInterface $configuration);
+        function supports(ParamConverter $configuration);
     }
 
 Il metodo ``supports()`` deve restituire ``true`` quando è in grado di convertire la
@@ -205,10 +225,10 @@ configurazione data (un'istanza di ``ParamConverter``).
 
 L'istanza ``ParamConverter`` ha tre informazioni sull'annotazione:
 
-* ``name``: Il nome dell'attributo;
-* ``class``: Il nome della classe dell'attributo (può essere una qualsiasi stringa che
+* ``name``: il nome dell'attributo;
+* ``class``: il nome della classe dell'attributo (può essere una qualsiasi stringa che
   rappresenti il nome di una classe);
-* ``options``: Un array di opzioni
+* ``options``: un array di opzioni
 
 Il metodo ``apply()`` è richiamato per ogni configurazione supportata. In base agli
 attributi della richiesta, dovrebbe impostare un attributo chiamato
@@ -223,15 +243,15 @@ Per registrare il servizio contenitore, si deve aggiungere un tag
 
         # app/config/config.yml
         services:
-            my_converter:
-                class:        MyBundle\Request\ParamConverter\MyConverter
+            mio_convertitore:
+                class:        MyBundle\Request\ParamConverter\MioConvertitore
                 tags:
-                    - { name: request.param_converter, priority: -2, converter: my_converter }
+                    - { name: request.param_converter, priority: -2, converter: mio_convertitore }
 
     .. code-block:: xml
 
-        <service id="my_converter" class="MyBundle\Request\ParamConverter\MyConverter">
-            <tag name="request.param_converter" priority="-2" converter="my_converter" />
+        <service id="mio_convertitore" class="MyBundle\Request\ParamConverter\MioConvertitore">
+            <tag name="request.param_converter" priority="-2" converter="mio_convertitore" />
         </service>
 
 Si può registrare un convertitore per priorità, per nome (attributo "converter") o
@@ -239,6 +259,11 @@ entrambi. Se non si specifica una priorità o un nome, il convertitore sarà agg
 alla pila dei convertitori con priorità `0`. Per disabilitare esplicitamente la
 registrazione della priorità, occorre impostare `priority="false"` nella definizione
 del tag.
+
+.. tip::
+
+   Se si voglione iniettare servizi o parametri aggiuntivi in un convertitore personalizzato, la priorità non dovrebbe essere
+   maggiore di 1. Altrimenti, i servizio non sarà caricato.
 
 .. tip::
 

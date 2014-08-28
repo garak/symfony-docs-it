@@ -115,7 +115,8 @@ Prefisso della rotta
 --------------------
 
 Un'annotazione ``@Route`` in una classe controllore definisce un prefisso per le rotte
-di tutte le azioni::
+di tutte le azioni (notare che non si possono avere più annotazioni ``@Route`` sulla stessa
+classe)::
 
     /**
      * @Route("/blog")
@@ -170,7 +171,7 @@ il controllore recuperandolo dal contenitore, invece che richiamando ``new
 PostController()``::
 
     /**
-     * @Route(service="my_post_controller_service")
+     * @Route(service="mio_servizio_post_controller")
      */
     class PostController extends Controller
     {

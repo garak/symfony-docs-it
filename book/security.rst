@@ -821,8 +821,8 @@ cose:
 
 .. _security-book-access-control-matching-options:
 
-1.) Opzioni di corrispondenza
-.............................
+1. Opzioni di corrispondenza
+............................
 
 Symfony2 crea un'istanza di :class:`Symfony\\Component\\HttpFoundation\\RequestMatcher`
 per ogni voce di ``access_control``, che determina se un dato controllo di accesso

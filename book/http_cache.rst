@@ -251,7 +251,7 @@ cache.
     aumenta.
 
     Per maggiori informazioni sull'uso di Varnish con Symfony2, vedere la ricetta
-    :doc:`Usare Varnish </cookbook/cache/varnish>`.
+    :doc:`usare Varnish </cookbook/cache/varnish>`.
 
 .. note::
 
@@ -1026,7 +1026,7 @@ accessi al minimo.
     direttiva ``max-age`` e metterà in cache l'intera pagina. E questo non è quello che
     vogliamo.
 
-L'aiutante ``render`` supporta due utili opzioni:
+L'aiutante ``render_esi`` supporta due utili opzioni:
 
 * ``alt``: usato come attributo ``alt`` nel tag ESI, che consente di specificare
   un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;

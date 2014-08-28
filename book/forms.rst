@@ -219,7 +219,7 @@ controllore::
         $form = $this->createFormBuilder($task)
             ->add('task', 'text')
             ->add('dueDate', 'date')
-            ->add('save', 'submit')
+            ->add('save', 'submit', array('label' => 'Crea post'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -790,7 +790,7 @@ di ``form_row`` possa essere personalizzato su diversi livelli.
 
         .. code-block:: html+php
 
-            <?php echo $view['form']->get('value')->getTask() ?>
+            <?php echo $form->vars['value']->getTask() ?>
 
 .. index::
    single: Form; Rendere manualmente ciascun campo
@@ -896,7 +896,7 @@ come ``id``, ``name`` e ``label``. Per esempio, per ottenere
 
     .. code-block:: html+php
 
-        <?php echo $form['task']->get('id') ?>
+        <?php echo $form['task']->vars['id']?>
 
 Per ottenere il valore usato per l'attributo nome dei campi del form, occorre usare
 il valore ``full_name``:
@@ -909,7 +909,7 @@ il valore ``full_name``:
 
     .. code-block:: html+php
 
-        <?php echo $form['task']->get('full_name') ?>
+        <?php echo $form['task']->vars['full_name'] ?>
 
 Riferimento alle funzioni del template Twig
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1591,13 +1591,13 @@ della configurazione dell'applicazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:twig="http://symfony.com/schema/dic/twig"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
+                http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
 
             <twig:config>
-                    <twig:form>
-                        <twig:resource>AcmeTaskBundle:Form:fields.html.twig</twig:resource>
-                    </twig:form>
-                    <!-- ... -->
+                <twig:form>
+                    <twig:resource>AcmeTaskBundle:Form:fields.html.twig</twig:resource>
+                </twig:form>
+                <!-- ... -->
             </twig:config>
         </container>
 

@@ -91,28 +91,31 @@ proprio ``AcmeStoreBundle``:
 .. code-block:: xml
 
     <?xml version="1.0" encoding="UTF-8" ?>
-    <database name="default"
+    <database
+        name="default"
         namespace="Acme\StoreBundle\Model"
-        defaultIdMethod="native"
-    >
+        defaultIdMethod="native">
+
         <table name="product">
-            <column name="id"
+            <column
+                name="id"
                 type="integer"
                 required="true"
                 primaryKey="true"
-                autoIncrement="true"
-            />
-            <column name="name"
+                autoIncrement="true" />
+
+            <column
+                name="name"
                 type="varchar"
                 primaryString="true"
-                size="100"
-            />
-            <column name="price"
-                type="decimal"
-            />
-            <column name="description"
-                type="longvarchar"
-            />
+                size="100" />
+            <column
+                name="price"
+                type="decimal" />
+
+            <column
+                name="description"
+                type="longvarchar" />
         </table>
     </database>
 
@@ -305,28 +308,35 @@ Si inizi aggiungendo la definizione di ``category`` al file ``schema.xml``:
 .. code-block:: xml
 
     <?xml version="1.0" encoding="UTF-8" ?>
-    <database name="default"
+    <database
+        name="default"
         namespace="Acme\StoreBundle\Model"
         defaultIdMethod="native">
+
         <table name="product">
-            <column name="id"
+            <column
+                name="id"
                 type="integer"
                 required="true"
                 primaryKey="true"
                 autoIncrement="true" />
 
-            <column name="name"
+            <column
+                name="name"
                 type="varchar"
                 primaryString="true"
                 size="100" />
 
-            <column name="price"
+            <column
+                name="price"
                 type="decimal" />
 
-            <column name="description"
+            <column
+                name="description"
                 type="longvarchar" />
 
-            <column name="category_id"
+            <column
+                name="category_id"
                 type="integer" />
 
             <foreign-key foreignTable="category">
@@ -335,13 +345,15 @@ Si inizi aggiungendo la definizione di ``category`` al file ``schema.xml``:
         </table>
 
         <table name="category">
-            <column name="id"
+            <column
+                name="id"
                 type="integer"
                 required="true"
                 primaryKey="true"
                 autoIncrement="true" />
 
-            <column name="name"
+            <column
+                name="name"
                 type="varchar"
                 primaryString="true"
                 size="100" />

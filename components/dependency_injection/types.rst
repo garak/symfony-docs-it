@@ -47,21 +47,27 @@ del contenitore di servizi:
 
     .. code-block:: xml
 
-        <services>
-            <service id="mio_mailer" ... >
-              <!-- ... -->
-            </service>
-            <service id="newsletter_manager" class="NewsletterManager">
-                <argument type="service" id="mio_mailer"/>
-            </service>
-        </services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_mailer">
+                    <!-- ... -->
+                </service>
+
+                <service id="newsletter_manager" class="NewsletterManager">
+                    <argument type="service" id="mio_mailer"/>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        // ...
         $container->setDefinition('mio_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             'NewsletterManager',
@@ -123,23 +129,29 @@ che accetti la dipendenza::
 
     .. code-block:: xml
 
-        <services>
-            <service id="mio_mailer" ... >
-              <!-- ... -->
-            </service>
-            <service id="newsletter_manager" class="NewsletterManager">
-                <call method="setMailer">
-                     <argument type="service" id="mio_mailer" />
-                </call>
-            </service>
-        </services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_mailer">
+                    <!-- ... -->
+                </service>
+
+                <service id="newsletter_manager" class="NewsletterManager">
+                    <call method="setMailer">
+                        <argument type="service" id="mio_mailer" />
+                    </call>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        // ...
         $container->setDefinition('mio_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             'NewsletterManager'
@@ -190,21 +202,27 @@ Un'altra possibilità consiste nell'impostare direttamente campi pubblici della 
 
     .. code-block:: xml
 
-        <services>
-            <service id="mio_mailer" ... >
-              <!-- ... -->
-            </service>
-            <service id="newsletter_manager" class="NewsletterManager">
-                <property name="mailer" type="service" id="mio_mailer" />
-            </service>
-        </services>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="mio_mailer">
+                    <!-- ... -->
+                </service>
+
+                <service id="newsletter_manager" class="NewsletterManager">
+                    <property name="mailer" type="service" id="mio_mailer" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        // ...
         $container->setDefinition('mio_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
             'NewsletterManager'

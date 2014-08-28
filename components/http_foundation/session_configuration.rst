@@ -13,10 +13,10 @@ Gestori del salvataggio
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Il flusso della sessione di PHP ha sei possibili operazioni da eseguire. La sessione normale
-segue `open`, `read`, `write` e `close`, con la possibilità di
-`destroy` e `gc` (garbage collection, che fa scadere le vecchie sessioni: `gc`
-viene richiamato in modo casuale, secondo la configurazione di PHP, e, se richiamato, è
-invocato dopo l'operazione `open`). Si può approfondire l'argomento su
+segue ``open``, ``read``, ``write`` e ``close``, con la possibilità di
+``destroy`` e ``gc`` (garbage collection, che fa scadere le vecchie sessioni:
+``gc`` viene richiamato in modo casuale, secondo la configurazione di PHP, e, se richiamato, è
+invocato dopo l'operazione ``open``). Si può approfondire l'argomento su
 `php.net/session.customhandler`_
 
 Gestori del salvataggio nativi di PHP
@@ -71,11 +71,11 @@ punti del flusso della sessione.
 HttpFoundation di Symfony2 ne fornisce alcuni predefiniti, che possono facilmente servire
 da esempi, se se ne vuole scrivere uno.
 
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MongoDbSessionHandler`
-  * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcacheSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MemcachedSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\MongoDbSessionHandler`
+* :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NullSessionHandler`
 
 Esempio::
 
@@ -83,7 +83,7 @@ Esempio::
     use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
     use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
-    $pdo = new \PDO('mysql:dbname=testdb;host=127.0.0.1');
+    $pdo = new \PDO(...);
     $storage = new NativeSessionStorage(array(), new PdoSessionHandler($pdo));
     $session = new Session($storage);
 
@@ -123,7 +123,7 @@ essere controllate con tranquillità solamente lato server.
 
     L'impostazione ``cookie_lifetime`` è il numero di secondi per cui il cookie sarà
     valido, non è un timestamp Unix. Il cookie di sessione risultante sarà emesso con
-    un tempo di scadenza di ``time()``+``cookie_lifetime``, con riferimento alla
+    un tempo di scadenza di ``time()`` + ``cookie_lifetime``, con riferimento alla
     data del server.
 
 Configurare il garbage collector

@@ -115,7 +115,7 @@ l'indirizzo sostituito, così da poter vedere a chi sarebbe stata inviata l'emai
 .. note::
 
     Oltre alle email inviate all'indirizzo ``to``, questa configurazione 
-    blocca anche quelle inviate a qualsiasi indirizzo ``CC`` e ``BCC`. 
+    blocca anche quelle inviate a qualsiasi indirizzo ``CC`` e ``BCC``. 
     Swiftmailer aggiungerà ulteriori intestazioni contenenti gli indirizzi 
     ignorati. Le intestazioni usate saranno ``X-Swift-Cc`` e ``X-Swift-Bcc`` 
     rispettivamente per gli indirizzi in ``CC`` e per quelli in ``BCC``.

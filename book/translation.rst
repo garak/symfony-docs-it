@@ -69,7 +69,7 @@ abilitare ``translator`` nella configurazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
                 <framework:translator fallback="en" />
@@ -136,17 +136,17 @@ ma XLIFF è il formato raccomandato:
             </file>
         </xliff>
 
+    .. code-block:: yaml
+
+        # messages.fr.yml
+        Symfony2 is great: J'aime Symfony2
+
     .. code-block:: php
 
         // messages.fr.php
         return array(
             'Symfony2 is great' => 'J\'aime Symfony2',
         );
-
-    .. code-block:: yaml
-
-        # messages.fr.yml
-        Symfony2 is great: J'aime Symfony2
 
 Per informazioni sulla posizione di questi file, vedere
 :ref:`book-translation-resource-locations`.
@@ -442,12 +442,13 @@ la stessa risorsa indipendentemente dall'utente. Inoltre, quale
 versione del contenuto dovrebbe essere indicizzata dai motori di ricerca?
 
 Una politica migliore è quella di includere il locale nell'URL. Questo è completamente
-dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
+supportato dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         contact:
             path:     /{_locale}/contact
             defaults: { _controller: AcmeDemoBundle:Contact:index }
@@ -456,6 +457,7 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -470,6 +472,7 @@ dal sistema delle rotte utilizzando il parametro speciale ``_locale``:
 
     .. code-block:: php
 
+        // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
@@ -514,9 +517,15 @@ il framework:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:default-locale>en</framework:default-locale>
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config default-locale="en" />
+        </container>
 
     .. code-block:: php
 
@@ -630,6 +639,11 @@ bundle.
             </file>
         </xliff>
 
+    .. code-block:: yaml
+
+        # validators.it.yml
+        author.name.not_blank: Inserire un nome per l'autore.
+
     .. code-block:: php
 
         // validators.it.php
@@ -637,17 +651,179 @@ bundle.
             'author.name.not_blank' => 'Inserire un nome per l\'autore.',
         );
 
-    .. code-block:: yaml
-
-        # validators.it.yml
-        author.name.not_blank: Inserire un nome per l'autore.
-
 Tradurre contenuti della base dati
 ----------------------------------
 
 La traduzione di contenuti della base dati andrebbe affidata a Doctrine, tramite
-l'`estensione Translatable`_. Per maggiori informazioni, fare riferimento alla
-documentazione della libreria.
+l'`estensione Translatable`_ o il `behavior Translatable`_ (per PHP 5.4+).
+Per maggiori informazioni, vedere la documentazione di queste librerie.
+
+Debug delle traduzioni
+----------------------
+
+.. versionadded:: 2.5
+    Il comando ``translation:debug`` è stato introdotto in Symfony 2.5.
+
+Durante la manutenzione di un bundle, si potrebbe usare o disabilitare un messaggio
+di traduzioni, senza aggiornare tutti i cataloghi dei messaggi.  Il comando ``translation:debug``
+aiuta a trovare questi messaggi di traduzioni mancanti o inutilizzati, per un
+locale dato. Mostra una tabella con i risultati della traduzione del
+messaggio nel locale fornito e il risultato quando viene usato il fallback.
+Inoltre, mostra quando le traduzioni sono uguali all
+traduzione fallback (potrebbe indicare che il messaggio non sia stato tradotto
+correttamente).
+
+Grazie agli estrattori di messaggi, il comando troverà il tag di traduzione
+o l'uso di filtri nei template Twig:
+
+.. code-block:: jinja
+
+    {% trans %}Symfony2 is great{% endtrans %}
+
+    {{ 'Symfony2 is great'|trans }}
+
+    {{ 'Symfony2 is great'|transchoice(1) }}
+
+    {% transchoice 1 %}Symfony2 is great{% endtranschoice %}
+
+Individuerà anche i seguenti utilizzi di traduzione in template PHP:
+
+.. code-block:: php
+
+    $view['translator']->trans("Symfony2 is great");
+
+    $view['translator']->trans('Symfony2 is great');
+
+.. caution::
+
+    Gli estrattori non sono in grado di ispezionare i messaggi tradoti fuori dai template, il che vuol
+    dire che gli utilizzi di traduzioni in label di form o dentro a controllori non saranno individuati.
+    Traduzioni dinamiche, che coinvolgano variabili o espressioni, non sono individuate nei template,
+    il che vuol dire che questo esempio non sarà analizzato:
+
+    .. code-block:: jinja
+
+        {% set message = 'Symfony2 is great' %}
+        {{ message|trans }}
+
+Si supponga che il locale predefinito sia ``fr`` e di aver configurato ``en`` come locale di fallback
+(vedere :ref:`book-translation-configuration` e :ref:`book-translation-fallback` su come configurarli).
+Si supponga inoltre di aver già preparato alcune traduzioni per il locale ``fr`` in un AcmeDemoBundle:
+
+.. configuration-block::
+
+    .. code-block:: xml
+
+        <!-- src/Acme/AcmeDemoBundle/Resources/translations/messages.fr.xliff -->
+        <?xml version="1.0"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en" datatype="plaintext" original="file.ext">
+                <body>
+                    <trans-unit id="1">
+                        <source>Symfony2 is great</source>
+                        <target>J'aime Symfony2</target>
+                    </trans-unit>
+                </body>
+            </file>
+        </xliff>
+
+    .. code-block:: php
+
+        // src/Acme/AcmeDemoBundle/Resources/translations/messages.fr.php
+        return array(
+            'Symfony2 is great' => 'J\'aime Symfony2',
+        );
+
+    .. code-block:: yaml
+
+        # src/Acme/AcmeDemoBundle/Resources/translations/messages.fr.yml
+        Symfony2 is great: J'aime Symfony2
+
+e per il locale ``en``:
+
+.. configuration-block::
+
+    .. code-block:: xml
+
+        <!-- src/Acme/AcmeDemoBundle/Resources/translations/messages.en.xliff -->
+        <?xml version="1.0"?>
+        <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+            <file source-language="en" datatype="plaintext" original="file.ext">
+                <body>
+                    <trans-unit id="1">
+                        <source>Symfony2 is great</source>
+                        <target>Symfony2 is great</target>
+                    </trans-unit>
+                </body>
+            </file>
+        </xliff>
+
+    .. code-block:: php
+
+        // src/Acme/AcmeDemoBundle/Resources/translations/messages.en.php
+        return array(
+            'Symfony2 is great' => 'Symfony2 is great',
+        );
+
+    .. code-block:: yaml
+
+        # src/Acme/AcmeDemoBundle/Resources/translations/messages.en.yml
+        Symfony2 is great: Symfony2 is great
+
+Per individuare tutti i messaggi nel locale ``fr`` per AcmeDemoBundle, eseguire:
+
+.. code-block:: bash
+
+    $ php app/console translation:debug fr AcmeDemoBundle
+
+Si otterrà questo output:
+
+.. image:: /images/book/translation/debug_1.png
+    :align: center
+
+Indica che il messaggio ``Symfony2 is great`` è inutilizzato, perché è stato tradotto,
+ma viene usato.
+
+Ora, se si traduce il messaggio in uno dei template, si otterrà questo output:
+
+.. image:: /images/book/translation/debug_2.png
+    :align: center
+
+Lo stato è vuoto, che vuol dire che il messaggio è stato tradotto nel locale ``fr`` e usato in un template.
+
+Se si cancella il messaggio ``Symfony2 is great`` dal file di traduzione per il locale ``fr`` e
+si esegue il comando, si otterrà:
+
+.. image:: /images/book/translation/debug_3.png
+    :align: center
+
+Lo stato indica che il messaggio è mancante, perché non è tradotto nel locale ``fr``,
+ma è usato in un template.
+Inoltre, il messaggio nel locale ``fr`` è uguale al messaggio nel locale ``en``.
+Questo è caso particolare, perché il messaggio non tradotto ha lo stesso id della sua traduzione nel locale ``en``.
+
+Se si copia il contenuto del file di traduzione del locale ``en`` nel file di traduzione
+del locale ``fr`` e si esegue il comando, si otterrà:
+
+.. image:: /images/book/translation/debug_4.png
+    :align: center
+
+Si può vedere che le traduzioni del messaggio sono identiche nei locale ``fr`` ed ``en``, che
+vuol dire che questo messaggio è stato probabilmente copiato da francese a inglese e forse ci si è dimenticati di tradurlo.
+
+L'ispezione predefinita avviene su tutti i domini, ma si può specificare un singolo dominio:
+
+.. code-block:: bash
+
+    $ php app/console translation:debug en AcmeDemoBundle --domain=messages
+
+Quando i bundle hanno molti messaggi, è utile mostrare solo quelli non usati
+oppure solo quelli mancanti, usando le opzioni ``--only-unused`` o ``--only-missing``:
+
+.. code-block:: bash
+
+    $ php app/console translation:debug en AcmeDemoBundle --only-unused
+    $ php app/console translation:debug en AcmeDemoBundle --only-missing
 
 Riepilogo
 ---------
@@ -672,3 +848,4 @@ passi:
 .. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
 .. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 .. _`estensione Translatable`: https://github.com/l3pp4rd/DoctrineExtensions
+.. _`behavior Translatable`: https://github.com/KnpLabs/DoctrineBehaviors

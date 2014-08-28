@@ -90,15 +90,43 @@ valori:
 
 * ``textmate``
 * ``macvim``
+* ``emacs``
+* ``sublime``
+
+.. versionadded:: 2.3.14
+    Gli editor ``emacs`` e ``sublime`` sono stati introdotti in Symfony 2.3.14.
 
 Si può anche specificare una stringa con un collegamento personalizzato. Se lo si fa,
 tutti i simboli percentuale (``%``) devono essere raddoppiati, per escape. Per esempio,
-la stringa completa per TextMate sarebbe come questa:
+la stringa completa per `PhpStormOpener`_ sarebbe come questa:
 
-.. code-block:: yaml
+.. configuration-block::
 
-    framework:
-        ide:  "txmt://open?url=file://%%f&line=%%l"
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        framework:
+            ide: "pstorm://%%f:%%l"
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config ide="pstorm://%%f:%%l" />
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('framework', array(
+            'ide' => 'pstorm://%%f:%%l',
+        ));
 
 Ovviamente, poiché ogni sviluppatore usa un IDE diverso, è meglio impostarlo a livello
 di sistema. Lo si può fare impostando il valore ``xdebug.file_link_format``
@@ -135,17 +163,26 @@ vedere :doc:`/components/http_foundation/trusting_proxies`.
 
     .. code-block:: yaml
 
+        # app/config/config.yml
         framework:
             trusted_proxies:  [192.0.0.1, 10.0.0.0/8]
 
     .. code-block:: xml
 
-        <framework:config trusted-proxies="192.0.0.1, 10.0.0.0/8">
-            <!-- ... -->
-        </framework>
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config trusted-proxies="192.0.0.1, 10.0.0.0/8" />
+        </container>
 
     .. code-block:: php
 
+        // app/config/config.php
         $container->loadFromExtension('framework', array(
             'trusted_proxies' => array('192.0.0.1', '10.0.0.0/8'),
         ));
@@ -262,9 +299,17 @@ a ``null``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config>
-            <framework:session save-path="null" />
-        </framework:config>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:config>
+                <framework:session save-path="null" />
+            </framework:config>
+        </container>
 
     .. code-block:: php
 
@@ -350,15 +395,24 @@ Ora, attivare l'opzione ``assets_version``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:templating assets-version="v2">
-            <framework:engine id="twig" />
-        </framework:templating>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:framework="http://symfony.com/schema/dic/symfony"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+            <framework:templating assets-version="v2">
+                <!-- ... -->
+                <framework:engine>twig</framework:engine>
+            </framework:templating>
+        </container>
 
     .. code-block:: php
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            ...,
+            // ...
             'templating'      => array(
                 'engines'        => array('twig'),
                 'assets_version' => 'v2',
@@ -368,6 +422,10 @@ Ora, attivare l'opzione ``assets_version``:
 Ora, la stessa risora sarà resa come ``/images/logo.png?v2``. Se si usa questa
 caratteristica, si *deve* incrementare a mano il valore di ``assets_version``, prima
 di ogni deploy, in modo che il parametro della query cambi.
+
+È anche possibile impostare il valore della versione per singola risorsa (invece
+di usare una versione globale, come fatto qui con ``v2``)). Vedere
+:ref:`versioni per risorsa <book-templating-version-by-asset>` per i dettagli.
 
 Si può anche contollare il funzionamento della stringa della query, tramite
 l'opzione `assets_version_format`_.
@@ -420,10 +478,10 @@ enabled
 Il profiler può essere disabilitato impostando questa chiave a ``false``.
 
 .. versionadded:: 2.3
-
-    L'opzione ``collect`` è nuova in Symfony 2.3. Precedentemente, quando ``profiler.enabled``
-    era ``false``, il profilatore *era* effettivamente attivo, ma i raccoglitori
-    disabilitati. Ora profilatore e raccoglitori sono controllabili separatamente.
+    L'opzione ``collect`` è nuova in Symfony 2.3. Precedentemente, quando
+    ``profiler.enabled``  era ``false``, il profilatore *era* effettivamente attivo,
+    ma i raccoglitori disabilitati. Ora profilatore e raccoglitori sono
+    controllabili separatamente.
 
 collect
 .......
@@ -569,3 +627,4 @@ Configurazione predefinita completa
                 debug:                "%kernel.debug%"
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
+.. _`PhpStormOpener`: https://github.com/pinepain/PhpStormOpener

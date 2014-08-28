@@ -230,11 +230,11 @@ e altre stringhe.
 
 Per aggiungere questi filtri, si può usare
 :class:`Symfony\\Bridge\\Twig\\Extension\\TranslationExtension`, che si integra
-con il componente ``Translation``, oppure aggiungere i due filtri a mano,
+con il componente Translation, oppure aggiungere i due filtri a mano,
 tramite un'estensione Twig.
 
 Per usare l'integrazione predefinita, assicurarsi che il progetto abbia i componenti
-``Translation`` e :doc:`Config </components/config/introduction>` installati.
+Translation e :doc:`Config </components/config/introduction>` installati.
 Se si usa Composer, si possono ottenere le versioni 2.3 più recenti di
 entrambi aggiungendo le seguenti righe al file ``composer.json``:
 
@@ -341,7 +341,7 @@ Per approfondire, vedere la sezione :ref:`component-form-intro-validation`.
 Accesso al factory dei form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-L'applicaizone ha bisogno di un unico factory di form, quello che andrebbe
+L'applicazione ha bisogno di un unico factory di form, quello che andrebbe
 usato per creare tutti gli oggetti form nell'applicazione. Questo vuol
 dire che andrebbe creato in una parte centralizzata iniziale dell'applicazione
 e quindi acceduto ovunque ci sia bisogno di costruire un form.

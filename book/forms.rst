@@ -103,7 +103,7 @@ all'interno di un controllore::
             $form = $this->createFormBuilder($task)
                 ->add('task', 'text')
                 ->add('dueDate', 'date')
-                ->add('save', 'submit')
+                ->add('save', 'submit', array('label' => 'Crea post'))
                 ->getForm();
 
             return $this->render('AcmeTaskBundle:Default:new.html.twig', array(
@@ -128,7 +128,9 @@ In questo esempio sono stati aggiunti due campi al form, ``task`` e ``dueDate``,
 corrispondenti alle proprietà ``task`` e ``dueDate`` della classe ``Task``.
 È stato anche assegnato un "tipo" ciascuno (ad esempio ``text``, ``date``), che, tra
 le altre cose, determina quale tag form HTML viene utilizzato per tale campo.
-Infine, è stato aggiunto un bottone submit per l'invio del form.
+
+Infine, è stato aggiunto un bottone submit, con un'etichetta personalizzata, per
+l'invio del form.
 
 .. versionadded:: 2.3
     Il supporto per i bottoni submit è stato aggiunto in Symfony 2.3. Precedentemente,
@@ -241,26 +243,26 @@ Questo controllore segue uno schema comune per gestire i form e ha tre
 possibili percorsi:
 
 #. Quando in un browser inizia il caricamento di una pagina, il form viene creato
-   e reso. :method:`Symfony\Component\Form\FormInterface::handleRequest`
+   e reso. :method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
    capisce che il form non è stato inviato e non fa nulla.
-   :method:`Symfony\Component\Form\FormInterface::isValid` restituisce ``false``
+   :method:`Symfony\\Component\\Form\\FormInterface::isValid` restituisce ``false``
    se il form non è stato inviato.
 
-#. Quando l'utente invia il form, :method:`Symfony\Component\Form\FormInterface::handleRequest`
+#. Quando l'utente invia il form, :method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
    lo capisce e scrive immmediatamente i dati nelle proprietà
    ``task`` e ``dueDate`` dell'oggetto ``$task``. Quindi tale oggetto
    viene validato. Se non è valido (la validazione è trattata nella prossima sezione),
-   :method:`Symfony\Component\Form\FormInterface::isValid` restituisce ``false``
+   :method:`Symfony\\Component\\Form\\FormInterface::isValid` restituisce ``false``
    di nuovo, quindi il form viene reso insieme agli errori di validazione;
 
    .. note::
 
-       Si può usare il metodo :method:`Symfony\Component\Form\FormInterface::isSubmitted`
+       Si può usare il metodo :method:`Symfony\\Component\\Form\\FormInterface::isSubmitted`
        per verificare se il form sia stato inviato, indipendentemente dal fatto
        che i dati inviati siano validi o meno.
 
 #. Quando l'utente invia il form con dati validi, i dati inviati sono scritti
-   nuvamente nel form, ma stavolta :method:`Symfony\Component\Form\FormInterface::isValid`
+   nuvamente nel form, ma stavolta :method:`Symfony\\Component\\Form\\FormInterface::isValid`
    restituisce ``true``. Ora si ha la possibilità di eseguire alcune azioni usando l'oggetto
    ``$task`` (ad esempio persistendolo nella base dati) prima di rinviare l'utente
    a un'altra pagina (ad esempio una pagina "thank you" o "success").
@@ -268,7 +270,7 @@ possibili percorsi:
 .. note::
 
    Reindirizzare un utente dopo aver inviato con successo un form impedisce l'utente
-   di essere in grado di premere il tasto "aggiorna" del suo browser e re-inviare
+   di essere in grado di premere il tasto "aggiorna" del suo browser e reinviare
    i dati.
 
 .. index::
@@ -284,18 +286,18 @@ Inviare form con bottoni di submit multipli
 
 Quando un form contiene più di un bottone di submit, si vuole sapere
 quale dei bottoni sia stato cliccato, per adattare il fluso del controllore.
-Aggiungiamo un secondo bottone "Save and add" al form::
+Aggiungiamo un secondo bottone "Salva e aggiungi" al form::
 
     $form = $this->createFormBuilder($task)
         ->add('task', 'text')
         ->add('dueDate', 'date')
-        ->add('save', 'submit')
-        ->add('saveAndAdd', 'submit')
+        ->add('save', 'submit', array('label' => 'Crea post'))
+        ->add('saveAndAdd', 'submit', array('label' => 'Salva e aggiungi'))
         ->getForm();
 
 Nel controllore, usaree il metodo
 :method:`Symfony\\Component\\Form\\ClickableInterface::isClicked` del bottone
-per sapere se sia stato cliccato il bottone "Save and add"::
+per sapere se sia stato cliccato il bottone "Salva e aggiungi"::
 
     if ($form->isValid()) {
         // ... eseguire un'azione, come salvare il task nella base dati
@@ -1124,19 +1126,21 @@ facilmente in un'applicazione.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd>
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <service id="acme_demo.form.type.task"
-                class="Acme\TaskBundle\Form\Type\TaskType">
-                <tag name="form.type" alias="task" />
-            </service>
+            <services>
+                <service
+                    id="acme_demo.form.type.task"
+                    class="Acme\TaskBundle\Form\Type\TaskType">
+
+                    <tag name="form.type" alias="task" />
+                </service>
+            </services>
         </container>
 
     .. code-block:: php
 
         // src/Acme/TaskBundle/Resources/config/services.php
-        use Symfony\Component\DependencyInjection\Definition;
-
         $container
             ->register(
                 'acme_demo.form.type.task',
@@ -1891,7 +1895,7 @@ Saperne di più con il ricettario
 --------------------------------
 
 * :doc:`/cookbook/doctrine/file_uploads`
-* :doc:`Riferimento del tipo di campo file</reference/forms/types/file>`
+* :doc:`Riferimento del tipo di campo file </reference/forms/types/file>`
 * :doc:`Creare tipi di campo personalizzati </cookbook/form/create_custom_field_type>`
 * :doc:`/cookbook/form/form_customization`
 * :doc:`/cookbook/form/dynamic_form_modification`
@@ -1899,7 +1903,7 @@ Saperne di più con il ricettario
 
 .. _`Componente Form di Symfony2`: https://github.com/symfony/Form
 .. _`DateTime`: http://php.net/manual/it/class.datetime.php
-.. _`Twig Bridge`: https://github.com/symfony/symfony/tree/2.3/src/Symfony/Bridge/Twig
-.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.2/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+.. _`Twig Bridge`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge/Twig
+.. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
 .. _`Cross-site request forgery`: http://it.wikipedia.org/wiki/Cross-site_request_forgery
-.. _`vedere su GitHub`: https://github.com/symfony/symfony/tree/2.3/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form
+.. _`vedere su GitHub`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bundle/FrameworkBundle/Resources/views/Form

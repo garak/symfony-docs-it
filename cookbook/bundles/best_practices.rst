@@ -125,7 +125,7 @@ Le seguenti classi e i seguenti file hanno postazioni specifiche:
 +------------------------------+-----------------------------+
 | Configurazione               | ``Resources/config/``       |
 +------------------------------+-----------------------------+
-| Risorse Web                  | ``Resources/public/``       |
+| Risorse web                  | ``Resources/public/``       |
 +------------------------------+-----------------------------+
 | File di traduzione           | ``Resources/translations/`` |
 +------------------------------+-----------------------------+
@@ -193,23 +193,6 @@ Una documentazione estensiva andrebbe fornita in formato
 :doc:`reStructuredText </contributing/documentation/format>`, sotto la cartella
 ``Resources/doc/``; il file ``Resources/doc/index.rst`` è l'unico file obbligatorio
 e deve essere il punto di ingresso della documentazione.
-
-Controllori
------------
-
-Come best practice, i controllori di un bundle inteso per essere distribuito
-non devono estendere la classe base
-:class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`.
-Possono implementare
-:class:`Symfony\\Component\\DependencyInjection\\ContainerAwareInterface` oppure
-estendere :class:`Symfony\\Component\\DependencyInjection\\ContainerAware`
-.
-
-.. note::
-
-    Se si dà uno sguardo ai metodi di
-    :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`,
-    si vedrà che sono solo delle scorciatoie utili per facilitare l'apprendimento.
 
 Rotte
 -----
@@ -290,4 +273,4 @@ Imparare di più dal ricettario
 
 * :doc:`/cookbook/bundles/extension`
 
-.. _standard: http://symfony.com/PSR0
+.. _standard: http://www.php-fig.org/psr/psr-0/

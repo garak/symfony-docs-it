@@ -48,13 +48,19 @@ Quindi, definire la catena come servizio:
 
     .. code-block:: xml
 
-        <parameters>
-            <parameter key="acme_mailer.transport_chain.class">TransportChain</parameter>
-        </parameters>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="acme_mailer.transport_chain" class="%acme_mailer.transport_chain.class%" />
-        </services>
+            <parameters>
+                <parameter key="acme_mailer.transport_chain.class">TransportChain</parameter>
+            </parameters>
+
+            <services>
+                <service id="acme_mailer.transport_chain" class="%acme_mailer.transport_chain.class%" />
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -89,14 +95,22 @@ Come esempio, aggiungere i seguenti trasporti come servizi:
 
     .. code-block:: xml
 
-        <service id="acme_mailer.transport.smtp" class="\Swift_SmtpTransport">
-            <argument>%mailer_host%</argument>
-            <tag name="acme_mailer.transport" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <service id="acme_mailer.transport.sendmail" class="\Swift_SendmailTransport">
-            <tag name="acme_mailer.transport" />
-        </service>
+            <services>
+                <service id="acme_mailer.transport.smtp" class="\Swift_SmtpTransport">
+                    <argument>%mailer_host%</argument>
+                    <tag name="acme_mailer.transport" />
+                </service>
+
+                <service id="acme_mailer.transport.sendmail" class="\Swift_SendmailTransport">
+                    <tag name="acme_mailer.transport" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
@@ -226,14 +240,22 @@ Per rispondere, cambiare la dichiarazione del servizio:
 
     .. code-block:: xml
 
-        <service id="acme_mailer.transport.smtp" class="\Swift_SmtpTransport">
-            <argument>%mailer_host%</argument>
-            <tag name="acme_mailer.transport" alias="pippo" />
-        </service>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <service id="acme_mailer.transport.sendmail" class="\Swift_SendmailTransport">
-            <tag name="acme_mailer.transport" alias="pluto" />
-        </service>
+            <services>
+                <service id="acme_mailer.transport.smtp" class="\Swift_SmtpTransport">
+                    <argument>%mailer_host%</argument>
+                    <tag name="acme_mailer.transport" alias="pippo" />
+                </service>
+
+                <service id="acme_mailer.transport.sendmail" class="\Swift_SendmailTransport">
+                    <tag name="acme_mailer.transport" alias="pluto" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 

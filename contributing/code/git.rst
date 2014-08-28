@@ -13,7 +13,7 @@ di pull (commenti inclusi) sono salvate nel repository.
 Si possono trovare facilmente i merge delle richeiste di pull, perché i messaggi di commit
 seguono sempre questo schema:
 
-.. block: text
+.. code-block:: text
 
     merged branch NOME_UTENTE/NOME_RAMO (PR #1111)
 
@@ -30,13 +30,13 @@ memorizzata come nota Git (prima del 22 marzo 2013, la discussione era parte
 del messaggio principale di merge). Per accedere a tali note, aggiungere la riga
 seguente al proprio file ``.git/config``:
 
-.. block: text
+.. code-block:: ini
 
     fetch = +refs/notes/*:refs/notes/*
 
 Dopo un fetch, per ottenere la discussione su un commit basta
 aggiungere ``--show-notes=github-comments`` al comando ``git show``:
 
-.. block: text
+.. code-block:: bash
 
-    git show HEAD --show-notes=github-comments
+    $ git show HEAD --show-notes=github-comments

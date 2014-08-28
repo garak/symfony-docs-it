@@ -110,6 +110,9 @@ il form.
 
 .. sidebar:: ``FormEvents::POST_SET_DATA`` nel componente Form
 
+    .. versionadded:: 2.4
+        L'estensione per raccogliere i dati è stata introdotta in Symfony 2.4.
+
     La classe :class:`Symfony\\Component\\Form\\Extension\\DataCollector\\EventListener\\DataCollectorListener`
     ascolta l'evento ``FormEvents::POST_SET_DATA``,
     per poter raccogliere informazioni sui form dal modello denormalizzato
@@ -218,6 +221,9 @@ Può essere usato per recuperare dati dopo la denormalizzazione.
 
 .. sidebar:: ``FormEvents::POST_SUBMIT`` nel componente Form
 
+    .. versionadded:: 2.4
+        L'estensione per raccogliere i dati è stata introdotta in Symfony 2.4.
+
     :class:`Symfony\\Component\\Form\\Extension\\DataCollector\\EventListener\\DataCollectorListener`
     ascolta l'evento ``FormEvents::POST_SUBMIT``, per poter raccogliere
     informazioni sui form.
@@ -257,7 +263,6 @@ di processamento.
 +--------------------+-------------------------------+-------------------+
 
 .. versionadded:: 2.3
-
     Prima di Symfony 2.3, ``FormEvents::PRE_SUBMIT``, ``FormEvents::SUBMIT``
     e ``FormEvents::POST_SUBMIT`` si chiamavano ``FormEvents::PRE_BIND``,
     ``FormEvents::BIND`` e ``FormEvents::POST_BIND``.

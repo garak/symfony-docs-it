@@ -170,9 +170,15 @@ nel controllore:
     .. code-block:: php
 
         // app/config/routing.php
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
         $collection->add('hello', new Route('/hello/{name}', array(
             '_controller' => 'AcmeHelloBundle:Hello:index',
         )));
+
+        return $collection;
 
 Andando in ``/hello/ryan`` ora viene eseguito il controllore ``HelloController::indexAction()``
 e viene passato ``ryan`` nella variabile ``$name``. Creare una
@@ -236,7 +242,7 @@ esempio:
 
         # app/config/routing.yml
         hello:
-            path:      /hello/{first_name}/{last_name}
+            path:      /hello/{firstName}/{lastName}
             defaults:  { _controller: AcmeHelloBundle:Hello:index, color: green }
 
     .. code-block:: xml
@@ -248,7 +254,7 @@ esempio:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="hello" path="/hello/{first_name}/{last_name}">
+            <route id="hello" path="/hello/{firstName}/{lastName}">
                 <default key="_controller">AcmeHelloBundle:Hello:index</default>
                 <default key="color">green</default>
             </route>
@@ -257,14 +263,20 @@ esempio:
     .. code-block:: php
 
         // app/config/routing.php
-        $collection->add('hello', new Route('/hello/{first_name}/{last_name}', array(
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
+
+        $collection = new RouteCollection();
+        $collection->add('hello', new Route('/hello/{firstName}/{lastName}', array(
             '_controller' => 'AcmeHelloBundle:Hello:index',
             'color'       => 'green',
         )));
 
+        return $collection;
+
 Per questo il controllore può richiedere diversi parametri::
 
-    public function indexAction($first_name, $last_name, $color)
+    public function indexAction($firstName, $lastName, $color)
     {
         // ...
     }
@@ -279,44 +291,44 @@ in mente le seguenti linee guida mentre si sviluppa.
 
 * **L'ordine dei parametri del controllore non ha importanza**
 
-    Symfony è in grado di abbinare i nomi dei parametri delle rotte e i nomi delle variabili
-    dei metodi dei controllori. In altre parole, vuol dire che
-    il parametro ``{last_name}`` corrisponde al parametro ``$last_name``.
-    I parametri del controllore possono essere totalmente riordinati e continuare a funzionare
-    perfettamente::
+  Symfony è in grado di abbinare i nomi dei parametri delle rotte e i nomi delle variabili
+  dei metodi dei controllori. In altre parole, vuol dire che
+  il parametro ``{last_name}`` corrisponde al parametro ``$last_name``.
+  I parametri del controllore possono essere totalmente riordinati e continuare a funzionare
+  perfettamente::
 
-        public function indexAction($last_name, $color, $first_name)
-        {
-            // ...
-        }
+      public function indexAction($lastName, $color, $firstName)
+      {
+          // ...
+      }
 
 * **Ogni parametro richiesto del controllore, deve corrispondere a uno dei parametri della rotta**
 
-    Il codice seguente genererebbe un ``RuntimeException``, perché non c'è nessun parametro ``foo``
-    definito nella rotta::
+  Il codice seguente genererebbe un ``RuntimeException``, perché non c'è nessun parametro ``foo``
+  definito nella rotta::
 
-        public function indexAction($first_name, $last_name, $color, $foo)
-        {
-            // ...
-        }
+      public function indexAction($firstName, $lastName, $color, $foo)
+      {
+          // ...
+      }
 
-    Rendere il parametro facoltativo metterebbe le cose a posto. Il seguente
-    esempio non lancerebbe un'eccezione::
+  Rendere il parametro facoltativo metterebbe le cose a posto. Il seguente
+  esempio non lancerebbe un'eccezione::
 
-        public function indexAction($first_name, $last_name, $color, $foo = 'bar')
-        {
-            // ...
-        }
+      public function indexAction($firstName, $lastName, $color, $foo = 'bar')
+      {
+          // ...
+      }
 
 * **Non tutti i parametri delle rotte devono essere parametri del controllore**
 
-    Se, per esempio, ``last_name`` non è importante per il controllore,
-    si può ometterlo del tutto::
+  Se, per esempio, ``last_name`` non è importante per il controllore,
+  si può ometterlo del tutto::
 
-        public function indexAction($first_name, $color)
-        {
-            // ...
-        }
+      public function indexAction($firstName, $color)
+      {
+          // ...
+      }
 
 .. tip::
 
@@ -339,7 +351,7 @@ lavora con i form, ad esempio::
     {
         $form = $this->createForm(...);
 
-        $form->bind($request);
+        $form->handleRequest($request);
         // ...
     }
 
@@ -558,7 +570,7 @@ capitolo :doc:`Template </book/templating>`.
 
     Si può anche evitare di richiamare il metodo ``render``, usando l'annotazione ``@Template``.
     Si veda la
-    :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/view>`
+    :doc:`documentazione di FrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/annotations/view>`
     per maggiori dettagli.
 
 .. tip::
@@ -735,7 +747,7 @@ il messaggio ``notice``:
 
     .. code-block:: html+php
 
-        <?php foreach ($view['session']->getFlashBag()->get('notice') as $message): ?>
+        <?php foreach ($view['session']->getFlash('notice') as $message): ?>
             <div class="flash-notice">
                 <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>

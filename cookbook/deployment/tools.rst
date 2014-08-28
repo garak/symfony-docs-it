@@ -1,5 +1,5 @@
 .. index::
-   single: Deploy
+   single: Deploy; Strumenti di deploy
 
 Deploy di un'applicazione Symfony2
 ==================================
@@ -71,14 +71,23 @@ Azioni comuni post-deploy
 Dopo il deploy del codice sorgente, ci sono alcune azioni comuni che
 occorrerà intraprendere:
 
-A) Configurare il file ``app/config/parameters.yml``
+A) Verificare i requisiti
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Verificare che il server soddisfi i requisiti, eseguendo:
+
+.. code-block:: bash
+
+    $ php app/check.php
+
+B) Configurare il file ``app/config/parameters.yml``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Questo file andrebbe personalizzato su ogni sistema. Il metodo usato per il
 deploy del codice *non* dovrebbe modificare questo file. Invece, lo si dovrebbe
 modificare manualmente (o tramite un processo) direttamente sul server.
 
-B) Aggiornare i venditori
+C) Aggiornare i venditori
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 I venditori possono essere aggiornati prima del trasferimento del codice (aggiornando
@@ -88,7 +97,7 @@ fa normalmente:
 
 .. code-block:: bash
 
-    $ php composer.phar install --optimize-autoloader
+    $ php composer.phar install --no-dev --optimize-autoloader
 
 .. tip::
 
@@ -97,7 +106,7 @@ fa normalmente:
     assicura che i pacchetti di sviluppo non siano installati in ambiente
     di produzione.
 
-C) Pulire la cache di Symfony
+D) Pulire la cache di Symfony
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Assicurarsi di pulire (e riscaldare) la cache di Symfony:
@@ -106,7 +115,7 @@ Assicurarsi di pulire (e riscaldare) la cache di Symfony:
 
     $ php app/console cache:clear --env=prod --no-debug
 
-D) Esportare le risorse di Assetic
+E) Esportare le risorse di Assetic
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Se si usa Assetic, si vorranno esportare le risorse:
@@ -115,7 +124,7 @@ Se si usa Assetic, si vorranno esportare le risorse:
 
     $ php app/console assetic:dump --env=prod --no-debug
 
-E) Altre cose!
+F) Altre cose!
 ~~~~~~~~~~~~~~
 
 Ci possono essere molte altre cose che si potrebbe dover fare, a seconda

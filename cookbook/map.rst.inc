@@ -14,6 +14,7 @@
   * :doc:`/cookbook/bundles/override`
   * :doc:`/cookbook/bundles/remove`
   * :doc:`/cookbook/bundles/extension`
+  * :doc:`/cookbook/bundles/configuration`
   * :doc:`/cookbook/bundles/prepend_extension`
 
 * :doc:`/cookbook/cache/index`
@@ -30,6 +31,7 @@
   * :doc:`/cookbook/configuration/pdo_session_storage`
   * :doc:`/cookbook/configuration/apache_router`
   * :doc:`/cookbook/configuration/web_server_configuration`
+  * :doc:`/cookbook/configuration/configuration_organization`
 
 * :doc:`/cookbook/console/index`
 
@@ -48,9 +50,11 @@
 
   * :doc:`/cookbook/debugging`
 
-* **Deploy**
+* :doc:`/cookbook/deployment/index`
 
-  * :doc:`/cookbook/deployment-tools`
+  * :doc:`/cookbook/deployment/tools`
+  * :doc:`/cookbook/deployment/azure-website`
+  * :doc:`/cookbook/deployment/heroku`
 
 * :doc:`/cookbook/doctrine/index`
 
@@ -117,6 +121,7 @@
 
 * :doc:`/cookbook/request/index`
 
+  * :doc:`/cookbook/request/load_balancer_reverse_proxy`
   * :doc:`/cookbook/request/mime_type`
   * (sessione) :doc:`/cookbook/session/locale_sticky_session`
 
@@ -196,6 +201,11 @@
 * :doc:`/cookbook/validation/index`
 
   * :doc:`/cookbook/validation/custom_constraint`
+
+* :doc:`/cookbook/web_server/index`
+
+  * :doc:`/cookbook/web_server/built_in`
+  * (configurazione) :doc:`/cookbook/configuration/web_server_configuration`
 
 * :doc:`/cookbook/web_services/index`
 

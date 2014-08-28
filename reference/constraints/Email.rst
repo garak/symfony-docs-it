@@ -5,9 +5,10 @@ Valida che un valore sia un indirizzo email valido. Il valore sottostante è
 forzato a stringa, prima di essere validato.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`              |
 +----------------+---------------------------------------------------------------------+
-| Opzioni        | - `message`_                                                        |
+| Opzioni        | - `strict`_                                                         |
+|                | - `message`_                                                        |
 |                | - `checkMX`_                                                        |
 |                | - `checkHost`_                                                      |
 +----------------+---------------------------------------------------------------------+
@@ -89,6 +90,18 @@ Uso di base
 Opzioni
 -------
 
+.. versionadded:: 2.5
+    L'opzione ``strict`` è stata introdotta in Symfony 2.5.
+
+strict
+~~~~~~
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se ``false``, l'email sarà validata solo con un'espressione regolare.
+Se ``true`` sarà necessaria la libreria `egulias/email-validator`_, per eseguire
+una validazione conforme all RFC.
+
 message
 ~~~~~~~
 
@@ -112,3 +125,5 @@ checkHost
 Se ``true``, sarà usata la funzione :phpfunction:`checkdnsrr` di PHP per verificare
 la validità del recordo MX *o* del record A *o* del record AAAA dell'host
 dell'email data.
+
+.. _egulias/email-validator: https://packagist.org/packages/egulias/email-validator

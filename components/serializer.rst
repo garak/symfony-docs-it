@@ -28,10 +28,10 @@ che serializzano e deserializzano gli oggetti.
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/Serializer);
-* :doc:`Installarlo via Composer</components/using_components>` (``symfony/serializer`` su `Packagist`_).
+* :doc:`Installarlo via Composer</components/using_components>` (``symfony/serializer`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Serializer).
 
 Uso
 ---
@@ -62,6 +62,7 @@ classe seguente::
     {
         private $age;
         private $name;
+        private $sportsman;
 
         // Getter
         public function getName()
@@ -74,6 +75,12 @@ classe seguente::
             return $this->age;
         }
 
+        // Isser
+        public function isSportsman()
+        {
+            return $this->sportsman;
+        }
+
         // Setter
         public function setName($name)
         {
@@ -84,6 +91,11 @@ classe seguente::
         {
             $this->age = $age;
         }
+
+        public function setSportsman($sportsman)
+        {
+            $this->sportsman = $sportsman;
+        }
     }
 
 Se ora vogliamo serializzare questo oggetto in JSON, ci basta usare
@@ -92,10 +104,11 @@ il servizio Serializer creato in precedenza::
     $person = new Acme\Person();
     $person->setName('pippo');
     $person->setAge(99);
+    $person->setSportsman(false);
 
-    $serializer->serialize($person, 'json');
+    $jsonContent = $serializer->serialize($person, 'json');
 
-    // $jsonContent contiene {"name":"pippo","age":99}
+    // $jsonContent contiene {"name":"pippo","age":99,"sportsman":false}
 
     echo $jsonContent; // o restituirlo in una risposta
 
@@ -108,7 +121,7 @@ Ignorare attributi durante la serializzazione
 
 .. versionadded:: 2.3
     Il metodo :method:`GetSetMethodNormalizer::setIgnoredAttributes<Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer::setIgnoredAttributes>`
-    è stato aggiunto in Symfony 2.3.
+    è stato introdotto in Symfony 2.3.
 
 C'è un modo opzionale per ignorare attributi dall'oggetto originario, durante la
 serializzazione. Per rimuovere attributi, usare il metodo
@@ -136,6 +149,7 @@ Vediamo ora l'operazione inversa. Questa volta, l'informazione della classe
     <person>
         <name>pippo</name>
         <age>99</age>
+        <sportsman>false</sportsman>
     </person>
     EOF;
 
@@ -180,6 +194,18 @@ nella definizione del normalizzatore::
 
 Come risultato, il deserializzatore usa l'attributo ``first_name`` come se fosse
 stato ``firstName`` e quindi usa i metodi ``getFirstName`` e ``setFirstName``.
+
+Serializzare attributi booleani
+-------------------------------
+
+.. versionadded:: 2.5
+    Il supporto per i metodi ``is*`` in
+    :class:`Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormalizer`
+    è stato introdotto in Symfony 2.5.
+
+Se si usano i metodi isser (metodi con prefisso ``is``, come
+``Acme\Person::isSportsman()``), il componente Serializer individuerà automaticamente
+e lo userà per serializzare gli attributi correlati.
 
 Uso di callback per serializzare proprietà con istanze di oggetti
 -----------------------------------------------------------------

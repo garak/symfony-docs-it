@@ -46,15 +46,15 @@ Per poterlo fare, il kernel di Symfony2 lancia un evento,
   l'oggetto ``Response``.
 
 .. index::
-   single: Event Dispatcher; Eventi
+   single: EventDispatcher; Eventi
 
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher);
-* Installarlo via :doc:`Composer</components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_).
+* Installarlo via :doc:`Composer </components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher).
 
 Uso
 ---
@@ -90,7 +90,7 @@ Ecco alcuni buoni esempi di nomi di eventi:
 * ``form.pre_set_data``
 
 .. index::
-   single: Event Dispatcher; Sotto-classi di eventi
+   single: EventDispatcher; Sotto-classi di eventi
 
 Nomi di eventi e oggetti Event
 ..............................
@@ -144,7 +144,7 @@ Il metodo ``addListener()`` accetta fino a tre parametri:
 
 * Il nome dell'evento (stringa) che questo ascoltatore vuole ascoltare;
 
-* Un callabel PHP, che sarà notificato quando viene lanciato un evento che sta
+* Un callable PHP, che sarà notificato quando viene lanciato un evento che sta
   ascoltando;
 
 * Un intero opzionale di priorità (più alto equivale a più importante, quindi
@@ -192,7 +192,7 @@ In molti casi, viene passata all'ascoltatore una speciale sotto-classe ``Event``
 è specifica dell'evento dato. Questo dà accesso all'ascoltatore a informazioni speciali
 sull'evento. Leggere la documentazione o l'implementazione di ciascun evento, per
 determinare l'esatta istanza ``Symfony\Component\EventDispatcher\Event``
-passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
+passata. Per esempio, l'evento ``kernel.response`` passa un'istanza di
 ``Symfony\Component\HttpKernel\Event\FilterResponseEvent``::
 
     use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -204,6 +204,47 @@ passata. Per esempio, l'evento ``kernel.event`` passa un'istanza di
 
         // ...
     }
+
+.. sidebar:: Registrare ascoltatori di eventi nel contenitore di servizi
+
+    Se si usa il
+    :doc:`componente DependencyInjection </components/dependency_injection/introduction>`,
+    si può usare
+    :class:`Symfony\\Component\\HttpKernel\\DependencyInjection\\RegisterListenersPass`
+    del componente HttpKernel per aggiungere un tag ai servizi::
+
+        use Symfony\Component\DependencyInjection\ContainerBuilder;
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+        use Symfony\Component\HttpKernel\DependencyInjection\RegisterListenersPass;
+
+        $containerBuilder = new ContainerBuilder(new ParameterBag());
+        $containerBuilder->addCompilerPass(new RegisterListenersPass());
+
+        // registra il servizio distributore di eventi
+        $containerBuilder->register(
+            'event_dispatcher',
+            'Symfony\Component\EventDispatcher\EventDispatcher'
+        );
+
+        // registra il servizio ascoltatore di eventi
+        $listener = new Definition('AcmeListener');
+        $listener->addTag('kernel.event_listener', array(
+            'event' => 'foo.action',
+            'method' => 'onFooAction',
+        ));
+        $containerBuilder->setDefinition('listener_service_id', $listener);
+
+        // registra un sottoscrittore di eventi
+        $subscriber = new Definition('AcmeSubscriber');
+        $subscriber->addTag('kernel.event_subscriber');
+        $containerBuilder->setDefinition('subscriber_service_id', $subscriber);
+
+    Il passo degli ascoltatori ipotizza che l'id del servizio distributore di eventi
+    sia ``event_dispatcher``, che gli ascoltatori di eventi abbiano il tag
+    ``kernel.event_listener`` e che i sottoscrittori di eventi abbiano il
+    tag ``kernel.event_subscriber``. Si possono cambiare questi valori predefiniti,
+    passando valori personalizzati al costruttore di ``RegisterListenersPass``.
 
 .. _event_dispatcher-closures-as-listeners:
 
@@ -402,7 +443,7 @@ quando viene lanciato l'evento ``kernel.response``, i metodi
 sono richiamati in questo ordine.
 
 .. index::
-   single: Event Dispatcher; Bloccare il flusso degli eventi
+   single: EventDispatcher; Bloccare il flusso degli eventi
 
 .. _event_dispatcher-event-propagation:
 

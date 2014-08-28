@@ -141,7 +141,7 @@ Ecco un esempio di come potrebbe essere::
 
                 // ...
 
-                return new WebserviceUser($username, $password, $salt, $roles)
+                return new WebserviceUser($username, $password, $salt, $roles);
             }
 
             throw new UsernameNotFoundException(

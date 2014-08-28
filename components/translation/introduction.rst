@@ -13,8 +13,8 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_).
-* Usare il repository ufficiale su Git (https://github.com/symfony/Translation);
+* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/Translation).
 
 Costruire il Translator
 -----------------------
@@ -45,8 +45,8 @@ Il costruttore della classe ``Translator`` ha bisogno di un solo parametro: il l
 
     Il termine *locale* si riferisce più o meno a lingua e paese dell'utente. Può
     essere unq qualsiasi stringa usata da un'applicazione per gestire traduzioni e
-    altre variazioni di formato (p.e. la valuta). Si raccomanda un codice `ISO639-1`_ della
-    *lingua*, un trattino basso (``_``), quindi il codice `ISO3166 Alpha-2`_ del
+    altre variazioni di formato (p.e. la valuta). Si raccomanda un codice `ISO 639-1`_ della
+    *lingua*, un trattino basso (``_``), quindi il codice `ISO 3166-1 alpha-2`_ del
     *paese* (p.e. ``fr_FR`` per francese/Francia).
 
 .. _component-translator-message-catalogs:
@@ -61,6 +61,9 @@ locale.
 Il componente Translation usa della classi Loader per caricare i cataloghi. Si possono caricare
 più risorse per lo stesso locale, saranno combinato in un unico
 catalogo.
+
+.. versionadded:: 2.4
+    ``JsonFileLoader`` è stato introdotto in Symfony 2.4.
 
 Il componente dispone di alcuni Loader, ma se ne possono creare altri.
 I Loader predefiniti sono:
@@ -85,6 +88,8 @@ I Loader predefiniti sono:
   cataloghi da file QT XML.
 * :class:`Symfony\\Component\\Translation\\Loader\\XliffFileLoader` - per caricare
   cataloghi da file Xliff.
+* :class:`Symfony\\Component\\Translation\\Loader\\JsonFileLoader` - per caricare
+  cataloghi da file JSON.
 * :class:`Symfony\\Component\\Translation\\Loader\\YamlFileLoader` - per caricare
   cataloghi da file Yaml (richiede il :doc:`componente Yaml</components/yaml/introduction>`).
 
@@ -185,7 +190,12 @@ caricata in questo modo::
 
     $translator->addResource('xliff', 'messages.fr.xliff', 'fr_FR');
     $translator->addResource('xliff', 'admin.fr.xliff', 'fr_FR', 'admin');
-    $translator->addResource('xliff', 'navigation.fr.xliff', 'fr_FR', 'navigation');
+    $translator->addResource(
+        'xliff',
+        'navigation.fr.xliff',
+        'fr_FR',
+        'navigation'
+    );
 
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
 si deve specificare il dominio come terzo parametro di ``trans()``::
@@ -201,5 +211,5 @@ Uso
 Leggere come usare il componente Translation in ":doc:`/components/translation/usage`".
 
 .. _Packagist: https://packagist.org/packages/symfony/translation
-.. _ISO3166 Alpha-2: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
-.. _ISO639-1: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+.. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes
+.. _`ISO 639-1`: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

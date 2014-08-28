@@ -25,7 +25,7 @@ Ciò equivale alla seguente configurazione YAML:
 .. code-block:: yaml
 
     blog_home:
-        pattern:  /
+        path:     /
         defaults: { _controller: SensioBlogBundle:Post:index }
 
 Come ogni altro schema di rotta, si possono definire segnaposto, requisiti e valori
@@ -171,9 +171,9 @@ il controllore recuperandolo dal contenitore, invece che richiamando ``new
 PostController()``::
 
     /**
-     * @Route(service="my_post_controller_service")
+     * @Route(service="mio_servizio_post_controller")
      */
-    class PostController extends Controller
+    class PostController
     {
         // ...
     }

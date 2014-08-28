@@ -15,25 +15,25 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 +---------------+------------------------------------------------------------------------------+
 | Opzioni       | - `choices`_                                                                 |
 |               | - `choice_list`_                                                             |
-|               | - `multiple`_                                                                |
-|               | - `expanded`_                                                                |
-|               | - `preferred_choices`_                                                       |
 |               | - `empty_value`_                                                             |
+|               | - `expanded`_                                                                |
+|               | - `multiple`_                                                                |
+|               | - `preferred_choices`_                                                       |
 +---------------+------------------------------------------------------------------------------+
-| Opzioni       | - `empty_data`_                                                              |
-| ridefinite    | - `compound`_                                                                |
+| Opzioni       | - `compound`_                                                                |
+| ridefinite    | - `empty_data`_                                                              |
 |               | - `error_bubbling`_                                                          |
 +---------------+------------------------------------------------------------------------------+
-| Opzioni       | - `required`_                                                                |
-| ereditate     | - `label`_                                                                   |
-|               | - `label_attr`_                                                              |
-|               | - `data`_                                                                    |
-|               | - `read_only`_                                                               |
+| Opzioni       | - `by_reference`_                                                            |
+| ereditate     | - `data`_                                                                    |
 |               | - `disabled`_                                                                |
 |               | - `error_mapping`_                                                           |
-|               | - `mapped`_                                                                  |
 |               | - `inherit_data`_                                                            |
-|               | - `by_reference`_                                                            |
+|               | - `label`_                                                                   |
+|               | - `label_attr`_                                                              |
+|               | - `mapped`_                                                                  |
+|               | - `read_only`_                                                               |
+|               | - `required`_                                                                |
 +---------------+------------------------------------------------------------------------------+
 | Tipo genitore | :doc:`form </reference/forms/types/form>`                                    |
 +---------------+------------------------------------------------------------------------------+
@@ -103,18 +103,16 @@ L'opzione ``choice_list`` deve essere un'istanza di ``ChoiceListInterface``.
 Per classi avanzate, si può creare una classe personalizzata che implementi
 questa interfaccia e fornisca le scelte.
 
-.. include:: /reference/forms/types/options/multiple.rst.inc
+.. include:: /reference/forms/types/options/empty_value.rst.inc
 
 .. include:: /reference/forms/types/options/expanded.rst.inc
 
-.. include:: /reference/forms/types/options/preferred_choices.rst.inc
+.. include:: /reference/forms/types/options/multiple.rst.inc
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/preferred_choices.rst.inc
 
 Opzioni ridefinite
 ------------------
-
-.. include:: /reference/forms/types/options/empty_data.rst.inc
 
 compound
 ~~~~~~~~
@@ -124,65 +122,77 @@ compound
 Questa opzione specifica se il form è un composto. Il valore predefinito è
 sovrascritto dal valore dell'opzione ``expanded``.
 
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :end-before: DEFAULT_PLACEHOLDER
+
+Il valore predefinito effettivo di questa opzione dipende da altre opzioni:
+
+* Se ``multiple`` è ``false`` ed ``expanded`` è ``false``, allora è ``''``
+  (stringa vuota);
+* Altrimenti, è ``array()`` (array vuoto).
+
+.. include:: /reference/forms/types/options/empty_data.rst.inc
+    :start-after: DEFAULT_PLACEHOLDER
+
 error_bubbling
 ~~~~~~~~~~~~~~
 
 **tipo**: ``booleano`` **predefinito**: ``false``
 
-Set that error on this field must be attached to the field instead of 
-the parent field (the form in most cases).
+Fa in modo che l'errore su questo campo sia allegato al campo stesso, invece che
+al campo genitore (il form, nella maggior parte dei casi).
 
 Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
-.. include:: /reference/forms/types/options/required.rst.inc
-
-.. include:: /reference/forms/types/options/label.rst.inc
-
-.. include:: /reference/forms/types/options/label_attr.rst.inc
+.. include:: /reference/forms/types/options/by_reference.rst.inc
 
 .. include:: /reference/forms/types/options/data.rst.inc
-
-.. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
 
-.. include:: /reference/forms/types/options/mapped.rst.inc
-
 .. include:: /reference/forms/types/options/inherit_data.rst.inc
 
-.. include:: /reference/forms/types/options/by_reference.rst.inc
+.. include:: /reference/forms/types/options/label.rst.inc
+
+.. include:: /reference/forms/types/options/label_attr.rst.inc
+
+.. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/read_only.rst.inc
+
+.. include:: /reference/forms/types/options/required.rst.inc
 
 Variabili di campo
 ------------------
 
-+------------------------+---------------+-------------------------------------------------------------------+
-| Variabile              | Tipo          | Uso                                                               |
-+========================+===============+===================================================================+
-| multiple               | ``Booleano``  | Il valore dell'opzione `multiple`_.                               |
-+------------------------+---------------+-------------------------------------------------------------------+
-| expanded               | ``Booleano``  | Il valore dell'opzione `expanded`_.                               |
-+------------------------+---------------+-------------------------------------------------------------------+
-| preferred_choices      | ``array``     | Un array con gli oggetti ``ChoiceView`` delle scelte              |
-|                        |               | che vanno mostrare all'utente con precedenza.                     |
-+------------------------+---------------+-------------------------------------------------------------------+
-| choices                | ``array``     | Un array con gli oggetti ``ChoiceView`` delle scelte              |
-|                        |               | restanti.                                                         |
-+------------------------+---------------+-------------------------------------------------------------------+
-| separator              | ``stringa``   | Il separatore da usare tra i gruppi.                              |
-+------------------------+---------------+-------------------------------------------------------------------+
-| empty_value            | ``mixed``     | Il valore vuoto, se non già presente nella lista, altrimenti      |
-|                        |               | ``null``.                                                         |
-+------------------------+---------------+-------------------------------------------------------------------+
-| is_selected            | ``callable``  | Una funziona che accetta un ``ChoiceView`` e i valori selezionati |
-|                        |               | e dice se la scelta fa parte dei valori selezionati.              |
-+------------------------+---------------+-------------------------------------------------------------------+
-| empty_value_in_choices | ``Booleano``  | Se il valore vuoto è nella lista di scelte                        |
-+------------------------+---------------+-------------------------------------------------------------------+
++------------------------+--------------+-------------------------------------------------------------------+
+| Variabile              | Tipo         | Uso                                                               |
++========================+==============+===================================================================+
+| multiple               | ``Booleano`` | Il valore dell'opzione `multiple`_.                               |
++------------------------+--------------+-------------------------------------------------------------------+
+| expanded               | ``Booleano`` | Il valore dell'opzione `expanded`_.                               |
++------------------------+--------------+-------------------------------------------------------------------+
+| preferred_choices      | ``array``    | Un array con gli oggetti ``ChoiceView`` delle scelte              |
+|                        |              | che vanno mostrare all'utente con precedenza.                     |
++------------------------+--------------+-------------------------------------------------------------------+
+| choices                | ``array``    | Un array con gli oggetti ``ChoiceView`` delle scelte              |
+|                        |              | restanti.                                                         |
++------------------------+--------------+-------------------------------------------------------------------+
+| separator              | ``stringa``  | Il separatore da usare tra i gruppi.                              |
++------------------------+--------------+-------------------------------------------------------------------+
+| empty_value            | ``mixed``    | Il valore vuoto, se non già presente nella lista, altrimenti      |
+|                        |              | ``null``.                                                         |
++------------------------+--------------+-------------------------------------------------------------------+
+| is_selected            | ``callable`` | Una funziona che accetta un ``ChoiceView`` e i valori selezionati |
+|                        |              | e dice se la scelta fa parte dei valori selezionati.              |
++------------------------+--------------+-------------------------------------------------------------------+
+| empty_value_in_choices | ``Booleano`` | Se il valore vuoto è nella lista di scelte                        |
++------------------------+--------------+-------------------------------------------------------------------+
 
 .. tip::
 

@@ -54,12 +54,13 @@ Creare un votante personalizzato
 --------------------------------
 
 Lo scopo è creare un votante che verifichi se un utente abbia accesso alla visualizzazione o
-modifica di un particolare oggetto. Ecco una possibile implementazione::
+modifica di un particolare oggetto. Ecco una possibile implementazione:
+
+.. code-block:: php
 
     // src/Acme/DemoBundle/Security/Authorization/Voter/PostVoter.php
     namespace Acme\DemoBundle\Security\Authorization\Voter;
 
-    use Symfony\Component\Security\Core\Exception\InvalidArgumentException;
     use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
     use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
     use Symfony\Component\Security\Core\User\UserInterface;
@@ -106,13 +107,13 @@ modifica di un particolare oggetto. Ecco una possibile implementazione::
             // imposta l'attributo da verificare
             $attribute = $attributes[0];
 
-            // ottiene l'utente corrente
-            $user = $token->getUser();
-
             // verifica se l'attributo dato sia coperto da questo votante
             if (!$this->supportsAttribute($attribute)) {
                 return VoterInterface::ACCESS_ABSTAIN;
             }
+
+            // ottiene l'utente corrente
+            $user = $token->getUser();
 
             // si assicura che ci sia un utente (che abbia fatto login)
             if (!$user instanceof UserInterface) {
@@ -120,7 +121,7 @@ modifica di un particolare oggetto. Ecco una possibile implementazione::
             }
 
             switch($attribute) {
-                case 'view':
+                case self::VIEW:
                     // l'oggetto potrebbe per esempio avere un metodo isPrivate()
                     // che verifichi l'attributo booleano $private
                     if (!$post->isPrivate()) {
@@ -128,7 +129,7 @@ modifica di un particolare oggetto. Ecco una possibile implementazione::
                     }
                     break;
 
-                case 'edit':
+                case self::EDIT:
                     // ipotizziamo che l'oggetto abbia un metodo getOwner(), che
                     // restituisce l'utente proprietario dell'oggetto
                     if ($user->getId() === $post->getOwner()->getId()) {
@@ -136,6 +137,8 @@ modifica di un particolare oggetto. Ecco una possibile implementazione::
                     }
                     break;
             }
+            
+            return VoterInterface::ACCESS_DENIED;
         }
     }
 

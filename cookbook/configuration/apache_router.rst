@@ -7,6 +7,13 @@ Come usare le rotte su Apache
 Symfony2, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua velocità,
 tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache, invece di usare Symfony2.
 
+.. caution::
+
+    Le rotte su Apache sono state deprecate in Symfony 2.5 e saranno rimosse in Symfony
+    3.0. Avendo migliorato l'implementazione delle rotte in PHP, i guadagni di
+    prestazione non sono più significativi (ed è molto difficile replicare lo stesso
+    comportamento).
+
 Modificare i parametri di configurazione delle rotte
 ----------------------------------------------------
 
@@ -60,13 +67,13 @@ Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle d
 
         # app/config/routing.yml
         hello:
-            pattern:  /hello/{name}
+            path: /hello/{name}
             defaults: { _controller: AcmeDemoBundle:Demo:hello }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" pattern="/hello/{name}">
+        <route id="hello" path="/hello/{name}">
             <default key="_controller">AcmeDemoBundle:Demo:hello</default>
         </route>
 
@@ -129,11 +136,11 @@ con ``ApacheRequest`` in ``web/app.php``::
 
     require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
-    //require_once __DIR__.'/../app/AppCache.php';
+    // require_once __DIR__.'/../app/AppCache.php';
 
     use Symfony\Component\HttpFoundation\ApacheRequest;
 
     $kernel = new AppKernel('prod', false);
     $kernel->loadClassCache();
-    //$kernel = new AppCache($kernel);
+    // $kernel = new AppCache($kernel);
     $kernel->handle(ApacheRequest::createFromGlobals())->send();

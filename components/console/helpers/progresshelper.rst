@@ -10,6 +10,13 @@ Aiutante Progress
 .. versionadded:: 2.4
     Il metodo  ``clear`` è stato introdotto in Symfony 2.4.
 
+.. caution::
+
+    L'aiutante Progress è stato deprecato in Symfony 2.5 e sarà rimosso in
+    Symfony 3.0. Si dovrebbe invece usare la
+    :doc:`barra di progressione </components/console/helpers/progressbar>`, che
+    è più potente.
+
 Quando si eseguono comandi che devono girare a lungo, può essere utile mostrare una barra di progressione,
 che si aggiorna durante l'esecuzione:
 

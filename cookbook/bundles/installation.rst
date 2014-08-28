@@ -36,7 +36,7 @@ succede, si può provare con una versione diversa.
 Ora si può aggiungere il bundle al file ``composer.json`` e aggiornare le
 dipendenze. Lo si può fare a mano:
 
-1. **Aggiungere al file ``composer.json``:**
+1. **Aggiungere al file composer.json:**
 
    .. code-block:: json
 

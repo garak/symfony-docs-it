@@ -240,18 +240,31 @@ che va usato per codificare la password dell'utente::
     // recupera un utente di tipo Acme\Entity\LegacyUser
     $user = ...
 
+    // la password immessa, p.e. durante una registrazione
+    $plainPassword = ...;
+
     $encoder = $encoderFactory->getEncoder($user);
 
     // restituirà $weakEncoder (vedere sopra)
+    $encodedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
 
-    $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
+    $user->setPassword($encodedPassword);
 
-    // verifica se la password è valida:
+    // ... salvare l'utente
+
+Se ora si vuole verificare se la password fornita (p.e. durante un login)
+sia corretta, si può usare::
+
+    // recupera Acme\Entity\LegacyUser
+    $user = ...;
+    
+    // la password immessa, p.e. da un form di login
+    $plainPassword = ...;
 
     $validPassword = $encoder->isPasswordValid(
-        $user->getPassword(),
-        $password,
-        $user->getSalt());
+        $user->getPassword(), // la password codificata
+        $plainPassword,       // la password fornita
+        $user->getSalt()
+    );
 
 .. _`CVE-2013-5750`: http://symfony.com/blog/cve-2013-5750-security-issue-in-fosuserbundle-login-form
-.. _`BasePasswordEncoder::checkPasswordLength`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Security/Core/Encoder/BasePasswordEncoder.php

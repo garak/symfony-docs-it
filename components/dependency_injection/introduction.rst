@@ -5,19 +5,19 @@
 Il componente DependencyInjection
 =================================
 
-    Il componente Dependency Injection consente di standardizzare e centralizzare
+    Il componente DependencyInjection consente di standardizzare e centralizzare
     il modo in cui gli oggetti sono costruiti nelle applicazioni.
 
-Per un'introduzione a Dependency Injection e ai contenitori di servizi, vedere
+Per un'introduzione alla dependency injection e ai contenitori di servizi, vedere
 :doc:`/book/service_container`
 
 Installazione
 -------------
 
-È possibile installare il componente in diversi modi:
+È possibile installare il componente in due modi:
 
-* Utilizzando il repository ufficiale su Git (https://github.com/symfony/DependencyInjection);
-* Installandolo via Composer (``symfony/dependency-injection`` su `Packagist`_).
+* Installandolo via :doc:`Composer</components/using_components>` (``symfony/dependency-injection`` su `Packagist`_);
+* Utilizzando il repository ufficiale su Git (https://github.com/symfony/DependencyInjection).
 
 Utilizzo
 --------
@@ -244,22 +244,28 @@ da file di configurazione:
 
     .. code-block:: xml
 
-        <parameters>
-            <!-- ... -->
-            <parameter key="mailer.transport">sendmail</parameter>
-        </parameters>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <services>
-            <service id="mailer" class="Mailer">
-                <argument>%mailer.transport%</argument>
-            </service>
+            <parameters>
+                <!-- ... -->
+                <parameter key="mailer.transport">sendmail</parameter>
+            </parameters>
 
-            <service id="newsletter_manager" class="NewsletterManager">
-                <call method="setMailer">
-                     <argument type="service" id="mailer" />
-                </call>
-            </service>
-        </services>
+            <services>
+                <service id="mailer" class="Mailer">
+                    <argument>%mailer.transport%</argument>
+                </service>
+
+                <service id="newsletter_manager" class="NewsletterManager">
+                    <call method="setMailer">
+                        <argument type="service" id="mailer" />
+                    </call>
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 

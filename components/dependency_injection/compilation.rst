@@ -16,7 +16,7 @@ La compilazione avviene eseguendo::
     $container->compile();
 
 Il metodo ``compile`` usa dei **passi di compilatore** per la compilazione. Il componente
-*Dependency Injection* dispone di diversi passi, registrati automaticamente per la
+DependencyInjection dispone di diversi passi, registrati automaticamente per la
 compilazione. Per esempio, :class:`Symfony\\Component\\DependencyInjection\\Compiler\\CheckDefinitionValidityPass`
 verifica diversi problemi potenziali con le definizioni impostate nel
 contenitore. Dopo questo e molti altri passi, che verificano la validità del
@@ -203,7 +203,6 @@ La versione XML della configurazione sarà dunque simile a questa:
             <acme_demo:pippo>valoreDiPippo</acme_hello:foo>
             <acme_demo:pluto>valoreDiPluto</acme_demo:bar>
         </acme_demo:config>
-
     </container>
 
 .. note::

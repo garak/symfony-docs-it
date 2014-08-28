@@ -715,8 +715,9 @@ Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:framework="http://symfony.com/schema/dic/symfony"
                 xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                    http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                    http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
+                <!-- ... -->
                 <framework:config>
                     <framework:fragments path="/_fragment" />
                 </framework:config>
@@ -751,11 +752,11 @@ essere impostato in modo globale nella configurazione dell'applicazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
+            <!-- ... -->
             <framework:config>
-                <framework:templating
-                    hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
+                <framework:templating hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
             </framework:config>
         </container>
 
@@ -832,12 +833,14 @@ delle rotte:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         _welcome:
             path:     /
             defaults: { _controller: AcmeDemoBundle:Welcome:index }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.yml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -850,6 +853,10 @@ delle rotte:
         </routes>
 
     .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
 
         $collection = new RouteCollection();
         $collection->add('_welcome', new Route('/', array(
@@ -877,12 +884,14 @@ rotta più complessa:
 
     .. code-block:: yaml
 
+        # app/config/routing.yml
         article_show:
             path:     /article/{slug}
             defaults: { _controller: AcmeArticleBundle:Article:show }
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -895,6 +904,10 @@ rotta più complessa:
         </routes>
 
     .. code-block:: php
+
+        // app/config/routing.php
+        use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
 
         $collection = new RouteCollection();
         $collection->add('article_show', new Route('/article/{slug}', array(
@@ -989,6 +1002,44 @@ non siano messe in cache. Per esempio, ``/images/logo.png`` potrebbe comparire c
 ``/images/logo.png?v2``. Per ulteriori informazioni, vedere l'opzione di
 configurazione :ref:`ref-framework-assets-version`.
 
+.. _`book-templating-version-by-asset`:
+
+.. versionadded:: 2.5
+    L'impostazione di URL versionati per singola risorsa è stato introdotto in Symfony 2.5.
+
+Se occorre specificare una versione per una risorsa specifica, si può impostare il quarto
+parametro (o il parametro ``version``) alla versione desiderata:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        <img src="{{ asset('images/logo.png', version='3.0') }}" alt="Symfony!" />
+
+    .. code-block:: html+php
+
+        <img src="<?php echo $view['assets']->getUrl('images/logo.png', null, false, '3.0') ?>" alt="Symfony!" />
+
+Se non si fornisce una versione o si passa ``null``, sarà usata la versione predefinita
+(da :ref:`ref-framework-assets-version`). Se si passa ``false``,
+l'URL versionato sarà disattivato per questa risorsa.
+
+.. versionadded:: 2.5
+    Gli URL assoluti per le risorse sono stati introdotti in Symfony 2.5.
+
+Se occorrono URL assoluti per gli asset, si può impostare il terzo parametro (o il parametro
+``absolute``) a ``true``:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        <img src="{{ asset('images/logo.png', absolute=true) }}" alt="Symfony!" />
+
+    .. code-block:: html+php
+
+        <img src="<?php echo $view['assets']->getUrl('images/logo.png', null, true) ?>" alt="Symfony!" />
+
 .. index::
    single: Template; Includere fogli di stile e Javascript
    single: Fogli di stile; Includere fogli di stile
@@ -1022,14 +1073,14 @@ di stile e i Javascript che occorrerano al sito:
             {# ... #}
 
             {% block stylesheets %}
-                <link href="{{ asset('/css/main.css') }}" rel="stylesheet" />
+                <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
             {% endblock %}
         </head>
         <body>
             {# ... #}
 
             {% block javascripts %}
-                <script src="{{ asset('/js/main.js') }}"></script>
+                <script src="{{ asset('js/main.js') }}"></script>
             {% endblock %}
         </body>
     </html>
@@ -1047,7 +1098,7 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
     {% block stylesheets %}
         {{ parent() }}
 
-        <link href="{{ asset('/css/contact.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/contact.css') }}" rel="stylesheet" />
     {% endblock %}
 
     {# ... #}
@@ -1065,7 +1116,7 @@ cartella "web").
 
 .. code-block:: html+jinja
 
-   <link href="{{ asset('bundles/acmedemo/css/contact.css') }}" type="text/css" rel="stylesheet" />
+   <link href="{{ asset('bundles/acmedemo/css/contact.css') }}" rel="stylesheet" />
 
 Il risultato finale è una pagina che include i fogli di stile ``main.css`` e
 ``contact.css``.
@@ -1154,11 +1205,12 @@ dell'applicazione:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
+            <!-- ... -->
             <framework:config>
                 <framework:templating>
-                    <framework:engine id="twig" />
+                    <framework:engine>twig</framework:engine>
                 </framework:templating>
             </framework:config>
         </container>

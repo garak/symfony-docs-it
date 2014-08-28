@@ -22,7 +22,7 @@ Charset
 
 **tipo**: ``stringa`` **predefinito**: ``UTF-8``
 
-Restituisce il set di caratteri usato nell'applicaizone. Per cambiarlo, sovrascrivere il metodo
+Restituisce il set di caratteri usato nell'applicazione. Per cambiarlo, sovrascrivere il metodo
 :method:`Symfony\\Component\\HttpKernel\\Kernel::getCharset` e restituire un set di
 caratteri diverso, per esempio::
 

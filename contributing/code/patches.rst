@@ -72,7 +72,7 @@ Ottenere il codice sorgente di Symfony:
 * Forkare il `repository di Symfony2`_ (cliccando sul bottone "Fork");
 
 * Dopo che l'azione "hardcore forking" è stata completata, clonare il fork in locale
-  (creerà una cartella `symfony`):
+  (creerà una cartella ``symfony``):
 
 .. code-block:: bash
 
@@ -113,8 +113,8 @@ mantenute) di Symfony nelle quali appare il bug (come `2.2`).
 
     Tutti i bug risolti in rami di manutenzione sono inseriti anche i rami più recenti,
     su base regolare. Per esempio, se si invia una patch
-    per il ramo `2.3`, la patch sarà applicata anche sul ramo
-    `master`.
+    per il ramo ``2.3``, la patch sarà applicata anche sul ramo
+    ``master``.
 
 Creare un ramo
 ~~~~~~~~~~~~~~
@@ -126,18 +126,18 @@ un ramo:
 
     $ git checkout -b NOME_RAMO master
 
-Oppure, se si vuole risolvere un bug per il ramo 2.2, tracciare il ramo `2.2` remoto
-in locale:
+Oppure, se si vuole risolvere un bug per il ramo ``2.3``, tracciare il ramo
+``2.3`` remoto in locale:
 
 .. code-block:: bash
 
-    $ git checkout -t origin/2.2
+    $ git checkout -t origin/2.3
 
-Quindi creare un nuovo ramo dal ramo `2.2`:
+Quindi creare un nuovo ramo dal ramo ``2.3``:
 
 .. code-block:: bash
 
-    $ git checkout -b NOME_RAMO 2.2
+    $ git checkout -b NOME_RAMO 2.3
 
 .. tip::
 
@@ -145,7 +145,7 @@ Quindi creare un nuovo ramo dal ramo `2.2`:
     numero di ticket, è una buona convenzione per i bug).
 
 I comandi precedenti porteranno automaticamente sul ramo appena creato
-(verificare il ramo su cui si sta lavorando con `git branch`).
+(verificare il ramo su cui si sta lavorando con ``git branch``).
 
 Lavorare su una patch
 ~~~~~~~~~~~~~~~~~~~~~
@@ -154,17 +154,17 @@ Lavorare su una patch
 seguenti indicazioni:
 
 * Seguire le :doc:`convenzioni <conventions>` di Symfony e gli
-  :doc:`standard <standards>` del codice (utilizzare `git diff --check` per
+  :doc:`standard <standards>` del codice (utilizzare ``git diff --check`` per
   controllare i spazi alla fine);
 
 * Aggiungere test unitari per provare che il bug è stato risolto o per mostrare che
   la funzionalità è effettivamente funzionante;
 
-* Sforzarsi di non infrangere la retro-compatibilità (se lo si deve fare, provare a fornire
+* Sforzarsi di non infrangere la retrocompatibilità (se lo si deve fare, provare a fornire
   un livello di compatibilità che supporti il vecchio modo), le patch che infrangono la
-  retro-compatbilità hanno meno probabilità di essere accettate;
+  retrocompatbilità hanno meno probabilità di essere accettate;
 
-* Fare commit separati e atomici (utilizzare le funzionalità di `git rebase` 
+* Fare commit separati e atomici (utilizzare le funzionalità di ``git rebase`` 
   per ottenere uno storico chiaro e pulito);
 
 * Comprimere i commit irrilevanti, che sistemano solamente gli standard di codice o gli errori
@@ -203,8 +203,8 @@ caratteristica o se ne cambia una, per esempio), occorre includere quello che se
   ``[BC BREAK]`` o ``[DEPRECATION]``, se rilevanti);
 
 * Una spiegazione di come aggiornare un'applicazione esistente, nel file (o nei file)
-  UPGRADE rilevante, se le modifiche infrangono la retro-compatibilità o se si sta
-  deprecando qualcosa che alla fine infrangerà la retro-compatibilità.
+  UPGRADE rilevante, se le modifiche infrangono la retrocompatibilità o se si sta
+  deprecando qualcosa che alla fine infrangerà la retrocompatibilità.
 
 Passo 3: inviare la patch
 -------------------------
@@ -310,23 +310,23 @@ nei file di traduzione, usare la versione breve della lista:
 
 Alcune risposte alle domande richiedono ulteriori requisiti:
 
- * Se si risponde affermativamente a "Bug fix?", verificare se il bug sia già elencato
-   tra le issue di Symfony e referenziarlo in "Fixed tickets";
+* Se si risponde affermativamente a "Bug fix?", verificare se il bug sia già elencato
+  tra le issue di Symfony e referenziarlo in "Fixed tickets";
 
- * Se si risponde affermativamente a "New feature?", si deve inviare una richiesta di pull alla
-   documentazione e referenziarla sotto la sezione "Doc PR";
+* Se si risponde affermativamente a "New feature?", si deve inviare una richiesta di pull alla
+  documentazione e referenziarla sotto la sezione "Doc PR";
 
- * Se si risponde affermativamente a "BC breaks?", la patch deve contenere aggiornamenti ai file
-   CHANGELOG e UPGRADE rilevanti;
+* Se si risponde affermativamente a "BC breaks?", la patch deve contenere aggiornamenti ai file
+  CHANGELOG e UPGRADE rilevanti;
 
- * Se si risponde affermativamente a "Deprecations?", la patch deve contenere aggiornamenti ai file
-   CHANGELOG e UPGRADE rilevanti;
+* Se si risponde affermativamente a "Deprecations?", la patch deve contenere aggiornamenti ai file
+  CHANGELOG e UPGRADE rilevanti;
 
- * Se si risponde negativamente a "Tests pass", si deve aggiungere un elemento a una lista di todo con
-   la zioni da eseguire per sistemare i test;
+* Se si risponde negativamente a "Tests pass", si deve aggiungere un elemento a una lista di todo con
+  le azioni da eseguire per sistemare i test;
 
- * Se "license" non è MIT, non inviare la richiesta di pull, perché non
-   sarà comunque accettata.
+* Se "license" non è MIT, non inviare la richiesta di pull, perché non
+  sarà comunque accettata.
 
 Se alcuni dei precedenti requisiti non sono soddisfatti, creare una lista di todo e
 aggiungere gli elementi rilevanti:
@@ -369,7 +369,7 @@ eseguire il rebase con il ramo master, ma non unire attraverso il merge; e forza
 .. code-block:: bash
 
     $ git rebase -f upstream/master
-    $ git push -f origin NOME_RAMO
+    $ git push --force origin NOME_RAMO
 
 .. note::
 
@@ -382,11 +382,10 @@ convertiranno molti commit in uno solo. Per farlo, usare il comando ``rebase``:
 
 .. code-block:: bash
 
-    $ git rebase -i HEAD~3
-    $ git push -f origin NOME_RAMO
+    $ git rebase -i upstream/master
+    $ git push --force origin NOME_RAMO
 
-Il numero 3 deve essere uguale al numero di commit nel proprio ramo. Dopo aver scritto
-questo comando, si aprirà un programma di modifica, con una lista di commit:
+Dopo aver scritto questo comando, si aprirà un programma di modifica, con una lista di commit:
 
 .. code-block:: text
 
@@ -394,9 +393,9 @@ questo comando, si aprirà un programma di modifica, con una lista di commit:
     pick 7fc64b4 secondo commit
     pick 7d33018 terzo commit
 
-Per unificare tutti i commit nel primo, rimuovere la parola "pick" prima del secondo
-e dell'ultimo commit e sostituirla con la parola "squash", o anche solo "s".
-Quando si salva, git inizierà il rebase e, in caso di successo, chiederà di modificare
+Per unificare tutti i commit nel primo, rimuovere la parola ``pick`` prima del secondo
+e dell'ultimo commit e sostituirla con la parola ``squash``, o anche solo
+``s``. Quando si salva, git inizierà il rebase e, in caso di successo, chiederà di modificare
 il messaggio di commit, che come predefinito è una lista di messaggi di commit di tutti
 i commit. Dopo aver finito, eseguire il push.
 

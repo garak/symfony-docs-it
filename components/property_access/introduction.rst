@@ -13,8 +13,8 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* Usare il repository Git ufficiale (https://github.com/symfony/PropertyAccess);
-* Installarlo :doc:`tramite Composer</components/using_components>` (``symfony/property-access`` su `Packagist`_).
+* Installarlo :doc:`tramite Composer</components/using_components>` (``symfony/property-access`` su `Packagist`_);
+* Usare il repository Git ufficiale (https://github.com/symfony/PropertyAccess).
 
 Uso
 ---
@@ -30,8 +30,8 @@ configurazione predefinita::
     $accessor = PropertyAccess::createPropertyAccessor();
 
 .. versionadded:: 2.3
-    Prima di Symfony 2.3, il metodo :method:`Symfony\\Component\\PropertyAccess\\PropertyAccess::createPropertyAccessor`
-    si chiamava ``getPropertyAccessor()``.
+    Il metodo :method:`Symfony\\Component\\PropertyAccess\\PropertyAccess::createPropertyAccessor`
+    è stato introdotto in Symfony 2.3. In precedenza si chiamava ``getPropertyAccessor()``.
 
 Lettura da array
 ----------------
@@ -307,7 +307,40 @@ vedere `Abilitare altre caratteristiche`_.
 
     $accessor->setValue($person, 'wouter', array(...));
 
-    echo $person->getWouter() // array(...)
+    echo $person->getWouter(); // array(...)
+
+Verificare i percorsi della proprietà
+-------------------------------------
+
+.. versionadded:: 2.5
+    I metodi
+    :method:`PropertyAccessor::isReadable <Symfony\\Component\\PropertyAccess\\PropertyAccessor::isReadable>`
+    e
+    :method:`PropertyAccessor::isWritable <Symfony\\Component\\PropertyAccess\\PropertyAccessor::isWritable>`
+    sono stati introdotti in Symfony 2.5.
+
+Se si vuole verificare se il metodo
+:method:`PropertyAccessor::getValue<Symfony\\Component\\PropertyAccess\\PropertyAccessor::getValue>`
+possa essere richamato senza doverlo effettivamente richiamare, si può usare
+:method:`PropertyAccessor::isReadable<Symfony\\Component\\PropertyAccess\\PropertyAccessor::isReadable>`::
+
+
+    $person = new Person();
+
+    if ($accessor->isReadable($person, 'firstName') {
+        // ...
+    }
+
+Lo stesso è possibile per :method:`PropertyAccessor::setValue<Symfony\\Component\\PropertyAccess\\PropertyAccessor::setValue>`:
+Richiamare il metodo
+:method:`PropertyAccessor::isWritable<Symfony\\Component\\PropertyAccess\\PropertyAccessor::isWritable>`
+per sapere se un percorso di proprietà possa essere aggiornato::
+
+    $person = new Person();
+
+    if ($accessor->isWritable($person, 'firstName') {
+        // ...
+    }
 
 Mischiare oggetti e array
 -------------------------
@@ -322,7 +355,7 @@ Si possono anche mischiare oggetti e array::
 
         public function setChildren($children)
         {
-            return $this->children;
+            $this->children = $children;
         }
 
         public function getChildren()
@@ -350,7 +383,7 @@ per abilitare caratteristiche extra. Per poterlo fare, si può usare
 :class:`Symfony\\Component\\PropertyAccess\\PropertyAccessorBuilder`::
 
     // ...
-    $accessorBuilder = PropertyAccess::getPropertyAccessorBuilder();
+    $accessorBuilder = PropertyAccess::createPropertyAccessorBuilder();
 
     // Abilita __call
     $accessorBuilder->enableMagicCall();

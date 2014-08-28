@@ -47,6 +47,23 @@ Si può specificare un URL da usare, nel secondo parametro del costruttore::
 
 Ora gli URL saranno resi come ``http://cdn.example.com/images/logo.png``.
 
+.. versionadded:: 2.5
+    Gli URL assoluti per le risorse sono stati introdotti in Symfony 2.5.
+
+Si può anche usare un terzo parametro, per forzare un URL assoluto:
+
+.. code-block:: html+php
+
+   <img src="<?php echo $view['assets']->getUrl('images/logo.png', null, true) ?>">
+   <!-- sarà reso come:
+   <img src="http://yourwebsite.com/foo/bar/images/logo.png">
+   -->
+
+.. note::
+
+    Se si imposta già un URL nel costruttore, l'uso del terzo parametro di
+    ``getUrl`` non avrà effetto sull'URL generato.
+
 Versionamento
 -------------
 
@@ -63,6 +80,19 @@ usare in :phpfunction:`sprintf`. Il primo parametro è il percorso e il
 secondo è la versione. Per esempio, ``%s?v=%s`` sarà reso come
 ``/images/logo.png?v=328rad75``.
 
+.. versionadded:: 2.5
+    Gli URL versionati al volo per le risorse sono stati introdotti in Symfony 2.5.
+
+Si può anche generare un URL versionato su una risorsa in base alle singole risorse, usando
+il quarto parametro dell'aiutante:
+
+.. code-block:: html+php
+
+   <img src="<?php echo $view['assets']->getUrl('images/logo.png', null, false, '3.0') ?>">
+   <!-- sarà reso come:
+   <img src="/images/logo.png?v=3.0">
+   -->
+
 Pacchetti multipli
 ------------------
 
@@ -74,6 +104,8 @@ due pacchetti predefiniti:
 
 Si possono anche usare più pacchetti::
 
+    use Symfony\Component\Templating\Asset\PathPackage;
+    
     // ...
     $templateEngine->set(new AssetsHelper());
 
@@ -81,8 +113,8 @@ Si possono anche usare più pacchetti::
     $templateEngine->get('assets')->addPackage('scripts', new PathPackage('/scripts/'));
 
 In questo modo l'aiutante degli asset userà tre pacchetti: quello predefinito, che
-usa come prefisso ``/`` (impostato dal costruttore), il pacchetto delle immagini, che usa
-``/images/`` e il pacchetto degli scritp, che usa
+usa come prefisso ``/`` (impostato dal costruttore), il pacchetto delle immagini, che
+usa ``/images/`` e il pacchetto degli scritp, che usa
 ``/scripts/``.
 
 Se si vuole cambiare il pacchetto predefinito, si può usare

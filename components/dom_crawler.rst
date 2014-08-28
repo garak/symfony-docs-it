@@ -73,7 +73,7 @@ Filtrare i nodi
 
     internamente viene usato ``DOMXPath::query`` per eseguire le query XPath.
 
-La ricerca è anche più semplice se si è installato il componente ``CssSelector``.
+La ricerca è anche più semplice se si è installato il componente CssSelector.
 In questo modo è possibile usare lo stile jQuery per l'attraversamento::
 
     $crawler = $crawler->filter('body > p');
@@ -86,7 +86,7 @@ In questo modo è possibile usare lo stile jQuery per l'attraversamento::
     $crawler = $crawler
         ->filter('body > p')
         ->reduce(function (Crawler $node, $i) {
-            // filtra anche i nodi
+            // filtra i nodi pari
             return ($i % 2) == 0;
         });
 
@@ -96,6 +96,68 @@ Per rimuovere i nodi, la funzione anonima dovrà restituire false.
 
     Tutti i metodi dei filtri restituiscono una nuova istanza di :class:`Symfony\\Component\\DomCrawler\\Crawler`
     contenente gli elementi filtrati.
+
+Entrambio i metodi :method:`Symfony\\Component\\DomCrawler\\Crawler::filterXPath` e
+:method:`Symfony\\Component\\DomCrawler\\Crawler::filter` funzionano con gli spazi di nomi
+XML, che possono essere scoperti autometicamente oppure registrati
+esplicitamente.
+
+.. versionadded:: 2.4
+    La scoperta automatica e la registrazione esplicita di spazi di nomi è stata introdotta
+    in Symfony 2.4.
+
+Si consideri il seguente XML:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <entry
+        xmlns="http://www.w3.org/2005/Atom"
+        xmlns:media="http://search.yahoo.com/mrss/"
+        xmlns:yt="http://gdata.youtube.com/schemas/2007"
+    >
+        <id>tag:youtube.com,2008:video:kgZRZmEc9j4</id>
+        <yt:accessControl action="comment" permission="allowed"/>
+        <yt:accessControl action="videoRespond" permission="moderated"/>
+        <media:group>
+            <media:title type="plain">Chordates - CrashCourse Biology #24</media:title>
+            <yt:aspectRatio>widescreen</yt:aspectRatio>
+        </media:group>
+    </entry>
+
+Lo si può filtrare con ``Crawler``, senza bisogno di registrare alias di spazi di nomi,
+con :method:`Symfony\\Component\\DomCrawler\\Crawler::filterXPath`::
+
+    $crawler = $crawler->filterXPath('//default:entry/media:group//yt:aspectRatio');
+
+e con :method:`Symfony\\Component\\DomCrawler\\Crawler::filter`::
+
+    use Symfony\Component\CssSelector\CssSelector;
+
+    CssSelector::disableHtmlExtension();
+    $crawler = $crawler->filter('default|entry media|group yt|aspectRatio');
+
+.. note::
+
+    Lo spazio dei nomi predefinito è registrato con prefisso "default". Lo si può
+    cambiare con il
+    metodo
+    :method:`Symfony\\Component\\DomCrawler\\Crawler::setDefaultNamespacePrefix`.
+
+    Lo spazio dei nomi predefinito viene rimosso durante il caricamento del contenuto, se è
+    l'unico spazio di nomi nel documento. Questo per semplificare le query xpath.
+
+Si possono registrare esplicitamente spazi di nomi con il metodo
+:method:`Symfony\\Component\\DomCrawler\\Crawler::registerNamespace`::
+
+    $crawler->registerNamespace('m', 'http://search.yahoo.com/mrss/');
+    $crawler = $crawler->filterXPath('//m:group//yt:aspectRatio');
+
+.. caution::
+
+    Per una query su XML con selettore CSS, occorre disabilitare l'estensione HTML, tramite
+    :method:`CssSelector::disableHtmlExtension <Symfony\\Component\\CssSelector\\CssSelector::disableHtmlExtension>`,
+    per evitare di convertire il selettore in minuscolo.
 
 Attraversamento dei nodi
 ~~~~~~~~~~~~~~~~~~~~~~~~

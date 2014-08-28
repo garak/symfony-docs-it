@@ -7,7 +7,7 @@ Generare URL e inviare email da console
 
 Sfortunatamente, la linea di comando non sa nulla degli host virtuali o dei
 nomi di dominio. Questo vuol dire che, se si generano URL assoluti da un comando
-di console, probabilmente si otterrà qualcosa come ``http://localhost/pippo/pluto``,
+da console, probabilmente si otterrà qualcosa come ``http://localhost/pippo/pluto``,
 il che non è molto utile.
 
 Per risolvere il problema, bisogna configurare il "contesto della richiesta", che è un modo
@@ -19,9 +19,6 @@ o per comando.
 
 Configurare il contesto della richiesta globalmente
 ---------------------------------------------------
-
-.. versionadded: 2.2
-    Il parametro ``base_url`` è disponibile da Symfony 2.2
 
 Per configurare il contesto della richiesta, usato dal generatore di URL, si possono
 ridefinire i parametri che usa come valori predefiniti, per cambiare l'host
@@ -87,6 +84,10 @@ della richiesta e sovrascrivere le sue impostazioni::
 
 Usare lo spool memory
 ---------------------
+
+.. versionadded:: 2.3
+    Se si usano Symfony 2.3+ e SwiftmailerBundle 2.3.5+, lo spool memory è ora
+    gestita automaticamente in CLI e il codice successivo non è più necessario.
 
 L'invio di email in un comando da console funziona nello stesso modo descritto in
 :doc:`/cookbook/email/email`, tranne per il fatto che viene usato lo spool memory.

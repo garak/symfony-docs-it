@@ -494,7 +494,7 @@ Quando una richiesta restituisce una risposta di rinvio, il client la segue auto
 Se si vuole esaminare la risposta prima del rinvio, si può forzare il client a non
 seguire i rinvii, usando il metodo ``followRedirect()``::
 
-    $crawler = $client->followRedirect(false);
+    $crawler = $client->followRedirect();
 
 Se si vuole che il client segua automaticamente tutti i rinvii, si può
 forzarlo con il metodo ``followRedirects()``::

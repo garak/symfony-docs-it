@@ -77,8 +77,7 @@ Ora, si crei una classe ``Tag``. Come è possibile verificare, un ``Task`` può 
     La proprietà ``name`` qui è pubblica, ma può essere facilmente protetta
     o privata (ma in questo caso servono dei metodi ``getName`` e ``setName``).
 
-Si crei ora una classe di form, cosicché un oggetto ``Tag``
-possa essere modificato dall'utente::
+Si crei ora una classe di form, cosicché un oggetto ``Tag`` possa essere modificato dall'utente::
 
     // src/Acme/TaskBundle/Form/Type/TagType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -112,7 +111,7 @@ finale è permettere la modifica dei tag di un task nello stesso form
 del task, bisogna creare un form per la classe ``Task``.
 
 Da notare che si unisce una collezione di form ``TagType`` utilizzando
-il tipo di campo :doc:`collection</reference/forms/types/collection>`::
+il tipo di campo :doc:`collection </reference/forms/types/collection>`::
 
     // src/Acme/TaskBundle/Form/Type/TaskType.php
     namespace Acme\TaskBundle\Form\Type;
@@ -270,7 +269,7 @@ utilizzare JavaScript. Precedentemente, sono stati aggiunti due tag al nostro fo
 Ora si ha la necessità che l'utente possa aggiungere diversi form di tag, secondo le sue necessità, direttamente dal browser.
 Questo può essere fatto attraverso un po' di JavaScript.
 
-La prima cosa di cui si ha bisogno è di far capire alla collezione di form che
+La prima cosa di cui si ha bisogno è di far capire alla collezione di form, che
 riceverà un numero indeterminato di tag. Finora sono stati aggiunti due tag e il form
 si aspetta di riceverne esattamente due, altrimenti verrà lanciato un errore:
 ``Questo form non può contenere campi extra``. Per rendere flessibile il form,
@@ -413,6 +412,10 @@ un esempio:
 Ora, ogni volta che un utente clicca sul link ``Aggiungi un tag``, apparirà un nuovo
 form nella pagina. All'invio del form, ogni nuovo form tag sarà convertito in nuovi oggetti
 ``Tag`` e aggiunto alla proprietà ``tags`` dell'oggetto ``Task``
+
+.. seealso::
+
+    Si può trovare un esempio funzionante in questo `JSFiddle`_.
 
 Per gestire più facilmente questi nuovi tag, aggiungere dei metodi "adder" e "remover"
 alla classe  ``Task``::
@@ -727,3 +730,4 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     per ogni oggetto Tag.
 
 .. _`lato di appartenenza e il lato inverso`: http://docs.doctrine-project.org/en/latest/reference/unitofwork-associations.html
+.. _`JSFiddle`: http://jsfiddle.net/847Kf/4/

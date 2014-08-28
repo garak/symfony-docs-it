@@ -101,7 +101,7 @@ seguente:
 .. tip::
 
     Anche le proprietà private e protette possono essere validate, così come i
-    metodi "getter" (vedere `validator-constraint-targets`).
+    metodi "getter" (vedere :ref:`validator-constraint-targets`).
 
 .. index::
    single: Validazione; Usare il validatore
@@ -113,8 +113,8 @@ Successivamente, per validare veramente un oggetto ``Author``, usare il metodo
 ``validate`` sul servizio ``validator`` (classe :class:`Symfony\\Component\\Validator\\Validator`).
 Il compito di ``validator`` è semplice: leggere i vincoli (cioè le regole) di una
 classe e verificare se i dati dell'oggetto soddisfino o no tali vincoli.
-Se la validazione fallisce, viene restituito un array di errori
-(class :class:`Symfony\\Component\\Validator\\ConstraintViolationList`).
+Se la validazione fallisce, viene restituita una lista di errori
+(classe :class:`Symfony\\Component\\Validator\\ConstraintViolationList`).
 Prendiamo questo semplice esempio dall'interno di un controllore::
 
     // ...
@@ -127,15 +127,15 @@ Prendiamo questo semplice esempio dall'interno di un controllore::
         // ... fare qualcosa con l'oggetto $autore
 
         $validator = $this->get('validator');
-        $errors = $validator->validate($autore);
+        $errori = $validator->validate($autore);
 
-        if (count($errors) > 0) {
+        if (count($errori) > 0) {
             /*
              * Usa un metodo a __toString sulla variabile $errors, che è un oggetto
              * ConstraintViolationList. Questo fornisce una stringa adatta
              * al debug
              */
-            $errorsString = (string) $errors;
+            $errorsString = (string) $errori;
 
             return new Response($errorsString);
         }
@@ -589,7 +589,7 @@ come "getter".
 .. versionadded:: 2.5
     Il supporto per metodi che iniziano per ``has`` è stato introdotto in Symfony 2.5.
 
-Il vantaggio di questa tecnica è che consente di validare i proprio oggetti
+Il vantaggio di questa tecnica è che consente di validare gli oggetti
 dinamicamente. Per esempio, supponiamo che ci si voglia assicurare che un campo
 password non corrisponda al nome dell'utente (per motivi di sicurezza). Lo si può
 fare creando un metodo ``isPasswordLegal`` e asserendo che tale metodo debba
@@ -1212,7 +1212,7 @@ disponibili, così come i nomi completi delle classi per ciascun vincolo, è
 disponibile nella sezione
 :doc:`riferimento sui vincoli </reference/constraints>`.
 
-Il metodo ``validateValule`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
+Il metodo ``validateValue`` restituisce un oggetto :class:`Symfony\\Component\\Validator\\ConstraintViolationList`,
 che si comporta come un array di errori. Ciascun errore della lista è un oggetto
 :class:`Symfony\\Component\\Validator\\ConstraintViolation`, che contiene
 il messaggio di errore nel suo metodo ``getMessage``.

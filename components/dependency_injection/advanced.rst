@@ -42,9 +42,19 @@ Ecco un esempio:
 
     .. code-block:: xml
 
-        <service id="pippo" class="Esempio\Pippo" public="false" />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="pippo" class="Esempio\Pippo" public="false" />
+            </services>
+        </container>
 
     .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('Esempio\Pippo');
         $definition->setPublic(false);
@@ -88,15 +98,22 @@ Per creare un servizio sintetico, impostare ``synthetic`` a ``true``:
 
     .. code-block:: xml
 
-        <service id="request"
-            synthetic="true" />
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="request" synthetic="true" />
+            </services>
+        </container>
 
     .. code-block:: php
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        // ...
-        $container->setDefinition('request', new Definition())
+        $container
+            ->setDefinition('request', new Definition())
             ->setSynthetic(true);
 
 Come si può vedere, viene impostata solo l'opzione ``synthetic``. Tutte le altre opzioni vengono solo usate
@@ -128,14 +145,23 @@ pubblico.
 
     .. code-block:: xml
 
-        <service id="pippo" class="Esempio\Pippo"/>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-        <service id="pluto" alias="pippo" />
+            <services>
+                <service id="pippo" class="Esempio\Pippo" />
+
+                <service id="pluto" alias="pippo" />
+            </services>
+        </container>
 
     .. code-block:: php
 
-        $definition = new Definition('Esempio\Pippo');
-        $container->setDefinition('pippo', $definition);
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $container->setDefinition('pippo', new Definition('Esempio\Pippo'));
 
         $containerBuilder->setAlias('pluto', 'pippo');
 
@@ -173,15 +199,117 @@ servizio stesso sia caricato. Per poterlo fare, si può usare la direttiva ``fil
 
     .. code-block:: xml
 
-        <service id="foo" class="Esempio\Pippo\Pluto">
-            <file>%kernel.root_dir%/src/percorso/del/file/pippo.php</file>
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="foo" class="Esempio\Pippo\Pluto">
+                    <file>%kernel.root_dir%/src/percorso/del/file/pippo.php</file>
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Definition;
+
+        $definition = new Definition('Esempio\Pippo\Pluto');
+        $definition->setFile('%kernel.root_dir%/src/percorso/del/file/pippo.php');
+        $container->setDefinition('pippo', $definition);
+
+Si noti che Symfony richiamerà internamente la funzione ``require_once`` di PHP,
+il che vuol dire che il file sarà incluso una sola volta per richiesta. 
+
+Decorare i servizi
+------------------
+
+.. versionadded:: 2.5
+    I servizi decorati sono stati introdotti in Symfony 2.5.
+
+Quando si sovrascrive una definizione esistente, il vecchio servizio va perduto:
+
+.. code-block:: php
+
+    $container->register('pippo', 'ServizioPippo');
+
+    // questo rimpiazzerà la vecchia definizione con quella nuova
+    // la vecchia definizione va perduta
+    $container->register('pippo', 'NuovoServizioPippo');
+
+La maggior parte delle volte questo è esattamente quello che si desidera. A volte, però,
+si potrebbe invece voler decorare il vecchio servizio. In questo caso, il
+vecchio servizio viene mantenuto, per potervi fare riferimento all'interno
+del nuovo. Questa configurazione sostituisce ``pippo`` con un nuovo servizio, ma mantiene
+un riferimento al vecchio, come ``pluto.inner``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+       bar:
+         public: false
+         class: stdClass
+         decorates: pippo
+         arguments: ["@pluto.inner"]
+
+    .. code-block:: xml
+
+        <service id="bar" class="stdClass" decorates="pippo" public="false">
+            <argument type="service" id="pluto.inner" />
         </service>
 
     .. code-block:: php
 
-        $definition = new Definition('Esempio\Pippo\Pluto');
-        $definition->setFile('%kernel.root_dir%/src/percorso/del/file/pippo.php');
-        $container->setDefinition('foo', $definition);
+        use Symfony\Component\DependencyInjection\Reference;
 
-Si noti che Symfony richiamerà internamente la funzione ``require_once`` di PHP, il
-che vuol dire che il file sarà incluso una sola volta per richiesta. 
+        $container->register('bar', 'stdClass')
+            ->addArgument(new Reference('pluto.inner'))
+            ->setPublic(false)
+            ->setDecoratedService('pippo');
+
+Ecco quello che succede: il metodo ``setDecoratedService()` dice
+al contenitore che il servizio ``pluto`` sostituisce il servizio ``pippo``,
+rinominando ``pippo`` in ``pluto.inner``.
+Per convenzione, il vecchio servizio ``pippo`` è rinominato ``pluto.inner``,
+in modo da poterlo iniettare nel nuovo servizio.
+
+.. note::
+    L'identificativo interno generato è basato sull'id del servizio generato
+    (``pluto``, in questo caso), non su quello del servizio decorato (``pippo``, in questo caso). 
+    Questo è necessario, per consentire più decoratori sullo stesso servizio (devono avere
+    id generati diversi).
+
+    La maggior parte delle volte, il decoratore deve essere dichiarato privato, perché non ci sarà
+    bisogno di recuperarlo come ``pluto`` dal contenitore. La visibilità del
+    servizio edcorato ``pippo`` (che è un alias per ``pluto``) resterà quella
+    originale di ``pippo``.
+
+Si può cambiare il nome del servizio interno, se lo si desidera:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+       bar:
+         class: stdClass
+         public: false
+         decorates: pippo
+         decoration_inner_name: pluto.wooz
+         arguments: ["@pluto.wooz"]
+
+    .. code-block:: xml
+
+        <service id="bar" class="stdClass" decorates="pippo" decoration-inner-name="pluto.wooz" public="false">
+            <argument type="service" id="pluto.wooz" />
+        </service>
+
+    .. code-block:: php
+
+        use Symfony\Component\DependencyInjection\Reference;
+
+        $container->register('bar', 'stdClass')
+            ->addArgument(new Reference('pluto.wooz'))
+            ->setPublic(false)
+            ->setDecoratedService('pippo', 'pluto.wooz');

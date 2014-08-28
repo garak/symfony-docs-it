@@ -1,14 +1,6 @@
 UserPassword
 ============
 
-.. note::
-
-    Da Symfony 2.2, le classi `UserPassword*` nello spazio dei nomi
-    `Symfony\Component\Security\Core\Validator\Constraint` sono
-    deprecate, saranno rimosse in Symfony 2.3. Usare invece le classi
-    `UserPassword*` nello spazio dei nomi
-    `Symfony\Component\Security\Core\Validator\Constraints`.
-
 Valida che un valore inserito sia uguale alla password dell'utente attualmente
 autenticato. Può tornare utile in un form in cui un utente può cambiare la propria
 password, ma deve inserire quella vecchia per motivi di sicurezza.
@@ -18,15 +10,15 @@ password, ma deve inserire quella vecchia per motivi di sicurezza.
     Questo vincolo **non** va usato per la validazione di un form di login, che viene
     fatta automaticamente dal sistema di sicurezza.
 
-+----------------+-------------------------------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                                     |
-+----------------+-------------------------------------------------------------------------------------------+
-| Opzioni        | - `message`_                                                                              |
-+----------------+-------------------------------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraint\\UserPassword`          |
-+----------------+-------------------------------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraint\\UserPasswordValidator` |
-+----------------+-------------------------------------------------------------------------------------------+
++----------------+--------------------------------------------------------------------------------------------+
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                                     |
++----------------+--------------------------------------------------------------------------------------------+
+| Opzioni        | - `message`_                                                                               |
++----------------+--------------------------------------------------------------------------------------------+
+| Classe         | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraints\\UserPassword`          |
++----------------+--------------------------------------------------------------------------------------------+
+| Validatore     | :class:`Symfony\\Component\\Security\\Core\\Validator\\Constraints\\UserPasswordValidator` |
++----------------+--------------------------------------------------------------------------------------------+
 
 Uso di base
 -----------
@@ -40,7 +32,7 @@ dell'utente:
 
     .. code-block:: yaml
 
-        # src/UserBundle/Resources/config/validation.yml
+        # src/Acme/UserBundle/Resources/config/validation.yml
         Acme\UserBundle\Form\Model\ChangePassword:
             properties:
                 oldPassword:
@@ -73,8 +65,10 @@ dell'utente:
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
             <class name="Acme\UserBundle\Form\Model\ChangePassword">
-                <property name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword">
-                    <option name="message">Password attuale sbagliata</option>
+                <property name="oldPassword">
+                    <constraint name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword">
+                        <option name="message">Password attuale sbagliata</option>
+                    </constraint>
                 </property>
             </class>
         </constraint-mapping>

@@ -21,14 +21,14 @@ applicate (come: "il valore per ``auto_connect`` deve essere booleano"):
     default_connection: mysql
     connections:
         mysql:
-            host: localhost
-            driver: mysql
+            host:     localhost
+            driver:   mysql
             username: utente
             password: pass
         sqlite:
-            host: localhost
-            driver: sqlite
-            memory: true
+            host:     localhost
+            driver:   sqlite
+            memory:   true
             username: utente
             password: pass
 
@@ -381,6 +381,8 @@ principale con ``append()``::
 Questo è utile per evitare di ripetersi, nel caso in cui si abbiano sezioni
 della configurazione ripetute in posti diversi.
 
+.. _component-config-normalization:
+
 Normalizzazione
 ---------------
 
@@ -435,6 +437,8 @@ come secondo parametro::
         ->fixXmlConfig('uovo', 'uova')
         ->children()
             ->arrayNode('uova')
+                // ...
+            ->end()
         ->end()
     ;
 
@@ -464,9 +468,9 @@ in questa configurazione:
 .. code-block:: yaml
 
     connessione:
-        name: connessione_mysql
-        host: localhost
-        driver: mysql
+        name:     connessione_mysql
+        host:     localhost
+        driver:   mysql
         username: utente
         password: pass
 

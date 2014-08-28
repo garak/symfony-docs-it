@@ -13,15 +13,15 @@ Il componente Config
 
     ``IniFileLoader`` analizza i contenuti dei file usando la funzione
     :phpfunction:`parse_ini_file`, quindi si possono impostare solamente
-    parametri stringa. Per impostare tipi di versi di parametri
+    parametri stringa. Per impostare tipi diversi di parametri
     (p.e. booleani, interi, ecc), si raccomanda l'uso di altri caricatori.
 
 Installazione
 -------------
 
-Si può installare il componente in molti modi diversi:
+Si può installare il componente in due modi:
 
-* :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/config`` su `Packagist`_);
+* Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/config`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Config).
 
 Sezioni

@@ -131,7 +131,7 @@ sopra, tranne per l'uso del tag ``stylesheets``.
 .. note::
 
     Se si usano i nomi di blocchi predefiniti di Symfony Standard Edition,
-    il tag ``stylesheets``si troverà di solito in un blocco ``stylesheets``:
+    il tag ``stylesheets`` si troverà di solito in un blocco ``stylesheets``:
 
 
     .. code-block:: html+jinja
@@ -273,7 +273,7 @@ combinare risorse di terze parti (come jQuery) con i propri, in un singolo file:
 Uso di risorse per nome
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Le direttive della configuraizone di AsseticBundle consentono di definire insiemi di risorse per nome.
+Le direttive della configurazione di AsseticBundle consentono di definire insiemi di risorse per nome.
 Lo si può fare definendo i file di input, i filtri e i file di output nella
 configurazione, nella sezione ``assetic``. Si può approfondire nel
 :doc:`riferimento sulla configurazione di assetic </reference/configuration/assetic>`.

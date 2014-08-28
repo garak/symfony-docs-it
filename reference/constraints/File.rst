@@ -8,7 +8,7 @@ Valida che un valore sia un file valido, che può essere uno dei seguenti:
 * Un oggetto :class:`Symfony\\Component\\HttpFoundation\\File\\File` valido
   (inclusi oggetti della classe :class:`Symfony\\Component\\HttpFoundation\\File\\UploadedFile`).
 
-Qursto vincolo si usa solitamente in form con il tipo di form
+Questo vincolo si usa solitamente in form con il tipo di form
 :doc:`file</reference/forms/types/file>`.
 
 .. tip::

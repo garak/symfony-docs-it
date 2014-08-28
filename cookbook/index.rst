@@ -11,7 +11,7 @@ Ricettario
     console/index
     controller/index
     debugging
-    deployment-tools
+    deployment/index
     doctrine/index
     email/index
     event_dispatcher/index
@@ -29,6 +29,7 @@ Ricettario
     templating/index
     testing/index
     validation/index
+    web_server/index
     web_services/index
     workflow/index
 

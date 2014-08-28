@@ -9,7 +9,7 @@
 
 Il metodo :method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface::supportsAttribute`
 viene usato per verificare se il votante supporta il dato attributo (quindi
-un ruolo come``ROLE_USER``, un ACL ``EDIT``, ecc.).
+un ruolo come ``ROLE_USER``, un ACL ``EDIT``, ecc.).
 
 Il metodo :method:`Symfony\\Component\\Security\\Core\\Authorization\\Voter\\VoterInterface::supportsClass`
 viene usato per verificare se il votante supporta la classe dell'oggetto il

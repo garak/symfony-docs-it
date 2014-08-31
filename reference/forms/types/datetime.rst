@@ -15,31 +15,31 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 +--------------------------+-----------------------------------------------------------------------------+
 | Reso come                | casella di testo o tre select                                               |
 +--------------------------+-----------------------------------------------------------------------------+
-| Opzioni                  | - `date_widget`_                                                            |
-|                          | - `time_widget`_                                                            |
-|                          | - `widget`_                                                                 |
-|                          | - `input`_                                                                  |
-|                          | - `date_format`_                                                            |
+| Opzioni                  | - `date_format`_                                                            |
+|                          | - `date_widget`_                                                            |
+|                          | - `days`_                                                                   |
+|                          | - `empty_value`_                                                            |
 |                          | - `format`_                                                                 |
 |                          | - `hours`_                                                                  |
+|                          | - `input`_                                                                  |
 |                          | - `minutes`_                                                                |
-|                          | - `seconds`_                                                                |
-|                          | - `years`_                                                                  |
+|                          | - `model_timezone`_                                                         |
 |                          | - `months`_                                                                 |
-|                          | - `days`_                                                                   |
+|                          | - `seconds`_                                                                |
+|                          | - `time_widget`_                                                            |
+|                          | - `view_timezone`_                                                          |
+|                          | - `widget`_                                                                 |
 |                          | - `with_minutes`_                                                           |
 |                          | - `with_seconds`_                                                           |
-|                          | - `model_timezone`_                                                         |
-|                          | - `view_timezone`_                                                          |
-|                          | - `empty_value`_                                                            |
+|                          | - `years`_                                                                  |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `data`_                                                                   |
-| ereditate                | - `invalid_message`_                                                        |
-|                          | - `invalid_message_parameters`_                                             |
-|                          | - `read_only`_                                                              |
-|                          | - `disabled`_                                                               |
-|                          | - `mapped`_                                                                 |
+| ereditate                | - `disabled`_                                                               |
 |                          | - `inherit_data`_                                                           |
+|                          | - `invalid_message`_                                                        |
+|                          | - `invalid_message_parameters`_                                             |
+|                          | - `mapped`_                                                                 |
+|                          | - `read_only`_                                                              |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`form </reference/forms/types/form>`                                   |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -49,6 +49,15 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 Opzioni del campo
 -----------------
 
+date_format
+~~~~~~~~~~~
+
+**tipo**: ``intero`` o ``stringa`` **predefinito**: ``IntlDateFormatter::MEDIUM``
+
+Definisce l'opzione ``format`` che sarà passata al campo date.
+Vedere le :ref:`opzioni per il formato date <reference-forms-type-date-format>`
+per maggiori dettagli.
+
 date_widget
 ~~~~~~~~~~~
 
@@ -56,21 +65,22 @@ date_widget
 
 Definisce l'opzione ``widget`` per il tipo :doc:`date</reference/forms/types/date>`
 
-time_widget
-~~~~~~~~~~~
+.. include:: /reference/forms/types/options/days.rst.inc
 
-**tipo**: ``stringa`` **predefinito**: ``choice``
+.. include:: /reference/forms/types/options/empty_value.rst.inc
 
-Definisce l'opzione ``widget`` per il tipo :doc:`time</reference/forms/types/time>`
-
-widget
+format
 ~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``null``
+**tipo**: ``stringa`` **predefinito**: ``Symfony\Component\Form\Extension\Core\Type\DateTimeType::HTML5_FORMAT``
 
-Definisce l'opzione ``widget`` sia per il tipo :doc:`date </reference/forms/types/date>`
-che per il tipo :doc:`time </reference/forms/types/time>`. Può essere ridefinito con
-le opzioni `date_widget`_ e `time_widget`_.
+Se l'opzione ``widget`` è impostata a ``single_text``, questa opzione specifica
+il formato del campo input, cioè il modo in cui Symfony interpreterà il dato fornito
+come stringa temporale. Il formato predefinito è `RFC 3339`_, usato
+dal campo ``datetime`` di HTML5. Con tale valore predefinito, il campo sarà
+reso come ``input`` con ``type="datetime"``.
+
+.. include:: /reference/forms/types/options/hours.rst.inc
 
 input
 ~~~~~
@@ -90,47 +100,37 @@ formato.
 
 .. include:: /reference/forms/types/options/_date_limitation.rst.inc
 
-date_format
-~~~~~~~~~~~
-
-**tipo**: ``intero`` o ``stringa`` **predefinito**: ``IntlDateFormatter::MEDIUM``
-
-Definisce l'opzione ``format`` che sarà passata al campo date.
-Vedere le :ref:`opzioni per il formato date <reference-forms-type-date-format>`
-per maggiori dettagli.
-
-format
-~~~~~~
-
-**tipo**: ``stringa`` **predefinito**: ``Symfony\Component\Form\Extension\Core\Type\DateTimeType::HTML5_FORMAT``
-
-Se l'opzione ``widget`` è impostata a ``single_text``, questa opzione specifica
-il formato del campo input, cioè il modo in cui Symfony interpreterà il dato fornito
-come stringa temporale. Il formato predefinito è `RFC 3339`_, usato
-dal campo ``datetime`` di HTML5. Con tale valore predefinito, il campo sarà
-reso come ``input`` con ``type="datetime"``.
-
-.. include:: /reference/forms/types/options/hours.rst.inc
-
 .. include:: /reference/forms/types/options/minutes.rst.inc
 
-.. include:: /reference/forms/types/options/seconds.rst.inc
-
-.. include:: /reference/forms/types/options/years.rst.inc
+.. include:: /reference/forms/types/options/model_timezone.rst.inc
 
 .. include:: /reference/forms/types/options/months.rst.inc
 
-.. include:: /reference/forms/types/options/days.rst.inc
+.. include:: /reference/forms/types/options/seconds.rst.inc
+
+time_widget
+~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``choice``
+
+Definisce l'opzione ``widget`` per il tipo :doc:`time</reference/forms/types/time>`
+
+.. include:: /reference/forms/types/options/view_timezone.rst.inc
+
+widget
+~~~~~~
+
+**tipo**: ``string`` **predefinito**: ``null``
+
+Definisce l'opzione ``widget`` sia per il tipo :doc:`date </reference/forms/types/date>`
+che per il tipo :doc:`time </reference/forms/types/time>`. Può essere ridefinito con
+le opzioni `date_widget`_ e `time_widget`_.
 
 .. include:: /reference/forms/types/options/with_minutes.rst.inc
 
 .. include:: /reference/forms/types/options/with_seconds.rst.inc
 
-.. include:: /reference/forms/types/options/model_timezone.rst.inc
-
-.. include:: /reference/forms/types/options/view_timezone.rst.inc
-
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/years.rst.inc
 
 Opzioni ereditate
 -----------------
@@ -139,17 +139,17 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/data.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/inherit_data.rst.inc
+
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
-.. include:: /reference/forms/types/options/disabled.rst.inc
-
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
-.. include:: /reference/forms/types/options/inherit_data.rst.inc
+.. include:: /reference/forms/types/options/read_only.rst.inc
 
 Variabili di form
 -----------------

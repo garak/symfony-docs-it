@@ -19,27 +19,27 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 +--------------------------+-----------------------------------------------------------------------------+
 | Reso come                | singolo campo testo o tre campi select                                      |
 +--------------------------+-----------------------------------------------------------------------------+
-| Opzioni                  | - `widget`_                                                                 |
-|                          | - `input`_                                                                  |
+| Opzioni                  | - `days`_                                                                   |
 |                          | - `empty_value`_                                                            |
-|                          | - `years`_                                                                  |
-|                          | - `months`_                                                                 |
-|                          | - `days`_                                                                   |
 |                          | - `format`_                                                                 |
+|                          | - `input`_                                                                  |
 |                          | - `model_timezone`_                                                         |
+|                          | - `months`_                                                                 |
 |                          | - `view_timezone`_                                                          |
+|                          | - `widget`_                                                                 |
+|                          | - `years`_                                                                  |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `by_reference`_                                                           |
 | ridefinite               | - `error_bubbling`_                                                         |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `data`_                                                                   |
-| ereditate                | - `invalid_message`_                                                        |
-|                          | - `invalid_message_parameters`_                                             |
-|                          | - `read_only`_                                                              |
-|                          | - `disabled`_                                                               |
-|                          | - `mapped`_                                                                 |
-|                          | - `inherit_data`_                                                           |
+| ereditate                | - `disabled`_                                                               |
 |                          | - `error_mapping`_                                                          |
+|                          | - `inherit_data`_                                                           |
+|                          | - `invalid_message`_                                                        |
+|                          | - `invalid_message_parameters`_                                             |
+|                          | - `mapped`_                                                                 |
+|                          | - `read_only`_                                                              |
 +--------------------------+-----------------------------------------------------------------------------+
 | Tipo genitore            | :doc:`form </reference/forms/types/form>`                                   |
 +--------------------------+-----------------------------------------------------------------------------+
@@ -80,11 +80,7 @@ Il campo supporta anche ``array`` e ``string`` come valori validi dell'opzione
 Opzioni del campo
 -----------------
 
-.. include:: /reference/forms/types/options/date_widget.rst.inc
-
-.. _form-reference-date-input:
-
-.. include:: /reference/forms/types/options/date_input.rst.inc
+.. include:: /reference/forms/types/options/days.rst.inc
 
 empty_value
 ~~~~~~~~~~~
@@ -105,19 +101,23 @@ In alternativa, si può specificare una stringa da mostrare per ogni voce vuota:
         'empty_value' => array('year' => 'Anno', 'month' => 'Mese', 'day' => 'Giorno')
     ));
 
-.. include:: /reference/forms/types/options/years.rst.inc
-
-.. include:: /reference/forms/types/options/months.rst.inc
-
-.. include:: /reference/forms/types/options/days.rst.inc
-
 .. _reference-forms-type-date-format:
 
 .. include:: /reference/forms/types/options/date_format.rst.inc
 
+.. _form-reference-date-input:
+
+.. include:: /reference/forms/types/options/date_input.rst.inc
+
 .. include:: /reference/forms/types/options/model_timezone.rst.inc
 
+.. include:: /reference/forms/types/options/months.rst.inc
+
 .. include:: /reference/forms/types/options/view_timezone.rst.inc
+
+.. include:: /reference/forms/types/options/date_widget.rst.inc
+
+.. include:: /reference/forms/types/options/years.rst.inc
 
 Opzioni ridefinite
 ------------------
@@ -141,19 +141,19 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/data.rst.inc
 
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/inherit_data.rst.inc
+
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
-.. include:: /reference/forms/types/options/disabled.rst.inc
-
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
 .. include:: /reference/forms/types/options/inherit_data.rst.inc
-
-.. include:: /reference/forms/types/options/error_mapping.rst.inc
 
 Variabili del campo
 -------------------

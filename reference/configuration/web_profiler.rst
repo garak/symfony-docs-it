@@ -1,8 +1,8 @@
 .. index::
    single: Riferimento configurazione; WebProfiler
 
-Configurazione di WebProfilerBundle
-===================================
+Configurazione di WebProfilerBundle ("web_profiler")
+====================================================
 
 Configurazione completa predefinita
 -----------------------------------
@@ -12,16 +12,16 @@ Configurazione completa predefinita
     .. code-block:: yaml
 
         web_profiler:
-            
+
             # DEPRECATO, non è più utile e può essere rimosso senza problemi
-            verbose:             true
+            verbose:              true
 
             # mostra la barra di web debug in fondo alle pagine con un riassunto delle info del profilatore
-            toolbar:             false
-            position:            bottom
+            toolbar:              false
+            position:             bottom
 
-            # da l'opportunità di guardare i dati raccolti prima di seguire il rinvio
-            intercept_redirects:  false
+            # dà l'opportunità di guardare i dati raccolti prima di seguire il rinvio
+            intercept_redirects: false
 
     .. code-block:: xml
 

@@ -1,8 +1,8 @@
 .. index::
    single: Sicurezza; Riferimento configurazione
 
-Riferimento configurazione sicurezza
-====================================
+Configurazione di SecurityBundle ("security")
+=============================================
 
 Il sistema di sicurezza è una delle parti più potenti di Symfony2 e può
 essere controllato in gran parte tramite la sua configurazione.
@@ -24,8 +24,8 @@ Ogni parte sarà spiegata nella prossima sezione.
             # la strategia può essere: none, migrate, invalidate
             session_fixation_strategy:  migrate
             hide_user_not_found:  true
-            always_authenticate_before_granting: false
-            erase_credentials: true
+            always_authenticate_before_granting:  false
+            erase_credentials:    true
             access_decision_manager:
                 strategy:             affirmative
                 allow_if_all_abstain:  false

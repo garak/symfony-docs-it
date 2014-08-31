@@ -1,8 +1,8 @@
 .. index::
    pair: Monolog; Riferimento configurazione
 
-Configurazione di MonologBundle
-===============================
+Configurazione di MonologBundle ("monolog")
+===========================================
 
 Configurazione predefinita completa
 -----------------------------------
@@ -25,10 +25,10 @@ Configurazione predefinita completa
                     type:                fingers_crossed
                     action_level:        WARNING
                     buffer_size:         30
-                    handler:             custom
-                custom:
+                    handler:             personalizzato
+                personalizzato:
                     type:                service
-                    id:                  my_handler
+                    id:                  un_gestore
 
                 # Opzioni e valori predefiniti per un "mio_gestore"
                 # Nota: molte di queste opzioni dipendono da "type".
@@ -77,18 +77,18 @@ Configurazione predefinita completa
                     path="/var/log/symfony.log"
                     level="error"
                     bubble="false"
-                    formatter="my_formatter"
+                    formatter="mio_formattatore"
                 />
                 <monolog:handler
                     name="main"
                     type="fingers_crossed"
                     action-level="warning"
-                    handler="custom"
+                    handler="personalizzato"
                 />
                 <monolog:handler
-                    name="custom"
+                    name="personalizzato"
                     type="service"
-                    id="my_handler"
+                    id="un_gestore"
                 />
             </monolog:config>
         </container>

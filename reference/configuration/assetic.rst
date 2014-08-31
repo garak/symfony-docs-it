@@ -1,8 +1,8 @@
 .. index::
    pair: Assetic; Riferimento configurazione
 
-Riferimento configurazione AsseticBundle
-========================================
+Configurazione di AsseticBundle ("assetic")
+===========================================
 
 Configurazione predefinita completa
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

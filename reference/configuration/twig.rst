@@ -1,8 +1,8 @@
 .. index::
-   pair: Twig; Riferimento configurazione
+    pair: Twig; Riferimento configurazione
 
-Riferimento configurazione TwigBundle
-=====================================
+Configurazione  di TwigBundle ("twig")
+======================================
 
 .. configuration-block::
 
@@ -21,8 +21,8 @@ Riferimento configurazione TwigBundle
             globals:
 
                 # Esempi:
-                foo:                 "@bar"
-                pi:                  3.14
+                pippo:               "@pluto"
+                pi_greco:            3.14
 
                 # Esempi di opzioni, ma l'uso più facile è quello visto sopra
                 some_variable_name:
@@ -57,8 +57,8 @@ Riferimento configurazione TwigBundle
                 <twig:form>
                     <twig:resource>MioBundle::form.html.twig</twig:resource>
                 </twig:form>
-                <twig:global key="foo" id="bar" type="service" />
-                <twig:global key="pi">3.14</twig:global>
+                <twig:global key="pippo" id="pluto" type="service" />
+                <twig:global key="pi_greco">3.14</twig:global>
             </twig:config>
         </container>
 
@@ -71,8 +71,8 @@ Riferimento configurazione TwigBundle
                 )
              ),
              'globals' => array(
-                 'foo' => '@bar',
-                 'pi'  => 3.14,
+                 'pippo'    => '@pluto',
+                 'pi_greco' => 3.14,
              ),
              'auto_reload'         => '%kernel.debug%',
              'autoescape'          => true,

@@ -24,7 +24,7 @@ Funzioni
 +----------------------------------------------------+--------------------------------------------------------------------------------------------+
 | Sintassi della funzione                            | Uso                                                                                        |
 +====================================================+============================================================================================+
-| ``render(uri, options = {})``                      | Renderà il frammento per il controllore o l'URL dato.                                      |
+| ``render(uri, opzioni = {})``                      | Renderà il frammento per il controllore o l'URL dato.                                      |
 | ``render(controller('B:C:a', {params}))``          | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
 | ``render(path('rotta', {params}))``                |                                                                                            |
 | ``render(url('rotta', {params}))``                 |                                                                                            |
@@ -169,8 +169,8 @@ Variabili globali
 +-------------------------------------------------------+------------------------------------------------------------------------------------+
 | Variabile                                             | Uso                                                                                |
 +=======================================================+====================================================================================+
-| ``app`` *Attributi*: ``app.user``, ``app.request``    | La variabile ``app`` è disponibile ovunque e dà accesso rapido                     |
-| ``app.session``, ``app.environment``, ``app.debug``   | a molti oggetti di uso comune. La variabile ``app`` è un'istanza                   |
+| ``app`` *Attributi*: ``app.user``, ``app.request``,   | La variabile ``app`` è disponibile ovunque e dà accesso rapido                     |
+| ``app.session``, ``app.environment``, ``app.debug``,  | a molti oggetti di uso comune. La variabile ``app`` è un'istanza                   |
 | ``app.security``                                      | di :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`          |
 +-------------------------------------------------------+------------------------------------------------------------------------------------+
 

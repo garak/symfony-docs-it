@@ -15,28 +15,28 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 +--------------------------+---------------------------------------------------------------------+
 | Reso come                | può essere vari tag (vedere sotto)                                  |
 +--------------------------+---------------------------------------------------------------------+
-| Opzioni                  | - `widget`_                                                         |
+| Opzioni                  | - `empty_value`_                                                    |
+|                          | - `hours`_                                                          |
 |                          | - `input`_                                                          |
+|                          | - `minutes`_                                                        |
+|                          | - `model_timezone`_                                                 |
+|                          | - `seconds`_                                                        |
+|                          | - `view_timezone`_                                                  |
+|                          | - `widget`_                                                         |
 |                          | - `with_minutes`_                                                   |
 |                          | - `with_seconds`_                                                   |
-|                          | - `hours`_                                                          |
-|                          | - `minutes`_                                                        |
-|                          | - `seconds`_                                                        |
-|                          | - `model_timezone`_                                                 |
-|                          | - `view_timezone`_                                                  |
-|                          | - `empty_value`_                                                    |
 +--------------------------+---------------------------------------------------------------------+
 | Opzioni                  | - `by_reference`_                                                   |
 | ridefinite               | - `error_bubbling`_                                                 |
 +--------------------------+---------------------------------------------------------------------+
-| Opzioni                  | - `invalid_message`_                                                |
-| ereditate                | - `invalid_message_parameters`_                                     |
-|                          | - `data`_                                                           |
-|                          | - `read_only`_                                                      |
-|                          | - `disabled`_                                                       |
-|                          | - `mapped`_                                                         |
-|                          | - `inherit_data`_                                                   |
+| Opzioni                  | - `data`_                                                           |
+| ereditate                | - `disabled`_                                                       |
 |                          | - `error_mapping`_                                                  |
+|                          | - `inherit_data`_                                                   |
+|                          | - `invalid_message`_                                                |
+|                          | - `invalid_message_parameters`_                                     |
+|                          | - `mapped`_                                                         |
+|                          | - `read_only`_                                                      |
 +--------------------------+---------------------------------------------------------------------+
 | Tipo genitore            | form                                                                |
 +--------------------------+---------------------------------------------------------------------+
@@ -77,6 +77,34 @@ Il campo supporta anche i valori ``array`` e ``string`` per l'opzione
 Opzioni del campo
 -----------------
 
+.. include:: /reference/forms/types/options/empty_value.rst.inc
+
+.. include:: /reference/forms/types/options/hours.rst.inc
+
+input
+~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``datetime``
+
+IL formato dei dati di *ingresso*, cioè il formato in cui la data è memorizzata
+nell'oggetto sottostante. Valori validi sono:
+
+* ``stringa`` (p.e. ``12:17:26``)
+* ``datetime`` (un oggetto ``DateTime``)
+* ``array`` (p.e. ``array('hour' => 12, 'minute' => 17, 'second' => 26)``)
+* ``timestamp`` (p.e. ``1307232000``)
+
+Il valore proveniente dal form sarà normalizzato nello stesso
+formato.
+
+.. include:: /reference/forms/types/options/minutes.rst.inc
+
+.. include:: /reference/forms/types/options/model_timezone.rst.inc
+
+.. include:: /reference/forms/types/options/seconds.rst.inc
+
+.. include:: /reference/forms/types/options/view_timezone.rst.inc
+
 widget
 ~~~~~~
 
@@ -99,37 +127,9 @@ Il modo di base in cui il campo andrebbe reso. Può essere uno dei seguenti:
     a ``false`` può portare a comportamenti inattesi, perché l'input
     ``time`` potrebbe non supportare la selezione solo dell'ora.
 
-input
-~~~~~
-
-**tipo**: ``stringa`` **predefinito**: ``datetime``
-
-IL formato dei dati di *ingresso*, cioè il formato in cui la data è memorizzata
-nell'oggetto sottostante. Valori validi sono:
-
-* ``stringa`` (p.e. ``12:17:26``)
-* ``datetime`` (un oggetto ``DateTime``)
-* ``array`` (p.e. ``array('hour' => 12, 'minute' => 17, 'second' => 26)``)
-* ``timestamp`` (p.e. ``1307232000``)
-
-Il valore proveniente dal form sarà normalizzato nello stesso
-formato.
-
 .. include:: /reference/forms/types/options/with_minutes.rst.inc
 
 .. include:: /reference/forms/types/options/with_seconds.rst.inc
-
-.. include:: /reference/forms/types/options/hours.rst.inc
-
-.. include:: /reference/forms/types/options/minutes.rst.inc
-
-.. include:: /reference/forms/types/options/seconds.rst.inc
-
-.. include:: /reference/forms/types/options/model_timezone.rst.inc
-
-.. include:: /reference/forms/types/options/view_timezone.rst.inc
-
-.. include:: /reference/forms/types/options/empty_value.rst.inc
 
 Opzioni ridefinite
 ------------------
@@ -151,21 +151,21 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
+.. include:: /reference/forms/types/options/data.rst.inc
+
+.. include:: /reference/forms/types/options/disabled.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc
+
+.. include:: /reference/forms/types/options/inherit_data.rst.inc
+
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
-.. include:: /reference/forms/types/options/data.rst.inc
-
-.. include:: /reference/forms/types/options/read_only.rst.inc
-
-.. include:: /reference/forms/types/options/disabled.rst.inc
-
 .. include:: /reference/forms/types/options/mapped.rst.inc
 
-.. include:: /reference/forms/types/options/inherit_data.rst.inc
-
-.. include:: /reference/forms/types/options/error_mapping.rst.inc
+.. include:: /reference/forms/types/options/read_only.rst.inc
 
 Variabili di form
 -----------------

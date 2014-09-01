@@ -32,12 +32,12 @@ Attribuzione - Condividi allo stesso modo 3.0 Unported.
 * *Altri diritti* — La licenza non ha effetto in nessun modo sui seguenti
   diritti:
 
-    * Le eccezioni, libere utilizzazioni e le altre utilizzazioni consentite dalla
+  * Le eccezioni, libere utilizzazioni e le altre utilizzazioni consentite dalla
       legge sul diritto d'autore;
 
-    * I diritti morali dell'autore;
+  * I diritti morali dell'autore;
 
-    * Diritti che altre persone possono avere sia sull'opera stessa che su come
+  * Diritti che altre persone possono avere sia sull'opera stessa che su come
       l'opera viene utilizzata, come il diritto all'immagine o alla tutela dei dati personali.
 
 * *Nota* — Ogni volta che si usa o distribuisce quest'opera, si deve farlo secondo

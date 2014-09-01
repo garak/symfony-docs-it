@@ -9,7 +9,7 @@ e molto altro.
 Contribuire
 -----------
 
-Prima di contribuire, è necessario famigliarizzare con il :doc:`linguaggio di markup<format>` 
+Prima di contribuire, è necessario famigliarizzare con il :doc:`linguaggio di markup <format>` 
 usato per la documentazione.
 
 La documentazione di Symfony2 è ospitata da GitHub:
@@ -114,7 +114,7 @@ Un esempio di invio potrebbe essere come il seguente:
     | ------------- | ---
     | Doc fix?      | yes
     | New docs?     | yes (symfony/symfony#2500)
-    | Applies to    | all (or 2.4+)
+    | Applies to    | all (or 2.3+)
     | Fixed tickets | #1075
 
 .. tip::

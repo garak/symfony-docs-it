@@ -122,7 +122,7 @@ In questo specifico esempio, accadono le seguenti cose in ``authenticateToken()`
 
 #. Primo, si usa ``$userProvider`` per cercare in qualche modo lo ``$username`` che
    corrisponda ad ``$apiKey``;
-#. Secondo, si usa `ancora `$userProvider`` per caricare o creare un oggetto ``User``
+#. Secondo, si usa ancora ``$userProvider`` per caricare o creare un oggetto ``User``
    per ``$username``;
 #. Infine, si crea un *token di autenticazione* (cioè un token con almeno un
    ruolo), che ha i ruoli giusti e l'oggetto utente allegato.

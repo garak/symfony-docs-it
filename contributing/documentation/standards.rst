@@ -77,28 +77,10 @@ Gli esempi di configurazione vanno mostrati in tutti i formati supportati, usand
 :ref:`blocchi di configurazione <docs-configuration-blocks>`. I formati supportati
 (in ordine) sono:
 
-* **Configurazione** (inclusi servizi e rotte): Yaml, Xml, Php
-* **Validazione**: Yaml, Annotazioni, Xml, Php
-* **Mappatura Doctrine**: Annotazioni, Yaml, Xml, Php
-
-File e cartelle
-~~~~~~~~~~~~~~~
-
-* Quando si fa riferimento a cartelle, aggiungere sempre una barra finale, per evitare confusioni
-  con file normali (p.e. *"eseguire lo script ``console``, che si trova nella
-  cartella ``app/``"*).
-* Quando si fa riferimento esplicito a estensioni di file, si dovrebbe includere il punto iniziale,
-  per ogni estensione (p.e. "i file *XML usano l'estensione ``.xml``*").
-* Quando si elenca una gerarchia di file e cartelle di Symfony, usare ``progetto/`` come
-  cartella iniziale. P.e.
-
-  .. code-block:: text
-
-      progetto/
-      ├─ app/
-      ├─ src/
-      ├─ vendor/
-      └─ ...
+* **Configurazione** (inclusi servizi e rotte): YAML, XML, PHP
+* **Validazione**: YAML, Annotazioni, XML, PHP
+* **Mappatura Doctrine**: Annotazioni, YAML, XML, PHP
+* **Traduzione**: XML, YAML, PHP
 
 Esempio
 ~~~~~~~
@@ -133,6 +115,25 @@ Esempio
     In Yaml va messo uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
     ma non va fatto in Twig (p.e.  ``{'ciao' : 'valore'}``).
 
+File e cartelle
+~~~~~~~~~~~~~~~
+
+* Quando si fa riferimento a cartelle, aggiungere sempre una barra finale, per evitare confusioni
+  con file normali (p.e. *"eseguire lo script ``console``, che si trova nella
+  cartella ``app/``"*).
+* Quando si fa riferimento esplicito a estensioni di file, si dovrebbe includere il punto iniziale,
+  per ogni estensione (p.e. "i file *XML usano l'estensione ``.xml``*").
+* Quando si elenca una gerarchia di file e cartelle di Symfony, usare ``progetto/`` come
+  cartella iniziale. P.e.
+
+  .. code-block:: text
+
+      progetto/
+      ├─ app/
+      ├─ src/
+      ├─ vendor/
+      └─ ...
+
 Standard di linguaggio
 ----------------------
 
@@ -155,5 +156,4 @@ Standard di linguaggio
 
 .. _`documentazione di Sphinx`: http://sphinx-doc.org/rest.html#source-code
 .. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html
-
 

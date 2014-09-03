@@ -77,9 +77,9 @@ Gli esempi di configurazione vanno mostrati in tutti i formati supportati, usand
 :ref:`blocchi di configurazione <docs-configuration-blocks>`. I formati supportati
 (in ordine) sono:
 
-* **Configurazione** (inclusi servizi e rotte): Yaml, Xml, Php
-* **Validazione**: Yaml, Annotazioni, Xml, Php
-* **Mappatura Doctrine**: Annotazioni, Yaml, Xml, Php
+* **Configurazione** (inclusi servizi e rotte): YAML, XML, PHP
+* **Validazione**: YAML, Annotazioni, XML, PHP
+* **Mappatura Doctrine**: Annotazioni, YAML, XML, PHP
 * **Traduzione**: XML, YAML, PHP
 
 Esempio

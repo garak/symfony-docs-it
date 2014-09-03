@@ -102,7 +102,7 @@ Esempio
             // imposta pippo con il valore di pluto
             $pippo = ...;
 
-            $gatto = new Gattto($pippoo);
+            $gatto = new Gatto($pippo);
 
             // ... verifica se $pluto ha il valore corretto
 
@@ -113,16 +113,16 @@ Esempio
 .. caution::
 
     In Yaml va messo uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
-    ma non va fatto in Twig (p.e.  ``{'ciao' : 'valore'}``).
+    ma non va fatto in Twig (p.e. ``{'ciao' : 'valore'}``).
 
 File e cartelle
 ~~~~~~~~~~~~~~~
 
 * Quando si fa riferimento a cartelle, aggiungere sempre una barra finale, per evitare confusioni
-  con file normali (p.e. *"eseguire lo script ``console``, che si trova nella
-  cartella ``app/``"*).
+  con file normali (p.e. "eseguire lo script ``console``, che si trova nella
+  cartella ``app/``").
 * Quando si fa riferimento esplicito a estensioni di file, si dovrebbe includere il punto iniziale,
-  per ogni estensione (p.e. "i file *XML usano l'estensione ``.xml``*").
+  per ogni estensione (p.e. "i file XML usano l'estensione ``.xml``").
 * Quando si elenca una gerarchia di file e cartelle di Symfony, usare ``progetto/`` come
   cartella iniziale. P.e.
 

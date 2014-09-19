@@ -25,7 +25,7 @@ lo schema HTTP attraverso gli schemi:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="secure" path="/secure" schemes="http">
+            <route id="secure" path="/secure" schemes="https">
                 <default key="_controller">AcmeDemoBundle:Main:secure</default>
             </route>
         </routes>
@@ -69,4 +69,5 @@ URL per usare sempre ``http``.
     Il componente Security fornisce un altro modo per forzare lo schema HTTP, tramite
     l'impostazione ``requires_channel``. Questo metodo alternativo è più adatto
     per proteggere un'"area" del sito web (tutti gli URL sotto ``/admin``) o quando
-    si vuole proteggere URL definiti in un bundle di terze parti.
+    si vuole proteggere URL definiti in un bundle di terze parti (vedere
+    :doc:`/cookbook/security/force_https` per maggiori dettagli).

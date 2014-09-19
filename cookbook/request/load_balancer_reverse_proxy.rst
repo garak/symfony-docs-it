@@ -24,7 +24,7 @@ tramite HTTPS, dalla porta e dal nome host richiesto.
 Soluzione: proxy fidati
 -----------------------
 
-Questo non è un problam, ma occorre dire a Symfony che sta accadendo
+Questo non è un problema, ma occorre dire a Symfony che sta accadendo
 e quale indirizzi IP del reverse proxy faranno questo tipo di cose:
 
 .. configuration-block::

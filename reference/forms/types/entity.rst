@@ -12,7 +12,7 @@ presi dalla base dati.
 +---------------+---------------------------------------------------------------------+
 | Reso come     | possono essere vari tag (vedere :ref:`forms-reference-choice-tags`) |
 +---------------+---------------------------------------------------------------------+
-| Oztioni       | - `class`_                                                          |
+| Opzioni       | - `class`_                                                          |
 |               | - `data_class`_                                                     |
 |               | - `em`_                                                             |
 |               | - `group_by`_                                                       |

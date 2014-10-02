@@ -1652,6 +1652,8 @@ accedere tramite il form di login, sarà usato il fornitore ``user_db`` (in quan
 Per ulteriori informazioni su fornitori utenti e configurazione del firewall, vedere
 il :doc:`/reference/configuration/security`.
 
+.. _book-security-roles:
+
 Ruoli
 -----
 

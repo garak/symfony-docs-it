@@ -8,6 +8,8 @@ partire subito con Symfony2, mostrando la struttura di un semplice progetto già
 Chi ha già usato un framework per il web si troverà come a casa con Symfony2. Altrimenti,
 benvenuti in un nuovo mondo per sviluppare applicazioni web!
 
+.. _installing-symfony2:
+
 Installare Symfony2
 -------------------
 
@@ -18,7 +20,7 @@ seguente, per installare l'ultima versione di Symfony2 nella cartella
 
 .. code-block:: bash
 
-    $ composer create-project symfony/framework-standard-edition progetto/ '~2.4'
+    $ composer create-project symfony/framework-standard-edition progetto/ '~2.3'
 
 .. note::
 
@@ -38,6 +40,8 @@ scaricare tutti i componenti. Alla fine del processo di installazione,
 l'installatore chiederà di fornire alcune opzioni di configurazione per il
 progetto. Per questo primo progetto, si possono anche ignorare tali configurazioni,
 lasciando tutti i valori predefiniti.
+
+.. _running-symfony2:
 
 Eseguire Symfony2
 -----------------

@@ -1,3 +1,5 @@
+.. _symfony2-versus-flat-php:
+
 Symfony2 contro PHP puro
 ========================
 
@@ -415,6 +417,8 @@ sviluppare il blog, abbiamo speso diverso tempo sull'"architettura" del codice
 necessario per gestire l'invio di form, la validazione dell'input, i log e la
 sicurezza. Perché dovremmo reinventare soluzioni a tutti questi problemi comuni?
 
+.. _add-a-touch-of-symfony2:
+
 Aggiungere un tocco di Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -527,6 +531,8 @@ L'oggetto ``Response`` dà flessibilità durante la costruzione della risposta H
 consentendo di aggiungere header e contenuti HTTP tramite un'interfaccia orientata agli
 oggetti. Mentre in questa applicazione le risposte molto semplici, tale flessibilità
 ripagherà quando l'applicazione cresce.
+
+.. _the-sample-application-in-symfony2:
 
 L'applicazione di esempio in Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -667,6 +673,8 @@ Non resta molto altro da fare.
 Per una rappresentazione visuale di come Symfony2 gestisca ogni richiesta, si veda il
 :ref:`diagramma di flusso della richiesta<request-flow-figure>`.
 
+.. _where-symfony2-delivers:
+
 Dove consegna Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -718,7 +726,7 @@ Prendiamo per esempio il template della lista, scritto in Twig:
         <ul>
             {% for post in posts %}
             <li>
-                <a href="{{ path('blog_show', { 'id': post.id }) }}">
+                <a href="{{ path('blog_show', {'id': post.id}) }}">
                     {{ post.title }}
                 </a>
             </li>

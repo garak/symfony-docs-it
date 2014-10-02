@@ -146,11 +146,11 @@ predefinita risolve automaticamente i parametri, basandosi sugli attributi di
 Gestione delle richieste
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Il metodo ``handle()`` prende una ``Request`` e restituisce *sempre* una ``Response``.
-Per convertire ``Request``, ``handle()`` si appoggia su ``Resolver`` e su una catena
-ordinata di notifiche di eventi (vedere la prossima sezione per maggiori informazioni
-sugli oggetti
-``Event``):
+Il metodo :method:`Symfony\\Component\\HttpKernel\\HttpKernel::handle` prende
+una ``Request`` e restituisce *sempre* una ``Response``. Per convertire
+``Request``, ``handle()`` si appoggia su ``Resolver`` e su una catena ordinata di
+notifiche di eventi (vedere la prossima sezione per maggiori informazioni
+sugli oggetti ``Event``):
 
 #. Prima di tutto, viene notificato l'evento ``kernel.request``, se uno degli
    ascoltatori restituisce una ``Response``, salta direttamente al passo 8;
@@ -239,8 +239,8 @@ aggiungere il seguente codice all'inizio del proprio metodo ascoltatore::
 .. tip::
 
     Se non si ha familiarità con il distributore di eventi di Symfony2, leggere prima
-    la
-    :doc:`documentazione del componente Event Dispatcher </components/event_dispatcher/introduction>`.
+    la documentazione del
+    :doc:`componente EventDispatcher </components/event_dispatcher/introduction>`.
 
 .. index::
    single: Evento; kernel.request
@@ -658,5 +658,3 @@ Imparare di più dal ricettario
 * :doc:`/cookbook/profiler/data_collector`
 * :doc:`/cookbook/event_dispatcher/class_extension`
 * :doc:`/cookbook/event_dispatcher/method_behavior`
-
-.. _`componente Dependency Injection di Symfony2`: https://github.com/symfony/DependencyInjection

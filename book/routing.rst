@@ -955,6 +955,10 @@ vedere :ref:`route-parameters-controller-arguments`.
     È inoltre possibile utilizzare una variabile speciale ``$_route``, che è impostata sul
     nome della rotta che è stata abbinata.
 
+Si possono anche aggiungere ulteriori informazioni alla definizione di una rotta e accedervi
+da un controllore. Per maggiori informazioni su questo argomento,
+vedere :doc:`/cookbook/routing/extra_information`.
+
 .. index::
    single: Rotte; Importare risorse per le rotte
 

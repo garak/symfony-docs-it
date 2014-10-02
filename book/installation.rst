@@ -14,6 +14,8 @@ immediatamente a sviluppare.
     Se si stanno cercando le istruzioni per creare un nuovo progetto e memorizzarlo con
     un sistema di versionamento, si veda `Usare un controllo di sorgenti`_.
 
+.. _installing-a-symfony2-distribution:
+
 Scaricare una distribuzione Symfony2
 ------------------------------------
 
@@ -57,7 +59,7 @@ Standard:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.3.*
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony '2.3.*'
 
 .. tip::
 

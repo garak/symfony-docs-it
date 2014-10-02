@@ -1,3 +1,5 @@
+.. _symfony2-documentation:
+
 Documentazione Symfony2
 =======================
 

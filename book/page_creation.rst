@@ -1,6 +1,8 @@
 .. index::
    single: Creazione di pagine
 
+.. _creating-pages-in-symfony2:
+
 Creare pagine in Symfony2
 =========================
 
@@ -1076,5 +1078,5 @@ applicazioni.
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`bundle di terze parti`: http://knpbundles.com
 .. _`Symfony Standard Edition`: http://symfony.com/download
-.. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/2.0/mod/mod_dir.html
+.. _`documentazione su DirectoryIndex di Apache`: http://httpd.apache.org/docs/current/mod/mod_dir.html
 .. _`documentazione su HttpCoreModule di Nginx`: http://wiki.nginx.org/HttpCoreModule#location

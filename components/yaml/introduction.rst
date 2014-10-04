@@ -2,15 +2,15 @@
    single: Yaml
    single: Componenti; Yaml
 
-Il componente YAML
+Il componente Yaml
 ==================
 
-    Il componente YAML carica ed esporta file YAML.
+    Il componente Yaml carica ed esporta file YAML.
 
 Che cos'è?
 ----------
 
-Il componente YAML di Symfony2 analizza stringhe YAML da convertire in array PHP.
+Il componente Yaml di Symfony2 analizza stringhe YAML da convertire in array PHP.
 È anche in grado di convertire array PHP in stringhe YAML.
 
 `YAML`_, *YAML Ain't Markup Language*, è uno standard amichevole di serializzazione di dati
@@ -18,8 +18,8 @@ per tutti i linguaggi di programmazione. YAML è un ottimo formato per i file di
 configurazione. I file YAML sono espressivi quanto i file XML e leggibili quanto i file
 INI.
 
-Il componente YAML di Symfony2 implementa la versione 1.2. della
-specifica.
+Il componente Yaml di Symfony2 implementa un sottoinsieme di caratteristiche definite 
+nella `versione 1.2. della specifica YAML`_.
 
 .. tip::
 
@@ -42,6 +42,8 @@ Veloce
 
 Uno degli scopi di YAML è trovare il giusto rapporto tra velocità e caratteristiche.
 Supporta proprio la caratteristica necessaria per gestire i file di configurazione.
+Alcune mancanze da notare: direttive documentali, messaggi citati multiriga,
+insiemi di blocchi compatti e file multidocumento.
 
 Analizzatore reale
 ~~~~~~~~~~~~~~~~~~
@@ -75,10 +77,12 @@ Pieno supporto alla fusione di chiavi
 Pieno supporto per riferimenti, alias e piena fusione di chiavi. Non occorre ripetersi
 usando riferimenti a bit comuni di configurazione.
 
-Usare il componente YAML di Symfony2
+.. _using-the-symfony2-yaml-component:
+
+Usare il componente Yaml di Symfony2
 ------------------------------------
 
-Il componente YAML di Symfony2 è molto semplice e consiste di due classi principali:
+Il componente Yaml di Symfony2 è molto semplice e consiste di due classi principali:
 una analizza le stringhe YAML (:class:`Symfony\\Component\\Yaml\\Parser`) e l'altra
 esporta un array PHP in una stringa YAML
 (:class:`Symfony\\Component\\Yaml\\Dumper`).
@@ -163,7 +167,7 @@ corrispondente rappresentazione YAML:
 
 .. note::
 
-    Ovviamente, l'esportatore YAML non è in grado di esportare risorse. Inoltre,
+    Ovviamente, l'esportatore Yaml non è in grado di esportare risorse. Inoltre,
     anche se l'esportatore è in grado di esportare oggetti PHP, la caratteristica
     è considerata come non supportata.
 
@@ -213,3 +217,4 @@ quella in linea:
 
 .. _YAML: http://yaml.org/
 .. _Packagist: https://packagist.org/packages/symfony/yaml
+.. _`versione 1.2. della specifica YAML`: http://yaml.org/spec/1.2/spec.html

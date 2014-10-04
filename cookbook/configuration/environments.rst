@@ -1,5 +1,5 @@
 .. index::
-   single: Ambienti;
+    single: Ambienti
 
 Come padroneggiare e creare nuovi ambienti
 ==========================================
@@ -261,6 +261,8 @@ Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, p
         $container->loadFromExtension('framework', array(
             'profiler' => array('only-exceptions' => false),
         ));
+
+.. include:: /components/dependency_injection/_imports-parameters-note.rst.inc
 
 Con queste poche e semplici modifiche, l'applicazione supporta un nuovo
 ambiente chiamato ``benchmark``.

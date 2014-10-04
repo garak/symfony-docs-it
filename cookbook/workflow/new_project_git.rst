@@ -1,8 +1,10 @@
 .. index::
    single: Flusso di lavoro; Git
 
-Come creare e memorizzare un progetto Symfony2 in git
-=====================================================
+.. _how-to-create-and-store-a-symfony2-project-in-git:
+
+Creare e memorizzare un progetto Symfony in git
+===============================================
 
 .. tip::
 
@@ -20,7 +22,7 @@ Preparazione del progetto
 Per iniziare, occorre scaricare Symfony e inizializzare il repository
 locale:
 
-#. Scaricare `Symfony2 Standard Edition`_, usando Composer:
+#. Scaricare `Symfony Standard Edition`_, usando Composer:
 
    .. code-block:: bash
 
@@ -65,7 +67,7 @@ locale:
 
         $ git commit -m "Commit iniziale"
 
-A questo punto, si ha un progetto Symfony2 pienamente funzionante e correttamente
+A questo punto, si ha un progetto Symfony pienamente funzionante e correttamente
 copiato su git. Si può iniziare subito a sviluppare, inviando i commit delle
 modifiche al proprio repository git.
 
@@ -74,7 +76,7 @@ di più su come configurare e sviluppare un'applicazione.
 
 .. tip::
 
-    Symfony2 Standard Edition è distribuito con alcuni esempi di funzionamento. Per
+    Symfony Standard Edition è distribuito con alcuni esempi di funzionamento. Per
     rimuovere il codice di esempio, seguire le istruzioni nella ricetta
     ":doc:`/cookbook/bundles/remove`".
 
@@ -95,7 +97,7 @@ le dipendenze tra le librerie.
 Memorizzare il progetto su un server remoto
 -------------------------------------------
 
-Si è ora in possesso di un progetto Symfony2 pienamente funzionante e memorizzato in git.
+Si è ora in possesso di un progetto Symfony pienamente funzionante e memorizzato in git.
 Tuttavia, spesso si vuole memorizzare un progetto un server remoto, sia per
 questioni di backup, sia per fare in modo che altri sviluppatori possano collaborare
 al progetto stesso.
@@ -110,7 +112,7 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 è `Gitolite`_.
 
 .. _`git`: http://git-scm.com/
-.. _`Symfony2 Standard Edition`: http://symfony.com/download
+.. _`Symfony Standard Edition`: http://symfony.com/download
 .. _`installare Symfony usando Composer`: http://symfony.com/doc/current/book/installation.html#option-1-composer
 .. _`sottomoduli di git`: http://git-scm.com/book/en/Git-Tools-Submodules
 .. _`GitHub`: https://github.com/

@@ -504,6 +504,8 @@ sono stati inviati. Se si vuole sopprimere completamente la validazione, si può
 .. index::
    single: Form; Gruppi di validazione basati su dati inseriti
 
+.. _book-form-validation-groups:
+
 Gruppi basati su dati inseriti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

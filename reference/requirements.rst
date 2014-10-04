@@ -1,8 +1,10 @@
 .. index::
    single: Requisiti
 
-Requisiti per far girare Symfony2
-=================================
+.. _requirements-for-running-symfony2:
+
+Requisiti per far girare Symfony
+================================
 
 Per far girare Symfony2, un sistema deve soddisfare un elenco di requisiti.
 Si può verificare facilmente se un sistema abbia tutti i requisiti, richiamando ``web/config.php``

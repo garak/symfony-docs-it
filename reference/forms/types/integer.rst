@@ -13,7 +13,7 @@ Questo campo ha diverse opzioni su come gestire i valori ricevuti che non siano 
 Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arrotondati per difetto (p.e. 6).
 
 +---------------+-----------------------------------------------------------------------+
-| Reso come     | campo ``input`` ``text``                                              |
+| Reso come     | campo ``input`` ``number``                                            |
 +---------------+-----------------------------------------------------------------------+
 | Opzioni       | - `grouping`_                                                         |
 |               | - `precision`_                                                        |

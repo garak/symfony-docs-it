@@ -1,8 +1,10 @@
 .. index::
     single: Servizi web; SOAP
 
-Come creare un servizio web SOAP in un controllore di Symfony2
-==============================================================
+.. _how-to-create-a-soap-web-service-in-a-symfony2-controller:
+
+Creare un servizio web SOAP in un controllore di Symfony
+========================================================
 
 Impostare un controllore per agire da server SOAP è semplice, con un paio
 di strumenti. Occorre avere, ovviamente, l'estensione `PHP SOAP`_ installata.  

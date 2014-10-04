@@ -1,6 +1,8 @@
 .. index::
     single: Estensioni Twig di Symfony2
 
+.. _symfony2-twig-extensions:
+
 Estensioni Twig di Symfony2
 ===========================
 

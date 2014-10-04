@@ -13,7 +13,7 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_);
+* :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/translation`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Translation).
 
 Costruire il Translator
@@ -62,8 +62,7 @@ Il componente Translation usa della classi Loader per caricare i cataloghi. Si p
 più risorse per lo stesso locale, saranno combinato in un unico
 catalogo.
 
-Il componente dispone di alcuni Loader, ma se ne possono creare altri.
-I Loader predefiniti sono:
+Il componente dispone di alcuni Loade predefiniti:
 
 * :class:`Symfony\\Component\\Translation\\Loader\\ArrayLoader` - per caricare
   cataloghi da array PHP.
@@ -93,7 +92,10 @@ I Loader predefiniti sono:
     ``MofileLoader``, ``PoFileLoader`` e ``QtFileLoader`` sono stati introdotti
     in Symfony 2.1
 
-Tutti i Loader di file richiedono il :doc:`componente Config</components/config/index>`.
+Tutti i Loader di file richiedono il :doc:`componente Config </components/config/index>`.
+
+Si possono anche :doc:`creare Loader personalizzati </components/translation/custom_formats>`,
+nel caso in cui il formato non fosse già supportato da uno di quelli predefiniti.
 
 Per prima cosa, aggiungere uno o più Loader a ``Translator``::
 
@@ -200,7 +202,7 @@ caricata in questo modo::
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
 si deve specificare il dominio come terzo parametro di ``trans()``::
 
-    $translator->trans('Symfony2 is great', array(), 'admin');
+    $translator->trans('Symfony is great', array(), 'admin');
 
 Symfony2 ora cercherà il messaggio nel dominio ``admin`` del locale
 specificato.
@@ -208,7 +210,7 @@ specificato.
 Uso
 ---
 
-Leggere come usare il componente Translation in ":doc:`/components/translation/usage`".
+Leggere come usare il componente Translation in :doc:`/components/translation/usage`.
 
 .. _Packagist: https://packagist.org/packages/symfony/translation
 .. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes

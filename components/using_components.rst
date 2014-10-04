@@ -2,6 +2,8 @@
    single: Componenti; Installazione
    single: Componenti; Uso
 
+.. _how-to-install-and-use-the-symfony2-components:
+
 Installare e usare i componenti di Symfony2
 ===========================================
 
@@ -48,42 +50,42 @@ file ``vendor/autoload.php`` generato da Composer stesso. Tale file si
 occupa di autocaricare tutte le librerie, in modo che si possano usare
 immediatamente::
 
-        // File: src/script.php
+    // File: src/script.php
 
-        // cambiare il percorso in quello della cartella "vendor/", relativamente a questo file
-        require_once '../vendor/autoload.php';
+    // cambiare il percorso in quello della cartella "vendor/", relativamente a questo file
+    require_once '../vendor/autoload.php';
 
-        use Symfony\Component\Finder\Finder;
+    use Symfony\Component\Finder\Finder;
 
-        $finder = new Finder();
-        $finder->in('../data/');
+    $finder = new Finder();
+    $finder->in('../data/');
 
-        // ...
+    // ...
 
 .. tip::
 
     Se si vogliono usare tutti i componenti di Symfony2, invece di aggiungerli
     uno alla volta:
 
-        .. code-block:: json
+    .. code-block:: json
 
-            {
-                "require": {
-                    "symfony/finder": "2.3.*",
-                    "symfony/dom-crawler": "2.3.*",
-                    "symfony/css-selector": "2.3.*"
-                }
+        {
+            "require": {
+                "symfony/finder": "2.3.*",
+                "symfony/dom-crawler": "2.3.*",
+                "symfony/css-selector": "2.3.*"
             }
+        }
 
     si può usare:
 
-        .. code-block:: json
+    .. code-block:: json
 
-            {
-                "require": {
-                    "symfony/symfony": "2.3.*"
-                }
+        {
+            "require": {
+                "symfony/symfony": "2.3.*"
             }
+        }
 
     Questo includerà le librerie dei bundle e dei bridge, che potrebbero non
     essere necessarie.

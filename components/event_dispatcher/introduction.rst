@@ -207,7 +207,9 @@ passata. Per esempio, l'evento ``kernel.response`` passa un'istanza di
 
 .. sidebar:: Registrare ascoltatori di eventi nel contenitore di servizi
 
-    Quando si usa il
+    Quando si usa
+    :class:`Symfony\\Component\\EventDispatcher\\ContainerAwareEventDispatcher`
+    e il
     :doc:`componente DependencyInjection </components/dependency_injection/introduction>`,
     si può usare
     :class:`Symfony\\Component\\HttpKernel\\DependencyInjection\\RegisterListenersPass`
@@ -216,16 +218,17 @@ passata. Per esempio, l'evento ``kernel.response`` passa un'istanza di
         use Symfony\Component\DependencyInjection\ContainerBuilder;
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+        use Symfony\Component\DependencyInjection\Reference;
         use Symfony\Component\HttpKernel\DependencyInjection\RegisterListenersPass;
 
         $containerBuilder = new ContainerBuilder(new ParameterBag());
         $containerBuilder->addCompilerPass(new RegisterListenersPass());
 
         // registra il servizio come sottoscrittore di eventi
-        $containerBuilder->register(
-            'event_dispatcher',
-            'Symfony\Component\EventDispatcher\EventDispatcher'
-        );
+        $containerBuilder->setDefinition('event_dispatcher', new Definition(
+            'Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher',
+            array(new Reference('service_container'))
+        ));
 
         // registra il servizio come ascoltatore di eventi
         $listener = new Definition('AcmeListener');

@@ -1,3 +1,5 @@
+.. _symfony2-license:
+
 Licenza di Symfony2
 ===================
 
@@ -14,7 +16,7 @@ Secondo `Wikipedia`_:
 La licenza
 ----------
 
-Copyright (c) 2004-2011 Fabien Potencier
+Copyright (c) 2004-2013 Fabien Potencier
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

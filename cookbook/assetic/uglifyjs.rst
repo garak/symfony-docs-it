@@ -111,6 +111,46 @@ nel trattamento del codice javascript:
 
 A questo punto sarà possibile richiamare il filtro ``uglifyjs2`` dall'interno dell'applicazione.
 
+Configurare il binario ``node``
+-------------------------------
+
+Assetic prova a trovare automaticamente il binario di node. Se non ci riesce,
+si può configurare la sua posizione, usando la voce ``node``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        assetic:
+            # the path to the node executable
+            node: /usr/bin/nodejs
+            filters:
+                uglifyjs2:
+                    # the path to the uglifyjs executable
+                    bin: /usr/local/bin/uglifyjs
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <assetic:config 
+            node="/usr/bin/nodejs" >
+            <assetic:filter
+                name="uglifyjs2"
+                bin="/usr/local/bin/uglifyjs" />
+        </assetic:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('assetic', array(
+            'node' => '/usr/bin/nodejs',
+            'uglifyjs2' => array(
+                    // the path to the uglifyjs executable
+                    'bin' => '/usr/local/bin/uglifyjs',
+                ),
+        ));
+
 Minimizzare le risorse
 ----------------------
 
@@ -232,14 +272,14 @@ di Assetic:
 
     .. code-block:: html+jinja
 
-        {% stylesheets '@AcmePippoBundle/Resources/public/css/*' filter='uglifycss' %}
+        {% stylesheets 'bundles/AcmePippo/css/*' filter='uglifycss' filter='cssrewrite' %}
              <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->stylesheets(
-            array('@AcmePippoBundle/Resources/public/css/*'),
+            array('bundles/AcmePippo/css/*'),
             array('uglifycss'),
             array('cssrewrite')
         ) as $url): ?>

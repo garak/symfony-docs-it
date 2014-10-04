@@ -651,6 +651,14 @@ questa sezione.
     ``ROLE_USER``. Se non si restituisce alcun ruolo, l'utente potrebbe apparire come
     non autenticato.
 
+.. caution::
+
+    Per funzionare con gli esempi della configurazione di sicurezza di questa ricetta,
+    tutti i ruoli devono avere il prefisso ``ROLE_`` (vedere
+    la :ref:`sezione sui ruoli <book-security-roles>` nel libro). Per
+    example, your roles will be ``ROLE_ADMIN`` or ``ROLE_USER`` instead of
+    ``ADMIN`` or ``USER``.
+
 In questo esempio, la classe entità ``AcmeUserBundle:User`` definisce una relazione
 molti-a-molti con la classe entità ``AcmeUserBundle:Role``. Un utente può essere
 in relazione con molti ruoli e un ruolo può essere composto da uno o più

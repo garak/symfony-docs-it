@@ -5,7 +5,7 @@ Rimuovere AcmeDemoBundle
 ========================
 
 La Standard Edition di Symfony2 dispone di una demo completa, che si trova in un bundle
-chiamato ``AcmeDemoBundle``. È un ottimo riferimento durante l'inizio
+chiamato AcmeDemoBundle. È un ottimo riferimento durante l'inizio
 di un progetto, ma probabilmente si vorrà rimuoverlo in un secondo momento.
 
 .. tip::
@@ -17,8 +17,8 @@ di un progetto, ma probabilmente si vorrà rimuoverlo in un secondo momento.
 -------------------------------------------
 
 Per sconnettere il bundel dal framework, occorre rimuoverlo dal metodo
-``Appkernel::registerBundles()``. Il bundle si trova solitamente
-nell'array ``$bundles``, ma ``AcmeDemoBundle`` viene registrato solamente
+``AppKernel::registerBundles()``. Il bundle si trova solitamente
+nell'array ``$bundles``, ma AcmeDemoBundle viene registrato solamente
 in ambiente di sviluppo, quindi lo si può trovare nell'istruzione successiva::
 
     // app/AppKernel.php
@@ -81,12 +81,18 @@ rimuovere anche la cartella ``Acme``.
 
         echo $this->container->get('kernel')->getBundle('AcmeDemoBundle')->getPath();
 
+3.1 Rimuovere le risorse del bundle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Rimuovere le risorse del bundle nella cartella web/ (p.e.
+``web/bundles/acmedemo`` per AcmeDemoBundle).
+
 4. Rimuovere l'integrazione con altri bundle
 --------------------------------------------
 
 .. note::
 
-    Questa parte non si applica a AcmeDemoBundle, non essendoci altri bundle
+    Questa parte non si applica ad AcmeDemoBundle, non essendoci altri bundle
     che dipendono da esso, quindi si può saltare questo passo.
 
 Alcuni bundle dipendono da altri bundle: rimuovendone solo uno, l'altro

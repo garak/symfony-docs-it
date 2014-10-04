@@ -1029,32 +1029,12 @@ translation.loader
 **Scopo**: Registrare un servizio personalizzato che carichi delle traduzioni
 
 Per impostazione predefinita, le traduzioni sono caricate dal filesystem in vari
-formati (YAML, XLIFF, PHP, ecc). Se occorre caricare traduzioni da altre sorgenti,
-creare una classe che implementi l'interfaccia
-:class:`Symfony\\Component\\Translation\\Loader\\LoaderInterface`::
+formati (YAML, XLIFF, PHP, ecc).
 
-    // src/Acme/MainBundle/Translation/MyCustomLoader.php
-    namespace Acme\MainBundle\Translation;
+.. seealso::
 
-    use Symfony\Component\Translation\Loader\LoaderInterface;
-    use Symfony\Component\Translation\MessageCatalogue;
-
-    class MyCustomLoader implements LoaderInterface
-    {
-        public function load($resource, $locale, $domain = 'messages')
-        {
-            $catalogue = new MessageCatalogue($locale);
-
-            // caricare in qualche modo le traduzioni dalla "risorsa"
-            // quindi impostarle nel catalogo
-            $catalogue->set('hello.world', 'Hello World!', $domain);
-
-            return $catalogue;
-        }
-    }
-
-Il metodo ``load`` ha la responsabilità di restituire un
-:Class:`Symfony\\Component\\Translation\\MessageCatalogue`.
+    Si veda come :ref:`caricare formati personalizzati <components-translation-custom-loader>`,
+    nella sezione nei componenti.
 
 Registrare il caricatore come servizio e assegnargli il tag ``translation.loader``:
 
@@ -1251,6 +1231,11 @@ servizio il tag ``translation.dumper``. Il tag ha un'unica opzione: ``alias``
             'Acme\DemoBundle\Translation\JsonFileDumper'
         )
             ->addTag('translation.dumper', array('alias' => 'json'));
+
+.. seealso::
+
+    Si veda come :ref:`esportare in formati personalizzati <components-translation-custom-dumper>`
+    nella sezione dei componenti.
 
 .. _reference-dic-tags-twig-extension:
 

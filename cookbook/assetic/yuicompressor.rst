@@ -10,8 +10,13 @@ Grazie ad Assetic utilizzare questo strumento è semplicissimo.
 
 .. caution::
 
-    YUI Compressor sta per essere `deprecato`_. Niente
-    paura! Si veda :doc:`/cookbook/assetic/uglifyjs` per una possibile alternativa.
+    YUI Compressor `non è più mantenuto da Yahoo`_, ma da un volontario
+    indipendente. Inoltre, Yahoo ha deciso di `fermare ogni nuovo sviluppo su YUI`_
+    e di spostarsi su alternative moderne, come Node.js.
+
+    Per questi motivi, è **caldamente consigliato** di evitare l'uso di YUI, a meno che non
+    sia strettamente necessario. Leggere :doc:`/cookbook/assetic/uglifyjs` per un'alternativa
+    aggiornata.
 
 Scaricare il JAR di YUI Compressor
 ----------------------------------
@@ -164,4 +169,5 @@ ad Assetic di applicarli solamente quando la modalità debug è inattiva.
 
 .. _`YUI Compressor`: http://developer.yahoo.com/yui/compressor/
 .. _`scaricare il file JAR`: http://yuilibrary.com/projects/yuicompressor/
-.. _`deprecato`: http://www.yuiblog.com/blog/2012/10/16/state-of-yui-compressor/
+.. _`non è più mantenuto da Yahoo`: http://www.yuiblog.com/blog/2013/01/24/yui-compressor-has-a-new-owner/
+.. _`fermare ogni nuovo sviluppo su YUI`: http://yahooeng.tumblr.com/post/96098168666/important-announcement-regarding-yui

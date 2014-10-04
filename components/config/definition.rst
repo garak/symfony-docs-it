@@ -287,6 +287,15 @@ abbia un determinato valore:
         ->end()
     ;
 
+Documentare un'opzione
+----------------------
+
+Si possono documentare le opzioni, usando il metodo
+:method:`Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::info`.
+
+
+L'informazione sarà mostrata come commento, nell'albero della configurazione.
+
 Sezioni facoltative
 -------------------
 

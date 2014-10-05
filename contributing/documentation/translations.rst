@@ -7,7 +7,7 @@ sono coinvolte nel processo di traduzione.
 .. note::
 
     Il progetto Symfony sconsiglia ufficialmente l'inizio di nuove traduzioni della
-    documentazione. In effetti, c'è `una discussionoe in corso`_, all'interno
+    documentazione. In effetti, c'è `una discussione in corso`_, all'interno
     della comunità, su benefici e problemi di traduzioni mantenute dalla comunità.
 
 Contribuire

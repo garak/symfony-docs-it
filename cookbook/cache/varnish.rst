@@ -93,7 +93,7 @@ Invalidare la cache
 
 Se si vogliono mettere in cache contenuti che cambiano frequentemente e servirne
 la versione più recente agli utenti, occorre invalidare tali contenuti.
-Se l'`invalidazionde della cache`_ consente di eliminare contenuti da un
+Se l'`invalidazione della cache`_ consente di eliminare contenuti da un
 proxy prima della loro scadenza, aggiunge complessità alle impostazioni della cache.
 
 .. tip::

@@ -434,7 +434,7 @@ rappresentato da un callable PHP, invece che da una stringa::
 Scaricare file
 ~~~~~~~~~~~~~~
 
-Quando si carica un file, occorre aggiungere un header ``Content-Disposition`` alla
+Quando si scarica un file, occorre aggiungere un header ``Content-Disposition`` alla
 risposta. Sebbene la creazione di questo header per scaricamenti di base sia facile,
 l'uso di nomi di file non ASCII è più complesso. Il metodo
 :method:`:Symfony\\Component\\HttpFoundation\\Response:makeDisposition`

@@ -39,10 +39,10 @@ In Symfony, si possono registrare funzioni DQL personalizzate nel modo seguente:
                 <doctrine:orm>
                     <!-- ... -->
                     <doctrine:dql>
-                        <doctrine:string-function name="test_string>Acme\HelloBundle\DQL\StringFunction</doctrine:string-function>
-                        <doctrine:string-function name="second_string>Acme\HelloBundle\DQL\SecondStringFunction</doctrine:string-function>
-                        <doctrine:numeric-function name="test_numeric>Acme\HelloBundle\DQL\NumericFunction</doctrine:numeric-function>
-                        <doctrine:datetime-function name="test_datetime>Acme\HelloBundle\DQL\DatetimeFunction</doctrine:datetime-function>
+                        <doctrine:string-function name="test_string">Acme\HelloBundle\DQL\StringFunction</doctrine:string-function>
+                        <doctrine:string-function name="second_string">Acme\HelloBundle\DQL\SecondStringFunction</doctrine:string-function>
+                        <doctrine:numeric-function name="test_numeric">Acme\HelloBundle\DQL\NumericFunction</doctrine:numeric-function>
+                        <doctrine:datetime-function name="test_datetime">Acme\HelloBundle\DQL\DatetimeFunction</doctrine:datetime-function>
                     </doctrine:dql>
                 </doctrine:orm>
             </doctrine:config>

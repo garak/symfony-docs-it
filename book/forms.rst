@@ -219,7 +219,7 @@ controllore::
         $form = $this->createFormBuilder($task)
             ->add('task', 'text')
             ->add('dueDate', 'date')
-            ->add('save', 'submit')
+            ->add('save', 'submit', array('label' => 'Crea post'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -503,6 +503,8 @@ sono stati inviati. Se si vuole sopprimere completamente la validazione, si può
 
 .. index::
    single: Form; Gruppi di validazione basati su dati inseriti
+
+.. _book-form-validation-groups:
 
 Gruppi basati su dati inseriti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,8 +1,8 @@
 .. index::
    single: Propel
 
-Basi di dati e Propel ("Il modello")
-====================================
+Basi di dati e Propel
+=====================
 
 Ammettiamolo, uno dei compiti più comuni e impegnativi per qualsiasi applicazione
 implica la persistenza e la lettura di informazioni da una base dati. Symfony2 

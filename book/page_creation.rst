@@ -1,6 +1,8 @@
 .. index::
    single: Creazione di pagine
 
+.. _creating-pages-in-symfony2:
+
 Creare pagine in Symfony2
 =========================
 

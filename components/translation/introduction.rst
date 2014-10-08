@@ -13,7 +13,7 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/translation`` su `Packagist`_);
+* :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/translation`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Translation).
 
 Costruire il Translator
@@ -200,7 +200,7 @@ caricata in questo modo::
 Quando si traducono stringhe che non sono nel dominio predefinito (``messages``),
 si deve specificare il dominio come terzo parametro di ``trans()``::
 
-    $translator->trans('Symfony2 is great', array(), 'admin');
+    $translator->trans('Symfony is great', array(), 'admin');
 
 Symfony2 ora cercherà il messaggio nel dominio ``admin`` del locale
 specificato.
@@ -208,7 +208,7 @@ specificato.
 Uso
 ---
 
-Leggere come usare il componente Translation in ":doc:`/components/translation/usage`".
+Leggere come usare il componente Translation in :doc:`/components/translation/usage`.
 
 .. _Packagist: https://packagist.org/packages/symfony/translation
 .. _`ISO 3166-1 alpha-2`: http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes

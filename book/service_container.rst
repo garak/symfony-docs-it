@@ -375,7 +375,9 @@ dell'applicazione.
     .. code-block:: php
 
         // app/config/config.php
-        $this->import('@AcmeHelloBundle/Resources/config/services.php');
+        $loader->import('@AcmeHelloBundle/Resources/config/services.php');
+
+.. include:: /components/dependency_injection/_imports-parameters-note.rst.inc
 
 La direttiva ``imports`` consente all'applicazione  di includere risorse di configurazione per il
 contenitore di servizi da qualsiasi altro posto (in genere da bundle).

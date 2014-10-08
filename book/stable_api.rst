@@ -1,6 +1,8 @@
 .. index::
    single: API stabile
 
+.. _the-symfony2-stable-api:
+
 L'API stabile di Symfony2
 =========================
 
@@ -26,8 +28,7 @@ tutto ciò che non possiede esplicitamente il tag non fa parte dell'API stabile.
 
     Ogni bundle di terze parti dovrebbe a sua volta pubblicare la sua API stabile.
 
-A partire dall'ultima versione stabile di Symfony, i seguenti componenti hanno
-un tag API pubblico:
+A partire da Symfony 2.0, i seguenti componenti hanno un tag API pubblico:
 
 * BrowserKit
 * ClassLoader

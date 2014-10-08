@@ -649,7 +649,7 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
         <!-- ... -->
         <div id="sidebar">
             <?php echo $view['actions']->render(
-                new ControllerReference(
+                new \Symfony\Component\HttpKernel\Controller\ControllerReference(
                     'AcmeArticleBundle:Article:recentArticles',
                     array('max' => 3)
                 )

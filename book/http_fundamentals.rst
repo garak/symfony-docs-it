@@ -1,6 +1,8 @@
 .. index::
    single: Fondamenti di Symfony2
 
+.. _symfony2-and-http-fundamentals:
+
 Symfony2 e fondamenti di HTTP
 =============================
 
@@ -22,10 +24,10 @@ o dal linguaggio di programmazione preferito, questo capitolo andrebbe letto da 
 HTTP è semplice
 ---------------
 
-HTTP (Hypertext Transfer Protocol) è un linguaggio testuale che consente a due
-macchine di comunicare tra loro. Tutto qui! Per esempio, quando controllate
-l'ultima vignetta di `xkcd`_, ha luogo la seguente conversazione (approssimata):
-
+HTTP (Hypertext Transfer Protocol per i geek) è un linguaggio testuale che consente a
+due macchine di comunicare tra loro. Tutto qui! Per esempio, se si controlla
+l'ultima vignetta di `xkcd`_, ha luogo la seguente conversazione
+(approssimata):
 
 .. image:: /images/http-xkcd.png
    :align: center
@@ -433,6 +435,7 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
     .. code-block:: xml
 
+        <!-- app/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -447,8 +450,8 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
     .. code-block:: php
 
         // app/config/routing.php
-        use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
+        use Symfony\Component\Routing\RouteCollection;
 
         $collection = new RouteCollection();
         $collection->add('contact', new Route('/contact', array(
@@ -490,6 +493,8 @@ file template separato. Questo consente al controllore di preoccuparsi solo dell
 difficili: interagire con la base dati, gestire l'invio di dati o l'invio di messaggi
 email. 
 
+.. _symfony2-build-your-app-not-your-tools:
+
 Symfony2: costruire un'applicazione, non degli strumenti
 --------------------------------------------------------
 
@@ -508,6 +513,8 @@ oppure un solo pezzo di Symfony.
 .. index::
    single: Componenti di Symfony2
 
+.. _standalone-tools-the-symfony2-components:
+
 Strumenti isolati: i *componenti* di Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -516,11 +523,11 @@ possono essere usate in *qualsiasi* progetto PHP. Queste librerie, chiamate
 *componenti di Symfony2*, contengono qualcosa di utile per quasi ogni situazione,
 comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 
-* :doc:`HttpFoundation</components/http_foundation/introduction>` - Contiene le classi
-  ``Request`` e ``Response``, insieme ad altre  classi per gestire sessioni
+* :doc:`HttpFoundation </components/http_foundation/introduction>` - Contiene le
+  classi ``Request`` e ``Response``, insieme ad altre  classi per gestire sessioni
   e caricamenti di file;
 
-* :doc:`Routing</components/routing/introduction>` - Sistema di rotte potente e veloce, che
+* :doc:`Routing </components/routing/introduction>` - Sistema di rotte potente e veloce, che
   consente di mappare uno specifico  URI (p.e. ``/contact``) ad alcune informazioni
   su come tale richiesta andrebbe gestita  (p.e. eseguendo il metodo
   ``contactAction()``);
@@ -531,11 +538,11 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 * `Validator`_ Un sistema per creare regole sui dati e quindi validarli, sia che i dati
   inviati dall'utente seguano o meno tali regole;
 
-* :doc:`ClassLoader</components/class_loader/introduction>` Una libreria di autoloading che consente
+* :doc:`ClassLoader </components/class_loader/introduction>` Una libreria di autoloading che consente
   l'uso di classi PHP senza bisogno di usare manualmente ``require`` sui file
   che contengono tali classi;
 
-* :doc:`Templating</components/templating/introduction>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
+* :doc:`Templating </components/templating/introduction>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
   template (p.e. un template è decorato con un layout) ed eseguire altri compiti
   comuni sui template;
 
@@ -547,6 +554,8 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 Tutti questi componenti sono disaccoppiati e possono essere usati in *qualsiasi* progetto
 PHP, indipendentemente dall'uso del framework Symfony2. Ogni parte di essi è stata
 realizzata per essere usata se necessario e sostituita in caso contrario.
+
+.. _the-full-solution-the-symfony2-framework:
 
 La soluzione completa il *framework* Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

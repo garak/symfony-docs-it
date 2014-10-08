@@ -530,9 +530,10 @@ per il parametro ``{page}``.
 | /blog/my-blog-post | blog  | {page} = my-blog-post |
 +--------------------+-------+-----------------------+
 
-La risposta al problema è aggiungere *requisiti* alle rotte. Le rotte in questo
-esempio potrebbero funzionare perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo*
-per gli URL dove ``{page}`` fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
+La risposta al problema è aggiungere *requisiti* o *condizioni
+(see :ref:`book-routing-conditions`). alle rotte. Le rotte in questo esempio potrebbero
+funzionare perfettamente se lo schema ``/blog/{page}`` fosse verificato *solo* per gli URL dove ``{page}``
+fosse un numero intero. Fortunatamente, i requisiti possono essere scritti tramite
 espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
 .. configuration-block::
@@ -773,11 +774,9 @@ può essere esteso per una flessibilità pressoché infiinta, usando le condizio
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="contact"
-                path="/contact"
-                condition="context.getMethod() in ['GET', 'HEAD'] and request.headers.get('User-Agent') matches '/firefox/i'"
-            >
+            <route id="contact" path="/contact">
                 <default key="_controller">AcmeDemoBundle:Main:contact</default>
+                <condition>context.getMethod() in ['GET', 'HEAD'] and request.headers.get('User-Agent') matches '/firefox/i'</condition>
             </route>
         </routes>
 
@@ -1032,6 +1031,10 @@ vedere :ref:`route-parameters-controller-arguments`.
 
     È inoltre possibile utilizzare una variabile speciale ``$_route``, che è impostata sul
     nome della rotta che è stata abbinata.
+
+Si possono anche aggiungere ulteriori informazioni alla definizione di una rotta e accedervi
+da un controllore. Per maggiori informazioni su questo argomento,
+vedere :doc:`/cookbook/routing/extra_information`.
 
 .. index::
    single: Rotte; Importare risorse per le rotte

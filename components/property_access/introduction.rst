@@ -209,7 +209,7 @@ questa caratteristica, usando :class:`Symfony\\Component\\PropertyAccess\\Proper
     $person = new Person();
 
     // Abilita __call
-    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+    $accessor = PropertyAccess::createPropertyAccessorBuilder()
         ->enableMagicCall()
         ->getPropertyAccessor();
 
@@ -305,13 +305,13 @@ vedere `Abilitare altre caratteristiche`_.
     $person = new Person();
 
     // Abilita __call
-    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+    $accessor = PropertyAccess::createPropertyAccessorBuilder()
         ->enableMagicCall()
         ->getPropertyAccessor();
 
     $accessor->setValue($person, 'wouter', array(...));
 
-    echo $person->getWouter() // array(...)
+    echo $person->getWouter(); // array(...)
 
 Mischiare oggetti e array
 -------------------------
@@ -354,7 +354,7 @@ per abilitare caratteristiche extra. Per poterlo fare, si può usare
 :class:`Symfony\\Component\\PropertyAccess\\PropertyAccessorBuilder`::
 
     // ...
-    $accessorBuilder = PropertyAccess::getPropertyAccessorBuilder();
+    $accessorBuilder = PropertyAccess::createPropertyAccessorBuilder();
 
     // Abilita __call
     $accessorBuilder->enableMagicCall();
@@ -369,7 +369,7 @@ per abilitare caratteristiche extra. Per poterlo fare, si può usare
     $accessor = $accessorBuilder->getPropertyAccessor();
 
     // Oppure tutto insieme
-    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+    $accessor = PropertyAccess::createPropertyAccessorBuilder()
         ->enableMagicCall()
         ->getPropertyAccessor();
 

@@ -33,7 +33,7 @@ variabili, ``page_title`` e ``navigation``, che dovrebbero essere passate al tem
     <!DOCTYPE html>
     <html>
         <head>
-            <title>La mia pagina web</title>
+            <title>{{ page_title }}</title>
         </head>
         <body>
             <h1>{{ page_title }}</h1>
@@ -157,7 +157,7 @@ Creare un template ``embedded.html.twig``:
     {# src/Acme/DemoBundle/Resources/views/Demo/embedded.html.twig #}
     Hello {{ name }}
 
-E cambiare il template ``index.html.twig`` per includerlo:
+E cambiare il template ``hello.html.twig`` per includerlo:
 
 .. code-block:: jinja
 
@@ -275,7 +275,7 @@ Imparare le basi è facile e si imparerà presto che questa
 facilità è nascosta sotto un'architettura molto flessibile.
 
 Ma non corriamo troppo. Prima occorre imparare di più sul
-controllore e questo è esattamente l'argomento della :doc:`prossima parte di questa guida<the_controller>`.
+controllore e questo è esattamente l'argomento della :doc:`prossima parte di questa guida <the_controller>`.
 Pronti per altri dieci minuti di Symfony2?
 
 .. _Twig:           http://twig.sensiolabs.org/

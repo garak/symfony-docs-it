@@ -17,7 +17,10 @@ Passare il distributore di eventi da avvolgere e un'istanza di
     // distributore di eventi su cui fare debug
     $eventDispatcher = ...;
 
-    $traceableEventDispatcher = new TraceableEventDispatcher($eventDispatcher, new Stopwatch());
+    $traceableEventDispatcher = new TraceableEventDispatcher(
+        $eventDispatcher,
+        new Stopwatch()
+    );
 
 Si può quindi usare ``TraceableEventDispatcher`` come qualsiasi altro distributore di eventi,
 per registrare ascoltatori di eventi e distribuire eventi::
@@ -27,7 +30,7 @@ per registrare ascoltatori di eventi e distribuire eventi::
     // registrare un ascoltatore di eventi
     $eventListener = ...;
     $priority = ...;
-    $traceableEventDispatcher->addListener('nome-evento, $eventListener, $priority);
+    $traceableEventDispatcher->addListener('nome-evento', $eventListener, $priority);
 
     // distribuire un evento
     $event = ...;

@@ -125,14 +125,15 @@ eventi, si possono ottenere maggiori informazioni su :doc:`/cookbook/service_con
             $controller = $event->getController();
 
             /*
-             * $controller passato può essere una classe o una Closure. Non è frequente in Symfony2 ma può accadere.
+             * $controller passato può essere una classe o una Closure.
+             * Non è frequente in Symfony2 ma può accadere.
              * Se è una classe, è in formato array
              */
             if (!is_array($controller)) {
                 return;
             }
 
-            if($controller[0] instanceof TokenAuthenticatedController) {
+            if ($controller[0] instanceof TokenAuthenticatedController) {
                 $token = $event->getRequest()->query->get('token');
                 if (!in_array($token, $this->tokens)) {
                     throw new AccessDeniedHttpException('Questa azione ha bisogno di un token valido!');
@@ -156,7 +157,7 @@ sia richiamato appena prima l'esecuzione di ogni controllore:
         services:
             demo.tokens.action_listener:
                 class: Acme\DemoBundle\EventListener\TokenListener
-                arguments: [ %tokens% ]
+                arguments: ["%tokens%"]
                 tags:
                     - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
@@ -251,7 +252,7 @@ di notificare l'evento ``onKernelResponse`` per l'evento
         services:
             demo.tokens.action_listener:
                 class: Acme\DemoBundle\EventListener\TokenListener
-                arguments: [ %tokens% ]
+                arguments: ["%tokens%"]
                 tags:
                     - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
                     - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

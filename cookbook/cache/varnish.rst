@@ -209,7 +209,7 @@ Rotte e header X-FORWARDED
 --------------------------
 
 Per assicurarsi che le rotte di Symfony generino URL corrette con Varnish,
-occorre aggiungere gli appropriati header ```X-Forwarded```, in modo che Symfony sia consapevole
+occorre aggiungere gli appropriati header ```X-Forwarded``, in modo che Symfony sia consapevole
 del numero originale di porta della richiesta. Il modo in cui farlo dipende dalla
 configurazione. Come semplice esempio, supponiamo che Varnish e il server web siano sulla
 stessa macchina e che Varnish ascolti su una porta (p.e. 80) e Apache

@@ -217,6 +217,13 @@ di più sulla sintassi del linguaggio delle espressioni, vedere
                 // ...
             }
 
+    .. caution::
+
+        In Symfony 2.4 e Symfony 2.5, se la proprietà (p.e. ``isTechnicalPost``)
+        era ``null``, l'espressione non veniva mai richiamata e il valore
+        era considerato valido. Per assicurarsi che il valore non sia ``null``,
+        usare il :doc:`vincolo NotNull </reference/constraints/NotNull>`.
+
 Per maggiori informazioni sull'espressione e sulle variabili a disposizione,
 vedere l'opzione :ref:`expression <reference-constraint-expression-option>`
 di sequito.

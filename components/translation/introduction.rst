@@ -95,6 +95,9 @@ I Loader predefiniti sono:
 
 Tutti i Loader di file richiedono il :doc:`componente Config</components/config/index>`.
 
+Si possono anche :doc:`creare Loader personalizzati </components/translation/custom_formats>`,
+nel caso in cui il formato non fosse già supportato da uno di quelli predefiniti.
+
 Per prima cosa, aggiungere uno o più Loader a ``Translator``::
 
     // ...

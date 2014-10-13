@@ -34,7 +34,7 @@ il bug `tracker`_ ufficiale e seguendo alcune regole:
 
 * *(facoltativo)* Allegare una :doc:`patch <patches>`.
 
-.. _documentazione: http://symfony.com/doc/2.1/index.html
+.. _documentazione: http://symfony.com/doc/current
 .. _lista degli utenti: http://groups.google.com/group/symfony2
 .. _forum: http://forum.symfony-project.org/
 .. _canale IRC: irc://irc.freenode.net/symfony

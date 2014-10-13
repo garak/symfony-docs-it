@@ -1,6 +1,8 @@
 .. index::
    single: Deploy; Strumenti di deploy
 
+.. _how-to-deploy-a-symfony2-application:
+
 Deploy di un'applicazione Symfony2
 ==================================
 
@@ -9,6 +11,8 @@ Deploy di un'applicazione Symfony2
     Il deploy può essere un'attività complessa e variegata, a seconda dell'ambiente e
     delle necessità. Questa ricetta non vuole essere esaustiva, ma offrire le idee e
     i requisiti più comuni per il deploy.
+
+.. _symfony2-deployment-basics:
 
 Basi per i deploy su Symfony2
 -----------------------------
@@ -105,6 +109,12 @@ fa normalmente:
     performante, costruendo una "mappa di classi". L'opzionoe ``--no-dev``
     assicura che i pacchetti di sviluppo non siano installati in ambiente
     di produzione.
+
+.. caution::
+
+    Se si ottiene un errore "class not found", potrebbe essere necessario
+    eseguire ``export SYMFONY_ENV=prod`` in precedenza, in modo che gli
+    script ``post-install-cmd`` girino in ambiente ``prod``.
 
 D) Pulire la cache di Symfony
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,5 +1,7 @@
-Licenza della documentazione di Symfony2
-========================================
+.. _symfony2-documentation-license:
+
+Licenza della documentazione di Symfony
+=======================================
 
 La documentazione di Symfony2 è rilasciata sotto `licenza`_ Creative Commons
 Attribuzione - Condividi allo stesso modo 3.0 Unported.
@@ -38,7 +40,7 @@ Attribuzione - Condividi allo stesso modo 3.0 Unported.
   * I diritti morali dell'autore;
 
   * Diritti che altre persone possono avere sia sull'opera stessa che su come
-      l'opera viene utilizzata, come il diritto all'immagine o alla tutela dei dati personali.
+    l'opera viene utilizzata, come il diritto all'immagine o alla tutela dei dati personali.
 
 * *Nota* — Ogni volta che si usa o distribuisce quest'opera, si deve farlo secondo
   i termini di questa licenza, che va comunicata con chiarezza. Il miglior modo di farlo è con

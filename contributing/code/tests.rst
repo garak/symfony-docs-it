@@ -1,3 +1,5 @@
+.. _running-symfony2-tests:
+
 Eseguire i test di Symfony2
 ===========================
 

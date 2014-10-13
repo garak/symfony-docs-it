@@ -293,7 +293,7 @@ Esportare la configurazione
 Il comando ``config:dump-reference`` esporta la configurazione predefinita di un
 bundle in console, usando il formato YAML.
 
-Se la configuraizone di un bundle is trova nella posizione standard
+Se la configurazione di un bundle is trova nella posizione standard
 (``MioBundle\DependencyInjection\Configuration``) e non ha bisogno
 di parametri da passare al costruttore, funzionerà automaticamente. Se
 qualcosa cambia, la classe ``Extension`` deve sovrascrivere il metodo

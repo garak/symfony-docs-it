@@ -4,10 +4,10 @@
 Forzare HTTPS o HTTP per URL diversi
 ====================================
 
-Si possono forzare delle aree di un sito a usare il protocollo HTTPS nella
-configurazione della sicurezza. Lo si può fare tramite le regole ``access_control``,
-usando l'opzione ``requires_channel``. Per esempio, se si vogliono forzare tutti gli URL
-che iniziano per ``/secure`` a usare HTTPS, si può usare la seguente configurazione:
+Si possono forzare aree di un sito a usare il protocollo HTTPS nella configurazione
+della sicurezza. Lo si può fare tramite le regole ``access_control``, usando l'opzione ``requires_channel``.
+Per esempio, se si vogliono forzare tutti gli URL che iniziano per ``/secure``
+a usare HTTPS, si può usare la seguente configurazione:
 
 .. configuration-block::
 

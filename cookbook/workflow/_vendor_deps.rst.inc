@@ -1,5 +1,5 @@
-Gestire le librerie dei venditori con ``composer.json``
--------------------------------------------------------
+Gestire le librerie dei venditori con composer.json
+---------------------------------------------------
 
 Come funziona?
 ~~~~~~~~~~~~~~

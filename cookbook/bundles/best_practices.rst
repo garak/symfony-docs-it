@@ -4,9 +4,16 @@
 Struttura del bundle e best practice
 ====================================
 
-Un bundle è una cartella con una struttura ben definita, che può ospitare qualsiasi cosa,
-dalle classi ai controllori e alle risorse web. Anche se i bundle sono molto
-flessibili, si devono seguire alcune best practice per distribuirne uno.
+Ci sono due tipi di bundle:
+
+* Bundle specifici dell'applicazione: usati solo da un'applicazione;
+* Bundle riutilizzabili: pensati per essere condivisi tra vari progetti.
+
+Questa ricetta parla solo di come strutturare i propri **bunde riutilizzabili**, in modo
+siano facili da configurare ed estendere. Moltre di queste raccomandazioni non servono
+per i bundle dell'applicazione, perché non dovranno restare il più semplici
+possibile. Per i bundle dell'applicazione, basta seguire le pratiche mostrate
+nel libro e nel ricettario.
 
 .. index::
    pair: Bundle; Convenzioni di nomenclatura
@@ -193,6 +200,66 @@ Una documentazione estensiva andrebbe fornita in formato
 :doc:`reStructuredText </contributing/documentation/format>`, sotto la cartella
 ``Resources/doc/``; il file ``Resources/doc/index.rst`` è l'unico file obbligatorio
 e deve essere il punto di ingresso della documentazione.
+
+Istruzioni di installazione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Per facilitare l'installazione di bundle di terze parti, si consideri l'uso delle
+seguenti istruzioni standardizzate, nel file ``README.md``.
+
+.. code-block:: text
+
+    Installazione
+    =============
+
+    Passo 1: scaricare il bundle
+    ----------------------------
+
+    Aprire una console, entrare nella cartella del progetto ed eseguire il
+    comando seguente per scaricare l'ultima versione stabile di questo bundle:
+
+    ```bash
+    $ composer require <nome-pacchetto> "~1"
+    ```
+
+    Questo comando richiede Composer installato globalmente, come spiegato
+    nel [capitolo dell'installazione](https://getcomposer.org/doc/00-intro.md)
+    della documentazione di Composer.
+
+    Passo 2: abilitare il bundle
+    ----------------------------
+
+    Quindi, abilitare il bundle, aggiungendo la riga seguente nel file `app/AppKernel.php`
+    del progetto:
+
+    ```php
+    <?php
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+   
+                new <vendor>\<nome-bundle>\<nome-lungo-bundle>(),
+            );
+   
+            // ...
+        }
+        
+        // ...
+    }
+    ```
+
+Questo template ipotizza che il bundle sia alla sua versione ``1.x``. In caso contrario, cambiare
+la versione ``"~1"`` in modo appropriato (``"~2"``, ``"~3"``, ecc.)
+
+Eventualmente, si possono aggiungere ulteriori passi (*Passo 3*, *Passo 4*, ecc.) per
+spiegare altri compiti necessari all'installazione, come la registrazione di rotte o
+l'esportazione di risorse.
 
 Rotte
 -----

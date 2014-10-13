@@ -1,8 +1,10 @@
 .. index::
    single: Flusso di lavoro; Subversion
 
-Come creare e memorizzare un progetto Symfony2 in Subversion
-============================================================
+.. _how-to-create-and-store-a-symfony2-project-in-subversion:
+
+Creare e memorizzare un progetto Symfony in Subversion
+======================================================
 
 .. tip::
 
@@ -30,7 +32,7 @@ standard, molto diffusa:
 
 .. code-block:: text
 
-    mio_progetto/
+    progetto/
         branches/
         tags/
         trunk/
@@ -46,24 +48,24 @@ Preparazione del progetto
 
 Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
-1. Scaricare `Symfony2 Standard Edition`_, con o senza venditori.
+1. Scaricare `Symfony Standard Edition`_, con o senza venditori.
 
 2. Scompattare la distribuzione. Questo creerà una cartella chiamata Symfony, con
    la struttura del nuovo progetto, i file di configurazione, ecc. Rinominarla con
    il nome che si desidera.
 
 3. Eseguire il checkout del repository Subversion che ospiterà questo progetto. Supponiamo
-   che sia ospitato su `Google code`_ e che si chiami ``mioprogetto``:
+   che sia ospitato su `Google code`_ e che si chiami ``progetto``:
 
    .. code-block:: bash
 
-        $ svn checkout http://mioprogetto.googlecode.com/svn/trunk mioprogetto
+        $ svn checkout http://progetto.googlecode.com/svn/trunk progetto
 
 4. Copiare i file del progetto Symfony2 nella cartella di subversion:
 
    .. code-block:: bash
 
-        $ mv Symfony/* mioprogetto/
+        $ mv Symfony/* progetto/
 
 5. Impostare le regole di ignore. Non tutto *andrebbe* memorizzato nel
    repository subversion. Alcuni file (come la cache) sono generati e altri
@@ -73,7 +75,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
    .. code-block:: bash
 
-        $ cd mioprogetto/
+        $ cd progetto/
         $ svn add --depth=empty app app/cache app/logs app/config web
 
         $ svn propset svn:ignore "vendor" .
@@ -117,7 +119,7 @@ di più su come configurare e sviluppare un'applicazione.
 
 .. tip::
 
-    La Standard Edition di Symfony2 ha alcune funzionalità di esempio. Per rimuovere
+    La Standard Edition di Symfony ha alcune funzionalità di esempio. Per rimuovere
     il codice di esempio, seguire le istruzioni nella ricetta
     ":doc:`/cookbook/bundles/remove`".
 
@@ -142,7 +144,7 @@ repository centrale per funzionare. Ci sono diverse soluzioni:
 .. _`git`: http://git-scm.com/
 .. _`svn`: http://subversion.apache.org/
 .. _`Subversion`: http://subversion.apache.org/
-.. _`Symfony2 Standard Edition`: http://symfony.com/download
+.. _`Symfony Standard Edition`: http://symfony.com/download
 .. _`Controllo di versione con Subversion`: http://svnbook.red-bean.com/
 .. _`GitHub`: https://github.com/
 .. _`Google code`: http://code.google.com/hosting/

@@ -1,10 +1,10 @@
 .. index::
-   single: Assetic; UglifyJs
+   single: Assetic; UglifyJS
 
-Minimizzare file CSS/JS (usando UglifyJs e UglifyCss)
+Minimizzare file CSS/JS (usando UglifyJS e UglifyCSS)
 =====================================================
 
-`UglifyJs`_ è una libreria per l'analisi/compressione/abbellimento di javascript. 
+`UglifyJS`_ è una libreria per l'analisi/compressione/abbellimento di javascript. 
 Può essere utilizzato per combinare e minimizzare le risorse javascript in modo da fare meno richieste HTTP
 e far caricare più velocemente un sito web. `UglifyCss`_ è un compressore/abbellitore di css
 molto simile a UglifyJs.
@@ -13,12 +13,12 @@ In questo ricettario verranno esaminati in dettaglio l'installazione, la configu
 e l'utilizzo di UglifyJs. ``UglifyCss`` funziona praticamente nello stesso modo, motivo per il quale
 se ne parlerà in modo meno approfondito.
 
-Installare UglifyJs
+Installare UglifyJS
 -------------------
 
-UglifyJs è disponibile come modulo npm di `Node.js`_ e può essere installato utilizzando
-npm. Per iniziare è necessario `installare node.js`_. Successivamente si potrà installare UglifyJs
-utilizzando npm:
+UglifyJS è disponibile come modulo npm di `Node.js`_ e può essere installato utilizzando
+npm. Per iniziare è necessario `installare node.js`_. Successivamente si potrà installare UglifyJS
+usando npm:
 
 .. code-block:: bash
 
@@ -104,12 +104,52 @@ nel trattamento del codice javascript:
         $ npm bin -g
 
     Questo comando dovrebbe mostrare la cartella, all'interno del sistema, 
-    nella quale risiede l'eseguibile di UglifyJs.
+    nella quale risiede l'eseguibile di UglifyJS.
 
     Se si è installato UglifyJs localmente, la cartella bin si troverà
     all'interno della cartella ``node_modules``. In questo caso, il suo nome sarà ``.bin``.
 
 A questo punto sarà possibile richiamare il filtro ``uglifyjs2`` dall'interno dell'applicazione.
+
+Configurare il binario ``node``
+-------------------------------
+
+Assetic prova a trovare automaticamente il binario di node. Se non ci riesce,
+si può configurare la sua posizione, usando la voce ``node``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        assetic:
+            # the path to the node executable
+            node: /usr/bin/nodejs
+            filters:
+                uglifyjs2:
+                    # the path to the uglifyjs executable
+                    bin: /usr/local/bin/uglifyjs
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <assetic:config 
+            node="/usr/bin/nodejs" >
+            <assetic:filter
+                name="uglifyjs2"
+                bin="/usr/local/bin/uglifyjs" />
+        </assetic:config>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('assetic', array(
+            'node' => '/usr/bin/nodejs',
+            'uglifyjs2' => array(
+                    // the path to the uglifyjs executable
+                    'bin' => '/usr/local/bin/uglifyjs',
+                ),
+        ));
 
 Minimizzare le risorse
 ----------------------
@@ -183,10 +223,10 @@ e di :ref:`esportare le risorse di assetic<cookbook-asetic-dump-prod>`.
     attributo nel file ``config_prod`` piuttosto che nel file di configurazione comune. Per ulteriori dettagli
     sull'applicazione dei filtri, si veda :ref:`cookbook-assetic-apply-to`.
 
-Installare, configurare e utilizzare UglifyCss
+Installare, configurare e utilizzare UglifyCSS
 ----------------------------------------------
 
-L'utilizzo di UglifyCss segue le stesse regole di UglifyJs. Per iniziare,
+L'utilizzo di UglifyCSS segue le stesse regole di UglifyJS. Per iniziare,
 si installa il pacchetto npm:
 
 .. code-block:: bash
@@ -225,22 +265,23 @@ Successivamente, aggiungere il filtro alla configurazione:
             ),
         ));
 
-Per utilizzare il filtro sui file css, si aggiunge il filtro all'helper ``stylesheets``
+Per utilizzare il filtro sui file CSS, si aggiunge il filtro all'helper ``stylesheets``
 di Assetic:
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        {% stylesheets '@AcmePippoBundle/Resources/public/css/*' filter='uglifycss' %}
+        {% stylesheets 'bundles/AcmePippo/css/*' filter='uglifycss' filter='cssrewrite' %}
              <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->stylesheets(
-            array('@AcmePippoBundle/Resources/public/css/*'),
-            array('uglifycss')
+            array('bundles/AcmePippo/css/*'),
+            array('uglifycss'),
+            array('cssrewrite')
         ) as $url): ?>
             <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
         <?php endforeach; ?>
@@ -249,8 +290,8 @@ Così come per il filtro ``uglifyjs2``, se si premette ``?`` al nome del filtro
 (come in ``?uglifycss``), la minimizzazione avverrà solamente quando non si è
 in modalità debug.
 
-.. _`UglifyJs`: https://github.com/mishoo/UglifyJS
-.. _`UglifyCss`: https://github.com/fmarcia/UglifyCSS
+.. _`UglifyJS`: https://github.com/mishoo/UglifyJS
+.. _`UglifyCSS`: https://github.com/fmarcia/UglifyCSS
 .. _`Node.js`: http://nodejs.org/
 .. _`installare node.js`: http://nodejs.org/
 .. _`package.json`: http://package.json.nodejitsu.com/

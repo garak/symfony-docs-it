@@ -228,7 +228,7 @@ tempo tra il checkout e il commit delle nuove funzionalità)
 
 .. tip::
 
-    Sostituire ``master`` con il ramo su cui si sta lavorando (p.e. ``2.4.``)
+    Sostituire ``master`` con il ramo su cui si sta lavorando (p.e. ``2.5``)
     sulla risoluzione di un bug
 
 Quando si esegue il comando ``rebase``, potrebbe essere necessario risolvere

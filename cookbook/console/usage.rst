@@ -1,8 +1,8 @@
 .. index::
     single: Console; Uso
 
-Come usare la console
-=====================
+Usare la console
+================
 
 La pagina :doc:`/components/console/usage` della documentazione dei componenti
 mostra le opzioni globali della console. Quando si usa la console come parte del

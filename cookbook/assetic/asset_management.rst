@@ -1,8 +1,8 @@
 .. index::
    single: Assetic; Introduzione
 
-Come usare Assetic per la gestione delle risorse
-================================================
+Usare Assetic per la gestione delle risorse
+===========================================
 
 Assetic unisce due idee principali: :ref:`risorse <cookbook-assetic-assets>` e
 :ref:`filtri <cookbook-assetic-filters>`. Le risorse sono file come CSS,

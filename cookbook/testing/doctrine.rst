@@ -1,8 +1,8 @@
 .. index::
    single: Test; Doctrine
 
-Come testare i repository Doctrine
-==================================
+Testare i repository Doctrine
+=============================
 
 I test unitari dei repository Doctrine in un progetto Symfony non sono raccomandati.
 Quando si ha a che fare con un repository, si sta trattando qualcosa che ha effettivamente

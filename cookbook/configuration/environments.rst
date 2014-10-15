@@ -1,8 +1,8 @@
 .. index::
     single: Ambienti
 
-Come padroneggiare e creare nuovi ambienti
-==========================================
+Padroneggiare e creare nuovi ambienti
+=====================================
 
 Ogni applicazione è la combinazione di codice e di un insieme di configurazioni
 che determinano come il codice dovrà lavorare. La configurazione può definire

@@ -1,16 +1,16 @@
 .. index::
    single: Serializer
 
-Come usare il Serializer
-========================
+Usare il Serializer
+===================
 
 Serializzare e deserializzare da e verso oggetti nei vari formati (p.e.
 JSON o XML) è un argomento davvero complesso. Symfony dispone di un
-:doc:`componente Serializer</components/serializer>`, che fornisce alcuni
+:doc:`componente Serializer </components/serializer>`, che fornisce alcuni
 strumenti che possono essere sfruttati per una soluzione.
 
 In pratica, prima di iniziare, familiarizzare con serializzatori, normalizzatori
-e codificatori, leggendo la documentazione del :doc:`componente Serializer</components/serializer>`.
+e codificatori, leggendo la documentazione del :doc:`componente Serializer </components/serializer>`.
 Si dovrebbe altresì controllare il bundle `JMSSerializerBundle`_, che espande le
 funzionalità offerte dal serializer di base di Symfony.
 

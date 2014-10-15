@@ -1,8 +1,8 @@
 .. index::
    single: Rotte su Apache
 
-Come usare le rotte su Apache
-=============================
+Usare le rotte su Apache
+========================
 
 Symfony2, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua velocità,
 tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache, invece di usare Symfony2.

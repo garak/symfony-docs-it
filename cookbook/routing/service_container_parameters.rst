@@ -1,8 +1,8 @@
 .. index::
    single: Rotte; Parametri del contenitore di servizi
 
-Come usare i parametri del contenitore di servizi nelle rotte
-=============================================================
+Usare i parametri del contenitore di servizi nelle rotte
+========================================================
 
 A volte potrebbe essere utile rendere alcune parti delle rotte
 configurabili globalmente. Per esempio, se si costruisce un sito internazionalizzato,

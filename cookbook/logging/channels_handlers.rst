@@ -1,8 +1,8 @@
 .. index::
    single: Log
 
-Come scrivere messaggi di log su file diversi
-=============================================
+Scrivere messaggi di log su file diversi
+========================================
 
 La Standard Edition di Symfony contiene molti canali per i log: ``doctrine``,
 ``event``, ``security`` e ``request``. Ogni canale corrisponde a un servizio di

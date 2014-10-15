@@ -1,8 +1,8 @@
 ﻿.. index::
    single: Rotte; Consentire / in un parametro di rotta
 
-Come permettere un carattere "/" in un parametro di rotta
-=========================================================
+Consentire un carattere "/" in un parametro di rotta
+====================================================
 
 A volte è necessario comporre URL con parametri che possono contenere una barra
 ``/``. Per esempio, prendiamo la classica rotta ``/hello/{name}``. Per impostazione predefinita,

@@ -14,9 +14,13 @@ Variabili d'ambiente
 --------------------
 
 Symfony recupera qualsiasi variabile d'ambiente, il cui prefisso sia ``SYMFONY__``
-e la usa come un parametro all'interno del contenitore dei servizi. Il doppio 
-trattino basso viene sostituito da un punto, dato che il punto non è un 
-carattere valido per i nomi delle variabili d'ambiente.
+e la usa come un parametro all'interno del contenitore dei servizi. Al nome di
+parametro risultante vengono applicate alcune trasformazioni:
+
+* viene rimosso il prefisso ``SYMFONY__``
+* il nome del parametro viene convertito in minuscolo
+* il doppio trattino basso viene sostituito da un punto, dato che il punto non è un 
+  carattere valido per i nomi delle variabili d'ambiente.
 
 Ad esempio, se si usa l'ambiente Apache, le variabili d'ambiente possono
 essere configurate utilizzando la seguente configurazione del ``VirtualHost``:
@@ -24,7 +28,7 @@ essere configurate utilizzando la seguente configurazione del ``VirtualHost``:
 .. code-block:: apache
 
     <VirtualHost *:80>
-        ServerName      Symfony2
+        ServerName      Symfony
         DocumentRoot    "/percorso/applicazione/symfony_2/web"
         DirectoryIndex  index.php index.html
         SetEnv          SYMFONY__UTENTE__DATABASE utente
@@ -65,7 +69,7 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
         doctrine:
             dbal:
                 driver    pdo_mysql
-                dbname:   symfony2_project
+                dbname:   progetto_symfony
                 user:     "%utente.database%"
                 password: "%password.database%"
 
@@ -77,7 +81,7 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
         <doctrine:config>
             <doctrine:dbal
                 driver="pdo_mysql"
-                dbname="progetto_symfony2"
+                dbname="progetto_symfony"
                 user="%utente.database%"
                 password="%password.database%"
             />
@@ -88,11 +92,19 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
                 'driver'   => 'pdo_mysql',
-                'dbname'   => 'progetto_symfony2',
+                'dbname'   => 'progetto_symfony',
                 'user'     => '%utente.database%',
                 'password' => '%password.database%',
             )
         ));
+
+.. note::
+
+    Anche in modalità di debug, impostare o modificare una variabile di ambiente
+    richiede una pulizia della cache, per rendere il parametro disponibile.
+    In modalità di debug, questo è necessario poiché solo una modifica a un file di
+    configurazione caricato da Symfony provoca una nuova lettura della
+    configurazione.
 
 Costanti
 --------

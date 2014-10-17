@@ -939,7 +939,7 @@ corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
 .........................
 
 Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
-*applica* restrizioni di accesso in base alle opzioni ``roles`` e
+*applica* restrizioni di accesso in base alle opzioni ``roles``, ``allow_if`` e
 ``requires_channel``:
 
 * ``role`` Se l'utente non ha il ruolo fornito, l'accesso viene negato
@@ -1778,6 +1778,8 @@ accedere tramite il form di login, sarà usato il fornitore ``user_db`` (in quan
 
 Per ulteriori informazioni su fornitori utenti e configurazione del firewall, vedere
 il :doc:`/reference/configuration/security`.
+
+.. _book-security-roles:
 
 Ruoli
 -----

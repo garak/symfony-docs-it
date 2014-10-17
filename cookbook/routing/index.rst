@@ -11,3 +11,4 @@ Rotte
     service_container_parameters
     custom_route_loader
     redirect_trailing_slash
+    extra_information

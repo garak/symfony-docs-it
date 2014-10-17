@@ -14,6 +14,8 @@ immediatamente a sviluppare.
     Se si stanno cercando le istruzioni per creare un nuovo progetto e memorizzarlo con
     un sistema di versionamento, si veda `Usare un controllo di sorgenti`_.
 
+.. _installing-a-symfony2-distribution:
+
 Scaricare una distribuzione Symfony2
 ------------------------------------
 
@@ -226,7 +228,7 @@ Se ci sono problemi, correggerli prima di proseguire.
 
     Molti sistemi consento di usare il comando ``chmod +a``. Provare prima questo e, in
     caso di errore, provare il metodo successivo. Viene usato un comando per cercare di
-    determinare l'utente con cui gira il server web e impostarlo come ``APACHEUSER``:
+    determinare l'utente con cui gira il server web e impostarlo come ``HTTPDUSER``:
 
     .. code-block:: bash
 

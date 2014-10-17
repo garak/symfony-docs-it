@@ -1,8 +1,14 @@
 Traduzioni
 ==========
 
-La documentazione di Symfony2 è scritta originariamente in inglese e molte persone sono coinvolte nel processo di
-traduzione.
+La documentazione di Symfony è scritta originariamente in inglese e molte persone
+sono coinvolte nel processo di traduzione.
+
+.. note::
+
+    Il progetto Symfony sconsiglia ufficialmente l'inizio di nuove traduzioni della
+    documentazione. In effetti, c'è `una discussione in corso`_, all'interno
+    della comunità, su benefici e problemi di traduzioni mantenute dalla comunità.
 
 Contribuire
 -----------
@@ -20,9 +26,7 @@ Di seguito la lista dei repository *master* ufficiali:
 * *Francese*:   https://github.com/symfony-fr/symfony-docs-fr
 * *Italiano*:  https://github.com/garak/symfony-docs-it
 * *Giapponese*: https://github.com/symfony-japan/symfony-docs-ja
-* *Polacco*:   https://github.com/symfony-docs-pl/symfony-docs-pl
 * *Portoghese (Brasile)*:  https://github.com/andreia/symfony-docs-pt-BR
-* *Spagnolo*:  https://github.com/gitnacho/symfony-docs-es
 
 .. note::
 
@@ -61,7 +65,7 @@ Iniziare la trduzione in una nuova lingua comporta molto lavoro, è necessario p
 Quando il team è pronto, nominare un manager; Quest'ultimo sarà il responsabile del repository
 *master*.
 
-Creare il repository e copiarci i documenti in lingua inglese.
+Creare il repository e copiarci i documenti *in lingua inglese*.
 
 Il team a questo punto può iniziare il processo di traduzione.
 
@@ -84,4 +88,5 @@ inglese e applicare i cambiamenti alla propria versione quanto prima.
    I linguaggi non correttamente manutenuti sono rimossi dalla lista di quelli 
    ufficiali, poiché la documentazione non aggiornata è pericolosa
 
+.. _`una discussione in corso`: https://github.com/symfony/symfony-docs/issues/4078
 .. _lista Symfony docs: http://groups.google.com/group/symfony-docs

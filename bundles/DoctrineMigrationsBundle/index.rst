@@ -23,7 +23,8 @@ Aggiungere le righe seguenti al file ``composer.json``:
 
     {
         "require": {
-            "doctrine/doctrine-migrations-bundle": "dev-master"
+            "doctrine/migrations": "1.0.*@dev",
+            "doctrine/doctrine-migrations-bundle": "2.1.*@dev"
         }
     }
 

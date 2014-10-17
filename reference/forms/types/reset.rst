@@ -5,7 +5,7 @@ Tipo di campo reset
 ===================
 
 .. versionadded:: 2.3
-    Il tipo ``reset`` è stato aggiunto in Symfony 2.3
+    Il tipo ``reset`` è stato introdotto in Symfony 2.3
 
 A button that resets all fields to their original values.
 

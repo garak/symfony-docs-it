@@ -8,8 +8,8 @@ Il tipo ``language`` è un sotto-insieme di ``ChoiceType``, che consente all'ute
 di scegliere da un lungo elenco di lingue. Come bonus aggiuntivo, i nomi delle lingue
 sono mostrati nella lingua dell'utente.
 
-Il valore per ogni lingua è *l'identificativo Unicode della lingua*
-(p.e. ``it`` o ``zh-Hant``).
+Il valore per ogni lingua è *l'identificativo Unicode della lingua*, usato
+nei `componenti internazionali per Unicode`_ (p.e. ``it`` o ``zh-Hant``).
 
 .. note::
 
@@ -106,3 +106,5 @@ Il valore predefinito effettivo di questa opzione dipende da altre opzioni:
 .. include:: /reference/forms/types/options/read_only.rst.inc
 
 .. include:: /reference/forms/types/options/required.rst.inc
+
+.. _`componenti internazionali per Unicode`: http://site.icu-project.org

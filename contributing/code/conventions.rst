@@ -13,18 +13,18 @@ Nomi dei metodi
 Quando un oggetto ha molte relazioni "principali" con degli "elementi"
 (oggetti, parametri, ...), i nomi dei metodi sono normalizzati:
 
-  * ``get()``
-  * ``set()``
-  * ``has()``
-  * ``all()``
-  * ``replace()``
-  * ``remove()``
-  * ``clear()``
-  * ``isEmpty()``
-  * ``add()``
-  * ``register()``
-  * ``count()``
-  * ``keys()``
+* ``get()``
+* ``set()``
+* ``has()``
+* ``all()``
+* ``replace()``
+* ``remove()``
+* ``clear()``
+* ``isEmpty()``
+* ``add()``
+* ``register()``
+* ``count()``
+* ``keys()``
 
 L'utilizzo di questi metodi è consentito solo quando è chiaro che si
 tratti di una relazione principale:

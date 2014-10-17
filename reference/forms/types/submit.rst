@@ -17,6 +17,7 @@ A submit button.
 |                      | - `label`_                                                           |
 |                      | - `label_attr`_                                                      |
 |                      | - `translation_domain`_                                              |
+|                      | - `validation_groups`_                                               |
 +----------------------+----------------------------------------------------------------------+
 | Tipo genitore        | :doc:`button</reference/forms/types/button>`                         |
 +----------------------+----------------------------------------------------------------------+
@@ -44,6 +45,33 @@ Opzioni ereditate
 .. include:: /reference/forms/types/options/label_attr.rst.inc
 
 .. include:: /reference/forms/types/options/button_translation_domain.rst.inc
+
+validation_groups
+~~~~~~~~~~~~~~~~~
+
+**tipo**: ``array`` **predefinito**: ``null``
+
+Quando un form contiene più bottoni submit, si può modificare il gruppo di
+validazione, in base al bottone usato per inviare il form. Si immagini un form di
+registrazione in più passi, con bottoni per andare al passo precedente o al successivo::
+
+    $form = $this->createFormBuilder($user)
+        ->add('precedente', 'submit', array(
+            'validation_groups' => false,
+        ))
+        ->add('successivo', 'submit', array(
+            'validation_groups' => array('Registration'),
+        ))
+        ->getForm();
+
+Il valore speciale ``false`` assicura che non venga eseguita alcuna validazione quando
+si clicca il bottone per andare indietro. Quando si clicca l'altro bottone, vengono validati
+tutti i vincoli del gruppo "Registration".
+
+.. seealso::
+
+    Si può approfondire l'argomento nel :ref:`capitolo Form <book-form-validation-groups>`
+    del libro.
 
 Variabili di form
 -----------------

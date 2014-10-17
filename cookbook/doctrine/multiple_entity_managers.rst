@@ -160,7 +160,7 @@ connessioni, una per ogni gestore di entità.
     la configurazione desiderata. Se si *omette* il nome della connessione
     o del gestore di entità, verrà usato quello predefinito (cioè ``default``).
 
-Lavorando con connessioni multiple, per creare le basi dati::
+Lavorando con connessioni multiple, per creare le basi dati:
 
 .. code-block:: bash
 
@@ -170,7 +170,7 @@ Lavorando con connessioni multiple, per creare le basi dati::
     # Usa solo la connessione "customer"
     $ php app/console doctrine:database:create --connection=customer
 
-Lavorando con gestori di entità multipli, per aggiornare lo schema::
+Lavorando con gestori di entità multipli, per aggiornare lo schema:
 
 .. code-block:: bash
 

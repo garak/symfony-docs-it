@@ -93,6 +93,14 @@ dell'oggetto e i valori sono l'etichetta::
         'choices' => array('m' => 'Maschio', 'f' => 'Femmina')
     ));
 
+.. tip::
+
+    Quando i valori tra cui scegliere non sono interi o stringhe (ma per esempio float
+    o booleani), si dovrebbe usare invece l'opzione `choice_list`_. Con tale
+    opzione, si ha la possibilità di mantenere il formato originale dei dati, che è importante
+    per assicurarsi una validazione corretta ed evitare inutili aggiornamenti sulla base dati,
+    causati da una mancata corrispondenza tra tipi di dato.
+
 choice_list
 ~~~~~~~~~~~
 
@@ -102,6 +110,17 @@ Questo è un modo per specificare le opzioni da usare per questo campo.
 L'opzione ``choice_list`` deve essere un'istanza di ``ChoiceListInterface``.
 Per classi avanzate, si può creare una classe personalizzata che implementi
 questa interfaccia e fornisca le scelte.
+
+Con questa opzione si possono anche aggiungere valori float, per essere selezionati come dati.
+
+.. code-block:: php
+
+    use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
+
+    // ...
+    $builder->add('status', 'choice', array(
+      'choice_list' => new ChoiceList(array(1, 0.5), array('Pieno', 'Metà')
+    ));
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 

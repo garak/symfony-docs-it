@@ -1,3 +1,5 @@
+.. _symfony2-versus-flat-php:
+
 Symfony2 contro PHP puro
 ========================
 
@@ -415,6 +417,8 @@ sviluppare il blog, abbiamo speso diverso tempo sull'"architettura" del codice
 necessario per gestire l'invio di form, la validazione dell'input, i log e la
 sicurezza. Perché dovremmo reinventare soluzioni a tutti questi problemi comuni?
 
+.. _add-a-touch-of-symfony2:
+
 Aggiungere un tocco di Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -531,6 +535,8 @@ consentendo di aggiungere header e contenuti HTTP tramite un'interfaccia orienta
 oggetti. Mentre in questa applicazione le risposte molto semplici, tale flessibilità
 ripagherà quando l'applicazione cresce.
 
+.. _the-sample-application-in-symfony2:
+
 L'applicazione di esempio in Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -553,7 +559,8 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
     {
         public function listAction()
         {
-            $posts = $this->get('doctrine')->getManager()
+            $posts = $this->get('doctrine')
+                ->getManager()
                 ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
@@ -568,8 +575,7 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
             $post = $this->get('doctrine')
                 ->getManager()
                 ->getRepository('AcmeBlogBundle:Post')
-                ->find($id)
-            ;
+                ->find($id);
 
             if (!$post) {
                 // mostra la pagina 404 page not found
@@ -670,6 +676,8 @@ Non resta molto altro da fare.
 Per una rappresentazione visuale di come Symfony2 gestisca ogni richiesta, si veda il
 :ref:`diagramma di flusso della richiesta<request-flow-figure>`.
 
+.. _where-symfony2-delivers:
+
 Dove consegna Symfony2
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -690,16 +698,16 @@ da PHP puro a Symfony2 ci abbia migliorato la vita:
   alcuni).
 
 * L'applicazione ora gode di **URL pienamente flessibili**, grazie al componente
-  ``Routing``.
+  Routing.
 
 * L'architettura HTTP-centrica di Symfony2 dà accesso a strumenti potenti, come
   la **cache HTTP** fornita dalla **cache HTTP interna di Symfony2** o a strumenti ancora
   più potenti, come `Varnish`_. Questi aspetti sono coperti in un capitolo successivo,
-  tutto dedicato alla :doc:`cache</book/http_cache>`.
+  tutto dedicato alla :doc:`cache </book/http_cache>`.
 
 Ma forse la parte migliore nell'usare Symfony2 è l'accesso all'intero insieme di
 **strumenti open source di alta qualità sviluppati dalla comunità di Symfony2**!
-Si possono trovare dei buoni bundle su `KnpBundles.com`_
+Si possono trovare dei buoni bundle su `KnpBundles.com`_.
 
 Template migliori
 -----------------
@@ -721,7 +729,7 @@ Prendiamo per esempio il template della lista, scritto in Twig:
         <ul>
             {% for post in posts %}
             <li>
-                <a href="{{ path('blog_show', { 'id': post.id }) }}">
+                <a href="{{ path('blog_show', {'id': post.id}) }}">
                     {{ post.title }}
                 </a>
             </li>

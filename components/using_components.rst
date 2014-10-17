@@ -2,6 +2,8 @@
    single: Componenti; Installazione
    single: Componenti; Uso
 
+.. _how-to-install-and-use-the-symfony2-components:
+
 Installare e usare i componenti di Symfony2
 ===========================================
 

@@ -148,6 +148,8 @@ necessaria per il file ``app/config/dev/config.yml``:
 
         // ...
 
+.. include:: /components/dependency_injection/_imports-parameters-note.rst.inc
+
 File di configurazione semantica
 --------------------------------
 

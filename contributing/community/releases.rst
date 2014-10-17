@@ -77,7 +77,7 @@ Piano
 
 Di seguito il piano per le prime due versioni che useranno questo modello di rilascio:
 
-.. image:: /images/release-process.jpg
+.. image:: /images/contributing/release-process.jpg
    :align: center
 
 * **Giallo** rappresenta la fase di sviluppo
@@ -86,29 +86,20 @@ Di seguito il piano per le prime due versioni che useranno questo modello di ril
 
 Tutto ciò produrrà date e periodi di manutenzione molto attendibili:
 
-+----------+----------+-----------------------+-----------+
-| Versione | Rilascio | Fine manutenzione     | Fine vita |
-+==========+==========+=======================+===========+
-| 2.0      | 07/2011  | 03/2013 (20 mesi)     | 09/2013   |
-+----------+----------+-----------------------+-----------+
-| 2.1      | 09/2012  | 05/2013 (9 mesi)      | 11/2013   |
-+----------+----------+-----------------------+-----------+
-| 2.2      | 03/2013  | 11/2013 (8 mesi)      | 05/2014   |
-+----------+----------+-----------------------+-----------+
-| **2.3**  | 05/2013  | 05/2016 (36 mesi)     | 05/2017   |
-+----------+----------+-----------------------+-----------+
-| 2.4      | 11/2013  | 09/2014 (10 mesi) [1] | 01/2015   |
-+----------+----------+-----------------------+-----------+
-| 2.5      | 05/2014  | 01/2015 (8 mesi)      | 07/2016   |
-+----------+----------+-----------------------+-----------+
-| 2.6      | 11/2014  | 07/2015 (8 mesi)      | 01/2016   |
-+----------+----------+-----------------------+-----------+
-| **2.7**  | 05/2015  | 05/2018 (36 mesi)     | 05/2019   |
-+----------+----------+-----------------------+-----------+
-| 2.8      | 11/2015  | 07/2016 (8 mesi)      | 01/2017   |
-+----------+----------+-----------------------+-----------+
-| ...      | ...      | ...                   | ...       |
-+----------+----------+-----------------------+-----------+
+========  ======= ======== ======================  ==========
+Versione  Freeze  Rilascio Fine manutenzione       Fine vita 
+========  ======= ======== ======================  ==========
+2.0       05/2011 07/2011   03/2013 (20 mesi)      09/2013
+2.1       07/2012 09/2012   05/2013 (9 mesi)       11/2013
+2.2       01/2013 03/2013   11/2013 (8 mesi)       05/2014
+**2.3**   03/2013 05/2013   05/2016 (36 mesi)      05/2017
+2.4       09/2013 11/2013   09/2014 (10 mesi) [1]  01/2015
+2.5       02/2014 05/2014   01/2015 (8 mesi)       07/2015
+2.6       09/2014 11/2014   07/2015 (8 mesi)       01/2016
+**2.7**   02/2015 05/2015   05/2018 (36 mesi)      05/2019
+2.8       09/2015 11/2015   07/2016 (8 mesi)       01/2017
+...       ...     ...       ...                    ...
+========  ======= ======== ======================  ==========
 
 .. [1] La manutenzione di Symfony 2.4 è stata `estesa a settembre 2014`_.
 
@@ -147,7 +138,7 @@ Quando non è possibile migliorare l'implementazione di una caratteristica senza
 infrangere la retrocompatibilità, resta la possibilità di deprecare
 la vecchia implementazione e aggiungerne una nuova. Leggere il documento sulle
 :ref:`convenzioni <contributing-code-conventions-deprecations>` per saperne
-di più suglia gestione dei depracati in Symfony.
+di più sulla gestione dei deprecati in Symfony.
 
 Motivazioni
 -----------

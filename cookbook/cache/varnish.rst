@@ -9,7 +9,7 @@ Poiché la cache di Symfony2 usa gli header standard della cache HTTP,
 proxy. `Varnish`_ è un acceleratore HTTP potente e open source, che è in grado di servire
 contenuti in cache in modo veloce e che include il supporto per :ref:`Edge Side Include<edge-side-includes>`.
 
-Reverse Proxy fidati
+Reverse proxy fidati
 --------------------
 
 Perché ESI funzioni correttamente e per usare gli header :ref:`X-FORWARDED <varnish-x-forwarded-headers>`,
@@ -91,10 +91,18 @@ Symfony2 aggiunge automaticamente:
 Invalidare la cache
 -------------------
 
-Non si dovrebbe aver mai bisogno di invalidare dati in cache, perché l'invalidazione è
-già gestita nativamente nei modelli di cache HTTP (vedere :ref:`http-cache-invalidation`).
+Se si vogliono mettere in cache contenuti che cambiano frequentemente e servirne
+la versione più recente agli utenti, occorre invalidare tali contenuti.
+Se l'`invalidazione della cache`_ consente di eliminare contenuti da un
+proxy prima della loro scadenza, aggiunge complessità alle impostazioni della cache.
 
-Tuttavia, Varnish può essere configurato per accettare un metodo HTTP speciale ``PURGE``,
+.. tip::
+
+    Il bundle `FOSHttpCacheBundle`_ allevia le pene
+    dell'invalidazione della cache, aiutando a organizzare le impostazioni di
+    cache e di invalidazione.
+
+Varnish può essere configurato per accettare un metodo HTTP speciale ``PURGE``,
 che invalida la cache per una data risorsa:
 
 .. code-block:: text
@@ -201,7 +209,7 @@ Rotte e header X-FORWARDED
 --------------------------
 
 Per assicurarsi che le rotte di Symfony generino URL corrette con Varnish,
-occorre aggiungere gli appropriati header ```X-Forwarded```, in modo che Symfony sia consapevole
+occorre aggiungere gli appropriati header ```X-Forwarded``, in modo che Symfony sia consapevole
 del numero originale di porta della richiesta. Il modo in cui farlo dipende dalla
 configurazione. Come semplice esempio, supponiamo che Varnish e il server web siano sulla
 stessa macchina e che Varnish ascolti su una porta (p.e. 80) e Apache
@@ -232,3 +240,5 @@ assoluti generati:
 .. _`Architettura Edge`: http://www.w3.org/TR/edge-arch
 .. _`GZIP e Varnish`: https://www.varnish-cache.org/docs/3.0/phk/gzip.html
 .. _`Header Surrogate-Capability`: http://www.w3.org/TR/edge-arch
+.. _`invalidazione della cache`: http://tools.ietf.org/html/rfc2616#section-13.10
+.. _`FOSHttpCacheBundle`: http://foshttpcachebundle.readthedocs.org/

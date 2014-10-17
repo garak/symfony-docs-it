@@ -42,6 +42,8 @@ Veloce
 
 Uno degli scopi di YAML è trovare il giusto rapporto tra velocità e caratteristiche.
 Supporta proprio la caratteristica necessaria per gestire i file di configurazione.
+Alcune mancanze da notare: direttive documentali, messaggi citati multiriga,
+insiemi di blocchi compatti e file multidocumento.
 
 Analizzatore reale
 ~~~~~~~~~~~~~~~~~~

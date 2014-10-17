@@ -251,7 +251,7 @@ cache.
     aumenta.
 
     Per maggiori informazioni sull'uso di Varnish con Symfony2, vedere la ricetta
-    :doc:`Usare Varnish </cookbook/cache/varnish>`.
+    :doc:`usare Varnish </cookbook/cache/varnish>`.
 
 .. note::
 

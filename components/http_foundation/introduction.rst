@@ -554,8 +554,8 @@ a ``application/json``.
 
 .. caution::
 
-    Per evitare un `JSON Hijacking`_ XSSI , bisogna passare un array associativo
-    come parte più esterna dell'array a ``JsonResponse`` enon un array indicizzato, in modo
+    Per evitare un `Hijacking JSON`_ XSSI , bisogna passare un array associativo
+    come parte più esterna dell'array a ``JsonResponse`` e non un array indicizzato, in modo
     che il risultato finale sia un oggetto (p.e. ``{"oggetto": "non dentro un array"}``)
     invece che un array (p.e. ``[{"oggetto": "dentro un array"}]``). Si leggano
     le `linee guida OWASP`_ per maggiori informazioni.
@@ -586,5 +586,5 @@ Le informazioni sulle sessioni sono nell'apposito documento: :doc:`/components/h
 .. _Packagist: https://packagist.org/packages/symfony/http-foundation
 .. _Nginx: http://wiki.nginx.org/XSendfile
 .. _Apache: https://tn123.org/mod_xsendfile/
-.. _`JSON Hijacking`: http://haacked.com/archive/2009/06/25/json-hijacking.aspx
+.. _Hijacking JSON: http://haacked.com/archive/2009/06/25/json-hijacking.aspx
 .. _linee guida OWASP: https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside

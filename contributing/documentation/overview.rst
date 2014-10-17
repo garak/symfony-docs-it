@@ -1,101 +1,102 @@
 Contribuire alla documentazione
 ===============================
 
-La documentazione è importante tanto quanto il codice. E segue esattamente gli stessi principi:
-DRY, test, facilità di manutenzione, estensibilità, ottimizzazione e refactoring,
-solo per nominarne alcuni. E certamente la documentazione ha bug, errori di battitura, difficoltà di lettura dei tutorial
-e molto altro.
+Uno dei princìpi essenziali del progetto Symony è che **la documentazione è
+importante quanto il codice**. Ecco perché viene dedicata una grande quantità di risorse
+alla documentazione di nuove caratteristiche e all'aggiornamento del resto della documentazione.
 
-Contribuire
------------
+Più di 700 svilppatori, sparsi in tutto il mondo, hanno contribuito alla documentazione di Symfony
+ed è con piacere che viene accolta ogni volontà di unirsi a questa grande famiglia.
+Questa guida spiegherà tutto ciò che serve per contribuire alla documentazione
+di Symfony.
 
-Prima di contribuire, è necessario famigliarizzare con il :doc:`linguaggio di markup<format>` 
-usato per la documentazione.
+Prima di iniziare a contribuire
+-------------------------------
 
-La documentazione di Symfony2 è ospitata da GitHub:
+**Prima di contribuire**, si dovrebbero considerare i seguenti punti:
 
-.. code-block:: text
+* La documentazione di Symfony è scritta usando il linguaggio reStructuredText.
+  Se non si ha familiarità con tale formato, leggere :doc:`questa pagina </contributing/documentation/format>`
+  per una veloce panoramica sulle sue caratteristiche di base.
+* La documentazione di Symfony è ospistat su GitHub_. Si deve essere iscritti a GitHub per
+  poter contribuire.
+* La documentazione di Symfony è pubblicata sotto
+  :doc:`licenza Creative Commons BY-SA 3.0 </contributing/documentation/license>`
+  e qualsiasi contributo aderirà implicitamente a tale licenza.
 
-    https://github.com/symfony/symfony-docs
+Il primo contributo alla documentazione
+---------------------------------------
 
-Se si vuole inviare una patch, fare un `fork`_ del repository ufficiale su GitHub
-e quindi un clone del proprio fork:
+In qesta sezione, si vedrà come contribuire alla documentazione di Symfony per la
+prima volta. La sezione successiva spiegherà il processo, più breve, da
+seguire in futuro per ogni contributo successivo al primo.
+
+Si immagini di voler migliorare il capitolo dell'installazione del libro di Symfony.
+Per poter apportare modifiche, seguire questi passi:
+
+**Passo 1.** Andare sul repository ufficiale della documentazione di Symfony, che si trova su
+`github.com/symfony/symfony-docs`_ ed eseguire un `fork`_ verso il proprio utente
+personale. Questa procedura è necessaria solo la prima volta.
+
+**Passo 2.** **Clonare** il repository forkato sulla macchina locale (questo esempio
+usa la cartella ``progetti/symfony-docs/`` per memorizzare la documentazione,
+cambiare a piacimento):
 
 .. code-block:: bash
 
+    $ cd progetti/
     $ git clone git://github.com/NOMEUTENTE/symfony-docs.git
 
-Coerentemente con il codice sorgente di Symfony, il repository della documentazione è suddiviso in
-vari rami, corrispondenti alle diverse versioni di Symfony stesso.
-Il ramo ``master`` contiene la documentazione per il ramo in sviluppo del codice.
-
-A meno di non documentare una caratteristica aggiunta *dopo* Symfony 2.3
-(p.e. in Symfony 2.4), le modifiche vanno sempre basate sul ramo 2.3.
-Per poterlo fare, eseguire un checkout del ramo 2.3 prima del prossimo passo:
+**Passo 3.** Passare al **più vecchio ramo ancora mantenuto**, prima di fare qualsiasi modifica.
+Attualmente, è il ramo ``2.3``:
 
 .. code-block:: bash
 
+    $ cd symfony-docs/
     $ git checkout 2.3
 
-.. tip::
+Se si vuole documentare una nuova caratteristica, usare la prima versione di  Symfony
+in cui sia stata inclusa: ``2.5``, ``2.6``, ecc.
 
-    Il ramo base (p.e. 2.3) diventerà "Applies to" nel :ref:`doc-contributing-pr-format`
-    usato successivamente.
-
-Quindi, creare un ramo dedicato per le proprie modifiche (per questioni organizzative):
+**Passo 4.** Creare un **nuovo ramo**, dedicato alle modifiche. Questo semplifica di molto
+il lavoro di revisione delle modifiche. Usare un nome breve e comprensibile
+per questo nuovo ramo:
 
 .. code-block:: bash
 
-    $ git checkout -b miglioramenti_di_pippo_e_pluto
+    $ git checkout -b miglioramento_capitolo_installazione
 
-Si possono ora eseguire le proprie modifiche in tale ramo. Quando si ha finito,
-fare il push di quest ramo nel *proprio* fork su GitHub e richiedere un pull.
+**Passo 5.** Eseguire le modifiche nella documentazione. Aggiungere, migliorare, riorganizzare
+o anche rimuovere contenuti, purché ci si assicuri di aderire agli
+doc:`/contributing/documentation/standards`.
 
-Richiedere un pull
-~~~~~~~~~~~~~~~~~~
+**Passo 6.** Eseguire un **push** verso il repository forkato:
 
-Seguendo l'esempio, la richiesta di pull sarà tra il proprio ramo
-``miglioramenti_di_pippo_e_pluto`` e il ramo ``master`` di ``symfony-docs``.
+.. code-block:: bash
 
-Se le proprie modifiche sono basate sul ramo 2.3, occorre cambiare il
-ramo base in 2.3 sulla pagina di anteprima, cliccando sul pulsante ``edit``
-in alto a sinistra:
+    $ git commit book/installation.rst
+    $ git push origin miglioramento_capitolo_installazione
 
-.. image:: /images/docs-pull-request-change-base.png
+**Passo 7.** Ora è tutto pronto per iniziare una **richiesta di pull**. Andare sul
+repositofy forkato, su ``https//github.com/<NOME_SU_GITHUB>/symfony-docs``
+e cliccare sul collegamento ``Pull Requests``, nella barra laterale.
+
+Quindi, cliccare sul bottone ``New pull request``. Poiché GitHub non può sapere esattamente
+le modifiche che si vogliono proporre, scegliere il ramo appropriato, in cui
+applicare le modifiche:
+
+.. image:: /images/contributing/docs-pull-request-change-base.png
    :align: center
 
-.. note::
+In questo esempio, il **repository di base** dovrebbe essere ``symfony/symfony-docs`` e
+il **ramo di base** dovrebbe essere ``2.3``, che è il ramo su sui si è scelto di
+basare le modifiche. Il **repository di confronto** dovrebbe essere la copia forkata
+di ``symfony-docs`` e il **ramo di confronto** dovrebbe essere ``miglioramento_capitolo_installazione``,
+che è il nome del ramo creato e su cui sono state eseguite le modifiche.
 
-  Tutte le modifiche fatte nel ramo 2.3 subiranno un merge nei rami più nuovi
-  (cioè 2.4, master, ecc.) per il prossimo rilascio, su base settimanale.
-
-GitHub spiega l'argomento in modo dettagliato, su `richieste di pull`_.
-
-.. note::
-
-  La documentazione di Symfony2 è rilasciata sotto :doc:`licenza <license>`
-  Creative Commons Attribuzione - Condividi allo stesso modo 3.0 Unported.
-
-Si può anche aggiungere un prefisso al titolo della richiesta di pull, in questi casi:
-
-* ``[WIP]`` (Work in Progress) è usato quando non si ha ancora finito con la propria
-  richiesta di pull, ma si vorrebbe che fosse rivista. La richiesta di pull non
-  subirà merge finché non si dichiara che è pronta.
-
-* ``[WCM]`` (Waiting Code Merge) è usato quando si sta documentando una nuova caratteristica
-  o modifica che non è ancora stata accettata. La richiesta di pull non subirà
-  merge fino al merge del codice (oppure sarà chiusa, se la modifica
-  verrà respinta).
-
-.. _doc-contributing-pr-format:
-
-Formato della richiesta di pull
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-A meno di non risolvere errori di battitura, la descrizione della richiesta di pull deve
-includere la seguente lista, per assicurare che il contributo possa essere rivisto
-senza cicli inutili di feedback e che il proprio contributo possa essere incluso
-nella documentazione il prima possibile:
+**Passo 8.** Il passo successivo è preparare la **descrizione** della richiesta di pull.
+Per consentire una revisione rapida, si prega di aggiungere la seguente tabella
+in cima alla descrizione della richiesta di pull:
 
 .. code-block:: text
 
@@ -117,112 +118,192 @@ Un esempio di invio potrebbe essere come il seguente:
     | Applies to    | all (or 2.4+)
     | Fixed tickets | #1075
 
-.. tip::
+**Passo 9.** Ora che il primo contributo è stato inviato con successo, si può
+festeggiare! I gestori della documentazione revisioneranno con attenzione
+questo lavoro e, in breve tempo, renderanno noti eventuali cambiamenti
+necessari.
 
-    Serve un po' di pazienza. Le modifiche appaiono sul sito symfony.com tra i 15 minuti e alcuni giorni
-    dopo il merge della richiesta di pull nella documentazione. Si può verificare
-    se le proprie modifiche non abbiano introdotto problemi di markup, guardando la
-    pagina `Errori di build della documentazione`_ (aggiornata ogni notte alle 3,
-    quando il server ricostruisce la documentazione).
+In caso si renda necessario aggiungere o modificare qualcosa, non occorre creare una nuova
+richiesta di pull. Basta assicurarsi di essere sul ramo giusto, fare le modifiche
+e inviarlo con un push:
 
-Documentare nuove caratteristiche o modifiche di comportamenti
---------------------------------------------------------------
+.. code-block:: bash
 
-Se si sta documentando una nuova caratteristica o una modifica fatta in
-Symfony2, si deve precedere la descrizione con un tag ``.. versionadded:: 2.X``
-e una brave descrizione:
+    $ cd progetti/symfony-docs/
+    $ git checkout miglioramento_capitolo_installazione
 
-.. code-block:: text
+    # ... fare qualche modifica
 
-    .. versionadded:: 2.3
-        Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.3.
+    $ git push
 
-    Si può anche fare una domanda e nascondere la risposta. Questo è particolarmente...
+**Passo 10.** Dopo che la richiesta di pull sarà stata accettata e inserita nella
+documentazione di Symfony, si verrà inclusi tra i `contributori della documentazione di Symfony`_.
+Inoltre, se si dispone di un profilo su SensioLabsConnect_, si otterrà un
+bellissimo `distintivo della documentazione di Symfony`_.
 
-Se si sta documentando una modifica di comportamento, potrebbe essere di aiuto descrivere *brevemente*
-il modo in cui il comportamento è cambiato.
+Il secondo contributo alla documentazione
+-----------------------------------------
 
-.. code-block:: text
+Il primo contributo ha richiesto del tempo, perché si doveva eseguire il fork del repository,
+capire come scrivere documentazione, adeguarsi agli standard delle richieste di pull, ecc.
+Il secondo contributo sarà molto più facile, tranne per un dettaglio: data
+l'altissima attività di aggiornamenti sul repository della documentazione di Symfony, è probabile
+che il proprio fork sia ora rimasto indietro rispetto al repository ufficiale.
 
-    .. versionadded:: 2.3
-        La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
-        Symfony 2.3. In precedenza, veniva usato il tag ``{% include %}``.
+Per risolvere la questione, si deve `sincronizzare il proprio fork` con il repository ufficiale.
+Per farlo, eseguire una tantum il seguente comando, che dice a git dove si trova:
 
-Ogni volta che viene rilasciata una nuova versione minore di Symfony2 (p.e. 2.4, 2.5, ecc.),
-viene creato un nuovo ramo della documentazione, partendo dal ramo ``master``.
-A questo punto, tutti i tag ``versionadded`` per versioni di Symfony2 che hanno raggiunto il
-fine vita saranno rimossi. Per esempio, se Symfony 2.5 fosse rilasciato
-oggi e se il 2.2 avesse raggiunto il suo fine vita, il tag ``versionadded`` 2.2
-sarebbe rimosso dal nuovo ramo 2.5.
+.. code-block:: bash
 
-Standard
---------
+    $ cd progetti/symfony-docs/
+    $ git remote add upstream https://github.com/symfony/symfony-docs.git
 
-Tutta la documentazione di Symfony deve seguire gli
-:doc:`standard di documentazione <standards>`.
+Ora si può **sincronizzare il proprio fork**, tramite il comando seguente:
 
-Segnalare una problematica
---------------------------
+.. code-block:: bash
 
-Il modo più semplice di contribuire è segnalando una problematica: un errore di battitura,
-un errore grammaticale, un bug nel codice di esempio, e così via
+    $ cd progetti/symfony-docs/
+    $ git fetch upstream
+    $ git checkout 2.3
+    $ git merge upstream/2.3
 
-Passi:
+Questo comando aggiornerà il ramo ``2.3``, che è quello usato per creare
+il nuovo ramo per le modifiche. Se si è usato un ramo diverso,
+come ``master``, sostituire ``2.3`` con il relativo nome.
 
-* Segnalare un bug attraverso il bug tracker;
+Ottimo! Ora si può procedere, seguendo gli stessi passi spiegati nella sezione
+precedente:
 
-* *(opzionale)* Inviare una patch.
+.. code-block:: bash
 
-Traduzione
-----------
+    # creare un nuovo ramo per memorizzare le modifiche, basato sul ramo 2.3
+    $ cd progetti/symfony-docs/
+    $ git checkout 2.3
+    $ git checkout -b modifiche
 
-Leggere la :doc:`documentazione <translations>`.
+    # ... fare qualche modifica
 
-Gestione dei rilasci
---------------------
+    # inviare le modifiche al proprio fork del repository
+    $ git add xxx.rst     # (opzionale) solo se è un nuovo contenuto
+    $ git commit xxx.rst
+    $ git push
 
-Symfony ha un processo di rilasci molto standardizzato, che si può approfondire
-nella sezione :doc:`/contributing/community/releases`.
+    # andare su GitHub e creare una richiesta di pull
+    #
+    # Includere questa tabella nella descrizione:
+    # | Q             | A
+    # | ------------- | ---
+    # | Doc fix?      | [yes|no]
+    # | New docs?     | [yes|no] (PR # su symfony/symfony, se applicabile)
+    # | Applies to    | [numero di versione di Symfony a cui si applica]
+    # | Fixed tickets | [lista separata da virgole di ticket risolti dalla PR]
 
-Per mantenere il processo dei rilasci, la squadra della documentazione esegue molte
-modifiche alla documentazione nelle varie parti del ciclo di vita.
+Il secondo contributo è ora completo, quindi si può festeggiare di nuovo!
+Si può anche vedere come la propria posizione salga nella lista dei
+`contributori della documentazione di Symfony`_.
 
-Quando un rilascio raggiunge la "fine manutenzione"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Successivi contributi alla documentazione
+-----------------------------------------
 
-Ogni rilascio prima o poi raggiunge la sua "fine manutenzione". Per maggiori dettagli,
-vedere :ref:`contributing-release-maintenance`.
+Dopo due contributi alla documentazione di Symfony, probabilmente si è
+più a proprio agio con tutta la magia di Git che il processo implica. Ecco
+perché il prossimo contributo sarà molto più veloce. Ecco la lista completa
+dei passi per contribuire alla documentazione di Symfony, che si può usare come
+**elenco**:
 
-Quando finisce la manutenzione di un rilascio, si eseguono le seguenti azioni.
-Per questo esempio, supponiamo che la versione 2.1 abbia appena raggiunta la sua fine manutenzione:
+.. code-block:: bash
 
-* Non si esegue più il merge di modifiche e richieste di pull nel ramo (2.1),
-  tranne per aggiornamenti di sicurezza, fino a che il rilascio non raggiunge
-  la suo "fine vita".
+    # sincronizzare il proprio fork con il repository ufficiale di Symfony
+    $ cd progetti/symfony-docs/
+    $ git fetch upstream
+    $ git checkout 2.3
+    $ git merge upstream/2.3
 
-* Tutti i rami ancora mantenuti (p.e. 2.2 e superiori) vengono aggiornati
-  per riflettere che le richieste di pull vanno iniziate dalla versione mantenuta più
-  vecchia (p.e. 2.2).
+    # creare un nuovo ramo, dalla versione più vecchia ancora mantenuta
+    $ git checkout 2.3
+    $ git checkout -b modifiche
 
-* Si rimuovono tutte le direttive ``versionadded`` e ogni altra nota relative a caratteristiche
-  modificate o aggiunte, per la versione nuova (p.e. 2.1) nel ramo master.
-  Come risultato, il prossimo rilascio (che è il primo ad arrivare
-  *dopo*  la fine manutenzione di questo ramo), non avrà menzioni della
-  vecchia versione (p.e. 2.1).
+    # ... fare qualche modifica
 
-Quando si crea un nuovo ramo per un rilascio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # inviare le modifiche
+    $ git add xxx.rst     # (opzionale) solo se è un nuovo contenuto
+    $ git commit xxx.rst
+    $ git push
 
-Durante la :ref:`fase di stabilizzazione<contributing-release-development>`, viene
-creato un nuovo ramo della documentazione. Per esempio, se la versione 2.3 è
-stata stabilizzata, viene creato un ramo 2.3 per essa. Quando questo
-accade, vengono eseguite le seguenti azioni:
+    # andare su GitHub e creare una richiesta di pull
+    #
+    # Includere questa tabella nella descrizione:
+    # | Q             | A
+    # | ------------- | ---
+    # | Doc fix?      | [yes|no]
+    # | New docs?     | [yes|no] (PR # su symfony/symfony, se applicabile)
+    # | Applies to    | [numero di versione di Symfony a cui si applica]
+    # | Fixed tickets | [lista separata da virgole di ticket risolti dalla PR]
 
-* Si cambiano tutti riferimenti a versione e master alla versione correttta (p.e. 2.3).
-  Per esempio, nei capitoli sull'installazione, si fa riferimento alla versione da usare
-  per un'installazione. Come esempio, si vedano le modifiche eseguite nella `PR #2688`_.
+    # (opzionale) apportare eventuali modifiche richieste dai revisori e inviarle
+    $ git commit xxx.rst
+    $ git push
 
-.. _`fork`:                       https://help.github.com/articles/fork-a-repo
-.. _`richieste di pull`:              https://help.github.com/articles/using-pull-requests
-.. _`Errori di build della documentazione`: http://symfony.com/doc/build_errors
-.. _`PR #2688`:                   https://github.com/symfony/symfony-docs/pull/2688
+E dopo tutto questo duro lavoro, è ora di festeggiare di nuovo!
+
+Domande frequenti
+-----------------
+
+Perché ci vuole così tanto per la revisione delle modifiche?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Occorer pazienza. Possono volerci vari giorni prima della una revisione di una
+richiesta di pull. Dopo il merge delle modifiche, potrebbero volerci ancora varie ore
+prima che le modifiche compaiano sul sito symfony.com.
+
+Cosa fare per tradurre la documentazione in un'altra lingua?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Leggere l'apposito :doc:`documento </contributing/documentation/translations>`.
+
+Perché si deve usare il più vecchio ramo in manutenzione e non master?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Coerentemente con il codice di Symfony, il repository è suddiviso in
+vari rami, che corrispondono alle diverse versioni di Symfony stesso.
+Il ramo ``master`` contiene la documentazione per il ramo in sviluppo
+del codice.
+
+A meno di documentare una caratteristica che è stata introdotto dopo Symfony 2.3,
+le modifiche vanno sempre basate sul ramo ``2.3``. I gestori della documentazione
+useranno la necessaria magia di Git per applicare le modifiche a tutti i rami
+attivi della documentazione.
+
+Se si volesse inviare un lavoro prima di averlo completato?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lo si può fare. Si prega in questo caso di usare uno di questi due prefissi, per rendere
+noto ai revisori lo stato del lavoro:
+
+* ``[WIP]`` (Work in Progress) si usa quando la richiesta di pull non è ancora
+  finita, ma si desidera una revisione. La richiesta di pull non riceverà
+  un merge, finché non sarà segnalata come pronta.
+
+* ``[WCM]`` (Waiting Code Merge) si usa quando si sta documentando una nuova caratteristica
+  o una modifica non ancora accetta nel codice del nucleo. La richiesta di pull
+  non riceverà un merge prima del merge nel codice del nucleo (oppure sarà chiusa, se la
+  modifica sarà rigettata).
+
+Una richiesta di pull enorme e con un sacco di modiche sarà accettata?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Primo, assicurarsi che le modifiche siano correlate tra loro. Altrimenti, si prega di creare
+richieste di pull separate. A ogni modo, prima di proporre una modifica enorme, potrebbe essere una
+buona idea aprire una issue nel repository della documentazione di Symfony, chiedendo ai
+gestori se concordano con i cambiamenti proposti. Altrimenti, potrebbero rifiutare
+la proposta, dopo un lungo e duro lavoro. Sarebbe sicuramente meglio evitare
+di sprecare il proprio tempo.
+
+.. _`github.com/symfony/symfony-docs`: https://github.com/symfony/symfony-docs
+.. _reStructuredText: http://docutils.sourceforge.net/rst.html
+.. _GitHub: https://github.com/
+.. _`fork`: https://help.github.com/articles/fork-a-repo
+.. _`contributori della documentazione di Symfony`: http://symfony.com/contributors/doc
+.. _SensioLabsConnect: https://connect.sensiolabs.com/
+.. _`distintivo della documentazione di Symfony`: https://connect.sensiolabs.com/badge/36/symfony-documentation-contributor
+.. _`sincronizzare il proprio fork`: https://help.github.com/articles/syncing-a-fork

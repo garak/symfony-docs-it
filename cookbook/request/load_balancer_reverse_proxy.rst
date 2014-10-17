@@ -11,12 +11,6 @@ header speciali ``X-Forwarded-*``. Per esempio, invece di leggere l'header ``REM
 (che ora è l'indirizzo IP del reverse proxy), il
 vero IP dell'utente sarà memorizzato nell'header ``X-Forwarded-For``.
 
-.. tip::
-
-    Se si usa :ref:`AppCache <symfony-gateway-cache>` di Symfony per la cache,
-    allora si sta effettivamente usando un reverse proxy con indirizzo IP ``127.0.0.1``.
-    Occorrerà configurare quell'indirizzo come proxy fidato successivamente.
-
 Se non si configura Symfony per cercare questi header, si otterranno informazioni
 non corrette sull'indirizzo IP del client, indipendentemente dalla connessione
 tramite HTTPS, dalla porta e dal nome host richiesto.
@@ -24,7 +18,7 @@ tramite HTTPS, dalla porta e dal nome host richiesto.
 Soluzione: proxy fidati
 -----------------------
 
-Questo non è un problam, ma occorre dire a Symfony che sta accadendo
+Questo non è un problema, ma occorre dire a Symfony che sta accadendo
 e quale indirizzi IP del reverse proxy faranno questo tipo di cose:
 
 .. configuration-block::

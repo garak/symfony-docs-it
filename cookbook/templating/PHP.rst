@@ -77,6 +77,33 @@ per rendere il template ``AcmeHelloBundle:Hello:index.html.php``::
         return array('name' => $name);
     }
 
+.. caution::
+
+    Si possono abilitare entrambi i motori di template, ``php`` e ``twig``,
+    ma questo produrrà un effetto indesiderato nell'applicazione:
+    la notazione ``@`` per gli spazi di nomi Twig non sarà più supportata dal metodo
+    ``render()``::
+
+        public function indexAction()
+        {
+            // ...
+
+            // i template con spazi dei nomi non funzioneranno più nei controllori
+            $this->render('@Acme/Default/index.html.twig');
+
+            // si deve usare la notazione tradizionale dei template
+            $this->render('AcmeBundle:Default:index.html.twig');
+        }
+
+    .. code-block:: jinja
+
+        {# nei template Twig, i template con spazi dei nomi funzionano come ci si aspetta #}
+        {{ include('@Acme/Default/index.html.twig') }}
+
+        {# anche la notazione tradizionale funzionerà #}
+        {{ include('AcmeBundle:Default:index.html.twig') }}
+
+
 .. index::
   single: Template; Layout
   single: Layout
@@ -229,7 +256,7 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 
     <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
     <?php echo $view['actions']->render(
-        new ControllerReference('AcmeHelloBundle:Hello:fancy', array(
+        new \Symfony\Component\HttpKernel\Controller\ControllerReference('AcmeHelloBundle:Hello:fancy', array(
             'name'  => $name,
             'color' => 'green',
         ))

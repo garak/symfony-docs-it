@@ -127,5 +127,5 @@ schema) della rotta:
 
 .. seealso::
 
-    Per gestire parametri in un classe della Dependency Injection, vedere
+    Per gestire parametri in una classe della Dependency Injection, vedere
     :doc:`/cookbook/configuration/using_parameters_in_dic`.

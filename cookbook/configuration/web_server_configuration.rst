@@ -194,7 +194,7 @@ sono:
 .. code-block:: nginx
 
     server {
-        nome_server dominio.tld www.dominio.tld;
+        server_name dominio.tld www.dominio.tld;
         root /var/www/progetto/web;
 
         location / {

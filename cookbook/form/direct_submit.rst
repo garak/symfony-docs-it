@@ -37,6 +37,8 @@ Con il metodo ``handleRequest``, la gestione dell'invio di form
 
     Per approfondire questo metodo, leggere :ref:`book-form-handling-form-submissions`.
 
+.. _cookbook-form-call-submit-directly:
+
 Richiamare Form::submit() a mano
 --------------------------------
 

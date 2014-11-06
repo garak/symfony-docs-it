@@ -272,7 +272,7 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
                 <framework:validation enable-annotations="true" />
@@ -824,7 +824,11 @@ Con questa configurazione, ci sono tre gruppi di validazione:
 Per dire al validatore di usare uno specifico gruppo, passare uno o più nomi di
 gruppo come secondo parametro del metodo ``validate()``::
 
-    $errors = $validator->validate($author, array('registration'));
+    // Se si usa la nuova API di validazione 2.5 (è probabile)
+    $errors = $validator->validate($author, null, array('registration'));
+
+    // Se si usa la vecchia API di validazione 2.4
+    // $errors = $validator->validate($author, array('registration'));
 
 Se non si specifica alcun gruppo, saranno applicati tutti i vincoli che appartengono
 al gruppo ``Default``.
@@ -1189,10 +1193,19 @@ assomiglia a questo::
         $emailConstraint->message = 'Invalid email address';
 
         // usa il validatore per validare il valore
+        // Se si usa la nuova API di validazione 2.5 (è probabile)
+        $errorList = $this->get('validator')->validate(
+            $email,
+            $emailConstraint
+        );
+
+        // Se si usa la vecchia API di validazione 2.4
+        /*
         $errorList = $this->get('validator')->validateValue(
             $email,
             $emailConstraint
         );
+        */
 
         if (count($errorList) == 0) {
             // è un indirizzo email valido, fare qualcosa

@@ -30,20 +30,18 @@ il `bridge ProxyManager`_:
 
 .. code-block:: bash
 
-    $ php composer.phar require symfony/proxy-manager-bridge:2.3.*
+    $ php composer.phar require symfony/proxy-manager-bridge:~2.3
 
 .. note::
 
     Se si usa il framework completo, questo pacchetto è già incluso,
-    ma il vero gestore di proxy deve essere incluso. Aggiungere quindi
+    ma il vero gestore di proxy deve essere incluso. Eseguire quindi:
 
-    .. code-block:: json
+    .. code-block:: bash
 
-        "require": {
-            "ocramius/proxy-manager": "0.4.*"
-        }
+        $ php composer.phar require ocramius/proxy-manager:~0.5
 
-    nel file ``composer.json``. Compilare quindi il contenitore e verificare
+    Compilare quindi il contenitore e verificare
     di avere un proxy per i servizi pigri.
 
 Configurazione
@@ -96,7 +94,7 @@ dell'oggetto ricevuto.
 
     var_dump(class_implements($service));
 
-Se la classe implementa "ProxyManager\Proxy\LazyLoadingInterface", i servizi
+Se la classe implementa ``ProxyManager\Proxy\LazyLoadingInterface``, i servizi
 pigri stanno funzionando.
 
 .. note::
@@ -112,9 +110,9 @@ Risorse aggiuntive
 ------------------
 
 È possibile approfondire le modalità con cui i sostituti vengono istanziati, generati e inizializzati
-nella `documentazione sul ProxyManager`_.
+nella `documentazione su ProxyManager`_.
 
 
 .. _`bridge ProxyManager`: https://github.com/symfony/symfony/tree/master/src/Symfony/Bridge/ProxyManager
 .. _`proxy`: http://it.wikipedia.org/wiki/Proxy_pattern
-.. _`documentazione sul ProxyManager`: https://github.com/Ocramius/ProxyManager/blob/master/docs/lazy-loading-value-holder.md
+.. _`documentazione su ProxyManager`: https://github.com/Ocramius/ProxyManager/blob/master/docs/lazy-loading-value-holder.md

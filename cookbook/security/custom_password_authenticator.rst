@@ -142,8 +142,8 @@ la voce ``encoders``. Piuù avanti si vedrà come iniettarlo in ``TimeAuthentica
 
 .. _cookbook-security-password-authenticator-config:
 
-Configuraztione
----------------
+Configuratione
+--------------
 
 Ora, configurare ``TimeAuthenticator`` come servizio:
 

@@ -107,7 +107,7 @@ Form
 
 Per poter sovrascrivere un tipo di form, questo deve essere registrato come servizio (con
 il tag "form.type"). Lo si può quindi sovrascrivere come qualsiasi altro servizio, come
-descritto in `servizi & configurazione`_. Ovviamente, funziona solo se il tipo
+descritto in `Servizi e configurazione`_. Ovviamente, funziona solo se il tipo
 è referenziato tramite alias, piuttosto che istanziato,
 p.e.::
 

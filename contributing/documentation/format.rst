@@ -91,19 +91,19 @@ Il precedente snippet reST mostra un blocco come di seguito:
 
 Ecco la lista dei formati attualmente supportati:
 
-=================   ==========================
+=================== =========================
 Formato markup      Mostrato
-=================   ==========================
+=================== =========================
 ``html``            HTML
 ``xml``             XML
 ``php``             PHP
 ``yaml``            YAML
-``jinja             Twig puro
-``html+jinja        Twig mescolato con HTML
-``html+php          PHP mescolato con HTML
-``ini               INI
+``jinja``           Twig puro
+``html+jinja``      Twig mescolato con HTML
+``html+php``        PHP mescolato con HTML
+``ini``             INI
 ``php-annotations`` Annotazioni PHP
-=================   ==========================
+=================== =========================
 
 Collegamenti
 ~~~~~~~~~~~~

@@ -16,7 +16,7 @@ seguenti:
 
 * :ref:`Configurazione dei servizi <book-services-expressions>`;
 * :ref:`Condizioni di corrispondenza delle rotte <book-routing-conditions>`;
-* :ref:`Verifiche di sicurezza <book-security-expressions>` and
+* :ref:`Verifiche di sicurezza <book-security-expressions>` e
   :ref:`Controlli di accesso con allow_if <book-security-allow-if>`;
 * :doc:`Validazione </reference/constraints/Expression>`.
 

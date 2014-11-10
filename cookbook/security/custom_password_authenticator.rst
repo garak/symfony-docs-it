@@ -136,9 +136,9 @@ In questo metodo, occorre un codificatore che verifichi la validità della passw
             $user->getSalt()
         );
 
-Questo è un servizio già disponibile in Symofny, in cui algoritmo per la password
+Questo è un servizio già disponibile in Symfony, in cui algoritmo per la password
 è configurato nella configurazione di sicurezza (``security.yml``), sotto
-la voce ``encoders``. Piuù avanti si vedrà come iniettarlo in ``TimeAuthenticator``.
+la voce ``encoders``. Più avanti si vedrà come iniettarlo in ``TimeAuthenticator``.
 
 .. _cookbook-security-password-authenticator-config:
 

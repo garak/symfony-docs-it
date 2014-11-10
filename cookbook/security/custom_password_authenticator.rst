@@ -17,7 +17,7 @@ L'autenticatore di password
 
 Prima di tutto, creare una classe che implementi
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\SimpleFormAuthenticatorInterface`.
-Successivamente, questa consentirò di creare logica personalizzata per autenticare
+Successivamente, questa consentirà di creare logica personalizzata per autenticare
 l'utente::
 
     // src/Acme/HelloBundle/Security/TimeAuthenticator.php

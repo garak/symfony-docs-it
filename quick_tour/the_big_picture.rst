@@ -24,7 +24,7 @@ seguente, per installare l'ultima versione di Symfony2 nella cartella
 
 .. note::
 
-    `Composer`_ è il gestore di pacchetti usato dalle applicazioni PHP recenti a
+    `Composer`_ è il gestore di pacchetti usato dalle applicazioni PHP recenti ed è
     l'unico modo raccomandato di installare Symfony2. Per installare Composer su
     Linux o Mac, eseguire i seguenti comandi:
 

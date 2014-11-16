@@ -980,7 +980,7 @@ proxy.
     non limita a uno specifico indirizzo IP. Invece, usando la chiave ``ip``
     si ottiene che la voce ``access_control`` avrà una corrispondenza solo per il corrispondente indirizzo IP
     e gli utenti che accedono da diversi indirizzi IP continueranno nelle successive
-    voci dell'elenco ``acces_control``.
+    voci dell'elenco ``access_control``.
 
 Ecco un esempio di come si possano garantire tutte le rotte ESI che iniziano per
 un certo prefisso, ``/esi``, da intrusioni esterne:
@@ -1881,7 +1881,7 @@ parametro di configurazione ``logout``:
             // ...
         ));
 
-Una volta inserita questa condigurazione in un firewall, inviare un utente a ``/logout``
+Una volta inserita questa configurazione in un firewall, inviare un utente a ``/logout``
 (o a un altro percorso configurato in ``path``) lo farà uscire dall'autenticazione.
 L'utente sarà quindi rinviato alla pagina iniziale (il valore definito
 nel parametro ``target``). Entrambi i parametri ``path`` e ``target`` hanno come valore

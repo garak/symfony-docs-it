@@ -190,7 +190,7 @@ in che modo il comportamento sia cambiato.
         La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
         Symfony 2.3. In precedenza, si usava il tag ``{% include %}``.
 
-A ogni rilascio di una versione minore di Symofny (p.e.. 2.4, 2.5, ecc),
+A ogni rilascio di una versione minore di Symfony (p.e. 2.4, 2.5, ecc),
 viene creato un nuovo ramo della documentazione, a partire da ``master``.
 A questo punto, i tag ``versionadded`` per versioni di Symfony che hanno raggiunto il
 fine vita saranno rimossi. Per esempio, se Symfony 2.5 fosse rilasciato oggi e

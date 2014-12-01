@@ -46,7 +46,7 @@ file testuale analizzato da PHP che contiene un misto di testo e codice PHP:
                             <?php echo $item->getCaption() ?>
                         </a>
                     </li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
         </body>
     </html>
@@ -233,7 +233,7 @@ Primo, costruire un file per il layout di base:
                             <li><a href="/">Home</a></li>
                             <li><a href="/blog">Blog</a></li>
                         </ul>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </div>
 
                 <div id="content">
@@ -283,15 +283,16 @@ Un template figlio potrebbe assomigliare a questo:
             <?php foreach ($blog_entries as $entry): ?>
                 <h2><?php echo $entry->getTitle() ?></h2>
                 <p><?php echo $entry->getBody() ?></p>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         <?php $view['slots']->stop() ?>
 
 .. note::
 
    Il template padre è identificato da una speciale sintassi di stringa
-   (``::base.html.twig``) che indica che il template si trova nella cartella
-   ``app/Resources/views`` del progetto. Questa convenzione di nomi è spiegata
-   nel dettaglio in :ref:`template-naming-locations`.
+   (``base.html.twig``). Il percorso è relativoalla cartella ``app/Resources/views``
+   del progetto. Si può anche usare il nome logico equivalente:
+   ``::base.html.twig``. Questa convenzione di nomi è spiegata in
+   dettaglio in :ref:`template-naming-locations`.
 
 La chiave dell'ereditarietà dei template è il tag ``{% extends %}``. Questo dice
 al motore dei template di valutare prima il template base, che imposta il
@@ -354,15 +355,15 @@ Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da te
   funzione ``{{ parent() }}``. È utile quando si vuole aggiungere il contenuto di un
   template padre, invece di sovrascriverlo completamente:
 
-    .. code-block:: html+jinja
+  .. code-block:: html+jinja
 
-        {% block sidebar %}
-            <h3>Sommario</h3>
+      {% block sidebar %}
+          <h3>Sommario</h3>
 
-            {# ... #}
+          {# ... #}
 
-            {{ parent() }}
-        {% endblock %}
+          {{ parent() }}
+      {% endblock %}
 
 .. index::
    single: Template; Convenzioni dei nomi
@@ -381,10 +382,23 @@ Per impostazione predefinita, i template possono stare in una di queste posizion
   :ref:`overriding-bundle-templates`);
 
 * ``percorso/bundle/Resources/views/``: Ogni bundle ha i suoi template, nella sua
-  cartella ``Resources/views`` (e nelle sotto-cartelle). La maggior parte dei template è
-  dentro a un bundle.
+  cartella ``Resources/views/`` (e nelle sotto-cartelle). Se si prevede di distribuire un
+  bundle, si dovrebbero posizionare i template nel bundle, invece che nella
+  cartella ``app/``.
 
-Symfony2 usa una sintassi stringa **bundle**:**controllore**:**template** per i
+La maggior parte dei template usati si trova nella cartella ``app/Resources/views/``.
+Il percorso che si userà sarà relativo a tale cartella. Per esempio,
+per rendere o estendere ``app/Resources/views/base.html.twig``, si userà il percorso
+``base.html.twig`` e, per rendere o estendere
+``app/Resources/views/Blog/index.html.twig``, si userà il percorso
+``Blog/index.html.twig``.
+
+.. _template-referencing-in-bundle:
+
+Fare riferimento a template in un bundle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Symfony usa una sintassi stringa **bundle**:**controllore**:**template** per i
 template. Questo consente diversi tipi di template, ciascuno in un posto
 specifico:
 
@@ -411,12 +425,6 @@ specifico:
   Notare che c'è un doppio segno "due punti" in mezzo alla stringa, quando manca la cartella
   che indica il controllore.
 
-* ``::base.html.twig``: Questa sintassi si riferisce a un template di base o a un
-  layout di applicazione. Si noti che la stringa inizia con un doppio due-punti (``::``),
-  il che vuol dire che mancano sia la parte del *bundle* che quella del *controllore*.
-  Questo significa che il template non è in alcun bundle, ma invece nella cartella
-  radice ``app/Resources/views/``.
-
 Nella sezione :ref:`overriding-bundle-templates` si potrà trovare come ogni template
 dentro ``AcmeBlogBundle``, per esempio, possa essere sovrascritto mettendo un
 template con lo stesso nome nella cartella ``app/Resources/AcmeBlogBundle/views/``.
@@ -430,17 +438,18 @@ Questo dà la possibilità di sovrascrivere template di qualsiasi bundle.
 Suffissi dei template
 ~~~~~~~~~~~~~~~~~~~~~
 
-Il formato **bundle**:**controllore**:**template** di ogni template specifica
-*dove* il file del template si trova. Ogni nome di template ha anche due estensioni,
-che specificano il *formato* e il *motore* per quel template.
+Ogni nome di template ha due estensioni, che specificano *formato* e
+*motore* del template stesso.
 
-* **AcmeBlogBundle:Blog:index.html.twig** - formato HTML, motore Twig
+========================  =======  ======
+Nome file                 Formato  Motore
+========================  =======  ======
+``Blog/index.html.twig``  HTML     Twig
+``Blog/index.html.php``   HTML     PHP
+``Blog/index.css.twig``   CSS      Twig
+========================  =======  ======
 
-* **AcmeBlogBundle:Blog:index.html.php** - formato HTML, motore PHP
-
-* **AcmeBlogBundle:Blog:index.css.twig** - formato CSS, motore Twig
-
-Per impostazione predefinita, ogni template Symfony2 può essere scritto in Twig o in PHP,
+Per impostazione predefinita, ogni template Symfony può essere scritto in Twig o in PHP,
 e l'ultima parte dell'estensione (p.e. ``.twig`` o ``.php``) specifica quale
 di questi due *motori* va usata. La prima parte dell'estensione,
 (p.e. ``.html``, ``.css``, ecc.) è il formato finale che il template
@@ -500,7 +509,7 @@ template. Primo, creare il template che occorrerà riusare.
 
     .. code-block:: html+jinja
 
-        {# src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.twig #}
+        {# app/Resources/views/Article/articleDetails.html.twig #}
         <h2>{{ article.title }}</h2>
         <h3 class="byline">by {{ article.authorName }}</h3>
 
@@ -510,7 +519,7 @@ template. Primo, creare il template che occorrerà riusare.
 
     .. code-block:: html+php
 
-        <!-- src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.php -->
+        <!-- app/Resources/views/Article/articleDetails.html.php -->
         <h2><?php echo $article->getTitle() ?></h2>
         <h3 class="byline">by <?php echo $article->getAuthorName() ?></h3>
 
@@ -524,34 +533,31 @@ Includere questo template da un altro template è semplice:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/ArticleBundle/Resources/views/Article/list.html.twig #}
-        {% extends 'AcmeArticleBundle::layout.html.twig' %}
+        {# app/Resources/views/Article/list.html.twig #}
+        {% extends 'layout.html.twig' %}
 
         {% block body %}
             <h1>Articoli recenti<h1>
 
             {% for article in articles %}
-                {{ include(
-                    'AcmeArticleBundle:Article:articleDetails.html.twig',
-                    { 'article': article }
-                ) }}
+                {{ include('Article/articleDetails.html.twig', { 'article': article }) }}
             {% endfor %}
         {% endblock %}
 
     .. code-block:: html+php
 
-        <!-- src/Acme/ArticleBundle/Resources/Article/list.html.php -->
-        <?php $view->extend('AcmeArticleBundle::layout.html.php') ?>
+        <!-- app/Resources/Article/list.html.php -->
+        <?php $view->extend('layout.html.php') ?>
 
         <?php $view['slots']->start('body') ?>
             <h1>Articoli recenti</h1>
 
             <?php foreach ($articles as $article): ?>
                 <?php echo $view->render(
-                    'AcmeArticleBundle:Article:articleDetails.html.php',
+                    'Article/articleDetails.html.php',
                     array('article' => $article)
                 ) ?>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         <?php $view['slots']->stop() ?>
 
 Il template è incluso usando il tag ``{{ include }}``. Si noti che il nome del
@@ -584,7 +590,11 @@ La soluzione è semplicemente l'inserimento del risultato di un intero controllo
 proprio template. Primo, creare un controllore che rende un certo numero di
 articoli recenti::
 
-    // src/Acme/ArticleBundle/Controller/ArticleController.php
+    // src/AppBundle/Controller/ArticleController.php
+    namespace AppBundle\Controller;
+
+    // ...
+
     class ArticleController extends Controller
     {
         public function recentArticlesAction($max = 3)
@@ -606,7 +616,7 @@ Il template ``recentList`` è molto semplice:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
+        {# app/Resources/views/Article/recentList.html.twig #}
         {% for article in articles %}
             <a href="/article/{{ article.slug }}">
                 {{ article.title }}
@@ -615,12 +625,12 @@ Il template ``recentList`` è molto semplice:
 
     .. code-block:: html+php
 
-        <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
+        <!-- app/Resources/views/Article/recentList.html.php -->
         <?php foreach ($articles as $article): ?>
             <a href="/article/<?php echo $article->getSlug() ?>">
                 <?php echo $article->getTitle() ?>
             </a>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 .. note::
 
@@ -639,9 +649,10 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
 
         {# ... #}
         <div id="sidebar">
-            {{ render(controller('AcmeArticleBundle:Article:recentArticles', {
-                'max': 3
-            })) }}
+            {{ render(controller(
+                'AcmeArticleBundle:Article:recentArticles',
+                { 'max': 3 }
+            )) }}
         </div>
 
     .. code-block:: html+php
@@ -744,7 +755,7 @@ essere impostato in modo globale nella configurazione dell'applicazione:
         framework:
             # ...
             templating:
-                hinclude_default_template: AcmeDemoBundle::hinclude.html.twig
+                hinclude_default_template: hinclude.html.twig
 
     .. code-block:: xml
 
@@ -758,7 +769,7 @@ essere impostato in modo globale nella configurazione dell'applicazione:
 
             <!-- ... -->
             <framework:config>
-                <framework:templating hinclude-default-template="AcmeDemoBundle::hinclude.html.twig" />
+                <framework:templating hinclude-default-template="hinclude.html.twig" />
             </framework:config>
         </container>
 
@@ -769,7 +780,7 @@ essere impostato in modo globale nella configurazione dell'applicazione:
             // ...
             'templating'      => array(
                 'hinclude_default_template' => array(
-                    'AcmeDemoBundle::hinclude.html.twig',
+                    'hinclude.html.twig',
                 ),
             ),
         ));
@@ -782,7 +793,7 @@ qualsiasi template predefinito globale):
     .. code-block:: jinja
 
         {{ render_hinclude(controller('...'),  {
-            'default': 'AcmeDemoBundle:Default:content.html.twig'
+            'default': 'Default/content.html.twig'
         }) }}
 
     .. code-block:: php
@@ -791,7 +802,7 @@ qualsiasi template predefinito globale):
             new ControllerReference('...'),
             array(
                 'renderer' => 'hinclude',
-                'default' => 'AcmeDemoBundle:Default:content.html.twig',
+                'default' => 'Default/content.html.twig',
             )
         ) ?>
 
@@ -838,7 +849,7 @@ delle rotte:
         # app/config/routing.yml
         _welcome:
             path:     /
-            defaults: { _controller: AcmeDemoBundle:Welcome:index }
+            defaults: { _controller: AppBundle:Welcome:index }
 
     .. code-block:: xml
 
@@ -850,7 +861,7 @@ delle rotte:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="_welcome" path="/">
-                <default key="_controller">AcmeDemoBundle:Welcome:index</default>
+                <default key="_controller">AppBundle:Welcome:index</default>
             </route>
         </routes>
 
@@ -862,7 +873,7 @@ delle rotte:
 
         $collection = new RouteCollection();
         $collection->add('_welcome', new Route('/', array(
-            '_controller' => 'AcmeDemoBundle:Welcome:index',
+            '_controller' => 'AppBundle:Welcome:index',
         )));
 
         return $collection;
@@ -889,7 +900,7 @@ rotta più complessa:
         # app/config/routing.yml
         article_show:
             path:     /article/{slug}
-            defaults: { _controller: AcmeArticleBundle:Article:show }
+            defaults: { _controller: AppBundle:Article:show }
 
     .. code-block:: xml
 
@@ -901,7 +912,7 @@ rotta più complessa:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="article_show" path="/article/{slug}">
-                <default key="_controller">AcmeArticleBundle:Article:show</default>
+                <default key="_controller">AppBundle:Article:show</default>
             </route>
         </routes>
 
@@ -913,7 +924,7 @@ rotta più complessa:
 
         $collection = new RouteCollection();
         $collection->add('article_show', new Route('/article/{slug}', array(
-            '_controller' => 'AcmeArticleBundle:Article:show',
+            '_controller' => 'AppBundle:Article:show',
         )));
 
         return $collection;
@@ -927,7 +938,7 @@ articoli:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
+        {# app/Resources/views/Article/recentList.html.twig #}
         {% for article in articles %}
             <a href="{{ path('article_show', {'slug': article.slug}) }}">
                 {{ article.title }}
@@ -936,14 +947,14 @@ articoli:
 
     .. code-block:: html+php
 
-        <!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php -->
+        <!-- app/Resources/views/Article/recentList.html.php -->
         <?php foreach ($articles in $article): ?>
             <a href="<?php echo $view['router']->generate('article_show', array(
                 'slug' => $article->getSlug(),
             )) ?>">
                 <?php echo $article->getTitle() ?>
             </a>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 .. tip::
 
@@ -1094,8 +1105,8 @@ pagina. Da dentro il template della pagina di contatti, fare come segue:
 
 .. code-block:: html+jinja
 
-    {# src/Acme/DemoBundle/Resources/views/Contact/contact.html.twig #}
-    {% extends '::base.html.twig' %}
+    {# app/Resources/views/Contact/contact.html.twig #}
+    {% extends 'base.html.twig' %}
 
     {% block stylesheets %}
         {{ parent() }}
@@ -1155,12 +1166,12 @@ dell'applicazione:
         <?php if ($app->getDebug()): ?>
             <p>Metodo richiesta: <?php echo $app->getRequest()->getMethod() ?></p>
             <p>Ambiente: <?php echo $app->getEnvironment() ?></p>
-        <?php endif; ?>
+        <?php endif ?>
 
 .. tip::
 
     Si possono aggiungere le proprie variabili globali ai template. Si veda la
-    ricetta :doc:`Variabili globali</cookbook/templating/global_variables>`.
+    ricetta :doc:`Variabili globali </cookbook/templating/global_variables>`.
 
 .. index::
    single: Template; Il servizio templating
@@ -1180,14 +1191,14 @@ equivale a::
     use Symfony\Component\HttpFoundation\Response;
 
     $engine = $this->container->get('templating');
-    $content = $engine->render('AcmeArticleBundle:Article:index.html.twig');
+    $content = $engine->render('Article/index.html.twig');
 
     return $response = new Response($content);
 
 .. _template-configuration:
 
 Il motore (o "servizio") dei template è pre-configurato per funzionare automaticamente
-dentro a Symfony2. Può anche essere ulteriormente configurato nel file di configurazione
+dentro a Symfony. Può anche essere ulteriormente configurato nel file di configurazione
 dell'applicazione:
 
 .. configuration-block::
@@ -1341,8 +1352,8 @@ di cui abbiamo appena parlato:
 
   .. code-block:: html+jinja
 
-      {# src/Acme/BlogBundle/Resources/views/layout.html.twig #}
-      {% extends '::base.html.twig' %}
+      {# app/Resources/views/Blog/layout.html.twig #}
+      {% extends 'base.html.twig' %}
 
       {% block body %}
           <h1>Applicazione blog</h1>
@@ -1356,8 +1367,8 @@ di cui abbiamo appena parlato:
 
   .. code-block:: html+jinja
 
-      {# src/Acme/BlogBundle/Resources/views/Blog/index.html.twig #}
-      {% extends 'AcmeBlogBundle::layout.html.twig' %}
+      {# app/Resources/views/Blog/index.html.twig #}
+      {% extends 'Blog/layout.html.twig' %}
 
       {% block content %}
           {% for entry in blog_entries %}
@@ -1478,15 +1489,16 @@ in una stringa Javascript, usare il contesto ``js``:
 Debug
 -----
 
-Quando si usa PHP, si può ricorrere a ``var_dump()``, se occorre trovare rapidamente il
-valore di una variabile passata. Può essere utile, per esempio, nel proprio controllore.
-Si può ottenere lo stesso risultato con Twig, usando l'estensione debug.
+Quando si usa PHP, si può ricorrere a :phpfunction:`var_dump`, se occorre trovare rapidamente
+il valore di una variabile passata. Può essere utile, per esempio, nel proprio
+controllore. Si può ottenere lo stesso risultato con Twig, usando l'estensione
+debug.
 
 Si può fare un dump dei parametri nei template, usando la funzione ``dump``:
 
 .. code-block:: html+jinja
 
-    {# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}
+    {# app/Resources/views/Article/recentList.html.twig #}
     {{ dump(articles) }}
 
     {% for article in articles %}
@@ -1508,13 +1520,10 @@ Si possono cercare eventuali errori di sintassi nei template Twig, usando il com
 .. code-block:: bash
 
     # Verifica per nome del file:
-    $ php app/console twig:lint src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig
+    $ php app/console twig:lint app/Resources/views/Article/recentList.html.twig
 
     # oppure per cartella:
-    $ php app/console twig:lint src/Acme/ArticleBundle/Resources/views
-
-    # oppure per bundle:
-    $ php app/console twig:lint @AcmeArticleBundle
+    $ php app/console twig:lint app/Resources/views
 
 .. _template-formats:
 

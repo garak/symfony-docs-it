@@ -1203,8 +1203,7 @@ Con SensioFrameworkExtraBundle, si possono anche proteggere i controllori tramit
         // ...
     }
 
-Per maggiori informazioni, vedere la
-:doc:`documentazione di FrameworkExtraBundle  </bundles/SensioFrameworkExtraBundle/annotations/security>`.
+Per maggiori informazioni, vedere la `documentazione di FrameworkExtraBundle`_.
 
 Protezione degli altri servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2301,6 +2300,7 @@ Saperne di più con il ricettario
 * :doc:`/cookbook/security/remember_me`
 * :doc:`How to Restrict Firewalls to a Specific Host </cookbook/security/firewall_restriction>`
 
+.. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/security.html
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`implementare l'interfaccia \Serializable`: http://php.net/manual/it/class.serializable.php
 .. _`Timing attack`: http://en.wikipedia.org/wiki/Timing_attack

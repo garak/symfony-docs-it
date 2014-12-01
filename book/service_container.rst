@@ -95,6 +95,8 @@ ogni posto in cui si crea un servizio ``Mailer`` e cambiarlo.
 .. index::
    single: Contenitore di servizi; Configurare i servizi
 
+.. _service-container-creating-service:
+
 Creare/Configurare servizi nel contenitore
 ------------------------------------------
 
@@ -909,7 +911,7 @@ Ora, basta iniettare ``request_stack``, che si comporta come un normale servizio
             array(new Reference('request_stack'))
         ));
 
-.. sidebar: Perché non iniettare il servizio request?
+.. sidebar: Perché non iniettare il servizio ``request``?
 
     Quasi tutti i servizi presenti in Symfony2 si comportano allo stesso modo: viene creata
     una singola istanza dal contenitore, restituita ogni volta che venga richiesta o che

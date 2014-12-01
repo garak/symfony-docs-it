@@ -273,6 +273,12 @@ possibili percorsi:
    di essere in grado di premere il tasto "aggiorna" del suo browser e reinviare
    i dati.
 
+.. seealso::
+
+    Se si ha bisogno di maggiore controllo su quando esattamente il form sia inviato o sui dati
+    passati, si può usare il metodo :method:`Symfony\\Component\\Form\\FormInterface::submit`.
+    Si può approdonfire :ref:`nel ricettario <cookbook-form-call-submit-directly>`.
+
 .. index::
    single: Form; Bottoni di submit multipli
 

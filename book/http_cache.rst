@@ -129,6 +129,7 @@ le indicazioni di cache HTTP impostate nella risposta.
    single: Cache; Reverse proxy di Symfony2
 
 .. _`symfony-gateway-cache`:
+.. _symfony2-reverse-proxy:
 
 Il reverse proxy di Symfony2 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,10 +162,6 @@ il kernel della cache::
 
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
 le risposte dell'applicazione e restituendole al client.
-
-Ora che si sta usando un "proxy", si dovrà configurare ``127.0.0.1`` sotto la
-voce ``trusted_proxies`` (vedere :ref:`il riferimento <reference-framework-trusted-proxies>`).
-In caso contrario, l'indirizzo IP del client e alcune altre cose non saranno riportati correttamente.
 
 .. tip::
 
@@ -641,10 +638,10 @@ necessari per calcolare la rappresentazione della risorsa come valore dell'heade
         return $response;
     }
 
-Il metodo ``Response::isNotModified()`` confronta l'header ``If-Modified-Since``
-inviato dalla richiesta con l'header ``Last-Modified`` impostato nella risposta.
-Se sono equivalenti, la ``Response`` sarà impostata a un codice di stato
-304.
+Il metodo method:`Symfony\\Component\\HttpFoundation\\Response::isNotModified`
+confronta l'header ``If-Modified-Since`` inviato dalla richiesta con
+l'header ``Last-Modified`` impostato nella risposta. Se sono equivalenti,
+la ``Response`` sarà impostata a un codice di stato 304.
 
 .. note::
 
@@ -766,8 +763,7 @@ istruire la cache per servire il contenuto in cache, controllando ogni tanto
 .. tip::
 
     Si possono anche definire header HTTP per la scadenza e la validazione della cache usando le
-    annotazioni. Vedere la 
-    :doc:`documentazione di FrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/annotations/cache>`.
+    annotazioni. Vedere la `documentazione di FrameworkExtraBundle`_.
 
 .. index::
     pair: Cache; Configurazione
@@ -939,6 +935,13 @@ perché voler usare un aiutante invece di scrivere direttamente il tag ESI.
 Il motivo è che un aiutante fa funzionare l'applicazione anche
 se non ci sono gateway per la cache installati.
 
+.. tip::
+
+    Come si vedrà più avanti, la variabile passata ``maxPerPage`` è disponibile
+    come parametro del controllore (come ``$maxPerPage``). Le variabili
+    passate tramite ``render_esi`` diventano ugualmente parte della chiave di cache, in modo
+    da avere cache uniche per ogni cobinazione di variabili e valori.
+
 Quando si usa la funzione ``render`` predefinita (o si usa l'opzione
 ``inline``), Symfony2 fonde il contenuto della pagina inclusa in quello principale,
 prima di inviare la risposta al client. Se invece si usa l'opzione ``esi``
@@ -959,7 +962,7 @@ dalla pagina principale.
 
 .. code-block:: php
 
-    public function newsAction($max)
+    public function newsAction($maxPerPage)
     {
         // ...
 
@@ -1124,4 +1127,5 @@ Imparare di più con le ricette
 .. _`HTTP Bis`: http://tools.ietf.org/wg/httpbis/
 .. _`P4 - Richieste condizionali`: http://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional
 .. _`P6 - Cache: Browser e cache intermedie`: http://tools.ietf.org/html/draft-ietf-httpbis-p6-cache
+.. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/cache.html
 .. _`ESI`: http://www.w3.org/TR/esi-lang

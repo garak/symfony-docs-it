@@ -18,8 +18,8 @@ per tutti i linguaggi di programmazione. YAML è un ottimo formato per i file di
 configurazione. I file YAML sono espressivi quanto i file XML e leggibili quanto i file
 INI.
 
-Il componente YAML di Symfony2 implementa la versione 1.2. della
-specifica.
+Il componente YAML di Symfony2 implementa un sottoinsieme scelto di caratteristiche definite nella 
+`versione 1.2 della specifica YAML`_.
 
 .. tip::
 
@@ -76,6 +76,8 @@ Pieno supporto alla fusione di chiavi
 
 Pieno supporto per riferimenti, alias e piena fusione di chiavi. Non occorre ripetersi
 usando riferimenti a bit comuni di configurazione.
+
+.. _using-the-symfony2-yaml-component:
 
 Usare il componente YAML di Symfony2
 ------------------------------------
@@ -215,3 +217,4 @@ quella in linea:
 
 .. _YAML: http://yaml.org/
 .. _Packagist: https://packagist.org/packages/symfony/yaml
+.. _versione 1.2 della specifica YAML: http://yaml.org/spec/1.2/spec.html

@@ -66,6 +66,12 @@ Standard:
     Per scaricare i file dei venditori più velocemente, aggiungere l'opzione ``--prefer-dist``
     alla fine di ogni comando di Composer.
 
+.. tip::
+
+    Aggiungere l'opzione ``-vvv`` per vedere cosa sta facendo Composer. Può essere particolarmente
+    utile su una connessione lenta, dove si potrebbe avere l'impressione che non stia accadendo
+    nulla.
+
 Questo comando può richiedere diversti minuti, mentre Composer scarica la distribuzione Standard
 e tutte le librerie dei venditori necessarie. Quando avrà finito,
 si dovrebbe avere una cartella simile a questa:

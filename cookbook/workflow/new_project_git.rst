@@ -26,7 +26,13 @@ locale:
 
    .. code-block:: bash
 
-        $ php composer.phar create-project symfony/framework-standard-edition path/ ~2.3
+        $ php composer.phar create-project symfony/framework-standard-edition path/ "~2.5"
+
+.. tip::
+
+    Aggiungere l'opzione  ``-vvv`` per vedere cosa sta facendo Composer: Questo è particolarmente
+    utile su una connessione lenta, in cui si potrebbe avere l'impressione che non stia accadendo
+    nulla.
 
    Composer scaricherà la Standard Edition, insieme a tutti le necessarie
    librerie dei venditori. Per maggiori informazioni su come scaricare Symfony con

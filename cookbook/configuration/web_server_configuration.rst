@@ -54,6 +54,11 @@ sono:
 
 .. note::
 
+    Su un sistema che supporti la variabile ``APACHE_LOG_DIR``, si potrebbe
+    preferire l'uso di ``${APACHE_LOG_DIR}/`` a ``/var/log/apache2/``.
+
+.. note::
+
     Per questioni di prestazione, probabilmente si vorrà impostare
     ``AllowOverride None`` e implementare le regole di riscrittura presenti in ``web/.htaccess``
     direttamente nella cofigurazione dell'host virtuale.

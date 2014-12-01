@@ -407,7 +407,9 @@ specifico:
 * ``AcmeBlogBundle::layout.html.twig``: Questa sintassi si riferisce a un template di base
   specifico di ``AcmeBlogBundle``. Poiché la parte centrale, "controllore", manca,
   (p.e. ``Blog``), il template è ``Resources/views/layout.html.twig``
-  dentro ``AcmeBlogBundle``.
+  dentro AcmeBlogBundle.
+  Notare che c'è un doppio segno "due punti" in mezzo alla stringa, quando manca la cartella
+  che indica il controllore.
 
 * ``::base.html.twig``: Questa sintassi si riferisce a un template di base o a un
   layout di applicazione. Si noti che la stringa inizia con un doppio due-punti (``::``),

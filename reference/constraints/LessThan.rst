@@ -5,7 +5,7 @@ LessThan
     Questo vincolo è nuovo nella versione 2.3.
 
 Valida che un valore sia inferiore a un altro valore, definito nelle opzioni. Per
-forrzare che un valore si inferiore o uguale a un altro valore, vedere
+forzare che un valore si inferiore o uguale a un altro valore, vedere
 :doc:`/reference/constraints/LessThanOrEqual`. Per forzare che un valore sia maggiore
 di un altro valore, vedere :doc:`/reference/constraints/GreaterThan`.
 

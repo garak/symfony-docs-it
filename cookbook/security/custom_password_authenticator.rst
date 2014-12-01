@@ -17,7 +17,7 @@ L'autenticatore di password
 
 Prima di tutto, creare una classe che implementi
 :class:`Symfony\\Component\\Security\\Core\\Authentication\\SimpleFormAuthenticatorInterface`.
-Successivamente, questa consentirò di creare logica personalizzata per autenticare
+Successivamente, questa consentirà di creare logica personalizzata per autenticare
 l'utente::
 
     // src/Acme/HelloBundle/Security/TimeAuthenticator.php
@@ -136,14 +136,14 @@ In questo metodo, occorre un codificatore che verifichi la validità della passw
             $user->getSalt()
         );
 
-Questo è un servizio già disponibile in Symofny, in cui algoritmo per la password
+Questo è un servizio già disponibile in Symfony, in cui algoritmo per la password
 è configurato nella configurazione di sicurezza (``security.yml``), sotto
-la voce ``encoders``. Piuù avanti si vedrà come iniettarlo in ``TimeAuthenticator``.
+la voce ``encoders``. Più avanti si vedrà come iniettarlo in ``TimeAuthenticator``.
 
 .. _cookbook-security-password-authenticator-config:
 
-Configuraztione
----------------
+Configuratione
+--------------
 
 Ora, configurare ``TimeAuthenticator`` come servizio:
 

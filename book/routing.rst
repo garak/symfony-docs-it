@@ -13,7 +13,7 @@ l'URL di una pagina da ``/blog`` a ``/news``? Quanti collegamenti bisogna cercar
 e aggiornare per realizzare la modifica? Se si stanno utilizzando le rotte di Symfony
 la modifica è semplice.
 
-Le rotte di Symfony2 consentono di definire URL creativi che possono essere mappati
+Le rotte di Symfony consentono di definire URL creativi che possono essere mappati
 in differenti aree dell'applicazione. Entro la fine del capitolo, si sarà in grado di:
 
 * Creare rotte complesse che mappano i controllori
@@ -34,12 +34,31 @@ La rotta è semplice:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/BlogController.php
+        namespace AppBundle\Controller;
+
+        use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+        use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+        class BlogController extends Controller
+        {
+            /**
+             * @Route("/blog/{slug}")
+             */
+            public function showAction($slug)
+            {
+                // ...
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         blog_show:
             path:      /blog/{slug}
-            defaults:  { _controller: AcmeBlogBundle:Blog:show }
+            defaults:  { _controller: AppBundle:Blog:show }
 
     .. code-block:: xml
 
@@ -51,7 +70,7 @@ La rotta è semplice:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="blog_show" path="/blog/{slug}">
-                <default key="_controller">AcmeBlogBundle:Blog:show</default>
+                <default key="_controller">AppBundle:Blog:show</default>
             </route>
         </routes>
 
@@ -63,7 +82,7 @@ La rotta è semplice:
 
         $collection = new RouteCollection();
         $collection->add('blog_show', new Route('/blog/{slug}', array(
-            '_controller' => 'AcmeBlogBundle:Blog:show',
+            '_controller' => 'AppBundle:Blog:show',
         )));
 
         return $collection;
@@ -75,34 +94,20 @@ per l'utilizzo nel controllore (proseguire nella lettura). ``blog_show`` è il
 nome interno della rotta, che non ha ancora senso e che necessita solamente di
 essere unico. Sarà usato più avanti per generare URL.
 
-Il parametro ``_controller`` è una chiave speciale che dice a Symfony quale controllore
-dovrebbe essere eseguito quando un URL corrisponde a questa rotta. La stringa ``_controller``
-è detta :ref:`nome logico<controller-string-syntax>`. Segue un
-pattern che punta a uno specifico metodo di una classe PHP::
-
-    // src/Acme/BlogBundle/Controller/BlogController.php
-    namespace Acme\BlogBundle\Controller;
-
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-    class BlogController extends Controller
-    {
-        public function showAction($slug)
-        {
-            // usare la variabile $slug per interrogare la base dati
-            $blog = ...;
-
-            return $this->render('AcmeBlogBundle:Blog:show.html.twig', array(
-                'blog' => $blog,
-            ));
-        }
-    }
+Se non si vogliono usare le annotazioni, per questioni di preferenza o per non
+dipendere da SensioFrameworkExtraBundle, si possono anche usare
+Yaml, XML o PHP. In questi formati, il parametro ``_controller`` è una chiave
+speciale, che dice a Symfony quale controllore eseguire quando un URL corrisponde
+alla rotta. La stringa ``_controller`` è chiamata
+:ref:`nome logico <controller-string-syntax>`. Segue uno schema che
+punta a specifici classe e metodo PHP, in questo caso al metodo
+``AppBundle\Controller\BlogController::showAction``.
 
 Congratulazioni! Si è appena creata la prima rotta, collegandola ad
 un controllore. Ora, quando si visita ``/blog/my-post``, verrà eseguito il
 controllore ``showAction`` e la variabile ``$slug`` avrà valore ``my-post``.
 
-Questo è l'obiettivo delle rotte di Symfony2: mappare l'URL di una richiesta in un
+Questo è l'obiettivo delle rotte di Symfony: mappare l'URL di una richiesta in un
 controllore. Lungo la strada, si impareranno tutti i trucchi per mappare facilmente
 anche gli URL più complessi. 
 
@@ -121,22 +126,22 @@ altra cosa. Prendere ad esempio la seguente richiesta HTTP:
 
     GET /blog/my-blog-post
 
-L'obiettivo del sistema delle rotte di Symfony2 è quello di analizzare questo URL e determinare
+L'obiettivo del sistema delle rotte di Symfony è quello di analizzare questo URL e determinare
 quale controller dovrebbe essere eseguito. L'intero processo è il seguente:
 
-#. La richiesta è gestita dal front controller di Symfony2 (ad esempio ``app.php``);
+#. La richiesta è gestita dal front controller di Symfony (ad esempio ``app.php``);
 
-#. Il nucleo di Symfony2 (ad es. il kernel) chiede al router di ispezionare la richiesta;
+#. Il nucleo di Symfony (ad es. il kernel) chiede al router di ispezionare la richiesta;
 
 #. Il router verifica la corrispondenza dell'URL in arrivo con una specifica rotta e restituisce informazioni
    sulla rotta, tra le quali il controllore che deve essere eseguito;
 
-#. Il kernel di Symfony2 esegue il controllore, che alla fine restituisce
+#. Il kernel di Symfony esegue il controllore, che alla fine restituisce
    un oggetto ``Response``.
 
 .. figure:: /images/request-flow.png
    :align: center
-   :alt: flusso della richiesta di Symfony2
+   :alt: flusso della richiesta di Symfony
 
    Lo strato delle rotte è uno strumento che traduce l'URL in ingresso in uno specifico
    controllore da eseguire.
@@ -159,7 +164,7 @@ dell'applicazione:
         # app/config/config.yml
         framework:
             # ...
-            router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+            router: { resource: "%kernel.root_dir%/config/routing.yml" }
 
     .. code-block:: xml
 
@@ -204,12 +209,28 @@ array ``defaults``:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/MainController.php
+
+        // ...
+        class MainController extends Controller
+        {
+            /**
+             * @Route("/")
+             */
+            public function homepageAction()
+            {
+                // ...
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         _welcome:
             path:      /
-            defaults:  { _controller: AcmeDemoBundle:Main:homepage }
+            defaults:  { _controller: AppBundle:Main:homepage }
 
     .. code-block:: xml
 
@@ -221,7 +242,7 @@ array ``defaults``:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="_welcome" path="/">
-                <default key="_controller">AcmeDemoBundle:Main:homepage</default>
+                <default key="_controller">AppBundle:Main:homepage</default>
             </route>
 
         </routes>
@@ -234,13 +255,13 @@ array ``defaults``:
 
         $collection = new RouteCollection();
         $collection->add('_welcome', new Route('/', array(
-            '_controller' => 'AcmeDemoBundle:Main:homepage',
+            '_controller' => 'AppBundle:Main:homepage',
         )));
 
         return $collection;
 
 Questa rotta corrisponde alla homepage (``/``) e la mappa nel controllore ``AcmeDemoBundle:Main:homepage``.
-La stringa ``_controller`` è tradotta da Symfony2 in una
+La stringa ``_controller`` è tradotta da Symfony in una
 funzione PHP effettiva, ed eseguita. Questo processo verrà spiegato a breve
 nella sezione :ref:`controller-string-syntax`.
 
@@ -255,12 +276,28 @@ rotte conterranno uno o più segnaposto "jolly":
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/BlogController.php
+
+        // ...
+        class BlogController extends Controller
+        {
+            /**
+             * @Route("/blog/{slug}")
+             */
+            public function showAction($slug)
+            {
+                // ...
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         blog_show:
             path:      /blog/{slug}
-            defaults:  { _controller: AcmeBlogBundle:Blog:show }
+            defaults:  { _controller: AppBundle:Blog:show }
 
     .. code-block:: xml
 
@@ -272,7 +309,7 @@ rotte conterranno uno o più segnaposto "jolly":
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="blog_show" path="/blog/{slug}">
-                <default key="_controller">AcmeBlogBundle:Blog:show</default>
+                <default key="_controller">AppBundle:Blog:show</default>
             </route>
         </routes>
 
@@ -284,7 +321,7 @@ rotte conterranno uno o più segnaposto "jolly":
 
         $collection = new RouteCollection();
         $collection->add('blog_show', new Route('/blog/{slug}', array(
-            '_controller' => 'AcmeBlogBundle:Blog:show',
+            '_controller' => 'AppBundle:Blog:show',
         )));
 
         return $collection;
@@ -307,12 +344,30 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/BlogController.php
+
+        // ...
+        class BlogController extends Controller
+        {
+            // ...
+
+            /**
+             * @Route("/blog")
+             */
+            public function indexAction()
+            {
+                // ...
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         blog:
             path:      /blog
-            defaults:  { _controller: AcmeBlogBundle:Blog:index }
+            defaults:  { _controller: AppBundle:Blog:index }
 
     .. code-block:: xml
 
@@ -324,7 +379,7 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="blog" path="/blog">
-                <default key="_controller">AcmeBlogBundle:Blog:index</default>
+                <default key="_controller">AppBundle:Blog:index</default>
             </route>
         </routes>
 
@@ -336,7 +391,7 @@ i post disponibili del blog per questa applicazione immaginaria di blog:
 
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog', array(
-            '_controller' => 'AcmeBlogBundle:Blog:index',
+            '_controller' => 'AppBundle:Blog:index',
         )));
 
         return $collection;
@@ -347,6 +402,20 @@ per supportare l'impaginazione, dove ``/blog/2`` visualizza la seconda pagina de
 del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
 
 .. configuration-block::
+
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/BlogController.php
+
+        // ...
+
+        /**
+         * @Route("/blog/{page}")
+         */
+        public function indexAction($page)
+        {
+            // ...
+        }
 
     .. code-block:: yaml
 
@@ -365,7 +434,7 @@ del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="blog" path="/blog/{page}">
-                <default key="_controller">AcmeBlogBundle:Blog:index</default>
+                <default key="_controller">AppBundle:Blog:index</default>
             </route>
         </routes>
 
@@ -377,7 +446,7 @@ del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
 
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog/{page}', array(
-            '_controller' => 'AcmeBlogBundle:Blog:index',
+            '_controller' => 'AppBundle:Blog:index',
         )));
 
         return $collection;
@@ -394,12 +463,26 @@ Questo si fa includendolo nella collezione ``defaults``:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/BlogController.php
+
+        // ...
+
+        /**
+         * @Route("/blog/{page}", defaults={"page" = 1})
+         */
+        public function indexAction($page)
+        {
+            // ...
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         blog:
             path:      /blog/{page}
-            defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
+            defaults:  { _controller: AppBundle:Blog:index, page: 1 }
 
     .. code-block:: xml
 
@@ -411,7 +494,7 @@ Questo si fa includendolo nella collezione ``defaults``:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="blog" path="/blog/{page}">
-                <default key="_controller">AcmeBlogBundle:Blog:index</default>
+                <default key="_controller">AppBundle:Blog:index</default>
                 <default key="page">1</default>
             </route>
         </routes>
@@ -424,7 +507,7 @@ Questo si fa includendolo nella collezione ``defaults``:
 
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog/{page}', array(
-            '_controller' => 'AcmeBlogBundle:Blog:index',
+            '_controller' => 'AppBundle:Blog:index',
             'page'        => 1,
         )));
 
@@ -435,15 +518,13 @@ più obbligatorio. L'URL ``/blog`` corrisponderà a questa rotta e il valore del
 parametro ``page`` verrà impostato a ``1``. Anche l'URL ``/blog/2`` avrà
 corrispondenza, dando al parametro ``page`` il valore ``2``. Perfetto.
 
-+--------------------+-------+-----------------------+
-| URL                | rotta | parametri             |
-+====================+=======+=======================+
-| /blog              | blog  | {page} = 1            |
-+--------------------+-------+-----------------------+
-| /blog/1            | blog  | {page} = 1            |
-+--------------------+-------+-----------------------+
-| /blog/2            | blog  | {page} = 2            |
-+--------------------+-------+-----------------------+
+===========  ========  ==================
+URL          Rotta     Parametri
+===========  ========  ==================
+``/blog``    ``blog``  ``{page}`` = ``1``
+``/blog/1``  ``blog``  ``{page}`` = ``1``
+``/blog/2``  ``blog``  ``{page}`` = ``2``
+===========  ========  ==================
 
 .. caution::
 
@@ -467,16 +548,40 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/BlogController.php
+
+        // ...
+        class BlogController extends Controller
+        {
+            /**
+             * @Route("/blog/{page}", defaults={"page" = 1})
+             */
+            public function indexAction($page)
+            {
+                // ...
+            }
+
+            /**
+             * @Route("/blog/{slug}")
+             */
+            public function showAction($slug)
+            {
+                // ...
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         blog:
             path:      /blog/{page}
-            defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
+            defaults:  { _controller: AppBundle:Blog:index, page: 1 }
 
         blog_show:
             path:      /blog/{slug}
-            defaults:  { _controller: AcmeBlogBundle:Blog:show }
+            defaults:  { _controller: AppBundle:Blog:show }
 
     .. code-block:: xml
 
@@ -488,12 +593,12 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="blog" path="/blog/{page}">
-                <default key="_controller">AcmeBlogBundle:Blog:index</default>
+                <default key="_controller">AppBundle:Blog:index</default>
                 <default key="page">1</default>
             </route>
 
             <route id="blog_show" path="/blog/{slug}">
-                <default key="_controller">AcmeBlogBundle:Blog:show</default>
+                <default key="_controller">AppBundle:Blog:show</default>
             </route>
         </routes>
 
@@ -505,12 +610,12 @@ Si dia uno sguardo veloce alle rotte che sono state create finora:
 
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog/{page}', array(
-            '_controller' => 'AcmeBlogBundle:Blog:index',
+            '_controller' => 'AppBundle:Blog:index',
             'page'        => 1,
         )));
 
         $collection->add('blog_show', new Route('/blog/{show}', array(
-            '_controller' => 'AcmeBlogBundle:Blog:show',
+            '_controller' => 'AppBundle:Blog:show',
         )));
 
         return $collection;
@@ -522,13 +627,12 @@ non sarà *mai* trovata. Invece, un URL del tipo ``/blog/my-blog-post`` verrà a
 alla prima rotta (``blog``) restituendo il valore senza senso ``my-blog-post``
 per il parametro ``{page}``.
 
-+--------------------+-------+-----------------------+
-| URL                | rotta | parametri             |
-+====================+=======+=======================+
-| /blog/2            | blog  | {page} = 2            |
-+--------------------+-------+-----------------------+
-| /blog/my-blog-post | blog  | {page} = my-blog-post |
-+--------------------+-------+-----------------------+
+======================  ========  ===============================
+URL                     Rotta     Parametri
+======================  ========  ===============================
+``/blog/2``             ``blog``  ``{page}`` = ``2``
+``/blog/my-blog-post``  ``blog``  ``{page}`` = ``"my-blog-post"``
+======================  ========  ===============================
 
 La risposta al problema è aggiungere *requisiti* o *condizioni
 (see :ref:`book-routing-conditions`). alle rotte. Le rotte in questo esempio potrebbero
@@ -538,12 +642,26 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
 .. configuration-block::
 
+    .. code-block:: php
+
+        // src/AppBundle/Controller/BlogController.php
+
+        // ...
+
+        /**
+         * @Route("/blog/{page}", defaults={"page": 1}, requirements={"page": "\d+"})
+         */
+        public function indexAction($page)
+        {
+            // ...
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         blog:
             path:      /blog/{page}
-            defaults:  { _controller: AcmeBlogBundle:Blog:index, page: 1 }
+            defaults:  { _controller: AppBundle:Blog:index, page: 1 }
             requirements:
                 page:  \d+
 
@@ -557,7 +675,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="blog" path="/blog/{page}">
-                <default key="_controller">AcmeBlogBundle:Blog:index</default>
+                <default key="_controller">AppBundle:Blog:index</default>
                 <default key="page">1</default>
                 <requirement key="page">\d+</requirement>
             </route>
@@ -571,7 +689,7 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
 
         $collection = new RouteCollection();
         $collection->add('blog', new Route('/blog/{page}', array(
-            '_controller' => 'AcmeBlogBundle:Blog:index',
+            '_controller' => 'AppBundle:Blog:index',
             'page'        => 1,
         ), array(
             'page' => '\d+',
@@ -588,15 +706,13 @@ non sarà più abbinata a un URL tipo ``/blog/my-blog-post`` (perché ``my-blog-
 Come risultato, un URL tipo ``/blog/my-blog-post`` ora verrà correttamente abbinato alla
 rotta ``blog_show``.
 
-+----------------------+-----------+-------------------------+
-| URL                  | rotta     | parametri               |
-+======================+===========+=========================+
-| /blog/2              | blog      | {page} = 2              |
-+----------------------+-----------+-------------------------+
-| /blog/my-blog-post   | blog_show | {slug} = my-blog-post   |
-+----------------------+-----------+-------------------------+
-| /blog/2-my-blog-post | blog_show | {slug} = 2-my-blog-post |
-+----------------------+-----------+-------------------------+
+========================  =============  ===============================
+URL                       Rotta          Parametri
+========================  =============  ===============================
+``/blog/2``               ``blog``       ``{page}`` = ``2``
+``/blog/my-blog-post``    ``blog_show``  ``{slug}`` = ``my-blog-post``
+``/blog/2-my-blog-post``  ``blog_show``  ``{slug}`` = ``2-my-blog-post``
+========================  =============  ===============================
 
 .. sidebar:: Vincono sempre le rotte che compaiono prima
 
@@ -613,14 +729,29 @@ all'URL:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/MainController.php
+
+        // ...
+        class MainController extends Controller
+        {
+            /**
+             * @Route("/{_locale}", defaults={"_locale": "en"}, requirements={"_locale": "en|fr"})
+             */
+            public function homepageAction($_locale)
+            {
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         homepage:
-            path:      /{culture}
-            defaults:  { _controller: AcmeDemoBundle:Main:homepage, culture: en }
+            path:      /{_locale}
+            defaults:  { _controller: AppBundle:Main:homepage, _locale: en }
             requirements:
-                culture:  en|fr
+                _locale:  en|fr
 
     .. code-block:: xml
 
@@ -631,10 +762,10 @@ all'URL:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="homepage" path="/{culture}">
-                <default key="_controller">AcmeDemoBundle:Main:homepage</default>
-                <default key="culture">en</default>
-                <requirement key="culture">en|fr</requirement>
+            <route id="homepage" path="/{_locale}">
+                <default key="_controller">AppBundle:Main:homepage</default>
+                <default key="_locale">en</default>
+                <requirement key="_locale">en|fr</requirement>
             </route>
         </routes>
 
@@ -645,27 +776,26 @@ all'URL:
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('homepage', new Route('/{culture}', array(
-            '_controller' => 'AcmeDemoBundle:Main:homepage',
-            'culture'     => 'en',
+        $collection->add('homepage', new Route('/{_locale}', array(
+            '_controller' => 'AppBundle:Main:homepage',
+            '_locale'     => 'en',
         ), array(
-            'culture' => 'en|fr',
+            '_locale' => 'en|fr',
         )));
 
         return $collection;
 
-Per le richieste in entrata, la porzione ``{culture}`` dell'URL viene controllata tramite
+Per le richieste in entrata, la porzione ``{locale}`` dell'URL viene controllata tramite
 l'espressione regolare ``(en|fr)``.
 
-+-----+--------------------------------+
-| /   | {culture} = en                 |
-+-----+--------------------------------+
-| /en | {culture} = en                 |
-+-----+--------------------------------+
-| /fr | {culture} = fr                 |
-+-----+--------------------------------+
-| /es | *non si abbina a questa rotta* |
-+-----+--------------------------------+
+========  ============================
+Percorso  Parametri
+========  ============================
+``/``     ``{_locale}`` = ``"en"``
+``/en``   ``{_locale}`` = ``"en"``
+``/fr``   ``{_locale}`` = ``"fr"``
+``/es``   *non corrisponde alla rotta*
+========  ============================
 
 .. index::
    single: Rotte; Requisiti di metodi
@@ -681,17 +811,46 @@ essere realizzato con la seguente configurazione per le rotte:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/MainController.php
+        namespace AppBundle\Controller;
+
+        use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+        // ...
+
+        class MainController extends Controller
+        {
+            /**
+             * @Route("/contact")
+             * @Method("GET")
+             */
+            public function contactAction()
+            {
+                // ... display contact form
+            }
+
+            /**
+             * @Route("/contact")
+             * @Method("POST")
+             */
+            public function processContactAction()
+            {
+                // ... process contact form
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         contact:
             path:     /contact
-            defaults: { _controller: AcmeDemoBundle:Main:contact }
+            defaults: { _controller: AppBundle:Main:contact }
             methods:  [GET]
 
         contact_process:
             path:     /contact
-            defaults: { _controller: AcmeDemoBundle:Main:contactProcess }
+            defaults: { _controller: AppBundle:Main:processContact }
             methods:  [POST]
 
     .. code-block:: xml
@@ -704,11 +863,11 @@ essere realizzato con la seguente configurazione per le rotte:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="contact" path="/contact" methods="GET">
-                <default key="_controller">AcmeDemoBundle:Main:contact</default>
+                <default key="_controller">AppBundle:Main:contact</default>
             </route>
 
             <route id="contact_process" path="/contact" methods="POST">
-                <default key="_controller">AcmeDemoBundle:Main:contactProcess</default>
+                <default key="_controller">AppBundle:Main:processContact</default>
             </route>
         </routes>
 
@@ -720,11 +879,11 @@ essere realizzato con la seguente configurazione per le rotte:
 
         $collection = new RouteCollection();
         $collection->add('contact', new Route('/contact', array(
-            '_controller' => 'AcmeDemoBundle:Main:contact',
+            '_controller' => 'AppBundle:Main:contact',
         ), array(), array(), '', array(), array('GET')));
 
         $collection->add('contact_process', new Route('/contact', array(
-            '_controller' => 'AcmeDemoBundle:Main:contactProcess',
+            '_controller' => 'AppBundle:Main:processContact',
         ), array(), array(), '', array(), array('POST')));
 
         return $collection;
@@ -847,14 +1006,33 @@ può essere il sistema delle rotte:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/ArticleController.php
+
+        // ...
+        class ArticleController extends Controller
+        {
+            /**
+             * @Route(
+             *     "/articles/{_locale}/{year}/{title}.{_format}",
+             *     defaults: {"_format": "html"}
+             *     requirements: {"_locale": "en|fr", "_format": "html|rss", "year": "\d+"}
+             * )
+             */
+            public function showAction($_locale, $year, $title)
+            {
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         article_show:
-          path:     /articles/{culture}/{year}/{title}.{_format}
-          defaults: { _controller: AcmeDemoBundle:Article:show, _format: html }
+          path:     /articles/{_locale}/{year}/{title}.{_format}
+          defaults: { _controller: AppBundle:Article:show, _format: html }
           requirements:
-              culture:  en|fr
+              _locale:  en|fr
               _format:  html|rss
               year:     \d+
 
@@ -868,11 +1046,11 @@ può essere il sistema delle rotte:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="article_show"
-                path="/articles/{culture}/{year}/{title}.{_format}">
+                path="/articles/{_locale}/{year}/{title}.{_format}">
 
-                <default key="_controller">AcmeDemoBundle:Article:show</default>
+                <default key="_controller">AppBundle:Article:show</default>
                 <default key="_format">html</default>
-                <requirement key="culture">en|fr</requirement>
+                <requirement key="_locale">en|fr</requirement>
                 <requirement key="_format">html|rss</requirement>
                 <requirement key="year">\d+</requirement>
 
@@ -888,11 +1066,11 @@ può essere il sistema delle rotte:
         $collection = new RouteCollection();
         $collection->add(
             'article_show',
-            new Route('/articles/{culture}/{year}/{title}.{_format}', array(
-                '_controller' => 'AcmeDemoBundle:Article:show',
+            new Route('/articles/{_locale}/{year}/{title}.{_format}', array(
+                '_controller' => 'AppBundle:Article:show',
                 '_format'     => 'html',
             ), array(
-                'culture' => 'en|fr',
+                '_locale' => 'en|fr',
                 '_format' => 'html|rss',
                 'year'    => '\d+',
             ))
@@ -925,8 +1103,8 @@ una barra. Gli URL corrispondenti a questa rotta potrebbero essere del tipo:
 .. note::
 
     A volte si desidera che alcune parti delle rotte siano configurabili in modo globale.
-    Symfony2.1 fornisce un modo per poterlo fare, sfruttando i parametri del contenitore di
-    servizi. Si può approfondire in ":doc:`/cookbook/routing/service_container_parameters`.
+    Symfony fornisce un modo per poterlo fare, sfruttando i parametri del contenitore di
+    servizi. Si può approfondire in ":doc:`/cookbook/routing/service_container_parameters`".
 
 Parametri speciali per le rotte
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -961,16 +1139,16 @@ ciascuna separata da due punti:
 
 Per esempio, se ``_controller`` ha valore ``AcmeBlogBundle:Blog:show`` significa:
 
-+----------------+------------------------+-----------------+
-| Bundle         | Classe del controllore | Nome del metodo |
-+================+========================+=================+
-| AcmeBlogBundle | BlogController         | showAction      |
-+----------------+------------------------+-----------------+
+=========  ==================  ==============
+Bundle     Classe controllore  Nome metodo
+=========  ==================  ==============
+AppBundle  ``BlogController``  ``showAction``
+=========  ==================  ==============
 
 Il controllore potrebbe essere simile a questo::
 
-    // src/Acme/BlogBundle/Controller/BlogController.php
-    namespace Acme\BlogBundle\Controller;
+    // src/AppBundle/Controller/BlogController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -1017,11 +1195,12 @@ per un parametro della rotta con quel nome e assegna il suo valore a tale parame
 Nell'esempio avanzato di cui sopra, qualsiasi combinazioni (in qualsiasi ordine) delle seguenti variabili
 potrebbe essere usati come parametri per il metodo ``showAction()``:
 
-* ``$culture``
+* ``$_locale``
 * ``$year``
 * ``$title``
 * ``$_format``
 * ``$_controller``
+* ``$_route``
 
 Dal momento che il segnaposto e la collezione ``defaults`` vengono uniti insieme, è disponibile
 anche la variabile ``$_controller``. Per una trattazione più dettagliata,
@@ -1044,8 +1223,9 @@ vedere :doc:`/cookbook/routing/extra_information`.
 Includere risorse esterne per le rotte
 --------------------------------------
 
-Tutte le rotte vengono caricate attraverso un singolo file di configurazione, generalmente ``app/config/routing.yml``
-(vedere `Creazione delle rotte`_ sopra). In genere, però, si desidera caricare le rotte
+Tutte le rotte vengono caricate attraverso un singolo file di configurazione, generalmente 
+``app/config/routing.yml`` (vedere `Creazione delle rotte`_ sopra). In genere, però,
+si desidera caricare le rotte
 da altri posti, come un file di rotte presente all'interno di un bundle. Questo può
 essere fatto "importando" il file:
 
@@ -1054,8 +1234,9 @@ essere fatto "importando" il file:
     .. code-block:: yaml
 
         # app/config/routing.yml
-        acme_hello:
-            resource: "@AcmeHelloBundle/Resources/config/routing.yml"
+        app:
+            resource: "@AppBundle/Controller/"
+            type:     annotation # required to enable the Annotation reader for this resource
 
     .. code-block:: xml
 
@@ -1066,7 +1247,8 @@ essere fatto "importando" il file:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <import resource="@AcmeHelloBundle/Resources/config/routing.xml" />
+            <!-- the type is required to enable the annotation reader for this resource -->
+            <import resource="@AppBundle/Controller/" type="annotation"/>
         </routes>
 
     .. code-block:: php
@@ -1076,7 +1258,9 @@ essere fatto "importando" il file:
 
         $collection = new RouteCollection();
         $collection->addCollection(
-            $loader->import("@AcmeHelloBundle/Resources/config/routing.php")
+            // second argument is the type, which is required to enable the annotation reader
+            // for this resource
+            $loader->import("@AppBundle/Controller/", "annotation")
         );
 
         return $collection;
@@ -1091,44 +1275,42 @@ la risorsa è il percorso completo di un file, dove la sintassi scorciatoia
 ``@AcmeHelloBundle`` viene risolta con il percorso del bundle. Il file importato potrebbe essere
 come questo:
 
-.. configuration-block::
+.. note::
 
-    .. code-block:: yaml
+    Si possono anche includere altri file di configurazione, opzione spesso usata per
+    importare rotte da bundle di terze parti:
 
-        # src/Acme/HelloBundle/Resources/config/routing.yml
-       acme_hello:
-            path:     /hello/{name}
-            defaults: { _controller: AcmeHelloBundle:Hello:index }
+    .. configuration-block::
 
-    .. code-block:: xml
+        .. code-block:: yaml
 
-        <!-- src/Acme/HelloBundle/Resources/config/routing.xml -->
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <routes xmlns="http://symfony.com/schema/routing"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/routing
-                http://symfony.com/schema/routing/routing-1.0.xsd">
+            # app/config/routing.yml
+            app:
+                resource: "@AcmeOtherBundle/Resources/config/routing.yml"
 
-            <route id="acme_hello" path="/hello/{name}">
-                <default key="_controller">AcmeHelloBundle:Hello:index</default>
-            </route>
-        </routes>
+        .. code-block:: xml
 
-    .. code-block:: php
+            <!-- app/config/routing.xml -->
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <routes xmlns="http://symfony.com/schema/routing"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://symfony.com/schema/routing
+                    http://symfony.com/schema/routing/routing-1.0.xsd">
 
-        // src/Acme/HelloBundle/Resources/config/routing.php
-        use Symfony\Component\Routing\RouteCollection;
-        use Symfony\Component\Routing\Route;
+                <import resource="@AcmeOtherBundle/Resources/config/routing.xml" />
+            </routes>
 
-        $collection = new RouteCollection();
-        $collection->add('acme_hello', new Route('/hello/{name}', array(
-            '_controller' => 'AcmeHelloBundle:Hello:index',
-        )));
+        .. code-block:: php
 
-        return $collection;
+            // app/config/routing.php
+            use Symfony\Component\Routing\RouteCollection;
 
-Le rotte di questo file sono analizzate e caricate nello stesso modo del file
-principale delle rotte.
+            $collection = new RouteCollection();
+            $collection->addCollection(
+                $loader->import("@AcmeOtherBundle/Resources/config/routing.php")
+            );
+
+            return $collection;
 
 Prefissare le rotte importate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1142,9 +1324,10 @@ invece di ``/hello/{name}``:
     .. code-block:: yaml
 
         # app/config/routing.yml
-        acme_hello:
-            resource: "@AcmeHelloBundle/Resources/config/routing.yml"
-            prefix:   /admin
+        app:
+            resource: "@AppBundle/Controller/"
+            type:     annotation
+            prefix:   /site
 
     .. code-block:: xml
 
@@ -1156,8 +1339,9 @@ invece di ``/hello/{name}``:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <import
-                resource="@AcmeHelloBundle/Resources/config/routing.xml"
-                prefix="/admin" />
+                resource="@AppBundle/Controller/"
+                type="annotation"
+                prefix="/site" />
         </routes>
 
     .. code-block:: php
@@ -1165,22 +1349,16 @@ invece di ``/hello/{name}``:
         // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
 
-        $acmeHello = $loader->import('@AcmeHelloBundle/Resources/config/routing.php');
-        $acmeHello->addPrefix('/admin');
+        $app = $loader->import('@AppBundle/Controller/');
+        $app->addPrefix('/site');
 
         $collection = new RouteCollection();
-        $collection->addCollection($acmeHello);
+        $collection->addCollection($app);
 
         return $collection;
 
-La stringa ``/admin`` ora verrà preposta allo schema di ogni rotta
+La stringa ``/site`` ora verrà preposta allo schema di ogni rotta
 caricata dalla nuova risorsa delle rotte.
-
-.. tip::
-
-    Si possono anche definire le rotte tramite annotazioni. Vedere la
-    :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/routing>`
-    per scoprire come.
 
 Espressioni regolari per gli host nelle rotte importate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1211,7 +1389,7 @@ nell'applicazione:
     homepage              ANY       /
     contact               GET       /contact
     contact_process       POST      /contact
-    article_show          ANY       /articles/{culture}/{year}/{title}.{_format}
+    article_show          ANY       /articles/{_locale}/{year}/{title}.{_format}
     blog                  ANY       /blog/{page}
     blog_show             ANY       /blog/{slug}
 
@@ -1251,7 +1429,7 @@ bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
     $params = $this->get('router')->match('/blog/my-blog-post');
     // array(
     //     'slug'        => 'my-blog-post',
-    //     '_controller' => 'AcmeBlogBundle:Blog:show',
+    //     '_controller' => 'AppBundle:Blog:show',
     // )
 
     $uri = $this->get('router')->generate('blog_show', array('slug' => 'my-blog-post'));

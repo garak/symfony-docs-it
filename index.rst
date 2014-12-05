@@ -45,6 +45,16 @@ Ricettario
 
 Leggere il :doc:`ricettario </cookbook/index>`.
 
+Best Practice
+-------------
+
+.. toctree::
+    :hidden:
+
+    best_practices/index
+
+Leggere le :doc:`best practice ufficiali </best_practices/index>`.
+
 Componenti
 ----------
 
@@ -66,29 +76,6 @@ Trovare rapidamente le risposte, con i documenti di riferimento:
     reference/index
 
 .. include:: /reference/map.rst.inc
-
-Bundle
-------
-
-L'edizione standard di Symfony è distribuita con alcuni bundle. Approfondimenti:
-
-.. toctree::
-    :hidden:
-
-    bundles/index
-
-.. include:: /bundles/map.rst.inc
-
-CMF
----
-
-Il progetto Symfony CMF facilita gli sviluppatori nell'aggiunta di funzionalità CMS
-ad applicazioni costruite con il framework Symfony2.
-
-.. toctree::
-    :hidden:
-
-    cmf/index
 
 Contributi
 ----------

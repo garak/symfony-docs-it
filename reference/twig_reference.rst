@@ -1,18 +1,22 @@
 .. index::
     single: Estensioni Twig di Symfony2
 
+.. _symfony2-twig-extensions:
+
 Estensioni Twig di Symfony2
 ===========================
 
 Twig è il motore di template predefinito di Symfony2. Contiene già di suo diverse
-funzioni di libreria, filtri e tag (vedere `http://twig.sensiolabs.org/documentation`_,
-in fondo alla pagina).
+funzioni di libreria, filtri e tag (si può approfondirre su
+`Twig Reference`_).
 
 Symfony2 aggiunge ulteriori estensioni personalizzate a Twig, per integrare alcuni
 componenti nei template di Twig. Di seguito sono presenti le informazioni su tutte le
 funzioni personalizzate, i filtri e i tag aggiunti nel framework Symfony2.
 
 Ci sono anche alcuni tag nei bundle, non elencati qui.
+
+.. _reference-twig-functions:
 
 Funzioni
 --------

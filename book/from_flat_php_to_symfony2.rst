@@ -1,13 +1,13 @@
 .. _symfony2-versus-flat-php:
 
-Symfony2 contro PHP puro
-========================
+Symfony contro PHP puro
+=======================
 
-**Perché Symfony2 è meglio che aprire un file e scrivere PHP puro?**
+**Perché Symfony è meglio che aprire un file e scrivere PHP puro?**
 
 Questo capitolo è per chi non ha mai usato un framework PHP, non ha familiarità con la
 filosofia MVC, oppure semplicemente si chiede il motivo di tutto il *clamore* su
-Symfony2. Invece di *raccontare* che Symfony2 consente di sviluppare software più
+Symfony. Invece di *raccontare* che Symfony consente di sviluppare software più
 rapidamente e in modo migliore che con PHP puro, ve lo faremo vedere.
 
 In questo capitolo, scriveremo una semplice applicazione in PHP puro e poi la
@@ -15,7 +15,7 @@ rifattorizzeremo per essere più organizzata. Viaggeremo nel tempo, guardando le
 decisioni che stanno dietro ai motivi per cui lo sviluppo web si è evoluto
 durante gli ultimi anni per diventare quello che è ora.
 
-Alla fine, vedremo come Symfony2 possa salvarci da compiti banali e consentirci di
+Alla fine, vedremo come Symfony possa salvarci da compiti banali e consentirci di
 riprendere il controllo del nostro codice.
 
 Un semplice blog in PHP puro
@@ -74,7 +74,7 @@ da mantenere. Ci sono diversi problemi che occorre considerare:
 .. note::
 
     Un altro problema non menzionato è il fatto che la base dati è legata a MySQL.
-    Sebbene non affrontato qui, Symfony2 integra in pieno `Doctrine`_,
+    Sebbene non affrontato qui, Symfony integra in pieno `Doctrine`_,
     una libreria dedicata all'astrazione e alla mappatura della base dati.
 
 Isolare la presentazione
@@ -246,7 +246,7 @@ Il template (``templates/list.php``) ora può essere semplificato, per
 
 Qui abbiamo introdotto una metodologia che consente il riuso del layout.
 Sfortunatamente, per poterlo fare, si è costretti a usare alcune brutte
-funzioni PHP (``ob_start()``, ``ob_get_clean()``) nel template. Symfony2
+funzioni PHP (``ob_start()``, ``ob_get_clean()``) nel template. Symfony
 usa un componente Templating, che consente di poter fare ciò in modo
 pulito e facile. Lo vedremo in azione tra poco.
 
@@ -398,14 +398,14 @@ Come front controller, ``index.php`` ha assunto un nuovo ruolo, che include il
 caricamento delle librerie principali e la gestione delle rotte dell'applicazione, in
 modo che sia richiamato uno dei due controllori (le funzioni ``list_action()`` e
 ``show_action()``). In realtà. il front controller inizia ad assomigliare molto al
-meccanismo con cui Symfony2 gestisce le richieste.
+meccanismo con cui Symfony gestisce le richieste.
 
 .. tip::
 
    Un altro vantaggio di un front controller sono gli URL flessibili. Si noti che
    l'URL della pagina del singolo post può essere cambiato da ``/show`` a ``/read``
    solo cambiando un unico punto del codice. Prima, occorreva rinominare un file.
-   In Symfony2, gli URL sono ancora più flessibili.
+   In Symfony, gli URL sono ancora più flessibili.
 
 Finora, l'applicazione si è evoluta da un singolo file PHP a una struttura
 organizzata e che consente il riuso del codice. Dovremmo essere contenti, ma
@@ -419,11 +419,11 @@ sicurezza. Perché dovremmo reinventare soluzioni a tutti questi problemi comuni
 
 .. _add-a-touch-of-symfony2:
 
-Aggiungere un tocco di Symfony2
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Aggiungere un tocco di Symfony
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony2 alla riscossa! Prima di usare effettivamente Symfony2, occorre accertarsi che
-PHP sappia come trovare le classi di Symfony2. Possiamo farlo grazie all'autoloader
+Symfony alla riscossa! Prima di usare effettivamente Symfony, occorre accertarsi che
+PHP sappia come trovare le classi di Symfony. Possiamo farlo grazie all'autoloader
 fornito da Symfony. Un autoloader è uno strumento che rende possibile l'utilizzo di
 classi PHP senza includere esplicitamente il file che contiene la
 classe.
@@ -455,7 +455,7 @@ file menzionati nella sezione autoload di ``composer.json``.
 
 Una delle idee principali della filosofia di Symfony è che il compito principale di
 un'applicazione sia quello di interpretare ogni richiesta e restituire una risposta. A
-tal fine, Symfony2 fornice sia una classe :class:`Symfony\\Component\\HttpFoundation\\Request`
+tal fine, Symfony fornice sia una classe :class:`Symfony\\Component\\HttpFoundation\\Request`
 che una classe :class:`Symfony\\Component\\HttpFoundation\\Response`. Queste classi sono
 rappresentazioni orientate agli oggetti delle richieste grezze HTTP processate e delle
 risposte HTTP restituite. Usiamole per migliorare il nostro blog:
@@ -489,7 +489,7 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
 
 I controllori sono ora responsabili di restituire un oggetto ``Response``.
 Per rendere le cose più facili, si può aggiungere una nuova funzione ``render_template()``,
-che si comporta un po' come il sistema di template di Symfony2:
+che si comporta un po' come il sistema di template di Symfony:
 
 .. code-block:: php
 
@@ -523,7 +523,7 @@ che si comporta un po' come il sistema di template di Symfony2:
         return $html;
     }
 
-Prendendo una piccola parte di Symfony2, l'applicazione è diventata più flessibile e
+Prendendo una piccola parte di Symfony, l'applicazione è diventata più flessibile e
 più affidabile. La classe ``Request`` fornisce un modo di accedere alle informazioni sulla
 richiesta HTTP. Nello specifico, il metodo ``getPathInfo()`` restituisce un URI più
 pulito (restituisce sempre ``/show`` e mai ``/index.php/show``).
@@ -537,8 +537,8 @@ ripagherà quando l'applicazione cresce.
 
 .. _the-sample-application-in-symfony2:
 
-L'applicazione di esempio in Symfony2
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+L'applicazione di esempio in Symfony
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Il blog ha fatto *molta* strada, ma contiene ancora troppo codice per un'applicazione
 così semplice. Durante il cammino, abbiamo anche inventato un semplice sistema di rotte
@@ -547,8 +547,8 @@ qualche ragione, si avesse bisogno di continuare a costruire questo "framework" 
 si potrebbero almeno utilizzare i componenti `Routing`_  e `Templating`_, che già
 risolvono questi problemi.
 
-Invece di risolvere nuovamente problemi comuni, si può lasciare a Symfony2 il compito di
-occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
+Invece di risolvere nuovamente problemi comuni, si può lasciare a Symfony il compito di
+occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony::
 
     // src/Acme/BlogBundle/Controller/BlogController.php
     namespace Acme\BlogBundle\Controller;
@@ -564,17 +564,14 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
                 ->createQuery('SELECT p FROM AcmeBlogBundle:Post p')
                 ->execute();
 
-            return $this->render(
-                'AcmeBlogBundle:Blog:list.html.php',
-                array('posts' => $posts)
-            );
+            return $this->render('Blog/list.html.php', array('posts' => $posts));
         }
 
         public function showAction($id)
         {
             $post = $this->get('doctrine')
                 ->getManager()
-                ->getRepository('AcmeBlogBundle:Post')
+                ->getRepository('AppBundle:Post')
                 ->find($id);
 
             if (!$post) {
@@ -582,10 +579,7 @@ occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony2::
                 throw $this->createNotFoundException();
             }
 
-            return $this->render(
-                'AcmeBlogBundle:Blog:show.html.php',
-                array('post' => $post)
-            );
+            return $this->render('Blog/show.html.php', array('post' => $post));
         }
     }
 
@@ -596,8 +590,8 @@ semplice:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/BlogBundle/Resources/views/Blog/list.html.php -->
-    <?php $view->extend('::layout.html.php') ?>
+    <!-- app/Resources/views/Blog/list.html.php -->
+    <?php $view->extend('layout.html.php') ?>
 
     <?php $view['slots']->set('title', 'List of Posts') ?>
 
@@ -638,7 +632,7 @@ Il layout è quasi identico:
     Lasciamo il template di show come esercizio, visto che dovrebbe essere banale
     crearlo basandosi sul template della lista.
 
-Quando il motore di Symfony2 (chiamato ``Kernel``) parte, ha bisogno di una mappa che gli
+Quando il motore di Symfony (chiamato ``Kernel``) parte, ha bisogno di una mappa che gli
 consenta di sapere quali controllori eseguire, in base alle informazioni della richiesta.
 Una configurazione delle rotte fornisce tali informazioni in un formato leggibile:
 
@@ -647,15 +641,15 @@ Una configurazione delle rotte fornisce tali informazioni in un formato leggibil
     # app/config/routing.yml
     blog_list:
         path:     /blog
-        defaults: { _controller: AcmeBlogBundle:Blog:list }
+        defaults: { _controller: AppBundle:Blog:list }
 
     blog_show:
         path:     /blog/show/{id}
-        defaults: { _controller: AcmeBlogBundle:Blog:show }
+        defaults: { _controller: AppBundle:Blog:show }
 
-Ora che Symfony2 gestisce tutti i compiti più comuni, il front controller è
+Ora che Symfony gestisce tutti i compiti più comuni, il front controller è
 semplicissimo. E siccome fa così poco, non si avrà mai bisogno di modificarlo una
-volta creato (e se si usa una distribuzione di Symfony2, non servirà nemmeno
+volta creato (e se si usa una distribuzione di Symfony, non servirà nemmeno
 crearlo!)::
 
     // web/app.php
@@ -667,23 +661,23 @@ crearlo!)::
     $kernel = new AppKernel('prod', false);
     $kernel->handle(Request::createFromGlobals())->send();
 
-L'unico compito del front controller è inizializzare il motore di Symfony2 (il ``Kernel``)
-e passargli un oggetto ``Request`` da gestire. Il nucleo di Symfony2 quindi usa la mappa
+L'unico compito del front controller è inizializzare il motore di Symfony (il ``Kernel``)
+e passargli un oggetto ``Request`` da gestire. Il nucleo di Symfony quindi usa la mappa
 delle rotte per determinare quale controllore richiamare. Proprio come prima, il metodo
 controllore è responsabile di restituire l'oggetto ``Response`` finale.
 Non resta molto altro da fare.
 
-Per una rappresentazione visuale di come Symfony2 gestisca ogni richiesta, si veda il
+Per una rappresentazione visuale di come Symfony gestisca ogni richiesta, si veda il
 :ref:`diagramma di flusso della richiesta<request-flow-figure>`.
 
 .. _where-symfony2-delivers:
 
-Dove consegna Symfony2
-~~~~~~~~~~~~~~~~~~~~~~
+Dove consegna Symfony
+~~~~~~~~~~~~~~~~~~~~~
 
 Nei capitoli successivi, impareremo di più su come funziona ogni pezzo di Symfony e
 sull'organizzazione raccomandata di un progetto. Per ora, vediamo come migrare il blog
-da PHP puro a Symfony2 ci abbia migliorato la vita:
+da PHP puro a Symfony ci abbia migliorato la vita:
 
 * L'applicazione ora ha un **codice organizzato chiaramente e coerentemente** (sebbene
   Symfony non obblighi a farlo). Questo promuove la **riusabilità** e consente
@@ -693,34 +687,34 @@ da PHP puro a Symfony2 ci abbia migliorato la vita:
   sviluppare o mantenere utilità a basso livello**, come :ref:`autoloading<autoloading-introduction-sidebar>`,
   :doc:`routing</book/routing>` o rendere i :doc:`controllori</book/controller>`.
 
-* Symfony2 dà **accesso a strumenti open source**, come  Doctrine e i componenti
+* Symfony dà **accesso a strumenti open source**, come  Doctrine e i componenti
   Templating, Security, Form, Validation e Translation (solo per nominarne
   alcuni).
 
 * L'applicazione ora gode di **URL pienamente flessibili**, grazie al componente
   Routing.
 
-* L'architettura HTTP-centrica di Symfony2 dà accesso a strumenti potenti, come
-  la **cache HTTP** fornita dalla **cache HTTP interna di Symfony2** o a strumenti ancora
+* L'architettura HTTP-centrica di Symfony dà accesso a strumenti potenti, come
+  la **cache HTTP** fornita dalla **cache HTTP interna di Symfony** o a strumenti ancora
   più potenti, come `Varnish`_. Questi aspetti sono coperti in un capitolo successivo,
   tutto dedicato alla :doc:`cache </book/http_cache>`.
 
-Ma forse la parte migliore nell'usare Symfony2 è l'accesso all'intero insieme di
-**strumenti open source di alta qualità sviluppati dalla comunità di Symfony2**!
+Ma forse la parte migliore nell'usare Symfony è l'accesso all'intero insieme di
+**strumenti open source di alta qualità sviluppati dalla comunità di Symfony**!
 Si possono trovare dei buoni bundle su `KnpBundles.com`_.
 
 Template migliori
 -----------------
 
-Se lo si vuole usare, Symfony2 ha un motore di template predefinito, chiamato
+Se lo si vuole usare, Symfony ha un motore di template predefinito, chiamato
 `Twig`_, che rende i template più veloci da scrivere e più facili da leggere.
 Questo vuol dire che l'applicazione di esempio può contenere ancora meno codice!
 Prendiamo per esempio il template della lista, scritto in Twig:
 
 .. code-block:: html+jinja
 
-    {# src/Acme/BlogBundle/Resources/views/Blog/list.html.twig #}
-    {% extends "::layout.html.twig" %}
+    {# app/Resources/views/Blog/list.html.twig #}
+    {% extends "layout.html.twig" %}
 
     {% block title %}Lista dei post{% endblock %}
 
@@ -752,7 +746,7 @@ Il template corrispondente ``layout.html.twig`` è anche più facile da scrivere
         </body>
     </html>
 
-Twig è ben supportato in Symfony2. Pur essendo sempre supportati i template PHP,
+Twig è ben supportato in Symfony. Pur essendo sempre supportati i template PHP,
 continueremo a discutere dei molti vantaggi offerti da Twig. Per ulteriori informazioni,
 vedere il :doc:`capitolo dei template </book/templating>`.
 

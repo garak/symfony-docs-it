@@ -1,7 +1,7 @@
 Convenzioni
 ===========
 
-La documentazione :doc:`standards` descrive gli standard del codice per i progetti Symfony2
+La documentazione :doc:`standards` descrive gli standard del codice per i progetti Symfony
 e per i bundle interni e di terze parti. Tale documento descrive gli
 standard e le convenzioni utilizzate nel nucleo del framework. per renderlo più
 coerente e prevedibile. Seguirle anche nel proprio codice è bene, anche se non
@@ -103,7 +103,4 @@ Inoltre, bisogna lanciare un errore PHP ``E_USER_DEPRECATED``, per aiutrare gli 
 nella migrazione, a partire da una o due versioni minori prima della versione in cui la
 caratteristica sarà rimossa (a seconda della criticità della rimozione)::
 
-    trigger_error(
-        'XXX() is deprecated since version 2.X and will be removed in 2.Y. Use XXX instead.',
-        E_USER_DEPRECATED
-    );
+    trigger_error('XXX() is deprecated since version 2.X and will be removed in 2.Y. Use XXX instead.', E_USER_DEPRECATED);

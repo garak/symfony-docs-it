@@ -1,7 +1,7 @@
 .. _symfony2-documentation:
 
-Documentazione Symfony2
-=======================
+Documentazione Symfony
+======================
 
 .. toctree::
     :hidden:
@@ -11,7 +11,7 @@ Documentazione Symfony2
 Giro rapido
 -----------
 
-Iniziare subito con il :doc:`giro rapido <quick_tour/index>` di Symfony2:
+Iniziare subito con il :doc:`giro rapido <quick_tour/index>` di Symfony:
 
 .. toctree::
     :hidden:
@@ -26,7 +26,7 @@ Iniziare subito con il :doc:`giro rapido <quick_tour/index>` di Symfony2:
 Libro
 -----
 
-Approfondire Symfony2 con le guide per argomento:
+Approfondire Symfony con le guide per argomento:
 
 .. toctree::
     :hidden:
@@ -44,6 +44,16 @@ Ricettario
     cookbook/index
 
 Leggere il :doc:`ricettario </cookbook/index>`.
+
+Best Practice
+-------------
+
+.. toctree::
+    :hidden:
+
+    best_practices/index
+
+Leggere le :doc:`best practice ufficiali </best_practices/index>`.
 
 Componenti
 ----------
@@ -67,33 +77,10 @@ Trovare rapidamente le risposte, con i documenti di riferimento:
 
 .. include:: /reference/map.rst.inc
 
-Bundle
-------
-
-L'edizione standard di Symfony è distribuita con alcuni bundle. Approfondimenti:
-
-.. toctree::
-    :hidden:
-
-    bundles/index
-
-.. include:: /bundles/map.rst.inc
-
-CMF
----
-
-Il progetto Symfony CMF facilita gli sviluppatori nell'aggiunta di funzionalità CMS
-ad applicazioni costruite con il framework Symfony2.
-
-.. toctree::
-    :hidden:
-
-    cmf/index
-
 Contributi
 ----------
 
-Contribuire a Symfony2:
+Contribuire a Symfony:
 
 .. toctree::
     :hidden:

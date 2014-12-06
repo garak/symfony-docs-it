@@ -132,8 +132,7 @@ il valore ``_controller`` di una rotta:
 .. tip::
 
     Si possono anche usare annotazioni per configurare le rotte in un controllore
-    definito come servizio. Vedere la
-    :doc:`documentazione di FrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/annotations/routing>`
+    definito come servizio. Vedere la `documentazione di FrameworkExtraBundle`_
     per maggiori dettagli.
 
 .. versionadded:: 2.6
@@ -271,3 +270,4 @@ iniettare *solamente* il servizio o i servizi necessari direttamente nel control
 
 .. _`codice della classe Controller`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php
 .. _`classe Controller base`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php
+.. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/routing.html

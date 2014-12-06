@@ -1,7 +1,7 @@
 .. _symfony2-documentation:
 
-Documentazione Symfony2
-=======================
+Documentazione Symfony
+======================
 
 .. toctree::
     :hidden:
@@ -11,7 +11,7 @@ Documentazione Symfony2
 Giro rapido
 -----------
 
-Iniziare subito con il :doc:`giro rapido <quick_tour/index>` di Symfony2:
+Iniziare subito con il :doc:`giro rapido <quick_tour/index>` di Symfony:
 
 .. toctree::
     :hidden:
@@ -26,7 +26,7 @@ Iniziare subito con il :doc:`giro rapido <quick_tour/index>` di Symfony2:
 Libro
 -----
 
-Approfondire Symfony2 con le guide per argomento:
+Approfondire Symfony con le guide per argomento:
 
 .. toctree::
     :hidden:
@@ -80,7 +80,7 @@ Trovare rapidamente le risposte, con i documenti di riferimento:
 Contributi
 ----------
 
-Contribuire a Symfony2:
+Contribuire a Symfony:
 
 .. toctree::
     :hidden:

@@ -471,7 +471,7 @@ nella propria applicazione. Per farlo, eseguire:
     per aggiungere questa nuova colonna alla tabella ``product`` esistente.
 
     Un modo ancora migliore per trarre vantaggio da questa funzionalità è tramite
-    le :doc:`migrazioni </bundles/DoctrineMigrationsBundle/index>`, che consentono di
+    le `migrazioni`_, che consentono di
     generare queste istruzioni SQL e di memorizzarle in classi di migrazione, che
     possono essere eseguite sistematicamente sul server di produzione, per
     poter tracciare e migrare lo schema della base dati in modo sicuro e affidabile.
@@ -558,8 +558,8 @@ sezione, si vedrà come Doctrine sia abbastanza intelligente da usare una query
 .. tip::
 
     Doctrine fornisce una libreria che consente di caricare dati di test
-    in un progetto (le cosiddette "fixture"). Per informazioni, vedere
-    :doc:`/bundles/DoctrineFixturesBundle/index`.
+    in un progetto (le cosiddette "fixture"). Per informazioni, vedere la documentazione di
+    "`DoctrineFixturesBundle`_".
 
 Recuperare oggetti dalla base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1082,7 +1082,7 @@ Prima di continuare, accertarsi di dire a Doctrine di aggiungere la nuova tabell
 
     Questo task andrebbe usato solo durante lo sviluppo. Per un metodo più robusto
     di aggiornamento sistematico della propria base dati di produzione, vedere le 
-    :doc:`migrazioni di Doctrine </bundles/DoctrineMigrationsBundle/index>`.
+    `migrazioni`_.
 
 Salvare le entità correlate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1400,8 +1400,8 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 
 * :doc:`/cookbook/doctrine/common_extensions`
 * :doc:`/cookbook/doctrine/console`
-* :doc:`/bundles/DoctrineFixturesBundle/index`
-* :doc:`/bundles/DoctrineMongoDBBundle/index`
+* `DoctrineFixturesBundle`_
+* `DoctrineMongoDBBundle`_
 
 .. _`Doctrine`: http://www.doctrine-project.org/
 .. _`MongoDB`: http://www.mongodb.org/
@@ -1415,6 +1415,6 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 .. _`Reserved SQL keywords documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#quoting-reserved-words
 .. _`Persistent classes`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#persistent-classes
 .. _`DoctrineMongoDBBundle`: http://symfony.com/doc/current/bundles/DoctrineMongoDBBundle/index.html
-.. _`migrations`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
+.. _`migrazioni`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
 .. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html

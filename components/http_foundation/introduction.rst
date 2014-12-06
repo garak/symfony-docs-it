@@ -441,6 +441,8 @@ Per rinviare il client a un altro URL, si può usare la classe
 
     $response = new RedirectResponse('http://example.com/');
 
+.. _streaming-response:
+
 Flusso di risposta
 ~~~~~~~~~~~~~~~~~~
 

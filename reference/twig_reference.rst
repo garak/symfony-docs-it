@@ -6,7 +6,7 @@
 Estensioni Twig di Symfony2
 ===========================
 
-Twig è il motore di template predefinito di Symfony2. Contiene già di suo diverse
+Twig è il motore di template predefinito di Symfony. Contiene già di suo diverse
 funzioni di libreria, filtri e tag (si può approfondirre su
 `Twig Reference`_).
 
@@ -195,5 +195,6 @@ Questi bundle possono avere altre estensioni di Twig:
   ``{% image %}``. Si può approfondire nella 
   :doc:`documentazione di Assetic </cookbook/assetic/asset_management>`.
 
+.. _`Twig Reference`: http://twig.sensiolabs.org/documentation#reference
 .. _`documentazione ufficiale delle estensioni di Twig`: http://twig.sensiolabs.org/doc/extensions/index.html
 .. _`http://twig.sensiolabs.org/documentation`: http://twig.sensiolabs.org/documentation

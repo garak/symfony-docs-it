@@ -9,7 +9,7 @@ e tutti i sotto-oggetti a esso associati.
 | Si applica a   | :ref:`proprietà o metodo <validation-property-target>`              |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `traverse`_                                                       |
-|                | - `deep   `_                                                        |
+|                | - `deep`_                                                           |
 +----------------+---------------------------------------------------------------------+
 | Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Valid`          |
 +----------------+---------------------------------------------------------------------+

@@ -288,11 +288,10 @@ sull'oggetto evento che viene passato agli ascoltatori di questo evento.
     framework Symfony, la maggior parte dei quali ha a che vedere con la raccolta di dati per il
     profilatore, se è abilitato.
 
-    Un interessante ascoltatore è presente in :doc:`SensioFrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/index>`,
+    Un interessante ascoltatore è presente in `SensioFrameworkExtraBundle`_,
     incluso in Symfony Standard Edition. La funzionalità
-    :doc:`@ParamConverter</bundles/SensioFrameworkExtraBundle/annotations/converters>`
-    di questo bundle consente di passare un oggetto completo (p.e. un oggetto ``Post``)
-    a un controllore, al posto di uno scalare (p.e. un parametro ``id``
+    `@ParamConverter`_ di questo bundle consente di passare un oggetto completo (p.e. un oggetto
+    ``Post``) a un controllore, al posto di uno scalare (p.e. un parametro ``id``
     presente su una rotta). L'ascoltatore, ``ParamConverterListener``, usa
     reflection per cercare ogni parametro del controllore e prova a usare
     vari metodi per convertirli in oggetti, che sono quindi memorizzati
@@ -395,14 +394,12 @@ restituire una ``Response``.
 .. sidebar:: ``kernel.view`` in the Symfony Framework
 
     Non c'è un ascoltatore predefinito nel framework Symfony per l'evento ``kernel.view``.
-    Tuttavia, un bundle del nucleo,
-    :doc:`SensioFrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/index>`,
+    Tuttavia, un bundle del nucleo, `SensioFrameworkExtraBundle`_,
     *aggiunge* un ascoltatore a questo evento. Se un controllore restituisce un array,
-    e se si inserisce l'annotazione :doc:`@Template</bundles/SensioFrameworkExtraBundle/annotations/view>`
+    e se si inserisce l'annotazione `@Template`_
     in cima al controllore, questo ascoltatore rende un template,
     passa l'array restituita dal controllore a tale template
-    e crea una ``Response`` con il contenuto restituito da tale
-    template.
+    e crea una ``Response`` con il contenuto restituito da tale template.
 
     Inoltre, un bundle popolare della comunità, `FOSRestBundle`_, implementa
     un ascoltatore di questo evento, con lo scopo di fornire un robusto livello vista,
@@ -471,6 +468,15 @@ Come si può vedere, richiamando ``$kernel->terminate`` dopo l'invio della rispo
 si lancerà l'evento ``kernel.terminate``, in cui si possono eseguire alcune
 azioni che potrebbero essere state rimandate, per poter restituire la risposta nel modo
 più veloce possibile al client (p.e. invio di email).
+
+.. caution::
+
+    Internamente, HttpKernel  fa uso della funazione :phpfunction:`fastcgi_finish_request` di
+    PHP. Questo vuole dire che, al momento, solo le API del server `PHP FPM`_ sono
+    in grado di inviare al cliente una risposta mentre il processo PHP del server
+    esegue ancora alcuni compiti. Con le API di ogni altro server, gli acoltatori di ``kernel.terminate``
+    sono comunque eseguiti, ma la risposta non viene inviata al cliente finché non
+    sono tutti completati.
 
 .. note::
 
@@ -569,21 +575,16 @@ ogni vento ha il suo oggetto evento:
 
 .. _component-http-kernel-event-table:
 
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| Nome              | Costante ``KernelEvents``     | Parametro passato all'ascoltatore                                                   |
-+===================+===============================+=====================================================================================+
-| kernel.request    | ``KernelEvents::REQUEST``     | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent`                    |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.controller | ``KernelEvents::CONTROLLER``  | :class:`Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent`               |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.view       | ``KernelEvents::VIEW``        | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForControllerResultEvent` |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.response   | ``KernelEvents::RESPONSE``    | :class:`Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent`                 |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.terminate  | ``KernelEvents::TERMINATE``   | :class:`Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent`                   |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
-| kernel.exception  | ``KernelEvents::EXCEPTION``   | :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent`        |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------+
+=====================  ================================  ===================================================================================
+Nome                   Costante ``KernelEvents``         Parametro passato all'ascoltatore
+=====================  ================================  ===================================================================================
+kernel.request         ``KernelEvents::REQUEST``         :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent`                    
+kernel.controller      ``KernelEvents::CONTROLLER``      :class:`Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent`
+kernel.view            ``KernelEvents::VIEW``            :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForControllerResultEvent`
+kernel.response        ``KernelEvents::RESPONSE``        :class:`Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent`
+kernel.terminate       ``KernelEvents::TERMINATE``       :class:`Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent`
+kernel.exception       ``KernelEvents::EXCEPTION``       :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent`
+=====================  ================================  ===================================================================================
 
 .. _http-kernel-working-example:
 
@@ -689,3 +690,7 @@ assomigliare a questo::
 .. _reflection: http://php.net/manual/it/book.reflection.php
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
 .. _`Create your own framework... on top of the Symfony2 Components`: http://fabien.potencier.org/article/50/create-your-own-framework-on-top-of-the-symfony2-components-part-1
+.. _`PHP FPM`: http://php.net/manual/en/install.fpm.php
+.. _`SensioFrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
+.. _`@ParamConverter`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+.. _`@Template`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/view.html

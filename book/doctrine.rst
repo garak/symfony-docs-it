@@ -5,8 +5,10 @@ Basi di dati e Doctrine
 =======================
 
 Uno dei compiti più comuni e impegnativi per qualsiasi applicazione
-implica la persistenza e la lettura di informazioni da una base dati. Fortunatamente,
-Symfony è integrato con `Doctrine`_, una libreria il cui unico scopo è quello di
+implica la persistenza e la lettura di informazioni da una base dati. Sebbene il
+framework Symfony non si integri con un ORM in modo predefinito,
+Symfony Standard Edition, la distribuzione più usata, dispone di
+un'integrazione con `Doctrine`_, una libreria il cui unico scopo è quello di
 fornire potenti strumenti per facilitare tali compiti. In questo capitolo, si imparerà
 la filosofia alla base di Doctrine e si vedrà quanto possa essere facile lavorare
 con una base dati.
@@ -14,14 +16,14 @@ con una base dati.
 .. note::
 
     Doctrine è totalmente disaccoppiato da Symfony e il suo utilizzo è facoltativo.
-    Questo capitolo è tutto su Doctrine, che si prefigge lo scopo di consentire una mappatura
+    Questo capitolo è tutto su Doctrine ORM, che si prefigge lo scopo di consentire una mappatura
     tra oggetti una base dati relazionale (come *MySQL*, *PostgreSQL* o
     *Microsoft SQL*). Se si preferisce l'uso di query grezze, lo si può fare facilmente,
     come spiegato nella ricetta ":doc:`/cookbook/doctrine/dbal`".
 
     Si possono anche persistere dati su `MongoDB`_ usando la libreria ODM Doctrine. Per
-    ulteriori informazioni, leggere la documentazione
-    ":doc:`/bundles/DoctrineMongoDBBundle/index`".
+    ulteriori informazioni, leggere la documentazione di
+    "DoctrineMongoDBBundle`_".
 
 Un semplice esempio: un prodotto
 --------------------------------
@@ -409,10 +411,10 @@ metodi già presenti).
 
     Con il comando ``doctrine:generate:entities`` si può:
 
-    * generare getter e setter;
+    * generare getter e setter,
 
     * generare classi repository configurate con l'annotazione
-      ``@ORM\Entity(repositoryClass="...")``;
+      ``@ORM\Entity(repositoryClass="...")``,
 
     * generare il costruttore appropriato per relazioni 1:n e n:m.
 
@@ -469,7 +471,7 @@ nella propria applicazione. Per farlo, eseguire:
     per aggiungere questa nuova colonna alla tabella ``product`` esistente.
 
     Un modo ancora migliore per trarre vantaggio da questa funzionalità è tramite
-    le :doc:`migrazioni </bundles/DoctrineMigrationsBundle/index>`, che consentono di
+    le `migrazioni`_, che consentono di
     generare queste istruzioni SQL e di memorizzarle in classi di migrazione, che
     possono essere eseguite sistematicamente sul server di produzione, per
     poter tracciare e migrare lo schema della base dati in modo sicuro e affidabile.
@@ -544,11 +546,10 @@ Analizziamo questo esempio:
 
   Di fatto, essendo Doctrine consapevole di tutte le proprie entità gestite,
   quando si chiama il metodo ``flush()``, esso calcola un insieme globale di
-  modifiche ed esegue le query più efficienti possibili. Per esempio, se si persiste
+  modifiche ed esegue le query nell'ordine corretto, usando dei prepared statement
+  per migliorare le prestazioni. Per esempio, se si persiste
   un totale di 100 oggetti ``Product`` e quindi si richiama ``flush()``,
-  Doctrine creerà una *singola* istruzione e la riuserà per ogni inserimento.
-  Questo pattern si chiama *Unit of Work* ed è utilizzato in virtù della sua
-  velocità ed efficienza.
+  Doctrine eseguirà 100 query ``INSERT`` in un singolo oggetto prepared statement.
 
 Quando si creano o aggiornano oggetti, il flusso è sempre lo stesso. Nella prossima
 sezione, si vedrà come Doctrine sia abbastanza intelligente da usare una query
@@ -557,8 +558,8 @@ sezione, si vedrà come Doctrine sia abbastanza intelligente da usare una query
 .. tip::
 
     Doctrine fornisce una libreria che consente di caricare dati di test
-    in un progetto (le cosiddette "fixture"). Per informazioni, vedere
-    :doc:`/bundles/DoctrineFixturesBundle/index`.
+    in un progetto (le cosiddette "fixture"). Per informazioni, vedere la documentazione di
+    "`DoctrineFixturesBundle`_".
 
 Recuperare oggetti dalla base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -585,8 +586,7 @@ in base al valore del suo ``id``::
 .. tip::
 
     Si può ottenere lo stesso risultato senza scrivere codice usando
-    la scorciatoia ``@ParamConverter``. Vedere la
-    :doc:`documentazione di FrameworkExtraBundle</bundles/SensioFrameworkExtraBundle/annotations/converters>`
+    la scorciatoia ``@ParamConverter``. Vedere la `documentazione di FrameworkExtraBundle`_
     per maggiori dettagli.
 
 Quando si cerca un particolare tipo di oggetto, si usa sempre quello che è noto
@@ -1082,7 +1082,7 @@ Prima di continuare, accertarsi di dire a Doctrine di aggiungere la nuova tabell
 
     Questo task andrebbe usato solo durante lo sviluppo. Per un metodo più robusto
     di aggiornamento sistematico della propria base dati di produzione, vedere le 
-    :doc:`migrazioni di Doctrine </bundles/DoctrineMigrationsBundle/index>`.
+    `migrazioni`_.
 
 Salvare le entità correlate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1105,6 +1105,7 @@ Vediamo ora il codice in azione. Immaginiamo di essere dentro un controllore::
             $product = new Product();
             $product->setName('Pippo');
             $product->setPrice(19.99);
+            $product->setDescription('Lorem ipsum dolor');
             // correlare questo prodotto alla categoria
             $product->setCategory($category);
 
@@ -1399,8 +1400,8 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 
 * :doc:`/cookbook/doctrine/common_extensions`
 * :doc:`/cookbook/doctrine/console`
-* :doc:`/bundles/DoctrineFixturesBundle/index`
-* :doc:`/bundles/DoctrineMongoDBBundle/index`
+* `DoctrineFixturesBundle`_
+* `DoctrineMongoDBBundle`_
 
 .. _`Doctrine`: http://www.doctrine-project.org/
 .. _`MongoDB`: http://www.mongodb.org/
@@ -1413,3 +1414,7 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 .. _`Lifecycle Events documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#lifecycle-events
 .. _`Reserved SQL keywords documentation`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#quoting-reserved-words
 .. _`Persistent classes`: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#persistent-classes
+.. _`DoctrineMongoDBBundle`: http://symfony.com/doc/current/bundles/DoctrineMongoDBBundle/index.html
+.. _`migrazioni`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
+.. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+.. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html

@@ -60,11 +60,10 @@ rende il template ``index.html.php``::
         );
     }
 
-Si può anche usare la scorciatoia :doc:`/bundles/SensioFrameworkExtraBundle/annotations/view`
-per rendere il template ``AcmeHelloBundle:Hello:index.html.php``::
+Si può anche usare la scorciatoia `@Template`_ per rendere il template
+``AcmeHelloBundle:Hello:index.html.php``::
 
     // src/Acme/HelloBundle/Controller/HelloController.php
-
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
     // ...
@@ -193,7 +192,7 @@ Il layout base ha già il codice per mostrare il titolo nella testata:
 
 .. code-block:: html+php
 
-    <!-- app/Resources/views/layout.html.php -->
+    <!-- app/Resources/views/base.html.php -->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><?php $view['slots']->output('title', 'Applicazione Ciao') ?></title>
@@ -256,7 +255,7 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 
     <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
     <?php echo $view['actions']->render(
-        new ControllerReference('AcmeHelloBundle:Hello:fancy', array(
+        new \Symfony\Component\HttpKernel\Controller\ControllerReference('AcmeHelloBundle:Hello:fancy', array(
             'name'  => $name,
             'color' => 'green',
         ))
@@ -353,3 +352,5 @@ in output in un contesto HTML. Il secondo parametro consente di cambiare il cont
 Per esempio, per mandare in output qualcosa in uno script JavaScript, usare il contesto ``js``::
 
     <?php echo $view->escape($var, 'js') ?>
+
+.. _`@Template`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/view`

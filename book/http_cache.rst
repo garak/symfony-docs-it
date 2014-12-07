@@ -8,7 +8,7 @@ Le applicazioni web sono dinamiche. Non importa quanto efficiente possa essere
 un'applicazione, ogni richiesta conterrà sempre overhead rispetto a quando
 si serve un file statico.
 
-Per la maggior parte delle applicazioni, questo non è un problema. Symfony2 è
+Per la maggior parte delle applicazioni, questo non è un problema. Symfony è
 molto veloce e, a meno che non si stia facendo qualcosa di veramente molto pesante,
 ogni richiesta sarà gestita rapidamente, senza stressare troppo il server.
 
@@ -23,40 +23,40 @@ Il modo più efficace per migliorare le prestazioni di un'applicazione è metter
 cache l'intero output di una pagina e quindi aggirare interamente l'applicazione a
 ogni richiesta successiva. Ovviamente, questo non è sempre possibile per siti altamente
 dinamici, oppure sì? In questo capitolo, mostreremo come funziona il sistema di cache
-di Symfony2 e perché pensiamo che sia il miglior approccio possibile.
+di Symfony e perché pensiamo che sia il miglior approccio possibile.
 
-Il sistema di cache di Symfony2 è diverso, perché si appoggia sulla semplicità e
+Il sistema di cache di Symfony è diverso, perché si appoggia sulla semplicità e
 sulla potenza della cache HTTP, definita nelle :term:`specifiche HTTP`.
-Invence di inventare un altro metodo di cache, Symfony2 abbraccia lo standard
+Invence di inventare un altro metodo di cache, Symfony abbraccia lo standard
 che definisce la comunicazione di base sul web. Una volta capiti i fondamenti
 dei modelli di validazione e scadenza della cache HTTP, si sarà in grado di
-padroneggiare il sistema di cache di Symfony2.
+padroneggiare il sistema di cache di Symfony.
 
-Per poter imparare come funziona la cache in Symfony2, procederemo in quattro
+Per poter imparare come funziona la cache in Symfony, procederemo in quattro
 passi:
 
-* **Passo 1**: Un :ref:`gateway cache <gateway-caches>`, o reverse proxy, è un livello
-  indipendente che si situa davanti all'applicazione. Il reverse proxy mette
-  in cache le risposte non appena sono restituite dall'applicazione e risponde
-  alle richieste con risposte in cache, prima che arrivino all'applicazione.
-  Symfony2 fornisce il suo reverse proxy, ma se ne può usare uno qualsiasi.
+#. **Passo 1**: Un :ref:`gateway cache <gateway-caches>`, o reverse proxy, è un livello
+   indipendente che si situa davanti all'applicazione. Il reverse proxy mette
+   in cache le risposte non appena sono restituite dall'applicazione e risponde
+   alle richieste con risposte in cache, prima che arrivino all'applicazione.
+   Symfony fornisce il suo reverse proxy, ma se ne può usare uno qualsiasi.
 
-* **Passo 2**: Gli header di :ref:`cache HTTP <http-cache-introduction>` sono usati
-  per comunicare col gateway cache e con ogni altra cache tra l'applicazione
-  e il client. Symfony2 fornisce impostazioni predefinite appropriate e una potente
-  interfaccia per interagire con gli header di cache.
+#. **Passo 2**: Gli header di :ref:`cache HTTP <http-cache-introduction>` sono usati
+   per comunicare col gateway cache e con ogni altra cache tra l'applicazione
+   e il client. Symfony fornisce impostazioni predefinite appropriate e una potente
+   interfaccia per interagire con gli header di cache.
 
-* **Passo 3**: La :ref:`scadenza e la validazione <http-expiration-validation>` HTTP sono
-  due modelli usati per determinare se il contenuto in cache è *fresco* (può
-  essere riusato dalla cache) o *vecchio* (andrebbe rigenerato
-  dall'applicazione):
+#. **Passo 3**: La :ref:`scadenza e la validazione <http-expiration-validation>` HTTP sono
+   due modelli usati per determinare se il contenuto in cache è *fresco* (può
+   essere riusato dalla cache) o *vecchio* (andrebbe rigenerato
+   dall'applicazione):
 
-* **Passo 4**: Gli :ref:`Edge Side Include <edge-side-includes>` (ESI) consentono alla
-  cache HTTP di essere usata per mettere in cache frammenti di pagine (anche frammenti
-  annidati) in modo indipendente. Con ESI, si può anche mettere in cache una pagina intera
-  per 60 minuti, ma una barra laterale interna per soli 5 minuti.
+#. **Passo 4**: Gli :ref:`Edge Side Include <edge-side-includes>` (ESI) consentono alla
+   cache HTTP di essere usata per mettere in cache frammenti di pagine (anche frammenti
+   annidati) in modo indipendente. Con ESI, si può anche mettere in cache una pagina intera
+   per 60 minuti, ma una barra laterale interna per soli 5 minuti.
 
-Poiché la cache con HTTP non è esclusiva di Symfony2, esistono già molti articoli a
+Poiché la cache con HTTP non è esclusiva di Symfony, esistono già molti articoli a
 riguardo. Se si è nuovi con la cache HTTP, raccomandiamo *caldamente* l'articolo
 di Ryan Tomayko `Things Caches Do`_. Un'altra risorsa importante è il `Cache Tutorial`_
 di Mark Nottingham.
@@ -85,7 +85,7 @@ la cache invia la risposta in cache al client, ignorando completamente
 l'applicazione.
 
 Questo tipo di cache è nota come HTTP gateway cache e ne esistono diverse, come
-`Varnish`_, `Squid in modalità reverse proxy`_ e il reverse proxy di Symfony2.
+`Varnish`_, `Squid in modalità reverse proxy`_ e il reverse proxy di Symfony.
 
 .. index::
    single: Cache; Tipi
@@ -126,17 +126,18 @@ cache dei primi due tipi. Queste cache sono fuori dal nostro controllo, ma seguo
 le indicazioni di cache HTTP impostate nella risposta.
 
 .. index::
-   single: Cache; Reverse proxy di Symfony2
+   single: Cache; Reverse proxy di Symfony
 
 .. _`symfony-gateway-cache`:
+.. _symfony2-reverse-proxy:
 
-Il reverse proxy di Symfony2 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Il reverse proxy di Symfony 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony2 ha un suo reverse proxy (detto anche gateway cache) scritto
+Symfony ha un suo reverse proxy (detto anche gateway cache) scritto
 in PHP. Abilitandolo, le risposte in cache dall'applicazione
 inizieranno a essere messe in cache. L'installazione è altrettanto facile.
-Ogni una applicazione Symfony2 ha la cache già configurata in ``AppCache``, che
+Ogni una applicazione Symfony ha la cache già configurata in ``AppCache``, che
 estende ``AppKernel``. Il kernel della cache *è* il reverse
 proxy.
 
@@ -161,10 +162,6 @@ il kernel della cache::
 
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
 le risposte dell'applicazione e restituendole al client.
-
-Ora che si sta usando un "proxy", si dovrà configurare ``127.0.0.1`` sotto la
-voce ``trusted_proxies`` (vedere :ref:`il riferimento <reference-framework-trusted-proxies>`).
-In caso contrario, l'indirizzo IP del client e alcune altre cose non saranno riportati correttamente.
 
 .. tip::
 
@@ -234,28 +231,28 @@ Ecco una lista delle opzioni principali:
   incontra un errore (predefinito: ``60``). Questa impostazione è sovrascritta
   dall'estensione ``stale-if-error`` ``Cache-Control`` di HTTP (vedere RFC 5861).
 
-Se ``debug`` è ``true``, Symfony2 aggiunge automaticamente un header
+Se ``debug`` è ``true``, Symfony aggiunge automaticamente un header
 ``X-Symfony-Cache`` alla risposta, con dentro informazioni utili su hit e miss della
 cache.
 
 .. sidebar:: Cambiare da un reverse proxy a un altro
 
-    Il reverse proxy di Symfony2 è un grande strumento da usare durante lo sviluppo
+    Il reverse proxy di Symfony è un grande strumento da usare durante lo sviluppo
     di un sito oppure quando il deploy di un sito è su un host condiviso,
     dove non si può installare altro che codice PHP. Ma, essendo scritto in PHP, non può
     essere veloce quando un proxy scritto in C. Per questo si raccomanda caldamente di
     usare Varnish o Squid sul server di produzione, se possibile. La buona notizia
     è che il cambio da un proxy a un altro è facile e trasparente, non implicando alcuna
     modifica al codice dell'applicazione. Si può iniziare semplicemente con il
-    reverse proxy di Symfony2 e aggiornare successivamente a Varnish, quando il traffico
+    reverse proxy di Symfony e aggiornare successivamente a Varnish, quando il traffico
     aumenta.
 
-    Per maggiori informazioni sull'uso di Varnish con Symfony2, vedere la ricetta
+    Per maggiori informazioni sull'uso di Varnish con Symfony, vedere la ricetta
     :doc:`usare Varnish </cookbook/cache/varnish>`.
 
 .. note::
 
-    Le prestazioni del reverse proxy di Symfony2 non dipendono dalla complessità
+    Le prestazioni del reverse proxy di Symfony non dipendono dalla complessità
     dell'applicazione. Questo perché il kernel dell'applicazione parte solo quando
     ha una richiesta a cui deve essere rigirato.
 
@@ -349,7 +346,7 @@ Per gestire questa situazione, ogni risposta può essere impostata a pubblica o 
   e quindi non deve essere messa in una cache condivisa.
 
 Symfony è conservativo e ha come predefinita una risposta privata. Per sfruttare le
-cache condivise (come il reverse proxy di Symfony2), la risposta deve essere
+cache condivise (come il reverse proxy di Symfony), la risposta deve essere
 impostata esplicitamente come pubblica.
 
 .. index::
@@ -381,7 +378,7 @@ header esplicito ``Cache-Control``. In pratica, la maggior parte delle cache non
 nulla quando la richiesta ha un cookie, un header di autorizzazione, usa un metodo non
 sicuro (PUT, POST, DELETE) o quando la risposta ha un codice di stato di rinvio.
 
-Symfony2 imposta automaticamente un header ``Cache-Control`` conservativo, quando
+Symfony imposta automaticamente un header ``Cache-Control`` conservativo, quando
 nessun header è impostato dallo sviluppatore, seguendo queste regole:
 
 * Se non è deinito nessun header di cache (``Cache-Control``, ``Expires``, ``ETag``
@@ -392,7 +389,7 @@ nessun header è impostato dallo sviluppatore, seguendo queste regole:
   il suo valore è impostato a ``private, must-revalidate``;
 
 * Se invece almeno una direttiva ``Cache-Control`` è impostata e nessuna direttiva
-  ``public`` o ``private`` è stata aggiunta esplicitamente, Symfony2 aggiunge
+  ``public`` o ``private`` è stata aggiunta esplicitamente, Symfony aggiunge
   automaticamente la direttiva ``private`` (tranne quando è impostato ``s-maxage``).
 
 .. _http-expiration-validation:
@@ -595,7 +592,7 @@ dover fare tanto lavoro.
 
 .. tip::
 
-    Symfony2 supporta anche gli ETag deboli, passando ``true`` come secondo
+    Symfony supporta anche gli ETag deboli, passando ``true`` come secondo
     parametro del metodo
     :method:`Symfony\\Component\\HttpFoundation\\Response::setETag`.
 
@@ -641,10 +638,10 @@ necessari per calcolare la rappresentazione della risorsa come valore dell'heade
         return $response;
     }
 
-Il metodo ``Response::isNotModified()`` confronta l'header ``If-Modified-Since``
-inviato dalla richiesta con l'header ``Last-Modified`` impostato nella risposta.
-Se sono equivalenti, la ``Response`` sarà impostata a un codice di stato
-304.
+Il metodo method:`Symfony\\Component\\HttpFoundation\\Response::isNotModified`
+confronta l'header ``If-Modified-Since`` inviato dalla richiesta con
+l'header ``Last-Modified`` impostato nella risposta. Se sono equivalenti,
+la ``Response`` sarà impostata a un codice di stato 304.
 
 .. note::
 
@@ -766,8 +763,7 @@ istruire la cache per servire il contenuto in cache, controllando ogni tanto
 .. tip::
 
     Si possono anche definire header HTTP per la scadenza e la validazione della cache usando le
-    annotazioni. Vedere la 
-    :doc:`documentazione di FrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/annotations/cache>`.
+    annotazioni. Vedere la `documentazione di FrameworkExtraBundle`_.
 
 .. index::
     pair: Cache; Configurazione
@@ -809,13 +805,13 @@ Usare Edge Side Includes
 Le gateway cache sono un grande modo per rendere un sito più prestante. Ma hanno
 una limitazione: possono mettere in cache solo pagine intere. Se non si possono mettere in
 cache pagine intere o se le pagine hanno più parti dinamiche, non vanno bene.
-Fortunatamente, Symfony2 fornisce una soluzione a questi casi, basata su una
+Fortunatamente, Symfony fornisce una soluzione a questi casi, basata su una
 tecnologia chiamata `ESI`_, o Edge Side Includes. Akamaï ha scritto le specifiche quasi
 dieci anni fa, consentendo a determinate parti di una pagina di avere differenti
 strategie di cache rispetto alla pagina principale.
 
 Le specifiche ESI descrivono dei tag che si possono inserire nelle proprie pagine, per
-comunicare col gateway cache. L'unico tag implementato in Symfony2 è ``include``,
+comunicare col gateway cache. L'unico tag implementato in Symfony è ``include``,
 poiché è l'unico utile nel contesto di Akamaï:
 
 .. code-block:: html
@@ -848,10 +844,12 @@ finale al client.
 
 Tutto questo avviene in modo trasparente a livello di gateway cache (quindi fuori
 dall'applicazione). Come vedremo, se si scegli di avvalersi dei tag ESI,
-Symfony2 rende quasi senza sforzo il processo di inclusione.
+Symfony rende quasi senza sforzo il processo di inclusione.
 
-Usare ESI in Symfony2
-~~~~~~~~~~~~~~~~~~~~~
+.. _using-esi-in-symfony2:
+
+Usare ESI in Symfony
+~~~~~~~~~~~~~~~~~~~~
 
 Per usare ESI, assicurarsi prima di tutto di abilitarlo nella configurazione dell'applicazione:
 
@@ -909,7 +907,7 @@ un'azione. Possiamo farlo grazie all'aiutante ``render`` (vedere
 :ref:`templating-embedding-controller` per maggiori dettagli).
 
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
-Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
+Symfony usa l'aiutante ``render`` per configurare i tag ESI:
 
 .. configuration-block::
 
@@ -934,32 +932,39 @@ Symfony2 usa l'aiutante ``render`` per configurare i tag ESI:
         ) ?>
 
 Usando l'opzione ``esi`` (che usa a sua volta la funzione Twig ``render_esi``), si dice
-a Symfony2 che l'azione va resa come tag ESI. Ci si potrebbe chiedere
+a Symfony che l'azione va resa come tag ESI. Ci si potrebbe chiedere
 perché voler usare un aiutante invece di scrivere direttamente il tag ESI.
 Il motivo è che un aiutante fa funzionare l'applicazione anche
 se non ci sono gateway per la cache installati.
 
+.. tip::
+
+    Come si vedrà più avanti, la variabile passata ``maxPerPage`` è disponibile
+    come parametro del controllore (come ``$maxPerPage``). Le variabili
+    passate tramite ``render_esi`` diventano ugualmente parte della chiave di cache, in modo
+    da avere cache uniche per ogni cobinazione di variabili e valori.
+
 Quando si usa la funzione ``render`` predefinita (o si usa l'opzione
-``inline``), Symfony2 fonde il contenuto della pagina inclusa in quello principale,
+``inline``), Symfony fonde il contenuto della pagina inclusa in quello principale,
 prima di inviare la risposta al client. Se invece si usa l'opzione ``esi``
-(che richiama ``render_esi``) *e* se Symfony2 capisce che sta parlando a un
+(che richiama ``render_esi``) *e* se Symfony capisce che sta parlando a un
 gateway per la cache che supporti ESI, genera un tag ESI. Ma se non c'è
-alcun gateway per la cache o se ce n'è uno che non supporta ESI, Symfony2 fonderà
+alcun gateway per la cache o se ce n'è uno che non supporta ESI, Symfony fonderà
 il contenuto della pagina inclusa in quello principale, come se fosse state usata
 ``render``.
 
 .. note::
 
-    Symfony2 individua se una gateway cache supporta ESI tramite un'altra
+    Symfony individua se una gateway cache supporta ESI tramite un'altra
     specifica di Akamaï, che è supportata nativamente dal reverse proxy di
-    Symfony2.
+    Symfony.
 
 L'azione inclusa ora può specificare le  sue regole di cache, indipendentemente
 dalla pagina principale.
 
 .. code-block:: php
 
-    public function newsAction($max)
+    public function newsAction($maxPerPage)
     {
         // ...
 
@@ -971,7 +976,7 @@ componente delle news avrà una cache che dura per soli 60 secondi.
 
 Quando si fa riferimento a un controllore, il tag ESI dovrebbe far riferimento all'azione
 inclusa con un URL accessibile, in modo che il gateway della cache possa recuperarla indipendentemente
-dal resto della pagina. Symfony2 si occupa di generare un URL univoco per ogni
+dal resto della pagina. Symfony si occupa di generare un URL univoco per ogni
 riferimento a controllori ed è in grado di puntare correttamente le rotte, grazie all'ascoltatore
 :class:`Symfony\\Component\\HttpKernel\\EventListener\\FragmentListener`,
 che va abilitato nella configurazione:
@@ -1026,7 +1031,7 @@ accessi al minimo.
     direttiva ``max-age`` e metterà in cache l'intera pagina. E questo non è quello che
     vogliamo.
 
-L'aiutante ``render_esi`` supporta due utili opzioni:
+L'aiutante ``render`` supporta due utili opzioni:
 
 * ``alt``: usato come attributo ``alt`` nel tag ESI, che consente di specificare
   un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
@@ -1062,7 +1067,7 @@ In realtà, ogni reverse proxy fornisce dei modi per pulire i dati in cache, ma
 andrebbero evitati, per quanto possibile. Il modo più standard è pulire la cache
 per un dato URL richiedendolo con il metodo speciale HTTP ``PURGE``.
 
-Ecco come si può configurare il reverse proxy di Symfony2 per supportare il
+Ecco come si può configurare il reverse proxy di Symfony per supportare il
 metodo HTTP ``PURGE``::
 
     // app/AppCache.php
@@ -1099,10 +1104,10 @@ metodo HTTP ``PURGE``::
 Riepilogo
 ---------
 
-Symfony2 è stato progettato per seguire le regole sperimentate della strada: HTTP.
-La cache non fa eccezione. Padroneggiare il sistema della cache di Symfony2 vuol dire
+Symfony è stato progettato per seguire le regole sperimentate della strada: HTTP.
+La cache non fa eccezione. Padroneggiare il sistema della cache di Symfony vuol dire
 acquisire familiarità con i modelli di cache HTTP e usarli in modo efficace. Vuol dire
-anche che, invece di basarsi solo su documentazione ed esempi di Symfony2, si ha accesso
+anche che, invece di basarsi solo su documentazione ed esempi di Symfony, si ha accesso
 al mondo della conoscenza relativo alla cache HTTP e a gateway cache come
 Varnish.
 
@@ -1121,4 +1126,5 @@ Imparare di più con le ricette
 .. _`HTTP Bis`: http://tools.ietf.org/wg/httpbis/
 .. _`P4 - Richieste condizionali`: http://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional
 .. _`P6 - Cache: Browser e cache intermedie`: http://tools.ietf.org/html/draft-ietf-httpbis-p6-cache
+.. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/cache.html
 .. _`ESI`: http://www.w3.org/TR/esi-lang

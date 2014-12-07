@@ -91,7 +91,6 @@ o una ``Closure``), in Symfony2, un controllore di solito è un unico metodo all
 di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 .. code-block:: php
-    :linenos:
 
     // src/Acme/HelloBundle/Controller/HelloController.php
     namespace Acme\HelloBundle\Controller;
@@ -146,12 +145,32 @@ nel controllore:
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/HelloController.php
+        namespace AppBundle\Controller;
+
+        use Symfony\Component\HttpFoundation\Response;
+        use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+        class HelloController
+        {
+            /**
+             * @Route("/hello/{name}", name="hello")
+             */
+            public function indexAction($name)
+            {
+                return new Response('<html><body>Ciao '.$name.'!</body></html>');
+            }
+        }
+
     .. code-block:: yaml
 
         # app/config/routing.yml
         hello:
             path:      /hello/{name}
-            defaults:  { _controller: AcmeHelloBundle:Hello:index }
+            # usa una sintassi speciale per puntare al controllore, vedere sotto
+            defaults:  { _controller: AppBundle:Hello:index }
 
     .. code-block:: xml
 
@@ -163,7 +182,8 @@ nel controllore:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="hello" path="/hello/{name}">
-                <default key="_controller">AcmeHelloBundle:Hello:index</default>
+                <!-- usa una sintassi speciale per puntare al controllore, vedere sotto -->
+                <default key="_controller">AppBundle:Hello:index</default>
             </route>
         </routes>
 
@@ -175,34 +195,30 @@ nel controllore:
 
         $collection = new RouteCollection();
         $collection->add('hello', new Route('/hello/{name}', array(
-            '_controller' => 'AcmeHelloBundle:Hello:index',
+            // usa una sintassi speciale per puntare al controllore, vedere sotto
+            '_controller' => 'AppBundle:Hello:index',
         )));
 
         return $collection;
 
-Andando in ``/hello/ryan`` ora viene eseguito il controllore ``HelloController::indexAction()``
-e viene passato ``ryan`` nella variabile ``$name``. Creare una
-"pagina" significa semplicemente creare un metodo controllore e associargli una rotta.
+Andando in ``/hello/ryan`` (p.e. ``http://localhost:8000/app_dev.php/hello/ryan``
+se si usa il :doc:`server web interno </cookbook/web_server/built_in>`)
+Symfony esegue il controllore ``HelloController::indexAction()``
+e passa ``ryan`` nella variabile ``$name``. Creare una "pagina" significa
+semplicemente creare un metodo controllore e associargli una rotta.
 
-Si noti la sintassi utilizzata per fare riferimento al controllore: ``AcmeHelloBundle:Hello:index``.
-Symfony2 utilizza una notazione flessibile per le stringhe per fare riferimento a diversi controllori.
-Questa è la sintassi più comune e dice a Symfony2 di cercare una classe
-controllore chiamata ``HelloController`` dentro un bundle chiamato ``AcmeHelloBundle``. Il
-metodo ``indexAction()`` viene quindi eseguito.
+Simple, right?
 
-Per maggiori dettagli sul formato stringa utilizzato per fare riferimento ai diversi controllori,
-vedere :ref:`controller-string-syntax`.
+.. sidebar:: La sintassi AppBundle:Hello:index del controllore
 
-.. note::
+    Se si usano i formati YML o XML, si farà riferimento al controllore usando
+    una speciale sintassi abbrevviata: ``AppBundle:Hello:index``. Per maggiori dettagli
+    sul formato del controllore, vedere :ref:`controller-string-syntax`.
 
-    Questo esempio pone la configurazione delle rotte direttamente nella cartella ``app/config/``.
-    Un modo migliore per organizzare le proprie rotte è quello di posizionare ogni rotta
-    nel bundle a cui appartiene. Per ulteriori informazioni, si veda
-    :ref:`routing-include-external-resources`.
+.. seealso::
 
-.. tip::
-
-    Si può imparare molto di più sul sistema delle rotte leggendo il :doc:`capitolo sulle rotte</book/routing>`.
+    Si può imparare molto di più sul sistema delle rotte
+    leggendo il :doc:`capitolo sulle rotte </book/routing>`.
 
 .. index::
    single: Controllore; Parametri del controllore
@@ -212,38 +228,55 @@ vedere :ref:`controller-string-syntax`.
 I parametri delle rotte come parametri del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Si è già appreso che il parametro ``AcmeHelloBundle:Hello:index`` di ``_controller``
-fa riferimento a un metodo ``HelloController::indexAction()`` che si trova all'interno di un
-bundle ``AcmeHelloBundle``. La cosa più interessante è che i parametri vengono
-passati a tale metodo::
+Si è già appreso che la rotta punta a un metodo ``HelloController::indexAction()``,
+che si trova all'interno di un bundle ``AppBundle``. La cosa più interessante è
+il parametro passato a tale metodo::
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
-    namespace Acme\HelloBundle\Controller;
+    // src/AppBundle/Controller/HelloController.php
+    // ...
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-    class HelloController extends Controller
+    /**
+     * @Route("/hello/{name}", name="hello")
+     */
+    public function indexAction($name)
     {
-        public function indexAction($name)
-        {
-            // ...
-        }
+        // ...
     }
 
 Il controllore ha un solo parametro, ``$name``, che corrisponde al
-parametro ``{name}`` della rotta corrispondente (``ryan`` nel nostro esempio).
-Infatti, quando viene eseguito il controllore, Symfony2 verifica ogni parametro del
-controllore con un parametro della rotta abbinata. Vedere il seguente
-esempio:
+parametro ``{name}`` della rotta corrispondente (``ryan`` se si va su ``/hell/ryan``).
+Infatti, quando viene eseguito il controllore, Symfony abbina ogni parametro del
+controllore a un parametro della rotta. Quindi il valore di ``{name}`` viene passato a ``$name``.
+
+Vedere il seguente esempio:
 
 .. configuration-block::
+
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Controller/HelloController.php
+        // ...
+
+        use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+        class HelloController
+        {
+            /**
+             * @Route("/hello/{firstName}/{lastName}", name="hello")
+             */
+            public function indexAction($firstName, $lastName)
+            {
+                // ...
+            }
+        }
 
     .. code-block:: yaml
 
         # app/config/routing.yml
         hello:
             path:      /hello/{firstName}/{lastName}
-            defaults:  { _controller: AcmeHelloBundle:Hello:index, color: green }
+            defaults:  { _controller: AppBundle:Hello:index }
 
     .. code-block:: xml
 
@@ -255,8 +288,7 @@ esempio:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="hello" path="/hello/{firstName}/{lastName}">
-                <default key="_controller">AcmeHelloBundle:Hello:index</default>
-                <default key="color">green</default>
+                <default key="_controller">AppBundle:Hello:index</default>
             </route>
         </routes>
 
@@ -268,36 +300,28 @@ esempio:
 
         $collection = new RouteCollection();
         $collection->add('hello', new Route('/hello/{firstName}/{lastName}', array(
-            '_controller' => 'AcmeHelloBundle:Hello:index',
-            'color'       => 'green',
+            '_controller' => 'AppBundle:Hello:index',
         )));
 
         return $collection;
 
 Per questo il controllore può richiedere diversi parametri::
 
-    public function indexAction($firstName, $lastName, $color)
+    public function indexAction($firstName, $lastName)
     {
         // ...
     }
-
-Si noti che entrambe le variabili segnaposto (``{first_name}``, ``{last_name}``),
-così come la variabile predefinita ``color``, sono disponibili come parametri nel
-controllore. Quando una rotta viene abbinata, le variabili segnaposto vengono unite
-con le ``impostazioni predefinite`` per creare un array che è disponibile al controllore.
 
 La mappatura dei parametri delle rotte nei parametri del controllore è semplice e flessibile. Tenere
 in mente le seguenti linee guida mentre si sviluppa.
 
 * **L'ordine dei parametri del controllore non ha importanza**
 
-  Symfony è in grado di abbinare i nomi dei parametri delle rotte e i nomi delle variabili
-  dei metodi dei controllori. In altre parole, vuol dire che
-  il parametro ``{last_name}`` corrisponde al parametro ``$last_name``.
-  I parametri del controllore possono essere totalmente riordinati e continuare a funzionare
-  perfettamente::
+  Symfony abbina i **nomi** dei parametri delle rotte e i **nomi** delle variabili
+  dei metodi dei controllori. I parametri del controllore possono essere totalmente riordinati e
+  continuare a funzionare perfettamente::
 
-      public function indexAction($lastName, $color, $firstName)
+      public function indexAction($lastName, $firstName)
       {
           // ...
       }
@@ -307,7 +331,7 @@ in mente le seguenti linee guida mentre si sviluppa.
   Il codice seguente genererebbe un ``RuntimeException``, perché non c'è nessun parametro ``foo``
   definito nella rotta::
 
-      public function indexAction($firstName, $lastName, $color, $foo)
+      public function indexAction($firstName, $lastName, $foo)
       {
           // ...
       }
@@ -315,7 +339,7 @@ in mente le seguenti linee guida mentre si sviluppa.
   Rendere il parametro facoltativo metterebbe le cose a posto. Il seguente
   esempio non lancerebbe un'eccezione::
 
-      public function indexAction($firstName, $lastName, $color, $foo = 'bar')
+      public function indexAction($firstName, $lastName, $foo = 'bar')
       {
           // ...
       }
@@ -325,7 +349,7 @@ in mente le seguenti linee guida mentre si sviluppa.
   Se, per esempio, ``last_name`` non è importante per il controllore,
   si può ometterlo del tutto::
 
-      public function indexAction($firstName, $color)
+      public function indexAction($firstName)
       {
           // ...
       }
@@ -334,95 +358,70 @@ in mente le seguenti linee guida mentre si sviluppa.
 
     Ogni rotta ha anche un parametro speciale ``_route``, che è equivalente al
     nome della rotta che è stata abbinata (ad esempio ``hello``). Anche se di solito non è
-    utile, questa è ugualmente disponibile come parametro del controllore.
+    utile, questa è ugualmente disponibile come parametro del controllore. Si possono anche
+    passare altre variabili alla rotta, dai parametri del controllore. Vedere
+    :doc:`/cookbook/routing/extra_information`.
 
 .. _book-controller-request-argument:
 
 La ``Request`` come parametro del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Per comodità, è anche possibile far passare a Symfony l'oggetto ``Request``
-come parametro al controllore. È particolarmente utile quando si
-lavora con i form, ad esempio::
+Che fare se si ha bisonog di leggere i parametri della query string o un header o accedere
+a un file caricato? Tutte queste informazioni sono memorizzate nell'oggetto ``Request`` di Symfony.
+Per ottenerlo in un controllore, basta aggiungerlo come parametro e
+**forzare il tipo a Request**::
 
     use Symfony\Component\HttpFoundation\Request;
 
-    public function updateAction(Request $request)
+    public function indexAction($firstName, $lastName, Request $request)
     {
-        $form = $this->createForm(...);
+        $page = $request->query->get('page', 1);
 
-        $form->handleRequest($request);
         // ...
     }
+
+.. seealso::
+
+    Per saperne di più su come ottenere informazioni dalla richiesta, si veda
+    :ref:`accedere alla informazioni sulla richiesta <component-http-foundation-request>`.
 
 .. index::
    single: Controllore; Classe base Controller
 
-Creare pagine statiche
-----------------------
-
-Si può creare una pagina statica, senza nemmeno creare un controllore (basta una rotta
-e un template).
-
-Vedere :doc:`/cookbook/templating/render_without_controller`.
-
 La classe base del controllore
 ------------------------------
 
-Per comodità, Symfony2 ha una classe base ``Controller`` che aiuta
+Per comodità, Symfony ha una classe base ``Controller``, che aiuta
 nelle attività più comuni del controllore e dà alla classe controllore
-l'accesso a qualsiasi risorsa che potrebbe essere necessaria. Estendendo questa classe ``Controller``,
-è possibile usufruire di numerosi metodi aiutanti.
+l'accesso ai servizi, tramite il contenitore (vedere :ref:`controller-accessing-services`).
 
 Aggiungere la dichiarazione ``use`` sopra alla classe ``Controller`` e modificare
 ``HelloController`` per estenderla::
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
-    namespace Acme\HelloBundle\Controller;
+    // src/AppBundle/Controller/HelloController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-    use Symfony\Component\HttpFoundation\Response;
 
     class HelloController extends Controller
     {
-        public function indexAction($name)
-        {
-            return new Response('<html><body>Hello '.$name.'!</body></html>');
-        }
+        // ...
     }
 
-Questo in realtà non cambia nulla su come lavora il controllore. Nella
-prossima sezione, si imparerà a conoscere i metodi aiutanti che rende disponibili
-la classe base del controllore. Questi metodi sono solo scorciatoie per usare funzionalità
-del nucleo di Symfony2 che sono a disposizione con o senza la classe
+Questo in realtà non cambia nulla su come lavora il controllore: dà solo
+accesso a dei metodi aiutanti, resi disponibili dalla
+classe base del controllore. Questi metodi sono solo scorciatoie per usare funzionalità
+del nucleo di Symfony, che sono a disposizione con o senza la classe
 base di ``Controller``. Un ottimo modo per vedere le funzionalità del nucleo in azione
-è quello di guardare nella classe
-:class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`
-stessa.
+è quello di guardare nella `classe Controller`_.
 
-.. tip::
+.. seealso::
 
-    Estendere la classe base è *opzionale* in Symfony; essa contiene utili
-    scorciatoie ma niente di obbligatorio. È inoltre possibile estendere
-    :class:`Symfony\Component\DependencyInjection\ContainerAware`. L'oggetto
-    contenitore di servizi sarà quindi accessibile tramite la proprietà ``container``.
-
-.. note::
-
-    È inoltre possibile definire i :doc:`controllori come servizi</cookbook/controller/service>`.
-    È opzionale, ma può dare maggiore controllo sulle esatte dipendenze
-    che sono iniettate dentro al controllore.
-
-.. index::
-   single: Controllore; Attività comuni
-
-Attività comuni del controllore
--------------------------------
-
-Anche se un controllore può fare praticamente qualsiasi cosa, la maggior parte dei controllori eseguiranno
-gli stessi compiti di base più volte. Questi compiti, come il rinvio,
-l'inoltro, il rendere i template e l'accesso ai servizi del nucleo, sono molto semplici
-da gestire con Symfony2.
+    È inoltre possibile definire i :doc:`controllori come servizi </cookbook/controller/service>`.
+    È opzionale, ma può dare maggiore controllo sulle esatte dipendenze e sugli oggetti
+    iniettati dentro al
+    controllore.
 
 .. index::
    single: Controllore; Rinvio
@@ -430,7 +429,9 @@ da gestire con Symfony2.
 Rinvio
 ~~~~~~
 
-Se si vuole rinviare l'utente a un'altra pagina, usare il metodo ``redirect()``::
+Se si vuole rinviare l'utente a un'altra pagina, usare il
+metodo
+:method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::redirect`::
 
     public function indexAction()
     {
@@ -459,73 +460,6 @@ eseguire un rinvio 301 (permanente), modificare il secondo parametro::
         return new RedirectResponse($this->generateUrl('homepage'));
 
 .. index::
-   single: Controllore; Inoltro
-
-Inoltro
-~~~~~~~
-
-Si può anche facilmente inoltrare internamente a un altro controllore con il metodo
-:method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::forward`.
-Invece di redirigere il browser dell'utente, fa una sotto richiesta interna
-e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'oggetto
-``Response`` che è tornato da quel controllore::
-
-    public function indexAction($name)
-    {
-        $response = $this->forward('AcmeHelloBundle:Hello:fancy', array(
-            'name'  => $name,
-            'color' => 'green',
-        ));
-
-        // ... modificare ulteriormente la risposta o restituirla direttamente
-
-        return $response;
-    }
-
-Si noti che il metodo `forward()` utilizza la stessa rappresentazione stringa del
-controllore utilizzato nella configurazione delle rotte. In questo caso, l'obiettivo
-della classe del controllore sarà ``HelloController`` all'interno di un qualche ``AcmeHelloBundle``.
-L'array passato al metodo diventa un insieme di parametri sul controllore risultante.
-La stessa interfaccia viene utilizzata quando si incorporano controllori nei template (vedere
-:ref:`templating-embedding-controller`). L'obiettivo del metodo controllore dovrebbe
-essere simile al seguente::
-
-    public function fancyAction($name, $color)
-    {
-        // ... creare e restituire un oggetto Response
-    }
-
-E proprio come quando si crea un controllore per una rotta, l'ordine dei parametri
-di ``fancyAction`` non è importante. Symfony2 controlla i nomi degli indici chiave
-(ad esempio ``name``) con i nomi dei parametri del metodo (ad esempio ``$name``). Se
-si modifica l'ordine dei parametri, Symfony2 continuerà a passare il corretto
-valore di ogni variabile.
-
-.. tip::
-
-    Come per gli altri metodi base di ``Controller``, il metodo ``forward`` è solo
-    una scorciatoia per funzionalità del nucleo di Symfony2. Un inoltro può essere eseguito
-    direttamente, duplicando la richiesta corrente. Quando tale
-    :ref:`sotto-richiesta<http-kernel-sub-requests>` viene eseguita, attraverso il servizio ``http_kernel``,
-    ``HttpKernel`` restituisce un oggetto ``Response``::
-
-        use Symfony\Component\HttpKernel\HttpKernelInterface;
-
-        $path = array(
-            '_controller' => 'AcmeHelloBundle:Hello:fancy',
-            'name'        => $name,
-            'color'       => 'green',
-        );
-        $request = $this->container->get('request');
-        $subRequest = $request->duplicate(array(), null, $path);
-
-        $httpKernel = $this->container->get('http_kernel');
-        $response = $httpKernel->handle(
-            $subRequest,
-            HttpKernelInterface::SUB_REQUEST
-        );
-
-.. index::
    single: Controllore; Rendere i template
 
 .. _controller-rendering-templates:
@@ -533,70 +467,42 @@ valore di ogni variabile.
 Rendere i template
 ~~~~~~~~~~~~~~~~~~
 
-Sebbene non sia un requisito, la maggior parte dei controllori alla fine rendono un template
-che è responsabile di generare il codice HTML (o un altro formato) per il controllore.
-Il metodo ``renderView()`` rende un template e restituisce il suo contenuto. Il
-contenuto di un template può essere usato per creare un oggetto ``Response``::
+Se si serve dell'HTML, si vorrà rendere un template. Il metodo ``render()``
+rende un template **e** ne inserisce il contenuto in un oggetto
+``Response``::
 
-    use Symfony\Component\HttpFoundation\Response;
+    // rende app/Resources/views/Hello/index.html.twig
+    return $this->render('Hello/index.html.twig', array('name' => $name));
 
-    $content = $this->renderView(
-        'AcmeHelloBundle:Hello:index.html.twig',
-        array('name' => $name)
-    );
+Si possono anche mettere template in sottocartelle. Meglio però evitare di creare
+strutture inutilmente profonde::
 
-    return new Response($content);
+    // rende app/Resources/views/Hello/Greetings/index.html.twig
+    return $this->render('Hello/Greetings/index.html.twig', array('name' => $name));
 
-Questo può anche essere fatto in un solo passaggio con il metodo ``render()``, che
-restituisce un oggetto ``Response`` contenente il contenuto di un template::
+Il motore di template di Symfony è spiegato in gran deettaglio nel capitolo
+:doc:`Template </book/templating>`.
 
-    return $this->render(
-        'AcmeHelloBundle:Hello:index.html.twig',
-        array('name' => $name)
-    );
+.. sidebar:: Riferimenti a template che si trovano in un bundle
 
-In entrambi i casi, verrà reso il template ``Resources/views/Hello/index.html.twig`` presente
-all'interno di ``AcmeHelloBundle``.
-
-Il motore per i template di Symfony è spiegato in dettaglio nel
-capitolo :doc:`Template </book/templating>`.
-
-.. tip::
-
-    Si può anche evitare di richiamare il metodo ``render``, usando l'annotazione ``@Template``.
-    Si veda la
-    :doc:`documentazione di FrameworkExtraBundle </bundles/SensioFrameworkExtraBundle/annotations/view>`
-    per maggiori dettagli.
-
-.. tip::
-
-    Il metodo ``renderView`` è una scorciatoia per usare direttamente il servizio ``templating``.
-    Il servizio ``templating`` può anche essere utilizzato in modo diretto::
-
-        $templating = $this->get('templating');
-        $content = $templating->render(
-            'AcmeHelloBundle:Hello:index.html.twig',
-            array('name' => $name)
-        );
-
-.. note::
-
-    Si possono anche rendere template in ulteriori sottocartelle, ma si faccia attenzione
-    a evitare l'errore di rendere la struttura delle cartelle eccessivamente
-    elaborata::
-
-        $templating->render(
-            'AcmeHelloBundle:Hello/Greetings:index.html.twig',
-            array('name' => $name)
-        );
-        // viene reso index.html.twig trovato in Resources/views/Hello/Greetings
-
+    Si possono anche mettere template nella cartella ``Resources/views`` directory di un
+    bundle e farvi riferimento con la sintassi
+    ``NomeBundle:NomeCartella:NomeFile``. Per esempio,
+    ``AppBundle:Hello:index.html.twig`` si riferisce a un template collocato in
+    ``src/AppBundle/Resources/views/Hello/index.html.twig``. Vedere :ref:`template-referencing-in-bundle`.
 
 .. index::
    single: Controllore; Accedere ai servizi
 
+.. _controller-accessing-services:
+
 Accesso ad altri servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~
+
+Symfony dispone di vari oggetti utili, chiamati servizi. Si possono usare
+per rendere template, inviare email, interrogare la base dati e per ogni altro
+"lavoro" immaginabile. Quando si installa un nuovo bundle, probabilmente si avranno
+a disposizione *ulteriori* servizi.
 
 Quando si estende la classe base del controllore, è possibile accedere a qualsiasi servizio di Symfony2
 attraverso il metodo ``get()``. Di seguito si elencano alcuni servizi comuni che potrebbero essere utili::
@@ -607,8 +513,7 @@ attraverso il metodo ``get()``. Di seguito si elencano alcuni servizi comuni che
 
     $mailer = $this->get('mailer');
 
-Ci sono innumerevoli altri servizi disponibili e si incoraggia a definirne
-di propri. Per elencare tutti i servizi disponibili, utilizzare il comando di console
+Ci sono innumerevoli altri servizi disponibili. Per elencarli tutti, utilizzare il comando di console
 ``container:debug``:
 
 .. code-block:: bash
@@ -639,7 +544,8 @@ Se si sta estendendo la classe base del controllore, procedere come segue::
         return $this->render(...);
     }
 
-Il metodo ``createNotFoundException()`` crea uno speciale oggetto ``NotFoundHttpException``,
+Il metodo ``createNotFoundException()`` crea uno speciale oggetto
+:class:`Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException`,
 che in ultima analisi innesca una risposta HTTP 404 all'interno di Symfony.
 
 Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllore -
@@ -650,7 +556,9 @@ Symfony2 ritornerà automaticamente un codice di risposta HTTP 500.
     throw new \Exception('Qualcosa è andato storto!');
 
 In ogni caso, all'utente finale viene mostrata una pagina di errore predefinita e allo sviluppatore
-viene mostrata una pagina di errore completa di debug (quando si visualizza la pagina in modalità debug).
+viene mostrata una pagina di errore completa di debug (cioè usando ``app_dev.php``,
+vedere :ref:`page-creation-environments`).
+
 Entrambe le pagine di errore possono essere personalizzate. Per ulteriori informazioni, leggere
 nel ricettario ":doc:`/cookbook/controller/error_pages`".
 
@@ -772,22 +680,26 @@ e il contenuto che viene inviato al client::
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');
 
-.. tip::
+La proprietà ``headers`` è un oggetto :class:`Symfony\\Component\\HttpFoundation\\HeaderBag`
+con alcuni utili metodi per leggere e modificare gli header ``Response``. I nomi degli
+header sono normalizzati in modo che l'utilizzo di ``Content-Type`` sia equivalente a
+``content-type`` o anche a ``content_type``.
 
-    La proprietà ``headers`` è un
-    oggetto :class:`Symfony\\Component\\HttpFoundation\\HeaderBag` con alcuni
-    utili metodi per leggere e modificare gli header ``Response``. I
-    nomi degli header sono normalizzati in modo che l'utilizzo di ``Content-Type`` sia equivalente
-    a ``content-type`` o anche a ``content_type``.
+Ci sono anche alcune classi speciali, che facilitano alcuni tipi di risposta:
 
-.. tip::
+* Per JSON, :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`.
+  Vedere :ref:`component-http-foundation-json-response`.
 
-    Ci sono anche alcune classi speciali, che facilitano alcuni tipi di risposta:
+* Per i file, :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`.
+  Vedere :ref:`component-http-foundation-serving-files`.
 
-    - Per JSON, :class:`Symfony\\Component\\HttpFoundation\\JsonResponse`.
-      Vedere :ref:`component-http-foundation-json-response`.
-    - Per i file, :class:`Symfony\\Component\\HttpFoundation\\BinaryFileResponse`.
-      Vedere :ref:`component-http-foundation-serving-files`.
+* Per le risposte in flussi, :class:`Symfony\\Component\\HttpFoundation\\StreamedResponse`.
+  Per :ref:`streaming-response`.
+
+.. seealso::
+
+    Niente paura! Ci sono molte altre informazioni nell'oggetto ``Response``
+    nella documentazione sui componenti. Vedere :ref:`component-http-foundation-response`.
 
 .. index::
    single: Controllore; Oggetto Request 
@@ -816,6 +728,62 @@ controllore, se una variabile è forzata a
 Come l'oggetto ``Response``, le intestazioni della richiesta sono memorizzate in un oggetto ``HeaderBag``
 e sono facilmente accessibili.
 
+.. seealso::
+
+    Niente paura! Ci sono molte altre informazioni nell'oggetto ``Request``
+    nella documentazione sui componenti. Vedere :ref:`component-http-foundation-response`.
+
+Creare pagine statiche
+----------------------
+
+Si può creare una pagina statica, senza nemmeno creare un controllore (basta una rotta
+e un template).
+
+Vedere :doc:`/cookbook/templating/render_without_controller`.
+
+.. index::
+   single: Controllore; Inoltro
+
+Inoltro a un altro controllore
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si può anche facilmente inoltrare internamente a un altro controllore con il metodo
+:method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::forward`.
+Invece di redirigere il browser dell'utente, fa una sotto richiesta interna
+e chiama il controllore specificato. Il metodo ``forward()`` restituisce l'oggetto
+``Response`` che è tornato da quel controllore::
+
+    public function indexAction($name)
+    {
+        $response = $this->forward('AppBundle:Something:fancy', array(
+            'name'  => $name,
+            'color' => 'green',
+        ));
+
+        // ... modificare ulteriormente la risposta o restituirla direttamente
+
+        return $response;
+    }
+
+Si noti che il metodo ``forward()`` utilizza la stessa rappresentazione stringa del
+controllore (vedere :ref:`controller-string-syntax`). In questo caso, l'obiettivo
+della classe del controllore sarà ``SomethingController::fancyAction()``
+in ``AppBundle``. L'array passato al metodo diventa un insieme di parametri sul controllore risultante.
+La stessa interfaccia viene utilizzata quando si incorporano controllori nei template (vedere
+:ref:`templating-embedding-controller`). L'obiettivo del metodo controllore dovrebbe
+essere simile al seguente::
+
+    public function fancyAction($name, $color)
+    {
+        // ... creare e restituire un oggetto Response
+    }
+
+E proprio come quando si crea un controllore per una rotta, l'ordine dei parametri
+di ``fancyAction`` non è importante. Symfony2 controlla i nomi degli indici chiave
+(ad esempio ``name``) con i nomi dei parametri del metodo (ad esempio ``$name``). Se
+si modifica l'ordine dei parametri, Symfony2 continuerà a passare il corretto
+valore di ogni variabile.
+
 Considerazioni finali
 ---------------------
 
@@ -838,3 +806,5 @@ Imparare di più dal ricettario
 
 * :doc:`/cookbook/controller/error_pages`
 * :doc:`/cookbook/controller/service`
+
+.. _`classe Controller`: https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php

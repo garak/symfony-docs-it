@@ -95,6 +95,8 @@ ogni posto in cui si crea un servizio ``Mailer`` e cambiarlo.
 .. index::
    single: Contenitore di servizi; Configurare i servizi
 
+.. _service-container-creating-service:
+
 Creare/Configurare servizi nel contenitore
 ------------------------------------------
 

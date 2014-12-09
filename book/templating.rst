@@ -17,7 +17,7 @@ il codice di un template
 .. note::
 
     La resa dei template è spiegata nel capitolo relativo al
-   :ref:`controllore <controller-rendering-templates>` del libro.
+    :ref:`controllore <controller-rendering-templates>` del libro.
 
 .. index::
    single: Template; Cos'è un template?

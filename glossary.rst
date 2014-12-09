@@ -7,12 +7,12 @@ Glossario
    :sorted:
 
    Distribuzione
-        Una *distribuzione* è una modalità di impacchettamento dei componenti di Symfony2,
+        Una *distribuzione* è una modalità di impacchettamento dei componenti di Symfony,
         una selezione di bundle, una struttura di cartelle adeguata, una
         configurazione predefinita e un sistema di configurazione opzionale.
 
    Dependency Injection
-        *Dependency Injection* è un design pattern molto usato nel framework Symfony2.
+        *Dependency Injection* è un design pattern molto usato nel framework Symfony.
         Incoraggia un'architettura per le applicazioni poco accopiata e più manutenbile.
         Il principio di base di questo pattern sta nel consentire allo sviluppatore di *iniettare* oggetti
         (noti anche come "servizi") in altri oggetti, solitamente passandoli come parametri.
@@ -33,7 +33,7 @@ Glossario
    Bundle
         Un *bundle* è una cartella con un insieme di file (file PHP, fogli di stile,
         JavaScript, immagini, ...) che *implementa* una singola caratteristica
-        (un blog, un forum, eccetera). In Symfony2, (*quasi*) tutto risiede all'interno
+        (un blog, un forum, eccetera). In Symfony, (*quasi*) tutto risiede all'interno
         di un bundle. (si veda :ref:`page-creation-bundles`)
 
    Front controller
@@ -52,7 +52,7 @@ Glossario
    Servizio
         Un *servizio* è un termine generico per qualsiasi oggetto PHP che esegua un
         compito specifico. Un servizio è solitamente usato "globalmente", come un oggetto
-        di connessione a una base dati o un oggetto che invia messaggi email. In Symfony2,
+        di connessione a una base dati o un oggetto che invia messaggi email. In Symfony,
         i servizi sono spesso configurati e recuperati da un contenitore di servizi.
         Un'applicazione con molti servizi non accoppiati segue una
         `architettura orientata ai servizi`_.
@@ -83,10 +83,10 @@ Glossario
         ottimizzato per la velocità.
 
    Venditore
-        Un *venditore* è un fornitore di librerie PHP e di bundle, incluso Symfony2
+        Un *venditore* è un fornitore di librerie PHP e di bundle, incluso Symfony
         stesso. A dispetto delle connotazioni commerciali del termine, i venditori
-        in Symfony2 includono spesso e volentieri software libero. Qualsiasi libreria
-        si aggiunga a un progetto Symfony2 dovrebbe andare nella cartella ``vendor``.
+        in Symfony includono spesso e volentieri software libero. Qualsiasi libreria
+        si aggiunga a un progetto Symfony dovrebbe andare nella cartella ``vendor``.
         Si veda :ref:`L'architettura: usare i venditori <using-vendors>`.
 
    Acme
@@ -107,13 +107,13 @@ Glossario
         :term:`bundle` nella cartella web, usando il task di console ``assets:install``.
 
    Kernel
-        Il *kernel* è il nucleo di Symfony2. L'oggetto kernel gestisce le richieste HTTP,
+        Il *kernel* è il nucleo di Symfony. L'oggetto kernel gestisce le richieste HTTP,
         usando tutti i bundle e le librerie registrate. Si veda
         :ref:`L'architettura: La cartella delle applicazioni <the-app-dir>` e il
         capitolo :doc:`/book/internals`.
 
    Firewall
-        In Symfony2, un *firewall* non ha a che fare con le reti. Definisce invece
+        In Symfony, un *firewall* non ha a che fare con le reti. Definisce invece
         i meccanismi di autenticazione (ovvero gestisce il processo di determinazione
         dell'identità degli utenti), sia per l'intera applicazione che per le singole
         parti di essa. Si vedano i capitoli
@@ -122,7 +122,7 @@ Glossario
    YAML
         *YAML* è un acronimo ricorsivo, che sta per "YAML Ain't a Markup Language". È un
         linguaggio di serializzazione dei dati leggero e umano, molto usato nei file
-        di configurazione di Symfony2. Si veda il capitolo
+        di configurazione di Symfony. Si veda il capitolo
         :doc:`/components/yaml/introduction`.
 
 

@@ -59,7 +59,7 @@ Standard:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.4.*
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony '~2.6'
 
 .. tip::
 
@@ -112,10 +112,10 @@ uno dei seguenti comandi (sostituire ``###`` con il vero nome del file):
 .. code-block:: bash
 
     # per il file .tgz
-    $ tar zxvf Symfony_Standard_Vendors_2.3.###.tgz
+    $ tar zxvf Symfony_Standard_Vendors_2.6.###.tgz
 
     # per il file .zip
-    $ unzip Symfony_Standard_Vendors_2.3.###.zip
+    $ unzip Symfony_Standard_Vendors_2.6.###.zip
 
 Se si è optato per la versione senza venditori, occorerà leggere la 
 prossima sezione.

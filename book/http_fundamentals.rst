@@ -1,23 +1,23 @@
 .. index::
-   single: Fondamenti di Symfony2
+   single: Fondamenti di Symfony
 
 .. _symfony2-and-http-fundamentals:
 
-Symfony2 e fondamenti di HTTP
-=============================
+Symfony e fondamenti di HTTP
+============================
 
-Congratulazioni! Imparando Symfony2, si tende a essere sviluppatori web più
+Congratulazioni! Imparando Symfony, si tende a essere sviluppatori web più
 *produttivi*, *versatili* e *popolari* (in realtà, per quest'ultimo dovete
-sbrigarvela da soli). Symfony2 è costruito per tornare alle basi: per sviluppare
+sbrigarvela da soli). Symfony è costruito per tornare alle basi: per sviluppare
 strumenti che consentono di sviluppare più velocemente e costruire applicazioni
 più robuste, anche andando fuori strada. Symfony è costruito sulle migliori idee
 prese da diverse tecnologie: gli strumenti e i concetti che si stanno per apprendere
 rappresentano lo sforzo di centinaia di persone, in molti anni. In altre parole,
 non si sta semplicemente imparando "Symfony", si stanno imparando i fondamenti del web,
 le pratiche migliori per lo sviluppo e come usare tante incredibili librerie PHP,
-all'interno o dipendenti da Symfony2. Tenetevi pronti.
+all'interno o dipendenti da Symfony. Tenetevi pronti.
 
-Fedele alla filosofia di Symfony2, questo capitolo inizia spiegando il concetto
+Fedele alla filosofia di Symfony, questo capitolo inizia spiegando il concetto
 fondamentale comune allo sviluppo web: HTTP. Indipendentemente dalla propria storia
 o dal linguaggio di programmazione preferito, questo capitolo andrebbe letto da tutti.
 
@@ -37,8 +37,8 @@ HTTP è il termine usato per descrivere tale semplice linguaggio testuale. Non i
 quale linguaggio si sviluppi sul web, lo scopo di un server è *sempre* quello di
 interpretare semplici richieste testuali e restituire semplici risposte testuali.
 
-Symfony2 è costruito fin dalle basi attorno a questa realtà. Che lo si comprenda o
-meno, HTTP è qualcosa che si usa ogni giorno. Con Symfony2, si imparerà come
+Symfony è costruito fin dalle basi attorno a questa realtà. Che lo si comprenda o
+meno, HTTP è qualcosa che si usa ogni giorno. Con Symfony, si imparerà come
 padroneggiarlo.
 
 .. index::
@@ -175,7 +175,7 @@ L'architettura di Symfony è strutturata per corrispondere a questa realtà.
     risposta durante la navigazione è l'estensione `Live HTTP Headers`_ di Firefox.
 
 .. index::
-   single: Fondamenti di Symfony2; Richieste e risposte
+   single: Fondamenti di Symfony; Richieste e risposte
 
 Richieste e risposte in PHP
 ---------------------------
@@ -266,7 +266,7 @@ tramite una connessione sicura (cioè HTTPS).
 
     La classe Request ha anche una proprietà pubblica ``attributes``, che contiene
     dati speciali relativi a come l'applicazione funziona internamente. Per il
-    framework Symfony2, ``attributes`` contiene valori restituiti dalla rotta
+    framework Symfony, ``attributes`` contiene valori restituiti dalla rotta
     corrispondente, come ``_controller``, ``id`` (se si ha un parametro ``{id}``),
     e anche il nome della rotta stessa (``_route``). La proprietà
     ``attributes`` è pensata apposta per essere un posto in cui preparare
@@ -277,6 +277,7 @@ messaggio di risposta HTTP. Questo consente a un'applicazione di usare un'interf
 orientata agli oggetti per costruire la risposta che occorre restituire al client::
 
     use Symfony\Component\HttpFoundation\Response;
+
     $response = new Response();
 
     $response->setContent('<html><body><h1>Ciao mondo!</h1></body></html>');
@@ -366,6 +367,7 @@ possono peggiorare rapidamente::
     // index.php
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
+
     $request = Request::createFromGlobals();
     $path = $request->getPathInfo(); // il percorso dell'URI richiesto
 
@@ -391,7 +393,7 @@ Symfony segue lo stesso semplice schema per ogni richiesta:
 
 .. figure:: /images/request-flow.png
    :align: center
-   :alt: flusso della richiesta di Symfony2
+   :alt: flusso della richiesta di Symfony
 
    Le richieste in entrata sono interpretate dal routing e passate alle funzioni del
    controllore, che restituisce oggetti ``Response``.
@@ -427,7 +429,7 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
         # app/config/routing.yml
         contact:
             path:     /contact
-            defaults: { _controller: AcmeDemoBundle:Main:contact }
+            defaults: { _controller: AppBundle:Main:contact }
 
     .. code-block:: xml
 
@@ -439,7 +441,7 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="contact" path="/contact">
-                <default key="_controller">AcmeDemoBundle:Main:contact</default>
+                <default key="_controller">AppBundle:Main:contact</default>
             </route>
         </routes>
 
@@ -451,24 +453,18 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
 
         $collection = new RouteCollection();
         $collection->add('contact', new Route('/contact', array(
-            '_controller' => 'AcmeDemoBundle:Main:contact',
+            '_controller' => 'AppBundle:Main:contact',
         )));
 
         return $collection;
-
-.. note::
-
-   L'esempio usa :doc:`YAML</components/yaml/yaml_format>` per definire la configurazione
-   delle rotte. La configurazione delle rotte può essere scritta anche in altri formati,
-   come XML o PHP.
 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
 specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
 la stringa ``AcmeDemoBundle:Main:contact`` è una sintassi breve che punta a uno specifico
 metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
-    // src/Acme/DemoBundle/Controller/MainController.php
-    namespace Acme\DemoBundle\Controller;
+    // src/AppBundle/Controller/MainController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\Response;
 
@@ -491,8 +487,8 @@ email.
 
 .. _symfony2-build-your-app-not-your-tools:
 
-Symfony2: costruire un'applicazione, non degli strumenti
---------------------------------------------------------
+Symfony: costruire un'applicazione, non degli strumenti
+-------------------------------------------------------
 
 Sappiamo dunque che lo scopo di un'applicazione è interpretare ogni richiesta in entrata
 e creare un'appropriata risposta. Al crescere di un'applicazione, diventa sempre più
@@ -503,20 +499,20 @@ gestire la sicurezza.
 
 La buona notizia è che nessuno di questi problemi è unico. Symfony fornisce un framework
 pieno di strumenti che consentono di costruire un'applicazione, non di costruire degli
-strumenti. Con Symfony2, nulla viene imposto: si è liberi di usare l'intero framework
+strumenti. Con Symfony, nulla viene imposto: si è liberi di usare l'intero framework
 oppure un solo pezzo di Symfony.
 
 .. index::
-   single: Componenti di Symfony2
+   single: Componenti di Symfony
 
 .. _standalone-tools-the-symfony2-components:
 
-Strumenti isolati: i *componenti* di Symfony2
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Strumenti isolati: i *componenti* di Symfony
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Cos'*è* dunque Symfony2? Primo, è un insieme di oltre venti librerie indipendenti, che
+Cos'*è* dunque Symfony? Primo, è un insieme di oltre venti librerie indipendenti, che
 possono essere usate in *qualsiasi* progetto PHP. Queste librerie, chiamate
-*componenti di Symfony2*, contengono qualcosa di utile per quasi ogni situazione,
+*componenti di Symfony*, contengono qualcosa di utile per quasi ogni situazione,
 comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 
 * :doc:`HttpFoundation </components/http_foundation/introduction>` - Contiene le
@@ -528,15 +524,11 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
   su come tale richiesta andrebbe gestita  (p.e. eseguendo il metodo
   ``contactAction()``);
 
-* `Form`_ - Un framework completo e flessibile per creare form e gestire invii di
+* :doc:`Form </components/form/introduction>` - Un framework completo e flessibile per creare form e gestire invii di
   dati;
 
 * `Validator`_ Un sistema per creare regole sui dati e quindi validarli, sia che i dati
   inviati dall'utente seguano o meno tali regole;
-
-* :doc:`ClassLoader </components/class_loader/introduction>` Una libreria di autoloading che consente
-  l'uso di classi PHP senza bisogno di usare manualmente ``require`` sui file
-  che contengono tali classi;
 
 * :doc:`Templating </components/templating/introduction>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
   template (p.e. un template è decorato con un layout) ed eseguire altri compiti
@@ -545,21 +537,22 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 * `Security`_ - Una potente libreria per gestire tutti i tipi di sicurezza all'interno
   di un'applicazione;
 
-* `Translation`_ Un framework per tradurre stringhe nella propria applicazione.
+* :doc:`Translation </components/translation/introduction>` - Un framework
+  per tradurre stringhe nella propria applicazione.
 
 Tutti questi componenti sono disaccoppiati e possono essere usati in *qualsiasi* progetto
-PHP, indipendentemente dall'uso del framework Symfony2. Ogni parte di essi è stata
+PHP, indipendentemente dall'uso del framework Symfony. Ogni parte di essi è stata
 realizzata per essere usata se necessario e sostituita in caso contrario.
 
 .. _the-full-solution-the-symfony2-framework:
 
-La soluzione completa il *framework* Symfony2
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+La soluzione completa il *framework* Symfony
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Cos'*è* quindi il *framework* Symfony2? Il *framework Symfony2* è una libreria PHP
+Cos'*è* quindi il *framework* Symfony? Il *framework Symfony* è una libreria PHP
 che esegue due compiti distinti:
 
-#. Fornisce una selezione di componenti (cioè i componenti di Symfony2) e
+#. Fornisce una selezione di componenti (cioè i componenti di Symfony) e
    librerie di terze parti (p.e. `Swiftmailer`_ per l'invio di email);
 
 #. Fornisce una pratica configurazione e una libreria "collante", che lega insieme tutti
@@ -570,9 +563,9 @@ un'esperienza coerente allo sviluppatore. Anche il framework stesso è
 un bundle (cioè un plugin) che può essere configurato o sostituito
 interamente.
 
-Symfony2 fornisce un potente insieme di strumenti per sviluppare rapidamente applicazioni web,
+Symfony fornisce un potente insieme di strumenti per sviluppare rapidamente applicazioni web,
 senza imposizioni sulla propria applicazione. Gli utenti normali possono iniziare velocemente
-a sviluppare usando una distribuzione di Symfony2, che fornisce uno scheletro di progetto
+a sviluppare usando una distribuzione di Symfony, che fornisce uno scheletro di progetto
 con configurazioni predefinite ragionevoli. Gli utenti avanzati hanno il cielo come limite.
 
 .. _`xkcd`: http://xkcd.com/
@@ -582,8 +575,5 @@ con configurazioni predefinite ragionevoli. Gli utenti avanzati hanno il cielo c
 .. _`Elenco dei codici di stato HTTP`: http://it.wikipedia.org/wiki/Elenco_dei_codici_di_stato_HTTP
 .. _`Lista di header HTTP`: http://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 .. _`Lista di tipi di media comuni`: http://en.wikipedia.org/wiki/Internet_media_type#List_of_common_media_types
-.. _`Form`: https://github.com/symfony/Form
 .. _`Validator`: https://github.com/symfony/Validator
-.. _`Security`: https://github.com/symfony/Security
-.. _`Translation`: https://github.com/symfony/Translation
 .. _`Swiftmailer`: http://swiftmailer.org/

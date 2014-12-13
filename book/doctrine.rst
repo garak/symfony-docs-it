@@ -32,15 +32,6 @@ Il modo più facile per capire come funziona Doctrine è quello di vederlo in az
 In questa sezione, configureremo una base dati, creeremo un oggetto ``Product``,
 lo persisteremo nella base dati e lo recupereremo da esso.
 
-.. sidebar:: Codice con l'esempio
-
-    Se si vuole seguire l'esempio in questo capitolo, creare
-    un bundle ``AcmeStoreBundle`` tramite:
-
-    .. code-block:: bash
-
-        $ php app/console generate:bundle --namespace=Acme/StoreBundle
-
 Configurazione dela base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -127,7 +118,7 @@ base dati al posto nostro:
 
 .. sidebar:: Impostazioni della base dati
 
-    Uno sbaglio che anche programmatori esperti commettono all'inizio di un progetto Symfony2
+    Uno sbaglio che anche programmatori esperti commettono all'inizio di un progetto Symfony
     è dimenticare di impostare charset e collation nella base dati,
     finendo con collation di tipo latin, che sono predefinite la maggior parte delle volte.
     Lo si potrebbe fare anche solo all'inizio, ma spesso si dimentica che lo si
@@ -210,9 +201,7 @@ la cartella ``Entity`` di ``AcmeStoreBundle``::
     class Product
     {
         protected $name;
-
         protected $price;
-
         protected $description;
     }
 
@@ -258,8 +247,8 @@ in diversi formati, inclusi YAML, XML o direttamente dentro la classe
 
     .. code-block:: php-annotations
 
-        // src/Acme/StoreBundle/Entity/Product.php
-        namespace Acme\StoreBundle\Entity;
+        // src/AppBundle/Entity/Product.php
+        namespace AppBundle\Entity;
 
         use Doctrine\ORM\Mapping as ORM;
 
@@ -294,8 +283,8 @@ in diversi formati, inclusi YAML, XML o direttamente dentro la classe
 
     .. code-block:: yaml
 
-        # src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml
-        Acme\StoreBundle\Entity\Product:
+        # src/AppBundle/Resources/config/doctrine/Product.orm.yml
+        AppBundle\Entity\Product:
             type: entity
             table: product
             id:
@@ -314,14 +303,14 @@ in diversi formati, inclusi YAML, XML o direttamente dentro la classe
 
     .. code-block:: xml
 
-        <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
+        <!-- src/AppBundle/Resources/config/doctrine/Product.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                 http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-            <entity name="Acme\StoreBundle\Entity\Product" table="product">
+            <entity name="AppBundle\Entity\Product" table="product">
                 <id name="id" type="integer">
                     <generator strategy="AUTO" />
                 </id>
@@ -435,7 +424,9 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entities AcmeStoreBundle
+    # genera tutte le entità in AppBundle
+    $ php app/console doctrine:generate:entities AppBundle
+    # genera tutte le entità dei bundle nello spazio dei nomi Acme
     $ php app/console doctrine:generate:entities Acme
 
 .. note::
@@ -485,17 +476,16 @@ Persistere gli oggetti nella base dati
 Ora che l'entità ``Product`` è stata mappata alla corrispondente tabella ``product``,
 si è pronti per persistere i dati nella base dati. Da dentro un controllore, è
 molto facile. Aggiungere il seguente metodo a ``DefaultController``
-del bundle:
+del bundle::
 
-.. code-block:: php
-    :linenos:
 
-    // src/Acme/StoreBundle/Controller/DefaultController.php
+    // src/AppBundle/Controller/DefaultController.php
 
     // ...
-    use Acme\StoreBundle\Entity\Product;
+    use AppBundle\Entity\Product;
     use Symfony\Component\HttpFoundation\Response;
 
+    // ...
     public function createAction()
     {
         $product = new Product();
@@ -504,6 +494,7 @@ del bundle:
         $product->setDescription('Lorem ipsum dolor');
 
         $em = $this->getDoctrine()->getManager();
+
         $em->persist($product);
         $em->flush();
 
@@ -526,17 +517,17 @@ del bundle:
 
 Analizziamo questo esempio:
 
-* **righe 9-12** In questa sezione, si istanzia e si lavora con l'oggetto ``$product``,
+* **righe 10-13** In questa sezione, si istanzia e si lavora con l'oggetto ``$product``,
   come qualsiasi altro normale oggetto PHP;
 
 * **riga 14** Questa riga recupera l'oggetto *gestore di entità* di Doctrine,
   responsabile della gestione del processo di persistenza e del recupero di
   oggetti dalla base dati;
 
-* **riga 15** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto ``$product``.
+* **riga 16** Il metodo ``persist()`` dice a Doctrine di "gestire" l'oggetto ``$product``.
   Questo non fa (ancora) eseguire una query sula base dati.
 
-* **riga 16** Quando il metodo ``flush()`` è richiamato, Doctrine cerca tutti
+* **riga 17** Quando il metodo ``flush()`` è richiamato, Doctrine cerca tutti
   gli oggetti che sta gestendo, per vedere se hanno bisogno di essere persistiti
   sulla base dati. In questo esempio, l'oggetto ``$product`` non è stato ancora
   persistito, quindi il gestore di entità esegue una query ``INSERT`` e crea
@@ -571,7 +562,7 @@ in base al valore del suo ``id``::
     public function showAction($id)
     {
         $product = $this->getDoctrine()
-            ->getRepository('AcmeStoreBundle:Product')
+            ->getRepository('AppBundle:Product')
             ->find($id);
 
         if (!$product) {
@@ -595,7 +586,7 @@ unico compito è quello di aiutare nel recuperare entità di una certa classe. S
 accedere all'oggetto repository per una classe entità tramite::
 
     $repository = $this->getDoctrine()
-        ->getRepository('AcmeStoreBundle:Product');
+        ->getRepository('AppBundle:Product');
 
 .. note::
 
@@ -660,7 +651,7 @@ di avere una rotta che mappi un id di prodotto a un'azione di aggiornamento in u
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('AcmeStoreBundle:Product')->find($id);
+        $product = $em->getRepository('AppBundle:Product')->find($id);
 
         if (!$product) {
             throw $this->createNotFoundException(
@@ -726,7 +717,7 @@ di ``19.99``, ordinati dal più economico al più caro. Si può usare
 ``QueryBuilder`` di Doctrine, come segue::
 
     $repository = $this->getDoctrine()
-        ->getRepository('AcmeStoreBundle:Product');
+        ->getRepository('AppBundle:Product');
 
     $query = $repository->createQueryBuilder('p')
         ->where('p.price > :price')
@@ -764,7 +755,7 @@ usando DQL::
     $em = $this->getDoctrine()->getManager();
     $query = $em->createQuery(
         'SELECT p
-        FROM AcmeStoreBundle:Product p
+        FROM AppBundle:Product p
         WHERE p.price > :price
         ORDER BY p.price ASC'
     )->setParameter('price', '19.99');
@@ -796,13 +787,13 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
 
     .. code-block:: php-annotations
 
-        // src/Acme/StoreBundle/Entity/Product.php
-        namespace Acme\StoreBundle\Entity;
+        // src/AppBundle/Entity/Product.php
+        namespace AppBundle\Entity;
 
         use Doctrine\ORM\Mapping as ORM;
 
         /**
-         * @ORM\Entity(repositoryClass="Acme\StoreBundle\Entity\ProductRepository")
+         * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductRepository")
          */
         class Product
         {
@@ -811,15 +802,15 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
 
     .. code-block:: yaml
 
-        # src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml
-        Acme\StoreBundle\Entity\Product:
+        # src/AppBundle/Resources/config/doctrine/Product.orm.yml
+        AppBundle\Entity\Product:
             type: entity
-            repositoryClass: Acme\StoreBundle\Entity\ProductRepository
+            repositoryClass: AppBundle\Entity\ProductRepository
             # ...
 
     .. code-block:: xml
 
-        <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
+        <!-- src/AppBundle/Resources/config/doctrine/Product.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -827,8 +818,8 @@ Per farlo, aggiungere il nome della classe del repository alla propria definizio
                 http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
             <entity
-                name="Acme\StoreBundle\Entity\Product"
-                repository-class="Acme\StoreBundle\Entity\ProductRepository">
+                name="AppBundle\Entity\Product"
+                repository-class="AppBundle\Entity\ProductRepository">
 
                 <!-- ... -->
             </entity>
@@ -847,8 +838,8 @@ ordinate alfabeticamente.
 
 .. code-block:: php
 
-    // src/Acme/StoreBundle/Entity/ProductRepository.php
-    namespace Acme\StoreBundle\Entity;
+    // src/AppBundle/Entity/ProductRepository.php
+    namespace AppBundle\Entity;
 
     use Doctrine\ORM\EntityRepository;
 
@@ -858,7 +849,7 @@ ordinate alfabeticamente.
         {
             return $this->getEntityManager()
                 ->createQuery(
-                    'SELECT p FROM AcmeStoreBundle:Product p ORDER BY p.name ASC'
+                    'SELECT p FROM AppBundle:Product p ORDER BY p.name ASC'
                 )
                 ->getResult();
         }
@@ -872,7 +863,7 @@ ordinate alfabeticamente.
 Si può usare il metodo appena creato proprio come i metodi predefiniti del repository::
 
     $em = $this->getDoctrine()->getManager();
-    $products = $em->getRepository('AcmeStoreBundle:Product')
+    $products = $em->getRepository('AppBundle:Product')
                 ->findAllOrderedByName();
 
 .. note::
@@ -908,7 +899,7 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
 
     .. code-block:: php-annotations
 
-        // src/Acme/StoreBundle/Entity/Category.php
+        // src/AppBundle/Entity/Category.php
 
         // ...
         use Doctrine\Common\Collections\ArrayCollection;
@@ -930,8 +921,8 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
 
     .. code-block:: yaml
 
-        # src/Acme/StoreBundle/Resources/config/doctrine/Category.orm.yml
-        Acme\StoreBundle\Entity\Category:
+        # src/AppBundle/Resources/config/doctrine/Category.orm.yml
+        AppBundle\Entity\Category:
             type: entity
             # ...
             oneToMany:
@@ -942,14 +933,14 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
 
     .. code-block:: xml
 
-        <!-- src/Acme/StoreBundle/Resources/config/doctrine/Category.orm.xml -->
+        <!-- src/AppBundle/Resources/config/doctrine/Category.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                 http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-            <entity name="Acme\StoreBundle\Entity\Category">
+            <entity name="AppBundle\Entity\Category">
                 <!-- ... -->
                 <one-to-many
                     field="products"
@@ -991,7 +982,7 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
 
     .. code-block:: php-annotations
 
-        // src/Acme/StoreBundle/Entity/Product.php
+        // src/AppBundle/Entity/Product.php
 
         // ...
         class Product
@@ -1007,8 +998,8 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
 
     .. code-block:: yaml
 
-        # src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml
-        Acme\StoreBundle\Entity\Product:
+        # src/AppBundle/Resources/config/doctrine/Product.orm.yml
+        AppBundle\Entity\Product:
             type: entity
             # ...
             manyToOne:
@@ -1021,14 +1012,14 @@ Poi, poiché ogni classe ``Product`` può essere in relazione esattamente con un
 
     .. code-block:: xml
 
-        <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
+        <!-- src/AppBundle/Resources/config/doctrine/Product.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                 http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-            <entity name="Acme\StoreBundle\Entity\Product">
+            <entity name="AppBundle\Entity\Product">
                 <!-- ... -->
                 <many-to-one
                     field="category"
@@ -1091,8 +1082,8 @@ Vediamo ora il codice in azione. Immaginiamo di essere dentro un controllore::
 
     // ...
 
-    use Acme\StoreBundle\Entity\Category;
-    use Acme\StoreBundle\Entity\Product;
+    use AppBundle\Entity\Category;
+    use AppBundle\Entity\Product;
     use Symfony\Component\HttpFoundation\Response;
 
     class DefaultController extends Controller
@@ -1136,7 +1127,7 @@ alla sua ``Category`` correlata::
     public function showAction($id)
     {
         $product = $this->getDoctrine()
-            ->getRepository('AcmeStoreBundle:Product')
+            ->getRepository('AppBundle:Product')
             ->find($id);
 
         $categoryName = $product->getCategory()->getName();
@@ -1163,7 +1154,7 @@ Si può anche cercare nella direzione opposta::
     public function showProductAction($id)
     {
         $category = $this->getDoctrine()
-            ->getRepository('AcmeStoreBundle:Category')
+            ->getRepository('AppBundle:Category')
             ->find($id);
 
         $products = $category->getProducts();
@@ -1184,12 +1175,12 @@ correlati con il dato oggetto ``Category`` tramite il loro valore ``category_id`
     precedente::
 
         $product = $this->getDoctrine()
-            ->getRepository('AcmeStoreBundle:Product')
+            ->getRepository('AppBundle:Product')
             ->find($id);
 
         $category = $product->getCategory();
 
-        // mostra "Proxies\AcmeStoreBundleEntityCategoryProxy"
+        // prints "Proxies\AppBundleEntityCategoryProxy"
         echo get_class($category);
 
     Questo oggetto proxy estende il vero oggetto ``Category`` e sembra e si comporta
@@ -1221,12 +1212,12 @@ Ovviamente, se si sa in anticipo di aver bisogno di accedere a entrambi gli ogge
 si può evitare la seconda query, usando una join nella query originale. Aggiungere
 il seguente metodo alla classe ``ProductRepository``::
 
-    // src/Acme/StoreBundle/Entity/ProductRepository.php
+    // src/AppBundle/Entity/ProductRepository.php
     public function findOneByIdJoinedToCategory($id)
     {
         $query = $this->getEntityManager()
             ->createQuery(
-                'SELECT p, c FROM AcmeStoreBundle:Product p
+                'SELECT p, c FROM AppBundle:Product p
                 JOIN p.category c
                 WHERE p.id = :id'
             )->setParameter('id', $id);
@@ -1244,7 +1235,7 @@ Ora si può usare questo metodo nel controllore, per cercare un oggetto
     public function showAction($id)
     {
         $product = $this->getDoctrine()
-            ->getRepository('AcmeStoreBundle:Product')
+            ->getRepository('AppBundle:Product')
             ->findOneByIdJoinedToCategory($id);
 
         $category = $product->getCategory();
@@ -1305,7 +1296,7 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
 
     .. code-block:: php-annotations
 
-        // src/Acme/StoreBundle/Entity/Product.php
+        // src/AppBundle/Entity/Product.php
 
         /**
          * @ORM\PrePersist
@@ -1317,8 +1308,8 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
 
     .. code-block:: yaml
 
-        # src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml
-        Acme\StoreBundle\Entity\Product:
+        # src/AppBundle/Resources/config/doctrine/Product.orm.yml
+        AppBundle\Entity\Product:
             type: entity
             # ...
             lifecycleCallbacks:
@@ -1326,14 +1317,14 @@ alla data attuale, solo quando l'entità è persistita la prima volta (cioè è 
 
     .. code-block:: xml
 
-        <!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml -->
+        <!-- src/AppBundle/Resources/config/doctrine/Product.orm.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                 http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-            <entity name="Acme\StoreBundle\Entity\Product">
+            <entity name="AppBundle\Entity\Product">
                 <!-- ... -->
                 <lifecycle-callbacks>
                     <lifecycle-callback type="prePersist" method="setCreatedAtValue" />

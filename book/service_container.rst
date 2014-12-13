@@ -12,15 +12,15 @@ l'inventario dei prodotti, o un altro oggetto che elabora i dati da un'API di te
 Il punto è che una moderna applicazione fa molte cose ed è organizzata
 in molti oggetti che gestiscono ogni attività.
 
-In questo capitolo si parlerà di un oggetto speciale PHP presente in Symfony2 che aiuta
+In questo capitolo si parlerà di un oggetto speciale PHP presente in Symfony che aiuta
 a istanziare, organizzare e recuperare i tanti oggetti della propria applicazione.
 Questo oggetto, chiamato contenitore di servizi, permetterà di standardizzare e
 centralizzare il modo in cui sono costruiti gli oggetti nell'applicazione. Il contenitore
 rende la vita più facile, è super veloce ed evidenzia un'architettura che
-promuove codice riusabile e disaccoppiato. E poiché tutte le classi del nucleo di Symfony2
+promuove codice riusabile e disaccoppiato. E poiché tutte le classi del nucleo di Symfony
 utilizzano il contenitore, si apprenderà come estendere, configurare e usare qualsiasi oggetto
-in Symfony2. In gran parte, il contenitore dei servizi è il più grande contributore
-riguardo la velocità e l'estensibilità di Symfony2.
+in Symfony. In gran parte, il contenitore dei servizi è il più grande contributore
+riguardo la velocità e l'estensibilità di Symfony.
 
 Infine, la configurazione e l'utilizzo del contenitore di servizi è semplice. Entro la fine
 di questo capitolo, si sarà in grado di creare i propri oggetti attraverso il
@@ -61,7 +61,7 @@ in una serie di servizi. Dal momento che ogni servizio fa solo un lavoro,
 si può facilmente accedere a ogni servizio e utilizzare le sue funzionalità ovunque
 ce ne sia bisogno. Ogni servizio può anche essere più facilmente testato e configurato essendo
 separato dalle altre funzionalità dell'applicazione. Questa idea
-si chiama `architettura orientata ai servizi`_ e non riguarda solo Symfony2
+si chiama `architettura orientata ai servizi`_ e non riguarda solo Symfony
 o il PHP. Strutturare la propria applicazione con una serie di classi indipendenti
 di servizi è una nota best practice della programmazione a oggetti. Queste conoscenze
 sono fondamentali per essere un buon sviluppatore in quasi tutti i linguaggi.
@@ -109,7 +109,7 @@ essere specificata in YAML, XML o PHP:
 
 .. note::
 
-    Durante l'inizializzazione di Symfony2, viene costruito il contenitore di servizi utilizzando
+    Durante l'inizializzazione di Symfony, viene costruito il contenitore di servizi utilizzando
     la configurazione dell'applicazione (per impostazione predefinita ``app/config/config.yml``). Il
     file esatto che viene caricato è indicato dal metodo ``AppKernel::registerContainerConfiguration()``,
     che carica un file di configurazione specifico per l'ambiente (ad esempio
@@ -117,7 +117,7 @@ essere specificata in YAML, XML o PHP:
     per ``prod``).
 
 Un'istanza dell'oggetto ``Acme\HelloBundle\Mailer`` è ora disponibile tramite
-il contenitore di servizio. Il contenitore è disponibile in qualsiasi normale controllore di Symfony2
+il contenitore di servizio. Il contenitore è disponibile in qualsiasi normale controllore di Symfony
 in cui è possibile accedere ai servizi del contenitore  attraverso il
 metodo scorciatoia ``get()``::
 
@@ -170,12 +170,11 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
 
         # app/config/config.yml
         parameters:
-            my_mailer.class:      Acme\HelloBundle\Mailer
             my_mailer.transport:  sendmail
 
         services:
             my_mailer:
-                class:        "%my_mailer.class%"
+                class:        Acme\HelloBundle\Mailer
                 arguments:    ["%my_mailer.transport%"]
 
     .. code-block:: xml
@@ -187,12 +186,11 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <parameters>
-                <parameter key="my_mailer.class">Acme\HelloBundle\Mailer</parameter>
                 <parameter key="my_mailer.transport">sendmail</parameter>
             </parameters>
 
             <services>
-                <service id="my_mailer" class="%my_mailer.class%">
+                <service id="my_mailer" class="Acme\HelloBundle\Mailer">
                     <argument>%my_mailer.transport%</argument>
                 </service>
             </services>
@@ -203,11 +201,10 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
         // app/config/config.php
         use Symfony\Component\DependencyInjection\Definition;
 
-        $container->setParameter('my_mailer.class', 'Acme\HelloBundle\Mailer');
         $container->setParameter('my_mailer.transport', 'sendmail');
 
         $container->setDefinition('my_mailer', new Definition(
-            '%my_mailer.class%',
+            'Acme\HelloBundle\Mailer',
             array('%my_mailer.transport%')
         ));
 
@@ -268,13 +265,13 @@ Importare altre risorse di configurazione del contenitore
 
     In questa sezione, si farà riferimento ai file di configurazione del servizio come *risorse*.
     Questo per sottolineare il fatto che, mentre la maggior parte delle risorse di configurazione
-    saranno file (ad esempio YAML, XML, PHP), Symfony2 è così flessibile che la configurazione
+    saranno file (ad esempio YAML, XML, PHP), Symfony è così flessibile che la configurazione
     potrebbe essere caricata da qualunque parte (per esempio in una base dati o tramite un
     servizio web esterno).
 
 Il contenitore dei servizi è costruito utilizzando una singola risorsa di configurazione
 (per impostazione predefinita ``app/config/config.yml``). Tutte le altre configurazioni di servizi
-(comprese le configurazioni del nucleo di Symfony2 e dei bundle di terze parti) devono
+(comprese le configurazioni del nucleo di Symfony e dei bundle di terze parti) devono
 essere importate da dentro questo file in un modo o nell'altro. Questo dà una assoluta
 flessibilità sui servizi dell'applicazione.
 
@@ -307,12 +304,11 @@ non esistono, crearle.
 
         # src/Acme/HelloBundle/Resources/config/services.yml
         parameters:
-            my_mailer.class:      Acme\HelloBundle\Mailer
             my_mailer.transport:  sendmail
 
         services:
             my_mailer:
-                class:        "%my_mailer.class%"
+                class:        Acme\HelloBundle\Mailer
                 arguments:    ["%my_mailer.transport%"]
 
     .. code-block:: xml
@@ -324,12 +320,11 @@ non esistono, crearle.
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <parameters>
-                <parameter key="my_mailer.class">Acme\HelloBundle\Mailer</parameter>
                 <parameter key="my_mailer.transport">sendmail</parameter>
             </parameters>
 
             <services>
-                <service id="my_mailer" class="%my_mailer.class%">
+                <service id="my_mailer" class="Acme\HelloBundle\Mailer">
                     <argument>%my_mailer.transport%</argument>
                 </service>
             </services>
@@ -340,11 +335,10 @@ non esistono, crearle.
         // src/Acme/HelloBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
-        $container->setParameter('my_mailer.class', 'Acme\HelloBundle\Mailer');
         $container->setParameter('my_mailer.transport', 'sendmail');
 
         $container->setDefinition('my_mailer', new Definition(
-            '%my_mailer.class%',
+            'Acme\HelloBundle\Mailer',
             array('%my_mailer.transport%')
         ));
 
@@ -397,10 +391,10 @@ diversa.
 Importare la configurazione attraverso estensioni del contenitore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Quando si sviluppa in Symfony2, si usa spesso la direttiva ``imports``
+Quando si sviluppa in Symfony, si usa spesso la direttiva ``imports``
 per importare la configurazione del contenitore dai bundle che sono stati creati appositamente
 per l'applicazione. Le configurazioni dei contenitori di bundle di terze parti, includendo
-i servizi del nucleo di Symfony2, di solito sono caricati utilizzando un altro metodo che è più
+i servizi del nucleo di Symfony, di solito sono caricati utilizzando un altro metodo che è più
 flessibile e facile da configurare nell'applicazione.
 
 Ecco come funziona. Internamente, ogni bundle definisce i propri servizi in modo
@@ -423,7 +417,7 @@ In altre parole, una estensione dei contenitore dei servizi configura i servizi 
 il bundle per lo sviluppatore. E, come si vedrà tra poco, l'estensione fornisce
 un'interfaccia comoda e ad alto livello per configurare il bundle.
 
-Si prenda FrameworkBundle, il bundle del nucleo del framework Symfony2, come
+Si prenda FrameworkBundle, il bundle del nucleo del framework Symfony, come
 esempio. La presenza del seguente codice nella configurazione dell'applicazione
 invoca l'estensione del contenitore dei servizi all'interno di FrameworkBundle:
 
@@ -475,8 +469,8 @@ Quando viene analizzata la configurazione, il contenitore cerca un'estensione ch
 sia in grado di gestire la direttiva di configurazione ``framework``. L'estensione in questione,
 che si trova in FrameworkBundle, viene invocata e la configurazione del servizio
 per FrameworkBundle viene caricata. Se si rimuove del tutto la chiave ``framework``
-dal file di configurazione dell'applicazione, i servizi del nucleo di Symfony2
-non vengono caricati. Il punto è che è tutto sotto controllo: il framework Symfony2
+dal file di configurazione dell'applicazione, i servizi del nucleo di Symfony
+non vengono caricati. Il punto è che è tutto sotto controllo: il framework Symfony
 non contiene nessuna magia e non esegue nessuna azione su cui non si abbia
 il controllo.
 
@@ -567,15 +561,11 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
     .. code-block:: yaml
 
         # src/Acme/HelloBundle/Resources/config/services.yml
-        parameters:
-            # ...
-            newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
-
         services:
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@my_mailer"]
 
     .. code-block:: xml
@@ -586,16 +576,11 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <parameters>
-                <!-- ... -->
-                <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
-            </parameters>
-
             <services>
                 <service id="my_mailer">
                 <!-- ... -->
                 </service>
-                <service id="newsletter_manager" class="%newsletter_manager.class%">
+                <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                     <argument type="service" id="my_mailer"/>
                 </service>
             </services>
@@ -607,15 +592,9 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        // ...
-        $container->setParameter(
-            'newsletter_manager.class',
-            'Acme\HelloBundle\Newsletter\NewsletterManager'
-        );
-
         $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%',
+            'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(new Reference('my_mailer'))
         ));
 
@@ -720,7 +699,7 @@ tramite una variabile ``container``. Ecco un altro esempio:
 
             <services>
                 <service id="my_mailer" class="Acme\HelloBundle\Mailer">
-                    <argument type="expression">@=container.hasParameter('un_param') ? parameter('un_param') : 'valore_predefinito'</argument>
+                    <argument type="expression">container.hasParameter('un_param') ? parameter('un_param') : 'valore_predefinito'</argument>
                 </service>
             </services>
         </container>
@@ -733,7 +712,7 @@ tramite una variabile ``container``. Ecco un altro esempio:
         $container->setDefinition('my_mailer', new Definition(
             'Acme\HelloBundle\Mailer',
             array(new Expression(
-                "@=container.hasParameter('un_param') ? parameter('un_param') : 'valore_predefinito'"
+                "container.hasParameter('un_param') ? parameter('un_param') : 'valore_predefinito'"
             ))
         ));
 
@@ -772,15 +751,11 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
     .. code-block:: yaml
 
         # src/Acme/HelloBundle/Resources/config/services.yml
-        parameters:
-            # ...
-            newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
-
         services:
             my_mailer:
                 # ...
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 calls:
                     - [setMailer, ["@my_mailer"]]
 
@@ -792,16 +767,11 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <parameters>
-                <!-- ... -->
-                <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
-            </parameters>
-
             <services>
                 <service id="my_mailer">
                 <!-- ... -->
                 </service>
-                <service id="newsletter_manager" class="%newsletter_manager.class%">
+                <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                     <call method="setMailer">
                         <argument type="service" id="my_mailer" />
                     </call>
@@ -815,15 +785,9 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        // ...
-        $container->setParameter(
-            'newsletter_manager.class',
-            'Acme\HelloBundle\Newsletter\NewsletterManager'
-        );
-
         $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%'
+            'Acme\HelloBundle\Newsletter\NewsletterManager'
         ))->addMethodCall('setMailer', array(
             new Reference('my_mailer'),
         ));
@@ -831,7 +795,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
 .. note::
 
     Gli approcci presentati in questa sezione sono chiamati "iniezione del costruttore"
-    e "iniezione del setter". Il contenitore dei servizi di Symfony2  supporta anche
+    e "iniezione del setter". Il contenitore dei servizi di Symfony  supporta anche
     "iniezione di proprietà".
 
 .. _book-container-request-stack:
@@ -913,10 +877,10 @@ Ora, basta iniettare ``request_stack``, che si comporta come un normale servizio
 
 .. sidebar: Perché non iniettare il servizio ``request``?
 
-    Quasi tutti i servizi presenti in Symfony2 si comportano allo stesso modo: viene creata
+    Quasi tutti i servizi presenti in Symfony si comportano allo stesso modo: viene creata
     una singola istanza dal contenitore, restituita ogni volta che venga richiesta o che
     venga iniettata in un altro servizio. C'è però un'eccezione in un'applicazione standard
-    Symfony2: il servizio ``request``.
+    Symfony: il servizio ``request``.
 
     Se si prova a iniettare ``request`` in un servizio, probabilmente si riceverà
     un'eccezione
@@ -947,12 +911,9 @@ esiste e in caso contrario non farà nulla:
     .. code-block:: yaml
 
         # src/Acme/HelloBundle/Resources/config/services.yml
-        parameters:
-            # ...
-
         services:
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@?my_mailer"]
 
     .. code-block:: xml
@@ -967,7 +928,7 @@ esiste e in caso contrario non farà nulla:
                 <service id="my_mailer">
                 <!-- ... -->
                 </service>
-                <service id="newsletter_manager" class="%newsletter_manager.class%">
+                <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                     <argument type="service" id="my_mailer" on-invalid="ignore" />
                 </service>
             </services>
@@ -980,15 +941,9 @@ esiste e in caso contrario non farà nulla:
         use Symfony\Component\DependencyInjection\Reference;
         use Symfony\Component\DependencyInjection\ContainerInterface;
 
-        // ...
-        $container->setParameter(
-            'newsletter_manager.class',
-            'Acme\HelloBundle\Newsletter\NewsletterManager'
-        );
-
         $container->setDefinition('my_mailer', ...);
         $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%',
+            'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(
                 new Reference(
                     'my_mailer',
@@ -1009,12 +964,12 @@ consentire una dipendenza opzionale::
 Servizi del nucleo di Symfony e di terze parti
 ----------------------------------------------
 
-Dal momento che Symfony2 e tutti i bundle di terze parti configurano e recuperano i loro servizi
+Dal momento che Symfony e tutti i bundle di terze parti configurano e recuperano i loro servizi
 attraverso il contenitore, si possono accedere facilmente o addirittura usarli nei propri
-servizi. Per mantenere le cose semplici, Symfony2 per impostazione predefinita non richiede che
-i controllori siano definiti come servizi. Inoltre Symfony2 inietta l'intero
+servizi. Per mantenere le cose semplici, Symfony per impostazione predefinita non richiede che
+i controllori siano definiti come servizi. Inoltre Symfony inietta l'intero
 contenitore dei servizi nel controllore. Ad esempio, per gestire la memorizzazione delle
-informazioni su una sessione utente, Symfony2 fornisce un servizio ``session``,
+informazioni su una sessione utente, Symfony fornisce un servizio ``session``,
 a cui è possibile accedere dentro a un controllore standard, come segue::
 
     public function indexAction($bar)
@@ -1025,13 +980,13 @@ a cui è possibile accedere dentro a un controllore standard, come segue::
         // ...
     }
 
-In Symfony2, si potranno sempre utilizzare i servizi forniti dal nucleo di Symfony o
+In Symfony, si potranno sempre utilizzare i servizi forniti dal nucleo di Symfony o
 dai bundle di terze parti per eseguire funzionalità come la resa di template (``templating``),
 l'invio di email (``mailer``), o l'accesso a informazioni sulla richiesta (``request``).
 
 Questo possiamo considerarlo come un ulteriore passo in avanti con l'utilizzo di questi servizi all'interno di servizi che
 si è creato per l'applicazione. Andiamo a modificare ``NewsletterManager``
-per usare il reale servizio ``mailer`` di Symfony2 (al posto del finto ``my_mailer``).
+per usare il reale servizio ``mailer`` di Symfony (al posto del finto ``my_mailer``).
 Si andrà anche a far passare il servizio con il motore dei template al ``NewsletterManager``
 in modo che possa generare il contenuto dell'email tramite un template::
 
@@ -1065,7 +1020,7 @@ La configurazione del contenitore dei servizi è semplice:
         # src/Acme/HelloBundle/Resources/config/services.yml
         services:
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@mailer", "@templating"]
 
     .. code-block:: xml
@@ -1076,7 +1031,7 @@ La configurazione del contenitore dei servizi è semplice:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
+            <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                 <argument type="service" id="mailer"/>
                 <argument type="service" id="templating"/>
             </service>
@@ -1086,7 +1041,7 @@ La configurazione del contenitore dei servizi è semplice:
 
         // src/Acme/HelloBundle/Resources/config/services.php
         $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%',
+            'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(
                 new Reference('mailer'),
                 new Reference('templating'),
@@ -1157,7 +1112,7 @@ il bundle sa che il servizio ``foo.twig.extension`` dovrebbe essere registrato
 come estensione Twig. In altre parole, Twig cerca tutti i servizi etichettati
 con ``twig.extension`` e li registra automaticamente come estensioni.
 
-I tag, quindi, sono un modo per dire a Symfony2 o a un altro bundle di terze parti che
+I tag, quindi, sono un modo per dire a Symfony o a un altro bundle di terze parti che
 il servizio dovrebbe essere registrato o utilizzato in un qualche modo speciale dal bundle.
 
 Per una lista completa dei tag disponibili in Symfony, dare un'occhiata

@@ -537,7 +537,7 @@ comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
   template (p.e. un template è decorato con un layout) ed eseguire altri compiti
   comuni sui template;
 
-* `Security`_ - Una potente libreria per gestire tutti i tipi di sicurezza all'interno
+* :doc:`Security </components/security/introduction>` - Una potente libreria per gestire tutti i tipi di sicurezza all'interno
   di un'applicazione;
 
 * :doc:`Translation </components/translation/introduction>` - Un framework

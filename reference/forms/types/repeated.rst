@@ -110,16 +110,24 @@ mostrato quando i due campi non combaciano.
 Opzioni del campo
 -----------------
 
-first_name
-~~~~~~~~~~
+type
+~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``first``
+**tipo**: ``stringa`` **predefinito**: ``text``
 
-L'effettivo nome del campo usato per il primo campo. Per lo più non ha significato,
-tuttavia, essendo i dati effettivi inseriti in entrambi i campi disponibili sotto
-la chiave associata al campo ``repeated`` medesimo (p.e.
-``password``). Tuttavia, se non si specifica una label, questo nome di campo è
-usato per "indovinare" la label.
+I due campi sottostanti saranno di questo tipo. Per esempio, passare un tipo
+``password`` renderà due campi password.
+
+options
+~~~~~~~
+
+**tipo**: ``array`` **predefinito**: ``array()``
+
+Questa opzione sarà passata a ciascuno dei due campi sottostanti. In altre
+parole, queste opzioni personalizzano i singoli campi.
+Per esempio, se l'opzione ``type`` è ``password``, questo array potrebbe contenere
+le opzioni ``always_empty`` o ``required``, che sono opzioni supportate
+dal tipo di campo ``password``.
 
 first_options
 ~~~~~~~~~~~~~
@@ -135,24 +143,6 @@ label::
         'second_options' => array('label' => 'Ripetere Password'),
     ));
 
-options
-~~~~~~~
-
-**tipo**: ``array`` **predefinito**: ``array()``
-
-Questa opzione sarà passata a ciascuno dei due campi sottostanti. In altre
-parole, queste opzioni personalizzano i singoli campi.
-Per esempio, se l'opzione ``type`` è ``password``, questo array potrebbe contenere
-le opzioni ``always_empty`` o ``required``, che sono opzioni supportate
-dal tipo di campo ``password``.
-
-second_name
-~~~~~~~~~~~
-
-**tipo**: ``stringa`` **predefinito**: ``second``
-
-Come ``first_name``, ma per il secondo campo.
-
 second_options
 ~~~~~~~~~~~~~~
 
@@ -162,13 +152,23 @@ Ulteriori opzioni (saranno fuse in `options`) da passare
 *solo* al secondo campo. Particolarmente utile per personalizzare la
 label (vedere `first_options`_).
 
-type
-~~~~
+first_name
+~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``text``
+**tipo**: ``stringa`` **predefinito**: ``first``
 
-I due campi sottostanti saranno di questo tipo. Per esempio, passare un tipo
-``password`` renderà due campi password.
+L'effettivo nome del campo usato per il primo campo. Per lo più non ha significato,
+tuttavia, essendo i dati effettivi inseriti in entrambi i campi disponibili sotto
+la chiave associata al campo ``repeated`` medesimo (p.e.
+``password``). Tuttavia, se non si specifica una label, questo nome di campo è
+usato per "indovinare" la label.
+
+second_name
+~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``second``
+
+Come ``first_name``, ma per il secondo campo.
 
 Opzioni ridefinite
 ------------------
@@ -185,10 +185,10 @@ Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`
 
 .. include:: /reference/forms/types/options/data.rst.inc
 
-.. include:: /reference/forms/types/options/error_mapping.rst.inc
-
 .. include:: /reference/forms/types/options/invalid_message.rst.inc
 
 .. include:: /reference/forms/types/options/invalid_message_parameters.rst.inc
 
 .. include:: /reference/forms/types/options/mapped.rst.inc
+
+.. include:: /reference/forms/types/options/error_mapping.rst.inc

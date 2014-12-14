@@ -79,6 +79,15 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
             throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));
         }
+        
+        private function reverseBoolean($value = null, $theSwitch = false)
+        {
+            if (!$theSwitch) {
+                return;
+            }
+
+            return !$value;
+        }
     }
 
 Struttura
@@ -86,7 +95,10 @@ Struttura
 
 * Aggiungere un singolo spazio dopo ogni virgola delimitatrice;
 
-* Aggiungere un singolo spazio intorno agli operatori (``==``, ``&&``, ...);
+* Aggiungere un singolo spazio intorno agli operatori (``==``, ``&&``, ...), con
+  l'eccezzione dell'operatore di concatenamento (``.``);
+
+* Mettere gli operatori unari (``!``, ``--``, ...) accanto alla relativa variabile;
 
 * Aggiungere una virgola dopo ogni elemento di array multi-linea, anche dopo
   l'ultimo;

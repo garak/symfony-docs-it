@@ -3,17 +3,17 @@
 
 .. _creating-pages-in-symfony2:
 
-Creare pagine in Symfony2
-=========================
+Creare pagine in Symfony
+========================
 
-La creazione di una nuova pagina in Symfony2 è un semplice processo in due passi:
+La creazione di una nuova pagina in Symfony è un semplice processo in due passi:
 
 * *Creare una rotta*: Una rotta definisce l'URL (p.e. ``/about``) verso la pagina
-  e specifica un controllore (che è una funzione PHP) che Symfony2 dovrebbe
+  e specifica un controllore (che è una funzione PHP) che Symfony dovrebbe
   eseguire quando l'URL della richiesta in arrivo corrisponde allo schema della rotta;
 
 * *Creare un controllore*: Un controllore è una funzione PHP che prende la richiesta in
-  entrata e la trasforma in un oggetto ``Response`` di Symfony2, che viene poi
+  entrata e la trasforma in un oggetto ``Response`` di Symfony, che viene poi
   restituito all'utente.
 
 Questo semplice approccio è molto bello, perché corrisponde al modo in cui funziona il web.
@@ -21,7 +21,7 @@ Ogni interazione sul web inizia con una richiesta HTTP. Il lavoro di
 un'applicazione è semplicemente quello di interpretare la richiesta e restituire l'appropriata
 risposta HTTP.
 
-Symfony2 segue questa filosofia e fornisce strumenti e convenzioni per mantenere
+Symfony segue questa filosofia e fornisce strumenti e convenzioni per mantenere
 un'applicazione organizzata, man mano che cresce in utenti e in complessità.
 
 .. index::
@@ -35,28 +35,28 @@ Ambienti e front controller
 Ogni applicazione Symfony gira in un :term:`ambiente`. Un ambiente
 è un insieme specifico di configurazioni e bundle caricati, rappresentato da una stringa.
 La stessa applicazione può girare con diverse configurazioni, se eseguita
-in diversi ambienti. Symfony2 dispone di tre ambienti
+in diversi ambienti. Symfony dispone di tre ambienti
 predefiniti: ``dev``, ``test`` e ``prod``. È comunque possibile crearne di altri.
 
 Gli ambienti sono utili, perché consentono a una singola applicazione di avere un ambiente (dev)
 pensato per il debug e un altro (prod) ottimizziato per la velocità. Si possono
 anche caricare bundle specifici, in base all'ambiente. Per esempio,
-Symfony2 dispone di un WebProfilerBundle (descritto più avanti), abilitato
+Symfony dispone di un WebProfilerBundle (descritto più avanti), abilitato
 solamente in ``dev`` e in ``test``.
 
-Symfony2 dispone di due front controller pubblici: ``app_dev.php`` 
+Symfony dispone di due front controller pubblici: ``app_dev.php`` 
 fornisce l'ambiente ``dev``, mentre ``app.php`` fornisce l'ambiente ``prod``.
-Ogni accesso via web a Symfony2 normalmente passa per uno di questi due front controller.
+Ogni accesso via web a Symfony normalmente passa per uno di questi due front controller.
 (L'ambiente ``test`` normalmente si usa solo quando si eseguono i test e quindi
 non dispone di un front controller dedicato. La linea di comando fornisce ugualmente
 un front controller utilizzabile con qualsiasi ambiente.)
 
 Quando il front controller inizializza il kernel, fornisce due parametri:
 l'ambiente e la modalità di debug con cui il kernel deve girare.
-Per far rispondere velocemente l'applicazione, Symfony2 mantiene una cache sotto la
+Per far rispondere velocemente l'applicazione, Symfony mantiene una cache sotto la
 cartella ``app/cache/``. Quando il debug è abilitato (come in ``app_dev.php``),
 la cache viene rinfrescata automaticamente a ogni modifica del
-codice o della configurazione. In debug, Symfony2 va più
+codice o della configurazione. In debug, Symfony va più
 lentamente, ma le modifiche sono rispettate senza dover pulire a mano la
 cache.
 
@@ -80,9 +80,9 @@ in due passi.
 
 .. note::
 
-    La guida presume che Symfony2 sia stato già scaricato e il server web
+    La guida presume che Symfony sia stato già scaricato e il server web
     configurato. L'URL precedente presume che ``localhost`` punti alla cartella
-    ``web`` del nuovo progetto Symfony2. Per informazioni dettagliate su
+    ``web`` del nuovo progetto Symfony. Per informazioni dettagliate su
     questo processo, vedere la documentazione del server web usato.
     Ecco le pagine di documentazione per alcuni server web:
 
@@ -92,7 +92,7 @@ in due passi.
 Prima di iniziare: creare il bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Prima di iniziare, occorrerà creare un *bundle*. In Symfony2, un :term:`bundle`
+Prima di iniziare, occorrerà creare un *bundle*. In Symfony, un :term:`bundle`
 è come un plugin, tranne per il fatto che tutto il codice nella propria applicazione
 starà dentro a un bundle.
 
@@ -137,7 +137,7 @@ Passo 1: creare la rotta
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Per impostazione predefinita, il file di configurazione delle rotte in un'applicazione
-Symfony2 si trova in ``app/config/routing.yml``. Come ogni configurazione in Symfony2,
+Symfony si trova in ``app/config/routing.yml``. Come ogni configurazione in Symfony,
 si può anche scegliere di usare XML o PHP per configurare le rotte.
 
 Se si guarda il file principale delle rotte, si vedrà che Symfony ha già aggiunto
@@ -268,9 +268,9 @@ In realtà, il controllore non è nulla di più di un metodo PHP, che va creato 
 Symfony eseguirà. È qui che il codice usa l'informazione dalla richiesta per
 costruire e preparare la risorsa che è stata richiesta. Tranne per alcuni casi avanzati,
 il prodotto finale di un controllore è sempre lo stesso: un oggetto ``Response`` di
-Symfony2.
+Symfony.
 
-Creare il metodo ``indexAction``, che Symfony2 eseguirà quando la rotta ``hello`` sarà
+Creare il metodo ``indexAction``, che Symfony eseguirà quando la rotta ``hello`` sarà
 corrisposta::
 
     // src/Acme/DemoBundle/Controller/RandomController.php
@@ -372,7 +372,7 @@ template dato. Come ogni altro controllore, alla fine l'oggetto ``Response``
 viene restituito. 
 
 Si noti che ci sono due diversi esempi su come rendere il template. Per impostazione
-predefinita, Symfony2 supporta due diversi linguaggi di template: i classici
+predefinita, Symfony supporta due diversi linguaggi di template: i classici
 template PHP e i template, concisi ma potenti, `Twig`_. Non ci si allarmi,
 si è liberi di scegliere tra i due, o anche tutti e due nello stesso progetto.
 
@@ -481,8 +481,8 @@ Struttura delle cartelle
 ------------------------
 
 Dopo solo poche sezioni, si inizia già a capire la filosofia che sta dietro alla
-creazione e alla resa delle pagine in Symfony2. Abbiamo anche già iniziato a vedere
-come i progetti Symfony2 siano strutturati e organizzati. Alla fine di questa sezione,
+creazione e alla resa delle pagine in Symfony. Abbiamo anche già iniziato a vedere
+come i progetti Symfony siano strutturati e organizzati. Alla fine di questa sezione,
 sapremo dove cercare e inserire i vari tipi di file, e perché.
 
 Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`applicazione`
@@ -516,7 +516,7 @@ i :term:`front controller`::
     $kernel->handle(Request::createFromGlobals())->send();
 
 Il file del front controller (``app.php`` in questo esempio) è il file PHP che viene
-eseguito quando si usa un'applicazione Symfony2 e il suo compito è quello di usare una
+eseguito quando si usa un'applicazione Symfony e il suo compito è quello di usare una
 classe kernel, ``AppKernel``, per inizializzare l'applicazione.
 
 .. tip::
@@ -608,9 +608,9 @@ Il sistema dei bundle
 ---------------------
 
 Un bundle è simile a un plugin in altri software, ma anche meglio. La differenza
-fondamentale è che *tutto* è un bundle in Symfony2, incluse le funzionalità
+fondamentale è che *tutto* è un bundle in Symfony, incluse le funzionalità
 fondamentali del framework o il codice scritto per la propria applicazione.
-I bundle sono cittadini di prima classe in Symfony2. Questo fornisce la flessibilità
+I bundle sono cittadini di prima classe in Symfony. Questo fornisce la flessibilità
 di usare caratteristiche già pronte impacchettate in `bundle di terze parti` o di
 distribuire i propri bundle. Rende facile scegliere quali caratteristiche abilitare
 nella propria applicazione per ottimizzarla nel modo preferito.
@@ -727,7 +727,7 @@ uno scheletro di base per un bundle:
 
 Lo scheletro del bundle è generato con controllore, template e rotte, tutti
 personalizzabili. Approfondiremo più avanti la linea di comando di
-Symfony2.
+Symfony.
 
 .. tip::
 
@@ -740,7 +740,7 @@ Struttura delle cartelle dei bundle
 
 La struttura delle cartelle di un bundle è semplice e flessibile. Per impostazione
 predefinita, il sistema dei bundle segue un insieme di convenzioni, che aiutano a
-mantenere il codice coerente tra tutti i bundle di Symfony2. Si dia un'occhiata a
+mantenere il codice coerente tra tutti i bundle di Symfony. Si dia un'occhiata a
 ``AcmeHelloBundle``, perché contiene alcuni degli elementi più comuni di un bundle:
 
 * ``Controller/`` contiene i controllori del bundle (p.e. ``HelloController.php``);
@@ -862,7 +862,7 @@ rotte, template e altri sistemi fondamentali.
 
 Per ora, non ci preoccupiamo delle opzioni di configurazione specifiche di ogni
 sezione. Il file di configurazione ha delle opzioni predefinite impostate.
-Leggendo ed esplorando ogni parte di Symfony2, le opzioni di configurazione
+Leggendo ed esplorando ogni parte di Symfony, le opzioni di configurazione
 specifiche saranno man mano approfondite.
 
 .. sidebar:: Formati di configurazione
@@ -917,7 +917,7 @@ ogni richiesta nell'ambiente ``dev`` (per facilitare gli sviluppatori), ma salva
 in cache nell'ambiente ``prod``. Tutti gli ambienti stanno insieme nella stessa
 macchina e sono eseguiti nella stessa applicazione.
 
-Un progetto Symfony2 generalmente inizia con tre ambienti (``dev``, ``test``
+Un progetto Symfony generalmente inizia con tre ambienti (``dev``, ``test``
 e ``prod``), ma creare nuovi ambienti è facile. Si può vedere la propria applicazione
 in ambienti diversi, semplicemente cambiando il front controller nel
 browser. Per vedere l'applicazione in ambiente ``dev``, accedere all'applicazione
@@ -1045,7 +1045,7 @@ le parti diverse tra gli ambienti.
 Riepilogo
 ---------
 
-Congratulazioni! Ora abbiamo visto ogni aspetto fondamentale di Symfony2 e scoperto
+Congratulazioni! Ora abbiamo visto ogni aspetto fondamentale di Symfony e scoperto
 quanto possa essere facile e flessibile. Pur essendoci ancora *moltissime*
 caratteristiche da scoprire, assicuriamoci di tenere a mente alcuni aspetti
 fondamentali:
@@ -1058,7 +1058,7 @@ fondamentali:
   e ``vendor/`` (codice di terze parti) (c'è anche la cartella ``bin/``, usata per aiutare
   nell'aggiornamento delle librerire dei venditori);
 
-* ogni caratteristica in Symfony2 (incluso in nucleo del framework stesso) è organizzata in
+* ogni caratteristica in Symfony (incluso in nucleo del framework stesso) è organizzata in
   *bundle*, insiemi strutturati di file relativi a tale caratteristica;
 
 * la **configurazione** per ciascun bundle risiede nella cartella ``app/config`` e
@@ -1071,7 +1071,7 @@ fondamentali:
   ``app.php`` e ``app_dev.php``) e carica un diverso file di configurazione.
 
 Da qui in poi, ogni capitolo introdurrà strumenti sempre più potenti e concetti
-sempre più avanzati. Più si imparerà su Symfony2, più si apprezzerà la flessibilità
+sempre più avanzati. Più si imparerà su Symfony, più si apprezzerà la flessibilità
 della sua architettura e la potenza che dà nello sviluppo rapido di
 applicazioni.
 

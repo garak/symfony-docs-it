@@ -269,7 +269,7 @@ il flusso di richiesta è sempre lo stesso:
 
 .. tip::
 
-    Più avanti si imparerà che in Symfony2 *qualunque cosa* può essere protetta, tra cui
+    Più avanti si imparerà che in Symfony *qualunque cosa* può essere protetta, tra cui
     controllori specifici, oggetti o anche metodi PHP.
 
 .. _book-security-form-login:
@@ -808,7 +808,7 @@ il ruolo ``ROLE_ADMIN``.
 Capire come funziona ``access_control``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Per ogni richiesta in arrivo, Symfony2 verifica ogni voce di ``access_control``
+Per ogni richiesta in arrivo, Symfony verifica ogni voce di ``access_control``
 per trovarne *una* che corrisponda alla richiesta attuale. Se ne trova una corrispondente,
 si ferma, quindi solo la **prima** voce di ``access_control`` corrispondente
 verrà usata per garantire l'accesso.
@@ -824,7 +824,7 @@ cose:
 1. Opzioni di corrispondenza
 ............................
 
-Symfony2 crea un'istanza di :class:`Symfony\\Component\\HttpFoundation\\RequestMatcher`
+Symfony crea un'istanza di :class:`Symfony\\Component\\HttpFoundation\\RequestMatcher`
 per ogni voce di ``access_control``, che determina se un dato controllo di accesso
 vada usato o meno su questa richiesta. Le seguenti opzioni di ``access_control``
 sono usate per le corrispondenze:
@@ -898,7 +898,7 @@ Si prende il seguente ``access_control`` come esempio:
             ),
         ));
 
-Per ogni richiesta in arrivo, Symfony2 deciderà quale ``access_control``
+Per ogni richiesta in arrivo, Symfony deciderà quale ``access_control``
 usare in base a URI, indirizzo IP del client, nome host in arrivo,
 metodo della richiestsa. Si ricordi, viene usata la prima regola corrispondnete e,
 se ``ip``, ``host`` o ``method`` non sono specificati per una voce, ``access_control``
@@ -936,7 +936,7 @@ corrisponderà per qualsiasi ``ip``, ``host`` o ``method``:
 2. Controllo dell'accesso
 .........................
 
-Una volta che Symfony2 ha deciso quale voce di ``access_control`` corrisponda,
+Una volta che Symfony ha deciso quale voce di ``access_control`` corrisponda,
 *applica* restrizioni di accesso in base alle opzioni ``roles`` e
 ``requires_channel``:
 
@@ -1119,10 +1119,10 @@ Durante l'autenticazione, l'utente invia un insieme di credenziali (di solito un
 e una password). Il compito del sistema di autenticazione è quello di soddisfare queste credenziali 
 con l'insieme degli utenti. Quindi da dove proviene questa lista di utenti?
 
-In Symfony2, gli utenti possono arrivare da qualsiasi parte: un file di configurazione, una tabella
+In Symfony, gli utenti possono arrivare da qualsiasi parte: un file di configurazione, una tabella
 di una base dati, un servizio web o qualsiasi altra cosa si può pensare. Qualsiasi cosa che prevede
 uno o più utenti nel sistema di autenticazione è noto come "fornitore di utenti".
-Symfony2 dispone dei due fornitori di utenti più diffusi: uno che
+Symfony dispone dei due fornitori di utenti più diffusi: uno che
 carica gli utenti da un file di configurazione e uno che carica gli utenti da una tabella
 di una base dati.
 
@@ -1670,7 +1670,7 @@ non ha bisogno di essere definito ovunque, è sufficiente iniziare a usarlo.
 .. note::
 
     Tutti i ruoli **devono** iniziare con il prefisso ``ROLE_`` per poter essere gestiti da
-    Symfony2. Se si definiscono i propri ruoli con una classe ``Role`` dedicata
+    Symfony. Se si definiscono i propri ruoli con una classe ``Role`` dedicata
     (caratteristica avanzata), non bisogna usare il prefisso ``ROLE_``.
 
 I ruoli gerarchici
@@ -1950,7 +1950,7 @@ maggiori informazioni, vedere il
 Autenticazione senza stato
 --------------------------
 
-Per impostazione predefinita, Symfony2 si basa su un cookie (Session) per persistere il contesto
+Per impostazione predefinita, Symfony si basa su un cookie (Session) per persistere il contesto
 di sicurezza dell'utente. Ma se si utilizzano certificati o l'autenticazione HTTP, per
 esempio, la persistenza non è necessaria, in quanto le credenziali sono disponibili a ogni
 richiesta. In questo caso e se non è necessario memorizzare nient'altro tra le
@@ -1996,7 +1996,7 @@ alcun cookie):
 
 .. note::
 
-    Se si usa un form di login, Symfony2 creerà un cookie anche se si imposta
+    Se si usa un form di login, Symfony creerà un cookie anche se si imposta
     ``stateless`` a ``true``.
 
 Utilità
@@ -2007,7 +2007,7 @@ Utilità
     2.2
 
 Il componente Security di Symfony dispone di una serie di utilità che riguardano
-la sicurezza. Queste utilità sono usate da Symfony2, ma si possono usare anche
+la sicurezza. Queste utilità sono usate da Symfony, ma si possono usare anche
 direttamente, se occorre risolvere il problemi di cui si occupano.
 
 Confronto tra stringhe

@@ -1,9 +1,9 @@
 La vista
 ========
 
-Dopo aver letto la prima parte di questa guida, avete deciso che Symfony2
+Dopo aver letto la prima parte di questa guida, avete deciso che Symfony
 vale altri dieci minuti. Bene! In questa seconda parte, si imparerà di più
-sul sistema dei template di Symfony2, `Twig`_. Twig è un sistema di template veloce,
+sul sistema dei template di Symfony, `Twig`_. Twig è un sistema di template veloce,
 flessibile e sicuro per PHP. Rende i propri template più leggibili e concisi e anche
 più amichevoli per i designer.
 
@@ -248,7 +248,7 @@ Includere risorse: immagini, JavaScript e fogli di stile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Cosa sarebbe Internet senza immagini, JavaScript e fogli di stile?
-Symfony2 fornisce la funzione ``asset`` per gestirli facilmente.
+Symfony fornisce la funzione ``asset`` per gestirli facilmente.
 
 .. code-block:: jinja
 
@@ -269,14 +269,14 @@ di azioni, è molto facile organizzare i template in un modo logico ed
 estensibile. Tuttavia, chi non si trova a suo agio con Twig può sempre usare
 i template PHP in Symfony, senza problemi.
 
-Stiamo lavorando con Symfony2 da soli venti minuti e già siamo
-in grado di fare cose incredibili. Questo è il potere di Symfony2.
+Stiamo lavorando con Symfony da soli venti minuti e già siamo
+in grado di fare cose incredibili. Questo è il potere di Symfony.
 Imparare le basi è facile e si imparerà presto che questa
 facilità è nascosta sotto un'architettura molto flessibile.
 
 Ma non corriamo troppo. Prima occorre imparare di più sul
 controllore e questo è esattamente l'argomento della :doc:`prossima parte di questa guida <the_controller>`.
-Pronti per altri dieci minuti di Symfony2?
+Pronti per altri dieci minuti di Symfony?
 
 .. _Twig:           http://twig.sensiolabs.org/
 .. _documentazione: http://twig.sensiolabs.org/documentation

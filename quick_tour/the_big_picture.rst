@@ -1,21 +1,21 @@
 Un quadro generale
 ==================
 
-Volete provare Symfony2 avendo a disposizione solo dieci minuti? Questa prima
+Volete provare Symfony avendo a disposizione solo dieci minuti? Questa prima
 parte di questa guida è stata scritta appositamente: spiega come
-partire subito con Symfony2, mostrando la struttura di un semplice progetto già pronto.
+partire subito con Symfony, mostrando la struttura di un semplice progetto già pronto.
 
-Chi ha già usato un framework per il web si troverà come a casa con Symfony2. Altrimenti,
+Chi ha già usato un framework per il web si troverà come a casa con Symfony. Altrimenti,
 benvenuti in un nuovo mondo per sviluppare applicazioni web!
 
 .. _installing-symfony2:
 
-Installare Symfony2
--------------------
+Installare Symfony
+------------------
 
 Prima di tutto, verificare di aver installato una versione di PHP compatibile con i requisiti
-di Symfony2: 5.3.3 o successivi. Quindi, apire una finestra di terminale ed eseguire il comando
-seguente, per installare l'ultima versione di Symfony2 nella cartella
+di Symfony: 5.3.3 o successivi. Quindi, apire una finestra di terminale ed eseguire il comando
+seguente, per installare l'ultima versione di Symfony nella cartella
 ``progetto/``:
 
 .. code-block:: bash
@@ -25,7 +25,7 @@ seguente, per installare l'ultima versione di Symfony2 nella cartella
 .. note::
 
     `Composer`_ è il gestore di pacchetti usato dalle applicazioni PHP recenti ed è
-    l'unico modo raccomandato di installare Symfony2. Per installare Composer su
+    l'unico modo raccomandato di installare Symfony. Per installare Composer su
     Linux o Mac, eseguire i seguenti comandi:
 
     .. code-block:: bash
@@ -35,7 +35,7 @@ seguente, per installare l'ultima versione di Symfony2 nella cartella
 
     Per installare Composer su Windows, scaricare l'`installer`_.
 
-La prima installazione di Symfony2 potrebbe richiedere vari minuti, per
+La prima installazione di Symfony potrebbe richiedere vari minuti, per
 scaricare tutti i componenti. Alla fine del processo di installazione,
 l'installatore chiederà di fornire alcune opzioni di configurazione per il
 progetto. Per questo primo progetto, si possono anche ignorare tali configurazioni,
@@ -43,10 +43,10 @@ lasciando tutti i valori predefiniti.
 
 .. _running-symfony2:
 
-Eseguire Symfony2
------------------
+Eseguire Symfony
+----------------
 
-Prima di eseguire Symfony2 per la prima volta, eseguire il comando seguente,
+Prima di eseguire Symfony per la prima volta, eseguire il comando seguente,
 per assicurarsi che il sistema soddisfi i requisiti tecnici:
 
 .. code-block:: bash
@@ -72,11 +72,11 @@ preferisce un server web tradizionale, come Apache o Nginx, leggere la ricetta
 :doc:`/cookbook/configuration/web_server_configuration`.
 
 Aprire un browser e accedere all'URL ``http://localhost:8000`` per vedere
-la pagina di benvenuto di Symfony2:
+la pagina di benvenuto di Symfony:
 
 .. image:: /images/quick_tour/welcome.png
    :align: center
-   :alt:   Pagina di benvenuto di Symfony2
+   :alt:   Pagina di benvenuto di Symfony
 
 Capire i fondamenti
 -------------------
@@ -87,7 +87,7 @@ alla base dati, tag HTML e logica di business nello stesso script. Per raggiunge
 con Symfony, occorre prima imparare alcuni termini e concetti fondamentali.
 
 Symfony offre alcuni esempi di codice, che possono essere usati per capire meglio
-i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati da Symfony2
+i concetti fondamentali di Symfony. Si vada al seguente URL per essere salutati da Symfony
 (sostituire *Fabien* col proprio nome):
 
 .. code-block:: text
@@ -120,7 +120,7 @@ dell'utente (``/demo/hello/Fabien``) alla *risorsa* a essa associata
 Rotte
 ~~~~~
 
-Symfony2 dirige la richiesta al codice che la gestisce, cercando la corrispondenza
+Symfony dirige la richiesta al codice che la gestisce, cercando la corrispondenza
 tra l'URL richiesto e alcuni schemi configurati. Le rotte delle pagine di demo
 sono nel file di configurazione ``app/config/routing_dev.yml``:
 
@@ -156,9 +156,9 @@ eseguito. Nella prossima sezione, si imparerà esattamente quello che significa.
 
 .. tip::
 
-    Oltre ai file YAML, Symfony2 supporta nativamente anche XML, PHP e
+    Oltre ai file YAML, Symfony supporta nativamente anche XML, PHP e
     le annotazioni. Questa flessibilità è uno dei punti di forza di
-    Symfony2, un framework che non impone mai un formato di configurazione
+    Symfony, un framework che non impone mai un formato di configurazione
     particolare.
 
 Controllori
@@ -177,7 +177,7 @@ possibile potrebbe creare la risposta a mano, basandosi sulla richiesta::
 
     return new Response('Hello '.$name);
 
-Symfony2 sceglie il controllore basandosi sul valore ``_controller`` della configurazione
+Symfony sceglie il controllore basandosi sul valore ``_controller`` della configurazione
 delle rotte: ``AcmeDemoBundle:Welcome:index``. Questa stringa è il *nome logico* del
 controllore e fa riferimento al metodo ``indexAction`` della classe
 ``Acme\DemoBundle\Controller\WelcomeController``::
@@ -292,17 +292,17 @@ Il controllore rende il template ``src/Acme/DemoBundle/Resources/views/Demo/hell
         <h1>Hello {{ name }}!</h1>
     {% endblock %}
 
-Per impostazione predefinita, Symfony2 usa `Twig`_ come sistema di template, ma si
+Per impostazione predefinita, Symfony usa `Twig`_ come sistema di template, ma si
 possono anche usare i tradizionali template PHP, se si preferisce. Il
 :doc:`prossimo capitolo</quick_tour/the_view>` introdurrà
-il modo in cui funzionano i template in in Symfony2.
+il modo in cui funzionano i template in in Symfony.
 
 Bundle
 ~~~~~~
 
 Forse ci si sta chiedendo perché il termine :term:`bundle` sia stato usato così tante volte
 finora. Tutto il codice che si scrive per un'applicazione è organizzato in
-bundle. Nel linguaggio di Symfony2, un bundle è un insieme strutturato di file (file
+bundle. Nel linguaggio di Symfony, un bundle è un insieme strutturato di file (file
 PHP, fogli di stile, JavaScript, immagini, ...) che implementano una singola
 caratteristica (un blog, un forum, ...) e che può essere condivisa facilmente con
 altri sviluppatori. Finora è stato trattato un solo bundle, ``AcmeDemoBundle``.
@@ -313,9 +313,9 @@ Si vedrà di più sui bundle nell'ultimo capitolo di questa guida.
 Lavorare con gli ambienti
 -------------------------
 
-Ora che si possiede una migliore comprensione di come funziona Symfony2, è
+Ora che si possiede una migliore comprensione di come funziona Symfony, è
 ora di dare un'occhiata più da vicino al fondo della pagina: si noterà
-una piccola barra con il logo di Symfony2. Questa barra è chiamata
+una piccola barra con il logo di Symfony. Questa barra è chiamata
 "barra di debug del web" ed è il miglior amico dello sviluppatore.
 
 .. image:: /images/quick_tour/web_debug_toolbar.png
@@ -323,7 +323,7 @@ una piccola barra con il logo di Symfony2. Questa barra è chiamata
 
 Ma quello che si vede all'inizio è solo la punta dell'iceberg: cliccando
 sullo strano numero esadecimale, si rivelerà un altro strumento di debug veramente
-utile di Symfony2: il profilatore.
+utile di Symfony: il profilatore.
 
 .. image:: /images/quick_tour/profiler.png
    :align: center
@@ -338,7 +338,7 @@ Che cos'è un ambiente?
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Un :term:`Ambiente` è una stringa che rappresenta un gruppo di configurazioni
-usate per far girare un'applicazione. Symfony2 definisce due ambienti di base: ``dev``
+usate per far girare un'applicazione. Symfony definisce due ambienti di base: ``dev``
 (adatto per lo sviluppo in locale) e ``prod`` (ottimizzato
 per eseguire l'applicazione in produzione).
 
@@ -372,7 +372,7 @@ si ottiene un errore 404.
 
     Se, invece di usare il server web di PHP, si usa Apache con
     ``mod_rewrite`` abilitato, sfruttando il file ``.htaccess`` fornito da
-    Symfony2  in ``web/``, si può anche omettere la parte ``app.php`` dell'URL.
+    Symfony  in ``web/``, si può anche omettere la parte ``app.php`` dell'URL.
     Il file ``.htaccess`` punta tutte le richieste al front controller
     ``app.php``:
 
@@ -386,9 +386,9 @@ Per maggiori dettagli sugli ambienti, vedere la pagina
 Considerazioni finali
 ---------------------
 
-Congratulazioni! Avete avuto il vostro primo assaggio di codice di Symfony2.
+Congratulazioni! Avete avuto il vostro primo assaggio di codice di Symfony.
 Non era così difficile, vero? C'è ancora molto da esplorare, ma dovreste
-già vedere come Symfony2 rende veramente facile implementare siti web in modo
+già vedere come Symfony rende veramente facile implementare siti web in modo
 migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossima
 sezione: ":doc:`la vista<the_view>`".
 

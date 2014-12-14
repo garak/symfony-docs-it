@@ -2,7 +2,7 @@ Inviare una patch
 =================
 
 Una patch è il modo migliore per rimediare a un bug e per proporre dei miglioramenti
-a Symfony2
+a Symfony
 
 Passo 1: preparare l'ambiente
 -----------------------------
@@ -10,7 +10,7 @@ Passo 1: preparare l'ambiente
 Installare il software
 ----------------------
 
-Prima di lavorare con Symfony2, preparare l'ambiente con il seguente
+Prima di lavorare con Symfony, preparare l'ambiente con il seguente
 software:
 
 * Git;
@@ -69,7 +69,7 @@ Ottenere il codice sorgente di Symfony:
 
 * Creare un account su `GitHub`_ ed entrare;
 
-* Forkare il `repository di Symfony2`_ (cliccando sul bottone "Fork");
+* Forkare il `repository di Symfony`_ (cliccando sul bottone "Fork");
 
 * Dopo che l'azione "hardcore forking" è stata completata, clonare il fork in locale
   (creerà una cartella `symfony`):
@@ -88,7 +88,7 @@ Ottenere il codice sorgente di Symfony:
 Verificare che i test passino
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ora che Symfony2 è installato, verifcare che tutti i test unitari passino nel proprio
+Ora che Symfony è installato, verifcare che tutti i test unitari passino nel proprio
 ambiente, come spiegato nel :doc:`documento <tests>` dedicato.
 
 Passo 2: lavorare su una patch
@@ -266,7 +266,7 @@ richiesta di pull, come in:
 
 La descrizione della richiesta di pull deve includere la seguente lista in cima, per assicurare
 che i contributi siano rivisti senza continui giri di feedback e che quindi possano
-essere inclusi in Symfony2 il prima
+essere inclusi in Symfony il prima
 possibile:
 
 .. code-block:: text
@@ -402,7 +402,7 @@ i commit. Dopo aver finito, eseguire il push.
 .. _ProGit:                                http://git-scm.com/book
 .. _GitHub:                                https://github.com/signup/free
 .. _`documentazione di Github`:            https://help.github.com/articles/ignoring-files
-.. _repository di Symfony2:                https://github.com/symfony/symfony
+.. _repository di Symfony:                 https://github.com/symfony/symfony
 .. _lista dev:                             http://groups.google.com/group/symfony-devs
 .. _travis-ci.org:                         https://travis-ci.org/
 .. _`icona di stato di travis-ci.org`:     http://about.travis-ci.org/docs/user/status-images/

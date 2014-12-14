@@ -1,9 +1,9 @@
 Standard del codice
 ===================
 
-Contribuendo al codice di Symfony2, bisogna seguire i suoi standard. Per farla
-breve, ecco una regola d'oro: **imitare il codice esistente di Symfony2**.
-La maggior parte dei bundle e delle librerie open source usati da Symfony2
+Contribuendo al codice di Symfony, bisogna seguire i suoi standard. Per farla
+breve, ecco una regola d'oro: **imitare il codice esistente di Symfony**.
+La maggior parte dei bundle e delle librerie open source usati da Symfony
 segue le stesse linee guida.
 
 Ricordare che il vantaggio principale degli standard è che ogni pezzo di codice
@@ -123,7 +123,7 @@ Convenzioni sui nomi
 
 * Usare gli spazi dei nomi per tutte le classi;
 
-* Aggiungere il prefisso ``Abstract`` alle classi astratte. Si noti che alcune vecchie classi di Symfony2
+* Aggiungere il prefisso ``Abstract`` alle classi astratte. Si noti che alcune vecchie classi di Symfony
   non seguono questa convenzione e non sono state rinominate per questioni di retrocompatibilità.
   Tuttavia, tutte le nuove classi astratte devono seguire questa convenzione;
 

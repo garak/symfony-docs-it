@@ -11,13 +11,13 @@ il codice, usando sia i test funzionali che quelli unitari.
 Il framework dei test PHPUnit
 -----------------------------
 
-Symfony2 si integra con una libreria indipendente, chiamata PHPUnit, per fornire
+Symfony si integra con una libreria indipendente, chiamata PHPUnit, per fornire
 un ricco framework per i test. Questo capitolo non approfondisce PHPUnit stesso, che
 ha comunque un'eccellente `documentazione`_.
 
 .. note::
 
-    Symfony2 funziona con PHPUnit 3.5.11 o successivi, ma per testare il codice del nucleo
+    Symfony funziona con PHPUnit 3.5.11 o successivi, ma per testare il codice del nucleo
     di Symfony occorre la versione 3.6.4.
 
 Ogni test, sia esso unitario o funzionale, è una classe PHP,
@@ -47,7 +47,7 @@ Test unitari
 Un test unitario è solitamente un test di una specifica classe PHP. Se si vuole
 testare il comportamento generale della propria applicazione, vedere la sezione dei `Test funzionali`_.
 
-La scrittura di test unitari in Symfony2 non è diversa dalla scrittura standard di test
+La scrittura di test unitari in Symfony non è diversa dalla scrittura standard di test
 unitari in PHPUnit. Si supponga, per esempio, di avere una classe *incredibilmente* semplice,
 chiamata ``Calculator``, nella cartella ``Utility/`` del bundle::
 
@@ -129,7 +129,7 @@ del bundle. Se si vogliono testare le pagine gestite dalla classe
 ``DemoController``, si inizi creando un file ``DemoControllerTest.php``, che estende
 una classe speciale ``WebTestCase``.
 
-Per esempio, l'edizione standard di Symfony2 fornisce un semplice test funzionale per il
+Per esempio, l'edizione standard di Symfony fornisce un semplice test funzionale per il
 suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 
     // src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
@@ -313,7 +313,7 @@ Lavorare con il client dei test
 -------------------------------
 
 Il client dei test emula un client HTTP, come un browser, ed effettua richieste
-all'applicazione Symfony2::
+all'applicazione Symfony::
 
     $crawler = $client->request('GET', '/hello/Fabien');
 

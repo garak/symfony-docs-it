@@ -6,12 +6,12 @@ Il controllore
 
 Un controllore è una funzione PHP da creare, che prende le informazioni dalla
 richiesta HTTP e dai costruttori e restituisce una risposta HTTP (come oggetto
-``Response`` di Symfony2). La risposta potrebbe essere una pagina HTML, un documento XML,
+``Response`` di Symfony). La risposta potrebbe essere una pagina HTML, un documento XML,
 un array serializzato JSON, una immagine, un rinvio, un errore 404 o qualsiasi altra cosa
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
 *propria applicazione* necessita per rendere il contenuto di una pagina.
 
-Per vedere quanto questo è semplice, diamo un'occhiata a un controllore di Symfony2 in azione.
+Per vedere quanto questo è semplice, diamo un'occhiata a un controllore di Symfony in azione.
 Il seguente controllore renderebbe una pagina che stampa semplicemente ``Ciao mondo!``::
 
     use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +50,7 @@ esempi comuni:
 Richieste, controllori, ciclo di vita della risposta
 ----------------------------------------------------
 
-Ogni richiesta gestita da un progetto Symfony2 passa attraverso lo stesso semplice ciclo di vita.
+Ogni richiesta gestita da un progetto Symfony passa attraverso lo stesso semplice ciclo di vita.
 Il framework si occupa dei compiti ripetitivi e infine esegue un
 controllore, che ospita il codice personalizzato dell'applicazione:
 
@@ -87,7 +87,7 @@ Un semplice controllore
 -----------------------
 
 Mentre un controllore può essere un qualsiasi callable PHP (una funzione, un metodo di un oggetto,
-o una ``Closure``), in Symfony2, un controllore di solito è un unico metodo all'interno
+o una ``Closure``), in Symfony, un controllore di solito è un unico metodo all'interno
 di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 .. code-block:: php
@@ -116,7 +116,7 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 Questo controllore è piuttosto semplice, ma vediamo di analizzarlo:
 
-* *linea 3*: Symfony2 sfrutta la funzionalità degli spazi dei nomi di PHP 5.3 per
+* *linea 3*: Symfony sfrutta la funzionalità degli spazi dei nomi di PHP 5.3 per
   utilizzarla nell'intera classe dei controllori. La parola chiave ``use`` importa la
   classe ``Response``, che il controllore deve restituire.
 
@@ -504,7 +504,7 @@ per rendere template, inviare email, interrogare la base dati e per ogni altro
 "lavoro" immaginabile. Quando si installa un nuovo bundle, probabilmente si avranno
 a disposizione *ulteriori* servizi.
 
-Quando si estende la classe base del controllore, è possibile accedere a qualsiasi servizio di Symfony2
+Quando si estende la classe base del controllore, è possibile accedere a qualsiasi servizio di Symfony
 attraverso il metodo ``get()``. Di seguito si elencano alcuni servizi comuni che potrebbero essere utili::
 
     $templating = $this->get('templating');
@@ -549,7 +549,7 @@ Il metodo ``createNotFoundException()`` crea uno speciale oggetto
 che in ultima analisi innesca una risposta HTTP 404 all'interno di Symfony.
 
 Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllore -
-Symfony2 ritornerà automaticamente un codice di risposta HTTP 500.
+Symfony ritornerà automaticamente un codice di risposta HTTP 500.
 
 .. code-block:: php
 
@@ -569,9 +569,9 @@ nel ricettario ":doc:`/cookbook/controller/error_pages`".
 Gestione della sessione
 -----------------------
 
-Symfony2 fornisce un oggetto sessione che si può utilizzare per memorizzare le informazioni
+Symfony fornisce un oggetto sessione che si può utilizzare per memorizzare le informazioni
 sull'utente (che sia una persona reale che utilizza un browser, un bot, o un servizio web)
-attraverso le richieste. Per impostazione predefinita, Symfony2 memorizza gli attributi in un cookie
+attraverso le richieste. Per impostazione predefinita, Symfony memorizza gli attributi in un cookie
 utilizzando le sessioni PHP native.
 
 Memorizzare e recuperare informazioni dalla sessione può essere fatto
@@ -779,9 +779,9 @@ essere simile al seguente::
     }
 
 E proprio come quando si crea un controllore per una rotta, l'ordine dei parametri
-di ``fancyAction`` non è importante. Symfony2 controlla i nomi degli indici chiave
+di ``fancyAction`` non è importante. Symfony controlla i nomi degli indici chiave
 (ad esempio ``name``) con i nomi dei parametri del metodo (ad esempio ``$name``). Se
-si modifica l'ordine dei parametri, Symfony2 continuerà a passare il corretto
+si modifica l'ordine dei parametri, Symfony continuerà a passare il corretto
 valore di ogni variabile.
 
 Considerazioni finali

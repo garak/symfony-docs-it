@@ -3,10 +3,10 @@
 
 .. _the-symfony2-stable-api:
 
-L'API stabile di Symfony2
-=========================
+L'API stabile di Symfony
+========================
 
-L'API stabile di Symfony2 è un sottoinsieme di tutti i metodi pubblici di Symfony2
+L'API stabile di Symfony è un sottoinsieme di tutti i metodi pubblici di Symfony
 (componenti e bundle del nucleo) che condividono le seguenti proprietà:
 
 * Lo spazio dei nomi e il nome della classe non cambieranno;

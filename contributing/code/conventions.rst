@@ -1,7 +1,7 @@
 Convenzioni
 ===========
 
-La documentazione :doc:`standards` descrive gli standard del codice per i progetti Symfony2
+La documentazione :doc:`standards` descrive gli standard del codice per i progetti Symfony
 e per i bundle interni e di terze parti. Tale documento descrive gli
 standard e le convenzioni utilizzate nel nucleo del framework. per renderlo più
 coerente e prevedibile. Seguirle anche nel proprio codice è bene, anche se non

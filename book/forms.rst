@@ -109,7 +109,7 @@ all'interno di un controllore::
    come costruire il form in una classe autonoma, metodo consigliato perché in questo modo
    il form diventa riutilizzabile.
 
-La creazione di un form richiede relativamente poco codice, perché gli oggetti form di Symfony2
+La creazione di un form richiede relativamente poco codice, perché gli oggetti form di Symfony
 sono costruiti con un "costruttore di form". Lo scopo del costruttore di form è quello di consentire
 di scrivere una semplice "ricetta" per il form e fargli fare tutto il lavoro pesante della
 costruzione del form.
@@ -1897,7 +1897,7 @@ Saperne di più con il ricettario
 * :doc:`/cookbook/form/dynamic_form_modification`
 * :doc:`/cookbook/form/data_transformers`
 
-.. _`Componente Form di Symfony2`: https://github.com/symfony/Form
+.. _`Componente Form di Symfony`: https://github.com/symfony/Form
 .. _`DateTime`: http://php.net/manual/it/class.datetime.php
 .. _`Twig Bridge`: https://github.com/symfony/symfony/tree/2.3/src/Symfony/Bridge/Twig
 .. _`form_div_layout.html.twig`: https://github.com/symfony/symfony/blob/2.3/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig

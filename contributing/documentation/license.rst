@@ -3,7 +3,7 @@
 Licenza della documentazione di Symfony
 =======================================
 
-La documentazione di Symfony2 è rilasciata sotto `licenza`_ Creative Commons
+La documentazione di Symfony è rilasciata sotto `licenza`_ Creative Commons
 Attribuzione - Condividi allo stesso modo 3.0 Unported.
 
 **Si è liberi:**

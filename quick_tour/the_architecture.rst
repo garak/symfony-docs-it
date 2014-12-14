@@ -4,13 +4,13 @@ L'architettura
 Sei un eroe! Chi avrebbe pensato che tu fossi ancora qui dopo le prime
 tre parti? I tuoi sforzi saranno presto ricompensati. Le prime tre parti
 non danno uno sguardo approfondito all'architettura del framework. Poiché
-essa rende unico Symfony2 nel panorama dei framework, vediamo in cosa
+essa rende unico Symfony nel panorama dei framework, vediamo in cosa
 consiste.
 
 Capire la struttura delle cartelle
 ----------------------------------
 
-La struttura delle cartelle di un':term:`applicazione` Symfony2 è alquanto flessibile,
+La struttura delle cartelle di un':term:`applicazione` Symfony è alquanto flessibile,
 ma la struttura raccomandata è la seguente:
 
 * ``app/``:    La configurazione dell'applicazione;
@@ -66,14 +66,14 @@ Capire il sistema dei bundle
 ----------------------------
 
 Questa sezione è un'introduzione a una delle più grandi e
-potenti caratteristiche di Symfony2, il sistema dei :term:`bundle`.
+potenti caratteristiche di Symfony, il sistema dei :term:`bundle`.
 
 Un bundle è molto simile a un plugin in un altro software. Ma perché
 allora si chiama *bundle* e non *plugin*? Perché *ogni cosa* è un bundle
-in Symfony2, dalle caratteristiche del nucleo del framework al codice
+in Symfony, dalle caratteristiche del nucleo del framework al codice
 scritto per un'applicazione.
 
-I bundle sono cittadini di prima classe in Symfony2. Essi forniscono la flessibilità
+I bundle sono cittadini di prima classe in Symfony. Essi forniscono la flessibilità
 di usare delle caratteristiche pre-costruite impacchettate in bundle di terze parti o di distribuire 
 i propri bundle. Questo rende molto facile scegliere quali caratteristiche abilitare in
 un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
@@ -233,7 +233,7 @@ Nomi logici di file
 ...................
 
 Quando si vuole fare riferimento a un file da un bundle, usare questa notazione:
-``@NOME_BUNDLE/percorso/del/file``; Symfony2 risolverà ``@NOME_BUNDLE`` nel percorso
+``@NOME_BUNDLE/percorso/del/file``; Symfony risolverà ``@NOME_BUNDLE`` nel percorso
 reale del bundle. Per esempio, il percorso logico
 ``@AcmeDemoBundle/Controller/DemoController.php`` verrebbe convertito in
 ``src/Acme/DemoBundle/Controller/DemoController.php``, perché Symfony conosce
@@ -267,7 +267,7 @@ prima il controllore ``AcmeDemoBundle:Welcome:index`` da AcmeNewBundle e poi
 cercherà in AcmeDemoBundle. Questo vuol dire che un bundle può sovrascrivere
 quasi ogni parte di un altro bundle!
 
-È chiaro ora perché Symfony2 è così flessibile? Condividere bundle tra le
+È chiaro ora perché Symfony è così flessibile? Condividere bundle tra le
 applicazioni, memorizzarli localmente o globalmente, a scelta.
 
 .. _using-vendors:
@@ -277,18 +277,18 @@ Usare i venditori
 
 Probabilmente l'applicazione dipenderà da librerie di terze parti.
 Queste ultime dovrebbero essere memorizzate nella cartella ``vendor/``.
-Tale cartella contiene già le librerie di Symfony2, SwiftMailer, l'ORM Doctrine,
+Tale cartella contiene già le librerie di Symfony, SwiftMailer, l'ORM Doctrine,
 il sistema di template Twig e alcune altre librerie e bundle di terze parti.
 
 Capire la cache e i log
 -----------------------
 
-Symfony2 è forse uno dei framework completi più veloci in circolazione.
+Symfony è forse uno dei framework completi più veloci in circolazione.
 Ma come può essere così veloce, se analizza e interpreta decine di file
 YAML e XML a ogni richiesta? In parte, per il suo sistema di cache. La
 configurazione dell'applicazione è analizzata solo per la prima richiesta
 e poi compilata in semplice file PHP, memorizzato nella cartella ``app/cache/``
-dell'applicazione. Nell'ambiente di sviluppo, Symfony2 è abbastanza
+dell'applicazione. Nell'ambiente di sviluppo, Symfony è abbastanza
 intelligente da pulire la cache quando cambiano dei file. In produzione, invece,
 occorre pulire la cache manualmente quando si aggiorna il codice o si modifica la
 configurazione.
@@ -320,12 +320,12 @@ Considerazioni finali
 ---------------------
 
 Dopo aver letto questa parte, si dovrebbe essere in grado di muoversi facilmente
-dentro Symfony2 e farlo funzionare. Ogni cosa in Symfony2 è fatta per
+dentro Symfony e farlo funzionare. Ogni cosa in Symfony è fatta per
 rispondere alle varie esigenze. Quindi, si possono rinominare e spostare le
 varie cartelle, finché non si raggiunge il risultato voluto.
 
 E questo è tutto per il giro veloce. Dai test all'invio di email, occorre ancora
-imparare diverse cose per padroneggiare Symfony2. Pronti per approfondire questi
+imparare diverse cose per padroneggiare Symfony. Pronti per approfondire questi
 temi? Senza indugi, basta andare nella pagine del :doc:`libro</book/index>` e
 scegliere un argomento a piacere.
 

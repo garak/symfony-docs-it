@@ -4,8 +4,8 @@
 Prestazioni
 ===========
 
-Symfony2 è veloce, senza alcuna modifica. Ovviamente, se occorre maggiore velocità,
-ci sono molti modi per rendere Symfony2 ancora più veloce. In questo capitolo
+Symfony è veloce, senza alcuna modifica. Ovviamente, se occorre maggiore velocità,
+ci sono molti modi per rendere Symfony ancora più veloce. In questo capitolo
 saranno esplorati molti dei modi più comuni e potenti per rendere
 un'applicazione Symfony più veloce.
 
@@ -21,7 +21,7 @@ l'esigenza di dover ricompilare ogni volta il codice sorgente PHP. Ci sono numer
 `cache bytecode`_  disponibili, alcune delle quali open source. La più usata
 è probabilmente `APC`_.
 
-Usare una cache bytecode non ha alcun effetto negativo, e Symfony2 è stato progettato
+Usare una cache bytecode non ha alcun effetto negativo, e Symfony è stato progettato
 per avere prestazioni veramente buone in questo tipo di ambiente.
 
 Ulteriori ottimizzazioni
@@ -45,7 +45,7 @@ al file di configurazione php.ini.
 Usare un autoloader con cache (p.e. ``ApcUniversalClassLoader``)
 ----------------------------------------------------------------
 
-Per impostazione predefinita, Symfony2 standard edition usa ``UniversalClassLoader``
+Per impostazione predefinita, Symfony standard edition usa ``UniversalClassLoader``
 nel file `autoloader.php`_. Questo autoloader è facile da usare, perché troverà
 automaticamente ogni nuova classe inserita nelle cartelle
 registrate.
@@ -105,16 +105,16 @@ Per maggiori dettagli, vedere :doc:`/components/class_loader/cache_class_loader`
 Usare i file di avvio
 ---------------------
 
-Per assicurare massima flessibilità e riutilizzo del codice, le applicazioni Symfony2
+Per assicurare massima flessibilità e riutilizzo del codice, le applicazioni Symfony
 sfruttano una varietà di classi e componenti di terze parti. Ma il caricamento di tutte
 queste classi da diversi file a ogni richiesta può risultate in un overhead. Per ridurre
-tale overhead, Symfony2 Standard Edition fornisce uno script per generare i cosiddetti
+tale overhead, Symfony Standard Edition fornisce uno script per generare i cosiddetti
 `file di avvio`_, che consistono in definizioni di molte classi in un singolo file.
 Includendo questo file (che contiene una copia di molte classi del nucleo), Symfony
 non avrà più bisogno di includere alcuno dei file sorgente contenuti nelle classi stesse.
 Questo riduce un po' la lettura/scrittura su disco.
 
-Se si usa Symfony2 Standard Edition, probabilmente si usa già un file di avvio.
+Se si usa Symfony Standard Edition, probabilmente si usa già un file di avvio.
 Per assicurarsene, aprire il front controller (solitamente
 ``app.php``) e verificare che sia presente la seguente riga::
 
@@ -123,11 +123,11 @@ Per assicurarsene, aprire il front controller (solitamente
 Si noti che ci sono due svantaggi nell'uso di un file di avvio:
 
 * il file deve essere rigenerato ogni volta che cambia una delle sorgenti originali
-  (p.e. quando si aggiorna il sorgente di Symfony2 o le librerie dei venditori);
+  (p.e. quando si aggiorna il sorgente di Symfony o le librerie dei venditori);
 
 * durante il debug, occorre inserire i breakpoint nel file di avvio.
 
-Se si usa Symfony2 Standard Edition, il file di avvio è ricostruito automaticamente
+Se si usa Symfony Standard Edition, il file di avvio è ricostruito automaticamente
 dopo l'aggiornamento delle librerie dei venditori, tramite il comando
 ``php composer.phar install``.
 

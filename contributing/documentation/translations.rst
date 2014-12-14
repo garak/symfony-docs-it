@@ -56,7 +56,7 @@ processo da seguire per far parte del team:
 Aggiungere una nuova lingua
 ---------------------------
 
-Questa sezione fornisce alcune guide per iniziare la traduzione di Symfony2 per una nuova
+Questa sezione fornisce alcune guide per iniziare la traduzione di Symfony per una nuova
 lingua.
 
 Iniziare la trduzione in una nuova lingua comporta molto lavoro, è necessario parlarne sulla

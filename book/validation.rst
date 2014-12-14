@@ -8,7 +8,7 @@ La validazione è un compito molto comune nella applicazioni web. I dati inserit
 hanno bisogno di essere validati. I dati hanno bisogno di essere validati anche prima di
 essere inseriti in una base dati o passati a un servizio web.
 
-Symfony2 ha un componente `Validator`_ , che rende questo compito facile e trasparente.
+Symfony ha un componente `Validator`_ , che rende questo compito facile e trasparente.
 Questo componente è bastato sulle `specifiche di validazione
 JSR303 Bean`_. 
 
@@ -253,7 +253,7 @@ Per maggiori informazioni, vedere il capitolo sui :doc:`Form</book/forms>`.
 Configurazione
 --------------
 
-La validazione in Symfony2 è abilitata per configurazione predefinita, ma si devono
+La validazione in Symfony è abilitata per configurazione predefinita, ma si devono
 abilitare esplicitamente le annotazioni, se le si usano per specificare i vincoli:
 
 .. configuration-block::
@@ -302,14 +302,14 @@ rispettive classi e quindi passarli al servizio ``validator``.
 
 Dietro le quinte, un vincolo è semplicemente un oggetto PHP che esegue un'istruzione
 assertiva. Nella vita reale, un vincolo potrebbe essere "la torta non deve essere
-bruciata". In Symfony2, i vincoli sono simili: sono asserzioni sulla verità di una
+bruciata". In Symfony, i vincoli sono simili: sono asserzioni sulla verità di una
 condizione. Dato un valore, un vincolo dirà se tale valore sia aderente o meno alle
 regole del vincolo.
 
 Vincoli supportati
 ~~~~~~~~~~~~~~~~~~
 
-Symfony2 dispone di un gran numero dei vincoli più comunemente necessari:
+Symfony dispone di un gran numero dei vincoli più comunemente necessari:
 
 .. include:: /reference/constraints/map.rst.inc
 
@@ -502,7 +502,7 @@ facile, ma il secondo consente di specificare regole di validazione più comples
 Proprietà
 ~~~~~~~~~
 
-La validazione delle proprietà di una classe è la tecnica di base. Symfony2
+La validazione delle proprietà di una classe è la tecnica di base. Symfony
 consente di validare proprietà private, protette o pubbliche. L'elenco seguente
 mostra come configurare la proprietà ``$firstName`` di una classe ``Author``, per
 avere almeno 3 caratteri.
@@ -581,7 +581,7 @@ avere almeno 3 caratteri.
 Getter
 ~~~~~~
 
-I vincoli si possono anche applicare ai valori restituiti da un metodo. Symfony2
+I vincoli si possono anche applicare ai valori restituiti da un metodo. Symfony
 consente di aggiungere un vincolo a qualsiasi metodo il cui nome inizi per
 "get" o "is". In questa guida, si fa riferimento a questi due tipi di metodi come
 "getter".
@@ -1217,7 +1217,7 @@ il messaggio di errore nel suo metodo ``getMessage``.
 Considerazioni finali
 ---------------------
 
-``validator`` di Symfony2 è uno strumento potente, che può essere sfruttato per
+``validator`` di Symfony è uno strumento potente, che può essere sfruttato per
 garantire che i dati di qualsiasi oggetto siano validi. La potenza dietro alla
 validazione risiede nei "vincoli", che sono regole da applicare alle proprietà o
 ai metodi getter del proprio oggetto. Sebbene la maggior parte delle volte si userà il

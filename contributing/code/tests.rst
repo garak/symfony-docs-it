@@ -1,21 +1,21 @@
 .. _running-symfony2-tests:
 
-Eseguire i test di Symfony2
-===========================
+Eseguire i test di Symfony
+==========================
 
 Prima di inviare una :doc:`patch <patches>`, occorre eseguire
-tutti i test di Symfony2, per assicurarsi di non aver rotto nulla.
+tutti i test di Symfony, per assicurarsi di non aver rotto nulla.
 
 PHPUnit
 -------
 
-Per eseguire i test di Symfony2, `installare`_ prima PHPUnit 3.7 o successivi.
+Per eseguire i test di Symfony, `installare`_ prima PHPUnit 3.7 o successivi.
 
 Dipendenze (opzionali)
 ----------------------
 
 Per eseguire tutti i test, inclusi quelli che hanno dipendenze esterne,
-Symfony2 deve poterle scaricare. Per impostazione predefinita, sono
+Symfony deve poterle scaricare. Per impostazione predefinita, sono
 auto-caricati dalla cartella ``vendor/`` (vedere
 ``autoload.php.dist``).
 
@@ -56,21 +56,21 @@ Passo 2: installare i venditori
     .. code-block:: bash
 
         $ php installer
-        $ php composer.phar --dev install
+        $ php composer.phar install
 
 Dopo l'installazione, si possono aggiornare i venditori alle loro ultime versioni, con
 il comando seguente:
 
 .. code-block:: bash
 
-    $ php composer.phar --dev update
+    $ php composer.phar update
 
 Esecuzione
 ----------
 
 Prima di tutto, aggiornare i venditori (vedere sopra).
 
-Quindi, eseguire i test dalla cartella radice di Symfony2, con il comando
+Quindi, eseguire i test dalla cartella radice di Symfony, con il comando
 seguente:
 
 .. code-block:: bash

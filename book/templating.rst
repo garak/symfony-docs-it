@@ -53,7 +53,7 @@ file testuale analizzato da PHP che contiene un misto di testo e codice PHP:
 
 .. index:: Twig; Introduzione
 
-Ma Symfony2 possiede un linguaggio di template ancora più potente, chiamato `Twig`_.
+Ma Symfony possiede un linguaggio di template ancora più potente, chiamato `Twig`_.
 Twig consente di scrivere template concisi e leggibili, più amichevoli per i grafici e,
 in molti modi, più potenti dei template PHP:
 
@@ -178,7 +178,7 @@ Ereditarietà dei template e layout
 ----------------------------------
 
 Molto spesso, i template di un progetto condividono elementi comuni, come la
-testata, il piè di pagina, una barra laterale e altro. In Symfony2, ci piace
+testata, il piè di pagina, una barra laterale e altro. In Symfony, ci piace
 pensare a questo problema in modo differente: un template può essere decorato da un
 altro template. Funziona esattamente come per le classi PHP: l'ereditarietà dei template
 consente di costruire un template "layout" di base, che contiene tutti gli elementi comuni
@@ -333,7 +333,7 @@ in un template padre è sempre usato come valore predefinito.
 
 Si possono usare tanti livelli di ereditarietà quanti se ne desiderano. Nella prossima
 sezione, sarà spiegato un modello comune a tre livelli di ereditarietà, insieme al modo
-in cui i template sono organizzati in un progetto Symfony2.
+in cui i template sono organizzati in un progetto Symfony.
 
 Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da tenere a mente:
 
@@ -454,11 +454,11 @@ Nome del file             Formato  Motore
 ``Blog/index.css.twig``   CSS      Twig
 ========================  =======  ======
 
-Per impostazione predefinita, ogni template Symfony2 può essere scritto in Twig o in PHP,
+Per impostazione predefinita, ogni template Symfony può essere scritto in Twig o in PHP,
 e l'ultima parte dell'estensione (p.e. ``.twig`` o ``.php``) specifica quale
 di questi due *motori* va usata. La prima parte dell'estensione,
 (p.e. ``.html``, ``.css``, ecc.) è il formato finale che il template
-genererà. Diversamente dal motore, che determina il modo in cui Symfony2 analizza il
+genererà. Diversamente dal motore, che determina il modo in cui Symfony analizza il
 template, si tratta di una tattica organizzativa usata nel caso in cui alcune risorse
 debbano essere rese come HTML (``index.html.twig``), XML (``index.xml.twig``) o
 in altri formati. Per maggiori informazioni, leggere la sezione
@@ -482,7 +482,7 @@ sezione, si potranno conoscere un gran numero di strumenti disponibili per
 aiutare a compiere i compiti più comuni sui template, come includere altri
 template, collegare pagine e inserire immagini.
 
-Symfony2 dispone di molti tag di Twig specializzati e di molte funzioni, che facilitano
+Symfony dispone di molti tag di Twig specializzati e di molte funzioni, che facilitano
 il lavoro del progettista di template. In PHP, il sistema di template fornisce un
 sistema estensibile di *aiutanti*, che fornisce utili caratteristiche nel contesto
 dei template.
@@ -692,7 +692,7 @@ Contenuto asincrono con hinclude.js
 
 Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
-Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
+Symfony usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
 
 
 .. configuration-block::
@@ -1000,7 +1000,7 @@ Collegare le risorse
 
 I template solitamente hanno anche riferimenti a immagini, Javascript, fogli di stile e
 altre risorse. Certamente, si potrebbe inserire manualmente il percorso a tali risorse
-(p.e. ``/images/logo.png``), ma Symfony2 fornisce un'opzione più dinamica, tramite la funzione ``asset`` di Twig:
+(p.e. ``/images/logo.png``), ma Symfony fornisce un'opzione più dinamica, tramite la funzione ``asset`` di Twig:
 
 .. configuration-block::
 
@@ -1114,7 +1114,7 @@ Il risultato finale è una pagina che include i fogli di stile ``main.css`` e
 Variabili globali nei template
 ------------------------------
 
-Durante ogni richiesta, Symfony2 imposta una variabile globale ``app``,
+Durante ogni richiesta, Symfony imposta una variabile globale ``app``,
 sia nei template Twig che in quelli PHP. La variabile ``app``
 è un'istanza di :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`,
 che dà accesso automaticamente ad alcune variabili specifiche
@@ -1156,7 +1156,7 @@ dell'applicazione:
 Configurare e usare il servizio ``templating``
 ----------------------------------------------
 
-Il cuore del sistema dei template di Symfony2 è il motore dei template.
+Il cuore del sistema dei template di Symfony è il motore dei template.
 L'oggetto speciale ``Engine`` è responsabile della resa dei template e della
 restituzione del loro contenuto. Quando si rende un template in un controllore,
 per esempio, si sta in realtà usando il servizio del motore dei template. Per esempio::
@@ -1232,7 +1232,7 @@ nell':doc:`Appendice: configurazione</reference/configuration/framework>`.
 Sovrascrivere template dei bundle
 ---------------------------------
 
-La comunità di Symfony2 si vanta di creare e mantenere bundle di alta
+La comunità di Symfony si vanta di creare e mantenere bundle di alta
 qualità (vedere `KnpBundles.com`_) per un gran numero di diverse caratteristiche.
 Quando si usa un bundle di terze parti, probabilmente occorrerà sovrascrivere e
 personalizzare uno o più dei suoi template.
@@ -1254,7 +1254,7 @@ renderlo specifico per l'applicazione. Analizzando il controllore
         );
     }
 
-Quando viene reso ``AcmeBlogBundle:Blog:index.html.twig``, Symfony2 cerca il template
+Quando viene reso ``AcmeBlogBundle:Blog:index.html.twig``, Symfony cerca il template
 in due diversi posti:
 
 #. ``app/Resources/AcmeBlogBundle/views/Blog/index.html.twig``
@@ -1272,7 +1272,7 @@ crearla). Ora si può personalizzare il template.
 
 Questa logica si applica anche ai template base dei bundle. Si supponga che ogni
 template in ``AcmeBlogBundle`` erediti da un template base chiamato
-``AcmeBlogBundle::layout.html.twig``. Esattamente come prima, Symfony2 cercherà
+``AcmeBlogBundle::layout.html.twig``. Esattamente come prima, Symfony cercherà
 il template i questi due posti:
 
 #. ``app/Resources/AcmeBlogBundle/views/layout.html.twig``
@@ -1282,7 +1282,7 @@ Anche qui, per sovrascrivere il template, basta copiarlo dal bundle a
 ``app/Resources/AcmeBlogBundle/views/layout.html.twig``. Ora lo si può
 personalizzare.
 
-Facendo un passo indietro, si vedrà che Symfony2 inizia sempre a cercare un
+Facendo un passo indietro, si vedrà che Symfony inizia sempre a cercare un
 template nella cartella ``app/Resources/{NOME_BUNDLE}/views/``. Se il template
 non c'è, continua verificando nella cartella ``Resources/views`` del bundle stesso.
 Questo vuol dire che ogni template di bundle può essere sovrascritto, inserendolo
@@ -1302,7 +1302,7 @@ appropriata.
 Sovrascrivere template del nucleo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Essendo il framework Symfony2 esso stesso un bundle, i template del nucleo
+Essendo il framework Symfony esso stesso un bundle, i template del nucleo
 possono essere sovrascritti allo stesso modo. Per esempio, TwigBundle
 contiene diversi template "exception" ed "error", che possono essere sovrascritti,
 copiandoli dalla cartella ``Resources/views/Exception`` di TwigBundle a,
@@ -1582,7 +1582,7 @@ comuni.
 
 Complessivamente, l'argomento template dovrebbe essere considerato come un potente
 strumento a disposizione. In alcuni casi, si potrebbe non aver bisogno di rendere un
-template, in Symfony2, questo non è assolutamente un problema.
+template, in Symfony, questo non è assolutamente un problema.
 
 Imparare di più con il ricettario
 ---------------------------------

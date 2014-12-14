@@ -1,7 +1,7 @@
 Il controllore
 ==============
 
-Ancora qui, dopo le prime due parti? State diventando dei Symfony2-dipendenti!
+Ancora qui, dopo le prime due parti? State diventando dei Symfony-dipendenti!
 Senza ulteriori indugi, scopriamo cosa sono in grado di fare i controllori.
 
 Usare i formati
@@ -10,7 +10,7 @@ Usare i formati
 Oggigiorno, un'applicazione web dovrebbe essere in grado di servire
 più che semplici pagine HTML. Da XML per i feed RSS o per web service,
 a JSON per le richieste Ajax, ci sono molti formati diversi tra cui
-scegliere. Il supporto di tali formati in Symfony2 è semplice.
+scegliere. Il supporto di tali formati in Symfony è semplice.
 Modificare il file ``routing.yml`` e aggiungere un formato ``_format``, con valore ``xml``::
 
     // src/Acme/DemoBundle/Controller/DemoController.php
@@ -28,7 +28,7 @@ Modificare il file ``routing.yml`` e aggiungere un formato ``_format``, con valo
         return array('name' => $name);
     }
 
-Usando il formato di richiesta (come definito nel valore ``_format``), Symfony2
+Usando il formato di richiesta (come definito nel valore ``_format``), Symfony
 sceglie automaticamente il template giusto, in questo caso ``hello.xml.twig``:
 
 .. code-block:: xml+php
@@ -38,7 +38,7 @@ sceglie automaticamente il template giusto, in questo caso ``hello.xml.twig``:
         <name>{{ name }}</name>
     </hello>
 
-È tutto. Per i formati standard, Symfony2 sceglierà anche l'header ``Content-Type``
+È tutto. Per i formati standard, Symfony sceglierà anche l'header ``Content-Type``
 migliore per la risposta. Se si vogliono supportare diversi formati per una
 singola azione, usare invece il segnaposto ``{_format}`` nello schema della
 rotta::
@@ -136,9 +136,9 @@ variabile ``app.request``:
 Persistere i dati nella sessione
 --------------------------------
 
-Anche se il protocollo HTTP non ha stato, Symfony2 fornisce un bell'oggetto sessione,
+Anche se il protocollo HTTP non ha stato, Symfony fornisce un bell'oggetto sessione,
 che rappresenta il client (sia esso una persona che usa un browser, un bot o un servizio
-web). Tra due richieste, Symfony2 memorizza gli attributi in un cookie, usando
+web). Tra due richieste, Symfony memorizza gli attributi in un cookie, usando
 le sessioni native di PHP.
 
 Si possono memorizzare e recuperare informazioni dalla sessione in modo facile, da
@@ -176,7 +176,7 @@ Mettere in cache le risorse
 ---------------------------
 
 Non appena il sito inizia a generare più traffico, si vorrà evitare di
-dover generare la stessa risorsa più volte. Symfony2 usa gli header di cache
+dover generare la stessa risorsa più volte. Symfony usa gli header di cache
 HTTP per gestire la cache delle risorse. Per semplici strategie di cache, si può
 usare l'annotazione ``@Cache()``::
 
@@ -195,7 +195,7 @@ usare l'annotazione ``@Cache()``::
     }
 
 In questo esempio, la risorsa sarà in cache per un giorno (``86400`` secondi).
-La cache delle risorse è gestita dal reverse proxy predefinito di Symfony2. Ma, poiché la
+La cache delle risorse è gestita dal reverse proxy predefinito di Symfony. Ma, poiché la
 cache è gestita usando i normali header di cache di HTTP, è possibile rimpiazzare il
 reverse proxy predefinito con Varnish o Squid e far scalare facilmente un'applicazione.
 
@@ -205,5 +205,5 @@ Considerazioni finali
 È tutto, e forse non abbiamo nemmeno speso tutti e dieci i minuti previsti.
 Nella prima parte abbiamo introdotto brevemente i bundle e tutte le caratteristiche
 apprese finora fanno parte del bundle del nucleo del framework. Ma, grazie ai bundle,
-ogni cosa in Symfony2 può essere estesa o sostituita. Questo è l'argomento della
+ogni cosa in Symfony può essere estesa o sostituita. Questo è l'argomento della
 :doc:`prossima parte di questa guida<the_architecture>`.

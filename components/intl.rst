@@ -64,7 +64,7 @@ autoloader::
 
     L'estensione intl usa internamente la `libreria ICU`_ per ottenere dati localizzati,
     come formati numerici nelle varie lingue, nomi di paesi, eccetera.
-    Per rendere disponibili tali dati alle librerie utente di PHP, Symfony2 ne possiede una copia
+    Per rendere disponibili tali dati alle librerie utente di PHP, Symfony ne possiede una copia
     nel `componente ICU`_.
 
     A seconda della versione di ICU compilata nell'estensione intl, occorre installare una versione

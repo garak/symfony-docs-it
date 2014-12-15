@@ -6,7 +6,7 @@
 Requisiti per far girare Symfony
 ================================
 
-Per far girare Symfony2, un sistema deve soddisfare un elenco di requisiti.
+Per far girare Symfony, un sistema deve soddisfare un elenco di requisiti.
 Si può verificare facilmente se un sistema abbia tutti i requisiti, richiamando ``web/config.php``
 in una distribuzione di Symfony. Poiché la CLI spesso usa un file di configurazione ``php.ini``
 diverso, è una buona idea verificare i requisiti anche tramite
@@ -28,7 +28,7 @@ Requisiti
 
 .. caution::
 
-    Fare attenzione, perché Symfony2 ha alcuni limiti noti con versioni precedenti
+    Fare attenzione, perché Symfony ha alcuni limiti noti con versioni precedenti
     a PHP 5.3.8 o uguali a 5.3.16. Per maggiori informazoni, vedere la
     `sezione Requisiti del README`_.
 

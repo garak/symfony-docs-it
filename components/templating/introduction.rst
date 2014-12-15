@@ -83,7 +83,7 @@ Variabili globali
 -----------------
 
 A volte si ha bisogno di impostare una variabile che sia disponibile in tutti i template
-resi da un motore (come la variabile ``$app`` quando si usa il framework Symfony2).
+resi da un motore (come la variabile ``$app`` quando si usa il framework Symfony).
 Tali variabili possono essere impostate usando il metodo
 :method:`Symfony\\Component\\Templating\\PhpEngine::addGlobal` e vi si può
 accedere nel template come normali variabili::

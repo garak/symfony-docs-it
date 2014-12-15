@@ -204,7 +204,7 @@ si deve specificare il dominio come terzo parametro di ``trans()``::
 
     $translator->trans('Symfony is great', array(), 'admin');
 
-Symfony2 ora cercherà il messaggio nel dominio ``admin`` del locale
+Symfony ora cercherà il messaggio nel dominio ``admin`` del locale
 specificato.
 
 Uso

@@ -4,8 +4,8 @@
 
 .. _how-to-install-and-use-the-symfony2-components:
 
-Installare e usare i componenti di Symfony2
-===========================================
+Installare e usare i componenti di Symfony
+==========================================
 
 Se si inizia un nuovo progetto (o se si ha già un progetto) che userà
 uno o più componenti, il modo più semplice per integrare tutto è con `Composer`_.
@@ -64,7 +64,7 @@ immediatamente::
 
 .. tip::
 
-    Se si vogliono usare tutti i componenti di Symfony2, invece di aggiungerli
+    Se si vogliono usare tutti i componenti di Symfony, invece di aggiungerli
     uno alla volta:
 
     .. code-block:: json

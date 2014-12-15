@@ -8,7 +8,7 @@ Usare la funzione submit() per gestire l'invio di form
     Il metodo :method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
     è stato aggiunto in Symfony 2.3.
 
-Con il metodo ``handleRequest``, la gestione dell'invio di form
+Con il metodo ``handleRequest()``, la gestione dell'invio di form
 è veramente facile::
 
     use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +36,8 @@ Con il metodo ``handleRequest``, la gestione dell'invio di form
 .. tip::
 
     Per approfondire questo metodo, leggere :ref:`book-form-handling-form-submissions`.
+
+.. _cookbook-form-call-submit-directly:
 
 Richiamare Form::submit() a mano
 --------------------------------
@@ -92,7 +94,7 @@ Passare Request a Form::submit() (deprecato)
 
 Prima di Symfony 2.3, il metodo :method:`Symfony\\Component\\Form\\FormInterface::submit`
 accettava un oggetto :class:`Symfony\\Component\\HttpFoundation\\Request` come
-scorciatoria per l'esempio precedente::
+scorciatoia per l'esempio precedente::
 
     use Symfony\Component\HttpFoundation\Request;
     // ...

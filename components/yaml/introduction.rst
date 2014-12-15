@@ -10,7 +10,7 @@ Il componente Yaml
 Che cos'è?
 ----------
 
-Il componente Yaml di Symfony2 analizza stringhe YAML da convertire in array PHP.
+Il componente Yaml di Symfony analizza stringhe YAML da convertire in array PHP.
 È anche in grado di convertire array PHP in stringhe YAML.
 
 `YAML`_, *YAML Ain't Markup Language*, è uno standard amichevole di serializzazione di dati
@@ -18,7 +18,7 @@ per tutti i linguaggi di programmazione. YAML è un ottimo formato per i file di
 configurazione. I file YAML sono espressivi quanto i file XML e leggibili quanto i file
 INI.
 
-Il componente Yaml di Symfony2 implementa un sottoinsieme di caratteristiche definite 
+Il componente Yaml di Symfony implementa un sottoinsieme di caratteristiche definite 
 nella `versione 1.2. della specifica YAML`_.
 
 .. tip::
@@ -79,10 +79,10 @@ usando riferimenti a bit comuni di configurazione.
 
 .. _using-the-symfony2-yaml-component:
 
-Usare il componente Yaml di Symfony2
-------------------------------------
+Usare il componente Yaml di Symfony
+-----------------------------------
 
-Il componente Yaml di Symfony2 è molto semplice e consiste di due classi principali:
+Il componente Yaml di Symfony è molto semplice e consiste di due classi principali:
 una analizza le stringhe YAML (:class:`Symfony\\Component\\Yaml\\Parser`) e l'altra
 esporta un array PHP in una stringa YAML
 (:class:`Symfony\\Component\\Yaml\\Dumper`).

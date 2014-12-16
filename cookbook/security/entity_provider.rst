@@ -656,7 +656,7 @@ questa sezione.
     Per funzionare con gli esempi della configurazione di sicurezza di questa ricetta,
     tutti i ruoli devono avere il prefisso ``ROLE_`` (vedere
     la :ref:`sezione sui ruoli <book-security-roles>` nel libro). Per
-    example, your roles will be ``ROLE_ADMIN`` or ``ROLE_USER`` instead of
+    esempio, si dovrà usare  ``ROLE_ADMIN`` o ``ROLE_USER`` al posto di 
     ``ADMIN`` or ``USER``.
 
 In questo esempio, la classe entità ``AcmeUserBundle:User`` definisce una relazione

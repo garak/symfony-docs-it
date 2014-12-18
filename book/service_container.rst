@@ -673,8 +673,10 @@ Per approfondire la sintassi di Expression Language, vedere :doc:`/components/ex
 
 In questo contesto, si ha accesso a due funzioni:
 
-* ``service`` - restituisce un servizio dato (vedere l'esempio precedente);
-* ``parameter`` - restituisce un parametro specifico (la sintassi è proprio come ``service``)
+``service``
+    restituisce un servizio dato (vedere l'esempio precedente);
+``parameter``
+    restituisce un parametro specifico (la sintassi è proprio come ``service``)
 
 Si ha anche accesso a :class:`Symfony\\Component\\DependencyInjection\\ContainerBuilder`,
 tramite una variabile ``container``. Ecco un altro esempio:

@@ -14,7 +14,6 @@ Sicurezza
     force_https
     firewall_restriction
     host_restriction
-    firewall_restriction
     form_login
     securing_services
     custom_provider

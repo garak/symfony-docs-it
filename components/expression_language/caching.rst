@@ -51,10 +51,10 @@ Uso di espressioni analizzate e serializzate
 Sia ``evaluate()`` sia ``compile()`` possono gestire ``ParsedExpression`` e
 ``SerializedParsedExpression``::
 
-    use Symfony\Component\ExpressionLanguage\ParsedExpression;
     // ...
 
-    $expression = new ParsedExpression($language->parse('1 + 4'));
+    // il metodo parse() restituisce una ParsedExpression
+    $expression = $language->parse('1 + 4', array());
 
     echo $language->evaluate($expression); // mostra 5
 
@@ -64,7 +64,7 @@ Sia ``evaluate()`` sia ``compile()`` possono gestire ``ParsedExpression`` e
     // ...
 
     $expression = new SerializedParsedExpression(
-        serialize($language->parse('1 + 4'))
+        serialize($language->parse('1 + 4', array()))
     );
 
     echo $language->evaluate($expression); // mostra 5

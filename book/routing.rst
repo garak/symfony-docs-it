@@ -422,7 +422,7 @@ del blog? Bisogna aggiornare la rotta per avere un nuovo segnaposto ``{page}``:
         # app/config/routing.yml
         blog:
             path:      /blog/{page}
-            defaults:  { _controller: AcmeBlogBundle:Blog:index }
+            defaults:  { _controller: AppBundle:Blog:index }
 
     .. code-block:: xml
 
@@ -967,10 +967,12 @@ sarà ``firefox``.
 Si può usare qualsiasi logica complessa necessaria nell'espressione, sfruttando due
 variabili passate all'espressione stessa:
 
-* ``context``: un'istanza di :class:`Symfony\\Component\\Routing\\RequestContext`,
-  che contiene informazioni essenziali sulla rotta corrisposta;
-* ``request``: l'oggetto :class:`Symfony\\Component\\HttpFoundation\\Request` di Symfony
-  (vedere :ref:`component-http-foundation-request`).
+``context``
+    Un'istanza di :class:`Symfony\\Component\\Routing\\RequestContext`,
+    che contiene informazioni essenziali sulla rotta corrisposta;
+``request``
+    L'oggetto :class:`Symfony\\Component\\HttpFoundation\\Request` di Symfony
+    (vedere :ref:`component-http-foundation-request`).
 
 .. caution::
 

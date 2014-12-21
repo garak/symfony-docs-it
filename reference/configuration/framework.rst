@@ -45,6 +45,9 @@ Configurazione
 * `profiler`_
     * `collect`_
     * :ref:`enabled <profiler.enabled>`
+* `translator`_
+    * :ref:`enabled <translator.enabled>`
+    * `fallback`_
 
 secret
 ~~~~~~
@@ -343,7 +346,7 @@ assets_base_urls
 
 Questa opzione consente di definire URL di base da usare per i riferimenti alle risorse
 nelle pagine ``http`` e ``https``. Si può fornire un valore stringa al posto di un
-array a elementi singoli. Se si forniscono più URL base, Symfony2 ne sceglierà una
+array a elementi singoli. Se si forniscono più URL base, Symfony ne sceglierà una
 dall'elenco ogni volta che genera il percorso di una risorsa.
 
 Per praticità, ``assets_base_urls`` può essere impostata direttamente con una stringa
@@ -492,6 +495,27 @@ informazioni solo in casi specifici, impostare ``collect`` a ``false``
 e attivare i raccoglitori di dati manualmente::
 
     $profiler->enable();
+
+translator
+~~~~~~~~~~
+
+.. _translator.enabled:
+
+enabled
+.......
+
+**tipo**: ``boolean`` **predefinito**: ``false``
+
+Se abilitare o meno il servizio ``translator`` nel contenitore.
+
+fallback
+........
+
+**predefinito**: ``en``
+
+Opzione usata quando non viene trovata la chiave di traduzione del locale corrente.
+
+Per maggiori dettagli, vedere :doc:`/book/translation`.
 
 Configurazione predefinita completa
 -----------------------------------

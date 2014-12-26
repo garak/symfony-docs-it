@@ -54,6 +54,7 @@
   * :doc:`/cookbook/deployment/tools`
   * :doc:`/cookbook/deployment/azure-website`
   * :doc:`/cookbook/deployment/heroku`
+  * :doc:`/cookbook/deployment/platformsh`
 
 * :doc:`/cookbook/doctrine/index`
 
@@ -68,6 +69,7 @@
   * :doc:`/cookbook/doctrine/mapping_model_classes`
   * :doc:`/cookbook/doctrine/registration_form`
   * :doc:`/cookbook/doctrine/console`
+  * (configuration) :doc:`/cookbook/configuration/pdo_session_storage`
 
 * :doc:`/cookbook/email/index`
 
@@ -164,6 +166,7 @@
   * :doc:`/cookbook/session/locale_sticky_session`
   * :doc:`/cookbook/session/sessions_directory`
   * :doc:`/cookbook/session/php_bridge`
+  * (configuration) :doc:`/cookbook/configuration/pdo_session_storage`
 
 * **symfony1**
 
@@ -187,6 +190,7 @@
   * :doc:`/cookbook/testing/doctrine`
   * :doc:`/cookbook/testing/bootstrap`
   * (email) :doc:`/cookbook/email/testing`
+  * (form) :doc:`/cookbook/form/unit_testing`
 
 * :doc:`/cookbook/validation/index`
 

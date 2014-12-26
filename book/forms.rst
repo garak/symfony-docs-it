@@ -165,18 +165,21 @@ aiutanti per i form:
     che punta al controllore ``AcmeTaskBundle:Default:new`` che
     era stato creato precedentemente.
 
-Questo è tutto! Scrivendo ``form(form)``, ciascun campo del form viene reso:
+Questo è tutto! Bastano tre righe per rendere completamente il form:
 
-* ``form_start(form)`` - Rende il tag iniziale del form, incluso l'attributo
-  ``enctype``, se si usa un caricamento di file;
+``form_start(form)``
+    Rende il tag iniziale del form, incluso l'attributo
+    ``enctype``, se si usa un caricamento di file;
 
-* ``form_widget(form)`` - Rende tutti i campi, inclusi l'elemento stesso,
-  un'etichetta ed eventuali messaggi di errori;
+``form_widget(form)``
+    Rende tutti i campi, inclusi l'elemento stesso,
+    un'etichetta ed eventuali messaggi di errori;
 
-* ``form_end()`` - Rende il tag finale del form e ogni campo che non sia ancora
-  stato reso, nel caso in cui i campi siano stati resti singolarmante a mano. È utile
-  per rendere campi nascosci e sfruttare la
-  :ref:`protezione CSRF <forms-csrf>` automatica.
+``form_end()``
+    Rende il tag finale del form e ogni campo che non sia ancora
+    stato reso, nel caso in cui i campi siano stati resti singolarmante a mano. È utile
+    per rendere campi nascosci e sfruttare la
+    :ref:`protezione CSRF <forms-csrf>` automatica.
 
 .. seealso::
 
@@ -716,14 +719,16 @@ i valori corretti di una serie di opzioni del campo.
     E anche se si ha bisogno di aggiungere manualmente la validazione lato server, queste
     opzioni dei tipi di campo possono essere ricavate da queste informazioni.
 
-* ``required``: L'opzione ``required`` può essere indovinata in base alle regole
-  di validazione (cioè se il campo è ``NotBlank`` o ``NotNull``) o dai metadati di Doctrine
-  (vale a dire se il campo è ``nullable``). Questo è molto utile, perché la validazione
-  lato client corrisponderà automaticamente alle vostre regole di validazione.   
+``required``
+    L'opzione ``required`` può essere indovinata in base alle regole
+    di validazione (cioè se il campo è ``NotBlank`` o ``NotNull``) o dai metadati di Doctrine
+    (vale a dire se il campo è ``nullable``). Questo è molto utile, perché la validazione
+    lato client corrisponderà automaticamente alle vostre regole di validazione.   
 
-* ``max_length``: Se il campo è un qualche tipo di campo di testo, allora l'opzione ``max_length``
-  può essere indovinata dai vincoli di validazione (se viene utilizzato ``Length`` o
-  ``Range``) o dai metadati Doctrine (tramite la lunghezza del campo).
+``max_length``
+    Se il campo è un qualche tipo di campo di testo, allora l'opzione ``max_length``
+    può essere indovinata dai vincoli di validazione (se viene utilizzato ``Length`` o ``Range``)
+    o dai metadati Doctrine (tramite la lunghezza del campo).
 
 .. note::
 
@@ -771,12 +776,13 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 Abbiamo già visto le funzioni ``form_start()`` e ``form_end()``, ma cosa fanno
 le altre funzioni?
 
-* ``form_errors(form)`` - Rende eventuali errori globali per l'intero modulo
-  (gli errori specifici dei campi vengono visualizzati accanto a ciascun campo);
+``form_errors(form)``
+    Rende eventuali errori globali per l'intero modulo
+    (gli errori specifici dei campi vengono visualizzati accanto a ciascun campo);
 
-* ``form_row(form.dueDate)`` - Rende l'etichetta, eventuali errori e il widget
-  HTML del form per il dato campo (ad esempio ``dueDate``) all'interno, per impostazione predefinita, di
-  un elemento ``div``;
+``form_row(form.dueDate)``
+    Rende l'etichetta, eventuali errori e il widget HTML del form per il dato
+    campo (p.e. ``dueDate``) all'interno, per impostazione predefinita, di un elemento ``div``;
 
 La maggior parte del lavoro viene fatto dall'helper ``form_row``, che rende
 l'etichetta, gli errori e i widget HTML del form di ogni campo all'interno di un tag ``div``

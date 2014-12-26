@@ -55,10 +55,10 @@ configurazione (``config.yml``):
 
     propel:
         dbal:
-            driver:     "%database_driver%"
-            user:       "%database_user%"
-            password:   "%database_password%"
-            dsn:        "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
+            driver:   "%database_driver%"
+            user:     "%database_user%"
+            password: "%database_password%"
+            dsn:      "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
 
 Ora che Propel ha informazioni sulla base dati, si può fare in modo che crei la
 base dati al posto nostro:
@@ -467,14 +467,22 @@ Per aggiungere un hook, basta aggiungere un nuovo metodo alla classe::
 
 Propel fornisce i seguenti hook:
 
-* ``preInsert()`` codice eseguito prima dell'inserimento di un nuovo oggetto
-* ``postInsert()`` codice eseguito dopo l'inserimento di un nuovo oggetto
-* ``preUpdate()`` codice eseguito prima dell'aggiornamento di un oggetto esistente
-* ``postUpdate()`` codice eseguito dopo l'aggiornamento di un oggetto esistente
-* ``preSave()`` codice eseguito prima di salvare un oggetto (nuovo o esistente)
-* ``postSave()`` codice eseguito dopo il salvataggio di un oggetto (nuovo o esistente)
-* ``preDelete()`` codice eseguito prima di cancellare un oggetto
-* ``postDelete()`` codice eseguito dopo la cancellazione di un oggetto
+``preInsert()``
+    codice eseguito prima dell'inserimento di un nuovo oggetto
+``postInsert()``
+    codice eseguito dopo l'inserimento di un nuovo oggetto
+``preUpdate()``
+    codice eseguito prima dell'aggiornamento di un oggetto esistente
+``postUpdate()``
+    codice eseguito dopo l'aggiornamento di un oggetto esistente
+``preSave()``
+    codice eseguito prima di salvare un oggetto (nuovo o esistente)
+``postSave()``
+    codice eseguito dopo il salvataggio di un oggetto (nuovo o esistente)
+``preDelete()``
+    codice eseguito prima di cancellare un oggetto
+``postDelete()``
+    codice eseguito dopo la cancellazione di un oggetto
 
 Comportamenti
 -------------

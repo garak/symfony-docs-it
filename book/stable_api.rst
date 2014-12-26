@@ -20,6 +20,10 @@ dell'API stabile è la soluzone di una questione di sicurezza.
 L'API stabile è basata su una lista, con il tag `@api`. Quindi,
 tutto ciò che non possiede esplicitamente il tag non fa parte dell'API stabile.
 
+.. seealso::
+
+    Si può consultare la documentazione dell'API di Symfony su `api.symfony.com`_.
+
 .. tip::
 
     Si può approfondire l'API stabile in :doc:`/contributing/code/bc`.
@@ -47,3 +51,5 @@ A partire da Symfony 2.0, i seguenti componenti hanno un tag API pubblico:
 * Translation
 * Validator
 * Yaml
+
+.. _`api.symfony.com`: http://api.symfony.com

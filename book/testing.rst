@@ -525,31 +525,28 @@ trovarne l'ultimo e quindi selezionare il suo genitore::
 
 Ci sono molti altri metodi a disposizione:
 
-+------------------------+----------------------------------------------------+
-| Metodo                 | Descrizione                                        |
-+========================+====================================================+
-| ``filter('h1.title')`` | Nodi corrispondenti al selettore CSS               |
-+------------------------+----------------------------------------------------+
-| ``filterXpath('h1')``  | Nodi corrispondenti all'espressione XPath          |
-+------------------------+----------------------------------------------------+
-| ``eq(1)``              | Nodi per l'indice specificato                      |
-+------------------------+----------------------------------------------------+
-| ``first()``            | Primo nodo                                         |
-+------------------------+----------------------------------------------------+
-| ``last()``             | Ultimo nodo                                        |
-+------------------------+----------------------------------------------------+
-| ``siblings()``         | Fratelli                                           |
-+------------------------+----------------------------------------------------+
-| ``nextAll()``          | Tutti i fratelli successivi                        |
-+------------------------+----------------------------------------------------+
-| ``previousAll()``      | Tutti i fratelli precedenti                        |
-+------------------------+----------------------------------------------------+
-| ``parents()``          | Genitori                                           |
-+------------------------+----------------------------------------------------+
-| ``children()``         | Figli                                              |
-+------------------------+----------------------------------------------------+
-| ``reduce($lambda)``    | Nodi per cui la funzione non restituisce false     |
-+------------------------+----------------------------------------------------+
+``filter('h1.title')``
+    Nodi corrispondenti al selettore CSS.
+``filterXpath('h1')``
+    Nodi corrispondenti all'espressione XPath.
+``eq(1)``
+    Nodi per l'indice specificato.
+``first()``
+    Primo nodo.
+``last()``
+    Ultimo nodo.
+``siblings()``
+    Fratelli.
+``nextAll()``
+    Tutti i fratelli successivi.
+``previousAll()``
+    Tutti i fratelli precedenti.
+``parents()``
+    Genitori.
+``children()``
+    Figli.
+``reduce($lambda)``
+    Nodi per cui la funzione non restituisce false.
 
 Si può iterativamente restringere la selezione del nodo, concatenando le chiamate ai
 metodi, perché ogni metodo restituisce una nuova istanza di Crawler per i nodi corrispondenti::
@@ -724,7 +721,7 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd">
+                http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd">
 
             <!-- ... -->
             <swiftmailer:config disable-delivery="true" />
@@ -852,6 +849,6 @@ Saperne di più
 * :doc:`/cookbook/testing/profiling`
 * :doc:`/cookbook/testing/bootstrap`
 
-.. _`DemoControllerTest`: https://github.com/symfony/symfony-standard/blob/master/src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
+.. _`DemoControllerTest`: https://github.com/sensiolabs/SensioDistributionBundle/blob/master/Resources/skeleton/acme-demo-bundle/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
 .. _`$_SERVER`: http://php.net/manual/it/reserved.variables.server.php
 .. _documentazione: http://phpunit.de/manual/current/en/

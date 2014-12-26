@@ -1036,12 +1036,15 @@ Come si è visto, ogni parametro della rotta o valore predefinito è disponibile
 come parametro nel metodo del controllore. Inoltre, ci sono tre parametri
 speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
-* ``_controller``: Come si è visto, questo parametro viene utilizzato per determinare quale
-  controllore viene eseguito quando viene trovata la rotta;
+``_controller``
+    Come si è visto, questo parametro viene utilizzato per determinare quale
+    controllore viene eseguito quando viene trovata la rotta;
 
-* ``_format``: Utilizzato per impostare il formato della richiesta (:ref:`per saperne di più <book-routing-format-param>`);
+``_format``
+    Utilizzato per impostare il formato della richiesta (:ref:`per saperne di più <book-routing-format-param>`);
 
-* ``_locale``: Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più <book-translation-locale-url>`).
+``_locale``
+    Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più <book-translation-locale-url>`).
 
 .. index::
    single: Rotte; Controllori

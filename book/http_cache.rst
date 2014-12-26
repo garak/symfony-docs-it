@@ -202,34 +202,39 @@ metodo
 
 Ecco una lista delle opzioni principali:
 
-* ``default_ttl``: Il numero di secondi per cui un elemento in cache va considerato
-  fresco, quando nessuna informazione esplicita sulla freschezza viene fornita in
-  una risposta. Header espliciti ``Cache-Control`` o ``Expires`` sovrascrivono questo
-  valore (predefinito: ``0``);
+``default_ttl``
+    Il numero di secondi per cui un elemento in cache va considerato
+    fresco, quando nessuna informazione esplicita sulla freschezza viene fornita in
+    una risposta. Header espliciti ``Cache-Control`` o ``Expires`` sovrascrivono questo valore (predefinito: ``0``);
 
-* ``private_headers``: Insieme di header di richiesta che fanno scattare il comportamento
-  "privato" ``Cache-Control`` sulle risposte che non stabiliscono esplicitamente il loro
-  stato di ``public`` o ``private``, tramite una direttiva ``Cache-Control``.
-  (predefinito: ``Authorization`` e ``Cookie``);
+``private_headers``
+    Insieme di header di richiesta che fanno scattare il comportamento
+    "privato" ``Cache-Control`` sulle risposte che non stabiliscono esplicitamente il loro
+    stato di ``public`` o ``private``, tramite una direttiva ``Cache-Control``.
+    (predefinito: ``Authorization`` e ``Cookie``);
 
-* ``allow_reload``: Specifica se il client possa forzare un ricaricamento della cache
-  includendo una direttiva ``Cache-Control`` "no-cache" nella richiesta. Impostare a
-  ``true`` per aderire alla RFC 2616 (predefinito: ``false``);
+``allow_reload``
+    Specifica se il client possa forzare un ricaricamento della cache
+    includendo una direttiva ``Cache-Control`` "no-cache" nella richiesta. Impostare a
+    ``true`` per aderire alla RFC 2616 (predefinito: ``false``);
 
-* ``allow_revalidate``: Specifica se il client possa forzare una rivalidazione della
-  cache includendo una direttiva ``Cache-Control`` "max-age=0" nella richiesta. Impostare
-  a ``true`` per aderire alla RFC 2616 (predefinito: false);
+``allow_revalidate``
+    Specifica se il client possa forzare una rivalidazione della
+    cache includendo una direttiva ``Cache-Control`` "max-age=0" nella richiesta. Impostare
+    a ``true`` per aderire alla RFC 2616 (predefinito: false);
 
-* ``stale_while_revalidate``: Specifica il numero predefinito di secondi (la
-  granularità è il secondo, perché la precisione del TTL della risposta è un secondo)
-  durante il quale la cache può restituire immediatamente una risposta vecchia mentre
-  si rivalida in background (predefinito: ``2``); questa impostazione è sovrascritta
-  dall'estensione ``stale-while-revalidate`` ``Cache-Control`` di HTTP (vedere RFC 5861);
+``stale_while_revalidate``
+    Specifica il numero predefinito di secondi (la
+    granularità è il secondo, perché la precisione del TTL della risposta è un secondo)
+    durante il quale la cache può restituire immediatamente una risposta vecchia mentre
+    si rivalida in background (predefinito: ``2``); questa impostazione è sovrascritta
+    dall'estensione ``stale-while-revalidate`` ``Cache-Control`` di HTTP (vedere RFC 5861);
 
-* ``stale_if_error``: Specifica il numero predefinito di secondi (la granularità
-  è il secondo) durante il quale la cache può servire una risposta vecchia quando si
-  incontra un errore (predefinito: ``60``). Questa impostazione è sovrascritta
-  dall'estensione ``stale-if-error`` ``Cache-Control`` di HTTP (vedere RFC 5861).
+``stale_if_error``
+    Specifica il numero predefinito di secondi (la granularità
+    è il secondo) durante il quale la cache può servire una risposta vecchia quando si
+    incontra un errore (predefinito: ``60``). Questa impostazione è sovrascritta
+    dall'estensione ``stale-if-error`` ``Cache-Control`` di HTTP (vedere RFC 5861).
 
 Se ``debug`` è ``true``, Symfony aggiunge automaticamente un header
 ``X-Symfony-Cache`` alla risposta, con dentro informazioni utili su hit e miss della
@@ -339,11 +344,12 @@ venissero messe in cache e poi restituite a ogni utente successivo che richiede 
 
 Per gestire questa situazione, ogni risposta può essere impostata a pubblica o privata:
 
-* *pubblica*: Indica che la risposta può essere messa in cache sia da che private che da
-  cache condivise;
+*pubblica*
+    Indica che la risposta può essere messa in cache sia da che private che da cache condivise;
 
-* *privata*: Indica che tutta la risposta, o una sua parte, è per un singolo utente
-  e quindi non deve essere messa in una cache condivisa.
+*privata*
+    Indica che tutta la risposta, o una sua parte, è per un singolo utente
+    e quindi non deve essere messa in una cache condivisa.
 
 Symfony è conservativo e ha come predefinita una risposta privata. Per sfruttare le
 cache condivise (come il reverse proxy di Symfony), la risposta deve essere
@@ -1033,12 +1039,14 @@ accessi al minimo.
 
 L'aiutante ``render`` supporta due utili opzioni:
 
-* ``alt``: usato come attributo ``alt`` nel tag ESI, che consente di specificare
-  un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
+``alt``
+    usato come attributo ``alt`` nel tag ESI, che consente di specificare
+    un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
 
-* ``ignore_errors``: se impostato a ``true``, un attributo ``onerror`` sarà aggiunto a
-  ESI con il valore di ``continue``, a indicare che, in caso di fallimento, la
-  gateway cache semplicemente rimuoverà il tag ESI senza produrre errori.
+``ignore_errors``
+    se impostato a ``true``, un attributo ``onerror`` sarà aggiunto a
+    ESI con il valore di ``continue``, a indicare che, in caso di fallimento, la
+    gateway cache semplicemente rimuoverà il tag ESI senza produrre errori.
 
 .. index::
     single: Cache; Invalidazione

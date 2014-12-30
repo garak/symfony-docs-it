@@ -15,7 +15,7 @@ software:
 
 * Git;
 * PHP versione 5.3.3 o successive;
-* PHPUnit 3.6.4 o successivi.
+* `PHPUnit`_ 4.2 o successivi.
 
 Configurare Git
 ~~~~~~~~~~~~~~~
@@ -104,12 +104,16 @@ commit.
 Scegliere il ramo giusto
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Prima di lavorare su una patch, è necessario individuare il ramo giusto. Il ramo deve
-essere basato sul ramo `master`, se si vuole aggiungere una nuova
-funzionalità. Ma se si vuole risolvere un bug, utilizzare le versioni vecchie (ma ancora
-mantenute) di Symfony nelle quali appare il bug (come `2.2`).
+Prima di lavorare su una patch, è necessario individuare il ramo
+giusto:
 
-.. tip::
+* ``2.3``, se si vuole risolvere un bug o una caratteristica attuale (si potrebbe dover
+  scegliere un ramo successivo, se la caratteristica è stata introdotta
+  in una versione successiva);
+* ``2.7``, se si vuole aggiungere una nuova funzionalità retrocompatibile;
+* ``master``, se si vuole aggiungere una nuova funzionalità non retrocompatibile;
+
+.. note::
 
     Tutti i bug risolti in rami di manutenzione sono inseriti anche i rami più recenti,
     su base regolare. Per esempio, se si invia una patch
@@ -362,9 +366,9 @@ al `repository della documentazione`_, per aggiornare la documentazione relativa
 Rielaborare una patch
 ~~~~~~~~~~~~~~~~~~~~~
 
-Dipendentemente dal riscontro della lista o attraverso la richiesta di pull su 
-Github, potrebbe essere necessario rielaborare la patch. Prima di re-inserire la patch,
-eseguire il rebase con il ramo master, ma non unire attraverso il merge; e forzare il push nell'origin:
+A seconda dal riscontro della richiesta di pull su Github, potrebbe essere necessario rielaborare la
+patch. Prima di re-inserire la patch, eseguire il rebase con ``upstream/master`` o
+``upstream/2.3`` (ma non eseguire il merge) e forzare il push in origin:
 
 .. code-block:: bash
 
@@ -411,3 +415,4 @@ i commit. Dopo aver finito, eseguire il push.
 .. _`fabbot`:                              http://fabbot.io
 .. _`PSR-1`:                               http://www.php-fig.org/psr/psr-1/
 .. _`PSR-2`:                               http://www.php-fig.org/psr/psr-2/
+.. _PHPUnit:                               https://phpunit.de/manual/current/en/installation.html

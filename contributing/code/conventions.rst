@@ -13,18 +13,18 @@ Nomi dei metodi
 Quando un oggetto ha molte relazioni "principali" con degli "elementi"
 (oggetti, parametri, ...), i nomi dei metodi sono normalizzati:
 
-  * ``get()``
-  * ``set()``
-  * ``has()``
-  * ``all()``
-  * ``replace()``
-  * ``remove()``
-  * ``clear()``
-  * ``isEmpty()``
-  * ``add()``
-  * ``register()``
-  * ``count()``
-  * ``keys()``
+* ``get()``
+* ``set()``
+* ``has()``
+* ``all()``
+* ``replace()``
+* ``remove()``
+* ``clear()``
+* ``isEmpty()``
+* ``add()``
+* ``register()``
+* ``count()``
+* ``keys()``
 
 L'utilizzo di questi metodi è consentito solo quando è chiaro che si
 tratti di una relazione principale:
@@ -103,7 +103,4 @@ Inoltre, bisogna lanciare un errore PHP ``E_USER_DEPRECATED``, per aiutrare gli 
 nella migrazione, a partire da una o due versioni minori prima della versione in cui la
 caratteristica sarà rimossa (a seconda della criticità della rimozione)::
 
-    trigger_error(
-        'XXX() is deprecated since version 2.X and will be removed in 2.Y. Use XXX instead.',
-        E_USER_DEPRECATED
-    );
+    trigger_error('XXX() is deprecated since version 2.X and will be removed in 2.Y. Use XXX instead.', E_USER_DEPRECATED);

@@ -13,10 +13,14 @@ Capire la struttura delle cartelle
 La struttura delle cartelle di un':term:`applicazione` Symfony è alquanto flessibile,
 ma la struttura raccomandata è la seguente:
 
-* ``app/``:    La configurazione dell'applicazione;
-* ``src/``:    Il codice PHP del progetto;
-* ``vendor/``: Le dipendenze di terze parti;
-* ``web/``:    La cartella radice del web.
+``app/``
+    La configurazione dell'applicazione;
+``src/``
+    Il codice PHP del progetto;
+``vendor/``
+    Le dipendenze di terze parti;
+``web/``
+    La cartella radice del web.
 
 La cartella ``web/``
 ~~~~~~~~~~~~~~~~~~~~
@@ -33,7 +37,9 @@ stanno i :term:`front controller`::
 
     $kernel = new AppKernel('prod', false);
     $kernel->loadClassCache();
-    $kernel->handle(Request::createFromGlobals())->send();
+    $request = Request::createFromGlobals();
+    $response = $kernel->handle($request);
+    $response->send();
 
 Il front controller inizializza l'applicazione, usando una classe kernel (``AppKernel``,
 in questo caso). Quindi, crea l'oggetto ``Request``, usando le variabili globali di PHP,
@@ -50,11 +56,11 @@ dell'applicazione e quindi è memorizzata nella cartella ``app/``.
 
 Questa classe deve implementare due metodi:
 
-* ``registerBundles()`` deve restituire un array di tutti i bundle necessari per
-  eseguire l'applicazione;
-
-* ``registerContainerConfiguration()`` carica la configurazione dell'applicazione
-  (approfondito più avanti);
+``registerBundles()``
+    deve restituire un array di tutti i bundle necessari per
+    eseguire l'applicazione;
+``registerContainerConfiguration()``
+    carica la configurazione dell'applicazione (approfondito più avanti);
 
 Il caricamento automatico essere configurato tramite `Composer`_, che vuol dire che si
 può usare qualsiasi classe PHP senza dover far nulla! Tutte le dipendenze sono
@@ -73,11 +79,20 @@ allora si chiama *bundle* e non *plugin*? Perché *ogni cosa* è un bundle
 in Symfony, dalle caratteristiche del nucleo del framework al codice
 scritto per un'applicazione.
 
+Tutto il codice scritto per un'applicazione è organizzato in bundle. Nel linguaggio di Symfony,
+un bundle è un insieme strutturato di file (file PHP, fogli di stile, JavaScript,
+immagini, ...) che implementano una singola caratteristica (un blog, un forum, ...) e che
+possono essere facilmente condivisi con altri sviluppatori.
+
 I bundle sono cittadini di prima classe in Symfony. Essi forniscono la flessibilità
 di usare delle caratteristiche pre-costruite impacchettate in bundle di terze parti o di distribuire 
 i propri bundle. Questo rende molto facile scegliere quali caratteristiche abilitare in
 un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
 dell'applicazione è *importante* quanto il nucleo stesso del framework.
+
+Symfony include un ``AppBundle``, che si può usare per iniziare lo sviluppo
+di un'applicazione. Quindi, se occorre dividere l'applicazione in componenti
+riutilizzabili, si possono creare altri bundle.
 
 Registrare un bundle
 ~~~~~~~~~~~~~~~~~~~~
@@ -98,10 +113,10 @@ della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singol
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new AppBundle\AppBundle();
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
@@ -110,10 +125,9 @@ della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singol
         return $bundles;
     }
 
-Oltre a AcmeDemoBundle, di cui abbiamo già parlato, si noti che il kernel
+Oltre a AppBundle, di cui abbiamo già parlato, si noti che il kernel
 abilita anche FrameworkBundle, DoctrineBundle,
-SwiftmailerBundle e AsseticBundle. Fanno tutti parte del nucleo del
-framework.
+SwiftmailerBundle e AsseticBundle. Fanno tutti parte del nucleo del framework.
 
 Configurare un bundle
 ~~~~~~~~~~~~~~~~~~~~~
@@ -127,6 +141,7 @@ XML o PHP. Si veda la configurazione predefinita:
     imports:
         - { resource: parameters.yml }
         - { resource: security.yml }
+        - { resource: services.yml }
 
     framework:
         #esi:             ~
@@ -138,7 +153,7 @@ XML o PHP. Si veda la configurazione predefinita:
         form:            true
         csrf_protection: true
         validation:      { enable_annotations: true }
-        templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+        templating:      { engines: ['twig'] }
         default_locale:  "%locale%"
         trusted_proxies: ~
         session:         ~
@@ -148,34 +163,6 @@ XML o PHP. Si veda la configurazione predefinita:
         debug:            "%kernel.debug%"
         strict_variables: "%kernel.debug%"
 
-    # Configurazione di Assetic
-    assetic:
-        debug:          "%kernel.debug%"
-        use_controller: false
-        bundles:        [ ]
-        #java: /usr/bin/java
-        filters:
-            cssrewrite: ~
-            #closure:
-            #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-            #yui_css:
-            #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
-
-    # Configurazione di Doctrine
-    doctrine:
-        dbal:
-            driver:   "%database_driver%"
-            host:     "%database_host%"
-            port:     "%database_port%"
-            dbname:   "%database_name%"
-            user:     "%database_user%"
-            password: "%database_password%"
-            charset:  UTF8
-
-        orm:
-            auto_generate_proxy_classes: "%kernel.debug%"
-            auto_mapping: true
-
     # Configurazione di Swiftmailer
     swiftmailer:
         transport: "%mailer_transport%"
@@ -183,6 +170,8 @@ XML o PHP. Si veda la configurazione predefinita:
         username:  "%mailer_user%"
         password:  "%mailer_password%"
         spool:     { type: memory }
+
+    # ...
 
 Ogni voce come ``framework`` definisce la configurazione per uno specifico bundle.
 Per esempio, ``framework`` configura ``FrameworkBundle``, mentre ``swiftmailer``
@@ -207,27 +196,14 @@ aggiungere alcuni strumenti di debug:
         toolbar: true
         intercept_redirects: false
 
-    monolog:
-        handlers:
-            main:
-                type:  stream
-                path:  "%kernel.logs_dir%/%kernel.environment%.log"
-                level: debug
-            firephp:
-                type:  firephp
-                level: info
-
-    assetic:
-        use_controller: true
+    # ...
 
 Estendere un bundle
 ~~~~~~~~~~~~~~~~~~~
 
 Oltre a essere un modo carino per organizzare e configurare il codice, un bundle
 può estendere un altro bundle. L'ereditarietà dei bundle consente di sovrascrivere un bundle
-esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro suo
-file. Qui sono d'aiuto i nomi logici (come ``@AcmeDemoBundle/Controller/SecuredController.php``),
-che astraggono i posti in cui le risorse sono effettivamente memorizzate.
+esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro suo file.
 
 Nomi logici di file
 ...................
@@ -235,26 +211,17 @@ Nomi logici di file
 Quando si vuole fare riferimento a un file da un bundle, usare questa notazione:
 ``@NOME_BUNDLE/percorso/del/file``; Symfony risolverà ``@NOME_BUNDLE`` nel percorso
 reale del bundle. Per esempio, il percorso logico
-``@AcmeDemoBundle/Controller/DemoController.php`` verrebbe convertito in
-``src/Acme/DemoBundle/Controller/DemoController.php``, perché Symfony conosce
-la locazione di ``AcmeDemoBundle``.
+``@AppBundle/Controller/DefaultController.php`` verrebbe convertito in
+``src/AppBundle/Controller/DefaultController.php``, perché Symfony conosce
+la locazione di AppBundle.
 
 Nomi logici di controllori
 ..........................
 
 Per i controllori, occorre fare riferimento ai nomi dei metodi usando il formato
 ``NOME_BUNDLE:NOME_CONTROLLORE:NOME_AZIONE``. Per esempio,
-``AcmeDemoBundle:Welcome:index`` mappa il metodo ``indexAction`` della classe
-``Acme\DemoBundle\Controller\WelcomeController``.
-
-Nomi logici di template
-.......................
-
-Per i template, il nome logico ``AcmeDemoBundle:Welcome:index.html.twig`` è
-convertito al percorso del file ``src/Acme/DemoBundle/Resources/views/Welcome/index.html.twig``.
-I template diventano ancora più interessanti quando si realizza che i file non
-hanno bisogno di essere memorizzati su filesystem. Si possono facilmente
-memorizzare, per esempio, in una tabella di una base dati.
+``AppBundle:Default:index`` mappa il metodo ``indexAction`` della classe
+``AppBundle\Controller\DefaultController``.
 
 Estendere i bundle
 ..................
@@ -278,7 +245,8 @@ Usare i venditori
 Probabilmente l'applicazione dipenderà da librerie di terze parti.
 Queste ultime dovrebbero essere memorizzate nella cartella ``vendor/``.
 Tale cartella contiene già le librerie di Symfony, SwiftMailer, l'ORM Doctrine,
-il sistema di template Twig e alcune altre librerie e bundle di terze parti.
+il sistema di template Twig e alcune altre librerie e bundle di terze
+parti.
 
 Capire la cache e i log
 -----------------------
@@ -287,11 +255,16 @@ Symfony è forse uno dei framework completi più veloci in circolazione.
 Ma come può essere così veloce, se analizza e interpreta decine di file
 YAML e XML a ogni richiesta? In parte, per il suo sistema di cache. La
 configurazione dell'applicazione è analizzata solo per la prima richiesta
-e poi compilata in semplice file PHP, memorizzato nella cartella ``app/cache/``
-dell'applicazione. Nell'ambiente di sviluppo, Symfony è abbastanza
-intelligente da pulire la cache quando cambiano dei file. In produzione, invece,
-occorre pulire la cache manualmente quando si aggiorna il codice o si modifica la
+e poi compilata in semplice file PHP, memorizzato nella cartella ``app/cache/``.
+
+Nell'ambiente di sviluppo, Symfony è abbastanza intelligente da pulire la cache
+quando cambiano dei file. In produzione, invece, occorre pulire la cache
+manualmente quando si aggiorna il codice o si modifica la
 configurazione.
+
+.. code-block:: bash
+
+    $ php app/console cache:clear --env=prod
 
 Sviluppando un'applicazione web, le cose possono andar male in diversi modi.
 I file di log nella cartella ``app/logs/`` dicono tutto a proposito delle richieste
@@ -301,8 +274,8 @@ Usare l'interfaccia a linea di comando
 --------------------------------------
 
 Ogni applicazione ha uno strumento di interfaccia a linea di comando (``app/console``),
-che aiuta nella manutenzione dell'applicazione. La console fornisce dei comandi che incrementano la produttività, automatizzando
-dei compiti noiosi e ripetitivi.
+che aiuta nella manutenzione dell'applicazione. La console fornisce dei comandi che incrementano la
+produttività, automatizzando dei compiti noiosi e ripetitivi.
 
 Richiamandola senza parametri, si può sapere di più sulle sue capacità:
 

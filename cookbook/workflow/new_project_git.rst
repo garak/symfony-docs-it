@@ -13,24 +13,16 @@ Creare e memorizzare un progetto Symfony in git
 
 Una volta letto :doc:`/book/page_creation` e preso familiarità con l'uso
 di Symfony, si vorrà certamente iniziare un proprio progetto. In questa ricetta
-si imparerà il modo migliore per iniziare un nuovo progetto Symfony2, memorizzato
+si imparerà il modo migliore per iniziare un nuovo progetto Symfony, memorizzato
 usando il sistema di controllo dei sorgenti `git`_.
 
 Preparazione del progetto
 -------------------------
 
-Per iniziare, occorre scaricare Symfony e inizializzare il repository
-locale:
+Per iniziare, occorre scaricare Symfony e installarlo. Vedere il capitolo
+sull':doc:`/book/installation` per maggiori dettagli
 
-#. Scaricare `Symfony Standard Edition`_, usando Composer:
-
-   .. code-block:: bash
-
-        $ php composer.phar create-project symfony/framework-standard-edition path/ ~2.3
-
-   Composer scaricherà la Standard Edition, insieme a tutti le necessarie
-   librerie dei venditori. Per maggiori informazioni su come scaricare Symfony con
-   Composer, vedere `installare Symfony usando Composer`_.
+Una volta preparato il progetto, seguire questi passi:
 
 #. Inizializzare il repository git:
 
@@ -83,16 +75,6 @@ di più su come configurare e sviluppare un'applicazione.
 .. _cookbook-managing-vendor-libraries:
 
 .. include:: _vendor_deps.rst.inc
-
-Venditori e sottomoduli
-~~~~~~~~~~~~~~~~~~~~~~~
-
-Invece di usare il sistema basato su ``composer.json`` per gestire le librerie
-dei venditori, si potrebbe invece voler usare i `sottomoduli di git`_.
-Non c'è nulla di sbagliato in questo approccio, ma il sistema ``composer.json`` è la via
-ufficiale per risolvere questo problema e probabilmente è più facile da gestire.
-Diversamente dai sottomoduli di git, ``Composer`` è abbastanza intelligente da calcolare
-le dipendenze tra le librerie.
 
 Memorizzare il progetto su un server remoto
 -------------------------------------------

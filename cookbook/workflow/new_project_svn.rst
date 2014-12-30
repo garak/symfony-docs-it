@@ -13,14 +13,14 @@ Creare e memorizzare un progetto Symfony in Subversion
 
 Una volta letto :doc:`/book/page_creation` e aver preso familiarità con l'uso
 di Symfony, si è senza dubbio pronti per iniziare un progetto. Il metodo
-preferito per gestire progetti Symfony2 è l'uso di `git`_, ma qualcuno preferisce
+preferito per gestire progetti Symfony è l'uso di `git`_, ma qualcuno preferisce
 usare `Subversion`_, che va bene lo stesso! In questa ricetta, si vedrà come
 gestire un progetto usando `svn`_, in modo simile a quanto si farebbe
 con `git`_.
 
 .. tip::
 
-    Questo è **un** metodo per memorizzare un progetto Symfony2 in un
+    Questo è **un** metodo per memorizzare un progetto Symfony in un
     repository Subversion. Ci sono molti modi di farlo e questo è semplicemente
     uno che funziona.
 
@@ -46,28 +46,27 @@ standard, molto diffusa:
 Preparazione del progetto
 -------------------------
 
-Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
+Per iniziare, occorre scaricare Symfony e preparare Subversion.
+Scaricare Symfony, seguendo il capitolo
+sull':doc:`installazione </book/installation>`
 
-1. Scaricare `Symfony Standard Edition`_, con o senza venditori.
+Una volta ottenuta la cartella del progetto e tutto funziona, seguire
+questi passi:
 
-2. Scompattare la distribuzione. Questo creerà una cartella chiamata Symfony, con
-   la struttura del nuovo progetto, i file di configurazione, ecc. Rinominarla con
-   il nome che si desidera.
-
-3. Eseguire il checkout del repository Subversion che ospiterà questo progetto. Supponiamo
+#. Eseguire il checkout del repository Subversion che ospiterà questo progetto. Supponiamo
    che sia ospitato su `Google code`_ e che si chiami ``progetto``:
 
    .. code-block:: bash
 
         $ svn checkout http://progetto.googlecode.com/svn/trunk progetto
 
-4. Copiare i file del progetto Symfony2 nella cartella di subversion:
+#. Copiare i file del progetto Symfony nella cartella di subversion:
 
    .. code-block:: bash
 
         $ mv Symfony/* progetto/
 
-5. Impostare le regole di ignore. Non tutto *andrebbe* memorizzato nel
+#. Impostare le regole di ignore. Non tutto *andrebbe* memorizzato nel
    repository subversion. Alcuni file (come la cache) sono generati e altri
    (come la configurazione della base dati) devono essere personalizzati su
    ciascuna macchina. Ciò implica l'uso della proprietà ``svn:ignore``, che consente
@@ -88,27 +87,19 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
         $ svn ci -m "commit della lista di ignore di Symfony (vendor, app/bootstrap*, app/config/parameters.yml, app/cache/*, app/logs/*, web/bundles)"
 
-6. Tutti gli altri file possono essere aggiunti al progetto:
+#. Tutti gli altri file possono essere aggiunti al progetto:
 
    .. code-block:: bash
 
         $ svn add --force .
         $ svn ci -m "aggiunta Symfony Standard 2.X.Y"
 
-7. Copiare ``app/config/parameters.yml`` su ``app/config/parameters.yml.dist``.
-   Il file ``parameters.yml`` è ignorato da svn (vedere sopra) in modo che le
-   impostazioni delle singole macchine, come le password della base dati, non siano
-   inserite. Creando il file ``parameters.yml.dist``, i nuovi sviluppatori possono
-   prendere subito il progetto, copiare questo file in ``parameters.yml``, personalizzarlo
-   e iniziare a sviluppare.
-
-8. Infine, scaricare tutte le librerie dei venditori, eseguendo
-   composer. Per maggiori dettagli, vedere :ref:`installation-updating-vendors`.
-
-.. tip::
-
-    Se ci si basa su versioni "dev", ci si può basare su git per installare
-    tali librerie, poiché non dispongono di archivi da scaricare.
+Copiare ``app/config/parameters.yml`` su ``app/config/parameters.yml.dist``.
+Il file ``parameters.yml`` è ignorato da svn (vedere sopra) in modo che le
+impostazioni delle singole macchine, come le password della base dati, non siano
+inserite. Creando il file ``parameters.yml.dist``, i nuovi sviluppatori possono
+prendere subito il progetto, copiare questo file in ``parameters.yml``, personalizzarlo
+e iniziare a sviluppare.
 
 A questo punto, si ha un progetto Symfony2 pienamente funzionante, memorizzato nel
 proprio repository Subversion. Si può iniziare lo sviluppo, con i commit verso

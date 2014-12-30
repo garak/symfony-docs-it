@@ -233,7 +233,7 @@ che definisce l'URL della pagina che stiamo per creare:
 Il routing consiste di due pezzi di base: il percorso (``path``), che è l'URL
 a cui la rotta corrisponderà, e un array ``defaults``, che specifica il controllore
 che sarà eseguito. La sintassi dei segnaposto nello schema (``{limit}``) è un jolly.
-Vuol dire che  ``/number/10``, ``/number/327`` o ogni altro URL simile
+Vuol dire che  ``/random/10``, ``/random/327`` o ogni altro URL simile
 corrisponderanno a questa rotta. Il parametro del segnaposto ``{limit}`` sarà anche
 passato al controllore, in modo da poter usare il suo valore per salutare personalmente
 l'utente.
@@ -488,13 +488,23 @@ sapremo dove cercare e inserire i vari tipi di file, e perché.
 Sebbene interamente flessibili, per impostazione predefinita, ogni :term:`applicazione`
 Symfony ha la stessa struttura di cartelle raccomandata:
 
-* ``app/``: Questa cartella contiene la configurazione dell'applicazione;
+``app/``
+    Questa cartella contiene la configurazione dell'applicazione;
 
-* ``src/``: Tutto il codice PHP del progetto sta all'interno di questa cartella;
+``src/``
+    Tutto il codice PHP del progetto sta all'interno di questa cartella;
 
-* ``vendor/``: Ogni libreria dei venditori è inserita qui, per convenzione;
+``vendor/``
+    Ogni libreria dei venditori è inserita qui, per convenzione;
 
-* ``web/``: Questa è la cartella radice del web e contiene ogni file accessibile pubblicamente;
+``web/``
+    Questa è la cartella radice del web e contiene ogni file accessibile pubblicamente;
+
+.. seealso::
+
+    Si può facilmente ridefinire la struttura predefinita delle cartelle. Vedere
+    :doc:`/cookbook/configuration/override_dir_structure` per maggiori
+    informazioni.
 
 .. _the-web-directory:
 
@@ -554,11 +564,13 @@ ha bisogno di sapere sulla propria applicazione. Non ci si deve preoccupare di q
 metodi all'inizio, Symfony li riempe al posto nostro con delle impostazioni
 predefinite.
 
-* ``registerBundles()``: Restituisce un array di tutti bundle necessari per eseguire
-  l'applicazione (vedere :ref:`page-creation-bundles`);
+``registerBundles()``
+    Restituisce un array di tutti bundle necessari per eseguire
+    l'applicazione (vedere :ref:`page-creation-bundles`);
 
-* ``registerContainerConfiguration()``: Carica il file della configurazione principale
-  dell'applicazione (vedere la sezione `Configurazione dell'applicazione`_).
+``registerContainerConfiguration()``
+    Carica il file della configurazione principale
+    dell'applicazione (vedere la sezione `Configurazione dell'applicazione`_).
 
 Nello sviluppo quotidiano, per lo più si userà la cartella ``app/`` per modificare i
 file di configurazione e delle rotte nella cartella ``app/config/`` (vedere
@@ -743,23 +755,27 @@ predefinita, il sistema dei bundle segue un insieme di convenzioni, che aiutano 
 mantenere il codice coerente tra tutti i bundle di Symfony. Si dia un'occhiata a
 ``AcmeHelloBundle``, perché contiene alcuni degli elementi più comuni di un bundle:
 
-* ``Controller/`` contiene i controllori del bundle (p.e. ``HelloController.php``);
+``Controller/``
+    contiene i controllori del bundle (p.e. ``HelloController.php``);
 
-* ``DependencyInjection/`` contiene alcune estensioni di classi,
-  che possono importare configurazioni di servizi, registrare passi di compilatore o altro
-  (tale cartella non è indispensabile);
+``DependencyInjection/``
+    contiene alcune estensioni di classi,
+    che possono importare configurazioni di servizi, registrare passi di compilatore o altro
+    (tale cartella non è indispensabile);
 
-* ``Resources/config/`` ospita la configurazione, compresa la configurazione delle
-  rotte (p.e. ``routing.yml``);
+``Resources/config/``
+    ospita la configurazione, compresa la configurazione delle rotte (p.e. ``routing.yml``);
 
-* ``Resources/views/`` contiene i template, organizzati per nome di controllore (p.e.
-  ``Hello/index.html.twig``);
+``Resources/views/``
+    contiene i template, organizzati per nome di controllore (p.e. ``Hello/index.html.twig``);
 
-* ``Resources/public/`` contiene le risorse per il web (immagini, fogli di stile, ecc.)
-  ed è copiata o collegata simbolicamente alla cartella ``web/`` del progetto, tramite
-  il comando ``assets:install``;
+``Resources/public/``
+    contiene le risorse per il web (immagini, fogli di stile, ecc.)
+    ed è copiata o collegata simbolicamente alla cartella ``web/`` del progetto, tramite
+    il comando ``assets:install``;
 
-* ``Tests/`` contiene tutti i test del bundle.
+``Tests/``
+ contiene tutti i test del bundle.
 
 Un bundle può essere grande o piccolo, come la caratteristica che implementa. Contiene
 solo i file che occorrono e niente altro.
@@ -885,21 +901,20 @@ Si può esportare la configurazione predefinita per un bundle in yaml sulla cons
 il comando ``config:dump-reference``. Ecco un esempio di esportazione della configurazione
 predefinita di FrameworkBundle:
 
-.. code-block:: text
+.. code-block:: bash
 
-    app/console config:dump-reference FrameworkBundle
+    $ app/console config:dump-reference FrameworkBundle
 
 Si può anche usare l'alias dell'estensione (voce di configurazione):
 
-.. code-block:: text
+.. code-block:: bash
 
-    app/console config:dump-reference framework
+    $ app/console config:dump-reference framework
 
 .. note::
 
-    Vedere la ricetta :doc:`esporrre una configurazione semantica per un bundle</cookbook/bundles/extension>`
-    per informazioni sull'aggiunta di configurazioni per un 
-    bundle.
+    Vedere la ricetta :doc:`/cookbook/bundles/extension` per
+    informazioni sull'aggiunta di configurazioni per un bundle.
 
 .. index::
    single: Ambienti; Introduzione

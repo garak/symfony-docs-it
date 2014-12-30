@@ -77,15 +77,18 @@ in molti modi, più potenti dei template PHP:
 
 Twig definisce due tipi di sintassi speciali:
 
-* ``{{ ... }}``: "Dice qualcosa": stampa una variabile o il risultato di
-  un'espressione nel template;
+``{{ ... }}``
+    "Dice qualcosa": stampa una variabile o il risultato di
+    un'espressione nel template;
 
-* ``{% ... %}``: "Fa qualcosa": un **tag** che controlla la logica del
-  template; è usato per eseguire istruzioni, come il ciclo ``for`` dell'esempio.
+``{% ... %}``
+    "Fa qualcosa": un **tag** che controlla la logica del
+    template; è usato per eseguire istruzioni, come il ciclo ``for`` dell'esempio.
 
-* ``{# ... #}``: "Commenta qualcosa": è l'equivalente della sintassi
-  ``/* commento */`` di PHP. È usato per aggiungere commenti su riga singola o su righe multiple.
-  Il contenuto dei commenti non viene incluso nella resa delle pagine.
+``{# ... #}``
+    "Commenta qualcosa": è l'equivalente della sintassi ``/* commento */``
+    di PHP. È usato per aggiungere commenti su riga singola o su righe multiple.
+    Il contenuto dei commenti non viene incluso nella resa delle pagine.
 
 Twig contiene anche dei **filtri**, che modificano il contenuto prima che sia reso.
 L'esempio seguente rende la variabile ``title`` tutta maiuscola, prima di
@@ -381,15 +384,16 @@ Nomi e posizioni dei template
 
 Per impostazione predefinita, i template possono stare in una di queste posizioni:
 
-* ``app/Resources/views/``: La cartella ``views`` di un'applicazione può contenere
-  template di base a livello di applicazione (p.e. i layout dell'applicazione), ma anche
-  template che sovrascrivono template di bundle (vedere
-  :ref:`overriding-bundle-templates`);
+``app/Resources/views/``
+    La cartella ``views`` di un'applicazione può contenere
+    template di base a livello di applicazione (p.e. i layout dell'applicazione), ma anche
+    template che sovrascrivono template di bundle (vedere
+    :ref:`overriding-bundle-templates`);
 
-* ``percorso/bundle/Resources/views/``: Ogni bundle ha i suoi template, nella sua
-  cartella ``Resources/views`` (e nelle sottocartelle). Se si pensa di voler condividere
-  un bundle, si dovrebbero mettere i template nel bundle invece che nella
-  cartella ``app/``.
+``percorso/bundle/Resources/views/``
+    Ogni bundle ha i suoi template, nella sua cartella ``Resources/views``
+    (e nelle sottocartelle). Se si pensa di voler condividere un bundle, si
+    dovrebbero mettere i template nel bundle invece che nella cartella ``app/``.
 
 La maggior parte dei template usati si trovano nella cartella ``app/Resources/views/``.
 Il percorso che si userà sarà relativo a tale cartella. Per esempio,
@@ -414,10 +418,10 @@ specifico:
   * ``AcmeBlogBundle``: (*bundle*) il template è dentro
     ``AcmeBlogBundle`` (p.e. ``src/Acme/BlogBundle``);
 
-  * ``Blog``: (*controllore*) indica che il template è nella sotto-cartella
+  * ``Blog``: (*cartella*) indica che il template è nella sottocartella
     ``Blog`` di ``Resources/views``;
 
-  * ``index.html.twig``: (*template*) il nome del file è
+  * ``index.html.twig``: (*nome di file*) il nome del file è
     ``index.html.twig``.
 
   Ipotizzando che ``AcmeBlogBundle`` sia dentro ``src/Acme/BlogBundle``, il percorso
@@ -1120,12 +1124,18 @@ sia nei template Twig che in quelli PHP. La variabile ``app``
 che dà accesso automaticamente ad alcune variabili specifiche
 dell'applicazione:
 
-* ``app.security`` - Il contesto della sicurezza.
-* ``app.user`` - L'oggetto dell'utente attuale.
-* ``app.request`` - L'oggetto richiesta.
-* ``app.session`` - L'oggetto sessione.
-* ``app.environment`` - L'ambiente attuale (dev, prod, ecc).
-* ``app.debug`` - True se in debug. False altrimenti.
+``app.security``
+    Il contesto della sicurezza.
+``app.user``
+    L'oggetto dell'utente attuale.
+``app.request``
+    L'oggetto richiesta.
+``app.session``
+    L'oggetto sessione.
+``app.environment``
+    L'ambiente attuale (dev, prod, ecc).
+``app.debug``
+    True se in debug. False altrimenti.
 
 .. configuration-block::
 
@@ -1161,7 +1171,7 @@ L'oggetto speciale ``Engine`` è responsabile della resa dei template e della
 restituzione del loro contenuto. Quando si rende un template in un controllore,
 per esempio, si sta in realtà usando il servizio del motore dei template. Per esempio::
 
-    return $this->render('AcmeArticleBundle:Article:index.html.twig');
+    return $this->render('Article/index.html.twig');
 
 equivale a::
 
@@ -1217,7 +1227,7 @@ dell'applicazione:
         ));
 
 Sono disponibili diverse opzioni di configurazione, coperte
-nell':doc:`Appendice: configurazione</reference/configuration/framework>`.
+nell':doc:`Appendice: configurazione </reference/configuration/framework>`.
 
 .. note::
 
@@ -1321,10 +1331,10 @@ di cui abbiamo appena parlato:
 
 * Creare un file ``app/Resources/views/base.html.twig`` che contenga il layout
   principale per la propria applicazione (come nell'esempio precedente). Internamente,
-  questo template si chiama ``::base.html.twig``;
+  questo template si chiama ``base.html.twig``;
 
-* Creare un template per ogni "sezione" del proprio sito. Per esempio, ``AcmeBlogBundle``
-  avrebbe un template di nome ``AcmeBlogBundle::layout.html.twig``, che contiene solo
+* Creare un template per ogni "sezione" del proprio sito. Per esempio, il blog
+  avrebbe un template di nome ``Blog/layout.html.twig``, che contiene solo
   elementi specifici alla sezione blog;
 
   .. code-block:: html+jinja
@@ -1339,8 +1349,8 @@ di cui abbiamo appena parlato:
       {% endblock %}
 
 * Creare i singoli template per ogni pagina, facendo estendere il template della sezione
-  appropriata. Per esempio, la pagina "index" avrebbe un nome come
-  ``AcmeBlogBundle:Blog:index.html.twig`` e mostrerebbe la lista dei post del blog.
+  appropriata. Per esempio, la pagina "index" avrebbe un nome
+  come ``Blog/index.html.twig`` e mostrerebbe la lista dei post del blog.
 
   .. code-block:: html+jinja
 
@@ -1354,13 +1364,13 @@ di cui abbiamo appena parlato:
           {% endfor %}
       {% endblock %}
 
-Si noti che questo template estende il template di sezione (``AcmeBlogBundle::layout.html.twig``),
+Si noti che questo template estende il template di sezione (``Blog/layout.html.twig``),
 che a sua volte estende il layout base dell'applicazione (``::base.html.twig``).
 Questo è il modello di ereditarietà a tre livelli.
 
 Durante la costruzione della propria applicazione, si può scegliere di seguire questo
 metodo oppure semplicemente far estendere direttamente a ogni template di pagina il
-template base dell'applicazione (p.e. ``{% extends '::base.html.twig' %}``). Il modello
+template base dell'applicazione (p.e. ``{% extends 'base.html.twig' %}``). Il modello
 a tre template è una best practice usata dai bundle dei venditori, in modo che il
 template base di un bundle possa essere facilmente sovrascritto per estendere correttamente
 il layout base della propria applicazione.
@@ -1445,7 +1455,7 @@ Escape dell'output in PHP
 
 L'escape dell'output non è automatico, se si usano i template PHP. Questo vuol dire che,
 a meno che non scelga esplicitamente di passare una variabile sotto escape, non si è
-protetti. Per usare l'escape, usare il metodo speciale ``escape()``::
+protetti. Per usare l'escape, usare il metodo speciale ``escape()``:
 
 .. code-block:: html+php
 
@@ -1569,7 +1579,7 @@ controllore, i loro utilizzo non è obbligatorio. L'oggetto ``Response`` restitu
 un controllore può essere creato con o senza l'uso di un template::
 
     // crea un oggetto Response il cui contenuto è il template reso
-    $response = $this->render('AcmeArticleBundle:Article:index.html.twig');
+    $response = $this->render('Article/index.html.twig');
 
     // crea un oggetto Response il cui contenuto è semplice testo
     $response = new Response('contenuto della risposta');

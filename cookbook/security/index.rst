@@ -4,6 +4,7 @@ Sicurezza
 .. toctree::
     :maxdepth: 2
 
+    form_login_setup
     entity_provider
     remember_me
     impersonating_user
@@ -19,3 +20,5 @@ Sicurezza
     pre_authenticated
     target_path
     csrf_in_login_form
+    access_control
+    multiple_user_providers

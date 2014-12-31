@@ -43,27 +43,17 @@ base HTTP (cioè il classico vecchio box nome utente/password):
 
         # app/config/security.yml
         security:
-            firewalls:
-                secured_area:
-                    pattern:   ^/
-                    anonymous: ~
-                    http_basic:
-                        realm: "Area demo protetta"
-
-            access_control:
-                - { path: ^/admin/, roles: ROLE_ADMIN }
-                # Includere anche la riga seguente per proteggere il percorso /admin
-                # - { path: ^/admin$, roles: ROLE_ADMIN }
-
             providers:
                 in_memory:
-                    memory:
-                        users:
-                            ryan:  { password: ryanpass, roles: 'ROLE_USER' }
-                            admin: { password: kitten, roles: 'ROLE_ADMIN' }
+                    memory: ~
 
-            encoders:
-                Symfony\Component\Security\Core\User\User: plaintext
+            firewalls:
+                dev:
+                    pattern: ^/(_(profiler|wdt)|css|images|js)/
+                    security: false
+
+                default:
+                    anonymous: ~
 
     .. code-block:: xml
 
@@ -75,26 +65,15 @@ base HTTP (cioè il classico vecchio box nome utente/password):
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
-                <firewall name="secured_area" pattern="^/">
-                    <anonymous />
-                    <http-basic realm="Area demo protetta" />
-                </firewall>
-
-                <access-control>
-                    <rule path="^/admin/" role="ROLE_ADMIN" />
-                    <!-- Includere anche la riga seguente per proteggere il percorso /admin -->
-                    <!-- <rule path="^/admin$" role="ROLE_ADMIN" /> -->
-                </access-control>
-
                 <provider name="in_memory">
-                    <memory>
-                        <user name="ryan" password="ryanpass" roles="ROLE_USER" />
-                        <user name="admin" password="kitten" roles="ROLE_ADMIN" />
-                    </memory>
+                    <memory />
                 </provider>
 
-                <encoder class="Symfony\Component\Security\Core\User\User"
-                    algorithm="plaintext" />
+                <firewall name="dev" pattern="^/(_(profiler|wdt)|css|images|js)/" security=false />
+
+                <firewall name="default">
+                    <anonymous />
+                </firewall>
             </config>
         </srv:container>
 
@@ -102,38 +81,19 @@ base HTTP (cioè il classico vecchio box nome utente/password):
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            'firewalls' => array(
-                'secured_area' => array(
-                    'pattern'    => '^/',
-                    'anonymous'  => array(),
-                    'http_basic' => array(
-                        'realm'  => 'Area demo protetta',
-                    ),
-                ),
-            ),
-            'access_control' => array(
-                array('path' => '^/admin/', 'role' => 'ROLE_ADMIN'),
-                // Includere anche la riga seguente per proteggere il percorso /admin
-                // array('path' => '^/admin$', 'role' => 'ROLE_ADMIN'),
-            ),
             'providers' => array(
                 'in_memory' => array(
-                    'memory' => array(
-                        'users' => array(
-                            'ryan' => array(
-                                'password' => 'ryanpass',
-                                'roles' => 'ROLE_USER',
-                            ),
-                            'admin' => array(
-                                'password' => 'kitten',
-                                'roles' => 'ROLE_ADMIN',
-                            ),
-                        ),
-                    ),
+                    'memory' => array(),
                 ),
             ),
-            'encoders' => array(
-                'Symfony\Component\Security\Core\User\User' => 'plaintext',
+            'firewalls' => array(
+                'dev' => array(
+                    'pattern'    => '^/(_(profiler|wdt)|css|images|js)/',
+                    'security'   => false,
+                ),
+                'default' => array(
+                    'anonymous'  => null,
+                ),
             ),
         ));
 
@@ -304,13 +264,13 @@ In primo luogo, abilitare il form di login sotto il firewall:
 
         # app/config/security.yml
         security:
+            # ...
+
             firewalls:
-                secured_area:
-                    pattern:   ^/
+                # ...
+                default:
                     anonymous: ~
-                    form_login:
-                        login_path: login
-                        check_path: login_check
+                    http_basic: ~
 
     .. code-block:: xml
 
@@ -319,13 +279,14 @@ In primo luogo, abilitare il form di login sotto il firewall:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
-                <firewall name="secured_area" pattern="^/">
+                <!-- ... -->
+
+                <firewall name="default">
                     <anonymous />
-                    <form-login login-path="login" check-path="login_check" />
+                    <http-basic />
                 </firewall>
             </config>
         </srv:container>
@@ -334,14 +295,12 @@ In primo luogo, abilitare il form di login sotto il firewall:
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
+            // ...
             'firewalls' => array(
-                'secured_area' => array(
-                    'pattern'    => '^/',
-                    'anonymous'  => array(),
-                    'form_login' => array(
-                        'login_path' => 'login',
-                        'check_path' => 'login_check',
-                    ),
+                // ...
+                'default' => array(
+                    'anonymous'  => null,
+                    'http_basic' => null,
                 ),
             ),
         ));
@@ -762,8 +721,11 @@ il ruolo ``ROLE_ADMIN``.
         # app/config/security.yml
         security:
             # ...
+            firewalls:
+                # ...
+            
             access_control:
-                - { path: ^/admin/users, roles: ROLE_SUPER_ADMIN }
+                # require ROLE_ADMIN for /admin*
                 - { path: ^/admin, roles: ROLE_ADMIN }
 
     .. code-block:: xml
@@ -773,13 +735,17 @@ il ruolo ``ROLE_ADMIN``.
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
+
+                <firewall name="default">
+                    <!-- ... -->
+                </firewall>
+
                 <access-control>
-                    <rule path="^/admin/users" role="ROLE_SUPER_ADMIN" />
+                    <!-- require ROLE_ADMIN for /admin* -->
                     <rule path="^/admin" role="ROLE_ADMIN" />
                 </access-control>
             </config>
@@ -790,8 +756,14 @@ il ruolo ``ROLE_ADMIN``.
         // app/config/security.php
         $container->loadFromExtension('security', array(
             // ...
-            'access_control' => array(
-                array('path' => '^/admin/users', 'role' => 'ROLE_SUPER_ADMIN'),
+            'firewalls' => array(
+                // ...
+                'default' => array(
+                    // ...
+                ),
+            ),
+           'access_control' => array(
+               // require ROLE_ADMIN for /admin*
                 array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
             ),
         ));
@@ -842,12 +814,17 @@ Si prende il seguente ``access_control`` come esempio:
 
         # app/config/security.yml
         security:
+            providers:
+                in_memory:
+                    memory:
+                        users:
+                            ryan:
+                                password: ryanpass,
+                                roles: 'ROLE_USER'
+                            admin:
+                                password: kitten
+                                roles: 'ROLE_ADMIN'
             # ...
-            access_control:
-                - { path: ^/admin, roles: ROLE_USER_IP, ip: 127.0.0.1 }
-                - { path: ^/admin, roles: ROLE_USER_HOST, host: symfony\.com$ }
-                - { path: ^/admin, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
-                - { path: ^/admin, roles: ROLE_USER }
 
     .. code-block:: xml
 
@@ -856,17 +833,16 @@ Si prende il seguente ``access_control`` come esempio:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
+                <provider name="in_memory">
+                    <memory>
+                        <user name="ryan" password="ryanpass" roles="ROLE_USER" />
+                        <user name="admin" password="kitten" roles="ROLE_ADMIN" />
+                    </memory>
+                </provider>
                 <!-- ... -->
-                <access-control>
-                    <rule path="^/admin" role="ROLE_USER_IP" ip="127.0.0.1" />
-                    <rule path="^/admin" role="ROLE_USER_HOST" host="symfony\.com$" />
-                    <rule path="^/admin" role="ROLE_USER_METHOD" method="POST, PUT" />
-                    <rule path="^/admin" role="ROLE_USER" />
-                </access-control>
             </config>
         </srv:container>
 
@@ -874,28 +850,23 @@ Si prende il seguente ``access_control`` come esempio:
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            // ...
-            'access_control' => array(
-                array(
-                    'path' => '^/admin',
-                    'role' => 'ROLE_USER_IP',
-                    'ip' => '127.0.0.1',
-                ),
-                array(
-                    'path' => '^/admin',
-                    'role' => 'ROLE_USER_HOST',
-                    'host' => 'symfony\.com$',
-                ),
-                array(
-                    'path' => '^/admin',
-                    'role' => 'ROLE_USER_METHOD',
-                    'method' => 'POST, PUT',
-                ),
-                array(
-                    'path' => '^/admin',
-                    'role' => 'ROLE_USER',
+            'providers' => array(
+                'in_memory' => array(
+                    'memory' => array(
+                        'users' => array(
+                            'ryan' => array(
+                                'password' => 'ryanpass',
+                                'roles' => 'ROLE_USER',
+                            ),
+                            'admin' => array(
+                                'password' => 'kitten',
+                                'roles' => 'ROLE_ADMIN',
+                            ),
+                        ),
+                    ),
                 ),
             ),
+            // ...
         ));
 
 Per ogni richiesta in arrivo, Symfony deciderà quale ``access_control``
@@ -992,9 +963,10 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
         # app/config/security.yml
         security:
             # ...
-            access_control:
-                - { path: ^/esi, roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1] }
-                - { path: ^/esi, roles: ROLE_NO_ACCESS }
+
+            encoders:
+                Symfony\Component\Security\Core\User\User: plaintext
+            # ...
 
     .. code-block:: xml
 
@@ -1003,16 +975,14 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
-                <access-control>
-                    <rule path="^/esi" role="IS_AUTHENTICATED_ANONYMOUSLY"
-                        ips="127.0.0.1, ::1" />
-                    <rule path="^/esi" role="ROLE_NO_ACCESS" />
-                </access-control>
+
+                <encoder class="Symfony\Component\Security\Core\User\User"
+                    algorithm="plaintext" />
+                <!-- ... -->
             </config>
         </srv:container>
 
@@ -1021,17 +991,11 @@ un certo prefisso, ``/esi``, da intrusioni esterne:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             // ...
-            'access_control' => array(
-                array(
-                    'path' => '^/esi',
-                    'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
-                    'ips' => '127.0.0.1, ::1'
-                ),
-                array(
-                    'path' => '^/esi',
-                    'role' => 'ROLE_NO_ACCESS'
-                ),
+
+            'encoders' => array(
+                'Symfony\Component\Security\Core\User\User' => 'plaintext',
             ),
+            // ...
         ));
 
 Ecco come funziona quando il percorso è ``/esi/qualcosa`` dall'IP
@@ -1072,8 +1036,11 @@ l'utente sarà rinviato a ``https``:
         # app/config/security.yml
         security:
             # ...
-            access_control:
-                - { path: ^/cart/checkout, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+
+            encoders:
+                Symfony\Component\Security\Core\User\User:
+                    algorithm: bcrypt
+                    cost: 12
 
     .. code-block:: xml
 
@@ -1082,27 +1049,30 @@ l'utente sarà rinviato a ``https``:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <access-control>
-                <rule path="^/cart/checkout"
-                    role="IS_AUTHENTICATED_ANONYMOUSLY"
-                    requires-channel="https" />
-            </access-control>
+            <config>
+                <!-- ... -->
+
+                <encoder class="Symfony\Component\Security\Core\User\User"
+                    algorithm="bcrypt" cost="12" />
+                <!-- ... -->
+            </config>
         </srv:container>
 
     .. code-block:: php
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            'access_control' => array(
-                array(
-                    'path' => '^/cart/checkout',
-                    'role' => 'IS_AUTHENTICATED_ANONYMOUSLY',
-                    'requires_channel' => 'https',
-                ),
+            // ...
+
+            'encoders' => array(
+                'Symfony\Component\Security\Core\User\User' => array(
+                    'algorithm' => 'plaintext',
+                    'cost' => 12,
+                )
             ),
+            // ...
         ));
 
 Utenti
@@ -1139,12 +1109,17 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
         # app/config/security.yml
         security:
             # ...
+
             providers:
-                default_provider:
+                in_memory:
                     memory:
                         users:
-                            ryan:  { password: ryanpass, roles: 'ROLE_USER' }
-                            admin: { password: kitten, roles: 'ROLE_ADMIN' }
+                            ryan:
+                                password: $2a$12$LCY0MefVIEc3TYPHV9SNnuzOfyr2p/AXIGoQJEDs4am4JwhNz/jli
+                                roles: 'ROLE_USER'
+                            admin:
+                                password: $2a$12$cyTWeE9kpq1PjqKFiWUZFuCRPwVyAZwm4XzMZ1qPUFl7/flCM3V0G
+                                roles: 'ROLE_ADMIN'
 
     .. code-block:: xml
 
@@ -1153,17 +1128,16 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
-                <!-- ... -->
-                <provider name="default_provider">
+                <provider name="in_memory">
                     <memory>
-                        <user name="ryan" password="ryanpass" roles="ROLE_USER" />
-                        <user name="admin" password="kitten" roles="ROLE_ADMIN" />
+                        <user name="ryan" password="$2a$12$LCY0MefVIEc3TYPHV9SNnuzOfyr2p/AXIGoQJEDs4am4JwhNz/jli" roles="ROLE_USER" />
+                        <user name="admin" password="$2a$12$cyTWeE9kpq1PjqKFiWUZFuCRPwVyAZwm4XzMZ1qPUFl7/flCM3V0G" roles="ROLE_ADMIN" />
                     </memory>
                 </provider>
+                <!-- ... -->
             </config>
         </srv:container>
 
@@ -1171,23 +1145,23 @@ In effetti, questo si è già aver visto nell'esempio di questo capitolo.
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            // ...
             'providers' => array(
-                'default_provider' => array(
+                'in_memory' => array(
                     'memory' => array(
                         'users' => array(
                             'ryan' => array(
-                                'password' => 'ryanpass',
+                                'password' => '$2a$12$LCY0MefVIEc3TYPHV9SNnuzOfyr2p/AXIGoQJEDs4am4JwhNz/jli',
                                 'roles' => 'ROLE_USER',
                             ),
                             'admin' => array(
-                                'password' => 'kitten',
+                                'password' => '$2a$12$cyTWeE9kpq1PjqKFiWUZFuCRPwVyAZwm4XzMZ1qPUFl7/flCM3V0G',
                                 'roles' => 'ROLE_ADMIN',
                             ),
                         ),
                     ),
                 ),
             ),
+            // ...
         ));
 
 Questo fornitore di utenti è chiamato "in-memory" , dal momento che gli utenti
@@ -1273,11 +1247,13 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
 
         # app/config/security.yml
         security:
-            providers:
-                main:
-                    entity:
-                        class: Acme\UserBundle\Entity\User
-                        property: username
+            # ...
+            firewalls:
+                # ...
+            
+            access_control:
+                # require ROLE_ADMIN for /admin*
+                - { path: ^/admin, roles: ROLE_ADMIN }
 
     .. code-block:: xml
 
@@ -1286,13 +1262,19 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services
-                http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
-                <provider name="main">
-                    <entity class="Acme\UserBundle\Entity\User" property="username" />
-                </provider>
+                <!-- ... -->
+
+                <firewall name="default">
+                    <!-- ... -->
+                </firewall>
+
+                <access-control>
+                    <!-- require ROLE_ADMIN for /admin* -->
+                    <rule path="^/admin" role="ROLE_ADMIN" />
+                </access-control>
             </config>
         </srv:container>
 
@@ -1300,13 +1282,16 @@ Quindi, configurare un fornitore utenti ``entity`` e farlo puntare alla classe
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            'providers' => array(
-                'main' => array(
-                    'entity' => array(
-                        'class' => 'Acme\UserBundle\Entity\User',
-                        'property' => 'username',
-                    ),
+            // ...
+            'firewalls' => array(
+                // ...
+                'default' => array(
+                    // ...
                 ),
+            ),
+           'access_control' => array(
+               // require ROLE_ADMIN for /admin*
+                array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
             ),
         ));
 
@@ -1341,21 +1326,9 @@ si può fare come segue:
         # app/config/security.yml
         security:
             # ...
-            providers:
-                in_memory:
-                    memory:
-                        users:
-                            ryan:
-                                password: $2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO
-                                roles: 'ROLE_USER'
-                            admin:
-                                password: $2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW
-                                roles: 'ROLE_ADMIN'
-
-            encoders:
-                Symfony\Component\Security\Core\User\User:
-                    algorithm: bcrypt
-                    cost: 12
+            access_control:
+                - { path: ^/admin/users, roles: ROLE_SUPER_ADMIN }
+                - { path: ^/admin, roles: ROLE_ADMIN }
 
     .. code-block:: xml
 
@@ -1369,23 +1342,10 @@ si può fare come segue:
 
             <config>
                 <!-- ... -->
-                <provider name="in_memory">
-                    <memory>
-                        <user
-                            name="ryan"
-                            password="$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO"
-                            roles="ROLE_USER" />
-                        <user
-                            name="admin"
-                            password="$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW"
-                            roles="ROLE_ADMIN" />
-                    </memory>
-                </provider>
-
-                <encoder
-                    class="Symfony\Component\Security\Core\User\User"
-                    algorithm="bcrypt"
-                    cost="12" />
+                <access-control>
+                    <rule path="^/admin/users" role="ROLE_SUPER_ADMIN" />
+                    <rule path="^/admin" role="ROLE_ADMIN" />
+                </access-control>
             </config>
         </srv:container>
 
@@ -1394,27 +1354,9 @@ si può fare come segue:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             // ...
-            'providers' => array(
-                'in_memory' => array(
-                    'memory' => array(
-                        'users' => array(
-                            'ryan' => array(
-                                'password' => '$2a$12$w/aHvnC/XNeDVrrl65b3dept8QcKqpADxUlbraVXXsC03Jam5hvoO',
-                                'roles' => 'ROLE_USER',
-                            ),
-                            'admin' => array(
-                                'password' => '$2a$12$HmOsqRDJK0HuMDQ5Fb2.AOLMQHyNHGD0seyjU3lEVusjT72QQEIpW',
-                                'roles' => 'ROLE_ADMIN',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            'encoders' => array(
-                'Symfony\Component\Security\Core\User\User' => array(
-                    'algorithm'         => 'bcrypt',
-                    'iterations'        => 12,
-                ),
+            'access_control' => array(
+                array('path' => '^/admin/users', 'role' => 'ROLE_SUPER_ADMIN'),
+                array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
             ),
         ));
 
@@ -1963,10 +1905,9 @@ alcun cookie):
 
         # app/config/security.yml
         security:
-            firewalls:
-                main:
-                    http_basic: ~
-                    stateless:  true
+            role_hierarchy:
+                ROLE_ADMIN:       ROLE_USER
+                ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     .. code-block:: xml
 
@@ -1979,9 +1920,8 @@ alcun cookie):
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
-                <firewall stateless="true">
-                    <http-basic />
-                </firewall>
+                <role id="ROLE_ADMIN">ROLE_USER</role>
+                <role id="ROLE_SUPER_ADMIN">ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH</role>
             </config>
         </srv:container>
 
@@ -1989,8 +1929,12 @@ alcun cookie):
 
         // app/config/security.php
         $container->loadFromExtension('security', array(
-            'firewalls' => array(
-                'main' => array('http_basic' => array(), 'stateless' => true),
+            'role_hierarchy' => array(
+                'ROLE_ADMIN'       => 'ROLE_USER',
+                'ROLE_SUPER_ADMIN' => array(
+                    'ROLE_ADMIN',
+                    'ROLE_ALLOWED_TO_SWITCH',
+                ),
             ),
         ));
 

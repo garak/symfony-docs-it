@@ -57,6 +57,12 @@ mostrare le eccezioni nella nostra applicazione. L'evento ``KernelEvents::EXCEPT
     l'evento ``kernel.exception`` è un :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent`.
     Per vedere il tipo di oggetto ricevuto da un ascoltatore, si veda :class:`Symfony\\Component\\HttpKernel\\KernelEvents`.
 
+.. note::
+
+    Quando si imposta una risposta per gli eventi ``kernel.request``, ``kernel.view`` o
+    ``kernel.exception``, la propagazione si ferma, quindi gli ascoltatori dello stesso
+    evento con priorità inferiore non saranno richiamati.
+
 Dopo aver creato la classe, basta registrarla come servizio e notificare a Symfony
 che è un ascoltatore dell'evento ``kernel.exception``, usando un particolare
 tag:

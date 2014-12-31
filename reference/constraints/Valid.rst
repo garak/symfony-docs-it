@@ -9,9 +9,9 @@ e tutti i sotto-oggetti a esso associati.
 | Si applica a   | :ref:`proprietà o metodo <validation-property-target>`              |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `traverse`_                                                       |
-|                | - `message`_                                                        |
+|                | - `deep`_                                                           |
 +----------------+---------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Type`           |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Valid`          |
 +----------------+---------------------------------------------------------------------+
 
 .. include:: /reference/forms/types/options/_error_bubbling_hint.rst.inc
@@ -26,7 +26,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
 .. code-block:: php
 
     // src/Acme/HelloBundle/Entity/Address.php
-    namespace Amce\HelloBundle\Entity;
+    namespace Acme\HelloBundle\Entity;
 
     class Address
     {
@@ -85,7 +85,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
 
             /**
              * @Assert\NotBlank
-             * @Assert\Length(max = "5")
+             * @Assert\Length(max = 5)
              */
             protected $zipCode;
         }
@@ -93,11 +93,13 @@ un'istanza di ``Address`` nella proprietà ``$address``.
         // src/Acme/HelloBundle/Entity/Author.php
         namespace Acme\HelloBundle\Entity;
 
+        use Symfony\Component\Validator\Constraints as Assert;
+
         class Author
         {
             /**
              * @Assert\NotBlank
-             * @Assert\Length(min = "4")
+             * @Assert\Length(min = 4)
              */
             protected $firstName;
 
@@ -159,9 +161,7 @@ un'istanza di ``Address`` nella proprietà ``$address``.
             {
                 $metadata->addPropertyConstraint('street', new Assert\NotBlank());
                 $metadata->addPropertyConstraint('zipCode', new Assert\NotBlank());
-                $metadata->addPropertyConstraint(
-                    'zipCode',
-                    new Assert\Length(array("max" => 5)));
+                $metadata->addPropertyConstraint('zipCode', new Assert\Length(array("max" => 5)));
             }
         }
 
@@ -194,7 +194,7 @@ proprietà ``$address``.
     .. code-block:: yaml
 
         # src/Acme/HelloBundle/Resources/config/validation.yml
-        Acme\HelloBundle\Author:
+        Acme\HelloBundle\Entity\Author:
             properties:
                 address:
                     - Valid: ~
@@ -267,9 +267,11 @@ Se questo vincolo è applicato a una proprietà che contiene un array di oggetti
 allora ogni oggetto in tale array sarà validato solo se questa opzione è
 ``true``.
 
-message
-~~~~~~~
+deep
+~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This value should be true.``
+**tipo**: ``boolean`` **predefinito**: ``false``
 
-Il messaggio mostrato se il valore è ``false``.
+Se questo vincolo è applicato a una proprietà che contiene un array di oggetti,
+ciascun oggetto in tale array sarà validato ricorsivamente se questa opzione
+è ``true``.

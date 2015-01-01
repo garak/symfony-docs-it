@@ -88,6 +88,8 @@ una ``Application`` e vi aggiunge comandi::
     <?php
     // application.php
 
+    require __DIR__.'/vendor/autoload.php';
+
     use Acme\Console\Command\GreetCommand;
     use Symfony\Component\Console\Application;
 
@@ -375,6 +377,8 @@ in grado di aiutare con diversi compiti:
 * :doc:`/components/console/helpers/progresshelper`: mostra una barra di progressione
 * :doc:`/components/console/helpers/tablehelper`: mostra dati in una tabella
 
+.. _component-console-testing-commands:
+
 Testare i comandi
 -----------------
 
@@ -495,6 +499,7 @@ Saperne di più
 * :doc:`/components/console/usage`
 * :doc:`/components/console/single_command_tool`
 * :doc:`/components/console/events`
+* :doc:`/components/console/console_arguments`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
 .. _ANSICON: https://github.com/adoxa/ansicon/releases

@@ -167,6 +167,11 @@ una ``Response`` direttamente oppure di aggiungere informazioni alla ``Request``
 (p.e. impostando il locale o altre informaioni sugli attributi della
 ``Request``).
 
+.. note::
+
+    Quando si imposta una risposta per l'evento ``kernel.request``, la propagazione
+    si ferma. Questo vuol dire che ascoltatori con priorità inferiore non saranno eseguiti.
+
 .. sidebar:: ``kernel.request`` nel framework Symfony
 
     L'ascoltatore più importante di ``kernel.request`` nel framework Symfony
@@ -174,7 +179,7 @@ una ``Response`` direttamente oppure di aggiungere informazioni alla ``Request``
     Questa classe esegue il livello delle rotte, che restituisce un *array* di informazioni
     sulla richiesta corrispondente, incluso ``_controller`` e ogni segnaposto
     presente nello schema della rotta (p.e. ``{slug}``). Vedere il
-    :doc:`componente Routing</components/routing/introduction>`.
+    :doc:`componente Routing </components/routing/introduction>`.
 
     Questo array di informazioni è memorizzato nell'array ``attributes`` di :class:`Symfony\\Component\\HttpFoundation\\Request`.
     L'aggiunta di informazioni sulle rotte in questo punto non porta ancora a nulla,
@@ -291,10 +296,10 @@ sull'oggetto evento che viene passato agli ascoltatori di questo evento.
     Un interessante ascoltatore è presente in `SensioFrameworkExtraBundle`_,
     incluso in Symfony Standard Edition. La funzionalità
     `@ParamConverter`_ di questo bundle consente di passare un oggetto completo (p.e. un oggetto
-    ``Post``) a un controllore, al posto di uno scalare (p.e. un parametro ``id``
-    presente su una rotta). L'ascoltatore, ``ParamConverterListener``, usa
-    reflection per cercare ogni parametro del controllore e prova a usare
-    vari metodi per convertirli in oggetti, che sono quindi memorizzati
+    ``Post``) a un controllore, al posto di uno scalare (p.e. un parametro 
+    ``id``presente su una rotta). L'ascoltatore,
+    ``ParamConverterListener``, usa reflection per cercare ogni parametro del controllore
+    e prova a usare vari metodi per convertirli in oggetti, che sono quindi memorizzati
     nella proprietà ``attributes`` dell'oggetto ``Request``. Leggere la
     prossima sezione per vedere perché questo è importante.
 
@@ -390,6 +395,11 @@ che sia nel formato corretto (p.e. HTML, JSON, ecc.).
 A questo punto, ne nessun ascoltatore imposta una risposta sull'evento, viene lanciata
 un'eccezione: o il controllore *o* uno degli ascoltatori della vista devono sempre
 restituire una ``Response``.
+
+.. note::
+
+    Quando si imposta una risposta per l'evento ``kernel.request``, la propagazione
+    si ferma. Questo vuol dire che ascoltatori con priorità inferiore non saranno eseguiti.
 
 .. sidebar:: ``kernel.view`` in the Symfony Framework
 
@@ -521,6 +531,11 @@ crei e restituisca una ``Response`` 404. In effetti, il componente HttpKernel
 dispone di un :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`,
 che, se usato, farà questo e anche di più in modo predefinito (si vedano dettagli
 più avanti).
+
+.. note::
+
+    Quando si imposta una risposta per l'evento ``kernel.request``, la propagazione
+    si ferma. Questo vuol dire che ascoltatori con priorità inferiore non saranno eseguiti.
 
 .. sidebar:: ``kernel.exception`` in the Symfony Framework
 

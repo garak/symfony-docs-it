@@ -94,6 +94,8 @@ basare le modifiche. Il **repository di confronto** dovrebbe essere la copia for
 di ``symfony-docs`` e il **ramo di confronto** dovrebbe essere ``miglioramento_capitolo_installazione``,
 che è il nome del ramo creato e su cui sono state eseguite le modifiche.
 
+.. _pull-request-format:
+
 **Passo 8.** Il passo successivo è preparare la **descrizione** della richiesta di pull.
 Per consentire una revisione rapida, si prega di aggiungere la seguente tabella
 in cima alla descrizione della richiesta di pull:

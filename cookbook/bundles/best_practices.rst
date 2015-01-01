@@ -15,6 +15,11 @@ per i bundle dell'applicazione, perché non dovranno restare il più semplici
 possibile. Per i bundle dell'applicazione, basta seguire le pratiche mostrate
 nel libro e nel ricettario.
 
+.. seealso::
+
+    Le best practice per i bundle specifici di applicazioni sono analizzate in
+    :doc:`/best_practices/introduction`.
+
 .. index::
    pair: Bundle; Convenzioni di nomenclatura
 
@@ -243,13 +248,13 @@ seguenti istruzioni standardizzate, nel file ``README.md``.
         {
             $bundles = array(
                 // ...
-   
+
                 new <vendor>\<nome-bundle>\<nome-lungo-bundle>(),
             );
-   
+
             // ...
         }
-        
+
         // ...
     }
     ```

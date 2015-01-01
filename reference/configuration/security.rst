@@ -62,10 +62,23 @@ Ogni parte sarà spiegata nella prossima sezione.
                     hash_algorithm:       sha512
                     encode_as_base64:     true
                     iterations:           1000
+                    key_length:           40
 
                 # Opzioni/valori di esempio di come potrebbe essere un encoder personalizzato
                 Acme\DemoBundle\Entity\User3:
                     id:                   id.codificatore
+
+                # codificatore BCrypt
+                # vedere più avanti la nota su bcrypt per dettagli sulle dipendenze
+                Acme\DemoBundle\Entity\User4:
+                    algorithm:            bcrypt
+                    cost:                 13
+
+                # Plaintext encoder
+                # it does not do any encoding
+                Acme\DemoBundle\Entity\User5:
+                    algorithm:            plaintext
+                    ignore_case:          false
 
             providers:            # Obbligatorio
                 # Esempi:
@@ -406,20 +419,20 @@ più firewall, il "contesto" può essere effettivamente condiviso:
 
     .. code-block:: xml
 
-       <!-- app/config/security.xml -->
-       <security:config>
-          <firewall name="nome" context="contesto">
-            <! ... ->
-          </firewall>
-          <firewall name="altronome" context="contesto">
-            <! ... ->
-          </firewall>
-       </security:config>
+        <!-- app/config/security.xml -->
+        <security:config>
+            <firewall name="nome" context="contesto">
+                <! ... ->
+            </firewall>
+            <firewall name="altronome" context="contesto">
+                <! ... ->
+            </firewall>
+        </security:config>
 
     .. code-block:: php
 
-       // app/config/security.php
-       $container->loadFromExtension('security', array(
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'nome' => array(
                     // ...
@@ -439,38 +452,38 @@ Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
 
 .. configuration-block::
 
-   .. code-block:: yaml
+    .. code-block:: yaml
 
-      # app/config/security.yml
-      security:
-         firewalls:
-            somename:
-              http_digest:
-               key: "una_stringa_casuale"
-               realm: "secure-api"
+        # app/config/security.yml
+        security:
+            firewalls:
+                somename:
+                    http_digest:
+                        key: "una_stringa_casuale"
+                        realm: "secure-api"
 
-   .. code-block:: xml
+    .. code-block:: xml
 
-      <!-- app/config/security.xml -->
-      <security:config>
-         <firewall name="somename">
-            <http-digest key="una_stringa_casuale" realm="secure-api" />
-         </firewall>
-      </security:config>
+        <!-- app/config/security.xml -->
+        <security:config>
+            <firewall name="somename">
+                <http-digest key="una_stringa_casuale" realm="secure-api" />
+            </firewall>
+        </security:config>
 
-   .. code-block:: php
+    .. code-block:: php
 
-      // app/config/security.php
-      $container->loadFromExtension('security', array(
-           'firewalls' => array(
-               'somename' => array(
-                   'http_digest' => array(
-                       'key'   => 'una_stringa_casuale',
-                       'realm' => 'secure-api',
-                   ),
-               ),
-           ),
-      ));
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            'firewalls' => array(
+                'somename' => array(
+                    'http_digest' => array(
+                        'key'   => 'una_stringa_casuale',
+                        'realm' => 'secure-api',
+                    ),
+                ),
+            ),
+        ));
 
 .. _`PBKDF2`: http://en.wikipedia.org/wiki/PBKDF2
 .. _`ircmaxell/password-compat`: https://packagist.org/packages/ircmaxell/password-compat

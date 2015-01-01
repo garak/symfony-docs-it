@@ -333,18 +333,22 @@ occorre creare una classe che implementi
 L'interfaccia :class:`Symfony\\Bundle\\SecurityBundle\\DependencyInjection\\Security\\Factory\\SecurityFactoryInterface`
 richiede i seguenti metodi:
 
-* metodo ``create``, che aggiunge l'ascoltatore e il fornitore di autenticazione provider
-  al contenitore di dipendenze per il contesto della sicurezza appropriato;
+``create``
+    Metodo che aggiunge l'ascoltatore e il fornitore di autenticazione provider
+    al contenitore di dipendenze per il contesto della sicurezza appropriato;
 
-* metodo ``getPosition``, che deve essere del tipo ``pre_auth``, ``form``, ``http``
-  o ``remember_me`` e definisce la posizione in cui il fornitore viene chiamato;
+``getPosition``
+    Metodo che deve essere del tipo ``pre_auth``, ``form``, ``http``
+    o ``remember_me`` e definisce la posizione in cui il fornitore viene chiamato;
 
-* metodo ``getKey``, che definisce la chiave di configurazione usata per fare riferimento
-  al fornitore;
+``getKey``
+    Metodo che definisce la chiave di configurazione usata per fare riferimento
+    al fornitore;
 
-* metodo ``addConfiguration``, usato per definire le opzioni di configurazione
-  sotto la chiave ``configuration`` della configurazione della sciurezza.
-  Le opzioni di configurazione sono spiegate più avanti in questo capitolo.
+``addConfiguration``
+    Metodo usato per definire le opzioni di configurazione
+    sotto la chiave ``configuration`` della configurazione della sciurezza.
+    Le opzioni di configurazione sono spiegate più avanti in questo capitolo.
 
 .. note::
 
@@ -382,11 +386,11 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
         # src/Acme/DemoBundle/Resources/config/services.yml
         services:
             wsse.security.authentication.provider:
-                class:  Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
+                class: Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
                 arguments: ["", "%kernel.cache_dir%/security/nonces"]
 
             wsse.security.authentication.listener:
-                class:  Acme\DemoBundle\Security\Firewall\WsseListener
+                class: Acme\DemoBundle\Security\Firewall\WsseListener
                 arguments: ["@security.context", "@security.authentication.manager"]
 
     .. code-block:: xml

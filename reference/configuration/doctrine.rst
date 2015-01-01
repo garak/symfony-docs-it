@@ -26,9 +26,6 @@ Configurazione predefinita completa
                 #schema_filter:        ^sf2_ 
 
                 connections:
-                    default:
-                        dbname:               database
-
                     # Un insieme di nomi di connessioni (p.e. default, conn2, ecc.)
                     default:
                         dbname:               ~
@@ -62,6 +59,8 @@ Configurazione predefinita completa
                         MultipleActiveResultSets:  ~
                         driver:               pdo_mysql
                         platform_service:     ~
+
+                        # se true, un canale "doctrine" di monolog conterrà le query
                         logging:              %kernel.debug%
                         profiling:            %kernel.debug%
                         driver_class:         ~
@@ -180,8 +179,10 @@ Configurazione predefinita completa
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/doctrine
+                http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
             <doctrine:config>
                 <doctrine:dbal default-connection="default">
@@ -209,16 +210,44 @@ Configurazione predefinita completa
                     <doctrine:type name="custom">Acme\HelloBundle\MyCustomType</doctrine:type>
                 </doctrine:dbal>
 
-                <doctrine:orm default-entity-manager="default" auto-generate-proxy-classes="false" proxy-namespace="Proxies" proxy-dir="%kernel.cache_dir%/doctrine/orm/Proxies">
-                    <doctrine:entity-manager name="default" query-cache-driver="array" result-cache-driver="array" connection="conn1" class-metadata-factory-name="Doctrine\ORM\Mapping\ClassMetadataFactory">
-                        <doctrine:metadata-cache-driver type="memcache" host="localhost" port="11211" instance-class="Memcache" class="Doctrine\Common\Cache\MemcacheCache" />
+                <doctrine:orm
+                    default-entity-manager="default"
+                    auto-generate-proxy-classes="false"
+                    proxy-namespace="Proxies"
+                    proxy-dir="%kernel.cache_dir%/doctrine/orm/Proxies"
+                >
+                    <doctrine:entity-manager
+                        name="default"
+                        query-cache-driver="array"
+                        result-cache-driver="array"
+                        connection="conn1"
+                        class-metadata-factory-name="Doctrine\ORM\Mapping\ClassMetadataFactory"
+                    >
+                        <doctrine:metadata-cache-driver
+                            type="memcache"
+                            host="localhost"
+                            port="11211"
+                            instance-class="Memcache"
+                            class="Doctrine\Common\Cache\MemcacheCache"
+                        />
+
                         <doctrine:mapping name="AcmeHelloBundle" />
+
                         <doctrine:dql>
-                            <doctrine:string-function name="test_string">Acme\HelloBundle\DQL\StringFunction</doctrine:string-function>
-                            <doctrine:numeric-function name="test_numeric">Acme\HelloBundle\DQL\NumericFunction</doctrine:numeric-function>
-                            <doctrine:datetime-function name="test_datetime">Acme\HelloBundle\DQL\DatetimeFunction</doctrine:datetime-function>
+                            <doctrine:string-function name="test_string">
+                                Acme\HelloBundle\DQL\StringFunction
+                            </doctrine:string-function>
+
+                            <doctrine:numeric-function name="test_numeric">
+                                Acme\HelloBundle\DQL\NumericFunction
+                            </doctrine:numeric-function>
+
+                            <doctrine:datetime-function name="test_datetime">
+                                Acme\HelloBundle\DQL\DatetimeFunction
+                            </doctrine:datetime-function>
                         </doctrine:dql>
                     </doctrine:entity-manager>
+
                     <doctrine:entity-manager name="em2" connection="conn2" metadata-cache-driver="apc">
                         <doctrine:mapping
                             name="DoctrineExtensions"
@@ -363,8 +392,11 @@ Il blocco seguente mostra tutte le voci di configurazione:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/doctrine
+                http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd"
+        >
 
             <doctrine:config>
                 <doctrine:dbal
@@ -401,7 +433,7 @@ voce ``connections`` e dar loro un nome univoco:
             default_connection:       default
             connections:
                 default:
-                    dbname:           Symfony2
+                    dbname:           Symfony
                     user:             root
                     password:         null
                     host:             localhost

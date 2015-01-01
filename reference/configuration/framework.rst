@@ -48,6 +48,10 @@ Configurazione
 * `translator`_
     * :ref:`enabled <translator.enabled>`
     * `fallback`_
+* `validation`_
+    * `cache`_
+    * `enable_annotations`_
+    * `translation_domain`_
 
 secret
 ~~~~~~
@@ -516,6 +520,35 @@ fallback
 Opzione usata quando non viene trovata la chiave di traduzione del locale corrente.
 
 Per maggiori dettagli, vedere :doc:`/book/translation`.
+
+validation
+~~~~~~~~~~
+
+cache
+.....
+
+**tipo**: ``stringa``
+
+Questo valore è usato per deterimnare il servizio utilizzato per persistere i metadati di classe
+in una cache. L'effettivo nome del servizio è costruito aggiungendo un prefisso 
+``validator.mapping.cache.`` al valore configurato (p.e. se il valore è ``apc``, sarà iniettato il servizio
+``validator.mapping.cache.apc``). Il servizio deve
+implementare :class:`Symfony\\Component\\Validator\\Mapping\\Cache\\CacheInterface`.
+
+enable_annotations
+..................
+
+**tipo**: ``Booleano`` **default**: ``false``
+
+Se questa opzione è abilitata, si possone definire vincoli di validazione tramite annotazioni.
+
+translation_domain
+..................
+
+**tipo**: ``stringa`` **default**: ``validators``
+
+The translation domain that is used when translating validation constraint
+error messages.
 
 Configurazione predefinita completa
 -----------------------------------

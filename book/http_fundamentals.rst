@@ -227,7 +227,7 @@ si hanno a portata di mano tutte le informazioni sulla richiesta::
 
     // recupera rispettivamente le variabili GET e POST
     $request->query->get('pippo');
-    $request->request->get('pluto');
+    $request->request->get('pluto', 'valore predefinito se pluto non esiste');
 
     // recupera le variabili SERVER
     $request->server->get('HTTP_HOST');
@@ -242,8 +242,8 @@ si hanno a portata di mano tutte le informazioni sulla richiesta::
     $request->headers->get('host');
     $request->headers->get('content_type');
 
-    $request->getMethod();          // GET, POST, PUT, DELETE, HEAD
-    $request->getLanguages();       // un array di lingue accettate dal client
+    $request->getMethod();    // GET, POST, PUT, DELETE, HEAD
+    $request->getLanguages(); // un array di lingue accettate dal client
 
 Come bonus, la classe ``Request`` fa un sacco di lavoro in sottofondo, di cui non ci si
 dovrà mai preoccupare. Per esempio, il metodo ``isSecure()`` verifica **tre**

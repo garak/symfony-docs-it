@@ -74,23 +74,16 @@ Quindi, nella configurazione dei servizi, si può iniettare il servizio:
     .. code-block:: yaml
 
         # src/Acme/HelloBundle/Resources/config/services.yml
-        parameters:
-            newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
-
         services:
             newsletter_manager:
-                class:     "%newsletter_manager.class%"
+                class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@security.context"]
 
     .. code-block:: xml
 
         <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
-        <parameters>
-            <parameter key="newsletter_manager.class">Acme\HelloBundle\Newsletter\NewsletterManager</parameter>
-        </parameters>
-
         <services>
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
+            <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                 <argument type="service" id="security.context"/>
             </service>
         </services>
@@ -101,10 +94,8 @@ Quindi, nella configurazione dei servizi, si può iniettare il servizio:
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        $container->setParameter('newsletter_manager.class', 'Acme\HelloBundle\Newsletter\NewsletterManager');
-
         $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%',
+            'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(new Reference('security.context'))
         ));
 
@@ -172,7 +163,7 @@ Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags
         <!-- ... -->
 
         <services>
-            <service id="newsletter_manager" class="%newsletter_manager.class%">
+            <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                 <!-- ... -->
                 <tag name="security.secure_service" />
             </service>
@@ -185,7 +176,7 @@ Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags
         use Symfony\Component\DependencyInjection\Reference;
 
         $definition = new Definition(
-            '%newsletter_manager.class%',
+            'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(new Reference('security.context'))
         ));
         $definition->addTag('security.secure_service');

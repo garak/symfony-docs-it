@@ -32,11 +32,8 @@ Questi file contengono le seguenti classi:
 File                                     Nome classe
 ======================================== =======================
 ``libreria/pluto/paperino/Paperone.php`` ``Acme\Pluto\Paperino``
----------------------------------------- -----------------------
 ``libreria/pluto/Pippo.php``             ``Acme\Pluto``
----------------------------------------- -----------------------
 ``libreria/pippo/pluto/Pippo.php``       ``Acme\Pippo\Pluto``
----------------------------------------- -----------------------
 ``libreria/pippo/Pluto.php``             ``Acme\Pippo``
 ======================================== =======================
 

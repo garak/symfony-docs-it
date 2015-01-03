@@ -30,10 +30,10 @@ I metodi in tale interfaccia vanno quindi deifniti nella classe utente personali
 Potrebbe essere utile anche implementare l'interfaccia
 :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
 che definisce un metodo per verificare se l'utente corrisponde all'utente corrente. Tale
-interfaccia richiede un metodo :method:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface::isEqualTo`.
+interfaccia richiede un metodo
+:method:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface::isEqualTo`.
 
-
-Vediamola in azione::
+Ecco la class ``WebserviceUser`` in azione::
 
     // src/Acme/WebserviceUserBundle/Security/User/WebserviceUser.php
     namespace Acme\WebserviceUserBundle\Security\User;
@@ -90,7 +90,7 @@ Vediamola in azione::
                 return false;
             }
 
-            if ($this->getSalt() !== $user->getSalt()) {
+            if ($this->salt !== $user->getSalt()) {
                 return false;
             }
 
@@ -176,22 +176,15 @@ Ora renderemo il fornitore utenti disponibile come servizio.
     .. code-block:: yaml
 
         # src/Acme/WebserviceUserBundle/Resources/config/services.yml
-        parameters:
-            webservice_user_provider.class: Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider
-
         services:
             webservice_user_provider:
-                class: "%webservice_user_provider.class%"
+                class: Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider
 
     .. code-block:: xml
 
         <!-- src/Acme/WebserviceUserBundle/Resources/config/services.xml -->
-        <parameters>
-            <parameter key="webservice_user_provider.class">Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider</parameter>
-        </parameters>
-
         <services>
-            <service id="webservice_user_provider" class="%webservice_user_provider.class%"></service>
+            <service id="webservice_user_provider" class="Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider" />
         </services>
 
     .. code-block:: php
@@ -199,9 +192,10 @@ Ora renderemo il fornitore utenti disponibile come servizio.
         // src/Acme/WebserviceUserBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
-        $container->setParameter('webservice_user_provider.class', 'Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider');
-
-        $container->setDefinition('webservice_user_provider', new Definition('%webservice_user_provider.class%');
+        $container->setDefinition(
+            'webservice_user_provider',
+            new Definition('Acme\WebserviceUserBundle\Security\User\WebserviceUserProvider')
+        );
 
 .. tip::
 

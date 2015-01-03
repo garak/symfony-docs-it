@@ -67,11 +67,19 @@ semplicemente con una riga:
 
     .. code-block:: jinja
 
+        {# rende tutti i campi #}
         {{ form_widget(form) }}
+
+        {# rende tutti i campi *e* i tag di apertura e chiusura del form #}
+        {{ form(form) }}
 
     .. code-block:: php
 
-        <?php echo $view['form']->widget($form); ?>
+        <!-- rende tutti i campi -->
+        <?php echo $view['form']->widget($form) ?>
+
+        <!-- rende tutti i campi *e* i tag di apertura e chiusura del form -->
+        <?php echo $view['form']->form($form) ?>
 
 Nella restante parte di questa ricetta, verrà mostrato come ogni parte del codice del form
 può essere modificato a diversi livelli. Per maggiori informazioni sulla resa dei
@@ -494,7 +502,8 @@ per ottenere questo tipo di layout:
         # app/config/config.yml
         twig:
             form:
-                resources: ['form_table_layout.html.twig']
+                resources:
+                    - 'form_table_layout.html.twig'
             # ...
 
     .. code-block:: xml
@@ -795,7 +804,7 @@ incollare e personalizzare il frammento ``form_errors``.
             <ul>
                 <?php foreach ($errors as $error): ?>
                     <li><?php echo $error->getMessage() ?></li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
         <?php endif ?>
 
@@ -860,11 +869,11 @@ campi (p.e. un form intero) e non solo un campo singolo.
                 <ul>
                     <?php foreach ($errors as $error): ?>
                         <li><?php echo $error->getMessage() ?></li>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </ul>
             <?php else: ?>
                 <!-- ... render the errors for a single field -->
-            <?php endif; ?>
+            <?php endif ?>
         <?php endif ?>
 
 

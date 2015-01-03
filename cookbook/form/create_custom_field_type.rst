@@ -60,20 +60,23 @@ tutte le logiche e la resa di questo tipo di campo. Per vedere alcune logiche,
 guardare la classe `ChoiceType`_. Ci sono tre metodi che sono particolarmente
 importanti:
 
-* ``buildForm()`` - Ogni tipo di campo possiede un metodo ``buildForm``, che permette di
-  configurare e creare ogni campo/campi. Notare che questo è lo stesso metodo 
-  che è utilizzato per la preparazione  del *proprio* form, e qui funziona allo stesso.
+``buildForm()``
+   Ogni tipo di campo possiede un metodo ``buildForm``, che permette di
+   configurare e creare ogni campo/campi. Notare che questo è lo stesso metodo 
+   che è utilizzato per la preparazione  del *proprio* form, e qui funziona allo stesso.
 
-* ``buildView()`` - Questo metodo è utilizzato per impostare le altre variabili che sono necessarie
-  per la resa del campo nel template. Per esempio, nel tipo di campo `ChoiceType`_,
-  la variabile ``multiple`` è impostata e utilizzata nel template  per impostare (o non 
-  impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creazione del template per il campo`_
-  per maggiori dettagli.
+``buildView()``
+    Questo metodo è utilizzato per impostare le altre variabili che sono necessarie
+    per la resa del campo nel template. Per esempio, nel tipo di campo `ChoiceType`_,
+    la variabile ``multiple`` è impostata e utilizzata nel template  per impostare (o non 
+    impostare) l'attributo ``multiple`` nel campo ``select``. Si faccia riferimento a `Creazione del template per il campo`_
+    per maggiori dettagli.
 
-* ``getDefaultOptions()`` - Questo metodo definisce le opzioni per il tipo di form
-  che possono essere utilizzate in ``buildForm()`` e ``buildView()``. Ci sono molte 
-  opzioni comuni a tutti i campi (vedere `FieldType`_), ma è possibile crearne altre,
-  quante sono necessarie.
+``getDefaultOptions()``
+    Questo metodo definisce le opzioni per il tipo di form
+    che possono essere utilizzate in ``buildForm()`` e ``buildView()``. Ci sono molte 
+    opzioni comuni a tutti i campi (vedere `FieldType`_), ma è possibile crearne altre,
+    quante sono necessarie.
 
 .. tip::
 
@@ -129,7 +132,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
 
     .. code-block:: html+php
 
-        <!-- src/Acme/DemoBundle/Resources/views/Form/gender_widget.html.twig -->
+        <!-- src/Acme/DemoBundle/Resources/views/Form/gender_widget.html.php -->
         <?php if ($expanded) : ?>
             <ul <?php $view['form']->block($form, 'widget_container_attributes') ?>>
             <?php foreach ($form as $child) : ?>

@@ -347,18 +347,18 @@ l'oggetto ``Response`` dopo la sua creazione::
 
 FrameworkBundle registra diversi ascoltatori:
 
-* :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`:
-  raccoglie dati per la richiesta corrente;
+:class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`
+    Raccoglie dati per la richiesta corrente.
 
-* :class:`Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener`:
-  inserisce la barra di web debug;
+:class:`Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener`
+    Inserisce la barra di web debug.
 
-* :class:`Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener`: aggiusta
-  il ``Content-Type`` della risposta, in base al formato della richiesta;
+:class:`Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener`
+    Aggiusta il ``Content-Type`` della risposta, in base al formato della richiesta.
 
-* :class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`: aggiunge un
-  header HTTP ``Surrogate-Control`` quando si deve cercare dei tag ESI nella
-  risposta.
+:class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`
+    Aggiunge un header HTTP ``Surrogate-Control`` quando si deve cercare dei tag ESI nella
+    risposta.
 
 .. seealso::
 
@@ -532,7 +532,8 @@ per accedere ai token, in base a determinati criteri::
     $tokens = $container->get('profiler')->find('127.0.0.1', '', 10, '', '');
 
     // gli ultimi 10 token per richieste tra 2 e 4 giorni fa
-    $tokens = $container->get('profiler')->find('', '', 10, '4 days ago', '2 days ago');
+    $tokens = $container->get('profiler')
+        ->find('', '', 10, '4 days ago', '2 days ago');
 
 Se si vogliono manipolare i dati di profilo su macchine diverse da quella che
 ha generato le informazioni, usare i metodi
@@ -576,9 +577,12 @@ la configurazione per l'ambiente di sviluppo:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/webprofiler
+                http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <!-- carica il profilatore -->
             <framework:config>
@@ -638,7 +642,9 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
 
         use Symfony\Component\Routing\RouteCollection;
 
-        $profiler = $loader->import('@WebProfilerBundle/Resources/config/routing/profiler.xml');
+        $profiler = $loader->import(
+            '@WebProfilerBundle/Resources/config/routing/profiler.xml'
+        );
         $profiler->addPrefix('/_profiler');
 
         $collection = new RouteCollection();

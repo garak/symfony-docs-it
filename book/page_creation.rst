@@ -122,7 +122,7 @@ che il bundle sia registrato nel kernel::
     public function registerBundles()
     {
         $bundles = array(
-            ...,
+            // ...
             new Acme\DemoBundle\AcmeDemoBundle(),
         );
         // ...
@@ -282,7 +282,9 @@ corrisposta::
     {
         public function indexAction($limit)
         {
-            return new Response('<html><body>Numero: '.rand(1, $limit).'</body></html>');
+            return new Response(
+                '<html><body>Numero: '.rand(1, $limit).'</body></html>'
+            );
         }
     }
 
@@ -451,7 +453,8 @@ cartella ``app``:
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <title><?php $view['slots']->output('title', 'Benvenuto!') ?></title>
                 <?php $view['slots']->output('stylesheets') ?>
-                <link rel="shortcut icon" href="<?php echo $view['assets']->getUrl('favicon.ico') ?>" />
+                <link rel="shortcut icon"
+                    href="<?php echo $view['assets']->getUrl('favicon.ico') ?>" />
             </head>
             <body>
                 <?php $view['slots']->output('_content') ?>
@@ -712,14 +715,14 @@ Questa classe vuota è l'unico pezzo necessario a creare un nuovo bundle. Sebben
 vuota, questa classe è potente e può essere usata per personalizzare il comportamento
 del bundle.
 
-Ora che abbiamo creato il bundle, abilitiamolo tramite la classe ``AppKernel``::
+Ora che il bundle è stato creato, va abilitato tramite la classe ``AppKernel``::
 
     // app/AppKernel.php
     public function registerBundles()
     {
         $bundles = array(
-            ...,
-            // register your bundles
+            // ...
+            // registra il bundle
             new Acme\TestBundle\AcmeTestBundle(),
         );
         // ...
@@ -824,9 +827,12 @@ del formato scelto:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xmlns:twig="http://symfony.com/schema/dic/twig"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd
-                http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd
+                http://symfony.com/schema/dic/twig
+                http://symfony.com/schema/dic/twig/twig-1.0.xsd">
 
             <imports>
                 <import resource="parameters.yml" />
@@ -1017,8 +1023,10 @@ il file di configurazione per l'ambiente ``dev``.
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <imports>
                 <import resource="config.xml" />
@@ -1038,7 +1046,7 @@ il file di configurazione per l'ambiente ``dev``.
         $loader->import('config.php');
 
         $container->loadFromExtension('framework', array(
-            'router'   => array(
+            'router' => array(
                 'resource' => '%kernel.root_dir%/config/routing_dev.php',
             ),
             'profiler' => array('only-exceptions' => false),

@@ -809,14 +809,43 @@ si registra che quando aggiorna successivamente le sue informazioni:
 
 Con questa configurazione, ci sono tre gruppi di validazione:
 
-* ``Default`` - contiene i vincoli, nella classe corrente e in tutte le
-  classi referenziate, che non appartengono ad altri gruppi;
+``Default``
+    Contiene i vincoli, nella classe corrente e in tutte le
+    classi referenziate, che non appartengono ad altri gruppi.
 
-* ``User`` - equivalente a tutti i i vincoli dell'oggetto ``User`` nel
-  gruppo ``Default``;
+``User``
+    Equivalente a tutti i i vincoli dell'oggetto ``User`` nel gruppo ``Default``.
+    È sempre il nome della classe. La differenza tra questo
+    e ``Default`` è spiegato più avanti.
 
-* ``registration`` - contiene solo i vincoli sui campi ``email`` e
-  ``password``.
+``registration``
+    Contiene solo i vincoli sui campi ``email`` e ``password``.
+
+I vincoli nel gruppo ``Default`` di una classe sono i vincoli che non hanno gruppi
+esplicitamente configurato o che sono configurati su un gruppo uguale al nome della
+classe o a ``Default``.
+
+.. caution::
+
+    Se si valida *solo* l'oggetto User, non c'è differenza tra gruppo ``Default``
+    e gruppo ``User``. C'è però differnza se ``User`` ha oggetti includi. Per esempio,
+    quando ``User`` ha una proprietà ``address`` che contiene un oggetto ``Address``, con
+    un vincolo :doc:`/reference/constraints/Valid`, in modo che sia validato
+    quando si valida l'oggetto ``User``.
+
+    Se si valida ``User`` usando il gruppo ``Default``, i vincoli sulla classe ``Address``
+    nel gruppo ``Default`` *saranno* usati. Se invece si valida ``User`` usando il gruppo
+    ``User``, soli i vincoli sulla classe ``Address`` con il gruppo ``User``
+    saranno validati.
+
+    In altre parole, il gruppo ``Default`` e il gruppo con lo stesso nome della classe (come ``User``) sono identici,
+    tranne quando la classe è inclusa in un altro oggetto, che è effettivamente l'oggetto validato.
+
+    Se si ha ereditarietà (p.e. ``User extends BaseUser``)e si valida con
+    il nome della sottoclasse (p.e. ``User``), tutti i vincoli
+    in ``User`` e ``BaseUser`` saranno validati. Se invece si valida usando
+    la classe base (p.e. ``BaseUser``), solo i vincoli nel
+    gruppo ``BaseUser`` saranno validati.
 
 Per dire al validatore di usare uno specifico gruppo, passare uno o più nomi di
 gruppo come secondo parametro del metodo ``validate()``::
@@ -1115,7 +1144,7 @@ fornisce una sequenza di gruppi da validare:
 
         # src/Acme/DemoBundle/Resources/config/validation.yml
         Acme\DemoBundle\Entity\User:
-            group_sequence_provider: ~
+            group_sequence_provider: true
 
     .. code-block:: php-annotations
 
@@ -1139,8 +1168,8 @@ fornisce una sequenza di gruppi da validare:
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
-                http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd"
-        >
+                http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
             <class name="Acme\DemoBundle\Entity\User">
                 <group-sequence-provider />
                 <!-- ... -->

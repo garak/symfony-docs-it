@@ -96,7 +96,7 @@ all'interno di un controllore::
                 ->add('save', 'submit', array('label' => 'Crea post'))
                 ->getForm();
 
-            return $this->render('AcmeTaskBundle:Default:new.html.twig', array(
+            return $this->render('Default/new.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
@@ -526,6 +526,7 @@ un callback o a una ``Closure``::
 
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+    // ...
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -541,22 +542,50 @@ Questo richiamerà il metodo statico ``determineValidationGroups()`` della class
 L'oggetto Form è passato come parametro del metodo (vedere l'esempio successivo).
 Si può anche definire l'intera logica con una Closure::
 
+    use Acme\AcmeBundle\Entity\Client;
     use Symfony\Component\Form\FormInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+    // ...
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'validation_groups' => function(FormInterface $form) {
                 $data = $form->getData();
-                if (Entity\Client::TYPE_PERSON == $data->getType()) {
+                if (Client::TYPE_PERSON == $data->getType()) {
                     return array('person');
-                } else {
-                    return array('company');
                 }
+
+                return array('company');
             },
         ));
     }
+
+L'uso dell'opzione ``validation_groups`` sovrascrive il gruppo predefinito di validazione
+in uso. Se si vogliono validare anche i vincoli predefiniti
+dell'entità, occorre modificare l'opzione in questo modo::
+
+    use Acme\AcmeBundle\Entity\Client;
+    use Symfony\Component\Form\FormInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    // ...
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => function(FormInterface $form) {
+                $data = $form->getData();
+                if (Client::TYPE_PERSON == $data->getType()) {
+                    return array('Default', 'person');
+                }
+
+                return array('Default', 'company');
+            },
+        ));
+    }
+
+Si possono trovare maggiori informazioni sui gruppi di validazione e sui vincoli predefiniti
+nella sezione del libro sui :ref:`gruppi di validazione <book-validation-validation-groups>`.
 
 .. index::
    single: Form; Gruppi di validazione basati sul bottone cliccato
@@ -1135,7 +1164,7 @@ facilmente in un'applicazione.
             <services>
                 <service
                     id="acme_demo.form.type.task"
-                    class="Acme\TaskBundle\Form\Type\TaskType">
+                    class="AppBundle\Form\Type\TaskType">
 
                     <tag name="form.type" alias="task" />
                 </service>

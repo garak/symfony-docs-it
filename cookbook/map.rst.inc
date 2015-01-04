@@ -199,6 +199,10 @@
   * (email) :doc:`/cookbook/email/testing`
   * (form) :doc:`/cookbook/form/unit_testing`
 
+* **Aggiornamento**
+
+  * :doc:`/cookbook/upgrading`
+
 * :doc:`/cookbook/validation/index`
 
   * :doc:`/cookbook/validation/custom_constraint`

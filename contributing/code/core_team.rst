@@ -2,7 +2,7 @@ La squadra di Symfony
 =====================
 
 Questo documento elenca le regole che governano la squadra di Symfony. Tali regole
-sono effettive a partire dalla pubblicazione di questo domento e tutti i membri della squadra di Symfony
+sono effettive a partire dalla pubblicazione di questo documento e tutti i membri della squadra di Symfony
 devono rispettarle.
 
 Organizzazione
@@ -86,7 +86,7 @@ dovranno attendere dodici mesi prima di richiedere una riammissione.
 Regole sullo sviluppo del codice
 --------------------------------
 
-Lo sviluppo del progetto Symfony si basa su richeiste di pull, proposte da qualsiasi membro
+Lo sviluppo del progetto Symfony si basa su richieste di pull, proposte da qualsiasi membro
 della comunità di Symfony. L'accettazione o il rifiuto delle richieste di pull sono decisi in base
 ai voti espressi dai membri della squadra di Symfony.
 
@@ -106,9 +106,9 @@ Votazione delle richieste di pull
 Merge delle richieste di pull
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Si può esegeuire il merge di una richiesta di pull se:
+Si può eseguire il merge di una richiesta di pull se:
 
-* Sia passsato abbastanza tempo per le revisioni (alcuni minuti per le modifiche
+* Sia passato abbastanza tempo per le revisioni (alcuni minuti per le modifiche
   minori, almeno due giorni per le richieste di pull "normali" e quattro giorni per
   le richieste di pull con "impatto significativo");
 

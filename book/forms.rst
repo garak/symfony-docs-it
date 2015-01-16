@@ -1791,6 +1791,13 @@ vedere la sezione
     L'opzione ``intention`` è facoltativa, ma migliora notevolmente la sicurezza
     del token generato, rendendolo diverso per ogni modulo.
 
+.. caution::
+
+    I token CSRF sono pensati per essere diversi per ciascun utente. Per questo motivo,
+    occorre cautela nel provare a mettere in cache pagine con form che includano questo
+    tipo di protezione. Per maggiori informazioni, vedere
+    :doc:`/cookbook/cache/form_csrf_caching`.
+
 .. index:
    single: Form; Senza classe
 
@@ -1931,6 +1938,8 @@ Saperne di più con il ricettario
 * :doc:`/cookbook/form/form_customization`
 * :doc:`/cookbook/form/dynamic_form_modification`
 * :doc:`/cookbook/form/data_transformers`
+* :doc:`/cookbook/security/csrf_in_login_form`
+* :doc:`/cookbook/cache/form_csrf_caching`
 
 .. _`Componente Form di Symfony`: https://github.com/symfony/Form
 .. _`DateTime`: http://php.net/manual/it/class.datetime.php

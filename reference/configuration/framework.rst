@@ -19,6 +19,7 @@ Configurazione
 * `http_method_override`_
 * `ide`_
 * `test`_
+* `default_locale`_
 * `trusted_proxies`_
 * `form`_
     * enabled
@@ -150,6 +151,17 @@ Questa impostazione dovrebbe essere presente in ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
 .. _reference-framework-trusted-proxies:
+
+default_locale
+~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``en``
+
+Opzione usata se il parametro ``_locale`` non è stato impostato nelle rotte. 
+Diventa il parametro del contenitore dei servizi ``kernel.default_locale`` ed è
+anche disponibile con il metodo
+:method:`Request::getDefaultLocale <Symfony\\Component\\HttpFoundation\\Request::getDefaultLocale>`.
+
 
 trusted_proxies
 ~~~~~~~~~~~~~~~
@@ -468,17 +480,17 @@ risorsa sarà ``/images/logo.png?version=5``.
 profiler
 ~~~~~~~~
 
-.. versionadded:: 2.2
-    L'opzione ``enabled`` è stata aggiunta in Symfony 2.2. Precedentemente il profiler
-    poteva essere disabilitato solamente omettendo interamente la configurazione
-    ``framework.profiler``.
-
 .. _profiler.enabled:
 
 enabled
 .......
 
-**predefinito**: ``true`` negli ambienti ``dev`` e ``test``
+.. versionadded:: 2.2
+    L'opzione ``enabled`` è stata aggiunta in Symfony 2.2. Precedentemente il profiler
+    poteva essere disabilitato solamente omettendo interamente la configurazione
+    ``framework.profiler``.
+
+**tipo**: ``booleano`` **predefinito**: ``false``
 
 Il profiler può essere disabilitato impostando questa chiave a ``false``.
 
@@ -679,3 +691,4 @@ Configurazione predefinita completa
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
 .. _`PhpStormOpener`: https://github.com/pinepain/PhpStormOpener
+.. _`egulias/email-validator`: https://github.com/egulias/EmailValidator

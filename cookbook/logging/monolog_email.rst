@@ -19,7 +19,12 @@ singolarmente.
             handlers:
                 mail:
                     type:         fingers_crossed
+                    # gli errori 500 sono loggati a livello critical
                     action_level: critical
+                    # per loggare anche gli errori 400 (trane i 404):
+                    # action_level: error
+                    # excluded_404:
+                    #     - ^/
                     handler:      buffered
                 buffered:
                     type:    buffer
@@ -48,6 +53,12 @@ singolarmente.
                     type="fingers_crossed"
                     action-level="critical"
                     handler="buffered"
+                    <!--
+                    per loggare anche gli errori 400 (trane i 404):
+                    action-level="error"
+                    e aggiungere in monolog:handler
+                    <monolog:excluded-404>^/</monolog:excluded-404>
+                    -->
                 />
                 <monolog:handler
                     name="buffered"
@@ -63,7 +74,7 @@ singolarmente.
 
                     <monolog:to-email>error@example.com</monolog:to-email>
 
-                    <!-- or multiple to-email elements -->
+                    <!-- oppure più di un destinatario -->
                     <!--
                     <monolog:to-email>dev1@example.com</monolog:to-email>
                     <monolog:to-email>dev2@example.com</monolog:to-email>
@@ -81,6 +92,11 @@ singolarmente.
                 'mail' => array(
                     'type'         => 'fingers_crossed',
                     'action_level' => 'critical',
+                    // per loggare anche gli errori 400 (trane i 404):
+                    // 'action_level' => 'error',
+                    // 'excluded_404s' => array(
+                    //     '^/',
+                    // ),
                     'handler'      => 'buffered',
                 ),
                 'buffered' => array(
@@ -108,7 +124,8 @@ Esso logga ogni cosa, inclusi i messaggi sotto il livello di azione. Il livello
 .. tip::
 
     Se si vuole che siano inviati per email sia gli errori 400 che i 500,
-    impostare ``action_level`` a ``error``, invece che a ``critical``.
+    impostare ``action_level`` a ``error``, invece che a ``critical``. Vedere
+    il codice precedente per un esempio.
 
 Il gestore ``buffered`` mantiene tutti i messaggi per una richiesta e quindi li passa
 al gestore annidato in un colpo. Se non si usa questo gestore, ogni messaggio sarà

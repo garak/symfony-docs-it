@@ -36,6 +36,23 @@ cambiare il socket, passando un indirizzo IP e una porta, come parametri del com
 
     $ php app/console server:run 192.168.0.1:8080
 
+.. sidebar:: Uso del server web interno da una macchina virtuale
+
+    Se si vuole usare il server web interno da una macchina virtuale
+    e quindi caricare il sito da un browser sulla macchina locale, occorre
+    ascoltare sull'indirizzo ``0.0.0.0:8000`` (cioè su tutti gli indirizzi IP
+    assegnati alla macchina virtuale):
+
+    .. code-block:: bash
+
+        $ php app/console server:run 0.0.0.0:8000
+
+    .. caution::
+
+        Non si dovrebbe **MAI** ascoltare su tutte le interfacce in un computer
+        direttamente accessibile da Internet. Il server web interno non è
+        progettato per l'uso su reti pubbliche.
+
 Opzioni dei comandi
 -------------------
 

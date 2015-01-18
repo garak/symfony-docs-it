@@ -112,7 +112,7 @@ A questo punto, verificare nel file ``README`` del bundle cosa si può
 fare successivamente. Buon divertimento!
 
 .. _documentazione:      http://getcomposer.org/doc/00-intro.md
-.. _Packagist:           https://packagist.org
+.. _Packagist.org:       https://packagist.org
 .. _FOSUserBundle:       https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _KnpBundles:          http://knpbundles.com/
 .. _`composer require`:  https://getcomposer.org/doc/03-cli.md#require

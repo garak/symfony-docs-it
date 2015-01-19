@@ -270,6 +270,7 @@ Ma come si può entrare? Da dove vengono gli utenti?
     oppure :doc:`costruire un proprio </cookbook/security/custom_authentication_provider>`.
 
 .. _security-user-providers:
+.. _where-do-users-come-from-user-providers:
 
 B) Configurare come vengono caricati gli utenti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -428,6 +429,7 @@ Se si vogliono caricare gli utenti usando l'ORM di Doctrine, è facile! Vedere
 
 .. _book-security-encoding-user-password:
 .. _c-encoding-the-users-password:
+.. _encoding-the-user-s-password:
 
 C) Codifica delle password
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1251,7 +1253,7 @@ potrebbe essere utile.
 Buona fortuna!
 
 Saperne di più con il ricettario
-----------------------------
+--------------------------------
 
 * :doc:`Forzare HTTP/HTTPS </cookbook/security/force_https>`
 * :doc:`Impersonare un utente </cookbook/security/impersonating_user>`

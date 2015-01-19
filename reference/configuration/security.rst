@@ -248,41 +248,65 @@ Per dettagli ulteriori, vedere :doc:`/cookbook/security/form_login`.
 Il form e il processo di login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*   ``login_path`` (tipo: ``stringa``, predefinito: ``/login``)
-    È l'URL a cui l'utente sarà rinviato (a meno che ``use_forward`` non sia
-    ``true``) quando prova ad accedere a una risorsa protetta,
-    ma non è autenticato.
+login_path
+..........
 
-    Questo URL **deve** essere accessibile da un utente normale e non autenticato,
-    altrimenti si creerebbe un loop infinito. Per dettagli, vedere
-    ":ref:`Evitare problemi comuni<book-security-common-pitfalls>`".
+**tipo**: ``stringa`` **predefinito**: ``/login``
 
-*   ``check_path`` (tipo: ``stringa``, predefinito: ``/login_check``)
-    È l'URL a cui il form di login viene inviato. Il firewall intercetterà
-    ogni richiesta (solo quelle ``POST``, per impostazione predefinita) a questo URL
-    e processerà le credenziali di login inviate.
+È l'URL a cui l'utente sarà rinviato (a meno che ``use_forward`` non sia
+``true``) quando prova ad accedere a una risorsa protetta,
+ma non è autenticato.
 
-    Assicurarsi che questo URL sia coperto dal firewall principale (cioè non
-    creare un firewall separato solo per l'URL ``check_path``).
+Questo URL **deve** essere accessibile da un utente normale e non autenticato,
+altrimenti si creerebbe un loop infinito. Per dettagli, vedere
+":ref:`evitare problemi comuni <book-security-common-pitfalls>`".
 
-*   ``use_forward`` (tipo: ``booleano``, predefinito: ``false``)
-    Se si vuole che l'utente sia rimandato al form di login invece di essere 
-    rinviato, impostare questa opzione a ``true``.
+check_path
+..........
 
-*   ``username_parameter`` (tipo: ``stringa``, predefinito: ``_username``)
-    Questo il nome del campo che si dovrebbe dare al campo username di un 
-    form di login. Quando si invia il form a ``check_path``, il sistema di
-    sicurezza cercherà un parametro POST con questo nome.
+**tipo**: ``stringa`` **predefinito**: ``/login_check`
 
-*   ``password_parameter`` (tipo: ``stringa``, predefinito: ``_password``)
-    Questo il nome del campo che si dovrebbe dare al campo password di un 
-    form di login. Quando si invia il form a ``check_path``, il sistema di
-    sicurezza cercherà un parametro POST con questo nome.
+È l'URL a cui il form di login viene inviato. Il firewall intercetterà
+ogni richiesta (solo quelle ``POST``, per impostazione predefinita) a questo URL
+e processerà le credenziali di login inviate.
 
-*   ``post_only`` (tipo: ``booleano``, predefinito: ``true``)
-    Per impostazione predefinita, occorre inviare un form di login
-    all'URL ``check_path`` usando una richiesta POST. Impostando questa opzione
-    a ``true``, si può inviare una richiesta GET all'URL ``check_path``.
+Assicurarsi che questo URL sia coperto dal firewall principale (cioè non
+creare un firewall separato solo per l'URL ``check_path``).
+
+use_forward
+...........
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se si vuole che l'utente sia rimandato al form di login invece di essere 
+rinviato, impostare questa opzione a ``true``.
+
+username_parameter
+..................
+
+**tipo**: ``stringa`` **predefinito**: ``_username``
+
+Questo il nome del campo che si dovrebbe dare al campo username di un 
+form di login. Quando si invia il form a ``check_path``, il sistema di
+sicurezza cercherà un parametro POST con questo nome.
+
+password_parameter
+..................
+
+**tipo**: ``stringa`` **predefinito**: ``_password``
+
+ Questo il nome del campo che si dovrebbe dare al campo password di un 
+form di login. Quando si invia il form a ``check_path``, il sistema di
+sicurezza cercherà un parametro POST con questo nome.
+
+post_only
+.........
+
+**tipo**: ``booleano``, predefinito: ``true``)
+
+Per impostazione predefinita, occorre inviare un form di login
+all'URL ``check_path`` usando una richiesta POST. Impostando questa opzione
+a ``true``, si può inviare una richiesta GET all'URL ``check_path``.
 
 Rinvio dopo il login
 ~~~~~~~~~~~~~~~~~~~~

@@ -54,9 +54,7 @@ Creare un votante personalizzato
 --------------------------------
 
 Lo scopo è creare un votante che verifichi se un utente abbia accesso alla visualizzazione o
-modifica di un particolare oggetto. Ecco una possibile implementazione:
-
-.. code-block:: php
+modifica di un particolare oggetto. Ecco una possibile implementazione::
 
     // src/Acme/DemoBundle/Security/Authorization/Voter/PostVoter.php
     namespace Acme\DemoBundle\Security\Authorization\Voter;

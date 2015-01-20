@@ -4,6 +4,7 @@ Sicurezza
 .. toctree::
     :maxdepth: 2
 
+    form_login_setup
     entity_provider
     remember_me
     impersonating_user
@@ -14,7 +15,6 @@ Sicurezza
     force_https
     firewall_restriction
     host_restriction
-    firewall_restriction
     form_login
     securing_services
     custom_provider
@@ -25,3 +25,5 @@ Sicurezza
     target_path
     csrf_in_login_form
     named_encoders
+    access_control
+    multiple_user_providers

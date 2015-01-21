@@ -264,7 +264,7 @@ altrimenti si creerebbe un loop infinito. Per dettagli, vedere
 check_path
 ..........
 
-**tipo**: ``stringa`` **predefinito**: ``/login_check`
+**tipo**: ``stringa`` **predefinito**: ``/login_check``
 
 È l'URL a cui il form di login viene inviato. Il firewall intercetterà
 ogni richiesta (solo quelle ``POST``, per impostazione predefinita) a questo URL

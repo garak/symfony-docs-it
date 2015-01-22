@@ -295,7 +295,7 @@ password_parameter
 
 **tipo**: ``stringa`` **predefinito**: ``_password``
 
- Questo il nome del campo che si dovrebbe dare al campo password di un 
+Questo il nome del campo che si dovrebbe dare al campo password di un 
 form di login. Quando si invia il form a ``check_path``, il sistema di
 sicurezza cercherà un parametro POST con questo nome.
 

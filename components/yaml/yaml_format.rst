@@ -23,34 +23,64 @@ La sintassi per gli scalari è simile a quella di PHP.
 Stringhe
 ~~~~~~~~
 
+In YAML, si possono inserire stringhe tra apici singoli o doppi. In alcuni casi,
+le stringhe possono non avere apici:
+
 .. code-block:: yaml
 
     Una stringa in YAML
 
-.. code-block:: yaml
-
     'Una stringa in YAML tra apici singoli'
 
-.. tip::
+    "Una stringa in YAML tra apici doppi"
 
-    In una stringa tra apici singoli, un apice singolo ``'`` va raddoppiato:
+Gli apici sono utili quando una stringa inizia o finisce con spazi significativi,
+perché alle stringhe senza apici vengono tolti gli spazi iniziali e finiali.
+Gli apici sono obbligatori quando la stringa contiene caratteri speciali o riservati.
 
-    .. code-block:: yaml
+Usando apici singoli, un apice singolo interno deve essere raddoppiato,
+per l'escape:
 
-        'Un apice singolo '' in una stringa tra apici singoli'
+.. code-block:: yaml
+
+    'Un apice singolo '' in una stringa tra apici singoli'
+
+Le stringhe contenenti uno dei caratteri seguenti vanno tra apici. Sebbene si
+possano usare gli apici doppi, per questi caratteri è più conveniente usare apici
+singoli, perché evitano di dover aggiungere un ``\``:
+
+* ``:``, ``{``, ``}``, ``[``, ``]``, ``,``, ``&``, ``*``, ``#``, ``?``, ``|``,
+  ``-``, ``<``, ``>``, ``=``, ``!``, ``%``, ``@``, ``\```
+
+Lo stile ad apici doppi fornisce un modo per esprimere stringhe arbitrarie,
+usando ``\`` per l'escape di caratteri e sequenze. Per esempio, è molto utile
+quando occorre inserire un ``\n`` oppure un carattere unicode.
 
 .. code-block:: yaml
 
     "Una stringa in YAML tra apici doppi\n"
 
-Gli apici sono utili quando una stringa inizia o finisce con uno o più spazi
-significativi.
+Se la stringa contiene uno dei seguenti caratteri di controllo, deve
+avere apici doppi:
 
-.. tip::
+* ``\0``, ``\x01``, ``\x02``, ``\x03``, ``\x04``, ``\x05``, ``\x06``, ``\a``,
+  ``\b``, ``\t``, ``\n``, ``\v``, ``\f``, ``\r``, ``\x0e``, ``\x0f``, ``\x10``,
+  ``\x11``, ``\x12``, ``\x13``, ``\x14``, ``\x15``, ``\x16``, ``\x17``, ``\x18``,
+  ``\x19``, ``\x1a``, ``\e``, ``\x1c``, ``\x1d``, ``\x1e``, ``\x1f``, ``\N``,
+  ``\_``, ``\L``, ``\P``
 
-    Lo stile a doppi apici fornisce un modo per esprimere stringhe arbitrarie, ma
-    usando sequenze di escape con ``\`` escape. È molto utile quando occorre inserire
-    ``\n`` o un carattere unicode in una stringa.
+Infine, ci sono altri casi in cui le stringhe vanno tra apici, non importa
+se singoli o doppi:
+
+* Quando la stringa è ``true`` o ``false`` (altrimenti viene trattata come
+  booleano);
+* Quando la stringa è ``null`` o ``~`` (altrimenti viene trattata come
+  ``null``);
+* Quando la stringa è un numero intero (p.e. ``2``, ``14``, ecc.), a virgola
+  mobile (p.e. ``2.6``, ``14.9``) o esponenziale (p.e. ``12e7``, ecc.)
+  (altrimenti viene trattata come valore numerico);
+* Quando la stringa è una data (p.e. ``2014-12-31``) (altrimenti viene
+  convertita automaticamente in un timestamp Unix).
 
 Quando una stringa contiene degli a capo, si può usare lo stile letterale, indicato
 dalla barra verticale (``|``), per indicare che la stringa si estende su diverse righe.

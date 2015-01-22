@@ -486,22 +486,24 @@ enabled
 .......
 
 .. versionadded:: 2.2
-    L'opzione ``enabled`` è stata aggiunta in Symfony 2.2. Precedentemente il profiler
+    L'opzione ``enabled`` è stata aggiunta in Symfony 2.2. Precedentemente il profilatore
     poteva essere disabilitato solamente omettendo interamente la configurazione
     ``framework.profiler``.
 
 **tipo**: ``booleano`` **predefinito**: ``false``
 
-Il profiler può essere disabilitato impostando questa chiave a ``false``.
+Il profilatore può essere abilitato impostando questa chiave a ``true``. Se si
+usa Symfony Standard Edition, il profilatore è abilitato in ambiente ``dev``
+e ``test``.
+
+collect
+.......
 
 .. versionadded:: 2.3
     L'opzione ``collect`` è nuova in Symfony 2.3. Precedentemente, quando
     ``profiler.enabled``  era ``false``, il profilatore *era* effettivamente attivo,
     ma i raccoglitori disabilitati. Ora profilatore e raccoglitori sono
     controllabili separatamente.
-
-collect
-.......
 
 **predefinito**: ``true``
 

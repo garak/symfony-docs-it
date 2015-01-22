@@ -35,16 +35,14 @@ il `bridge ProxyManager`_:
 .. note::
 
     Se si usa il framework completo, questo pacchetto è già incluso,
-    ma il vero gestore di proxy deve essere incluso. Aggiungere quindi
+    ma il vero gestore di proxy deve essere incluso. Eseguire quindi
 
-    .. code-block:: json
+    .. code-block:: bash
 
-        "require": {
-            "ocramius/proxy-manager": "0.4.*"
-        }
+        $ php composer.phar require ocramius/proxy-manager:~0.5
 
-    nel file ``composer.json``. Compilare quindi il contenitore e verificare
-    di avere un proxy per i servizi pigri.
+    Compilare quindi il contenitore e verificare di avere
+    un proxy per i servizi pigri.
 
 Configurazione
 --------------
@@ -96,7 +94,7 @@ dell'oggetto ricevuto.
 
     var_dump(class_implements($service));
 
-Se la classe implementa "ProxyManager\Proxy\LazyLoadingInterface", i servizi
+Se la classe implementa ``ProxyManager\Proxy\LazyLoadingInterface``, i servizi
 pigri stanno funzionando.
 
 .. note::

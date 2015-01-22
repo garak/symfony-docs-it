@@ -14,8 +14,8 @@ Creare la classe Constraint
 
 Innanzitutto, occorre creare una classe vincolo, che estenda :class:`Symfony\\Component\\Validator\\Constraint`::
 
-    // src/Acme/DemoBundle/Validator/Constraints/ContainsAlphanumeric.php
-    namespace Acme\DemoBundle\Validator\Constraints;
+    // src/AppBundle/Validator/Constraints/ContainsAlphanumeric.php
+    namespace AppBundle\Validator\Constraints;
 
     use Symfony\Component\Validator\Constraint;
 
@@ -54,8 +54,8 @@ per effettuare la validazione vera e propria.
 
 Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio, ``validate``::
 
-    // src/Acme/DemoBundle/Validator/Constraints/ContainsAlphanumericValidator.php
-    namespace Acme\DemoBundle\Validator\Constraints;
+    // src/AppBundle/Validator/Constraints/ContainsAlphanumericValidator.php
+    namespace AppBundle\Validator\Constraints;
 
     use Symfony\Component\Validator\Constraint;
     use Symfony\Component\Validator\ConstraintValidator;
@@ -91,18 +91,18 @@ Usare il nuovo validatore è molto facile, come quelli forniti da Symfony2:
 
     .. code-block:: yaml
 
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\DemoBundle\Entity\AcmeEntity:
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\AcmeEntity:
             properties:
                 name:
                     - NotBlank: ~
-                    - Acme\DemoBundle\Validator\Constraints\ContainsAlphanumeric: ~
+                    - AppBundle\Validator\Constraints\ContainsAlphanumeric: ~
 
     .. code-block:: php-annotations
 
-        // src/Acme/DemoBundle/Entity/AcmeEntity.php
+        // src/AppBundle/Entity/AcmeEntity.php
         use Symfony\Component\Validator\Constraints as Assert;
-        use Acme\DemoBundle\Validator\Constraints as AcmeAssert;
+        use AppBundle\Validator\Constraints as AcmeAssert;
 
         class AcmeEntity
         {
@@ -119,26 +119,26 @@ Usare il nuovo validatore è molto facile, come quelli forniti da Symfony2:
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/validation.xml -->
+        <!-- src/AppBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="Acme\DemoBundle\Entity\AcmeEntity">
+            <class name="AppBundle\Entity\AcmeEntity">
                 <property name="name">
                     <constraint name="NotBlank" />
-                    <constraint name="Acme\DemoBundle\Validator\Constraints\ContainsAlphanumeric" />
+                    <constraint name="AppBundle\Validator\Constraints\ContainsAlphanumeric" />
                 </property>
             </class>
         </constraint-mapping>
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Entity/AcmeEntity.php
+        // src/AppBundle/Entity/AcmeEntity.php
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints\NotBlank;
-        use Acme\DemoBundle\Validator\Constraints\ContainsAlphanumeric;
+        use AppBundle\Validator\Constraints\ContainsAlphanumeric;
 
         class AcmeEntity
         {
@@ -167,6 +167,7 @@ l'attributo ``alias``:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
             validator.unique.nome_proprio_validatore:
                 class: Nome\Pienamente\Qualificato\Della\Classe\Validatore
@@ -175,6 +176,7 @@ l'attributo ``alias``:
 
     .. code-block:: xml
 
+        <!-- app/config/services.xml -->
         <service id="validator.unique.nome_proprio_validatore" class="Nome\Pienamente\Qualificato\Della\Classe\Validatore">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <tag name="validator.constraint_validator" alias="nome_alias" />
@@ -182,6 +184,7 @@ l'attributo ``alias``:
 
     .. code-block:: php
 
+        // app/config/services.php
         $container
             ->register('validator.unique.nome_proprio_validatore', 'Nome\Pienamente\Qualificato\Della\Classe\Validatore')
             ->addTag('validator.constraint_validator', array('alias' => 'nome_alias'));
@@ -236,10 +239,10 @@ alla proprietà:
 
     .. code-block:: yaml
 
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\DemoBundle\Entity\AcmeEntity:
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\AcmeEntity:
             constraints:
-                - Acme\DemoBundle\Validator\Constraints\ContainsAlphanumeric: ~
+                - AppBundle\Validator\Constraints\ContainsAlphanumeric: ~
 
     .. code-block:: php-annotations
 
@@ -253,7 +256,7 @@ alla proprietà:
 
     .. code-block:: xml
 
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
-        <class name="Acme\DemoBundle\Entity\AcmeEntity">
-            <constraint name="Acme\DemoBundle\Validator\Constraints\ContainsAlphanumeric" />
+        <!-- src/AppBundle/Resources/config/validation.xml -->
+        <class name="AppBundle\Entity\AcmeEntity">
+            <constraint name="AppBundle\Validator\Constraints\ContainsAlphanumeric" />
         </class>

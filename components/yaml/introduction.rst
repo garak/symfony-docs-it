@@ -144,6 +144,8 @@ caso qualcosa vada storto, aggiungendo il nome del file al messaggio.
     validare l'input prima. Passare un nome di file è deprecato in
     Symfony 2.2 e sarà rimosso in Symfony 3.0.
 
+.. _components-yaml-dump:
+
 Scrivere file YAML
 ~~~~~~~~~~~~~~~~~~
 

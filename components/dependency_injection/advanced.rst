@@ -8,9 +8,10 @@ Segnare i servizi come pubblici / privati
 -----------------------------------------
 
 Quando si definisce un servizio, di solito si vuole potervi accedere dall'interno
-di un'applicazione. Tali servizi sono chiamati "pubblici". Per esempio, il servizio
-``doctrine`` registrato con il contenitore durante l'uso di DoctrineBundle
-è un servizio pubblico, accessibile tramite::
+di un'applicazione. Tali servizi sono chiamati "pubblici". Per esempio, il
+servizio ``doctrine`` registrato con il contenitore durante l'uso di DoctrineBundle
+è un servizio pubblico. Questo vuol dire che è accessibile dal contenitore,
+usando il metodo ``get()``::
 
    $doctrine = $container->get('doctrine');
 
@@ -20,16 +21,8 @@ da un altro servizio.
 
 .. _inlined-private-services:
 
-.. note::
-
-    Se si usa un servizio privato come parametro di più di un altro servizio,
-    ciò provocherà un'istanza in linea (p.e. ``new PippoPlutoPrivato()``) all'interno
-    di quest'altro servizio, rendendola non disponibile pubblicamente a runtime.
-
-In parole povere: un servizio sarà privato quanto non si vuole che sia accessibile
-direttamente dal codice.
-
-Ecco un esempio:
+In questi casi, per ottenere un incremento minore di prestazioni, si può impostare il
+servizio per *non* essere pubblico (quindi per essere privato):
 
 .. configuration-block::
 
@@ -60,9 +53,18 @@ Ecco un esempio:
         $definition->setPublic(false);
         $container->setDefinition('pippo', $definition);
 
-Essendo il servizio privato, *non* si può richiamare::
+Ciò che rende speciali i servizi privati è che, se sono iniettati una sola volta,
+sono convertiti da servizi a istanza in linea (p.e. ``new CosaPrivata()``).
+Questo incrementa le prestazioni del contenitore.
+
+Una volta che il servizio è privato, *non va* recuperato direttamente
+dal contenitore::
 
     $container->get('pippo');
+
+Questo *potrebbe funzionare o no*, a seconda se il servizio possa essere reso in linea.
+In parole povere: un servizio può essere segnato come privato se non vi si vuole
+accedere direttamente dal codice.
 
 Tuttavia, se un servizio è stato segnato come privato, gli si può comunque assegnare un
 alias (vedere sotto) per accedervi (tramite alias).

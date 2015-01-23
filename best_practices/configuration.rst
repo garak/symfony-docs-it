@@ -1,0 +1,4 @@
+Configurazione
+==============
+
+(TODO da tradurre...)

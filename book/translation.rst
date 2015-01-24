@@ -27,7 +27,7 @@ dell'utente::
     (per esempio ``fr_FR`` per francese/Francia).
 
 In questo capitolo si imparerà a usare il componenten Translation nel
-framework Symfony2. Si può leggere la
+framework Symfony. Si può leggere la
 :doc:`documentazione del componente Translation </components/translation/usage>`
 per saperne di più. Nel complesso, il processo ha diverse fasi:
 
@@ -105,16 +105,16 @@ ad esempio, che stiamo traducendo un semplice messaggio all'interno del controll
 
     public function indexAction()
     {
-        $translated = $this->get('translator')->trans('Symfony2 is great');
+        $translated = $this->get('translator')->trans('Symfony is great');
 
         return new Response($translated);
     }
 
 .. _book-translation-resources:
 
-Quando questo codice viene eseguito, Symfony2 tenterà di tradurre il messaggio
-"Symfony2 is great" basandosi sul locale dell'utente. Perché questo funzioni,
-bisogna dire a Symfony2 come tradurre il messaggio tramite una "risorsa di
+Quando questo codice viene eseguito, Symfony tenterà di tradurre il messaggio
+"Symfony is great" basandosi sul locale dell'utente. Perché questo funzioni,
+bisogna dire a Symfony come tradurre il messaggio tramite una "risorsa di
 traduzione", che è una raccolta di traduzioni dei messaggi per un dato locale.
 Questo "dizionario" delle traduzioni può essere creato in diversi formati,
 ma XLIFF è il formato raccomandato:
@@ -129,8 +129,8 @@ ma XLIFF è il formato raccomandato:
             <file source-language="en" datatype="plaintext" original="file.ext">
                 <body>
                     <trans-unit id="1">
-                        <source>Symfony2 is great</source>
-                        <target>J'aime Symfony2</target>
+                        <source>Symfony is great</source>
+                        <target>J'aime Symfony</target>
                     </trans-unit>
                 </body>
             </file>
@@ -139,26 +139,26 @@ ma XLIFF è il formato raccomandato:
     .. code-block:: yaml
 
         # messages.fr.yml
-        Symfony2 is great: J'aime Symfony2
+        Symfony is great: J'aime Symfony
 
     .. code-block:: php
 
         // messages.fr.php
         return array(
-            'Symfony2 is great' => 'J\'aime Symfony2',
+            'Symfony is great' => 'J\'aime Symfony',
         );
 
 Per informazioni sulla posizione di questi file, vedere
 :ref:`book-translation-resource-locations`.
 
 Ora, se la lingua del locale dell'utente è il francese (per esempio ``fr_FR`` o ``fr_BE``),
-il messaggio sarà tradotto in ``J'aime Symfony2``. Si può anche tradurre il
+il messaggio sarà tradotto in ``J'aime Symfony``. Si può anche tradurre il
 messaggio da un :ref:`template <book-translation-tags>`.
 
 Il processo di traduzione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Per tradurre il messaggio, Symfony2 utilizza un semplice processo:
+Per tradurre il messaggio, Symfony utilizza un semplice processo:
 
 * Viene determinato il ``locale`` dell'utente corrente, che è memorizzato nella richiesta;
 
@@ -171,7 +171,7 @@ Per tradurre il messaggio, Symfony2 utilizza un semplice processo:
 * Se il messaggio si trova nel catalogo, viene restituita la traduzione. Se
   no, il traduttore restituisce il messaggio originale.
 
-Quando si usa il metodo ``trans()``, Symfony2 cerca la stringa esatta all'interno
+Quando si usa il metodo ``trans()``, Symfony cerca la stringa esatta all'interno
 del catalogo dei messaggi e la restituisce (se esiste).
 
 Segnaposto per i messaggi
@@ -215,7 +215,7 @@ nella documentazione del componente Translation.
 Traduzioni nei template
 -----------------------
 
-Le traduzioni avvengono quasi sempre all'interno di template. Symfony2 fornisce un supporto
+Le traduzioni avvengono quasi sempre all'interno di template. Symfony fornisce un supporto
 nativo sia per i template Twig che per quelli PHP.
 
 .. _book-translation-tags:
@@ -223,7 +223,7 @@ nativo sia per i template Twig che per quelli PHP.
 Template Twig
 ~~~~~~~~~~~~~
 
-Symfony2 fornisce tag specifici per Twig (``trans`` e ``transchoice``), che aiutano
+Symfony fornisce tag specifici per Twig (``trans`` e ``transchoice``), che aiutano
 nella traduzioni di messaggi di *blocchi statici di testo*:
 
 .. code-block:: jinja
@@ -315,10 +315,10 @@ l'aiutante ``translator``:
 
 .. code-block:: html+php
 
-    <?php echo $view['translator']->trans('Symfony2 is great') ?>
+    <?php echo $view['translator']->trans('Symfony is great') ?>
 
     <?php echo $view['translator']->transChoice(
-        '{0} There is no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
+        '{0} There are no apples|{1} There is one apple|]1,Inf[ There are %count% apples',
         10,
         array('%count%' => 10)
     ) ?>
@@ -328,7 +328,7 @@ l'aiutante ``translator``:
 Sedi per le traduzioni e convenzioni sui nomi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Symfony2 cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
+Symfony cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
 * la cartella ``app/Resources/translations``;
 
@@ -352,7 +352,7 @@ deve essere nominato secondo il seguente schema: ``dominio.locale.caricatore``:
 
 * **locale**: Il locale per cui sono state scritte le traduzioni (ad esempio ``en_GB``, ``en``, ecc.);
 
-* **caricatore**: Come Symfony2 dovrebbe caricare e analizzare il file (ad esempio ``xliff``,
+* **caricatore**: Come Symfony dovrebbe caricare e analizzare il file (ad esempio ``xliff``,
   ``php`` o ``yml``).
 
 Il caricatore può essere il nome di un qualunque caricatore registrato. Per impostazione predefinita, Symfony
@@ -388,17 +388,26 @@ Fallback e locale predefinito
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ipotizzando che il locale dell'utente sia ``fr_FR`` e che si stia traducendo la
-chiave ``Symfony2 is great``. Per trovare la traduzione francese, Symfony
+chiave ``Symfony is great``. Per trovare la traduzione francese, Symfony
 verifica le  risorse di traduzione di vari locale:
 
-1. Prima, Symfony cerca la traduzione in una risorsa di traduzione ``fr_FR``
+#. Prima, Symfony cerca la traduzione in una risorsa di traduzione ``fr_FR``
    (p.e. ``messages.fr_FR.xfliff``);
 
-2. Se non la trova, Symfony cerca una traduzione per una risorsa di traduzione ``fr``
+#. Se non la trova, Symfony cerca una traduzione per una risorsa di traduzione ``fr``
    (p.e. ``messages.fr.xliff``);
 
-3. Se non trova nemeno questa, Symfony usa il parametro di configurazione ``fallback``,
+#. Se non trova nemeno questa, Symfony usa il parametro di configurazione ``fallback``,
    che ha come valore predefinito ``en`` (vedere `Configurazione`_).
+
+.. versionadded:: 2.6
+    La possibilità di scrivere nei log le traduzioni mancanti è stata introdotta in Symfony 2.6.
+
+.. note::
+
+    Quando Symfony non trova una traduzione per il locale dato, aggiungerà
+    la traduzione mancante al file di log. Per dettagli, 
+    vedere :ref:`reference-framework-translator-logging`.
 
 .. _book-translation-user-locale:
 
@@ -664,6 +673,9 @@ Debug delle traduzioni
 .. versionadded:: 2.5
     Il comando ``translation:debug`` è stato introdotto in Symfony 2.5.
 
+.. versionadded:: 2.6
+    Prima di Symfony 2.6, questo comando si chiamava ``translation:debug``.
+
 Durante la manutenzione di un bundle, si potrebbe usare o disabilitare un messaggio
 di traduzioni, senza aggiornare tutti i cataloghi dei messaggi.  Il comando ``translation:debug``
 aiuta a trovare questi messaggi di traduzioni mancanti o inutilizzati, per un
@@ -727,17 +739,18 @@ Si supponga inoltre di aver già preparato alcune traduzioni per il locale ``fr`
             </file>
         </xliff>
 
+
+    .. code-block:: yaml
+
+        # src/Acme/AcmeDemoBundle/Resources/translations/messages.fr.yml
+        Symfony2 is great: J'aime Symfony2
+
     .. code-block:: php
 
         // src/Acme/AcmeDemoBundle/Resources/translations/messages.fr.php
         return array(
             'Symfony2 is great' => 'J\'aime Symfony2',
         );
-
-    .. code-block:: yaml
-
-        # src/Acme/AcmeDemoBundle/Resources/translations/messages.fr.yml
-        Symfony2 is great: J'aime Symfony2
 
 e per il locale ``en``:
 
@@ -758,6 +771,11 @@ e per il locale ``en``:
             </file>
         </xliff>
 
+    .. code-block:: yaml
+
+        # src/Acme/AcmeDemoBundle/Resources/translations/messages.en.yml
+        Symfony2 is great: Symfony2 is great
+
     .. code-block:: php
 
         // src/Acme/AcmeDemoBundle/Resources/translations/messages.en.php
@@ -765,16 +783,11 @@ e per il locale ``en``:
             'Symfony2 is great' => 'Symfony2 is great',
         );
 
-    .. code-block:: yaml
-
-        # src/Acme/AcmeDemoBundle/Resources/translations/messages.en.yml
-        Symfony2 is great: Symfony2 is great
-
 Per individuare tutti i messaggi nel locale ``fr`` per AcmeDemoBundle, eseguire:
 
 .. code-block:: bash
 
-    $ php app/console translation:debug fr AcmeDemoBundle
+    $ php app/console debug:translation fr AcmeDemoBundle
 
 Si otterrà questo output:
 
@@ -815,20 +828,20 @@ L'ispezione predefinita avviene su tutti i domini, ma si può specificare un sin
 
 .. code-block:: bash
 
-    $ php app/console translation:debug en AcmeDemoBundle --domain=messages
+    $ php app/console debug:translation en AcmeDemoBundle --domain=messages
 
 Quando i bundle hanno molti messaggi, è utile mostrare solo quelli non usati
 oppure solo quelli mancanti, usando le opzioni ``--only-unused`` o ``--only-missing``:
 
 .. code-block:: bash
 
-    $ php app/console translation:debug en AcmeDemoBundle --only-unused
-    $ php app/console translation:debug en AcmeDemoBundle --only-missing
+    $ php app/console debug:translation en AcmeDemoBundle --only-unused
+    $ php app/console debug:translation en AcmeDemoBundle --only-missing
 
 Riepilogo
 ---------
 
-Con il componente Translation di Symfony2, la creazione e l'internazionalizzazione di applicazioni
+Con il componente Translation di Symfony, la creazione e l'internazionalizzazione di applicazioni
 non è più un processo doloroso	e si riduce solo a pochi semplici
 passi:
 
@@ -838,7 +851,7 @@ passi:
   (vedere anche ":doc:`/components/translation/usage`");
 
 * Tradurre ogni messaggio in più locale creando dei file con i messaggi
-  per la traduzione. Symfony2 scopre ed elabora ogni file perché i suoi nomi seguono
+  per la traduzione. Symfony scopre ed elabora ogni file perché i suoi nomi seguono
   una specifica convenzione;
 
 * Gestire il locale dell'utente, che è memorizzato nella richiesta, ma può

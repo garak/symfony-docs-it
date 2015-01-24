@@ -11,7 +11,7 @@ e tutti i sotto-oggetti a esso associati.
 | Opzioni        | - `traverse`_                                                       |
 |                | - `deep`_                                                           |
 +----------------+---------------------------------------------------------------------+
-| Class          | :class:`Symfony\\Component\\Validator\\Constraints\\Valid`          |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Valid`          |
 +----------------+---------------------------------------------------------------------+
 
 .. include:: /reference/forms/types/options/_error_bubbling_hint.rst.inc
@@ -273,5 +273,5 @@ deep
 **tipo**: ``booleano`` **predefinito**: ``false``
 
 Se questo vincolo è applicato a una proprietà che contiene un array di oggetti,
-ogni oggetto in tale array sarà validato ricorsivamente se questa opzione
+ciascun oggetto in tale array sarà validato ricorsivamente se questa opzione
 è ``true``.

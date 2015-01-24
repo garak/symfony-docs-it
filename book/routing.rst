@@ -173,8 +173,10 @@ dell'applicazione:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
                 <!-- ... -->
@@ -649,7 +651,9 @@ espressioni regolari e aggiunti per ogni parametro. Per esempio:
         // ...
 
         /**
-         * @Route("/blog/{page}", defaults={"page": 1}, requirements={"page": "\d+"})
+         * @Route("/blog/{page}", defaults={"page": 1}, requirements={
+         *     "page": "\d+"
+         * })
          */
         public function indexAction($page)
         {
@@ -737,7 +741,9 @@ all'URL:
         class MainController extends Controller
         {
             /**
-             * @Route("/{_locale}", defaults={"_locale": "en"}, requirements={"_locale": "en|fr"})
+             * @Route("/{_locale}", defaults={"_locale": "en"}, requirements={
+             *     "_locale": "en|fr"
+             * })
              */
             public function homepageAction($_locale)
             {
@@ -1018,8 +1024,12 @@ può essere il sistema delle rotte:
             /**
              * @Route(
              *     "/articles/{_locale}/{year}/{title}.{_format}",
-             *     defaults: {"_format": "html"}
-             *     requirements: {"_locale": "en|fr", "_format": "html|rss", "year": "\d+"}
+             *     defaults: {"_format": "html"},
+             *     requirements: {
+             *         "_locale": "en|fr",
+             *         "_format": "html|rss",
+             *         "year": "\d+"
+             *     }
              * )
              */
             public function showAction($_locale, $year, $title)
@@ -1115,12 +1125,15 @@ Come si è visto, ogni parametro della rotta o valore predefinito è disponibile
 come parametro nel metodo del controllore. Inoltre, ci sono tre parametri
 speciali: ciascuno aggiunge una funzionalità all'interno dell'applicazione:
 
-* ``_controller``: Come si è visto, questo parametro viene utilizzato per determinare quale
-  controllore viene eseguito quando viene trovata la rotta;
+``_controller``
+    Come si è visto, questo parametro viene utilizzato per determinare quale
+    controllore viene eseguito quando viene trovata la rotta;
 
-* ``_format``: Utilizzato per impostare il formato della richiesta (:ref:`per saperne di più <book-routing-format-param>`);
+``_format``
+    Utilizzato per impostare il formato della richiesta (:ref:`per saperne di più <book-routing-format-param>`);
 
-* ``_locale``: Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più <book-translation-locale-url>`).
+``_locale``
+    Utilizzato per impostare il locale sulla richiesta (:ref:`per saperne di più <book-translation-locale-url>`).
 
 .. index::
    single: Rotte; Controllori
@@ -1238,7 +1251,7 @@ essere fatto "importando" il file:
         # app/config/routing.yml
         app:
             resource: "@AppBundle/Controller/"
-            type:     annotation # required to enable the Annotation reader for this resource
+            type:     annotation # necessario per abilitare il lettore di annotazioni per questa risorsa
 
     .. code-block:: xml
 
@@ -1249,7 +1262,7 @@ essere fatto "importando" il file:
             xsi:schemaLocation="http://symfony.com/schema/routing
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <!-- the type is required to enable the annotation reader for this resource -->
+            <!-- il tipo è necessario per abilitare il lettore di annotazioni per questa risorsa -->
             <import resource="@AppBundle/Controller/" type="annotation"/>
         </routes>
 
@@ -1260,8 +1273,8 @@ essere fatto "importando" il file:
 
         $collection = new RouteCollection();
         $collection->addCollection(
-            // second argument is the type, which is required to enable the annotation reader
-            // for this resource
+            // il secondo parametro è il tipo, che è necessario
+            // per abilitare il lettore di annotazioni per questa risorsa
             $loader->import("@AppBundle/Controller/", "annotation")
         );
 
@@ -1351,7 +1364,7 @@ invece di ``/hello/{name}``:
         // app/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
 
-        $app = $loader->import('@AppBundle/Controller/');
+        $app = $loader->import('@AppBundle/Controller/', 'annotation');
         $app->addPrefix('/site');
 
         $collection = new RouteCollection();
@@ -1434,7 +1447,9 @@ bidirezionale. Si prenda la rotta dell'esempio precedente ``blog_show``::
     //     '_controller' => 'AppBundle:Blog:show',
     // )
 
-    $uri = $this->get('router')->generate('blog_show', array('slug' => 'my-blog-post'));
+    $uri = $this->get('router')->generate('blog_show', array(
+        'slug' => 'my-blog-post'
+    ));
     // /blog/my-blog-post
 
 Per generare un URL, è necessario specificare il nome della rotta (ad esempio ``blog_show``)
@@ -1502,7 +1517,10 @@ Generare URL con query string
 Il metodo ``generate`` accetta un array di valori jolly per generare l'URI.
 Ma se si passano quelli extra, saranno aggiunti all'URI come query string::
 
-    $this->get('router')->generate('blog', array('page' => 2, 'category' => 'Symfony'));
+    $this->get('router')->generate('blog', array(
+        'page' => 2,
+        'category' => 'Symfony'
+    ));
     // /blog/2?category=Symfony
 
 Generare URL da un template

@@ -227,7 +227,7 @@ si hanno a portata di mano tutte le informazioni sulla richiesta::
 
     // recupera rispettivamente le variabili GET e POST
     $request->query->get('pippo');
-    $request->request->get('pluto');
+    $request->request->get('pluto', 'valore predefinito se pluto non esiste');
 
     // recupera le variabili SERVER
     $request->server->get('HTTP_HOST');

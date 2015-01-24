@@ -175,6 +175,8 @@ Infine, ``getValue`` può usare anche il metodo magico ``__get``::
 
     echo $accessor->getValue($person, 'Wouter'); // array(...)
 
+.. _components-property-access-magic-call:
+
 Metodo magico ``__call()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -205,7 +207,7 @@ questa caratteristica, usando :class:`Symfony\\Component\\PropertyAccess\\Proper
     $person = new Person();
 
     // Abilita __call
-    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+    $accessor = PropertyAccess::createPropertyAccessorBuilder()
         ->enableMagicCall()
         ->getPropertyAccessor();
 
@@ -301,7 +303,7 @@ vedere `Abilitare altre caratteristiche`_.
     $person = new Person();
 
     // Abilita __call
-    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+    $accessor = PropertyAccess::createPropertyAccessorBuilder()
         ->enableMagicCall()
         ->getPropertyAccessor();
 
@@ -398,7 +400,7 @@ per abilitare caratteristiche extra. Per poterlo fare, si può usare
     $accessor = $accessorBuilder->getPropertyAccessor();
 
     // Oppure tutto insieme
-    $accessor = PropertyAccess::getPropertyAccessorBuilder()
+    $accessor = PropertyAccess::createPropertyAccessorBuilder()
         ->enableMagicCall()
         ->getPropertyAccessor();
 

@@ -4,233 +4,220 @@
 Installare e configurare Symfony
 ================================
 
-Lo scopo di questo capitolo è quello di ottenere un'applicazione funzionante basata
-su Symfony. Fortunatamente, Symfony offre delle "distribuzioni", che sono
-progetti Symfony di partenza funzionanti, che possono essere scaricati per iniziare
-immediatamente a sviluppare.
+Lo scopo di questo capitolo è mettere in grado di avere un'applicazione funzionante
+basata su Symfony. Per semplificare il processo di creazione di nuove
+applicaizoni, Symfony fornisce un installatore, che va installato una sola volta,
+alla creazione della prima applicazione.
 
-.. tip::
+Installare l'installatore di Symfony
+------------------------------------
 
-    Se si stanno cercando le istruzioni per creare un nuovo progetto e memorizzarlo con
-    un sistema di versionamento, si veda `Usare un controllo di sorgenti`_.
-
-.. _installing-a-symfony2-distribution:
-
-Scaricare una distribuzione Symfony
------------------------------------
-
-.. tip::
-
-    Verificare innanzitutto di avere un server web (come Apache) installato
-    e funzionante con PHP. Per ulteriori informazioni sui requisiti di Symfony,
-    si veda il :doc:`riferimento sui requisiti </reference/requirements>`.
-
-Symfony ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
-includono le librerie del nucleo di Symfony, una selezione di bundle utili e alcune
-configurazioni predefinite. Scaricando una distribuzione di Symfony, si ottiene uno
-scheletro di un'applicazione funzionante, che può essere subito usata per sviluppare
-la propria applicazione.
-
-Si può iniziare visitando la pagina di scaricamento di Symfony, `http://symfony.com/download`_.
-Su questa pagina, si vedrà la *Symfony Standard Edition*, che è la distribuzione
-principale di Symfony. Si possono fare due scelte:
-
-Opzione 1) Composer
-~~~~~~~~~~~~~~~~~~~
-
-`Composer`_ è una libreria di gestione delle dipendenze per PHP, utilizzabile per
-scaricare Symfony Standard Edition.
-
-Iniziare con lo `scaricare Composer`_ sul proprio computer. Se si ha
-curl installato, è facile:
-
-.. code-block:: bash
-
-    $ curl -s https://getcomposer.org/installer | php
+L'utilizzo dell'installatore di Symfony è l'unico modo raccomandato di creare nuove
+applicaizoni Symfony. Questo installatore è un'applicazione PHP, che va installata
+solo una volta e che può quindi creare tutte le applicazioni Symfony.
 
 .. note::
 
-    Se il computer non è pronto per usare Composer, si otterranno alcune raccomandazioni
-    all'esecuzione del comando. Seguire tali raccomandazioni per far funzionare Composer
-    correttamente.
+    L'installatore richiede PHP 5.4 o successivi. Se si usa ancora la vecchia versione
+    PHP 5.3, non si può usare l'installatore di Symfony. Leggere
+    :ref:`book-creating-applications-without-the-installer` per sapere
+    come procedere.
 
-Composer è un file PHAR eseguibile, che si può usare per scaricare la distribuzione
-Standard:
+A seconda del sistema operativo, l'installatore va innstallato in modi
+diversi.
+
+Sistemi Linux e Mac OS X
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Aprire un terminale ed eseguire i seguenti tre comandi:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony '2.3.*'
+    $ curl -LsS http://symfony.com/installer > symfony.phar
+    $ sudo mv symfony.phar /usr/local/bin/symfony
+    $ chmod a+x /usr/local/bin/symfony
+
+Questo creerà nel sistema un comando globale ``symfony``, che sarà usato
+per creare nuove applicazioni Symfony.
+
+Sistemi Windows
+~~~~~~~~~~~~~~~
+
+Aprire la console dei comandi ed eseguire il seguente comando:
+
+.. code-block:: bash
+
+    c:\> php -r "readfile('http://symfony.com/installer');" > symfony.phar
+
+Quindi, spostare il file ``symfony.phar`` nella cartella dei progetti ed
+eseguirlo, come segue:
+
+.. code-block:: bash
+
+    c:\> move symfony.phar c:\progetti
+    c:\progetti\> php symfony.phar
+
+Creare l'applicazione Symfony
+-----------------------------
+
+Una volta che l'installatore Symfony è pronto, creare la prima applicazione Symfony con
+il comando ``new``:
+
+.. code-block:: bash
+
+    # Linux, Mac OS X
+    $ symfony new progetto
+
+    # Windows
+    c:\> cd projects/
+    c:\projects\> php symfony.phar new progetto
+
+Questo comando crea una nuova cartella, chiamata ``progetto``, che contiene un
+nuovo progetto, basato sulla versione di Symfony più recente. Inoltre,
+l'installatore verifica se il sistema soddisfa i requisiti tecnici per
+eseguire applicazioni Symfony. In caso negativo, si vedrà una lista di modifiche
+necessarie a soddisfare tali requisiti.
 
 .. tip::
 
-    Per scaricare i file dei venditori più velocemente, aggiungere l'opzione ``--prefer-dist``
-    alla fine di ogni comando di Composer.
+    Per ragioni di sicurezza, tutte le versioni di Symfony sono firmate digitalmente prima
+    di essere distribuite. Se si vuole verificare l'integrità di una versione di Symfony,
+    seguire i passi `spiegati in questo post`_.
+
+Basare un progetto su una specifica versione di Symfony
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Se un progetto deve essere basato su una specifica versione di Symfony, passare il numero
+di versione come secondo parametro del comando ``new``:
+
+.. code-block:: bash
+
+    # Linux, Mac OS X
+    $ symfony new progetto 2.3.23
+
+    # Windows
+    c:\projects\> php symfony.phar new progetto 2.3.23
+
+Leggere il :doc:`processo di rilascio di Symfony </contributing/community/releases>`
+per comprendere meglio il motivo per cui esistono varie versioni di Symfony e quale
+usare per i propri progetti.
+
+.. _book-creating-applications-without-the-installer:
+
+Creare applicazioni Symfony senza l'installatore
+------------------------------------------------
+
+Se si usa ancora PHP 5.3 o se non si può eseguire l'installatore per altre ragioni,
+si possono creare applicazioni Symfony usando un metodo alternativo di installazione,
+basato su `Composer`_.
+
+Composer è un gestore di dipendenze, usato da applicazioni PHP moderne, e può essere usato
+per creare nuove applicazioni basate sul frameowrk Symfony. Se non lo si ha già
+installato globalmente, seguire la prossima sezione.
+
+Installare Composer globalmente
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Iniziare con :doc:`installare Composer globalmente </cookbook/composer>`.
+
+Creare un'applicazione Symfony con Composer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Una volta installato Composer, eseguire il comando ``create-project``
+per creare una nuova applicazione Symfony, basata sull'ultima versione stabile:
+
+.. code-block:: bash
+
+    $ composer create-project symfony/framework-standard-edition progetto
+
+Se si deve basare l'applicazione su una specifica versione di Symfony, fornire la
+versione come secondo parametro del comando ``create-project``:
+
+.. code-block:: bash
+
+    $ composer create-project symfony/framework-standard-edition progetto '2.3.*'
 
 .. tip::
 
-    Aggiungere l'opzione ``-vvv`` per vedere cosa sta facendo Composer. Può essere particolarmente
-    utile su una connessione lenta, dove si potrebbe avere l'impressione che non stia accadendo
-    nulla.
+    Con una connessione Internet lenta, si potrebbe pensare come Composer non stia
+    facendo nulla. Nel caso, aggiungere l'opzione ``-vvv`` al comando precedente
+    per mostrare un output dettagliato di tutto ciò che Composer sta facendo.
 
-Questo comando può richiedere diversti minuti, mentre Composer scarica la distribuzione Standard
-e tutte le librerie dei venditori necessarie. Quando avrà finito,
-si dovrebbe avere una cartella simile a questa:
+Eseguire l'applicazione Symfony
+-------------------------------
+
+Symfony sfrutta il server web interno fornito da PHP per eseguire applicazioni
+mentre le si sviluppa. Quindi, per eseguire un'applicazione Symfony basta andare
+nella cartella del progetto ed eseguire il seguente comando:
+
+.. code-block:: bash
+
+    $ cd progetto/
+    $ php app/console server:run
+
+Quindi, aprire un browser ed accedere all'URL ``http://localhost:8000`` per vedere
+la pagina di benvenuto di Symfony:
+
+.. image:: /images/quick_tour/welcome.png
+   :align: center
+   :alt:   Pagina di benvenuto di Symfony
+
+Al posto di questa pagina di benvenuto, si potrebbe vedere una pagina bianca o di errore.
+Questo dipende da un problema di configurazione dei permessi delle cartelle. Ci sono varie
+possibili soluzioni, a seconda del sistema operativo. Sono tutte spiegate
+nella sezione :ref:`Impostazione dei permessi <book-installation-permissions>`.
+
+
+.. note::
+
+    Il server interno di PHP è disponibile in PHP 5.4 o successivi. Se si usa ancora
+    la vecchia versione 5.3, occorrerà configurare un *host virtuale* nel
+    proprio server web.
+
+Il comando ``server:run`` è disponibile solo durante lo sviluppo di un'applicazione. Per
+eseguire applicazioni Symfony su server di produzione, si dovrà configurare un
+server web `Apache`_ o `Nginx`_, come spiegato in
+:doc:`/cookbook/configuration/web_server_configuration`.
+
+Dopo aver finito di lavorare su un'applicazione Symfony, si può fermare il
+server con il comando ``server:stop``:
+
+.. code-block:: bash
+
+    $ php app/console server:stop
+
+Verifica della configuraizone di un'applicazione Symfony
+--------------------------------------------------------
+
+Le applicazioni Symfony dispongono di un test per la configurazione del server, che mostra
+se l'ambiente è pronto per usare Symfony. Accedere al seguente URL per verificare la propria
+configurazione:
 
 .. code-block:: text
 
-    percorso/web/ <- la cartella radice del web (a volte chiamata htdocs o public)
-        Symfony/ <- la nuova cartella
-            app/
-                cache/
-                config/
-                logs/
-            src/
-                ...
-            vendor/
-                ...
-            web/
-                app.php
-                ...
+    http://localhost:8000/config.php
 
-Opzione 2) Scaricare un archivio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Si può anche scaricare un archivio della Standard Edition. Qui, si possono fare
-due scelte:
-
-* Scaricare un archivio ``.tgz`` o ``.zip`` (sono equivalenti, scegliere quello che
-  si preferisce);
-
-* Scaricare la distribuzione con o senza venditori. Se si pensa di usare
-  molte librerie o bundle di terze parti e gestirli tramite Composer, probabilmente
-  sarà meglio scaricare quella senza venditori.
-
-Scaricare uno degli archivi e scompattarlo da qualche parte sotto la cartella
-radice del web del server. Da linea di comando UNIX, lo si può fare con
-uno dei seguenti comandi (sostituire ``###`` con il vero nome del file):
-
-.. code-block:: bash
-
-    # per il file .tgz
-    $ tar zxvf Symfony_Standard_Vendors_2.3.###.tgz
-
-    # per il file .zip
-    $ unzip Symfony_Standard_Vendors_2.3.###.zip
-
-Se si è optato per la versione senza venditori, occorerà leggere la 
-prossima sezione.
-
-.. note::
-
-    Si può facilmente modificare la struttura predefinita di cartelle. Si veda
-    :doc:`/cookbook/configuration/override_dir_structure` per maggiori
-    informazioni.
-
-Tutti i file pubblici e il front controller, che gestisce le richieste in arrivo in
-un'applicazione Symfony, si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
-di aver decompresso l'archivio nella cartella radice del server web o di un host virtuale,
-gli URL dell'applicazione inizieranno con ``http://localhost/Symfony/web/``.
-
-.. note::
-
-    Gli esempi che seguono ipotizzano che le impostazioni sulla cartella radice non siano state modificate,
-    quindi tutti gli URL inizieranno con ``http://localhost/Symfony/web/``
-
-.. _installation-updating-vendors:
-
-Aggiornare i venditori
-~~~~~~~~~~~~~~~~~~~~~~
-
-A questo punto, si dispone di un progetto Symfony funzionale, nel quale
-si può iniziare a sviluppare la propria applicazione. Un progetto Symfony dipende
-da diverse librerie esterne. Queste vanno scaricate nella cartella `vendor/`
-del progetto, tramite una libreria chiamata `Composer`_.
-
-A seconda di come Symfony è stato scaricato, si potrebbe aver bisogno o meno di
-aggiornare i venditori. Aggiornare i venditori è sempre sicuro e garantisce
-di disporre di tutte le librerie necessarie.
-
-Passo 1: Ottenere `Composer`_ (il nuovo bellissimo sistema di pacchetti PHP)
-
-.. code-block:: bash
-
-    $ curl -s http://getcomposer.org/installer | php
-
-Assicurarsi di scaricare ``composer.phar`` nella stessa cartella in cui si trova
-il file ``composer.json`` (per impostazione predefinita, la radice del progetto
-Symfony).
-
-Passo 2: Installare i venditori
-
-.. code-block:: bash
-
-    $ php composer.phar install
-
-Questo comando scarica tutte le librerie dei venditori necessarie, incluso
-Symfony stesso, nella cartella ``vendor/``.
-
-.. note::
-
-    Se non si ha ``curl`` installato, si può anche scaricare il file ``installer``
-    a mano, da http://getcomposer.org/installer. Mettere il file nel progetto ed
-    eseguire:
-
-    .. code-block:: bash
-
-        $ php installer
-        $ php composer.phar install
-
-.. tip::
-
-    Quando si esegue ``php composer.phar install`` o ``php composer.phar update``,
-    composer eseguirà dei comandi post installazione/aggiornamento per pulire la cache
-    e installare le risorse. Per impostazione predefinita, le risorse saranno copiate
-    nella cartella ``web``.
-
-    Invece di copiare le risorse, si possono creare dei collegamenti simbolici, se
-    supportato dal sistema operativo. Per creare collegamenti simbolici, aggiungere
-    una voce nel nodo ``extra`` del file composer.json, con chiave
-    ``symfony-assets-install`` e valore ``symlink``:
-
-    .. code-block:: json
-
-        "extra": {
-            "symfony-app-dir": "app",
-            "symfony-web-dir": "web",
-            "symfony-assets-install": "symlink"
-        }
-
-    Passando ``relative`` invece di ``symlink`` a symfony-assets-install, il comando genererà
-    collegamenti simbolici relativi.
-
-Configurazione
-~~~~~~~~~~~~~~
-
-A questo punto, tutte le librerie di terze parti necessarie sono nella
-cartella ``vendor/``. Si dispone anche una configurazione predefinita dell'applicazione
-in ``app/`` e un po' di codice di esempio in ``src/``.
-
-Symfony dispone di uno strumento visuale per la verifica della configurazione del server,
-per assicurarsi che il server web e PHP siano configurati per usare Symfony. Usare il
-seguente URL per la verifica della configurazione:
-
-.. code-block:: text
-
-    http://localhost/config.php
-
-Se ci sono problemi, correggerli prima di proseguire.
+Se ci sono problemi, correggerli prima di procedere.
 
 .. _book-installation-permissions:
 
 .. sidebar:: Impostare i permessi
 
-    Un problema comune è che le cartelle ``app/cache`` e ``app/logs`` devono essere
-    scrivibili sia dal server web che dall'utente della linea di comando. Su sistemi
-    UNIX, se l'utente del server web è diverso da quello della linea di comando,
-    si possono eseguire i seguenti comandi una sola volta sul proprio progetto, per
-    assicurarsi che i permessi siano impostati correttamente.
+    Un problema comune duruante l'installazione è che le cartelle ``app/cache`` e
+    ``app/logs`` devono essere scrivibili sia dal server web che dall'utente
+    della linea di comando. Su sistemi UNIX, se l'utente del server web è diverso
+    da quello della linea di comando, si possono provare le soluzioni seguenti.
 
-    **1. Usare ACL su un sistema che supporta chmod +a**
+    **1. Usare lo stesso utente per CLI e server web**
+
+    In ambienti di sviluppo, è pratica comune usare lo stesso utente
+    per CLI e server web, evitando così problemi di permessi
+    per nuovi progetti. Lo si può fare modificando la configurazione del server web
+    (cioè solitamente httpd.conf o apache2.conf per Apache) e impostandone
+    l'utente in modo che sia lo stesso di CLI (p.e. per Apache, aggiornare i valori User
+    e Group).
+
+    **2. Usare ACL su un sistema che supporta chmod +a**
 
     Molti sistemi consento di usare il comando ``chmod +a``. Provare prima questo e, in
     caso di errore, provare il metodo successivo. Viene usato un comando per cercare di
@@ -246,30 +233,29 @@ Se ci sono problemi, correggerli prima di proseguire.
         $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
 
-    **2. Usare ACL su un sistema che non supporta chmod +a**
+    **3. Usare ACL su un sistema che non supporta chmod +a**
 
     Alcuni sistemi non supportano ``chmod +a``, ma supportano un altro programma
     chiamato ``setfacl``. Si potrebbe aver bisogno di `abilitare il supporto ACL`_ sulla
     propria partizione e installare setfacl prima di usarlo (come nel caso di Ubuntu). Viene
     usato un comando per cercare di determinare l'utente con cui gira il server web e impostarlo come
-    ``APACHEUSER``:
+    ``HTTPDUSER``:
 
     .. code-block:: bash
 
-		$ HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
-		$ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
-		$ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
+        $ HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+        $ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
+        $ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
 
     Se non funziona, provare aggiungendo l'opzione ``-n``.
 
-    **3. Senza usare ACL**
+    **4. Senza usare ACL**
 
     Se non è possibile modificare l'ACL delle cartelle, occorrerà modificare
     l'umask in modo che le cartelle cache e log siano scrivibili dal gruppo
     o da tutti (a seconda che gli utenti di server web e linea di comando siano
     o meno nello stesso gruppo). Per poterlo fare, inserire la riga seguente
-    all'inizio dei file ``app/console``, ``web/app.php`` e
-    ``web/app_dev.php``::
+    all'inizio dei file ``app/console``, ``web/app.php`` e ``web/app_dev.php``::
 
         umask(0002); // Imposta i permessi a 0775
 
@@ -280,92 +266,112 @@ Se ci sono problemi, correggerli prima di proseguire.
     Si noti che l'uso di ACL è raccomandato quando si ha accesso al server,
     perché la modifica di umask non è thread-safe.
 
-    **4. Usare lo stesso utente per CLI e server web**
+.. _installation-updating-vendors:
 
-    In ambienti di sviluppo, è pratica comune usare lo stesso utente
-    per CLI e server web, evitando così problemi di permessi
-    per nuovi progetti. Lo si può fare modificando la configurazione del server web
-    (cioè solitamente httpd.conf o apache2.conf per Apache) e impostandone
-    l'utente in modo che sia lo stesso di CLI (p.e. per Apache, aggiornare i valori User
-    e Group).
+Aggiornare applicazioni Symfony
+-------------------------------
 
-Quando tutto è a posto, cliccare su "Go to the Welcome page" per accedere alla
-prima "vera" pagina di Symfony:
+A questo punti, si dispone di un'applicazione Symfony pienamente funzionale,
+in cui si può sviluppare il proprio progetto. Un'applicazione Symfony dipende da
+varie librerie esterne. Queste sono scaricate nella cartella ``vendor/`` e
+sono gestite esclusivamente da Composer.
 
-.. code-block:: text
+L'aggiornamento frequente di queste librerie di terze parti è una buona pratica, per prevenire bug
+e vulnerabilità di sicurezza. Eseguire il comando ``update`` di Composer per aggiornarle
+tutte insieme:
 
-    http://localhost/app_dev.php/
+.. code-block:: bash
 
-Symfony dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto finora!
+    $ cd progetto/
+    $ composer update
 
-.. image:: /images/quick_tour/welcome.png
+A seconda della complessità del progetto, questo processo di aggiornamento può impiegare anche
+vari minuti per essere completato.
 
-.. tip::
+.. _installing-a-symfony2-distribution:
 
-    Per ottenere URL brevi, si dovrebbe far puntare la cartella radice del
-    server web o un host virtuale alla cartella ``Symfony/web/``. Sebbene
-    non sia obbligatorio per lo sviluppo, è raccomandato nel momento in cui
-    l'applicazione va in produzione, perché tutti i file di sistema e di configurazione
-    diventeranno inaccessibili ai client. Perinformazioni sulla configurazione di
-    uno specifico server web, leggere
-    :doc:`/cookbook/configuration/web_server_configuration`
-    o consultare la documentazione ufficiale del server:
-    `Apache`_ | `Nginx`_ .
+Installare una distribuzione di Symfony
+---------------------------------------
+
+Il progetto Symfony impacchetta "distribuzioni", che sono applicazioni pienamente funzionali,
+che includono le librerie del nucleo di Symfony, una selezione di bundle utili, una struttura
+di cartelle appropriata e alcune configurazioni predefinite. In effetti, quando è stata creata
+un'applicazione Symfony, nelle sezioni precedenti, in realtà è stata scaricata la
+distribuzione predefinita fornita da Symfony, chiamata *Symfony Standard Edition*.
+
+*Symfony Standard Edition* è la distribuzione più popolare ed è anche la
+scelta migliore per sviluppatore che iniziano con Symfony. Tuttavia, la comunità di Symfony
+ha pubblicato altre distribuzioni, che si potrebbe voler usare in
+un'applicazione:
+
+* `Symfony CMF Standard Edition`_ è una distribuzione pensata per partire con
+  il progetto `Symfony CMF`_, che rende più facile per gli
+  sviluppatori l'aggiunta di funzionalità CMS ad applicazioni basate sul
+  framework Symfony.
+* `Symfony REST Edition`_ mostra come costruire un'applicazione che fornisca un'API
+  REST, usando `FOSRestBundle`_ e vari altri bundle correlati.
+
+Uso di un controllo dei sorgenti
+--------------------------------
+
+Se si usa un sistema di controllo di versione, come `Git`_, si può tranquillamente eseguire il commit
+do tutto il codice del progetto. Questo perché le applicaizoni Symfony contengono già un file
+``.gitignore``, preparato appositamente per Symfony.
+
+Per istruzioni specifiche su come impostare al meglio un progetto per essere memorizzato
+in Git, vedere :doc:`/cookbook/workflow/new_project_git`.
+
+Usare un'applicazione Symfony versionata
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Quando si usa Composer èer gestire le dipendenze di un'applicazione, si raccomanda di
+ignorare l'intera cartella ``vendor/``, prima di eseguire commit di codice nel
+repository. Questo vuole dire che, quando si esegue il checkout di un'applicazione Symfony da un
+repository Git, non ci sarà la cartella ``vendor/`` e l'applicazione non funzionerà
+immediatamente.
+
+Per farlo funzionare, eseguire il checkout dell'applicazione Symfony ed eseguire il comando
+``install`` di Composer, per scaricare e installare tutte le dipendenze richieste
+dall'applicazione:
+
+.. code-block:: bash
+
+    $ cd progetto/
+    $ composer install
+
+Come fa Composer a sapere quali dipendenze installare? Perché quando si esegue il
+commit di un'applicazione Symfony su un repository, si includono i file ``composer.json`` e
+``composer.lock`` nel commit. Questi file dicono a Composer quali
+dipendenze (e in quali specifiche versioni) installare nell'applicazione.
 
 Iniziare lo sviluppo
 --------------------
 
-Ora che si dispone di un'applicazione Symfony pienamente funzionante, si può iniziare
-lo sviluppo. La distribuzione potrebbe contenere del codice di esempio, verificare il file
-``README.md`` incluso nella distribuzione (aprendolo come file di testo) per sapere
-quale codice di esempio è incluso nella distribuzione scelta.
+Ora che si dispone di un'applicazione Symfony pienamente funzionale, si può iniziare
+lo sviluppo! La distribuzione potrebbe contenere del codice di esempio, verificare sul file
+``README.md`` incluso (aprirlo come file di testo) per
+conoscere l'eventuale codice di esempio incluso nella distribuzione.
 
-Per chi è nuovo in Symfony, in ":doc:`page_creation`" si può imparare come creare
-pagine, cambiare configurazioni e tutte le altre cose di cui si avrà bisogno nella
-nuova applicazione.
+Chi è nuovo su Symfony può fare riferimento a ":doc:`page_creation`", dove si imparerà
+come creare pagine, cambiare configurazione e ogni altra cosa necessaria per
+la nuova applicazione.
 
-Dare un'occhiata anche al :doc:`ricettario </cookbook/index>`, che contiene
-una varietà di articoli su come risolvere problemi specifici con Symfony.
+Assicurarsi di dare un'occhiata anche al :doc:`ricettario </cookbook/index>`, che contiene
+una grande varietà di ricette, pensate per risolvere problemi specifici con Symfony.
 
 .. note::
 
     Se si vuole rimuovere il codice di esempio dalla distribuzione, dare un'occhiata
     a questa ricetta: ":doc:`/cookbook/bundles/remove`"
 
-Usare un controllo di sorgenti
-------------------------------
-
-Se si usa un sistema di controllo di versioni, come ``Git`` o ``Subversion``, lo si
-può impostare e iniziare a fare commit nel proprio progetto, come si fa normalmente.
-Symfony Standard edition *è* il punto di partenza per il nuovo
-progetto.
-
-Per istruzioni specifiche su come impostare al meglio il proprio progetto per essere
-memorizzato in git, si veda :doc:`/cookbook/workflow/new_project_git`.
-
-Ignorare la cartella ``vendor/``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Chi ha scelto di scaricare l'archivio *senza venditori* può tranquillamente ignorare
-l'intera cartella ``vendor/`` e non inviarla in commit al controllo di sorgenti. Con
-``Git``, lo si può fare aggiungendo al file ``.gitignore`` la
-seguente riga:
-
-.. code-block:: text
-
-    /vendor/
-
-Ora la cartella dei venditori non sarà inviata in commit al controllo di sorgenti.
-Questo è bene (anzi, benissimo!), perché quando qualcun altro clonerà o farà checkout
-del progetto, potrà semplicemente eseguire lo script ``php composer.phar install`` per
-scaricare tutte le librerie dei venditori necessarie.
-
-.. _`abilitare il supporto ACL`: https://help.ubuntu.com/community/FilePermissionsACLs
-.. _`http://symfony.com/download`: http://symfony.com/download
-.. _`Git`: http://git-scm.com/
-.. _`GitHub Bootcamp`: http://help.github.com/set-up-git-redirect
+.. _`spiegati in questo post`: http://fabien.potencier.org/article/73/signing-project-releases
 .. _`Composer`: http://getcomposer.org/
-.. _`scaricare Composer`: http://getcomposer.org/download/
+.. _`Composer download page`: https://getcomposer.org/download/
 .. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
 .. _`Nginx`: http://wiki.nginx.org/Symfony
-.. _`pagina di installazione di Symfony`:    http://symfony.com/download
+.. _`abilitare il supporto ACL`: https://help.ubuntu.com/community/FilePermissionsACLs
+.. _`Symfony CMF Standard Edition`: https://github.com/symfony-cmf/symfony-cmf-standard
+.. _`Symfony CMF`: http://cmf.symfony.com/
+.. _`Symfony REST Edition`: https://github.com/gimler/symfony-rest-edition
+.. _`FOSRestBundle`: https://github.com/FriendsOfSymfony/FOSRestBundle
+.. _`Git`: http://git-scm.com/

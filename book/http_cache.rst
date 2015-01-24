@@ -202,34 +202,39 @@ metodo
 
 Ecco una lista delle opzioni principali:
 
-* ``default_ttl``: Il numero di secondi per cui un elemento in cache va considerato
-  fresco, quando nessuna informazione esplicita sulla freschezza viene fornita in
-  una risposta. Header espliciti ``Cache-Control`` o ``Expires`` sovrascrivono questo
-  valore (predefinito: ``0``);
+``default_ttl``
+    Il numero di secondi per cui un elemento in cache va considerato
+    fresco, quando nessuna informazione esplicita sulla freschezza viene fornita in
+    una risposta. Header espliciti ``Cache-Control`` o ``Expires`` sovrascrivono questo valore (predefinito: ``0``);
 
-* ``private_headers``: Insieme di header di richiesta che fanno scattare il comportamento
-  "privato" ``Cache-Control`` sulle risposte che non stabiliscono esplicitamente il loro
-  stato di ``public`` o ``private``, tramite una direttiva ``Cache-Control``.
-  (predefinito: ``Authorization`` e ``Cookie``);
+``private_headers``
+    Insieme di header di richiesta che fanno scattare il comportamento
+    "privato" ``Cache-Control`` sulle risposte che non stabiliscono esplicitamente il loro
+    stato di ``public`` o ``private``, tramite una direttiva ``Cache-Control``.
+    (predefinito: ``Authorization`` e ``Cookie``);
 
-* ``allow_reload``: Specifica se il client possa forzare un ricaricamento della cache
-  includendo una direttiva ``Cache-Control`` "no-cache" nella richiesta. Impostare a
-  ``true`` per aderire alla RFC 2616 (predefinito: ``false``);
+``allow_reload``
+    Specifica se il client possa forzare un ricaricamento della cache
+    includendo una direttiva ``Cache-Control`` "no-cache" nella richiesta. Impostare a
+    ``true`` per aderire alla RFC 2616 (predefinito: ``false``);
 
-* ``allow_revalidate``: Specifica se il client possa forzare una rivalidazione della
-  cache includendo una direttiva ``Cache-Control`` "max-age=0" nella richiesta. Impostare
-  a ``true`` per aderire alla RFC 2616 (predefinito: false);
+``allow_revalidate``
+    Specifica se il client possa forzare una rivalidazione della
+    cache includendo una direttiva ``Cache-Control`` "max-age=0" nella richiesta. Impostare
+    a ``true`` per aderire alla RFC 2616 (predefinito: false);
 
-* ``stale_while_revalidate``: Specifica il numero predefinito di secondi (la
-  granularità è il secondo, perché la precisione del TTL della risposta è un secondo)
-  durante il quale la cache può restituire immediatamente una risposta vecchia mentre
-  si rivalida in background (predefinito: ``2``); questa impostazione è sovrascritta
-  dall'estensione ``stale-while-revalidate`` ``Cache-Control`` di HTTP (vedere RFC 5861);
+``stale_while_revalidate``
+    Specifica il numero predefinito di secondi (la
+    granularità è il secondo, perché la precisione del TTL della risposta è un secondo)
+    durante il quale la cache può restituire immediatamente una risposta vecchia mentre
+    si rivalida in background (predefinito: ``2``); questa impostazione è sovrascritta
+    dall'estensione ``stale-while-revalidate`` ``Cache-Control`` di HTTP (vedere RFC 5861);
 
-* ``stale_if_error``: Specifica il numero predefinito di secondi (la granularità
-  è il secondo) durante il quale la cache può servire una risposta vecchia quando si
-  incontra un errore (predefinito: ``60``). Questa impostazione è sovrascritta
-  dall'estensione ``stale-if-error`` ``Cache-Control`` di HTTP (vedere RFC 5861).
+``stale_if_error``
+    Specifica il numero predefinito di secondi (la granularità
+    è il secondo) durante il quale la cache può servire una risposta vecchia quando si
+    incontra un errore (predefinito: ``60``). Questa impostazione è sovrascritta
+    dall'estensione ``stale-if-error`` ``Cache-Control`` di HTTP (vedere RFC 5861).
 
 Se ``debug`` è ``true``, Symfony aggiunge automaticamente un header
 ``X-Symfony-Cache`` alla risposta, con dentro informazioni utili su hit e miss della
@@ -328,6 +333,13 @@ creazione più gestibile::
     // imposta una direttiva personalizzata Cache-Control
     $response->headers->addCacheControlDirective('must-revalidate', true);
 
+.. tip::
+
+    Se occorre impostare header di cache per molte azioni diverse,
+    si potrebbe usare FOSHttpCacheBundle_. Questo bundle fornisce un modo
+    per definire header di cache in base allo schema dell'URL e ad altre proprietà
+    della richiesta.
+
 Risposte pubbliche e risposte private
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -339,11 +351,12 @@ venissero messe in cache e poi restituite a ogni utente successivo che richiede 
 
 Per gestire questa situazione, ogni risposta può essere impostata a pubblica o privata:
 
-* *pubblica*: Indica che la risposta può essere messa in cache sia da che private che da
-  cache condivise;
+*pubblica*
+    Indica che la risposta può essere messa in cache sia da che private che da cache condivise;
 
-* *privata*: Indica che tutta la risposta, o una sua parte, è per un singolo utente
-  e quindi non deve essere messa in una cache condivisa.
+*privata*
+    Indica che tutta la risposta, o una sua parte, è per un singolo utente
+    e quindi non deve essere messa in una cache condivisa.
 
 Symfony è conservativo e ha come predefinita una risposta privata. Per sfruttare le
 cache condivise (come il reverse proxy di Symfony), la risposta deve essere
@@ -393,6 +406,7 @@ nessun header è impostato dallo sviluppatore, seguendo queste regole:
   automaticamente la direttiva ``private`` (tranne quando è impostato ``s-maxage``).
 
 .. _http-expiration-validation:
+.. _http-expiration-and-validation:
 
 Scadenza e validazione HTTP
 ---------------------------
@@ -412,7 +426,9 @@ Le specifiche HTTP definiscono due modelli di cache:
   pagina sia cambiata da quanto è stata messa in cache.
 
 Lo scopo di entrambi i modelli è quello di non generare mai la stessa risposta due volte,
-appoggiandosi a una cache per memorizzare e restituire risposte "fresche".
+appoggiandosi a una cache per memorizzare e restituire risposte "fresche". Per ottenere tempi di cache lunghi,
+ma fornire comunque contenuti aggiornati immediatamente, a volte si usa
+l'*invalidazione della cache*.
 
 .. sidebar:: Leggere le specifiche HTTP
 
@@ -794,13 +810,115 @@ tramite il singolo metodo ``setCache()``::
     ));
 
 .. index::
-  single: Cache; ESI
-  single: ESI
+   single: Cache; Invalidazione
+
+.. _http-cache-invalidation:
+
+Invalidazione della cache
+-------------------------
+
+    "Ci sono solo due cose difficili in informatica: invalidazione della cache e
+    nomi delle cose." -- Phil Karlton
+
+Una volta che un URL è memorizzato in una gateway cache, la cache non chiederà più
+tale contenuto all'applicazione. Ciò consente alla chache di fornire risposte veloci
+e ridurre il carico sull'applicazione. Tuttavia, si rischia di
+fornire contenuti obsoleti. Un modo per uscire da questo dilemma è usare tempi di cache
+lunghi, notificando alla gateway cache quando il contenuto cambia.
+I reverse proxy solitamente forniscono un canale per ricevere tali notifiche,
+tipicamente tramite speciali richieste HTTP.
+
+.. caution::
+
+    L'invalidazione della cache è potente, ma va evitata quando possibile. Se non si riesce
+    a invalidare qualcosa, le cache obsolete saranno servite per un tempo potenzialmente
+    molto lungo. Invece, usare tempi di cache brevi o usare il modello a validazione
+    e adattare i controllori per eseguire validazioni efficienti, come
+    spiegato in :ref:`optimizing-cache-validation`.
+
+    Inoltre, essendo l'invalidazione un argomento specifico di ciascun tipo di reverse
+    proxy, il suo utilizzo lega a un reverse proxy specifico oppure richiede
+    sforzi aggiuntivi per supportare proxy diversi.
+
+A volte, tuttavia, si ha bisogno di quelle prestazioni in più che si possono ottenere
+invalidando esplicitamente. Per l'invalidazione, l'applicazione ha bisogno di individuare
+quando il contenuto cambia e riferire alla cache di rimuovere gli URL che contengono
+tali dati in cache.
+
+.. tip::
+
+    Se si vuole usare l'invalidazione della cache, si potrebbe usare
+    `FOSHttpCacheBundle`_. Questo bundle fornisce servizi per l'aiuto in vari
+    concetti di invalidazione della cache e documenta la configuraiozne per un
+    paio di proxy comunemente usati.
+
+Se un contenuto corrisponde a un URL, il modello ``PURGE`` funziona molto bene.
+Si manda una richiesta al proxy con il metodo HTTP ``PURGE`` (l'uso
+del verbo "PURGE" è una convenzione, tecnicamente si può usare una stringa qualsiasi) al
+posto di ``GET`` e fare in modo che il proxy lo individui e rimuova i dati dall
+cache, invece di passare a Symfony per avere una risposta.
+
+Ecco come si può configurare il reverse proxy di Symfony per supportare il
+metodo HTTP ``PURGE``::
+
+    // app/AppCache.php
+
+    // ...
+    use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+
+    class AppCache extends HttpCache
+    {
+        protected function invalidate(Request $request, $catch = false)
+        {
+            if ('PURGE' !== $request->getMethod()) {
+                return parent::invalidate($request, $catch);
+            }
+
+            if ('127.0.0.1' !== $request->getClientIp()) {
+                return new Response('Invalid HTTP method', Response::HTTP_BAD_REQUEST);
+            }
+
+            $response = new Response();
+            if ($this->getStore()->purge($request->getUri())) {
+                $response->setStatusCode(200, 'Purged');
+            } else {
+                $response->setStatusCode(200, 'Not found');
+            }
+
+            return $response;
+        }
+    }
+
+.. caution::
+
+    Occorre proteggere in qualche modo il metodo HTTP ``PURGE``, per evitare che qualcuno
+    pulisca casualmente i dati in cache.
+
+**Purge** dice alla cache di eliminare una risorsa in *tutte le sue varianti*
+(in accordo con l'header ``Vary``, vedere sopra). Un'alternativa a Purge è il
+**refresh**. Refresh vuol dire che al proxy viene chiesto
+di scartare la sua cache locale e recuperare nuovamente il contenuto. In questo modo,
+il nuovo contenuto è già disponibile nella cache. Il difetto del refresh
+è che le varianti non vengono invalidate.
+
+In molte applicazioni, lo stesso bit di contenuto è usato su varie pagine con
+URL diversi. In questo caso, esistono concetti più flessibili:
+
+* Il *ban** invalida risposte che corrispondono a espressioni
+  sull'URL o ad altri criteri;
+* Il **tag** consente di marcare ciascun contenuto usato in una risposta,
+  in modo da poter invalidare tutti gli URL che includono un determinato contenuto.
+
+.. index::
+   single: Cache; ESI
+   single: ESI
 
 .. _edge-side-includes:
 
-Usare Edge Side Includes
-------------------------
+Usare Edge Side Include
+-----------------------
 
 Le gateway cache sono un grande modo per rendere un sito più prestante. Ma hanno
 una limitazione: possono mettere in cache solo pagine intere. Se non si possono mettere in
@@ -914,20 +1032,20 @@ Symfony usa l'aiutante ``render`` per configurare i tag ESI:
     .. code-block:: jinja
 
         {# si può fare riferimento a un controllore #}
-        {{ render_esi(controller('...:news', { 'max': 5 })) }}
+        {{ render_esi(controller('...:news', { 'maxPerPage': 5 })) }}
 
         {# ... o a un URL #}
-        {{ render_esi(url('latest_news', { 'max': 5 })) }}
+        {{ render_esi(url('latest_news', { 'maxPerPage': 5 })) }}
 
     .. code-block:: html+php
 
         <?php echo $view['actions']->render(
-            new \Symfony\Component\HttpKernel\Controller\ControllerReference('...:news', array('max' => 5)),
+            new \Symfony\Component\HttpKernel\Controller\ControllerReference('...:news', array('maxPerPage' => 5)),
             array('strategy' => 'esi'))
         ?>
 
         <?php echo $view['actions']->render(
-            $view['router']->generate('latest_news', array('max' => 5), true),
+            $view['router']->generate('latest_news', array('maxPerPage' => 5), true),
             array('strategy' => 'esi'),
         ) ?>
 
@@ -1033,76 +1151,14 @@ accessi al minimo.
 
 L'aiutante ``render`` supporta due utili opzioni:
 
-* ``alt``: usato come attributo ``alt`` nel tag ESI, che consente di specificare
-  un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
+``alt``
+    usato come attributo ``alt`` nel tag ESI, che consente di specificare
+    un URL alternativo da usare, nel caso in cui ``src`` non venga trovato;
 
-* ``ignore_errors``: se impostato a ``true``, un attributo ``onerror`` sarà aggiunto a
-  ESI con il valore di ``continue``, a indicare che, in caso di fallimento, la
-  gateway cache semplicemente rimuoverà il tag ESI senza produrre errori.
-
-.. index::
-    single: Cache; Invalidazione
-
-.. _http-cache-invalidation:
-
-Invalidazione della cache
--------------------------
-
-    "Ci sono solo due cose difficili in informatica: invalidazione della cache e
-    nomi delle cose." -- Phil Karlton
-
-Non si dovrebbe mai aver bisogno di invalidare i dati in cache, perché
-dell'invalidazione si occupano già nativamente i modelli di cache HTTP. Se si usa
-la validazione, non si avrà mai bisogno di invalidare nulla, per definizione; se
-si usa la scadenza e si ha l'esigenza di invalidare una risorsa, vuol dire che si
-è impostata una data di scadenza troppo in là nel futuro.
-
-.. note::
-
-    Essendo l'invalidazione un argomento specifico di ogni reverse proxy, se non ci si
-    preoccupa dell'invalidazione, si può cambiare reverse proxy senza cambiare alcuna parte del codice
-    dell'applicazione.
-
-In realtà, ogni reverse proxy fornisce dei modi per pulire i dati in cache, ma
-andrebbero evitati, per quanto possibile. Il modo più standard è pulire la cache
-per un dato URL richiedendolo con il metodo speciale HTTP ``PURGE``.
-
-Ecco come si può configurare il reverse proxy di Symfony per supportare il
-metodo HTTP ``PURGE``::
-
-    // app/AppCache.php
-
-    // ...
-    use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
-    use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Component\HttpFoundation\Response;
-
-    class AppCache extends HttpCache
-    {
-        protected function invalidate(Request $request, $catch = false)
-        {
-            if ('PURGE' !== $request->getMethod()) {
-                return parent::invalidate($request, $catch);
-            }
-
-            $response = new Response();
-            if ($this->getStore()->purge($request->getUri())) {
-                $response->setStatusCode(Response::HTTP_OK, 'Purged');
-            } else {
-                $response->setStatusCode(Response::HTTP_NOT_FOUND, 'Not purged');
-            }
-
-            return $response;
-        }
-    }
-
-.. versionadded:: 2.4
-    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
-
-.. caution::
-
-    Occorre proteggere in qualche modo il metodo HTTP ``PURGE``, per evitare che qualcuno
-    pulisca casualmente i dati in cache.
+``ignore_errors``
+    se impostato a ``true``, un attributo ``onerror`` sarà aggiunto a
+    ESI con il valore di ``continue``, a indicare che, in caso di fallimento, la
+    gateway cache semplicemente rimuoverà il tag ESI senza produrre errori.
 
 Riepilogo
 ---------
@@ -1131,3 +1187,4 @@ Imparare di più con le ricette
 .. _`P6 - Cache: Browser e cache intermedie`: http://tools.ietf.org/html/draft-ietf-httpbis-p6-cache
 .. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/cache.html
 .. _`ESI`: http://www.w3.org/TR/esi-lang
+.. _`FOSHttpCacheBundle`: http://foshttpcachebundle.readthedocs.org/

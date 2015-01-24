@@ -8,11 +8,11 @@ Lavorando a un progetto Symfony su una macchina locale, si dovrebbe usare l'ambi
 ``dev`` (il front controller ``app_dev.php``). La configurazione 
 di questo ambiente è ottimizzata per due scopi principali:
 
- * Dare accurate informazioni al programmatore quando qualcosa non funziona (barra
-   web di debug, chiare pagine delle eccezzioni, misurazione delle prestazioni, ...);
+* Dare accurate informazioni al programmatore quando qualcosa non funziona (barra
+  web di debug, chiare pagine delle eccezzioni, misurazione delle prestazioni, ...);
 
- * Essere più simile possibile all'ambiente di produzione per evitare spiacevoli 
-   sorprese nel momento del rilascio del progetto.
+* Essere più simile possibile all'ambiente di produzione per evitare spiacevoli 
+  sorprese nel momento del rilascio del progetto.
 
 .. _cookbook-debugging-disable-bootstrap:
 

@@ -121,7 +121,7 @@ essenzialmente un file HTML che usa una sintassi PHP per template:
                         <?php echo $post['title'] ?>
                     </a>
                 </li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
         </body>
     </html>
@@ -238,7 +238,7 @@ Il template (``templates/list.php``) ora può essere semplificato, per
                     <?php echo $post['title'] ?>
                 </a>
             </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ul>
     <?php $content = ob_get_clean() ?>
 
@@ -435,7 +435,7 @@ contenuto:
 
     {
         "require": {
-            "symfony/symfony": "2.4.*"
+            "symfony/symfony": "2.6.*"
         },
         "autoload": {
             "files": ["model.php","controllers.php"]
@@ -483,9 +483,6 @@ risposte HTTP restituite. Usiamole per migliorare il nostro blog:
 
     // mostra gli header e invia la risposta
     $response->send();
-
-.. versionadded:: 2.4
-    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 I controllori sono ora responsabili di restituire un oggetto ``Response``.
 Per rendere le cose più facili, si può aggiungere una nuova funzione ``render_template()``,

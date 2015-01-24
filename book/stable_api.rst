@@ -3,10 +3,10 @@
 
 .. _the-symfony2-stable-api:
 
-L'API stabile di Symfony2
-=========================
+L'API stabile di Symfony
+========================
 
-L'API stabile di Symfony2 è un sottoinsieme di tutti i metodi pubblici di Symfony2
+L'API stabile di Symfony è un sottoinsieme di tutti i metodi pubblici di Symfony
 (componenti e bundle del nucleo) che condividono le seguenti proprietà:
 
 * Lo spazio dei nomi e il nome della classe non cambieranno;
@@ -19,6 +19,10 @@ dell'API stabile è la soluzone di una questione di sicurezza.
 
 L'API stabile è basata su una lista, con il tag `@api`. Quindi,
 tutto ciò che non possiede esplicitamente il tag non fa parte dell'API stabile.
+
+.. seealso::
+
+    Si può consultare la documentazione dell'API di Symfony su `api.symfony.com`_.
 
 .. tip::
 
@@ -47,3 +51,5 @@ A partire da Symfony 2.0, i seguenti componenti hanno un tag API pubblico:
 * Translation
 * Validator
 * Yaml
+
+.. _`api.symfony.com`: http://api.symfony.com

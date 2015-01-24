@@ -183,7 +183,8 @@ semplice. Con i parametri si possono definire servizi più organizzati e flessib
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <parameters>
                 <parameter key="my_mailer.transport">sendmail</parameter>
@@ -317,7 +318,8 @@ non esistono, crearle.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <parameters>
                 <parameter key="my_mailer.transport">sendmail</parameter>
@@ -361,7 +363,8 @@ dell'applicazione.
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <imports>
                 <import resource="@AcmeHelloBundle/Resources/config/services.xml"/>
@@ -440,8 +443,10 @@ invoca l'estensione del contenitore dei servizi all'interno di FrameworkBundle:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config secret="xxxxxxxxxx">
                 <framework:form />
@@ -564,6 +569,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         services:
             my_mailer:
                 # ...
+            
             newsletter_manager:
                 class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@my_mailer"]
@@ -574,12 +580,14 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
                 <service id="my_mailer">
                 <!-- ... -->
                 </service>
+
                 <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                     <argument type="service" id="my_mailer"/>
                 </service>
@@ -593,6 +601,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->setDefinition('my_mailer', ...);
+
         $container->setDefinition('newsletter_manager', new Definition(
             'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(new Reference('my_mailer'))
@@ -615,9 +624,6 @@ il lavoro di istanziare degli oggetti.
 Usare Expression Language
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. versionadded:: 2.4
-    La funzionalità Expression Language è stata introdotta in Symfony 2.4.
-
 Il contenitore di servizi supporta anche un'"espressione", che consente di iniettare
 valori molto specifici in un servizio.
 
@@ -626,7 +632,7 @@ che ha un metodo ``getMailerMethod()``, che restituisce una stringa
 come ``sendmail`` a seconda di una qualche configurazione. Si ricordi che il primo parametro del
 servizio ``my_mailer`` è la semplice stringa ``sendmail``:
 
-.. include includes/_service_container_my_mailer.rst.inc
+.. include:: includes/_service_container_my_mailer.rst.inc
 
 Invece di scrivere direttamente la stringa, come si può ottenere tale valore da ``getMailerMethod()``
 del servizio ``mailer_configuration``? Un possibile modo consiste nell'usare un'espressione:
@@ -673,8 +679,10 @@ Per approfondire la sintassi di Expression Language, vedere :doc:`/components/ex
 
 In questo contesto, si ha accesso a due funzioni:
 
-* ``service`` - restituisce un servizio dato (vedere l'esempio precedente);
-* ``parameter`` - restituisce un parametro specifico (la sintassi è proprio come ``service``)
+``service``
+    restituisce un servizio dato (vedere l'esempio precedente);
+``parameter``
+    restituisce un parametro specifico (la sintassi è proprio come ``service``)
 
 Si ha anche accesso a :class:`Symfony\\Component\\DependencyInjection\\ContainerBuilder`,
 tramite una variabile ``container``. Ecco un altro esempio:
@@ -754,6 +762,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         services:
             my_mailer:
                 # ...
+            
             newsletter_manager:
                 class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 calls:
@@ -765,12 +774,14 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
                 <service id="my_mailer">
                 <!-- ... -->
                 </service>
+
                 <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                     <call method="setMailer">
                         <argument type="service" id="my_mailer" />
@@ -786,6 +797,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->setDefinition('my_mailer', ...);
+        
         $container->setDefinition('newsletter_manager', new Definition(
             'Acme\HelloBundle\Newsletter\NewsletterManager'
         ))->addMethodCall('setMailer', array(
@@ -802,9 +814,6 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
 
 Iniettare la richiesta
 ~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.4
-    Il servizio ``request_stack`` è stato introdotto nella versione 2.4.
 
 A partire da Symfony 2.4, invece di iniettare il servizio ``request``, si dovrebbe
 iniettare il servizio ``request_stack`` e accedere alla richiesta con il
@@ -922,12 +931,14 @@ esiste e in caso contrario non farà nulla:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
                 <service id="my_mailer">
                 <!-- ... -->
                 </service>
+                
                 <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                     <argument type="service" id="my_mailer" on-invalid="ignore" />
                 </service>
@@ -942,6 +953,7 @@ esiste e in caso contrario non farà nulla:
         use Symfony\Component\DependencyInjection\ContainerInterface;
 
         $container->setDefinition('my_mailer', ...);
+        
         $container->setDefinition('newsletter_manager', new Definition(
             'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(
@@ -1029,7 +1041,8 @@ La configurazione del contenitore dei servizi è semplice:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                 <argument type="service" id="mailer"/>
@@ -1078,6 +1091,7 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
         services:
             foo.twig.extension:
                 class: Acme\HelloBundle\Extension\FooExtension
+                public: false
                 tags:
                     -  { name: twig.extension }
 
@@ -1087,11 +1101,13 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <service
                 id="foo.twig.extension"
-                class="Acme\HelloBundle\Extension\FooExtension">
+                class="Acme\HelloBundle\Extension\FooExtension"
+                public="false">
 
                 <tag name="twig.extension" />
             </service>
@@ -1103,6 +1119,7 @@ utilizzare il servizio per uno scopo specifico. Si prenda il seguente esempio:
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition('Acme\HelloBundle\Extension\FooExtension');
+        $definition->setPublic(false);
         $definition->addTag('twig.extension');
         $container->setDefinition('foo.twig.extension', $definition);
 
@@ -1128,7 +1145,10 @@ console. Per mostrare tutti i servizi e le relative classi, eseguire:
 
 .. code-block:: bash
 
-    $ php app/console container:debug
+    $ php app/console debug:container
+
+.. versionadded:: 2.6
+    Prima di Symfony 2.6, questo comando si chiamava ``container:debug``.
 
 Vengono mostrati solo i servizi pubblici, ma si possono vedere anche quelli privati:
 

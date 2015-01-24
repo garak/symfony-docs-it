@@ -13,10 +13,6 @@ Configurazione predefinita completa
 La seguente è la configurazione predefinita completa del sistema di sicurezza.
 Ogni parte sarà spiegata nella prossima sezione.
 
-.. versionadded:: 2.4
-    Il supporto per limitare i firewall a un host specifico è stato introdotto in
-    Symfony 2.4.
-
 .. versionadded:: 2.5
     Il supporto per limitare i firewall a metodi HTTP specifici è stato introdotto in
     Symfony 2.5.
@@ -32,8 +28,8 @@ Ogni parte sarà spiegata nella prossima sezione.
             # la strategia può essere: none, migrate, invalidate
             session_fixation_strategy:  migrate
             hide_user_not_found:  true
-            always_authenticate_before_granting: false
-            erase_credentials: true
+            always_authenticate_before_granting:  false
+            erase_credentials:    true
             access_decision_manager:
                 strategy:             affirmative
                 allow_if_all_abstain:  false
@@ -70,10 +66,23 @@ Ogni parte sarà spiegata nella prossima sezione.
                     hash_algorithm:       sha512
                     encode_as_base64:     true
                     iterations:           1000
+                    key_length:           40
 
                 # Opzioni/valori di esempio di come potrebbe essere un encoder personalizzato
                 Acme\DemoBundle\Entity\User3:
                     id:                   id.codificatore
+
+                # codificatore BCrypt
+                # vedere la nota su bcrypt più avanti per dettagli sulle dipendenze
+                Acme\DemoBundle\Entity\User4:
+                    algorithm:            bcrypt
+                    cost:                 13
+
+                # codificatore testo semplice
+                # it does not do any encoding
+                Acme\DemoBundle\Entity\User5:
+                    algorithm:            plaintext
+                    ignore_case:          false
 
             providers:            # Obbligatorio
                 # Esempi:
@@ -120,6 +129,8 @@ Ogni parte sarà spiegata nella prossima sezione.
                     context: chiave_del_contesto
                     stateless: false
                     x509:
+                        provider: nome_di_un_provider_di_cui_sopra
+                    remote_user:
                         provider: nome_di_un_provider_di_cui_sopra
                     http_basic:
                         provider: nome_di_un_provider_di_cui_sopra
@@ -227,7 +238,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                 # usare il formato urldecoded
                 path:                 ~ # Esempio: ^/percorso_della_risorsa/
                 host:                 ~
-                ip:                   ~
+                ips:                  []
                 methods:              []
                 roles:                []
             role_hierarchy:
@@ -247,41 +258,65 @@ Per dettagli ulteriori, vedere :doc:`/cookbook/security/form_login`.
 Il form e il processo di login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*   ``login_path`` (tipo: ``stringa``, predefinito: ``/login``)
-    È l'URL a cui l'utente sarà rinviato (a meno che ``use_forward`` non sia
-    ``true``) quando prova ad accedere a una risorsa protetta,
-    ma non è autenticato.
+login_path
+..........
 
-    Questo URL **deve** essere accessibile da un utente normale e non autenticato,
-    altrimenti si creerebbe un loop infinito. Per dettagli, vedere
-    ":ref:`Evitare problemi comuni<book-security-common-pitfalls>`".
+**tipo**: ``stringa`` **predefinito**: ``/login``
 
-*   ``check_path`` (tipo: ``stringa``, predefinito: ``/login_check``)
-    È l'URL a cui il form di login viene inviato. Il firewall intercetterà
-    ogni richiesta (solo quelle ``POST``, per impostazione predefinita) a questo URL
-    e processerà le credenziali di login inviate.
+È l'URL a cui l'utente sarà rinviato (a meno che ``use_forward`` non sia
+``true``) quando prova ad accedere a una risorsa protetta,
+ma non è autenticato.
 
-    Assicurarsi che questo URL sia coperto dal firewall principale (cioè non
-    creare un firewall separato solo per l'URL ``check_path``).
+Questo URL **deve** essere accessibile da un utente normale e non autenticato,
+altrimenti si creerebbe un loop infinito. Per dettagli, vedere
+":ref:`evitare problemi comuni <book-security-common-pitfalls>`".
 
-*   ``use_forward`` (tipo: ``booleano``, predefinito: ``false``)
-    Se si vuole che l'utente sia rimandato al form di login invece di essere 
-    rinviato, impostare questa opzione a ``true``.
+check_path
+..........
 
-*   ``username_parameter`` (tipo: ``stringa``, predefinito: ``_username``)
-    Questo il nome del campo che si dovrebbe dare al campo username di un 
-    form di login. Quando si invia il form a ``check_path``, il sistema di
-    sicurezza cercherà un parametro POST con questo nome.
+**tipo**: ``stringa`` **predefinito**: ``/login_check``
 
-*   ``password_parameter`` (tipo: ``stringa``, predefinito: ``_password``)
-    Questo il nome del campo che si dovrebbe dare al campo password di un 
-    form di login. Quando si invia il form a ``check_path``, il sistema di
-    sicurezza cercherà un parametro POST con questo nome.
+È l'URL a cui il form di login viene inviato. Il firewall intercetterà
+ogni richiesta (solo quelle ``POST``, per impostazione predefinita) a questo URL
+e processerà le credenziali di login inviate.
 
-*   ``post_only`` (tipo: ``booleano``, predefinito: ``true``)
-    Per impostazione predefinita, occorre inviare un form di login
-    all'URL ``check_path`` usando una richiesta POST. Impostando questa opzione
-    a ``true``, si può inviare una richiesta GET all'URL ``check_path``.
+Assicurarsi che questo URL sia coperto dal firewall principale (cioè non
+creare un firewall separato solo per l'URL ``check_path``).
+
+use_forward
+...........
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se si vuole che l'utente sia rimandato al form di login invece di essere 
+rinviato, impostare questa opzione a ``true``.
+
+username_parameter
+..................
+
+**tipo**: ``stringa`` **predefinito**: ``_username``
+
+Questo il nome del campo che si dovrebbe dare al campo username di un 
+form di login. Quando si invia il form a ``check_path``, il sistema di
+sicurezza cercherà un parametro POST con questo nome.
+
+password_parameter
+..................
+
+**tipo**: ``stringa`` **predefinito**: ``_password``
+
+Questo il nome del campo che si dovrebbe dare al campo password di un 
+form di login. Quando si invia il form a ``check_path``, il sistema di
+sicurezza cercherà un parametro POST con questo nome.
+
+post_only
+.........
+
+**tipo**: ``booleano``, predefinito: ``true``)
+
+Per impostazione predefinita, occorre inviare un form di login
+all'URL ``check_path`` usando una richiesta POST. Impostando questa opzione
+a ``true``, si può inviare una richiesta GET all'URL ``check_path``.
 
 Rinvio dopo il login
 ~~~~~~~~~~~~~~~~~~~~
@@ -412,20 +447,20 @@ più firewall, il "contesto" può essere effettivamente condiviso:
 
     .. code-block:: xml
 
-       <!-- app/config/security.xml -->
-       <security:config>
-          <firewall name="nome" context="contesto">
-            <! ... ->
-          </firewall>
-          <firewall name="altronome" context="contesto">
-            <! ... ->
-          </firewall>
-       </security:config>
+        <!-- app/config/security.xml -->
+        <security:config>
+            <firewall name="nome" context="contesto">
+                <! ... ->
+            </firewall>
+            <firewall name="altronome" context="contesto">
+                <! ... ->
+            </firewall>
+        </security:config>
 
     .. code-block:: php
 
-       // app/config/security.php
-       $container->loadFromExtension('security', array(
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
             'firewalls' => array(
                 'nome' => array(
                     // ...
@@ -445,38 +480,38 @@ Per usare l'autenticazione HTTP-Digest, occorre fornire un reame e una chiave:
 
 .. configuration-block::
 
-   .. code-block:: yaml
+    .. code-block:: yaml
 
-      # app/config/security.yml
-      security:
-         firewalls:
-            somename:
-              http_digest:
-               key: "una_stringa_casuale"
-               realm: "secure-api"
+        # app/config/security.yml
+        security:
+            firewalls:
+                somename:
+                    http_digest:
+                        key: "una_stringa_casuale"
+                        realm: "secure-api"
 
-   .. code-block:: xml
+    .. code-block:: xml
 
-      <!-- app/config/security.xml -->
-      <security:config>
-         <firewall name="somename">
-            <http-digest key="una_stringa_casuale" realm="secure-api" />
-         </firewall>
-      </security:config>
+        <!-- app/config/security.xml -->
+        <security:config>
+            <firewall name="somename">
+                <http-digest key="una_stringa_casuale" realm="secure-api" />
+            </firewall>
+        </security:config>
 
-   .. code-block:: php
+    .. code-block:: php
 
-      // app/config/security.php
-      $container->loadFromExtension('security', array(
-           'firewalls' => array(
-               'somename' => array(
-                   'http_digest' => array(
-                       'key'   => 'una_stringa_casuale',
-                       'realm' => 'secure-api',
-                   ),
-               ),
-           ),
-      ));
+        // app/config/security.php
+        $container->loadFromExtension('security', array(
+            'firewalls' => array(
+                'somename' => array(
+                    'http_digest' => array(
+                        'key'   => 'una_stringa_casuale',
+                        'realm' => 'secure-api',
+                    ),
+                ),
+            ),
+        ));
 
 .. _`PBKDF2`: http://en.wikipedia.org/wiki/PBKDF2
 .. _`ircmaxell/password-compat`: https://packagist.org/packages/ircmaxell/password-compat

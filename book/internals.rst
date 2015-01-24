@@ -4,19 +4,19 @@
 Interno
 =======
 
-Se si vuole capire come funziona Symfony2 ed estenderlo, in questa sezione si potranno
+Se si vuole capire come funziona Symfony ed estenderlo, in questa sezione si potranno
 trovare spiegazioni approfondite dell'interno di
-Symfony2.
+Symfony.
 
 .. note::
 
-    La lettura di questa sezione è necessaria solo per capire come funziona Symfony2 dietro
-    le quinte oppure se si vuole estendere Symfony2.
+    La lettura di questa sezione è necessaria solo per capire come funziona Symfony dietro
+    le quinte oppure se si vuole estendere Symfony.
 
 Panoramica
 ----------
 
-Il codice di Symfony2 è composto da diversi livelli indipendenti. Ogni livello
+Il codice di Symfony è composto da diversi livelli indipendenti. Ogni livello
 è costruito sulla base del precedente.
 
 .. tip::
@@ -81,11 +81,11 @@ Kernel
 ------
 
 La classe :class:`Symfony\\Component\\HttpKernel\\HttpKernel` è la classe centrale
-di Symfony2 ed è responsabile della gestione delle richieste del client. Il suo scopo
+di Symfony ed è responsabile della gestione delle richieste del client. Il suo scopo
 principale è "convertire" un oggetto :class:`Symfony\\Component\\HttpFoundation\\Request`
 in un oggetto :class:`Symfony\\Component\\HttpFoundation\\Response`.
 
-Ogni kernel di Symfony2 implementa
+Ogni kernel di Symfony implementa
 :class:`Symfony\\Component\\HttpKernel\\HttpKernelInterface`::
 
     function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
@@ -129,11 +129,11 @@ predefinita risolve automaticamente i parametri, basandosi sugli attributi di
 
 .. sidebar:: Parametri del controllore dai parametri della richiesta
 
-    Per ciascun parametro, Symfony2 prova a prendere il valore dell'attributo della
+    Per ciascun parametro, Symfony prova a prendere il valore dell'attributo della
     richiesta che abbia lo stesso nome. Se non definito, viene usato il valore del
     parametro predefinito, se specificato::
 
-        // Symfony2 cerca un attributo 'id' (obbligatorio)
+        // Symfony cerca un attributo 'id' (obbligatorio)
         // e uno 'admin' (facoltativo)
         public function showAction($id, $admin = true)
         {
@@ -245,9 +245,9 @@ aggiungere il seguente codice all'inizio del proprio metodo ascoltatore::
 
 .. tip::
 
-    Se non si ha familiarità con il distributore di eventi di Symfony2, leggere prima
+    Se non si ha familiarità con il distributore di eventi di Symfony, leggere prima
     la
-    :doc:`documentazione del componente Event Dispatcher </components/event_dispatcher/introduction>`.
+    :doc:`documentazione del componente EventDispatcher </components/event_dispatcher/introduction>`.
 
 .. index::
    single: Evento; kernel.request
@@ -354,18 +354,18 @@ l'oggetto ``Response`` dopo la sua creazione::
 
 FrameworkBundle registra diversi ascoltatori:
 
-* :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`:
-  raccoglie dati per la richiesta corrente;
+:class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`
+    Raccoglie dati per la richiesta corrente.
 
-* :class:`Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener`:
-  inserisce la barra di web debug;
+:class:`Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener`
+    Inserisce la barra di web debug.
 
-* :class:`Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener`: aggiusta
-  il ``Content-Type`` della risposta, in base al formato della richiesta;
+:class:`Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener`
+    Aggiusta il ``Content-Type`` della risposta, in base al formato della richiesta.
 
-* :class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`: aggiunge un
-  header HTTP ``Surrogate-Control`` quando si deve cercare dei tag ESI nella
-  risposta.
+:class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`
+    Aggiunge un header HTTP ``Surrogate-Control`` quando si deve cercare dei tag ESI nella
+    risposta.
 
 .. seealso::
 
@@ -471,15 +471,15 @@ vedere la :doc:`documentazione del componente Event Dispatcher</components/event
 Profilatore
 -----------
 
-Se abilitato, il profilatore di Symfony2 raccoglie informazioni utili su ogni richiesta
+Se abilitato, il profilatore di Symfony raccoglie informazioni utili su ogni richiesta
 fatta alla propria applicazione e le memorizza per analisi successive. L'uso del
 profilatore in ambienti di sviluppo aiuta il debug del proprio codice e a migliorare le
 prestazioni. Lo si può usare anche in ambienti di produzione, per approfondire i
 problemi che si presentano.
 
-Raramente si avrà a che fare direttamente con il profilatore, visto che Symfony2 fornisce
+Raramente si avrà a che fare direttamente con il profilatore, visto che Symfony fornisce
 strumenti di visualizzazione, come la barra di web debug e il profilatore web. Se si usa
-Symfony2 Standard Edition, il profilatore, la barra di web debug e il profilatore
+Symfony Standard Edition, il profilatore, la barra di web debug e il profilatore
 web sono già configurati con impostazioni appropriate.
 
 .. note::
@@ -555,7 +555,8 @@ per accedere ai token, in base a determinati criteri::
     $tokens = $container->get('profiler')->find('127.0.0.1', '', 10, '', '');
 
     // gli ultimi 10 token per richieste tra 2 e 4 giorni fa
-    $tokens = $container->get('profiler')->find('', '', 10, '4 days ago', '2 days ago');
+    $tokens = $container->get('profiler')
+        ->find('', '', 10, '4 days ago', '2 days ago');
 
 Se si vogliono manipolare i dati di profilo su macchine diverse da quella che
 ha generato le informazioni, usare i metodi
@@ -575,7 +576,7 @@ ha generato le informazioni, usare i metodi
 Configurazione
 ..............
 
-La configurazione predefinita di Symfony2 ha delle impostazioni adeguate per il
+La configurazione predefinita di Symfony ha delle impostazioni adeguate per il
 profilatore, la barra di web debug e il profilatore web. Ecco per esempio
 la configurazione per l'ambiente di sviluppo:
 
@@ -599,9 +600,12 @@ la configurazione per l'ambiente di sviluppo:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:webprofiler="http://symfony.com/schema/dic/webprofiler"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                                http://symfony.com/schema/dic/webprofiler http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/webprofiler
+                http://symfony.com/schema/dic/webprofiler/webprofiler-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <!-- carica il profilatore -->
             <framework:config>
@@ -618,7 +622,7 @@ la configurazione per l'ambiente di sviluppo:
 
         // carica il profilatore
         $container->loadFromExtension('framework', array(
-            'profiler' => array('only-exceptions' => false),
+            'profiler' => array('only_exceptions' => false),
         ));
 
         // abilita il profilatore web
@@ -627,7 +631,7 @@ la configurazione per l'ambiente di sviluppo:
             'intercept_redirects' => true,
         ));
 
-Quando ``only-exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
+Quando ``only_exceptions`` è impostato a ``true``, il profilatore raccoglie dati solo
 quando l'applicazione solleva un'eccezione.
 
 Quando ``intercept-redirects`` è impostata ``true``, il profilatore web intercetta i
@@ -661,7 +665,9 @@ Se si abilita il profilatore web, occorre anche montare le rotte del profilatore
 
         use Symfony\Component\Routing\RouteCollection;
 
-        $profiler = $loader->import('@WebProfilerBundle/Resources/config/routing/profiler.xml');
+        $profiler = $loader->import(
+            '@WebProfilerBundle/Resources/config/routing/profiler.xml'
+        );
         $profiler->addPrefix('/_profiler');
 
         $collection = new RouteCollection();

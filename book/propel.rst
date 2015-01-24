@@ -5,7 +5,7 @@ Basi di dati e Propel
 =====================
 
 Ammettiamolo, uno dei compiti più comuni e impegnativi per qualsiasi applicazione
-implica la persistenza e la lettura di informazioni da una base dati. Symfony2 
+implica la persistenza e la lettura di informazioni da una base dati. Symfony 
 non è integrato nativamente con Propel, ma l'integrazione è alquanto semplice.
 Per iniziare, leggere `Working With Symfony2`_.
 
@@ -55,10 +55,10 @@ configurazione (``config.yml``):
 
     propel:
         dbal:
-            driver:     "%database_driver%"
-            user:       "%database_user%"
-            password:   "%database_password%"
-            dsn:        "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
+            driver:   "%database_driver%"
+            user:     "%database_user%"
+            password: "%database_password%"
+            dsn:      "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
 
 Ora che Propel ha informazioni sulla base dati, si può fare in modo che crei la
 base dati al posto nostro:
@@ -81,7 +81,7 @@ generate da Propel contengono della logica di business.
 
 .. note::
 
-    Per chi ha già usato Symfony2 con Doctrine2, i **modelli** sono equivalenti alle
+    Per chi ha già usato Symfony con Doctrine2, i **modelli** sono equivalenti alle
     **entità**.
 
 Si supponga di costruire un'applicazione in cui occorre mostrare dei prodotti.
@@ -272,7 +272,7 @@ economico al più costoso. Da dentro un controllore, fare come segue::
         ->find();
 
 In una sola riga, si ottengono i prodotti cercati in modo orientato agli oggetti. Non
-serve perdere tempo con SQL o simili, Symfony2 offre una programmazione completamente orientata
+serve perdere tempo con SQL o simili, Symfony offre una programmazione completamente orientata
 agli oggetti e Propel rispetta la stessa filosofia, fornendo un incredibile livello di
 astrazione.
 
@@ -467,19 +467,27 @@ Per aggiungere un hook, basta aggiungere un nuovo metodo alla classe::
 
 Propel fornisce i seguenti hook:
 
-* ``preInsert()`` codice eseguito prima dell'inserimento di un nuovo oggetto
-* ``postInsert()`` codice eseguito dopo l'inserimento di un nuovo oggetto
-* ``preUpdate()`` codice eseguito prima dell'aggiornamento di un oggetto esistente
-* ``postUpdate()`` codice eseguito dopo l'aggiornamento di un oggetto esistente
-* ``preSave()`` codice eseguito prima di salvare un oggetto (nuovo o esistente)
-* ``postSave()`` codice eseguito dopo il salvataggio di un oggetto (nuovo o esistente)
-* ``preDelete()`` codice eseguito prima di cancellare un oggetto
-* ``postDelete()`` codice eseguito dopo la cancellazione di un oggetto
+``preInsert()``
+    codice eseguito prima dell'inserimento di un nuovo oggetto
+``postInsert()``
+    codice eseguito dopo l'inserimento di un nuovo oggetto
+``preUpdate()``
+    codice eseguito prima dell'aggiornamento di un oggetto esistente
+``postUpdate()``
+    codice eseguito dopo l'aggiornamento di un oggetto esistente
+``preSave()``
+    codice eseguito prima di salvare un oggetto (nuovo o esistente)
+``postSave()``
+    codice eseguito dopo il salvataggio di un oggetto (nuovo o esistente)
+``preDelete()``
+    codice eseguito prima di cancellare un oggetto
+``postDelete()``
+    codice eseguito dopo la cancellazione di un oggetto
 
 Comportamenti
 -------------
 
-Tutti i comportamenti distribuiti con Propel funzionano in Symfony2. Per ottenere
+Tutti i comportamenti distribuiti con Propel funzionano in Symfony. Per ottenere
 maggiori informazioni su come usare i comportamenti di Propel, fare riferimento alla
 sezione sui `behavior`_.
 

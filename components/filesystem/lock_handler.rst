@@ -1,0 +1,4 @@
+LockHandler
+===========
+
+(TODO da tradurre...)

@@ -16,30 +16,30 @@ immediatamente a sviluppare.
 
 .. _installing-a-symfony2-distribution:
 
-Scaricare una distribuzione Symfony2
-------------------------------------
+Scaricare una distribuzione Symfony
+-----------------------------------
 
 .. tip::
 
     Verificare innanzitutto di avere un server web (come Apache) installato
-    e funzionante con PHP. Per ulteriori informazioni sui requisiti di Symfony2,
+    e funzionante con PHP. Per ulteriori informazioni sui requisiti di Symfony,
     si veda il :doc:`riferimento sui requisiti </reference/requirements>`.
 
-Symfony2 ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
-includono le librerie del nucleo di Symfony2, una selezione di bundle utili e alcune
-configurazioni predefinite. Scaricando una distribuzione di Symfony2, si ottiene uno
+Symfony ha dei pacchetti con delle "distribuzioni", che sono applicazioni funzionanti che
+includono le librerie del nucleo di Symfony, una selezione di bundle utili e alcune
+configurazioni predefinite. Scaricando una distribuzione di Symfony, si ottiene uno
 scheletro di un'applicazione funzionante, che può essere subito usata per sviluppare
 la propria applicazione.
 
-Si può iniziare visitando la pagina di scaricamento di Symfony2, `http://symfony.com/download`_.
+Si può iniziare visitando la pagina di scaricamento di Symfony, `http://symfony.com/download`_.
 Su questa pagina, si vedrà la *Symfony Standard Edition*, che è la distribuzione
-principale di Symfony2. Si possono fare due scelte:
+principale di Symfony. Si possono fare due scelte:
 
 Opzione 1) Composer
 ~~~~~~~~~~~~~~~~~~~
 
 `Composer`_ è una libreria di gestione delle dipendenze per PHP, utilizzabile per
-scaricare Symfony2 Standard Edition.
+scaricare Symfony Standard Edition.
 
 Iniziare con lo `scaricare Composer`_ sul proprio computer. Se si ha
 curl installato, è facile:
@@ -59,7 +59,7 @@ Standard:
 
 .. code-block:: bash
 
-    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony 2.4.*
+    $ php composer.phar create-project symfony/framework-standard-edition /percorso/web/Symfony '~2.6'
 
 .. tip::
 
@@ -112,10 +112,10 @@ uno dei seguenti comandi (sostituire ``###`` con il vero nome del file):
 .. code-block:: bash
 
     # per il file .tgz
-    $ tar zxvf Symfony_Standard_Vendors_2.3.###.tgz
+    $ tar zxvf Symfony_Standard_Vendors_2.6.###.tgz
 
     # per il file .zip
-    $ unzip Symfony_Standard_Vendors_2.3.###.zip
+    $ unzip Symfony_Standard_Vendors_2.6.###.zip
 
 Se si è optato per la versione senza venditori, occorerà leggere la 
 prossima sezione.
@@ -127,7 +127,7 @@ prossima sezione.
     informazioni.
 
 Tutti i file pubblici e il front controller, che gestisce le richieste in arrivo in
-un'applicazione Symfony2, si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
+un'applicazione Symfony, si trovano nella cartella ``Symfony/web/``. Quindi, ipotizzando
 di aver decompresso l'archivio nella cartella radice del server web o di un host virtuale,
 gli URL dell'applicazione inizieranno con ``http://localhost/Symfony/web/``.
 
@@ -210,8 +210,8 @@ A questo punto, tutte le librerie di terze parti necessarie sono nella
 cartella ``vendor/``. Si dispone anche una configurazione predefinita dell'applicazione
 in ``app/`` e un po' di codice di esempio in ``src/``.
 
-Symfony2 dispone di uno strumento visuale per la verifica della configurazione del server,
-per assicurarsi che il server web e PHP siano configurati per usare Symfony2. Usare il
+Symfony dispone di uno strumento visuale per la verifica della configurazione del server,
+per assicurarsi che il server web e PHP siano configurati per usare Symfony. Usare il
 seguente URL per la verifica della configurazione:
 
 .. code-block:: text
@@ -290,13 +290,13 @@ Se ci sono problemi, correggerli prima di proseguire.
     e Group).
 
 Quando tutto è a posto, cliccare su "Go to the Welcome page" per accedere alla
-prima "vera" pagina di Symfony2:
+prima "vera" pagina di Symfony:
 
 .. code-block:: text
 
     http://localhost/app_dev.php/
 
-Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto finora!
+Symfony dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto finora!
 
 .. image:: /images/quick_tour/welcome.png
 
@@ -315,7 +315,7 @@ Symfony2 dovrebbe dare il suo benvenuto e congratularsi per il lavoro svolto fin
 Iniziare lo sviluppo
 --------------------
 
-Ora che si dispone di un'applicazione Symfony2 pienamente funzionante, si può iniziare
+Ora che si dispone di un'applicazione Symfony pienamente funzionante, si può iniziare
 lo sviluppo. La distribuzione potrebbe contenere del codice di esempio, verificare il file
 ``README.md`` incluso nella distribuzione (aprendolo come file di testo) per sapere
 quale codice di esempio è incluso nella distribuzione scelta.

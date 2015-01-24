@@ -19,6 +19,7 @@ Configurazione
 * `http_method_override`_
 * `ide`_
 * `test`_
+* `default_locale`_
 * `trusted_proxies`_
 * `csrf_protection`_
     * enabled
@@ -48,6 +49,19 @@ Configurazione
 * `profiler`_
     * `collect`_
     * :ref:`enabled <profiler.enabled>`
+* `translator`_
+    * :ref:`enabled <translator.enabled>`
+    * `fallback`_
+    * `logging`_
+* `property_accessor`_
+    * `magic_call`_
+    * `throw_exception_on_invalid_index`_
+* `validation`_
+    * `cache`_
+    * `enable_annotations`_
+    * `translation_domain`_
+    * `strict_email`_
+    * `api`_
 
 secret
 ~~~~~~
@@ -146,6 +160,17 @@ Questa impostazione dovrebbe essere presente in ambiente ``test`` (solitamente
 tramite ``app/config/config_test.yml``). Per maggiori informazioni, vedere :doc:`/book/testing`.
 
 .. _reference-framework-trusted-proxies:
+
+default_locale
+~~~~~~~~~~~~~~
+
+**tipo**: ``stringa`` **predefinito**: ``en``
+
+Opzione usata se il parametro ``_locale`` non è stato impostato nelle rotte. 
+Diventa il parametro del contenitore dei servizi ``kernel.default_locale`` ed è
+anche disponibile con il metodo
+:method:`Request::getDefaultLocale <Symfony\\Component\\HttpFoundation\\Request::getDefaultLocale>`.
+
 
 trusted_proxies
 ~~~~~~~~~~~~~~~
@@ -346,7 +371,7 @@ assets_base_urls
 
 Questa opzione consente di definire URL di base da usare per i riferimenti alle risorse
 nelle pagine ``http`` e ``https``. Si può fornire un valore stringa al posto di un
-array a elementi singoli. Se si forniscono più URL base, Symfony2 ne sceglierà una
+array a elementi singoli. Se si forniscono più URL base, Symfony ne sceglierà una
 dall'elenco ogni volta che genera il percorso di una risorsa.
 
 Per praticità, ``assets_base_urls`` può essere impostata direttamente con una stringa
@@ -473,18 +498,25 @@ profiler
 enabled
 .......
 
-**predefinito**: ``true`` negli ambienti ``dev`` e ``test``
+.. versionadded:: 2.2
+    L'opzione ``enabled`` è stata aggiunta in Symfony 2.2. Precedentemente il profilatore
+    poteva essere disabilitato solamente omettendo interamente la configurazione
+    ``framework.profiler``.
 
-Il profiler può essere disabilitato impostando questa chiave a ``false``.
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Il profilatore può essere abilitato impostando questa chiave a ``true``. Se si
+usa Symfony Standard Edition, il profilatore è abilitato in ambiente ``dev``
+e ``test``.
+
+collect
+.......
 
 .. versionadded:: 2.3
     L'opzione ``collect`` è nuova in Symfony 2.3. Precedentemente, quando
     ``profiler.enabled``  era ``false``, il profilatore *era* effettivamente attivo,
     ma i raccoglitori disabilitati. Ora profilatore e raccoglitori sono
     controllabili separatamente.
-
-collect
-.......
 
 **predefinito**: ``true``
 
@@ -494,6 +526,127 @@ informazioni solo in casi specifici, impostare ``collect`` a ``false``
 e attivare i raccoglitori di dati manualmente::
 
     $profiler->enable();
+
+translator
+~~~~~~~~~~
+
+.. _translator.enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se abilitare o meno il servizio ``translator`` nel contenitore.
+
+fallback
+........
+
+**predefinito**: ``en``
+
+Opzione usata quando non viene trovata la chiave di traduzione del locale corrente.
+
+Per maggiori dettagli, vedere :doc:`/book/translation`.
+
+.. _reference-framework-translator-logging:
+
+logging
+.......
+
+.. versionadded:: 2.6
+    L'opzione ``logging`` è stata introdotta in Symfony 2.6.
+
+**predefinito**: ``true`` in modalità di debug, ``false`` altrimenti.
+
+Se ``true``, ogni volta che il traduttore non trova una traduzione per una chiave, la
+salverà nel log. I log sono scritti sul canale ``translation`` e su
+``debug`` per livelli per chiavi in cui ci sia una traduzione nel locale predefinito
+e a livello ``warning`` se non c'è alcuna traduzione utilizzabile.
+
+property_accessor
+~~~~~~~~~~~~~~~~~
+
+magic_call
+..........
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se abilitato, il servizio ``property_accessor`` usa il metodo
+:ref:`magico __call() di PHP <components-property-access-magic-call>` quando
+viene richiamato il metodo ``getValue()``.
+
+throw_exception_on_invalid_index
+................................
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se abilitato, il servizio ``property_accessor`` lancerà un'eccezione se si
+prova ad accedere a un indice non valido di un array.
+
+validation
+~~~~~~~~~~
+
+cache
+.....
+
+**tipo**: ``stringa``
+
+Questo valore è usato per deterimnare il servizio utilizzato per persistere i metadati di classe in una cache. Il
+servizio deve implementare :class:`Symfony\\Component\\Validator\\Mapping\\Cache\\CacheInterface`.
+
+enable_annotations
+..................
+
+**tipo**: ``Booleano`` **predefinito**: ``false``
+
+Se questa opzione è abilitata, si possone definire vincoli di validazione tramite annotazioni.
+
+translation_domain
+..................
+
+**tipo**: ``stringa`` **predefinito**: ``validators``
+
+Il dominio di traduzione usato quando si traducono i messaggi di errore dei
+vincoli di validazione.
+
+strict_email
+............
+
+.. versionadded:: 2.5
+    L'opzione ``strict_email`` è stata introdotta in Symfony 2.5.
+
+**tipo**: ``Booleano`` **predefinito**: ``false``
+
+Se questa opzione è abilitati, sarà usata la libreria `egulias/email-validator`_ dal
+vincolo di validazione :doc:`/reference/constraints/Email`. Altrimenti,
+il validare usa una semplice espressione regolare per validare indirizzi email.
+
+api
+...
+
+.. versionadded:: 2.5
+    L'opzione ``api`` è stata introdotta in Symfony 2.5.
+
+**tipo**: ``stringa``
+
+A partire da Symfony 2.5, il componente Validator ha introdotto una nuova
+API di validazione. L'opzione ``api`` si usa per cambiare implementazione:
+
+``2.4``
+    Usa l'API di validazione compatibile con le vecchie versioni di Symfony.
+
+``2.5``
+    Usa l'API di validazione introdotta in Symfony 2.5.
+
+``2.5-bc`` or ``auto``
+    Se si omette un valore o si imposta ``api`` a ``2.5-bc`` o ``auto``,
+    Symfony userà un'API compatibile sia con la vecchia
+    implementazione che con quella ``2.5``. Occorre usare
+    PHP 5.3.9 o successivi per poter usare questa implementazione.
+
+Per salvare i log in ambiente ``prod``, configurare un
+:doc:`gestore di canale </cookbook/logging/channels_handlers>` in ``config_prod.yml`` per il
+canale ``translation`` e impostare ``level`` a ``debug``.
 
 Configurazione predefinita completa
 -----------------------------------
@@ -612,6 +765,7 @@ Configurazione predefinita completa
             translator:
                 enabled:              false
                 fallback:             en
+                logging:              "%kernel.debug%"
 
             # configurazione della validazione
             validation:
@@ -628,3 +782,4 @@ Configurazione predefinita completa
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
 .. _`PhpStormOpener`: https://github.com/pinepain/PhpStormOpener
+.. _`egulias/email-validator`: https://github.com/egulias/EmailValidator

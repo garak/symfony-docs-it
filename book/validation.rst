@@ -8,7 +8,7 @@ La validazione è un compito molto comune nella applicazioni web. I dati inserit
 hanno bisogno di essere validati. I dati hanno bisogno di essere validati anche prima di
 essere inseriti in una base dati o passati a un servizio web.
 
-Symfony2 ha un componente `Validator`_ , che rende questo compito facile e trasparente.
+Symfony ha un componente `Validator`_ , che rende questo compito facile e trasparente.
 Questo componente è bastato sulle `specifiche di validazione
 JSR303 Bean`_. 
 
@@ -253,7 +253,7 @@ Per maggiori informazioni, vedere il capitolo sui :doc:`Form</book/forms>`.
 Configurazione
 --------------
 
-La validazione in Symfony2 è abilitata per configurazione predefinita, ma si devono
+La validazione in Symfony è abilitata per configurazione predefinita, ma si devono
 abilitare esplicitamente le annotazioni, se le si usano per specificare i vincoli:
 
 .. configuration-block::
@@ -272,7 +272,7 @@ abilitare esplicitamente le annotazioni, se le si usano per specificare i vincol
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+                                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
                 <framework:validation enable-annotations="true" />
@@ -302,14 +302,14 @@ rispettive classi e quindi passarli al servizio ``validator``.
 
 Dietro le quinte, un vincolo è semplicemente un oggetto PHP che esegue un'istruzione
 assertiva. Nella vita reale, un vincolo potrebbe essere "la torta non deve essere
-bruciata". In Symfony2, i vincoli sono simili: sono asserzioni sulla verità di una
+bruciata". In Symfony, i vincoli sono simili: sono asserzioni sulla verità di una
 condizione. Dato un valore, un vincolo dirà se tale valore sia aderente o meno alle
 regole del vincolo.
 
 Vincoli supportati
 ~~~~~~~~~~~~~~~~~~
 
-Symfony2 dispone di un gran numero dei vincoli più comunemente necessari:
+Symfony dispone di un gran numero dei vincoli più comunemente necessari:
 
 .. include:: /reference/constraints/map.rst.inc
 
@@ -812,14 +812,17 @@ si registra che quando aggiorna successivamente le sue informazioni:
 
 Con questa configurazione, ci sono tre gruppi di validazione:
 
-* ``Default`` - contiene i vincoli, nella classe corrente e in tutte le
-  classi referenziate, che non appartengono ad altri gruppi;
+``Default``
+    Contiene i vincoli, nella classe corrente e in tutte le
+    classi referenziate, che non appartengono ad altri gruppi.
 
-* ``User`` - equivalente a tutti i i vincoli dell'oggetto ``User`` nel
-  gruppo ``Default``;
+``User``
+    Equivalente a tutti i i vincoli dell'oggetto ``User`` nel gruppo ``Default``.
+    È sempre il nome della classe. La differenza tra questo
+    e ``Default`` è spiegato più avanti.
 
-* ``registration`` - contiene solo i vincoli sui campi ``email`` e
-  ``password``.
+``registration``
+    Contiene solo i vincoli sui campi ``email`` e ``password``.
 
 Per dire al validatore di usare uno specifico gruppo, passare uno o più nomi di
 gruppo come secondo parametro del metodo ``validate()``::
@@ -1233,7 +1236,7 @@ il messaggio di errore nel suo metodo ``getMessage``.
 Considerazioni finali
 ---------------------
 
-``validator`` di Symfony2 è uno strumento potente, che può essere sfruttato per
+``validator`` di Symfony è uno strumento potente, che può essere sfruttato per
 garantire che i dati di qualsiasi oggetto siano validi. La potenza dietro alla
 validazione risiede nei "vincoli", che sono regole da applicare alle proprietà o
 ai metodi getter del proprio oggetto. Sebbene la maggior parte delle volte si userà il

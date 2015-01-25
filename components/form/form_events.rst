@@ -61,15 +61,13 @@ L'evento ``FormEvents::PRE_SET_DATA`` è distribuito all'inizio del metodo
 
 :ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
 
-+-------------------+------------+
-| **Tipo di dati**  | **Valore** |
-+-------------------+------------+
-| Dati modello      | ``null``   |
-+-------------------+------------+
-| Dati normalizzati | ``null``   |
-+-------------------+------------+
-| Dati vista        | ``null``   |
-+-------------------+------------+
+================= ========
+Tipo di dati      Valore
+================= ========
+Dati modello      ``null``
+Dati normalizzati ``null``
+Dati vista        ``null``
+================= ========
 
 .. caution::
 
@@ -98,15 +96,13 @@ il form.
 
 :ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
 
-+-------------------+------------------------------------------------------+
-| **Tipo di dati**  | **Valore**                                           |
-+-------------------+------------------------------------------------------+
-| Dati modello      | Model data injected into ``setData()``               |
-+-------------------+------------------------------------------------------+
-| Dati normalizzati | Model data transformed using a model transformer     |
-+-------------------+------------------------------------------------------+
-| Dati vista        | Normalized data transformed using a view transformer |
-+-------------------+------------------------------------------------------+
+=================  ============================================================
+Tipo di dati       Valore
+=================  ============================================================
+Dati modello       Dati del modello iniettati in ``setData()``
+Dati normalizzati  Dati del modello trasformati con un trasformatore di modello
+Dati vista         Dati normalizzati trasformati con un trasformatore di vista
+=================  ============================================================
 
 .. sidebar:: ``FormEvents::POST_SET_DATA`` nel componente Form
 
@@ -140,15 +136,13 @@ Può essere usato per:
 
 :ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
 
-+-------------------+---------------------------------------+
-| **Tipo di dati**  | **Valore**                            |
-+-------------------+---------------------------------------+
-| Dati modello      | Come in ``FormEvents::POST_SET_DATA`` |
-+-------------------+---------------------------------------+
-| Dati normalizzati | Come in ``FormEvents::POST_SET_DATA`` |
-+-------------------+---------------------------------------+
-| Dati vista        | Come in ``FormEvents::POST_SET_DATA`` |
-+-------------------+---------------------------------------+
+=================  ========================================
+Tipo di dati     Valore
+=================  ========================================
+Dati modello      Come in ``FormEvents::POST_SET_DATA``
+Dati normalizzati Come in ``FormEvents::POST_SET_DATA``
+Dati vista        Come in ``FormEvents::POST_SET_DATA``
+=================  ========================================
 
 .. sidebar:: ``FormEvents::PRE_SUBMIT`` nel componente Form
 
@@ -170,15 +164,13 @@ Può essere usato per cambiare dati dalla rappresentazione normalizzata dei dati
 
 :ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
 
-+-------------------+---------------------------------------------------------------------+
-| **Tipo di dati**  | **Valore**                                                          |
-+-------------------+---------------------------------------------------------------------+
-| Dati modello      | Come in ``FormEvents::POST_SET_DATA``                               |
-+-------------------+---------------------------------------------------------------------+
-| Dati normalizzati | Dati ritrasformati dalla richiesta usando un trasformatore di vista |
-+-------------------+---------------------------------------------------------------------+
-| Dati vista        | Come in ``FormEvents::POST_SET_DATA``                               |
-+-------------------+---------------------------------------------------------------------+
+=================  ===================================================================
+Tipo di dati       Valore
+=================  ===================================================================
+Dati modello       Come in ``FormEvents::POST_SET_DATA``
+Dati normalizzati  Dati ritrasformati dalla richiesta usando un trasformatore di vista
+Dati vista         Come in ``FormEvents::POST_SET_DATA``
+=================  ===================================================================
 
 .. caution::
 
@@ -202,15 +194,13 @@ Può essere usato per recuperare dati dopo la denormalizzazione.
 
 :ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
 
-+-------------------+--------------------------------------------------------------------+
-| **Tipo di dati**  | **Valore**                                                         |
-+-------------------+--------------------------------------------------------------------+
-| Dati modello      | Dati normalizzati ritrasformati usando un trasformatore di modello |
-+-------------------+--------------------------------------------------------------------+
-| Dati normalizzati | Come in ``FormEvents::POST_SUBMIT``                                |
-+-------------------+--------------------------------------------------------------------+
-| Dati vista        | Dati normalizzati trasformati usando un trasformatore di vista     |
-+-------------------+--------------------------------------------------------------------+
+=================  ===================================================================
+Tipo di dati       Valore
+=================  ===================================================================
+Dati modello       Dati normalizzati ritrasformati usando un trasformatore di modello
+Dati normalizzati  Come in ``FormEvents::POST_SUBMIT``
+Dati vista         Dati normalizzati trasformati usando un trasformatore di vista
+=================  ===================================================================
 
 .. caution::
 
@@ -242,19 +232,15 @@ di processamento.
 
 .. _component-form-event-table:
 
-+--------------------+-------------------------------+-------------------+
-| **Nome**           | **Costante** ``FormEvents``   | **Dati evento**   |
-+--------------------+-------------------------------+-------------------+
-| form.pre_set_data  | ``FormEvents::PRE_SET_DATA``  | Dati modello      |
-+--------------------+-------------------------------+-------------------+
-| form.post_set_data | ``FormEvents::POST_SET_DATA`` | Dati modello      |
-+--------------------+-------------------------------+-------------------+
-| form.pre_bind      | ``FormEvents::PRE_SUBMIT``    | Dati richiesta    |
-+--------------------+-------------------------------+-------------------+
-| form.bind          | ``FormEvents::SUBMIT``        | Dati normalizzati |
-+--------------------+-------------------------------+-------------------+
-| form.post_bind     | ``FormEvents::POST_SUBMIT``   | Dati vista        |
-+--------------------+-------------------------------+-------------------+
+======================  =============================  ===============
+Nome                    Costante ``FormEvents``        Dati evento
+======================  =============================  ===============
+``form.pre_set_data``   ``FormEvents::PRE_SET_DATA``   Dati modello
+``form.post_set_data``  ``FormEvents::POST_SET_DATA``  Dati modello
+``form.pre_bind``       ``FormEvents::PRE_SUBMIT``     Dati richiesta
+``form.bind``           ``FormEvents::SUBMIT``         Dati normalizzati
+``form.post_bind``      ``FormEvents::POST_SUBMIT``    Dati vista
+======================  =============================  ===============
 
 .. versionadded:: 2.3
     Prima di Symfony 2.3, ``FormEvents::PRE_SUBMIT``, ``FormEvents::SUBMIT``
@@ -343,7 +329,7 @@ I sottoscrittori di eventi hanno vari usi:
 
     class AddEmailFieldListener implements EventSubscriberInterface
     {
-        public function getSubscribedEvents()
+        public static function getSubscribedEvents()
         {
             return array(
                 FormEvents::PRE_SET_DATA => 'onPreSetData',

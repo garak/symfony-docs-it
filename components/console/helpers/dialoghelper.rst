@@ -253,17 +253,22 @@ Testare un comando con un input atteso
 Se si vuole scrivere un test per un comando che si aspetta un qualche tipo di input
 da linea di omando, occorre sovrascrivere HelperSet usato dal comando::
 
+    use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Helper\DialogHelper;
     use Symfony\Component\Console\Helper\HelperSet;
+    use Symfony\Component\Console\Tester\CommandTester;
 
     // ...
     public function testExecute()
     {
         // ...
+        $application = new Application();
+        $application->add(new MyCommand());
+        $command = $application->find('my:command:name');
         $commandTester = new CommandTester($command);
 
         $dialog = $command->getHelper('dialog');
-        $dialog->setInputStream($this->getInputStream('Test\n')); 
+        $dialog->setInputStream($this->getInputStream("Test\n"));
         // Equivale all'inserimento di "Test" e pressione di ENTER
         // Se occorre una conferma, va bene anche "yes\n"
 
@@ -285,3 +290,8 @@ Impostando il flusso di input di ``DialogHelper``, si imita ciò che la
 console farebbe internamente con l'input dell'utente tramite cli. In questo modo,
 si può testare ogni interazione, anche complessa, passando un appropriato
 flusso di input.
+
+.. seealso::
+
+    Si possono trovare maggiori informazioni sui test dei comandi nella documentazione del
+    componente console, in :ref:`test dei comandi console <component-console-testing-commands>`.

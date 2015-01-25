@@ -314,31 +314,45 @@ La definizione esplicita di tutte le entità mappate è l'unica configurazione
 necessaria per l'ORM e ci sono diverse opzioni di configurazione controllabili.
 La mappatura dispone delle seguenti opzioni di configurazione:
 
-* ``type`` Uno tra ``annotation``, ``xml``, ``yml``, ``php`` o ``staticphp``.
-  Specifica quale di tipo di meta-dati usa la mappatura.
+type
+....
 
-* ``dir`` Percorso per la mappatura o per i file entità (a seconda del driver). Se
-  questo percorso è relativo, si assume sia relativo alla radice dei bundle. Funziona
-  solo se il nome della propria mappatura è il nome di un bundle. Se si vuole usare
-  questa opzione per specificare percorsi assoluti, si dovrebbe aggiungere al percorso
-  un prefisso con i parametri del kernel nel DIC (per esempio %kernel.root_dir%).
+Uno tra ``annotation``, ``xml``, ``yml``, ``php`` o ``staticphp``.
+Specifica quale di tipo di meta-dati usa la mappatura.
 
-* ``prefix`` Un prefisso comune di spazio dei nomi che tutte le entità di questa
-  mappatura condividono. Questo prefisso non deve essere in conflitto con i prefissi
-  di altre mappature definite, altrimenti alcune entità non saranno trovate da Doctrine.
-  Questa opzione ha come valore predefinito lo spazio dei nomi del bundle + ``Entity``,
-  per esempio per un bundle chiamato ``AcmeHelloBundle`` il prefisso sarebbe
-  ``Acme\HelloBundle\Entity``.
+dir
+...
 
-* ``alias`` Doctrine offre un modo per avere alias di spazi dei nomi con nomi più
-  corti e semplici, da usare nelle query DQL o per l'accesso al Repository. Quando
-  si usa un bundle, l'alias predefinito è il nome del bundle.
+Percorso per la mappatura o per i file entità (a seconda del driver). Se
+questo percorso è relativo, si assume sia relativo alla radice dei bundle. Funziona
+solo se il nome della propria mappatura è il nome di un bundle. Se si vuole usare
+questa opzione per specificare percorsi assoluti, si dovrebbe aggiungere al percorso
+un prefisso con i parametri del kernel nel DIC (per esempio %kernel.root_dir%).
 
-* ``is_bundle`` Questa opzione è un valore derivato da ``dir`` e ha ``true`` come
-  valore predefinito, se la cartella è fornita da una verifica con ``file_exists()``
-  che restituisca ``false``. È ``false`` se la verifica restituisce ``true``. In
-  questo caso, un percorso assoluto  è stato specificato e i file dei meta-dati sono
-  probabilmente in una cartella fuori da un bundle.
+prefix
+......
+
+Un prefisso comune di spazio dei nomi che tutte le entità di questa
+mappatura condividono. Questo prefisso non deve essere in conflitto con i prefissi
+di altre mappature definite, altrimenti alcune entità non saranno trovate da Doctrine.
+Questa opzione ha come valore predefinito lo spazio dei nomi del bundle + ``Entity``, per esempio
+per un bundle chiamato ``AcmeHelloBundle`` il prefisso sarebbe ``Acme\HelloBundle\Entity``.
+
+alias
+.....
+
+Doctrine offre un modo per avere alias di spazi dei nomi con nomi più
+corti e semplici, da usare nelle query DQL o per l'accesso al Repository. Quando
+si usa un bundle, l'alias predefinito è il nome del bundle.
+
+is_bundle
+.........
+
+Questa opzione è un valore derivato da ``dir`` e ha ``true`` come
+valore predefinito, se la cartella è fornita da una verifica con ``file_exists()``
+che restituisca ``false``. È ``false`` se la verifica restituisce ``true``. In
+questo caso, un percorso assoluto  è stato specificato e i file dei meta-dati sono
+probabilmente in una cartella fuori da un bundle.
 
 .. index::
     single: Configurazione; Doctrine DBAL

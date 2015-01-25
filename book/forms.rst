@@ -783,15 +783,9 @@ le altre funzioni?
     Rende eventuali errori globali per l'intero modulo
     (gli errori specifici dei campi vengono visualizzati accanto a ciascun campo);
 
-<<<<<<< HEAD
-* ``form_row(form.dueDate)`` - Rende l'etichetta, eventuali errori e il widget
-  HTML del form per il dato campo (ad esempio ``dueDate``) all'interno, per impostazione predefinita, di
-  un elemento ``div``;
-=======
 ``form_row(form.dueDate)``
     Rende l'etichetta, eventuali errori e il widget HTML del form per il dato
     campo (p.e. ``dueDate``) all'interno, per impostazione predefinita, di un elemento ``div``;
->>>>>>> 2.6
 
 La maggior parte del lavoro viene fatto dall'helper ``form_row``, che rende
 l'etichetta, gli errori e i widget HTML del form di ogni campo all'interno di un tag ``div``

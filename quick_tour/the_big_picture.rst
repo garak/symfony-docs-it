@@ -24,7 +24,7 @@ Installare Symfony
 ------------------
 
 In passato, Symfony andava installato a mano su ogni nuovo progetto. Ora si può
-usare il **Symfony Installer**, che deve essere installato solo la prima volta che
+usare l'**installatore di Symfony**, che deve essere installato solo la prima volta che
 si usa Symfony su una macchina.
 
 Su sistemi **Linux** e **Mac OS X**, eseguire i seguenti comandi da console:
@@ -46,7 +46,7 @@ Su sistemi **Linux** e **Mac OS X**, eseguire i seguenti comandi da console:
         $ sudo mv symfony.phar /usr/local/bin/symfony
         $ chmod a+x /usr/local/bin/symfony
 
-Dopo aver installato Symfony Installer, aprire una nuova console, per poter
+Dopo aver installato l'installatore di Symfony, aprire una nuova console, per poter
 eseguire il nuovo comando ``symfony``:
 
 .. code-block:: bash
@@ -59,8 +59,8 @@ Su sistemi **Windows**, eseguire il seguente comando da console:
 
     c:\> php -r "readfile('http://symfony.com/installer');" > symfony.phar
 
-Questo comando scarica un file chiamato ``symfony.phar``, che contiene Symfony
-Installer. Salvare o spostare il file nella cartella in cui si vogliono creare i progetti Symfony
+Questo comando scarica un file chiamato ``symfony.phar``, che contiene l'installatore di Symfony.
+Salvare o spostare il file nella cartella in cui si vogliono creare i progetti Symfony
 ed eseguire Symfony Installer, con questo comando:
 
 .. code-block:: bash
@@ -70,7 +70,7 @@ ed eseguire Symfony Installer, con questo comando:
 Creare il primo progetto Symfony
 --------------------------------
 
-Una volta pronto Symfony Installer, usare il comando ``new`` per creare nuovi progetti
+Una volta pronto l'installatore di Symfony, usare il comando ``new`` per creare nuovi progetti
 Symfony. Creiamo un progetto chiamato ``mioprogetto``:
 
 .. code-block:: bash
@@ -154,7 +154,7 @@ Azioni e controllori
 ~~~~~~~~~~~~~~~~~~~~
 
 Aprendo il file ``src/AppBundle/Controller/DefaultController.php``, si vedrà il
-codice seguetne (per ora, non far caso alla configurazione ``@Route``, sarà
+codice seguente (per ora, non far caso alla configurazione ``@Route``, sarà
 spiegata nella prossima sezione)::
 
     namespace AppBundle\Controller;

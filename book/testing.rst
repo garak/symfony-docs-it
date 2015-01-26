@@ -558,7 +558,8 @@ metodi, perché ogni metodo restituisce una nuova istanza di Crawler per i nodi 
                 return false;
             }
         })
-        ->first();
+        ->first()
+    ;
 
 .. tip::
 
@@ -720,8 +721,10 @@ in ambiente ``test``. Lo si può vedere sotto l'opzione di configurazione
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/swiftmailer
+                http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd">
 
             <!-- ... -->
             <swiftmailer:config disable-delivery="true" />
@@ -783,9 +786,10 @@ macchina locale.
     Inserire il file ``phpunit.xml.dist`` nel repository e ignorare il
     file ``phpunit.xml``.
 
-Per impostazione predefinita, solo i test memorizzati nei bundle "standard" sono eseguiti
-dal comando ``phpunit`` (per "standard" si intendono i test nelle cartelle
-``src/*/Bundle/Tests`` o ``src/*/Bundle/*Bundle/Tests``).
+Per impostazione predefinita, solo i test memorizzati nei bundle memorizzati in cartelle
+standard ``src/*/*Bundle/Tests``, ``src/*/Bundle/*Bundle/Tests``,
+``src/*Bundle/Tests`` sono eseguiti dal comando ``phpunit``, come configurato
+nel file ``app/phpunit.xml.dist``:
 
 .. code-block:: xml
 
@@ -796,12 +800,13 @@ dal comando ``phpunit`` (per "standard" si intendono i test nelle cartelle
             <testsuite name="Project Test Suite">
                 <directory>../src/*/*Bundle/Tests</directory>
                 <directory>../src/*/Bundle/*Bundle/Tests</directory>
+                <directory>../src/*Bundle/Tests</directory>
             </testsuite>
         </testsuites>
         <!-- ... -->
     </phpunit>
 
-Ma si possono facilmente aggiungere altri spazi dei nomi. Per esempio,
+Ma si possono facilmente aggiungere altre cartelle. Per esempio,
 la configurazione seguente aggiunge i test per la cartella ``lib/tests``:
 
 .. code-block:: xml

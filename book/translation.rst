@@ -68,8 +68,10 @@ abilitare ``translator`` nella configurazione:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
                 <framework:translator fallback="en" />
@@ -366,7 +368,8 @@ fornisce i seguenti caricatori:
 * ``yml``:  file YAML.
 
 La scelta di quali caricatori utilizzare è interamente a carico dello sviluppatore ed è una questione
-di gusti.
+di gusti. L'opzione raccomandata è l'uso di ``xliff`` per le  traduzioni.
+Per ulteriori opzioni, vedere :ref:`component-translator-message-catalogs`.
 
 .. note::
 
@@ -454,7 +457,7 @@ supportato dal sistema delle rotte utilizzando il parametro speciale ``_locale``
         # app/config/routing.yml
         contact:
             path:     /{_locale}/contact
-            defaults: { _controller: AcmeDemoBundle:Contact:index }
+            defaults: { _controller: AppBundle:Contact:index }
             requirements:
                 _locale: en|fr|de
 
@@ -468,7 +471,7 @@ supportato dal sistema delle rotte utilizzando il parametro speciale ``_locale``
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="contact" path="/{_locale}/contact">
-                <default key="_controller">AcmeDemoBundle:Contact:index</default>
+                <default key="_controller">AppBundle:Contact:index</default>
                 <requirement key="_locale">en|fr|de</requirement>
             </route>
         </routes>
@@ -483,7 +486,7 @@ supportato dal sistema delle rotte utilizzando il parametro speciale ``_locale``
         $collection->add('contact', new Route(
             '/{_locale}/contact',
             array(
-                '_controller' => 'AcmeDemoBundle:Contact:index',
+                '_controller' => 'AppBundle:Contact:index',
             ),
             array(
                 '_locale'     => 'en|fr|de',
@@ -501,6 +504,11 @@ come locale per la richiesta corrente.
 
 È ora possibile utilizzare il locale dell'utente per creare rotte ad altre pagine tradotte
 nell'applicazione.
+
+.. tip::
+
+    Leggere :doc:`/cookbook/routing/service_container_parameters` per imparare come
+    evitare di inserire manualmente il requisito ``_locale`` in ogni rotta.
 
 Impostare un locale predefinito
 -------------------------------
@@ -524,8 +532,10 @@ il framework:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config default-locale="en" />
         </container>
@@ -568,17 +578,9 @@ non sia vuota, aggiungere il seguente:
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                name:
-                    - NotBlank: { message: "author.name.not_blank" }
-
     .. code-block:: php-annotations
 
-        // src/Acme/BlogBundle/Entity/Author.php
+        // src/AppBundle/Entity/Author.php
         use Symfony\Component\Validator\Constraints as Assert;
 
         class Author
@@ -589,15 +591,24 @@ non sia vuota, aggiungere il seguente:
             public $name;
         }
 
+    .. code-block:: yaml
+
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Author:
+            properties:
+                name:
+                    - NotBlank: { message: "author.name.not_blank" }
+
     .. code-block:: xml
 
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <!-- src/AppBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="Acme\BlogBundle\Entity\Author">
+            <class name="AppBundle\Entity\Author">
                 <property name="name">
                     <constraint name="NotBlank">
                         <option name="message">author.name.not_blank</option>
@@ -608,7 +619,7 @@ non sia vuota, aggiungere il seguente:
 
     .. code-block:: php
 
-        // src/Acme/BlogBundle/Entity/Author.php
+        // src/AppBundle/Entity/Author.php
 
         // ...
         use Symfony\Component\Validator\Mapping\ClassMetadata;

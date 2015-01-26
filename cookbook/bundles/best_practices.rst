@@ -67,7 +67,7 @@ nome della classe.
 
 .. note::
 
-    I bundle del nucleo di Symfony2 non hanno il prefisso ``Symfony`` e
+    I bundle del nucleo di Symfony non hanno il prefisso ``Symfony`` e
     hanno sempre un sotto-spazio dei nomi ``Bundle``; per esempio:
     :class:`Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle`.
 
@@ -80,8 +80,7 @@ d'utilizzo).
 Struttura della cartella
 ------------------------
 
-La struttura di base delle cartella di un bundle ``HelloBundle`` deve essere come
-segue:
+La struttura di base delle cartella di un bundle HelloBundle deve essere come segue:
 
 .. code-block:: text
 
@@ -160,8 +159,7 @@ Per esempio, un controllore ``HelloController`` è posto in
 ``Bundle/HelloBundle/Controller/HelloController.php`` e il nome pienamente qualificato
 della classe è ``Bundle\HelloBundle\Controller\HelloController``.
 
-Tutte le classi e i file devono seguire gli :doc:`standard di codice
-</contributing/code/standards>` di Symfony2.
+Tutte le classi e i file devono seguire gli :doc:`standard di codice </contributing/code/standards>` di Symfony.
 
 Alcune classi vanno viste solo come facciate e devono essere più corte possibile, come
 comandi, helper, ascoltatori e controllori.
@@ -175,7 +173,7 @@ Venditori
 ---------
 
 Un bundle non deve includere librerie PHP di terze parti. Deve invece appoggiarsi
-all'auto-caricamento standard di Symfony2.
+all'auto-caricamento standard di Symfony.
 
 Un bundle non dovrebbe includere librerie di terze parti scritte in JavaScript, CSS o
 altro linguaggio.
@@ -291,10 +289,10 @@ Configurazione
 --------------
 
 Per fornire maggiore flessibilità, un bundle può fornire impostazioni configurabili,
-usando i meccanismi di Symfony2.
+usando i meccanismi di Symfony.
 
 Per semplici impostazioni di configurazione, appoggiarsi alla voce predefinita
-``parameters`` della configurazione di Symfony2. I parametri di Symfony2 sono semplici
+``parameters`` della configurazione di Symfony. I parametri di Symfony sono semplici
 coppie chiave/valore; un valore può essere un qualsiasi valore valido in PHP. Ogni nome di
 parametro dovrebbe iniziare con l'alias del bundle, anche se questo è solo un suggerimento.
 Gli altri nomi di parametri useranno un punto (``.``) per separare le varie parti (p.e.

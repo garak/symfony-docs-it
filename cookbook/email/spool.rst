@@ -38,7 +38,8 @@ Swiftmailer con l'opzione memory, usare la seguente configurazione:
 
         <!--
             xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            http://symfony.com/schema/dic/swiftmailer
+            http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config>
@@ -49,7 +50,7 @@ Swiftmailer con l'opzione memory, usare la seguente configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('swiftmailer', array(
-             ...,
+             // ...
             'spool' => array('type' => 'memory')
         ));
 
@@ -75,7 +76,8 @@ Per usare lo spool con un file, usare la seguente configurazione:
 
         <!--
             xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            http://symfony.com/schema/dic/swiftmailer
+            http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config>

@@ -136,13 +136,13 @@ Può essere usato per:
 
 :ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
 
-=================  ========================================
-Tipo di dati     Valore
-=================  ========================================
-Dati modello      Come in ``FormEvents::POST_SET_DATA``
-Dati normalizzati Come in ``FormEvents::POST_SET_DATA``
-Dati vista        Come in ``FormEvents::POST_SET_DATA``
-=================  ========================================
+=================  =======================================
+Tipo di dati       Valore
+=================  =======================================
+Dati modello       Come in ``FormEvents::POST_SET_DATA``
+Dati normalizzati  Come in ``FormEvents::POST_SET_DATA``
+Dati vista         Come in ``FormEvents::POST_SET_DATA``
+=================  =======================================
 
 .. sidebar:: ``FormEvents::PRE_SUBMIT`` nel componente Form
 

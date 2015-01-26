@@ -154,7 +154,7 @@ Azioni e controllori
 ~~~~~~~~~~~~~~~~~~~~
 
 Aprendo il file ``src/AppBundle/Controller/DefaultController.php``, si vedrà il
-codice seguetne (per ora, non far caso alla configurazione ``@Route``, sarà
+codice seguente (per ora, non far caso alla configurazione ``@Route``, sarà
 spiegata nella prossima sezione)::
 
     namespace AppBundle\Controller;

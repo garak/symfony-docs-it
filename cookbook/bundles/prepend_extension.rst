@@ -68,9 +68,10 @@ nel caso in cui un altro specifico bundle non sia registrato::
                 switch ($name) {
                     case 'acme_something':
                     case 'acme_other':
-                        // imposta use_acme_goodbye a false nella configurazione di acme_something e acme_other
-                        // notaree che se l'utente configura a mano use_acme_goodbye a true in
-                        // app/config/config.yml, l'impostazione finale sarà true e non false
+                        // imposta use_acme_goodbye a false nella configurazione di
+                        // acme_something e acme_other. Notare che se l'utente configura a mano
+                        // use_acme_goodbye a true in app/config/config.yml,
+                        // l'impostazione finale sarà true e non false
                         $container->prependExtensionConfig($name, $config);
                         break;
                 }
@@ -79,10 +80,11 @@ nel caso in cui un altro specifico bundle non sia registrato::
 
         // processa la configurazione di AcmeHelloExtension
         $configs = $container->getExtensionConfig($this->getAlias());
-        // usa la classe Configuration per generare un array di configurazione con le impostazioni ``acme_hello``
+        // usa la classe Configuration per generare un array di configurazione con
+        // le impostazioni "acme_hello"
         $config = $this->processConfiguration(new Configuration(), $configs);
 
-        // verifica se entity_manager_name sia impostato nella configurazione ``acme_hello``
+        // verifica se entity_manager_name sia impostato nella configurazione "acme_hello"
         if (isset($config['entity_manager_name'])) {
             // prepende le impostazioni acme_something con entity_manager_name
             $config = array('entity_manager_name' => $config['entity_manager_name']);
@@ -121,11 +123,11 @@ per ``acme_hello`` sia impostata a ``non_default``:
 
         // app/config/config.php
         $container->loadFromExtension('acme_something', array(
-            ...,
+            // ...
             'use_acme_goodbye' => false,
             'entity_manager_name' => 'non_default',
         ));
         $container->loadFromExtension('acme_other', array(
-            ...,
+            // ...
             'use_acme_goodbye' => false,
         ));

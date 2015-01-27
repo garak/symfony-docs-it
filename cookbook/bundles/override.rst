@@ -136,7 +136,7 @@ i vincoli in un nuovo gruppo di validazione:
     .. code-block:: yaml
 
         # src/Acme/UserBundle/Resources/config/validation.yml
-        Fos\UserBundle\Model\User:
+        FOS\UserBundle\Model\User:
             properties:
                 plainPassword:
                     - NotBlank:
@@ -152,10 +152,17 @@ i vincoli in un nuovo gruppo di validazione:
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="Fos\UserBundle\Model\User">
-                <property name="password">
+            <class name="FOS\UserBundle\Model\User">
+                <property name="plainPassword">
+                    <constraint name="NotBlank">
+                        <option name="groups">
+                            <value>AcmeValidation</value>
+                        </option>
+                    </constraint>
+
                     <constraint name="Length">
                         <option name="min">6</option>
                         <option name="minMessage">fos_user.password.short</option>

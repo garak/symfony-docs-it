@@ -877,7 +877,10 @@ metodo HTTP ``PURGE``::
             }
 
             if ('127.0.0.1' !== $request->getClientIp()) {
-                return new Response('Invalid HTTP method', Response::HTTP_BAD_REQUEST);
+                return new Response(
+                    'Invalid HTTP method',
+                    Response::HTTP_BAD_REQUEST
+                );
             }
 
             $response = new Response();
@@ -987,8 +990,10 @@ Per usare ESI, assicurarsi prima di tutto di abilitarlo nella configurazione del
         <container xmlns="http://symfony.com/schema/dic/symfony"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:framework="http://symfony.com/schema/dic/symfony"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
                 <!-- ... -->
@@ -1115,8 +1120,10 @@ che va abilitato nella configurazione:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:doctrine="http://symfony.com/schema/dic/framework"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                http://symfony.com/schema/dic/symfony http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/symfony
+                http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <!-- ... -->
             <framework:config>

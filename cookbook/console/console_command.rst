@@ -33,8 +33,17 @@ estendere AcmeDemoBundle, per mandare un saluto dalla linea di comando, creare
             $this
                 ->setName('demo:greet')
                 ->setDescription('Saluta qualcuno')
-                ->addArgument('name', InputArgument::OPTIONAL, 'Chi vuoi salutare?')
-                ->addOption('yell', null, InputOption::VALUE_NONE, 'Se impostato, urlerà in lettere maiuscole')
+                ->addArgument(
+                    'name',
+                    InputArgument::OPTIONAL,
+                    'Chi vuoi salutare?'
+                )
+                ->addOption(
+                    'yell',
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Se impostato, urlerà in lettere maiuscole'
+                )
             ;
         }
 
@@ -94,7 +103,9 @@ alcuni contenuti, usando un comando di console::
         $name = $input->getArgument('name');
         $translator = $this->getContainer()->get('translator');
         if ($name) {
-            $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
+            $output->writeln(
+                $translator->trans('Hello %name%!', array('%name%' => $name))
+            );
         } else {
             $output->writeln($translator->trans('Hello!'));
         }
@@ -128,7 +139,9 @@ prima di tradurre::
         $translator->setLocale($locale);
 
         if ($name) {
-            $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
+            $output->writeln(
+                $translator->trans('Hello %name%!', array('%name%' => $name))
+            );
         } else {
             $output->writeln($translator->trans('Hello!'));
         }
@@ -147,7 +160,7 @@ al posto di
 
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
-    use Acme\DemoBundle\Command\GreetCommand;
+    use AppBundle\Command\GreetCommand;
 
     class ListCommandTest extends \PHPUnit_Framework_TestCase
     {
@@ -186,7 +199,7 @@ si può estendere il test da
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
     use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-    use Acme\DemoBundle\Command\GreetCommand;
+    use AppBundle\Command\GreetCommand;
 
     class ListCommandTest extends WebTestCase
     {

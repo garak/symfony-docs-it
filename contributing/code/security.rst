@@ -2,8 +2,8 @@ Problemi di sicurezza
 =====================
 
 Questo documento spiega la gestione da parte della squadra di Symfony  dei problemi di sicurezza
-di Symfony (in cui "Symfony" è il codice ospitato nel `repository Git`_ ``symfony/symfony``).
-
+di Symfony (in cui "Symfony" è il codice ospitato nel `repository Git`_
+``symfony/symfony``).
 
 Segnalare un problema di sicurezza
 ----------------------------------
@@ -38,8 +38,6 @@ confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi pas
 #. Pubblicare il post sul `blog`_ ufficiale di Symfony (va anche aggiunti alla
    categoria "`Security Advisories`_");
 #. Aggiornare la lista degli avvisi di sicurezza (vedere sotto).
-#. Aggiornare la `base dati degli avvisi di sicurezza`_ mantenuta dall'organizzazione
-   FriendsOfPHP e usata dal comando ``security:check``.
 
 .. note::
 
@@ -95,11 +93,6 @@ progetti a valle inclusi:
 Bollettini di sicurezza
 -----------------------
 
-.. tip::
-
-    Si può controllare un'applicazione Symfony riguardo a problemi di sicurezza
-    usando il comando ``security:check``. Vedere :ref:`book-security-checking-vulnerabilities`.
-
 Questa sezione elenca le vulnerabilità di sicurezza che sono state risolte in Symfony,
 partendo da Symfony 1.0.0:
 
@@ -129,4 +122,3 @@ partendo da Symfony 1.0.0:
 .. _repository Git:      https://github.com/symfony/symfony
 .. _blog:                http://symfony.com/blog/
 .. _Security Advisories: http://symfony.com/blog/category/security-advisories
-.. _`base dati degli avvisi di sicurezza`: https://github.com/FriendsOfPHP/security-advisories

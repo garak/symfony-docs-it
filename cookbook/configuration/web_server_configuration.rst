@@ -127,7 +127,22 @@ per passare richieste di file PHP a PHP FPM:
         ServerName dominio.tld
         ServerAlias www.dominio.tld
 
-        ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
+        # Scommentare la riga seguente per forzare Apache a passare l'header di autenticazione
+        # a PHP: necessario per "basic_auth" sotto PHP-FPM e FastCGI
+        #
+        # SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
+
+        # Per Apache 2.4.9 e successivi
+        # Usando SetHandler si evitano problemi con ProxyPassMatch in combinazione
+        # con mod_rewrite o mod_autoindex
+        <FilesMatch \.php$>
+            SetHandler proxy:fcgi://127.0.0.1:9000
+        </FilesMatch>
+        # Se si usa Apache prima di 2.4.9, si consideri di aggiorare o usare invece questo
+        # ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
+        # Se si fa girare l'applicazione Symfony in una sottocartella della document root,
+        # cambiare l'espressione regolare di conseguenza:
+        # ProxyPassMatch ^/percorso-app/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
 
         DocumentRoot /var/www/progetto/web
         <Directory /var/www/progetto/web>
@@ -139,16 +154,6 @@ per passare richieste di file PHP a PHP FPM:
         ErrorLog /var/log/apache2/project_error.log
         CustomLog /var/log/apache2/project_access.log combined
     </VirtualHost>
-
-.. caution::
-
-    Se si fa girare un'applicazione Symfony in una sottocartella della document root,
-    l'espressione regolare usata nella direttiva ``ProxyPassMatch`` deve cambiare
-    di conseguenza:
-
-    .. code-block:: apache
-
-        ProxyPassMatch ^/percorso-applicazione/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
 
 PHP-FPM con Apache 2.2
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -206,13 +211,27 @@ sono:
             # prova a servire direttamente i file, fallback su app.php
             try_files $uri /app.php$is_args$args;
         }
-
-        location ~ ^/(app|app_dev|config)\.php(/|$) {
+        # DEV
+        # Questa regola va messa solo in ambiente di sviluppo
+        # In produzione, non includerla e non eseguire deploy di app_dev.php né di config.php
+        location ~ ^/(app_dev|config)\.php(/|$) {
             fastcgi_pass unix:/var/run/php5-fpm.sock;
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             fastcgi_param HTTPS off;
+        }
+        # PROD
+        location ~ ^/app\.php(/|$) {
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_split_path_info ^(.+\.php)(/.*)$;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param HTTPS off;
+            # Previene URI che includono il front controller. Questa andrà in 404:
+            # http://dominio.tld/app.php/un-percorso
+            # Rimuovere la direttiva internal per consentire questi URI
+            internal;
         }
 
         error_log /var/log/nginx/project_error.log;

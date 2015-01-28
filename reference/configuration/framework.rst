@@ -52,10 +52,6 @@ Configurazione
 * `translator`_
     * :ref:`enabled <translator.enabled>`
     * `fallback`_
-    * `logging`_
-* `property_accessor`_
-    * `magic_call`_
-    * `throw_exception_on_invalid_index`_
 * `validation`_
     * `cache`_
     * `enable_annotations`_
@@ -551,41 +547,6 @@ Opzione usata quando non viene trovata la chiave di traduzione del locale corren
 
 Per maggiori dettagli, vedere :doc:`/book/translation`.
 
-.. _reference-framework-translator-logging:
-
-logging
-.......
-
-.. versionadded:: 2.6
-    L'opzione ``logging`` è stata introdotta in Symfony 2.6.
-
-**predefinito**: ``true`` in modalità di debug, ``false`` altrimenti.
-
-Se ``true``, ogni volta che il traduttore non trova una traduzione per una chiave, la
-salverà nel log. I log sono scritti sul canale ``translation`` e su
-``debug`` per livelli per chiavi in cui ci sia una traduzione nel locale predefinito
-e a livello ``warning`` se non c'è alcuna traduzione utilizzabile.
-
-property_accessor
-~~~~~~~~~~~~~~~~~
-
-magic_call
-..........
-
-**tipo**: ``booleano`` **predefinito**: ``false``
-
-Se abilitato, il servizio ``property_accessor`` usa il metodo
-:ref:`magico __call() di PHP <components-property-access-magic-call>` quando
-viene richiamato il metodo ``getValue()``.
-
-throw_exception_on_invalid_index
-................................
-
-**tipo**: ``booleano`` **predefinito**: ``false``
-
-Se abilitato, il servizio ``property_accessor`` lancerà un'eccezione se si
-prova ad accedere a un indice non valido di un array.
-
 validation
 ~~~~~~~~~~
 
@@ -646,10 +607,6 @@ API di validazione. L'opzione ``api`` si usa per cambiare implementazione:
     Symfony userà un'API compatibile sia con la vecchia
     implementazione che con quella ``2.5``. Occorre usare
     PHP 5.3.9 o successivi per poter usare questa implementazione.
-
-Per salvare i log in ambiente ``prod``, configurare un
-:doc:`gestore di canale </cookbook/logging/channels_handlers>` in ``config_prod.yml`` per il
-canale ``translation`` e impostare ``level`` a ``debug``.
 
 Configurazione predefinita completa
 -----------------------------------
@@ -768,7 +725,6 @@ Configurazione predefinita completa
             translator:
                 enabled:              false
                 fallback:             en
-                logging:              "%kernel.debug%"
 
             # configurazione della validazione
             validation:

@@ -107,9 +107,7 @@ parametro predefinito:
             <import resource="config.xml" />
         </imports>
 
-        <webprofiler:config
-            toolbar="true"
-            ... />
+        <webprofiler:config toolbar="true" />
 
     .. code-block:: php
 
@@ -212,6 +210,39 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     debug. Occorrerà abilitarla nel fron controller, richiamando
     :method:`Symfony\\Component\\Debug\\Debug::enable`.
 
+Scegliere l'ambiente per i comandi di console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+I comandi di Symfony sono eseguiti in ambiente ``dev`` e con la modalità di
+debug abilitata. Usaree le opzioni ``--env`` e ``--no-debug`` per modificare questo
+comportamento:
+
+.. code-block:: bash
+
+    # ambiente 'dev' e debug abilitato
+    $ php app/console command_name
+
+    # ambiente 'prod' (debug sempre disabilitato per 'prod')
+    $ php app/console command_name --env=prod
+
+    # ambiente 'test' e debug disabilitato
+    $ php app/console command_name --env=test --no-debug
+
+Oltre alle opzioni ``--env`` e ``--debug``, il comportamento dei comandi di Symfony
+può essere controllato tramite variabili d'ambiente. La console di Symfony
+verifica l'esistenza e il valore di queste variabili, prima di
+eseguire ogni comando:
+
+``SYMFONY_ENV``
+    Imposta l'ambiente di esecuzione dei comandi al valore di questa variabile
+    (``dev``, ``prod``, ``test``, ecc.);
+``SYMFONY_DEBUG``
+    Se ``0``, la modalità di debug è disabilitata. Altrimenti, è abilitata.
+
+Queste variabili d'ambiente sono molto utili su server di produzione, perché
+consentono di assicurarsi che i comandi girino sempre in ambiente ``prod``, senza dover
+specificare alcuna opzione.
+
 .. index::
    single: Ambienti; Creare un nuovo ambiente
 
@@ -276,7 +307,7 @@ necessario creare un apposito front controller. Basterà copiare il file ``web/a
 nel file ``web/app_benchmark.php`` e modificare l'ambiente in modo che punti a ``benchmark``::
 
     // web/app_benchmark.php
-
+    // ...
 
     // basta cambiare questa riga
     $kernel = new AppKernel('benchmark', false);

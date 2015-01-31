@@ -1246,8 +1246,6 @@ Symfony non creerà alcun cookie):
     Se si usa un form di login, Symfony creerà un cookie anche se si imposta
     ``stateless`` a ``true``.
 
-.. _book-security-checking-vulnerabilities:
-
 Considerazioni finali
 ---------------------
 

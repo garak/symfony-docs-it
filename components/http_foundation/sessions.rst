@@ -190,8 +190,12 @@ array, per esempio un insieme di token. In questo caso, gestire l'array diventa 
 perché di deve recuperare l'array e poi processarlo e memorizzarlo di
 nuovo::
 
-    $tokens = array('tokens' => array('a' => 'a6c1e0b6',
-                                      'b' => 'f4a7b1f3'));
+    $tokens = array(
+        'tokens' => array(
+            'a' => 'a6c1e0b6',
+            'b' => 'f4a7b1f3',
+        ),
+    );
 
 Quindi ogni processamento può rapidamente diventare brutto, persino la semplice aggiunta
 di un token all'array::

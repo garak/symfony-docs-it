@@ -383,6 +383,8 @@ in cache dati, eccetera). Questo ha due conseguenze molto ragionevoli:
   post di un blog). Metterli in cache impedirebbe ad alcune richieste di arrivare
   all'applicazione o di modificarla.
 
+.. _http-cache-defaults:
+
 Regole e valori predefiniti della cache
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

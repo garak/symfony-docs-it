@@ -30,11 +30,15 @@ per registrare ascoltatori di eventi e distribuire eventi::
     // registrare un ascoltatore di eventi
     $eventListener = ...;
     $priority = ...;
-    $traceableEventDispatcher->addListener('nome-evento', $eventListener, $priority);
+    $traceableEventDispatcher->addListener(
+        'evento.nome',
+        $eventListener,
+        $priority
+    );
 
     // distribuire un evento
     $event = ...;
-    $traceableEventDispatcher->dispatch('nome-evento', $event);
+    $traceableEventDispatcher->dispatch('evento.nome', $event);
 
 Dopo che un'applicazione è stata processata, si può usare il metodo
 :method:`Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcherInterface::getCalledListeners`

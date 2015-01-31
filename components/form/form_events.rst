@@ -26,7 +26,7 @@ a seconda dei valori della richiesta::
     };
 
     $form = $formFactory->createBuilder()
-        // agginge campi al form
+        // aggiunge campi al form
         ->addEventListener(FormEvents::PRE_SUBMIT, $listener);
 
     // ...
@@ -303,7 +303,10 @@ callback, per maggiore leggibilità::
         {
             $builder->add('username', 'text');
             $builder->add('show_email', 'checkbox');
-            $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
+            $builder->addEventListener(
+                FormEvents::PRE_SET_DATA,
+                array($this, 'onPreSetData')
+            );
         }
 
         public function onPreSetData(FormEvent $event)

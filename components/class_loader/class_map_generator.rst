@@ -115,7 +115,10 @@ lo stesso dell'esempio precedente)::
 
     use Symfony\Component\ClassLoader\ClassMapGenerator;
 
-    ClassMapGenerator::dump(array(__DIR__.'/library/pluto', __DIR__.'/library/pippo'), __DIR__.'/class_map.php');
+    ClassMapGenerator::dump(
+        array(__DIR__.'/library/pluto', __DIR__.'/library/pippo'),
+        __DIR__.'/class_map.php'
+    );
 
 .. _`PSR-0`: http://www.php-fig.org/psr/psr-0
 .. _`PSR-4`: http://www.php-fig.org/psr/psr-4

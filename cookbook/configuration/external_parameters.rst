@@ -98,14 +98,6 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
             )
         ));
 
-.. note::
-
-    Anche con debug attivo, se si crea o si cambia una variabile di ambiente,
-    è necessario pulire la cache per rendere il parametro disponibile.
-    Questo perché solo una modifica a un file di configurazione caricato 
-    da Symfony fa scattare una nuova valutazione della
-    configurazione stessa.
-
 Costanti
 --------
 

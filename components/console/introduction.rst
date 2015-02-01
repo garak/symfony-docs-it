@@ -431,9 +431,11 @@ array al metodo
 
             $comando = $application->find('demo:saluta');
             $testDelComando = new CommandTester($command);
-            $testDelComando->execute(
-                array('command' => $comando->getName(), 'name' => 'Fabien')
-            );
+            $testDelComando->execute(array(
+                'command'       => $comando->getName(),
+                'nome'          => 'Fabien',
+                '--ripetizioni' => 5,
+            ));
 
             $this->assertRegExp('/Fabien/', $testDelComando->getDisplay());
         }

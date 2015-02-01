@@ -790,12 +790,11 @@ Proteggere controllori e altro codice
 Si può negare accesso da dentro un controllore::
 
     // ...
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedException();
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
         }
 
         // ...
@@ -860,12 +859,11 @@ Finora, i controlli sugli accessi sono stati basati su ruoli, stringhe che inizi
 utente sia loggato (senza curarsi dei ruoli), si può usare ``IS_AUTHENTICATED_FULLY``::
 
     // ...
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw new AccessDeniedException();
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
         }
 
         // ...
@@ -891,6 +889,30 @@ speciali di questo tipo:
 * ``IS_AUTHENTICATED_ANONYMOUSLY``: Assegnato a *tutti* gli utenti (anche quelli anonimi).
   Utile per mettere URL in una *lista bianca* per garantire accesso, alcuni
   dettagli sono in :doc:`/cookbook/security/access_control`.
+
+.. _book-security-template-expression:
+
+Si possono anche usare espressioni nei template:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted(expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        )) %}
+            <a href="...">Delete</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted(new Expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        ))): ?>
+            <a href="...">Delete</a>
+        <?php endif; ?>
+
+Per maggiori dettagli su espressioni e sicurezza, vedere :ref:`book-security-expressions`.
 
 .. _security-secure-objects:
 
@@ -1108,13 +1130,13 @@ le loro password, prima di inserirle. Non importa quale algoritmo sia
 configurato per l'oggetto utente, l'hash della password può sempre essere determinato
 nel modo seguente, in un controllore::
 
-    $factory = $this->get('security.encoder_factory');
     // qualunque sia il *proprio* oggetto User
     $user = new AppBundle\Entity\User();
+    $plainPassword = 'ryanpass';
+    $encoder = $this->container->get('security.password_encoder');
+    $encoded = $encoder->encodePassword($user, $plainPassword);
 
-    $encoder = $factory->getEncoder($user);
-    $password = $encoder->encodePassword('ryanpass', $user->getSalt());
-    $user->setPassword($password);
+    $user->setPassword($encoded);
 
 Per poter funzionare, assicurarsi di avere un codificatore per la classe
 utente (p.e. ``AppBundle\Entity\User``) configurato sotto la  voce ``encoders``

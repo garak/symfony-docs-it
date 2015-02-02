@@ -616,7 +616,7 @@ transchoice
 Rende la traduzione del contenuto con supporto alla pluralizzazione, maggiori
 informazioni su :ref:`book-translation-tags`.
 
-trans_default_dominio
+trans_default_domain
 ~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: jinja

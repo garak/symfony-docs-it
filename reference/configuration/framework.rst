@@ -514,9 +514,6 @@ collect
     ma i raccoglitori disabilitati. Ora profilatore e raccoglitori sono
     controllabili separatamente.
 
-collect
-.......
-
 **predefinito**: ``true``
 
 Questa opzione configura il modo in cui il profilatore si comporta quando abilitato. Se
@@ -741,3 +738,4 @@ Configurazione predefinita completa
 
 .. _`protocol-relative`: http://tools.ietf.org/html/rfc3986#section-4.2
 .. _`PhpStormOpener`: https://github.com/pinepain/PhpStormOpener
+.. _`egulias/email-validator`: https://github.com/egulias/EmailValidator

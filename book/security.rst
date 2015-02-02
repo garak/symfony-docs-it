@@ -145,7 +145,8 @@ Per attivarlo, aggiungere la voce ``http_basic`` nel firewall:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -216,7 +217,8 @@ di essere loggato per poter accedere a tale URL:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -310,7 +312,8 @@ ma è meglio pensare a esso come fornitore "in configurazione":
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <provider name="in_memory">
@@ -377,7 +380,8 @@ Per risolvere, aggiungere una chiave ``encoders``:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -458,13 +462,16 @@ parte, se ne vorranno codificare le password. Il miglior algoritmo da usare è
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
 
                 <encoder class="Symfony\Component\Security\Core\User\User"
-                    algorithm="bcrypt" cost="12" />
+                    algorithm="bcrypt"
+                    cost="12" />
+                
                 <!-- ... -->
             </config>
         </srv:container>
@@ -516,7 +523,8 @@ qualcosa del genere:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <provider name="in_memory">
@@ -683,7 +691,8 @@ corrispondente all'espressione regolare ``^/admin`` richieda ``ROLE_ADMIN``:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -860,12 +869,11 @@ Finora, i controlli sugli accessi sono stati basati su ruoli, stringhe che inizi
 utente sia loggato (senza curarsi dei ruoli), si può usare ``IS_AUTHENTICATED_FULLY``::
 
     // ...
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw new AccessDeniedException();
+            throw $this->createAccessDeniedException();
         }
 
         // ...
@@ -891,6 +899,30 @@ speciali di questo tipo:
 * ``IS_AUTHENTICATED_ANONYMOUSLY``: Assegnato a *tutti* gli utenti (anche quelli anonimi).
   Utile per mettere URL in una *lista bianca* per garantire accesso, alcuni
   dettagli sono in :doc:`/cookbook/security/access_control`.
+
+.. _book-security-template-expression:
+
+Si possono anche usare espressioni nei template:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted(expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        )) %}
+            <a href="...">Delete</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted(new Expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        ))): ?>
+            <a href="...">Delete</a>
+        <?php endif; ?>
+
+Per maggiori dettagli su espressioni e sicurezza, vedere :ref:`book-security-expressions`.
 
 .. _security-secure-objects:
 
@@ -927,7 +959,7 @@ cosa simile::
     public function indexAction()
     {
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw new AccessDeniedException();
+            throw $this->createAccessDeniedException();
         }
 
         $user = $this->getUser();

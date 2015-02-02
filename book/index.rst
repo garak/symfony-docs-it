@@ -22,6 +22,5 @@ Libro
     service_container
     performance
     internals
-    stable_api
 
 .. include:: /book/map.rst.inc

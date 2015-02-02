@@ -1,10 +1,10 @@
 .. index::
-    single: Estensioni Twig di Symfony2
+    single: Estensioni Twig di Symfony
 
 .. _symfony2-twig-extensions:
 
-Estensioni Twig di Symfony2
-===========================
+Estensioni Twig di Symfony
+==========================
 
 Twig è il motore di template predefinito di Symfony. Contiene già di suo diverse
 funzioni di libreria, filtri e tag e test (si può
@@ -616,7 +616,7 @@ transchoice
 Rende la traduzione del contenuto con supporto alla pluralizzazione, maggiori
 informazioni su :ref:`book-translation-tags`.
 
-trans_default_dominio
+trans_default_domain
 ~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: jinja

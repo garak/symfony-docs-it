@@ -1,18 +1,20 @@
 .. index::
-    single: Estensioni Twig di Symfony2
+    single: Estensioni Twig di Symfony
 
 .. _symfony2-twig-extensions:
 
-Estensioni Twig di Symfony2
-===========================
+Estensioni Twig di Symfony
+==========================
 
 Twig è il motore di template predefinito di Symfony. Contiene già di suo diverse
-funzioni di libreria, filtri e tag (si può approfondirre su
-`Twig Reference`_).
+funzioni di libreria, filtri e tag e test (si può
+approfondire nella `guida a Twig`_).
 
-Symfony2 aggiunge ulteriori estensioni personalizzate a Twig, per integrare alcuni
+Symfony aggiunge ulteriori estensioni personalizzate a Twig, per integrare alcuni
 componenti nei template di Twig. Di seguito sono presenti le informazioni su tutte le
-funzioni personalizzate, i filtri e i tag aggiunti nel framework Symfony2.
+:ref:`funzioni <reference-twig-functions>`, i :ref:`filtri <reference-twig-filters>`,
+i :ref:`tag <reference-twig-tags>` e :ref:`test <reference-twig-tests>`
+aggiunti nel framework Symfony.
 
 Ci sono anche alcuni tag nei bundle, non elencati qui.
 
@@ -21,172 +23,670 @@ Ci sono anche alcuni tag nei bundle, non elencati qui.
 Funzioni
 --------
 
-.. versionadded:: 2.4
-    La funzione ``expression`` è stata introdotta in Symfony 2.4.
+.. _reference-twig-function-render:
 
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| Sintassi della funzione                            | Uso                                                                                        |
-+====================================================+============================================================================================+
-| ``render(uri, options = {})``                      | Renderà il frammento per il controllore o l'URL dato.                                      |
-| ``render(controller('B:C:a', {params}))``          | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
-| ``render(path('rotta', {params}))``                |                                                                                            |
-| ``render(url('rotta', {params}))``                 |                                                                                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``render_esi(controller('B:C:a', {params}))``      | Genererà un tag ESI, quando possibile, altrimenti userà ``render``.                        |
-| ``render_esi(url('rotta', {params}))``             | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
-| ``render_esi(path('rotta', {params}))``            |                                                                                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``render_hinclude(controller(...))``               | This will generates an Hinclude tag for the given controller or URL.                       |
-| ``render_hinclude(url('rotta', {params}))``        | Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.                  |
-| ``render_hinclude(path('rotta', {params}))``       |                                                                                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``controller(attributi = {}, query = {})``         | Usato con il tag ``render`` per fare riferimento al controllore che si vuole rendere.      |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``asset(percorso, nomePacchetto = null)``          | Restituisce il percorso pubblico della risorsa, maggiori informazioni in                   |
-|                                                    | ":ref:`book-templating-assets`".                                                           |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``asset_version(nomePacchetto = null)``            | Restituisce la versione attuale del pacchetto, maggiori informazioni in                    |
-|                                                    | ":ref:`book-templating-assets`".                                                           |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form(view, variabili = {})``                     | Renderà l'HTML di un form completo, maggiori informazioni                                  |
-|                                                    | nel :ref:`riferimento Form di Twig <reference-forms-twig-form>`.                           |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_start(view, variabili = {})``               | Renderà l'HTML del tag di apertura di un form, maggiori informazioni                       |
-|                                                    | nel :ref:`riferimento Form di Twig <reference-forms-twig-start>`.                          |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_end(view, variabili = {})``                 | Renderà l'HTML del tag di chiusura di un form, insieme a tutti i campi non                 |
-|                                                    | ancora resi, maggiori informazioni                                                         |
-|                                                    | nel :ref:`riferimento Form di Twig <reference-forms-twig-end>`.                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_enctype(view)``                             | Renderà l'attributo obbligatorio ``enctype="multipart/form-data"`` in un                   |
-|                                                    | form con almeno un campo di caricamento di file, maggiori informazioni in                  |
-|                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-enctype>`.                          |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_widget(view, variabili = {})``              | Renderà un intero form o un widget specifico di un campo,                                  |
-|                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-widget>`.  |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_errors(view)``                              | Renderà gli errori per un dato campo o gli errori "globali",                               |
-|                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-errors>`.  |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_label(view, label = null, variabili = {})`` | Renderà la label di un dato campo, maggiori informazioni in                                |
-|                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-label>`.                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_row(view, variabili = {})``                 | Renderà la riga (label, errori e widget del campo) del dato campo,                         |
-|                                                    | maggiori informazioni in :ref:`riferimento Twig per i form<reference-forms-twig-row>`.     |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``form_rest(view, variabili = {})``                | Renderà tutti i campi non ancora resi, maggiori informazioni in                            |
-|                                                    | :ref:`riferimento Twig per i form<reference-forms-twig-rest>`.                             |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``csrf_token(intention)``                          | Renderà un token CSRF. Funzione da usare se si vuole protezione CSRF senza                 |
-|                                                    | creare un form                                                                             |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``is_granted(ruolo, ogg = null, campo = null)``    | Restituirà ``true`` se l'utente attuale ha il ruolo richiesto, maggiori                    |
-|                                                    | informazioni in ":ref:`book-security-template`"                                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``logout_path(chiave)``                            | Genererà l'URL relativo per il logout del firewall dato                                    |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``logout_url(chiave)``                             | Equivalente a ``logout_path(...)``, ma genererà un URL assoluto                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``path(nome, parametri = {})``                     | Restituisce l'URL relativo per la rotta data, maggiori informazioni in                     |
-|                                                    | ":ref:`book-templating-pages`".                                                            |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``url(nome, parametri = {})``                      | Equivalente a ``path(...)``, ma genera un URL assoluto                                     |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
-| ``expression(espressione)``                        | Crea una :class:`Symfony\\Component\\ExpressionLanguage\\Expression` in Twig. Vedere       |
-|                                                    | ":ref:`Template Expressions <book-security-template-expression>`".                         |
-+----------------------------------------------------+--------------------------------------------------------------------------------------------+
+render
+~~~~~~
+
+.. code-block:: jinja
+
+    {{ render(uri, opzioni) }}
+
+``uri``
+    **tipo**: ``stringa`` | ``ControllerReference``
+``opzioni``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Renderà il frammento per il controllore o l'URL dato.
+Per maggiori informazioni, vedere :ref:`templating-embedding-controller`.
+
+Si può specificare la strategia di resa nella chiave ``strategy`` delle opzioni.
+
+.. tip::
+
+    Si può generare l'URI con altre funzioni, come `path`_ e `url`_.
+
+render_esi
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ render_esi(uri, opzioni) }}
+
+``uri``
+    **tipo**: ``stringa`` | ``ControllerReference``
+``opzioni``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Genera un tag ESI, se possibile, altrimenti si comporta come la funzione
+`render`_. Per maggiori informazioni, vedere
+:ref:`templating-embedding-controller`.
+
+.. tip::
+
+    Si può generare l'URI con altre funzioni, come `path`_ e `url`_.
+
+.. tip::
+
+    La funzione ``render_esi()`` è un esempio di funzioni scorciatoia
+    di ``render``. Imposta automaticamente la strategia in base al
+    nome della funzione, p.e. ``render_hinclude()`` userà la strategia hinclude.js.
+    Questo vale per tutte le funzioni ``render_*()``.
+
+controller
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ controller(controllore, attributi, query) }}
+
+``controllore``
+    **tipo**: ``stringa``
+``attributi``
+    **tipo**: ``array`` **predefinito**: ``[]``
+``query``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Restituisce un'istanza di ``ControllerReference``, da usare con funzioni come
+:ref:`render() <reference-twig-function-render>` e `render_esi() <render_esi>`.
+
+asset
+~~~~~
+
+.. code-block:: jinja
+
+    {{ asset(percorso, nomePacchetto, assoluto = false, versione = null) }}
+
+``percorso``
+    **tipo**: ``stringa``
+``nomePacchetto``
+    **tipo**: ``stringa``|``null`` **predefinito**: ``null``
+``assoluto``
+    **tipo**: ``booleano`` **predefinito**: ``false``
+``versione``
+    **tipo**: ``stringa`` **predefinito** ``null``
+
+Restituisce un percorso pubblico a ``percorso``, che prende in considerazione il percorso base
+impostato per il pacchetto e il percorso dell'URL. Maggiori informazioni su
+:ref:`book-templating-assets`. Per il versionamento, vedere :ref:`ref-framework-assets-version`.
+
+asset_version
+~~~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ asset_version(nomePacchetto) }}
+
+``nomePacchetto``
+    **tipo**: ``stringa``|``null`` **predefinito**: ``null``
+
+Restituisce la versione attuale del pacchetto, maggiori informazioni su
+:ref:`book-templating-assets`.
+
+form
+~~~~
+
+.. code-block:: jinja
+
+    {{ form(vista, variabili) }}
+
+``view``
+    **tipo**: ``FormView``
+``variables``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Rende l'HTML di un form completo, maggiori informazioni sulla
+:ref:`guida a Twig Form <reference-forms-twig-form>`.
+
+form_start
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_start(view, variables) }}
+
+``view``
+    **tipo**: ``FormView``
+``variables``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Rende il tag HTML di apertura di un form, maggiori informazioni sulla
+:ref:`guida a Twig Form <reference-forms-twig-start>`.
+
+form_end
+~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_end(view, variables) }}
+
+``view``
+    **tipo**: ``FormView``
+``variables``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Rende il tag HTML di chiusura del form, insieme a tutti i campi che non sono ancora stati
+resi, maggiori informazioni sulla :ref:`guida a Twig Form <reference-forms-twig-end>`.
+
+form_enctype
+~~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_enctype(view) }}
+
+``view``
+    **tipo**: ``FormView``
+
+Rende l'attributo ``enctype="multipart/form-data"``, necessario se il form
+contiene almeno un campo di caricamento file, maggiori informazioni sulla
+:ref:`guida a Twig Form <reference-forms-twig-enctype>`.
+
+form_widget
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_widget(view, variables) }}
+
+``view``
+    **tipo**: ``FormView``
+``variables``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Rende un form completo o uno specifico widget HTML di un campo, maggiori informazioni
+sulla :ref:`guida a Twig Form <reference-forms-twig-widget>`.
+
+form_errors
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_errors(view) }}
+
+``view``
+    **tipo**: ``FormView``
+
+Rende gli errori di un dato campo o gli errori globali, maggiori informazioni
+sulla :ref:`guida a Twig Form <reference-forms-twig-errors>`.
+
+form_label
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_label(view, label, variabili) }}
+
+``view``
+    **tipo**: ``FormView``
+``label``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+``variabili``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Rende the label for the given field, mre information in
+:ref:`guida a Twig Form <reference-forms-twig-label>`.
+
+form_row
+~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_row(view, variabili) }}
+
+``view``
+    **tipo**: ``FormView``
+``variabili``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Rende la riga (label, errori e widget) del campo dato, maggiori
+informazioni sulla :ref:`guida a Twig Form <reference-forms-twig-row>`.
+
+form_rest
+~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ form_rest(view, variabili) }}
+
+``view``
+    **tipo**: ``FormView``
+``variabili``
+    **tipo**: ``array`` **predefinito**: ``[]``
+
+Rende tutti campi non ancora resi, maggiori informazioni sulla
+:ref:`guida a Twig Form <reference-forms-twig-rest>`.
+
+csrf_token
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ csrf_token(intenzione) }}
+
+``intenzione``
+    **tipo**: ``stringa``
+
+Rende un token CSRF. Usare questa funzione se si vuole protezione CSRF senza
+creare un form.
+
+is_granted
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ is_granted(ruolo, oggetto, campo) }}
+
+``ruolo``
+    **tipo**: ``stringa``
+``oggetto``
+    **tipo**: ``object``
+``campo``
+    **tipo**: ``stringa``
+
+Restituisce ``true`` se l'utente corrente ha il ruolo richiesto. Si può anche passare un
+oggetto, che verrà usato dal votante. Maggiori informazioni su
+:ref:`book-security-template`.
+
+.. note::
+
+    Si può anche passare il campo per usare un ACE per uno specifico campo. Approfondire
+    su :ref:`cookbook-security-acl-field_scope`.
+
+
+logout_path
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ logout_path(chiave) }}
+
+``chiave``
+    **tipo**: ``stringa``
+
+Genera un URL relativo di logout per il firewall dato.
+
+logout_url
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ logout_url(chiave) }}
+
+``chiave``
+    **tipo**: ``stringa``
+
+Uguale alla funzione `logout_path`_, ma genera un URL assoluto
+invece che relativo.
+
+path
+~~~~
+
+.. code-block:: jinja
+
+    {{ path(nome, parametri, relativo) }}
+
+``nome``
+    **tipo**: ``stringa``
+``parametri``
+    **tipo**: ``array`` **predefinito**: ``[]``
+``relativo``
+    **tipo**: ``booleano`` **predefinito**: ``false``
+
+Restituisce l'URL relativo (senza schema e host) per la rotta data. Se
+``relative`` è abilitato, crea un percorso relativo al percorso attuale. Maggiori
+informazioni su :ref:`book-templating-pages`.
+
+url
+~~~
+
+.. code-block:: jinja
+
+    {{ url(nome, parametri, schemaRelativo) }}
+
+``nome``
+    **tipo**: ``stringa``
+``parametri``
+    **tipo**: ``array`` **predefinito**: ``[]``
+``schemaRelativo``
+    **tipo**: ``booleano`` **predefinito**: ``false``
+
+Restituisce l'URL assoluto (con schema e host) per la rotta data. Se
+``schemaRelativo`` è abilitato, crea un URL relativo allo schema. Maggiori
+informazioni su :ref:`book-templating-pages`.
+
+expression
+~~~~~~~~~~
+
+Crea una :class:`Symfony\\Component\\ExpressionLanguage\\Expression` in
+Twig. Vedere ":ref:`Template Expressions <book-security-template-expression>`".
+
+.. _reference-twig-filters:
 
 Filtri
 ------
 
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| Sintassi del filtro                                                             | Uso                                                               |
-+=================================================================================+===================================================================+
-| ``text|humanize``                                                               | Rende un nome tecnico leggibile umanamente (sostituendo i         |
-|                                                                                 | trattini bassi con spazi e mettendo la stringa in maiuscolo)      |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``text|trans(parametri = {}, dominio = 'messages', locale = null)``             | Tradurrà il testo nella lingua attuale, maggiori                  |
-|                                                                                 | informazioni in                                                   |
-|                                                                                 | :ref:`filtri di traduzione<book-translation-filters>`.            |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``text|transchoice(conta, parametri = {}, dominio = 'messages', locale = null)``| Tradurrà il testo con il plurale, maggiori informazioni           |
-|                                                                                 | in :ref:`Filtri di traduzione <book-translation-filters>`.        |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``variable|yaml_encode(inline = 0)``                                            | Trasformerà il testo della variabile in sintassi YAML.            |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``variable|yaml_dump``                                                          | Renderà una sintassi yaml con il suo tipo.                        |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``classname|abbr_class``                                                        | Renderà un elemento ``abbr`` con il nome breve di una             |
-|                                                                                 | classe PHP.                                                       |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``methodname|abbr_method``                                                      | Renderà un metodo PHP dentro un elemento ``abbr``                 |
-|                                                                                 | (p.e. ``Symfony\Component\HttpFoundation\Response::getContent``   |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``arguments|format_args``                                                       | Renderà una stringa con i parametri di una funzione e i suoi      |
-|                                                                                 | tipi.                                                             |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``arguments|format_args_as_text``                                               | Equivalente a ``[...]|format_args``, ma elimina i tag.            |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``path|file_excerpt(riga)``                                                     | Renderà un estratto di un file di codice intorno alla riga data.  |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``path|format_file(riga, testo)``                                               | Renderà il percorso di un file in un collegamento.                |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``exceptionMessage|format_file_from_text``                                      | Equivalente a ``format_file``, ma ha analizzato la stringa di     |
-|                                                                                 | errore di PHP in un file (p.e. 'in pippo.php on line 45')         |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
-| ``path|file_link(riga)``                                                        | Renderà un percorso al file (e numero di riga) corretto           |
-+---------------------------------------------------------------------------------+-------------------------------------------------------------------+
+humanize
+~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ testo|humanize }}
+
+``testo``
+    **tipo**: ``stringa``
+
+Rende leggibile a un umano un nome tecnico (cioè sostituisce i trattini bassi con spazi e
+mette in maiuscolo le stringhe).
+
+trans
+~~~~~
+
+.. code-block:: jinja
+
+    {{ messaggio|trans(parametri, dominio, locale) }}
+
+``messaggio``
+    **tipo**: ``stringa``
+``parametri``
+    **tipo**: ``array`` **predefinito**: ``[]``
+``dominio``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+``locale``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+
+Traduce il testo nella lingua attuale. Maggiori informazioni su
+:ref:`Translation Filters <book-translation-filters>`.
+
+transchoice
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ message|transchoice(conteggio, parametri, dominio, locale) }}
+
+``message``
+    **tipo**: ``stringa``
+``conteggio``
+    **tipo**: ``intero``
+``parametri``
+    **tipo**: ``array`` **predefinito**: ``[]``
+``dominio``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+``locale``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+
+Traduce il testo con supporto alla pluralizzazione. Maggiori informazioni su
+:ref:`Translation Filters <book-translation-filters>`.
+
+yaml_encode
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ input|yaml_encode(inline, dumpObjects) }}
+
+``input``
+    **tipo**: ``mixed``
+``inline``
+    **tipo**: ``intero`` **predefinito**: ``0``
+``dumpObjects``
+    **tipo**: ``booleano`` **predefinito**: ``false``
+
+Trasforma l'input in sinstassi YAML. Vedere :ref:`components-yaml-dump` per maggiori
+informazioni.
+
+yaml_dump
+~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ value|yaml_dump(inline, dumpObjects) }}
+
+``value``
+    **tipo**: ``mixed``
+``inline``
+    **tipo**: ``intero`` **predefinito**: ``0``
+``dumpObjects``
+    **tipo**: ``booleano`` **predefinito**: ``false``
+
+Fa lo stesso di `yaml_encode() <yaml_encode>`_, ma include il tipo nell'output.
+
+abbr_class
+~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ classe|abbr_class }}
+
+``classe``
+    **tipo**: ``stringa``
+
+Genera un elemento ``<abbr>`` con il nome breve di una classe PHP (il nome FQCN
+sarà mostrato in un tooltip quando l'utente va sopra all'elemento).
+
+abbr_method
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ metodo|abbr_method }}
+
+``metodo``
+    **tipo**: ``stringa``
+
+Genera un elemento ``<abbr>`` usando la sintassi ``FQCN::method()``. Se ``metodo``
+è una ``Closure``, verrà invece usata la ``Closure`` e se ``metodo`` non ha un
+nome di classe, è mostrato come una funzione (``metodo()``).
+
+format_args
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ parametri|format_args }}
+
+``parametri``
+    **tipo**: ``array``
+
+Genera una stringa con i parametri e i rispettivi tipi (in elementi ``<em>``).
+
+format_args_as_text
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ parametri|format_args_as_text }}
+
+``parametri``
+    **tipo**: ``array``
+
+Uguale al filtro `format_args`_, ma non usa tag.
+
+file_excerpt
+~~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ file|file_excerpt(riga) }}
+
+``file``
+    **tipo**: ``stringa``
+``riga``
+    **tipo**: ``intero``
+
+Genera un estratto di 7 righe attorno alla riga data.
+
+format_file
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ file|format_file(riga, testo) }}
+
+``file``
+    **tipo**: ``stringa``
+``riga``
+    **tipo**: ``intero``
+``testo``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+
+Genera il percorso del file in un elemento ``<a>``. Se il percorso è all'interno della
+cartella radice del kernel, il percorso della cartella radice del kernel è sostituito da
+``kernel.root_dir`` (mostrando il percorso completo in un tooltip).
+
+format_file_from_text
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ testo|format_file_from_text }}
+
+``testo``
+    **tipo**: ``stringa``
+
+Usa `|format_file <format_file>` per migliorare l'output predefinito degli errori PHP.
+
+file_link
+~~~~~~~~~
+
+.. code-block:: jinja
+
+    {{ file|file_link(riga) }}
+
+``riga``
+    **tipo**: ``intero``
+
+Genera un collegamento al file fornito (eventualmente anche alla riga), usando uno
+schema preconfigurato.
+
+.. _reference-twig-tags:
 
 Tag
 ---
 
-.. versionadded:: 2.4
-    Il tag stopwatch è stato aggiunto in Symfony 2.4.
+form_theme
+~~~~~~~~~~
 
-+---------------------------------------------------+-------------------------------------------------------------------+
-| Sintassi del tag                                  | Uso                                                               |
-+===================================================+===================================================================+
-| ``{% form_theme form 'file' %}``                  | Cercherà in un dato file i blocchi di form ridefiniti,            |
-|                                                   | maggiori informazioni in :doc:`/cookbook/form/form_customization`.|
-+---------------------------------------------------+-------------------------------------------------------------------+
-| ``{% trans with {variabili} %}...{% endtrans %}`` | Tradurrà e renderà il testo, maggiori informazioni in             |
-|                                                   | :ref:`book-translation-tags`                                      |
-+---------------------------------------------------+-------------------------------------------------------------------+
-| ``{% transchoice count with {variabili} %}``      | Tradurrà e renderà il testo con il plurale, maggiori              |
-| ...                                               | informazioni in :ref:`book-translation-tags`                      |
-| ``{% endtranschoice %}``                          |                                                                   |
-+---------------------------------------------------+-------------------------------------------------------------------+
-| ``{% trans_default_domain lingua %}``             | Imposterà il dominio predefinito per i cataloghi dei messaggi     |
-|                                                   | nel template corrente                                             |
-+---------------------------------------------------+-------------------------------------------------------------------+
-| ``{% stopwatch 'nome' %}...{% endstopwatch %}``   | Conterà il tempo di esecuzione del codice all'interno e lo        |
-|                                                   | inserirà nella linea temporale di WebProfilerBundle.              |
-+---------------------------------------------------+-------------------------------------------------------------------+
+.. code-block:: jinja
+
+    {% form_theme form risorse %}
+
+``form``
+    **tipo**: ``FormView``
+``risorse``
+    **tipo**: ``array``|``stringa``
+
+Imposta le risorse per sovrascrivere il tema del form per l'istanza data della vista del form.
+Si può usare ``_self`` come risorse, per impostarli alla risorsa attuale. Maggiori
+informazioni su :doc:`/cookbook/form/form_customization`.
+
+trans
+~~~~~
+
+.. code-block:: jinja
+
+    {% trans with variabili from dominio into locale %}{% endtrans %}
+
+``variabili``
+    **tipo**: ``array`` **predefinito**: ``[]``
+``dominio``
+    **tipo**: ``stringa`` **predefinito**: ``stringa``
+``locale``
+    **tipo**: ``stringa`` **predefinito**: ``stringa``
+
+Rende la traduzione del contenuto. Maggiori informazioni su :ref:`book-translation-tags`.
+
+transchoice
+~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {% transchoice conteggio with variabili from dominio into locale %}{% endtranschoice %}
+
+``conteggio``
+    **tipo**: ``intero``
+``variabili``
+    **tipo**: ``array`` **predefinito**: ``[]``
+``dominio``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+``locale``
+    **tipo**: ``stringa`` **predefinito**: ``null``
+
+Rende la traduzione del contenuto con supporto alla pluralizzazione, maggiori
+informazioni su :ref:`book-translation-tags`.
+
+trans_default_domain
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {% trans_default_domain dominio %}
+
+``dominio``
+    **tipo**: ``stringa``
+
+Imposta il dominio predefinito nel template attuale.
+
+stopwatch
+~~~~~~~~~
+
+.. code-block:: jinja
+
+    {% stopwatch 'nome' %}...{% endstopwatch %}
+
+Misura il tempo di esecuzione del codice all'interno e lo inserisce nella linea temporale
+di WebProfilerBundle.
+
+.. _reference-twig-tests:
 
 Test
 ----
 
-+---------------------------------------------------+------------------------------------------------------------------------------+
-| Sintassi del test                                 | Uso                                                                          |
-+===================================================+==============================================================================+
-| ``selectedchoice(choice, selectedValue)``         | Restituirà ``true`` se la scelta è selezionata per il valore dato            |
-+---------------------------------------------------+------------------------------------------------------------------------------+
+selectedchoice
+~~~~~~~~~~~~~~
+
+.. code-block:: jinja
+
+    {% if choice is selectedchoice(valore) %}
+
+``choice``
+    **tipo**: ``ChoiceView``
+``valore``
+    **tipo**: ``stringa``
+
+Verifica se ``valore`` era impostato per il campo di scelta fornito. L'uso di
+questo è il modo più efficiente.
 
 Variabili globali
 -----------------
 
-+-------------------------------------------------------+------------------------------------------------------------------------------------+
-| Variabile                                             | Uso                                                                                |
-+=======================================================+====================================================================================+
-| ``app`` *Attributi*: ``app.user``, ``app.request``    | La variabile ``app`` è disponibile ovunque e dà accesso rapido                     |
-| ``app.session``, ``app.environment``, ``app.debug``   | a molti oggetti di uso comune. La variabile ``app`` è un'istanza                   |
-| ``app.security``                                      | di :class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`          |
-+-------------------------------------------------------+------------------------------------------------------------------------------------+
+.. _reference-twig-global-app:
+
+app
+~~~
+
+La variabile ``app`` è disponibile ovunque e dà accesso rapido a
+molti oggetti di uso comune. La variabile ``app`` è un'istanza di
+:class:`Symfony\\Bundle\\FrameworkBundle\\Templating\\GlobalVariables`.
+
+The available attributes are:
+
+* ``app.user``
+* ``app.request``
+* ``app.session``
+* ``app.environment``
+* ``app.debug``
+* ``app.security``
+
+.. versionadded:: 2.6
+     La variabile ``app.security`` è deprecata da 2.6. L'utente è già disponibile
+     come ``app.user`` e ``is_granted()`` è registrata come funzione.
 
 Estensioni di Symfony Standard Edition
 --------------------------------------
 
-Symfony Standard Edition aggiunge alcuni bundle al nucleo di Symfony2.
+Symfony Standard Edition aggiunge alcuni bundle al nucleo di Symfony.
 Questi bundle possono avere altre estensioni di Twig:
 
 * **Twig Extension** include alcune estensioni interessanti, che non appartengono al nucleo
@@ -195,6 +695,5 @@ Questi bundle possono avere altre estensioni di Twig:
   ``{% image %}``. Si può approfondire nella 
   :doc:`documentazione di Assetic </cookbook/assetic/asset_management>`.
 
-.. _`Twig Reference`: http://twig.sensiolabs.org/documentation#reference
+.. _`guida a Twig`: http://twig.sensiolabs.org/documentation#reference
 .. _`documentazione ufficiale delle estensioni di Twig`: http://twig.sensiolabs.org/doc/extensions/index.html
-.. _`http://twig.sensiolabs.org/documentation`: http://twig.sensiolabs.org/documentation

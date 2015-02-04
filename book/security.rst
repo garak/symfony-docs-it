@@ -56,14 +56,17 @@ predefinita è simile a questa:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <provider name="in_memory">
                     <memory />
                 </provider>
 
-                <firewall name="dev" pattern="^/(_(profiler|wdt)|css|images|js)/" security=false />
+                <firewall name="dev"
+                    pattern="^/(_(profiler|wdt)|css|images|js)/"
+                    security=false />
 
                 <firewall name="default">
                     <anonymous />
@@ -95,6 +98,11 @@ La voce ``firewalls`` è il *cuore* della configurazione della sicurezza. Il fir
 ``dev`` non è importante, serve solo ad assicurarsi che gli strumenti di sviluppo di Symfony,
 che si trovano sotto URL come ``/_profiler`` e ``/_wdt``, non siano
 bloccati.
+
+.. tip::
+
+    Si può anche far corrispondere la richiesta ad altri dettagli (p.e. l'host). Per maggiori
+    informazioni ed esempi, leggere :doc:`/cookbook/security/firewall_restriction`.
 
 Tutti gli altri URL saranno gestiti dal firewall ``default`` (l'assenza della chiave ``pattern``
 vuol dire che corrisponde a *ogni* URL). Si può pensare al firewall come il proprio
@@ -145,7 +153,8 @@ Per attivarlo, aggiungere la voce ``http_basic`` nel firewall:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -216,7 +225,8 @@ di essere loggato per poter accedere a tale URL:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -310,7 +320,8 @@ ma è meglio pensare a esso come fornitore "in configurazione":
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <provider name="in_memory">
@@ -377,7 +388,8 @@ Per risolvere, aggiungere una chiave ``encoders``:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -458,13 +470,16 @@ parte, se ne vorranno codificare le password. Il miglior algoritmo da usare è
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
 
                 <encoder class="Symfony\Component\Security\Core\User\User"
-                    algorithm="bcrypt" cost="12" />
+                    algorithm="bcrypt"
+                    cost="12" />
+                
                 <!-- ... -->
             </config>
         </srv:container>
@@ -516,7 +531,8 @@ qualcosa del genere:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <provider name="in_memory">
@@ -565,6 +581,9 @@ dell'inserimento? Nessun problema, vedere
     :doc:`riferimento della sicurezza </reference/configuration/security>`
     per degli esempi.
 
+    Si possono anche usare algoritmi differenti per singolo utente.
+    Vedere :doc:`/cookbook/security/named_encoders` per maggiori dettagli.
+
 D) Configurazione conclusa!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -584,8 +603,8 @@ I prossimi passi possono variare:
 
 .. _`security-authorization`:
 
-2) Accesso negato, ruoli e altr autorizzazioni
-----------------------------------------------
+2) Accesso negato, ruoli e altre autorizzazioni
+-----------------------------------------------
 
 Ora gli utenti possono accedere all'applicazione usando ``http_basic`` o un altro metodo.
 Ottimo! Ora, occorre imparare come negare l'accesso e lavorare con l'oggetto ``User``.
@@ -683,7 +702,8 @@ corrispondente all'espressione regolare ``^/admin`` richieda ``ROLE_ADMIN``:
         <srv:container xmlns="http://symfony.com/schema/dic/security"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:srv="http://symfony.com/schema/dic/services"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <config>
                 <!-- ... -->
@@ -790,20 +810,48 @@ Proteggere controllori e altro codice
 Si può negare accesso da dentro un controllore::
 
     // ...
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedException();
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
         }
 
         // ...
     }
 
+.. versionadded:: 2.6
+     Il servizio ``security.authorization_checker`` è stato introdotto in Symfony 2.6. Prima
+     di Symfony 2.6, si doveva usare il metodo ``isGranted()`` del servizio ``security.context``.
+
+.. versionadded:: 2.5
+    Il metodo ``createAccessDeniedException`` è stato introdotto in Symfony 2.5.
+
+Il metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::createAccessDeniedException`
+crea uno speciale oggetto :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`,
+che alla fine lancia una risposta HTTP 403 in Symfony.
+
 Ecco fatto! Se l'utente non è ancora loggato, gli sarà richiesto il login (p.e.
 rinviato alla pagina di login). Se invece *è* loggato, gli sarà mostrata
 una pagina di errore 403 (che si può :ref:`personalizzare <cookbook-error-pages-by-status-code>`).
+
+.. _book-security-securing-controller-annotations:
+
+Grazie a SensioFrameworkExtraBundle, si può anche proteggere un controllore
+tramite annotazioni::
+
+    // ...
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function helloAction($name)
+    {
+        // ...
+    }
+
+Per maggiori informazioni, vedere la `documentazione di FrameworkExtraBundle`_.
 
 .. _book-security-template:
 
@@ -860,12 +908,11 @@ Finora, i controlli sugli accessi sono stati basati su ruoli, stringhe che inizi
 utente sia loggato (senza curarsi dei ruoli), si può usare ``IS_AUTHENTICATED_FULLY``::
 
     // ...
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
     public function helloAction($name)
     {
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw new AccessDeniedException();
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
         }
 
         // ...
@@ -891,6 +938,30 @@ speciali di questo tipo:
 * ``IS_AUTHENTICATED_ANONYMOUSLY``: Assegnato a *tutti* gli utenti (anche quelli anonimi).
   Utile per mettere URL in una *lista bianca* per garantire accesso, alcuni
   dettagli sono in :doc:`/cookbook/security/access_control`.
+
+.. _book-security-template-expression:
+
+Si possono anche usare espressioni nei template:
+
+.. configuration-block::
+
+    .. code-block:: html+jinja
+
+        {% if is_granted(expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        )) %}
+            <a href="...">Delete</a>
+        {% endif %}
+
+    .. code-block:: html+php
+
+        <?php if ($view['security']->isGranted(new Expression(
+            '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+        ))): ?>
+            <a href="...">Delete</a>
+        <?php endif; ?>
+
+Per maggiori dettagli su espressioni e sicurezza, vedere :ref:`book-security-expressions`.
 
 .. _security-secure-objects:
 
@@ -920,20 +991,24 @@ visti in precedenza.
 Recuperare l'oggetto utente
 ---------------------------
 
+.. versionadded:: 2.6
+     Il servizio ``security.token_storage`` è stato introdotti in Symfony 2.6. Prima
+     di Symfony 2.6, si doveva usare il metodo ``getToken()`` del servizio ``security.context``.
+
 Dopo l'autenticazione, si può accedere all'oggetto ``User`` dell'uente corrente
 tramite il servizio ``security.context``. Da dentro un controllore, Sarà una
 cosa simile::
 
     public function indexAction()
     {
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw new AccessDeniedException();
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
         }
 
         $user = $this->getUser();
 
         // il precedente è una scorciatoia per questo
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
     }
 
 .. tip::
@@ -1108,13 +1183,16 @@ le loro password, prima di inserirle. Non importa quale algoritmo sia
 configurato per l'oggetto utente, l'hash della password può sempre essere determinato
 nel modo seguente, in un controllore::
 
-    $factory = $this->get('security.encoder_factory');
     // qualunque sia il *proprio* oggetto User
     $user = new AppBundle\Entity\User();
+    $plainPassword = 'ryanpass';
+    $encoder = $this->container->get('security.password_encoder');
+    $encoded = $encoder->encodePassword($user, $plainPassword);
 
-    $encoder = $factory->getEncoder($user);
-    $password = $encoder->encodePassword('ryanpass', $user->getSalt());
-    $user->setPassword($password);
+    $user->setPassword($encoded);
+
+.. versionadded:: 2.6
+    Il servizio ``security.password_encoder`` è stato introdotto in Symfony 2.6.
 
 Per poter funzionare, assicurarsi di avere un codificatore per la classe
 utente (p.e. ``AppBundle\Entity\User``) configurato sotto la  voce ``encoders``
@@ -1263,4 +1341,4 @@ Saperne di più con il ricettario
 * :doc:`/cookbook/security/multiple_user_providers`
 
 .. _`strumento online`: https://www.dailycred.com/blog/12/bcrypt-calculator
-.. _`frameworkextrabundle documentation`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
+.. _`documentazione di frameworkextrabundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html

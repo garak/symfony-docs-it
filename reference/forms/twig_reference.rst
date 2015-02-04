@@ -316,9 +316,6 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 .. versionadded:: 2.3
     Le variabili ``method`` e ``action`` sono state introdotte in Symfony 2.3.
 
-.. versionadded:: 2.4
-    La variabile ``submitted`` è stata aggiunta in Symfony 2.4.
-
 +------------------------+--------------------------------------------------------------------------------------+
 | Variabile              | Uso                                                                                  |
 +========================+======================================================================================+
@@ -331,11 +328,11 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 +------------------------+--------------------------------------------------------------------------------------+
 | ``full_name``          | Attributo HTML ``name`` da rendere                                                   |
 +------------------------+--------------------------------------------------------------------------------------+
-| ``errors``             | Un array di errori allegati a *questo* specifico campo (p.e. ``form.title.errors``). |
+| ``errors``             | Un array di errori allegati a *questo* specifico campo.                              |
+|                        | (p.e. ``form.title.errors``).                                                        |
 |                        | Si noti che non si può usare ``form.errors`` per stabilire se un form sia valido,    |
 |                        | perché questo restituisce solo gli errori "globali": alcuni singoli campo possono    |
 |                        | avere errori. Usare invece l'opzione ``valid``                                       |
-|                        |                                                                                      |
 +------------------------+--------------------------------------------------------------------------------------+
 | ``submitted``          | Restituisce ``true`` o ``false`` a seconda che il form sia stato sottomesso o meno   | 
 +------------------------+--------------------------------------------------------------------------------------+

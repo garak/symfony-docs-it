@@ -174,7 +174,7 @@ una ``Response`` direttamente oppure di aggiungere informazioni alla ``Request``
     Questa classe esegue il livello delle rotte, che restituisce un *array* di informazioni
     sulla richiesta corrispondente, incluso ``_controller`` e ogni segnaposto
     presente nello schema della rotta (p.e. ``{slug}``). Vedere il
-    :doc:`componente Routing</components/routing/introduction>`.
+    :doc:`componente Routing </components/routing/introduction>`.
 
     Questo array di informazioni è memorizzato nell'array ``attributes`` di :class:`Symfony\\Component\\HttpFoundation\\Request`.
     L'aggiunta di informazioni sulle rotte in questo punto non porta ancora a nulla,

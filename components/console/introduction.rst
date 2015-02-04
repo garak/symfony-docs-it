@@ -1,16 +1,16 @@
 .. index::
     single: Console; CLI
     single: Componenti; Console
-    
+
 Il componente Console
 =====================
 
     Il componente Console semplifica la creazione di eleganti e testabili comandi
     da terminale.
 
-Symfony2 viene distribuito con un componente Console, che permette di creare
+Symfony viene distribuito con un componente Console, che permette di creare
 comandi da terminale. I comandi da terminale possono essere utilizzati per qualsiasi
-lavoro ripetivo, come i lavori di cron, importazioni o lavori batch.
+lavoro ripetitivo, come i lavori di cron, importazioni o lavori batch.
 
 Installazione
 -------------
@@ -363,7 +363,7 @@ l'impostazione ``--ripetizioni``:
     $ php application.php demo:saluta Fabien --ripetizioni=5
 
 Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
-il suo valore predefinito è ``1`` (l'ultimo argomento di ``addOption``). Nel secondo esempio, il
+il suo valore predefinito è ``1`` (l'ultimo parametro di ``addOption``). Nel secondo esempio, il
 saluto verrà stampato 5 volte.
 
 Ricordiamo che le opzioni non devono essere specificate in un ordina predefinito. Perciò, entrambi i
@@ -385,7 +385,7 @@ InputOption::VALUE_REQUIRED  Il valore è obbligatorio (come in ``ripetizioni=5`
 InputOption::VALUE_OPTIONAL  L'opzione può avere un valore o meno (p.e. ``urla`` o ``urla=forte``)
 ===========================  =============================================================================================
 
-È possibile combinare VALUE_IS_ARRAY con VALUE_REQUIRED o con VALUE_OPTIONAL nel seguente modo:
+È possibile combinare ``VALUE_IS_ARRAY`` con ``VALUE_REQUIRED`` o con ``VALUE_OPTIONAL`` nel seguente modo:
 
 .. code-block:: php
 
@@ -492,13 +492,13 @@ Richiamare un comando da un altro è molto semplice::
     {
         $comando = $this->getApplication()->find('demo:saluta');
 
-        $argomenti = array(
+        $parametri = array(
             'command' => 'demo:saluta',
             'nome'    => 'Fabien',
             '--urla'  => true,
         );
 
-        $input = new ArrayInput($argomenti);
+        $input = new ArrayInput($parametri);
         $codiceDiRitorno = $comando->run($input, $output);
 
         // ...
@@ -509,7 +509,7 @@ comando da eseguire usandone il nome come parametro.
 
 Quindi si dovrà creare un nuovo 
 :class:`Symfony\\Component\\Console\\Input\\ArrayInput` che 
-contenga gli argomenti e le opzioni da passare al comando.
+contenga i parametri e le opzioni da passare al comando.
 
 Infine, la chiamata al metodo ``run()`` manderà effettivamente in esecuzione il comando e
 restituirà il codice di ritorno del comando (``0`` se tutto è andato a buon fine, un qualsiasi altro 

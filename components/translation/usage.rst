@@ -4,7 +4,7 @@
 Uso di Translator
 =================
 
-Si immagini di voler tradurra la stringa *"Symfony2 is great"* in francese::
+Si immagini di voler tradurra la stringa *"Symfony is great"* in francese::
 
     use Symfony\Component\Translation\Translator;
     use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -12,12 +12,12 @@ Si immagini di voler tradurra la stringa *"Symfony2 is great"* in francese::
     $translator = new Translator('fr_FR');
     $translator->addLoader('array', new ArrayLoader());
     $translator->addResource('array', array(
-        'Symfony2 is great!' => 'J\'aime Symfony2!',
+        'Symfony is great!' => 'J\'aime Symfony!',
     ), 'fr_FR');
     
-    echo $translator->trans('Symfony2 is great!');
+    echo $translator->trans('Symfony is great!');
 
-In questo esempio, il messaggio *"Symfony2 is great!"* sarà tradotto nel
+In questo esempio, il messaggio *"Symfony is great!"* sarà tradotto nel
 locale impostato nel costruttore (``fr_FR``), se il messaggio esiste in uno
 dei cataloghi dei messaggi.
 
@@ -47,7 +47,7 @@ la variabile con un "segnaposto"::
 
     echo $translated;
 
-Symfony2 ora cercherà di tradurre il messaggio grezzo (``Hello %name%``)
+Symfony ora cercherà di tradurre il messaggio grezzo (``Hello %name%``)
 e *poi* di sostituire i segnaposto con i rispettivi valori. La creazione di una
 traduzione si fa come in precedenza:
 
@@ -102,7 +102,7 @@ L'atto di creazione dei file di traduzione è una parte importante della "locali
 copppie id-traduzione per una dato dominio e locale. La sorgente è l'identificativo
 della singola traduzione e può essere il messaggio nel locale principale (p.e.
 *"Symfony is great"*) dell'applicazione o un'identificativo univoco (p.e.
-``symfony2.great``, vedere il riquadro sotto).
+``symfony.great``, vedere il riquadro sotto).
 
 I file di traduzione possono essere tradotti in vari formati, con XLIFF come
 formato raccomandato. Questi file sono analizzati da una delle classi Loader.
@@ -116,12 +116,12 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
             <file source-language="en" datatype="plaintext" original="file.ext">
                 <body>
                     <trans-unit id="1">
-                        <source>Symfony2 is great</source>
-                        <target>J'aime Symfony2</target>
+                        <source>Symfony is great</source>
+                        <target>J'aime Symfony</target>
                     </trans-unit>
                     <trans-unit id="2">
-                        <source>symfony2.great</source>
-                        <target>J'aime Symfony2</target>
+                        <source>symfony.great</source>
+                        <target>J'aime Symfony</target>
                     </trans-unit>
                 </body>
             </file>
@@ -130,23 +130,23 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
     .. code-block:: php
 
         return array(
-            'Symfony2 is great' => 'J\'aime Symfony2',
-            'symfony2.great'    => 'J\'aime Symfony2',
+            'Symfony is great' => 'J\'aime Symfony',
+            'symfony.great'    => 'J\'aime Symfony',
         );
 
     .. code-block:: yaml
 
-        Symfony2 is great: J'aime Symfony2
-        symfony2.great:    J'aime Symfony2
+        Symfony is great: J'aime Symfony
+        symfony.great:    J'aime Symfony
 
 .. sidebar:: Usare messaggi reali o parole chiave
 
     Questo esempio illustra le due diverse filosofie di creazione di
     messaggi da tradurre::
 
-        $translator->trans('Symfony2 is great');
+        $translator->trans('Symfony is great');
 
-        $translator->trans('symfony2.great');
+        $translator->trans('symfony.great');
 
     Nel primo metodo, i messaggi sono scritti nella lingua del locale
     predefinito (in questo caso, inglese). Tali messaggi sono quindi usati come "id"
@@ -155,11 +155,11 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
     Nel secondo metodo, i messaggi sono in realtà "parole chiave", che portano
     l'idea del messaggio. Le parole chiave sono quindi usate come "id" per
     ogni traduzione. In questo c aso, occorre tradurre anche per il locale
-    predefinito (quindi tradurre ``symfony2.great`` in ``Symfony2 is great``).
+    predefinito (quindi tradurre ``symfony.great`` in ``Symfony is great``).
 
     Il secondo metodo è comodo, perché la chiave del messaggio non ha mai bisogno di
     essere cambiata, in ogni file di traduzione, se per esempio si decide di cambiare il messaggio
-    in "Symfony2 is really great" nel locale predefinito.
+    in "Symfony is really great" nel locale predefinito.
 
     La scelta del metodo spetta allo sviluppatore, ma il formato "parola chiave"
     spesso è raccomandato.
@@ -172,25 +172,25 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
 
         .. code-block:: yaml
 
-            symfony2:
+            symfony:
                 is:
-                    great: Symfony2 is great
-                    amazing: Symfony2 is amazing
+                    great: Symfony is great
+                    amazing: Symfony is amazing
                 has:
-                    bundles: Symfony2 has bundles
+                    bundles: Symfony has bundles
             user:
                 login: Login
 
         .. code-block:: php
 
             array(
-                'symfony2' => array(
+                'symfony' => array(
                     'is' => array(
-                        'great'   => 'Symfony2 is great',
-                        'amazing' => 'Symfony2 is amazing',
+                        'great'   => 'Symfony is great',
+                        'amazing' => 'Symfony is amazing',
                     ),
                     'has' => array(
-                        'bundles' => 'Symfony2 has bundles',
+                        'bundles' => 'Symfony has bundles',
                     ),
                 ),
                 'user' => array(
@@ -206,18 +206,18 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
 
         .. code-block:: yaml
 
-            symfony2.is.great: Symfony2 is great
-            symfony2.is.amazing: Symfony2 is amazing
-            symfony2.has.bundles: Symfony2 has bundles
+            symfony.is.great: Symfony is great
+            symfony.is.amazing: Symfony is amazing
+            symfony.has.bundles: Symfony has bundles
             user.login: Login
 
         .. code-block:: php
 
             return array(
-                'symfony2.is.great'    => 'Symfony2 is great',
-                'symfony2.is.amazing'  => 'Symfony2 is amazing',
-                'symfony2.has.bundles' => 'Symfony2 has bundles',
-                'user.login'           => 'Login',
+                'symfony.is.great'    => 'Symfony is great',
+                'symfony.is.amazing'  => 'Symfony is amazing',
+                'symfony.has.bundles' => 'Symfony has bundles',
+                'user.login'          => 'Login',
             );
 
 .. _component-translation-pluralization:
@@ -355,7 +355,7 @@ Durante la traduzione di un messaggio, Translator usa il locale specificato o il
 da usare::
 
     $translator->trans(
-        'Symfony2 is great',
+        'Symfony is great',
         array(),
         'messages',
         'fr_FR'

@@ -32,11 +32,8 @@ Questi file contengono le seguenti classi:
 File                                     Nome classe
 ======================================== =======================
 ``libreria/pluto/paperino/Paperone.php`` ``Acme\Pluto\Paperino``
----------------------------------------- -----------------------
 ``libreria/pluto/Pippo.php``             ``Acme\Pluto``
----------------------------------------- -----------------------
 ``libreria/pippo/pluto/Pippo.php``       ``Acme\Pippo\Pluto``
----------------------------------------- -----------------------
 ``libreria/pippo/Pluto.php``             ``Acme\Pippo``
 ======================================== =======================
 
@@ -118,7 +115,10 @@ lo stesso dell'esempio precedente)::
 
     use Symfony\Component\ClassLoader\ClassMapGenerator;
 
-    ClassMapGenerator::dump(array(__DIR__.'/library/pluto', __DIR__.'/library/pippo'), __DIR__.'/class_map.php');
+    ClassMapGenerator::dump(
+        array(__DIR__.'/library/pluto', __DIR__.'/library/pippo'),
+        __DIR__.'/class_map.php'
+    );
 
 .. _`PSR-0`: http://www.php-fig.org/psr/psr-0
 .. _`PSR-4`: http://www.php-fig.org/psr/psr-4

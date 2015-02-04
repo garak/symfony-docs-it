@@ -140,49 +140,6 @@ rispetto ad averla legata e nascosta nella definizione del servizio:
 In caso di uso altrove, occorre cambiare il
 parametro in un unico posto, se necessario.
 
-Si può anche usare i parametri nella definizione dei servizi, per esempio,
-rendendo un parametro la classe di un servizio:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        parameters:
-            mailer.transport: sendmail
-
-        services:
-            mailer:
-                class:     Mailer
-                arguments: ["%mailer.transport%"]
-
-    .. code-block:: xml
-
-        <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <parameters>
-                <parameter key="mailer.transport">sendmail</parameter>
-            </parameters>
-
-            <services>
-                <service id="mailer" class="Mailer">
-                    <argument>%mailer.transport%</argument>
-                </service>
-            </services>
-        </container>
-
-    .. code-block:: php
-
-        use Symfony\Component\DependencyInjection\Reference;
-
-        $container->setParameter('mailer.transport', 'sendmail');
-
-        $container
-            ->register('mailer', 'Mailer')
-            ->addArgument('%mailer.transport%');
-
 .. note::
 
     Il simbolo di percentuale dentro a un parametro o argomento, come parte della stringa, deve subire

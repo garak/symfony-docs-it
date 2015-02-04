@@ -30,10 +30,10 @@ Creare la classe Extension
 Per avere una funzionalità personalizzata, occorre prima di tutto creare una classe Extension.
 Come esempio, creeremo un filtro per i prezzi, che formatta un dato numero::
 
-    // src/Acme/DemoBundle/Twig/AcmeExtension.php
-    namespace Acme\DemoBundle\Twig;
+    // src/AppBundle/Twig/AppExtension.php
+    namespace AppBundle\Twig;
 
-    class AcmeExtension extends \Twig_Extension
+    class AppExtension extends \Twig_Extension
     {
         public function getFilters()
         {
@@ -52,7 +52,7 @@ Come esempio, creeremo un filtro per i prezzi, che formatta un dato numero::
 
         public function getName()
         {
-            return 'acme_extension';
+            return 'app_extension';
         }
     }
 
@@ -70,55 +70,61 @@ Ora si deve rendere nota al contenitore di servizi l'estensione di Twig appena c
 
     .. code-block:: yaml
 
-        # src/Acme/DemoBundle/Resources/config/services.yml
+        # app/config/services.yml
         services:
-            acme.twig.acme_extension:
-                class: Acme\DemoBundle\Twig\AcmeExtension
+            app.twig_extension:
+                class: AppBundle\Twig\AppExtension
+                public: false
                 tags:
                     - { name: twig.extension }
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
+        <!-- app/config/services.xml -->
         <services>
-            <service id="acme.twig.acme_extension" class="Acme\DemoBundle\Twig\AcmeExtension">
+            <service id="app.twig_extension"
+                class="AppBundle\Twig\AppExtension"
+                public="false">
                 <tag name="twig.extension" />
             </service>
         </services>
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Resources/config/services.php
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
         $container
-            ->register('acme.twig.acme_extension', '\Acme\DemoBundle\Twig\AcmeExtension')
+            ->register('app.twig_extension', '\AppBundle\Twig\AppExtension')
+            ->setPublic(false)
             ->addTag('twig.extension');
 
 .. note::
 
    Tenere a mente che le estensioni di Twig non sono caricate in modalità pigra. Questo
-   vuol dire che c'è una buona possibilità di avere una **CircularReferenceException**
-   o una **ScopeWideningInjectionException**, se un servizio
-   (o un'estensione Twig, in questo caso) dipendono dal servizio della richiesta.
-   Per maggiori informazioni, si veda :doc:`/cookbook/service_container/scopes`.
+   vuol dire che c'è una buona possibilità di avere una
+   :class:`Symfony\\Component\\DependencyInjection\\Exception\\ServiceCircularReferenceException`
+   o una
+   :class:`Symfony\\Component\\DependencyInjection\\Exception\\ScopeWideningInjectionException`
+   se un servizio (o un'estensione Twig, in questo caso) dipendono dal servizio della
+   richiesta. Per maggiori informazioni, si veda :doc:`/cookbook/service_container/scopes`.
 
 Usare l'estensione personalizzata                
 ---------------------------------
 
-L'estensione di Twig appena creata si può usare in modo non diverso da qualsiasi altra:
+L'estensione di Twig appena creata può essere usata in modo non diverso da qualsiasi altra:
 
 .. code-block:: jinja
 
     {# mostra $5,500.00 #}
-    {{ '5500' | price }}
+    {{ '5500'|price }}
 
 Si possono passare parametri al filtro:
 
 .. code-block:: jinja
 
     {# mostra $5500,2516 #}
-    {{ '5500.25155' | price(4, ',', '') }}
+    {{ '5500.25155'|price(4, ',', '') }}
 
 Saperne di più
 --------------

@@ -1059,43 +1059,76 @@ uno chiamato ``stylesheets``, dentro al tag ``head``, e l'altro chiamato ``javas
 appena prima della chiusura del tag ``body``. Questi blocchi conterranno tutti i fogli
 di stile e i Javascript che occorrerano al sito:
 
-.. code-block:: html+jinja
+.. configuration-block::
 
-    {# app/Resources/views/base.html.twig #}
-    <html>
-        <head>
-            {# ... #}
+    .. code-block:: html+jinja
 
-            {% block stylesheets %}
-                <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
-            {% endblock %}
-        </head>
-        <body>
-            {# ... #}
+        {# app/Resources/views/base.html.twig #}
+        <html>
+            <head>
+                {# ... #}
 
-            {% block javascripts %}
-                <script src="{{ asset('js/main.js') }}"></script>
-            {% endblock %}
-        </body>
-    </html>
+                {% block stylesheets %}
+                    <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+                {% endblock %}
+            </head>
+            <body>
+                {# ... #}
+
+                {% block javascripts %}
+                    <script src="{{ asset('js/main.js') }}"></script>
+                {% endblock %}
+            </body>
+        </html>
+
+    .. code-block:: php
+
+        // app/Resources/views/base.html.php
+        <html>
+            <head>
+                <?php ... ?>
+
+                <?php $view['slots']->start('stylesheets') ?>
+                    <link href="<?php echo $view['assets']->getUrl('css/main.css') ?>" rel="stylesheet" />
+                <?php $view['slots']->stop() ?>
+            </head>
+            <body>
+                <?php ... ?>
+
+                <?php $view['slots']->start('javascripts') ?>
+                    <script src="<?php echo $view['assets']->getUrl('js/main.js') ?>"></script>
+                <?php $view['slots']->stop() ?>
+            </body>
+        </html>
 
 È così facile! Ma che succede quando si ha bisogno di includere un foglio di stile o un
 Javascript aggiuntivo in un template figlio? Per esempio, supponiamo di avere una pagina
 di contatti e che occorra includere un foglio di stile ``contact.css`` *solo* su tale
 pagina. Da dentro il template della pagina di contatti, fare come segue:
 
-.. code-block:: html+jinja
+.. configuration-block::
 
-    {# app/Resources/views/Contact/contact.html.twig #}
-    {% extends 'base.html.twig' %}
+    .. code-block:: html+jinja
 
-    {% block stylesheets %}
-        {{ parent() }}
+        {# app/Resources/views/Contact/contact.html.twig #}
+        {% extends 'base.html.twig' %}
 
-        <link href="{{ asset('css/contact.css') }}" rel="stylesheet" />
-    {% endblock %}
+        {% block stylesheets %}
+            {{ parent() }}
 
-    {# ... #}
+            <link href="{{ asset('css/contact.css') }}" rel="stylesheet" />
+        {% endblock %}
+
+        {# ... #}
+
+    .. code-block:: php
+
+        // app/Resources/views/Contact/contact.html.twig
+        <?php $view->extend('base.html.php') ?>
+
+        <?php $view['slots']->start('stylesheets') ?>
+            <link href="<?php echo $view['assets']->getUrl('css/contact.css') ?>" rel="stylesheet" />
+        <?php $view['slots']->stop() ?>
 
 Nel template figlio, basta sovrascrivere il blocco ``stylesheets`` e inserire
 il nuovo tag del foglio di stile nel blocco stesso. Ovviamente, poiché vogliamo
@@ -1247,11 +1280,11 @@ qualità (vedere `KnpBundles.com`_) per un gran numero di diverse caratteristich
 Quando si usa un bundle di terze parti, probabilmente occorrerà sovrascrivere e
 personalizzare uno o più dei suoi template.
 
-Si supponga di aver incluso l'immaginario bundle ``AcmeBlogBundle`` in un
+Si supponga di aver incluso l'immaginario bundle AcmeBlogBundle in un
 progetto (p.e. nella cartella ``src/Acme/BlogBundle``). Pur essendo soddisfatti,
 si vuole sovrascrivere la pagina "list" del blog, per personalizzare il codice e
-renderlo specifico per l'applicazione. Analizzando il controllore
-``Blog`` di ``AcmeBlogBundle``, si trova::
+renderlo specifico per l'applicazione. Analizzando il controllore ``Blog`` di AcmeBlogBundle,
+si trova::
 
     public function indexAction()
     {

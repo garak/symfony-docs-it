@@ -66,72 +66,75 @@ La classe :class:`Symfony\\Component\\HttpFoundation\\Session\\Session` ha una s
 suddivisa in un paio di gruppi.
 
 Flusso della sessione
+.....................
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::start`:
-  Fa partire la sessione. Non usare ``session_start()``.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::start`
+    Fa partire la sessione. Non usare ``session_start()``.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::migrate`:
-  Rigenera l'id di sessione. Non usare ``session_regenerate_id()``.
-  Questo metodo, facoltativamente, può cambiare la scadenza del nuovo cookie, che sarà
-  emesso alla chiamata di questo metodo.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::migrate`
+    Rigenera l'id di sessione. Non usare ``session_regenerate_id()``.
+    Questo metodo, facoltativamente, può cambiare la scadenza del nuovo cookie, che sarà
+    emesso alla chiamata di questo metodo.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::invalidate`:
-  Pulisce i dati della sessione e rigenera la sessione. Non usare ``session_destroy()``.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::invalidate`
+    Pulisce i dati della sessione e rigenera la sessione. Non usare ``session_destroy()``.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getId`: Restituisce
-  l'id della sessione.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getId`
+    Restituisce l'id della sessione. Non usare ``session_id()``.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setId`: Imposta
-  l'id della sessione.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setId`
+    Imposta l'id della sessione. Non usare ``session_id()``.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getName`: Restituisce
-  il nome della sessione.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getName`
+    Restituisce il nome della sessione. Non usare ``session_name()``.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setName`: Imposta
-  il nome della sessione.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::setName`
+    Imposta il nome della sessione. Non usare ``session_name()``.
 
 Attributi della sessione
+........................
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::set`:
-  Imposta un attributo per chiave;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::set`
+    Imposta un attributo per chiave.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::get`:
-  Restituisce un attributo per chiave;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::get`
+    Restituisce un attributo per chiave.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::all`:
-  Restituisce tutti gli attributi, come array chiave => valore;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::all`
+    Restituisce tutti gli attributi, come array chiave => valore.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::has`:
-  Restituisce ``true`` se l'attributo esiste;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::has`
+    Restituisce ``true`` se l'attributo esiste.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::replace`:
-  Imposta molti attributi contemporaneamente: accetta un array e imposta ogni coppia chiave => valore.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::replace`
+    Imposta molti attributi contemporaneamente: accetta un array e imposta ogni coppia chiave => valore.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::remove`:
-  Cancella un attributo per chiave;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::remove`
+    Cancella un attributo per chiave.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::clear`:
-  Pulisce tutti gli attributi;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::clear`
+    Pulisce tutti gli attributi.
 
 Gli attributi sono memorizzati internamente in un "Bag", un oggetto PHP che agisce come
 un array. Ci sono alcuni metodi per la gestione del "Bag":
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::registerBag`:
-  Registra una :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface`
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::registerBag`
+    Registra una :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface`.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getBag`:
-  Restituisce una :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface` per
-  nome del bag.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getBag`
+    Restituisce una :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface` per
+    nome del bag.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getFlashBag`:
-  Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`.
-  Questa è solo una scorciatoia.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getFlashBag`
+    Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`.
+    Questa è solo una scorciatoia.
 
 Meta-dati della sessione
+........................
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag`:
-  Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\MetadataBag`,
-  che contiene informazioni sulla sessione.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Session::getMetadataBag`
+    Restituisce la :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\MetadataBag`,
+    che contiene informazioni sulla sessione.
 
 Gestori del salvataggio
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,16 +157,16 @@ bag, se necessario.
 :class:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface` ha la
 seguente API, intesa principalmente per scopi interni:
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getStorageKey`:
-  restituisce la chiave che il bag memorizzerà nell'array sotto `$_SESSION`.
-  In generale questo valore può essere lasciato al suo predefinito ed è per uso interno.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getStorageKey`
+    restituisce la chiave che il bag memorizzerà nell'array sotto `$_SESSION`.
+    In generale questo valore può essere lasciato al suo predefinito ed è per uso interno.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::initialize`:
-  richiamato internamente dalle classi memorizzazione della sessione di Symfony2 per collegare
-  i dati del bag alla sessione.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::initialize`
+    richiamato internamente dalle classi memorizzazione della sessione di Symfony2 per collegare
+    i dati del bag alla sessione.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getName`:
-  Restituisce il nome del bag della sessione.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getName`
+    Restituisce il nome del bag della sessione.
 
 Attributi
 ~~~~~~~~~
@@ -172,11 +175,11 @@ Lo scopo dei bag che implementano :class:`Symfony\\Component\\HttpFoundation\\Se
 è gestire la memorizzazione degli attributi di sessione. Questo potrebbe includer cose come l'id utente,
 le impostazioni "ricordami" o altre informazioni basate sullo stato dell'utente.
 
-* :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBag`
-  è l'implementazione standard predefinita.
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBag`
+    è l'implementazione standard predefinita.
 
-* :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\NamespacedAttributeBag`
-  consente agli attributi di essere memorizzati in uno spazio dei nomi strutturato.
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\NamespacedAttributeBag`
+    consente agli attributi di essere memorizzati in uno spazio dei nomi strutturato.
 
 Qualsiasi sistema di memorizzazione `chiave => valore` è limitato riguardo alla complessità
 dei dati che possono essere memorizzati, perché ogni chiave deve essere univoca. Si può ottenere
@@ -187,8 +190,12 @@ array, per esempio un insieme di token. In questo caso, gestire l'array diventa 
 perché di deve recuperare l'array e poi processarlo e memorizzarlo di
 nuovo::
 
-    $tokens = array('tokens' => array('a' => 'a6c1e0b6',
-                                      'b' => 'f4a7b1f3'));
+    $tokens = array(
+        'tokens' => array(
+            'a' => 'a6c1e0b6',
+            'b' => 'f4a7b1f3',
+        ),
+    );
 
 Quindi ogni processamento può rapidamente diventare brutto, persino la semplice aggiunta
 di un token all'array::
@@ -207,29 +214,29 @@ In questo modo si può accedere facilmente a una chiave nell'array direttamente 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface`
 ha una semplice API
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::set`:
-  Imposta un attributo per chiave;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::set`
+    Imposta un attributo per chiave.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::get`:
-  Restituisce un attributo per chiave;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::get`
+    Restituisce un attributo per chiave.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::all`:
-  Restituisce tutti gli attributi come array chiave => valore;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::all`
+    Restituisce tutti gli attributi come array chiave => valore.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::has`:
-  Restituisce ``true`` se l'attributo esiste;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::has`
+    Restituisce ``true`` se l'attributo esiste.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::keys`:
-  Restituisce un array di chiavi di attributi;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::keys`
+    Restituisce un array di chiavi di attributi.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::replace`:
-  Imposta molti attributi contemporaneamente: accetta un array e imposta ogni coppia chiave => valore.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::replace`
+    Imposta molti attributi contemporaneamente: accetta un array e imposta ogni coppia chiave => valore.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::remove`:
-  Cancella un attributo per chiave;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::remove`
+    Cancella un attributo per chiave.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::clear`:
-  Pulisce il bag;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface::clear`
+    Pulisce il bag.
 
 Messaggi flash
 ~~~~~~~~~~~~~~
@@ -243,49 +250,49 @@ aggiornamento o a quella di errore. I messaggi flash impostati nella pagina prec
 sarebbero mostrati immediatamente nella pagina successiva.
 Tuttavia questa è solo una possibile applicazione per i messaggi flash.
 
-* :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\AutoExpireFlashBag`
-   con questa implementazione, i messaggi impostati in una pagina saranno disponibili
-   per essere mostrati sono al caricamento della pagina successiva. Tali messaggi
-   scadranno automaticamente, che siano stati recuperati o meno.
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\AutoExpireFlashBag`
+    con questa implementazione, i messaggi impostati in una pagina saranno disponibili
+    per essere mostrati sono al caricamento della pagina successiva. Tali messaggi
+    scadranno automaticamente, che siano stati recuperati o meno.
 
-* :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBag`
-   con questa implementazione, i messaggi rimarranno i sessione finché non saranno
-   esplicitamente recuperati o rimossi. Questo rende possibile l'utilizzo della
-   cache ESI.
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBag`
+    con questa implementazione, i messaggi rimarranno i sessione finché non saranno
+    esplicitamente recuperati o rimossi. Questo rende possibile l'utilizzo della
+    cache ESI.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface`
 ha una semplice API
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::add`:
-  aggiunge un messaggio flash alla pila del tipo specificato;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::add`
+    aggiunge un messaggio flash alla pila del tipo specificato.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::set`:
-  imposta i flash per tipo. Questo metodo accetta sia messaggi singoli come stringa,
-  che messaggi multipli come array.
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::set`
+    imposta i flash per tipo. Questo metodo accetta sia messaggi singoli come stringa,
+    che messaggi multipli come array.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::get`:
-  restituisce i flash per tipo e cancella tali flash dal bag;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::get`
+    restituisce i flash per tipo e cancella tali flash dal bag.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::setAll`:
-  imposta tutti i flash, accetta un array di array con chiavi ``tipo => array(messaggi)``;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::setAll`
+    imposta tutti i flash, accetta un array di array con chiavi ``tipo => array(messaggi)``.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::all`:
-  restituisce tutti i flash (come array di array con chiavi) e cancella i flash dal bag;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::all`
+    restituisce tutti i flash (come array di array con chiavi) e cancella i flash dal bag.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::peek`:
-  restituisce i flash per tipo (sola lettura);
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::peek`
+    restituisce i flash per tipo (sola lettura).
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::peekAll`:
-  restituisce tutti i flash (sola lettura) come array di array con chiavi;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::peekAll`
+    restituisce tutti i flash (sola lettura) come array di array con chiavi.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::has`:
-  restituisce ``true`` se il tipo esiste, ``false`` altrimenti;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::has`
+    restituisce ``true`` se il tipo esiste, ``false`` altrimenti.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::keys`:
-  restituisce un array di tipi di flash memorizzati;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::keys`
+    restituisce un array di tipi di flash memorizzati.
 
-* :method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::clear`:
-  pulisce il bag;
+:method:`Symfony\\Component\\HttpFoundation\\Session\\Flash\\FlashBagInterface::clear`
+    pulisce il bag.
 
 Solitamente, per applicazioni semplici basta avere un solo messaggio flash per
 tipo, per esempio una nota di conferma dopo l'invio di un form. Tuttavia,
@@ -314,18 +321,18 @@ Semplice, mostra un tipo di messaggio::
 
     // mostra avvertimenti
     foreach ($session->getFlashBag()->get('warning', array()) as $message) {
-        echo "<div class='flash-warning'>$message</div>";
+        echo '<div class="flash-warning">'.$message.'</div>';
     }
 
     // mostra errori
     foreach ($session->getFlashBag()->get('error', array()) as $message) {
-        echo "<div class='flash-error'>$message</div>";
+        echo '<div class="flash-error">'.$message.'</div>';
     }
 
 Metodo compatto per processare la visualizzazione di tutti i flash in un colpo solo::
 
     foreach ($session->getFlashBag()->all() as $type => $messages) {
         foreach ($messages as $message) {
-            echo "<div class='flash-$type'>$message</div>\n";
+            echo '<div class="flash-'.$type.'">'.$message.'</div>';
         }
     }

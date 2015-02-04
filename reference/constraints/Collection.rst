@@ -85,7 +85,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
              *             @Assert\NotBlank(),
              *             @Assert\Length(
              *                 max = 100,
-             *                 maxMessage = "Your bio is too long!"
+             *                 maxMessage = "Your short bio is too long!"
              *             )
              *         }
              *     },
@@ -117,7 +117,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
                                 <constraint name="NotBlank" />
                                 <constraint name="Length">
                                     <option name="max">100</option>
-                                    <option name="maxMessage">Your bio is too long!</option>
+                                    <option name="maxMessage">Your short bio is too long!</option>
                                 </constraint>
                             </value>
                         </option>
@@ -215,7 +215,7 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
              * @Assert\Collection(
              *     fields={
              *         "personal_email"  = @Assert\Required({@Assert\NotBlank, @Assert\Email}),
-             *         "alternate_email" = @Assert\Optional(@Assert\Email),
+             *         "alternate_email" = @Assert\Optional(@Assert\Email)
              *     }
              * )
              */

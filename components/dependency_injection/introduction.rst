@@ -222,7 +222,7 @@ in un file di configurazione separato e caricarlo in modo simile::
     $loader = new PhpFileLoader($container, new FileLocator(__DIR__));
     $loader->load('services.php');
 
-I servizi ``newsletter_manager`` e `` mailer`` possono ora essere impostati
+I servizi ``newsletter_manager`` e ``mailer`` possono ora essere impostati
 da file di configurazione:
 
 .. configuration-block::

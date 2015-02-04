@@ -39,12 +39,9 @@ Quindi, definire la catena come servizio:
 
     .. code-block:: yaml
 
-        parameters:
-            acme_mailer.transport_chain.class: TransportChain
-
         services:
             acme_mailer.transport_chain:
-                class: "%acme_mailer.transport_chain.class%"
+                class: TransportChain
 
     .. code-block:: xml
 
@@ -53,12 +50,8 @@ Quindi, definire la catena come servizio:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <parameters>
-                <parameter key="acme_mailer.transport_chain.class">TransportChain</parameter>
-            </parameters>
-
             <services>
-                <service id="acme_mailer.transport_chain" class="%acme_mailer.transport_chain.class%" />
+                <service id="acme_mailer.transport_chain" class="TransportChain" />
             </services>
         </container>
 
@@ -66,9 +59,7 @@ Quindi, definire la catena come servizio:
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        $container->setParameter('acme_mailer.transport_chain.class', 'TransportChain');
-
-        $container->setDefinition('acme_mailer.transport_chain', new Definition('%acme_mailer.transport_chain.class%'));
+        $container->setDefinition('acme_mailer.transport_chain', new Definition('TransportChain'));
 
 Definire servizi con un tag personalizzato
 ------------------------------------------
@@ -178,7 +169,7 @@ il contenitore viene compilato::
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
     $container = new ContainerBuilder();
-    $container->addCompilerPass(new TransportCompilerPass);
+    $container->addCompilerPass(new TransportCompilerPass());
 
 .. note::
 
@@ -211,7 +202,7 @@ Per iniziare, cambiare la classe ``TransportChain``::
         public function getTransport($alias)
         {
             if (array_key_exists($alias, $this->transports)) {
-               return $this->transports[$alias];
+                return $this->transports[$alias];
             }
         }
     }

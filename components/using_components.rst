@@ -4,8 +4,8 @@
 
 .. _how-to-install-and-use-the-symfony2-components:
 
-Installare e usare i componenti di Symfony2
-===========================================
+Installare e usare i componenti di Symfony
+==========================================
 
 Se si inizia un nuovo progetto (o se si ha già un progetto) che userà
 uno o più componenti, il modo più semplice per integrare tutto è con `Composer`_.
@@ -22,38 +22,37 @@ Uso del componente Finder
 
 **2.** Creare un file chiamato ``composer.json`` e incollarvi dentro il codice seguente:
 
-.. code-block:: json
+.. code-block:: bash
 
-    {
-        "require": {
-            "symfony/finder": "2.3.*"
-        }
-    }
+    $ composer require symfony/finder
 
-Se si ha già un file ``composer.json``, aggiungere semplicemente la riga. Potrebbe
-essere necessario modificare la versione (p.e. ``2.2.2`` o ``2.4.*``).
+Il nome ``symfony/finder`` è scritto in cima alla documentazione del
+componente desiderato.
 
-Si possono cercare nomi e versioni dei componenti su `packagist.org`_.
+.. tip::
 
-**3.** `Installare composer`_, se non è già presente sul sistema: 
+    `Installare composer`_, se non fosse già presente sul sistem.
+    A seconda di come lo si installa, si potrebbe avere un file ``composer.phar``
+    nella cartella. In questo caso, nessun problema! Basta eseguire
+    ``php composer.phar require symfony/finder``.
 
-**4.** Scaricare le librerie dei venditori e generare il file ``vendor/autoload.php``:
+Se si sa di aver bisogno di una versione specifica della libreria, aggiungerla al comando:
 
 .. code-block:: bash
 
-    $ php composer.phar install
+    $ composer require symfony/finder:2.3.1
 
-**5.** Scrivere del codice:
+**3.** Scrivere il proprio codice!
 
 Una volta che Composer ha scaricato i componenti, basterà includere il
 file ``vendor/autoload.php`` generato da Composer stesso. Tale file si
 occupa di autocaricare tutte le librerie, in modo che si possano usare
 immediatamente::
 
-    // File: src/script.php
+    // File esempio: src/script.php
 
     // cambiare il percorso in quello della cartella "vendor/", relativamente a questo file
-    require_once '../vendor/autoload.php';
+    require_once__DIR__.'/../vendor/autoload.php';
 
     use Symfony\Component\Finder\Finder;
 
@@ -62,33 +61,18 @@ immediatamente::
 
     // ...
 
-.. tip::
+Usare tutti i componenti
+------------------------
 
-    Se si vogliono usare tutti i componenti di Symfony2, invece di aggiungerli
-    uno alla volta:
+Se si volgioni usare tutti i componenti di Symfony, invece di aggiungerli
+uno per uno, si può includere il pacchetto ``symfony/symfony``:
 
-    .. code-block:: json
+.. code-block:: bash
 
-        {
-            "require": {
-                "symfony/finder": "2.3.*",
-                "symfony/dom-crawler": "2.3.*",
-                "symfony/css-selector": "2.3.*"
-            }
-        }
+    $ composer require symfony/symfony
 
-    si può usare:
-
-    .. code-block:: json
-
-        {
-            "require": {
-                "symfony/symfony": "2.3.*"
-            }
-        }
-
-    Questo includerà le librerie dei bundle e dei bridge, che potrebbero non
-    essere necessarie.
+Questo includerà anche librerie di bundle e di bridge, che potrebbero non essere
+effettivamente necessarie.
 
 E ora?
 ------
@@ -100,4 +84,3 @@ Buon divertimento!
 
 .. _Composer: http://getcomposer.org
 .. _Installare composer: http://getcomposer.org/download/
-.. _packagist.org: https://packagist.org/

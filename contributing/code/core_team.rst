@@ -59,11 +59,15 @@ Membri attivi
     HttpFoundation_, HttpKernel_, Serializer_, Stopwatch_, DoctrineBridge_,
     MonologBridge_, e TwigBridge_.
 
+  * **Kévin Dunglas** (:merger:`dunglas`) per il componente Serializer_.
+
+
 * **Decider**:
 
   * **Jakub Zalas** (:decider:`jakzal`);
   * **Jordi Boggiano** (:decider:`seldaek`);
-  * **Lukas Kahwe Smith** (:decider:`lsmith77`).
+  * **Lukas Kahwe Smith** (:decider:`lsmith77`);
+  * **Ryan Weaver** (:decider:`weaverryan`).
 
 Richiesta di affiliazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~

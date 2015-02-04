@@ -4,7 +4,7 @@
 Usare un factory per creare servizi
 ===================================
 
-Il contenitore di servizi di Symfony2 fornisce un modo potente per controllare la
+Il contenitore di servizi di Symfony fornisce un modo potente per controllare la
 creazione di oggetti, consentendo di specificare parametri da passare al costruttore,
 così come chiamate a metodi e impostazioni di parametri. A volte, tuttavia, non fornisce
 tutto ciò che è necessario per costruire gli oggetti.
@@ -35,15 +35,11 @@ il contenitore di servizi per usare la classe factory
 
     .. code-block:: yaml
 
-        parameters:
-            # ...
-            newsletter_manager.class: NewsletterManager
-            newsletter_factory.class: NewsletterFactory
         services:
             newsletter_manager:
-                class:          "%newsletter_manager.class%"
-                factory_class:  "%newsletter_factory.class%"
-                factory_method: get
+                class:          NewsletterManager
+                factory_class:  NewsletterManagerFactory
+                factory_method: createNewsletterManager
 
     .. code-block:: xml
 
@@ -52,18 +48,12 @@ il contenitore di servizi per usare la classe factory
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <parameters>
-                <!-- ... -->
-                <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-                <parameter key="newsletter_factory.class">NewsletterFactory</parameter>
-            </parameters>
-
             <services>
                 <service
                     id="newsletter_manager"
-                    class="%newsletter_manager.class%"
-                    factory-class="%newsletter_factory.class%"
-                    factory-method="get" />
+                    class="NewsletterManager"
+                    factory-class="NewsletterManagerFactory"
+                    factory-method="createNewsletterManager" />
             </services>
         </services>
 
@@ -72,35 +62,29 @@ il contenitore di servizi per usare la classe factory
         use Symfony\Component\DependencyInjection\Definition;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'NewsletterManager');
-        $container->setParameter('newsletter_factory.class', 'NewsletterFactory');
-
-        $definition = new Definition('%newsletter_manager.class%');
-        $definition->setFactoryClass('%newsletter_factory.class%');
-        $definition->setFactoryMethod('get');
+        $definition = new Definition('NewsletterManager');
+        $definition->setFactoryClass('NewsletterManagerFactory');
+        $definition->setFactoryMethod('createNewsletterManager');
 
         $container->setDefinition('newsletter_manager', $definition);
 
 Quando si specificare la classe da usare come factory (tramite ``factory_class``),
 il metodo sarà richiamato staticamente. Se il factory stesso va istanziato e il
-metodo dell'oggetto risultante richiamato (come in questo esempio), configurare il
-factory stesso come servizio:
+metodo dell'oggetto risultante richiamato, configurare il factory stesso come servizio:
+In questo caso, il metodo (p.e. ``createNewsletterManager``) va cambiato per non
+essere staico:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        parameters:
-            # ...
-            newsletter_manager.class: NewsletterManager
-            newsletter_factory.class: NewsletterFactory
         services:
-            newsletter_factory:
-                class:            "%newsletter_factory.class%"
+            newsletter_manager_factory:
+                class:            NewsletterManagerFactory
             newsletter_manager:
-                class:            "%newsletter_manager.class%"
-                factory_service:  newsletter_factory
-                factory_method:   get
+                class:            NewsletterManager
+                factory_service:  newsletter_manager_factory
+                factory_method:   createNewsletterManager
 
     .. code-block:: xml
 
@@ -109,20 +93,14 @@ factory stesso come servizio:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <parameters>
-                <!-- ... -->
-                <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-                <parameter key="newsletter_factory.class">NewsletterFactory</parameter>
-            </parameters>
-
             <services>
-                <service id="newsletter_factory" class="%newsletter_factory.class%"/>
+                <service id="newsletter_manager_factory" class="NewsletterManagerFactory" />
 
                 <service
                     id="newsletter_manager"
-                    class="%newsletter_manager.class%"
-                    factory-service="newsletter_factory"
-                    factory-method="get" />
+                    class="NewsletterManager"
+                    factory-service="newsletter_manager_factory"
+                    factory-method="createNewsletterManager" />
             </services>
         </container>
 
@@ -130,19 +108,15 @@ factory stesso come servizio:
 
         use Symfony\Component\DependencyInjection\Definition;
 
-        // ...
-        $container->setParameter('newsletter_manager.class', 'NewsletterManager');
-        $container->setParameter('newsletter_factory.class', 'NewsletterFactory');
-
-        $container->setDefinition('newsletter_factory', new Definition(
-            '%newsletter_factory.class%'
+        $container->setDefinition('newsletter_manager_factory', new Definition(
+            'NewsletterManager'
         ));
         $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%'
+            'NewsletterManagerFactory'
         ))->setFactoryService(
-            'newsletter_factory'
+            'newsletter_manager_factory'
         )->setFactoryMethod(
-            'get'
+            'createNewsletterManager'
         );
 
 .. note::
@@ -162,17 +136,13 @@ dell'esempio precedente accetti un servizio ``templating`` come parametro:
 
     .. code-block:: yaml
 
-        parameters:
-            # ...
-            newsletter_manager.class: NewsletterManager
-            newsletter_factory.class: NewsletterFactory
         services:
-            newsletter_factory:
-                class:            "%newsletter_factory.class%"
+            newsletter_manager_factory:
+                class:            NewsletterManagerFactory
             newsletter_manager:
-                class:            "%newsletter_manager.class%"
-                factory_service:  newsletter_factory
-                factory_method:   get
+                class:            NewsletterManager
+                factory_service:  newsletter_manager_factory
+                factory_method:   createNewsletterManager
                 arguments:
                     - "@templating"
 
@@ -183,20 +153,14 @@ dell'esempio precedente accetti un servizio ``templating`` come parametro:
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-            <parameters>
-                <!-- ... -->
-                <parameter key="newsletter_manager.class">NewsletterManager</parameter>
-                <parameter key="newsletter_factory.class">NewsletterFactory</parameter>
-            </parameters>
-
             <services>
-                <service id="newsletter_factory" class="%newsletter_factory.class%"/>
+                <service id="newsletter_manager_factory" class="NewsletterManagerFactory" />
 
                 <service
                     id="newsletter_manager"
-                    class="%newsletter_manager.class%"
-                    factory-service="newsletter_factory"
-                    factory-method="get">
+                    class="NewsletterManager"
+                    factory-service="newsletter_manager_factory"
+                    factory-method="createNewsletterManager">
 
                     <argument type="service" id="templating" />
                 </service>
@@ -208,17 +172,14 @@ dell'esempio precedente accetti un servizio ``templating`` come parametro:
         use Symfony\Component\DependencyInjection\Definition;
 
         // ...
-        $container->setParameter('newsletter_manager.class', 'NewsletterManager');
-        $container->setParameter('newsletter_factory.class', 'NewsletterFactory');
-
-        $container->setDefinition('newsletter_factory', new Definition(
-            '%newsletter_factory.class%'
+        $container->setDefinition('newsletter_manager_factory', new Definition(
+            'NewsletterManagerFactory'
         ));
         $container->setDefinition('newsletter_manager', new Definition(
-            '%newsletter_manager.class%',
+            'NewsletterManager',
             array(new Reference('templating'))
         ))->setFactoryService(
-            'newsletter_factory'
+            'newsletter_manager_factory'
         )->setFactoryMethod(
-            'get'
+            'createNewsletterManager'
         );

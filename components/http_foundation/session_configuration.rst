@@ -51,8 +51,8 @@ Esempio di utilzzo::
 .. note::
 
     Con l'eccezione del gestore ``files``, nativo di PHP e sempre disponibile,
-    la disponibilità di altri gestore dipende da quali estensioni PHP sono attive
-    a runtime.
+    la disponibilità di altri gestori dipende da quali estensioni PHP
+    sono attive a runtime.
 
 .. note::
 

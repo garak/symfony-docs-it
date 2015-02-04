@@ -61,12 +61,12 @@ Riferimento per i vincoli di validazione
 
 Il validatore è progettato per validare oggetto in base a *vincoli*.
 Nella vita reale, un vincolo potrebbe essere: "la torta non deve essere bruciata". In
-Symfony2, i vincoli sono simili: sono asserzioni che una condizione sia
+Symfony, i vincoli sono simili: sono asserzioni che una condizione sia
 vera.
 
 Vincoli supportati
 ------------------
 
-I seguenti vincoli sono disponibili nativamente in Symfony2:
+I seguenti vincoli sono disponibili nativamente in Symfony:
 
 .. include:: /reference/constraints/map.rst.inc

@@ -152,4 +152,40 @@ l'opzione ``extra.symfony-web-dir`` nel file ``composer.json``:
 
     .. code-block:: bash
 
+        $ php app/console cache:clear --env=prod
         $ php app/console assetic:dump --env=prod --no-debug
+
+Spostare la cartella ``vendor``
+-------------------------------
+
+Per spostare la cartella ``vendor``, si devono modificare i seguenti
+file:
+
+* ``app/autoload.php``
+* ``composer.json``
+
+La modifica in ``composer.json`` sarà simile a questa:
+
+.. code-block:: json
+
+    {
+        ...
+        "config": {
+            "bin-dir": "bin",
+            "vendor-dir": "/una/cartella/vendor"
+        },
+        ...
+    }
+
+In ``app/autoload.php``, si deve modificare il percorso che porta al file
+``vendor/autoload.php``::
+
+    // app/autoload.php
+    // ...
+    $loader = require '/una/cartella/vendor/autoload.php';
+
+.. tip::
+
+    Queste modifiche sono interessanti se si lavora in un ambiente virtuale
+    e non si può usare NFS. Per esempio, se si esegue un'applicazione Symfony usando
+    Vagrant/VirtualBox in un sistema operativo ospite.

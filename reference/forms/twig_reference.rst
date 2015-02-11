@@ -292,8 +292,8 @@ Le seguenti variabili sono comuni a ogni tipo di campo. Alcuni tipi di campo
 possono avere ulteriori variabili, mentre alcune variabili si applicano effettivamente
 solo ad alcuni tipi.
 
-Ipotizzando di avare una variabile di nome ``form`` in un template, e che si voglia
-riferirsi alle variabili del campo ``name``, l'accesso alle variabili è eseguito tramite
+Ipotizzando di avere una variabile di nome ``form`` in un template e che ci si voglia
+riferire alle variabili del campo ``name``, l'accesso alle variabili è eseguito tramite
 una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\FormView`:
 
 

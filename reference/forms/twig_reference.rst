@@ -292,8 +292,8 @@ Le seguenti variabili sono comuni a ogni tipo di campo. Alcuni tipi di campo
 possono avere ulteriori variabili, mentre alcune variabili si applicano effettivamente
 solo ad alcuni tipi.
 
-Ipotizzando di avare una variabile di nome ``form`` in un template, e che si voglia
-riferirsi alle variabili del campo ``name``, l'accesso alle variabili è eseguito tramite
+Ipotizzando di avere una variabile di nome ``form`` in un template e che ci si voglia
+riferire alle variabili del campo ``name``, l'accesso alle variabili è eseguito tramite
 una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\FormView`:
 
 
@@ -355,7 +355,7 @@ una proprietà pubblica ``vars`` dell'oggetto :class:`Symfony\\Component\\Form\\
 +------------------------+--------------------------------------------------------------------------------------+
 | ``label``              | La stringa da rendere per la  label                                                  |
 +------------------------+--------------------------------------------------------------------------------------+
-| ``multipart``          | Se ``true``, ``form_enctype``renderà ``enctype="multipart/form-data"``.              |
+| ``multipart``          | Se ``true``, ``form_enctype`` renderà ``enctype="multipart/form-data"``.             |
 |                        | Si applica solo all'elemento form principale.                                        |
 +------------------------+--------------------------------------------------------------------------------------+
 | ``attr``               | Un array chiave-valore resi come attributi HTML del campo                            |

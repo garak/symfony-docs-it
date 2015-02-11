@@ -19,10 +19,10 @@ Processo di risoluzione
 Per ogni rapporto, prima si cercherà di confermare la vulnerabilità. Quando
 confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi passi:
 
-1. Inviare un riconoscimento al segnalatore;
-2. Lavorare su una patch;
-3. Ottenere un identificatore CVE da mitre.org;
-4. Scrivere un annuncio sul `blog`_ di Symfony, che descriva la vulnerabilità.
+#. Inviare un riconoscimento al segnalatore;
+#. Lavorare su una patch;
+#. Ottenere un identificatore CVE da mitre.org;
+#. Scrivere un annuncio sul `blog`_ di Symfony, che descriva la vulnerabilità.
    Tale post dovrebbe contenere le seguenti informazioni:
 
    * un titolo che includa sempre la stringa "Security release";
@@ -32,12 +32,12 @@ confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi pas
    * come applicare patch/aggiornamenti/workaround alle applicazioni afflitte;
    * l'identificatore CVE;
    * riconoscimenti.
-5. Inviare patch e annuncio al segnalante per una revisione;
-6. Applicare la patch a tutte le versioni di Symfony in manutenzione;
-7. Pacchettizzare nuove versioni per tutte le versioni afflitte;
-8. Pubblicare il post sul `blog`_ ufficiale di Symfony (va anche aggiunti alla
+#. Inviare patch e annuncio al segnalante per una revisione;
+#. Applicare la patch a tutte le versioni di Symfony in manutenzione;
+#. Pacchettizzare nuove versioni per tutte le versioni afflitte;
+#. Pubblicare il post sul `blog`_ ufficiale di Symfony (va anche aggiunti alla
    categoria "`Security Advisories`_");
-9. Aggiornare la lista degli avvisi di sicurezza (vedere sotto).
+#. Aggiornare la lista degli avvisi di sicurezza (vedere sotto).
 
 .. note::
 

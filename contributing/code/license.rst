@@ -1,9 +1,9 @@
 .. _symfony2-license:
 
-Licenza di Symfony2
-===================
+Licenza di Symfony
+==================
 
-Symfony2 è distribuito sotto licenza MIT.
+Symfony è distribuito sotto licenza MIT.
 
 Secondo `Wikipedia`_:
 

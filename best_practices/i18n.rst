@@ -1,4 +1,96 @@
 Internationalizzazione
 ======================
 
-(TODO da tradurre...)
+L'internazionalizzazione e la localizzazione hanno come obiettivo quello di adattare
+l'applicazione e il suo contenuto ad una specifica nazione o alla lingua dei suoi utenti. In Symfony
+questa funzionalità è opzionale e per poter essere utilizzata bisogna prima abilitarla. Per farlo,
+scommentare l'opzione di configurazione ``translator``, impostando il locale dell'applicazione:
+
+.. code-block:: yaml
+
+    # app/config/config.yml
+    framework:
+        # ...
+        translator: { fallback: "%locale%" }
+
+    # app/config/parameters.yml
+    parameters:
+        # ...
+        locale:     it
+
+Formato dei file di traduzione
+------------------------------
+
+Il componente Translation di Symfony supporta diversi formati di file di
+traduzione: PHP, Qt, ``.po``, ``.mo``, JSON, CSV, INI, ecc.
+
+.. best-practice::
+
+    Usare il formato XLIFF per i file di traduzione.
+
+Fra tutti i formati di traduzione disponibili solo XLIFF e gettext sono ampiamente
+supportati nei tool usati dai traduttori professionali. Poiché XLIFF è basato su XML,
+è possibile validare il contenuto del file appena viene creato.
+
+Symfony 2.6 ha aggiunto il supporto per le note e commenti all'interno dei file XLIFF, rendendoli
+più amichevoli per i traduttori. Dato che una buona traduzione dipende fortemente dal
+contesto, le note del formato XLIFF rappresentano il modo migliore per contenere queste informazioni.
+
+.. tip::
+
+    Il bundle `JMSTranslationBundle`_, sotto licenza Apache, fornisce un'interfaccia web
+    per la visualizzazione e la modifica dei file di traduzione. Inoltre dispone di uno
+    strumento avanzato in grado di leggere il progetto, estrarre il testo da tradurre dai template e automaticamente aggiornare i file XLIFF.
+
+Posizione dei file di traduzione
+--------------------------------
+
+.. best-practice::
+
+    Mettere i file di traduzione nella cartella `app/Resources/translations/`
+
+Solitamente, gli sviluppatori Symfony mettevano questi file nella cartella
+``Resources/translations/`` di ogni bundle.
+
+Poiché la cartella ``app/Resources/`` è considerata la posizione globale delle risorse
+dell'applicazione, mettendo le traduzioni in  ``app/Resources/translations``, esse risulteranno
+centralizzate e prioritarie su ogni altro file di traduzione. Questo consentirà di effettuare
+l'override delle traduzioni definite nei bundle di terze parti.
+
+Chiavi per le traduzioni
+------------------------
+
+.. best-practice::
+
+    Per le traduzioni usare sempre chiavi invece di contenuti stringa.
+
+Usare le chiavi semplifica la gestione dei file di traduzione, poiché è possibile
+modificare il contenuto della lingua originale, senza la necessità di aggiornare tutti i file
+di tutte le lingue.
+
+Le chiavi dovrebbero sempre descrivere il loro scopo e non la loro posizione. Per esempio,
+se un form ha un campo con l'etichetta "Username", una chiave idonea sarà
+``label.username`` e *non* ``edit_form.label.username``.
+
+Esempio di file di traduzione
+-----------------------------
+
+Applicando tutte le best practice precedenti, un file di traduzione
+di esempio per la lingua inglese sarà:
+
+.. code-block:: xml
+
+    <!-- app/Resources/translations/messages.en.xliff -->
+    <?xml version="1.0"?>
+    <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+        <file source-language="en" target-language="it" datatype="plaintext" original="file.ext">
+            <body>
+                <trans-unit id="1">
+                    <source>title.post_list</source>
+                    <target>Elenco dei post</target>
+                </trans-unit>
+            </body>
+        </file>
+    </xliff>
+
+.. _`JMSTranslationBundle`: https://github.com/schmittjoh/JMSTranslationBundle

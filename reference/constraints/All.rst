@@ -106,4 +106,4 @@ vincoli
 **tipo**: ``array`` [:ref:`opzione predefinita<validation-default-option>`]
 
 Questa opzione obbligatoria è l'array dei vincoli di validazione che si vuole
-applicre a ogni elemento dell'array sottostante.
+applicare a ogni elemento dell'array sottostante.

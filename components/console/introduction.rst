@@ -8,9 +8,9 @@ Il componente Console
     Il componente Console semplifica la creazione di eleganti e testabili comandi
     da terminale.
 
-Symfony2 viene distribuito con un componente Console che permette di creare
+Symfony viene distribuito con un componente Console, che permette di creare
 comandi da terminale. I comandi da terminale possono essere utilizzati per qualsiasi
-lavoro ripetivo come i lavori di cron, le importazioni o lavori batch.
+lavoro ripetitivo, come i lavori di cron, importazioni o lavori batch.
 
 Installazione
 -------------
@@ -205,14 +205,14 @@ Quando si usa il livello quieto, viene soppresso ogni output, poiché iol metodo
 :method:`Symfony\\Component\\Console\\Output::write`
 esce senza stampare nulla.
 
-Utilizzo degli argomenti nei comandi
-------------------------------------
+Utilizzo dei parametri nei comandi
+----------------------------------
 
 La parte più interessante dei comandi è data dalla possibilità di mettere a disposizione 
-parametri e argomenti. Gli argomenti sono delle stringhe, separate da spazi, che seguono
+parametri e opzioni. I parametri sono delle stringhe, separate da spazi, che seguono
 il nome stesso del comando. Devono essere inseriti in un ordine preciso e possono essere opzionali o 
-obbligatori. Ad esempio, per aggiungere un argomento opzionale ``cognome`` al precedente
-comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
+obbligatori. Ad esempio, per aggiungere un parametro opzionale ``cognome`` al precedente
+comando e rendere il parametro ``nome`` obbligatorio, si dovrà scrivere::
 
     $this
         // ...
@@ -227,7 +227,7 @@ comando e rendere l'argomento ``nome`` obbligatorio, si dovrà scrivere::
             'Il tuo cognome?'
         );
 
-A questo punto si può accedere all'argomento ``cognome`` dal proprio codice::
+A questo punto si può accedere al parametro ``cognome`` dal codice::
 
     if ($cognome = $input->getArgument('cognome')) {
         $testo .= ' '.$cognome;
@@ -258,7 +258,7 @@ In questo modo, si possono specificare più nomi:
 
     $ php application.php demo:saluta Fabien Ryan Bernhard
 
-Si può accedere al parametro ``nmoi`` come un array::
+Si può accedere al parametro ``nomi`` come un array::
 
     if ($nomi = $input->getArgument('nomi')) {
         $testo .= ' '.implode(', ', $nomi);
@@ -291,8 +291,8 @@ Diversamente dagli argomenti, le opzioni non sono ordinate (cioè possono essere
 specificate in qualsiasi ordine) e sono identificate dal doppio trattino (come in --urla; è 
 anche possibile dichiarare una scorciatoia a singola lettera preceduta da un solo  
 trattino come in ``-u``). Le opzioni sono *sempre* opzionali e possono accettare valori 
-(come in ``dir=src``) o essere semplici indicatori booleani senza alcuna assegnazione 
-(come in ``urla``).
+(come in ``--dir=src``) o essere semplici indicatori booleani senza alcuna assegnazione 
+(come in ``--urla``).
 
 .. tip::
 
@@ -329,11 +329,11 @@ l'impostazione ``--ripetizioni``:
     $ php application.php demo:saluta Fabien
     $ php application.php demo:saluta Fabien --ripetizioni=5
 
-Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
+Nel primo esempio, il saluto verrà stampato una sola volta, visto che ``ripetizioni`` è vuoto e
 il suo valore predefinito è ``1`` (l'ultimo parametro di ``addOption``). Nel secondo esempio, il
 saluto verrà stampato 5 volte.
 
-Ricordiamo che le opzioni non devono essere specificate in un ordina predefinito. Perciò, entrambi i
+Ricordiamo che le opzioni non devono essere specificate in un ordine predefinito. Perciò, entrambi i
 seguenti esempi funzioneranno correttamente:
 
 .. code-block:: bash
@@ -387,7 +387,7 @@ di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTeste
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::
 
-    use Acme\Console\Command\GreetCommand;
+    use Acme\Console\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
 
@@ -416,7 +416,7 @@ Si può testare l'invio di argomenti e opzioni al comando, passandoli come
 array al metodo
 :method:`Symfony\\Component\\Console\\Tester\\CommandTester::execute`::
 
-    use Acme\Console\Command\GreetCommand;
+    use Acme\Console\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Tester\CommandTester;
 

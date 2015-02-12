@@ -57,7 +57,7 @@ se si vuole sapere il nome di un bundle, si può aggiungere a un comando::
 
     $bundle = $helper->ask($input, $output, $question);
 
-All'utente sarà chiesto "Si prega di inserire il nome del bundle". L'utente può insrire
+All'utente sarà chiesto "Si prega di inserire il nome del bundle". L'utente può inserire
 un nome, che sarà restituito dal metodo
 :method:`Symfony\\Component\\Console\\Helper\\QuestionHelper::ask`.
 Se la risposta sarà vuota, sarà restituito il valore predefinito (``AcmeDemoBundle``, in questo caso).

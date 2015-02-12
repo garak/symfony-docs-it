@@ -362,11 +362,11 @@ l'impostazione ``--ripetizioni``:
     $ php application.php demo:saluta Fabien
     $ php application.php demo:saluta Fabien --ripetizioni=5
 
-Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
+Nel primo esempio, il saluto verrà stampato una sola volta, visto che ``ripetizioni`` è vuoto e
 il suo valore predefinito è ``1`` (l'ultimo parametro di ``addOption``). Nel secondo esempio, il
 saluto verrà stampato 5 volte.
 
-Ricordiamo che le opzioni non devono essere specificate in un ordina predefinito. Perciò, entrambi i
+Ricordiamo che le opzioni non devono essere specificate in un ordine predefinito. Perciò, entrambi i
 seguenti esempi funzioneranno correttamente:
 
 .. code-block:: bash

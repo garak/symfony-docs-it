@@ -77,8 +77,10 @@ file ``app/config/parameters.yml``:
             <container xmlns="http://symfony.com/schema/dic/services"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+                xsi:schemaLocation="http://symfony.com/schema/dic/services
+                    http://symfony.com/schema/dic/services/services-1.0.xsd
+                    http://symfony.com/schema/dic/doctrine
+                    http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
                 <doctrine:config>
                     <doctrine:dbal
@@ -165,8 +167,10 @@ base dati al posto nostro:
             <container xmlns="http://symfony.com/schema/dic/services"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+                xsi:schemaLocation="http://symfony.com/schema/dic/services
+                    http://symfony.com/schema/dic/services/services-1.0.xsd
+                    http://symfony.com/schema/dic/doctrine
+                    http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
                 <doctrine:config>
                     <doctrine:dbal
@@ -426,6 +430,7 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
     # genera tutte le entità in AppBundle
     $ php app/console doctrine:generate:entities AppBundle
+
     # genera tutte le entità dei bundle nello spazio dei nomi Acme
     $ php app/console doctrine:generate:entities Acme
 
@@ -864,7 +869,7 @@ Si può usare il metodo appena creato proprio come i metodi predefiniti del repo
 
     $em = $this->getDoctrine()->getManager();
     $products = $em->getRepository('AppBundle:Product')
-                ->findAllOrderedByName();
+        ->findAllOrderedByName();
 
 .. note::
 
@@ -884,7 +889,9 @@ Doctrine stesso a creare la classe.
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entity --entity="AcmeStoreBundle:Category" --fields="name:string(255)"
+    $ php app/console doctrine:generate:entity \
+        --entity="AppBundle:Category" \
+        --fields="name:string(255)"
 
 Questo task genera l'entità ``Category``, con un campo ``id``,
 un campo ``name`` e le relative funzioni getter e setter.
@@ -929,7 +936,8 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
                 products:
                     targetEntity: Product
                     mappedBy: category
-            # non dimenticare di inizializzare la collection nel metodo __construct() dell'entità
+            # non dimenticare di inizializzare la collection nel metodo
+            # __construct() dell'entità
 
     .. code-block:: xml
 

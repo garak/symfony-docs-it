@@ -65,7 +65,7 @@ requisiti.
 
     Per ragioni di sicurezza, tutte le versioni di Symfony sono firmate digitalmente. Se si
     vuole verificare l'integrità di una versione di Symfony, dare un'occhiata al
-    `repository dei checksum pubblici `_ e
+    `repository dei checksum pubblici`_ e
     seguire `questi passi`_ .
 
 Strutturare l'applicazione

@@ -291,7 +291,7 @@ In questo modo, si possono specificare più nomi:
 
     $ php application.php demo:saluta Fabien Ryan Bernhard
 
-Si può accedere al parametro ``nmoi`` come un array::
+Si può accedere al parametro ``nomi`` come un array::
 
     if ($nomi = $input->getArgument('nomi')) {
         $testo .= ' '.implode(', ', $nomi);

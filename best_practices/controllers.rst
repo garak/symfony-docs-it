@@ -81,14 +81,14 @@ questo motivo, si raccomanda di non usarla.
 
 La maggior parte delle volte ``@Template`` è usato senza parametri il che rende più difficile
 sapere quale template viene renderizzato. Il suo utilizzo inoltre rende meno ovvio
- ai principianti che un controller deve sempre ritornare un oggetto Response (a meno che non si usi
+ai principianti che un controller deve sempre ritornare un oggetto Response (a meno che non si usi
 un view layer).
 
 Infine l'annotazione ``@Template`` usa la classe ``TemplateListener`` per ascoltare
 l'evento ``kernel.view`` del framework. L'ascoltatore ha un impatto non trascurabile
 sulle prestazioni dell'applicazione. Nell'esempio dell'applicazione blog il rendering
 dell'homepage impiega 5 millisecondi usando il metodo ``$this->render()``, mentre ben
-26 millisecondi usando l'annotazione ``@Template`.
+26 millisecondi usando l'annotazione ``@Template``.
 
 Come dovrebbe essere il controllore
 -----------------------------------
@@ -213,6 +213,6 @@ Eseguire codice prima e dopo
 
 Se si ha la necessità di eseguire del codice prima o dopo l'esecuzione dei controllore,
 è possibile usare il componente EventDispatcher
-:doc:`configurando i filtri prima e dopo </cookbook/event_dispatcher/before_after_filter>`.
+:doc:`configurando i filtri prima e dopo </cookbook/event_dispatcher/before_after_filters>`.
 
 .. _`ParamConverter`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html

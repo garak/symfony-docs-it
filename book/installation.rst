@@ -6,14 +6,14 @@ Installare e configurare Symfony
 
 Lo scopo di questo capitolo è mettere in grado di avere un'applicazione funzionante
 basata su Symfony. Per semplificare il processo di creazione di nuove
-applicaizoni, Symfony fornisce un installatore, che va installato una sola volta,
+applicazioni, Symfony fornisce un installatore, che va installato una sola volta,
 alla creazione della prima applicazione.
 
 Installare l'installatore di Symfony
 ------------------------------------
 
 L'utilizzo dell'installatore di Symfony è l'unico modo raccomandato di creare nuove
-applicaizoni Symfony. Questo installatore è un'applicazione PHP, che va installata
+applicazioni Symfony. Questo installatore è un'applicazione PHP, che va installata
 solo una volta e che può quindi creare tutte le applicazioni Symfony.
 
 .. note::
@@ -315,7 +315,7 @@ Uso di un controllo dei sorgenti
 --------------------------------
 
 Se si usa un sistema di controllo di versione, come `Git`_, si può tranquillamente eseguire il commit
-do tutto il codice del progetto. Questo perché le applicaizoni Symfony contengono già un file
+do tutto il codice del progetto. Questo perché le applicazioni Symfony contengono già un file
 ``.gitignore``, preparato appositamente per Symfony.
 
 Per istruzioni specifiche su come impostare al meglio un progetto per essere memorizzato

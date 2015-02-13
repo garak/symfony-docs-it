@@ -264,7 +264,6 @@ in diversi formati, inclusi YAML, XML o direttamente dentro la classe
         {
             /**
              * @ORM\Column(type="integer")
-             * @ORM\Id
              * @ORM\GeneratedValue(strategy="AUTO")
              */
             protected $id;

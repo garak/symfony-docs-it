@@ -74,9 +74,8 @@ impedire che i client aggirino la cache. In pratica, si avrà bisogno delle sess
 almeno per alcune parti del sito, p.e. usando form con
 :ref:`protezione CSRF <forms-csrf>`. In questa situazione, assicurarsi solo di far partire
 una sessione quando effettivamente necessario e di pulire la sessione quando non più
-necessaria. In alternativa, si può dare un'occhiata a :doc:`../cache/form_csrf_caching`.
-
-.. todo link "only start a session when actually needed" to cookbook/session/avoid_session_start once https://github.com/symfony/symfony-docs/pull/4661 is merged
+necessaria. In alternativa, si può dare un'occhiata
+a :doc:`/cookbook/cache/form_csrf_caching`.
 
 I cookie creati in JavaScript e usati solo in frontend, p.e. quando si usa
 Google analytics sono comunque inviati al server. Questi cookie non sono

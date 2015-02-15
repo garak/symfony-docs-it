@@ -228,14 +228,14 @@ Lo YAML qui sopra equivale al seguente codice PHP:
 .. code-block:: php
 
     array(
-      'symfony 1.0' => array(
-        'PHP'    => 5.0,
-        'Propel' => 1.2,
-      ),
-      'symfony 1.2' => array(
-        'PHP'    => 5.2,
-        'Propel' => 1.3,
-      ),
+        'symfony 1.0' => array(
+            'PHP'    => 5.0,
+            'Propel' => 1.2,
+        ),
+        'symfony 1.2' => array(
+            'PHP'    => 5.2,
+            'Propel' => 1.3,
+        ),
     );
 
 C'è una cosa importante da ricordare quando si usano le indentazioni in un file
@@ -251,7 +251,7 @@ Si possono annidare sequenze e mappature a volontà:
       - Tipi di eventi
     'Capitolo 2':
       - Introduzione
-      - Helper
+      - Aiutanti
 
 YAML può anche usare stili fluenti per gli insiemi, usando indicatori espliciti
 invece che le intendantazioni, per denotare il livello.
@@ -275,7 +275,7 @@ Si possono mescolare gli stili, per ottenere una migliore leggibilità:
 .. code-block:: yaml
 
     'Chapter 1': [Introduzione, Tipi di eventi]
-    'Chapter 2': [Introduzione, Helper]
+    'Chapter 2': [Introduzione, Aiutanti]
 
 .. code-block:: yaml
 

@@ -85,18 +85,18 @@ Definiamo quindi un nuovo servizio per tale classe.
             class: AppBundle\Utils\Slugger
 
 Per la definizione dei nomi dei servizi solitamente si sceglie
-di utilizzare il nome e la posizione della classe per evitare collisioni di nomi.
-Pertanto il servizio dovrebbe chiamarsi **app.utils.slugger**.
-Tuttavia se si usano nomi dei servizi brevi il codice risulterà più facile da leggere e da usare.
+di utilizzare il nome e la posizione della classe, per evitare collisioni di nomi.
+Pertanto il servizio dovrebbe chiamarsi ``app.utils.slugger``. Tuttavia, se si usano
+nomi dei servizi brevi, il codice risulterà più facile da leggere e da usare.
 
 .. best-practice::
 
-    Il nome dei servizi dovrebbe essere il più breve possibile,
+    Il nome di un servizio dovrebbe essere il più breve possibile,
     ma abbastanza univoco da poter cercare il servizio nel progetto, se
     necessario.
 
-Adesso è possibile usare lo slugger da ogni controller, come 
-``AdminController`:
+Adesso è possibile usare lo slugger da ogni controllore, come 
+``AdminController``:
 
 .. code-block:: php
 

@@ -14,7 +14,7 @@ La `documentazione`_ ufficiale di Twig è la migliore risorsa per sapere tutto s
 questo motore di template. Questa sezione è solo un rapido sguardo ai
 concetti principali.
 
-Un template Twig è un file di test che può generare ogni tipo di contenuto (HTML,
+Un template Twig è un file di testo che può generare ogni tipo di contenuto (HTML,
 XML, CSV, LaTeX, ...). Gli elementi di Twig sono separati dal resto del contenuto
 del template tramite alcuni delimitatori:
 

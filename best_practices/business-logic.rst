@@ -57,7 +57,7 @@ La nostra applicazione blog ha bisogno di una utility in grado di trasformare il
 Lo slug verrà quindi usato come parte dell'URL del post.
 
 Creiamo una classe ``Slugger`` dentro ``src/AppBundle/Utils/`` e aggiungiamo il metodo
-``slugify()`:
+``slugify()``:
 
 .. code-block:: php
 
@@ -283,7 +283,7 @@ il bundle di gestione delle fixture in Doctrine, eseguendo il seguente comando:
 
     $ composer require "doctrine/doctrine-fixtures-bundle"
 
-Quindi è necessario abilitare il bundle in ``AppKernel.php``, ma solo per gli ambienti ``dev` e
+Quindi è necessario abilitare il bundle in ``AppKernel.php``, ma solo per gli ambienti ``dev`` e
 ``test``:
 
 .. code-block:: php

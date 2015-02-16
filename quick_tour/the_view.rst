@@ -92,7 +92,7 @@ chiamato "ereditarietà dei template". Questo consente
 di costruire un template di base, chiamato "layout", che contiene tutti gli elementi comuni
 di un sito e definisce dei "blocchi", che i template figli possono sovrascrivere.
 
-Il template ``hello.html.twig`` eredita da ``layout.html.twig``, grazie al tag
+Il template ``index.html.twig`` eredita da ``base.html.twig``, grazie al tag
 ``extends``:
 
 .. code-block:: html+jinja
@@ -125,7 +125,7 @@ Aprire il file ``app/Resources/views/base.html.twig``, che corrisponde al templa
     </html>
 
 I tag ``{% block %}`` dicono al sistema di template che un template figlio può
-sovrascrivere quelle porzioni di template. In questo esempio, il template ``hello.html.twig``
+sovrascrivere quelle porzioni di template. In questo esempio, il template ``index.html.twig``
 sovrascrive il blocco ``content``, ma non il blocco ``title``, che mostrerà
 il contenuto predefinito, preso dal template ``base.html.twig``.
 

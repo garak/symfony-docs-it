@@ -30,7 +30,7 @@ Configurazione
     Se si lavora con il framework Symfony, il componente Form
     è già configurato. In questo caso, passare a :ref:`component-form-intro-create-simple-form`.
 
-In Symfony2, i form sono rappresentati da oggetti e tali oggetti sono costruiti
+In Symfony, i form sono rappresentati da oggetti e tali oggetti sono costruiti
 usando un *factory di form*. Costruire un factory di form è semplice::
 
     use Symfony\Component\Form\Forms;
@@ -77,6 +77,12 @@ Per processare i dati di un form, occorre richiamare il metodo :method:`Symfony\
 Dietro le quinte, viene usato un oggetto :class:`Symfony\\Component\\Form\\NativeRequestHandler`
 per leggere i dati dalle opportune variabili di PHP (``$_POST`` o
 ``$_GET``), in base al metodo HTTP configurato nel form (quello predefinito è POST).
+
+.. seealso::
+
+    Se occorre maggiore controllo su come esattamente il form viene inviato o su quali
+    dati vi siano passati, si può usare :method:`Symfony\\Component\\Form\\FormInterface::submit`.
+    Per saperne di più, vedere :ref:`il ricettario <cookbook-form-call-submit-directly>`.
 
 .. sidebar:: Integrazione con il componente HttpFoundation
 
@@ -309,10 +315,10 @@ L'integrazione con il componente Validation sarà simile a questa::
     use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
     use Symfony\Component\Validator\Validation;
 
-    $vendorDir = realpath(__DIR__ . '/../vendor');
-    $vendorFormDir = $vendorDir . '/symfony/form/Symfony/Component/Form';
+    $vendorDir = realpath(__DIR__.'/../vendor');
+    $vendorFormDir = $vendorDir.'/symfony/form/Symfony/Component/Form';
     $vendorValidatorDir =
-        $vendorDir . '/symfony/validator/Symfony/Component/Validator';
+        $vendorDir.'/symfony/validator/Symfony/Component/Validator';
 
     // creare il validatore (i dettagli possono variare)
     $validator = Validation::createValidator();
@@ -320,13 +326,13 @@ L'integrazione con il componente Validation sarà simile a questa::
     // ci sono traduzioni predefinite per i messaggi di errore principali
     $translator->addResource(
         'xlf',
-        $vendorFormDir . '/Resources/translations/validators.en.xlf',
+        $vendorFormDir.'/Resources/translations/validators.en.xlf',
         'en',
         'validators'
     );
     $translator->addResource(
         'xlf',
-        $vendorValidatorDir . '/Resources/translations/validators.en.xlf',
+        $vendorValidatorDir.'/Resources/translations/validators.en.xlf',
         'en',
         'validators'
     );
@@ -489,6 +495,43 @@ non è ancora molto flessibile. Di solito, si vuole rendere ogni campo del form
 singolarmente, in modo da poterne controllare l'aspetto. Si vedrà come farlo
 nella sezione ":ref:`form-rendering-template`".
 
+Cambiare metodo e azione del form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.3
+    La possibilità di configurare metodo e azione del form è stata introdotta in
+    Symfony 2.3.
+
+Ogni form viene normalmente inviato allo stesso URI in cui è stato resto, con una
+richiesta HTTP POST. Si può modificare tale comportamento, usando le opzioni :ref:`form-option-action`
+e :ref:`form-option-method` (l'opzione ``method`` è usata anche
+da ``handleRequest()``, per determinare se il form sia stato inviato):
+
+.. configuration-block::
+
+    .. code-block:: php-standalone
+
+        $formBuilder = $formFactory->createBuilder('form', null, array(
+            'action' => '/search',
+            'method' => 'GET',
+        ));
+
+        // ...
+
+    .. code-block:: php-symfony
+
+        // ...
+
+        public function searchAction()
+        {
+            $formBuilder = $this->createFormBuilder('form', null, array(
+                'action' => '/search',
+                'method' => 'GET',
+            ));
+
+            // ...
+        }
+
 .. _component-form-intro-handling-submission:
 
 Gestione dell'invio di form
@@ -616,6 +659,35 @@ e gli eventuali errori mostrati accanto ai rispettivi campi.
 
     Per un elenco di tutti i vincoli disponibili, vedere
     :doc:`/reference/constraints`.
+
+Accedere agli errori
+~~~~~~~~~~~~~~~~~~~~
+
+Si può usare il metodo :method:`Symfony\\Component\\Form\\FormInterface::getErrors`
+per accedere alla lista degli errori. Ogni elemento è un oggetto
+:class:`Symfony\\Component\\Form\\FormError`::
+
+    $form = ...;
+
+    // ...
+
+    // un array di oggetti FormError, ma solo di errori allegati a questo
+    // livello del form (p.e. "errori globali")
+    $errori = $form->getErrors();
+
+    // un array di oggetti FormError, ma solo di errori allegati al campo
+    // "nome"
+    $errori = $form['nome']->getErrors();
+
+    // una stringa che rappresenta tutti gli errori dell'intero form
+    $errori = $form->getErrorsAsString();
+
+.. note::
+
+    Se si abilita l'opzione :ref:`error_bubbling <reference-form-option-error-bubbling>`
+    su un campo, la chiamata a ``getErrors()`` sul form genitore includerà gli errori
+    di quel campo. Tuttavia, non c'è modo di determinare a quale campo sia stato
+    originariamente allegato un errore.
 
 .. _Packagist: https://packagist.org/packages/symfony/form
 .. _Twig:      http://twig.sensiolabs.org

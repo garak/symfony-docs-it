@@ -401,7 +401,7 @@ voce ``connections`` e dar loro un nome univoco:
             default_connection:       default
             connections:
                 default:
-                    dbname:           Symfony2
+                    dbname:           Symfony
                     user:             root
                     password:         null
                     host:             localhost

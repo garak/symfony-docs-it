@@ -114,11 +114,11 @@ avere un servizio ``NameRepository``, da usare per ricavare il valore predefinit
         }
     }
 
-Ora, basta aggiornare i parametri della configurazione del servizio, per
+Ora, basta aggiornare i parametri della configurazione del servizio per
 iniettare ``NameRepository``. Ottimo, ora si ha a disposizione un valore predefinito dinamico!
 
 .. caution::
 
-    Fare attenzione a non fare troppe cose ``configure`` (come query alla base
+    Fare attenzione a non fare troppe cose in ``configure`` (come query alla base
     dati), perché il codice viene eseguito anche se si usa la console per
     eseguire un comando diverso.

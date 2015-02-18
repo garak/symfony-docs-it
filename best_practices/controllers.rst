@@ -13,7 +13,7 @@ iniziare a rifattorizzare il codice del controllore e spostarlo in un servizio.
 
 .. best-practice::
 
-    Estendere il controller dalla classe base fornita da FrameworkBundle
+    Estendere il controllore dalla classe base fornita da FrameworkBundle
     e usare le annotazioni per configurare rotte, cache e sicurezza, quando possibile.
 
 L'accoppiamento dei controllore al framework sottostante consente di sfruttare tutte
@@ -30,13 +30,13 @@ Non sarà necessario esplorare decine di file di formati diversi
 (YAML, XML, PHP): tutta la configurazione è lì dove serve e in un solo formato.
 
 Complessivamente, quindi, si dovrebbe disaccoppiare totalmente la logica di business
-dal framework e nello stesso tempo accoppiare totalmente al framework controller e rotte,
+dal framework e nello stesso tempo accoppiare totalmente al framework controllori e rotte,
 in modo da ottenere il massimo da Symfony.
 
 Configurazione delle rotte
 --------------------------
 
-Per caricare tutte le rotte definite nelle annotazioni dei controller del bundle
+Per caricare tutte le rotte definite nelle annotazioni dei controllori del bundle
 `AppBundle` aggiungete la seguente configurazione al file principale delle rotte:
 
 .. code-block:: yaml
@@ -46,8 +46,8 @@ Per caricare tutte le rotte definite nelle annotazioni dei controller del bundle
         resource: "@AppBundle/Controller/"
         type:     annotation
 
-Questa configurazione caricherà le annotazioni da ogni controller presente sia nella
-directory ``src/AppBundle/Controller/`` che nelle sue sottocartelle. Se
+Questa configurazione caricherà le annotazioni da ogni controllore presente sia nella
+cartella ``src/AppBundle/Controller/`` sia nelle sue sottocartelle. Se
 l'applicazione definisce molti controllori, è perfettamente lecito organizzare il
 tutto in sottocartelle.
 
@@ -81,8 +81,8 @@ questo motivo, si raccomanda di non usarla.
 
 La maggior parte delle volte ``@Template`` è usato senza parametri il che rende più difficile
 sapere quale template viene renderizzato. Il suo utilizzo inoltre rende meno ovvio
-ai principianti che un controller deve sempre ritornare un oggetto Response (a meno che non si usi
-un view layer).
+ai principianti che un controllore deve sempre restituire un oggetto Response (a meno che non si usi
+il livello della vista).
 
 Infine l'annotazione ``@Template`` usa la classe ``TemplateListener`` per ascoltare
 l'evento ``kernel.view`` del framework. L'ascoltatore ha un impatto non trascurabile
@@ -93,8 +93,8 @@ dell'homepage impiega 5 millisecondi usando il metodo ``$this->render()``, mentr
 Come dovrebbe essere il controllore
 -----------------------------------
 
-Considerando tutto, ecco un esempio di come dovrebbe essere il controller
-per l'homepage della nostra applicazione:
+Considerando tutto, ecco un esempio di come dovrebbe essere il controllore
+per l'homepage di un'applicazione:
 
 .. code-block:: php
 

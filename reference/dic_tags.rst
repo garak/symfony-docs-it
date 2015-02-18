@@ -9,7 +9,7 @@ lo si può marcare con il tag ``kernel.event_listener``.
 Si possono approfondire i tag leggendo la sezione ":ref:`book-service-container-tags`"
 del capitolo sul contenitore di servizi.
 
-Di seguito si trovano informazioni su tutti i tag disponibili in Symfony2. Potrebbero
+Di seguito si trovano informazioni su tutti i tag disponibili in Symfony. Potrebbero
 esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -1096,7 +1096,7 @@ translation.extractor
    La possibilità di aggiungere estrattori di messaggi è nuova in Symfony 2.1.
 
 Quando si esegue il comando ``translation:update``, esso usa degli estrattori per
-estrarre messaggi di traduzione da un file. Per impostazione predefinita, Symfony2
+estrarre messaggi di traduzione da un file. Per impostazione predefinita, Symfony
 ha un :class:`Symfony\\Bridge\\Twig\\Translation\\TwigExtractor` e un
 :class:`Symfony\\Bundle\\FrameworkBundle\\Translation\\PhpExtractor`, che
 aiutano a trovare ed estrarre chiavi di traduzione da template Twig e file PHP.
@@ -1180,7 +1180,7 @@ Dopo che un `Extractor <translation.extractor>`_ ha estratto tutti i messaggi da
 template, vengono eseguiti gli esportatori, per esportare i messaggi in un file di
 traduzione in uno specifico formato.
 
-Symfony2 dispone di diversi esportatori:
+Symfony dispone di diversi esportatori:
 
 * :class:`Symfony\\Component\\Translation\\Dumper\\CsvFileDumper`
 * :class:`Symfony\\Component\\Translation\\Dumper\\IcuResFileDumper`

@@ -12,9 +12,9 @@ Creazione dei form
 
     Definire i form come classi PHP.
 
-Il componente `Form` consente di creare form direttamente dal controller.
+Il componente `Form` consente di creare form direttamente dal controllore.
 A meno che non si voglia riusare il form da qualche altra parte, quest'abitudine
-non è del tutto sbagliata. Nonostante ciò, per form più complessi da poter riutilizzare in altri controller
+non è del tutto sbagliata. Nonostante ciò, per form più complessi da poter riutilizzare in altri controllori
 si raccomanda di definire ogni form nella propria classe PHP::
 
     namespace AppBundle\Form;

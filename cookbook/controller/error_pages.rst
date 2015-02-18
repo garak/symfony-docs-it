@@ -5,18 +5,29 @@
 Personalizzare le pagine di errore
 ==================================
 
-Quando in Symfony2 viene lanciata una qualsiasi eccezione, questa viene catturata all'interno
-della classe ``Kernel`` e successivamente inoltrata a un controllore speciale,
-``TwigBundle:Exception:show``, per la gestione. Questo controllore, che si trova
-all'interno di TwigBundle, determina quale template di errore visualizzare e
-il codice di stato che dovrebbe essere impostato per la data eccezione.
+Quando viene lanciata un'eccezione, la classe ``HttpKernel`` la cattura e
+distribuisce un evento ``kernel.exception``. Questo fornisce la possibilità di convertire
+l'eccezione in una ``Response``, in vari modi.
 
-Le pagine di errore possono essere personalizzate in due diversi modi, a seconda di quanto
+Il bundle TwigBundle ha un ascoltatore per tale evento, che eseguirà un controllore configurabile
+(anche se arbitrario), per generare la risposta. Il controllore predefinito ha un modo
+intelligente per scegliere uno dei template di errore
+a disposizione.
+
+Quindi, le pagine di errore possono essere personalizzate in diversi modi, a seconda di quanto
 controllo si vuole avere:
 
-1. Personalizzare i template di errore delle diverse pagine di errore (spiegato più avanti);
+#. :ref:`Usare ExceptionController predefinito e creare alcuni
+   template, che consentono di personalizzare l'aspetto delle varie
+   pagine di errore (facile); <use-default-exception-controller>`
 
-2. Sostituire il controllore predefinito delle eccezioni ``twig.controller.exception:showAction``.
+#. :ref:`Sostituire il controllore predefinito con uno personalizzato
+   (intermedio). <custom-exception-controller>`
+
+#. :ref:`Usare l'evento kernel.exception e implementare una gestione
+   personalizzata (avanzato). <use-kernel-exception-event>`
+
+.. _use-default-exception-controller:
 
 ExceptionController predefinito
 -------------------------------

@@ -136,6 +136,8 @@ Symfony utilizza il seguente algoritmo per determinare quale template deve usare
 
 .. _`WebfactoryExceptionsBundle`: https://github.com/webfactory/exceptions-bundle
 
+.. _custom-exception-controller:
+
 Sostituire il controllore Exception predefinito
 -----------------------------------------------
 
@@ -158,9 +160,54 @@ Per far usare a Symfony il nuovo controllore al posto di quello predefinito, imp
 :ref:`twig.exception_controller <config-twig-exception-controller>`
 in app/config/config.yml.
 
+.. _use-kernel-exception-event:
+
+Usare l'evento kernel.exception
+-------------------------------
+
+Come menzionato in precedenza, l'evento ``kernel.exception`` viene distribuito
+quando il kernel di Symfony Kernel deve gestire un'eccezione.
+Per approfondire, si veda :ref:`kernel-kernel.exception`.
+
+L'utilizzo di questo evento è in realtà molto più potente di quanto sia stato detto in
+precedenza, ma richiede anche una chiara comprensione del funzionamento
+interno di Symfony.
+
+Per fornire solo un esempio, ipotizziamo che un'applicazione lanci eccezioni
+specializzate, con un significato particolare per il suo dominio.
+
+In questo caso, tutto quello che ``ExceptionListener`` e
+``ExceptionController`` possono fare è provare a immaginare il codice
+di stato HTTP corretto e mostrare una pagina di errore generica.
+
+La :doc:`scrittura di un ascoltatore di eventi personalizzato </cookbook/service_container/event_listener>`
+per l'evento ``kernel.exception`` consente di dare uno sguardo più da vicino
+all'eccezione e intraprendere azioni diverse. Tali azioni possono
+includere il log dell'eccezione, il rinvio dell'utente a
+un'altra pagina o la resa di pagine di errore specializzate.
+
+.. note::
+
+    Se l'ascoltatore richiama ``setResponse()`` su
+    :class:`Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent`,
+    la propagazione dell'evento sarà stoppata e la risposta inviata
+    al client.
+
+Questo approccio consente di creare una gestione centralizzata e strutturata degli
+errori: invece di catturare (e gestire) le stesse eccezioni
+in vari controllori ogni volta, si può avere un solo ascoltatore (ma anche più
+di uno) che se ne occupi.
+
 .. tip::
 
-    La personalizzazione della gestione delle eccezioni in realtà è molto più potente
-    di quanto scritto qui. Viene lanciato un evento interno, ``kernel.exception``,
-    che permette un controllo completo sulla gestione delle eccezioni. Per maggiori
-    informazioni, vedere :ref:`kernel-kernel.exception`.
+    Per un esempio, dare un'occhiata a `ExceptionListener`_ nel componente
+    Security.
+
+    Gestisce varie eccezioni legate alla sicurezza, lanciate in
+    un'applicazione (come :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`)
+    e mette in atto misure come il rinvio dell'utente alla pagina di login,
+    la disconnessione e altre cose.
+
+Buona fortuna!
+
+.. _`ExceptionListener`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Security/Http/Firewall/ExceptionListener.php

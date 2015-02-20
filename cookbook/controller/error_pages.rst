@@ -32,7 +32,11 @@ controllo si vuole avere:
 ExceptionController predefinito
 -------------------------------
 
-L'``ExceptionController`` predefinito mostrerà una pagina di
+Il metodo ``showAction()`` del controllore
+:class:`Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController`
+sarà richiamato al verificarsi di un'eccezione.
+
+Questo controllore mostrerà una pagina di
 *eccezione* o di *errore*, a seconda dell'impostazione di ``kernel.debug``.
 Mentre le pagine di *eccezione* forniscono varie informazioni utili
 durante lo sviluppo, le pagine di *errore* sono rivolte
@@ -49,13 +53,52 @@ all'utente finale.
     per codici di stato HTTP arbitrari, anche quando
     ``kernel.debug`` è impostato a ``true``.
 
+.. _`WebfactoryExceptionsBundle`: https://github.com/webfactory/exceptions-bundle
+
+.. _cookbook-error-pages-by-status-code:
+
+Come sono scelti i template per le pagine di errore e di eccezione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Il bundle TwigBundle ha dei template predefiniti per le pagine di errore e
+di eccezione, nella sua cartella ``Resources/views/Exception``.
+
+.. tip::
+
+    In una tipica installazione di Symfony, si può trovare TwigBundle sotto
+    ``vendor/symfony/symfony/src/Symfony/Bundle/TwigBundle``. Oltre alla pagina
+    di errore standard HTML, fornisce anche una pagina di errore per molti
+    dei formati di risposta più comuni, inclusi
+    JSON (``error.json.twig``), XML (``error.xml.twig``) e anche
+    JavaScript (``error.js.twig``), solo per citarne alcuni.
+
+Ecco come ``ExceptionController`` sceglierà uno dei template
+disponibili, in base al codice di stato HTTP e al formato della richiesta:
+
+* Per le pagine di *errore*, cerca prima un template per il formato e il codice
+  di stato dati (come ``error404.json.twig``);
+
+* Se non lo trova, cerca per un template generico per il formato
+  dato (come ``error.json.twig`` o
+  ``exception.json.twig``);
+
+* Infine, ignora il formato e usa il template HTML
+  (come ``error.html.twig`` o ``exception.html.twig``).
+
+.. tip::
+
+    Se l'eccezione implementa l'interfaccia
+    :class:`Symfony\\Component\\HttpKernel\\Exception\\HttpExceptionInterface`,
+    il metodo ``getStatusCode()`` sarà richiamato per
+    ricavare il codice di stato HTTP da utilizzare. Altrimenti,
+    il codice di stato sarà "500".
+
 Sovrascrivere i template degli errori
 -------------------------------------
 
-Tutti i template degli errori sono presenti all'interno di TwigBundle. Per sovrascrivere i
-template, si può semplicemente utilizzare il metodo standard per sovrascrivere i template che
-esistono all'interno di un bundle. Per maggiori informazioni, vedere
-:ref:`overriding-bundle-templates`.
+Per sovrascrivere questi template, si può semplicemente utilizzare il metodo standard
+per sovrascrivere i template che esistono all'interno di un bundle. Per maggiori informazioni,
+vedere :ref:`overriding-bundle-templates`.
 
 Ad esempio, per sovrascrivere il template di errore predefinito che è mostrato
 all'utente finale, creare un nuovo template posizionato in
@@ -89,76 +132,110 @@ all'utente finale, creare un nuovo template posizionato in
     e opzionale motore per i template che si integra con Symfony2. Per maggiori
     informazioni su Twig, vedere :doc:`/book/templating`.
 
-In aggiunta alla pagina di errore standard HTML, Symfony fornisce una pagina di errore
-predefinita per molti dei formati di risposta più comuni, tra cui JSON
-(``error.json.twig``), XML, (``error.xml.twig``) e anche JavaScript
-(``error.js.twig``), per citarne alcuni. Per sovrascrivere uno di questi template, basta
-creare un nuovo file con lo stesso nome nella cartella
-``app/Resources/TwigBundle/views/Exception``. Questo è il metodo standard
-per sovrascrivere qualunque template posizionato dentro a un bundle.
+Questa logica funziona non solo per sostituire i template predefiniti, ma anche per
+crearne di nuovi.
 
-.. _cookbook-error-pages-by-status-code:
-
-Personalizzazione della pagina 404 e di altre pagine di errore
---------------------------------------------------------------
-
-È anche possibile personalizzare specializzare specifici template di errore in base al
-codice di stato. Per esempio, creare un template
-``app/Resources/TwigBundle/views/Exception/error404.html.twig`` per
-visualizzare una pagina speciale per gli errori 404 (pagina non trovata).
-
-Symfony utilizza il seguente algoritmo per determinare quale template deve usare:
-
-* Prima, cerca un template per il dato formato e codice di stato (tipo
-  ``error404.json.twig``);
-
-* Se non esiste, cerca un per il dato formato (tipo
-  ``error.json.twig``);
-
-* Se non esiste, si ricade nel template HTML (tipo
-  ``error.html.twig``).
+Per esempio, creare un template ``app/Resources/TwigBundle/views/Exception/error404.html.twig``,
+per mostrare una pagina speciale per gli errori 404 (non trovato).
+Fare riferimento alla sezione precedente per l'ordine in cui
+``ExceptionController`` cerca i vari nomi di template.
 
 .. tip::
 
-    Per vedere l'elenco completo dei template di errore predefiniti, vedere la
-    cartella ``Resources/views/Exception`` di TwigBundle. In una
-    installazione standard di Symfony2, si può trovareTwigBundle in
-    ``vendor/symfony/src/Symfony/Bundle/TwigBundle``. Spesso, il modo più semplice
-    per personalizzare una pagina di errore è quello di copiarlo da TwigBundle in
-    ``app/Resources/TwigBundle/views/Exception`` e poi modificarlo.
+    Spesso, il modo più semplice per personalizzare una pagina di errore è quello di copiarla
+    da TwigBundle in ``app/Resources/TwigBundle/views/Exception`` e
+    poi modificarla.
 
 .. note::
 
-    Le pagine "amichevoli" di debug delle eccezioni mostrate allo sviluppatore possono ugualmente
-    essere personalizzate, creando template come
-    ``exception.html.twig`` per la pagina di eccezione standard in HTML o
-    ``exception.json.twig`` per la pagina di eccezione JSON.
-
-.. _`WebfactoryExceptionsBundle`: https://github.com/webfactory/exceptions-bundle
+    Anche le pagine di eccezione mostrate allo sviluppatore durante il debug possono essere
+    personalizzate, creando template come
+    ``exception.html.twig``, per la pagina di eccezione standard HTML, o
+    ``exception.json.twig``, per la pagina di eccezione JSON.
 
 .. _custom-exception-controller:
 
-Sostituire il controllore Exception predefinito
------------------------------------------------
+Sostituire ExceptionController
+------------------------------
 
-Se dovesse servire più flessibilità, oltre a sovrascrivere solo il template
-(p.e. se serve passare variabili aggiuntive a un template),
-si può sovrascrivere il controllore che rende la pagina di errore.
+Chi avesse bisogno di un po' più di flessibilità, oltre a riscrivere il
+template, può cambiare il controllore che rende la pagina di errore.
+Per esempio, si potrebbero voler passare variabili aggiuntive
+al template.
 
-Il controllore predefinito delle eccezioni è registrato come servizio, la classe
-effettiva è ``Symfony\Bundle\TwigBundle\Controller\ExceptionController``.
+.. caution::
 
-Per poterlo fare, creare una nuova classe controllore e farle estendere la classe
-``Symfony\Bundle\TwigBundle\Controller\ExceptionController`` di Symfony.
+    Assicurarsi di non perdere le pagine di eccezione che rendono gli utili
+    messaggi di errore durante lo sviluppo.
 
-Ci sono molti metodi da poter sovrascrivere per personalizzare le varie parti della
-resa della pagina di errore. Si può, per esempio, sovrascrivere l'intera
-``showAction`` oppure solo il meteodo ``findTemplate``, che individua quale
-template vada reso.
+Per farlo, basta creare un nuovo controllore e impostare l'opzione
+:ref:`twig.exception_controller <config-twig-exception-controller>` per
+puntarvi.
 
-Per far usare a Symfony il nuovo controllore al posto di quello predefinito, impostare l'opzione
-:ref:`twig.exception_controller <config-twig-exception-controller>`
-in app/config/config.yml.
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config.yml
+        twig:
+            exception_controller:  AppBundle:Exception:showException
+
+    .. code-block:: xml
+
+        <!-- app/config/config.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:twig="http://symfony.com/schema/dic/twig"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd
+                http://symfony.com/schema/dic/twig
+                http://symfony.com/schema/dic/twig/twig-1.0.xsd">
+
+            <twig:config>
+                <twig:exception-controller>AppBundle:Exception:showException</twig:exception-controller>
+            </twig:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config.php
+        $container->loadFromExtension('twig', array(
+            'exception_controller' => 'AppBundle:Exception:showException',
+            // ...
+        ));
+
+.. tip::
+
+    Si può anche impostare il controllore come servizio.
+
+    Il valore predefinito di ``twig.controller.exception:showAction`` si riferisce
+    al metodo ``showAction`` di ``ExceptionController``, descritto
+    in precedenza, che è registrato nel contenitore dei servizi come
+    ``twig.controller.exception``.
+
+Al controllore saranno passati due parametri: ``exception``,
+che è un'istanza di :class:`\\Symfony\\Component\\Debug\\Exception\\FlattenException`,
+creata dall'eccezione gestita, e ``logger``,
+un'istanza di :class:`\\Symfony\\Component\\HttpKernel\\Log\\DebugLoggerInterface`
+(che potrebbe essere ``null``).
+
+.. tip::
+
+    La Request che sarà inviata al controllore è creata
+    in :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`.
+    Questo ascoltatore di eventi è impostato da TwigBundle.
+
+Ovviamente, si può anche estendere
+:class:`Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController`, come descritto prima.
+In tal caso, si potrebbe voler sovrascrivere uno o entrambi i metodi
+``showAction`` e ``findTemplate``. Il secondo individua il
+template da usare.
+
+.. caution::
+
+    Attualmente, ``ExceptionController`` *non* fa parte delle API di
+    Symfony, quindi fare attenzione: potrebbe cambiare in futuro.
 
 .. _use-kernel-exception-event:
 

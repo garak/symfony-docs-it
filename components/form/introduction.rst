@@ -502,7 +502,7 @@ Cambiare metodo e azione del form
     La possibilità di configurare metodo e azione del form è stata introdotta in
     Symfony 2.3.
 
-Ogni form viene normalmente inviato allo stesso URI in cui è stato resto, con una
+Ogni form viene normalmente inviato allo stesso URI in cui è stato reso, con una
 richiesta HTTP POST. Si può modificare tale comportamento, usando le opzioni :ref:`form-option-action`
 e :ref:`form-option-method` (l'opzione ``method`` è usata anche
 da ``handleRequest()``, per determinare se il form sia stato inviato):

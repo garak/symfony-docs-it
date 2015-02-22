@@ -15,7 +15,7 @@ Per esempio, l'header HTTP ``Host`` di solito si usa per restituire
 l'host richiesto. Ma, quando ci si trova dietro a un proxy, il vero host potrebbe
 trovarsi nell'header ``X-Forwarded-Host``.
 
-Poiché gli header HTTP possono essere falsificati, Symfony2 *non* si fida degli
+Poiché gli header HTTP possono essere falsificati, Symfony *non* si fida degli
 header dei proxy. Se si è dietro a un proxy, si deve indicare manualmente che
 tale proxy è fidato.
 

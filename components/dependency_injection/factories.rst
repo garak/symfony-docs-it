@@ -4,7 +4,7 @@
 Usare un factory per creare servizi
 ===================================
 
-Il contenitore di servizi di Symfony2 fornisce un modo potente per controllare la
+Il contenitore di servizi di Symfony fornisce un modo potente per controllare la
 creazione di oggetti, consentendo di specificare parametri da passare al costruttore,
 così come chiamate a metodi e impostazioni di parametri. A volte, tuttavia, non fornisce
 tutto ciò che è necessario per costruire gli oggetti.

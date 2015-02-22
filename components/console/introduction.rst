@@ -382,7 +382,7 @@ in grado di aiutare con diversi compiti:
 Testare i comandi
 -----------------
 
-Symfony2 mette a disposizione diversi strumenti a supporto del test dei comandi. Il più utile 
+Symfony mette a disposizione diversi strumenti a supporto del test dei comandi. Il più utile 
 di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTester`. Questa utilizza 
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::

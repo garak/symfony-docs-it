@@ -161,7 +161,7 @@ il metodo :method:`Symfony\\Component\\Routing\\RouteCollection::addPrefix`::
     $collezioneRadice->addCollection($subCollezione);
 
 .. versionadded:: 2.2
-    Il metodo ``addPrefix`` è stato aggiunto in Symfony2.2. Nelle versioni precedenti,
+    Il metodo ``addPrefix`` è stato aggiunto in Symfony 2.2. Nelle versioni precedenti,
     faceva parte del metodo ``addCollection``.
 
 Configurare i parametri della richiesta

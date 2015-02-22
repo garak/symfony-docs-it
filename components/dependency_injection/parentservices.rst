@@ -176,7 +176,7 @@ e::
         // ...
     }
 
-In modo simile, il contenitore di servizi di Symfony2 supporta anche l'estensione di
+In modo simile, il contenitore di servizi di Symfony supporta anche l'estensione di
 servizi nella configurazione, in modo da poter ridurre le ripetizioni, specificando un
 genitore per un servizio.
 

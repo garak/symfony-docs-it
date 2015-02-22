@@ -118,7 +118,7 @@ Per informazioni generali sull'aggiunta di ascoltatori agli eventi qui sotto, ve
 .. tip::
 
     Fabien Potencier ha anche scritto una bella serie sull'uso del componente HttpKernel
-    e altri componenti di Symfony2 per creare un proprio framework. Vedere
+    e altri componenti di Symfony per creare un proprio framework. Vedere
     `Create your own framework... on top of the Symfony2 Components`_.
 
 .. _component-http-kernel-kernel-request:
@@ -231,7 +231,7 @@ alle informazioni della richiesta.
 Il secondo metodo, :method:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface::getArguments`,
 sarà richiamato dopo che un altro evento, ``kernel.controller``, è stato distribuito.
 
-.. sidebar:: Resolving the Controller in the Symfony2 Framework
+.. sidebar:: Risolvere il controllore nel framework Symfony
 
     Il framework Symfony usa la classe
     :class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolver`
@@ -248,10 +248,10 @@ sarà richiamato dopo che un altro evento, ``kernel.controller``, è stato distr
 
     a) Il formato ``AcmeDemoBundle:Default:index`` della chiave ``_controller``
     viene cambiato in un'altra stringa che contiene il nome completo di classe e metodo
-    del controllore, seguendo la convenzione di Symfony2, cioè
+    del controllore, seguendo la convenzione di Symfony, cioè
     ``Acme\DemoBundle\Controller\DefaultController::indexAction``. Questa trasformazione
     è specifica della sotto-classe :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver`
-    usata dal framework Symfony2.
+    usata dal framework Symfony.
 
     b) Viene istanziata una nuova istanza della classe controllore, senza parametri al
     costruttore.
@@ -259,7 +259,7 @@ sarà richiamato dopo che un altro evento, ``kernel.controller``, è stato distr
     c) Se il controllore implementa :class:`Symfony\\Component\\DependencyInjection\\ContainerAwareInterface`,
     viene richiamato ``setContainer`` sull'oggetto controllore e gli viene passato il
     contenitore. Anche questo passo è specifico della sotto-classe :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver`
-    usata dal framework Symfony2.
+    usata dal framework Symfony.
 
     Ci possono essere alcune piccole variazioni nel processo appena visto, p.e. se
     i controllori sono stati registrati come servizi).
@@ -278,7 +278,7 @@ Dopo che il callable controllore è stato determinato, ``HttpKernel::handle``
 distribuisce l'evento ``kernel.controller``. Gli ascoltatori di questo evento possono inizializzare
 alcune parti del sistema che devono essere inizializzate dopo che alcune cose
 sono state determinate (p.e. il controllore, informazioni sulle rotte) ma prima
-che il controllore sia eseguito. Per alcuni esempi, vedere la sezione Symfony2 più avanti.
+che il controllore sia eseguito. Per alcuni esempi, vedere la sezione Symfony più avanti.
 
 .. image:: /images/components/http_kernel/06-kernel-controller.png
    :align: center
@@ -320,7 +320,7 @@ ne sia un buon esempio.
 A questo punto il kernel ha un callable PHP (il controllore) e un array
 di parametri che vanno passati durante l'esecuzione di tale callable.
 
-.. sidebar:: Ottenere i parametri del controllore nel framework Symfony2 
+.. sidebar:: Ottenere i parametri del controllore nel framework Symfony 
 
     Ora che sappiamo esattamente cosa sia il callable controllore (solitamente un metodo
     dentro all'oggetto controllore), ``ControllerResolver`` usa `reflection`_
@@ -495,7 +495,7 @@ più veloce possibile al client (p.e. invio di email).
 
 .. sidebar:: ``kernel.terminate`` in the Symfony Framework
 
-    Se si usa ``SwiftmailerBundle`` con Symfony2 e si usa lo spool ``memory``,
+    Se si usa ``SwiftmailerBundle`` con Symfony e si usa lo spool ``memory``,
     viene attivato :class:`Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener`,
     che invia effettivamente le email pianificate per essere inviate
     durante la richiesta.

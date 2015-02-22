@@ -39,7 +39,7 @@ La registrazione dell'autoloader :class:`Symfony\\Component\\ClassLoader\\ClassL
 
 .. note::
 
-    In un'applicazione Symfony2, l'autoloader è registrato automaticamente (vedere
+    In un'applicazione Symfony, l'autoloader è registrato automaticamente (vedere
     ``app/autoload.php``).
 
 Usare i metodi :method:`Symfony\\Component\\ClassLoader\\ClassLoader::addPrefix` o

@@ -13,7 +13,7 @@ usando dei matcher.
 Uso dei matcher predefiniti
 ---------------------------
 
-Symfony2 fornisce un
+Symfony fornisce un
 :class:`built-in matcher <Symfony\\Component\\HttpFoundation\\RequestMatcher>`,
 che può far corrispondere percorsi e IP. Per esempio, se si vuole mostrare il
 profilatore solo accedendo con l'IP ``168.0.0.1``, si può

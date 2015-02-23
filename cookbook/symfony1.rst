@@ -168,7 +168,7 @@ vedrà che esso risiede nello spazio dei nomi ``Acme\DemoBundle\Controller``. An
 automaticamente. Questo perché si può dire a Composer di auto-caricare i file da
 cartelle specifiche, senza definire dipendenze:
 
-.. code-block:: yaml
+.. code-block:: json
 
     "autoload": {
         "psr-0": { "": "src/" }

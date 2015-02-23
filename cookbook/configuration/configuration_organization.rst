@@ -4,7 +4,7 @@
 Organizzare i file di configurazione
 ====================================
 
-Symfony2 Standard Edition definisce tre
+Symfony Standard Edition definisce tre
 :doc:`ambienti </cookbook/configuration/environments>`, chiamati
 ``dev``, ``prod`` e ``test``. Un ambiente è semplicemente un modo per
 eseguire lo stesso codice con diverse configurazioni.

@@ -5,7 +5,7 @@ Lo spool della posta
 ====================
 
 Quando si utilizza SwiftmailerBundle per l'invio delle email da un'applicazione
-Symfony2, queste vengono inviate immediatamente. È però possibile evitare il 
+Symfony, queste vengono inviate immediatamente. È però possibile evitare il 
 rallentamento dovuto dalla comunicazione tra ``Swiftmailer`` e  il servizio di
 trasporto delle email, che potrebbe mettere l'utente in attesa del caricamento della
 pagina durante l'invio. Per fare questo, basta scegliere di mettere le email 

@@ -5,7 +5,7 @@ Deploy su Microsoft Azure
 =========================
 
 Questa ricetta descrive come eseguire passo-passo il deploy di una piccola
-applicazione Symfony2 sulla piattaforma di cloud Microsoft Azure. Spiegherà come
+applicazione Symfony sulla piattaforma di cloud Microsoft Azure. Spiegherà come
 preparare un nuovo sito Azure, inclusa la configurazione della corretta versione di PHP e
 delle variabili di ambiente. Verrà anche mostrato come si possono sfruttare
 Git e Composer per il deploy di un'applicazione Symfony nel cloud.

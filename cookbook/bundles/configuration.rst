@@ -129,7 +129,7 @@ Per prima cosa, occorre creare una classe Extension, come spiegato in
 
 Ogni volta che un utente include la voce ``acme_social`` (che è l'alias DI) in un
 file di configurazione, la configurazione ivi presente viene aggiunta a un array di
-configurazioni e passata al metodo ``load()`` dell'estensione (Symfony2
+configurazioni e passata al metodo ``load()`` dell'estensione (Symfony
 converte automaticamente XML e YAML in array).
 
 Per l'esempio di configurazione nella sezione precedente, l'array passato al metodo

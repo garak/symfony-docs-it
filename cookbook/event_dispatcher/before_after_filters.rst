@@ -9,7 +9,7 @@ po' di logica subito prima o subito dopo che l'azione di un controllore abbia ag
 filtro o da hook.
 
 In Symfony1 lo si poteva fare con i metodi preExecute e postExecute e ci sono metodi
-simili in molti grossi framework, ma non in Symfony2.
+simili in molti grossi framework, ma non in Symfony.
 La buona notizia è che c'è un modo molto migliore per intervenire nel processo
 richiesta/risposta, usando il componente EventDispatcher.
 
@@ -126,7 +126,7 @@ eventi, si possono ottenere maggiori informazioni su :doc:`/cookbook/service_con
 
             /*
              * $controller passato può essere una classe o una Closure.
-             * Non è frequente in Symfony2 ma può accadere.
+             * Non è frequente in Symfony ma può accadere.
              * Se è una classe, è in formato array
              */
             if (!is_array($controller)) {

@@ -101,7 +101,7 @@ inserite. Creando il file ``parameters.yml.dist``, i nuovi sviluppatori possono
 prendere subito il progetto, copiare questo file in ``parameters.yml``, personalizzarlo
 e iniziare a sviluppare.
 
-A questo punto, si ha un progetto Symfony2 pienamente funzionante, memorizzato nel
+A questo punto, si ha un progetto Symfony pienamente funzionante, memorizzato nel
 proprio repository Subversion. Si può iniziare lo sviluppo, con i commit verso
 il repository.
 

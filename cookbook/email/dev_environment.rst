@@ -6,8 +6,8 @@ Lavorare con le email durante lo sviluppo
 
 Durante lo sviluppo di applicazioni che inviino email, non sempre è 
 desiderabile che le email vengano inviate all'effettivo 
-destinatario del messaggio. Se si utilizza ``SwiftmailerBundle`` con 
-Symfony2, è possibile evitarlo semplicemente modificano i parametri di 
+destinatario del messaggio. Se si utilizza SwiftmailerBundle con Symfony,
+è possibile evitarlo semplicemente modificano i parametri di 
 configurazione, senza modificare alcuna parte del codice. Ci sono due 
 possibili scelte quando si tratta di gestire le email in fase di 
 sviluppo: (a) disabilitare del tutto l'invio delle email o (b) inviare 
@@ -114,15 +114,15 @@ l'indirizzo sostituito, così da poter vedere a chi sarebbe stata inviata l'emai
 .. note::
 
     Oltre alle email inviate all'indirizzo ``to``, questa configurazione 
-    blocca anche quelle inviate a qualsiasi indirizzo ``CC`` e ``BCC``. 
-    Swiftmailer aggiungerà ulteriori intestazioni contenenti gli indirizzi 
-    ignorati. Le intestazioni usate saranno ``X-Swift-Cc`` e ``X-Swift-Bcc`` 
+    blocca anche quelle inviate a qualsiasi indirizzo ``CC`` e ``BCC``. Swift Mailer
+    aggiungerà ulteriori intestazioni contenenti gli indirizzi ignorati.
+    Le intestazioni usate saranno ``X-Swift-Cc`` e ``X-Swift-Bcc`` 
     rispettivamente per gli indirizzi in ``CC`` e per quelli in ``BCC``.
 
-Visualizzazione tramite Web Debug Toolbar
------------------------------------------
+Visualizzazione tramite barra di debug
+--------------------------------------
 
-Utilizzando la Web Debug Toolbar è possibile visualizzare le email inviate 
+Utilizzando la barra di debug, è possibile visualizzare le email inviate 
 durante la singola risposta nell'ambiente ``dev``. L'icona dell'email 
 apparirà nella barra mostrando quante email sono state spedite. Cliccandoci 
 sopra, un rapporto mostrerà il dettaglio delle email inviate.

@@ -4,7 +4,7 @@
 Deploy su Heroku Cloud
 ======================
 
-Questa ricetta descrive passo-passo come eseguire il deploy di un'applicazione Symfony2
+Questa ricetta descrive passo-passo come eseguire il deploy di un'applicazione Symfony
 sulla piattaforma cloud Heroku. Il contenuto si basa sull'`articolo originale`_
 pubblicato Heroku.
 
@@ -21,14 +21,14 @@ acquisire familiarità con le specifiche di come funzionano le applicazioni PHP 
 Preparare l'applicazione
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Il deploy di un'applicazione Symfony2 su Heroku non richiede alcuna modifica nel
+Il deploy di un'applicazione Symfony su Heroku non richiede alcuna modifica nel
 codice, ma richiede alcuni piccoli aggiustamenti alla configurazione.
 
-La posizione standard dei log di Symfony2 è la cartella ``app/log/``.
+La posizione standard dei log di Symfony è la cartella ``app/log/``.
 Questo non è idale, perché Heroku usa un `filesystem effimero`_. Su
 Heroku, il modo migliore per salvare i log è `Logplex`_. Il modo migliore per
 inviare dati di log a Logplex è la scrittura su ``STDERR`` o ``STDOUT``. Fortunamente, 
-Symfony2 usa l'eccellente libreria Monolog per gestire i log. Quindi, il cambio di
+Symfony usa l'eccellente libreria Monolog per gestire i log. Quindi, il cambio di
 destinazione per i log implica una semplice modifica nella configurazione.
 
 Aprire il file ``app/config/config_prod.yml``, individuare la sezione
@@ -206,7 +206,7 @@ l'applicazione risponderà:
     $ heroku open
     Opening mighty-hamlet-1981... done
 
-Si dovrebbe vedere l'applicazione Symfony2 nel browser.
+Si dovrebbe vedere l'applicazione Symfony nel browser.
 
 .. _`articolo originale`: https://devcenter.heroku.com/articles/getting-started-with-symfony2
 .. _`iscriversi a Heroku`: https://signup.heroku.com/signup/dc

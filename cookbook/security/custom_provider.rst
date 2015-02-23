@@ -4,7 +4,7 @@
 Creare un fornitore utenti personalizzato
 =========================================
 
-Parte del processo standard di autenticazione di Symfony2 dipende dai "fornitori utenti".
+Parte del processo standard di autenticazione di Symfony dipende dai "fornitori utenti".
 Quando un utente invia nome e password, il livello di autenticazione chiede al fornitore
 utenti configurato di restituire un oggetto utente per un dato nome utente.
 Symfony quindi verifica che la password di tale utente sia corretta e genera

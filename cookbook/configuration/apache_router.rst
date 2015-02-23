@@ -4,14 +4,14 @@
 Usare le rotte su Apache
 ========================
 
-Symfony2, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua velocità,
-tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache, invece di usare Symfony2.
+Symfony, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua velocità,
+tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache, invece di usare Symfony.
 
 Modificare i parametri di configurazione delle rotte
 ----------------------------------------------------
 
 Per esportare in Apache le rotte, occorre prima sistemare alcuni parametri di configurazione,
-per dire a Symfony2 di usare ``ApacheUrlMatcher`` invece di quello predefinito:
+per dire a Symfony di usare ``ApacheUrlMatcher`` invece di quello predefinito:
 
 .. configuration-block::
 

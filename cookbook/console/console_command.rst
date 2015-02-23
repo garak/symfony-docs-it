@@ -6,12 +6,12 @@ Creare un comando di console
 
 La pagina Console della sezione dei componenti (:doc:`/components/console/introduction`) spiega
 come creare un comando di console. Questa ricetta spiega invece le differenze
-nella creazione di comandi di console con il framework Symfony2.
+nella creazione di comandi di console con il framework Symfony.
 
 Registrare comandi automaticamente
 ----------------------------------
 
-Per rendere disponibili automaticamente i comandi in Symfony2, creare una cartella
+Per rendere disponibili automaticamente i comandi in Symfony, creare una cartella
 ``Command`` nel proprio bundle e creare un file php, con suffisso
 ``Command.php``, per ciascun comando che si vuole fornire. Per esempio, se si vuole
 estendere AcmeDemoBundle, per mandare un saluto dalla linea di comando, creare

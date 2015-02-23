@@ -31,7 +31,7 @@ Per iniziare, configurare i parametri di connessione alla base dati:
         doctrine:
             dbal:
                 driver:   pdo_mysql
-                dbname:   Symfony2
+                dbname:   Symfony
                 user:     root
                 password: null
                 charset:  UTF8
@@ -42,7 +42,7 @@ Per iniziare, configurare i parametri di connessione alla base dati:
         <doctrine:config>
             <doctrine:dbal
                 name="default"
-                dbname="Symfony2"
+                dbname="Symfony"
                 user="root"
                 password="null"
                 driver="pdo_mysql"
@@ -55,7 +55,7 @@ Per iniziare, configurare i parametri di connessione alla base dati:
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
                 'driver'    => 'pdo_mysql',
-                'dbname'    => 'Symfony2',
+                'dbname'    => 'Symfony',
                 'user'      => 'root',
                 'password'  => null,
             ),

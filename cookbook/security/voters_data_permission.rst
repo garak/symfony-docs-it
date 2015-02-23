@@ -4,7 +4,7 @@
 Usare votanti per verificare i permessi dell'utente
 ===================================================
 
-In Symfony2, si possono verificare permessi di accesso ai dati, usando il
+In Symfony, si possono verificare permessi di accesso ai dati, usando il
 :doc:`modulo ACL </cookbook/security/acl>`, che è un po' troppo complesso
 per molte applicazioni. Una soluzione molto più semplice consiste nell'uso di votanti personalizzati,
 che sono come semplici istruzioni condizionali.

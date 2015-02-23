@@ -10,7 +10,7 @@ log (``monolog.logger.XXX``) nel contenitore ed è iniettato nel servizio
 interessato. Lo scopo dei canali è quello di poter organizzare diversi
 tipi di messaggi di log.
 
-Per impostazione predefinita, Symfony2 scrive ogni messaggio di log in un singolo file
+Per impostazione predefinita, Symfony scrive ogni messaggio di log in un singolo file
 (indipendentemente dal canale).
 
 Spostare un canale su un gestore diverso

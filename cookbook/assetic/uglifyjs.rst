@@ -57,7 +57,7 @@ della cartella ``node_modules``:
 Configurare il filtro uglifyjs2
 -------------------------------
 
-Vediamo ora come configurare Symfony2 per utilizzare il filtro ``uglifyjs2``
+Vediamo ora come configurare Symfony per utilizzare il filtro ``uglifyjs2``
 nel trattamento del codice javascript:
 
 .. configuration-block::

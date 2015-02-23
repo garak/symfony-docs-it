@@ -4,9 +4,9 @@
 Usare PHP al posto di Twig nei template
 =======================================
 
-Anche se Twig è il motore predefinito di template in Symfony2, si può sempre usare
+Anche se Twig è il motore predefinito di template in Symfony, si può sempre usare
 PHP, se lo si preferisce. Entrambi i motori di template sono supportati in ugual modo
-in Symfony2. Symfony2 aggiunge alcune caratteristiche interessanti sopra PHP, per rendere
+in Symfony. Symfony aggiunge alcune caratteristiche interessanti sopra PHP, per rendere
 la scrittura dei template più potente.
 
 Rendere i template PHP
@@ -111,7 +111,7 @@ Decorare i template
 -------------------
 
 Spesso i template in un progetto condividono elementi comuni, come la testata e il pie'
-di pagina. In Symfony2, ci piace pensare a questo problema in modo diverso: un template
+di pagina. In Symfony, ci piace pensare a questo problema in modo diverso: un template
 può essere decorato da un altro template.
 
 Il template ``index.html.php`` è decorato ``layout.html.php``, grazie alla chiamata
@@ -140,7 +140,7 @@ Diamo ora un'occhiata al file ``layout.html.php``:
 
     <?php $view['slots']->output('_content') ?>
 
-Il layout stesso è decorato da un altro template (``::base.html.php``). Symfony2
+Il layout stesso è decorato da un altro template (``::base.html.php``). Symfony
 supporta livelli molteplici di decorazione: un layout può esso stesso essere
 decorato da un altro layout. Quando la parte bundle del nome del template è vuota,
 le viste sono cercate nella cartella ``app/Resources/views/``. Questa cartella contiene
@@ -164,7 +164,7 @@ Per entrambi i layout, l'espressione ``$view['slots']->output('_content')`` vien
 sostituita dal contenuto del template figlio, rispettivamente ``index.html.php`` e
 ``layout.html.php`` (approfondiremo gli slot nella prossima sezione).
 
-Come si può vedere, Symfony2 fornisce metodi su un misterioso oggetto ``$view``. In
+Come si può vedere, Symfony fornisce metodi su un misterioso oggetto ``$view``. In
 un template, la variabile ``$view`` è sempre disponibile e fa riferimento a uno speciale
 oggetto che fornisce un sacco di metodi, che mantengono snello il motore dei template.
 
@@ -292,9 +292,9 @@ prossima sezione.
 Usare gli aiutanti dei template
 -------------------------------
 
-Il sistema di template di Symfony2 può essere facilmente esteso tramite gli aiutanti.
+Il sistema di template di Symfony può essere facilmente esteso tramite gli aiutanti.
 Gli aiutanti sono oggetti PHP che forniscono caratteristiche utili nel contesto di un
-template. ``actions`` e ``slots`` sono due degli aiutanti già disponibili in Symfony2.
+template. ``actions`` e ``slots`` sono due degli aiutanti già disponibili in Symfony.
 
 Creare collegamenti tra le pagine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -326,7 +326,7 @@ Usare le risorse: immagini, JavaScript e fogli di stile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Cosa sarebbe Internet senza immagini, JavaScript e fogli di stile?
-Symfony2 fornisce il tag ``assets`` per gestirli facilmente:
+Symfony fornisce il tag ``assets`` per gestirli facilmente:
 
 .. code-block:: html+php
 

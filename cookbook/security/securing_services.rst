@@ -137,7 +137,7 @@ Mettere i sicurezza i metodi con le annotazioni
 
 Si possono anche proteggere i metodi di un servizio tramite annotazioni, usando
 il bundle `JMSSecurityExtraBundle`_. Questo bundle è incluso nella
-Standard Edition di Symfony2.
+Standard Edition di Symfony.
 
 Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags>`
 ``security.secure_service`` al servizio da proteggere

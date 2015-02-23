@@ -3,8 +3,8 @@
 
 .. _how-to-deploy-a-symfony2-application:
 
-Deploy di un'applicazione Symfony2
-==================================
+Deploy di un'applicazione Symfony
+=================================
 
 .. note::
 
@@ -14,10 +14,10 @@ Deploy di un'applicazione Symfony2
 
 .. _symfony2-deployment-basics:
 
-Basi per i deploy su Symfony2
------------------------------
+Basi per i deploy su Symfony
+----------------------------
 
-I tipici passi durante il deploy di un'applicazione Symfony2 includono:
+I tipici passi durante il deploy di un'applicazione Symfony includono:
 
 #. Caricare il nuovo codice su un server;
 #. Aggiornare le dipendenze (tipicamente eseguito tramite Composer, potrebbe anche
@@ -36,7 +36,7 @@ Un deploy può anche includere altro, come:
 Come eseguire il deploy
 -----------------------
 
-Ci sono molti modi per eseguire il deploy di un'applicazione Symfony2.
+Ci sono molti modi per eseguire il deploy di un'applicazione Symfony.
 
 Iniziamo con alcune strategie di deploy di base.
 
@@ -64,7 +64,7 @@ Uso di script e di altri strumenti
 
 Ci sono alcuni strumenti di alta qualità, che facilitano i deploy. Alcuni di questi
 sono stati adattati in modo specifico ai requisiti di
-Symfony2, assicurandosi di tenere conto di ogni cosa prima, durante e
+Symfony, assicurandosi di tenere conto di ogni cosa prima, durante e
 dopo che un deploy sia stato eseguito correttamente.
 
 Vedere `Strumenti`_ per un elenco di strumenti che possono aiutare con i deploy.
@@ -169,11 +169,11 @@ Strumenti
 `Capifony`_:
 
     Fornisce un insieme specializzato di strumenti basati su Capistrano, adattati in
-    modo specifico per i progetti symfony e Symfony2.
+    modo specifico per i progetti symfony e Symfony.
 
 `sf2debpkg`_:
 
-    Aiuta a costruire un pacchetto Debian nativo per un progetto Symfony2.
+    Aiuta a costruire un pacchetto Debian nativo per un progetto Symfony.
 
 `Magallanes`_:
 
@@ -183,7 +183,7 @@ Strumenti
 Bundle:
 
     Ci sono molti `bundle che aggiungono strumenti di deploy`_ direttamente alla
-    console di Symfony2.
+    console di Symfony.
 
 Script di base:
 
@@ -195,7 +195,7 @@ Fornitori di PaaS:
     Un modo relativamente nuovo per il deploy è rappresentato dai PaaS. Tipicamente, un PaaS
     userà un singolo file di configurazione nella cartella radice del progetto per
     determinare come costruire al volo un ambiente che supporti il proprio software.
-    Un fornitore che ha confermato supporto a Symfony2 è `PagodaBox`_.
+    Un fornitore che ha confermato supporto a Symfony è `PagodaBox`_.
 
 .. tip::
 

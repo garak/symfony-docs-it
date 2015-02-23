@@ -27,7 +27,7 @@ Con i percorsi con spazi di nomi, funziona anche in questo modo:
     {% extends "@AcmeDemo/layout.html.twig" %}
     {% include "@AcmeDemo/Pippo/pluto.html.twig" %}
 
-Entrambi i percorsi sono validi e funzionanti in Symfony2.
+Entrambi i percorsi sono validi e funzionanti in Symfony.
 
 .. tip::
 

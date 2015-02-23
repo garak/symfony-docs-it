@@ -186,17 +186,17 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     // questo file fa parte di TwigBridge
     $defaultFormTheme = 'form_div_layout.html.twig';
 
-    $vendorDir = realpath(__DIR__ . '/../vendor');
+    $vendorDir = realpath(__DIR__.'/../vendor');
     // percorso di TwigBridge, che consente a Twig di trovare il file
     // form_div_layout.html.twig
     $vendorTwigBridgeDir =
         $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
     // percorso degli altri template
-    $viewsDir = realpath(__DIR__ . '/../views');
+    $viewsDir = realpath(__DIR__.'/../views');
 
     $twig = new Twig_Environment(new Twig_Loader_Filesystem(array(
         $viewsDir,
-        $vendorTwigBridgeDir . '/Resources/views/Form',
+        $vendorTwigBridgeDir.'/Resources/views/Form',
     )));
     $formEngine = new TwigRendererEngine(array($defaultFormTheme));
     $formEngine->setEnvironment($twig);

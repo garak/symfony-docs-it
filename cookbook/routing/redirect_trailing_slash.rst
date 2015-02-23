@@ -89,5 +89,5 @@ come spiegato sotto:
 
     Assicurarsi di includere questa rotta nella configurazione delle rotte
     all'ultimo posto della lista. In caso contrario, si rischia di rinviare rotte
-    reali (incluse quelle predefinite di Symfony2), che hanno effettivamente una barra
+    reali (incluse quelle predefinite di Symfony), che hanno effettivamente una barra
     finale nel percorso.

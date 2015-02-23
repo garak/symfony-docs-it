@@ -4,7 +4,7 @@
 Configurare un server web
 =========================
 
-La modalità preferita per lo sviluppo di un'applicazione Symfony2 è l'uso del
+La modalità preferita per lo sviluppo di un'applicazione Symfony è l'uso del
 :doc:`server web interno di PHP </cookbook/web_server/built_in>`. Tuttavia,
 quando si usa una vecchia versione di PHP o quando si esegue l'applicazione in produzione,
 occorrerà usare un server web "classico". Questa ricetta

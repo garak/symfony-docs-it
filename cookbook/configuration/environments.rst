@@ -7,7 +7,7 @@ Padroneggiare e creare nuovi ambienti
 Ogni applicazione è la combinazione di codice e di un insieme di configurazioni
 che determinano come il codice dovrà lavorare. La configurazione può definire
 la base dati da utilizzare, cosa dovrà essere messo in cache e cosa non, o quanto
-esaustivi dovranno essere i log. In Symfony2, l'idea di ambiente è quella di
+esaustivi dovranno essere i log. In Symfony, l'idea di ambiente è quella di
 eseguire il codice, utilizzando differenti configurazioni. Per esempio,
 l'ambiente ``dev`` dovrebbe usare una configurazione che renda lo sviluppo
 semplice e ricco di informazioni, mentre l'ambiente ``prod`` dovrebbe usare un
@@ -19,7 +19,7 @@ insieme di configurazioni che ottimizzino la velocità.
 Ambienti differenti, differenti file di configurazione
 ------------------------------------------------------
 
-Una tipica applicazione Symfony2 inizia con tre ambienti: ``dev``, ``prod``
+Una tipica applicazione Symfony inizia con tre ambienti: ``dev``, ``prod``
 e ``test``. Come si è già detto, ogni "ambiente " rappresenta un modo in cui
 eseguire l'intero codice con differenti configurazioni. Non dovrebbe destare
 sorpresa il fatto che ogni ambiente carichi i suoi propri file di configurazione.
@@ -49,7 +49,7 @@ della classe ``AppKernel``:
         }
     }
 
-Come si può vedere, quando Symfony2 viene caricato, utilizza l'ambiente
+Come si può vedere, quando Symfony viene caricato, utilizza l'ambiente
 per determinare quale file di configurazione caricare. Questo permette 
 di avere ambienti differenti in modo elegante, efficace e trasparente.
 
@@ -138,8 +138,8 @@ utilizzando il front controller ``app_dev.php`` (per l'ambiente ``dev``):
 .. note::
 
    Le precedenti URL presuppongono che il server web sia configurato in modo da
-   usare la cartella ``web/`` dell'applicazione, come radice. Per approfondire, si legga
-   :doc:`Installare Symfony2</book/installation>`.
+   usare la cartella ``web/`` dell'applicazione come radice. Per approfondire, si legga
+   :doc:`installare Symfony </book/installation>`.
 
 Guardando il contenuto di questi file, si vede come l'ambiente utilizzato da entrambi,
 sia definito in modo esplicito::
@@ -152,7 +152,7 @@ sia definito in modo esplicito::
     // ...
 
 Si può vedere come la chiave ``prod`` specifica che l'ambiente di esecuzione
-sarà l'ambiente ``prod``. Un'applicazione Symfony2 può essere esguita in qualsiasi
+sarà l'ambiente ``prod``. Un'applicazione Symfony può essere esguita in qualsiasi
 ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'ambiente.
 
 .. note::
@@ -170,7 +170,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     Importante, ma non collegato all'argomento *ambienti*, è il valore ``false``
     come secondo parametro di ``AppKernel``. Questo valore specifica se
     l'applicazione dovrà essere eseguità in "modalità debug" o meno. Indipendentemente
-    dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
+    dall'ambiente, un'applicazione Symfony può essere eseguita con la modalità
     debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione,
     come il fatto che gli errori vengano mostrati o se la cache debba essere ricreata
     dinamicamente a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug
@@ -249,15 +249,15 @@ specificare alcuna opzione.
 Creare un nuovo ambiente
 ------------------------
 
-Un'applicazione Symfony2 viene generata con tre ambienti preconfigurati per
+Un'applicazione Symfony viene generata con tre ambienti preconfigurati per
 gestire la maggior parte dei casi. Ovviamente, visto che un ambiente non è nient'altro
 che una stringa  che corrisponde a un insieme di configurazioni, creare un nuovo
 ambiente è abbastanza semplice.
 
 Supponiamo, per esempio, di voler misurare le prestazioni dell'applicazione
 prima del suo invio in produzione. Un modo è quello di usare una configurazione
-simile a quella del rilascio ma che utilizzasse il ``web_profiler`` di Symfony2.
-Queso permetterebbe a Symfony2 di registrare le informazioni dell'applicazione mentre se ne misura le prestazioni.
+simile a quella del rilascio ma che utilizzasse il ``web_profiler`` di Symfony.
+Queso permetterebbe a Symfony di registrare le informazioni dell'applicazione mentre se ne misura le prestazioni.
 
 Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, per esempio,
 ``benchmark``. Si parte creando un nuovo file di configurazione:
@@ -339,7 +339,7 @@ Il nuovo ambiente sarà accessibile tramite::
 Gli ambienti e la cartella della cache
 --------------------------------------
 
-Symfony2 sfrutta la cache in diversi modi: la configurazione dell'applicazione,
+Symfony sfrutta la cache in diversi modi: la configurazione dell'applicazione,
 la configurazione delle rotte, i template di Twig vengono tutti immagazzinati
 in oggetti PHP e salvati su file nella cartella della cache.
 

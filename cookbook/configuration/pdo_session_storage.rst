@@ -4,21 +4,21 @@
 Usare PdoSessionStorage per salvare le sessioni nella base dati
 ===============================================================
 
-Normalmente, nella gestione delle sessioni, Symfony2 salva le relative informazioni
+Normalmente, nella gestione delle sessioni, Symfony salva le relative informazioni
 all'interno di file. Solitamente, i siti web di dimensioni medio grandi utilizzano
 la basi dati, invece dei file, per salvare i dati di sessione. Questo perché le basi dati
 sono più semplici da utilizzare e sono più scalabili in ambienti multi-webserver.
 
-Symfony2 ha, al suo interno, una soluzione per l'archiviazione delle sessioni su base dati, chiamata
+Symfony ha, al suo interno, una soluzione per l'archiviazione delle sessioni su base dati, chiamata
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\PdoSessionStorage`.
 Per utilizzarla è sufficiente cambiare alcuni parametri di ``config.yml`` (o del
 proprio formato di configurazione):
 
 .. versionadded:: 2.1
-    In Symfony2.1 sono stati leggermenti modificati classe e spazio dei nomi. Ora si può
+    In Symfony 2.1 sono stati leggermenti modificati classe e spazio dei nomi. Ora si può
     trovare la classe `PdoSessionStorage` nello spazio dei nomi `Session\\Storage`:
     ``Symfony\Component\HttpFoundation\Session\Storage\PdoSessionStorage``. Si noti inoltre
-    che in Symfony 2.1 va configurato ``handler_id`` e non ``storage_id``, come in Symfony2.0.
+    che in Symfony 2.1 va configurato ``handler_id`` e non ``storage_id``, come in Symfony 2.0.
     Più avanti, si noterà che ``%session.storage.options%`` non è più usato.
 
 .. configuration-block::

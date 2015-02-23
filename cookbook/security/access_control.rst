@@ -137,6 +137,8 @@ Una volta che Symfony ha deciso quale voce di ``access_control`` eventualmente c
   (internamente, viene sollevata un'eccezione
   :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`);
 
+* ``allow_if`` Se l'espressione restituirsce ``false``, l'accesso è negato;
+
 * ``requires_channel`` Se il canale della richiesta in entrata (p.e. ``http``)
   non corrisponde a questo valore (p.e. ``https``), l'utente sarà rinviato
   (p.e. rinviato da ``http`` a ``https`` o viceversa).
@@ -239,6 +241,55 @@ IPv6):
   ``IS_AUTHENTICATED_ANONYMOUSLY``.
 
 * La seconda regola non è esaminata, perché la prima ha trovato corrispondenza.
+
+.. _book-security-allow-if:
+
+Protenzione tramite espressione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Una volta troavato un ``access_control`` corrispondente, si può negare l'accesso tramite la voce
+``roles`` oppure usare una logica più comlessa, con un'espressione nella voce
+``allow_if``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            # ...
+            access_control:
+                -
+                    path: ^/_internal/secure
+                    allow_if: "'127.0.0.1' == request.getClientIp() or has_role('ROLE_ADMIN')"
+
+    .. code-block:: xml
+
+            <access-control>
+                <rule path="^/_internal/secure"
+                    allow-if="'127.0.0.1' == request.getClientIp() or has_role('ROLE_ADMIN')" />
+            </access-control>
+
+    .. code-block:: php
+
+            'access_control' => array(
+                array(
+                    'path' => '^/_internal/secure',
+                    'allow_if' => '"127.0.0.1" == request.getClientIp() or has_role("ROLE_ADMIN")',
+                ),
+            ),
+
+In questo caso, quando l'utente prova ad accedere a un URL che inizia con ``/_internal/secure``,
+potrà accedere solo se l'indirizzo IP è ``127.0.0.1`` o se
+ha il ruolo ``ROLE_ADMIN``.
+
+All'interno dell'espressione, si ha accesso a molte variabili e a molte
+funzioni, inclusa ``request``, che è l'oggetto
+:class:`Symfony\\Component\\HttpFoundation\\Request` di Symfony (vedere
+:ref:`component-http-foundation-request`).
+
+Per un elenco completo di funzioni e variabili, vedere
+:ref:`funzioni e variabili <book-security-expression-variables>`.
 
 .. _book-security-securing-channel:
 

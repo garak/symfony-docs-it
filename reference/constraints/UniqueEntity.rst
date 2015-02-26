@@ -123,7 +123,7 @@ in un unico vincolo ``UniqueEntity``, ci si assicurerà che la combinazione di v
 sia univoca (cioè che due utenti possano avere la stessa email,
 purché non abbiano anche lo stesso nome).
 
-Se servono due campi che siano individualmente univoci (p.e. un'emila univoca *e*
+Se servono due campi che siano individualmente univoci (p.e. un'email univoca *e*
 un nome utente univoco), usare due voci ``UniqueEntity``,
 ciascuna con un singolo campo.
 

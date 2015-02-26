@@ -6,23 +6,23 @@ Simulare l'autenticazione con un token in un test funzionale
 
 Le richieste di autenticazione nei test funzionali possono rallentarne l'esecuzione.
 Può essere un problema, specialmente quando si usa ``form_login``, poiché
-necessita di ulteriori richieste da riempire e di inviare il form.
+necessita di ulteriori richieste per compilare e inviare il form.
 
 Una possibile soluzione consiste nel configurare il firewall per usare ``http_basic`` in
-ambiente di t est, come spiegato in
+ambiente di test, come spiegato in
 :doc:`/cookbook/testing/http_authentication`.
 Un altro modo potrebbe essere quello di creare da soli un token e memorizzarlo nella sessione.
 Se si fa in questo modo, bisogna assicurarsi che venga inviato il cookie appropriato
 con una richiesta. L'esempio seguente mostra tale tecnica::
 
-    // src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
-    namespace Acme\DemoBundle\Tests\Controller;
+    // src/AppBundle/Tests/Controller/DefaultControllerTest.php
+    namespace Appbundle\Tests\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
     use Symfony\Component\BrowserKit\Cookie;
     use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-    class DemoControllerTest extends WebTestCase
+    class DefaultControllerTest extends WebTestCase
     {
         private $client = null;
 
@@ -35,10 +35,10 @@ con una richiesta. L'esempio seguente mostra tale tecnica::
         {
             $this->logIn();
 
-            $this->client->request('GET', '/demo/secured/hello/Fabien');
+            $crawler = $this->client->request('GET', '/admin');
 
             $this->assertTrue($this->client->getResponse()->isSuccessful());
-            $this->assertGreaterThan(0, $crawler->filter('html:contains("Hello Fabien")')->count());
+            $this->assertGreaterThan(0, $crawler->filter('html:contains("Admin Dashboard")')->count());
         }
 
         private function logIn()

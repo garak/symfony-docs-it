@@ -11,8 +11,8 @@ Test unitari
 
 I test unitari sono usati per testare la "logica di business"; essa è
 totalmente indipendente dal framework motivo per cui Symfony non include al suo interno
-nessun tool per i test unitari. Tuttavia, gli strumenti più conosciuti sono
-[PhpUnit](https://phpunit.de/) e [PhpSpec](http://www.phpspec.net/).
+nessun tool per i test unitari. Tuttavia, gli strumenti più conosciuti
+sono `PhpUnit`_ e `PhpSpec`_.
 
 Test funzionali
 ---------------
@@ -30,25 +30,35 @@ Un semplice esempio di un test funzionale:
 
 .. code-block:: php
 
-    /** @dataProvider provideUrls */
-    public function testPageIsSuccessful($url)
-    {
-        $client = self::createClient();
-        $client->request('GET', $url);
+    // src/AppBundle/Tests/ApplicationAvailabilityFunctionalTest.php
+    namespace AppBundle\Tests;
 
-        $this->assertTrue($client->getResponse()->isSuccessful());
-    }
+    use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-    public function provideUrls()
+    class ApplicationAvailabilityFunctionalTest extends WebTestCase
     {
-        return array(
-            array('/'),
-            array('/posts'),
-            array('/post/fixture-post-1'),
-            array('/blog/category/fixture-category'),
-            array('/archives'),
-            // ...
-        );
+        /**
+         * @dataProvider urlProvider
+         */
+        public function testPageIsSuccessful($url)
+        {
+            $client = self::createClient();
+            $client->request('GET', $url);
+
+            $this->assertTrue($client->getResponse()->isSuccessful());
+        }
+
+        public function urlProvider()
+        {
+            return array(
+                array('/'),
+                array('/posts'),
+                array('/post/fixture-post-1'),
+                array('/blog/category/fixture-category'),
+                array('/archives'),
+                // ...
+            );
+        }
     }
 
 Questo codice controlla che tutti gli URL vengano caricati correttamente, cioè

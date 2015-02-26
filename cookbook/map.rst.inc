@@ -186,7 +186,7 @@
   * :doc:`/cookbook/session/sessions_directory`
   * :doc:`/cookbook/session/php_bridge`
   * :doc:`/cookbook/session/limit_metadata_writes`
-  * (configuration) :doc:`/cookbook/configuration/pdo_session_storage`
+  * (configurazione) :doc:`/cookbook/configuration/pdo_session_storage`
 
 * **symfony1**
 

@@ -1,8 +1,8 @@
 .. index::
    single: Test; Doctrine
 
-Come testare i repository Doctrine
-==================================
+Testare i repository Doctrine
+=============================
 
 I test unitari dei repository Doctrine in un progetto Symfony non sono raccomandati.
 Quando si ha a che fare con un repository, si sta trattando qualcosa che ha effettivamente
@@ -17,15 +17,15 @@ Test funzionali
 ---------------
 
 Se occorre eseguire effettivamente una query, occorrerò far partire il kernel, per
-ottenere una connessione valida. In questo caso, si estenderà ``WebTestCase``,
+ottenere una connessione valida. In questo caso, si estenderà ``KernelTestCase``,
 che rende tutto alquanto facile::
 
     // src/Acme/StoreBundle/Tests/Entity/ProductRepositoryFunctionalTest.php
     namespace Acme\StoreBundle\Tests\Entity;
 
-    use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+    use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-    class ProductRepositoryFunctionalTest extends WebTestCase
+    class ProductRepositoryFunctionalTest extends KernelTestCase
     {
         /**
          * @var \Doctrine\ORM\EntityManager
@@ -37,8 +37,7 @@ che rende tutto alquanto facile::
          */
         public function setUp()
         {
-            static::$kernel = static::createKernel();
-            static::$kernel->boot();
+            self::bootKernel();
             $this->em = static::$kernel->getContainer()
                 ->get('doctrine')
                 ->getManager()

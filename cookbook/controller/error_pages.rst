@@ -46,7 +46,7 @@ all'utente finale.
 
     Non si dovrebbe impostare ``kernel.debug`` a ``false`` per poter vedere una
     pagina di errore durante lo sviluppo. Questo impedirebbe anche a
-    Symfony2 di ricompilare i template Twig, tra le altre cose.
+    Symfony di ricompilare i template Twig, tra le altre cose.
 
     Il bundle `WebfactoryExceptionsBundle`_ fornisce uno speciale controllore
     che consente di mostrare le pagine di errore personalizzate
@@ -129,7 +129,7 @@ all'utente finale, creare un nuovo template posizionato in
 .. tip::
 
     Non bisogna preoccuparsi, se non si ha familiarità con Twig. Twig è un semplice, potente
-    e opzionale motore per i template che si integra con Symfony2. Per maggiori
+    e opzionale motore per i template che si integra con Symfony. Per maggiori
     informazioni su Twig, vedere :doc:`/book/templating`.
 
 Questa logica funziona non solo per sostituire i template predefiniti, ma anche per

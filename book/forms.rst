@@ -175,7 +175,7 @@ Questo è tutto! Bastano tre righe per rendere completamente il form:
     Rende tutti i campi, inclusi l'elemento stesso,
     un'etichetta ed eventuali messaggi di errori;
 
-``form_end()``
+``form_end(form)``
     Rende il tag finale del form e ogni campo che non sia ancora
     stato reso, nel caso in cui i campi siano stati resti singolarmante a mano. È utile
     per rendere campi nascosci e sfruttare la
@@ -560,6 +560,32 @@ Si può anche definire l'intera logica con una Closure::
             },
         ));
     }
+
+L'uso dell'opzione ``validation_groups`` sovrascrive il gruppo di validazione predefinito
+in uso. Se si vogliono validare anche i vincoli predefiniti
+dell'entità, si deve cambiare l'opzione in questo modo::
+
+    use Acme\AcmeBundle\Entity\Client;
+    use Symfony\Component\Form\FormInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    // ...
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => function(FormInterface $form) {
+                $data = $form->getData();
+                if (Client::TYPE_PERSON == $data->getType()) {
+                    return array('Default', 'person');
+                }
+
+                return array('Default', 'company');
+            },
+        ));
+    }
+
+Si possono trovare maggiori informazioni su come funzionino i gruppi di validazione e i vincoli
+predefiniti nella sezione del libro relativa ai :ref:`gruppi di validazione <book-validation-validation-groups>`.
 
 .. index::
    single: Form; Gruppi di validazione basati sul bottone cliccato
@@ -1411,7 +1437,7 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Form/fields.html.twig #}
+        {# app/Resources/views/form/fields.html.twig #}
         {% block form_row %}
         {% spaceless %}
             <div class="form_row">
@@ -1424,7 +1450,7 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Form/form_row.html.php -->
+        <!-- app/Resources/views/form/form_row.html.php -->
         <div class="form_row">
             <?php echo $view['form']->label($form, $label) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -1578,9 +1604,8 @@ della configurazione dell'applicazione:
 
         # app/config/config.yml
         twig:
-            form:
-                resources:
-                    - 'Form/fields.html.twig'
+            form_themes:
+                - 'form/fields.html.twig'
             # ...
 
     .. code-block:: xml
@@ -1594,9 +1619,7 @@ della configurazione dell'applicazione:
                 http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
 
             <twig:config>
-                <twig:form>
-                    <twig:resource>Form/fields.html.twig</twig:resource>
-                </twig:form>
+                <twig:theme>form/fields.html.twig</twig:theme>
                 <!-- ... -->
             </twig:config>
         </container>
@@ -1605,10 +1628,8 @@ della configurazione dell'applicazione:
 
         // app/config/config.php
         $container->loadFromExtension('twig', array(
-            'form' => array(
-                'resources' => array(
-                    'Form/fields.html.twig',
-                ),
+            'form_themes' => array(
+                'form/fields.html.twig',
             ),
             // ...
         ));

@@ -1,11 +1,11 @@
 .. index::
-   single: Rotte su Apache
+    single: Rotte su Apache
 
 Come usare le rotte su Apache
 =============================
 
-Symfony2, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua velocità,
-tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache, invece di usare Symfony2.
+Symfony, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua velocità,
+tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache, invece di usare Symfony.
 
 .. caution::
 
@@ -18,7 +18,7 @@ Modificare i parametri di configurazione delle rotte
 ----------------------------------------------------
 
 Per esportare in Apache le rotte, occorre prima sistemare alcuni parametri di configurazione,
-per dire a Symfony2 di usare ``ApacheUrlMatcher`` invece di quello predefinito:
+per dire a Symfony di usare ``ApacheUrlMatcher`` invece di quello predefinito:
 
 .. configuration-block::
 
@@ -68,20 +68,20 @@ Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle d
         # app/config/routing.yml
         hello:
             path: /hello/{name}
-            defaults: { _controller: AcmeDemoBundle:Demo:hello }
+            defaults: { _controller: AppBundle:Demo:hello }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
         <route id="hello" path="/hello/{name}">
-            <default key="_controller">AcmeDemoBundle:Demo:hello</default>
+            <default key="_controller">AppBundle:Demo:hello</default>
         </route>
 
     .. code-block:: php
 
         // app/config/routing.php
         $collection->add('hello', new Route('/hello/{name}', array(
-            '_controller' => 'AcmeDemoBundle:Demo:hello',
+            '_controller' => 'AppBundle:Demo:hello',
         )));
 
 Ora generiamo le regole di **url_rewrite**:
@@ -116,7 +116,7 @@ esempio dovrebbe risultare in questo modo:
 
         # hello
         RewriteCond %{REQUEST_URI} ^/hello/([^/]+?)$
-        RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AcmeDemoBundle\:Demo\:hello]
+        RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AppBundle\:Demo\:hello]
     </IfModule>
 
 .. note::

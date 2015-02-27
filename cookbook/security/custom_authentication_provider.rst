@@ -14,7 +14,7 @@ Creare un fornitore di autenticazione personalizzato
     * :doc:`/cookbook/security/api_key_authentication`
 
 Chi ha letto il capitolo sulla :doc:`/book/security` può capire
-la distinzione che fa Symfony2 tra autenticazione e autorizzazione,
+la distinzione che fa Symfony tra autenticazione e autorizzazione,
 nell'implementazione della sicurezza. Questo capitolo discute le classi
 di base coinvolte nel processo di autenticazione e come implementare un
 fornitore di autenticazione personalizzato. Poiché autenticazione e autorizzazione
@@ -38,7 +38,7 @@ REST.
 
 C'è molta buona documentazione su `WSSE`_, ma questo articolo non approfondirà
 il protocollo di sicurezza, quanto il modo in cui un protocollo personalizzato
-possa essere aggiunto a un'applicazione Symfony2. La base di WSSE è la
+possa essere aggiunto a un'applicazione Symfony. La base di WSSE è la
 verifica degli header di richiesta tramite credenziali criptate, con l'uso di
 un timestamp e di `nonce`_, e la verifica dell'utente richiesto tramite un digest
 di password.
@@ -51,7 +51,7 @@ di password.
 Il token
 --------
 
-Il ruolo del token nel contesto della sicurezza di Symfony2 è importante.
+Il ruolo del token nel contesto della sicurezza di Symfony è importante.
 Un token rappresenta i dati di autenticazione dell'utente presenti nella richiesta.
 Una volta autenticata la richiesta, il token mantiene i dati dell'utente e fornisce
 tali dati attraverso il contesto della sicurezza. Prima di tutto, va creata una

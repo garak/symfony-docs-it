@@ -160,7 +160,7 @@ errori e label). Se si usa `Twig`_ come motore di template, il componente Form
 offre una ricca integrazione.
 
 Per usare tale integrazione, occorre ``TwigBridge``, che integra
-Twig con vari componenti di Symfony2. Usando Composer, si può
+Twig con vari componenti di Symfony. Usando Composer, si può
 installare la versione 2.3 più recente. aggiungendo la seguente riga
 al file ``composer.json``:
 
@@ -375,7 +375,7 @@ Creazione di un semplice form
 
 .. tip::
 
-    Se si usa il framework Symfony2, il factory di form è disponibile
+    Se si usa il framework Symfony, il factory di form è disponibile
     automaticamente come servizio, chiamato ``form.factory``. Inoltre, la
     classe controller base ha un metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller::createFormBuilder`,
     che è una scorciatoia per recuperare il factory di form e richiamare ``createBuilder``

@@ -83,9 +83,9 @@ Finti metodi con _method
     2.3, usare l'opzione :ref:`configuration-framework-http_method_override`.
 
 Sfortunatamente, la vita non è così facile, poiché molti browser non supportano
-l'invio di richieste PUT e DELETE. Per fortuna, Symfony2 fornisce un semplice modo
+l'invio di richieste PUT e DELETE. Per fortuna, Symfony fornisce un semplice modo
 per aggirare tale limitazione. Includendo un parametro ``_method``
-nella query string o nei parametri di una richiesta HTTP, Symfony2 lo userà
+nella query string o nei parametri di una richiesta HTTP, Symfony lo userà
 come metodo nella corrispondenza delle rotte. I form includono automaticamente un
 campo nascosto per tale parametro, se il metodo di invio non è GET o POST.
 Vedere :ref:`il capitolo relativo nella documentazione dei form<book-forms-changing-action-and-method>`

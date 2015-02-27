@@ -13,7 +13,7 @@ Creare e memorizzare un progetto Symfony in git
 
 Una volta letto :doc:`/book/page_creation` e preso familiarità con l'uso
 di Symfony, si vorrà certamente iniziare un proprio progetto. In questa ricetta
-si imparerà il modo migliore per iniziare un nuovo progetto Symfony2, memorizzato
+si imparerà il modo migliore per iniziare un nuovo progetto Symfony, memorizzato
 usando il sistema di controllo dei sorgenti `git`_.
 
 Preparazione del progetto

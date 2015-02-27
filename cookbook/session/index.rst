@@ -9,3 +9,4 @@ Sessioni
     sessions_directory
     php_bridge
     limit_metadata_writes
+    avoid_session_start

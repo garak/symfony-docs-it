@@ -10,10 +10,10 @@ decisioni progettuali che ne stanno alle spalle.
 Concetti progettuali
 --------------------
 
-Le capacità di sicurezza degli oggetti di Symfony2 sono basate sul concetto di
+Le capacità di sicurezza degli oggetti di Symfony sono basate sul concetto di
 Access Control List. Ogni **istanza** di un oggetto del dominio ha la sua ACL.
 L'istanza ACL contiene una lista dettagliata di Access Control Entry (ACE), usate
-per prendere decisioni sugli accessi. Il sistema ACL di Symfony2 si focalizza su
+per prendere decisioni sugli accessi. Il sistema ACL di Symfony si focalizza su
 due obiettivi principali:
 
 - fornire un modo per recuperare in modo efficiente grosse quantità di ACL/ACE per gli
@@ -21,7 +21,7 @@ due obiettivi principali:
 - fornire un modo per prendere facilmente decisioni sulla possibilità o meno che qualcuno
   esegua un'azione su un oggetto del dominio.
 
-Come indicato nel primo punto, una delle capacità principali del sistema ACL di Symfony2
+Come indicato nel primo punto, una delle capacità principali del sistema ACL di Symfony
 è il modo altamente performante con cui recupera ACL e ACE. Questo è molto importante,
 perché ogni ACL può avere tanti ACE, nonché ereditare da altri ACL, come in un
 albero. Quindi, non ci appoggiamo specificatamente ad alcun ORM, ma l'implementazione
@@ -79,7 +79,7 @@ Visibilità degli Access Control Entry
 -------------------------------------
 
 Gli ACE possono avere visibilità diverse in cui applicarsi. In
-Symfony2, ci sono di base due visibilità:
+Symfony, ci sono di base due visibilità:
 
 - di classe: questi ACE si applicano a tutti gli oggetti della stessa classe
 - di oggetto: questa è l'unica visibilità usata nel capitolo precedente e si applica

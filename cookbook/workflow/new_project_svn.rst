@@ -13,14 +13,14 @@ Creare e memorizzare un progetto Symfony in Subversion
 
 Una volta letto :doc:`/book/page_creation` e aver preso familiarità con l'uso
 di Symfony, si è senza dubbio pronti per iniziare un progetto. Il metodo
-preferito per gestire progetti Symfony2 è l'uso di `git`_, ma qualcuno preferisce
+preferito per gestire progetti Symfony è l'uso di `git`_, ma qualcuno preferisce
 usare `Subversion`_, che va bene lo stesso! In questa ricetta, si vedrà come
 gestire un progetto usando `svn`_, in modo simile a quanto si farebbe
 con `git`_.
 
 .. tip::
 
-    Questo è **un** metodo per memorizzare un progetto Symfony2 in un
+    Questo è **un** metodo per memorizzare un progetto Symfony in un
     repository Subversion. Ci sono molti modi di farlo e questo è semplicemente
     uno che funziona.
 
@@ -46,7 +46,7 @@ standard, molto diffusa:
 Preparazione del progetto
 -------------------------
 
-Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
+Per iniziare, occorre scaricare Symfony e preparare Subversion:
 
 1. Scaricare `Symfony Standard Edition`_, con o senza venditori.
 
@@ -61,7 +61,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
 
         $ svn checkout http://progetto.googlecode.com/svn/trunk progetto
 
-4. Copiare i file del progetto Symfony2 nella cartella di subversion:
+4. Copiare i file del progetto Symfony nella cartella di subversion:
 
    .. code-block:: bash
 
@@ -110,7 +110,7 @@ Per iniziare, occorre scaricare Symfony2 e preparare Subversion:
     Se ci si basa su versioni "dev", ci si può basare su git per installare
     tali librerie, poiché non dispongono di archivi da scaricare.
 
-A questo punto, si ha un progetto Symfony2 pienamente funzionante, memorizzato nel
+A questo punto, si ha un progetto Symfony pienamente funzionante, memorizzato nel
 proprio repository Subversion. Si può iniziare lo sviluppo, con i commit verso
 il repository.
 

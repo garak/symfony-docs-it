@@ -4,7 +4,7 @@
 Usare Monolog per scrivere log
 ==============================
 
-Monolog_ è una libreria di log per PHP 5.3 usata da Symfony2. È
+Monolog_ è una libreria di log per PHP 5.3 usata da Symfony. È
 ispirata dalla libreria LogBook di Python.
 
 Utilizzo

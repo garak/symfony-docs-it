@@ -20,6 +20,11 @@ la ruota, usa il componente EventDispatcher di Symfony::
     $application->setDispatcher($dispatcher);
     $application->run();
 
+.. caution::
+
+    Gli eventi della Console scattano solo quando viene eseguito il comando principale.
+    I comandi richiamati dal comando principale non faranno scattare eventi.
+
 L'evento ``ConsoleEvents::COMMAND``
 -----------------------------------
 

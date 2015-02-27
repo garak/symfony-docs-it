@@ -174,7 +174,7 @@
   * :doc:`/cookbook/session/locale_sticky_session`
   * :doc:`/cookbook/session/sessions_directory`
   * :doc:`/cookbook/session/php_bridge`
-  * (configuration) :doc:`/cookbook/configuration/pdo_session_storage`
+  * (configurazione) :doc:`/cookbook/configuration/pdo_session_storage`
   * :doc:`/cookbook/session/avoid_session_start`
 
 * **symfony1**
@@ -201,7 +201,7 @@
   * (email) :doc:`/cookbook/email/testing`
   * (form) :doc:`/cookbook/form/unit_testing`
 
-* **Aggiornamento**
+* **Aggiornare**
 
   * :doc:`/cookbook/upgrading`
 

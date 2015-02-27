@@ -119,6 +119,67 @@ l'indirizzo sostituito, così da poter vedere a chi sarebbe stata inviata l'emai
     Le intestazioni usate saranno ``X-Swift-Cc`` e ``X-Swift-Bcc`` 
     rispettivamente per gli indirizzi in ``CC`` e per quelli in ``BCC``.
 
+Invio a un indirizzo specifico ma con eccezioni
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Si supponga di volere che tutte le email siano rinviate a un indirizzo specifico
+(come nello scenario precedente, a ``dev@example.com``). Mi si vorrebbe anche
+che alcune email, indirizzate a specifici inidirizzi, passino normalmente non
+siano rinviate (anche in ambiente di sviluppo). Lo si può fare tramite
+l'opzione ``delivery_whitelist``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config_dev.yml
+        swiftmailer:
+            delivery_address: dev@example.com
+            delivery_whitelist:
+               # per tutti gli indirizzi corrispondenti all'espressione regolare *non*
+               # ci sarà rinvio a dev@example.com
+               - "/@dominiospeciale.com$/"
+
+               # anche i messaggi inviati ad admin@miomdominio.com non
+               # saranno rinviati a dev@example.com
+               - "/^admin@mydomain.com$/"
+
+    .. code-block:: xml
+
+        <!-- app/config/config_dev.xml -->
+
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer">
+
+        <swiftmailer:config delivery-address="dev@example.com">
+            <!-- per tutti gli indirizzi corrispondenti all'espressione regolare *non* ci sarà rinvio a dev@example.com -->
+            <swiftmailer:delivery-whitelist-pattern>/@dominiospeciale.com$/</swiftmailer:delivery-whitelist-pattern>
+
+            <!-- anche i messaggi inviati ad admin@miomdominio.com non saranno rinviati a dev@example.com -->
+            <swiftmailer:delivery-whitelist-pattern>/^admin@miomdominio.com$/</swiftmailer:delivery-whitelist-pattern>
+        </swiftmailer:config>
+
+    .. code-block:: php
+
+        // app/config/config_dev.php
+        $container->loadFromExtension('swiftmailer', array(
+            'delivery_address'  => "dev@example.com",
+            'delivery_whitelist' => array(
+                // per tutti gli indirizzi corrispondenti all'espressione regolare *non*
+                // ci sarà rinvio a dev@example.com
+                '/@dominiospeciale.com$/',
+
+                // anche i messaggi inviati ad admin@miomdominio.com non 
+                // saranno rinviati a dev@example.com
+                '/^admin@miomdominio.com$/',
+            ),
+        ));
+
+Nell'esempio appena visto, tutti i messaggi saranno rinviati a ``dev@example.com``,
+tranne quelli inviati ad ``admin@miomdominio.com`` o a qualsiasi indirizzo
+appartenente al dominio ``dominiospeciale.com``, che saranno consegnate normalmente.
+
 Visualizzazione tramite barra di debug
 --------------------------------------
 

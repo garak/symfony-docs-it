@@ -20,7 +20,7 @@ Lo si può fare, modificando il file ``app/config/config.yml``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <twig:config ...>
+        <twig:config>
             <!-- ... -->
             <twig:global key="ga_tracking">UA-xxxxx-x</twig:global>
         </twig:config>
@@ -67,7 +67,7 @@ che consente di isolare o riutilizzare il valore:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <twig:config ...>
+        <twig:config>
             <twig:global key="ga_tracking">%ga_tracking%</twig:global>
         </twig:config>
 
@@ -111,7 +111,7 @@ Dovrebbe essere familiare, essendo la stessa sintassi usata nella configurazione
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <twig:config ...>
+        <twig:config>
             <!-- ... -->
             <twig:global key="user_management">@acme_user.user_management</twig:global>
         </twig:config>

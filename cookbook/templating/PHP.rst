@@ -49,21 +49,21 @@ Ora si può rendere un template PHP invece di uno Twig, semplicemente usando nel
 del template l'estensione ``.php`` al posto di ``.twig``. Il controllore sottostante
 rende il template ``index.html.php``::
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
+    // src/AppBundle/Controller/HelloController.php
 
     // ...
     public function indexAction($name)
     {
         return $this->render(
-            'AcmeHelloBundle:Hello:index.html.php',
+            'AppBundle:Hello:index.html.php',
             array('name' => $name)
         );
     }
 
 Si può anche usare la scorciatoia `@Template`_ per rendere il template
-``AcmeHelloBundle:Hello:index.html.php``::
+``AppBundle:Hello:index.html.php``::
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
+    // src/AppBundle/Controller/HelloController.php
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
     // ...
@@ -88,19 +88,19 @@ Si può anche usare la scorciatoia `@Template`_ per rendere il template
             // ...
 
             // i template con spazi dei nomi non funzioneranno più nei controllori
-            $this->render('@Acme/Default/index.html.twig');
+            $this->render('@App/Default/index.html.twig');
 
             // si deve usare la notazione tradizionale dei template
-            $this->render('AcmeBundle:Default:index.html.twig');
+            $this->render('AppBundle:Default:index.html.twig');
         }
 
     .. code-block:: jinja
 
         {# nei template Twig, i template con spazi dei nomi funzionano come ci si aspetta #}
-        {{ include('@Acme/Default/index.html.twig') }}
+        {{ include('@App/Default/index.html.twig') }}
 
         {# anche la notazione tradizionale funzionerà #}
-        {{ include('AcmeBundle:Default:index.html.twig') }}
+        {{ include('AppBundle:Default:index.html.twig') }}
 
 
 .. index::
@@ -119,12 +119,12 @@ a ``extend()``:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
-    <?php $view->extend('AcmeHelloBundle::layout.html.php') ?>
+    <!-- src/AppBundle/Resources/views/Hello/index.html.php -->
+    <?php $view->extend('AppBundle::layout.html.php') ?>
 
     Ciao <?php echo $name ?>!
 
-La notazione ``HelloBundle::layout.html.php`` suona familiare, non è vero? È la
+La notazione ``AppBundle::layout.html.php`` suona familiare, non è vero? È la
 stessa notazione usata per fare riferimento a un template. La parte ``::`` vuol dire
 semplicemente che l'elemento controllore è vuoto, quindi il file corrispondente
 è memorizzato direttamente sotto ``views/``.
@@ -133,7 +133,7 @@ Diamo ora un'occhiata al file ``layout.html.php``:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/HelloBundle/Resources/views/layout.html.php -->
+    <!-- src/AppBundle/Resources/views/layout.html.php -->
     <?php $view->extend('::base.html.php') ?>
 
     <h1>Applicazione Ciao</h1>
@@ -181,8 +181,8 @@ slot ``title``:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
-    <?php $view->extend('AcmeHelloBundle::layout.html.php') ?>
+    <!-- src/AppBundle/Resources/views/Hello/index.html.php -->
+    <?php $view->extend('AppBundle::layout.html.php') ?>
 
     <?php $view['slots']->set('title', 'Applicazione Ciao mondo') ?>
 
@@ -223,17 +223,17 @@ Creare un template ``hello.html.php``:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/HelloBundle/Resources/views/Hello/hello.html.php -->
+    <!-- src/AppBundle/Resources/views/Hello/hello.html.php -->
     Ciao <?php echo $name ?>!
 
 E cambiare il template ``index.html.php`` per includerlo:
 
 .. code-block:: html+php
 
-    <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
-    <?php $view->extend('AcmeHelloBundle::layout.html.php') ?>
+    <!-- src/AppBundle/Resources/views/Hello/index.html.php -->
+    <?php $view->extend('AppBundle::layout.html.php') ?>
 
-    <?php echo $view->render('AcmeHello:Hello:hello.html.php', array('name' => $name)) ?>
+    <?php echo $view->render('AppBundle:Hello:hello.html.php', array('name' => $name)) ?>
 
 Il metodo ``render()`` valuta e restituisce il contenuto di un altro template
 (questo è esattamente lo stesso metodo usato nel controllore).
@@ -253,9 +253,9 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 
 .. code-block:: html+php
 
-    <!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php -->
+    <!-- src/AppBundle/Resources/views/Hello/index.html.php -->
     <?php echo $view['actions']->render(
-        new \Symfony\Component\HttpKernel\Controller\ControllerReference('AcmeHelloBundle:Hello:fancy', array(
+        new \Symfony\Component\HttpKernel\Controller\ControllerReference('AppBundle:Hello:fancy', array(
             'name'  => $name,
             'color' => 'green',
         ))
@@ -264,7 +264,7 @@ Se si crea un'azione ``fancy`` e la si vuole includere nel template
 Qui la stringa ``HelloBundle:Hello:fancy`` si riferisce all'azione ``fancy`` del
 controllore ``Hello``::
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
+    // src/AppBundle/Controller/HelloController.php
 
     class HelloController extends Controller
     {
@@ -273,7 +273,7 @@ controllore ``Hello``::
             // creare un oggetto basato sulla variabile $color
             $object = ...;
 
-            return $this->render('AcmeHelloBundle:Hello:fancy.html.php', array(
+            return $this->render('AppBundle:Hello:fancy.html.php', array(
                 'name'   => $name,
                 'object' => $object
             ));
@@ -317,10 +317,10 @@ della rotta:
 
 .. code-block:: yaml
 
-    # src/Acme/HelloBundle/Resources/config/routing.yml
+    # src/AppBundle/Resources/config/routing.yml
     ciao: # Nome della rotta
-        path:  /hello/{name}
-        defaults: { _controller: AcmeHelloBundle:Hello:index }
+        path:     /hello/{name}
+        defaults: { _controller: AppBundle:Hello:index }
 
 Usare le risorse: immagini, JavaScript e fogli di stile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

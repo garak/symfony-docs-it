@@ -1,5 +1,5 @@
 .. index::
-   single: Server web
+    single: Server web
 
 Configurare un server web
 =========================

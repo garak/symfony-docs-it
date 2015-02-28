@@ -1,5 +1,5 @@
 .. index::
-   single: Sessione; Memorizzazione su base dati
+    single: Sessione; Memorizzazione su base dati
 
 Usare PdoSessionStorage per salvare le sessioni nella base dati
 ===============================================================
@@ -29,7 +29,7 @@ proprio formato di configurazione):
         framework:
             session:
                 # ...
-                handler_id:     session.handler.pdo
+                handler_id: session.handler.pdo
 
         parameters:
             pdo.db_options:
@@ -140,12 +140,13 @@ connessione di parameter.ini, richiamandone la configurazione della base dati:
 
     .. code-block:: yaml
 
-        pdo:
-            class: PDO
-            arguments:
-                - "mysql:host=%database_host%;port=%database_port%;dbname=%database_name%"
-                - "%database_user%"
-                - "%database_password%"
+        services:
+            pdo:
+                class: PDO
+                arguments:
+                    - "mysql:host=%database_host%;port=%database_port%;dbname=%database_name%"
+                    - "%database_user%"
+                    - "%database_password%"
 
     .. code-block:: xml
 
@@ -203,16 +204,16 @@ Per MSSQL, l'istruzione potrebbe essere come la seguente:
 .. code-block:: sql
 
     CREATE TABLE [dbo].[sessione](
-	    [id_sessione] [nvarchar](255) NOT NULL,
-	    [valore_sessione] [ntext] NOT NULL,
+        [id_sessione] [nvarchar](255) NOT NULL,
+        [valore_sessione] [ntext] NOT NULL,
         [tempo_sessione] [int] NOT NULL,
-		PRIMARY KEY CLUSTERED(
-			[id_sessione] ASC
-		) WITH (
-		    PAD_INDEX  = OFF,
-		    STATISTICS_NORECOMPUTE  = OFF,
-		    IGNORE_DUP_KEY = OFF,
-		    ALLOW_ROW_LOCKS  = ON,
-		    ALLOW_PAGE_LOCKS  = ON
-		) ON [PRIMARY]
+        PRIMARY KEY CLUSTERED(
+            [id_sessione] ASC
+        ) WITH (
+            PAD_INDEX  = OFF,
+            STATISTICS_NORECOMPUTE  = OFF,
+            IGNORE_DUP_KEY = OFF,
+            ALLOW_ROW_LOCKS  = ON,
+            ALLOW_PAGE_LOCKS  = ON
+        ) ON [PRIMARY]
     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

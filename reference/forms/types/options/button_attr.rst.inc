@@ -10,6 +10,3 @@ come chiavi. Può essere utile quando servono classi personalizzate per il botto
     $builder->add('save', 'button', array(
         'attr' => array('class' => 'save'),
     ));
-
-
-

@@ -22,7 +22,7 @@ senza creare un controllore:
             path: /privacy
             defaults:
                 _controller: FrameworkBundle:Template:template
-                template:    'AcmeBundle:Static:privacy.html.twig'
+                template:    'AppBundle:Static:privacy.html.twig'
 
     .. code-block:: xml
 
@@ -34,7 +34,7 @@ senza creare un controllore:
 
             <route id="acme_privacy" path="/privacy">
                 <default key="_controller">FrameworkBundle:Template:template</default>
-                <default key="template">AcmeBundle:Static:privacy.html.twig</default>
+                <default key="template">AppBundle:Static:privacy.html.twig</default>
             </route>
         </routes>
 
@@ -46,7 +46,7 @@ senza creare un controllore:
         $collection = new RouteCollection();
         $collection->add('acme_privacy', new Route('/privacy', array(
             '_controller'  => 'FrameworkBundle:Template:template',
-            'template'     => 'AcmeBundle:Static:privacy.html.twig',
+            'template'     => 'AppBundle:Static:privacy.html.twig',
         )));
 
         return $collection;
@@ -93,7 +93,7 @@ variabili in più nella rotta, si può controllare esattamente il modo in cui la
             path: /privacy
             defaults:
                 _controller:  FrameworkBundle:Template:template
-                template:     'AcmeBundle:Static:privacy.html.twig'
+                template:     'AppBundle:Static:privacy.html.twig'
                 maxAge:       86400
                 sharedAge:    86400
 
@@ -107,7 +107,7 @@ variabili in più nella rotta, si può controllare esattamente il modo in cui la
 
             <route id="acme_privacy" path="/privacy">
                 <default key="_controller">FrameworkBundle:Template:template</default>
-                <default key="template">AcmeBundle:Static:privacy.html.twig</default>
+                <default key="template">AppBundle:Static:privacy.html.twig</default>
                 <default key="maxAge">86400</default>
                 <default key="sharedAge">86400</default>
             </route>
@@ -121,7 +121,7 @@ variabili in più nella rotta, si può controllare esattamente il modo in cui la
         $collection = new RouteCollection();
         $collection->add('acme_privacy', new Route('/privacy', array(
             '_controller'  => 'FrameworkBundle:Template:template',
-            'template'     => 'AcmeBundle:Static:privacy.html.twig',
+            'template'     => 'AppBundle:Static:privacy.html.twig',
             'maxAge'       => 86400,
             'sharedAge'    => 86400,
         )));

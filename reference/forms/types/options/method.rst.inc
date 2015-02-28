@@ -1,8 +1,8 @@
-.. versionadded:: 2.3
-    L'opzione ``method`` è stata introdotta in Symfony 2.3.
-
 method
 ~~~~~~
+
+.. versionadded:: 2.3
+    L'opzione ``method`` è stata introdotta in Symfony 2.3.
 
 **tipo**: ``stringa`` **predefinito**: ``POST``
 
@@ -17,15 +17,17 @@ usato per decidere se processare o meno il form, nel metodo
 * DELETE
 * PATCH
 
-.. note:
+.. note::
 
     Quando il metodo è PUT, PATCH o DELETE, Symfony aggiungerà automaticamente
     un campo nascossto ``_method`` al form. Tale campo è usato per emulare
     questi metodi HTTP, che non sono supportati dai browser più comuni. Per
     maggiori informazioni, vedere :doc:`/cookbook/routing/method_parameters`.
 
-.. note:
+.. note::
 
-    Solo il metodo PATCH consente l'invio parziale di dati, senza che i
-    campi mancanti siano impostati a  ``null`` nel dato sottostante (preservando
-    i valori, se presenti).
+    Il metodo PATCH consente l'invio parziale di dati. In altre parole, se
+    i dati inviati del form mancanot di alcuni campi, questi saranno ignorati
+    e gli eventuali valori predefiniti saranno usati. Con altrei metodi HTTP,
+    se i dati inviati del form mancano di alcuni campi, questi saranno impostati
+    a  ``null``.

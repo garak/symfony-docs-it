@@ -13,3 +13,5 @@ nell'oggetto sottostante. Valori validi sono:
 
 Anche il valore proveniente dal form sarà normalizzato in tale
 formato.
+
+.. include:: /reference/forms/types/options/_date_limitation.rst.inc

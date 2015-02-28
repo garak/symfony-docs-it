@@ -7,7 +7,7 @@ Usare e registrare percorsi di Twig con spazi di nomi
 .. versionadded:: 2.2
     I percorsi con spazi di nomi sono stati aggiunti nella 2.2.
 
-DI solito, quando ci si riferisce a un template, si usa il formato ``MioBundle:Cartella:filename.html.twig``
+DI solito, quando ci si riferisce a un template, si usa il formato ``MioBundle:Cartella:nomefile.html.twig``
 (vedere :ref:`template-naming-locations`).
 
 Twig offre anche, nativamente, una caratteristica chiamata "percorsi con spazi di nomi", supportata
@@ -17,15 +17,15 @@ Si prendano come esempio i seguenti percorsi:
 
 .. code-block:: jinja
 
-    {% extends "AcmeDemoBundle::layout.html.twig" %}
-    {% include "AcmeDemoBundle:Pippo:pluto.html.twig" %}
+    {% extends "AppBundle::layout.html.twig" %}
+    {% include "AppBundle:Pippo:pluto.html.twig" %}
 
 Con i percorsi con spazi di nomi, funziona anche in questo modo:
 
 .. code-block:: jinja
 
-    {% extends "@AcmeDemo/layout.html.twig" %}
-    {% include "@AcmeDemo/Pippo/pluto.html.twig" %}
+    {% extends "@App/layout.html.twig" %}
+    {% include "@App/Pippo/pluto.html.twig" %}
 
 Entrambi i percorsi sono validi e funzionanti in Symfony.
 
@@ -80,7 +80,7 @@ di nome ``sidebar.twig`` in tale cartella, si può usare facilmente:
 
 .. code-block:: jinja
 
-    {% include '@pippo_pluto/side.bar.twig' %}
+    {% include '@pippo_pluto/sidebar.twig' %}
 
 Percorsi multipli per spazio dei nomi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

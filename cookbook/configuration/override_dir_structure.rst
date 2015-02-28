@@ -1,5 +1,5 @@
 .. index::
-   single: Modificare la struttura predefinita della cartelle 
+    single: Modificare la struttura predefinita della cartelle 
 
 Modificare la struttura predefinita della cartelle
 ==================================================

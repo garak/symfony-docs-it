@@ -80,7 +80,7 @@ utilizzare come base per la ricerca::
 Per cercare in diverse posizioni, è possibile concatenare diverse chiamate a
 :method:`Symfony\\Component\\Finder\\Finder::in`::
 
-    $finder->files()->in(__DIR__)->in('/altraparte');
+    $finder->files()->in(__DIR__)->in('/daunaltraparte');
 
 .. versionadded:: 2.2
    Il supporto per i caratteri jolly è stato aggiunto nella  versione 2.2.
@@ -308,7 +308,8 @@ Il contenuto dei file restituiti può essere letto con
 
     foreach ($finder as $file) {
         $contents = $file->getContents();
-        ...
+        
+        // ...
     }
 
 .. _strtotime:    http://php.net/manual/it/datetime.formats.php

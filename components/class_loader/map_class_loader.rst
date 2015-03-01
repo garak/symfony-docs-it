@@ -1,6 +1,6 @@
 .. index::
-    single: Class Loader; MapClassLoader
-    
+    single: ClassLoader; MapClassLoader
+
 MapClassLoader
 ==============
 
@@ -26,14 +26,14 @@ Uso
 un'istanza della classe ``MapClassLoader``::
 
     require_once '/path/to/src/Symfony/Component/ClassLoader/MapClassLoader';
-    
+
     $mapping = array(
         'Pippo' => '/percorso/di/Pippo',
         'Pluto' => '/percorso/di/Pluto',
     );
-    
+
     $loader = new MapClassLoader($mapping);
-    
+
     $loader->register();
 
 .. _PSR-0: http://www.php-fig.org/psr/psr-0/

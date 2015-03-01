@@ -1,5 +1,5 @@
 .. index::
-   single: Class Loader; Class Loader PSR-0
+   single: ClassLoader; Class Loader PSR-0
 
 Class Loader PSR-0
 ==================

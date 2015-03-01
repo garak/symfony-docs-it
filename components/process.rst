@@ -66,7 +66,7 @@ funzione anonima al metodo
     });
 
 .. versionadded:: 2.1
-    La caratteristica di non bloccagio è stata aggiunta in 2.1.
+    La caratteristica di non bloccaggio è stata aggiunta in 2.1.
 
 Esecuzione asincrona dei processi
 ---------------------------------

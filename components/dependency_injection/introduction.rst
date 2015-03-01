@@ -147,7 +147,7 @@ Se comunque lo si volesse fare, il contenitore può richiamare il metodo setter:
 
     $container
         ->register('newsletter_manager', 'NewsletterManager')
-        ->addMethodCall('setMailer', new Reference('mailer'));
+        ->addMethodCall('setMailer', array(new Reference('mailer')));
 
 Si può quindi ottenere il servizio ``newsletter_manager`` dal contenitore,
 in questo modo::

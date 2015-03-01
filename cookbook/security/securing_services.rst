@@ -30,8 +30,8 @@ Prima di aggiungere la sicurezza, la classe assomiglia a qualcosa del genere:
 
 .. code-block:: php
 
-    // src/Acme/HelloBundle/Newsletter/NewsletterManager.php
-    namespace Acme\HelloBundle\Newsletter;
+    // src/AppBundle/Newsletter/NewsletterManager.php
+    namespace AppBundle\Newsletter;
 
     class NewsletterManager
     {
@@ -51,7 +51,7 @@ un candidato ideale per un'iniezione nel costruttore, che garantisce che l'ogget
 della sicurezza sia disponibile in tutta la classe
 ``NewsletterManager``::
 
-    namespace Acme\HelloBundle\Newsletter;
+    namespace AppBundle\Newsletter;
 
     use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -73,36 +73,36 @@ Quindi, nella configurazione dei servizi, si può iniettare il servizio:
 
     .. code-block:: yaml
 
-        # src/Acme/HelloBundle/Resources/config/services.yml
+        # app/config/services.yml
         services:
             newsletter_manager:
-                class:     Acme\HelloBundle\Newsletter\NewsletterManager
+                class:     AppBundle\Newsletter\NewsletterManager
                 arguments: ["@security.context"]
 
     .. code-block:: xml
 
-        <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
+        <!-- app/config/services.xml -->
         <services>
-            <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
+            <service id="newsletter_manager" class="AppBundle\Newsletter\NewsletterManager">
                 <argument type="service" id="security.context"/>
             </service>
         </services>
 
     .. code-block:: php
 
-        // src/Acme/HelloBundle/Resources/config/services.php
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->setDefinition('newsletter_manager', new Definition(
-            'Acme\HelloBundle\Newsletter\NewsletterManager',
+            'AppBundle\Newsletter\NewsletterManager',
             array(new Reference('security.context'))
         ));
 
 Il servizio iniettato può quindi essere usato per eseguire il controllo di sicurezza,
 quando il metodo ``sendNewsletter()`` viene richiamato::
 
-    namespace Acme\HelloBundle\Newsletter;
+    namespace AppBundle\Newsletter;
 
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -148,7 +148,7 @@ Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags
 
     .. code-block:: yaml
 
-        # src/Acme/HelloBundle/Resources/config/services.yml
+        # app/services.yml
 
         # ...
         services:
@@ -159,11 +159,11 @@ Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags
 
     .. code-block:: xml
 
-        <!-- src/Acme/HelloBundle/Resources/config/services.xml -->
+        <!-- app/services.xml -->
         <!-- ... -->
 
         <services>
-            <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
+            <service id="newsletter_manager" class="AppBundle\Newsletter\NewsletterManager">
                 <!-- ... -->
                 <tag name="security.secure_service" />
             </service>
@@ -171,12 +171,12 @@ Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags
 
     .. code-block:: php
 
-        // src/Acme/HelloBundle/Resources/config/services.php
+        // app/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
         $definition = new Definition(
-            'Acme\HelloBundle\Newsletter\NewsletterManager',
+            'AppBundle\Newsletter\NewsletterManager',
             array(new Reference('security.context'))
         ));
         $definition->addTag('security.secure_service');
@@ -184,7 +184,7 @@ Per abilitare le annotazioni, assegnare il :ref:`tag<book-service-container-tags
 
 Si possono ottenere gli stessi risultati usando le annotazioni::
 
-    namespace Acme\HelloBundle\Newsletter;
+    namespace AppBundle\Newsletter;
 
     use JMS\SecurityExtraBundle\Annotation\Secure;
     // ...

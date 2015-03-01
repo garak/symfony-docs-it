@@ -1,6 +1,6 @@
 .. index::
-    single: Class Loader; DebugClassLoader
-    
+    single: ClassLoader; DebugClassLoader
+
 Debug di un Class Loader
 ========================
 
@@ -16,5 +16,5 @@ L'uso di ``DebugClassLoader`` è facile, basta richiamare il suo metodo statico
 :method:`Symfony\\Component\\ClassLoader\\DebugClassLoader::enable`::
 
     use Symfony\Component\ClassLoader\DebugClassLoader;
-    
+
     DebugClassLoader::enable();

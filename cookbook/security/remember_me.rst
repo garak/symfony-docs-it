@@ -34,8 +34,8 @@ mostrati di seguito:
                 <remember-me
                     key      = "%secret%"
                     lifetime = "31536000" <!-- 365 giorni in secondi -->
-                    path="/"
-                    domain="" <!-- Defaults to the current domain from $_SERVER -->
+                    path     = "/"
+                    domain   = "" <!-- Prende il dominio ricavato da $_SERVER -->
                 />
             </firewall>
         </config>
@@ -87,14 +87,14 @@ questo:
 
     .. code-block:: html+php
 
-        <?php // src/Acme/SecurityBundle/Resources/views/Security/login.html.php ?>
+        <!-- src/Acme/SecurityBundle/Resources/views/Security/login.html.php -->
         <?php if ($error): ?>
             <div><?php echo $error->getMessage() ?></div>
         <?php endif; ?>
 
         <form action="<?php echo $view['router']->generate('login_check') ?>" method="post">
             <label for="username">Nome utente:</label>
-            <input type="text" id="username" 
+            <input type="text" id="username"
                    name="_username" value="<?php echo $last_username ?>" />
 
             <label for="password">Password:</label>
@@ -164,7 +164,7 @@ Nel seguente esempio, l'azione è consentita solo se l'utente ha il ruolo
     {
         if (false === $this->get('security.context')->isGranted(
             'IS_AUTHENTICATED_FULLY'
-        )) {
+           )) {
             throw new AccessDeniedException();
         }
 

@@ -113,7 +113,7 @@ avere il suffisso ``Bundle``. Lo si può validare, usando il metodo
         'Prego inserire il nome del bundle',
         function ($answer) {
             if ('Bundle' !== substr($answer, -6)) {
-                throw new \RunTimeException(
+                throw new \RuntimeException(
                     'Il nome del bundle deve avere \'Bundle\' come suffisso'
                 );
             }
@@ -154,19 +154,19 @@ Nascondere la risposta dell'utente
 
 Si può anche fare una domanda e validare una risposta nascosta::
 
-    $dialog = $this->getHelperSet()->get('dialog');
+    $dialog = $this->getHelper('dialog');
 
     $validator = function ($value) {
         if ('' === trim($value)) {
             throw new \Exception('La password non può essere vuota');
         }
-        
+
         return $value;
     };
 
     $password = $dialog->askHiddenResponseAndValidate(
         $output,
-        'Si prega di inserire il nome del widget',
+        'Si prega di inserire la password',
         $validator,
         20,
         false
@@ -192,7 +192,7 @@ Si può invece usare il metodo
 che assicura che l'utente possa inserire solamente una stringa valida,
 da una lista predefinita::
 
-    $dialog = $app->getHelperSet()->get('dialog');
+    $dialog = $this->getHelper('dialog');
     $colors = array('rosso', 'blu', 'giallo');
 
     $color = $dialog->select(

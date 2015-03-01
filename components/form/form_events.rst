@@ -178,7 +178,7 @@ Dati vista         Come in ``FormEvents::POST_SET_DATA``
 
 .. sidebar:: ``FormEvents::SUBMIT`` nel componente Form
 
-    :class:`Symfony\\Component\\Form\\Extension\\Core\\EventListener\\ResizeFormListener`
+    :class:`Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener`
     ascolta l'evento ``FormEvents::SUBMIT`` per poter rimuovere i
     campi che devono essere rimossi, se è stata abilitata la manipolazione di collezioni di form
     tramite ``allow_delete``.
@@ -208,10 +208,10 @@ Dati vista         Dati normalizzati trasformati usando un trasformatore di vist
 
 .. sidebar:: ``FormEvents::POST_SUBMIT`` nel componente Form
 
-    :class:`Symfony\\Component\\Form\\Extension\\DataCollector\\EventListener\\DataCollectorListener`
+    :class:`Symfony\Component\Form\Extension\DataCollector\EventListener\DataCollectorListener`
     ascolta l'evento ``FormEvents::POST_SUBMIT``, per poter raccogliere
     informazioni sui form.
-    :class:`Symfony\\Component\\Form\\Extension\\Validator\\EventListener\\ValidationListener`
+    :class:`Symfony\Component\Form\Extension\Validator\EventListener\ValidationListener`
     ascolta l'evento ``FormEvents::POST_SUBMIT``, per poter
     validare automaticamente l'oggetto denormalizzato e aggiornare la rappresentazione normalizzata
     e quella della vista.

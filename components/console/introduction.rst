@@ -90,11 +90,11 @@ una ``Application`` e vi aggiunge comandi::
 
     require __DIR__.'/vendor/autoload.php';
 
-    use Acme\Console\Command\GreetCommand;
+    use Acme\Console\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
 
     $application = new Application();
-    $application->add(new GreetCommand);
+    $application->add(new SalutaCommand);
     $application->run();
 
 È possibile provare il programma nel modo seguente

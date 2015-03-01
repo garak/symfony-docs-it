@@ -91,7 +91,7 @@ autoloader::
 
     .. code-block:: bash
 
-        $ php composer.phar install
+        $ composer install
         Loading composer repositories with package information
         Installing dependencies from lock file
         Your requirements could not be resolved to an installable set of packages.
@@ -283,7 +283,7 @@ saranno fusi. Per evitare tale comportamento, si può impostare il parametro
 
     echo $reader->readEntry(
         '/percorso/del/bundle',
-        'en', 
+        'en',
         array('Data', 'entry1'),
         false
     );

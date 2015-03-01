@@ -262,7 +262,7 @@ Autenticazione con utenti sulla base dati
 
 L'autenticazione di un utente tramite base dati, usando il livello della sicurezza di
 Symfony, è un gioco da ragazzi. Sta tutto nella configurazione
-:doc:`SecurityBundle</reference/configuration/security>`, memorizzata nel file
+:doc:`SecurityBundle </reference/configuration/security>`, memorizzata nel file
 ``app/config/security.yml``.
 
 Di seguito è mostrato un esempio di configurazione, in cui l'utente inserirà

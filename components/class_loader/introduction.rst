@@ -32,9 +32,9 @@ Installazione
 
 Si può installare il componente in due modi:
 
-* Usare il repository ufficiale su Git (https://github.com/symfony/ClassLoader);
 * :doc:`Installarlo via Composer </components/using_components>` (``symfony/class-loader``
-  su `Packagist`_).
+  su `Packagist`_);
+* Usare il repository ufficiale su Git (https://github.com/symfony/ClassLoader).
 
 .. _`meccanismo di auto-caricamento`: http://php.net/manual/it/language.oop5.autoload.php
 .. _Packagist: https://packagist.org/packages/symfony/class-loader

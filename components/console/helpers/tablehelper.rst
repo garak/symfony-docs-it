@@ -48,8 +48,8 @@ Si può anche controllare la resa della tabella impostando i valori delle opzion
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setPaddingChar`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setHorizontalBorderChar`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVerticalBorderChar`
-*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVrossingChar`
-*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVellHeaderFormat`
-*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setVellRowFormat`
+*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setCrossingChar`
+*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setCellHeaderFormat`
+*  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setCellRowFormat`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setBorderFormat`
 *  :method:`Symfony\\Component\\Console\\Helper\\TableHelper::setPadType`

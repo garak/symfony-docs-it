@@ -25,7 +25,7 @@ Ora, si vuole che un utente sia in grado di modificare i propri commenti, ma non
 degli altri utenti; inoltre, si vuole che l'amministratore possa modificare tutti i commenti.
 In questo scenario, ``Comment`` sarebbe l'oggetto del dominio a cui si vuole restringere
 l'accesso. Si possono usare diversi approcci per ottenere questo scopo in
-Symfony2, due approcci di base (non esaustivi) sono:
+Symfony, due approcci di base (non esaustivi) sono:
 
 - *Gestire la sicurezza nei metodi*: Di base, questo vuol dire mantenere un riferimento
   in ogni oggetto ``Comment`` a tutti gli utenti che vi hanno accesso, e quindi confrontare
@@ -189,7 +189,7 @@ Verifica dell'accesso
     }
 
 In questo esempio, verifichiamo se l'utente abbia il permesso ``EDIT``.
-Internamente, Symfony2 mappa i permessi a diversi interi e verifica se l'utente possieda
+Internamente, Symfony mappa i permessi a diversi interi e verifica se l'utente possieda
 uno di essi.
 
 .. note::

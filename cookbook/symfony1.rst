@@ -119,7 +119,7 @@ di dover pulire la cache quando una classe veniva aggiunta o spostata.
 In Symfony2, uno strumento chiamato `Composer`_ gestisce questo processo.
 L'idea dietro all'autoloader è semplice: il nome di una classe (incluso lo
 spazio dei nomi) deve corrispondere al percorso del file che contiene tale classe.
-Si prenda come esempio ``FrameworkExtraBundle``, nella Standard Edition di
+Si prenda come esempio FrameworkExtraBundle, nella Standard Edition di
 Symfony2::
 
     namespace Sensio\Bundle\FrameworkExtraBundle;
@@ -164,11 +164,11 @@ essere definite nel file ``composer.json``.
 
 Se si dà un'occhiata a ``HelloController`` nella Standard Edition di Symfony2, si
 vedrà che esso risiede nello spazio dei nomi ``Acme\DemoBundle\Controller``. Anche qui,
-``AcmeBundle`` non è definito nel file ``composer.json``. I file vengono comunque caricati
+AcmeDemoBundle non è definito nel file ``composer.json``. I file vengono comunque caricati
 automaticamente. Questo perché si può dire a Composer di auto-caricare i file da
 cartelle specifiche, senza definire dipendenze:
 
-.. code-block:: yaml
+.. code-block:: json
 
     "autoload": {
         "psr-0": { "": "src/" }

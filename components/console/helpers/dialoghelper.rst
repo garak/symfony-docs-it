@@ -103,7 +103,7 @@ Validare la risposta
 --------------------
 
 Si può anche validare la risposta. Per esempio, nell'ultimo esempio è stato
-chiesto il nome di un bundle. Seguendo le convenzioni di Symfony2, il nome dovrebbe
+chiesto il nome di un bundle. Seguendo le convenzioni di Symfony, il nome dovrebbe
 avere il suffisso ``Bundle``. Lo si può validare, usando il metodo
 :method:`Symfony\\Component\\Console\\Helper\\DialogHelper::askAndValidate`::
 

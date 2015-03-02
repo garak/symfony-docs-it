@@ -25,7 +25,7 @@ servizi.
     di essere separato in più controllori.
 
     Quindi, anche se non si specificano i controllori come servizi, probabilmente lo
-    si vedrà fatto in qualche bundle open source di Symfony2. È anche importante
+    si vedrà fatto in qualche bundle open source di Symfony. È anche importante
     capire i pro e i contro di entrambi gli approcci.
 
 Definire il controllore come servizio

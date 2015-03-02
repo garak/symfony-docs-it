@@ -23,8 +23,8 @@ usando un indirizzo email già esistente nel sistema.
 Uso di base
 -----------
 
-Si supponga di avere un ``AcmeUserBundle`` con un entità ``User``, che ha un campo
-``email``. Si può usare il vincolo ``Unique`` per garantire che il
+Si supponga di avere un AcmeUserBundle con un entità ``User``, che ha un campo
+``email``. Si può usare il vincolo ``UniqueEntity`` per garantire che il
 campo ``email`` rimanga unico tra tutti i vincoli della propria tabella degli
 utenti:
 

@@ -118,7 +118,7 @@ Per informazioni generali sull'aggiunta di ascoltatori agli eventi qui sotto, ve
 .. tip::
 
     Fabien Potencier ha anche scritto una bella serie sull'uso del componente HttpKernel
-    e altri componenti di Symfony2 per creare un proprio framework. Vedere
+    e altri componenti di Symfony per creare un proprio framework. Vedere
     `Create your own framework... on top of the Symfony2 Components`_.
 
 .. _component-http-kernel-kernel-request:
@@ -166,6 +166,11 @@ Complessivamente, lo scopo dell'evento ``kernel.request`` è quello di creare e 
 una ``Response`` direttamente oppure di aggiungere informazioni alla ``Request``
 (p.e. impostando il locale o altre informaioni sugli attributi della
 ``Request``).
+
+.. note::
+
+    Quando si imposta una risposta per l'evento ``kernel.request``, la propagazione
+    si ferma. Questo vuol dire che ascoltatori con priorità inferiore non saranno eseguiti.
 
 .. sidebar:: ``kernel.request`` nel framework Symfony
 
@@ -226,7 +231,7 @@ alle informazioni della richiesta.
 Il secondo metodo, :method:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface::getArguments`,
 sarà richiamato dopo che un altro evento, ``kernel.controller``, è stato distribuito.
 
-.. sidebar:: Resolving the Controller in the Symfony2 Framework
+.. sidebar:: Risolvere il controllore nel framework Symfony
 
     Il framework Symfony usa la classe
     :class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolver`
@@ -243,10 +248,10 @@ sarà richiamato dopo che un altro evento, ``kernel.controller``, è stato distr
 
     a) Il formato ``AcmeDemoBundle:Default:index`` della chiave ``_controller``
     viene cambiato in un'altra stringa che contiene il nome completo di classe e metodo
-    del controllore, seguendo la convenzione di Symfony2, cioè
+    del controllore, seguendo la convenzione di Symfony, cioè
     ``Acme\DemoBundle\Controller\DefaultController::indexAction``. Questa trasformazione
     è specifica della sotto-classe :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver`
-    usata dal framework Symfony2.
+    usata dal framework Symfony.
 
     b) Viene istanziata una nuova istanza della classe controllore, senza parametri al
     costruttore.
@@ -254,7 +259,7 @@ sarà richiamato dopo che un altro evento, ``kernel.controller``, è stato distr
     c) Se il controllore implementa :class:`Symfony\\Component\\DependencyInjection\\ContainerAwareInterface`,
     viene richiamato ``setContainer`` sull'oggetto controllore e gli viene passato il
     contenitore. Anche questo passo è specifico della sotto-classe :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver`
-    usata dal framework Symfony2.
+    usata dal framework Symfony.
 
     Ci possono essere alcune piccole variazioni nel processo appena visto, p.e. se
     i controllori sono stati registrati come servizi).
@@ -273,7 +278,7 @@ Dopo che il callable controllore è stato determinato, ``HttpKernel::handle``
 distribuisce l'evento ``kernel.controller``. Gli ascoltatori di questo evento possono inizializzare
 alcune parti del sistema che devono essere inizializzate dopo che alcune cose
 sono state determinate (p.e. il controllore, informazioni sulle rotte) ma prima
-che il controllore sia eseguito. Per alcuni esempi, vedere la sezione Symfony2 più avanti.
+che il controllore sia eseguito. Per alcuni esempi, vedere la sezione Symfony più avanti.
 
 .. image:: /images/components/http_kernel/06-kernel-controller.png
    :align: center
@@ -315,7 +320,7 @@ ne sia un buon esempio.
 A questo punto il kernel ha un callable PHP (il controllore) e un array
 di parametri che vanno passati durante l'esecuzione di tale callable.
 
-.. sidebar:: Ottenere i parametri del controllore nel framework Symfony2 
+.. sidebar:: Ottenere i parametri del controllore nel framework Symfony 
 
     Ora che sappiamo esattamente cosa sia il callable controllore (solitamente un metodo
     dentro all'oggetto controllore), ``ControllerResolver`` usa `reflection`_
@@ -390,6 +395,11 @@ che sia nel formato corretto (p.e. HTML, JSON, ecc.).
 A questo punto, ne nessun ascoltatore imposta una risposta sull'evento, viene lanciata
 un'eccezione: o il controllore *o* uno degli ascoltatori della vista devono sempre
 restituire una ``Response``.
+
+.. note::
+
+    Quando si imposta una risposta per l'evento ``kernel.request``, la propagazione
+    si ferma. Questo vuol dire che ascoltatori con priorità inferiore non saranno eseguiti.
 
 .. sidebar:: ``kernel.view`` in the Symfony Framework
 
@@ -469,6 +479,15 @@ si lancerà l'evento ``kernel.terminate``, in cui si possono eseguire alcune
 azioni che potrebbero essere state rimandate, per poter restituire la risposta nel modo
 più veloce possibile al client (p.e. invio di email).
 
+.. caution::
+
+    Internamente, HttpKernel  fa uso della funazione :phpfunction:`fastcgi_finish_request` di
+    PHP. Questo vuole dire che, al momento, solo le API del server `PHP FPM`_ sono
+    in grado di inviare al cliente una risposta mentre il processo PHP del server
+    esegue ancora alcuni compiti. Con le API di ogni altro server, gli acoltatori di ``kernel.terminate``
+    sono comunque eseguiti, ma la risposta non viene inviata al cliente finché non
+    sono tutti completati.
+
 .. note::
 
     L'uso dell'evento ``kernel.terminate`` è facoltativo e va limitato al caso in cui
@@ -476,10 +495,9 @@ più veloce possibile al client (p.e. invio di email).
 
 .. sidebar:: ``kernel.terminate`` in the Symfony Framework
 
-    Se si usa ``SwiftmailerBundle`` con Symfony2 e si usa lo spool ``memory``,
-    viene attivato :class:`Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener`,
-    che invia effettivamente le email pianificate per essere inviate
-    durante la richiesta.
+    Se si usa SwiftmailerBundle con Symfony e si usa lo spool ``memory``,
+    viene attivato `EmailSenderListener`, che invia effettivamente le email
+    pianificate per essere inviate durante la richiesta.
 
 .. _component-http-kernel-kernel-exception:
 
@@ -512,6 +530,11 @@ crei e restituisca una ``Response`` 404. In effetti, il componente HttpKernel
 dispone di un :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`,
 che, se usato, farà questo e anche di più in modo predefinito (si vedano dettagli
 più avanti).
+
+.. note::
+
+    Quando si imposta una risposta per l'evento ``kernel.request``, la propagazione
+    si ferma. Questo vuol dire che ascoltatori con priorità inferiore non saranno eseguiti.
 
 .. sidebar:: ``kernel.exception`` in the Symfony Framework
 
@@ -656,10 +679,6 @@ parametro, come segue::
     $response = $kernel->handle($request, HttpKernelInterface::SUB_REQUEST);
     // fare qualcosa con questa risposta
 
-.. versionadded:: 2.4
-    Il metodo ``isMasterRequest()`` è stato introdotto in Symfony 2.4.
-    In precedenza veniva usato il metodo ``getRequestType()``.
-
 Questo crea un altro ciclo richiesta-risposta, in cui la nuova ``Request`` è
 trasformata in una ``Response``. L'unica differenza interna è che alcuni
 ascoltatori (p.e. security) possono intervenire solo per la richiesta principale. A ggni
@@ -690,3 +709,4 @@ assomigliare a questo::
 .. _`SensioFrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 .. _`@ParamConverter`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
 .. _`@Template`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/view.html
+.. _`EmailSenderListener`: https://github.com/symfony/SwiftmailerBundle/blob/master/EventListener/EmailSenderListener.php

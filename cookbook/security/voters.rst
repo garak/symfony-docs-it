@@ -4,9 +4,9 @@
 Implementare dei votanti per una lista nera di indirizzi IP
 ===========================================================
 
-Il componente della sicurezza di Symfony2 fornisce diversi livelli per autenticare gli
+Il componente della sicurezza di Symfony fornisce diversi livelli per autenticare gli
 utenti. Uno dei livelli è chiamato `voter` (votante). Un votante è una classe dedicata a verificare
-che l'utente abbia i diritti per connettersi all'applicazione. Per esempio, Symfony2
+che l'utente abbia i diritti per connettersi all'applicazione. Per esempio, Symfony
 fornisce un livello che verifica se l'utente è pienamente autenticato oppure se ha dei
 ruoli.
 

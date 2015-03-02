@@ -1,8 +1,8 @@
 .. index::
    single: Log
 
-Come scrivere messaggi di log su file diversi
-=============================================
+Scrivere messaggi di log su file diversi
+========================================
 
 La Standard Edition di Symfony contiene molti canali per i log: ``doctrine``,
 ``event``, ``security`` e ``request``. Ogni canale corrisponde a un servizio di
@@ -106,13 +106,13 @@ Si può cambiare il canale usato da monolog su un servizio alla volta. Lo si pu�
 tramite :ref:`configurazione <cookbook-monolog-channels-config>`, come mostrato qui sotto,
 o aggiungendo il tag :ref:`monolog.logger<dic_tags-monolog>` a un servizio e
 specificando quale canale il servizio dovrebbe usare per i log. In questo modo, il logger
-iniettato in questo servizio viene preconfigurarto per usare il canale
+iniettato in questo servizio viene preconfigurato per usare il canale
 specificato.
 
 .. _cookbook-monolog-channels-config:
 
-Configure Additional Channels without Tagged Services
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configurare canali aggiuntivi senza tag dei servizi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 2.3
     Questa caratteristica è stata introdotto in MonologBundle nella versione 2.4. Questa

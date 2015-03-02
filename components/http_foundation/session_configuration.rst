@@ -32,10 +32,10 @@ dei metodi ``setOptions()`` di ciascuna classe. Per esempio, quello
 fornito dall'estensione Memcached si può trovare in `php.net/memcached.setoption`_.
 
 Sebbene i gestori di salvataggio nativi possano essere attivati direttamente, usando
-``ini_set('session.save_handler', $nome);``, Symfony2 fornisce un modo conveniente
+``ini_set('session.save_handler', $nome);``, Symfony fornisce un modo conveniente
 per attivarrli nello stesso modo dei gestori personalizzati.
 
-Symfony2 fornisce driver per i gestori nativi, come per esempio:
+Symfony fornisce driver per i gestori nativi, come per esempio:
 
   * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeFileSessionHandler`
 
@@ -58,7 +58,7 @@ Esempio di utilzzo::
 
     I gestori di salvataggio nativi forniscono una soluzione rapida alla memorizzazione di sessioni, tuttavia
     in sistemi complessi, in cui occorre maggior controllo, i gestori di salvataggio personalizzati possono
-    fornire più libertà e flessibilità. Symfony2 fornisce varie implementazioni,
+    fornire più libertà e flessibilità. Symfony fornisce varie implementazioni,
     personalizzabili a piacimento.
 
 Gestori di salvataggio personalizzati
@@ -68,7 +68,7 @@ I gestori personalizzati sono quelli che sostituiscono completamente i gestori d
 nativi di PHP, fornendo sei funzioni di callback, richiamate internamente da PHP in vari
 punti del flusso della sessione.
 
-HttpFoundation di Symfony2 ne fornisce alcuni predefiniti, che possono facilmente servire
+HttpFoundation di Symfony ne fornisce alcuni predefiniti, che possono facilmente servire
 da esempi, se se ne vuole scrivere uno.
 
 * :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\PdoSessionHandler`
@@ -148,7 +148,7 @@ o al metodo :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Nativ
 Scadenza della sessione
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Quando viene creata una nuova sessione, quindi quando Symfony2 invia un nuovo cookie di
+Quando viene creata una nuova sessione, quindi quando Symfony invia un nuovo cookie di
 sessione al client, il cookie sarà emesso con un tempo di scadenza. Questo tempo è
 calcolato aggiungendo il valore di configurazione di PHP in
 ``session.cookie_lifetime`` al tempo attuale del server.
@@ -186,7 +186,7 @@ la sessione parte. La sessione può essere distrutta, come richiesto. Questo met
 consentire di integrare la scadenza delle sessioni nell'esperienza utente, per esempio,
 mostrando un messaggio.
 
-Symfony2 registra alcuni meta-dati di base su ogni sessione, per dare completa libertà
+Symfony registra alcuni meta-dati di base su ogni sessione, per dare completa libertà
 in quest'area.
 
 Meta-dati di sessione
@@ -229,7 +229,7 @@ librerie.
 :phpclass:`SessionHandler` è una classe interna speciale di PHP, che espone i gestori del
 salvataggio nativi nello user space di PHP.
 
-Per poter fornire una soluzione a chi usa PHP 5.4, Symfony2 ha una classe speciale,
+Per poter fornire una soluzione a chi usa PHP 5.4, Symfony ha una classe speciale,
 chiamata :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\Handler\\NativeSessionHandler`,
 che sotto PHP 5.4 estende da `\SessionHandler` e sotto PHP 5.3 è solo una classe
 di base vuota. Questo dà alcune interessanti opportunità, per sfruttare le

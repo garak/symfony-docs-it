@@ -12,8 +12,8 @@ di un bundle.
 
 Per esempio, si supponga di aver installato `FOSUserBundle`_, ma di voler sovrascrivere
 il suo template base ``layout.html.twig``, così come uno dei suoi
-controllori. Si supponga anche di avere il proprio ``AcmeUserBundle``,
-in cui si vogliono mettere i file sovrascritti. Si inizi registrando ``FOSUserBundle``
+controllori. Si supponga anche di avere il proprio AcmeUserBundle,
+in cui si vogliono mettere i file sovrascritti. Si inizi registrando FOSUserBundle
 come "genitore" del proprio bundle::
 
     // src/Acme/UserBundle/AcmeUserBundle.php
@@ -29,7 +29,7 @@ come "genitore" del proprio bundle::
         }
     }
 
-Con questa semplice modifica, si possono ora sovrascrivere diverse parti di ``FOSUserBundle``,
+Con questa semplice modifica, si possono ora sovrascrivere diverse parti di FOSUserBundle,
 semplicemente creando un file con lo stesso nome.
 
 .. note::
@@ -81,9 +81,9 @@ stesso percorso del bundle genitore.
 
 Per esempio, è molto comune l'esigenza di sovrascrivere il template ``layout.html.twig`` di
 ``FOSUserBundle``, in modo che usi il layout di base dell'applicazione.
-Poiché il file si trova in ``Resources/views/layout.html.twig`` di ``FOSUserBundle``,
-si può creare il proprio file nello stesso posto in ``AcmeUserBundle``.
-Symfony ignorerà completamente il file dentro ``FOSUserBundle`` e
+Poiché il file si trova in ``Resources/views/layout.html.twig`` di FOSUserBundle,
+si può creare il proprio file nello stesso posto in AcmeUserBundle.
+Symfony ignorerà completamente il file dentro FOSUserBundle e
 userà il nuovo file al suo posto.
 
 Lo stesso vale per i file delle rotte, della configurazione della validazione e di altre risorse.

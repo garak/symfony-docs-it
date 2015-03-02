@@ -15,6 +15,11 @@ per i bundle dell'applicazione, perché non dovranno restare il più semplici
 possibile. Per i bundle dell'applicazione, basta seguire le pratiche mostrate
 nel libro e nel ricettario.
 
+.. seealso::
+
+    Le best practice per bundle specifici per applicazioni sono discusse in
+    :doc:`/best_practices/introduction`.
+
 .. index::
    pair: Bundle; Convenzioni di nomenclatura
 
@@ -26,8 +31,7 @@ Nome del bundle
 Un bundle è anche uno spazio dei nomi di PHP. Lo spazio dei nomi deve seguire gli
 `standard`_ tecnici di interoperabilità di PHP 5.3 per gli spazi dei nomi e i nomi delle
 classi: inizia con un segmento del venditore, seguito da zero o più segmenti di categoria
-e finisce con il nome breve dello spazio dei nomi, che deve terminare col suffisso
-``Bundle``.
+e finisce con il nome breve dello spazio dei nomi, che deve terminare col suffisso ``Bundle``.
 
 Uno spazio dei nomi diventa un bundle non appena vi si aggiunge una classe Bundle. La
 classe Bundle deve seguire queste semplici regole:
@@ -75,8 +79,7 @@ d'utilizzo).
 Struttura della cartella
 ------------------------
 
-La struttura di base delle cartella di un bundle ``HelloBundle`` deve essere come
-segue:
+La struttura di base delle cartella di un bundle HelloBundle deve essere come segue:
 
 .. code-block:: text
 
@@ -155,8 +158,7 @@ Per esempio, un controllore ``HelloController`` è posto in
 ``Bundle/HelloBundle/Controller/HelloController.php`` e il nome pienamente qualificato
 della classe è ``Bundle\HelloBundle\Controller\HelloController``.
 
-Tutte le classi e i file devono seguire gli :doc:`standard di codice
-</contributing/code/standards>` di Symfony.
+Tutte le classi e i file devono seguire gli :doc:`standard di codice </contributing/code/standards>` di Symfony.
 
 Alcune classi vanno viste solo come facciate e devono essere più corte possibile, come
 comandi, helper, ascoltatori e controllori.
@@ -243,13 +245,13 @@ seguenti istruzioni standardizzate, nel file ``README.md``.
         {
             $bundles = array(
                 // ...
-   
+
                 new <vendor>\<nome-bundle>\<nome-lungo-bundle>(),
             );
-   
+
             // ...
         }
-        
+
         // ...
     }
     ```
@@ -334,6 +336,48 @@ della configurazione semantica, descritta nel ricettario.
 
     Se si definiscono servizi, devono avere anch'essi come prefisso l'alias del
     bundle.
+
+Vincoli di validazione personalizzati
+-------------------------------------
+
+A partire da Symfony 2.5, è stata introdotta una nuova API di validazione. In effetti,
+ci sono 3 modalità che l'utente può configurare in un progetto:
+
+* 2.4: l'API originaria delle versioni 2.4 e precedenti;
+* 2.5: la nuova API di validazione della versione 2.5;
+* 2.5-BC: la nuova API 2.5 con un livello di retrocompatibilità, in modo che
+  l'API 2.4 funzioni ancora. Richiede PHP 5.3.9+.
+
+Come autore di bundle, si dovrebbero supportare *entrambe* le API, poiché alcuni utenti
+potrebbero usare ancora l'API 2.4. Nello specifico, se un bundle aggiunge una violazione
+direttamente a :class:`Symfony\\Component\\Validator\\Context\\ExecutionContext`
+(come nel caso di un vincolo di validazione personalizzato), si dovrà verificare quale
+API è in uso. Il codice seguente funzionerà per *tutti* i casi::
+
+    use Symfony\Component\Validator\ConstraintValidator;
+    use Symfony\Component\Validator\Constraint;
+    use Symfony\Component\Validator\Context\ExecutionContextInterface;
+    // ...
+
+    class ContainsAlphanumericValidator extends ConstraintValidator
+    {
+        public function validate($value, Constraint $constraint)
+        {
+            if ($this->context instanceof ExecutionContextInterface) {
+                // API 2.5
+                $this->context->buildViolation($constraint->message)
+                    ->setParameter('%string%', $value)
+                    ->addViolation()
+                ;
+            } else {
+                // API 2.4
+                $this->context->addViolation(
+                    $constraint->message,
+                    array('%string%' => $value)
+                );
+            }
+        }
+    }
 
 Imparare di più dal ricettario
 ------------------------------

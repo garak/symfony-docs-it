@@ -13,7 +13,7 @@ In PHP, la richiesta è rappresentata da alcune variabili globali (``$_GET``,
 ``$_POST``, ``$_FILE``, ``$_COOKIE``, ``$_SESSION``...) e la risposta è generata
 da alcune funzioni (``echo``, ``header``, ``setcookie``, ...).
 
-Il componente HttpFoundation di Symfony2 sostituisce queste variabili globali e queste
+Il componente HttpFoundation di Symfony sostituisce queste variabili globali e queste
 funzioni di PHP con un livello orientato agli oggetti.
 
 Installazione
@@ -173,7 +173,7 @@ richiesta, grazie alla proprietà pubblica ``attributes``, che è anche un'istan
 :class:`Symfony\\Component\\HttpFoundation\\ParameterBag`. La si usa soprattutto
 per allegare informazioni che appartengono alla richiesta e a cui si deve accedere
 in diversi punti dell'applicazione. Per informazioni su come viene
-usata nel framework Symfony2, vedere
+usata nel framework Symfony, vedere
 :ref:`il libro <book-fundamentals-attributes>`.
 
 Infine, si può accedere ai dati grezzi inviati nel corpo della richiesta usando

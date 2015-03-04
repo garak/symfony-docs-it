@@ -72,7 +72,7 @@ Quando si specificare la classe da usare come factory (tramite ``factory_class``
 il metodo sarà richiamato staticamente. Se il factory stesso va istanziato e il
 metodo dell'oggetto risultante richiamato, configurare il factory stesso come servizio:
 In questo caso, il metodo (p.e. ``createNewsletterManager``) va cambiato per non
-essere staico:
+essere statico:
 
 .. configuration-block::
 

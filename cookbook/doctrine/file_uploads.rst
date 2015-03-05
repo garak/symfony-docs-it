@@ -23,8 +23,8 @@ Preparazione
 
 Innanzitutto, creare una semplice classe entità di Doctrine, su cui lavorare::
 
-    // src/Acme/DemoBundle/Entity/Document.php
-    namespace Acme\DemoBundle\Entity;
+    // src/AppBundle/Entity/Document.php
+    namespace AppBundle\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Validator\Constraints as Assert;
@@ -154,8 +154,8 @@ regole di validazione::
 
     .. code-block:: yaml
 
-        # src/Acme/DemoBundle/Resources/config/validation.yml
-        Acme\DemoBundle\Entity\Document:
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Document:
             properties:
                 file:
                     - File:
@@ -163,8 +163,8 @@ regole di validazione::
 
     .. code-block:: php-annotations
 
-        // src/Acme/DemoBundle/Entity/Document.php
-        namespace Acme\DemoBundle\Entity;
+        // src/AppBundle/Entity/Document.php
+        namespace AppBundle\Entity;
 
         // ...
         use Symfony\Component\Validator\Constraints as Assert;
@@ -181,8 +181,8 @@ regole di validazione::
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/validation.yml -->
-        <class name="Acme\DemoBundle\Entity\Document">
+        <!-- src/AppBundle/Resources/config/validation.xml -->
+        <class name="AppBundle\Entity\Document">
             <property name="file">
                 <constraint name="File">
                     <option name="maxSize">6000000</option>
@@ -192,7 +192,7 @@ regole di validazione::
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Entity/Document.php
+        // src/AppBundle/Entity/Document.php
         namespace Acme\DemoBundle\Entity;
 
         // ...
@@ -220,7 +220,7 @@ regole di validazione::
 Il controllore seguente mostra come gestire l'intero processo::
 
     // ...
-    use Acme\DemoBundle\Entity\Document;
+    use AppBundle\Entity\Document;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     use Symfony\Component\HttpFoundation\Request;
     // ...
@@ -404,7 +404,8 @@ Quindi, rifattorizzare la classe ``Document``, per sfruttare i vantaggi dei call
          */
         public function removeUpload()
         {
-            if ($file = $this->getAbsolutePath()) {
+            $file = $this->getAbsolutePath();
+            if ($file) {
                 unlink($file);
             }
         }

@@ -114,9 +114,9 @@ come eseguire la sostituzione:
 
         # app/config/config.yml
         doctrine:
-            # ....
+            # ...
             orm:
-                # ....
+                # ...
                 resolve_target_entities:
                     Acme\InvoiceBundle\Model\InvoiceSubjectInterface: Acme\AppBundle\Entity\Customer
 
@@ -132,7 +132,7 @@ come eseguire la sostituzione:
             <doctrine:config>
                 <doctrine:orm>
                     <!-- ... -->
-                    <doctrine:resolve-target-entity interface="Acme\InvoiceBundle\Model\InvoiceSubjectInterface">Acme\AppBundle\Entity\Customer</resolve-target-entity>
+                    <doctrine:resolve-target-entity interface="Acme\InvoiceBundle\Model\InvoiceSubjectInterface">Acme\AppBundle\Entity\Customer</doctrine:resolve-target-entity>
                 </doctrine:orm>
             </doctrine:config>
         </container>

@@ -612,7 +612,8 @@ passargli un oggetto ``Link``::
 Form
 ~~~~
 
-Come per i collegamenti, si possono selezionare i form col metodo ``selectButton()``::
+Come per i collegamenti, si possono selezionare i form a partire da un bottone, col metodo
+``selectButton()``::
 
     $buttonCrawlerNode = $crawler->selectButton('submit');
 

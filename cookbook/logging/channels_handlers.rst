@@ -30,7 +30,7 @@ Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
                 main:
                     type:     stream
                     path:     /var/log/symfony.log
-                    channels: [!doctrine]
+                    channels: ["!doctrine"]
                 doctrine:
                     type:     stream
                     path:     /var/log/doctrine.log
@@ -94,10 +94,10 @@ Si può specificare la configurazione in molte forme:
     channels: ~    # Include tutti i canali
 
     channels: pippo  # Include solo il canale "pippo"
-    channels: !pippo # Include tutti i canali, tranne "pippo"
+    channels: "!pippo" # Include tutti i canali, tranne "pippo"
 
     channels: [pippo, pluto]   # Include solo i canali "pippo" e "pluto"
-    channels: [!pippo, !pluto] # Include tutti i canali, tranne "pippo" e "pluto"
+    channels: ["!pippo", "!pluto"] # Include tutti i canali, tranne "pippo" e "pluto"
 
 Creare il proprio canale
 ------------------------

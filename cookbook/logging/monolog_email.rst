@@ -23,7 +23,7 @@ singolarmente.
                     action_level: critical
                     # per loggare anche gli errori 400 (trane i 404):
                     # action_level: error
-                    # excluded_404:
+                    # excluded_404s:
                     #     - ^/
                     handler:      buffered
                 buffered:

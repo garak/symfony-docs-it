@@ -165,7 +165,7 @@ e avere un metodo per ogni evento sottoscritto::
 
     use Doctrine\Common\EventSubscriber;
     use Doctrine\ORM\Event\LifecycleEventArgs;
-    // per doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+    // per Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
     use Acme\StoreBundle\Entity\Product;
 
     class SearchIndexerSubscriber implements EventSubscriber

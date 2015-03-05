@@ -85,7 +85,7 @@ questioni di backup, sia per fare in modo che altri sviluppatori possano collabo
 al progetto stesso.
 
 Il modo più facile per memorizzare un progetto su un server remoto è l'utilizzo
-di servizi come `GitHub`_ o `Bitbucket`. Ovviamente ci sono molti altri servizi
+di servizi come `GitHub`_ o `Bitbucket`_. Ovviamente ci sono molti altri servizi
 in giro, si può iniziare una ricerca su
 `confronto tra servizi di hosting`_.
 
@@ -95,7 +95,6 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 
 .. _`git`: http://git-scm.com/
 .. _`Symfony Standard Edition`: http://symfony.com/download
-.. _`installare Symfony usando Composer`: http://symfony.com/doc/current/book/installation.html#option-1-composer
 .. _`sottomoduli di git`: http://git-scm.com/book/en/Git-Tools-Submodules
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository

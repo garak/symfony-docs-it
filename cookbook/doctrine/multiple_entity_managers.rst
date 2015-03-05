@@ -49,7 +49,7 @@ La configurazione seguente mostra come configurare due gestori di entità:
                     default:
                         connection: default
                         mappings:
-                            AcmeDemoBundle:  ~
+                            AppBundle:  ~
                             AcmeStoreBundle: ~
                     customer:
                         connection: customer
@@ -90,7 +90,7 @@ La configurazione seguente mostra come configurare due gestori di entità:
 
                 <orm default-entity-manager="default">
                     <entity-manager name="default" connection="default">
-                        <mapping name="AcmeDemoBundle" />
+                        <mapping name="AppBundle" />
                         <mapping name="AcmeStoreBundle" />
                     </entity-manager>
 
@@ -134,7 +134,7 @@ La configurazione seguente mostra come configurare due gestori di entità:
                     'default' => array(
                         'connection' => 'default',
                         'mappings'   => array(
-                            'AcmeDemoBundle'  => null,
+                            'AppBundle'  => null,
                             'AcmeStoreBundle' => null,
                         ),
                     ),

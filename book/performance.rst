@@ -128,8 +128,7 @@ Si noti che ci sono due svantaggi nell'uso di un file di avvio:
 * durante il debug, occorre inserire i breakpoint nel file di avvio.
 
 Se si usa Symfony Standard Edition, il file di avvio è ricostruito automaticamente
-dopo l'aggiornamento delle librerie dei venditori, tramite il comando
-``php composer.phar install``.
+dopo l'aggiornamento delle librerie dei venditori, tramite il comando ``composer install``.
 
 File di avvio e cache bytecode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -3,11 +3,12 @@ UserPassword
 
 .. note::
 
-    Da Symfony 2.2, le classi `UserPassword*` nello spazio dei nomi
-    `Symfony\Component\Security\Core\Validator\Constraint` sono
-    deprecate, saranno rimosse in Symfony 2.3. Usare invece le classi
-    `UserPassword*` nello spazio dei nomi
-    `Symfony\Component\Security\Core\Validator\Constraints`.
+    Da Symfony 2.2, le classi ``UserPassword*`` nello spazio dei nomi
+    :namespace:`Symfony\\Component\\Security\\Core\\Validator\\Constraint <Symfony\\Component\\Security\\Core\\Validator\\Constraint>`
+    sono deprecate, saranno rimosse in Symfony 2.3. Usare invece le classi
+    ``UserPassword*`` nello spazio dei nomi
+    :namespace:`Symfony\\Component\\Security\\Core\\Validator\\Constraints <Symfony\\Component\\Security\\Core\\Validator\\Constraints>`
+
 
 Valida che un valore inserito sia uguale alla password dell'utente attualmente
 autenticato. Può tornare utile in un form in cui un utente può cambiare la propria
@@ -66,7 +67,7 @@ dell'utente:
 
     .. code-block:: xml
 
-        <!-- src/UserBundle/Resources/config/validation.xml -->
+        <!-- src/Acme/UserBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

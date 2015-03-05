@@ -40,7 +40,8 @@ caratteri diverso, per esempio::
 Kernel Name
 ~~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``app`` (cioè il nome della cartella che contiene la classe Kernel)
+**tipo**: ``stringa`` **predefinito**: ``app`` (cioè il nome della cartella che
+contiene la classe Kernel)
 
 Per cambiare questa impostazione, sovrascrivere il metodo :method:`Symfony\\Component\\HttpKernel\\Kernel::getName`.
 In alternativa, spostare il kernel in una cartella diversa. Per esempio,

@@ -163,7 +163,7 @@ XML o PHP. Si veda la configurazione predefinita:
         debug:            "%kernel.debug%"
         strict_variables: "%kernel.debug%"
 
-    # Configurazione di Swiftmailer
+    # Configurazione di Swift Mailer
     swiftmailer:
         transport: "%mailer_transport%"
         host:      "%mailer_host%"
@@ -175,7 +175,7 @@ XML o PHP. Si veda la configurazione predefinita:
 
 Ogni voce come ``framework`` definisce la configurazione per uno specifico bundle.
 Per esempio, ``framework`` configura ``FrameworkBundle``, mentre ``swiftmailer``
-configura ``SwiftmailerBundle``.
+configura SwiftmailerBundle.
 
 Ogni :term:`ambiente` può sovrascrivere la configurazione predefinita, fornendo un file
 di configurazione specifico. Per esempio, l'ambiente ``dev`` carica il file ``config_dev.yml``,
@@ -227,7 +227,7 @@ Estendere i bundle
 ..................
 
 Se si seguono queste convenzioni, si può usare
-l':doc:`ereditarietà dei bundle</cookbook/bundles/inheritance>`
+l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>`
 per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
 chiamato ``AcmeNewBundle`` estende AcmeDemoBundle, Symfony proverà a caricare
 prima il controllore ``AcmeDemoBundle:Welcome:index`` da AcmeNewBundle e poi

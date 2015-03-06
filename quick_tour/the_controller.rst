@@ -315,13 +315,13 @@ un qualsiasi controllore::
         $session = $request->getSession();
 
         // memorizza un attributo per riusarlo più avanti durante una richiesta utente
-        $session->set('foo', 'bar');
+        $session->set('pippo', 'pluto');
 
         // in un altro controllore per un'altra richiesta
-        $foo = $session->get('foo');
+        $pippo = $session->get('pippo');
 
         // usa una valore predefinito se la chiave non esiste
-        $filters = $session->get('filters', array());
+        $pippo = $session->get('pippo', 'valore_predefinito');
     }
 
 Si possono anche memorizzare piccoli messaggi che saranno disponibili solo per

@@ -22,8 +22,8 @@ del template tramite alcuni delimitatori:
     Stampa una variabile o il risultato di un'espressione;
 
 ``{% ... %}``
-    Controlla la logica del template; è usato per eseguire dei cicli
-    ``for`` e delle istruzioni ``if``, per esempio.
+    Controlla la logica del template; è usato per eseguire dei cicli ``for``
+    e delle istruzioni ``if``, per esempio.
 
 ``{# ... #}``
     consente l'inserimento di commenti all'interno dei template. Diversamente dai commenti HTML,

@@ -646,7 +646,7 @@ Una configurazione delle rotte fornisce tali informazioni in un formato leggibil
 
 Ora che Symfony gestisce tutti i compiti più comuni, il front controller è
 semplicissimo. E siccome fa così poco, non si avrà mai bisogno di modificarlo una
-volta creato (e se si usa una distribuzione di Symfony, non servirà nemmeno
+volta creato (e se si usa una `distribuzione di Symfony`_, non servirà nemmeno
 crearlo!)::
 
     // web/app.php
@@ -761,3 +761,4 @@ Imparare di più con le ricette
 .. _`Twig`: http://twig.sensiolabs.org
 .. _`Varnish`: https://www.varnish-cache.org/
 .. _`PHPUnit`: http://www.phpunit.de
+.. _`distribuzione di Symfony`: https://github.com/symfony/symfony-standard

@@ -4,23 +4,23 @@
 Modificare dinamicamente form usando gli eventi
 ===============================================
 
-Capita spesso che non un form non possa essere creato staticamente. In questa ricetta
+Capita spesso che un form non possa essere creato staticamente. In questa ricetta
 vedremo come personalizzare un form, in base a tre casi d'uso.
 
 1) :ref:`cookbook-form-events-underlying-data`
 
-Eesempio: si ha un form "Product" e occorre modificare/aggiungere/rimuovere un campo,
+Esempio: si ha un form "Product" e occorre modificare/aggiungere/rimuovere un campo,
 in base ai dati sull'oggetto Product sottostante.
 
 2) :ref:`cookbook-form-events-user-data`
 
-Eesempio: si crea un form "Friend Message" e occorre costruire un menù a tendina,
+Esempio: si crea un form "Friend Message" e occorre costruire un menù a tendina,
 che contenga solo utenti che sono amici dell'utente attualmente
 autenticato.
 
 3) :ref:`cookbook-form-events-submitted-data`
 
-Eesempio: in un form di registrazione, si ha un campo "country" e un campo "state",
+Esempio: in un form di registrazione, si ha un campo "country" e un campo "state",
 che va popolato automaticamente in base al valore del campo
 "country".
 
@@ -36,8 +36,8 @@ Personalizzare un form in base ai dati sottostanti
 Prima di addentrarci nella generazione dinamica dei form, diamo un'occhiata veloce 
 alla classe dei form::
 
-    // src/Acme/DemoBundle/Form/Type/ProductType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/ProductType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -54,7 +54,7 @@ alla classe dei form::
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $resolver->setDefaults(array(
-                'data_class' => 'Acme\DemoBundle\Entity\Product'
+                'data_class' => 'AppBundle\Entity\Product'
             ));
         }
 
@@ -77,7 +77,7 @@ oppure se sta per essere modificato un prodotto esistente (cioè un prodotto ott
 
 Si supponga ora di non voler abilitare l'utente alla modifica del campo ``name``,
 una volta che l'oggetto è stato creato. Lo si può fare grazie al componente
-:doc:`Event Dispatcher </components/event_dispatcher/introduction>`,
+:doc:`EventDispatcher </components/event_dispatcher/introduction>`,
 che analizza l'oggetto e modifica il form basato sull'
 oggetto Product. In questa ricetta si imparerà come aggiungere questo livello di
 flessibilità ai form.
@@ -90,8 +90,8 @@ Aggiungere un ascoltatore di eventi alla classe di un form
 Quindi, invece di aggiungere direttamente ``name``, la responsabilità di
 creare tale campo è delegata a un ascoltatore di eventi::
 
-    // src/Acme/DemoBundle/Form/Type/ProductType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/ProductType.php
+    namespace AppBundle\Form\Type;
 
     // ...
     use Symfony\Component\Form\FormEvent;
@@ -120,14 +120,14 @@ l'ascoltatore di eventi potrebbe somigliare a questo::
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // ...
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $product = $event->getData();
             $form = $event->getForm();
 
             // verifica se l'oggetto Product sia "nuovo"
             // Se non sono stati passati dati al form, i dati sono "null".
             // Questo va considerato un nuovo Product
-            if (!$product || null !== $product->getId()) {
+            if (!$product || null === $product->getId()) {
                 $form->add('name', 'text');
             }
         });
@@ -151,11 +151,11 @@ Per una migliore riusabilità o se c'è della logica in un ascoltatore di eventi
 si può spostare la logica per creare il campo ``name`` in un
 :ref:`sottoscrittore di eventi <event_dispatcher-using-event-subscribers>`::
 
-    // src/Acme/DemoBundle/Form/Type/ProductType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/ProductType.php
+    namespace AppBundle\Form\Type;
 
     // ...
-    use Acme\DemoBundle\Form\EventListener\AddNameFieldSubscriber;
+    use AppBundle\Form\EventListener\AddNameFieldSubscriber;
 
     class ProductType extends AbstractType
     {
@@ -172,8 +172,8 @@ si può spostare la logica per creare il campo ``name`` in un
 Ora la logica per creare il campo ``name`` si trova nella propria classe
 sottoscrittore::
 
-    // src/Acme/DemoBundle/Form/EventListener/AddNameFieldSubscriber.php
-    namespace Acme\DemoBundle\Form\EventListener;
+    // src/AppBundle/Form/EventListener/AddNameFieldSubscriber.php
+    namespace AppBundle\Form\EventListener;
 
     use Symfony\Component\Form\FormEvent;
     use Symfony\Component\Form\FormEvents;
@@ -216,8 +216,8 @@ Creare il form Type
 
 Usando un ascoltatore di eventi, il form potrebbe assomigliare a questo::
 
-    // src/Acme/DemoBundle/Form/Type/FriendMessageFormType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/FriendMessageFormType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -234,14 +234,14 @@ Usando un ascoltatore di eventi, il form potrebbe assomigliare a questo::
                 ->add('subject', 'text')
                 ->add('body', 'textarea')
             ;
-            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
                 // ... aggiungere una lista di amici dell'utente attuale
             });
         }
 
         public function getName()
         {
-            return 'acme_friend_message';
+            return 'friend_message';
         }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -278,7 +278,7 @@ Personalizzare il Form Type
 Ora che si dispone di tutto il necessario, si può sfruttare ``securityContext``
 e scrivere la logica dell'ascoltatore::
 
-    // src/Acme/DemoBundle/FormType/FriendMessageFormType.php
+    // src/AppBundle/FormType/FriendMessageFormType.php
 
     use Symfony\Component\Security\Core\SecurityContext;
     use Doctrine\ORM\EntityRepository;
@@ -314,7 +314,7 @@ e scrivere la logica dell'ascoltatore::
                     $form = $event->getForm();
 
                     $formOptions = array(
-                        'class' => 'Acme\DemoBundle\Entity\User',
+                        'class' => 'AppBundle\Entity\User',
                         'property' => 'fullName',
                         'query_builder' => function (EntityRepository $er) use ($user) {
                             // usare una query personalizzata 
@@ -384,29 +384,29 @@ Per definire il form come servizio, creare un normale serizio e aggiungere il ta
 
         # app/config/config.yml
         services:
-            acme.form.friend_message:
-                class: Acme\DemoBundle\Form\Type\FriendMessageFormType
+            app.form.friend_message:
+                class: AppBundle\Form\Type\FriendMessageFormType
                 arguments: ["@security.context"]
                 tags:
-                    - { name: form.type, alias: acme_friend_message }
+                    - { name: form.type, alias: friend_message }
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <services>
-            <service id="acme.form.friend_message" class="Acme\DemoBundle\Form\Type\FriendMessageFormType">
+            <service id="app.form.friend_message" class="AppBundle\Form\Type\FriendMessageFormType">
                 <argument type="service" id="security.context" />
-                <tag name="form.type" alias="acme_friend_message" />
+                <tag name="form.type" alias="friend_message" />
             </service>
         </services>
 
     .. code-block:: php
 
         // app/config/config.php
-        $definition = new Definition('Acme\DemoBundle\Form\Type\FriendMessageFormType');
-        $definition->addTag('form.type', array('alias' => 'acme_friend_message'));
+        $definition = new Definition('AppBundle\Form\Type\FriendMessageFormType');
+        $definition->addTag('form.type', array('alias' => 'friend_message'));
         $container->setDefinition(
-            'acme.form.friend_message',
+            'app.form.friend_message',
             $definition,
             array('security.context')
         );
@@ -420,7 +420,7 @@ al form factory, si può usare::
     {
         public function newAction(Request $request)
         {
-            $form = $this->get('form.factory')->create('acme_friend_message');
+            $form = $this->get('form.factory')->create('friend_message');
 
             // ...
         }
@@ -428,14 +428,14 @@ al form factory, si può usare::
 
 Se si estende la classe ``Symfony\Bundle\FrameworkBundle\Controller\Controller``, basta chiamare::
 
-    $form = $this->createForm('acme_friend_message');
+    $form = $this->createForm('friend_message');
 
 Si può anche includere il form type in un altro form::
 
     // dentro un'altra classe "form type"
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('message', 'acme_friend_message');
+        $builder->add('message', 'friend_message');
     }
 
 .. _cookbook-form-events-submitted-data:
@@ -454,8 +454,8 @@ le opzioni giuste impostate, per poter passare la validazione.
 La riunione sarà passata come campo nascosto al form. In questo modo si può
 accedere a ciascuno sport in questo modo::
 
-    // src/Acme/DemoBundle/Form/Type/SportMeetupType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/SportMeetupType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -469,7 +469,7 @@ accedere a ciascuno sport in questo modo::
         {
             $builder
                 ->add('sport', 'entity', array(
-                    'class'       => 'AcmeDemoBundle:Sport',
+                    'class'       => 'AppBundle:Sport',
                     'empty_value' => '',
                 ))
             ;
@@ -523,12 +523,12 @@ nuovo campo automaticamente e lo mapperà ai dati inviati dal client.
 
 La classe ora sarà così::
 
-    // src/Acme/DemoBundle/Form/Type/SportMeetupType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/SportMeetupType.php
+    namespace AppBundle\Form\Type;
 
     // ...
     use Symfony\Component\Form\FormInterface;
-    use Acme\DemoBundle\Entity\Sport;
+    use AppBundle\Entity\Sport;
 
     class SportMeetupType extends AbstractType
     {
@@ -536,7 +536,7 @@ La classe ora sarà così::
         {
             $builder
                 ->add('sport', 'entity', array(
-                    'class'       => 'AcmeDemoBundle:Sport',
+                    'class'       => 'AppBundle:Sport',
                     'empty_value' => '',
                 ));
             ;
@@ -545,7 +545,7 @@ La classe ora sarà così::
                 $positions = null === $sport ? array() : $sport->getAvailablePositions();
 
                 $form->add('position', 'entity', array(
-                    'class'       => 'AcmeDemoBundle:Position',
+                    'class'       => 'AppBundle:Position',
                     'empty_value' => '',
                     'choices'     => $positions,
                 ));
@@ -587,13 +587,13 @@ Un pezzo ancora mancante è l'aggiornamento lato client del form, dopo la
 scelta dello sport. Lo si può gestire tramite una chiamata AJAX
 all'applicazione. Ipotizzando di avere un controllore per la creazione::
 
-    // src/Acme/DemoBundle/Controller/MeetupController.php
-    namespace Acme\DemoBundle\Controller;
+    // src/AppBundle/Controller/MeetupController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
-    use Acme\DemoBundle\Entity\SportMeetup;
-    use Acme\DemoBundle\Form\Type\SportMeetupType;
+    use AppBundle\Entity\SportMeetup;
+    use AppBundle\Form\Type\SportMeetupType;
     // ...
 
     class MeetupController extends Controller
@@ -608,7 +608,7 @@ all'applicazione. Ipotizzando di avere un controllore per la creazione::
             }
 
             return $this->render(
-                'AcmeDemoBundle:Meetup:create.html.twig',
+                'AppBundle:Meetup:create.html.twig',
                 array('form' => $form->createView())
             );
         }
@@ -623,7 +623,7 @@ a seconda del valore selezionato nel campo ``sport``:
 
     .. code-block:: html+jinja
 
-        {# src/Acme/DemoBundle/Resources/views/Meetup/create.html.twig #}
+        {# src/AppBundle/Resources/views/Meetup/create.html.twig #}
         {{ form_start(form) }}
             {{ form_row(form.sport) }}    {# <select id="meetup_sport" ... #}
             {{ form_row(form.position) }} {# <select id="meetup_position" ... #}
@@ -712,10 +712,11 @@ tutto ciò. usare un ascoltatore::
 
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\Form\FormEvents;
+    use Symfony\Component\Form\FormEvent;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $event->stopPropagation();
         }, 900); // Impostare sempre una priorità maggiore di ValidationListener
 

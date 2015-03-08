@@ -551,6 +551,9 @@ punti.
 Per un esempio completo di questo ascoltatore, leggere la ricetta
 :doc:`/cookbook/service_container/event_listener`.
 
+Per altri esempi pratici di un ascoltatore del nucleo, vedere la ricetta
+:doc:`/cookbook/request/mime_type`.
+
 Riferimenti sugli ascoltatori del nucleo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -629,7 +632,7 @@ kernel.terminate
 +-------------------------------------------------------------------------------------------+----------+
 | Nome della classe dell'ascoltatore                                                        | Priorità |
 +===========================================================================================+==========+
-| :class:`Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener`           | 0        |
+| `EmailSenderListener`_                                                                    | 0        |
 +-------------------------------------------------------------------------------------------+----------+
 
 .. _dic-tags-kernel-event-subscriber:
@@ -1402,3 +1405,4 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 .. _`KernelEvents`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
 .. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders
+.. _`EmailSenderListener`: https://github.com/symfony/SwiftmailerBundle/blob/master/EventListener/EmailSenderListener.php

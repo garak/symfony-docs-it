@@ -17,7 +17,7 @@ nel libro e nel ricettario.
 
 .. seealso::
 
-    Le best practice per bundle specifici per applicazioni sono discusse in
+    Le best practice per i bundle specifici di applicazioni sono analizzate in
     :doc:`/best_practices/introduction`.
 
 .. index::

@@ -30,7 +30,7 @@ Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
                 main:
                     type:     stream
                     path:     /var/log/symfony.log
-                    channels: [!doctrine]
+                    channels: ["!doctrine"]
                 doctrine:
                     type:     stream
                     path:     /var/log/doctrine.log
@@ -113,11 +113,6 @@ specificato.
 
 Configurare canali aggiuntivi senza tag dei servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.3
-    Questa caratteristica è stata introdotto in MonologBundle nella versione 2.4. Questa
-    versione è compatibile con Symfony 2.3, che però installa MonologBundle 2.3.
-    Per usare questa caratteristica, occorre aggiornare il bundle a mano.
 
 Con MonologBundle 2.4 si possono configurare canali aggiuntivi, senza aver
 bisogno di tag per i servizi:

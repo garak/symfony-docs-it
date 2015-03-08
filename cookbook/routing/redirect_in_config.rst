@@ -28,7 +28,7 @@ per rinviare al nuovo URL:
 
         # caricare alcune rotte, bisogna avere il percorso "/app"
         AppBundle:
-            resource: "@AcmeAppBundle/Controller/"
+            resource: "@AppBundle/Controller/"
             type:     annotation
             prefix:   /app
 
@@ -50,7 +50,7 @@ per rinviare al nuovo URL:
                 http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <!-- caricare alcune rotte, bisogna avere il percorso "/app" -->
-            <import resource="@AcmeAppBundle/Controller/"
+            <import resource="@AppBundle/Controller/"
                 type="annotation"
                 prefix="/app"
             />
@@ -72,13 +72,10 @@ per rinviare al nuovo URL:
         $collection = new RouteCollection();
 
         // caricare alcune rotte, bisogna avere il percorso "/app"
-        $acmeApp = $loader->import(
-            "@AcmeAppBundle/Controller/",
-            "annotation"
-        );
-        $acmeApp->setPrefix('/app');
+        $appRoutes = $loader->import("@AppBundle/Controller/", "annotation");
+        $appRoutes->setPrefix('/app');
 
-        $collection->addCollection($acmeApp);
+        $collection->addCollection($appRoutes);
 
         // rinvio della radice
         $collection->add('root', new Route('/', array(

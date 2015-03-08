@@ -135,7 +135,8 @@ personalizzato, usando il metodo
 Aiutanti
 --------
 
-Il componente Templating può essere facilmente esteso, tramite aiutanti. Il componente ha
+Il componente Templating può essere facilmente esteso, tramite aiutanti. Gli aiutanti sono oggetti PHP,
+che forniscono caratteristiche utili nel contesto di un template. Il componente ha
 due aiutanti predefiniti:
 
 * :doc:`/components/templating/helpers/assetshelper`
@@ -195,7 +196,7 @@ scegliere quale motore usare per il template, viene usato il metodo
 
     $templating = new DelegatingEngine(array(
         new PhpEngine(...),
-        new CustomEngine(...)
+        new CustomEngine(...),
     ));
 
 .. _Packagist: https://packagist.org/packages/symfony/templating

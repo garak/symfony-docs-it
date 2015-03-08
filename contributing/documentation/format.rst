@@ -40,7 +40,7 @@ con la direttiva ``code-block``:
 
     .. code-block:: yaml
 
-        { foo: bar, bar: { foo: bar, bar: baz } }
+        { pippo: pluto, pluto: { pippo: pluto, pluto: paperino } }
 
 .. note::
 
@@ -91,19 +91,19 @@ Il precedente snippet reST mostra un blocco come di seguito:
 
 Ecco la lista dei formati attualmente supportati:
 
-=================== =========================
-Formato markup      Mostrato
-=================== =========================
-``html``            HTML
-``xml``             XML
-``php``             PHP
-``yaml``            YAML
-``jinja``           Twig puro
-``html+jinja``      Twig mescolato con HTML
-``html+php``        PHP mescolato con HTML
-``ini``             INI
-``php-annotations`` Annotazioni PHP
-=================== =========================
+===================  =========================
+Formato markup       Mostrato
+===================  =========================
+``html``             HTML
+``xml``              XML
+``php``              PHP
+``yaml``             YAML
+``jinja``            Twig puro
+``html+jinja``       Twig mescolato con HTML
+``html+php``         PHP mescolato con HTML
+``ini``              INI
+``php-annotations``  Annotazioni PHP
+===================  =========================
 
 Collegamenti
 ~~~~~~~~~~~~
@@ -209,7 +209,6 @@ seguire questi passi:
 
 * Installare `Sphinx`_;
 * Installare le estensioni di Sphinx, eseguendo ``$ git submodule update --init``;
-* (Opzionale) Installare la documentazione dei bundle e di CMF: ``$ bash install.sh``;
 * Eseguire ``make html`` e controllare l'HTML generato nella cartella ``build/``.
 
 .. _reStructuredText:        http://docutils.sourceforge.net/rst.html

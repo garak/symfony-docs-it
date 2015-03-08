@@ -384,7 +384,8 @@ Ipotizzando che il file XSD si chiami ``hello-1.0.xsd``, la posizione dello sche
     <container xmlns="http://symfony.com/schema/dic/services"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:acme-hello="http://acme_company.com/schema/dic/hello"
-        xsi:schemaLocation="http://acme_company.com/schema/dic/hello http://acme_company.com/schema/dic/hello/hello-1.0.xsd">
+        xsi:schemaLocation="http://acme_company.com/schema/dic/hello
+            http://acme_company.com/schema/dic/hello/hello-1.0.xsd">
 
         <acme-hello:config>
             <!-- ... -->

@@ -31,8 +31,7 @@ Nome del bundle
 Un bundle è anche uno spazio dei nomi di PHP. Lo spazio dei nomi deve seguire gli
 `standard`_ tecnici di interoperabilità di PHP 5.3 per gli spazi dei nomi e i nomi delle
 classi: inizia con un segmento del venditore, seguito da zero o più segmenti di categoria
-e finisce con il nome breve dello spazio dei nomi, che deve terminare col suffisso
-``Bundle``.
+e finisce con il nome breve dello spazio dei nomi, che deve terminare col suffisso ``Bundle``.
 
 Uno spazio dei nomi diventa un bundle non appena vi si aggiunge una classe Bundle. La
 classe Bundle deve seguire queste semplici regole:

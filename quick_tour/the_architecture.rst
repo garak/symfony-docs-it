@@ -125,7 +125,7 @@ della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singol
         return $bundles;
     }
 
-Oltre a AppBundle, di cui abbiamo già parlato, si noti che il kernel
+Oltre ad AppBundle, di cui abbiamo già parlato, si noti che il kernel
 abilita anche FrameworkBundle, DoctrineBundle,
 SwiftmailerBundle e AsseticBundle. Fanno tutti parte del nucleo del framework.
 
@@ -299,7 +299,7 @@ varie cartelle, finché non si raggiunge il risultato voluto.
 
 E questo è tutto per il giro veloce. Dai test all'invio di email, occorre ancora
 imparare diverse cose per padroneggiare Symfony. Pronti per approfondire questi
-temi? Senza indugi, basta andare nella pagine del :doc:`libro</book/index>` e
+temi? Senza indugi, basta andare nella pagine del :doc:`libro </book/index>` e
 scegliere un argomento a piacere.
 
 .. _Composer:   http://getcomposer.org

@@ -24,13 +24,28 @@ una espressione regolare più permissiva.
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+        class DemoController
+        {
+            /**
+             * @Route("/hello/{name}", name="_hello", requirements={"name"=".+"})
+             */
+            public function helloAction($name)
+            {
+                // ...
+            }
+        }
+
     .. code-block:: yaml
 
         _hello:
-            path:     /hello/{name}
-            defaults: { _controller: AcmeDemoBundle:Demo:hello }
+            path:     /hello/{username}
+            defaults: { _controller: AppBundle:Demo:hello }
             requirements:
-                name: ".+"
+                username: .+
 
     .. code-block:: xml
 
@@ -40,9 +55,9 @@ una espressione regolare più permissiva.
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-            <route id="_hello" path="/hello/{name}">
-                <default key="_controller">AcmeDemoBundle:Demo:hello</default>
-                <requirement key="name">.+</requirement>
+            <route id="_hello" path="/hello/{username}">
+                <default key="_controller">AppBundle:Demo:hello</default>
+                <requirement key="username">.+</requirement>
             </route>
         </routes>
 
@@ -52,27 +67,12 @@ una espressione regolare più permissiva.
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('_hello', new Route('/hello/{name}', array(
-            '_controller' => 'AcmeDemoBundle:Demo:hello',
+        $collection->add('_hello', new Route('/hello/{username}', array(
+            '_controller' => 'AppBundle:Demo:hello',
         ), array(
-            'name' => '.+',
+            'username' => '.+',
         )));
 
         return $collection;
 
-    .. code-block:: php-annotations
-
-        use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
-        class DemoController
-        {
-            /**
-             * @Route("/hello/{name}", name="_hello", requirements={"name" = ".+"})
-             */
-            public function helloAction($name)
-            {
-                // ...
-            }
-        }
-
-Questo è tutto! Ora, il parametro ``{name}`` può contenere il carattere ``/``.
+Questo è tutto! Ora, il parametro ``{username}`` può contenere il carattere ``/``.

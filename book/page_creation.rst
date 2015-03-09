@@ -112,9 +112,9 @@ questo capitolo), eseguire il seguente comando e seguire le istruzioni su scherm
 
 .. code-block:: bash
 
-    $ php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
+    $ php app/console generate:bundle --namespace=Acme/DemoBundle --format=yml
 
-Dietro le quinte, viene creata una cartella per il bundle in ``src/Acme/HelloBundle``.
+Dietro le quinte, viene creata una cartella per il bundle in ``src/Acme/DemoBundle``.
 Inoltre viene aggiunta automaticamente una riga al file ``app/AppKernel.php``, in modo
 che il bundle sia registrato nel kernel::
 
@@ -141,7 +141,7 @@ Symfony si trova in ``app/config/routing.yml``. Come ogni configurazione in Symf
 si può anche scegliere di usare XML o PHP per configurare le rotte.
 
 Se si guarda il file principale delle rotte, si vedrà che Symfony ha già aggiunto
-una voce, quando è stato generato ``AcmeHelloBundle``:
+una voce, quando è stato generato ``AcmeDemoBundle``:
 
 .. configuration-block::
 
@@ -249,7 +249,7 @@ Passo 2: creare il controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quando un URL come ``/hello/Ryan`` viene gestita dall'applicazione, la rotta ``hello``
-viene corrisposta e il controllore ``AcmeHelloBundle:Hello:index`` eseguito dal
+viene corrisposta e il controllore ``AcmeDemoBundle:Hello:index`` eseguito dal
 framework. Il secondo passo del processo di creazione della pagina è quello di creare
 tale controllore.
 
@@ -379,7 +379,7 @@ predefinita, Symfony supporta due diversi linguaggi di template: i classici
 template PHP e i template, concisi ma potenti, `Twig`_. Non ci si allarmi,
 si è liberi di scegliere tra i due, o anche tutti e due nello stesso progetto.
 
-Il controllore rende il template ``AcmeHelloBundle:Hello:index.html.twig``,
+Il controllore rende il template ``AcmeDemoBundle:Hello:index.html.twig``,
 che usa la seguente convenzioni dei nomi:
 
     **NomeBundle**:**NomeControllore**:**NomeTemplate**

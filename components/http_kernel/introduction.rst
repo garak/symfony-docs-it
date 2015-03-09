@@ -56,7 +56,7 @@ importa quanto vari l'architettura di tale sistema::
     }
 
 Internamente, :method:`HttpKernel::handle()<Symfony\\Component\\HttpKernel\\HttpKernel::handle>`,
-l'implementazione concreta di :method:`HttpKernelInterface::handle()<Symfony\\Component\\HttpKernel\\HttpKernelInterface::handle>`,
+l'implementazione concreta di :method:`HttpKernelInterface::handle() <Symfony\\Component\\HttpKernel\\HttpKernelInterface::handle>`,
 definisce un flusso che inizia con una :class:`Symfony\\Component\\HttpFoundation\\Request`
 e finisce con una :class:`Symfony\\Component\\HttpFoundation\\Response`.
 
@@ -130,9 +130,9 @@ Per informazioni generali sull'aggiunta di ascoltatori agli eventi qui sotto, ve
 le parti del sistema oppure restituire una ``Response`` se possibile (p.e. un livello
 di sicurezza che nega accesso)
 
-:ref:`Tabella informativa sugli eventi del kernel<component-http-kernel-event-table>`
+:ref:`Tabella informativa sugli eventi del kernel <component-http-kernel-event-table>`
 
-Il primo evento distribuito in :method:`HttpKernel::handle<Symfony\\Component\\HttpKernel\\HttpKernel::handle>`
+Il primo evento distribuito in :method:`HttpKernel::handle <Symfony\\Component\\HttpKernel\\HttpKernel::handle>`
 è ``kernel.request``, che può avere vari ascoltatori.
 
 .. image:: /images/components/http_kernel/02-kernel-request.png
@@ -495,10 +495,9 @@ più veloce possibile al client (p.e. invio di email).
 
 .. sidebar:: ``kernel.terminate`` in the Symfony Framework
 
-    Se si usa ``SwiftmailerBundle`` con Symfony e si usa lo spool ``memory``,
-    viene attivato :class:`Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener`,
-    che invia effettivamente le email pianificate per essere inviate
-    durante la richiesta.
+    Se si usa SwiftmailerBundle con Symfony e si usa lo spool ``memory``,
+    viene attivato `EmailSenderListener`_, che invia effettivamente
+    le email pianificate per essere inviate durante la richiesta.
 
 .. _component-http-kernel-kernel-exception:
 
@@ -705,7 +704,8 @@ assomigliare a questo::
 .. _reflection: http://php.net/manual/it/book.reflection.php
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
 .. _`Create your own framework... on top of the Symfony2 Components`: http://fabien.potencier.org/article/50/create-your-own-framework-on-top-of-the-symfony2-components-part-1
-.. _`PHP FPM`: http://php.net/manual/en/install.fpm.php
+.. _`PHP FPM`: http://php.net/manual/it/install.fpm.php
 .. _`SensioFrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 .. _`@ParamConverter`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
 .. _`@Template`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/view.html
+.. _`EmailSenderListener`: https://github.com/symfony/SwiftmailerBundle/blob/master/EventListener/EmailSenderListener.php

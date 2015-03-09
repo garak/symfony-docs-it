@@ -60,21 +60,21 @@ Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle d
 
         # app/config/routing.yml
         hello:
-            pattern:  /hello/{name}
-            defaults: { _controller: AcmeDemoBundle:Demo:hello }
+            path: /hello/{name}
+            defaults: { _controller: AppBundle:Demo:hello }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
-        <route id="hello" pattern="/hello/{name}">
-            <default key="_controller">AcmeDemoBundle:Demo:hello</default>
+        <route id="hello" path="/hello/{name}">
+            <default key="_controller">AppBundle:Demo:hello</default>
         </route>
 
     .. code-block:: php
 
         // app/config/routing.php
         $collection->add('hello', new Route('/hello/{name}', array(
-            '_controller' => 'AcmeDemoBundle:Demo:hello',
+            '_controller' => 'AppBundle:Demo:hello',
         )));
 
 Ora generiamo le regole di **url_rewrite**:
@@ -93,7 +93,7 @@ Il risultato dovrebbe essere simile a questo:
 
     # hello
     RewriteCond %{REQUEST_URI} ^/hello/([^/]+?)$
-    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AcmeDemoBundle\:Demo\:hello]
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AppBundle\:Demo\:hello]
 
 Ora possiamo riscrivere `web/.htaccess` per usare le nuove regole, quindi con il nostro
 esempio dovrebbe risultare in questo modo:
@@ -109,7 +109,7 @@ esempio dovrebbe risultare in questo modo:
 
         # hello
         RewriteCond %{REQUEST_URI} ^/hello/([^/]+?)$
-        RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AcmeDemoBundle\:Demo\:hello]
+        RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AppBundle\:Demo\:hello]
     </IfModule>
 
 .. note::
@@ -129,11 +129,11 @@ con ``ApacheRequest`` in ``web/app.php``::
 
     require_once __DIR__.'/../app/bootstrap.php.cache';
     require_once __DIR__.'/../app/AppKernel.php';
-    //require_once __DIR__.'/../app/AppCache.php';
+    // require_once __DIR__.'/../app/AppCache.php';
 
     use Symfony\Component\HttpFoundation\ApacheRequest;
 
     $kernel = new AppKernel('prod', false);
     $kernel->loadClassCache();
-    //$kernel = new AppCache($kernel);
+    // $kernel = new AppCache($kernel);
     $kernel->handle(ApacheRequest::createFromGlobals())->send();

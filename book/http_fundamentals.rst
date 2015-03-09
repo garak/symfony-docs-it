@@ -459,8 +459,8 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
         return $collection;
 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
-specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
-la stringa ``AcmeDemoBundle:Main:contact`` è una sintassi breve che punta a uno specifico
+specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte </book/routing>`,
+la stringa ``AppBundle:Main:contact`` è una sintassi breve che punta a uno specifico
 metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
     // src/AppBundle/Controller/MainController.php
@@ -478,7 +478,7 @@ metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
 In questo semplice esempio, il controllore semplicemente crea un oggetto
 :class:`Symfony\\Component\\HttpFoundation\\Response` con il codice HTML
-"<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
+``<h1>Contattaci!</h1>``. Nel :doc:`capitolo sul controllore </book/controller>`,
 si imparerà come un controllore possa rendere dei template, consentendo al codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose

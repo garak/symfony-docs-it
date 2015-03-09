@@ -875,9 +875,5 @@ potrebbe causare il logout dell'utente. Se ``User`` implementa
 :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
 invece di confrontare queste proprietà, viene semplicemente richiamato il metodo ``isEqualTo``
 e si possono verificare tutte le proprietà desiderate. Se questo aspetto non è chiaro,
-probabilmente è meglio non implementare questa interfaccia.
+probabilmente è meglio *non* implementare questa interfaccia.
 
-
-.. versionadded:: 2.1
-    In Symfony 2.1, è stato rimosso il metodo ``equals`` da ``UserInterface``
-    ed è stata introdotta l'interfaccia ``EquatableInterface`` al suo posto.

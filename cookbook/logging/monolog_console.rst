@@ -4,9 +4,6 @@
 Configurare Monolog per mostrare messaggi di console
 ====================================================
 
-.. versionadded:: 2.4
-    Questa caratteristica è stata introdotta in MonologBridge in Symfony 2.4.
-
 Si può usare la console per mostrare messaggi per determinati
 :ref:`livelli di verbosità <verbosity-levels>`, usando l'istanza di
 :class:`Symfony\\Component\\Console\\Output\\OutputInterface` che è stata

@@ -46,6 +46,8 @@ Si può specificare la strategia di resa nella chiave ``strategy`` delle opzioni
 
     Si può generare l'URI con altre funzioni, come `path`_ e `url`_.
 
+.. _reference-twig-function-render-esi:
+
 render_esi
 ~~~~~~~~~~
 
@@ -88,7 +90,8 @@ controller
     **tipo**: ``array`` **predefinito**: ``[]``
 
 Restituisce un'istanza di ``ControllerReference``, da usare con funzioni come
-:ref:`render() <reference-twig-function-render>` e `render_esi() <render_esi>`.
+:ref:`render() <reference-twig-function-render>` e 
+:ref:`render_esi() <reference-twig-function-render-esi>`.
 
 asset
 ~~~~~

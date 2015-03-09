@@ -166,27 +166,15 @@ di login::
     // src/AppBundle/Controller/SecurityController.php
     // ...
 
-    // AGGIUNGERE QUESTO use in cima alla classe
-    use Symfony\Component\Security\Core\SecurityContextInterface;
-
     public function loginAction(Request $request)
     {
-        $session = $request->getSession();
+        $authenticationUtils = $this->get('security.authentication_utils');
 
         // recupera l'errore, se ce n'è uno
-        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(
-                SecurityContextInterface::AUTHENTICATION_ERROR
-            );
-        } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
-            $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
-        } else {
-            $error = null;
-        }
+        $error = $authenticationUtils->getLastAuthenticationError();
 
         // ultimo nome utente inserito
-        $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
             'security/login.html.twig',
@@ -197,6 +185,11 @@ di login::
             )
         );
     }
+
+.. versionadded:: 2.6
+    Il servizio ``security.authentication_utils`` e la classe
+    :class:`Symfony\\Component\\Security\\Http\\Authentication\\AuthenticationUtils`
+    sono stati introdotti in Symfony 2.6.
 
 Non ci si lasci confondere da questo controllore. Come vedremo tra poco, quando
 l'utente compila il form, il sistema di sicurezza lo gestisce automaticamente.

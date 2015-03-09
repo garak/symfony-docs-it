@@ -98,14 +98,6 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
             )
         ));
 
-.. note::
-
-    Anche in modalità di debug, impostare o modificare una variabile di ambiente
-    richiede una pulizia della cache, per rendere il parametro disponibile.
-    In modalità di debug, questo è necessario poiché solo una modifica a un file di
-    configurazione caricato da Symfony provoca una nuova lettura della
-    configurazione.
-
 Costanti
 --------
 

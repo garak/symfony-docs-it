@@ -32,7 +32,7 @@ Il modo più facile per capire come funziona Doctrine è quello di vederlo in az
 In questa sezione, configureremo una base dati, creeremo un oggetto ``Product``,
 lo persisteremo nella base dati e lo recupereremo da esso.
 
-Configurazione dela base dati
+Configurazione della base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prima di iniziare, occorre configurare le informazioni sulla connessione alla

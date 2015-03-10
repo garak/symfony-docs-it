@@ -50,6 +50,7 @@ Configurazione
     * :ref:`enabled <translator.enabled>`
     * `fallback`_
 * `validation`_
+    * :ref:`enabled <validation-enabled>`
     * `cache`_
     * `enable_annotations`_
     * `translation_domain`_
@@ -208,8 +209,45 @@ vedere :doc:`/components/http_foundation/trusting_proxies`.
 form
 ~~~~
 
+.. _form-enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se abilitare o meno il supporto per il componente Form.
+
+Se non si usano form, impostare questa opzione a ``false`` può aumentare le prestazioni,
+perché saranno caricati meno servizi nel contenitore.
+
+Se è attivato, anche :ref:`il sistema di validazione <validation-enabled>`
+è automaticamente abilitato.
+
 csrf_protection
 ~~~~~~~~~~~~~~~
+
+.. _csrf-protection-enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``true`` se il supporto per i form è abilitato, ``false``
+altrimenti
+
+Si può usare questa opzione per disabilitare la protezione CSRF su *tutti* i form. Ma si
+puà anche :ref:`disabilitare la protezione CSRF su singoli form <form-disable-csrf>`.
+
+Se si usano form, ma non si vuole far partire la sessione (p.e. si usano
+form in un sito di sole API), ``csrf_protection`` va impostato a
+``false``.
+
+field_name
+..........
+
+**tipo**: ``stringa`` **predefinito**: ``"_token"``
+
+Il nome del campo nascosto usato per rendere i :ref:`token CSRF <forms-csrf>`.
 
 session
 ~~~~~~~
@@ -537,6 +575,16 @@ Per maggiori dettagli, vedere :doc:`/book/translation`.
 
 validation
 ~~~~~~~~~~
+
+.. _validation-enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``true`` se :ref:`il supporto ai form è abilitato <form-enabled>`,
+``false`` altrimenti
+
+Se abilitare o meno il supporto alla validazione.
 
 cache
 .....

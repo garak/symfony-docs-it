@@ -10,7 +10,8 @@ reStructuredText
 
 reStructuredText ha una sintassi in testo semplice con marcatori, simile a Markdown, ma molto
 più rigida nella sintassi. Chi non conosce reStructuredText può prenderne
-familiarità, leggendo la `documentazione di Symfony`_
+familiarità, leggendo il codice sorgente della `documentazione di Symfony`_
+esistente.
 
 Si può imparare di più su questo formato leggendo le guide `reStructuredText Primer`_
 e `reStructuredText Reference`_.

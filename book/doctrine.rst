@@ -1159,7 +1159,7 @@ categoria non viene richiesta (processo noto come "lazy load").
 
 Si può anche cercare nella direzione opposta::
 
-    public function showProductAction($id)
+    public function showProductsAction($id)
     {
         $category = $this->getDoctrine()
             ->getRepository('AppBundle:Category')

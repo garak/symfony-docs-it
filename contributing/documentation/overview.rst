@@ -248,6 +248,21 @@ dei passi per contribuire alla documentazione di Symfony, che si può usare come
 
 E dopo tutto questo duro lavoro, è ora di festeggiare di nuovo!
 
+Modifiche minori (p.e. errori di battitura)
+-------------------------------------------
+
+Si potrebbe voler correggere un semplice errore di battitura. Grazie all'interfaccia di GitHub,
+è molto semplice creare una richiesta di pull direttamente nel
+browser, mentre si leggono i documenti su symfony.com. Per potrelo fare, basta cliccare
+sul link **edit this page** nell'angolo in alto a destra. In precedenza,
+si prega di scegliere il ramo giusto, come già menzionato. Ora si può
+modificare il contenuto e descrivere le modifiche all'interno di GitHub.
+A lavoro concluso, cliccare su **Propose file change** per
+creare un commit e, se questo è il primo contributo, anche un
+fork. Viene creato automaticamente un nuovo ramo, per poter fornire una base
+per la richiesta di pull. Compilare quindi il form e creare la richiesta di pull,
+come già descritto.
+
 Domande frequenti
 -----------------
 

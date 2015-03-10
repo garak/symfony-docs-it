@@ -58,8 +58,10 @@ Esempi di codice
 * Quando si omette una parte di riga, p.e. il valore di una variabile, porre ``...`` (senza commenti)
   nel punto di omissione;
 * Descrizione del codice omesso (facoltativa):
-  se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``
-  se si omette parte di una riga: la descrizione può essere posta prima della riga;
+
+  * Se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``;
+  * Se si omette parte di una riga: la descrizione può essere posta prima della riga;
+
 * Se utile per il lettore, un esempio di codice PHP dovrebbe iniziare con la dichiarazione dello
   spazio dei nomi;
 * Facendo riferimento a una classe, assicurarsi di mostrare l''istruzione ``use`` in cima
@@ -78,6 +80,7 @@ Gli esempi di configurazione vanno mostrati in tutti i formati supportati, usand
 (in ordine) sono:
 
 * **Configurazione** (inclusi servizi e rotte): YAML, XML, PHP
+* **Rotte**: Annotazioni, YAML, XML, PHP
 * **Validazione**: YAML, Annotazioni, XML, PHP
 * **Mappatura Doctrine**: Annotazioni, YAML, XML, PHP
 * **Traduzione**: XML, YAML, PHP
@@ -112,7 +115,7 @@ Esempio
 
 .. caution::
 
-    In Yaml va messo uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
+    In YAML va messo uno spazio dopo ``{`` e prima di ``}`` (p.e. ``{ _controller: ... }``),
     ma non va fatto in Twig (p.e. ``{'ciao' : 'valore'}``).
 
 File e cartelle
@@ -143,6 +146,7 @@ Standard di linguaggio
 * Non usare la virgola prima della congiunzione;
 * Si dovrebbe usare la forma impersonale, non *noi* o *voi* (quindi evitare il punto
   di vista in prima persona).
+
 
 
 

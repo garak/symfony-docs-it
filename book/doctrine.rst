@@ -197,10 +197,10 @@ Creare una classe entità
 Supponiamo di star costruendo un'applicazione in cui i prodotti devono essere mostrati.
 Senza nemmeno pensare a Doctrine o alle basi dati, già sappiamo di aver bisogno di
 un oggetto ``Product`` che rappresenti questi prodotti. Creare questa classe dentro
-la cartella ``Entity`` di ``AcmeStoreBundle``::
+la cartella ``Entity`` di AppBundle::
 
-    // src/Acme/StoreBundle/Entity/Product.php
-    namespace Acme\StoreBundle\Entity;
+    // src/AppBundle/Entity/Product.php
+    namespace AppBundle\Entity;
 
     class Product
     {
@@ -404,10 +404,10 @@ metodi già presenti).
 
     Con il comando ``doctrine:generate:entities`` si può:
 
-    * generare getter e setter,
+    * generare getter e setter;
 
     * generare classi repository configurate con l'annotazione
-      ``@ORM\Entity(repositoryClass="...")``,
+      ``@ORM\Entity(repositoryClass="...")``;
 
     * generare il costruttore appropriato per relazioni 1:n e n:m.
 

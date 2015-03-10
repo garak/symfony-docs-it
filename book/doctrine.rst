@@ -32,8 +32,8 @@ Il modo più facile per capire come funziona Doctrine è quello di vederlo in az
 In questa sezione, configureremo una base dati, creeremo un oggetto ``Product``,
 lo persisteremo nella base dati e lo recupereremo da esso.
 
-Configurazione dela base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configurazione della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prima di iniziare, occorre configurare le informazioni sulla connessione alla
 base dati. Per convenzione, questa informazione solitamente è configurata in un
@@ -197,10 +197,10 @@ Creare una classe entità
 Supponiamo di star costruendo un'applicazione in cui i prodotti devono essere mostrati.
 Senza nemmeno pensare a Doctrine o alle basi dati, già sappiamo di aver bisogno di
 un oggetto ``Product`` che rappresenti questi prodotti. Creare questa classe dentro
-la cartella ``Entity`` di ``AcmeStoreBundle``::
+la cartella ``Entity`` di AppBundle::
 
-    // src/Acme/StoreBundle/Entity/Product.php
-    namespace Acme\StoreBundle\Entity;
+    // src/AppBundle/Entity/Product.php
+    namespace AppBundle\Entity;
 
     class Product
     {
@@ -404,10 +404,10 @@ metodi già presenti).
 
     Con il comando ``doctrine:generate:entities`` si può:
 
-    * generare getter e setter,
+    * generare getter e setter;
 
     * generare classi repository configurate con l'annotazione
-      ``@ORM\Entity(repositoryClass="...")``,
+      ``@ORM\Entity(repositoryClass="...")``;
 
     * generare il costruttore appropriato per relazioni 1:n e n:m.
 
@@ -443,13 +443,13 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. _book-doctrine-creating-the-database-tables-schema:
 
-Creare tabelle e schema dela base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creare tabelle e schema della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora si ha una classe ``Product`` usabile, con informazioni di mappatura che consentono
 a Doctrine di sapere esattamente come persisterla. Ovviamente, non si ha ancora la
 corrispondente tabella ``product`` nella propria base dati. Fortunatamente, Doctrine può
-creare automaticamente tutte le tabelle dela base dati necessarie a ogni entità nota
+creare automaticamente tutte le tabelle della base dati necessarie a ogni entità nota
 nella propria applicazione. Per farlo, eseguire:
 
 .. code-block:: bash
@@ -1159,7 +1159,7 @@ categoria non viene richiesta (processo noto come "lazy load").
 
 Si può anche cercare nella direzione opposta::
 
-    public function showProductAction($id)
+    public function showProductsAction($id)
     {
         $category = $this->getDoctrine()
             ->getRepository('AppBundle:Category')

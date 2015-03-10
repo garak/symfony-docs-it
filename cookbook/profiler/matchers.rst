@@ -67,27 +67,32 @@ abilitarlo.
 Per abilitare il profilatore solo per un utente con ``ROLE_SUPER_ADMIN``, si può usare
 qualcosa come::
 
-    // src/Acme/DemoBundle/Profiler/SuperAdminMatcher.php
-    namespace Acme\DemoBundle\Profiler;
+    // src/AppBundle/Profiler/SuperAdminMatcher.php
+    namespace AppBundle\Profiler;
 
-    use Symfony\Component\Security\Core\SecurityContext;
+    use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 
     class SuperAdminMatcher implements RequestMatcherInterface
     {
-        protected $securityContext;
+        protected $authorizationChecker;
 
-        public function __construct(SecurityContext $securityContext)
+        public function __construct(AuthorizationCheckerInterface $authorizationChecker)
         {
-            $this->securityContext = $securityContext;
+            $this->authorizationChecker = $authorizationChecker;
         }
 
         public function matches(Request $request)
         {
-            return $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
+            return $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
         }
     }
+
+.. versionadded:: 2.6
+    :class:`Symfony\\Component\\Security\\Core\\Authorization\\AuthorizationCheckerInterface` è stata
+    introdotta in Symfony 2.6. In precedenza, si doveva usare il metodo ``isGranted`` di
+    :class:`Symfony\\Component\\Security\\Core\\SecurityContextInterface`.
 
 Occorre quindi configurare il servizio:
 
@@ -95,42 +100,35 @@ Occorre quindi configurare il servizio:
 
     .. code-block:: yaml
 
-        parameters:
-            acme_demo.profiler.matcher.super_admin.class: Acme\DemoBundle\Profiler\SuperAdminMatcher
-
+        # app/config/services.yml
         services:
-            acme_demo.profiler.matcher.super_admin:
-                class: "%acme_demo.profiler.matcher.super_admin.class%"
-                arguments: ["@security.context"]
+            app.profiler.matcher.super_admin:
+                class: AppBundle\Profiler\SuperAdminMatcher
+                arguments: ["@security.authorization_checker"]
 
     .. code-block:: xml
 
-        <parameters>
-            <parameter
-                key="acme_demo.profiler.matcher.super_admin.class"
-            >Acme\DemoBundle\Profiler\SuperAdminMatcher</parameter>
-        </parameters>
-
+        <!-- app/config/services.xml -->
         <services>
-            <service id="acme_demo.profiler.matcher.super_admin"
-                class="%acme_demo.profiler.matcher.super_admin.class%">
-                <argument type="service" id="security.context" />
+            <service id="app.profiler.matcher.super_admin"
+                class="AppBundle\Profiler\SuperAdminMatcher">
+                <argument type="service" id="security.authorization_checker" />
         </services>
 
     .. code-block:: php
 
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
-        $container->setParameter(
-            'acme_demo.profiler.matcher.super_admin.class',
-            'Acme\DemoBundle\Profiler\SuperAdminMatcher'
+        $container->setDefinition('app.profiler.matcher.super_admin', new Definition(
+            'AppBundle\Profiler\SuperAdminMatcher',
+            array(new Reference('security.authorization_checker'))
         );
 
-        $container->setDefinition('acme_demo.profiler.matcher.super_admin', new Definition(
-            '%acme_demo.profiler.matcher.super_admin.class%',
-            array(new Reference('security.context'))
-        );
+.. versionadded:: 2.6
+    Il servizio ``security.authorization_checker`` è stato introdotto in Symfony 2.6. Prima
+    di Symfony 2.6, si doveva usare il metodo ``isGranted()`` del servizio ``security.context``.
 
 Una volta registrato il servizio, l'unica cosa che resta è configurare il
 profilatore per usare questo servizio come matcher:
@@ -144,7 +142,7 @@ profilatore per usare questo servizio come matcher:
             # ...
             profiler:
                 matcher:
-                    service: acme_demo.profiler.matcher.super_admin
+                    service: app.profiler.matcher.super_admin
 
     .. code-block:: xml
 
@@ -152,7 +150,7 @@ profilatore per usare questo servizio come matcher:
         <framework:config>
             <!-- ... -->
             <framework:profiler
-                service="acme_demo.profiler.matcher.super_admin"
+                service="app.profiler.matcher.super_admin"
             />
         </framework:config>
 
@@ -162,6 +160,6 @@ profilatore per usare questo servizio come matcher:
         $container->loadFromExtension('framework', array(
             // ...
             'profiler' => array(
-                'service' => 'acme_demo.profiler.matcher.super_admin',
+                'service' => 'app.profiler.matcher.super_admin',
             ),
         ));

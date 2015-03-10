@@ -1776,6 +1776,8 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Per 
         // ...
     }
 
+.. _form-disable-csrf:
+
 Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a ``false``.
 Si può anche personalizzarei a livello globale nel progetto. Per ulteriori informazioni,
 vedere la sezione

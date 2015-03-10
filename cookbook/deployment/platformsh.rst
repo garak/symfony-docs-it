@@ -4,7 +4,7 @@
 Deploy su Platform.sh
 =====================
 
-Questa ricetta descrive passo-passo il deploy di un'applicaizone web Symfony su
+Questa ricetta descrive passo-passo il deploy di un'applicazione web Symfony su
 `Platform.sh`_. Si può saperne di più sull'uso di Symfony con Platform.sh leggendo
 la `documentazione di Platform.sh`_.
 
@@ -23,7 +23,7 @@ e scegliere **Import an existing site**.
 Preparare l'applicazione
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Per il deploy di u'applicaizone Symfony su Platform.sh, basta aggiungere un file
+Per il deploy di u'applicazione Symfony su Platform.sh, basta aggiungere un file
 ``.platform.app.yaml`` nella radice del repository Git. Tale file dira à
 Platform.sh come eseguire il deploy dell'applicazione (si possono approfondire i
 `file di configurazione Platform.sh`_).

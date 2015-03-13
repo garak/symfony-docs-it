@@ -15,7 +15,7 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 +--------------------------+---------------------------------------------------------------------+
 | Reso come                | può essere vari tag (vedere sotto)                                  |
 +--------------------------+---------------------------------------------------------------------+
-| Opzioni                  | - `empty_value`_                                                    |
+| Opzioni                  | - `placeholder`_                                                    |
 |                          | - `hours`_                                                          |
 |                          | - `input`_                                                          |
 |                          | - `minutes`_                                                        |
@@ -77,7 +77,7 @@ Il campo supporta anche i valori ``array`` e ``string`` per l'opzione
 Opzioni del campo
 -----------------
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/placeholder.rst.inc
 
 .. include:: /reference/forms/types/options/hours.rst.inc
 

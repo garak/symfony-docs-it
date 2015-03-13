@@ -88,12 +88,12 @@ placeholder
 
 .. versionadded:: 2.6
     L'opzione ``placeholder`` è stata introdotta in Symfony 2.6 al posto di
-    ``empty_value``, che è disponibile prima di 2.6.
+    ``placeholder``, che è disponibile prima di 2.6.
 
 **tipo**: ``stringa`` o ``array``
 
 Se l'opzione del widget è ``choice``, il campo sarà rappresentato come una serie
-di ``select``. L'opzione ``empty_value`` può essere usata per aggiungere una voce
+di ``select``. L'opzione ``placeholder`` può essere usata per aggiungere una voce
 vuota in cima a ogni select::
 
     $builder->add('dueDate', 'date', array(

@@ -1,5 +1,13 @@
-empty_value
+placeholder
 ~~~~~~~~~~~
+
+.. versionadded:: 2.6
+    L'opzione ``placeholder`` è stata introdotta in Symfony 2.6, al posto di
+    ``placeholder``, che è disponibile per le versioni precedenti.
+
+.. versionadded:: 2.3
+    Da Symfony 2.3, si possono usare valori vuoti anche se l'opzione ``expanded``
+    è impostata a ``true``.
 
 **tipo**: ``stringa`` o ``booleano``
 
@@ -10,16 +18,16 @@ opzioni ``expanded`` e ``multiple`` sono impostate a ``false``.
 * Aggiungere un valore vuoto con "Scegliere un'opzione" come testo::
 
     $builder->add('states', 'choice', array(
-        'empty_value' => 'Scegliere un\'opzione',
+        'placeholder' => 'Scegliere un\'opzione',
     ));
 
 * Non mostrare alcun valore vuoto::
 
     $builder->add('states', 'choice', array(
-        'empty_value' => false,
+        'placeholder' => false,
     ));
 
-Se non si imposta l'opzione ``empty_value``, sarà aggiunta automaticamente
+Se non si imposta l'opzione ``placeholder``, sarà aggiunta automaticamente
 un'opzione vuota (senza testo), ma solo se l'opzione ``required`` è
 ``false``::
 

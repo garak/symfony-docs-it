@@ -51,6 +51,10 @@ Un altro vantaggio è che centralizzare i template semplifica il lavoro dei
 grafici. Essi non dovranno cercare più i template in tante cartelle sparpagliate fra
 i bundle.
 
+.. best-practice::
+
+    Usare la notazione_serpente in minuscolo per nomi di cartelle e template.
+
 Estensioni Twig
 ---------------
 

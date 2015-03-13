@@ -22,10 +22,10 @@ Configurazione
 * `default_locale`_
 * `trusted_proxies`_
 * `form`_
-    * enabled
+    * :ref:`enabled <form-enabled>`
 * `csrf_protection`_
-    * enabled
-    * field_name
+    * :ref:`enabled <csrf-protection-enabled>`
+    * `field_name`_
 * `session`_
     * `name`_
     * `cookie_lifetime`_
@@ -48,7 +48,7 @@ Configurazione
     * :ref:`enabled <profiler.enabled>`
 * `translator`_
     * :ref:`enabled <translator.enabled>`
-    * `fallback`_
+    * `fallbacks`_
 * `validation`_
     * :ref:`enabled <validation-enabled>`
     * `cache`_
@@ -564,10 +564,19 @@ enabled
 
 Se abilitare o meno il servizio ``translator`` nel contenitore.
 
-fallback
-........
+.. _fallback:
 
-**predefinito**: ``en``
+fallbacks
+.........
+
+**tipo**: ``stringa|array`` **predefinito**: ``array('en')``
+
+.. versionadded:: 2.3.25
+    L'opzione ``fallbacks`` è stata introdotta in Symfony 2.3.25. Prima
+    di Symfony 2.3.25, si chiamava ``fallback`` e consentiva un solo
+    linguaggio, definito come stringa.
+    Notare che è ancora possibile usare la vecchia opzione ``fallback``, se si vuole
+    definire un solo linguaggio.
 
 Opzione usata quando non viene trovata la chiave di traduzione del locale corrente.
 
@@ -686,7 +695,7 @@ Configurazione predefinita completa
                 gc_divisor:           ~
                 gc_probability:       ~
                 gc_maxlifetime:       ~
-                save_path:            %kernel.cache_dir%/sessions
+                save_path:            "%kernel.cache_dir%/sessions"
 
             # configurazione dei serializer
             serializer:

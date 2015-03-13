@@ -595,8 +595,8 @@ I prossimi passi possono variare:
 
 .. _`security-authorization`:
 
-2) Accesso negato, ruoli e altr autorizzazioni
-----------------------------------------------
+2) Accesso negato, ruoli e altre autorizzazioni
+-----------------------------------------------
 
 Ora gli utenti possono accedere all'applicazione usando ``http_basic`` o un altro metodo.
 Ottimo! Ora, occorre imparare come negare l'accesso e lavorare con l'oggetto ``User``.

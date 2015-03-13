@@ -59,7 +59,7 @@ abilitare ``translator`` nella configurazione:
 
         # app/config/config.yml
         framework:
-            translator: { fallback: en }
+            translator: { fallbacks: [en] }
 
     .. code-block:: xml
 
@@ -74,7 +74,9 @@ abilitare ``translator`` nella configurazione:
                 http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
-                <framework:translator fallback="en" />
+                <framework:translator>
+                    <framework:fallback>en</framework:fallback>
+                </framework:translator>
             </framework:config>
         </container>
 
@@ -82,7 +84,7 @@ abilitare ``translator`` nella configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            'translator' => array('fallback' => 'en'),
+            'translator' => array('fallbacks' => array('en')),
         ));
 
 Vedere :ref:`book-translation-fallback` per dettagli sulla voce ``fallback``

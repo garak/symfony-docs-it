@@ -36,7 +36,8 @@ Chi fosse curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al f
 
 .. tip::
 
-    Si può generare la copertura del codice, con l'opzione ``--coverage-html``.
+    Si può generare la copertura del codice, con le opzioni ``--coverage-*``, vedere
+    le informazioni di aiuto mostrate usando ``--help``.
 
 .. index::
    single: Test; Test unitari
@@ -44,15 +45,16 @@ Chi fosse curioso di conoscere le opzioni di PHPUnit, può dare uno sguardo al f
 Test unitari
 ------------
 
-Un test unitario è solitamente un test di una specifica classe PHP. Se si vuole
-testare il comportamento generale della propria applicazione, vedere la sezione dei `Test funzionali`_.
+Un test unitario è solitamente un test di una specifica classe PHP, chiamata *unità*. Se si
+vuole testare il comportamento generale della propria applicazione, vedere la sezione dei
+`Test funzionali`_.
 
 La scrittura di test unitari in Symfony non è diversa dalla scrittura standard di test
 unitari in PHPUnit. Si supponga, per esempio, di avere una classe *incredibilmente* semplice,
 chiamata ``Calculator``, nella cartella ``Utility/`` del bundle::
 
-    // src/Acme/DemoBundle/Utility/Calculator.php
-    namespace Acme\DemoBundle\Utility;
+    // src/AppBundle/Util/Calculator.php
+    namespace AppBundle\Util;
 
     class Calculator
     {
@@ -62,13 +64,13 @@ chiamata ``Calculator``, nella cartella ``Utility/`` del bundle::
         }
     }
 
-Per testarla, creare un file ``CalculatorTest`` nella cartella ``Tests/Utility`` del
+Per testarla, creare un file ``CalculatorTest`` nella cartella ``Tests/Util`` del
 bundle::
 
-    // src/Acme/DemoBundle/Tests/Utility/CalculatorTest.php
-    namespace Acme\DemoBundle\Tests\Utility;
+    // src/AppBundle/Tests/Util/CalculatorTest.php
+    namespace AppBundle\Tests\Util;
 
-    use Acme\DemoBundle\Utility\Calculator;
+    use AppBundle\Util\Calculator;
 
     class CalculatorTest extends \PHPUnit_Framework_TestCase
     {
@@ -86,7 +88,8 @@ bundle::
 
     Per convenzione, si raccomanda di replicare la struttura di cartella
     di un bundle nella sua sotto-cartella ``Tests/``. Quindi, se si testa una classe nella
-    cartella ``Utility/`` del bundle, mettere il test nella cartella ``Tests/Utility/``.
+    cartella ``Util/`` del bundle, mettere il test nella cartella
+    ``Tests/Util/``.
 
 Proprio come per l'applicazione reale, l'autoloading è abilitato automaticamente tramite il file
 ``bootstrap.php.cache`` (come configurato in modo predefinito nel file
@@ -96,14 +99,17 @@ Anche eseguire i test per un dato file o una data cartella è molto facile:
 
 .. code-block:: bash
 
-    # eseguire tutti i test nella cartella Utility
-    $ phpunit -c app src/Acme/DemoBundle/Tests/Utility/
+    # eseguire tutti i test dell'applicazione
+    $ phpunit -c app
 
     # eseguire i  test per la classe Calculator
-    $ phpunit -c app src/Acme/DemoBundle/Tests/Utility/CalculatorTest.php
+    $ phpunit -c app src/AppBundle/Tests/Util
+
+    # eseguire i test per la classe Calculator
+    $ phpunit -c app src/AppBundle/Tests/Util/CalculatorTest.php
 
     # eseguire tutti i test per l'intero bundle
-    $ phpunit -c app src/Acme/DemoBundle/
+    $ phpunit -c app src/AppBundle/
 
 .. index::
    single: Test; Test funzionali
@@ -129,25 +135,24 @@ del bundle. Se si vogliono testare le pagine gestite dalla classe
 ``DemoController``, si inizi creando un file ``DemoControllerTest.php``, che estende
 una classe speciale ``WebTestCase``.
 
-Per esempio, l'edizione standard di Symfony fornisce un semplice test funzionale per il
-suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
+Per esempio, un test può essere fatto in questo modo::
 
-    // src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
-    namespace Acme\DemoBundle\Tests\Controller;
+    // src/AppBundle/Tests/Controller/PostControllerTest.php
+    namespace AppBundle\Tests\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-    class DemoControllerTest extends WebTestCase
+    class PostControllerTest extends WebTestCase
     {
-        public function testIndex()
+        public function testShowPost()
         {
             $client = static::createClient();
 
-            $crawler = $client->request('GET', '/demo/hello/Fabien');
+            $crawler = $client->request('GET', '/post/hello-world');
 
             $this->assertGreaterThan(
                 0,
-                $crawler->filter('html:contains("Hello Fabien")')->count()
+                $crawler->filter('html:contains("Hello World")')->count()
             );
         }
     }
@@ -162,8 +167,8 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 
     .. code-block:: xml
 
+        <?xml version="1.0" charset="utf-8" ?>
         <phpunit>
-            <!-- ... -->
             <php>
                 <server name="KERNEL_DIR" value="/percorso/della/applicazione/" />
             </php>
@@ -173,11 +178,12 @@ suo ``DemoController`` (`DemoControllerTest`_), fatto in questo modo::
 Il metodo ``createClient()`` restituisce un client, che è come un browser da usare per
 visitare un sito::
 
-    $crawler = $client->request('GET', '/demo/hello/Fabien');
+    $crawler = $client->request('GET', '/post/hello-world');
 
-Il metodo ``request()`` (vedere :ref:`di più sul metodo della richiesta<book-testing-request-method-sidebar>`) restituisce un oggetto :class:`Symfony\\Component\\DomCrawler\\Crawler`,
-che può essere usato per selezionare elementi nella risposta, per cliccare su
-collegamenti e per inviare form.
+Il metodo ``request()`` (vedere
+:ref:`di più sul metodo della richiesta<book-testing-request-method-sidebar>`)
+restituisce un oggetto :class:`Symfony\\Component\\DomCrawler\\Crawler`, che può
+essere usato per selezionare elementi nella risposta, per cliccare su collegamenti e per inviare form.
 
 .. tip::
 
@@ -185,11 +191,13 @@ collegamenti e per inviare form.
     o HTML. Per altri tipi di contenuto, richiamare ``$client->getResponse()->getContent()``.
 
 Cliccare su un collegamento, seleziondolo prima con il  Crawler, usando o un'espressione XPath
-o un selettore CSS, quindi usando il Client per cliccarlo. Per esempio, il codice seguente
-trova tutti i collegamenti con il testo ``Greet``, quindi sceglie il secondo e infine
-lo clicca::
+o un selettore CSS, quindi usando il Client per cliccarlo. Per esempio::
 
-    $link = $crawler->filter('a:contains("Greet")')->eq(1)->link();
+    $link = $crawler
+        ->filter('a:contains("Greet")') // trova i collegamenti con testo "Greet"
+        ->eq(1) // seleziona il secondo collegamento della lista
+        ->link() // e lo clicca
+    ;
 
     $crawler = $client->click($link);
 
@@ -227,39 +235,6 @@ XML/HTML::
         $client->getResponse()->getContent()
     );
 
-.. _book-testing-request-method-sidebar:
-
-.. sidebar:: Di più sul metodo ``request()``:
-
-    La firma completa del metodo ``request()`` è::
-
-        request(
-            $method,
-            $uri,
-            array $parameters = array(),
-            array $files = array(),
-            array $server = array(),
-            $content = null,
-            $changeHistory = true
-        )
-
-    L'array ``server`` contiene i valori grezzi che ci si aspetta di trovare normalmente
-    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP ``Content-Type``,
-    ``Referer`` e ``X-Requested-With``, passare i seguenti (ricordare il
-    prefisso ``HTTP_`` per gli header non standard)::
-
-        $client->request(
-            'GET',
-            '/demo/hello/Fabien',
-            array(),
-            array(),
-            array(
-                'CONTENT_TYPE'          => 'application/json',
-                'HTTP_REFERER'          => '/foo/bar',
-                'HTTP_X-Requested-With' => 'XMLHttpRequest',
-            )
-        );
-
 .. index::
    single: Test; Asserzioni
 
@@ -290,8 +265,10 @@ XML/HTML::
             )
         );
 
+        // Asserire che la risposta contenga una stringa
+        $this->assertContains('foo', $client->getResponse()->getContent());
         // Asserire che la risposta corrisponda a un'espressione regolare.
-        $this->assertRegExp('/pippo/', $client->getResponse()->getContent());
+        $this->assertRegExp('/pippo(pluto)?/', $client->getResponse()->getContent());
 
         // Asserire che il codice di stato della risposta sia 2xx
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -299,7 +276,7 @@ XML/HTML::
         $this->assertTrue($client->getResponse()->isNotFound());
         // Asserire uno specifico codice di stato 200
         $this->assertEquals(
-            Response::HTTP_OK,
+            200, // o Symfony\Component\HttpFoundation\Response::HTTP_OK
             $client->getResponse()->getStatusCode()
         );
 
@@ -332,6 +309,39 @@ restituisce un'istanza di ``Crawler``.
     Inserire gli URL a mano è preferibile per i test funzionali. Se un test
     generasse URL usando le rotte di Symfony, non si accorgerebbe di eventuali modifiche
     agli URL dell'applicazione, che potrebbero aver impatto sugli utenti finali.
+
+.. _book-testing-request-method-sidebar:
+
+.. sidebar:: Di più sul metodo ``request()``:
+
+    La firma completa del metodo ``request()`` è::
+
+        request(
+            $method,
+            $uri,
+            array $parameters = array(),
+            array $files = array(),
+            array $server = array(),
+            $content = null,
+            $changeHistory = true
+        )
+
+    L'array ``server`` contiene i valori grezzi che ci si aspetta di trovare normalmente
+    nell'array superglobale `$_SERVER`_ di PHP. Per esempio, per impostare gli header HTTP ``Content-Type``,
+    ``Referer`` e ``X-Requested-With``, passare i seguenti (ricordare il
+    prefisso ``HTTP_`` per gli header non standard)::
+
+        $client->request(
+            'GET',
+            '/post/hello-world',
+            array(),
+            array(),
+            array(
+                'CONTENT_TYPE'          => 'application/json',
+                'HTTP_REFERER'          => '/foo/bar',
+                'HTTP_X-Requested-With' => 'XMLHttpRequest',
+            )
+        );
 
 Usare il crawler per cercare elementi del DOM nella risposta. Questi elementi possono
 poi essere usati per cliccare su collegamenti e inviare form::
@@ -459,7 +469,10 @@ di dipendenze::
 
 Attenzione, perché ciò non funziona se si isola il client o se si usa un
 livello HTTP. Per un elenco di servizi disponibili nell'applicazione, usare
-il comando ``container:debug``.
+il comando ``debug:container``.
+
+.. versionadded:: 2.6
+    Prima di ymfony 2.6, questo comando si chiamava ``container:debug``.
 
 .. tip::
 
@@ -532,31 +545,28 @@ trovarne l'ultimo e quindi selezionare il suo genitore::
 
 Ci sono molti altri metodi a disposizione:
 
-+------------------------+----------------------------------------------------+
-| Metodo                 | Descrizione                                        |
-+========================+====================================================+
-| ``filter('h1.title')`` | Nodi corrispondenti al selettore CSS               |
-+------------------------+----------------------------------------------------+
-| ``filterXpath('h1')``  | Nodi corrispondenti all'espressione XPath          |
-+------------------------+----------------------------------------------------+
-| ``eq(1)``              | Nodi per l'indice specificato                      |
-+------------------------+----------------------------------------------------+
-| ``first()``            | Primo nodo                                         |
-+------------------------+----------------------------------------------------+
-| ``last()``             | Ultimo nodo                                        |
-+------------------------+----------------------------------------------------+
-| ``siblings()``         | Fratelli                                           |
-+------------------------+----------------------------------------------------+
-| ``nextAll()``          | Tutti i fratelli successivi                        |
-+------------------------+----------------------------------------------------+
-| ``previousAll()``      | Tutti i fratelli precedenti                        |
-+------------------------+----------------------------------------------------+
-| ``parents()``          | Genitori                                           |
-+------------------------+----------------------------------------------------+
-| ``children()``         | Figli                                              |
-+------------------------+----------------------------------------------------+
-| ``reduce($lambda)``    | Nodi per cui la funzione non restituisce false     |
-+------------------------+----------------------------------------------------+
+``filter('h1.title')``
+    Nodi corrispondenti al selettore CSS
+``filterXpath('h1')``
+    Nodi corrispondenti all'espressione XPath
+``eq(1)``
+    Nodi per l'indice specificato
+``first()``
+    Primo nodo
+``last()``
+    Ultimo nodo
+``siblings()``
+    Fratelli
+``nextAll()``
+    Tutti i fratelli successivi
+``previousAll()``
+    Tutti i fratelli precedenti
+``parents()``
+    Genitori
+``children()``
+    Figli
+``reduce($lambda)``
+    Nodi per cui la funzione non restituisce false
 
 Si può iterativamente restringere la selezione del nodo, concatenando le chiamate ai
 metodi, perché ogni metodo restituisce una nuova istanza di Crawler per i nodi corrispondenti::
@@ -637,9 +647,7 @@ Il metodo ``selectButton()`` può selezionare i tag ``button`` e i tag ``input``
 "submit". Ha diverse euristiche per trovarli:
 
 * Il valore dell'attributo ``value``;
-
 * Il valore dell'attributo ``id`` o ``alt`` per le immagini;
-
 * Il valore dell'attributo ``id`` o ``name`` per i tag ``button``.
 
 Quando si ha un nodo che rappresenta un bottone, richiamare il metodo ``form()`` per
@@ -863,6 +871,7 @@ sezione ``<filter>``:
 Saperne di più
 --------------
 
+* Il :doc:`capitolo sui test nelle best practice </best_practices/tests>`
 * :doc:`/components/dom_crawler`
 * :doc:`/components/css_selector`
 * :doc:`/cookbook/testing/http_authentication`
@@ -870,6 +879,5 @@ Saperne di più
 * :doc:`/cookbook/testing/profiling`
 * :doc:`/cookbook/testing/bootstrap`
 
-.. _`DemoControllerTest`: https://github.com/sensiolabs/SensioDistributionBundle/blob/master/Resources/skeleton/acme-demo-bundle/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php
 .. _`$_SERVER`: http://php.net/manual/it/reserved.variables.server.php
 .. _documentazione: http://phpunit.de/manual/current/en/

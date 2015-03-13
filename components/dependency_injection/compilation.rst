@@ -406,7 +406,7 @@ facile l'esportazione del contenitore compilato::
         file_put_contents($file, $dumper->dump());
     }
 
-``ProjectServiceContiner`` è il nome predefinito dato alla classe del contenitore
+``ProjectServiceContainer`` è il nome predefinito dato alla classe del contenitore
 esportata: lo si può cambiare tramite l'opzione ``class``, al momento
 dell'esportazione::
 

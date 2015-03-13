@@ -492,7 +492,7 @@ parte, se ne vorranno codificare le password. Il miglior algoritmo da usare è
 
             'encoders' => array(
                 'Symfony\Component\Security\Core\User\User' => array(
-                    'algorithm' => 'plaintext',
+                    'algorithm' => 'bcrypt',
                     'cost' => 12,
                 )
             ),
@@ -1314,6 +1314,34 @@ Symfony non creerà alcun cookie):
 
 .. _book-security-checking-vulnerabilities:
 
+Verificare vulnerabilità note nelle dipendenze
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.5
+    Il comando ``security:check`` è stato introdotto in Symfony 2.5. Questo comando è
+    incluso in ``SensioDistributionBundle``, bundle che va registrato nell'applicazione
+    per consentire l'utilizzo del comando stesso.
+
+Quando si hanno molte dipendenze in progetti Symfony, alcune potrebbero
+contenere delle vulnerabilità. Per questo motivo, Symfony include un comando chiamato
+``security:check``, che verifica il  file ``composer.lock`` e trova eventuali
+vulnerabilità nelle dipendenze installate:
+
+.. code-block:: bash
+
+    $ php app/console security:check
+
+Una buona pratica di sicurezza consiste nell'eseguire regolarmente questo comando, per poter
+aggiornare o sostituire dipendenze compromesse il prima possibile. Internamente,
+questo comando usa la `base dati degli avvisi di sicurezza`_ pubblicato dall'organizzazione
+FriendsOfPHP.
+
+.. tip::
+
+    Il comando ``security:check`` esce con un codice diverso da zero, se alcune
+    dipendenze sono afflitte da problemi noti di sicurezza.
+    Quindi, si può facilmente integrare in un processo di build.
+
 Considerazioni finali
 ---------------------
 
@@ -1335,10 +1363,11 @@ Saperne di più con il ricettario
 
 * :doc:`Forzare HTTP/HTTPS </cookbook/security/force_https>`
 * :doc:`Impersonare un utente </cookbook/security/impersonating_user>`
-* :doc:`Blacklist di utenti per indirizzo IP </cookbook/security/voters>`
+* :doc:`/cookbook/security/voters_data_permission`
 * :doc:`Access Control List (ACL) </cookbook/security/acl>`
 * :doc:`/cookbook/security/remember_me`
 * :doc:`/cookbook/security/multiple_user_providers`
 
 .. _`strumento online`: https://www.dailycred.com/blog/12/bcrypt-calculator
 .. _`documentazione di frameworkextrabundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
+.. _`base dati degli avvisi di sicurezza`: https://github.com/FriendsOfPHP/security-advisories

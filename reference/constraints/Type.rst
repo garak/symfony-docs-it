@@ -10,6 +10,7 @@ per validarla.
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - :ref:`type<reference-constraint-type-type>`                       |
 |                | - `message`_                                                        |
+|                | - `payload`_                                                        |
 +----------------+---------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Type`           |
 +----------------+---------------------------------------------------------------------+
@@ -135,3 +136,5 @@ message
 **tipo**: ``stringa`` **predefinito**: ``This value should be of type {{ type }}``
 
 Messaggio mostrato se i dati sottostanti non sono del tipo dato.
+
+.. include:: /reference/constraints/_payload-option.rst.inc

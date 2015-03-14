@@ -229,8 +229,14 @@ Monolog consente di processare il record prima di loggarlo, per aggiungere
 alcuni dati extra. Un processore può essere applicato all'intera pila dei
 gestori oppure solo a un gestore specifico.
 
-Un processore è semplicemente una funzione che riceve il record come primo parametro.
+.. tip::
 
+    Fare attenzione alle dimensioni del file di log, che possono crescere molto rapidamente, portando
+    all'esaurimento dello spazio su disco. Questo vale in modo particolare in ambiente ``dev``, dove una semplice
+    richiesta può generare centinaia di righe di log. Si consideri l'uso di strumenti come `logrotate`_,
+    un comando Linux per ruotare i file di log, prima che possano diventare un problema.
+
+Un processore è semplicemente una funzione che riceve il record come primo parametro.
 I processori sono configurati con il tag ``monolog.processor`` del DIC. Vedere il
 :ref:`riferimento <dic_tags-monolog-processor>`.
 
@@ -474,3 +480,4 @@ tag ``monolog.processor``:
             ->addTag('monolog.processor', array('method' => 'processRecord', 'channel' => 'main'));
 
 .. _Monolog: https://github.com/Seldaek/monolog
+.. _`logrotate`: https://fedorahosted.org/logrotate/

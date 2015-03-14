@@ -59,7 +59,7 @@ abilitare ``translator`` nella configurazione:
 
         # app/config/config.yml
         framework:
-            translator: { fallback: en }
+            translator: { fallbacks: [en] }
 
     .. code-block:: xml
 
@@ -74,7 +74,9 @@ abilitare ``translator`` nella configurazione:
                 http://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
 
             <framework:config>
-                <framework:translator fallback="en" />
+                <framework:translator>
+                    <framework:fallback>en</framework:fallback>
+                </framework:translator>
             </framework:config>
         </container>
 
@@ -85,7 +87,7 @@ abilitare ``translator`` nella configurazione:
             'translator' => array('fallback' => 'en'),
         ));
 
-Vedere :ref:`book-translation-fallback` per dettagli sulla voce ``fallback``
+Vedere :ref:`book-translation-fallback` per dettagli sulla voce ``fallbacks``
 e su cosa faccia Symfony quando non trova una traduzione.
 
 Il locale usato nelle traduzioni è quello memorizzato nella richiesta. Tipicamente,
@@ -564,8 +566,8 @@ il :ref:`dominio <using-message-domains>` ``validators``.
 Per iniziare, supponiamo di aver creato un oggetto PHP, necessario da
 qualche parte in un'applicazione::
 
-    // src/Acme/BlogBundle/Entity/Author.php
-    namespace Acme\BlogBundle\Entity;
+    // src/AppBundle/Entity/Author.php
+    namespace AppBundle\Entity;
 
     class Author
     {

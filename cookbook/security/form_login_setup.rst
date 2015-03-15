@@ -81,15 +81,11 @@ bundle, con una ``loginAction``::
     // src/AppBundle/Controller/SecurityController.php
     namespace AppBundle\Controller;
 
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Component\HttpFoundation\Request;
 
     class SecurityController extends Controller
     {
-        public function loginAction(Request $request)
-        {
-            // todo...
-        }
     }
 
 Quindi, creare due rotte: una per ciascuno dei percorsi configurati in precedenza
@@ -100,7 +96,9 @@ sotto ``form_login`` (``/login`` e ``/login_check``):
     .. code-block:: php-annotations
 
         // src/AppBundle/Controller/SecurityController.php
+
         // ...
+        use Symfony\Component\HttpFoundation\Request;
         use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
         class SecurityController extends Controller
@@ -110,7 +108,6 @@ sotto ``form_login`` (``/login`` e ``/login_check``):
              */
             public function loginAction(Request $request)
             {
-                // todo ...
             }
 
             /**
@@ -118,6 +115,8 @@ sotto ``form_login`` (``/login`` e ``/login_check``):
              */
             public function loginCheckAction()
             {
+                // questa azione non verrà eseguita,
+                // perché la rotta è gestita dal sistema di sicurezza
             }
         }
 
@@ -129,6 +128,8 @@ sotto ``form_login`` (``/login`` e ``/login_check``):
             defaults: { _controller: AppBundle:Security:login }
         login_check:
             path: /login_check
+            # questa azione non verrà eseguita,
+            # perché la rotta è gestita dal sistema di sicurezza
 
     .. code-block:: xml
 
@@ -144,6 +145,8 @@ sotto ``form_login`` (``/login`` e ``/login_check``):
             </route>
 
             <route id="login_check" path="/login_check" />
+            <!-- questa azione non verrà eseguita,
+                 perché la rotta è gestita dal sistema di sicurezza -->
         </routes>
 
     ..  code-block:: php
@@ -157,6 +160,8 @@ sotto ``form_login`` (``/login`` e ``/login_check``):
             '_controller' => 'AppBundle:Security:login',
         )));
         $collection->add('login_check', new Route('/login_check', array()));
+        // nessuna azione è abbinata a questa rotta,
+        // essendo gestita dal sistema di sicurezza
 
         return $collection;
 
@@ -164,20 +169,18 @@ Ottimo! Ora, aggiungere a ``loginAction`` la logica che mostrerà il form
 di login::
 
     // src/AppBundle/Controller/SecurityController.php
-    // ...
 
-    // AGGIUNGERE QUESTO use in cima alla classe
+    // ...
     use Symfony\Component\Security\Core\SecurityContextInterface;
 
+    // ...
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
 
         // recupera l'errore, se ce n'è uno
         if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(
-                SecurityContextInterface::AUTHENTICATION_ERROR
-            );
+            $error = $request->attributes->get(SecurityContextInterface::AUTHENTICATION_ERROR);
         } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
             $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
             $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);

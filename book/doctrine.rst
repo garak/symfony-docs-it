@@ -672,9 +672,9 @@ di avere una rotta che mappi un id di prodotto a un'azione di aggiornamento in u
 
 L'aggiornamento di un oggetto si svolge in tre passi:
 
-1. recuperare l'oggetto da Doctrine;
-2. modificare l'oggetto;
-3. richiamare ``flush()`` sul gestore di entità
+#. recuperare l'oggetto da Doctrine;
+#. modificare l'oggetto;
+#. richiamare ``flush()`` sul gestore di entità
 
 Si noti che non è necessario richiamare ``$em->persist($product)``. Ricordiamo che
 questo metodo dice semplicemente a Doctrine di gestire o "osservare" l'oggetto ``$product``.
@@ -777,6 +777,8 @@ La sintassi DQL è incredibilmente potente e consente di fare join tra entità
 (l'argomento :ref:`relazioni <book-doctrine-relations>` sarà affrontato
 successivamente), raggruppare, ecc. Per maggiori informazioni, vedere la
 documentazione ufficiale di Doctrine `Doctrine Query Language`_.
+
+.. _book-doctrine-custom-repository-classes:
 
 Classi repository personalizzate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

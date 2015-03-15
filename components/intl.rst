@@ -62,6 +62,11 @@ autoloader::
 
 .. sidebar:: ICU e problemi di deploy
 
+    .. note::
+
+        Questi problemi di deploy affliggono solo le seguenti versioni di Symfony: da
+        2.3.0 a 2.3.20, tutte le 2.4.x e da 2.5.0 a 2.5.5.
+
     L'estensione intl usa internamente la `libreria ICU`_ per ottenere dati localizzati,
     come formati numerici nelle varie lingue, nomi di paesi, eccetera.
     Per rendere disponibili tali dati alle librerie utente di PHP, Symfony ne possiede una copia
@@ -257,7 +262,7 @@ avvolge un altro lettore e offre un metodo
 :method:`Symfony\\Component\\Intl\\ResourceBundle\\Reader\\StructuredBundleReaderInterface::readEntry`
 per leggere un elemento del bundle risorsa senza doversi preoccupare
 se le chiavi dell'array siano impostate o meno. Se un percorso non può essere risolto, viene
-restituito ``null```::
+restituito ``null``::
 
     use Symfony\Component\Intl\ResourceBundle\Reader\BinaryBundleReader;
     use Symfony\Component\Intl\ResourceBundle\Reader\StructuredBundleReader;
@@ -267,7 +272,7 @@ restituito ``null```::
     $data = $reader->read('/percorso/del/bundle', 'en');
 
     // provoca un errore se la chiave "Data" non esiste
-    echo $data['Data']['entry1'];
+    echo $data['Data']['voce1'];
 
     // restituice null se la chiave "Data" non esiste
     echo $reader->readEntry('/percorso/del/bundle', 'en', array('Data', 'entry1'));
@@ -284,7 +289,7 @@ saranno fusi. Per evitare tale comportamento, si può impostare il parametro
     echo $reader->readEntry(
         '/percorso/del/bundle',
         'en',
-        array('Data', 'entry1'),
+        array('Data', 'voce1'),
         false
     );
 

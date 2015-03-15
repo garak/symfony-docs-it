@@ -18,7 +18,8 @@ Usare una cache bytecode (p.e. APC)
 Una delle cose migliori (e più facili) che si possono fare per migliorare le prestazioni
 è quella di usare una cache bytecode. L'idea di una cache bytecode è di rimuove
 l'esigenza di dover ricompilare ogni volta il codice sorgente PHP. Ci sono numerose
-`cache bytecode`_  disponibili, alcune delle quali open source. La più usata
+`cache bytecode`_  disponibili, alcune delle quali open source. Dalla versione 5.5,
+PHP include `OPcache`_. Per versioni precedenti, la cache più usata
 è probabilmente `APC`_.
 
 Usare una cache bytecode non ha alcun effetto negativo, e Symfony è stato progettato
@@ -139,6 +140,7 @@ questa caratteristica è disabilitata nella cache bytecode (p.e. con ``apc.stat=
 non c'è più ragione di usare un file di avvio.
 
 .. _`cache bytecode`: http://en.wikipedia.org/wiki/List_of_PHP_accelerators
+.. _`OPcache`: http://php.net/manual/it/book.opcache.php
 .. _`APC`: http://php.net/manual/it/book.apc.php
 .. _`autoloader.php`: https://github.com/symfony/symfony-standard/blob/master/app/autoload.php
 .. _`file di avvio`: https://github.com/sensio/SensioDistributionBundle/blob/master/Composer/ScriptHandler.php

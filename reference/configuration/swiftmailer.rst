@@ -32,6 +32,7 @@ Configurazione
     * `threshold`_
     * `sleep`_
 * `delivery_address`_
+* `delivery_whitelist`_
 * `disable_delivery`_
 * `logging`_
 
@@ -155,6 +156,15 @@ email inviate durante la fase di sviluppo siano inviate a un singolo account.
 
 Usa ``Swift_Plugins_RedirectingPlugin``. I destinatari originali sono disponibili
 negli header ``X-Swift-To``, ``X-Swift-Cc`` e ``X-Swift-Bcc``.
+
+delivery_whitelist
+~~~~~~~~~~~~~~~~~~
+
+**tipo**: ``array``
+
+Usato in combinazione con ``delivery_address``. Se impostato, le email corrispondenti a uno di
+questi schemi saranno consegnate normalmente, invece di essere inviate a ``delivery_address``.
+Per maggiori dettagli, vedere :ref:`la ricetta. <sending-to-a-specified-address-but-with-exceptions>`
 
 disable_delivery
 ~~~~~~~~~~~~~~~~

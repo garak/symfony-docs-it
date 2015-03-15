@@ -60,6 +60,8 @@ Rilasci standard
 Un rilascio standard è mantenuto per un periodo di *otto mesi* per i bug
 e per un periodo di *quattordici mesi* per i problemi di sicurezza.
 
+.. _releases-lts:
+
 Rilasci a supporto prolungato
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

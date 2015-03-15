@@ -172,6 +172,8 @@ L'azione ``hello`` ora corrisponderà a URL come ``/hello/fabien.xml`` o
 come ``/hello/fabien.js``, poiché il valore della variabile ``_format`` non
 soddisfa i requisiti.
 
+.. _redirecting-and-forwarding:
+
 Rinvii e rimandi
 ----------------
 
@@ -192,23 +194,6 @@ Se si vuole rinviare l'utente a un'altra pagina, usare il metodo
 
 Il metodo ``redirectToRoute()`` accetta come parametri il nome della rotta e un array
 opzionale di parametri e rinvia l'utente all'URL generato con tali parametri.
-
-Si può anche rimandare internamente l'azione a un'altra azione, dello stesso controllore
-o di uno diverso, col metodo ``forward()``::
-
-    // src/AppBundle/Controller/DefaultController.php
-    class DefaultController extends Controller
-    {
-        /**
-         * @Route("/", name="homepage")
-         */
-        public function indexAction()
-        {
-            return $this->forward('AppBundle:Blog:index', array(
-                'name'  => $name
-            );
-        }
-    }
 
 Mostrare pagine di errore
 -------------------------

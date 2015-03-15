@@ -119,6 +119,8 @@ l'indirizzo sostituito, così da poter vedere a chi sarebbe stata inviata l'emai
     Le intestazioni usate saranno ``X-Swift-Cc`` e ``X-Swift-Bcc`` 
     rispettivamente per gli indirizzi in ``CC`` e per quelli in ``BCC``.
 
+.. _sending-to-a-specified-address-but-with-exceptions:
+
 Invio a un indirizzo specifico ma con eccezioni
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

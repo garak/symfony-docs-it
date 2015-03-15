@@ -98,6 +98,17 @@ di versione come secondo parametro del comando ``new``:
     # Windows
     c:\projects\> php symfony.phar new progetto 2.3.23
 
+Se si vuole basare un progetto sull'ultima :ref:`versione LTS di Symfony <releases-lts>`,
+passare ``lts`` come secondo parametro del comando ``new``:
+
+.. code-block:: bash
+
+    # Linux, Mac OS X
+    $ symfony new progetto lts
+
+    # Windows
+    c:\projects\> php symfony.phar new progetto lts
+
 Leggere il :doc:`processo di rilascio di Symfony </contributing/community/releases>`
 per comprendere meglio il motivo per cui esistono varie versioni di Symfony e quale
 usare per i propri progetti.

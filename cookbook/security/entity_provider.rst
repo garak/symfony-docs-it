@@ -583,6 +583,11 @@ Il codice successivo mostra l'implementazione di
         }
     }
 
+.. tip::
+
+    Non dimenticare di aggiungere la classe repository alla
+    :ref:`definizione di mappatura dell'entità <book-doctrine-custom-repository-classes>`.
+
 Per concludere l'implementazione, occorre modificare la configurazione del livello della
 sicurezza, per dire a Symfony di usare il nuovo fornitore di entità personalizzato, al
 posto del fornitore di entità generico di Doctrine. Lo si può fare facilmente, rimuovendo

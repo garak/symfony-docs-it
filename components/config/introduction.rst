@@ -9,13 +9,6 @@ Il componente Config
     riempire e validare valori di configurazione di ogni tipo, indipendentemente dal tipo
     di sorgente (file YAML, XML o INI, oppure ad esempio una base dati).
 
-.. caution::
-
-    ``IniFileLoader`` analizza i contenuti del file tramite la funzione
-    :phpfunction:`parse_ini_file`, quindi si possono impostare solo
-    stringhe come valori dei parametri. Per impostare i parametri come altri tipi di dato
-    (p.e. booleano, intero, ecc.), si raccomandano gli altri caricatori.
-
 Installazione
 -------------
 

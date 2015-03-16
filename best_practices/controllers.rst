@@ -76,19 +76,14 @@ Configurazione dei template
     Non usare l'annotazione ``@Template()`` per configurare il template
     usato dal controllore.
 
-Anche se l'annotazione ``@Template()`` risulta molto utile essa nasconde qualche trabocchetto. Per
-questo motivo, si raccomanda di non usarla.
+Anche se l'annotazione ``@Template()`` risulta molto utile, essa nasconde qualche trucco.
+Ritenendo che il gioco non valga la candela, si raccomanda di non
+usarla.
 
 La maggior parte delle volte ``@Template`` è usato senza parametri il che rende più difficile
 sapere quale template viene renderizzato. Il suo utilizzo inoltre rende meno ovvio
 ai principianti che un controllore deve sempre restituire un oggetto Response (a meno che non si usi
 il livello della vista).
-
-Infine l'annotazione ``@Template`` usa la classe ``TemplateListener`` per ascoltare
-l'evento ``kernel.view`` del framework. L'ascoltatore ha un impatto non trascurabile
-sulle prestazioni dell'applicazione. Nell'esempio dell'applicazione blog il rendering
-dell'homepage impiega 5 millisecondi usando il metodo ``$this->render()``, mentre ben
-26 millisecondi usando l'annotazione ``@Template``.
 
 Come dovrebbe essere il controllore
 -----------------------------------
@@ -130,7 +125,7 @@ per effettuare la ricerca dell'entity in modo automatico e passarla come paramet
 
 .. best-practice::
 
-    Usare il ParamConverter per caricare automaticamente le entità di Doctrine
+    Usare ParamConverter per caricare automaticamente le entità di Doctrine,
     nei casi più semplici.
 
 Per esempio:
@@ -153,7 +148,7 @@ Per esempio:
         ));
     }
 
-Solitamente ci si aspetterebbe un argomento ``$id`` nel metodo ``showAction``. Invece,
+Solitamente ci si aspetterebbe un parametro ``$id`` nel metodo ``showAction``. Invece,
 creando un nuovo parametro (``$post``) e specificando il tipo di classe ``Post``
 (che è un'entità Doctrine), ParamConverter cercherà automaticamente
 un oggetto la cui proprietà ``$id`` corrisponde al valore ``{id}``. Nel
@@ -204,8 +199,8 @@ perché è abbastanza flessibile:
         // ...
     }
 
-Possiamo infine dire che la scorciatoia di ParamConverter è buona nelle situazioni semplici.
-Nonostante ciò non si dovrebbe mai dimenticare che la ricerca diretta di entity è un'operazione 
+Si può infine dire che la scorciatoia di ParamConverter è buona nelle situazioni semplici.
+Nonostante ciò, non si dovrebbe mai dimenticare che la ricerca diretta di entity è un'operazione 
 molto facile.
 
 Eseguire codice prima e dopo

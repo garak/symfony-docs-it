@@ -82,6 +82,24 @@ sulle richieste POST. Se abilitato,
 ``kernel.http_method_override``. Per maggiori informazioni, vedere
 :doc:`/cookbook/routing/method_parameters`.
 
+.. caution::
+
+    Se si usa il :ref:`reverse proxy AppCache <symfony2-reverse-proxy>`
+    con questa opzione, il kernel ignorerà il parametro ``_method``,
+    cosa che potrebbe causare errori.
+
+    Per risolvere, invocare il metodo ``enableHttpMethodParameterOverride()``
+    prima di creare l'oggetto ``Request``::
+
+        // web/app.php
+
+        // ...
+        $kernel = new AppCache($kernel);
+
+        Request::enableHttpMethodParameterOverride(); // <-- aggiungere questa riga
+        $request = Request::createFromGlobals();
+        // ...
+
 ide
 ~~~
 

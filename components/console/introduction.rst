@@ -20,15 +20,6 @@ Il componente può essere installato in due modi:
 * Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/console`` su `Packagist`_);
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console).
 
-.. note::
-
-    Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
-    disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
-    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
-    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
-
-    Per abilitare il supporto ai colori ANSI su Windows, si può installare `ANSICON`_.
-
 Creazione di comandi di base
 ----------------------------
 
@@ -123,6 +114,14 @@ Il cui risultato sarà::
 
 Colorare l'output
 ~~~~~~~~~~~~~~~~~
+
+.. note::
+
+    Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
+    disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
+    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
+    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
+    Per abilitare il supporto ai colori ANSI su Windows, si può installare `ConEmu`_ o `ANSICON`_.
 
 È possibile inserire il testo da stampare, all'interno di speciali tag per colorare 
 l'output. Ad esempio::
@@ -296,9 +295,11 @@ trattino come in ``-u``). Le opzioni sono *sempre* opzionali e possono accettare
 
 .. tip::
 
-    È anche possibile fare in modo che un'opzione possa *opzionalmente* accettare un valore (ad esempio
-    si potrebbe avere ``--urla`` o ``--urla=forte``). Le opzioni possono anche essere configurate per 
-    accettare array di valori.
+    Nulla impedisce la creazione di un comando con un'opzione che accetti in modo facoltativo
+    un valore. Tuttavia, non c'è modo di distinguere quando l'opzione sia stata usata senza
+    un valore (``comando --urla``) o quando non sia stata usata affatto
+    (``comando``). In entrambi i casi, il valore recuperato per l'opzione
+    sarebbe ``null``.
 
 Ad esempio, per specificare il numero di volte in cui il messaggio di 
 saluto sarà stampato, si può aggiungere la seguente opzione::
@@ -504,4 +505,5 @@ Saperne di più
 * :doc:`/components/console/console_arguments`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
+.. _ConEmu: https://code.google.com/p/conemu-maximus5/
 .. _ANSICON: https://github.com/adoxa/ansicon/releases

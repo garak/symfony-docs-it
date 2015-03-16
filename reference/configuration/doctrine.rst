@@ -60,6 +60,9 @@ Configurazione predefinita completa
                         driver:               pdo_mysql
                         platform_service:     ~
 
+                        # la versione del server della base dati
+                        server_version:       ~
+
                         # se true, un canale "doctrine" di monolog conterrà le query
                         logging:              %kernel.debug%
                         profiling:            %kernel.debug%
@@ -101,6 +104,9 @@ Configurazione predefinita completa
 
                                 # True per usare un pool di server con il driver oci8
                                 pooled:               ~
+
+                                # la versione del server della base dati
+                                server_version:       ~
 
                                 # Configurazione di MultipleActiveResultSets per il driver pdo_sqlsrv
                                 MultipleActiveResultSets:  ~
@@ -202,6 +208,7 @@ Configurazione predefinita completa
                         charset="UTF8"
                         logging="%kernel.debug%"
                         platform-service="MyOwnDatabasePlatformService"
+                        server-version="5.6"
                     >
                         <doctrine:option key="foo">bar</doctrine:option>
                         <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
@@ -393,6 +400,7 @@ Il blocco seguente mostra tutte le voci di configurazione:
                 charset:              UTF8
                 logging:              "%kernel.debug%"
                 platform_service:     MyOwnDatabasePlatformService
+                server_version:       5.6
                 mapping_types:
                     enum: string
                 types:
@@ -428,7 +436,8 @@ Il blocco seguente mostra tutte le voci di configurazione:
                     wrapper-class="MyDoctrineDbalConnectionWrapper"
                     charset="UTF8"
                     logging="%kernel.debug%"
-                    platform-service="MyOwnDatabasePlatformService">
+                    platform-service="MyOwnDatabasePlatformService"
+                    server-version="5.6">
 
                     <doctrine:option key="foo">bar</doctrine:option>
                     <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
@@ -436,6 +445,17 @@ Il blocco seguente mostra tutte le voci di configurazione:
                 </doctrine:dbal>
             </doctrine:config>
         </container>
+
+.. note::
+
+    L'opzione ``server_version`` è stata aggiunta in Doctrine DBAL 2.5, che è usato
+    da DoctrineBundle 1.3. Il valore di tale opzione deve corrispondere a quella del
+    server della base dati (usare il comando ``postgres -V`` o ``psql -V`` per conoscere la propria
+    versione di PostgreSQL e ``mysql -V`` per quella di MySQL).
+
+    Se non si definisce questa opzione e la base dati non è ancora stata create,
+    si potrebbero ottenere errori ``PDOException``, perché Doctrine proverà a indovinare la
+    versione della base dati, senza trovarne una disponibile.
 
 Se si vogliono configurare connessioni multiple in YAML, si possono mettere sotto la
 voce ``connections`` e dar loro un nome univoco:
@@ -451,11 +471,13 @@ voce ``connections`` e dar loro un nome univoco:
                     user:             root
                     password:         null
                     host:             localhost
+                    server_version:   5.6
                 customer:
                     dbname:           customer
                     user:             root
                     password:         null
                     host:             localhost
+                    server_version:   5.7
 
 Il servizio ``database_connection`` fa sempre riferimento alla configurazione
 predefinita, che è la prima definita o l'unica configurata tramite il

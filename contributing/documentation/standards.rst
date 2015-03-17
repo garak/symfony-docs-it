@@ -8,7 +8,8 @@ Sphinx
 ------
 
 * Per i vari livelli di intestazione vanno usati i segeuenti caratteri: livello 1
-  è ``=``, livello 2 ``-``, livello 3 ``~``, livello 4 ``.`` e livello 5 ``"``;
+  è ``=`` (simbolo di uguale), livello 2 ``-`` (trattino), livello 3 ``~`` (tilde), livello 4
+  ``.`` (punto) e livello 5 ``"`` (apice doppio);
 * Ogni riga va interrotta approssimativametne dopo la prima parola che attraversa
   il 72esimo carattere (quindi quasi tutte le righe dovrebbeero essere tra i 72 e i 78 caratteri);
 * La scorciatoia ``::`` va *preferita* a ``.. code-block:: php``, quando si inizia un
@@ -50,6 +51,12 @@ Esempi di codice
 
 * Il codice segue gli :doc:`standard di codice di Symfony </contributing/code/standards>`
   e gli `standard di codice di Twig`_;
+* Gli esempi di codice devono sembrare reali per il contesto di un'applicazione web. Evitare esempi
+  astratti o banali (``pippo``, ``pluto``, ``demo``, ecc.);
+* Il codice deve seguire le :doc:`best practice di Symfony </best_practices/introduction>`.
+  A meno che l'esempio non richieda un bundle personalizzato, assicurarsi di usare sempre
+  ``AppBundle`` per il codice;
+* Usare ``Acme``, quando il codice richiede un nome di venditore;
 * Per evitare le barre orizzontali sui blocchi di codici, si preferisce interrompere una riga
   se va oltre l'85esimo carattere;
 * Quando si omettono righe di codice, porre ``...`` in un commento nel punto
@@ -161,8 +168,13 @@ Standard di linguaggio
 
 
 
+
+
+
+
 .. _`documentazione di Sphinx`: http://sphinx-doc.org/rest.html#source-code
 .. _`standard di codice di Twig`: http://twig.sensiolabs.org/doc/coding_standards.html
+
 
 
 

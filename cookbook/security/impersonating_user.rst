@@ -84,7 +84,24 @@ per mostrare un collegamento che riporti all'utente precedente:
             >
                 Torna a utente precedente
             </a>
-        <?php endif; ?>
+        <?php endif ?>
+
+In alcuni casi, si potrebbe voler prendere l'oggetto che rappresenta l'utente impersonante,
+invece di quello impersonato. Usare il codice seguente per iterare
+i ruoli dell'utente, finché non si trova un oggetto ``SwitchUserRole``::
+
+    use Symfony\Component\Security\Core\Role\SwitchUserRole;
+
+    $securityContext = $this->get('security.context');
+
+    if ($securityContext->isGranted('ROLE_PREVIOUS_ADMIN')) {
+        foreach ($securityContext->getToken()->getRoles() as $role) {
+            if ($role instanceof SwitchUserRole) {
+                $impersonatingUser = $role->getSource()->getUser();
+                break;
+            }
+        }
+    }
 
 Ovviamente, si dovrebbe rendere disponibile questa opzione a un gruppo ristretto di utenti.
 Per impostazione predefinita, l'accesso è ristretto a utenti con il ruolo ``ROLE_ALLOWED_TO_SWITCH``.

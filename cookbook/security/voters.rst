@@ -49,7 +49,7 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
         private $container;
 
         private $blacklistedIp;
-            
+
         public function __construct(ContainerInterface $container, array $blacklistedIp = array())
         {
             $this->container     = $container;
@@ -106,9 +106,9 @@ e assegnargli il tag "security.voter":
         # src/Acme/AcmeBundle/Resources/config/services.yml
         services:
             security.access.blacklist_voter:
-                class:      Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter
-                arguments:  ["@service_container", [123.123.123.123, 171.171.171.171]]
-                public:     false
+                class:     AppBundle\Security\Authorization\Voter\ClientIpVoter
+                arguments: ["@service_container", [123.123.123.123, 171.171.171.171]]
+                public:    false
                 tags:
                     - { name: security.voter }
 
@@ -116,7 +116,7 @@ e assegnargli il tag "security.voter":
 
         <!-- src/Acme/AcmeBundle/Resources/config/services.xml -->
         <service id="security.access.blacklist_voter"
-                 class="Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter" public="false">
+                 class="AppBundle\Security\Authorization\Voter\ClientIpVoter" public="false">
             <argument type="service" id="service_container" strict="false" />
             <argument type="collection">
                 <argument>123.123.123.123</argument>
@@ -132,7 +132,7 @@ e assegnargli il tag "security.voter":
         use Symfony\Component\DependencyInjection\Reference;
 
         $definition = new Definition(
-            'Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter',
+            'AppBundle\Security\Authorization\Voter\ClientIpVoter',
             array(
                 new Reference('service_container'),
                 array('123.123.123.123', '171.171.171.171'),
@@ -197,6 +197,36 @@ configurazione dell'applicazione con il codice seguente.
 
 Ecco fatto! Ora, nella decisione sull'accesso di un utente, il nuovo votante negherà
 l'accesso a ogni utente nella lista nera degli IP.
+
+Si noti che i votanti sono chiamati solo alla verifica di un accesso. Quindi occorre
+almeno qualcosa come
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/security.yml
+        security:
+            access_control:
+                - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+    .. code-block:: xml
+
+        <!-- app/config/security.xml -->
+        <config>
+            <access-control>
+               <rule path="^/" role="IS_AUTHENTICATED_ANONYMOUSLY" />
+            </access-control>
+        </config>
+
+    .. code-block:: php
+
+        // app/config/security.xml
+        $container->loadFromExtension('security', array(
+            'access_control' => array(
+               array('path' => '^/', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            ),
+         ));
 
 .. seealso::
 

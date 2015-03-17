@@ -4,6 +4,13 @@
 Caricare risorse
 ================
 
+.. caution::
+
+    ``IniFileLoader`` analizza il contenuto di un file con la funzione
+    :phpfunction:`parse_ini_file`. Si possono quindi impostare parametri solo come
+    valori stringa. Per impostare parametri come altri tipi di dato
+    (come booleano, intero, ecc.), si raccomandano altri tipi di caricatori.
+
 Trovare le risorse
 ------------------
 

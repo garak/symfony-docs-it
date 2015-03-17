@@ -48,6 +48,12 @@ sono:
             Allow from All
         </Directory>
 
+        # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
+        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # <Directory /var/www/project>
+        #     Option FollowSymlinks
+        # </Directory>
+
         ErrorLog /var/log/apache2/project_error.log
         CustomLog /var/log/apache2/project_access.log combined
     </VirtualHost>
@@ -138,7 +144,7 @@ per passare richieste di file PHP a PHP FPM:
         <FilesMatch \.php$>
             SetHandler proxy:fcgi://127.0.0.1:9000
         </FilesMatch>
-        # Se si usa Apache prima di 2.4.9, si consideri di aggiorare o usare invece questo
+        # Se si usa Apache prima di 2.4.9, si consideri di aggiornare o usare invece questo
         # ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
         # Se si fa girare l'applicazione Symfony in una sottocartella della document root,
         # cambiare l'espressione regolare di conseguenza:
@@ -150,6 +156,12 @@ per passare richieste di file PHP a PHP FPM:
             AllowOverride All
             Require all granted
         </Directory>
+
+        # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
+        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # <Directory /var/www/project>
+        #     Option FollowSymlinks
+        # </Directory>
 
         ErrorLog /var/log/apache2/project_error.log
         CustomLog /var/log/apache2/project_access.log combined
@@ -180,6 +192,12 @@ dovrebbe essere come questa:
             Order allow,deny
             Allow from all
         </Directory>
+
+        # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
+        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # <Directory /var/www/project>
+        #     Option FollowSymlinks
+        # </Directory>
 
         ErrorLog /var/log/apache2/project_error.log
         CustomLog /var/log/apache2/project_access.log combined

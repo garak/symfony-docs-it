@@ -17,6 +17,11 @@ Lo si potrebbe fare nel controllore, ma non è la soluzione migliore.
 Sarebbe meglio se questa issue fosse cercata automaticamente e convertita in un oggetto Issue.
 In questi casi entrano in gioco i trasformatori di dati.
 
+.. caution::
+
+    Quando un campo ha l'opzione ``inherit_data`` impostata, i trasformatori di dati
+    non saranno applicati.
+
 Creare il trasformatore
 -----------------------
 
@@ -47,7 +52,7 @@ della conversione da numero di issue a oggetto Issue e viceversa::
         }
 
         /**
-         * Transforms an object (issue) to a string (number).
+         * Trasforma un oggetto (issue) in una stringa (number).
          *
          * @param  Issue|null $issue
          * @return string
@@ -62,13 +67,13 @@ della conversione da numero di issue a oggetto Issue e viceversa::
         }
 
         /**
-         * Transforms a string (number) to an object (issue).
+         * Trasforma una stringa (number) in un oggetto (issue).
          *
          * @param  string $number
          *
          * @return Issue|null
          *
-         * @throws TransformationFailedException if object (issue) is not found.
+         * @throws TransformationFailedException se l'oggetto (issue) non viene trovato.
          */
         public function reverseTransform($number)
         {
@@ -83,7 +88,7 @@ della conversione da numero di issue a oggetto Issue e viceversa::
 
             if (null === $issue) {
                 throw new TransformationFailedException(sprintf(
-                    'An issue with number "%s" does not exist!',
+                    'Non essite una issue con numero "%s"!',
                     $number
                 ));
             }
@@ -113,44 +118,46 @@ un form.
     richiamando ``addModelTransformer`` (o ``addViewTransformer``, vedere
     `Trasformatore per modelli e viste`_) sul builder di un campo::
 
-        use Symfony\Component\Form\FormBuilderInterface;
-        use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
 
-        class TaskType extends AbstractType
+    class TaskType extends AbstractType
+    {
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            public function buildForm(FormBuilderInterface $builder, array $options)
-            {
-                // ...
+            // ...
 
-                // si assume che il gestore di entità sia stato passato come opzione
-                $entityManager = $options['em'];
-                $transformer = new IssueToNumberTransformer($entityManager);
+            // "em" è un'opzione da passare alla creazione del form. Vedere
+            // il terzo parametro di createForm nel prossimo blocco di codice per capire
+            // in  che modo è passata al form (vedere anche setDefaultOptions).
+            $entityManager = $options['em'];
+            $transformer = new IssueToNumberTransformer($entityManager);
 
-                // aggiunge un normale campo testuale, ma vi aggiunge il trasformatore
-                $builder->add(
-                    $builder->create('issue', 'text')
-                        ->addModelTransformer($transformer)
-                );
-            }
+            // aggiunge un normale campo testuale, ma vi aggiunge il trasformatore
+            $builder->add(
+                $builder->create('issue', 'text')
+                    ->addModelTransformer($transformer)
+            );
+        }
 
-            public function setDefaultOptions(OptionsResolverInterface $resolver)
-            {
-                $resolver
-                    ->setDefaults(array(
-                        'data_class' => 'Acme\TaskBundle\Entity\Task',
-                    ))
-                    ->setRequired(array(
-                        'em',
-                    ))
-                    ->setAllowedTypes(array(
-                        'em' => 'Doctrine\Common\Persistence\ObjectManager',
-                    ));
-
-                // ...
-            }
+        public function setDefaultOptions(OptionsResolverInterface $resolver)
+        {
+            $resolver
+                ->setDefaults(array(
+                    'data_class' => 'Acme\TaskBundle\Entity\Task',
+                ))
+                ->setRequired(array(
+                    'em',
+                ))
+                ->setAllowedTypes(array(
+                    'em' => 'Doctrine\Common\Persistence\ObjectManager',
+                ));
 
             // ...
         }
+
+        // ...
+    }
 
 Questo esempio richiede il passaggio del gestore di entità come opzione, al momento
 di creare il form. Successivamente, si vedrà come si può creare un tipo di campo
@@ -280,7 +287,7 @@ Prima di tutto, creare una classe::
         public function setDefaultOptions(OptionsResolverInterface $resolver)
         {
             $resolver->setDefaults(array(
-                'invalid_message' => 'The selected issue does not exist',
+                'invalid_message' => 'La issue scelta non esiste',
             ));
         }
 

@@ -68,6 +68,14 @@ il contenitore di servizi per usare la classe factory
 
         $container->setDefinition('newsletter_manager', $definition);
 
+.. note::
+
+    Quando si usa un factory per creare servizi, il valore scelto per l'opzione ``class``
+    non ha effeetto sul servizio risultante. Il nome effettivo della classe dipende solo
+    dall'oggetto restituito dal factory. Tuttavia, il nome configurato della classe
+    può essere usato dai passi di compilatore e quindi dovrebbe essere impostato con
+    un valore adeguato.
+
 Quando si specificare la classe da usare come factory (tramite ``factory_class``),
 il metodo sarà richiamato staticamente. Se il factory stesso va istanziato e il
 metodo dell'oggetto risultante richiamato, configurare il factory stesso come servizio:

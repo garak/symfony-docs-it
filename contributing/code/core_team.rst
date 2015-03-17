@@ -37,29 +37,29 @@ Membri attivi
 
 * **Capo progetto**:
 
-  * **Fabien Potencier** (:leader:`fabpot`).
+  * **Fabien Potencier** (`fabpot`).
 
-* **Merger**:
+* **Merger** (``@symfony/mergers`` su GitHub):
 
-  * **Bernhard Schussek** (:merger:`webmozart`) per i componenti Form_,
+  * **Bernhard Schussek** (`webmozart`) per i componenti Form_,
     Validator_, Icu_, Intl_, Locale_, OptionsResolver_ e PropertyAccess_;
 
 
-  * **Tobias Schultze** (:merger:`Tobion`) per il componente Routing_;
+  * **Tobias Schultze** (`Tobion`) per i componenti Routing_,
+    OptionsResolver_ e PropertyAccess_;
 
-
-  * **Romain Neutron** (:merger:`romainneutron`) per il componente
+  * **Romain Neutron** (`romainneutron`) per il componente
     Process_;
 
-  * **Nicolas Grekas** (:merger:`nicolas-grekas`) per il componente Debug_.
+  * **Nicolas Grekas** (`nicolas-grekas`) per il componente Debug_.
 
 
-  * **Christophe Coevoet** (:merger:`stof`) per i componenti BrowserKit_,
+  * **Christophe Coevoet** (`stof`) per i componenti BrowserKit_,
     Config_, Console_, DependencyInjection_, DomCrawler_, EventDispatcher_,
     HttpFoundation_, HttpKernel_, Serializer_, Stopwatch_, DoctrineBridge_,
     MonologBridge_, e TwigBridge_.
 
-  * **Kévin Dunglas** (:merger:`dunglas`) per il componente Serializer_.
+  * **Kévin Dunglas** (`dunglas`) per il componente Serializer_.
 
 
 * **Decider**:
@@ -168,3 +168,14 @@ a discrezione del **capo progetto**.
 .. _Stopwatch: https://github.com/symfony/Stopwatch
 .. _TwigBridge: https://github.com/symfony/TwigBridge
 .. _Validator: https://github.com/symfony/Validator
+.. _`fabpot`: https://github.com/fabpot/
+.. _`webmozart`: https://github.com/webmozart/
+.. _`Tobion`: https://github.com/Tobion/
+.. _`romainneutron`: https://github.com/romainneutron/
+.. _`nicolas-grekas`: https://github.com/nicolas-grekas/
+.. _`stof`: https://github.com/stof/
+.. _`dunglas`: https://github.com/dunglas/
+.. _`jakzal`: https://github.com/jakzal/
+.. _`Seldaek`: https://github.com/Seldaek/
+.. _`lsmith77`: https://github.com/lsmith77/
+.. _`weaverryan`: https://github.com/weaverryan/

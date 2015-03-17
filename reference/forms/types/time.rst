@@ -89,7 +89,7 @@ input
 IL formato dei dati di *ingresso*, cioè il formato in cui la data è memorizzata
 nell'oggetto sottostante. Valori validi sono:
 
-* ``stringa`` (p.e. ``12:17:26``)
+* ``string`` (p.e. ``12:17:26``)
 * ``datetime`` (un oggetto ``DateTime``)
 * ``array`` (p.e. ``array('hour' => 12, 'minute' => 17, 'second' => 26)``)
 * ``timestamp`` (p.e. ``1307232000``)

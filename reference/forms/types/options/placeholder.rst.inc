@@ -3,7 +3,7 @@ placeholder
 
 .. versionadded:: 2.6
     L'opzione ``placeholder`` è stata introdotta in Symfony 2.6, al posto di
-    ``placeholder``, che è disponibile per le versioni precedenti.
+    ``empty_value``, che è disponibile per le versioni precedenti.
 
 .. versionadded:: 2.3
     Da Symfony 2.3, si possono usare valori vuoti anche se l'opzione ``expanded``

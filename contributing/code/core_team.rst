@@ -37,37 +37,40 @@ Membri attivi
 
 * **Capo progetto**:
 
-  * **Fabien Potencier** (`fabpot`).
+  * **Fabien Potencier** (`fabpot`_).
 
 * **Merger** (``@symfony/mergers`` su GitHub):
 
-  * **Bernhard Schussek** (`webmozart`) per i componenti Form_,
+  * **Bernhard Schussek** (`webmozart`_) per i componenti Form_,
     Validator_, Icu_, Intl_, Locale_, OptionsResolver_ e PropertyAccess_;
 
 
-  * **Tobias Schultze** (`Tobion`) per i componenti Routing_,
+  * **Tobias Schultze** (`Tobion`_) per i componenti Routing_,
     OptionsResolver_ e PropertyAccess_;
 
-  * **Romain Neutron** (`romainneutron`) per il componente
+  * **Romain Neutron** (`romainneutron`_) per il componente
     Process_;
 
-  * **Nicolas Grekas** (`nicolas-grekas`) per il componente Debug_.
+  * **Nicolas Grekas** (`nicolas-grekas`_) per il componente Debug_.
 
 
-  * **Christophe Coevoet** (`stof`) per i componenti BrowserKit_,
+  * **Christophe Coevoet** (`stof`_) per i componenti BrowserKit_,
     Config_, Console_, DependencyInjection_, DomCrawler_, EventDispatcher_,
     HttpFoundation_, HttpKernel_, Serializer_, Stopwatch_, DoctrineBridge_,
     MonologBridge_, e TwigBridge_.
 
-  * **Kévin Dunglas** (`dunglas`) per il componente Serializer_.
+  * **Kévin Dunglas** (`dunglas`_) per il componente Serializer_.
+
+
+  * **Abdellatif AitBoudad** (`aitboudad`_) per il componente Translation_.
 
 
 * **Decider**:
 
-  * **Jakub Zalas** (:decider:`jakzal`);
-  * **Jordi Boggiano** (:decider:`seldaek`);
-  * **Lukas Kahwe Smith** (:decider:`lsmith77`);
-  * **Ryan Weaver** (:decider:`weaverryan`).
+  * **Jakub Zalas** (`jakzal`_);
+  * **Jordi Boggiano** (`seldaek`_);
+  * **Lukas Kahwe Smith** (`lsmith77`_);
+  * **Ryan Weaver** (`weaverryan`_).
 
 Richiesta di affiliazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,6 +168,7 @@ a discrezione del **capo progetto**.
 .. _PropertyAccess: https://github.com/symfony/PropertyAccess
 .. _Routing: https://github.com/symfony/Routing
 .. _Serializer: https://github.com/symfony/Serializer
+.. _Translation: https://github.com/symfony/Translation
 .. _Stopwatch: https://github.com/symfony/Stopwatch
 .. _TwigBridge: https://github.com/symfony/TwigBridge
 .. _Validator: https://github.com/symfony/Validator
@@ -179,3 +183,4 @@ a discrezione del **capo progetto**.
 .. _`Seldaek`: https://github.com/Seldaek/
 .. _`lsmith77`: https://github.com/lsmith77/
 .. _`weaverryan`: https://github.com/weaverryan/
+.. _`aitboudad`: https://github.com/aitboudad/

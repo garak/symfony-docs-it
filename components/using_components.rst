@@ -36,12 +36,6 @@ componente desiderato.
     nella cartella. In questo caso, nessun problema! Basta eseguire
     ``php composer.phar require symfony/finder``.
 
-Se si sa di aver bisogno di una versione specifica della libreria, aggiungerla al comando:
-
-.. code-block:: bash
-
-    $ composer require symfony/finder:2.3.1
-
 **3.** Scrivere il proprio codice!
 
 Una volta che Composer ha scaricato i componenti, basterà includere il
@@ -51,8 +45,9 @@ immediatamente::
 
     // File esempio: src/script.php
 
-    // cambiare il percorso in quello della cartella "vendor/", relativamente a questo file
-    require_once__DIR__.'/../vendor/autoload.php';
+    // cambiare il percorso in quello della cartella "vendor/"
+    // relativamente a questo file
+    require_once __DIR__.'/../vendor/autoload.php';
 
     use Symfony\Component\Finder\Finder;
 

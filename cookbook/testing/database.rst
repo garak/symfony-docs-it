@@ -33,7 +33,7 @@ repository.
 
 Supponiamo che la classe da testare sia come questa::
 
-    namespace Acme\DemoBundle\Salary;
+    namespace AppBundle\Salary;
 
     use Doctrine\Common\Persistence\ObjectManager;
 
@@ -48,7 +48,8 @@ Supponiamo che la classe da testare sia come questa::
 
         public function calculateTotalSalary($id)
         {
-            $employeeRepository = $this->entityManager->getRepository('AcmeDemoBundle::Employee');
+            $employeeRepository = $this->entityManager
+                ->getRepository('AppBundle:Employee');
             $employee = $employeeRepository->find($id);
 
             return $employee->getSalary() + $employee->getBonus();
@@ -58,7 +59,7 @@ Supponiamo che la classe da testare sia come questa::
 Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
 è facile passare un oggetto mock in un test::
 
-    use Acme\DemoBundle\Salary\SalaryCalculator;
+    use AppBundle\Salary\SalaryCalculator;
 
     class SalaryCalculatorTest extends \PHPUnit_Framework_TestCase
     {
@@ -74,7 +75,8 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
                 ->will($this->returnValue(1100));
 
             // ora serve il mock del repository, in modo che restituisca il mock di Employee
-            $employeeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+            $employeeRepository = $this
+                ->getMockBuilder('\Doctrine\ORM\EntityRepository')
                 ->disableOriginalConstructor()
                 ->getMock();
             $employeeRepository->expects($this->once())
@@ -82,7 +84,8 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
                 ->will($this->returnValue($employee));
 
             // infine, serve il mock di EntityManager, per restituire il mock del repository
-            $entityManager = $this->getMockBuilder('\Doctrine\Common\Persistence\ObjectManager')
+            $entityManager = $this
+                ->getMockBuilder('\Doctrine\Common\Persistence\ObjectManager')
                 ->disableOriginalConstructor()
                 ->getMock();
             $entityManager->expects($this->once())

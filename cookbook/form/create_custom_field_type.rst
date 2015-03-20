@@ -20,8 +20,8 @@ sarà chiamata `GenderType` e il file sarà salvato nella cartella predefinita c
 i campi del form, che è ``<NomeBundle>\Form\Type``. Assicurarsi che il campo estenda
 :class:`Symfony\\Component\\Form\\AbstractType`::
 
-    // src/Acme/DemoBundle/Form/Type/GenderType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/GenderType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -111,7 +111,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
 
     .. code-block:: html+jinja
 
-        {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
+        {# src/AppBundle/Resources/views/Form/fields.html.twig #}
         {% block gender_widget %}
             {% spaceless %}
                 {% if expanded %}
@@ -132,7 +132,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
 
     .. code-block:: html+php
 
-        <!-- src/Acme/DemoBundle/Resources/views/Form/gender_widget.html.php -->
+        <!-- src/AppBundle/Resources/views/Form/gender_widget.html.php -->
         <?php if ($expanded) : ?>
             <ul <?php $view['form']->block($form, 'widget_container_attributes') ?>>
             <?php foreach ($form as $child) : ?>
@@ -164,14 +164,14 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
             twig:
                 form:
                     resources:
-                        - 'AcmeDemoBundle:Form:fields.html.twig'
+                        - 'AppBundle:Form:fields.html.twig'
 
         .. code-block:: xml
 
             <!-- app/config/config.xml -->
             <twig:config>
                 <twig:form>
-                    <twig:resource>AcmeDemoBundle:Form:fields.html.twig</twig:resource>
+                    <twig:resource>AppBundle:Form:fields.html.twig</twig:resource>
                 </twig:form>
             </twig:config>
 
@@ -181,7 +181,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
             $container->loadFromExtension('twig', array(
                 'form' => array(
                     'resources' => array(
-                        'AcmeDemoBundle:Form:fields.html.twig',
+                        'AppBundle:Form:fields.html.twig',
                     ),
                 ),
             ));
@@ -197,7 +197,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
                 templating:
                     form:
                         resources:
-                            - 'AcmeDemoBundle:Form'
+                            - 'AppBundle:Form'
 
         .. code-block:: xml
 
@@ -212,7 +212,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
                 <framework:config>
                     <framework:templating>
                         <framework:form>
-                            <framework:resource>AcmeDemoBundle:Form</twig:resource>
+                            <framework:resource>AppBundle:Form</twig:resource>
                         </framework:form>
                     </framework:templating>
                 </framework:config>
@@ -225,7 +225,7 @@ vogliamo sempre la resa del campo in un elemento ``ul``. Nel template del propri
                 'templating' => array(
                     'form' => array(
                         'resources' => array(
-                            'AcmeDemoBundle:Form',
+                            'AppBundle:Form',
                         ),
                     ),
                 ),
@@ -237,8 +237,8 @@ Utilizzare il tipo di campo
 Ora si può utilizzare il tipo di campo immediatamente, creando semplicemente una
 nuova istanza del tipo in un form::
 
-    // src/Acme/DemoBundle/Form/Type/AuthorType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/AuthorType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -301,10 +301,10 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
 
     .. code-block:: yaml
 
-        # src/Acme/DemoBundle/Resources/config/services.yml
+        # src/AppBundle/Resources/config/services.yml
         services:
             acme_demo.form.type.gender:
-                class: Acme\DemoBundle\Form\Type\GenderType
+                class: AppBundle\Form\Type\GenderType
                 arguments:
                     - "%genders%"
                 tags:
@@ -312,20 +312,20 @@ i valori dei parametri di ``genders`` come primo parametro del metodo
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
-        <service id="acme_demo.form.type.gender" class="Acme\DemoBundle\Form\Type\GenderType">
+        <!-- src/AppBundle/Resources/config/services.xml -->
+        <service id="acme_demo.form.type.gender" class="AppBundle\Form\Type\GenderType">
             <argument>%genders%</argument>
             <tag name="form.type" alias="gender" />
         </service>
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Resources/config/services.php
+        // src/AppBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
         $container
             ->setDefinition('acme_demo.form.type.gender', new Definition(
-                'Acme\DemoBundle\Form\Type\GenderType',
+                'AppBundle\Form\Type\GenderType',
                 array('%genders%')
             ))
             ->addTag('form.type', array(
@@ -343,8 +343,8 @@ dal metodo ``getName`` definito precedentemente. Si vedrà l'importanza
 di questo nel momento in cui si utilizzerà il tipo di campo. Ma prima, si aggiunga al metodo ``__construct``
 di ``GenderType`` un parametro, che riceverà la configurazione di gender::
 
-    // src/Acme/DemoBundle/Form/Type/GenderType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/GenderType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -374,8 +374,8 @@ Benissimo! Il tipo ``GenderType`` è ora caricato con i parametri di configurazi
 registrato come servizio. Poiché nella configurazione del servizio si usa un alias per ``form.type``,
 utilizzare il campo risulta ora molto semplice::
 
-    // src/Acme/DemoBundle/Form/Type/AuthorType.php
-    namespace Acme\DemoBundle\Form\Type;
+    // src/AppBundle/Form/Type/AuthorType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\FormBuilderInterface;
 

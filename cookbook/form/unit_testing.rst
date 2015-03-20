@@ -36,7 +36,7 @@ I fondamentali
 
 L'implementazione più semplice di ``TypeTestCase`` assomiglia a questa::
 
-    // src/Acme/TestBundle/Tests/Form/Type/TestedTypeTests.php
+    // src/Acme/TestBundle/Tests/Form/Type/TestedTypeTest.php
     namespace Acme\TestBundle\Tests\Form\Type;
 
     use Acme\TestBundle\Form\Type\TestedType;
@@ -55,8 +55,7 @@ L'implementazione più semplice di ``TypeTestCase`` assomiglia a questa::
             $type = new TestedType();
             $form = $this->factory->create($type);
 
-            $object = new TestObject();
-            $object->fromArray($formData);
+            $object = TestObject::fromArray($formData);
 
             // invia direttamente i dati al form
             $form->submit($formData);
@@ -184,7 +183,7 @@ da altre estensioni. Occorre aggiungere tali estensioni all'oggetto factory::
         protected function setUp()
         {
             parent::setUp();
-            
+
             $validator = $this->getMock('\Symfony\Component\Validator\ValidatorInterface');
             $validator->method('validate')->will($this->returnValue(new ConstraintViolationList()));
 

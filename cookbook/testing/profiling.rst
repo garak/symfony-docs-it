@@ -21,7 +21,8 @@ predefinita in ambiente ``test``)::
         {
             $client = static::createClient();
 
-            // Abilita il profilatore per la richiesta successiva (se il profilatore non è abilitato, non succede nulla)
+            // Abilita il profilatore per la richiesta successiva
+            // (se il profilatore non è abilitato, non succede nulla)
             $client->enableProfiler();
 
             $crawler = $client->request('GET', '/hello/Fabien');
@@ -51,7 +52,7 @@ sono finiti. È facile, basta inserire il token nel messaggio di errore::
 
     $this->assertLessThan(
         30,
-        $profile->get('db')->getQueryCount(),
+        $profile->getCollector('db')->getQueryCount(),
         sprintf(
             'Verifica che ci siano meno di 30 query (token %s)',
             $profile->getToken()

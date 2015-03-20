@@ -150,8 +150,8 @@ La configurazione seguente mostra come configurare due gestori di entità:
 
 In questo caso, sono stati definiti due gestori di entità, chiamati ``default``
 e ``customer``. Il gestore di entità ``default`` gestisce le entità in
-``AcmeDemoBundle`` e ``AcmeStoreBundle``, mentre il gestore di entità ``customer``
-gestisce le entità in ``AcmeCustomerBundle``. Sono state definite anche due
+AppBundle e AcmeStoreBundle, mentre il gestore di entità ``customer``
+gestisce le entità in AcmeCustomerBundle. Sono state definite anche due
 connessioni, una per ogni gestore di entità.
 
 .. note::

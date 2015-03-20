@@ -229,9 +229,9 @@ Estendere i bundle
 Se si seguono queste convenzioni, si può usare
 l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>`
 per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
-chiamato ``AcmeNewBundle`` estende AcmeDemoBundle, Symfony proverà a caricare
-prima il controllore ``AcmeDemoBundle:Welcome:index`` da AcmeNewBundle e poi
-cercherà in AcmeDemoBundle. Questo vuol dire che un bundle può sovrascrivere
+chiamato NewBundle estende AppBundle, Symfony proverà a caricare
+prima il controllore ``DefaultController`` da NewBundle e poi
+cercherà in AppBundle. Questo vuol dire che un bundle può sovrascrivere
 quasi ogni parte di un altro bundle!
 
 È chiaro ora perché Symfony è così flessibile? Condividere bundle tra le

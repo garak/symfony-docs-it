@@ -84,7 +84,7 @@ abilitare ``translator`` nella configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('framework', array(
-            'translator' => array('fallback' => 'en'),
+            'translator' => array('fallbacks' => array('en')),
         ));
 
 Vedere :ref:`book-translation-fallback` per dettagli sulla voce ``fallbacks``
@@ -339,7 +339,7 @@ Symfony cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
 * la cartella ``app/Resources/translations``;
 
-* la cartella ``app/Resources/<bundle>/translations``;
+* la cartella ``app/Resources/<nome bundle>/translations``;
 
 * la cartella ``Resources/translations/`` del bundle.
 
@@ -421,17 +421,28 @@ tramite l'oggetto ``request``::
     public function indexAction(Request $request)
     {
         $locale = $request->getLocale();
-
-        $request->setLocale('en_US');
     }
 
-.. tip::
+Per impostare il locale dell'utente, si potrebbe voler creare un ascoltatore di eventi personalizzato,
+in modo che sia impostato prima che altre parti del sistema (come il traduttore)
+ne abbiano bisogno::
 
-    Leggere :doc:`/cookbook/session/locale_sticky_session` per imparare come memorizzare
-    il locale in sessione.
+        public function onKernelRequest(GetResponseEvent $event)
+        {
+            $request = $event->getRequest();
 
-.. index::
-   single: Traduzioni; Fallback e locale predefinito
+            // della logica che determina $locale
+            $request->getSession()->set('_locale', $locale);
+        }
+
+Leggere :doc:`/cookbook/session/locale_sticky_session` per approfondimenti sull'argomento.
+
+.. note::
+
+    Se si usa ``$request->setLocale()`` in un controllore, è troppo tardi
+    per influenzare il traduttore. Si deve impostare il locale tramite un ascoltatore
+    (vedere sopra), l'URL (vedere avanti) o richiamare ``setLocale()`` direttamente sul
+    servizio ``translator``.
 
 Vedere la sezione seguente, :ref:`book-translation-locale-url`, per impostare il
 locale tramite rotte.
@@ -511,6 +522,9 @@ nell'applicazione.
 
     Leggere :doc:`/cookbook/routing/service_container_parameters` per imparare come
     evitare di inserire manualmente il requisito ``_locale`` in ogni rotta.
+
+.. index::
+   single: Traduzioni; Rimandare al locale predefinito
 
 Impostare un locale predefinito
 -------------------------------

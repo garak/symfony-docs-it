@@ -444,14 +444,14 @@ factory.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/AcmeDemoBundle.php
-    namespace Acme\DemoBundle;
+    // src/AppBundle/AppBundle.php
+    namespace AppBundle;
 
-    use Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory;
+    use AppBundle\DependencyInjection\Security\Factory\WsseFactory;
     use Symfony\Component\HttpKernel\Bundle\Bundle;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-    class AcmeDemoBundle extends Bundle
+    class AppBundle extends Bundle
     {
         public function build(ContainerBuilder $container)
         {

@@ -14,11 +14,11 @@ Registrare comandi automaticamente
 Per rendere disponibili automaticamente i comandi in Symfony, creare una cartella
 ``Command`` nel proprio bundle e creare un file php, con suffisso
 ``Command.php``, per ciascun comando che si vuole fornire. Per esempio, se si vuole
-estendere AcmeDemoBundle, per mandare un saluto dalla linea di comando, creare
+estendere AppBundle, per mandare un saluto dalla linea di comando, creare
 ``GreetCommand.php`` e aggiungervi il codice seguente::
 
-    // src/Acme/DemoBundle/Command/GreetCommand.php
-    namespace Acme\DemoBundle\Command;
+    // src/AppBundle/Command/GreetCommand.php
+    namespace AppBundle\Command;
 
     use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
     use Symfony\Component\Console\Input\InputArgument;

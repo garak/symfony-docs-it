@@ -41,7 +41,7 @@ come spiegato sotto:
 
         remove_trailing_slash:
             path: /{url}
-            defaults: { _controller: AcmeDemoBundle:Redirecting:removeTrailingSlash }
+            defaults: { _controller: AppBundle:Redirecting:removeTrailingSlash }
             requirements:
                 url: .*/$
             methods: [GET]
@@ -51,7 +51,7 @@ come spiegato sotto:
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing">
             <route id="remove_trailing_slash" path="/{url}" methods="GET">
-                <default key="_controller">AcmeDemoBundle:Redirecting:removeTrailingSlash</default>
+                <default key="_controller">AppBundle:Redirecting:removeTrailingSlash</default>
                 <requirement key="url">.*/$</requirement>
             </route>
         </routes>
@@ -67,7 +67,7 @@ come spiegato sotto:
             new Route(
                 '/{url}',
                 array(
-                    '_controller' => 'AcmeDemoBundle:Redirecting:removeTrailingSlash',
+                    '_controller' => 'AppBundle:Redirecting:removeTrailingSlash',
                 ),
                 array(
                     'url' => '.*/$',

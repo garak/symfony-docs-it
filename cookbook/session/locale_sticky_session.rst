@@ -106,3 +106,110 @@ per ottenere il locale dell'utente::
     {
         $locale = $request->getLocale();
     }
+
+Impostare il locale in base alle preferenze dell'utente
+-------------------------------------------------------
+
+Si potrebbe voler migliorare questa tecnica ulteriormente, definedno il locale in base all'entità
+dell'utente o all'utente connesso. Tuttavia, poiché ``LocaleListener`` è richiamato
+prima di ``FirewallListener``, che si occupa di gestira l'autenticazione e
+impostre il token dell'utente su ``TokenStorage``, non si può accedere
+all'utente connesso.
+
+Si supponga di aver definito una proprietà ``locale`` nella propria entità ``User`` e di
+volerla usare come locale per l'utente dato. Per arrivare allo scopo,
+ci si può agganciare al processo di login e aggiornare la sessione dell'utente con questo
+valore di locale, prima che sia rinviato alla prima pagina.
+
+Per poterlo fare, occorre un ascoltare di eventi per l'evento ``security.interactive_login``:
+
+
+.. code-block:: php
+
+    // src/AppBundle/EventListener/UserLocaleListener.php
+    namespace AppBundle\EventListener;
+
+    use Symfony\Component\HttpFoundation\Session\Session;
+    use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+
+    /**
+     * Memorizza il locale dell'utente in sessione, dopo il
+     * login. Potrà quindi essere usato da LocaleListener.
+     */
+    class UserLocaleListener
+    {
+        /**
+         * @var Session
+         */
+        private $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
+
+        /**
+         * @param InteractiveLoginEvent $event
+         */
+        public function onInteractiveLogin(InteractiveLoginEvent $event)
+        {
+            $user = $event->getAuthenticationToken()->getUser();
+
+            if (null !== $user->getLocale()) {
+                $this->session->set('_locale', $user->getLocale());
+            }
+        }
+    }
+
+Registrare quindi l'ascoltatore:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/services.yml
+        services:
+            app.user_locale_listener:
+                class: AppBundle\EventListener\UserLocaleListener
+                arguments: [@session]
+                tags:
+                    - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin }
+
+    .. code-block:: xml
+
+        <!-- app/config/services.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="app.user_locale_listener"
+                    class="AppBundle\EventListener\UserLocaleListener">
+
+                    <argument type="service" id="session"/>
+
+                    <tag name="kernel.event_listener"
+                        event="security.interactive_login"
+                        method="onInteractiveLogin" />
+                </service>
+            </services>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/services.php
+        $container
+            ->register('app.user_locale_listener', 'AppBundle\EventListener\UserLocaleListener')
+            ->addArgument('session')
+            ->addTag(
+                'kernel.event_listener',
+                array('event' => 'security.interactive_login', 'method' => 'onInteractiveLogin'
+            );
+
+.. caution::
+
+    Per poter aggiornare la lingua immediatamente dopo che un utente ha modificato
+    le sue preferenze, si deve aggiornare la sessione dopo un aggiornamento
+    dell'entità  ``User``.

@@ -155,13 +155,22 @@ il kernel della cache::
     $kernel->loadClassCache();
     // inserisce AppKernel all'interno di AppCache
     $kernel = new AppCache($kernel);
+
     $request = Request::createFromGlobals();
+
     $response = $kernel->handle($request);
     $response->send();
+
     $kernel->terminate($request, $response);
 
 Il kernel della cache agirà immediatamente da reverse proxy, mettendo in cache
 le risposte dell'applicazione e restituendole al client.
+
+.. caution::
+
+    Se si usa l'opzione :ref:`framework.http_method_override <configuration-framework-http_method_override>`
+    per leggere il metodo HTTP da un parametro ``_method``, vedere il collegamento precedente
+    per un trucco da applicare.
 
 .. tip::
 
@@ -574,18 +583,24 @@ l'applicazione restituirebbe. Un ``ETag`` è come un'impronta digitale ed è usa
 confrontare rapidamente se due diverse versioni di una risorsa siano equivalenti. Come le
 impronte digitali, ogni ``ETag`` deve essere univoco tra tutte le rappresentazioni della stessa risorsa.
 
-Vediamo una semplice implementazione, che genera l'ETag come un md5 del contenuto::
+Ecco una semplice implementazione, che genera l'ETag come un md5 del contenuto::
+
+    // src/AppBundle/Controller/DefaultController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\Request;
 
-    public function indexAction(Request $request)
+    class DefaultController extends Controller
     {
-        $response = $this->render('MyBundle:Main:index.html.twig');
-        $response->setETag(md5($response->getContent()));
-        $response->setPublic(); // assicurarsi che la risposta sia pubblica
-        $response->isNotModified($request);
+        public function homepageAction(Request $request)
+        {
+            $response = $this->render('static/homepage.html.twig');
+            $response->setETag(md5($response->getContent()));
+            $response->setPublic(); // assicurarsi che la risposta sia pubblica
+            $response->isNotModified($request);
 
-        return $response;
+            return $response;
+        }
     }
 
 Il metodo :method:`Symfony\\Component\\HttpFoundation\\Response::isNotModified`
@@ -632,28 +647,36 @@ Per esempio, si può usare la data di ultimo aggiornamento per tutti gli oggetti
 necessari per calcolare la rappresentazione della risorsa come valore dell'header
 ``Last-Modified``::
 
+    // src/AppBundle/Controller/ArticleController.php
+    namespace AppBundle\Controller;
+
+    // ...
     use Symfony\Component\HttpFoundation\Request;
+    use AppBundle\Entity\Article;
 
-    public function showAction($articleSlug, Request $request)
+    class ArticleController extends Controller
     {
-        // ...
+        public function showAction(Article $article, Request $request)
+        {
+            $author = $article->getAuthor();
 
-        $articleDate = new \DateTime($article->getUpdatedAt());
-        $authorDate = new \DateTime($author->getUpdatedAt());
+            $articleDate = new \DateTime($article->getUpdatedAt());
+            $authorDate = new \DateTime($author->getUpdatedAt());
 
-        $date = $authorDate > $articleDate ? $authorDate : $articleDate;
+            $date = $authorDate > $articleDate ? $authorDate : $articleDate;
 
-        $response->setLastModified($date);
-        // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
-        $response->setPublic();
+            $response->setLastModified($date);
+            // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
+            $response->setPublic();
 
-        if ($response->isNotModified($request)) {
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+
+            // ... fare qualcosa per popolare la risposta con il contenuto completo
+
             return $response;
         }
-
-        // ... fare qualcosa per popolare la risposta con il contenuto completo
-
-        return $response;
     }
 
 Il metodo method:`Symfony\\Component\\HttpFoundation\\Response::isNotModified`
@@ -682,40 +705,46 @@ In altre parole, meno un'applicazione fa per restituire una risposta 304,
 meglio è. Il metodo ``Response::isNotModified()`` fa esattamente questo, esponendo
 uno schema semplice ed efficiente::
 
+    // src/AppBundle/Controller/ArticleController.php
+    namespace AppBundle\Controller;
+
+    // ...
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpFoundation\Request;
 
-    public function showAction($articleSlug, Request $request)
+    class ArticleController extends Controller
     {
-        // Prende l'informazione minima per calcolare
-        // l'ETag o o il valore di Last-Modified
-        // (in base alla Request, i dati sono recuperati da una
-        // base dati o da una memoria chiave-valore, per esempio)
-        $article = ...;
+        public function showAction($articleSlug, Request $request)
+        {
+            // Prende l'informazione minima per calcolare
+            // l'ETag o o il valore di Last-Modified
+            // (in base alla Request, i dati sono recuperati da una
+            // base dati o da una memoria chiave-valore, per esempio)
+            $article = ...;
 
-        // crea una Response con un ETag e/o un header Last-Modified
-        $response = new Response();
-        $response->setETag($article->computeETag());
-        $response->setLastModified($article->getPublishedAt());
+            // crea una Response con un ETag e/o un header Last-Modified
+            $response = new Response();
+            $response->setETag($article->computeETag());
+            $response->setLastModified($article->getPublishedAt());
 
-        // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
-        $response->setPublic();
+            // imposta la risposta come pubblica. Altrimenti, è privata come valore predefinito.
+            $response->setPublic();
 
-        // Verifica che la Response non sia modificata per la Request data
-        if ($response->isNotModified($request)) {
-            // restituisce subito la Response 304
-            return $response;
+            // Verifica che la Response non sia modificata per la Request data
+            if ($response->isNotModified($request)) {
+                // restituisce subito la Response 304
+                return $response;
+            }
+
+            // qui fare qualcosa, come recuperare altri dati
+            $comments = ...;
+
+            // o rendere un template con la $response già iniziata
+            return $this->render('article/show.html.twig', array(
+                'article' => $article,
+                'comments' => $comments
+            ), $response);
         }
-
-        // qui fare qualcosa, come recuperare altri dati
-        $comments = ...;
-
-        // o rendere un template con la $response già iniziata
-        return $this->render(
-            'MyBundle:MyController:article.html.twig',
-            array('article' => $article, 'comments' => $comments),
-            $response
-        );
     }
 
 Quando la ``Response`` non è stata modificata, ``isNotModified()`` imposta automaticamente
@@ -798,8 +827,8 @@ utili::
     // Forza la risposta a restituire un 304 senza contenuti
     $response->setNotModified();
 
-Inoltre, la maggior parte degli header HTTP relativi alla cache può essere impostata
-tramite il singolo metodo ``setCache()``::
+Inoltre, la maggior parte degli header HTTP relativi alla cache può essere impostata tramite il singolo
+metodo :method:`Symfony\\Component\\HttpFoundation\\Response::setCache`::
 
     // Imposta le opzioni della cache in una sola chiamata
     $response->setCache(array(
@@ -865,10 +894,10 @@ metodo HTTP ``PURGE``::
 
     // app/AppCache.php
 
-    // ...
     use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
+    // ...
 
     class AppCache extends HttpCache
     {
@@ -1017,13 +1046,19 @@ indipendentemente dal resto della pagina.
 
 .. code-block:: php
 
-    public function indexAction()
-    {
-        $response = $this->render('MyBundle:MyController:index.html.twig');
-        // imposta il tempo massimo condiviso, il che rende la risposta pubblica
-        $response->setSharedMaxAge(600);
+    // src/AppBundle/Controller/DefaultController.php
 
-        return $response;
+    // ...
+    class DefaultController extends Controller
+    {
+        public function aboutAction()
+        {
+            $response = $this->render('static/about.html.twig');
+            // imposta il tempo massimo condiviso, il che rende la risposta pubblica
+            $response->setSharedMaxAge(600);
+
+            return $response;
+        }
     }
 
 In questo esempio, abbiamo dato alla cache della pagina intera un tempo di vita di dieci
@@ -1038,21 +1073,36 @@ Symfony usa l'aiutante ``render`` per configurare i tag ESI:
 
     .. code-block:: jinja
 
+        {# app/Resources/views/static/about.html.twig #}
+
         {# si può fare riferimento a un controllore #}
-        {{ render_esi(controller('...:news', { 'maxPerPage': 5 })) }}
+        {{ render_esi(controller('AppBundle:News:latest', { 'maxPerPage': 5 })) }}
 
         {# ... o a un URL #}
         {{ render_esi(url('latest_news', { 'maxPerPage': 5 })) }}
 
     .. code-block:: html+php
 
-        <?php echo $view['actions']->render(
-            new \Symfony\Component\HttpKernel\Controller\ControllerReference('...:news', array('maxPerPage' => 5)),
-            array('strategy' => 'esi'))
-        ?>
+        <!-- app/Resources/views/static/about.html.php -->
 
+        // si può fare riferimento a un controllore
+        use Symfony\Component\HttpKernel\Controller\ControllerReference;
         <?php echo $view['actions']->render(
-            $view['router']->generate('latest_news', array('maxPerPage' => 5), true),
+            new ControllerReference(
+                'AppBundle:News:latest',
+                array('maxPerPage' => 5)
+            ),
+            array('strategy' => 'esi')
+        ) ?>
+
+        // ... o a un URL
+        use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+        <?php echo $view['actions']->render(
+            $view['router']->generate(
+                'latest_news',
+                array('maxPerPage' => 5),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
             array('strategy' => 'esi'),
         ) ?>
 
@@ -1089,11 +1139,19 @@ dalla pagina principale.
 
 .. code-block:: php
 
-    public function newsAction($maxPerPage)
-    {
-        // ...
+    // src/AppBundle/Controller/NewsController.php
+    namespace AppBundle\Controller;
 
-        $response->setSharedMaxAge(60);
+    // ...
+    class NewsController extends Controller
+    {
+        public function latestAction($maxPerPage)
+        {
+            // ...
+            $response->setSharedMaxAge(60);
+
+            return $response;
+        }
     }
 
 Con ESI, la cache dell'intera pagina sarà valida per 600 secondi, mentre il
@@ -1158,7 +1216,7 @@ accessi al minimo.
     direttiva ``max-age`` e metterà in cache l'intera pagina. E questo non è quello che
     vogliamo.
 
-L'aiutante ``render`` supporta due utili opzioni:
+L'aiutante ``render_esi`` supporta due utili opzioni:
 
 ``alt``
     usato come attributo ``alt`` nel tag ESI, che consente di specificare

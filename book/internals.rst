@@ -58,7 +58,7 @@ le richieste. Fornisce anche dei punti di estensione e degli strumenti che lo
 rendono il punto di partenza ideale per creare un framework web senza troppe sovrastrutture.
 
 Opzionalmente, aggiunge anche configurabilità ed estensibilità, grazie al
-componente Dependency Injection e a un potente sistema di plugin (bundle).
+componente DependencyInjection e a un potente sistema di plugin (bundle).
 
 .. seealso::
 

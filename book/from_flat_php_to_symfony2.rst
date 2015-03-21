@@ -121,7 +121,7 @@ essenzialmente un file HTML che usa una sintassi PHP per template:
                         <?php echo $post['title'] ?>
                     </a>
                 </li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
         </body>
     </html>
@@ -238,7 +238,7 @@ Il template (``templates/list.php``) ora può essere semplificato, per
                     <?php echo $post['title'] ?>
                 </a>
             </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ul>
     <?php $content = ob_get_clean() ?>
 

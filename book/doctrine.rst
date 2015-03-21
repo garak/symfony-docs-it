@@ -443,13 +443,13 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. _book-doctrine-creating-the-database-tables-schema:
 
-Creare tabelle e schema dela base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creare tabelle e schema della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora si ha una classe ``Product`` usabile, con informazioni di mappatura che consentono
 a Doctrine di sapere esattamente come persisterla. Ovviamente, non si ha ancora la
 corrispondente tabella ``product`` nella propria base dati. Fortunatamente, Doctrine può
-creare automaticamente tutte le tabelle dela base dati necessarie a ogni entità nota
+creare automaticamente tutte le tabelle della base dati necessarie a ogni entità nota
 nella propria applicazione. Per farlo, eseguire:
 
 .. code-block:: bash

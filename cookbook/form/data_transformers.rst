@@ -114,9 +114,9 @@ Usare il trasformatore
 Dopo aver creato il trasformatore, basta aggiungerlo al campo issue in
 un form.
 
-    Si possono anche usare i trasformatori senza creare un nuovo tipo di form,
-    richiamando ``addModelTransformer`` (o ``addViewTransformer``, vedere
-    `Trasformatore per modelli e viste`_) sul builder di un campo::
+Si possono anche usare i trasformatori senza creare un nuovo tipo di form,
+richiamando ``addModelTransformer`` (o ``addViewTransformer``, vedere
+`Trasformatore per modelli e viste`_) sul builder di un campo::
 
     use Symfony\Component\Form\FormBuilderInterface;
     use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;

@@ -427,28 +427,17 @@ tramite l'oggetto ``request``::
     public function indexAction(Request $request)
     {
         $locale = $request->getLocale();
+
+        $request->setLocale('en_US');
     }
 
-Per impostare il locale dell'utente, si potrebbe voler creare un ascoltatore di eventi personalizzato,
-in modo che sia impostato prima che altre parti del sistema (come il traduttore)
-ne abbiano bisogno::
+.. tip::
 
-        public function onKernelRequest(GetResponseEvent $event)
-        {
-            $request = $event->getRequest();
+     Leggere :doc:`/cookbook/session/locale_sticky_session` per
+     approfondimenti sull'argomento.
 
-            // della logica che determina $locale
-            $request->getSession()->set('_locale', $locale);
-        }
-
-Leggere :doc:`/cookbook/session/locale_sticky_session` per approfondimenti sull'argomento.
-
-.. note::
-
-    Se si usa ``$request->setLocale()`` in un controllore, è troppo tardi
-    per influenzare il traduttore. Si deve impostare il locale tramite un ascoltatore
-    (vedere sopra), l'URL (vedere avanti) o richiamare ``setLocale()`` direttamente sul
-    servizio ``translator``.
+.. index::
+   single: Traduzioni; Rimandare al locale predefinito
 
 Vedere la sezione seguente, :ref:`book-translation-locale-url`, per impostare il
 locale tramite rotte.
@@ -528,9 +517,6 @@ nell'applicazione.
 
     Leggere :doc:`/cookbook/routing/service_container_parameters` per imparare come
     evitare di inserire manualmente il requisito ``_locale`` in ogni rotta.
-
-.. index::
-   single: Traduzioni; Rimandare al locale predefinito
 
 Impostare un locale predefinito
 -------------------------------

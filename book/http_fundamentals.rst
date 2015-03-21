@@ -287,9 +287,6 @@ orientata agli oggetti per costruire la risposta che occorre restituire al clien
     // stampa gli header HTTP seguiti dal contenuto
     $response->send();
 
-.. versionadded:: 2.4
-    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
-
 Se Symfony offrisse solo questo, si avrebbe già a disposizione un kit di strumenti per
 accedere facilmente alle informazioni di richiesta e un'interfaccia orientata agli oggetti
 per creare la risposta. Anche imparando le molte potenti caratteristiche di Symfony,
@@ -462,8 +459,8 @@ iniziamo aggiungendo una voce per ``/contact`` nel file di configurazione delle 
         return $collection;
 
 Quando qualcuno vista la pagina ``/contact``, questa rotta viene corrisposta e il controllore
-specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte</book/routing>`,
-la stringa ``AcmeDemoBundle:Main:contact`` è una sintassi breve che punta a uno specifico
+specificato è eseguito. Come si imparerà nel :doc:`capitolo delle rotte </book/routing>`,
+la stringa ``AppBundle:Main:contact`` è una sintassi breve che punta a uno specifico
 metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
     // src/AppBundle/Controller/MainController.php
@@ -481,7 +478,7 @@ metodo PHP ``contactAction`` in una classe chiamata ``MainController``::
 
 In questo semplice esempio, il controllore semplicemente crea un oggetto
 :class:`Symfony\\Component\\HttpFoundation\\Response` con il codice HTML
-"<h1>Contattaci!</h1>". Nel :doc:`capitolo sul controllore</book/controller>`,
+``<h1>Contattaci!</h1>``. Nel :doc:`capitolo sul controllore </book/controller>`,
 si imparerà come un controllore possa rendere dei template, consentendo al codice
 di "presentazione" (cioè a qualsiasi cosa che scrive effettivamente HTML) di vivere in un
 file template separato. Questo consente al controllore di preoccuparsi solo delle cose
@@ -518,30 +515,32 @@ possono essere usate in *qualsiasi* progetto PHP. Queste librerie, chiamate
 *componenti di Symfony*, contengono qualcosa di utile per quasi ogni situazione,
 comunque sia sviluppato il proprio progetto. Solo per nominarne alcuni:
 
-* :doc:`HttpFoundation </components/http_foundation/introduction>` - Contiene le
-  classi ``Request`` e ``Response``, insieme ad altre  classi per gestire sessioni
-  e caricamenti di file;
+:doc:`HttpFoundation </components/http_foundation/introduction>`
+    Contiene le classi ``Request`` e ``Response``, insieme ad altre  classi
+    per gestire sessioni e caricamenti di file;
 
-* :doc:`Routing </components/routing/introduction>` - Sistema di rotte potente e veloce, che
-  consente di mappare uno specifico  URI (p.e. ``/contact``) ad alcune informazioni
-  su come tale richiesta andrebbe gestita  (p.e. eseguendo il metodo
-  ``contactAction()``);
+:doc:`Routing </components/routing/introduction>`
+    Sistema di rotte potente e veloce, che
+    consente di mappare uno specifico  URI (p.e. ``/contact``) ad alcune informazioni
+    su come tale richiesta andrebbe gestita  (p.e. eseguendo il metodo ``contactAction()``);
 
-* :doc:`Form </components/form/introduction>` - Un framework completo e flessibile per creare form e gestire invii di
-  dati;
+:doc:`Form </components/form/introduction>`
+    Un framework completo e flessibile per creare form e gestire invii di
+    dati;
 
-* `Validator`_ Un sistema per creare regole sui dati e quindi validarli, sia che i dati
-  inviati dall'utente seguano o meno tali regole;
+`Validator`_
+    Un sistema per creare regole sui dati e quindi validarli, sia che i dati
+    inviati dall'utente seguano o meno tali regole;
 
-* :doc:`Templating </components/templating/introduction>` Un insieme di strumenti per rendere template, gestire l'ereditarietà dei
-  template (p.e. un template è decorato con un layout) ed eseguire altri compiti
-  comuni sui template;
+:doc:`Templating </components/templating/introduction>`
+    Un insieme di strumenti per rendere template, gestire l'ereditarietà dei template (p.e.
+    un template è decorato con un layout) ed eseguire altri compiti comuni sui template;
 
-* :doc:`Security </components/security/introduction>` - Una potente libreria per gestire tutti i tipi di sicurezza all'interno
-  di un'applicazione;
+:doc:`Security </components/security/introduction>`
+    Una potente libreria per gestire tutti i tipi di sicurezza all'interno di un'applicazione;
 
-* :doc:`Translation </components/translation/introduction>` - Un framework
-  per tradurre stringhe nella propria applicazione.
+:doc:`Translation </components/translation/introduction>`
+    Un framework per tradurre stringhe nella propria applicazione.
 
 Tutti questi componenti sono disaccoppiati e possono essere usati in *qualsiasi* progetto
 PHP, indipendentemente dall'uso del framework Symfony. Ogni parte di essi è stata

@@ -336,7 +336,7 @@ in un template padre è sempre usato come valore predefinito.
 
 Si possono usare tanti livelli di ereditarietà quanti se ne desiderano. Nella prossima
 sezione, sarà spiegato un modello comune a tre livelli di ereditarietà, insieme al modo
-in cui i template sono organizzati in un progetto Symfony2.
+in cui i template sono organizzati in un progetto Symfony.
 
 Quando si lavora con l'ereditarietà dei template, ci sono alcuni concetti da tenere a mente:
 
@@ -446,7 +446,7 @@ Ogni nome di template ha due estensioni, che specificano *formato* e
 *motore* del template stesso.
 
 ========================  =======  ======
-Nome file                 Formato  Motore
+Nome del file             Formato  Motore
 ========================  =======  ======
 ``Blog/index.html.twig``  HTML     Twig
 ``Blog/index.html.php``   HTML     PHP
@@ -457,7 +457,7 @@ Per impostazione predefinita, ogni template Symfony può essere scritto in Twig 
 e l'ultima parte dell'estensione (p.e. ``.twig`` o ``.php``) specifica quale
 di questi due *motori* va usata. La prima parte dell'estensione,
 (p.e. ``.html``, ``.css``, ecc.) è il formato finale che il template
-genererà. Diversamente dal motore, che determina il modo in cui Symfony2 analizza il
+genererà. Diversamente dal motore, che determina il modo in cui Symfony analizza il
 template, si tratta di una tattica organizzativa usata nel caso in cui alcune risorse
 debbano essere rese come HTML (``index.html.twig``), XML (``index.xml.twig``) o
 in altri formati. Per maggiori informazioni, leggere la sezione
@@ -481,7 +481,7 @@ sezione, si potranno conoscere un gran numero di strumenti disponibili per
 aiutare a compiere i compiti più comuni sui template, come includere altri
 template, collegare pagine e inserire immagini.
 
-Symfony2 dispone di molti tag di Twig specializzati e di molte funzioni, che facilitano
+Symfony dispone di molti tag di Twig specializzati e di molte funzioni, che facilitano
 il lavoro del progettista di template. In PHP, il sistema di template fornisce un
 sistema estensibile di *aiutanti*, che fornisce utili caratteristiche nel contesto
 dei template.
@@ -608,7 +608,7 @@ articoli recenti::
             $articles = ...;
 
             return $this->render(
-                'AcmeArticleBundle:Article:recentList.html.twig',
+                'Article/recentList.html.twig',
                 array('articles' => $articles)
             );
         }
@@ -684,7 +684,7 @@ Contenuto asincrono con hinclude.js
 
 Si possono inserire controllori in modo asincrono, con la libreria hinclude.js_.
 Poiché il contenuto incluso proviene da un'altra pagina (o da un altro controllore),
-Symfony2 usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
+Symfony usa l'aiutante standard ``render`` per configurare i tag ``hinclude``:
 
 
 .. configuration-block::

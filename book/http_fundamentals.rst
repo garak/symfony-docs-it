@@ -376,7 +376,7 @@ possono peggiorare rapidamente::
 
     if (in_array($path, array('', '/'))) {
         $response = new Response('Benvenuto nella homepage.');
-    } elseif ($path == '/contact') {
+    } elseif ('/contact' === $path) {
         $response = new Response('Contattaci');
     } else {
         $response = new Response('Pagina non trovata.', Response::HTTP_NOT_FOUND);

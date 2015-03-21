@@ -737,7 +737,7 @@ corrispondente all'espressione regolare ``^/admin`` richieda ``ROLE_ADMIN``:
         ));
 
 Questo va benissimo per proteggere intere sezioni, ma si potrebbero anche voler
-to :ref:`proteggere singoli controllori <book-security-securing-controller>`.
+:ref:`proteggere singoli controllori <book-security-securing-controller>`.
 
 
 Si possono definire quanti schemi di URL si vuole, ciascuno con un'espressione regolare.

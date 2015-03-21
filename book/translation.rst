@@ -87,7 +87,7 @@ abilitare ``translator`` nella configurazione:
             'translator' => array('fallbacks' => array('en')),
         ));
 
-Vedere :ref:`book-translation-fallback` per dettagli sulla voce ``fallback``
+Vedere :ref:`book-translation-fallback` per dettagli sulla voce ``fallbacks``
 e su cosa faccia Symfony quando non trova una traduzione.
 
 Il locale usato nelle traduzioni è quello memorizzato nella richiesta. Tipicamente,
@@ -336,7 +336,7 @@ Symfony cerca i file dei messaggi (ad esempio le traduzioni) in due sedi:
 
 * la cartella ``app/Resources/translations``;
 
-* la cartella ``app/Resources/<bundle>/translations``;
+* la cartella ``app/Resources/<nome bundle>/translations``;
 
 * la cartella ``Resources/translations/`` del bundle.
 
@@ -427,17 +427,28 @@ tramite l'oggetto ``request``::
     public function indexAction(Request $request)
     {
         $locale = $request->getLocale();
-
-        $request->setLocale('en_US');
     }
 
-.. tip::
+Per impostare il locale dell'utente, si potrebbe voler creare un ascoltatore di eventi personalizzato,
+in modo che sia impostato prima che altre parti del sistema (come il traduttore)
+ne abbiano bisogno::
 
-    Leggere :doc:`/cookbook/session/locale_sticky_session` per imparare come memorizzare
-    il locale in sessione.
+        public function onKernelRequest(GetResponseEvent $event)
+        {
+            $request = $event->getRequest();
 
-.. index::
-   single: Traduzioni; Fallback e locale predefinito
+            // della logica che determina $locale
+            $request->getSession()->set('_locale', $locale);
+        }
+
+Leggere :doc:`/cookbook/session/locale_sticky_session` per approfondimenti sull'argomento.
+
+.. note::
+
+    Se si usa ``$request->setLocale()`` in un controllore, è troppo tardi
+    per influenzare il traduttore. Si deve impostare il locale tramite un ascoltatore
+    (vedere sopra), l'URL (vedere avanti) o richiamare ``setLocale()`` direttamente sul
+    servizio ``translator``.
 
 Vedere la sezione seguente, :ref:`book-translation-locale-url`, per impostare il
 locale tramite rotte.
@@ -515,8 +526,11 @@ nell'applicazione.
 
 .. tip::
 
-    Leggere :doc:`/cookbook/routing/service_container_parameters` per sapere come evitare di inserire
-    a mano il requisito ``_locale`` per tutte le rotte.
+    Leggere :doc:`/cookbook/routing/service_container_parameters` per imparare come
+    evitare di inserire manualmente il requisito ``_locale`` in ogni rotta.
+
+.. index::
+   single: Traduzioni; Rimandare al locale predefinito
 
 Impostare un locale predefinito
 -------------------------------
@@ -567,8 +581,8 @@ il :ref:`dominio <using-message-domains>` ``validators``.
 Per iniziare, supponiamo di aver creato un oggetto PHP, necessario da
 qualche parte in un'applicazione::
 
-    // src/Acme/BlogBundle/Entity/Author.php
-    namespace Acme\BlogBundle\Entity;
+    // src/AppBundle/Entity/Author.php
+    namespace AppBundle\Entity;
 
     class Author
     {

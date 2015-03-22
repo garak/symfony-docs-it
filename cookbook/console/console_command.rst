@@ -17,8 +17,8 @@ Per rendere disponibili automaticamente i comandi in Symfony2, creare una cartel
 estendere AcmeDemoBundle per mandare un saluto dalla linea di comando, creare
 ``GreetCommand.php`` e aggiungervi il codice seguente::
 
-    // src/Acme/DemoBundle/Command/GreetCommand.php
-    namespace Acme\DemoBundle\Command;
+    // src/AppBundle/Command/GreetCommand.php
+    namespace AppBundle\Command;
 
     use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
     use Symfony\Component\Console\Input\InputArgument;
@@ -33,8 +33,17 @@ estendere AcmeDemoBundle per mandare un saluto dalla linea di comando, creare
             $this
                 ->setName('demo:greet')
                 ->setDescription('Saluta qualcuno')
-                ->addArgument('name', InputArgument::OPTIONAL, 'Chi vuoi salutare?')
-                ->addOption('yell', null, InputOption::VALUE_NONE, 'Se impostato, urlerà in lettere maiuscole')
+                ->addArgument(
+                    'name', 
+                    InputArgument::OPTIONAL,
+                    'Chi vuoi salutare?'
+                )
+                ->addOption(
+                    'yell',
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Se impostato, urlerà in lettere maiuscole'
+                )
             ;
         }
 
@@ -59,7 +68,7 @@ Ora il comando sarà automaticamente disponibile:
 
 .. code-block:: bash
 
-    $ app/console demo:greet Fabien
+    $ php app/console demo:greet Fabien
 
 .. _cookbook-console-dic:
 
@@ -103,7 +112,9 @@ tradurre dei contenuti usando un comando di console::
         $name = $input->getArgument('name');
         $translator = $this->getContainer()->get('translator');
         if ($name) {
-            $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
+            $output->writeln(
+                $translator->trans('Hello %name%!', array('%name%' => $name))
+            );
         } else {
             $output->writeln($translator->trans('Hello!'));
         }
@@ -137,7 +148,9 @@ prima di tradurre i contenuti::
         $translator->setLocale($locale);
 
         if ($name) {
-            $output->writeln($translator->trans('Hello %name%!', array('%name%' => $name)));
+            $output->writeln(
+                $translator->trans('Hello %name%!', array('%name%' => $name))
+            );
         } else {
             $output->writeln($translator->trans('Hello!'));
         }
@@ -181,11 +194,6 @@ al posto di
         }
     }
 
-.. versionadded:: 2.4
-    A partire da Symfony 2.4, ``CommandTester`` individua automaticamente il nome
-    del comando da eseguire. Non è quindi più necessario passarlo tramite la chiave
-    ``command``.
-
 .. note::
 
     Nel caso specifico appena visto, il parametro ``name`` e l'opzione ``--yell``
@@ -199,7 +207,7 @@ si può estendere il test da
     use Symfony\Component\Console\Tester\CommandTester;
     use Symfony\Bundle\FrameworkBundle\Console\Application;
     use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-    use Acme\DemoBundle\Command\GreetCommand;
+    use AppBundle\Command\GreetCommand;
 
     class ListCommandTest extends KernelTestCase
     {

@@ -3,8 +3,8 @@
 
 .. _how-to-deploy-a-symfony2-application:
 
-Deploy di un'applicazione Symfony2
-==================================
+Deploy di un'applicazione Symfony
+=================================
 
 .. note::
 
@@ -14,10 +14,10 @@ Deploy di un'applicazione Symfony2
 
 .. _symfony2-deployment-basics:
 
-Basi per i deploy su Symfony2
------------------------------
+Basi per i deploy su Symfony
+----------------------------
 
-I tipici passi durante il deploy di un'applicazione Symfony2 includono:
+I tipici passi durante il deploy di un'applicazione Symfony includono:
 
 #. Caricare il nuovo codice su un server;
 #. Aggiornare le dipendenze (tipicamente eseguito tramite Composer, potrebbe anche
@@ -27,18 +27,19 @@ I tipici passi durante il deploy di un'applicazione Symfony2 includono:
 
 Un deploy può anche includere altro, come:
 
-* Assegnazione di un tag a una versione del codice, come rilascio nel proprio repository di gestione dei sorgenti;
+* Assegnazione di un tag a una versione del codice, come rilascio nel proprio repository
+  di gestione dei sorgenti;
 * Creazione di un'area di stage temporanea, per costruire il proprio ambiente aggiornato "offline";
 * Esecuzione dei test disponibili, per assicurarsi la stabilità del codice e/o del server;
-* Rimozione dei file non necessari da ``web``, per mantenere pulito l'ambiente di produzione;
+* Rimozione dei file non necessari da ``web``, per mantenere pulito l'ambiente
+  di produzione;
 * Pulizia dei sistemi di cache esterni (come `Memcached`_ o `Redis`_).
 
 Come eseguire il deploy
 -----------------------
 
-Ci sono molti modi per eseguire il deploy di un'applicazione Symfony2.
-
-Iniziamo con alcune strategie di deploy di base.
+Ci sono molti modi per eseguire il deploy di un'applicazione Symfony. Meglio iniziare con poche
+strategie di base e poi incrementare.
 
 Trasferimento semplice di file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,11 +64,38 @@ Uso di script e di altri strumenti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ci sono alcuni strumenti di alta qualità, che facilitano i deploy. Alcuni di questi
-sono stati adattati in modo specifico ai requisiti di
-Symfony2, assicurandosi di tenere conto di ogni cosa prima, durante e
-dopo che un deploy sia stato eseguito correttamente.
+sono stati adattati in modo specifico ai requisiti di Symfony.
 
-Vedere `Strumenti`_ per un elenco di strumenti che possono aiutare con i deploy.
+`Capifony`_
+    Fornisce un insieme specializzato di strumenti basati su Capistrano, adattati in
+    modo specifico per i progetti symfony e Symfony.
+
+`sf2debpkg`_
+    Aiuta a costruire un pacchetto Debian nativo per un progetto Symfony.
+
+`Magallanes`_
+    Simile a Capistrano, ma scritto in PHP, potrebbe essere più facile
+    per uno sviluppatore PHP da estendere in base alle necessità.
+
+`Fabric`_
+    Questa libreria, scritta in Python, fornisce un insieme basilare di operazioni per eseguire
+    comandi da terminale in locale o in remoto, nonché caricamento e scaricamento di file.
+
+Bundle
+    Ci sono molti `bundle che aggiungono strumenti di deploy`_ direttamente alla
+    console di Symfony.
+
+Script di base
+    Ovviamente si può usare il terminale, `Ant`_ o altri strumenti di script per
+    il deploy di un progetto.
+
+Fornitori di PaaS
+    Il ricettario di Symfony include varie ricette per alcuni dei più noti fornitori
+    di PaaS:
+
+    * :doc:`Microsoft Azure </cookbook/deployment/azure-website>`
+    * :doc:`Heroku </cookbook/deployment/heroku>`
+    * :doc:`Platform.sh </cookbook/deployment/platformsh>`
 
 Azioni comuni post-deploy
 -------------------------
@@ -87,9 +115,8 @@ Verificare che il server soddisfi i requisiti, eseguendo:
 B) Configurare il file ``app/config/parameters.yml``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Questo file andrebbe personalizzato su ogni sistema. Il metodo usato per il
-deploy del codice *non* dovrebbe modificare questo file. Invece, lo si dovrebbe
-modificare manualmente (o tramite un processo) direttamente sul server.
+Questo file *non* dovrebbe essere incluso nel deploy, ma gestito tramite utilità automatiche
+fornite da Symfony.
 
 C) Aggiornare i venditori
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,14 +128,13 @@ fa normalmente:
 
 .. code-block:: bash
 
-    $ php composer.phar install --no-dev --optimize-autoloader
+    $ composer install --no-dev --optimize-autoloader
 
 .. tip::
 
     L'opzione ``--optimize-autoloader`` rende l'autoloader di Composer più
     performante, costruendo una "mappa di classi". L'opzionoe ``--no-dev``
-    assicura che i pacchetti di sviluppo non siano installati in ambiente
-    di produzione.
+    assicura che i pacchetti di sviluppo non siano installati in ambiente di produzione.
 
 .. caution::
 
@@ -163,51 +189,12 @@ Non dimenticare che il deploy di un'applicazione coinvolge anche l'aggiornamento
 (tipicamente via Composer), migrazioni della base dati, pulizia della cache e
 altre possibili questioni, come inviare risorse a un CDN (vedere `Azioni comuni post-deploy`_).
 
-Strumenti
----------
-
-`Capifony`_:
-
-    Fornisce un insieme specializzato di strumenti basati su Capistrano, adattati in
-    modo specifico per i progetti symfony e Symfony2.
-
-`sf2debpkg`_:
-
-    Aiuta a costruire un pacchetto Debian nativo per un progetto Symfony2.
-
-`Magallanes`_:
-
-    Simile a Capistrano, ma scritto in PHP, potrebbe essere più facile
-    per uno sviluppatore PHP da estendere in base alle necessità.
-
-Bundle:
-
-    Ci sono molti `bundle che aggiungono strumenti di deploy`_ direttamente alla
-    console di Symfony2.
-
-Script di base:
-
-    Ovviamente si può usare il terminale, `Ant`_ o altri strumenti di script per
-    il deploy di un progetto.
-
-Fornitori di PaaS:
-
-    Un modo relativamente nuovo per il deploy è rappresentato dai PaaS. Tipicamente, un PaaS
-    userà un singolo file di configurazione nella cartella radice del progetto per
-    determinare come costruire al volo un ambiente che supporti il proprio software.
-    Un fornitore che ha confermato supporto a Symfony2 è `PagodaBox`_.
-
-.. tip::
-
-    In cerca di altro? Si può parlare con la comunità sul `canale IRC di Symfony`_ #symfony
-    (su freenode) per maggiori informazioni.
-
 .. _`Capifony`: http://capifony.org/
+.. _`Capistrano`: http://capistranorb.com/
 .. _`sf2debpkg`: https://github.com/liip/sf2debpkg
-.. _`Ant`: http://blog.sznapka.pl/deploying-symfony2-applications-with-ant
-.. _`PagodaBox`: https://github.com/jmather/pagoda-symfony-sonata-distribution/blob/master/Boxfile
+.. _`Fabric`: http://www.fabfile.org/
 .. _`Magallanes`: https://github.com/andres-montanez/Magallanes
+.. _`Ant`: http://blog.sznapka.pl/deploying-symfony2-applications-with-ant
 .. _`bundle che aggiungono strumenti di deploy`: http://knpbundles.com/search?q=deploy
-.. _`canale IRC di Symfony`: http://webchat.freenode.net/?channels=symfony
 .. _`Memcached`: http://memcached.org/
 .. _`Redis`: http://redis.io/

@@ -813,19 +813,25 @@ Si può negare accesso da dentro un controllore::
 
     public function helloAction($name)
     {
-        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
+        // Il secondo parametro si usa per specificare l'oggetto su cui si testa il ruolo
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Non si può accedere a questa pagina!');
+
+        // Vecchio modo :
+        // if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        //     throw $this->createAccessDeniedException('Non si può accedere a questa pagina!');
+        // }
 
         // ...
     }
 
 .. versionadded:: 2.6
+    Il metodo ``denyAccessUnlessGranted()`` è stato introdotto in Symfony 2.6. In precedenza (ma anche
+    ora), si poteva verificare l'accesso direttamente e sollevare ``AccessDeniedException``, come
+    mostrato nell'esempio preedente).
+
+.. versionadded:: 2.6
      Il servizio ``security.authorization_checker`` è stato introdotto in Symfony 2.6. Prima
      di Symfony 2.6, si doveva usare il metodo ``isGranted()`` del servizio ``security.context``.
-
-.. versionadded:: 2.5
-    Il metodo ``createAccessDeniedException`` è stato introdotto in Symfony 2.5.
 
 Il metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::createAccessDeniedException`
 crea uno speciale oggetto :class:`Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException`,

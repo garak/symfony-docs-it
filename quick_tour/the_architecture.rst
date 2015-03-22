@@ -14,11 +14,11 @@ La struttura delle cartelle di un':term:`applicazione` Symfony è alquanto fless
 ma la struttura raccomandata è la seguente:
 
 ``app/``
-    La configurazione dell'applicazione.
+    La configurazione dell'applicazione;
 ``src/``
-    Il codice PHP del progetto.
+    Il codice PHP del progetto;
 ``vendor/``
-    Le dipendenze di terze parti.
+    Le dipendenze di terze parti;
 ``web/``
     La cartella radice del web.
 
@@ -57,10 +57,10 @@ dell'applicazione e quindi è memorizzata nella cartella ``app/``.
 Questa classe deve implementare due metodi:
 
 ``registerBundles()``
-    Deve restituire un array di tutti i bundle necessari per
-    eseguire l'applicazione, come spiegato nella sezione successiva.
+    deve restituire un array di tutti i bundle necessari per
+    eseguire l'applicazione;
 ``registerContainerConfiguration()``
-    Carica la configurazione dell'applicazione (approfondito più avanti);
+    carica la configurazione dell'applicazione (approfondito più avanti);
 
 Il caricamento automatico essere configurato tramite `Composer`_, che vuol dire che si
 può usare qualsiasi classe PHP senza dover far nulla! Tutte le dipendenze sono
@@ -90,7 +90,7 @@ i propri bundle. Questo rende molto facile scegliere quali caratteristiche abili
 un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
 dell'applicazione è *importante* quanto il nucleo stesso del framework.
 
-Symfony include già un ``AppBundle``, che si può usare per iniziare a sviluppare
+Symfony include già un AppBundle, che si può usare per iniziare a sviluppare
 un'applicazione. Successivamente, se si avesse l'esigenza di suddividere l'applicazione
 in varie parti riutilizzabili, si possono creare i propri bundle.
 
@@ -99,7 +99,7 @@ Registrare un bundle
 
 Un'applicazione è composta di bundle, come definito nel metodo ``registerBundles()``
 della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singola classe
-``Bundle`` che la descrive::
+Bundle che la descrive::
 
     // app/AppKernel.php
     public function registerBundles()
@@ -113,7 +113,7 @@ della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singol
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle()
+            new AppBundle\AppBundle();
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -145,7 +145,7 @@ XML o PHP. Si veda la configurazione predefinita:
 
     framework:
         #esi:             ~
-        #translator:      { fallback: "%locale%" }
+        #translator:      { fallbacks: ["%locale%"] }
         secret:          "%secret%"
         router:
             resource: "%kernel.root_dir%/config/routing.yml"
@@ -163,7 +163,7 @@ XML o PHP. Si veda la configurazione predefinita:
         debug:            "%kernel.debug%"
         strict_variables: "%kernel.debug%"
 
-    # Configurazione di Swiftmailer
+    # Configurazione di Swift Mailer
     swiftmailer:
         transport: "%mailer_transport%"
         host:      "%mailer_host%"
@@ -175,7 +175,7 @@ XML o PHP. Si veda la configurazione predefinita:
 
 Ogni voce come ``framework`` definisce la configurazione per uno specifico bundle.
 Per esempio, ``framework`` configura ``FrameworkBundle``, mentre ``swiftmailer``
-configura ``SwiftmailerBundle``.
+configura SwiftmailerBundle.
 
 Ogni :term:`ambiente` può sovrascrivere la configurazione predefinita, fornendo un file
 di configurazione specifico. Per esempio, l'ambiente ``dev`` carica il file ``config_dev.yml``,
@@ -226,13 +226,13 @@ Per i controllori, occorre fare riferimento ai nomi dei metodi usando il formato
 Estendere i bundle
 ..................
 
-Se si seguono queste convenzioni, si può usare l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>`
-per sovrascrivere file, controllori o template. Per esempio, se un nuovo bundle
-chiamato NewBundle estende AppBundle, Symfony proverà a caricare ``AppBundle:Default:index``
-prima dalla classe ``DefaultController`` di NewBundle e poi cercherà
-in AppBundle. Questo vuol dire che un bundle può sovrascrivere
-quasi ogni parte di un altro
-bundle!
+Se si seguono queste convenzioni, si può usare
+l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>`
+per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
+chiamato NewBundle estende AppBundle, Symfony proverà a caricare
+prima il controllore ``DefaultController`` da NewBundle e poi
+cercherà in AppBundle. Questo vuol dire che un bundle può sovrascrivere
+quasi ogni parte di un altro bundle!
 
 È chiaro ora perché Symfony è così flessibile? Condividere bundle tra le
 applicazioni, memorizzarli localmente o globalmente, a scelta.
@@ -274,8 +274,8 @@ Usare l'interfaccia a linea di comando
 --------------------------------------
 
 Ogni applicazione ha uno strumento di interfaccia a linea di comando (``app/console``),
-che aiuta nella manutenzione dell'applicazione. La console fornisce dei comandi che incrementano la produttività, automatizzando
-dei compiti noiosi e ripetitivi.
+che aiuta nella manutenzione dell'applicazione. La console fornisce dei comandi che incrementano la
+produttività, automatizzando dei compiti noiosi e ripetitivi.
 
 Richiamandola senza parametri, si può sapere di più sulle sue capacità:
 

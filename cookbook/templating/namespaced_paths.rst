@@ -14,17 +14,17 @@ Si prendano come esempio i seguenti percorsi:
 
 .. code-block:: jinja
 
-    {% extends "AcmeDemoBundle::layout.html.twig" %}
-    {% include "AcmeDemoBundle:Pippo:pluto.html.twig" %}
+    {% extends "Appundle::layout.html.twig" %}
+    {% include "AppBundle:Pippo:pluto.html.twig" %}
 
 Con i percorsi con spazi di nomi, funziona anche in questo modo:
 
 .. code-block:: jinja
 
-    {% extends "@AcmeDemo/layout.html.twig" %}
-    {% include "@AcmeDemo/Pippo/pluto.html.twig" %}
+    {% extends "@App/layout.html.twig" %}
+    {% include "@App/Pippo/pluto.html.twig" %}
 
-Entrambi i percorsi sono validi e funzionanti in Symfony2.
+Entrambi i percorsi sono validi e funzionanti in Symfony.
 
 .. tip::
 

@@ -299,18 +299,6 @@ tutte insieme:
 A seconda della complessità del progetto, questo processo di aggiornamento può impiegare anche
 vari minuti per essere completato.
 
-.. tip::
-
-    Symfony fornisce un comando per verificare se le dipendenze di un progetto
-    contengano vulnerabilità note:
-
-    .. code-block:: bash
-
-        $ php app/console security:check
-
-    Una buona pratica di sicurezza consiste nell'eseguire regolarmente questo comando, per poter
-    aggiornare o sostituire delle dipendenze compromesse, il prima possibile.
-
 .. _installing-a-symfony2-distribution:
 
 Installare una distribuzione di Symfony

@@ -74,7 +74,7 @@ il controllore corrispondente alla richiesta abbia bisogno di validare il token.
 Un modo semplice e pulito è quello di creare un'interfaccia vuota e farla implementare
 ai controllori::
 
-    namespace Acme\DemoBundle\Controller;
+    namespace AppBundle\Controller;
 
     interface TokenAuthenticatedController
     {
@@ -83,9 +83,9 @@ ai controllori::
 
 Un controllore che implementa tale interfaccia assomiglia a questo::
 
-    namespace Acme\DemoBundle\Controller;
+    namespace AppBundle\Controller;
 
-    use Acme\DemoBundle\Controller\TokenAuthenticatedController;
+    use AppBundle\Controller\TokenAuthenticatedController;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
     class FooController extends Controller implements TokenAuthenticatedController
@@ -104,10 +104,10 @@ Occorre quindi creare un ascoltatore di eventi, che conterrà la logica che si v
 eseguire prima dei controllori. Se non si ha familiarità con gli ascoltatori di
 eventi, si possono ottenere maggiori informazioni su :doc:`/cookbook/service_container/event_listener`::
 
-    // src/Acme/DemoBundle/EventListener/TokenListener.php
-    namespace Acme\DemoBundle\EventListener;
+    // src/AppBundle/EventListener/TokenListener.php
+    namespace AppBundle\EventListener;
 
-    use Acme\DemoBundle\Controller\TokenAuthenticatedController;
+    use AppBundle\Controller\TokenAuthenticatedController;
     use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
     use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
@@ -153,33 +153,33 @@ sia richiamato appena prima l'esecuzione di ogni controllore:
 
     .. code-block:: yaml
 
-        # app/config/config.yml (oppure dentro services.yml)
+        # app/config/services.yml
         services:
-            demo.tokens.action_listener:
-                class: Acme\DemoBundle\EventListener\TokenListener
+            app.tokens.action_listener:
+                class: AppBundle\EventListener\TokenListener
                 arguments: ["%tokens%"]
                 tags:
                     - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml (oppure dentro services.xml) -->
-        <service id="demo.tokens.action_listener" class="Acme\DemoBundle\EventListener\TokenListener">
+        <!-- app/config/services.xml -->
+        <service id="app.tokens.action_listener" class="AppBundle\EventListener\TokenListener">
             <argument>%tokens%</argument>
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
     .. code-block:: php
 
-        // app/config/config.php (oppure dentro services.php)
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
-        $listener = new Definition('Acme\DemoBundle\EventListener\TokenListener', array('%tokens%'));
+        $listener = new Definition('AppBundle\EventListener\TokenListener', array('%tokens%'));
         $listener->addTag('kernel.event_listener', array(
             'event'  => 'kernel.controller',
             'method' => 'onKernelController'
         ));
-        $container->setDefinition('demo.tokens.action_listener', $listener);
+        $container->setDefinition('app.tokens.action_listener', $listener);
 
 Con questa configurazione, il metodo ``onKernelController`` di ``TokenListener`` 
 sarà eseguito a ogni richiesta. Se il controllore che sta per essere eseguito
@@ -248,10 +248,10 @@ di notificare l'evento ``onKernelResponse`` per l'evento
 
     .. code-block:: yaml
 
-        # app/config/config.yml (oppure dentro services.yml)
+        # app/config/services.yml
         services:
-            demo.tokens.action_listener:
-                class: Acme\DemoBundle\EventListener\TokenListener
+            app.tokens.action_listener:
+                class: AppBundle\EventListener\TokenListener
                 arguments: ["%tokens%"]
                 tags:
                     - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
@@ -259,8 +259,8 @@ di notificare l'evento ``onKernelResponse`` per l'evento
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml (oppure dentro services.xml) -->
-        <service id="demo.tokens.action_listener" class="Acme\DemoBundle\EventListenerTokenListener">
+        <!-- app/config/services.xml -->
+        <service id="app.tokens.action_listener" class="AppBundle\EventListener\TokenListener">
             <argument>%tokens%</argument>
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
@@ -268,10 +268,10 @@ di notificare l'evento ``onKernelResponse`` per l'evento
 
     .. code-block:: php
 
-        // app/config/config.php (oppure dentro services.php)
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
-        $listener = new Definition('Acme\DemoBundle\EventListener\TokenListener', array('%tokens%'));
+        $listener = new Definition('AppBundle\EventListener\TokenListener', array('%tokens%'));
         $listener->addTag('kernel.event_listener', array(
             'event'  => 'kernel.controller',
             'method' => 'onKernelController'

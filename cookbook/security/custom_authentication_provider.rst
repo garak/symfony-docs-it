@@ -51,8 +51,8 @@ al fornitore di autenticazione.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Authentication/Token/WsseUserToken.php
-    namespace Acme\DemoBundle\Security\Authentication\Token;
+    // src/AppBundle/Security/Authentication/Token/WsseUserToken.php
+    namespace AppBundle\Security\Authentication\Token;
 
     use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
@@ -97,8 +97,8 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Firewall/WsseListener.php
-    namespace Acme\DemoBundle\Security\Firewall;
+    // src/AppBundle/Security/Firewall/WsseListener.php
+    namespace AppBundle\Security\Firewall;
 
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -106,7 +106,7 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
     use Symfony\Component\Security\Core\Exception\AuthenticationException;
     use Symfony\Component\Security\Core\SecurityContextInterface;
     use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
-    use Acme\DemoBundle\Security\Authentication\Token\WsseUserToken;
+    use AppBundle\Security\Authentication\Token\WsseUserToken;
 
     class WsseListener implements ListenerInterface
     {
@@ -193,15 +193,15 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Authentication/Provider/WsseProvider.php
-    namespace Acme\DemoBundle\Security\Authentication\Provider;
+    // src/AppBundle/Security/Authentication/Provider/WsseProvider.php
+    namespace AppBundle\Security\Authentication\Provider;
 
     use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
     use Symfony\Component\Security\Core\User\UserProviderInterface;
     use Symfony\Component\Security\Core\Exception\AuthenticationException;
     use Symfony\Component\Security\Core\Exception\NonceExpiredException;
     use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-    use Acme\DemoBundle\Security\Authentication\Token\WsseUserToken;
+    use AppBundle\Security\Authentication\Token\WsseUserToken;
 
     class WsseProvider implements AuthenticationProviderInterface
     {
@@ -290,8 +290,8 @@ occorre creare una classe che implementi
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/DependencyInjection/Security/Factory/WsseFactory.php
-    namespace Acme\DemoBundle\DependencyInjection\Security\Factory;
+    // src/AppBundle/DependencyInjection/Security/Factory/WsseFactory.php
+    namespace AppBundle\DependencyInjection\Security\Factory;
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Reference;
@@ -383,32 +383,32 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
     .. code-block:: yaml
 
-        # src/Acme/DemoBundle/Resources/config/services.yml
+        # src/AppBundle/Resources/config/services.yml
         services:
             wsse.security.authentication.provider:
-                class: Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
+                class: AppBundle\Security\Authentication\Provider\WsseProvider
                 arguments: ["", "%kernel.cache_dir%/security/nonces"]
 
             wsse.security.authentication.listener:
-                class: Acme\DemoBundle\Security\Firewall\WsseListener
+                class: AppBundle\Security\Firewall\WsseListener
                 arguments: ["@security.context", "@security.authentication.manager"]
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
+        <!-- src/AppBundle/Resources/config/services.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
                 <service id="wsse.security.authentication.provider"
-                    class="Acme\DemoBundle\Security\Authentication\Provider\WsseProvider" public="false">
+                    class="AppBundle\Security\Authentication\Provider\WsseProvider" public="false">
                     <argument /> <!-- Fornitore di utenti -->
                     <argument>%kernel.cache_dir%/security/nonces</argument>
                 </service>
 
                 <service id="wsse.security.authentication.listener"
-                    class="Acme\DemoBundle\Security\Firewall\WsseListener" public="false">
+                    class="AppBundle\Security\Firewall\WsseListener" public="false">
                     <argument type="service" id="security.context"/>
                     <argument type="service" id="security.authentication.manager" />
                 </service>
@@ -417,13 +417,13 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Resources/config/services.php
+        // src/AppBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->setDefinition('wsse.security.authentication.provider',
             new Definition(
-                'Acme\DemoBundle\Security\Authentication\Provider\WsseProvider', array(
+                'AppBundle\Security\Authentication\Provider\WsseProvider', array(
                     '',
                     '%kernel.cache_dir%/security/nonces',
                 )
@@ -432,7 +432,7 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
         $container->setDefinition('wsse.security.authentication.listener',
             new Definition(
-                'Acme\DemoBundle\Security\Firewall\WsseListener', array(
+                'AppBundle\Security\Firewall\WsseListener', array(
                     new Reference('security.context'),
                     new Reference('security.authentication.manager'),
                 )

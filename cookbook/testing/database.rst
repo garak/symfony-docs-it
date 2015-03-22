@@ -66,7 +66,7 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
         public function testCalculateTotalSalary()
         {
             // il primo mock che serve è quello da usare nel test
-            $employee = $this->getMock('\Acme\DemoBundle\Entity\Employee');
+            $employee = $this->getMock('\AppBundle\Entity\Employee');
             $employee->expects($this->once())
                 ->method('getSalary')
                 ->will($this->returnValue(1000));

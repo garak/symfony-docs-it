@@ -56,8 +56,8 @@ Creare un votante personalizzato
 Lo scopo è creare un votante che verifichi se un utente abbia accesso alla visualizzazione o
 modifica di un particolare oggetto. Ecco una possibile implementazione::
 
-    // src/Acme/DemoBundle/Security/Authorization/Voter/PostVoter.php
-    namespace Acme\DemoBundle\Security\Authorization\Voter;
+    // src/AppBundle/Security/Authorization/Voter/PostVoter.php
+    namespace AppBundle\Security\Authorization\Voter;
 
     use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
     use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -78,13 +78,13 @@ modifica di un particolare oggetto. Ecco una possibile implementazione::
 
         public function supportsClass($class)
         {
-            $supportedClass = 'Acme\DemoBundle\Entity\Post';
+            $supportedClass = 'AppBundle\Entity\Post';
 
             return $supportedClass === $class || is_subclass_of($class, $supportedClass);
         }
 
         /**
-         * @var \Acme\DemoBundle\Entity\Post $post
+         * @var \AppBundle\Entity\Post $post
          */
         public function vote(TokenInterface $token, $post, array $attributes)
         {
@@ -153,24 +153,24 @@ assegnarli il tag ``security.voter``:
 
     .. code-block:: yaml
 
-        # src/Acme/DemoBundle/Resources/config/services.yml
+        # src/AppBundle/Resources/config/services.yml
         services:
             security.access.post_voter:
-                class:      Acme\DemoBundle\Security\Authorization\Voter\PostVoter
+                class:      AppBundle\Security\Authorization\Voter\PostVoter
                 public:     false
                 tags:
                    - { name: security.voter }
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
+        <!-- src/AppBundle/Resources/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <container xmlns="http://symfony.com/schema/dic/services"
             xsi:schemaLocation="http://symfony.com/schema/dic/services
                 http://symfony.com/schema/dic/services/services-1.0.xsd">
             <services>
                 <service id="security.access.post_document_voter"
-                    class="Acme\DemoBundle\Security\Authorization\Voter\PostVoter"
+                    class="AppBundle\Security\Authorization\Voter\PostVoter"
                     public="false">
                     <tag name="security.voter" />
                 </service>
@@ -179,11 +179,11 @@ assegnarli il tag ``security.voter``:
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Resources/config/services.php
+        // src/AppBundle/Resources/config/services.php
         $container
             ->register(
                     'security.access.post_document_voter',
-                    'Acme\DemoBundle\Security\Authorization\Voter\PostVoter'
+                    'AppBundle\Security\Authorization\Voter\PostVoter'
             )
             ->addTag('security.voter')
         ;
@@ -196,8 +196,8 @@ del contesto della sicurezza.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Controller/PostController.php
-    namespace Acme\DemoBundle\Controller;
+    // src/AppBundle/Controller/PostController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Response;

@@ -37,8 +37,8 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Authorization/Voter/ClientIpVoter.php
-    namespace Acme\DemoBundle\Security\Authorization\Voter;
+    // src/AppBundle/Security/Authorization/Voter/ClientIpVoter.php
+    namespace AppBundle\Security\Authorization\Voter;
 
     use Symfony\Component\DependencyInjection\ContainerInterface;
     use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;

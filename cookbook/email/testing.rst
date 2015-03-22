@@ -5,7 +5,7 @@ Testare l'invio di un'email in un test funzionale
 =================================================
 
 L'invio di email con Symfony è alquanto semplice, grazie a
-``SwiftmailerBundle``, che sfrutta la potenza della libreria `Swiftmailer`_.
+SwiftmailerBundle, che sfrutta la potenza della libreria `Swiftmailer`_.
 
 Per testare in modo funzionale l'invio di un'email, anche facendo asserzioni su oggetto
 o contenuto dell'email, o su qualsiasi altro header, si può usare il :ref:`profilatore di Symfony <internals-profiler>`.
@@ -31,9 +31,9 @@ Iniziamo con una semplice azione in un controllore, che invia un'email::
     Non dimenticare di abilitare il profilatore, come spiegato in :doc:`/cookbook/testing/profiling`.
 
 Nel test funzionale, usare il raccoglitore ``swiftmailer`` del profilatore,
-per ottnere informazioni sui messaggi inviati nella richiesta precedente::
+per ottenere informazioni sui messaggi inviati nella richiesta precedente::
 
-    // src/Acme/DemoBundle/Tests/Controller/MailControllerTest.php
+    // src/AppBundle/Tests/Controller/MailControllerTest.php
     use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
     class MailControllerTest extends WebTestCase
@@ -62,7 +62,7 @@ per ottnere informazioni sui messaggi inviati nella richiesta precedente::
             $this->assertEquals('destinatario@example.com', key($message->getTo()));
             $this->assertEquals(
                 'Dovresti vedermi nel profilatore!',
-                 $message->getBody()
+                $message->getBody()
             );
         }
     }

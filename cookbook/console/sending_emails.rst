@@ -69,7 +69,7 @@ Configurare il contesto della richiesta per comando
 Per cambiare un singolo comando, si può semplicemente recuperare il servizio del contesto
 della richiesta e sovrascrivere le sue impostazioni::
 
-   // src/Acme/DemoBundle/Command/DemoCommand.php
+   // src/AppBundle/Command/DemoCommand.php
 
    // ...
    class DemoCommand extends ContainerAwareCommand

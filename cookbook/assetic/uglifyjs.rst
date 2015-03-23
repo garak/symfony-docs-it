@@ -16,43 +16,48 @@ se ne parlerà in modo meno approfondito.
 Installare UglifyJS
 -------------------
 
-UglifyJS è disponibile come modulo npm di `Node.js`_ e può essere installato utilizzando
-npm. Per iniziare è necessario `installare node.js`_. Successivamente si potrà installare UglifyJS
-usando npm:
+UglifyJS è disponibile come modulo npm di `Node.js`_. Per iniziare è necessario `installare node.js`_.
+Successivamente si potrà decidere se eseguire un'installazione globale o locale.
+
+Installazione globale
+~~~~~~~~~~~~~~~~~~~~~
+
+L'installazione globale consente a tutti i progetti di usare la stessa versione di UglifyJS,
+il che semplifica la manutenzione. Aprire la console dei comandi ed eseguire
+il seguente comando (potrebbero essere necessari privilegi di root):
 
 .. code-block:: bash
 
     $ npm install -g uglify-js
 
-Questo comando installerà UglifyJs globalmente e potrebbe quindi richiedere l'esecuzione con
-privilegi di root.
-
-.. note::
-
-    È anche possibile installare UglifyJs solo all'interno di un progetto. Per poterlo
-    fare, sarà necessario omettere l'opzione ``-g`` e specificare il percorso d'installazione
-    del modulo:
-
-    .. code-block:: bash
-
-        $ cd /percorso/di/symfony
-        $ mkdir app/Resources/node_modules
-        $ npm install uglify-js --prefix app/Resources
-
-    Si raccomanda di installare UglifyJs nella cartella ``app/Resources``
-    e di aggiungere la cartella ``node_modules`` al controllo di versione. In alternativ,
-    si può creare un file `package.json`_ per npm e specificarne all'interno
-    le dipendenze.
-
-A seconda del metodo di installazione utilizzato, sarà possibile eseguire il
-programma globale ``uglifyjs`` o eseguire il file fisico presente all'interno
-della cartella ``node_modules``:
+Ora si può eseguire il comando globale ``uglifyjs``, da qualsiasi punto del sistema:
 
 .. code-block:: bash
 
     $ uglifyjs --help
 
-    $ ./app/Resources/node_modules/.bin/uglifyjs --help
+Installazione locale
+--------------------
+
+È anche possibile installare UglifyJs solo all'interno di un progett, che è utile
+se si devono usare versioni differenti di UglifyJs. Per poterlo fare, sarà necessario
+omettere l'opzione ``-g`` e specificare il percorso d'installazione del modulo:
+
+.. code-block:: bash
+
+    $ cd /percorso/di/symfony
+    $ npm install uglify-js --prefix app/Resources
+
+Si raccomanda di installare UglifyJs nella cartella ``app/Resources`` e
+di aggiungere la cartella ``node_modules`` al controllo di versione. In alternativa,
+si può creare un file `package.json`_ per npm e specificarne all'interno  le dipendenze.
+
+Or si può eseguire il comando ``uglifyjs``, che si trova nella
+cartella ``node_modules``:
+
+.. code-block:: bash
+
+    $ "./app/Resources/node_modules/.bin/uglifyjs" --help
 
 Configurare il filtro uglifyjs2
 -------------------------------
@@ -96,8 +101,7 @@ nel trattamento del codice javascript:
 .. note::
 
     Il percorso di installazione di UglifyJs può essere differente a seconda del sistema utilizzato.
-    Per scoprire dove npm salvi la sua cartella ``bin``, si può usare il seguente
-    comando:
+    Per scoprire dove npm salvi la sua cartella ``bin``, si può usare il seguente comando:
 
     .. code-block:: bash
 
@@ -133,7 +137,7 @@ si può configurare la sua posizione, usando la voce ``node``:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <assetic:config 
+        <assetic:config
             node="/usr/bin/nodejs" >
             <assetic:filter
                 name="uglifyjs2"
@@ -161,25 +165,24 @@ le risorse fanno parte del livello della vista, questo lavoro deve essere svolto
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/js/*' filter='uglifyjs2' %}
+        {% javascripts '@AppBundle/Resources/public/js/*' filter='uglifyjs2' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmePippoBundle/Resources/public/js/*'),
+            array('@AppBundle/Resources/public/js/*'),
             array('uglifyj2s')
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>"></script>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 .. note::
 
-    L'esempio precedente presuppone l'esistenza di un bundle chiamato ``AcmePippoBundle``
-    e che i file JavaScript si trovino nella cartella ``Resources/public/js`` all'interno
-    del bundle. Tutto ciò non è comunque fondamentale, dato che è possibile includere i file JavaScript
-    indipendentemente dal loro posizionamento.
+    L'esempio precedente presuppone l'esistenza di un bundle chiamato AppBundle e che i file
+    JavaScript si trovino nella cartella ``Resources/public/js`` all'interno del
+    bundle. Tuttavia è possibile includere i file JavaScript indipendentemente dal loro posizionamento.
 
 Con l'aggiunta del filtro ``uglifyjs2`` ai tag delle risorse precedenti, si vedranno
 i file JavaScript minimizzati fluire molto più velocemente sulla rete.
@@ -197,18 +200,18 @@ informato di applicare i filtri solo quando la modalità debug è spenta (come i
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/js/*' filter='?uglifyjs2' %}
+        {% javascripts '@AppBundle/Resources/public/js/*' filter='?uglifyjs2' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmePippoBundle/Resources/public/js/*'),
+            array('@AppBundle/Resources/public/js/*'),
             array('?uglifyjs2')
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>"></script>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 Per provarlo, basta passare all'ambiente ``prod`` (``app.php``). Ma prima non
 bisogna scordarsi di :ref:`pulire la cache<book-page-creation-prod-cache-clear>`
@@ -216,12 +219,9 @@ e di :ref:`esportare le risorse di assetic<cookbook-asetic-dump-prod>`.
 
 .. tip::
 
-    Invece di aggiungere il filtro all'interno dei tag delle risorse, è possibile 
-    abilitarlo globalmente aggiungendo l'attributo applay-to nella configurazione. 
-    Ad esempio, per il filtro ``uglifyjs2``, ``apply_to: "\.js$"``. Per abilitare
-    il filtro nel solo ambiente di produzione, è possibile aggiungere il precedente
-    attributo nel file ``config_prod`` piuttosto che nel file di configurazione comune. Per ulteriori dettagli
-    sull'applicazione dei filtri, si veda :ref:`cookbook-assetic-apply-to`.
+    Invece di aggiungere il filtro all'interno dei tag delle risorse, è possibile configurare
+    i filtri da applicare per ogni file, nella configurazione dell'applicazione.
+    Vedere :ref:`cookbook-assetic-apply-to` per maggiori dettagli.
 
 Installare, configurare e utilizzare UglifyCSS
 ----------------------------------------------
@@ -231,7 +231,12 @@ si installa il pacchetto npm:
 
 .. code-block:: bash
 
+    # installazione globale
     $ npm install -g uglifycss
+
+    # installazione locale
+    $ cd /percorso/del/progetto/symfony
+    $ npm install uglifycss --prefix app/Resources
 
 Successivamente, aggiungere il filtro alla configurazione:
 
@@ -272,19 +277,19 @@ di Assetic:
 
     .. code-block:: html+jinja
 
-        {% stylesheets 'bundles/AcmePippo/css/*' filter='uglifycss' filter='cssrewrite' %}
+        {% stylesheets 'bundles/App/css/*' filter='uglifycss' filter='cssrewrite' %}
              <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->stylesheets(
-            array('bundles/AcmePippo/css/*'),
+            array('bundles/App/css/*'),
             array('uglifycss'),
             array('cssrewrite')
         ) as $url): ?>
             <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 Così come per il filtro ``uglifyjs2``, se si premette ``?`` al nome del filtro
 (come in ``?uglifycss``), la minimizzazione avverrà solamente quando non si è

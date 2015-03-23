@@ -74,8 +74,8 @@ Per includere file JavaScript, usare il tag ``javascript`` in un template.
 .. note::
 
     Se si usano i nomi di blocchi predefiniti di Symfony Standard Edition,
-    il tag ``javascripts`` si troverà solitamente nel blocco ``javascripts``:
-
+    il tag ``javascripts`` si troverà solitamente nel blocco
+    ``javascripts``:
 
     .. code-block:: html+jinja
 

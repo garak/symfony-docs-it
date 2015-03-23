@@ -202,6 +202,7 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
     use Symfony\Component\Security\Core\Exception\NonceExpiredException;
     use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
     use AppBundle\Security\Authentication\Token\WsseUserToken;
+    use Symfony\Component\Security\Core\Util\StringUtils;
 
     class WsseProvider implements AuthenticationProviderInterface
     {
@@ -260,7 +261,7 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
             // Valida la parola segreta
             $expected = base64_encode(sha1(base64_decode($nonce).$created.$secret, true));
 
-            return $digest === $expected;
+            return StringUtils::equals($expected, $digest);
         }
 
         public function supports(TokenInterface $token)
@@ -276,6 +277,14 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
     che dice al gestore di autenticazione se usare o meno questo fornitore per il token
     dato. In caso di più fornitori, il gestore di autenticazione passerà al fornitore
     successivo della lista.
+
+.. note::
+
+    Il confronto tra digest atteso e fornito è eseguito a tempo costante,
+    grazie al metodo
+    :method:`Symfony\\Component\\Security\\Core\\Util\\StringUtils::equals`
+    della classe ``StringUtils``. Questo serve a mitigare possibili attacchi di tipo
+    `timing attack`_.
 
 Il factory
 ----------
@@ -608,3 +617,4 @@ utilizzata o passata a altre classi nel contenitore.
 
 .. _`WSSE`: http://www.xml.com/pub/a/2003/12/17/dive.html
 .. _`nonce`: http://it.wikipedia.org/wiki/Nonce
+.. _`timing attack`: http://en.wikipedia.org/wiki/Timing_attack

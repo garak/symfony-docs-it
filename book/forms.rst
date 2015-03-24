@@ -96,7 +96,7 @@ all'interno di un controllore::
                 ->add('save', 'submit', array('label' => 'Crea post'))
                 ->getForm();
 
-            return $this->render('Default/new.html.twig', array(
+            return $this->render('default/new.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
@@ -144,14 +144,14 @@ aiutanti per i form:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
+        {# app/Resources/views/default/new.html.twig #}
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/new.html.php -->
+        <!-- app/Resources/views/default/new.html.php -->
         <?php echo $view['form']->start($form) ?>
         <?php echo $view['form']->widget($form) ?>
         <?php echo $view['form']->end($form) ?>
@@ -442,12 +442,12 @@ rispettivi errori visualizzati nel form.
 
        .. code-block:: html+jinja
 
-           {# app/Resources/views/Default/new.html.twig #}
+           {# app/Resources/views/default/new.html.twig #}
            {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
        .. code-block:: html+php
 
-           <!-- app/Resources/views/Default/new.html.php -->
+           <!-- app/Resources/views/default/new.html.php -->
            <?php echo $view['form']->form($form, array(
                'attr' => array('novalidate' => 'novalidate'),
            )) ?>
@@ -784,7 +784,7 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
+        {# app/Resources/views/default/new.html.twig #}
         {{ form_start(form) }}
             {{ form_errors(form) }}
 
@@ -794,7 +794,7 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/newAction.html.php -->
+        <!-- app/Resources/views/default/newAction.html.php -->
         <?php echo $view['form']->start($form) ?>
             <?php echo $view['form']->errors($form) ?>
 
@@ -1002,12 +1002,12 @@ Infine, si possono sovrascrivere azione e metodo nel template, passandoli all'ai
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
+        {# app/Resources/views/default/new.html.twig #}
         {{ form_start(form, {'action': path('target_route'), 'method': 'GET'}) }}
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/newAction.html.php -->
+        <!-- app/Resources/views/default/newAction.html.php -->
         <?php echo $view['form']->start($form, array(
             'action' => $view['router']->generate('target_route'),
             'method' => 'GET',
@@ -1057,9 +1057,16 @@ che ospiterà la logica per la costruzione del form task::
         }
     }
 
+.. caution::
+
+    Il metodo ``getName()`` restituisce l'identificatore per questo "tipo" di form. Questi
+    identificatori devono essere univoci nell'applicazione. A meno che non si voglia sovrascrivere
+    un tipo predefinito, devono essere diversi dai tipi di Symfonu e da ogni
+    tipo definito da bundle di terze parti installati nell'applicazione.
+    Si consideri l'uso di un prefisso ``app_``, per evitare collisioni.
+
 Questa nuova classe contiene tutte le indicazioni necessarie per creare il form
-task (notare che il metodo ``getName()`` dovrebbe restituire un identificatore univoco per questo
-"tipo" di form). Può essere usato per costruire rapidamente un oggetto form nel controllore::
+task. Può essere usato per costruire rapidamente un oggetto form nel controllore::
 
     // src/AppBundle/Controller/DefaultController.php
 
@@ -1466,19 +1473,19 @@ rende il form:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
-        {% form_theme form 'Form/fields.html.twig' %}
+        {# app/Resources/views/default/new.html.twig #}
+        {% form_theme form 'form/fields.html.twig' %}
 
-        {% form_theme form 'Form/fields.html.twig' 'Form/fields2.html.twig' %}
+        {% form_theme form 'form/fields.html.twig' 'Form/fields2.html.twig' %}
 
         {# ... rendere il form #}
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/new.html.php -->
-        <?php $view['form']->setTheme($form, array('Form')) ?>
+        <!-- app/Resources/views/default/new.html.php -->
+        <?php $view['form']->setTheme($form, array('form')) ?>
 
-        <?php $view['form']->setTheme($form, array('Form', 'Form2')) ?>
+        <?php $view['form']->setTheme($form, array('form', 'form2')) ?>
 
         <!-- ... rendere il form -->
 
@@ -1606,7 +1613,7 @@ della configurazione dell'applicazione:
         twig:
             form:
                 resources:
-                    - 'Form/fields.html.twig'
+                    - 'form/fields.html.twig'
             # ...
 
     .. code-block:: xml
@@ -1621,7 +1628,7 @@ della configurazione dell'applicazione:
 
             <twig:config>
                 <twig:form>
-                    <twig:resource>Form/fields.html.twig</twig:resource>
+                    <twig:resource>form/fields.html.twig</twig:resource>
                 </twig:form>
                 <!-- ... -->
             </twig:config>
@@ -1633,7 +1640,7 @@ della configurazione dell'applicazione:
         $container->loadFromExtension('twig', array(
             'form' => array(
                 'resources' => array(
-                    'Form/fields.html.twig',
+                    'form/fields.html.twig',
                 ),
             ),
             // ...
@@ -1854,11 +1861,11 @@ un array.
 .. tip::
 
     Si può anche accedere ai valori POST ("name", in questo caso) direttamente tramite
-    l'oggetto `Request`, in questo modo::
+    l'oggetto ``Request``, in questo modo::
 
-        $this->get('request')->request->get('name');
+        $request->request->get('name');
 
-    Tuttavia, si faccia attenzione che in molti casi l'uso del metodo getData() è
+    Tuttavia, si faccia attenzione che in molti casi l'uso del metodo ``getData()`` è
     preferibile, poiché restituisce i dati (solitamente un oggetto) dopo
     che sono stati manipolati dal sistema dei form.
 

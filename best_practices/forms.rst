@@ -207,3 +207,21 @@ In secondo luogo si raccomand di usare ``$form->isSubmitted()`` nel costrutto ``
 per rendere il codice più chiaro. Tecnicamente non è necessario, dato che ``isValid()``  esegue prima
 ``isSubmitted()``. Senza questo, tuttavia, il flusso risulterebbe un po' strano
 e il form sembrerebbe *sempre* processato, anche per le richieste GET.
+
+TIpi di campo personalizzati
+----------------------------
+
+.. best-practice::
+
+    Aggiungere il prefisso ``app_`` ai campi personalizzati, per evitare collisioni.
+
+I tipi di campo personalizzati ereditano dalla classe ``AbstractType``, che definisce il metodo
+``getName()`` per configurare il nome del tipo. Tali nomi devono essere univoci
+nell'applicazione.
+
+Se un tipo personalizzato usa lo stesso nome di uno dei tipi di Symfony,
+lo sovrascriverà. Lo stesso accade quando il tipo personalizzato corrisponde
+a un qualsiasi tipo definito da bundle di terze parti installati nell'applicazione.
+
+Aggiungere il prefisso ``app_`` ai campi personalizzati, per evitare collisioni
+che potrebbero portare a errori.

@@ -65,6 +65,8 @@ Membri attivi
   * **Abdellatif AitBoudad** (`aitboudad`_) per il componente Translation_.
 
 
+  * **Jakub Zalas** (`jakzal`_) per il componente DomCrawler_.
+
 * **Decider**:
 
   * **Jakub Zalas** (`jakzal`_);
@@ -184,3 +186,4 @@ a discrezione del **capo progetto**.
 .. _`lsmith77`: https://github.com/lsmith77/
 .. _`weaverryan`: https://github.com/weaverryan/
 .. _`aitboudad`: https://github.com/aitboudad/
+.. _`xabbuh`: https://github.com/xabbuh/

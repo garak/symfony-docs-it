@@ -79,6 +79,7 @@ qui:
 #. :ref:`Fare un push su Heroku <heroku-push-code>`
 
 .. _heroku-procfile:
+.. _creating-a-procfile:
 
 1) Creare un Procfile
 ~~~~~~~~~~~~~~~~~~~~~
@@ -117,6 +118,7 @@ per creare il file ``Procfile`` e aggiungerlo al repository:
      1 file changed, 1 insertion(+)
 
 .. _heroku-setting-env-to-prod:
+.. _setting-the-prod-environment:
 
 2) Impostare l'ambiente a prod
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -140,6 +142,7 @@ variabili d'ambiente, quindi basta un singolo comando per preparare il deploy:
     $ heroku config:set SYMFONY_ENV=prod
 
 .. _heroku-push-code:
+.. _pushing-to-heroku:
 
 3) Push su Heroku
 ~~~~~~~~~~~~~~~~~

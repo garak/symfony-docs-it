@@ -5,11 +5,9 @@
 Caricare gli utenti dalla base dati (il fornitore di entità)
 ============================================================
 
-Il livello della sicurezza è uno degli strumenti migliori di Symfony. Gestisce due
-aspetti: il processo di autenticazione e quello di autorizzazione. Sebbene possa
-sembrare difficile capirne il funzionamento interno, il sistema di sicurezza è
-molto flessibile e consente di integrare un'applicazione con qualsiasi
-backend di autenticazione, come Active Directory, OAuth o una base dati.
+Il sistema di sicurezza di Symfony può caricare utente da qualsiasi fonte, come
+basi di dati, Active Directory o server OAuth. Questa ricetta mostrerà
+come caricare utenti dalla base dati, tramite un'entità Doctrine.
 
 Introduzione
 ------------
@@ -57,17 +55,15 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Entity/User.php
-    namespace Acme\UserBundle\Entity;
+    // src/AppBundle/Entity/User.php
+    namespace AppBundle\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Security\Core\User\UserInterface;
 
     /**
-     * Acme\UserBundle\Entity\User
-     *
-     * @ORM\Table(name="acme_users")
-     * @ORM\Entity(repositoryClass="Acme\UserBundle\Entity\UserRepository")
+     * @ORM\Table(name="app_users")
+     * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
      */
     class User implements UserInterface, \Serializable
     {
@@ -105,17 +101,11 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
             // $this->salt = md5(uniqid(null, true));
         }
 
-        /**
-         * @inheritDoc
-         */
         public function getUsername()
         {
             return $this->username;
         }
 
-        /**
-         * @inheritDoc
-         */
         public function getSalt()
         {
             // *potrebbe* non essere necessario un vero sale, a seconda del codificatore
@@ -123,32 +113,21 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
             return null;
         }
 
-        /**
-         * @inheritDoc
-         */
         public function getPassword()
         {
             return $this->password;
         }
 
-        /**
-         * @inheritDoc
-         */
         public function getRoles()
         {
             return array('ROLE_USER');
         }
 
-        /**
-         * @inheritDoc
-         */
         public function eraseCredentials()
         {
         }
 
-        /**
-         * @see \Serializable::serialize()
-         */
+        /** @see \Serializable::serialize() */
         public function serialize()
         {
             return serialize(array(
@@ -160,9 +139,7 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
             ));
         }
 
-        /**
-         * @see \Serializable::unserialize()
-         */
+        /** @see \Serializable::unserialize() */
         public function unserialize($serialized)
         {
             list (
@@ -276,7 +253,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
         # app/config/security.yml
         security:
             encoders:
-                Acme\UserBundle\Entity\User:
+                AppBundle\Entity\User:
                     algorithm: bcrypt
 
             role_hierarchy:
@@ -285,7 +262,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
 
             providers:
                 administrators:
-                    entity: { class: AcmeUserBundle:User, property: username }
+                    entity: { class: AppBundle:User, property: username }
 
             firewalls:
                 admin_area:
@@ -299,7 +276,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
 
         <!-- app/config/security.xml -->
         <config>
-            <encoder class="Acme\UserBundle\Entity\User"
+            <encoder class="AppBundle\Entity\User"
                 algorithm="bcrypt"
             />
 
@@ -307,7 +284,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
             <role id="ROLE_SUPER_ADMIN">ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH</role>
 
             <provider name="administrators">
-                <entity class="AcmeUserBundle:User" property="username" />
+                <entity class="AppBundle:User" property="username" />
             </provider>
 
             <firewall name="admin_area" pattern="^/admin">
@@ -322,7 +299,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'encoders' => array(
-                'Acme\UserBundle\Entity\User' => array(
+                'AppBundle\Entity\User' => array(
                     'algorithm' => 'bcrypt',
                 ),
             ),
@@ -333,7 +310,7 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
             'providers' => array(
                 'administrator' => array(
                     'entity' => array(
-                        'class'    => 'AcmeUserBundle:User',
+                        'class'    => 'AppBundle:User',
                         'property' => 'username',
                     ),
                 ),
@@ -382,7 +359,7 @@ gli utenti dalla base dati, prima di verificare la validità della password.
                 providers:
                     administrators:
                         entity:
-                            class: AcmeUserBundle:User
+                            class: AppBundle:User
                             property: username
                             manager_name: customer
 
@@ -533,29 +510,24 @@ Il codice successivo mostra l'implementazione di
     use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
     use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
     use Doctrine\ORM\EntityRepository;
-    use Doctrine\ORM\NoResultException;
 
     class UserRepository extends EntityRepository implements UserProviderInterface
     {
         public function loadUserByUsername($username)
         {
-            $q = $this
-                ->createQueryBuilder('u')
+            $user = $this->createQueryBuilder('u')
                 ->where('u.username = :username OR u.email = :email')
                 ->setParameter('username', $username)
                 ->setParameter('email', $username)
-                ->getQuery();
+                ->getQuery()
+                ->getOneOrNullResult()
 
-            try {
-                // Il metodo Query::getSingleResult() lancia un'eccezione
-                // se nessuna riga corrisponde ai criteri
-                $user = $q->getSingleResult();
-            } catch (NoResultException $e) {
+            if ($user) {
                 $message = sprintf(
                     'Impossibile trovare un oggetto AcmeUserBundle:User identificato da  "%s".',
                     $username
                 );
-                throw new UsernameNotFoundException($message, 0, $e);
+                throw new UsernameNotFoundException($message);
             }
 
             return $user;
@@ -603,7 +575,7 @@ del file ``security.yml``.
             # ...
             providers:
                 administrators:
-                    entity: { class: AcmeUserBundle:User }
+                    entity: { class: AppBundle:User }
             # ...
 
     .. code-block:: xml
@@ -613,7 +585,7 @@ del file ``security.yml``.
             <!-- ... -->
 
             <provider name="administrator">
-                <entity class="AcmeUserBundle:User" />
+                <entity class="AppBundle:User" />
             </provider>
 
             <!-- ... -->
@@ -627,7 +599,7 @@ del file ``security.yml``.
             'providers' => array(
                 'administrator' => array(
                     'entity' => array(
-                        'class' => 'AcmeUserBundle:User',
+                        'class' => 'AppBundle:User',
                     ),
                 ),
             ),
@@ -671,8 +643,8 @@ utenti. Il precedente metodo ``getRoles()`` ora restituisce
 l'elenco dei ruoli correlati. Notare che i metodi ``__construct()`` e ``getRoles()``
 sono cambiati::
 
-    // src/Acme/UserBundle/Entity/User.php
-    namespace Acme\UserBundle\Entity;
+    // src/AppBundle/Entity/User.php
+    namespace AppBundle\Entity;
 
     use Doctrine\Common\Collections\ArrayCollection;
     // ...
@@ -706,15 +678,15 @@ La classe entità ``AcmeUserBundle:Role`` definisce tre campi (``id``,
 (p.e. ``ROLE_ADMIN``) usati dal livello della sicurezza di Symfony per proteggere parti
 dell'applicazione::
 
-    // src/Acme/Bundle/UserBundle/Entity/Role.php
-    namespace Acme\UserBundle\Entity;
+    // src/AppBundle/Entity/Role.php
+    namespace AppBundle\Entity;
 
     use Symfony\Component\Security\Core\Role\RoleInterface;
     use Doctrine\Common\Collections\ArrayCollection;
     use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @ORM\Table(name="acme_role")
+     * @ORM\Table(name="app_role")
      * @ORM\Entity()
      */
     class Role implements RoleInterface
@@ -777,7 +749,7 @@ a questa:
 
 .. code-block:: bash
 
-    $ mysql> SELECT * FROM acme_role;
+    $ mysql> SELECT * FROM app_role;
     +----+-------+------------+
     | id | name  | role       |
     +----+-------+------------+
@@ -817,8 +789,8 @@ del recupero dell'utente dal fornitore di utenti personalizzato, la soluzione mi
 fare un join dei gruppi correlati nel metodo ``UserRepository::loadUserByUsername()``.
 In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una sola query::
 
-    // src/Acme/UserBundle/Entity/UserRepository.php
-    namespace Acme\UserBundle\Entity;
+    // src/AppBundle/Entity/UserRepository.php
+    namespace AppBundle\Entity;
 
     // ...
 
@@ -842,7 +814,7 @@ In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una 
     }
 
 Il metodo ``QueryBuilder::leftJoin()`` recupera con un join i ruoli correlati dalla
-classe del modello ``AcmeUserBundle:User``, quando un utente viene recuperato con la sua
+classe del modello ``AppBundle:User``, quando un utente viene recuperato con la sua
 email o con il suo nome.
 
 .. _`cookbook-security-serialize-equatable`:

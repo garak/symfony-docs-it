@@ -21,7 +21,8 @@ sezioni:
 3) Recuperare l'oggetto corrispondente all'utente corrente
 
 Successivamente ci saranno un certo numero di piccole (ma interessanti) sezioni,
-come :ref:`logout <book-security-logging-out>` e :ref:`codifica delle password <security-encoding-password>`.
+come :ref:`logout <book-security-logging-out>` e
+:ref:`codifica delle password <security-encoding-password>`.
 
 .. _book-security-firewalls:
 
@@ -175,7 +176,7 @@ Per attivarlo, aggiungere la voce ``http_basic`` nel firewall:
             ),
         ));
 
-Facile! Per fare una prova, si deve richiedere che un utente sia loggato per poter vedere
+Facile! Per fare una prova, si deve richiedere che un utente sia connesso per poter vedere
 una pagina. Per rendere le cose interessanti, creare una nuova pagina su ``/admin``. Per
 esempio, se si usano le annotazioni, creare qualcosa come questo::
 
@@ -197,7 +198,7 @@ esempio, se si usano le annotazioni, creare qualcosa come questo::
     }
 
 Quindi, aggiungere a ``security.yml`` una voce ``access_control`` che richieda all'utente
-di essere loggato per poter accedere a tale URL:
+di essere connesso per poter accedere a tale URL:
 
 .. configuration-block::
 
@@ -487,7 +488,7 @@ parte, se ne vorranno codificare le password. Il miglior algoritmo da usare è
 
             'encoders' => array(
                 'Symfony\Component\Security\Core\User\User' => array(
-                    'algorithm' => 'plaintext',
+                    'algorithm' => 'bcrypt',
                     'cost' => 12,
                 )
             ),
@@ -658,11 +659,11 @@ Aggiungere codice per negare l'accesso
 
 Ci sono **due** modi per negare accesso a qualcosa:
 
-1) :ref:`access_control in security.yml <security-authorization-access-control>`
+#. :ref:`access_control in security.yml <security-authorization-access-control>`
    consente di proteggere schemi di URL (p.e. ``/admin/*``). È facile,
    ma meno flessibile;
 
-2) :ref:`nel codice, tramite il servizio security.context <book-security-securing-controller>`.
+#. :ref:`nel codice, tramite il servizio security.context <book-security-securing-controller>`.
 
 .. _security-authorization-access-control:
 
@@ -813,9 +814,11 @@ Si può negare accesso da dentro un controllore::
         // ...
     }
 
-Ecco fatto! Se l'utente non è ancora loggato, gli sarà richiesto il login (p.e.
-rinviato alla pagina di login). Se invece *è* loggato, gli sarà mostrata
-una pagina di errore 403 (che si può :ref:`personalizzare <cookbook-error-pages-by-status-code>`).
+Ecco fatto! Se l'utente non è ancora connesso, gli sarà richiesto il login (p.e. sarà
+rinviato alla pagina di login). Se invece *è* connesso, ma *non* ha il ruolo
+``ROLE_ADMIN``, gli sarà mostrata una pagina di errore 403 (che si può
+:ref:`personalizzare <cookbook-error-pages-by-status-code>`). Se è connesso e ha i
+ruoli giusti, il codice sarà eseguito.
 
 .. _book-security-template:
 
@@ -841,8 +844,7 @@ la funzione aiutante predefinita:
 
 Se si usa questa funzione *non* essendo dietro a un firewall, sarà lanciata
 un'ecceezione. È quindi sempre una buona idea avere almeno un firewall
-principale, che copra tutti gli URL (come mostrato in
-questo capitolo).
+principale, che copra tutti gli URL (come mostrato in questo capitolo).
 
 .. caution::
 
@@ -864,12 +866,13 @@ venga usata, solo ad alcuni utenti.
 
 Per maggiori informazioni, vedere :doc:`/cookbook/security/securing_services`.
 
-Verificare se un utente sia loggato (IS_AUTHENTICATED_FULLY)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Verificare se un utente sia connesso (IS_AUTHENTICATED_FULLY)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Finora, i controlli sugli accessi sono stati basati su ruoli, stringhe che iniziano con
 ``ROLE_`` e assegnate agli utenti. Se invece si vuole *solo* verificare se un
-utente sia loggato (senza curarsi dei ruoli), si può usare ``IS_AUTHENTICATED_FULLY``::
+utente sia connesso (senza curarsi dei ruoli), si può usare
+``IS_AUTHENTICATED_FULLY``::
 
     // ...
     use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -888,16 +891,16 @@ utente sia loggato (senza curarsi dei ruoli), si può usare ``IS_AUTHENTICATED_F
     Si può usare questo metodo anche in ``access_control``.
 
 ``IS_AUTHENTICATED_FULLY`` non è un ruolo, ma si comporta come tale ed è assegnato a ciascun
-utente che sia sia loggato. In effetti, ci sono tre attributi
+utente che sia sia connesso. In effetti, ci sono tre attributi
 speciali di questo tipo:
 
-* ``IS_AUTHENTICATED_REMEMBERED``: Assegnato a *tutti* gli utenti loggati, anche se
-  sono stati loggati tramite un cookie "ricordami". Anche se non si usa
+* ``IS_AUTHENTICATED_REMEMBERED``: Assegnato a *tutti* gli utenti connessi, anche se
+  si sono connessi tramite un cookie "ricordami". Anche se non si usa
   la :doc:`funzionalità "ricordami" </cookbook/security/remember_me>`,
-  lo si può usare per verificare se l'utente sia loggato.
+  lo si può usare per verificare se l'utente sia connesso.
 
 * ``IS_AUTHENTICATED_FULLY``: Simile a ``IS_AUTHENTICATED_REMEMBERED``,
-  ma più forte. Gli utenti loggati tramite un cookie "ricordami"
+  ma più forte. Gli utenti connessi tramite un cookie "ricordami"
   avranno ``IS_AUTHENTICATED_REMEMBERED``, ma non ``IS_AUTHENTICATED_FULLY``.
 
 * ``IS_AUTHENTICATED_ANONYMOUSLY``: Assegnato a *tutti* gli utenti (anche quelli anonimi).
@@ -957,6 +960,7 @@ Ora si possono chiamare i metodi desiderati sul *proprio* oggetto utente. Per es
 se il proprio oggetto utente ha un metodo ``getFirstName()``, lo si può usare::
 
     use Symfony\Component\HttpFoundation\Response;
+    // ...
 
     public function indexAction()
     {
@@ -965,8 +969,8 @@ se il proprio oggetto utente ha un metodo ``getFirstName()``, lo si può usare::
         return new Response('Ciao '.$user->getFirstName());
     }
 
-Verificare sempre se l'utente è loggato
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Verificare sempre se l'utente è connesso
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 È importante verificare prima se l'utente sia autenticato. Se non lo è,
 ``$user`` sarà ``null`` oppure la stringa ``anon.``. Come? Esatto,
@@ -974,16 +978,16 @@ c'è una stranezza. Se non si è leggati, l'utente è tecnicamente la stringa
 ``anon.``, anche se la scorciatoia ``getUser()`` del controllore la converte in
 ``null`` per convenienza.
 
-Il punto è questo: verificare sempre se l'utente sia loggato, prima di usare
+Il punto è questo: verificare sempre se l'utente sia connesso, prima di usare
 l'oggetto ``User`` e usare il metodo ``isGranted`` (o
 :ref:`access_control <security-authorization-access-control>`) per farlo::
 
-    // Usare questo per vedere se l'utente sia loggato
+    // Usare questo per vedere se l'utente sia connesso
     if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
         throw new AccessDeniedException();
     }
 
-    // Non verificare mai l'oggetto User per verdere se l'utente sia loggato
+    // Non verificare mai l'oggetto User per verdere se l'utente sia connesso
     if ($this->getUser()) {
 
     }

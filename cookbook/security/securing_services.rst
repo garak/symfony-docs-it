@@ -26,16 +26,13 @@ il servizio ``security.context``. Per un'introduzione generale all'iniezione di 
 nei servizi, vedere il capitolo :doc:`/book/service_container` del libro. Per esempio,
 si supponga di avere una classe ``NewsletterManager``, che invia email, e di voler
 restringere il suo utilizzo ai soli utenti con un ruolo ``ROLE_NEWSLETTER_ADMIN``.
-Prima di aggiungere la sicurezza, la classe assomiglia a qualcosa del genere:
-
-.. code-block:: php
+Prima di aggiungere la sicurezza, la classe assomiglia a qualcosa del genere::
 
     // src/AppBundle/Newsletter/NewsletterManager.php
     namespace AppBundle\Newsletter;
 
     class NewsletterManager
     {
-
         public function sendNewsletter()
         {
             // qui va la logica specifica
@@ -48,11 +45,10 @@ Lo scopo è verificare il ruolo dell'utente al richiamo del metodo ``sendNewslet
 Il primo passo in questa direzione è l'iniezione del servizio ``security.context``
 nell'oggetto. Non avendo molto senso *non* eseguire un controllo di sicurezza, questo è
 un candidato ideale per un'iniezione nel costruttore, che garantisce che l'oggetto
-della sicurezza sia disponibile in tutta la classe
-``NewsletterManager``::
+della sicurezza sia disponibile in tutta la classe ``NewsletterManager``::
 
-    namespace AppBundle\Newsletter;
 
+    // ...
     use Symfony\Component\Security\Core\SecurityContextInterface;
 
     class NewsletterManager
@@ -102,11 +98,8 @@ Quindi, nella configurazione dei servizi, si può iniettare il servizio:
 Il servizio iniettato può quindi essere usato per eseguire il controllo di sicurezza,
 quando il metodo ``sendNewsletter()`` viene richiamato::
 
-    namespace AppBundle\Newsletter;
-
-    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-    use Symfony\Component\Security\Core\SecurityContextInterface;
     // ...
+    use Symfony\Component\Security\Core\SecurityContextInterface;
 
     class NewsletterManager
     {

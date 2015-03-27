@@ -12,60 +12,50 @@ come caricare utenti dalla base dati, tramite un'entità Doctrine.
 Introduzione
 ------------
 
-Questo articolo mostra come autenticare gli utenti con una tabella della base dati,
-gestita da una classe entità di Doctrine. Il contenuto di questa ricetta è suddiviso
-in tre parti. La prima parte riguarda la progettazione di una classe entità ``User``
-e il renderla usabile nel livello della sicurezza di Symfony. La seconda parte
-descrive come autenticare facilmente un utente con l'oggetto
-:class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` distribuito
-con il framework, oltre che con un po' di configurazione.
-Infine, la guida dimostrerà come creare una classe
-:class:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider` personalizzata,
-per recuperare utenti dalla base dati con condizioni particolari.
+.. tip::
 
-.. sidebar:: Codice con gli esempi
+    Prima di iniziare, dare un'occhiata a `FOSUserBundle`_. Questo
+    bundle consente di caricare utenti dalla base dati (come si vedrà più avanti)
+    *e* fornisce rotte e controllori per questioni come login,
+    registrazione e recupero della password. Se invece occorre personalizzare
+    il proprio sistema di utenti *oppure* si vuole capire come funzionano le cose, questa
+    ricetta è anche meglio.
 
-    Se si vogliono seguire gli esempi in questo capitolo, creare
-    AcmeUserBundle:
+Il caricamento di utenti tramite entità Doctrine ha essenzialmente due passi:
 
-    .. code-block:: bash
+#. :ref:`Creare un'entità Utente <security-crete-user-entity>`
+#. :ref:`Configurare security.yml per caricare dall'entità <security-config-entity-provider>`
 
-        $ php app/console generate:bundle --namespace=Acme/UserBundle
+Successivamente, si può approfondire su :ref:`bloccare utenti inattivi <security-advanced-user-interface>`,
+:ref:`usare query personalizzate <authenticating-someone-with-a-custom-entity-provider>`
+e :ref:`serializzare l'utente in sessione <cookbook-security-serialize-equatable>`
+
+.. _security-crete-user-entity:
+.. _the-data-model:
 
 Il modello dei dati
 -------------------
 
-Ai fini di questa ricetta, il bundle ``AcmeUserBundle`` contiene una classe
-entità ``User``, con i seguenti campi: ``id``, ``username``, ``salt``,
-``password``, ``email`` e ``isActive``. Il campo ``isActive`` indica se l'utente
-è attivo o meno.
+1) Creare l'entità Utente
+-------------------------
 
-Per sintetizzare, i metodi setter e getter per ogni campo sono stati rimossi, in
-modo da focalizzarsi sui metodi più importanti, provenienti da
-:class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
-
-.. tip::
-
-    Si possono :ref:`generare getter e setter mancanti <book-doctrine-generating-getters-and-setters>`
-    eseguendo:
-
-    .. code-block:: bash
-
-        $ php app/console doctrine:generate:entities Acme/UserBundle/Entity/User
+Per questa ricetta, si suppone di avere già un'entità ``Utente`` in un bundle
+``AppBundle``, con i campi seguenti: ``id``, ``username``, ``password``,
+``email`` e ``isActive``:
 
 .. code-block:: php
 
-    // src/AppBundle/Entity/User.php
+    // src/AppBundle/Entity/Utente.php
     namespace AppBundle\Entity;
 
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Security\Core\User\UserInterface;
 
     /**
-     * @ORM\Table(name="app_users")
+     * @ORM\Table()
      * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
      */
-    class User implements UserInterface, \Serializable
+    class Utente implements UserInterface, \Serializable
     {
         /**
          * @ORM\Column(type="integer")
@@ -152,26 +142,27 @@ modo da focalizzarsi sui metodi più importanti, provenienti da
         }
     }
 
-.. note::
+Per sintetizzare, alcuni getter e setter non sono mostrati in questo esempio.
+Possono comunque essere :ref:`generati <book-doctrine-generating-getters-and-setters>` con
+il comando:
 
-    Quando si implementa
-    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
-    occorre specificare quali proprietà debbano essere confrontate per dintinguere
-    gli oggetti utente.
+.. code-block:: bash
 
-.. tip::
+    $ php app/console doctrine:generate:entities AppBundle/Entity/User
 
-    :ref:`Generare la tabella della base dati <book-doctrine-creating-the-database-tables-schema>`
-    per l'entità ``User`` eseguendo:
+Occorre quindi :ref:`creare la tabella nella base dati <book-doctrine-creating-the-database-tables-schema>`:
 
-    .. code-block:: bash
+.. code-block:: bash
 
-        $ php app/console doctrine:schema:update --force
+    $ php app/console doctrine:schema:update --force
 
-Per poter usare un'istanza della classe ``AcmeUserBundle:User`` nel livello della sicurezza
-di Symfony, la classe entità deve implementare
-:class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`. Questa
-interfaccia costringe la classe a implementare i seguenti cinque metodi:
+Che cos'è UserInterface?
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Finora, questa è solo una normale entità. Ma per poter usare questa classe nel sistema di
+sicurezza, deve implementare
+:class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`. Questo obbliga
+la classe ad avere questi cinque metodi:
 
 * :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getRoles`
 * :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getPassword`
@@ -181,70 +172,31 @@ interfaccia costringe la classe a implementare i seguenti cinque metodi:
 
 Per maggiori dettagli su tali metodi, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
 
-.. note::
+Cosa fanno i metodi serialize e unserialize?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    L'interfaccia :phpclass:`Serializable` e i suoi metodi ``serialize`` e ``unserialize``
-    sono stati aggiunti per consentire alla classe ``User`` di essere serializzata
-    nella sessione. Questo potrebbe essere necessario o meno, a seconda della configurazione,
-    ma probabilmente è una buona idea. Solo ``id`` ha bisogno di essere serializzato,
-    perché il metodo
-    :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
-    ricarica l'utente a ogni richiesta, usando ``id``. In pratica,
-    questo vuole dire che l'oggetto User è ricaricato dalla base dati a ogni
-    richiesta, tramite l'``id`` dell'oggetto serializzato. Questo assicura che
-    tutti i dati dell'utente siano aggiornati.
+Alla fine di ogni richiesta, l'oggetto Utente è serializzato in sessione.
+Alla richiesta successiva, è deserializzato. Per aiutare PHP in questo processo, si
+deve implementare ``Serializable``. Ma non occorre serializzare tutto:
+bastano solo pochi campi (quelli mostrati sopra, più alcuni altri se si decide
+di implementare :ref:`AdvancedUserInterface <security-advanced-user-interface>`).
+A ogni richiesta, si usa ``id`` per cercare di nuovo l'oggetto ``Utente``
+nella base dati.
 
-    Symfony usa anche ``username``, ``salt`` e ``password`` per verificare
-    che l'utente non sia stato modificato tra una richiesta e l'altra. Se non
-    si serializzano correttamente queste proprietà, l'utente potrebbe subire un logout. Se User implementa
-    :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
-    invece di verificare ogni singola proprietà, basta richiamare il metodo ``isEqualTo``
-    e verificare qualsiasi proprietà si voglia. Se questo punto non
-    è chiaro, probabilmente *non* si avrà bisogno di implementare tale interfaccia
-    né di preoccuparsene.
+Per approfondire, vedere :ref:`cookbook-security-serialize-equatable`.
 
-Di seguito è mostrata un'esportazione della tabella ``User`` in MySQL, con utente ``admin`` e
-password (codificata) ``admin``. Per dettagli sulla creazione
-delle righe degli utenti e sulla codifica delle password, vedere :ref:`book-security-encoding-user-password`.
+.. _authenticating-someone-against-a-database:
+.. _security-config-entity-provider:
 
-.. code-block:: bash
+2) Configurazione di sicurezza per caricare dall'entità
+-------------------------------------------------------
 
-    $ mysql> SELECT * FROM acme_users;
-    +----+----------+------------------------------------------+--------------------+-----------+
-    | id | username | password                                 | email              | is_active |
-    +----+----------+------------------------------------------+--------------------+-----------+
-    |  1 | admin    | d033e22ae348aeb5660fc2140aec35850c4da997 | admin@example.com  |         1 |
-    +----+----------+------------------------------------------+--------------------+-----------+
+Ora che si ha un'entità ``Utente``, che implementa ``UserInterface``, basta
+dirlo al sistema di sicurezza di Symfony, all'interno di ``security.yml``.
 
-Nella prossima parte, vedremo come autenticare uno di questi utenti,
-grazie al fornitore di entità di Doctrine e a un paio di righe di
-configurazione.
-
-.. sidebar:: Occorre usare un sale?
-
-    Sì. L'hash di una password con un sale è un passo necessario, in modo che le
-    password non possano essere decodificate. Tuttavia, alcuni codificatori, come Bcrypt, hanno
-    un meccanismo predefinito per il sale. Se si configura ``bcrypt`` come codificatore
-    in ``security.yml`` (vedere la  sezione successiva), allora ``getSalt()`` dovrebbe
-    restituire ``null``, poiché Bcrypt genera il sale da solo.
-
-    Se tuttavia si usa un codificatore che *non* abbia un meccanismo predefinito
-    per il sale (come ``sha512``), si *deve* (dal punto di vista della sicurezza) generare
-    il proprio sale, in modo casuale, e memorizzarlo in una proprietà ``salt``, che sia salvata
-    nella base dati e restituita da ``getSalt()``. Il codice necessario
-    è presente nell'esempio precedente, commentato.
-
-Autenticazione con utenti sulla base dati
------------------------------------------
-
-L'autenticazione di un utente tramite base dati, usando il livello della sicurezza di
-Symfony, è un gioco da ragazzi. Sta tutto nella configurazione
-:doc:`SecurityBundle </reference/configuration/security>`, memorizzata nel file
-``app/config/security.yml``.
-
-Di seguito è mostrato un esempio di configurazione, in cui l'utente inserirà
-il suo nome e la sua password, tramite autenticazione HTTP. Queste informazioni
-saranno poi verificate sulla nostra entità ``User``, nella base dati:
+In questo esempio, l'utente inserirà username e password tramite HTTP
+basic authentication. Symfony cercherà un'entità ``Utente`` corrsipondente
+allo username e ne verificherà la password:
 
 .. configuration-block::
 
@@ -253,45 +205,46 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
         # app/config/security.yml
         security:
             encoders:
-                AppBundle\Entity\User:
+                AppBundle\Entity\Utente:
                     algorithm: bcrypt
 
-            role_hierarchy:
-                ROLE_ADMIN:       ROLE_USER
-                ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+            # ...
 
             providers:
-                administrators:
-                    entity: { class: AppBundle:User, property: username }
+                fornitore:
+                    entity:
+                        class: AppBundle:Utente
+                        property: username
+                        # se si usano più gestori di entità
+                        # manager_name: personalizzato
 
             firewalls:
-                admin_area:
-                    pattern:    ^/admin
+                default:
+                    pattern:    ^/
                     http_basic: ~
+                    provider: fornitore
 
-            access_control:
-                - { path: ^/admin, roles: ROLE_ADMIN }
+            # ...
 
     .. code-block:: xml
 
         <!-- app/config/security.xml -->
         <config>
-            <encoder class="AppBundle\Entity\User"
+            <encoder class="AppBundle\Entity\Utente"
                 algorithm="bcrypt"
             />
 
-            <role id="ROLE_ADMIN">ROLE_USER</role>
-            <role id="ROLE_SUPER_ADMIN">ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH</role>
+            <!-- ... -->
 
-            <provider name="administrators">
-                <entity class="AppBundle:User" property="username" />
+            <provider name="fornitore">
+                <entity class="AppBundle:Utente" property="username" />
             </provider>
 
-            <firewall name="admin_area" pattern="^/admin">
+            <firewall name="default" pattern="^/" provider="fornitore">
                 <http-basic />
             </firewall>
-
-            <rule path="^/admin" role="ROLE_ADMIN" />
+            
+            <!-- ... -->
         </config>
 
     .. code-block:: php
@@ -299,38 +252,36 @@ saranno poi verificate sulla nostra entità ``User``, nella base dati:
         // app/config/security.php
         $container->loadFromExtension('security', array(
             'encoders' => array(
-                'AppBundle\Entity\User' => array(
+                'AppBundle\Entity\Utente' => array(
                     'algorithm' => 'bcrypt',
                 ),
             ),
-            'role_hierarchy' => array(
-                'ROLE_ADMIN'       => 'ROLE_USER',
-                'ROLE_SUPER_ADMIN' => array('ROLE_USER', 'ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH'),
-            ),
+            // ...
             'providers' => array(
-                'administrator' => array(
+                'fornitore' => array(
                     'entity' => array(
-                        'class'    => 'AppBundle:User',
+                        'class'    => 'AppBundle:Utente',
                         'property' => 'username',
                     ),
                 ),
             ),
             'firewalls' => array(
-                'admin_area' => array(
-                    'pattern' => '^/admin',
+                'default' => array(
+                    'pattern' => '^/',
                     'http_basic' => null,
+                    'provider' => 'fornitore',
                 ),
             ),
-            'access_control' => array(
-                array('path' => '^/admin', 'role' => 'ROLE_ADMIN'),
-            ),
+            // ...
         ));
 
-La sezione ``encoders`` associa il codificatore ``bcrypt`` alla classe entità.
-Ciò vuol dire che Symfony si aspetta che le password siano codificate nella
-base dati, tramite tale algoritmo. Per maggiori dettagli su come creare un nuovo
-oggetto utente, vedere la sezione
-:ref:`book-security-encoding-user-password` del capitolo sulla sicurezza.
+La sezione ``encoders`` dice a Symfony che le password nella
+base dati saranno codificate con ``bcrypt``. La sezione ``providers``
+crea un "fornitore di utenti" chiamato ``fornitore``, che sa che deve
+cercare nell'entità ``AppBundle:Utente`` la proprietà ``username``. Il
+nome ``fornitore`` non è importante: basta che corrisponda al valore della
+voce ``provider`` del firewall. Se invece non si imposta la voce ``provider``
+nel firewall, verrà usato il primo "fornitore di utenti".
 
 .. include:: /cookbook/security/_ircmaxwell_password-compat.rst.inc
 
@@ -858,3 +809,5 @@ probabilmente è meglio non implementare questa interfaccia.
 .. versionadded:: 2.1
     In Symfony 2.1, è stato rimosso il metodo ``equals`` da ``UserInterface``
     ed è stata introdotta l'interfaccia ``EquatableInterface`` al suo posto.
+
+.. _FOSUserBundle: https://github.com/FriendsOfSymfony/FOSUserBundle

@@ -33,9 +33,6 @@ e :ref:`serializzare l'utente in sessione <cookbook-security-serialize-equatable
 .. _security-crete-user-entity:
 .. _the-data-model:
 
-Il modello dei dati
--------------------
-
 1) Creare l'entità Utente
 -------------------------
 
@@ -285,116 +282,56 @@ nel firewall, verrà usato il primo "fornitore di utenti".
 
 .. include:: /cookbook/security/_ircmaxwell_password-compat.rst.inc
 
-La sezione ``providers`` definsice un fornitore di utenti ``administrators``. Un
-fornitore di utenti è una "sorgente" da cui gli utenti vengono caricati durante
-l'autenticazione. In questo caso, la chiave ``entity`` vuol dire che Symfony userà
-il fornitore di entità di Doctrine per caricare gli oggetti ``User`` dalla base dati,
-usando il campo univoco ``username``. In altre parole, dice a Symfony come recuperare
-gli utenti dalla base dati, prima di verificare la validità della password.
+Creare il primo utente
+~~~~~~~~~~~~~~~~~~~~~~
 
-.. note::
+Per aggiungere utenti, si può implementare un :doc:`form di registrazione </cookbook/doctrine/registration_form>`
+o aggiungere delle `fixture`_. È solo una normale entità, quindi non c'è niente di
+speciale, *tranne* il fatto che si devono codificare le password. Ma niente
+paura, Symfony dispone di un servizio che se ne occuperà. Vedere :ref:`security-encoding-password`
+per i dettagli.
 
-    Per impostazione predefinita, il fornitore di entità usa il gestore di entità predefinito
-    per recuperare dalla base dati le informazoni sugli utenti. Se si usano
-    :doc:`gestori di entità multipli </cookbook/doctrine/multiple_entity_managers>`,
-    si può specificare quale gestore usare, con l'opzione ``manager_name``:
+Di seguito c'è un'esportazione della tabella ``utente`` di MySQL con utente ``admin``
+e password ``admin`` (codificata).
 
-    .. configuration-block::
+.. code-block:: bash
 
-        .. code-block:: yaml
+    $ mysql> SELECT * FROM utente;
+    +----+----------+------------------------------------------+--------------------+-----------+
+    | id | username | password                                 | email              | is_active |
+    +----+----------+------------------------------------------+--------------------+-----------+
+    |  1 | admin    | d033e22ae348aeb5660fc2140aec35850c4da997 | admin@example.com  |         1 |
+    +----+----------+------------------------------------------+--------------------+-----------+
 
-            # app/config/config.yml
-            security:
-                # ...
+.. sidebar:: Si ha bisogno di un sale?
 
-                providers:
-                    administrators:
-                        entity:
-                            class: AppBundle:User
-                            property: username
-                            manager_name: customer
+    Se si usa ``bcrypt``, no. Altrimenti, sì. Tutte le password necessitano
+    di un sale, ma ``bcrypt`` se ne occupa internamente. Siccome questa ricetta usa
+    effettivamente ``bcrypt``, il metodo ``getSalt()`` di ``Utente`` può
+    restituire ``null`` (non viene usato). Se si usa un algoritmo diverso, si devono
+    scommentare le righe con ``salt`` nell'entità ``Utente`` e aggiungere un
+    proprietà ``salt``.
 
-                # ...
+.. _security-advanced-user-interface:
 
-        .. code-block:: xml
+Inibire gli utenti inattivi (AdvancedUserInterface)
+---------------------------------------------------
 
-            <!-- app/config/config.xml -->
-            <?xml version="1.0" encoding="UTF-8"?>
-            <srv:container xmlns="http://symfony.com/schema/dic/security"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:srv="http://symfony.com/schema/dic/services"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services
-                    http://symfony.com/schema/dic/services/services-1.0.xsd">
-                <config>
-                    <!-- ... -->
-
-                    <provider name="administrators">
-                        <entity class="AcmeUserBundle:User"
-                            property="username"
-                            manager-name="customer" />
-                    </provider>
-
-                    <!-- ... -->
-                </config>
-            </srv:container>
-
-        .. code-block:: php
-
-            // app/config/config.php
-            $container->loadFromExtension('security', array(
-                // ...
-                'providers' => array(
-                    'administrator' => array(
-                        'entity' => array(
-                            'class' => 'AcmeUserBundle:User',
-                            'property' => 'username',
-                            'manager_name' => 'customer',
-                        ),
-                    ),
-                ),
-                // ...
-            ));
-
-Inibire gli utenti inattivi
----------------------------
-
-Se la proprietà ``isActive`` di User è ``false`` (cioè se ``is_active``
+Se la proprietà ``isActive`` di ``Utente`` è ``false`` (cioè se ``is_active``
 è 0 nella base dati), l'utente potrà ancora eseguire l'accesso al sito.
-Per prevenire l'accesso di utenti "inattivi", occorre un po' di lavoro
-in più.
+Per prevenire l'accesso di utenti "inattivi", occorre un po' di lavoro in più.
 
 Il modo più facile per escludere gli utenti inattivi è implementare l'interfaccia
-:class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`,
-che si occupa di verificare lo stato degli utenti.
-L'interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`
-estende :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`,
-quindi occorre solo modificare l'interfaccia nella classe ``AcmeUserBundle:User``,
-per poter beneficiare di comportamenti semplici e avanzati di autenticazione.
+:class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`.
+L'interfaccia estende :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`,
+quindi occorre solo modificare l'interfaccia::
 
-L'interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`
-aggiunge altri quattro metodi, per validare lo stato degli utenti:
+    // src/AppBundle/Entity/Utente.php
 
-* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isAccountNonExpired`
-   verifica se l'utente è scaduto,
-* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isAccountNonLocked`
-  verifica se l'utente è bloccato,
-* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isCredentialsNonExpired`
-  verifica se le credenziali (la password) dell'utente siano scadute,
-* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isEnabled`
-  verifica se l'utente è abilitato.
-
-Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
-``isEnabled()`` restituire il valore booleano del campo  ``isActive``.
-
-.. code-block:: php
-
-    // src/Acme/UserBundle/Entity/User.php
-    namespace Acme\UserBundle\Entity;
-
-    use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+    // ...
 
-    class User implements AdvancedUserInterface, \Serializable
+    class Utente implements AdvancedUserInterface, \Serializable
     {
         // ...
 
@@ -417,10 +354,43 @@ Per questo esempio, i primi tre metodi restituiranno ``true``, mentre il metodo
         {
             return $this->isActive;
         }
+
+        // bisogna modificare serialize e unserialize (vedere più avanti)
+        public function serialize()
+        {
+            return serialize(array(
+                // ...
+                $this->isActive
+            ));
+        }
+        public function unserialize($serialized)
+        {
+            list (
+                // ...
+                $this->isActive
+            ) = unserialize($serialized);
+        }
     }
 
-Se proviamo ora ad autenticare  un untente inattivo, l'accesso sarà
-negato.
+L'interfaccia :class:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface`
+aggiunge altri quattro metodi, per validare lo stato degli utenti:
+
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isAccountNonExpired`
+   verifica se l'utente è scaduto,
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isAccountNonLocked`
+  verifica se l'utente è bloccato,
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isCredentialsNonExpired`
+  verifica se le credenziali (la password) dell'utente siano scadute,
+* :method:`Symfony\\Component\\Security\\Core\\User\\AdvancedUserInterface::isEnabled`
+  verifica se l'utente è abilitato.
+
+Se *uno* di questi metodi restituisce ``false``, all'utente sarà negato l'accesso. Si può
+scegliere di avere proprietà persistite per tutti o solo per alcuni di questi
+(in questo esempio, solo ``isActive`` è su base dati).
+
+Qual è la differenza tra questi metodi? Ognuno restituisce un messaggio di errore
+diverso (traducibile quando si rende il template di login, se
+occorre ulteriore personalizzazione).
 
 .. note::
 
@@ -429,32 +399,26 @@ negato.
     Se *non* lo si fa, l'oggetto utente potrebbe non essere deserializzato correttamente
     dalla sessione a ogni richiesta.
 
-La prossima parte analizzerà il modo in cui scrivere fornitori di utenti personalizzati,
-per autenticare un utente con il suo nome oppure con la sua email.
+Ottimo! Il sistema di sicurezza su base dati è pronto! Successivamente, aggiungere un
+vero :doc:`form di login </cookbook/security/form_login>` invece di HTTP Basic
+oppure continuare a leggere i prossimi argomenti.
 
-Autenticazione con un fornitore entità personalizzato
------------------------------------------------------
+.. _authenticating-someone-with-a-custom-entity-provider:
 
-Il passo successivo consiste nel consentire a un utente di autenticarsi con il suo nome
-o con il suo indirizzo email, che sono entrambi unici nella base dati. Sfortunatamente, il
-fornitore di entità nativo è in grado di gestire una sola proprietà per recuperare
-l'utente dalla base dati.
+Usare una query personalizzata per caricare gli utenti
+------------------------------------------------------
 
-Per poterlo fare, creare un fornitore di entità personalizzato, che cerchi un utente il
-cui nome *o* la cui email corrisponda al nome utente inserito. La buona notizia
-è che un oggetto repository di Doctrine può agire da fornitore di entità, se 
-implementa l'interfaccia
+Sarebbe bello se un utente potesse autenticarsi con il suo nome *o* con il suo indirizzo email, che
+sono entrambi unici nella base dati. Sfortunatamente, il fornitore di entità nativo è in grado di
+gestire una sola proprietà per recuperare l'utente dalla base dati.
+
+Per poterlo fare, fare in modo che ``UtenteRepository`` implementi l'interfaccia
 :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`. Questa
 interfaccia ha tre metodi da implementare: ``loadUserByUsername($username)``,
-``refreshUser(UserInterface $user)`` e ``supportsClass($class)``. Per maggiori
-dettagli, si veda :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`.
+``refreshUser(UserInterface $user)`` e ``supportsClass($class)``::
 
-Il codice successivo mostra l'implementazione di
-:class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface` nella classe
-``UserRepository``::
-
-    // src/Acme/UserBundle/Entity/UserRepository.php
-    namespace Acme\UserBundle\Entity;
+    // src/AppBundle/Entity/UserRepository.php
+    namespace AppBundle\Entity;
 
     use Symfony\Component\Security\Core\User\UserInterface;
     use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -506,16 +470,15 @@ Il codice successivo mostra l'implementazione di
         }
     }
 
+Per maggiori dettagli su questi metodi, vedere :class:`Symfony\\Component\\Security\\Core\\User\\UserProviderInterface`.
+
 .. tip::
 
     Non dimenticare di aggiungere la classe repository alla
     :ref:`definizione di mappatura dell'entità <book-doctrine-custom-repository-classes>`.
 
-Per concludere l'implementazione, occorre modificare la configurazione del livello della
-sicurezza, per dire a Symfony di usare il nuovo fornitore di entità personalizzato, al
-posto del fornitore di entità generico di Doctrine. Lo si può fare facilmente, rimuovendo
-il campo ``property`` nella sezione ``security.providers.administrators.entity``
-del file ``security.yml``.
+Per concludere l'implementazione, basta rimuovere il campo ``property``
+dal file ``security.yml``.
 
 .. configuration-block::
 
@@ -525,8 +488,9 @@ del file ``security.yml``.
         security:
             # ...
             providers:
-                administrators:
-                    entity: { class: AppBundle:User }
+                fornitore:
+                    entity:
+                        class: AppBundle:Utente
             # ...
 
     .. code-block:: xml
@@ -535,8 +499,8 @@ del file ``security.yml``.
         <config>
             <!-- ... -->
 
-            <provider name="administrator">
-                <entity class="AppBundle:User" />
+            <provider name="fornitore">
+                <entity class="AppBundle:Utente" />
             </provider>
 
             <!-- ... -->
@@ -548,9 +512,9 @@ del file ``security.yml``.
         $container->loadFromExtension('security', array(
             ...,
             'providers' => array(
-                'administrator' => array(
+                'fornitore' => array(
                     'entity' => array(
-                        'class' => 'AppBundle:User',
+                        'class' => 'AppBundle:Utente',
                     ),
                 ),
             ),
@@ -624,7 +588,7 @@ sono cambiati::
 
     }
 
-La classe entità ``AcmeUserBundle:Role`` definisce tre campi (``id``,
+La classe entità ``AppBundle:Role`` definisce tre campi (``id``,
 ``name`` e ``role``). Il campo univoco ``role`` contiene i nomi dei ruoli
 (p.e. ``ROLE_ADMIN``) usati dal livello della sicurezza di Symfony per proteggere parti
 dell'applicazione::
@@ -715,7 +679,7 @@ a questa:
     +---------+---------+
 
 Ecco fatto! Quando l'utente accede, il sistema della sicurezza di Symfony richiamerà
-il metodo ``User::getRoles``, che restituirà un array di oggetti ``Role``,
+il metodo ``Utente::getRoles``, che restituirà un array di oggetti ``Role``,
 usati da Symfony per determinare se l'utente può accedere o meno ad alcune
 parti del sistema.
 
@@ -725,7 +689,7 @@ parti del sistema.
     :class:`Symfony\\Component\\Security\\Core\\Role\\RoleInterface`. Questo
     perché il sistema della sicurezza di Symfony richiede che il metodo ``User::getRoles``
     restituisca un array di stringhe ruoli o di oggetti ruoli che implementino tale interfaccia.
-    Se ``Role`` non implementasse tale interfaccia, ``User::getRoles`` avrebbe
+    Se ``Role`` non implementasse tale interfaccia, ``Utente::getRoles`` avrebbe
     bisogno di iterare su tutti gli oggetti ``Role``, richiamare ``getRole``
     su ciascuno e creare un array di stringhe da restiturie. Entrambi gli approcci sono
     validi ed equivalenti.
@@ -740,12 +704,12 @@ del recupero dell'utente dal fornitore di utenti personalizzato, la soluzione mi
 fare un join dei gruppi correlati nel metodo ``UserRepository::loadUserByUsername()``.
 In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una sola query::
 
-    // src/AppBundle/Entity/UserRepository.php
+    // src/AppBundle/Entity/UtenteRepository.php
     namespace AppBundle\Entity;
 
     // ...
 
-    class UserRepository extends EntityRepository implements UserProviderInterface
+    class UtenteRepository extends EntityRepository implements UserProviderInterface
     {
         public function loadUserByUsername($username)
         {
@@ -765,7 +729,7 @@ In tal modo, sarà recuperato l'utente e i suoi gruppi/ruoli associati, con una 
     }
 
 Il metodo ``QueryBuilder::leftJoin()`` recupera con un join i ruoli correlati dalla
-classe del modello ``AppBundle:User``, quando un utente viene recuperato con la sua
+classe del modello ``AppBundle:Utente``, quando un utente viene recuperato con la sua
 email o con il suo nome.
 
 .. _`cookbook-security-serialize-equatable`:
@@ -777,8 +741,8 @@ Questa sezione è per chi fosse curioso riguardo all'importanza del metodo ``ser
 della classe ``User`` o su come l'oggetto utente sia serializzato e
 deserializzato.
 
-Una volta che l'utente ha eseguito l'accesso l'intero oggetto ``User`` è serializzato
-in sessione. Alla richiesta successiva, l'oggetto ``User`` è deserializzato. Quindi,
+Una volta che l'utente ha eseguito l'accesso l'intero oggetto ``Utente`` è serializzato
+in sessione. Alla richiesta successiva, l'oggetto ``Utente`` è deserializzato. Quindi,
 viene usato il valore della proprietà ``id`` per cercare nuovamente l'oggetto ``User``
 nella base dati. Infine, il nuovo oggetto ``User`` viene confrontato in qualche modo
 all'oggetto deserializzato, per assicurarsi che rappresenti lo stesso utente. Per esempio, se
@@ -793,12 +757,11 @@ in sessione. Questo potrebbe essere necessario o meno, a seconda della propria c
 ma è probabilmente una buona idea. In teoria, basterebbe serializzare solo ``id``,
 perché il metodo :method:`Symfony\\Bridge\\Doctrine\\Security\\User\\EntityUserProvider::refreshUser`
 aggiorna l'utente a ciascuna richiesta, usando ``id`` (come spiegato
-sopra). In pratica, tuttavia, questo vuol dire che l'oggetto ``User`` viene ricaricato
-dalla base dati a ogni richiesta, usando ``id`` dall'oggetto serializzato.
-Questo assicura che tutti i dati dell'utente siano aggiornati.
+sopra). Questo assicura che tutti i dati dell'utente siano aggiornati.
 
 Symfony usa anche ``username``, ``salt`` e ``password`` per verificare che
-l'utente non sia cambiato tra una richiesta e l'altra. Non serializzare queste informazioni
+l'utente non sia cambiato tra una richiesta e l'altra (richiama anche i metodi di ``AdvancedUsetInterface``,
+se sono stati implementati). Non serializzare queste informazioni
 potrebbe causare il logout dell'utente. Se ``User`` implementa
 :class:`Symfony\\Component\\Security\\Core\\User\\EquatableInterface`,
 invece di confrontare queste proprietà, viene semplicemente richiamato il metodo ``isEqualTo``
@@ -810,4 +773,5 @@ probabilmente è meglio non implementare questa interfaccia.
     In Symfony 2.1, è stato rimosso il metodo ``equals`` da ``UserInterface``
     ed è stata introdotta l'interfaccia ``EquatableInterface`` al suo posto.
 
+.. _fixtures: http://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html
 .. _FOSUserBundle: https://github.com/FriendsOfSymfony/FOSUserBundle

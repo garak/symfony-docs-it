@@ -540,7 +540,7 @@ bisognerà copiarle manualmente. Per fare ciò, eseguire il seguente comando:
 
 Questo scrive fisicamente tutti i file delle risorse necessari per l'ambiente
 ``dev``. Il grande svantaggio è che è necessario eseguire questa operazione ogni volta
-che si aggiorna una risorsa. Per fortuna, passando l'opzione ``--watch``, il
+che si aggiorna una risorsa. Per fortuna, usando il comando ``assetic:watch``, il
 comando rigenererà automaticamente le risorse *che sono cambiate*:
 
 .. code-block:: bash

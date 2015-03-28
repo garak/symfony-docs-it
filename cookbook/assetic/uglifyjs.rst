@@ -194,7 +194,7 @@ I file javascript minimizzati sono difficili da leggere e, a maggior ragione, da
 motivo Assetic permette di disabilitare alcuni filtri quando l'applicazione è eseguita
 in modalità debug (ad esempio ``app_dev.php``). Per fare ciò è possibile aggiungere un 
 punto interrogativo ``?`` come prefisso del filtro all'interno del template. In questo modo Assetic viene
-informato di applicare i filtri solo quando la modalità debug è spenta (come in ``app.php``):
+informato di applicare i filtri solo quando la modalità debug è inattiva (come in ``app.php``):
 
 .. configuration-block::
 
@@ -214,8 +214,8 @@ informato di applicare i filtri solo quando la modalità debug è spenta (come i
         <?php endforeach ?>
 
 Per provarlo, basta passare all'ambiente ``prod`` (``app.php``). Ma prima non
-bisogna scordarsi di :ref:`pulire la cache<book-page-creation-prod-cache-clear>`
-e di :ref:`esportare le risorse di assetic<cookbook-asetic-dump-prod>`.
+bisogna scordarsi di :ref:`pulire la cache <book-page-creation-prod-cache-clear>`
+e di :ref:`esportare le risorse di assetic <cookbook-assetic-dump-prod>`.
 
 .. tip::
 

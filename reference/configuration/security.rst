@@ -19,7 +19,7 @@ Ogni parte sarà spiegata nella prossima sezione.
 
         # app/config/security.yml
         security:
-            access_denied_url:    ~ # Esempio: /foo/error403
+            access_denied_url:    ~ # Esempio: /pippo/error403
 
             # la strategia può essere: none, migrate, invalidate
             session_fixation_strategy:  migrate
@@ -96,7 +96,8 @@ Ogni parte sarà spiegata nella prossima sezione.
                     entity:
                         class:              SecurityBundle:User
                         property:           username
-                        manager_name:       ~
+                        # nome di un gestore di entità diverso da "default"
+                        nome_gestore:       ~
 
                 # Esempio di fornitore personalizzato
                 fornitore_personalizzato:
@@ -228,7 +229,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                 # usare il formato urldecoded
                 path:                 ~ # Esempio: ^/percorso_della_risorsa/
                 host:                 ~
-                ip:                   ~
+                ips:                  []
                 methods:              []
                 roles:                []
             role_hierarchy:

@@ -647,6 +647,9 @@ recuperare facilmente oggetti in base a condizioni multiple::
     Cliccando sull'icona, si aprirà il profilatore, che mostrerà il numero esatto
     di query eseguite.
 
+    L'icona diventa gialla se ci sono più di 50 query nella
+    pagina. Questo potrebbe indicare che qualcosa non va.
+
 Aggiornare un oggetto
 ~~~~~~~~~~~~~~~~~~~~~
 

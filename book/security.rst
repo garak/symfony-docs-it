@@ -358,6 +358,11 @@ ne basterà uno solo. Se si ha bisogno di più fornitori, si può configurare il
 usato dal fireall, sotto la voce ``provider`` (p.e.
 ``provider: in_memory``).
 
+.. seealso::
+
+    Vedere :doc:`/cookbook/security/multiple_user_providers` per tutti
+    i dettagli sulla configurazione di fornitori multipli.
+
 Provare a entarre con nome utente ``admin`` e password ``kitten``. Si dovrebbe
 vedere un errore!
 

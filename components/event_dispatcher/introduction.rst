@@ -6,7 +6,7 @@ Il componente EventDispatcher
 =============================
 
     Il componente EventDispatcher fornisce strumenti che consentono ai componenti di un'applicazione
-    di comunicare tra di loro, distrubuendo eventi e ascoltandoli.
+    di comunicare tra di loro, distribuendo eventi e ascoltandoli.
 
 
 Introduzione
@@ -167,7 +167,7 @@ Il metodo ``addListener()`` accetta fino a tre parametri:
 
         use Symfony\Component\EventDispatcher\Event;
 
-        $dispatcher->addListener('pipo.action', function (Event $event) {
+        $dispatcher->addListener('pippo.action', function (Event $event) {
             // sarà eseguito quando l'evento pippo.action sarà distribuito
         });
 
@@ -574,14 +574,14 @@ costruzione. Ma quando si ha una lunga lista di dipendenze, l'utilizzo dell'inie
 per settere può essere l'unico modo, specialmente per dipendenze opzionali.
 
 .. index::
-   single: Event Dispatcher; Scorciatoie del distributore
+   single: EventDispatcher; Scorciatoie del distributore
 
 .. _event_dispatcher-shortcuts:
 
 Scorciatoie del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Il metodo :method:`EventDispatcher::dispatch<Symfony\\Component\\EventDispatcher\\EventDispatcher::dispatch>`
+Il metodo :method:`EventDispatcher::dispatch <Symfony\\Component\\EventDispatcher\\EventDispatcher::dispatch>`
 restiuisce sempre un oggetto :class:`Symfony\\Component\\EventDispatcher\\Event`.
 Questo conente diverse scorciatoie. Per esempio, se non si ha bisogno di un oggetto
 evento personalizzato, ci si può appoggiare semplicemente su un oggetto

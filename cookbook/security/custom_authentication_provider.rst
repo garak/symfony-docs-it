@@ -20,9 +20,9 @@ Il seguente capitolo mostra come creare un fornitore di autenticazione
 personalizzato per l'autenticazione WSSE. Questo protocollo di sicurezza per
 WSSE fornisce diversi benefici:
 
-1. Criptazione di nome utente e password
-2. Protezione dagli attacchi di replay
-3. Nessuna configurazione del server web necessaria
+#. Criptazione di nome utente e password
+#. Protezione dagli attacchi di replay
+#. Nessuna configurazione del server web necessaria
 
 WSSE è molto utile per proteggere i servizi web, siano essi SOAP o
 REST.

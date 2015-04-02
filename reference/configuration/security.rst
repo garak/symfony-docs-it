@@ -55,7 +55,7 @@ Ogni parte sarà spiegata nella prossima sezione.
                     encode_as_base64:    true
                     iterations:          5000
 
-                # PBKDF2 encoder
+                # Codificatore PBKDF2 
                 # vedere più avanti la nota su PBKDF2 per dettagli su sicurezza e velocità
                 Acme\Nome\Della\Classe:
                     algorithm:            pbkdf2
@@ -68,14 +68,14 @@ Ogni parte sarà spiegata nella prossima sezione.
                 Acme\DemoBundle\Entity\User3:
                     id:                   id.codificatore
 
-                # codificatore BCrypt
+                # Codificatore BCrypt
                 # vedere più avanti la nota su bcrypt per dettagli sulle dipendenze
                 Acme\DemoBundle\Entity\User4:
                     algorithm:            bcrypt
                     cost:                 13
 
-                # Plaintext encoder
-                # it does not do any encoding
+                # Codificatore Plaintext
+                # non codifica
                 Acme\DemoBundle\Entity\User5:
                     algorithm:            plaintext
                     ignore_case:          false

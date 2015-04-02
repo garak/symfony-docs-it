@@ -542,14 +542,14 @@ Includere questo template da un altro template è semplice:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Article/list.html.twig #}
+        {# app/Resources/views/article/list.html.twig #}
         {% extends 'layout.html.twig' %}
 
         {% block body %}
             <h1>Articoli recenti<h1>
 
             {% for article in articles %}
-                {{ include('Article/articleDetails.html.twig', { 'article': article }) }}
+                {{ include('article/article_details.html.twig', { 'article': article }) }}
             {% endfor %}
         {% endblock %}
 
@@ -563,7 +563,7 @@ Includere questo template da un altro template è semplice:
 
             <?php foreach ($articles as $article): ?>
                 <?php echo $view->render(
-                    'Article/articleDetails.html.php',
+                    'Article/article_details.html.php',
                     array('article' => $article)
                 ) ?>
             <?php endforeach ?>
@@ -617,7 +617,7 @@ articoli recenti::
             $articles = ...;
 
             return $this->render(
-                'Article/recentList.html.twig',
+                'article/recent_list.html.twig',
                 array('articles' => $articles)
             );
         }
@@ -629,7 +629,7 @@ Il template ``recentList`` è molto semplice:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Article/recentList.html.twig #}
+        {# app/Resources/views/article/recent_list.html.twig #}
         {% for article in articles %}
             <a href="/article/{{ article.slug }}">
                 {{ article.title }}
@@ -638,7 +638,7 @@ Il template ``recentList`` è molto semplice:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Article/recentList.html.php -->
+        <!-- app/Resources/views/article/recent_list.html.php -->
         <?php foreach ($articles as $article): ?>
             <a href="/article/<?php echo $article->getSlug() ?>">
                 <?php echo $article->getTitle() ?>
@@ -812,7 +812,7 @@ qualsiasi template predefinito globale):
     .. code-block:: jinja
 
         {{ render_hinclude(controller('...'),  {
-            'default': 'Default/content.html.twig'
+            'default': 'default/content.html.twig'
         }) }}
 
     .. code-block:: php
@@ -821,7 +821,7 @@ qualsiasi template predefinito globale):
             new ControllerReference('...'),
             array(
                 'renderer' => 'hinclude',
-                'default' => 'Default/content.html.twig',
+                'default' => 'default/content.html.twig',
             )
         ) ?>
 
@@ -1211,7 +1211,7 @@ equivale a::
     use Symfony\Component\HttpFoundation\Response;
 
     $engine = $this->container->get('templating');
-    $content = $engine->render('Article/index.html.twig');
+    $content = $engine->render('article/index.html.twig');
 
     return $response = new Response($content);
 
@@ -1387,8 +1387,8 @@ di cui abbiamo appena parlato:
 
   .. code-block:: html+jinja
 
-      {# app/Resources/views/Blog/index.html.twig #}
-      {% extends 'Blog/layout.html.twig' %}
+      {# app/Resources/views/blog/index.html.twig #}
+      {% extends 'blog/layout.html.twig' %}
 
       {% block content %}
           {% for entry in blog_entries %}
@@ -1518,7 +1518,7 @@ Si può fare un dump dei parametri nei template, usando la funzione ``dump``:
 
 .. code-block:: html+jinja
 
-    {# app/Resources/views/Article/recentList.html.twig #}
+    {# app/Resources/views/article/recent_list.html.twig #}
     {{ dump(articles) }}
 
     {% for article in articles %}
@@ -1540,7 +1540,7 @@ Si possono cercare eventuali errori di sintassi nei template Twig, usando il com
 .. code-block:: bash
 
     # Verifica per nome del file:
-    $ php app/console twig:lint app/Resources/views/Article/recentList.html.twig
+    $ php app/console twig:lint app/Resources/views/article/recent_list.html.twig
 
     # oppure per cartella:
     $ php app/console twig:lint app/Resources/views
@@ -1572,7 +1572,7 @@ soluzione comune è fare come segue::
     {
         $format = $request->getRequestFormat();
 
-        return $this->render('Blog/index.'.$format.'.twig');
+        return $this->render('article/index.'.$format.'.twig');
     }
 
 Il metodo ``getRequestFormat`` dell'oggetto ``Request`` ha come valore predefinito ``html``,
@@ -1612,7 +1612,7 @@ controllore, i loro utilizzo non è obbligatorio. L'oggetto ``Response`` restitu
 un controllore può essere creato con o senza l'uso di un template::
 
     // crea un oggetto Response il cui contenuto è il template reso
-    $response = $this->render('Article/index.html.twig');
+    $response = $this->render('article/index.html.twig');
 
     // crea un oggetto Response il cui contenuto è semplice testo
     $response = new Response('contenuto della risposta');

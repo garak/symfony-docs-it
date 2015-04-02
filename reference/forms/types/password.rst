@@ -76,4 +76,12 @@ Il valore predefinito è ``''`` (stringa vuota).
 
 .. include:: /reference/forms/types/options/required.rst.inc
 
-.. include:: /reference/forms/types/options/trim.rst.inc
+trim
+~~~~
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se ``true``, gli spazi vuoti della stringa inviata saranno eliminati tramite
+la funzione :phpfunction:`trim`. Questo garantisce che, se un valore viene inserito con
+spazi vuoti superflui, questi vengano rimossi prima che il valore sia
+inserito nell'oggetto sottostante.

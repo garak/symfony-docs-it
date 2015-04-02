@@ -18,7 +18,7 @@ dovrebbe usare direttamente il tipo ``choice``.
 +---------------+------------------------------------------------------------------------+
 | Reso come     | può essere vari tag (vedere :ref:`forms-reference-choice-tags`)        |
 +---------------+------------------------------------------------------------------------+
-| Opzioni       | - `choice_list`_                                                       |
+| Opzioni       | - `choices`_                                                           |
 | ridefinite    |                                                                        |
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | dal tipo :doc:`choice </reference/forms/types/choice>`                 |
@@ -49,8 +49,8 @@ dovrebbe usare direttamente il tipo ``choice``.
 Opzioni ridefinite
 ------------------
 
-choice_list
-~~~~~~~~~~~
+choices
+~~~~~~~
 
 **predefinito**: :class:`Symfony\\Component\\Form\\Extension\\Core\\ChoiceList\\TimezoneChoiceList`
 

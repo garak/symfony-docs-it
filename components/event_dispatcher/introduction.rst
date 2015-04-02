@@ -496,7 +496,7 @@ Eventi e ascolatori consapevoli del distributore
 ``EventDispatcher`` inietta sempre l'evento distribuito, il nome dell'evento
 e un riferimento a sé stesso agli ascoltatori. Questo può portare ad applicazioni
 avanzate per ``EventDispatcher``, incluse la possibilità per gli ascoltatori di distribuire altri eventi,
-il concatenamento degli eventi o anche il caricamento pigro ("lazy") di più ascoltatori
+il concatenamento degli eventi o anche il caricamento pigro di più ascoltatori
 nell'oggetto distributore. Ecco degli esempi:
 
 Caricamento pigro degli ascoltatori::

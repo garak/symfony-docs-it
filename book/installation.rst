@@ -6,13 +6,12 @@ Installare e configurare Symfony
 
 Lo scopo di questo capitolo è mettere in grado di avere un'applicazione funzionante
 basata su Symfony. Per semplificare il processo di creazione di nuove
-applicazioni, Symfony fornisce un installatore, che va installato una sola volta,
-alla creazione della prima applicazione.
+applicazioni, Symfony fornisce un installatore.
 
 Installare l'installatore di Symfony
 ------------------------------------
 
-L'utilizzo dell'installatore di Symfony è l'unico modo raccomandato di creare nuove
+L'utilizzo dell'**installatore di Symfony** è l'unico modo raccomandato di creare nuove
 applicazioni Symfony. Questo installatore è un'applicazione PHP, che va installata
 solo una volta e che può quindi creare tutte le applicazioni Symfony.
 
@@ -33,12 +32,10 @@ Aprire un terminale ed eseguire i seguenti tre comandi:
 
 .. code-block:: bash
 
-    $ curl -LsS http://symfony.com/installer > symfony.phar
-    $ sudo mv symfony.phar /usr/local/bin/symfony
-    $ chmod a+x /usr/local/bin/symfony
+    $ sudo curl -LsS http://symfony.com/installer -o /usr/local/bin/symfony
+    $ sudo chmod a+x /usr/local/bin/symfony
 
-Questo creerà nel sistema un comando globale ``symfony``, che sarà usato
-per creare nuove applicazioni Symfony.
+Questo creerà nel sistema un comando globale ``symfony``.
 
 Sistemi Windows
 ~~~~~~~~~~~~~~~
@@ -47,15 +44,15 @@ Aprire la console dei comandi ed eseguire il seguente comando:
 
 .. code-block:: bash
 
-    c:\> php -r "readfile('http://symfony.com/installer');" > symfony.phar
+    c:\> php -r "readfile('http://symfony.com/installer');" > symfony
 
 Quindi, spostare il file ``symfony.phar`` nella cartella dei progetti ed
 eseguirlo, come segue:
 
 .. code-block:: bash
 
-    c:\> move symfony.phar c:\progetti
-    c:\progetti\> php symfony.phar
+    c:\> move symfony c:\progetti
+    c:\progetti\> php symfony
 
 Creare l'applicazione Symfony
 -----------------------------
@@ -92,11 +89,17 @@ di versione come secondo parametro del comando ``new``:
 
 .. code-block:: bash
 
-    # Linux, Mac OS X
-    $ symfony new progetto 2.3.23
+    # usa la versione più recente di un ramo di Symfony
+    $ symfony new progetto 2.3
+    $ symfony new progetto 2.5
+    $ symfony new progetto 2.6
 
-    # Windows
-    c:\projects\> php symfony.phar new progetto 2.3.23
+    # usa una specifica versione di Symfony
+    $ symfony new progetto 2.3.26
+    $ symfony new progetto 2.6.5
+
+    # usa la versione LTS (Long Term Support) più recente
+    $ symfony new progetto lts
 
 Se si vuole basare un progetto sull'ultima :ref:`versione LTS di Symfony <releases-lts>`,
 passare ``lts`` come secondo parametro del comando ``new``:
@@ -107,7 +110,7 @@ passare ``lts`` come secondo parametro del comando ``new``:
     $ symfony new progetto lts
 
     # Windows
-    c:\projects\> php symfony.phar new progetto lts
+    c:\projects\> php symfony new progetto lts
 
 Leggere il :doc:`processo di rilascio di Symfony </contributing/community/releases>`
 per comprendere meglio il motivo per cui esistono varie versioni di Symfony e quale

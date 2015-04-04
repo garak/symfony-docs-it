@@ -85,7 +85,7 @@ una ``Application`` e vi aggiunge comandi::
     use Symfony\Component\Console\Application;
 
     $application = new Application();
-    $application->add(new SalutaCommand);
+    $application->add(new SalutaCommand());
     $application->run();
 
 È possibile provare il programma nel modo seguente

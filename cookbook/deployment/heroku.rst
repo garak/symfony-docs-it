@@ -220,6 +220,14 @@ l'applicazione risponderà:
 
 Si dovrebbe vedere l'applicazione Symfony nel browser.
 
+.. caution::
+
+    Se si intraprendono i primi passi su Heroku usando una nuova installazione
+    di Symfony Standard Edition, si potrebbe ottenere una pagina di errore 404.
+    Questo perché la rotta per ``/`` è definita da AcmeDemoBundle, ma
+    AcmeDemoBundle è caricato solo in ambiente dev (lo si può verificare nella classe
+    ``AppKernel``). Provare ad aprire ``/app/example`` da AppBundle.
+
 .. _`articolo originale`: https://devcenter.heroku.com/articles/getting-started-with-symfony2
 .. _`iscriversi a Heroku`: https://signup.heroku.com/signup/dc
 .. _`Heroku Toolbelt`: https://devcenter.heroku.com/articles/getting-started-with-php#local-workstation-setup

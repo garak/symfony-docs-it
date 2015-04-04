@@ -8,10 +8,7 @@ Una volta che l'utente è autenticato, le sue credenziali sono solitamente salva
 sessione. Questo vuol dire che quando la sessione finisce, l'utente sarà fuori dal sito e
 dovrà inserire nuovamente le sue informazioni di login, la prossima volta che vorrà
 accedere all'applicazione. Si può consentire agli utenti di scegliere di rimanere dentro
-più a lungo del tempo della sessione, usando un cookie con l'opzione ``remember_me`` del
-firewall.  Il firewall ha bisogno di una chiave segreta configurata, usata per codificare
-il contenuto del cookie. Ci sono anche molte altre opzioni, con valori predefiniti
-mostrati di seguito:
+più a lungo del tempo della sessione, usando un cookie con l'opzione ``remember_me`` del firewall:
 
 .. configuration-block::
 
@@ -24,7 +21,6 @@ mostrati di seguito:
                     key:      "%secret%"
                     lifetime: 31536000 # 365 giorni in secondi
                     path:     /
-                    domain:   ~ # Defaults to the current domain from $_SERVER
 
     .. code-block:: xml
 
@@ -35,7 +31,6 @@ mostrati di seguito:
                     key      = "%secret%"
                     lifetime = "31536000" <!-- 365 giorni in secondi -->
                     path     = "/"
-                    domain   = "" <!-- Prende il dominio ricavato da $_SERVER -->
                 />
             </firewall>
         </config>
@@ -50,11 +45,57 @@ mostrati di seguito:
                         'key'      => '%secret%',
                         'lifetime' => 31536000, // 365 giorni in secondi
                         'path'     => '/',
-                        'domain'   => '', // Prende il dominio corrente da $_SERVER
                     ),
                 ),
             ),
         ));
+
+Il firewall ``remember_me`` definisce le seguenti opzioni di configurazione:
+
+``key`` (valore predefinito: ``null``)
+    Il valore usato per codificare il contenuto del cookie. Di solito si usa il valore di
+    ``secret``, definito nel file ``app/config/parameters.yml``.
+
+``name`` (valore predefinito: ``REMEMBERME``)
+    Il nome del cookie usato per mantenere l'utente connesso. Se si abilita il
+    ``remember_me`` in vari firewall della stessa applicazione, assicurarsi di
+    usare un nome diverso per il cookie di ciascun firewall. In caso contrario, si
+    potrebbero avere molti problemi di sicurezza.
+
+``lifetime`` (valore predefinito: ``31536000``)
+    Il numero di secondi in cui l'utente resterà connesso. Per impostazione predefinitam
+    gli utenti restano connessi per un anno.
+
+``path`` (valore predefinito: ``/``)
+    Il percorso in cui è usato il cookie associato a questa funzionalità. L'impostazione predefinita
+    applica il cookie all'intero sito, ma lo si può restringere a sezioni
+    specifiche (p.e. ``/forum``, ``/admin``).
+
+``domain`` (valore predefinito: ``null``)
+    Il dominio in cui è usato il cookie associato a questa funzionalità. L'impostazione predefinita
+    usa il dominio corrente, ottenuto da ``$_SERVER``.
+
+``secure`` (valore predefinito: ``false``)
+    Se ``true``, il cookie associato a questa funzionalità è inviato all'utente
+    tramite una connessione HTTPS.
+
+``httponly`` (valore predefinito: ``true``)
+    Se ``true``, il cookie associato a questa funzionalità è accessibile solo
+    tramite HTTP. Questo vuol dire che il cookie non sarà accessibile
+    a linguaggi di scripting, come JavaScript.
+
+``remember_me_parameter`` (valore predefinito: ``_remember_me``)
+    Il nome del campo del form, spuntato per decidere se la funzionalità "ricordami" vada
+    abilitata o meno. Si legga questa ricetta per sapere come poter abilitare tale
+    funzionalità in modo condizionale.
+
+``always_remember_me`` (valore predefinito: ``false``)
+    Se ``true``, il valore ``remember_me_parameter`` è ignorato e la funzionalità
+    "ricordami" è sempre abilitata, indipendentemente dalla volontà
+    dell'utente finale.
+
+Consentire all'utente di rinunciare al "ricordami"
+--------------------------------------------------
 
 È una buona idea dare all'utente la possibilità di usare o non usare la funzionalità
 "ricordami", perché non sempre è appropriata. Il modo usuale per farlo è l'aggiunta di un

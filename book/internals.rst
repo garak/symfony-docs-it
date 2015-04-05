@@ -212,15 +212,15 @@ Ogni evento lanciato dal kernel è una sotto-classe di
 :class:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent`. Questo vuol dire che
 ogni evento ha accesso alle stesse informazioni di base:
 
-* :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequestType` - restituisce
-  il *tipo* della richiesta (``HttpKernelInterface::MASTER_REQUEST``
-  o ``HttpKernelInterface::SUB_REQUEST``);
+:method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequestType`
+    Restituisce il *tipo* della richiesta (``HttpKernelInterface::MASTER_REQUEST`` o
+    ``HttpKernelInterface::SUB_REQUEST``).
 
-* :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getKernel` - restituisce
-  il kernel che gestisce la richiesta;
+:method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getKernel`
+   Restituisce il kernel che gestisce la richiesta.
 
-* :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequest` - restituisce
-  la ``Request`` attualmente in gestione.
+:method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequest`
+   Restituisce la ``Request`` attualmente in gestione.
 
 ``getRequestType()``
 ....................

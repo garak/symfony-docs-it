@@ -61,23 +61,23 @@ Poiché Symfony è usato da molti progetti open source, il modo in cui la
 squadra di sicurezza di Symfony collabora sulle problematiche di sicurezza è stata standardizzata
 con i progetti a valle. Il progetto funziona come segue:
 
-1. Dopo che la squadra di sicurezza di Symfony ha riconosciuto la problematica, invia
-immediatamente una email alle squadre di sicurezza dei progetti a valle, per informarli
-della probelamtica;
+#. Dopo che la squadra di sicurezza di Symfony ha riconosciuto la problematica, invia
+   immediatamente una email alle squadre di sicurezza dei progetti a valle, per informarli
+   della probelamtica;
 
-2. La squadra di sicurezza di Symfony crea un repository Git privato, per facilitare la
-collaborazione sulla problematica. L'accesso a tale repository è fornito all
-squadra di sicurezza di Symfony, ai contributori du Symfony che hanno avuto impatto sulla
-problematica e a un rappresentante i ogni progetto a valle;
+#. La squadra di sicurezza di Symfony crea un repository Git privato, per facilitare la
+   collaborazione sulla problematica. L'accesso a tale repository è fornito all
+   squadra di sicurezza di Symfony, ai contributori du Symfony che hanno avuto impatto sulla
+   problematica e a un rappresentante i ogni progetto a valle;
 
-3. Le persone che accedono al repository privato lavorano a una soluzione per
-risolvere la problematica, tramire richieste di pull, revisioni di codice e commenti;
+#. Le persone che accedono al repository privato lavorano a una soluzione per
+   risolvere la problematica, tramire richieste di pull, revisioni di codice e commenti;
 
-4. Una volta trovata la soluzione, tutti i progetti coinvolti collaborano per trovare
-la data migliore per un rilascio congiunto (non c'è garanzia che tutti i rllasci saranno
-contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo). Quando
-non si ritiene che la problematica abbia subito degli exploit, un periodo di due settimane
-sembra essere ragionevole.
+#. Una volta trovata la soluzione, tutti i progetti coinvolti collaborano per trovare
+   la data migliore per un rilascio congiunto (non c'è garanzia che tutti i rllasci saranno
+   contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo). Quando
+   non si ritiene che la problematica abbia subito degli exploit, un periodo di due settimane
+   sembra essere ragionevole.
 
 La lista dei progetti a valle partecipanti a tale processo è manutenuta più corta
 possibile, per meglio gestire il flusso di informazioni riservate, prima
@@ -119,6 +119,6 @@ partendo da Symfony 1.0.0:
 * 21 marzo 2008: `symfony 1.0.12 is (finally) out ! <http://symfony.com/blog/symfony-1-0-12-is-finally-out>`_
 * 25 giugno 2007: `symfony 1.0.5 released (security fix) <http://symfony.com/blog/symfony-1-0-5-released-security-fix>`_
 
-.. _repository Git:      https://github.com/symfony/symfony
-.. _blog:                http://symfony.com/blog/
+.. _repository Git: https://github.com/symfony/symfony
+.. _blog: http://symfony.com/blog/
 .. _Security Advisories: http://symfony.com/blog/category/security-advisories

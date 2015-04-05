@@ -161,9 +161,9 @@ aiutanti per i form:
 
 .. note::
 
-    Questo esempio presuppone che sia stata creata una rotta chiamata ``task_new``
-    che punta al controllore ``AcmeTaskBundle:Default:new`` che
-    era stato creato precedentemente.
+    Questo esempio presuppone che il form sia inviato in POST allo
+    stesso URL in cui viene mostrato. Si vedrà successivamente come modificare
+    il metodo della richiesta e l'URL di destinazione del form.
 
 Questo è tutto! Bastano tre righe per rendere completamente il form:
 
@@ -175,7 +175,7 @@ Questo è tutto! Bastano tre righe per rendere completamente il form:
     Rende tutti i campi, inclusi l'elemento stesso,
     un'etichetta ed eventuali messaggi di errori;
 
-``form_end()``
+``form_end(form)``
     Rende il tag finale del form e ogni campo che non sia ancora
     stato reso, nel caso in cui i campi siano stati resti singolarmante a mano. È utile
     per rendere campi nascosci e sfruttare la
@@ -1090,7 +1090,7 @@ la scelta in ultima analisi, spetta allo sviluppatore.
 .. sidebar:: Impostare ``data_class``
 
     Ogni form ha bisogno di sapere il nome della classe che detiene i dati
-    sottostanti (ad esempio ``Acme\TaskBundle\Entity\Task``). Di solito, questo viene indovinato
+    sottostanti (ad esempio ``AppBundle\Entity\Task``). Di solito, questo viene indovinato
     in base all'oggetto passato al secondo parametro di ``createForm``
     (vale a dire ``$task``). Dopo, quando si inizia a incorporare i form, questo
     non sarà più sufficiente. Così, anche se non sempre necessario, è in genere una
@@ -1274,8 +1274,8 @@ Incorporare un oggetto singolo
 Supponiamo che ogni ``Task`` appartenga a un semplice oggetto ``Category``. Si parte,
 naturalmente, con la creazione di un oggetto ``Category``::
 
-    // src/Acme/TaskBundle/Entity/Category.php
-    namespace Acme\TaskBundle\Entity;
+    // src/AppBundle/Entity/Category.php
+    namespace AppBundle\Entity;
 
     use Symfony\Component\Validator\Constraints as Assert;
 
@@ -1686,9 +1686,9 @@ per definire l'output del form.
 PHP
 ...
 
-Per includere automaticamente i template personalizzati dalla cartella
-``Acme/TaskBundle/Resources/views/Form`` creata in precedenza in *tutti* i template, modificare il file
-con la configurazione dell'applicazione:
+Per includere automaticamente i template personalizzati dalla cartella ``app/Resources/views/Form``
+creata in precedenza in *tutti* i template, modificare il file con la configurazione
+dell'applicazione:
 
 .. configuration-block::
 
@@ -1736,8 +1736,8 @@ con la configurazione dell'applicazione:
             // ...
         ));
 
-Ogni frammento all'interno della cartella ``Acme/TaskBundle/Resources/views/Form``
-è ora usato globalmente per definire l'output del form.
+Ogni frammento all'interno della cartella ``app/Resources/views/Form`` è ora
+usato globalmente per definire l'output del form.
 
 .. index::
    single: Form; Protezione CSRF
@@ -1848,10 +1848,10 @@ Per impostazione predefinita, un form ipotizza che si voglia lavorare con array
 di dati, invece che con oggetti. Ci sono due modi per modificare questo comportamento
 e legare un form a un oggetto:
 
-1. Passare un oggetto alla creazione del form (come primo parametro di
+#. Passare un oggetto alla creazione del form (come primo parametro di
    ``createFormBuilder`` o come secondo parametro di ``createForm``);
 
-2. Dichiarare l'opzione ``data_class`` nel form.
+#. Dichiarare l'opzione ``data_class`` nel form.
 
 Se *non* si fa nessuna di queste due cose, il form restituirà i dati come
 array. In questo esempio, poiché ``$defaultData`` non è un oggetto (e

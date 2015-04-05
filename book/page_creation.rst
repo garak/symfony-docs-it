@@ -101,7 +101,7 @@ specifica caratteristica, incluse classi PHP, configurazioni e anche fogli di st
 e file JavaScript (si veda :ref:`page-creation-bundles`).
 
 A seconda della modalità di installazione di Symfony, si potrebbe già a vere un bundle, chiamato
-``AcmeDemoBundle``. Controllare nella cartella ``src/`` del progetto se c'è
+AcmeDemoBundle. Controllare nella cartella ``src/`` del progetto se c'è
 una cartella ``DemoBundle/`` sotto la cartella ``Acme/``. Se tali
 cartelle esistono, saltare il resto di questa sezione e andare direttamente alla
 creazione della rotta.
@@ -141,7 +141,7 @@ Symfony si trova in ``app/config/routing.yml``. Come ogni configurazione in Symf
 si può anche scegliere di usare XML o PHP per configurare le rotte.
 
 Se si guarda il file principale delle rotte, si vedrà che Symfony ha già aggiunto
-una voce, quando è stato generato ``AcmeDemoBundle``:
+una voce, quando è stato generato AcmeDemoBundle:
 
 .. configuration-block::
 

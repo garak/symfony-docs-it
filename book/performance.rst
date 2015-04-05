@@ -61,7 +61,7 @@ linea di comando e potrebbe diventare parte del processo di deploy:
 
 .. code-block:: bash
 
-    $ php composer.phar dump-autoload --optimize
+    $ composer dump-autoload --optimize
 
 Internamente, costruisce un grosso array di mappature delle classi in ``vendor/composer/autoload_classmap.php``.
 

@@ -22,8 +22,8 @@ Il modo migliore per capire la validazione è quello di vederla in azione. Per i
 supponiamo di aver creato un classico oggetto PHP, da usare in qualche parte della
 propria applicazione::
 
-    // src/Acme/BlogBundle/Entity/Author.php
-    namespace Acme\BlogBundle\Entity;
+    // src/AppBundle/Entity/Author.php
+    namespace AppBundle\Entity;
 
     class Author
     {

@@ -118,7 +118,7 @@ base dati al posto nostro:
 
     $ php app/console doctrine:database:create
 
-.. sidebar:: Impostazioni della base dati
+.. sidebar:: Impostazioni dei caratteri della base dati
 
     Uno sbaglio che anche programmatori esperti commettono all'inizio di un progetto Symfony
     è dimenticare di impostare charset e collation nella base dati,
@@ -194,7 +194,7 @@ base dati al posto nostro:
 Creare una classe entità
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Supponiamo di star costruendo un'applicazione in cui i prodotti devono essere mostrati.
+Supponiamo di star costruendo un'applicazione in cui si devono elencare dei prodotti.
 Senza nemmeno pensare a Doctrine o alle basi dati, già sappiamo di aver bisogno di
 un oggetto ``Product`` che rappresenti questi prodotti. Creare questa classe dentro
 la cartella ``Entity`` di AppBundle::
@@ -387,7 +387,7 @@ Fortunatamente, Doctrine può farlo al posto nostro, basta eseguire:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entities Acme/StoreBundle/Entity/Product
+    $ php app/console doctrine:generate:entities AppBundle/Entity/Product
 
 Il comando si assicura che i getter e i setter siano generati per la classe
 ``Product``. È un comando sicuro, lo si può eseguire diverse volte: genererà i
@@ -595,8 +595,8 @@ accedere all'oggetto repository per una classe entità tramite::
 
 .. note::
 
-    La stringa ``AcmeStoreBundle:Product`` è una scorciatoia utilizzabile ovunque in
-    Doctrine al posto del nome intero della classe dell'entità (cioè ``Acme\StoreBundle\Entity\Product``).
+    La stringa ``AppBundle:Product`` è una scorciatoia utilizzabile ovunque in
+    Doctrine al posto del nome intero della classe dell'entità (cioè ``AppBundle\Entity\Product``).
     Questo funzionerà finché le entità rimarranno sotto lo spazio dei nomi ``Entity``
     del bundle.
 
@@ -772,7 +772,7 @@ usando DQL::
 
 Se ci si trova a proprio agio con SQL, DQL dovrebbe sembrare molto naturale. La
 maggiore differenza è che occorre pensare in termini di "oggetti" invece che di
-righe di basi dati. Per questa ragione, si cerca *da* ``AcmeStoreBundle:Product``
+righe di basi dati. Per questa ragione, si cerca *da* ``AppBundle:Product``
 e poi si usa ``p`` come suo alias (che è quello che stato fatto
 nella sezione precedente).
 
@@ -840,7 +840,7 @@ usato precedentemente per generare i metodi getter e setter mancanti:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entities Acme
+    $ php app/console doctrine:generate:entities AppBundle
 
 Quindi, aggiungere un nuovo metodo, chiamato ``findAllOrderedByName()``, alla classe
 repository appena generata. Questo metodo cercherà tutte le entità ``Product``,
@@ -1051,7 +1051,7 @@ setter:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entities Acme
+    $ php app/console doctrine:generate:entities AppBundle
 
 Ignoriamo per un momento i metadati di Doctrine. Abbiamo ora due classi, ``Category``
 e ``Product``, con una relazione naturale uno-a-molti. La classe ``Category``

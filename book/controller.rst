@@ -92,8 +92,8 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 .. code-block:: php
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
-    namespace Acme\HelloBundle\Controller;
+    // src/AppBundle/Controller/HelloController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\Response;
 
@@ -471,21 +471,21 @@ Se si serve dell'HTML, si vorrà rendere un template. Il metodo ``render()``
 rende un template **e** ne inserisce il contenuto in un oggetto
 ``Response``::
 
-    // rende app/Resources/views/Hello/index.html.twig
-    return $this->render('Hello/index.html.twig', array('name' => $name));
+    // rende app/Resources/views/hello/index.html.twig
+    return $this->render('hello/index.html.twig', array('name' => $name));
 
 Si possono anche mettere template in sottocartelle. Meglio però evitare di creare
 strutture inutilmente profonde::
 
-    // rende app/Resources/views/Hello/Greetings/index.html.twig
-    return $this->render('Hello/Greetings/index.html.twig', array('name' => $name));
+    // rende app/Resources/views/hello/greetings/index.html.twig
+    return $this->render('hello/greetings/index.html.twig', array('name' => $name));
 
 Il motore di template di Symfony è spiegato in gran deettaglio nel capitolo
 :doc:`Template </book/templating>`.
 
 .. sidebar:: Riferimenti a template che si trovano in un bundle
 
-    Si possono anche mettere template nella cartella ``Resources/views`` directory di un
+    Si possono anche mettere template nella cartella ``Resources/views`` di un
     bundle e farvi riferimento con la sintassi
     ``NomeBundle:NomeCartella:NomeFile``. Per esempio,
     ``AppBundle:Hello:index.html.twig`` si riferisce a un template collocato in
@@ -546,10 +546,10 @@ Se si sta estendendo la classe base del controllore, procedere come segue::
 
 Il metodo ``createNotFoundException()`` crea uno speciale oggetto
 :class:`Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException`,
-che in ultima analisi innesca una risposta HTTP 404 all'interno di Symfony.
+che infine innesca una risposta HTTP 404 all'interno di Symfony.
 
-Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllore -
-Symfony ritornerà automaticamente un codice di risposta HTTP 500.
+Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllore:
+Symfony restituirà automaticamente un codice di risposta HTTP 500.
 
 .. code-block:: php
 
@@ -654,7 +654,7 @@ il messaggio ``notice``:
             <div class="flash-notice">
                 <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 Per come sono stati progettati, i messaggi flash sono destinati a vivere esattamente per una richiesta (hanno la
 "durata di un flash"). Sono progettati per essere utilizzati con un rinvio, esattamente come

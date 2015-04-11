@@ -37,7 +37,7 @@ nella configurazione:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <framework:config ...>
+        <framework:config>
             <!-- ... -->
             <framework:serializer enabled="true" />
         </framework:config>
@@ -59,12 +59,12 @@ Una volta attivato, il servizio ``serializer`` sarà disponibile dentro il conte
 e sarà caricato con due :ref:`codificatori<component-serializer-encoders>`
 (:class:`Symfony\\Component\\Serializer\\Encoder\\JsonEncoder` e
 :class:`Symfony\\Component\\Serializer\\Encoder\\XmlEncoder`),
-ma nessun :ref:`normalizzatore<component-serializer-normalizers>`, quindi bisognerà
+ma nessun :ref:`normalizzatore <component-serializer-normalizers>`, quindi bisognerà
 caricarne uno proprio.
 
 Si possono caricare normalizzatori e/o codificatori, aggiungeno i tag
-:ref:`serializer.normalizer<reference-dic-tags-serializer-normalizer>` e
-:ref:`serializer.encoder<reference-dic-tags-serializer-encoder>`. È altresì
+:ref:`serializer.normalizer <reference-dic-tags-serializer-normalizer>` e
+:ref:`serializer.encoder <reference-dic-tags-serializer-encoder>`. È altresì
 possibile impostare una priorità del tag, per decidere l'ordine di abbinamento.
 
 Ecco un esempio su come caricare
@@ -74,16 +74,16 @@ la classe :class:`Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormal
 
     .. code-block:: yaml
 
-       # app/config/config.yml
-       services:
-          get_set_method_normalizer:
-             class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
-             tags:
-                - { name: serializer.normalizer }
+        # app/config/services.yml
+        services:
+            get_set_method_normalizer:
+            class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+                tags:
+                    - { name: serializer.normalizer }
 
     .. code-block:: xml
 
-        <!-- app/config/config.xml -->
+        <!-- app/config/services.xml -->
         <services>
             <service id="get_set_method_normalizer" class="Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer">
                 <tag name="serializer.normalizer" />
@@ -92,7 +92,7 @@ la classe :class:`Symfony\\Component\\Serializer\\Normalizer\\GetSetMethodNormal
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
 
         $definition = new Definition(

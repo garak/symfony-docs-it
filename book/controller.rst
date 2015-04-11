@@ -5,7 +5,7 @@ Il controllore
 ==============
 
 Un controllore è una funzione PHP da creare, che prende le informazioni dalla
-richiesta HTTP e dai costruttori e restituisce una risposta HTTP (come oggetto
+richiesta HTTP e crea e restituisce una risposta HTTP (come oggetto
 ``Response`` di Symfony). La risposta potrebbe essere una pagina HTML, un documento XML,
 un array serializzato JSON, una immagine, un rinvio, un errore 404 o qualsiasi altra cosa
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
@@ -478,7 +478,9 @@ Si possono anche mettere template in sottocartelle. Meglio però evitare di crea
 strutture inutilmente profonde::
 
     // rende app/Resources/views/hello/greetings/index.html.twig
-    return $this->render('hello/greetings/index.html.twig', array('name' => $name));
+    return $this->render('hello/greetings/index.html.twig', array(
+        'name' => $name
+    ));
 
 Il motore di template di Symfony è spiegato in gran deettaglio nel capitolo
 :doc:`Template </book/templating>`.
@@ -620,7 +622,7 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
         if ($form->isValid()) {
             // fare una qualche elaborazione
 
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'notice',
                 'Le modifiche sono state salvate!'
             );

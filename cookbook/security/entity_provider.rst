@@ -435,9 +435,9 @@ interfaccia ha tre metodi da implementare: ``loadUserByUsername($username)``,
                 ->setParameter('username', $username)
                 ->setParameter('email', $username)
                 ->getQuery()
-                ->getOneOrNullResult()
+                ->getOneOrNullResult();
 
-            if ($user) {
+            if (null === $user) {
                 $message = sprintf(
                     'Impossibile trovare un oggetto AcmeUserBundle:User identificato da  "%s".',
                     $username

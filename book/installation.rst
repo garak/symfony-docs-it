@@ -200,7 +200,7 @@ server con il comando ``server:stop``:
 
     $ php app/console server:stop
 
-Verifica della configuraizone di un'applicazione Symfony
+Verifica della configurazione di un'applicazione Symfony
 --------------------------------------------------------
 
 Le applicazioni Symfony dispongono di un test per la configurazione del server, che mostra

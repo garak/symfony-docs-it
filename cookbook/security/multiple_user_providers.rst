@@ -3,7 +3,7 @@ Usare più fornitori di utenti
 
 Ogni meccanismo di autenticazione (autenticazione HTTP, form di login, ecc.)
 usa esattamente un fornitore di utente, il primo fornitore di utenti
-dichiarato. E se invece si volessero specificare alcuni utenti nella configuraizone
+dichiarato. E se invece si volessero specificare alcuni utenti nella configurazione
 e tutti gli altri nella base dati? Lo si può fare, creando un nuovo
 fornitore, che formi una catena degli altri fornitori esistenti:
 

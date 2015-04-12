@@ -165,7 +165,7 @@ Remove
 :method:`Symfony\\Component\\Filesystem\\Filesystem::remove` rimuove file,
 collegamenti simbolici, cartelle::
 
-    $fs->remove(array('symlink', '/path/to/directory', 'activity.log'));
+    $fs->remove(array('symlink', '/percorso/della/cartella', 'activity.log'));
 
 .. note::
 
@@ -179,9 +179,9 @@ Rename
 e cartelle::
 
     // rinomina un file
-    $fs->rename('/tmp/processed_video.ogg', '/path/to/store/video_647.ogg');
+    $fs->rename('/tmp/processed_video.ogg', '/percorso/del/video_647.ogg');
     // rinomina una cartella
-    $fs->rename('/tmp/files', '/path/to/store/files');
+    $fs->rename('/tmp/files', '/percorso/dei/file');
 
 symlink
 ~~~~~~~

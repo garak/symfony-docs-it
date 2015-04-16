@@ -1,6 +1,6 @@
 .. index::
-   single: Come interagiscono front controller, ``AppKernel`` e 
-   ambienti
+    single: Come interagiscono front controller, ``AppKernel`` e
+    ambienti
 
 Capire come interagiscono front controller, Kernel e ambienti
 =============================================================
@@ -94,12 +94,10 @@ Ci sono due metodi dichiarati nell'interfaccia
 nella classe :class:`Symfony\\Component\\HttpKernel\\Kernel`,
 servendo quindi come `metodi template`_:
 
-* :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerBundles`,
-  che deve restituire un array di tutti i Bundle necessari per eseguire
-  l'applicazione.
-
-* :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`,
-  che carica la configurazione dell'applicazione.
+:method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerBundles`
+    Deve restituire un array di tutti i Bundle necessari per eseguire l'applicazione.
+:method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`,
+    Carica la configurazione dell'applicazione.
 
 Per riempire questi (piccoli) buchi, l'applicazione deve essere una sottoclasse 
 del Kernel e implementare questi metodi. La classe che ne risulta viene convenzionalmente
@@ -124,8 +122,7 @@ front controller (o aggiungerne uno nuovo) perché usi il nuovo kernel.
     può avere senso aggiungere sotto-cartelle aggiuntive, ad
     esempio: ``app/admin/AdminKernel.php`` e
     ``app/api/ApiKernel.php``. Quello che conta è che il front
-    controller sia in grado di creare una istanza del kernel
-    appropriato.
+    controller sia in grado di creare una istanza del kernel appropriato.
 
 Avere diversi ``AppKernel`` può essere utile per abilitare diversi front
 controller (potenzialmente su diversi server) per eseguire indipendentemente parti dell'applicazione

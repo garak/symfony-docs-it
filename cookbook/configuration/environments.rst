@@ -26,9 +26,9 @@ sorpresa il fatto che ogni ambiente carichi i suoi propri file di configurazione
 Se si utilizza il formato di configurazione YAML, verranno utilizzati
 i seguenti file:
 
- * per l'ambiente ``dev``: ``app/config/config_dev.yml``
- * per l'ambiente ``prod``: ``app/config/config_prod.yml``
- * per l'ambiente ``test``: ``app/config/config_test.yml``
+* per l'ambiente ``dev``: ``app/config/config_dev.yml``
+* per l'ambiente ``prod``: ``app/config/config_prod.yml``
+* per l'ambiente ``test``: ``app/config/config_test.yml``
 
 Il funzionamento si basa su di un semplice comportamento predefinito all'interno
 della classe ``AppKernel``:
@@ -84,9 +84,10 @@ ottenuto facilmente e in modo trasparente:
 Per condividere una configurazione comune, i file di configurazione di ogni ambiente
 importano, per iniziare, un file di configurazione comune (``config.yml``).
 Il resto del file potrà deviare dalla configurazione predefinita, sovrascrivendo
-i singoli parametri. Ad esempio, nell'ambiente ``dev``, la barra delle applicazioni
-viene attivata modificando, nel file di configurazione di ``dev``, il relativo 
-parametro predefinito:
+i singoli parametri. Per esempio, l'opzione ``web_profiler`` è
+disabilitata. Tuttavia, in ambiente ``dev``, la barra degli strumenti
+viene attivata modificando il valore dell'opzione ``toolbar`` nel file di
+configurazione ``config_dev.yml``:
 
 .. configuration-block::
 
@@ -220,13 +221,13 @@ comportamento:
 .. code-block:: bash
 
     # ambiente 'dev' e debug abilitato
-    $ php app/console command_name
+    $ php app/console nome_comando
 
     # ambiente 'prod' (debug sempre disabilitato per 'prod')
-    $ php app/console command_name --env=prod
+    $ php app/console nome_comando --env=prod
 
     # ambiente 'test' e debug disabilitato
-    $ php app/console command_name --env=test --no-debug
+    $ php app/console nome_comando --env=test --no-debug
 
 Oltre alle opzioni ``--env`` e ``--debug``, il comportamento dei comandi di Symfony
 può essere controllato tramite variabili d'ambiente. La console di Symfony
@@ -325,9 +326,7 @@ Il nuovo ambiente sarà accessibile tramite::
    il debug, potrebbero fornire troppe informazioni relative all'infrastruttura
    sottostante l'applicazione. Per essere sicuri che questi ambienti non siano
    accessibili, il front controller è solitamente protetto dall'accesso da parte di
-   indirizzi IP esterni tramite il seguente codice, posto in cima al controllore:
-
-    .. code-block:: php
+   indirizzi IP esterni tramite il seguente codice, posto in cima al controllore::
 
         if (!in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
             die('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
@@ -361,17 +360,20 @@ bisogna ricordarsi di guardare nella cartella dell'ambiente che si sta utilizzan
 (solitamente, in fase di sviluppo e debug, il ``dev``). Sebbene possa variare,
 il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 
-* ``appDevDebugProjectContainer.php`` - il "contenitore di servizi" salvato in cache
-  che rappresenta la configurazione dell'applicazione;
+``appDevDebugProjectContainer.php``
+    Il "contenitore di servizi" salvato in cache  che rappresenta la configurazione
+    dell'applicazione.
 
-* ``appDevUrlGenerator.php`` - la classe PHP generata a partire dalla configurazione
-  delle rotte e usata nella generazione degli URL;
+``appDevUrlGenerator.php``
+   La classe PHP generata a partire dalla configurazione delle rotte e usata
+   nella generazione degli URL.
 
-* ``appDevUrlMatcher.php`` - la classe PHP utilizzata per ricercare le rotte: qui
-  è possibile vedere le espressioni regolari utilizzate per associare gli URL in ingresso
-  con le rotte disponibili;
+``appDevUrlMatcher.php``
+    La classe PHP utilizzata per ricercare le rotte: qui è possibile vedere le
+    espressioni regolari utilizzate per associare gli URL in ingresso con le rotte disponibili.
 
-* ``twig/`` - questa cartella contiene la cache dei template di Twig.
+``twig/``
+   Questa cartella contiene la cache dei template di Twig.
 
 .. note::
 

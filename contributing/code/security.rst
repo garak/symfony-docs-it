@@ -96,11 +96,17 @@ Bollettini di sicurezza
 Questa sezione elenca le vulnerabilità di sicurezza che sono state risolte in Symfony,
 partendo da Symfony 1.0.0:
 
+* 1 aprile 2015: `CVE-2015-2309: Unsafe methods in the Request class <http://symfony.com/blog/cve-2015-2309-unsafe-methods-in-the-request-class>`_ (Symfony 2.3.27, 2.5.11 e 2.6.6)
+* 1 aprile 2015: `CVE-2015-2308: Esi Code Injection <http://symfony.com/blog/cve-2015-2308-esi-code-injection>`_ (Symfony 2.3.27, 2.5.11 e 2.6.6)
+* 3 settembre 2014: `CVE-2014-6072: CSRF vulnerability in the Web Profiler <http://symfony.com/blog/cve-2014-6072-csrf-vulnerability-in-the-web-profiler>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
+* 3 settembre 2014: `CVE-2014-6061: Security issue when parsing the Authorization header <http://symfony.com/blog/cve-2014-6061-security-issue-when-parsing-the-authorization-header>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
+* 3 settembre 2014: `CVE-2014-5245: Direct access of ESI URLs behind a trusted proxy <http://symfony.com/blog/cve-2014-5245-direct-access-of-esi-urls-behind-a-trusted-proxy>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
+* 3 settembre 2014: `CVE-2014-5244: Denial of service with a malicious HTTP Host header <http://symfony.com/blog/cve-2014-5244-denial-of-service-with-a-malicious-http-host-header>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
 * 15 luglio 2014: `Security releases: Symfony 2.3.18, 2.4.8, and 2.5.2 released <http://symfony.com/blog/security-releases-cve-2014-4931-symfony-2-3-18-2-4-8-and-2-5-2-released>`_ (`CVE-2014-4931 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4931>`_)
 * 10 ottobre 2013: `Security releases: Symfony 2.0.25, 2.1.13, 2.2.9, and 2.3.6 released <http://symfony.com/blog/security-releases-cve-2013-5958-symfony-2-0-25-2-1-13-2-2-9-and-2-3-6-released>`_ (`CVE-2013-5958 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-5958>`_)
-* 7 agosto 2013: `Security releases: Symfony 2.0.24, 2.1.12, 2.2.5, and 2.3.3 released <http://symfony.com/blog/security-releases-symfony-2-0-24-2-1-12-2-2-5-and-2-3-3-released>`_ (`CVE-2013-4751 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4751>`_ and `CVE-2013-4752 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4752>`_)
-* 17 gennaio 2013: `Security release: Symfony 2.0.22 and 2.1.7 released <http://symfony.com/blog/security-release-symfony-2-0-22-and-2-1-7-released>`_ (`CVE-2013-1348 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1348>`_ and `CVE-2013-1397 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1397>`_)
-* 20 dicembre 2012: `Security release: Symfony 2.0.20 and 2.1.5 <http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released>`_  (`CVE-2012-6431 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6431>`_ and `CVE-2012-6432 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6432>`_)
+* 7 agosto 2013: `Security releases: Symfony 2.0.24, 2.1.12, 2.2.5, and 2.3.3 released <http://symfony.com/blog/security-releases-symfony-2-0-24-2-1-12-2-2-5-and-2-3-3-released>`_ (`CVE-2013-4751 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4751>`_ e `CVE-2013-4752 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4752>`_)
+* 17 gennaio 2013: `Security release: Symfony 2.0.22 and 2.1.7 released <http://symfony.com/blog/security-release-symfony-2-0-22-and-2-1-7-released>`_ (`CVE-2013-1348 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1348>`_ e `CVE-2013-1397 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1397>`_)
+* 20 dicembre 2012: `Security release: Symfony 2.0.20 and 2.1.5 <http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released>`_  (`CVE-2012-6431 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6431>`_ e `CVE-2012-6432 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6432>`_)
 * 29 novembre 2012: `Security release: Symfony 2.0.19 and 2.1.4 <http://symfony.com/blog/security-release-symfony-2-0-19-and-2-1-4>`_
 * 25 novembre 2012: `Security release: symfony 1.4.20 released  <http://symfony.com/blog/security-release-symfony-1-4-20-released>`_
 * 28 agosto 2012: `Security Release: Symfony 2.0.17 released <http://symfony.com/blog/security-release-symfony-2-0-17-released>`_

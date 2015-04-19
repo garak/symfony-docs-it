@@ -40,7 +40,7 @@ PHP:
 * La classe :class:`Symfony\\Component\\HttpFoundation\\Response` astrae alcune
   funzioni PHP, come ``header()``, ``setcookie()`` ed ``echo``;
 
-* La classe :class:`Symfony\\Component\\HttpFoundation\\Session` e l'interfaccia
+* La classe :class:`Symfony\\Component\\HttpFoundation\\Session\\Session` e l'interfaccia
   :class:`Symfony\\Component\\HttpFoundation\\SessionStorage\\SessionStorageInterface`
   astraggono le funzioni di gestione della sessione ``session_*()``.
 

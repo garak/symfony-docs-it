@@ -1000,7 +1000,7 @@ l'oggetto ``User`` e usare il metodo ``isGranted`` (o
 Recuperare l'utente in un template
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In un template Twig, si può accedere all'oggetto tramite `app.user <reference-twig-global-app>`_:
+In un template Twig, si può accedere all'oggetto tramite :ref:`app.user <reference-twig-global-app>`_:
 
 
 .. configuration-block::
@@ -1106,7 +1106,7 @@ Quindi, si deve creare una rotta per tale URL (non serve invece un controllore):
         return $collection;
 
 Ecco fatto! Se l'utente va su ``/logout`` (o sull'URL configurato
-in ``path``), Symfony de-autenticherà l'utente corrente.
+in ``path``), Symfony disconnetterà l'utente corrente.
 
 Una volta eseguito il logout, l'utente sarà rinviato al percorso
 definito nel parametro ``target`` (p.e. su ``homepage``).

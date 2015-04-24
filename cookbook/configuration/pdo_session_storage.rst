@@ -10,9 +10,8 @@ la basi dati, invece dei file, per salvare i dati di sessione. Questo perché le
 sono più semplici da utilizzare e sono più scalabili in ambienti multi-webserver.
 
 Symfony ha, al suo interno, una soluzione per l'archiviazione delle sessioni su base dati, chiamata
-:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\PdoSessionStorage`.
-Per utilizzarla è sufficiente cambiare alcuni parametri di ``config.yml`` (o del
-proprio formato di configurazione):
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\PdoSessionHandler`.
+Per utilizzarla basta cambiare alcuni parametri nel file principale di configurazione:
 
 .. versionadded:: 2.1
     In Symfony 2.1 sono stati leggermenti modificati classe e spazio dei nomi. Ora si può
@@ -120,10 +119,19 @@ proprio formato di configurazione):
         ));
         $container->setDefinition('session.handler.pdo', $storageDefinition);
 
-* ``db_table``: Nome della tabella, nella base dati, per le sessioni
-* ``db_id_col``: Nome della colonna id della tabella delle sessioni (VARCHAR(255) o maggiore)
-* ``db_data_col``: Nome della colonna dove salvare il valore della sessione (TEXT o CLOB)
-* ``db_time_col``: Nome della colonna per la registrazione del tempo della sessione (INTEGER)
+Questi sono i parametri da configurare:
+
+``db_table``
+    Nome della tabella, nella base dati, per le sessioni.
+
+``db_id_col``
+    Nome della colonna id della tabella delle sessioni (``VARCHAR(255)`` o maggiore).
+
+``db_data_col``
+    Nome della colonna dove salvare il valore della sessione (``TEXT`` o ``CLOB``)
+
+``db_time_col``
+    Nome della colonna per la registrazione del tempo della sessione (``INTEGER``)
 
 Condividere le informazioni di connessione della base dati
 ----------------------------------------------------------
@@ -133,8 +141,8 @@ solo per l'archiviazione dei dati di sessione. La qual cosa è perfetta se si us
 una base dati differente per i dati di sessione.
 
 Ma se si preferisce salvare i dati di sessione nella stessa base dati in cui
-risiedono i rimanenti dati del progetto, è possibile utilizzare i parametri di 
-connessione di parameter.ini, richiamandone la configurazione della base dati:
+risiedono i rimanenti dati del progetto, è possibile utilizzare i parametri di connessione di
+``parameter.yml``, richiamandone la configurazione della base dati:
 
 .. configuration-block::
 

@@ -25,14 +25,16 @@ per usare PHP :ref:`con Nginx <web-server-nginx>`.
     web. Negli esempi successivi, la cartella ``web/`` si troverà nella
     document root. Questa cartella è ``/var/www/progetto/web/``.
 
+    Se un fornitore di hosting impone il cambiamento della cartella ``web/`` a una posizione
+    differente (come ``public_html/``), assicurarsi di
+    :ref:`modificare la posizione della cartella web/ <override-web-dir>`.
+
 .. _web-server-apache-mod-php:
 
-Apache2 con mod_php/PHP-CGI
----------------------------
+Apache con mod_php/PHP-CGI
+--------------------------
 
-Per opzioni avanzate di configurazione di Apache, vedere la documentazione ufficiale di `Apache`_.
-La basi minime per far funzionare un'applicazione sotto Apache2
-sono:
+La basi minime per far funzionare un'applicazione sotto Apache sono:
 
 .. code-block:: apache
 
@@ -42,53 +44,83 @@ sono:
 
         DocumentRoot /var/www/progetto/web
         <Directory /var/www/progetto/web>
-            # abilita la lettura di .htaccess
             AllowOverride All
-            Order allow,deny
+            Order allow, deny
             Allow from All
         </Directory>
 
         # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
         # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
-        # <Directory /var/www/project>
+        # <Directory /var/www/progetto>
         #     Option FollowSymlinks
         # </Directory>
 
-        ErrorLog /var/log/apache2/project_error.log
-        CustomLog /var/log/apache2/project_access.log combined
+        ErrorLog /var/log/apache2/progetto_error.log
+        CustomLog /var/log/apache2/progetto_access.log combined
     </VirtualHost>
 
-.. note::
+.. tip::
 
     Su un sistema che supporti la variabile ``APACHE_LOG_DIR``, si potrebbe voler
     usare ``${APACHE_LOG_DIR}/`` al posto di ``/var/log/apache2/``.
 
-.. note::
-
-    Per questioni di prestazione, probabilmente si vorrà impostare
-    ``AllowOverride None`` e implementare le regole di riscrittura presenti in ``web/.htaccess``
-    direttamente nella cofigurazione dell'host virtuale.
-
-Se si usa **php-cgi**, Apache non passa nome utente e password di HTTP basic
-a PHP, per impostazione predefinita. Per aggirare tale limitazione, si dovrebbe usare
-la seguente configurazione:
+Usando la seguente **configurazione ottimizzata**, si può disabilitare il supporto a ``.htaccess``
+e quindi incrementare le prestazioni del server web:
 
 .. code-block:: apache
 
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    <VirtualHost *:80>
+        ServerName dominio.tld
+        ServerAlias www.dominio.tld
 
-.. caution::
+        DocumentRoot /var/www/progetto/web
+        <Directory /var/www/progetto/web>
+            AllowOverride None
+            Order allow, deny
+            Allow from All
 
-    In Apache 2.4, ``Order allow,deny`` è stato sostituito da ``Require all granted``,
-    quindi occorre modificare le impostazioni in questo modo:
+            <IfModule mod_rewrite.c>
+                Options -MultiViews
+                RewriteEngine On
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteRule ^(.*)$ app.php [QSA,L]
+            </IfModule>
+        </Directory>
+
+        # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
+        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # <Directory /var/www/progetto>
+        #     Option FollowSymlinks
+        # </Directory>
+
+        ErrorLog /var/log/apache2/progetto_error.log
+        CustomLog /var/log/apache2/progetto_access.log combined
+    </VirtualHost>
+
+.. tip::
+
+    Se si usa **php-cgi**, Apache non passa nome utente e password di HTTP basic
+    a PHP, per impostazione predefinita. Per aggirare tale limitazione, si dovrebbe usare
+    la seguente configurazione:
 
     .. code-block:: apache
 
-        <Directory /var/www/progetto/web>
-            # enable the .htaccess rewrites
-            AllowOverride All
-            Require all granted
-        </Directory>
+        RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+Usare mod_php/PHP-CGI con Apache 2.4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In Apache 2.4, ``Order allow,deny`` è stato sostituito da ``Require all granted``,
+quindi occorre modificare le impostazioni in questo modo:
+
+.. code-block:: apache
+
+    <Directory /var/www/progetto/web>
+        Require all granted
+        # ...
+    </Directory>
+
+Per opzioni avanzate di configurazione di Apache, leggere la `documentazione di Apache`_.
 
 .. _web-server-apache-fpm:
 
@@ -144,8 +176,10 @@ per passare richieste di file PHP a PHP FPM:
         <FilesMatch \.php$>
             SetHandler proxy:fcgi://127.0.0.1:9000
         </FilesMatch>
+
         # Se si usa Apache prima di 2.4.9, si consideri di aggiornare o usare invece questo
         # ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
+
         # Se si fa girare l'applicazione Symfony in una sottocartella della document root,
         # cambiare l'espressione regolare di conseguenza:
         # ProxyPassMatch ^/percorso-app/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/progetto/web/$1
@@ -163,8 +197,8 @@ per passare richieste di file PHP a PHP FPM:
         #     Option FollowSymlinks
         # </Directory>
 
-        ErrorLog /var/log/apache2/project_error.log
-        CustomLog /var/log/apache2/project_access.log combined
+        ErrorLog /var/log/apache2/progetto_error.log
+        CustomLog /var/log/apache2/progetto_access.log combined
     </VirtualHost>
 
 PHP-FPM con Apache 2.2
@@ -199,8 +233,8 @@ dovrebbe essere come questa:
         #     Option FollowSymlinks
         # </Directory>
 
-        ErrorLog /var/log/apache2/project_error.log
-        CustomLog /var/log/apache2/project_access.log combined
+        ErrorLog /var/log/apache2/progetto_error.log
+        CustomLog /var/log/apache2/progetto_access.log combined
     </VirtualHost>
 
 Se si preferisce usare un socket unix, si deve invece usare l'opzione
@@ -215,9 +249,7 @@ Se si preferisce usare un socket unix, si deve invece usare l'opzione
 Nginx
 -----
 
-Per opzioni avanzate di configurazione di Nginx, vedere la documentazione ufficiale di `Nginx`_.
-La basi minime per far funzionare un'applicazione sotto Nginx
-sono:
+La basi minime per far funzionare un'applicazione sotto Nginx sono:
 
 .. code-block:: nginx
 
@@ -252,8 +284,8 @@ sono:
             internal;
         }
 
-        error_log /var/log/nginx/project_error.log;
-        access_log /var/log/nginx/project_access.log;
+        error_log /var/log/nginx/progetto_error.log;
+        access_log /var/log/nginx/progetto_access.log;
     }
 
 .. note::
@@ -272,7 +304,9 @@ sono:
     Se si hanno altri file PHP nella cartella web e si vuole che siano eseguiti,
     assicurarsi di includerli nel blocco ``location`` visto sopra.
 
-.. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
+Per opzioni avanzate di configurazione di Nginx, leggere la `documentazione di Nginx`_.
+
+.. _`documentazione di Apache`: http://httpd.apache.org/docs/
 .. _`non supporta i socket unix`: https://issues.apache.org/bugzilla/show_bug.cgi?id=54101
 .. _`FastCgiExternalServer`: http://www.fastcgi.com/mod_fastcgi/docs/mod_fastcgi.html#FastCgiExternalServer
-.. _`Nginx`: http://wiki.nginx.org/Symfony
+.. _`documentazione di Nginx`: http://wiki.nginx.org/Symfony

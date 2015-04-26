@@ -15,24 +15,30 @@ contenuti in cache in modo veloce e che include il supporto per :ref:`Edge Side 
 Reverse proxy fidati
 --------------------
 
-Perché ESI funzioni correttamente e per usare gli header :ref:`X-FORWARDED <varnish-x-forwarded-headers>`,
-occorre configurare Varnish come
-:doc:`proxy fidato </cookbook/request/load_balancer_reverse_proxy>`.
+Varnish inoltra automaticamente l'IP come ``X-Forwarded-For`` e lascia l'header
+``X-Forwarded-Proto`` nella richiesta. Se non si configura Varnish
+come proxy fidato, Symfony vedrà tutte le richieste come provenienti da connessioni HTTP
+non sicure, dall'host di Varnish invece che dal client reale.
+
+Ricordarsi di configurare :ref:`framework.trusted_proxies <reference-framework-trusted-proxies>` nella
+configurazione di Symfony, in modo che Varnish sia visto come proxy fidato e gli header
+:ref:`X-Forwarded <varnish-x-forwarded-headers>` usati.
 
 .. _varnish-x-forwarded-headers:
 
 Rotte e header X-FORWARDED
 --------------------------
 
-Per essere sicuri che Symfony generi correttamente URL con Varnish,
-ci deve essere un header ``X-Forwarded-Port``, in modo che Symfony usi il
-numero giusto di porta.
+Se l'header ``X-Forwarded-Port`` non è impostato correttamente, Symfony appenderà
+la porta in cui l'applicazione PHP sta girando, durante la generazione di URL assolute,
+p.e. ``http://example.com:8080/percorso``. Per essere sicuri che Symfony generi
+correttamente URL con Varnish, ci deve essere un header
+``X-Forwarded-Port``, in modo che Symfony usi il numero giusto di porta. Questa porta dipende dalla configurazione.
 
-Questa porta dipende dalla configurazione. Ipotizziamo che le connessioni esterne vengano
-sulla porta HTTP predefinita, la 80. Per le connessioni HTTPS, c'è un altro proxy
-(non facendo Varnish HTTPS) sulla porta HTTPS predefinita, la 443, che gestisce
-SSL e gira le richieste come richieste HTTP a
-Varnish, con un header ``X-Forwarded-Proto``. In questo case, si deve aggiungere
+Ipotizziamo che le connessioni esterne vengano sulla porta HTTP predefinita, la 80. Per
+le connessioni HTTPS, c'è un altro proxy (non facendo Varnish stesso HTTPS) sulla
+porta HTTPS predefinita, la 443, che gestisce SSL e gira le richieste come richieste HTTP a
+Varnish, con un header ``X-Forwarded-Proto``. In questo caso, si deve aggiungere
 la seguente parte di configurazione:
 
 .. code-block:: varnish4
@@ -44,21 +50,6 @@ la seguente parte di configurazione:
             set req.http.X-Forwarded-Port = "80";
         }
     }
-
-.. note::
-
-    Ricordarsi di configurare :ref:`framework.trusted_proxies <reference-framework-trusted-proxies>`
-    nella configurazione di Symfony, in modo che Varnish sia visto come proxy fidato
-    e gli header ``X-Forwarded-*`` usati.
-
-    Varnish gira automaticamente l'IP come ``X-Forwarded-For`` e lascia
-    l'header ``X-Forwarded-Proto`` nella richiesta. Se non si configura
-    Varnish come proxy fidato, Symfony vedrà tutte le richieste come provenienti tramite
-    connessioni HTTP non sicure da Varnish, invece che dall'effettivo client.
-
-Se non si imposta correttamente l'header ``X-Forwarded-Port``, Symfony appenderà
-la porta in cui gira l'applicazione PHP, quando genererà URL assoluti,
-p.e. ``http://example.com:8080/my/path``.
 
 Cookie e cache
 --------------
@@ -168,8 +159,9 @@ backend:
 
 .. note::
 
-    La parte ``abc`` dell'header non è importante, a meno non si abbiamo più surrogati
-    che debbano pubblicizzare le loro capacità. Vedere `Surrogate-Capability Header`_ per dettagli.
+    La parte ``abc`` dell'header non è importante, a meno non si abbiamo più
+    "surrogati" che debbano pubblicizzare le loro capacità. Vedere
+    `Surrogate-Capability Header`_ per dettagli.
 
 Quindi, ottimizzare Varnish, in modo che analizzi solo il contenuto di risposte quando ci
 sia almeno un tag ESI, verificando l'header ``Surrogate-Control``, aggiunto automaticamente da

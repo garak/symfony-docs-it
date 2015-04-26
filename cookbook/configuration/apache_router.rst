@@ -1,11 +1,21 @@
 .. index::
     single: Rotte su Apache
 
-Come usare le rotte su Apache
-=============================
+Usare le rotte su Apache
+========================
 
-Symfony, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua velocità,
-tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache, invece di usare Symfony.
+.. caution::
+
+    **L'uso di rotte su Apache non è più considerato una buona pratica**.
+    Il piccolo incremento ottenuto sulla prestazioni delle rotte dell'applicazione non
+    vale lo sforzo di aggiornare continuamente la configurazione delle rotte.
+
+    Le rotte su Apache saranno rimosse in Symfony 3 e si raccomanda di non
+    usarle in un'applicazione.
+
+Symfony, pur essendo veloce di suo, fornisce anche molti modi per incrementare la sua
+velocità, tramite piccole modifiche. Una di queste è delegare la gestione delle rotte ad Apache,
+invece di usare Symfony.
 
 .. caution::
 
@@ -59,7 +69,7 @@ per dire a Symfony di usare ``ApacheUrlMatcher`` invece di quello predefinito:
 Generare le regole per mod_rewrite
 ----------------------------------
 
-Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle demo:
+Per testare che tutto funzioni, creiamo una rotta molto semplice per AppBundle:
 
 .. configuration-block::
 
@@ -68,23 +78,23 @@ Per testare che tutto funzioni, creiamo una rotta molto semplice per il bundle d
         # app/config/routing.yml
         hello:
             path: /hello/{name}
-            defaults: { _controller: AppBundle:Demo:hello }
+            defaults: { _controller: AppBundle:Greet:hello }
 
     .. code-block:: xml
 
         <!-- app/config/routing.xml -->
         <route id="hello" path="/hello/{name}">
-            <default key="_controller">AppBundle:Demo:hello</default>
+            <default key="_controller">AppBundle:Greet:hello</default>
         </route>
 
     .. code-block:: php
 
         // app/config/routing.php
         $collection->add('hello', new Route('/hello/{name}', array(
-            '_controller' => 'AppBundle:Demo:hello',
+            '_controller' => 'AppBundle:Greet:hello',
         )));
 
-Ora generiamo le regole di **url_rewrite**:
+Ora generiamo le regole di mod_rewrite:
 
 .. code-block:: bash
 
@@ -100,7 +110,7 @@ Il risultato dovrebbe essere simile a questo:
 
     # hello
     RewriteCond %{REQUEST_URI} ^/hello/([^/]+?)$
-    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AcmeDemoBundle\:Demo\:hello]
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AppBundle\:Greet\:hello]
 
 Ora possiamo riscrivere `web/.htaccess` per usare le nuove regole, quindi con il nostro
 esempio dovrebbe risultare in questo modo:
@@ -116,12 +126,13 @@ esempio dovrebbe risultare in questo modo:
 
         # hello
         RewriteCond %{REQUEST_URI} ^/hello/([^/]+?)$
-        RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AppBundle\:Demo\:hello]
+        RewriteRule .* app.php [QSA,L,E=_ROUTING__route:hello,E=_ROUTING_name:%1,E=_ROUTING__controller:AppBundle\:Greet\:hello]
     </IfModule>
 
 .. note::
 
-   La procedura appena vista andrebbe fatta ogni volta che si aggiunge o cambia una rotta
+   La procedura appena vista andrebbe fatta ogni volta che si aggiunge o cambia una rotta,
+   se si vuole sfruttare questa configurazione.
 
 Ecco fatto!
 Ora è tutto pronto per usare le rotte di Apache.

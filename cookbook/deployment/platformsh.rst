@@ -36,7 +36,7 @@ Platform.sh come eseguire il deploy dell'applicazione (si possono approfondire i
     # nello stesso progetto.
 
     # Il nome dell'app. Deve essere univoco in un progetto.
-    name: miaapp
+    name: mioprogetto
 
     # Il toolstack usato per costruire l'applicazione.
     toolstack: "php:symfony"
@@ -88,8 +88,8 @@ repository Git, con i seguenti file:
         type: mysql
         disk: 2048
 
-Si può trovare un esempio di queste configurazioni su `GitHub`_. L'elenco dei servizi
-disponibili <configure-services>`_ si trova nella documentazione di Platform.sh.
+Si può trovare un esempio di queste configurazioni su `GitHub`_. L'elenco dei
+`servizi disponibili`_ si trova nella documentazione di Platform.sh.
 
 Configurare l'accesso alla base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -186,5 +186,5 @@ visibile tramite browser.
 .. _`progetto Platform.sh`: https://marketplace.commerceguys.com/platform/buy-now
 .. _`file di configurazione Platform.sh`: https://docs.platform.sh/reference/configuration-files
 .. _`GitHub`: https://github.com/platformsh/platformsh-examples
-.. _`configure-services`: https://docs.platform.sh/reference/configuration-files/#configure-services
+.. _`servizi disponibili`: https://docs.platform.sh/reference/configuration-files/#configure-services
 .. _`migrate-existing-site`: https://docs.platform.sh/toolstacks/symfony/migrate-existing-site/

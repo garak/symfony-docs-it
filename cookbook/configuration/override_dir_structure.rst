@@ -80,6 +80,8 @@ con la sola differenza che occorre sovrascrivere il metodo
 
 Abbiamo cambiato la posizione della cartella in ``app/{ambiente}/logs``.
 
+.. _override-web-dir:
+
 Spostare la cartella ``web``
 ----------------------------
 
@@ -95,7 +97,7 @@ necesario modificare i percorsi nei file::
 Da Symfony 2.1 (in cui è stato introdotto Composer), occorre anche modificare
 l'opzione ``extra.symfony-web-dir`` nel file ``composer.json``:
 
-.. code-block:: json
+.. code-block:: javascript
 
     {
         ...
@@ -152,4 +154,37 @@ l'opzione ``extra.symfony-web-dir`` nel file ``composer.json``:
 
     .. code-block:: bash
 
+        $ php app/console cache:clear --env=prod
         $ php app/console assetic:dump --env=prod --no-debug
+
+Spostare la cartella ``vendor``
+-------------------------------
+
+Per spostare la cartella ``vendor``, si devono modificare i file
+``app/autoload.php`` e ``composer.json``.
+
+La modifica in ``composer.json`` sarà simile a questa:
+
+.. code-block:: json
+
+    {
+        ...
+        "config": {
+            "bin-dir": "bin",
+            "vendor-dir": "/una/cartella/vendor"
+        },
+        ...
+    }
+
+In ``app/autoload.php``, si deve modificare il percorso che punta al file
+``vendor/autoload.php``::
+
+    // app/autoload.php
+    // ...
+    $loader = require '/some/dir/vendor/autoload.php';
+
+.. tip::
+
+    Questa modifica può essere interessante se si lavora in un ambiente virtuale e
+    non si può usare NFS, per esempio eseguendo un'applicazione Symfony con
+    Vagrant/VirtualBox in un sistema operativo ospite.

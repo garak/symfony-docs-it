@@ -88,9 +88,10 @@ I bundle sono cittadini di prima classe in Symfony. Essi forniscono la flessibil
 di usare delle caratteristiche pre-costruite impacchettate in bundle di terze parti o di distribuire 
 i propri bundle. Questo rende molto facile scegliere quali caratteristiche abilitare in
 un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
-dell'applicazione è *importante* quanto il nucleo stesso del framework.
+dell'applicazione è *importante* quanto il nucleo stesso del
+framework.
 
-Symfony include un ``AppBundle``, che si può usare per iniziare lo sviluppo
+Symfony include un AppBundle, che si può usare per iniziare lo sviluppo
 di un'applicazione. Quindi, se occorre dividere l'applicazione in componenti
 riutilizzabili, si possono creare altri bundle.
 
@@ -99,7 +100,7 @@ Registrare un bundle
 
 Un'applicazione è composta di bundle, come definito nel metodo ``registerBundles()``
 della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singola classe
-``Bundle`` che la descrive::
+Bundle che la descrive::
 
     // app/AppKernel.php
     public function registerBundles()
@@ -145,7 +146,7 @@ XML o PHP. Si veda la configurazione predefinita:
 
     framework:
         #esi:             ~
-        #translator:      { fallback: "%locale%" }
+        #translator:      { fallbacks: ["%locale%"] }
         secret:          "%secret%"
         router:
             resource: "%kernel.root_dir%/config/routing.yml"
@@ -173,9 +174,10 @@ XML o PHP. Si veda la configurazione predefinita:
 
     # ...
 
-Ogni voce come ``framework`` definisce la configurazione per uno specifico bundle.
-Per esempio, ``framework`` configura ``FrameworkBundle``, mentre ``swiftmailer``
-configura SwiftmailerBundle.
+Ogni voce di primo livello, come ``framework``, ``twig`` e ``swiftmailer``,
+definisce la configurazione per uno specifico bundle. Per esempio, ``framework``
+configura FrameworkBundle, mentre ``swiftmailer`` configura
+SwiftmailerBundle.
 
 Ogni :term:`ambiente` può sovrascrivere la configurazione predefinita, fornendo un file
 di configurazione specifico. Per esempio, l'ambiente ``dev`` carica il file ``config_dev.yml``,
@@ -203,7 +205,8 @@ Estendere un bundle
 
 Oltre a essere un modo carino per organizzare e configurare il codice, un bundle
 può estendere un altro bundle. L'ereditarietà dei bundle consente di sovrascrivere un bundle
-esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro suo file.
+esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro
+suo file.
 
 Nomi logici di file
 ...................
@@ -229,9 +232,10 @@ Estendere i bundle
 Se si seguono queste convenzioni, si può usare
 l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>`
 per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
-chiamato NewBundle estende AppBundle, Symfony proverà a caricare
-prima il controllore ``DefaultController`` da NewBundle e poi
-cercherà in AppBundle. Questo vuol dire che un bundle può sovrascrivere
+chiamato NewBundle estende AppBundle, Symfony proverà, caricando il controllore
+``AppBundle:Default:index``, a caricare prima il controllore
+``DefaultController`` da NewBundle e poi cercherà in AppBundle, se il primo non esiste.
+Questo vuol dire che un bundle può sovrascrivere
 quasi ogni parte di un altro bundle!
 
 È chiaro ora perché Symfony è così flessibile? Condividere bundle tra le
@@ -243,8 +247,9 @@ Usare i venditori
 -----------------
 
 Probabilmente l'applicazione dipenderà da librerie di terze parti.
-Queste ultime dovrebbero essere memorizzate nella cartella ``vendor/``.
-Tale cartella contiene già le librerie di Symfony, SwiftMailer, l'ORM Doctrine,
+Queste ultime dovrebbero essere memorizzate nella cartella ``vendor/``. Non si dovrebbe
+mai toccare questa cartella, perché è gestita esclusivamente da Composer. Tale cartella
+contiene già le librerie di Symfony, SwiftMailer, l'ORM Doctrine,
 il sistema di template Twig e alcune altre librerie e bundle di terze
 parti.
 
@@ -257,10 +262,12 @@ YAML e XML a ogni richiesta? In parte, per il suo sistema di cache. La
 configurazione dell'applicazione è analizzata solo per la prima richiesta
 e poi compilata in semplice file PHP, memorizzato nella cartella ``app/cache/``.
 
+
 Nell'ambiente di sviluppo, Symfony è abbastanza intelligente da pulire la cache
 quando cambiano dei file. In produzione, invece, occorre pulire la cache
 manualmente quando si aggiorna il codice o si modifica la
-configurazione.
+configurazione. Eseguire il seguente comando per pulire la cache in
+ambiente ``prod``:
 
 .. code-block:: bash
 

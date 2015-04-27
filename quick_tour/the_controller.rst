@@ -11,7 +11,8 @@ Symfony si definisce un framework Richiesta-Risposta. Quando l'utente fa una
 richiesta all'applicazione, Symfony crea un oggetto ``Request``, per incapsulare
 tutte le informazioni collegata a tale richiesta. Similmente, il risultato dell'esecuzione
 di un'azione di un controllore è la creazione di un oggetto ``Response``, usato da
-Symfony per generare contenuto HTML poi restituito all'utente.
+Symfony per generare contenuto HTML poi restituito
+all'utente.
 
 Finora, tutte le azioni mostrare in questa guida hanno usato la scorciatoia ``$this->render()``
 per rendere una risposta come risultato. In caso di necessità, si può anche
@@ -45,7 +46,8 @@ cosa mostrare esattamente.
 
 Nelle applicazioni Symfony, le parti variabili delle rotte sono racchiuse tra parentesi
 graffe (p.e. ``/blog/read/{article_title}/``). A ciascuna parte viene assegnato un
-nome univoco, che può essere usato successivamente nel controllore, per recuperare ciascun valore.
+nome univoco, che può essere usato successivamente nel controllore, per recuperare
+ciascun valore.
 
 Creare una nuova azione con variabili di rotta, per vedere in azione questa caratteristica.
 Aprire il file ``src/AppBundle/Controller/DefaultController.php`` e aggiungere un
@@ -73,9 +75,10 @@ metodo chiamato ``helloAction``, con il seguente contenuto::
     }
 
 Aprire un browser e andare all'URL ``http://localhost:8000/hello/fabien`` per
-vedere il risultato dell'esecuzione di questa nuova a zione. Invece del risultato dell'azione, si
-vedrà una pagina di errore. La causa di questo errore è che si sta cercando
-di rendere un template (``default/hello.html.twig``) che ancora non esiste.
+vedere il risultato dell'esecuzione di questa nuova a zione. Invece del risultato dell'azione,
+si vedrà una pagina di errore. La causa di questo errore è che si sta cercando
+di rendere un template
+(``default/hello.html.twig``) che ancora non esiste.
 
 Creare il template ``app/Resources/views/default/hello.html.twig``, con il
 seguente contenuto:
@@ -91,10 +94,11 @@ seguente contenuto:
 
 Andare di nuovo sull'URL ``http://localhost:8000/hello/fabien`` e si vedrà il
 nuovo template reso, con le informazioni passate dal controllore. Se si
-cambia l'ultima parte dell'URL (p.e. ``http://localhost:8000/hello/thomas``)
-e si ricarica la pagina, si vedrà un messaggio diverso. Inoltre, se si
-rimuove l'ultima parte dell'URL (p.e. ``http://localhost:8000/hello``), Symfony
-mostrerà un errore, perché la rotta si aspetta un nome, che non è stato fornito.
+cambia l'ultima parte dell'URL (p.e.
+``http://localhost:8000/hello/thomas``) e si ricarica la pagina, si vedrà
+un messaggio diverso. Inoltre, se si rimuove l'ultima parte dell'URL
+(p.e. ``http://localhost:8000/hello``), Symfony mostrerà un errore,
+perché la rotta si aspetta un nome, che non è stato fornito.
 
 Usare i formati
 ---------------
@@ -193,7 +197,8 @@ Se si vuole rinviare l'utente a un'altra pagina, usare il metodo
     }
 
 Il metodo ``redirectToRoute()`` accetta come parametri il nome della rotta e un array
-opzionale di parametri e rinvia l'utente all'URL generato con tali parametri.
+opzionale di parametri e rinvia l'utente all'URL generato con
+tali parametri.
 
 Mostrare pagine di errore
 -------------------------

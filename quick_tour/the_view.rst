@@ -61,23 +61,30 @@ come secondo parametro::
 Le variabili passate a un template possono essere stringhe, array o anche oggetti. Twig
 astrae le differenze tra essi e consente di accedere agli "attributi" di una variabie
 con la notazione del punto (``.``). Il codice seguente mostra come visualizzare il
-contenuto di una variabile, a seconda del tipo di variabile passata dal controllore:
+contenuto di una variabile, a seconda del tipo di variabile passata dal controllore, a
+seconda del tipo:
 
 .. code-block:: jinja
 
     {# 1. Variabile semplice #}
-    {# $this->render('template.html.twig', array('name' => 'Fabien') ) #}
+    {# $this->render('template.html.twig', array(
+           'name' => 'Fabien')
+       ) #}
     {{ name }}
 
     {# 2. Array #}
-    {# $this->render('template.html.twig', array('user' => array('name' => 'Fabien')) ) #}
+    {# $this->render('template.html.twig', array(
+           'user' => array('name' => 'Fabien'))
+       ) #}
     {{ user.name }}
 
     {# sintassi alternativa per array #}
     {{ user['name'] }}
 
     {# 3. Oggetti #}
-    {# $this->render('template.html.twig', array('user' => new User('Fabien')) ) #}
+    {# $this->render('template.html.twig', array(
+           'user' => new User('Fabien'))
+       ) #}
     {{ user.name }}
     {{ user.getName }}
 
@@ -127,9 +134,10 @@ Nel file ``app/Resources/views/base.html.twig``, che corrisponde al template
     </html>
 
 I tag ``{% block %}`` dicono al sistema di template che un template figlio può
-sovrascrivere quelle porzioni di template. In questo esempio, il template ``hello.html.twig``
-sovrascrive il blocco ``content``, quindi il testo "Hello Fabien" viene
-reso all'interno dell'elemento ``div``.
+sovrascrivere quelle porzioni di template. In questo esempio, il template
+``index.html.twig`` sovrascrive il blocco ``body``, ma non il blocco
+``title``, che mostrerà il contenuto definito nel template
+``base.html.twig``.
 
 Usare tag, filtri e funzioni
 ----------------------------
@@ -200,7 +208,8 @@ Supponiamo di aver creato un metodo ``topArticlesAction`` in un controllore e di
 
 Qui, le funzioni ``render()`` e ``controller()`` usano la sintassi speciale
 ``AppBundle:Default:topArticles`` per riferirsi all'azione ``topArticlesAction``
-del controllore ``Default`` (la parte ``AppBundle`` è spiegata in seguito)::
+del controllore ``Default`` (la parte ``AppBundle`` è spiegata in
+seguito)::
 
     // src/AppBundle/Controller/DefaultController.php
 
@@ -229,7 +238,7 @@ modo, tutti gli URL saranno facilmente aggiornati al cambiare della configurazio
 
 .. code-block:: html+jinja
 
-    <a href="{{ path('_demo_hello', { 'name': 'Thomas' }) }}">Ciao Thomas!</a>
+    <a href="{{ path('homepage') }}">Torna alla homepage</a>
 
 La funzione  ``path`` accetta come parametri un nome di rotta e un array di parametri
 opzionali.
@@ -238,7 +247,7 @@ opzionali.
 
     La funzione ``url`` è simile alla funzione ``path``, ma genera
     URL *assoluti*, il che è utile per rendere email o file RSS:
-    ``{{ url('_demo_hello', {'name': 'Thomas'}) }}``.
+    ``<a href="{{ url('homepage') }}">Visita il nostro sito</a>``.
 
 Includere risorse: immagini, JavaScript e fogli di stile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

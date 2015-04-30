@@ -61,9 +61,23 @@ secret
 **tipo**: ``stringa`` **obbligatorio**
 
 Una stringa che dovrebbe essere univoca nella propria applicazione. In pratica,
-è usata per generare il token anti-CSRF, ma potrebbe essere usata in ogni altro
-contesto in cui è utile avere una stringa univoca. Diventa il parametro del
-contenitore di servizi di nome ``kernel.secret``.
+è usata per aggiungere maggiore entropia alle operazioni di sicurezza. Il suo valore dovrebbe essere
+una serie di caratteri, numeri e simboli scelti casualmente e la sua lunghezza raccomandata è
+intorno ai 32 caratteri.
+
+In pratica, Symfony usa questo valore per generare i :ref:`token CSRF <forms-csrf>`,
+per criptare cookie usati nella :doc:`funzionalità "ricordami" </cookbook/security/remember_me>`
+e per creare URI firmate con :ref:`ESI (Edge Side Include) <edge-side-includes>` .
+
+Questa opzione diventa il parametro del contenitore di nome ``kernel.secret``,
+che può essere usato ogni volta che l'applicazione necessiti di una stringa casuale immutabile,
+per aggiungere più entropia.
+
+Come per ogni altro parametro legato alla sicurezza, è buona pratica cambiarne il
+valore di tanto in tanto. Tuttavia, tenere a mente che la modifica di questo valore
+invaliderà tutti gli URI firmati e i cookie "ricordami". Per questo motivo, dopo la modifica,
+si dovrebbe rigenerare la cache dell'applicazione e disconnettere tutti
+gli utenti.
 
 .. _configuration-framework-http_method_override:
 

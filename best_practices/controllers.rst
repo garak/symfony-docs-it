@@ -13,7 +13,7 @@ iniziare a rifattorizzare il codice del controllore e spostarlo in un servizio.
 
 .. best-practice::
 
-    Estendere il controller dalla classe base fornita da FrameworkBundle
+    Estendere il controllore dalla classe base fornita da FrameworkBundle
     e usare le annotazioni per configurare rotte, cache e sicurezza, quando possibile.
 
 L'accoppiamento dei controllore al framework sottostante consente di sfruttare tutte
@@ -30,13 +30,13 @@ Non sarà necessario esplorare decine di file di formati diversi
 (YAML, XML, PHP): tutta la configurazione è lì dove serve e in un solo formato.
 
 Complessivamente, quindi, si dovrebbe disaccoppiare totalmente la logica di business
-dal framework e nello stesso tempo accoppiare totalmente al framework controller e rotte,
+dal framework e nello stesso tempo accoppiare totalmente al framework controllori e rotte,
 in modo da ottenere il massimo da Symfony.
 
 Configurazione delle rotte
 --------------------------
 
-Per caricare tutte le rotte definite nelle annotazioni dei controller del bundle
+Per caricare tutte le rotte definite nelle annotazioni dei controllori del bundle
 `AppBundle` aggiungete la seguente configurazione al file principale delle rotte:
 
 .. code-block:: yaml
@@ -46,8 +46,8 @@ Per caricare tutte le rotte definite nelle annotazioni dei controller del bundle
         resource: "@AppBundle/Controller/"
         type:     annotation
 
-Questa configurazione caricherà le annotazioni da ogni controller presente sia nella
-directory ``src/AppBundle/Controller/`` che nelle sue sottocartelle. Se
+Questa configurazione caricherà le annotazioni da ogni controllore presente sia nella
+cartella ``src/AppBundle/Controller/`` sia nelle sue sottocartelle. Se
 l'applicazione definisce molti controllori, è perfettamente lecito organizzare il
 tutto in sottocartelle.
 
@@ -76,25 +76,20 @@ Configurazione dei template
     Non usare l'annotazione ``@Template()`` per configurare il template
     usato dal controllore.
 
-Anche se l'annotazione ``@Template()`` risulta molto utile essa nasconde qualche trabocchetto. Per
-questo motivo, si raccomanda di non usarla.
+Anche se l'annotazione ``@Template()`` risulta molto utile, essa nasconde qualche trucco.
+Ritenendo che il gioco non valga la candela, si raccomanda di non
+usarla.
 
 La maggior parte delle volte ``@Template`` è usato senza parametri il che rende più difficile
 sapere quale template viene renderizzato. Il suo utilizzo inoltre rende meno ovvio
-ai principianti che un controller deve sempre ritornare un oggetto Response (a meno che non si usi
-un view layer).
-
-Infine l'annotazione ``@Template`` usa la classe ``TemplateListener`` per ascoltare
-l'evento ``kernel.view`` del framework. L'ascoltatore ha un impatto non trascurabile
-sulle prestazioni dell'applicazione. Nell'esempio dell'applicazione blog il rendering
-dell'homepage impiega 5 millisecondi usando il metodo ``$this->render()``, mentre ben
-26 millisecondi usando l'annotazione ``@Template``.
+ai principianti che un controllore deve sempre restituire un oggetto Response (a meno che non si usi
+il livello della vista).
 
 Come dovrebbe essere il controllore
 -----------------------------------
 
-Considerando tutto, ecco un esempio di come dovrebbe essere il controller
-per l'homepage della nostra applicazione:
+Considerando tutto, ecco un esempio di come dovrebbe essere il controllore
+per l'homepage di un'applicazione:
 
 .. code-block:: php
 
@@ -130,7 +125,7 @@ per effettuare la ricerca dell'entity in modo automatico e passarla come paramet
 
 .. best-practice::
 
-    Usare il ParamConverter per caricare automaticamente le entità di Doctrine
+    Usare ParamConverter per caricare automaticamente le entità di Doctrine,
     nei casi più semplici.
 
 Per esempio:
@@ -153,7 +148,7 @@ Per esempio:
         ));
     }
 
-Solitamente ci si aspetterebbe un argomento ``$id`` nel metodo ``showAction``. Invece,
+Solitamente ci si aspetterebbe un parametro ``$id`` nel metodo ``showAction``. Invece,
 creando un nuovo parametro (``$post``) e specificando il tipo di classe ``Post``
 (che è un'entità Doctrine), ParamConverter cercherà automaticamente
 un oggetto la cui proprietà ``$id`` corrisponde al valore ``{id}``. Nel
@@ -204,8 +199,8 @@ perché è abbastanza flessibile:
         // ...
     }
 
-Possiamo infine dire che la scorciatoia di ParamConverter è buona nelle situazioni semplici.
-Nonostante ciò non si dovrebbe mai dimenticare che la ricerca diretta di entity è un'operazione 
+Si può infine dire che la scorciatoia di ParamConverter è buona nelle situazioni semplici.
+Nonostante ciò, non si dovrebbe mai dimenticare che la ricerca diretta di entity è un'operazione 
 molto facile.
 
 Eseguire codice prima e dopo

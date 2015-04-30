@@ -483,14 +483,16 @@ Se si serve dell'HTML, si vorrà rendere un template. Il metodo ``render()``
 rende un template **e** ne inserisce il contenuto in un oggetto
 ``Response``::
 
-    // rende app/Resources/views/Hello/index.html.twig
-    return $this->render('Hello/index.html.twig', array('name' => $name));
+    // rende app/Resources/views/hello/index.html.twig
+    return $this->render('hello/index.html.twig', array('name' => $name));
 
 Si possono anche mettere template in sottocartelle. Meglio però evitare di creare
 strutture inutilmente profonde::
 
-    // rende app/Resources/views/Hello/Greetings/index.html.twig
-    return $this->render('Hello/Greetings/index.html.twig', array('name' => $name));
+    // rende app/Resources/views/hello/greetings/index.html.twig
+    return $this->render('hello/greetings/index.html.twig', array(
+        'name' => $name
+    ));
 
 Il motore di template di Symfony è spiegato in gran deettaglio nel capitolo
 :doc:`Template </book/templating>`.

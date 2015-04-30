@@ -14,6 +14,7 @@ usando un indirizzo email già esistente nel sistema.
 |                | - `repositoryMethod`_                                                               |
 |                | - `errorPath`_                                                                      |
 |                | - `ignoreNull`_                                                                     |
+|                | - `payload`_                                                                        |
 +----------------+-------------------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity`            |
 +----------------+-------------------------------------------------------------------------------------+
@@ -29,16 +30,6 @@ campo ``email`` rimanga unico tra tutti i vincoli della propria tabella degli
 utenti:
 
 .. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/Acme/UserBundle/Resources/config/validation.yml
-        Acme\UserBundle\Entity\Author:
-            constraints:
-                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-            properties:
-                email:
-                    - Email: ~
 
     .. code-block:: php-annotations
 
@@ -67,6 +58,16 @@ utenti:
 
             // ...
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/validation.yml
+        Acme\UserBundle\Entity\Author:
+            constraints:
+                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+            properties:
+                email:
+                    - Email: ~
 
     .. code-block:: xml
 
@@ -166,16 +167,6 @@ Si consideri questo esempio:
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/AdministrationBundle/Resources/config/validation.yml
-        Acme\AdministrationBundle\Entity\Service:
-            constraints:
-                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-                    fields: [host, port]
-                    errorPath: port
-                    message: 'This port is already in use on that host.'
-
     .. code-block:: php-annotations
 
         // src/Acme/AdministrationBundle/Entity/Service.php
@@ -204,6 +195,16 @@ Si consideri questo esempio:
              */
             public $port;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/AdministrationBundle/Resources/config/validation.yml
+        Acme\AdministrationBundle\Entity\Service:
+            constraints:
+                - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                    fields: [host, port]
+                    errorPath: port
+                    message: 'This port is already in use on that host.'
 
     .. code-block:: xml
 
@@ -260,3 +261,5 @@ Se quest'opzione è impostata a ``true`` il vincolo permetterà di avere diverse
 entità con valore ``null`` per un campo specifico senza far fallire la validazione.
 Se impostata a ``false`` solamente un valore ``null`` sarà permesso, in caso di un
 secondo valore ``null`` la validazione fallirà.
+
+.. include:: /reference/constraints/_payload-option.rst.inc

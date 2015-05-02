@@ -80,6 +80,8 @@ con la sola differenza che occorre sovrascrivere il metodo
 
 Abbiamo cambiato la posizione della cartella in ``app/{ambiente}/logs``.
 
+.. _override-web-dir:
+
 Spostare la cartella ``web``
 ----------------------------
 
@@ -158,11 +160,8 @@ l'opzione ``extra.symfony-web-dir`` nel file ``composer.json``:
 Spostare la cartella ``vendor``
 -------------------------------
 
-Per spostare la cartella ``vendor``, si devono modificare i seguenti
-file:
-
-* ``app/autoload.php``
-* ``composer.json``
+Per spostare la cartella ``vendor``, si devono modificare i file
+ ``app/autoload.php`` e ``composer.json``.
 
 La modifica in ``composer.json`` sarà simile a questa:
 

@@ -95,10 +95,9 @@ tag:
 
 .. note::
 
-    C'è un'ulteriore opzione del tag, ``priority``, facoltativa e con valore predefinito 0.
-    Questo valore può essere da -255 a 255 e gli ascoltatori saranno eseguiti con un ordine
-    basato sulla loro priorità. Questo è utile quando occorre assicurarsi che un ascoltatore
-    sia eseguito prima di un altro.
+    C'è un'ulteriore opzione del tag, ``priority``, facoltativa e con valore predefinito 0. Gli
+    ascoltatori saranno eseguiti con un ordine basato sulla loro priorità (dalla più alta alla più bassa).
+    Questo è utile quando occorre assicurarsi che un ascoltatore sia eseguito prima di un altro.
 
 Eventi richiesta, verifica dei tipi
 -----------------------------------

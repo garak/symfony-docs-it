@@ -85,14 +85,14 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
             $routes = new RouteCollection();
 
             // prepara una nuova rotta
-            $pattern = '/extra/{parameter}';
+            $path = '/extra/{parameter}';
             $defaults = array(
                 '_controller' => 'AcmeDemoBundle:Demo:extra',
             );
             $requirements = array(
                 'parameter' => '\d+',
             );
-            $route = new Route($pattern, $defaults, $requirements);
+            $route = new Route($path, $defaults, $requirements);
 
             // aggiunge la nuova rotta all'insieme di rotte:
             $routeName = 'extraRoute';

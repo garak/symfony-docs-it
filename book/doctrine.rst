@@ -141,8 +141,13 @@ base dati al posto nostro:
     .. code-block:: ini
 
         [mysqld]
-        collation-server = utf8_general_ci
-        character-set-server = utf8
+        # La versione 5.5.3 ha introdotto "utf8mb4", che è raccomandato
+        collation-server     = utf8mb4_general_ci # Sostituisce utf8_general_ci
+        character-set-server = utf8mb4            # Sostituisce utf8
+
+    Si raccomanda di non usare il set di caratteri ``utf8`` di MySQL, poiché non
+    supporta caratteri unicode a 4 byte, quindi le stringhe che li contenessero sarebbero
+    troncate. Il problema è stato risolta nel `nuovo set di caratteri utf8mb4`_.
 
 .. note::
 
@@ -1422,3 +1427,4 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 .. _`migrazioni`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
 .. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+.. _`nuovo set di caratteri utf8mb4`: https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html

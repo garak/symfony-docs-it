@@ -132,7 +132,7 @@ Un primo test funzionale
 
 I test funzionali sono semplici file PHP, che tipicamente risiedono nella cartella ``Tests/Controller``
 del bundle. Se si vogliono testare le pagine gestite dalla classe
-``DemoController``, si inizi creando un file ``DemoControllerTest.php``, che estende
+``PostController``, si inizi creando un file ``PostControllerTest.php``, che estende
 una classe speciale ``WebTestCase``.
 
 Per esempio, un test può essere fatto in questo modo::
@@ -224,14 +224,14 @@ per testare che faccia effettivamente quello che ci si aspetta. Usare il Crawler
 per fare asserzioni sul DOM::
 
     // Asserisce che la risposta corrisponda a un dato selettore CSS.
-    $this->assertTrue($crawler->filter('h1')->count() > 0);
+    $this->assertGreaterThan(0, $crawler->filter('h1')->count());
 
 Oppure, testare direttamente il contenuto della risposta, se si vuole solo asserire che
 il contenuto debba contenere del testo o se la risposta non è un documento
 XML/HTML::
 
-    $this->assertRegExp(
-        '/Hello Fabien/',
+    $this->assertContains(
+        'Hello World',
         $client->getResponse()->getContent()
     );
 
@@ -272,7 +272,7 @@ XML/HTML::
         $this->assertTrue($client->getResponse()->isNotFound());
         // Asserire uno specifico codice di stato 200
         $this->assertEquals(
-            200,
+            200, // oppure Symfony\Component\HttpFoundation\Response::HTTP_OK
             $client->getResponse()->getStatusCode()
         );
 
@@ -425,16 +425,16 @@ Accesso agli oggetti interni
 Se si usa il client per testare la propria applicazione, si potrebbe voler accedere
 agli oggetti interni del client::
 
-    $history   = $client->getHistory();
+    $history = $client->getHistory();
     $cookieJar = $client->getCookieJar();
 
 I possono anche ottenere gli oggetti relativi all'ultima richiesta::
 
     // l'istanza della richiesta HttpKernel
-    $request  = $client->getRequest();
+    $request = $client->getRequest();
 
     // l'istanza della richiesta BrowserKit
-    $request  = $client->getInternalRequest();
+    $request = $client->getInternalRequest();
 
     // l'istanza della richiesta HttpKernel
     $response = $client->getResponse();
@@ -442,13 +442,13 @@ I possono anche ottenere gli oggetti relativi all'ultima richiesta::
     // l'istanza della richiesta BrowserKit
     $response = $client->getInternalResponse();
 
-    $crawler  = $client->getCrawler();
+    $crawler = $client->getCrawler();
 
 Se le richieste non sono isolate, si può accedere agli oggetti ``Container`` e
 ``Kernel``::
 
     $container = $client->getContainer();
-    $kernel    = $client->getKernel();
+    $kernel = $client->getKernel();
 
 Accesso al contenitore
 ~~~~~~~~~~~~~~~~~~~~~~

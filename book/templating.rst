@@ -263,7 +263,7 @@ Un template figlio potrebbe assomigliare a questo:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Blog/index.html.twig #}
+        {# app/Resources/views/blog/index.html.twig #}
         {% extends 'base.html.twig' %}
 
         {% block title %}I post fighi del mio blog{% endblock %}
@@ -277,7 +277,7 @@ Un template figlio potrebbe assomigliare a questo:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Blog/index.html.php -->
+        <!-- app/Resources/views/blog/index.html.php -->
         <?php $view->extend('base.html.php') ?>
 
         <?php $view['slots']->set('title', 'I post fighi del mio blog') ?>
@@ -394,8 +394,8 @@ La maggior parte dei template usati si trovano nella cartella ``app/Resources/vi
 Il percorso che si userà sarà relativo a tale cartella. Per esempio,
 per rendere o estendere ``app/Resources/views/base.html.twig``, si userà il percorso
 ``base.html.twig`` e per rendere o estendere
-``app/Resources/views/Blog/index.html.twig``, si userà il percorso
-``Blog/index.html.twig`` path.
+``app/Resources/views/blog/index.html.twig``, si userà il percorso
+``blog/index.html.twig`` path.
 
 .. _template-referencing-in-bundle:
 
@@ -410,8 +410,8 @@ specifico:
   template per una determinata pagina. Le tre parti della stringa, ognuna separata da
   due-punti (``:``), hanno il seguente significato:
 
-  * ``AcmeBlogBundle``: (*bundle*) il template è dentro
-    ``AcmeBlogBundle`` (p.e. ``src/Acme/BlogBundle``);
+  * ``AcmeBlogBundle``: (*bundle*) il template è dentro AcmeBlogBundle
+    (p.e. ``src/Acme/BlogBundle``);
 
   * ``Blog``: (*cartella*) indica che il template è nella sottocartella
     ``Blog`` di ``Resources/views``;
@@ -419,18 +419,18 @@ specifico:
   * ``index.html.twig``: (*nome di file*) il nome del file è
     ``index.html.twig``.
 
-  Ipotizzando che ``AcmeBlogBundle`` sia dentro ``src/Acme/BlogBundle``, il percorso
+  Ipotizzando che AcmeBlogBundle sia dentro ``src/Acme/BlogBundle``, il percorso
   finale del layout sarebbe ``src/Acme/BlogBundle/Resources/views/Blog/index.html.twig``.
 
 * ``AcmeBlogBundle::layout.html.twig``: Questa sintassi si riferisce a un template di base
-  specifico di ``AcmeBlogBundle``. Poiché la parte centrale, "cartella", manca,
+  specifico di AcmeBlogBundle. Poiché la parte centrale, "cartella", manca,
   (p.e. ``Blog``), il template si trova in
-  ``Resources/views/layout.html.twig``dentro ``AcmeBlogBundle``.
+  ``Resources/views/layout.html.twig`` dentro AcmeBlogBundle.
   Ci sono due simboli di "due punti" al centro della stringa, quando manca la parte della
   sottocartella del controllore.
 
 Nella sezione :ref:`overriding-bundle-templates` si potrà trovare come ogni template
-dentro ``AcmeBlogBundle``, per esempio, possa essere sovrascritto mettendo un
+dentro AcmeBlogBundle, per esempio, possa essere sovrascritto mettendo un
 template con lo stesso nome nella cartella ``app/Resources/AcmeBlogBundle/views/``.
 Questo dà la possibilità di sovrascrivere template di qualsiasi bundle.
 
@@ -448,9 +448,9 @@ Ogni nome di template ha due estensioni, che specificano *formato* e
 ========================  =======  ======
 Nome del file             Formato  Motore
 ========================  =======  ======
-``Blog/index.html.twig``  HTML     Twig
-``Blog/index.html.php``   HTML     PHP
-``Blog/index.css.twig``   CSS      Twig
+``blog/index.html.twig``  HTML     Twig
+``blog/index.html.php``   HTML     PHP
+``blog/index.css.twig``   CSS      Twig
 ========================  =======  ======
 
 Per impostazione predefinita, ogni template Symfony può essere scritto in Twig o in PHP,
@@ -513,7 +513,7 @@ template. Primo, creare il template che occorrerà riusare.
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Article/articleDetails.html.twig #}
+        {# app/Resources/views/article/article_details.html.twig #}
         <h2>{{ article.title }}</h2>
         <h3 class="byline">by {{ article.authorName }}</h3>
 
@@ -523,7 +523,7 @@ template. Primo, creare il template che occorrerà riusare.
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Article/articleDetails.html.php -->
+        <!-- app/Resources/views/article/article_details.html.php -->
         <h2><?php echo $article->getTitle() ?></h2>
         <h3 class="byline">by <?php echo $article->getAuthorName() ?></h3>
 
@@ -537,20 +537,20 @@ Includere questo template da un altro template è semplice:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Article/list.html.twig #}
+        {# app/Resources/views/article/list.html.twig #}
         {% extends 'layout.html.twig' %}
 
         {% block body %}
             <h1>Articoli recenti<h1>
 
             {% for article in articles %}
-                {{ include('Article/articleDetails.html.twig', { 'article': article }) }}
+                {{ include('article/article_details.html.twig', { 'article': article }) }}
             {% endfor %}
         {% endblock %}
 
     .. code-block:: html+php
 
-        <!-- app/Resources/Article/list.html.php -->
+        <!-- app/Resources/article/list.html.php -->
         <?php $view->extend('layout.html.php') ?>
 
         <?php $view['slots']->start('body') ?>
@@ -558,7 +558,7 @@ Includere questo template da un altro template è semplice:
 
             <?php foreach ($articles as $article): ?>
                 <?php echo $view->render(
-                    'Article/articleDetails.html.php',
+                    'Article/article_details.html.php',
                     array('article' => $article)
                 ) ?>
             <?php endforeach ?>
@@ -608,7 +608,7 @@ articoli recenti::
             $articles = ...;
 
             return $this->render(
-                'Article/recentList.html.twig',
+                'article/recent_list.html.twig',
                 array('articles' => $articles)
             );
         }
@@ -942,7 +942,7 @@ articoli:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Article/recentList.html.twig #}
+        {# app/Resources/views/article/recent_list.html.twig #}
         {% for article in articles %}
             <a href="{{ path('article_show', {'slug': article.slug}) }}">
                 {{ article.title }}
@@ -951,7 +951,7 @@ articoli:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Article/recentList.html.php -->
+        <!-- app/Resources/views/article/recent_list.html.php -->
         <?php foreach ($articles in $article): ?>
             <a href="<?php echo $view['router']->generate('article_show', array(
                 'slug' => $article->getSlug(),
@@ -987,7 +987,7 @@ articoli:
 Collegare le risorse
 ~~~~~~~~~~~~~~~~~~~~
 
-I template solitamente hanno anche riferimenti a immagini, Javascript, fogli di stile e
+I template solitamente hanno anche riferimenti a immagini, JavaScript, fogli di stile e
 altre risorse. Certamente, si potrebbe inserire manualmente il percorso a tali risorse
 (p.e. ``/images/logo.png``), ma Symfony fornisce un'opzione più dinamica, tramite la funzione ``asset`` di Twig:
 
@@ -1194,14 +1194,14 @@ L'oggetto speciale ``Engine`` è responsabile della resa dei template e della
 restituzione del loro contenuto. Quando si rende un template in un controllore,
 per esempio, si sta in realtà usando il servizio del motore dei template. Per esempio::
 
-    return $this->render('Article/index.html.twig');
+    return $this->render('article/index.html.twig');
 
 equivale a::
 
     use Symfony\Component\HttpFoundation\Response;
 
     $engine = $this->container->get('templating');
-    $content = $engine->render('Article/index.html.twig');
+    $content = $engine->render('article/index.html.twig');
 
     return $response = new Response($content);
 
@@ -1270,11 +1270,11 @@ qualità (vedere `KnpBundles.com`_) per un gran numero di diverse caratteristich
 Quando si usa un bundle di terze parti, probabilmente occorrerà sovrascrivere e
 personalizzare uno o più dei suoi template.
 
-Si supponga di aver incluso l'immaginario bundle ``AcmeBlogBundle`` in un
-progetto (p.e. nella cartella ``src/Acme/BlogBundle``). Pur essendo soddisfatti,
-si vuole sovrascrivere la pagina "list" del blog, per personalizzare il codice e
-renderlo specifico per l'applicazione. Analizzando il controllore
-``Blog`` di ``AcmeBlogBundle``, si trova::
+Si supponga di aver incluso l'immaginario bundle AcmeBlogBundle in un
+progetto. Pur essendo soddisfatti, si vuole sovrascrivere
+la pagina "list" del blog, per personalizzare il codice e renderlo specifico
+per l'applicazione. Analizzando il controllore ``Blog`` di AcmeBlogBundle,
+si trova::
 
     public function indexAction()
     {
@@ -1304,7 +1304,7 @@ crearla). Ora si può personalizzare il template.
     la cache (``php app/console cache:clear``), anche in modalità debug.
 
 Questa logica si applica anche ai template base dei bundle. Si supponga che ogni
-template in ``AcmeBlogBundle`` erediti da un template base chiamato
+template in AcmeBlogBundle erediti da un template base chiamato
 ``AcmeBlogBundle::layout.html.twig``. Esattamente come prima, Symfony cercherà
 il template i questi due posti:
 
@@ -1362,7 +1362,7 @@ di cui abbiamo appena parlato:
 
   .. code-block:: html+jinja
 
-      {# app/Resources/views/Blog/layout.html.twig #}
+      {# app/Resources/views/blog/layout.html.twig #}
       {% extends 'base.html.twig' %}
 
       {% block body %}
@@ -1377,8 +1377,8 @@ di cui abbiamo appena parlato:
 
   .. code-block:: html+jinja
 
-      {# app/Resources/views/Blog/index.html.twig #}
-      {% extends 'Blog/layout.html.twig' %}
+      {# app/Resources/views/blog/index.html.twig #}
+      {% extends 'blog/layout.html.twig' %}
 
       {% block content %}
           {% for entry in blog_entries %}
@@ -1508,7 +1508,7 @@ Si può fare un dump dei parametri nei template, usando la funzione ``dump``:
 
 .. code-block:: html+jinja
 
-    {# app/Resources/views/Article/recentList.html.twig #}
+    {# app/Resources/views/article/recent_list.html.twig #}
     {{ dump(articles) }}
 
     {% for article in articles %}
@@ -1530,7 +1530,7 @@ Si possono cercare eventuali errori di sintassi nei template Twig, usando il com
 .. code-block:: bash
 
     # Verifica per nome del file:
-    $ php app/console twig:lint app/Resources/views/Article/recentList.html.twig
+    $ php app/console twig:lint app/Resources/views/article/recent_list.html.twig
 
     # oppure per cartella:
     $ php app/console twig:lint app/Resources/views
@@ -1548,7 +1548,7 @@ Per esempio, la stessa "risorsa" spesso è resa in molti formati diversi.
 Per rendere una pagina in XML, basta includere il formato nel nome del
 template:
 
-* *nome del template XML*: ``Article/index.xml.twig``
+* *nome del template XML*: ``article/index.xml.twig``
 * *nome del file del template XML*: ``index.xml.twig``
 
 In realtà, questo non è niente più che una convenzione sui nomi e il template
@@ -1562,14 +1562,14 @@ soluzione comune è fare come segue::
     {
         $format = $request->getRequestFormat();
 
-        return $this->render('Blog/index.'.$format.'.twig');
+        return $this->render('article/index.'.$format.'.twig');
     }
 
 Il metodo ``getRequestFormat`` dell'oggetto ``Request`` ha come valore predefinito ``html``,
 ma può restituire qualsiasi altro formato, in base al formato richiesto dall'utente.
 Il formato di richiesta è spesso gestito dalle rotte, quando una rotta è
-configurata in modo che ``/contact`` imposti il formato di richiesta a ``html``,
-mentre ``/contact.xml`` lo imposti a ``xml``. Per maggiori informazioni, vedere
+configurata in modo che ``/contact`` imposti il formato di richiesta a ``html``, mentre
+``/contact.xml`` lo imposti a ``xml``. Per maggiori informazioni, vedere
 :ref:`Esempi avanzati nel capitolo delle rotte <advanced-routing-example>`.
 
 Per creare collegamenti che includano il formato, usare la chiave ``_format``
@@ -1602,7 +1602,7 @@ controllore, i loro utilizzo non è obbligatorio. L'oggetto ``Response`` restitu
 un controllore può essere creato con o senza l'uso di un template::
 
     // crea un oggetto Response il cui contenuto è il template reso
-    $response = $this->render('Article/index.html.twig');
+    $response = $this->render('article/index.html.twig');
 
     // crea un oggetto Response il cui contenuto è semplice testo
     $response = new Response('contenuto della risposta');

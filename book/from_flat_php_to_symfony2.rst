@@ -367,7 +367,7 @@ sicurezza, caricamento della configurazione, rotte. In questa applicazione,
     require_once 'controllers.php';
 
     // dirotta internamente la richiesta
-    $uri = $_SERVER['REQUEST_URI'];
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     if ('/index.php' == $uri) {
         list_action();
     } elseif ('/index.php/show' == $uri && isset($_GET['id'])) {
@@ -447,7 +447,7 @@ in una cartella ``vendor/``:
 
 .. code-block:: bash
 
-    $ php composer.phar install
+    $ composer install
 
 Oltre a scaricare le dipendenza, Composer genera un file ``vendor/autoload.php``,
 che si occupa di auto-caricare tutti i file del framework Symfony, nonché dei
@@ -547,8 +547,8 @@ risolvono questi problemi.
 Invece di risolvere nuovamente problemi comuni, si può lasciare a Symfony il compito di
 occuparsene. Ecco la stessa applicazione di esempio, ora costruita in Symfony::
 
-    // src/Acme/BlogBundle/Controller/BlogController.php
-    namespace Acme\BlogBundle\Controller;
+    // src/AppBundle/Controller/BlogController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -603,7 +603,7 @@ semplice:
                 <?php echo $post->getTitle() ?>
             </a>
         </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ul>
 
 Il layout è quasi identico:
@@ -681,8 +681,8 @@ da PHP puro a Symfony ci abbia migliorato la vita:
   a nuovi sviluppatori di essere produttivi nel progetto in modo più rapido.
 
 * Il 100% del codice che si scrive è per la *propria* applicazione. **Non occorre
-  sviluppare o mantenere utilità a basso livello**, come :ref:`autoloading<autoloading-introduction-sidebar>`,
-  :doc:`routing</book/routing>` o rendere i :doc:`controllori</book/controller>`.
+  sviluppare o mantenere utilità a basso livello**, come :ref:`autoload <autoloading-introduction-sidebar>`,
+  :doc:`rotte </book/routing>` o rendere i :doc:`controllori </book/controller>`.
 
 * Symfony dà **accesso a strumenti open source**, come  Doctrine e i componenti
   Templating, Security, Form, Validation e Translation (solo per nominarne
@@ -710,7 +710,7 @@ Prendiamo per esempio il template della lista, scritto in Twig:
 
 .. code-block:: html+jinja
 
-    {# app/Resources/views/Blog/list.html.twig #}
+    {# app/Resources/views/blog/list.html.twig #}
     {% extends "layout.html.twig" %}
 
     {% block title %}Lista dei post{% endblock %}

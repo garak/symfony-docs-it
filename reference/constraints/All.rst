@@ -22,17 +22,6 @@ dell'array:
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/UserBundle/Resources/config/validation.yml
-        Acme\UserBundle\Entity\User:
-            properties:
-                favoriteColors:
-                    - All:
-                        - NotBlank:  ~
-                        - Length:
-                            min: 5
-
     .. code-block:: php-annotations
 
         // src/Acme/UserBundle/Entity/User.php
@@ -45,11 +34,22 @@ dell'array:
             /**
              * @Assert\All({
              *     @Assert\NotBlank,
-             *     @Assert\Length(min = "5")
+             *     @Assert\Length(min = 5)
              * })
              */
              protected $favoriteColors = array();
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/validation.yml
+        Acme\UserBundle\Entity\User:
+            properties:
+                favoriteColors:
+                    - All:
+                        - NotBlank:  ~
+                        - Length:
+                            min: 5
 
     .. code-block:: xml
 

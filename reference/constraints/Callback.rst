@@ -18,7 +18,7 @@ fare qualsiasi cosa, incluso creare e assegnare errori di validazione.
     "violazioni" al validatore.
 
 +----------------+------------------------------------------------------------------------+
-| Si applica a   | :ref:`classi<validation-class-target>`                                 |
+| Si applica a   | :ref:`classe <validation-class-target>`                                |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - `methods`_                                                           |
 +----------------+------------------------------------------------------------------------+
@@ -31,14 +31,6 @@ Preparazione
 ------------
 
 .. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            constraints:
-                - Callback:
-                    methods:   [isAuthorValid]
 
     .. code-block:: php-annotations
 
@@ -53,6 +45,14 @@ Preparazione
         class Author
         {
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            constraints:
+                - Callback:
+                    methods:   [isAuthorValid]
 
     .. code-block:: xml
 
@@ -92,26 +92,26 @@ Preparazione
 Il metod callback
 -----------------
 
-Il metod callback è passato a uno speciale oggetto ``ExecutionContext``. Si possono
+Il metod callback è passato a uno speciale oggetto ``ExecutionContextInterface``. Si possono
 impostare le "violazioni" direttamente su questo oggetto e determinare a quale campo
 questi errori vadano attribuiti::
 
     // ...
-    use Symfony\Component\Validator\ExecutionContext;
+    use Symfony\Component\Validator\ExecutionContextInterface;
 
     class Author
     {
         // ...
         private $firstName;
 
-        public function isAuthorValid(ExecutionContext $context)
+        public function isAuthorValid(ExecutionContextInterface $context)
         {
             // si ha in qualche modo un array di nomi fasulli
             $fakeNames = array();
 
             // verifica se il nome è in effetti un nome fasullo
             if (in_array($this->getFirstName(), $fakeNames)) {
-                $context->addViolationAtSubPath('firstname', 'Questo nome  sembra proprio falso!', array(), null);
+                $context->addViolationAt('firstname', 'Questo nome  sembra proprio falso!', array(), null);
             }
         }
      }
@@ -139,6 +139,20 @@ Ogni metodo può avere uno dei seguenti formati:
 
     .. configuration-block::
 
+        .. code-block:: php-annotations
+
+            // src/Acme/BlogBundle/Entity/Author.php
+            use Symfony\Component\Validator\Constraints as Assert;
+
+            /**
+             * @Assert\Callback(methods={
+             *     { "Acme\BlogBundle\MyStaticValidatorClass", "isAuthorValid" }
+             * })
+             */
+            class Author
+            {
+            }
+
         .. code-block:: yaml
 
             # src/Acme/BlogBundle/Resources/config/validation.yml
@@ -147,20 +161,6 @@ Ogni metodo può avere uno dei seguenti formati:
                     - Callback:
                         methods:
                             -    [Acme\BlogBundle\MyStaticValidatorClass, isAuthorValid]
-
-        .. code-block:: php-annotations
-
-            // src/Acme/BlogBundle/Entity/Author.php
-            use Symfony\Component\Validator\Constraints as Assert;
-
-            /**
-             * @Assert\Callback(methods={
-             *     { "Acme\BlogBundle\MyStaticValidatorClass", "isAuthorValid"}
-             * })
-             */
-            class Author
-            {
-            }
 
         .. code-block:: xml
 

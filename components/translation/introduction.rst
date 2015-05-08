@@ -89,8 +89,8 @@ Il componente dispone di alcuni Loade predefiniti:
 
 .. versionadded:: 2.1
     ``IcuDatFileLoader``, ``IcuResFileLoader``, ``IniFileLoader``,
-    ``MofileLoader``, ``PoFileLoader`` e ``QtFileLoader`` sono stati introdotti
-    in Symfony 2.1
+    ``MoFileLoader``, ``PoFileLoader`` e ``QtFileLoader`` sono stati introdotti
+    in Symfony 2.1.
 
 Tutti i Loader di file richiedono il :doc:`componente Config </components/config/index>`.
 
@@ -159,12 +159,12 @@ Se il messaggio non si trova nel catalogo speficiato dal locale,
 Translator cercherà nei cataloghi dei locale predefiniti. Per
 esempio, se si prova a tradurre nel locale ``fr_FR``:
 
-1. Translator cerca prima la traduzione nel locale ``fr_FR``;
+#. Translator cerca prima la traduzione nel locale ``fr_FR``;
 
-2. Se non la trova, cerca la traduzione nel locale
+#. Se non la trova, cerca la traduzione nel locale
    ``fr``;
 
-3. Se non la trova ancora, usa uno o più
+#. Se non la trova ancora, usa uno o più
    locale predefiniti, impostati esplicitamente.
 
 Per il terzo punto, i locale predefiniti possono essere impostati richiamando
@@ -188,13 +188,13 @@ prganizzarle meglio, le traduzioni siano suddivise in tre domini:
 caricata in questo modo::
 
     // ...
-    $translator->addLoader('xliff', new XliffLoader());
+    $translator->addLoader('xlf', new XliffFileLoader());
 
-    $translator->addResource('xliff', 'messages.fr.xliff', 'fr_FR');
-    $translator->addResource('xliff', 'admin.fr.xliff', 'fr_FR', 'admin');
+    $translator->addResource('xlf', 'messages.fr.xlf', 'fr_FR');
+    $translator->addResource('xlf', 'admin.fr.xlf', 'fr_FR', 'admin');
     $translator->addResource(
-        'xliff',
-        'navigation.fr.xliff',
+        'xlf',
+        'navigation.fr.xlf',
         'fr_FR',
         'navigation'
     );

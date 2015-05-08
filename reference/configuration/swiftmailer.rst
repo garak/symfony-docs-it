@@ -1,5 +1,5 @@
 .. index::
-   single: Riferimento configurazione; Swiftmailer
+    single: Riferimento configurazione; Swiftmailer
 
 Configurazione di SwiftmailerBundle ("swiftmailer")
 ===================================================

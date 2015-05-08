@@ -444,7 +444,7 @@ fatto dal template ed è relativo alla radice del documento pubblico:
             array('output' => 'js/compiled/main.js')
         ) as $url): ?>
             <script src="<?php echo $view->escape($url) ?>"></script>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 .. note::
 

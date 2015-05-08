@@ -1,6 +1,6 @@
 .. index::
-   single: Doctrine; Riferimento configurazione ORM
-   single: Riferimento configurazione; ORM Doctrine
+    single: Doctrine; Riferimento configurazione ORM
+    single: Riferimento configurazione; ORM Doctrine
 
 Configurazione di DoctrineBundle ("doctrine")
 =============================================
@@ -23,7 +23,7 @@ Configurazione predefinita completa
                         commented:            true
                 # Se abilitato, tutte le tabelle non prefissate con "sf2_" saranno ignorate.
                 # Questo serve per tabelle personalizzate che non devono essere alterate automaticamente.
-                #schema_filter:        ^sf2_ 
+                #schema_filter:        ^sf2_
 
                 connections:
                     # Un insieme di nomi di connessioni (p.e. default, conn2, ecc.)

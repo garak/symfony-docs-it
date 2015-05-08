@@ -6,7 +6,7 @@ dell'insieme di scelte *valide*. Può anche essere usato per validare che ogni
 elemento in un array sia una di tali scelte valide.
 
 +----------------+-----------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                |
 +----------------+-----------------------------------------------------------------------+
 | Opzioni        | - `choices`_                                                          |
 |                | - `callback`_                                                         |
@@ -36,16 +36,6 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                gender:
-                    - Choice:
-                        choices:  [maschio, femmina]
-                        message:  Scegliere un genere valido.
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -60,6 +50,16 @@ Se la lista di scelta è semplice, la si può passare direttamente tramite l'opz
              */
             protected $gender;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                gender:
+                    - Choice:
+                        choices:  [maschio, femmina]
+                        message:  Scegliere un genere valido.
 
     .. code-block:: xml
 
@@ -129,14 +129,6 @@ Si può passare il nome di questo metodo all'opzione `callback`_ del vincolo
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                gender:
-                    - Choice: { callback: getGenders }
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -151,6 +143,14 @@ Si può passare il nome di questo metodo all'opzione `callback`_ del vincolo
              */
             protected $gender;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                gender:
+                    - Choice: { callback: getGenders }
 
     .. code-block:: xml
 
@@ -194,14 +194,6 @@ si può passare il nome della classe e del metodo come array.
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                gender:
-                    - Choice: { callback: [Util, getGenders] }
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -216,6 +208,14 @@ si può passare il nome della classe e del metodo come array.
              */
             protected $gender;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                gender:
+                    - Choice: { callback: [Util, getGenders] }
 
     .. code-block:: xml
 

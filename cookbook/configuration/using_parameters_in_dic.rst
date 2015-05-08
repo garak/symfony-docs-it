@@ -1,7 +1,7 @@
 .. index::
-    single: Uso di parametro in una classe della Dependency Injection
+    single: Uso di parametri in una classe della Dependency Injection
 
-Uso di parametro in una classe della Dependency Injection
+Uso di parametri in una classe della Dependency Injection
 ---------------------------------------------------------
 
 Abbiamo già visto come usare parametri della configurazione nei
@@ -127,14 +127,14 @@ iniettato questo parametro, tramite l'estensione, come segue::
 
 E poi impostato nel costruttore di ``Configuration`` tramite la classe ``Extension``::
 
-    namespace Acme\DemoBundle\DependencyInjection;
+    namespace AppBundle\DependencyInjection;
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
     use Symfony\Component\HttpKernel\DependencyInjection\Extension;
     use Symfony\Component\Config\FileLocator;
 
-    class AcmeDemoExtension extends Extension
+    class AppExtension extends Extension
     {
         // ...
 

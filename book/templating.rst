@@ -415,8 +415,8 @@ specifico:
   template per una determinata pagina. Le tre parti della stringa, ognuna separata da
   due-punti (``:``), hanno il seguente significato:
 
-  * ``AcmeBlogBundle``: (*bundle*) il template è dentro
-    ``AcmeBlogBundle`` (p.e. ``src/Acme/BlogBundle``);
+  * ``AcmeBlogBundle``: (*bundle*) il template è dentro AcmeBlogBundle
+    (p.e. ``src/Acme/BlogBundle``);
 
   * ``Blog``: (*cartella*) indica che il template è nella sottocartella
     ``Blog`` di ``Resources/views``;
@@ -428,9 +428,9 @@ specifico:
   finale del layout sarebbe ``src/Acme/BlogBundle/Resources/views/Blog/index.html.twig``.
 
 * ``AcmeBlogBundle::layout.html.twig``: Questa sintassi si riferisce a un template di base
-  specifico di ``AcmeBlogBundle``. Poiché la parte centrale, "cartella", manca,
+  specifico di AcmeBlogBundle. Poiché la parte centrale, "cartella", manca,
   (p.e. ``Blog``), il template si trova in
-  ``Resources/views/layout.html.twig``dentro AcmeBlogBundle.
+  ``Resources/views/layout.html.twig`` dentro AcmeBlogBundle.
   Ci sono due simboli di "due punti" al centro della stringa, quando manca la parte della
   sottocartella del controllore.
 

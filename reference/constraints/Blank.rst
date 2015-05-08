@@ -7,7 +7,7 @@ il vincolo :doc:`/reference/constraints/Null`. Per forzare un valore a *non* ess
 vuoto, vedere :doc:`/reference/constraints/NotBlank`.
 
 +----------------+-----------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                |
 +----------------+-----------------------------------------------------------------------+
 | Opzioni        | - `message`_                                                          |
 +----------------+-----------------------------------------------------------------------+
@@ -24,14 +24,6 @@ classe ``Author`` sia vuota, si può fare come segue:
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                firstName:
-                    - Blank: ~
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -46,6 +38,14 @@ classe ``Author`` sia vuota, si può fare come segue:
              */
             protected $firstName;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                firstName:
+                    - Blank: ~
 
     .. code-block:: xml
 

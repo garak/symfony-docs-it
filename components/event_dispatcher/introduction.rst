@@ -5,9 +5,9 @@
 Il componente EventDispatcher
 =============================
 
-    Il componente EventDispatcher fornisce strumenti che consentono ai componenti di un'applicazione
-    di comunicare tra di loro, distribuendo eventi e ascoltandoli.
-
+    Il componente EventDispatcher fornisce strumenti che consentono ai componenti di
+    un'applicazione di comunicare tra di loro, distribuendo eventi e
+    ascoltandoli.
 
 Introduzione
 ------------

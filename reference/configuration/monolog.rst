@@ -1,5 +1,5 @@
 .. index::
-   pair: Monolog; Riferimento configurazione
+    pair: Monolog; Riferimento configurazione
 
 Configurazione di MonologBundle ("monolog")
 ===========================================

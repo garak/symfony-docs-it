@@ -93,8 +93,7 @@ In generale, spedire un'email è abbastanza intuitivo::
 
     public function indexAction($nome)
     {
-        $mailer = $this->get('mailer');
-        $messaggio = $mailer->createMessage()
+        $messaggio = \Swift_Message::newInstance()
             ->setSubject('Ciao')
             ->setFrom('mittente@example.com')
             ->setTo('destinatario@example.com')

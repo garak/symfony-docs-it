@@ -31,17 +31,17 @@ Vediamo ora i risultati:
 
     .. code-block:: yaml
 
-        mio_bundle:
+        un_bundle:
             logging: true
             # true, come ci si aspettava
 
-        mio_bundle:
+        un_bundle:
             logging: %kernel.debug%
             # true/false (a seconda del secondo parametro di AppKernel),
             # come ci si aspettava, perché %kernel.debug% dentro una configurazione
             # è valutato prima di essere passato all'estensione
 
-        mio_bundle: ~
+        un_bundle: ~
         # passa la stringa "%kernel.debug%".
         # Che è sempre considerata true.
         # Il configuratore non sa che
@@ -53,7 +53,7 @@ Vediamo ora i risultati:
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:my-bundle="http://example.org/schema/dic/my_bundle">
 
-            <mio-bundle:config logging="true" />
+            <un-bundle:config logging="true" />
             <!-- true, come ci si aspettava -->
 
              <my-bundle:config logging="%kernel.debug%" />
@@ -61,7 +61,7 @@ Vediamo ora i risultati:
                   come ci si aspettava, perché %kernel.debug% dentro una configurazione
                   è valutato prima di essere passato all'estensione -->
 
-            <mio-bundle:config />
+            <un-bundle:config />
             <!-- passa la stringa "%kernel.debug%".
                  Che è sempre considerata true.
                  Il configuratore non sa che
@@ -70,13 +70,13 @@ Vediamo ora i risultati:
 
     .. code-block:: php
 
-        $container->loadFromExtension('mio_bundle', array(
+        $container->loadFromExtension('un_bundle', array(
                 'logging' => true,
                 // true, come ci si aspettava
             )
         );
 
-        $container->loadFromExtension('mio_bundle', array(
+        $container->loadFromExtension('un_bundle', array(
                 'logging' => "%kernel.debug%",
                 // true/false (a seconda del secondo parametro di AppKernel),
                 // come ci si aspettava, perché %kernel.debug% dentro una configurazione
@@ -93,9 +93,8 @@ Vediamo ora i risultati:
 Per supportare anche questo caso, alla classe ``Configuration`` va
 iniettato questo parametro, tramite l'estensione, come segue::
 
-    namespace Acme\DemoBundle\DependencyInjection;
+    namespace AppBundle\DependencyInjection;
 
-    use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
     use Symfony\Component\Config\Definition\Builder\TreeBuilder;
     use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -111,7 +110,7 @@ iniettato questo parametro, tramite l'estensione, come segue::
         public function getConfigTreeBuilder()
         {
             $treeBuilder = new TreeBuilder();
-            $rootNode = $treeBuilder->root('acme_demo');
+            $rootNode = $treeBuilder->root('un_bundle');
 
             $rootNode
                 ->children()
@@ -130,9 +129,7 @@ E poi impostato nel costruttore di ``Configuration`` tramite la classe ``Extensi
     namespace AppBundle\DependencyInjection;
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
-    use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
     use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-    use Symfony\Component\Config\FileLocator;
 
     class AppExtension extends Extension
     {

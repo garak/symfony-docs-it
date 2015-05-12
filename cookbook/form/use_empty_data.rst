@@ -29,7 +29,7 @@ senza parametri.
 
 Se si vuole ridefinire questo comportamento, ci sono due possibili modi.
 
-Opzione 1: instanziare una nuova classe
+Opzione 1: istanziare una nuova classe
 ---------------------------------------
 
 Una ragione per voler usare questa opzione è se si vuole usare un costruttore con

@@ -38,7 +38,7 @@ metodo ``findFile()``, usando `APC`_::
     $loader = ...;
 
     // mio_prefisso è il prefisso da usare in APC
-    $cachedLoader = new ApcClassLoader('mio_prefisso', $loader);
+    $cachedLoader = new ApcClassLoader(sha1(__FILE__), $loader);
 
     // registra il class loader in cache
     $cachedLoader->register();
@@ -61,7 +61,7 @@ XcacheClassLoader
     $loader = ...;
 
     // mio_prefisso è il prefisso da usare in XCache
-    $cachedLoader = new XcacheClassLoader('mio_prefisso', $loader);
+    $cachedLoader = new XcacheClassLoader(sha1(__FILE__), $loader);
 
     // registra il class loader in cache
     $cachedLoader->register();

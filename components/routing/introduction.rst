@@ -41,7 +41,7 @@ in modo tale da caricare il componente Routing::
 
     $abbinatore = new UrlMatcher($rotte, $contesto);
 
-    $parametri = $abbinatore->match( '/pippo' ); 
+    $parametri = $abbinatore->match( '/pippo');
     // array('controller' => 'MioControllore', '_route' => 'nome_rotta')
 
 .. note::
@@ -72,25 +72,25 @@ Definire le rotte
 
 La definizione completa di una rotta può contenere fino a quattro parti:
 
-1. Lo schema dell'URL della rotta. È questo il valore con il quale si confronta l'URL passato a `RequestContext`.
+#. Lo schema dell'URL della rotta. È questo il valore con il quale si confronta l'URL passato a `RequestContext`.
 Può contenere diversi segnaposto (per esempio ``{segnaposto}``)
 che possono abbinarsi a parti dinamiche dell'URL.
 
-2. Un array di valori base. Contiene un array di valori arbitrari
+#. Un array di valori base. Contiene un array di valori arbitrari
 che verranno restituiti quando la richiesta viene abbinata alla rotta.
 
-3. Un array di requisiti. Definisce i requisiti per i valori dei segnaposto
+#. Un array di requisiti. Definisce i requisiti per i valori dei segnaposto
 in forma di espressione regolare.
 
-4. Un array di opzioni. Questo array contiene configurazioni interne per le rotte e,
+#. Un array di opzioni. Questo array contiene configurazioni interne per le rotte e,
 solitamente, sono la parte di cui meno ci si interessa.
 
-5. Un host. Viene cercata corrispondenza con l'host della richiesta. Vedere
+#. Un host. Viene cercata corrispondenza con l'host della richiesta. Vedere
    :doc:`/components/routing/hostname_pattern` per ulteriori dettagli.
 
-6. Un array di schemi. Restringe a specifici schemi HTTP (``http``, ``https``).
+#. Un array di schemi. Restringe a specifici schemi HTTP (``http``, ``https``).
 
-7. Un array di metodi. Restringe a specifici metodi di richiesta HTTP (``HEAD``,
+#. Un array di metodi. Restringe a specifici metodi di richiesta HTTP (``HEAD``,
    ``GET``, ``POST``, ...).
 
 .. versionadded:: 2.2
@@ -103,7 +103,7 @@ Si prenda la seguente rotta, che combina diversi dei concetti esposti::
        array('controller' => 'mostraArchivio'), // valori predefiniti
        array('mese' => '[0-9]{4}-[0-9]{2}'), // requisiti
        array(), // opzioni
-       '{subdomain}.example.com', // host
+       '{sottodominio}.example.com', // host
        array(), // schemi
        array() // metodi
    );
@@ -142,27 +142,25 @@ Usare i prefissi
 È possibile aggiungere sia rotte che nuove istanze di
 :class:`Symfony\\Component\\Routing\\RouteCollection` ad *un'altra* collezione.
 In questo modo si possono creare alberi di rotte. Inoltre è possibile definire dei prefissi,
-requisiti predefiniti e opzioni predefinite per tutte le rotte di un sotto albero, con
-il metodo :method:`Symfony\\Component\\Routing\\RouteCollection::addPrefix`::
+requisiti predefiniti, opzioni predefinite, schemi predefiniti e host predefinito per
+tutte le rotte di un sotto albero, con i metodi forniti dalla classe
+``RouteCollection``::
 
     $collezioneRadice = new RouteCollection();
 
     $subCollezione = new RouteCollection();
     $subCollezione->add(...);
     $subCollezione->add(...);
-    $subCollezione->addPrefix(
-        '/prefisso', // prefisso
-        array(), // requisiti
-        array(), // opzioni
-        'admin.example.com', // host
-        array('https') // schemi
-    );
+    $subCollezione->addPrefix('/prefisso');
+    $subCollezione->addDefaults(array(...));
+    $subCollezione->addRequirements(array(...));
+    $subCollezione->addOptions(array(...));
+    $subCollezione->setHost('admin.example.com');
+    $subCollezione->setMethods(array('POST'));
+    $subCollezione->setSchemes(array('https'));
 
     $collezioneRadice->addCollection($subCollezione);
 
-.. versionadded:: 2.2
-    Il metodo ``addPrefix`` è stato aggiunto in Symfony 2.2. Nelle versioni precedenti,
-    faceva parte del metodo ``addCollection``.
 
 Configurare i parametri della richiesta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -177,7 +175,9 @@ relative alla richiesta attuale. Con questa classe, tramite il suo costruttore,
         $host = 'localhost',
         $scheme = 'http',
         $httpPort = 80,
-        $httpsPort = 443
+        $httpsPort = 443,
+        $path = '/',
+        $queryString = ''
     )
 
 .. _components-routing-http-foundation:
@@ -240,11 +240,11 @@ Si utilizza il caricatore ``YamlFileLoader``, allora la definizione delle rotte 
 
     # routes.yml
     rotta1:
-        pattern: /pippo
+        path:     /pippo
         defaults: { controller: 'MioControllore::pippoAction' }
 
     rotta2:
-        pattern: /pippo/pluto
+        path:     /pippo/pluto
         defaults: { controller: 'MioControllore::pippoPlutoAction' }
 
 Per caricare questo file, è possibile usare il seguente codice.  Si presume che il file
@@ -329,7 +329,7 @@ nello sfondo, qualora la si volesse utilizzare. Un semplice esempio di come sia 
 
     $router = new Router(
         new YamlFileLoader($cercatore),
-        "routes.yml",
+        'routes.yml',
         array('cache_dir' => __DIR__.'/cache'),
         $contestoRichiesta,
     );

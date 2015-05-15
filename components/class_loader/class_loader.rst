@@ -81,4 +81,4 @@ o uno dei suoi figli, l'autoloader cercherà prima la classe sotto la cartella
 delle registrazioni dei prefissi, in questo caso, è significativo.
 
 .. _PEAR:  http://pear.php.net/manual/en/standards.naming.php
-.. _PSR-0: http://symfony.com/PSR0
+.. _PSR-0: http://www.php-fig.org/psr/psr-0/

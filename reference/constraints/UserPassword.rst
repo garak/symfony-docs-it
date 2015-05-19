@@ -36,7 +36,7 @@ dell'utente:
         Acme\UserBundle\Form\Model\ChangePassword:
             properties:
                 oldPassword:
-                    - Symfony\Component\Security\Core\Validator\Constraint\UserPassword:
+                    - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
                         message: "Password attuale sbagliata"
 
     .. code-block:: php-annotations

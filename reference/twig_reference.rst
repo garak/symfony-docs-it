@@ -453,7 +453,8 @@ yaml_dump
 ``dumpObjects``
     **tipo**: ``booleano`` **predefinito**: ``false``
 
-Fa lo stesso di `yaml_encode() <yaml_encode>`_, ma include il tipo nell'output.
+Fa lo stesso di `yaml_encode() <yaml_encode>`_, ma include il tipo
+nell'output.
 
 abbr_class
 ~~~~~~~~~~
@@ -679,7 +680,8 @@ Symfony Standard Edition aggiunge alcuni bundle al nucleo di Symfony.
 Questi bundle possono avere altre estensioni di Twig:
 
 * **Twig Extension** include alcune estensioni interessanti, che non appartengono al nucleo
-  di Twig. Si può approfondire nella `documentazione ufficiale delle estensioni di Twig`_
+  di Twig. Si può approfondire nella
+  `documentazione ufficiale delle estensioni di Twig`_
 * **Assetic** aggiunge i tag ``{% stylesheets %}``, ``{% javascripts %}`` e 
   ``{% image %}``. Si può approfondire nella 
   :doc:`documentazione di Assetic </cookbook/assetic/asset_management>`.

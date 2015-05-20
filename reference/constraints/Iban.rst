@@ -27,15 +27,6 @@ che conterrà un IBAN.
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/SubscriptionBundle/Resources/config/validation.yml
-        Acme\SubscriptionBundle\Entity\Transaction:
-            properties:
-                bankAccountNumber:
-                    - Iban:
-                        message: This is not a valid International Bank Account Number (IBAN).
-
     .. code-block:: php-annotations
 
         // src/Acme/SubscriptionBundle/Entity/Transaction.php
@@ -46,10 +37,21 @@ che conterrà un IBAN.
         class Transaction
         {
             /**
-             * @Assert\Iban(message = "This is not a valid International Bank Account Number (IBAN).")
+             * @Assert\Iban(
+             *     message="This is not a valid International Bank Account Number (IBAN)."
+             * )
              */
             protected $bankAccountNumber;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/SubscriptionBundle/Resources/config/validation.yml
+        Acme\SubscriptionBundle\Entity\Transaction:
+            properties:
+                bankAccountNumber:
+                    - Iban:
+                        message: This is not a valid International Bank Account Number (IBAN).
 
     .. code-block:: xml
 
@@ -62,7 +64,9 @@ che conterrà un IBAN.
             <class name="Acme\SubscriptionBundle\Entity\Transaction">
                 <property name="bankAccountNumber">
                     <constraint name="Iban">
-                        <option name="message">This is not a valid International Bank Account Number (IBAN).</option>
+                        <option name="message">
+                            This is not a valid International Bank Account Number (IBAN).
+                        </option>
                     </constraint>
                 </property>
             </class>

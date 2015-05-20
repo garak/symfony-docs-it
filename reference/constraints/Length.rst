@@ -1,7 +1,8 @@
 Length
 ======
 
-Valida che la lunghezza di una data stringa sia *tra* un minimo e un massimo.
+Valida che la lunghezza di una data stringa sia *tra* un minimo e un
+massimo.
 
 +----------------+----------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                |
@@ -21,22 +22,10 @@ Valida che la lunghezza di una data stringa sia *tra* un minimo e un massimo.
 Utilizzo di base
 ----------------
 
-Per verificare che il campo "height" di una classe sia tra "120" e "180", si potrebbe
-fare come segue:
+Per verificare che il campo ``firstName`` di una classe sia tra "2"
+e "50", si può fare come segue:
 
 .. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/Acme/EventBundle/Resources/config/validation.yml
-        Acme\EventBundle\Entity\Participant:
-            properties:
-                firstName:
-                    - Length:
-                        min: 2
-                        max: 50
-                        minMessage: Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.
-                        maxMessage: Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.
 
     .. code-block:: php-annotations
 
@@ -49,14 +38,26 @@ fare come segue:
         {
             /**
              * @Assert\Length(
-             *      min = "2",
-             *      max = "50",
-             *      minMessage = "Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.",
-             *      maxMessage = "Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri."
+             *      min = 2,
+             *      max = 50,
+             *      minMessage = "Il nome deve essere lungo almeno {{ limit }} caratteri.",
+             *      maxMessage = "Il nome non può essere più lungo di {{ limit }} caratteri."
              * )
              */
              protected $firstName;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/EventBundle/Resources/config/validation.yml
+        Acme\EventBundle\Entity\Participant:
+            properties:
+                firstName:
+                    - Length:
+                        min: 2
+                        max: 50
+                        minMessage: Il nome deve essere lungo almeno {{ limit }} caratteri.
+                        maxMessage: Il nome non può essere più lungo di {{ limit }} caratteri.
 
     .. code-block:: xml
 
@@ -71,8 +72,12 @@ fare come segue:
                     <constraint name="Length">
                         <option name="min">2</option>
                         <option name="max">50</option>
-                        <option name="minMessage">Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.</option>
-                        <option name="maxMessage">Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.</option>
+                        <option name="minMessage">
+                            Il nome deve essere lungo almeno {{ limit }} caratteri.
+                        </option>
+                        <option name="maxMessage">
+                            Il nome non può essere più lungo di {{ limit }} caratteri.
+                        </option>
                     </constraint>
                 </property>
             </class>
@@ -93,8 +98,8 @@ fare come segue:
                 $metadata->addPropertyConstraint('firstName', new Assert\Length(array(
                     'min'        => 2,
                     'max'        => 50,
-                    'minMessage' => 'Il nome deve essere lungo almeno {{ limit }} carattere.|Il nome deve essere lungo almeno {{ limit }} caratteri.',
-                    'maxMessage' => 'Il nome non può essere più lungo di {{ limit }} carattere.|Il nome non può essere più lungo di {{ limit }} caratteri.',
+                    'minMessage' => 'Il nome deve essere lungo almeno {{ limit }} caratteri.',
+                    'maxMessage' => 'Il nome non può essere più lungo di {{ limit }} caratteri.',
                 )));
             }
         }
@@ -105,7 +110,7 @@ Options
 min
 ~~~
 
-**tipo**: ``intero`` [:ref:`opzione predefinita<validation-default-option>`]
+**tipo**: ``intero``
 
 Questa opzione obbligatoria è il valore minimo. La validazione fallirà se il
 valore dato è **inferiore** a questo valore.
@@ -113,7 +118,7 @@ valore dato è **inferiore** a questo valore.
 max
 ~~~
 
-**tipo**: ``intero`` [:ref:`opzione predefinita<validation-default-option>`]
+**tipo**: ``intero``
 
 Questa opzione obbligatoria è il valore massimo. La validazione fallirà se il
 valore dato è **superiore** a questo valore.
@@ -131,21 +136,23 @@ usta la funzione :phpfunction:`strlen` di PHP.
 minMessage
 ~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.``
+**tipo**: ``stringa`` **predefinito**: ``This value is too short. It should have {{ limit }} characters or more.``
 
-Il messaggio mostrato se il valore sottostante è inferiore a quello dell'opzione `min`_.
+Il messaggio mostrato se il valore sottostante è inferiore a quello
+dell'opzione `min`_.
 
 maxMessage
 ~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.``
+**tipo**: ``stringa`` **predefinito**: ``This value is too long. It should have {{ limit }} characters or less.``
 
-Il messaggio mostrato se il valore sottostante è superiore a quello dell'opzione `max`_.
+Il messaggio mostrato se il valore sottostante è superiore a quello
+dell'opzione `max`_.
 
 exactMessage
 ~~~~~~~~~~~~
 
-**tipo**: ``string`` **predefinito**: ``This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.``
+**tipo**: ``string`` **predefinito**: ``This value should have exactly {{ limit }} characters.``
 
 Il messaggio mostrato se i valori minimo e massimo sono uguali e la lunghezza del valore
 sottostante o il numero di elementi dell'insieme non è esattamente tale valore.

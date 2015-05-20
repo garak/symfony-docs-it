@@ -23,9 +23,7 @@ Uso di base
 Questo vincolo si può applicare a proprietà (p.e. una proprietà  ``termsAccepted`` in
 un modello di registrazione) o a un metodo "getter". È molto potente nel secondo caso,
 in cui si può asserire che un metodo restituisca il valore ``true``. Per esempio,
-si supponga di avere il seguente metodo:
-
-.. code-block:: php
+si supponga di avere il seguente metodo::
 
     // src/Acme/BlogBundle/Entity/Author.php
     namespace Acme\BlogBundle\Entity;
@@ -43,15 +41,6 @@ si supponga di avere il seguente metodo:
 Si può vincolare questo metodo con ``True``.
 
 .. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            getters:
-                tokenValid:
-                    - 'True':
-                        message: The token is invalid.
 
     .. code-block:: php-annotations
 
@@ -72,6 +61,15 @@ Si può vincolare questo metodo con ``True``.
                 return $this->token == $this->generateToken();
             }
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            getters:
+                tokenValid:
+                    - 'True':
+                        message: The token is invalid.
 
     .. code-block:: xml
 

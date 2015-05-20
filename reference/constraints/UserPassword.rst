@@ -45,7 +45,7 @@ dell'utente:
         Acme\UserBundle\Form\Model\ChangePassword:
             properties:
                 oldPassword:
-                    - Symfony\Component\Security\Core\Validator\Constraint\UserPassword:
+                    - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
                         message: "Password attuale sbagliata"
 
     .. code-block:: php-annotations
@@ -67,7 +67,7 @@ dell'utente:
 
     .. code-block:: xml
 
-        <!-- src/Acme/UserBundle/Resources/config/validation.xml -->
+        <!-- src/UserBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

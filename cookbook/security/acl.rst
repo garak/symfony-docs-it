@@ -13,7 +13,7 @@ entrano in gioco le ACL.
 
     L'uso di ACL non è banale e, per casi d'uso semplice, potrebbe essere eccessivo.
     Se la logica dei permessi può essere descritta solo scrivendo un po' di codice (p.e.
-    èer verificare se l'utente corrente è proprietario di un Blog), si prenda in considerazione l'uso dei
+    per verificare se l'utente corrente è proprietario di un Blog), si prenda in considerazione l'uso dei
     :doc:`votanti </cookbook/security/voters>`. A un votante viene passato l'oggetto
     su cui si vota, quindi su può usare per prendere decisioni complesse e in effetti
     implementare un proprio ACL. Usando l'autorizzazione (p.e. la parte ``isGranted``),

@@ -69,6 +69,7 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
+
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
@@ -82,6 +83,7 @@ Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choi
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

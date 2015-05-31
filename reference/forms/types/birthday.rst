@@ -64,6 +64,7 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`date </reference/forms/types/date>`:
 
+
 .. include:: /reference/forms/types/options/days.rst.inc
 
 .. include:: /reference/forms/types/options/empty_value.rst.inc
@@ -81,6 +82,7 @@ Queste opzioni sono ereditate dal tipo :doc:`date </reference/forms/types/date>`
 .. include:: /reference/forms/types/options/date_widget.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

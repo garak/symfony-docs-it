@@ -5,8 +5,9 @@ Tipo di campo radio
 ===================
 
 Crea un singolo bottone radio. Se il bottone radio è selezionato, il campo
-sarà impostato al valore specificato. I bottoni radio non possono essere deselezionati, il valore
-cambia solo se un altro bottone radio con lo stesso nome viene selezionato.
+sarà impostato al valore specificato. I bottoni radio non possono essere deselezionati,
+il valore cambia solo se un altro bottone radio con lo stesso nome viene
+selezionato.
 
 Il tipo ``radio`` solitamente non è usato direttamente. Più comunemente, è usato
 internamente da altri tipo, come :doc:`choice </reference/forms/types/choice>`.
@@ -46,6 +47,7 @@ Queste opzioni sono ereditate dal tipo :doc:`checkbox </reference/forms/types/ch
 .. include:: /reference/forms/types/options/value.rst.inc
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

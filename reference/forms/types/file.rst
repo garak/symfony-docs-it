@@ -27,17 +27,13 @@ Il tipo ``file`` rappresenta un input per caricare file.
 Utilizzo di base
 ----------------
 
-Si supponga di avere in un form:
-
-.. code-block:: php
+Si supponga di avere in un form::
 
     $builder->add('attachment', 'file');
 
 Quando il form viene inviato, il campo ``attachment`` sarà un'istanza di
 :class:`Symfony\\Component\\HttpFoundation\\File\\UploadedFile`. Può essere
-usata per spotare il file ``attachment`` in una posizione permanente:
-
-.. code-block:: php
+usata per spotare il file ``attachment`` in una posizione permanente::
 
     use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -82,6 +78,7 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
 

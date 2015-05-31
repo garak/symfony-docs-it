@@ -10,7 +10,8 @@ una casella di testo, ma con alcune funzionalità aggiuntive, a patto che il bro
 dell'utente supporti HTML5.
 
 Questo campo ha diverse opzioni su come gestire i valori ricevuti che non siano interi.
-Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arrotondati per difetto (p.e. 6).
+Per impostazione predefinita, tutti i valori non interi (p.e. 6.78) saranno arrotondati per difetto
+(p.e. 6).
 
 +---------------+-----------------------------------------------------------------------+
 | Reso come     | campo ``input`` ``number``                                            |
@@ -69,6 +70,7 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

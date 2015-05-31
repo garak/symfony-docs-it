@@ -54,9 +54,7 @@ importanti sono ``input`` e ``widget``.
 
 Si supponga di avere un campo ``publishedAt``, la cui data sottostante sia un oggetto
 ``DateTime``. Il codice seguente configura il tipo ``date`` per tale campo come
-tre diversi campi di scelta:
-
-.. code-block:: php
+tre diversi campi di scelta::
 
     $builder->add('publishedAt', 'date', array(
         'input'  => 'datetime',
@@ -65,9 +63,7 @@ tre diversi campi di scelta:
 
 L'opzione ``input`` *deve* essere cambiata per corrispondere al tipo di dato della data
 sottostante. Per esempio, se i dati del campo ``publishedAt`` fossero un timestamp,
-si dovrebbe impostare ``input`` a ``timestamp``:
-
-.. code-block:: php
+si dovrebbe impostare ``input`` a ``timestamp``::
 
     $builder->add('publishedAt', 'date', array(
         'input'  => 'timestamp',
@@ -138,6 +134,7 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

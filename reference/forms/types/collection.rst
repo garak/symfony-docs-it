@@ -8,7 +8,8 @@ Questo tipo di campo è usato per rendere un insieme di campi o form. Nel senso 
 semplice, potrebbe essere un array di campi ``text`` che popolano un array di
 campi ``emails``. In esempi più complessi, si potrebbero includere interi form,
 che è utile quando si creano form che espongono relazioni molti-a-molti
-(p.e. un prodotto in cui si possono gestire molte foto correlate).
+(p.e. un prodotto in cui si possono gestire molte foto
+correlate).
 
 +---------------+-----------------------------------------------------------------------------+
 | Reso come     | dipende dall'opzione `type`_                                                |
@@ -101,7 +102,7 @@ Un metodo molto più flessibile sarebbe questo:
                 <?php echo $view['form']->errors($emailField) ?>
                 <?php echo $view['form']->widget($emailField) ?>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ul>
 
 In entrambi i casi, non sarebbe reso alcun campo, a meno che l'array ``emails``
@@ -141,7 +142,11 @@ a questo:
 
 .. code-block:: html
 
-    <input type="email" id="form_emails___name__" name="form[emails][__name__]" value="" />
+    <input type="email"
+        id="form_emails___name__"
+        name="form[emails][__name__]"
+        value=""
+    />
 
 Sostituendo ``__name__`` con un valore unico (p.e. ``2``),
 si possono costruire e inserire nuovi campi HTML nel form.
@@ -160,7 +165,8 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
             {# ... #}
 
             {# memorizza il prototipo nell'attributo data-prototype #}
-            <ul id="email-fields-list" data-prototype="{{ form_widget(form.emails.vars.prototype) | e }}">
+            <ul id="email-fields-list"
+                data-prototype="{{ form_widget(form.emails.vars.prototype)|e }}">
             {% for emailField in form.emails %}
                 <li>
                     {{ form_errors(emailField) }}
@@ -176,10 +182,12 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 
         <script type="text/javascript">
             // tiene traccia di quanti campi email sono stati resi
-            var emailCount = '{{ form.emails | length }}';
+            var emailCount = '{{ form.emails|length }}';
 
             jQuery(document).ready(function() {
-                jQuery('#add-another-email').click(function() {
+                jQuery('#add-another-email').click(function(e) {
+                    e.preventDefault();
+
                     var emailList = jQuery('#email-fields-list');
 
                     // prende il template prototipo
@@ -192,9 +200,7 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 
                     // crea un nuovo elemento nella lista e lo aggiunge
                     var newLi = jQuery('<li></li>').html(newWidget);
-                    newLi.appendTo(jQuery('#email-fields-list'));
-
-                    return false;
+                    newLi.appendTo(emailList);
                 });
             })
         </script>
@@ -223,7 +229,8 @@ dettagli.
 
 Si può usare l'opzione `prototype`_ per rendere un elemento prototipo, che può
 essere usato, con JavaScript, per creare dinamicamente nuovi elementi lato
-client. Per maggiori informazioni, vedere l'esempio sopra e :ref:`cookbook-form-collections-new-prototype`.
+client. Per maggiori informazioni, vedere l'esempio sopra e
+:ref:`cookbook-form-collections-new-prototype`.
 
 .. caution::
 
@@ -263,7 +270,8 @@ options
 L'array passato al tipo di form specificato nell'opzione `type`_.
 Per esempio, se si è usato il tipo :doc:`choice</reference/forms/types/choice>`
 come opzione `type`_ (p.e. per un insieme di menù a tendina), si dovrebbe
-passare almeno l'opzione ``choices`` al tipo sottostante::
+passare almeno l'opzione ``choices`` al tipo
+sottostante::
 
     $builder->add('favorite_cities', 'collection', array(
         'type'   => 'choice',
@@ -340,7 +348,8 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`.
-Non sono elencate tutte le opzioni, solo quelle più attinenti a questo tipo:
+Non sono elencate tutte le opzioni, solo quelle più attinenti a questo
+tipo:
 
 .. _reference-form-types-by-reference:
 

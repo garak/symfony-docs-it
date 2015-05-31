@@ -72,9 +72,11 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
 
+
 .. include:: /reference/forms/types/options/data.rst.inc
 
 .. include:: /reference/forms/types/options/disabled.rst.inc
+
 .. include:: /reference/forms/types/options/empty_data.rst.inc
     :end-before: DEFAULT_PLACEHOLDER
 

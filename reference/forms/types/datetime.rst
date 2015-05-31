@@ -113,6 +113,7 @@ time_widget
 
 Definisce l'opzione ``widget`` per il tipo :doc:`time</reference/forms/types/time>`
 
+
 .. include:: /reference/forms/types/options/view_timezone.rst.inc
 
 widget
@@ -134,6 +135,7 @@ Opzioni ereditate
 -----------------
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

@@ -26,18 +26,6 @@ fare come segue:
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/EventBundle/Resources/config/validation.yml
-        Acme\EventBundle\Entity\Participant:
-            properties:
-                emails:
-                    - Count:
-                        min: 1
-                        max: 5
-                        minMessage: Specificare almeno una email
-                        maxMessage: Specificare non più di 5 email
-
     .. code-block:: php-annotations
 
         // src/Acme/EventBundle/Entity/Participant.php
@@ -52,11 +40,23 @@ fare come segue:
              *      min = "1",
              *      max = "5",
              *      minMessage = "Specificare almeno una email",
-             *      maxMessage = "Specificare non più di 5 email"
+             *      maxMessage = "Specificare non più di {{ limit }} email"
              * )
              */
              protected $emails = array();
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/EventBundle/Resources/config/validation.yml
+        Acme\EventBundle\Entity\Participant:
+            properties:
+                emails:
+                    - Count:
+                        min: 1
+                        max: 5
+                        minMessage: Specificare almeno una email
+                        maxMessage: Specificare non più di {{ limit }} email
 
     .. code-block:: xml
 
@@ -68,11 +68,11 @@ fare come segue:
 
             <class name="Acme\EventBundle\Entity\Participant">
                 <property name="emails">
-                    <constraint name="Count">       
-                        <option name="min">1</option> 
-                        <option name="max">5</option> 
-                        <option name="minMessage">You must specify at least one email</option>
-                        <option name="maxMessage">You cannot specify more than {{ limit }} emails</option>
+                    <constraint name="Count">
+                        <option name="min">1</option>
+                        <option name="max">5</option>
+                        <option name="minMessage">Specificare almeno una email</option>
+                        <option name="maxMessage">Specificare non più di {{ limit }} email</option>
                     </constraint>
                 </property>
             </class>
@@ -88,7 +88,7 @@ fare come segue:
 
         class Participant
         {
-            public static function loadValidatorMetadata(ClassMetadata $data)
+            public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
                 $metadata->addPropertyConstraint('emails', new Assert\Count(array(
                     'min'        => 1,
@@ -121,21 +121,23 @@ dell'insieme dato sono in numero **superiore** a questo valore.
 minMessage
 ~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This collection should contain {{ limit }} elements or more.``.
+**tipo**: ``stringa`` **predefinito**: ``This collection should contain {{ limit }} elements or more.``
 
-Messaggio mostrato se gli elementi dell'insieme sottostante sono meno dell'opzione `min`_.
+Messaggio mostrato se gli elementi dell'insieme sottostante sono meno dell'opzione
+`min`_.
 
 maxMessage
 ~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This collection should contain {{ limit }} elements or less.``.
+**tipo**: ``stringa`` **predefinito**: ``This collection should contain {{ limit }} elements or less.``
 
-Messaggio mostrato se gli elementi dell'insieme sottostante sono più dell'opzione `max`_.
+Messaggio mostrato se gli elementi dell'insieme sottostante sono più dell'opzione
+`max`_.
 
 exactMessage
 ~~~~~~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This collection should contain exactly {{ limit }} elements.``.
+**tipo**: ``stringa`` **predefinito**: ``This collection should contain exactly {{ limit }} elements.``
 
 Messaggio mostrato se min e max sono uguali e gli elementi dell'insieme sottostante non
 sono esattamente pari a tale valore.

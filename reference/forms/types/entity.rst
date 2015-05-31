@@ -76,7 +76,7 @@ Se occorre specificare una query personalizzata da usare per recuperare le entit
 
     $builder->add('users', 'entity', array(
         'class' => 'AcmeHelloBundle:User',
-        'query_builder' => function(EntityRepository $er) {
+        'query_builder' => function (EntityRepository $er) {
             return $er->createQueryBuilder('u')
                 ->orderBy('u.username', 'ASC');
         },
@@ -194,6 +194,7 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
+
 .. include:: /reference/forms/types/options/empty_value.rst.inc
 
 .. include:: /reference/forms/types/options/expanded.rst.inc
@@ -203,8 +204,9 @@ Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choi
 .. note::
 
     Se si ha a che fare con una collezione di entità Doctrine, sarà utile
-    leggere la documenzione anche di :doc:`/reference/forms/types/collection`.
-    In aggiunta, c'è un esempio completo nella ricetta
+    leggere la documenzione anche di
+    :doc:`/reference/forms/types/collection`. In aggiunta, c'è
+    un esempio completo nella ricetta
     :doc:`/cookbook/form/form_collections`.
 
 .. include:: /reference/forms/types/options/preferred_choices.rst.inc
@@ -215,6 +217,7 @@ Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choi
     che richiede un array di chiavi.
 
 Queste opzioni sono ereditate dal tipo :doc:`form </reference/forms/types/form>`:
+
 
 .. include:: /reference/forms/types/options/data.rst.inc
 

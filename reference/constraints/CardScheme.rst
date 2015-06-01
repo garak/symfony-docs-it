@@ -37,7 +37,10 @@ su un oggetto che conterrà un numero di carta di credito.
         class Transaction
         {
             /**
-             * @Assert\CardScheme(schemes = {"VISA"}, message = "Numero di carta di credito non valido.")
+             * @Assert\CardScheme(
+             *     schemes={"VISA"},
+             *     message="Numero di carta di credito non valido."
+             * )
              */
             protected $cardNumber;
         }
@@ -118,7 +121,8 @@ validi sono:
 * ``MASTERCARD``
 * ``VISA``
 
-Per maggiori infomazioni sugli schemi usati, vedere `Wikipedia: Issuer identification number (IIN)`_.
+Per maggiori infomazioni sugli schemi usati, vedere
+`Wikipedia: Issuer identification number (IIN)`_.
 
 message
 ~~~~~~~

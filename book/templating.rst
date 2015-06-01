@@ -688,6 +688,8 @@ I controllori sono veloci da eseguire e promuovono buona organizzazione e riuso 
 Ovviamente, come tutti i controlori, dovrebbero idealmente essere snelli, perché la
 maggior parte del codice dovrebbe trovarsi nei :doc:`servizi </book/service_container>`, che sono riusabili.
 
+.. _book-templating-hinclude:
+
 Contenuto asincrono con hinclude.js
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

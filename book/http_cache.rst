@@ -1157,6 +1157,8 @@ dalla pagina principale.
 Con ESI, la cache dell'intera pagina sarà valida per 600 secondi, mentre il
 componente delle news avrà una cache che dura per soli 60 secondi.
 
+.. _book-http_cache-fragments:
+
 Quando si fa riferimento a un controllore, il tag ESI dovrebbe far riferimento all'azione
 inclusa con un URL accessibile, in modo che il gateway della cache possa recuperarla indipendentemente
 dal resto della pagina. Symfony si occupa di generare un URL univoco per ogni

@@ -39,15 +39,6 @@ dell'utente:
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/UserBundle/Resources/config/validation.yml
-        Acme\UserBundle\Form\Model\ChangePassword:
-            properties:
-                oldPassword:
-                    - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
-                        message: "Password attuale sbagliata"
-
     .. code-block:: php-annotations
 
         // src/Acme/UserBundle/Form/Model/ChangePassword.php
@@ -65,9 +56,18 @@ dell'utente:
              protected $oldPassword;
         }
 
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/validation.yml
+        Acme\UserBundle\Form\Model\ChangePassword:
+            properties:
+                oldPassword:
+                    - Symfony\Component\Security\Core\Validator\Constraints\UserPassword:
+                        message: "Password attuale sbagliata"
+
     .. code-block:: xml
 
-        <!-- src/UserBundle/Resources/config/validation.xml -->
+        <!-- src/Acme/UserBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -75,7 +75,9 @@ dell'utente:
 
             <class name="Acme\UserBundle\Form\Model\ChangePassword">
                 <property name="oldPassword">
-                    <constraint name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword">
+                    <constraint
+                        name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword"
+                    >
                         <option name="message">Password attuale sbagliata</option>
                     </constraint>
                 </property>
@@ -94,9 +96,12 @@ dell'utente:
         {
             public static function loadValidatorData(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('oldPassword', new SecurityAssert\UserPassword(array(
-                    'message' => 'Wrong value for your current password',
-                )));
+                $metadata->addPropertyConstraint(
+                    'oldPassword',
+                    new SecurityAssert\UserPassword(array(
+                        'message' => 'Password attuale sbagliata',
+                    ))
+                );
             }
         }
 

@@ -79,7 +79,7 @@ breve esempio contenente la maggior parte delle caratteristiche descritte sotto:
 
             throw new \RuntimeException(sprintf('Opzione "%s" non riconosciuta', $dummy));
         }
-        
+
         private function reverseBoolean($value = null, $theSwitch = false)
         {
             if (!$theSwitch) {
@@ -111,7 +111,7 @@ Struttura
 
 * Definire una classe per file (non si applica a classi private di aiutanti
   che non devono essere istanziate dall'esterno e quindi esulano dallo
-  standard `PSR-0`_);
+  standard `PSR-0`_ e `PSR-4`_);
 
 * Dichiarare le proprietà di una classe prima dei metodi;
 
@@ -167,9 +167,6 @@ Convenzioni sui nomi dei servizi
 
 * Un nome di gruppo usa la notazione con trattini bassi;
 
-* Ogni servizio ha un parametro corrispondente, contenente il nome della classe,
-  che segue la convenzione ``NOME SERVIZIO.classe``.
-
 Documentazione
 --------------
 
@@ -188,3 +185,4 @@ Licenza
 .. _`PSR-0`: http://www.php-fig.org/psr/psr-0/
 .. _`PSR-1`: http://www.php-fig.org/psr/psr-1/
 .. _`PSR-2`: http://www.php-fig.org/psr/psr-2/
+.. _`PSR-4`: http://www.php-fig.org/psr/psr-4/

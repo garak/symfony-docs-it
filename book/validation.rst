@@ -325,11 +325,11 @@ nell'articolo ":doc:`/cookbook/validation/custom_constraint`" del ricettario.
 Configurazione dei vincoli
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Alcuni vincoli, come :doc:`NotBlank</reference/constraints/NotBlank>`, sono
-semplici, mentre altri, come :doc:`Choice</reference/constraints/Choice>`, hanno
-diverse opzioni di configurazione disponibili. Supponiamo che la classe ``Author``
-abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
-"F":
+Alcuni vincoli, come :doc:`NotBlank </reference/constraints/NotBlank>`, sono
+semplici, mentre altri, come :doc:`Choice </reference/constraints/Choice>`, hanno
+diverse opzioni di configurazione disponibili. Supponiamo che la classe
+``Author`` abbia un'altra proprietà, ``gender``, che possa valere solo
+"M", "F" o "altro":
 
 .. configuration-block::
 
@@ -344,7 +344,7 @@ abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
         {
             /**
              * @Assert\Choice(
-             *     choices = { "M", "F" },
+             *     choices = { "M", "F", "altro" },
              *     message = "Scegliere un genere valido."
              * )
              */
@@ -359,7 +359,7 @@ abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
         AppBundle\Entity\Author:
             properties:
                 gender:
-                    - Choice: { choices: [M, F], message: Scegliere un genere valido. }
+                    - Choice: { choices: [M, F, altro], message: Scegliere un genere valido. }
                 # ...
 
     .. code-block:: xml
@@ -376,6 +376,7 @@ abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
                         <option name="choices">
                             <value>M</value>
                             <value>F</value>
+                            <value>altro</value>
                         </option>
                         <option name="message">Scegliere un genere valido.</option>
                     </constraint>
@@ -404,7 +405,7 @@ abbia un'altra proprietà, ``gender``, che possa valere solo "M" oppure
                 // ...
 
                 $metadata->addPropertyConstraint('gender', new Assert\Choice(array(
-                    'choices' => array('M', 'F'),
+                    'choices' => array('M', 'F', 'altro'),
                     'message' => 'Scegliere un genere valido.',
                 )));
             }
@@ -429,7 +430,7 @@ essere specificata in tal modo.
         class Author
         {
             /**
-             * @Assert\Choice({"M", "F"})
+             * @Assert\Choice({"M", "F", "altro"})
              */
             protected $gender;
 
@@ -442,7 +443,7 @@ essere specificata in tal modo.
         AppBundle\Entity\Author:
             properties:
                 gender:
-                    - Choice: [M, F]
+                    - Choice: [M, F, altro]
                 # ...
 
     .. code-block:: xml
@@ -458,6 +459,7 @@ essere specificata in tal modo.
                     <constraint name="Choice">
                         <value>M</value>
                         <value>F</value>
+                        <value>altro</value>
                     </constraint>
                 </property>
 
@@ -483,7 +485,7 @@ essere specificata in tal modo.
 
                 $metadata->addPropertyConstraint(
                     'gender',
-                    new Assert\Choice(array('M', 'F'))
+                    new Assert\Choice(array('M', 'F', 'altro'))
                 );
             }
         }

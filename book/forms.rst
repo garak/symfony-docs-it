@@ -344,17 +344,6 @@ valido.
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # AppBundle/Resources/config/validation.yml
-        AppBundle\Entity\Task:
-            properties:
-                task:
-                    - NotBlank: ~
-                dueDate:
-                    - NotBlank: ~
-                    - Type: \DateTime
-
     .. code-block:: php-annotations
 
         // AppBundle/Entity/Task.php
@@ -373,6 +362,17 @@ valido.
              */
             protected $dueDate;
         }
+
+    .. code-block:: yaml
+
+        # AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Task:
+            properties:
+                task:
+                    - NotBlank: ~
+                dueDate:
+                    - NotBlank: ~
+                    - Type: \DateTime
 
     .. code-block:: xml
 
@@ -1591,12 +1591,16 @@ direttamente il frammento ``form_errors``.
 .. index::
    single: Form; Temi globali
 
+.. _book-forms-theming-global:
+
 Temi globali per i form
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Nell'esempio sopra, è stato utilizzato l'helper ``form_theme`` (in Twig) per "importare"
 i frammenti personalizzati *solo* in quel form. Si può anche dire a Symfony
 di importare personalizzazioni del form nell'intero progetto.
+
+.. _book-forms-theming-twig:
 
 Twig
 ....

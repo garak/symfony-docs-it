@@ -5,13 +5,14 @@ Questo vincolo si usa quando i dati sottostanti sono un insieme (cioè un
 array o un oggetto che implementi ``Traversable`` e ``ArrayAccess``),
 ma si preferisce validare diverse chiavi di tale insieme in modi
 diversi. Per esempio, si potrebbe voler validare la chiave ``email`` con il
-vincolo ``Email`` e la chiave ``inventory`` con il vincolo ``Min``.
+vincolo ``Email`` e la chiave ``inventory`` con il vincolo
+``Range``.
 
 Questo vincolo può anche assicurare che alcune chiavi dell'insieme siano presenti e
 e che chiavi extra non siano presenti.
 
 +----------------+--------------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                    |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`                   |
 +----------------+--------------------------------------------------------------------------+
 | Opzioni        | - `fields`_                                                              |
 |                | - `allowExtraFields`_                                                    |
@@ -48,25 +49,10 @@ individuale. Si consideri il seguente esempio::
 
 Per validare che l'elemento ``personal_email`` della proprietà ``profileData`` dell'array
 sia un indirizzo email valido e che l'elemento ``short_bio`` non sia vuoto e non più
-lungo di 100 caratteri, si potrebbe fare nel seguente modo:
+lungo di 100 caratteri, si potrebbe fare nel seguente
+modo:
 
 .. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                profileData:
-                    - Collection:
-                        fields:
-                            personal_email: Email
-                            short_bio:
-                                - NotBlank
-                                - Length:
-                                    max:   100
-                                    maxMessage: Your short bio is too long!
-                        allowMissingFields: true
 
     .. code-block:: php-annotations
 
@@ -97,6 +83,22 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
                  'short_bio',
              );
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                profileData:
+                    - Collection:
+                        fields:
+                            personal_email: Email
+                            short_bio:
+                                - NotBlank
+                                - Length:
+                                    max:   100
+                                    maxMessage: Your short bio is too long!
+                        allowMissingFields: true
 
     .. code-block:: xml
 
@@ -144,7 +146,7 @@ lungo di 100 caratteri, si potrebbe fare nel seguente modo:
                 $metadata->addPropertyConstraint('profileData', new Assert\Collection(array(
                     'fields' => array(
                         'personal_email' => new Assert\Email(),
-                        'lastName' => array(
+                        'short_bio' => array(
                             new Assert\NotBlank(),
                             new Assert\Length(array(
                                 'max' => 100,
@@ -170,7 +172,8 @@ siano consentite nell'insieme, si possono modificare rispettivamente le opzioni
 `allowMissingFields`_ e `allowExtraFields`_. Nell'esempio precedente, l'opzione
 ``allowMissingFields`` era impostata a ``true``, quindi, se gli elementi
 ``personal_email`` o ``short_bio`` fossero stati mancanti dalla proprietà
-``$personalData``, non sarebbe occorso alcun errore di validazione.
+``$personalData``, non sarebbe occorso alcun errore di
+validazione.
 
 Vincoli Required e Optional
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -185,25 +188,10 @@ o applicati solamente quando il campo è presente (``Optional``).
 
 Per esempio, se ci si vuole assicurare che il campo ``personal_email`` dell'array
 ``profileData`` non sia vuoto e che sia un'email valida e che il campo ``alternate_email``
-sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare così:
+sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare
+così:
 
 .. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                profile_data:
-                    - Collection:
-                        fields:
-                            personal_email:
-                                - Required
-                                    - NotBlank: ~
-                                    - Email: ~
-                            alternate_email:
-                                - Optional:
-                                    - Email: ~
 
     .. code-block:: php-annotations
 
@@ -224,6 +212,22 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
              */
              protected $profileData = array('personal_email');
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                profile_data:
+                    - Collection:
+                        fields:
+                            personal_email:
+                                - Required
+                                    - NotBlank: ~
+                                    - Email: ~
+                            alternate_email:
+                                - Optional:
+                                    - Email: ~
 
     .. code-block:: xml
 
@@ -270,7 +274,9 @@ sia facoltativo, ma che sia anche un'email valido se non vuoto, si può fare cos
             {
                 $metadata->addPropertyConstraint('profileData', new Assert\Collection(array(
                     'fields' => array(
-                        'personal_email'  => new Assert\Required(array(new Assert\NotBlank(), new Assert\Email())),
+                        'personal_email'  => new Assert\Required(
+                            array(new Assert\NotBlank(), new Assert\Email())
+                        ),
                         'alternate_email' => new Assert\Optional(new Assert\Email()),
                     ),
                 )));
@@ -309,7 +315,8 @@ extraFieldsMessage
 
 **tipo**: ``booleano`` **predefinito**: ``The fields {{ fields }} were not expected``
 
-Messaggio mostrato se `allowExtraFields`_ è ``false`` e viene trovato un campo extra.
+Messaggio mostrato se `allowExtraFields`_ è ``false`` e viene trovato un campo
+extra.
 
 allowMissingFields
 ~~~~~~~~~~~~~~~~~~

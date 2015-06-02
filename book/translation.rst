@@ -127,7 +127,7 @@ ma XLIFF è il formato raccomandato:
 
     .. code-block:: xml
 
-        <!-- messages.fr.xliff -->
+        <!-- messages.fr.xlf -->
         <?xml version="1.0"?>
         <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
             <file source-language="en" datatype="plaintext" original="file.ext">
@@ -526,6 +526,8 @@ nell'applicazione.
 .. index::
    single: Traduzioni; Rimandare al locale predefinito
 
+.. _book-translation-default-locale:
+
 Impostare un locale predefinito
 -------------------------------
 
@@ -661,7 +663,7 @@ bundle.
 
     .. code-block:: xml
 
-        <!-- validators.it.xliff -->
+        <!-- validators.it.xlf -->
         <?xml version="1.0"?>
         <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
             <file source-language="en" datatype="plaintext" original="file.ext">

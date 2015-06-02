@@ -12,7 +12,7 @@ rimanda alla :doc:`sezione sicurezza del ricettario </cookbook/security/index>`.
 A prescindere dalle necessità, l'autenticazione è configurata in ``security.yml``, sotto
 la voce ``firewalls``.
 
-.. best-practice:
+.. best-practice::
 
     A meno che non si abbiano due meccanismi di autenticazione differenti (ad esempio il
     form di login per il sito principale e un sistema a token per le API), si
@@ -104,6 +104,10 @@ effettuare il controllo da codice PHP:
 
 .. code-block:: php
 
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+    // ...
+
     /**
      * @Route("/{id}/edit", name="admin_post_edit")
      */
@@ -117,7 +121,7 @@ effettuare il controllo da codice PHP:
         }
 
         if (!$post->isAuthor($this->getUser())) {
-            throw $this->createAccessDeniedException();
+            throw new AccessDeniedException();
         }
 
         // ...
@@ -192,6 +196,10 @@ Per abilitare il votante nell'applicazione definire un nuovo servizio:
 
 .. code-block:: php
 
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+    // ...
+
     /**
      * @Route("/{id}/edit", name="admin_post_edit")
      */
@@ -200,7 +208,7 @@ Per abilitare il votante nell'applicazione definire un nuovo servizio:
         $post = // query for the post ...
 
         if (!$this->get('security.context')->isGranted('edit', $post)) {
-            throw $this->createAccessDeniedException();
+            throw new AccessDeniedException();
         }
     }
 

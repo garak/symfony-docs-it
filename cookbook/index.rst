@@ -17,6 +17,7 @@ Ricettario
     email/index
     event_dispatcher/index
     form/index
+    frontend/index
     logging/index
     profiler/index
     request/index
@@ -28,7 +29,7 @@ Ricettario
     symfony1
     templating/index
     testing/index
-    upgrading
+    upgrade/index
     validation/index
     web_server/index
     web_services/index

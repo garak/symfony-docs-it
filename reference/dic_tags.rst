@@ -298,7 +298,8 @@ form.type_extension
 
 Le estensioni dei form sono un modo per portare un "aggancio" nella creazione di qualsiasi
 campo di un form. Per esempio, l'aggiunta di un token per il CSRF si fa tramite
-un'estensione del form (:class:`Symfony\\Component\\Form\\Extension\\Csrf\\Type\\FormTypeCsrfExtension`).
+un'estensione del form
+(:class:`Symfony\\Component\\Form\\Extension\\Csrf\\Type\\FormTypeCsrfExtension`).
 
 Un'estensione di form può modificare qualsiasi parte di qualsiasi campo di un form. Per
 creare un'estensione, creare prima di tutto una classe che implementi l'interfaccia
@@ -351,7 +352,10 @@ tag `form.type_extension`:
     .. code-block:: php
 
         $container
-            ->register('main.form.type.my_form_type_extension', 'Acme\MainBundle\Form\Type\MyFormTypeExtension')
+            ->register(
+                'main.form.type.my_form_type_extension',
+                'Acme\MainBundle\Form\Type\MyFormTypeExtension'
+            )
             ->addTag('form.type_extension', array('alias' => 'field'))
         ;
 
@@ -379,7 +383,8 @@ di validazione e ai metadati di Doctrine (se si usa Doctrine) o di Propel
 kernel.cache_clearer
 --------------------
 
-**Scopo**: Registrare un servizio da richiamare durante la pulizia della cache
+**Scopo**: Registrare un servizio da richiamare durante la pulizia della
+cache
 
 La pulizia della cache avviene a ogni chiamata del comando ``cache:clear``. Se un
 bundle mette dei file in cache, si dovrebbe aggiungere un pulitore personalizzato, per
@@ -438,7 +443,8 @@ Quindi registrare la classe e assegnarle il tag ``kernel.cache_clearer``:
 kernel.cache_warmer
 -------------------
 
-**Scopo**: Registrare un servizio da richiamare durante il processo di preparazione della cache
+**Scopo**: Registrare un servizio da richiamare durante il processo di preparazione della
+cache
 
 Ogni volta che si richiama il task ``cache:warmup`` o ``cache:clear``, la cache viene
 preparata (a meno che non si passi ``--no-warmup`` a ``cache:clear``). Questo accade anche
@@ -475,6 +481,7 @@ vengono eseguiti ugualmente (lo si può cambiare, usando l'opzione
 
 Per registrare un preparatore di cache, usare il tag ``kernel.cache_warmer``:
 
+
 .. configuration-block::
 
     .. code-block:: yaml
@@ -493,7 +500,9 @@ Per registrare un preparatore di cache, usare il tag ``kernel.cache_warmer``:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="main.warmer.mio_preparatore" class="Acme\MainBundle\Cache\MioPreparatore">
+                <service id="main.warmer.mio_preparatore" 
+                    class="Acme\MainBundle\Cache\MioPreparatore"
+                >
                     <tag name="kernel.cache_warmer" priority="0" />
                 </service>
             </services>
@@ -543,83 +552,8 @@ Per altri esempi pratici di un ascoltatore del nucleo, vedere la ricetta
 Riferimenti sugli ascoltatori del nucleo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Quando si aggiungono i propri ascoltatori, potrebbe essere utile conoscere gli altri
-ascoltatori del nucleo di Symfony e le loro priorità.
-
-.. note::
-
-    Tutti gli ascoltatori qui elencati potrebbero non ascoltare, a seconda di ambiente,
-    impostazioni e bundle. Inoltre, bundle di terze parti potrebbero aggiungere altri
-    ascoltatori, non elencati qui.
-
-kernel.request
-..............
-
-+-------------------------------------------------------------------------------------------+-----------+
-| Nome della classe dell'ascoltatore                                                        | Priorità  |
-+===========================================================================================+===========+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | 1024      |
-+-------------------------------------------------------------------------------------------+-----------+
-| :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\TestSessionListener`             | 192       |
-+-------------------------------------------------------------------------------------------+-----------+
-| :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\SessionListener`                 | 128       |
-+-------------------------------------------------------------------------------------------+-----------+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\RouterListener`                    | 32        |
-+-------------------------------------------------------------------------------------------+-----------+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\LocaleListener`                    | 16        |
-+-------------------------------------------------------------------------------------------+-----------+
-| :class:`Symfony\\Component\\Security\\Http\\Firewall`                                     | 8         |
-+-------------------------------------------------------------------------------------------+-----------+
-
-kernel.controller
-.................
-
-+-------------------------------------------------------------------------------------------+----------+
-| Nome della classe dell'ascoltatore                                                        | Priorità |
-+===========================================================================================+==========+
-| :class:`Symfony\\Bundle\\FrameworkBundle\\DataCollector\\RequestDataCollector`            | 0        |
-+-------------------------------------------------------------------------------------------+----------+
-
-kernel.response
-...............
-
-+-------------------------------------------------------------------------------------------+----------+
-| Nome della classe dell'ascoltatore                                                        | Priorità |
-+===========================================================================================+==========+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\EsiListener`                       | 0        |
-+-------------------------------------------------------------------------------------------+----------+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener`                  | 0        |
-+-------------------------------------------------------------------------------------------+----------+
-| :class:`Symfony\\Bundle\\SecurityBundle\\EventListener\\ResponseListener`                 | 0        |
-+-------------------------------------------------------------------------------------------+----------+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | -100     |
-+-------------------------------------------------------------------------------------------+----------+
-| :class:`Symfony\\Bundle\\FrameworkBundle\\EventListener\\TestSessionListener`             | -128     |
-+-------------------------------------------------------------------------------------------+----------+
-| :class:`Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener`       | -128     |
-+-------------------------------------------------------------------------------------------+----------+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\StreamedResponseListener`          | -1024    |
-+-------------------------------------------------------------------------------------------+----------+
-
-kernel.exception
-................
-
-+-------------------------------------------------------------------------------------------+----------+
-| Nome della classe dell'ascoltatore                                                        | Priorità |
-+===========================================================================================+==========+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ProfilerListener`                  | 0        |
-+-------------------------------------------------------------------------------------------+----------+
-| :class:`Symfony\\Component\\HttpKernel\\EventListener\\ExceptionListener`                 | -128     |
-+-------------------------------------------------------------------------------------------+----------+
-
-kernel.terminate
-................
-
-+-------------------------------------------------------------------------------------------+----------+
-| Nome della classe dell'ascoltatore                                                        | Priorità |
-+===========================================================================================+==========+
-| `EmailSenderListener`_                                                                    | 0        |
-+-------------------------------------------------------------------------------------------+----------+
+Per un elenco di ascoltatori associati con ciascun evento del kernel, si veda il
+:doc:`riferimento agli eventi di Symfony </reference/events>`.
 
 .. _dic-tags-kernel-event-subscriber:
 
@@ -661,7 +595,10 @@ configurazioni e assegnarli il tag ``kernel.event_subscriber``:
     .. code-block:: php
 
         $container
-            ->register('kernel.subscriber.nome_sottoscrittore', 'Nome\Pienamente\QUalificato\Classe\Subscriber')
+            ->register(
+                'kernel.subscriber.nome_sottoscrittore', 
+                'Nome\Pienamente\QUalificato\Classe\Subscriber'
+            )
             ->addTag('kernel.event_subscriber')
         ;
 
@@ -724,7 +661,9 @@ quando si inietta il logger in un servizio.
 
     .. code-block:: php
 
-        $definition = new Definition('Nome\Pienamente\QUalificato\Classe\Loader', array(new Reference('logger'));
+        $definition = new Definition('Nome\Pienamente\QUalificato\Classe\Loader', array(
+            new Reference('logger')
+        );
         $definition->addTag('monolog.logger', array('channel' => 'acme'));
         $container->register('mio_servizio', $definition);;
 
@@ -968,8 +907,9 @@ SwiftMailer creando un servizio per il plugin e assegnadogli il tag
 .. note::
 
     In questo tag, ``default`` è il nome del mailer. Se si hanno più
-    mailer configurati o se per qualche motivo è stato cambiato il nome del mailer predefinito,
-    anche in questo tag il nome va cambiato di conseguenza.
+    mailer configurati o se per qualche motivo è stato cambiato il nome del mailer
+    predefinito, anche in questo tag il nome va cambiato di
+    conseguenza.
 
 Un plugin di SwiftMailer deve implementare l'interfaccia ``Swift_Events_EventListener``.
 Per maggiori informazioni sui plugin, vedere la `documentazione dei plugin di SwiftMailer`_.
@@ -1009,7 +949,7 @@ template):
                     id="templating.helper.mio_aiutante"
                     class="Nome\Pienamente\QUalificato\Classe\Aiutante">
 
-                    <tag name="templating.helper" alias="_alias" />
+                    <tag name="templating.helper" alias="nome_alias" />
                 </service>
             </services>
         </container>
@@ -1068,15 +1008,19 @@ Registrare il caricatore come servizio e assegnargli il tag ``translation.loader
     .. code-block:: php
 
         $container
-            ->register('main.translation.mio_caricatore', 'Acme\MainBundle\Translation\MioCaricatore')
+            ->register(
+                'main.translation.mio_caricatore',
+                'Acme\MainBundle\Translation\MioCaricatore'
+            )
             ->addTag('translation.loader', array('alias' => 'bin'))
         ;
 
 L'opzione ``alias`` è obbligatoria e molto importante: definisce il "suffisso" del file
 che sarà usato per i file risorsa che usano questo caricatore. Per esempio, si
 supponga di avere un formato personalizzato ``bin``, da caricare.
-Se si ha un file ``bin`` che contiene traduzioni in francese per il dominio ``messages``,
-si potrebbe avere un file ``app/Resources/translations/messages.fr.bin``.
+Se si ha un file ``bin`` che contiene traduzioni in francese per il dominio
+``messages``, si potrebbe avere un file
+``app/Resources/translations/messages.fr.bin``.
 
 Quando Symfony prova a caricare il file ``bin``, passa il percorso del caricatore personalizzato
 nel parametro ``$resource``. Si può quindi implementare la logica desiderata su tale file,
@@ -1090,7 +1034,8 @@ risorse dalla base dati. Il file è la chiave per far scattare il metodo
 translation.extractor
 ---------------------
 
-**Scopo**: Registrare un servizio personalizzato che estragga messaggi da un file
+**Scopo**: Registrare un servizio personalizzato che estragga messaggi da un
+file
 
 .. versionadded:: 2.1
    La possibilità di aggiungere estrattori di messaggi è nuova in Symfony 2.1.
@@ -1277,7 +1222,10 @@ configurazione e assegnargli il tag ``twig.extension``:
     .. code-block:: php
 
         $container
-            ->register('twig.extension.nome_estensione', 'Nome\Pienamente\QUalificato\Classe\Extension')
+            ->register(
+                'twig.extension.nome_estensione',
+                'Nome\Pienamente\QUalificato\Classe\Extension'
+            )
             ->addTag('twig.extension')
         ;
 
@@ -1362,7 +1310,10 @@ nuovo caricatore e assegnarli il tag ``twig.loader``:
     .. code-block:: php
 
         $container
-            ->register('acme.demo_bundle.loader.caricatore_twig', 'Acme\DemoBundle\Loader\CaricatoreTwig')
+            ->register(
+                'acme.demo_bundle.loader.caricatore_twig',
+                'Acme\DemoBundle\Loader\CaricatoreTwig'
+            )
             ->addTag('twig.loader')
         ;
 
@@ -1390,10 +1341,10 @@ Se si deve usare questo tag, fare una nuova classe che implementi l'interfaccia
 :class:`Symfony\\Component\\Validator\\ObjectInitializerInterface`.
 Quindi, assegnare il tag ``validator.initializer`` (che non ha opzioni).
 
-Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
+Per un esempio, vedere la classe ``EntityInitializer`` dentro il bridge di
+Doctrine.
 
 .. _`documentazione di Twig`: http://twig.sensiolabs.org/doc/advanced.html#creating-an-extension
 .. _`repository ufficiale delle estensioni di Twig`: https://github.com/fabpot/Twig-extensions
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
 .. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders
-.. _`EmailSenderListener`: https://github.com/symfony/SwiftmailerBundle/blob/master/EventListener/EmailSenderListener.php

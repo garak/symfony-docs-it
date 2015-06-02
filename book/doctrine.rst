@@ -729,42 +729,6 @@ Si immagini di voler cercare dei prodotti, ma solo quelli che costino più
 di ``19.99``, ordinati dal più economico al più caro. Si può usare
 ``QueryBuilder`` di Doctrine, come segue::
 
-    $repository = $this->getDoctrine()
-        ->getRepository('AppBundle:Product');
-
-    $query = $repository->createQueryBuilder('p')
-        ->where('p.price > :price')
-        ->setParameter('price', '19.99')
-        ->orderBy('p.price', 'ASC')
-        ->getQuery();
-
-    $products = $query->getResult();
-
-L'oggetto ``QueryBuilder`` contiene tutti i metodi necessari per costruire una
-query. Richiamando il metodo ``getQuery()``, ``QueryBuilder`` restituisce un
-oggetto ``Query``, che può essere usato per ottenere il risultato della query.
-
-.. tip::
-
-    Prendere nota del metodo ``setParameter()``. Interagendo con Doctrine,
-    è sempre una buona idea impostare valori esterni tramite "segnaposto"
-    (``:price`` nell'esempio appena visto), per preveniore attacchi di tipo SQL injection.
-
-Il metodo ``getResult()`` restituisce un array di risultati. Se si cerca un solo
-oggetto, si può usare invece il metodo ``getSingleResult()`` (che lancia un'eccezione se
-non ci sono risultati) o ``getOneOrNullResult()``::
-
-    $product = $query->getOneOrNullResult();
-
-Per maggiori informazioni su ``QueryBuilder``, consultare la documetazione `Query Builder`_
-di Doctrine.
-
-Cercare oggetti usando DQL
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Invece di usare ``QueryBuilder``, is possono scrivere query direttamente,
-usando DQL::
-
     $em = $this->getDoctrine()->getManager();
     $query = $em->createQuery(
         'SELECT p
@@ -774,17 +738,58 @@ usando DQL::
     )->setParameter('price', '19.99');
 
     $products = $query->getResult();
+    // per ottenere un singolo risultato:
+    // $product = $query->setMaxResults(1)->getOneOrNullResult();
 
-Se ci si trova a proprio agio con SQL, DQL dovrebbe sembrare molto naturale. La
-maggiore differenza è che occorre pensare in termini di "oggetti" invece che di
-righe di basi dati. Per questa ragione, si cerca *da* ``AppBundle:Product``
-e poi si usa ``p`` come suo alias (che è quello che stato fatto
-nella sezione precedente).
+Chi si trova a suo agio con SQL troverà DQL molto naturale. La differenza maggiore
+consiste nel pensare in termini di "oggetti", piuttosto che di righe in
+una base dati. Per questa ragione, si seleziona dall'oggetto ``AppBundle:Product``
+(una scorciatoia facoltativa per ``AppBundle\Entity\Product``) e si usa
+come alias ``p``.
 
-La sintassi DQL è incredibilmente potente e consente di fare join tra entità
-(l'argomento :ref:`relazioni <book-doctrine-relations>` sarà affrontato
-successivamente), raggruppare, ecc. Per maggiori informazioni, vedere la
-documentazione ufficiale di Doctrine `Doctrine Query Language`_.
+.. tip::
+
+    Prendere nota del metodo ``setParameter()``. Interagendo con Doctrine,
+    è sempre una buona idea impostare valori esterni tramite "segnaposto"
+    (``:price`` nell'esempio appena visto), per preveniore attacchi di tipo SQL injection.
+
+Il metodo ``getResult()`` restituisce un array di risultati. Se si cerca un solo
+oggetto, si può usare invece il metodo ``getOneOrNullResult()``::
+
+    $product = $query->setMaxResults(1)->getOneOrNullResult();
+
+La sintassi DQL è molto potente e consente di eseguire facilmente join tra
+entità (l'argomento :ref:`relazioni <book-doctrine-relations>` sarà affrontato
+successivamente), group by, ecc. Per maggiori informazioni, consultare la documetazione
+`Query Builder`_ di Doctrine.
+
+Cercare oggetti usando DQL
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Invece di usare ``QueryBuilder``, is possono scrivere query direttamente,
+usando DQL::
+
+    $repository = $this->getDoctrine()
+        ->getRepository('AppBundle:Product');
+
+    // createQueryBuilder prende automaticamente FROM AppBundle:Product
+    // e gli assegna "p" come alias
+    $query = $repository->createQueryBuilder('p')
+        ->where('p.price > :price')
+        ->setParameter('price', '19.99')
+        ->orderBy('p.price', 'ASC')
+        ->getQuery();
+
+    $products = $query->getResult();
+    // per ottenere un singolo risultato:
+    // $product = $query->setMaxResults(1)->getOneOrNullResult();
+
+L'oggetto ``QueryBuilder`` contiene ogni metodo necessario per costruire una
+query. Richiamando il metodo ``getQuery()``, QueryBuilder restituisce un normale
+oggetto ``Query``, che può essere usato per ottenere il risultato della query.
+
+Per maggiori informazioni, vedere la documentazione
+ufficiale di Doctrine `Doctrine Query Language`_.
 
 .. _book-doctrine-custom-repository-classes:
 

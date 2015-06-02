@@ -6,9 +6,9 @@ deve essere un array, si può usare questo vincolo con l'opzione tipo ``array``,
 per validarla.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`              |
 +----------------+---------------------------------------------------------------------+
-| Opzioni        | - :ref:`type<reference-constraint-type-type>`                       |
+| Opzioni        | - :ref:`type <reference-constraint-type-type>`                      |
 |                | - `message`_                                                        |
 +----------------+---------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Type`           |
@@ -21,16 +21,6 @@ Uso di base
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                age:
-                    - Type:
-                        type: integer
-                        message: Il valore {{ value }} non è un {{ type }} valido.
-
     .. code-block:: php-annotations
 
         // src/Acme/BlogBundle/Entity/Author.php
@@ -41,10 +31,23 @@ Uso di base
         class Author
         {
             /**
-             * @Assert\Type(type="integer", message="Il valore {{ value }} non è un {{ type }} valido.")
+             * @Assert\Type(
+             *     type="integer",
+             *     message="Il valore {{ value }} non è un {{ type }} valido."
+             * )
              */
             protected $age;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                age:
+                    - Type:
+                        type: integer
+                        message: Il valore {{ value }} non è un {{ type }} valido.
 
     .. code-block:: xml
 
@@ -96,24 +99,25 @@ type
 Questa opzione obbligatoria è il nome pienamente qualificato della classe oppure uno
 dei tipi di dato di PHP, come stabilito dalle funzioni ``is_`` di PHP.
 
-* `array <http://php.net/is_array>`_
-* `bool <http://php.net/is_bool>`_
-* `callable <http://php.net/is_callable>`_
-* `float <http://php.net/is_float>`_
-* `double <http://php.net/is_double>`_
-* `int <http://php.net/is_int>`_
-* `integer <http://php.net/is_integer>`_
-* `long <http://php.net/is_long>`_
-* `null <http://php.net/is_null>`_
-* `numeric <http://php.net/is_numeric>`_
-* `object <http://php.net/is_object>`_
-* `real <http://php.net/is_real>`_
-* `resource <http://php.net/is_resource>`_
-* `scalar <http://php.net/is_scalar>`_
-* `string <http://php.net/is_string>`_
+* :phpfunction:`array <is_array>`
+* :phpfunction:`bool <is_bool>`
+* :phpfunction:`callable <is_callable>`
+* :phpfunction:`float <is_float>`
+* :phpfunction:`double <is_double>`
+* :phpfunction:`int <is_int>`
+* :phpfunction:`integer <is_integer>`
+* :phpfunction:`long <is_long>`
+* :phpfunction:`null <is_null>`
+* :phpfunction:`numeric <is_numeric>`
+* :phpfunction:`object <is_object>`
+* :phpfunction:`real <is_real>`
+* :phpfunction:`resource <is_resource>`
+* :phpfunction:`scalar <is_scalar>`
+* :phpfunction:`string <is_string>`
 
-Si possono anche usare le funzioni ``ctype_`` della corrispondente `estensione di PHP <http://php.net/manual/it/book.ctype.php>`_.
-Si consideri `una lista di funzioni ctype <http://php.net/manual/it/ref.ctype.php>`_:
+Si possono anche usare le funzioni ``ctype_`` della corrispondente
+`estensione di PHP <http://php.net/manual/it/book.ctype.php>`_. Si consideri
+`una lista di funzioni ctype <http://php.net/manual/it/ref.ctype.php>`_:
 
 * :phpfunction:`alnum <ctype_alnum>`
 * :phpfunction:`alpha <ctype_alpha>`
@@ -127,7 +131,8 @@ Si consideri `una lista di funzioni ctype <http://php.net/manual/it/ref.ctype.ph
 * :phpfunction:`upper <ctype_upper>`
 * :phpfunction:`xdigit <ctype_xdigit>`
 
-Assicurarsi che il :phpfunction:`locale <setlocale>` adatto sia impostato, prima dell'uso.
+Assicurarsi che il :phpfunction:`locale <setlocale>` adatto sia impostato, prima
+dell'uso.
 
 message
 ~~~~~~~

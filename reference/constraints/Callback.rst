@@ -111,10 +111,15 @@ questi errori vadano attribuiti::
 
             // verifica se il nome è in effetti un nome fasullo
             if (in_array($this->getFirstName(), $fakeNames)) {
-                $context->addViolationAt('firstname', 'Questo nome  sembra proprio falso!', array(), null);
+                $context->addViolationAt(
+                    'firstname',
+                    'Questo nome  sembra proprio falso!',
+                    array(),
+                    null
+                );
             }
         }
-     }
+    }
 
 Opzioni
 -------
@@ -131,7 +136,8 @@ Ogni metodo può avere uno dei seguenti formati:
 
     Se il nome di un metodo è una semplice stringa (p.e. ``isAuthorValid``), quel
     metodo sarà richiamato sullo stesso oggetto in corso di validazione e
-    ``ExecutionContext`` sarà l'unico parametro (vedere esempio precedente).
+    ``ExecutionContext`` sarà l'unico parametro (vedere esempio
+    precedente).
 
 2) **Array statico callback**
 
@@ -197,7 +203,10 @@ Ogni metodo può avere uno dei seguenti formati:
                 {
                     $metadata->addConstraint(new Callback(array(
                         'methods' => array(
-                            array('Acme\BlogBundle\MyStaticValidatorClass', 'isAuthorValid'),
+                            array(
+                                'Acme\BlogBundle\MyStaticValidatorClass',
+                                'isAuthorValid',
+                            ),
                         ),
                     )));
                 }
@@ -205,7 +214,8 @@ Ogni metodo può avere uno dei seguenti formati:
 
     In questo caso, sarà richiamato il metodo statico ``isAuthorValid`` della classe
     ``Acme\BlogBundle\MyStaticValidatorClass``. Gli verrà passato sia l'oggetto originale
-    in corso di validazione (p.e. ``Author``) che ``ExecutionContextInterface``::
+    in corso di validazione (p.e. ``Author``) che
+    ``ExecutionContextInterface``::
 
         namespace Acme\BlogBundle;
 
@@ -214,8 +224,10 @@ Ogni metodo può avere uno dei seguenti formati:
 
         class MyStaticValidatorClass
         {
-            public static function isAuthorValid(Author $author, ExecutionContextInterface $context)
-            {
+            public static function isAuthorValid(
+                Author $author,
+                ExecutionContextInterface $context
+            ) {
                 // ...
             }
         }
@@ -226,5 +238,6 @@ Ogni metodo può avere uno dei seguenti formati:
         di rendere il callback una closure PHP o un callback non statico.
         Tuttavia, *non* è attualmente possibile specificare un :term:`servizio`
         come vincolo. Per validare usando un servizio, si dovrebbe
-        :doc:`creare un vincolo personalizzato</cookbook/validation/custom_constraint>`
-        e aggiungere il nuovo vincolo alla propria classe.
+        :doc:`creare un vincolo personalizzato
+        </cookbook/validation/custom_constraint>` e
+        aggiungere il nuovo vincolo alla propria classe.

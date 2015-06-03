@@ -4,21 +4,29 @@
 Scrivere messaggi di log su file diversi
 ========================================
 
-La Standard Edition di Symfony contiene molti canali per i log: ``doctrine``,
-``event``, ``security`` e ``request``. Ogni canale corrisponde a un servizio di
-log (``monolog.logger.XXX``) nel contenitore ed è iniettato nel servizio
-interessato. Lo scopo dei canali è quello di poter organizzare diversi
-tipi di messaggi di log.
+Il framework Symfony organizza i messaggi di log in canali. Ci sono molti
+canali predefiniti, inclusi quelli per ``doctrine``,``event``, ``security``, ``request``
+e altri. Il nome del canale viene scritto nel messaggio di log e può anche essere usato
+per dirigere vari canali in diversi posti o file.
 
 Per impostazione predefinita, Symfony scrive ogni messaggio di log in un singolo file
 (indipendentemente dal canale).
+
+.. note::
+
+    Ogni canale corrisponde a un servizio di log (``monolog.logger.XXX``)
+    nel contenitore ed è iniettato nel servizio interessato. Lo scopo dei
+    canali è quello di poter organizzare diversi tipi di messaggi di log.
+
+.. _logging-channel-handler:
 
 Spostare un canale su un gestore diverso
 ----------------------------------------
 
 Si supponga ora di voler loggare il canale ``doctrine`` in un altro file.
-
-Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
+Per farlo, basta creare un nuovo gestore e configurarlo per salvare solo messaggi
+del canale ``security``. Lo si potrebbe aggiungere in ``config.yml`` per tutti
+gli ambienti oppure in ``config_prod.yml`` per il solo ambiente ``prod``.:
 
 .. configuration-block::
 
@@ -27,14 +35,17 @@ Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
         # app/config/config.yml
         monolog:
             handlers:
+                security:
+                    # log di tutti i messaggi (essendo debug il livello più basso)
+                    level:    debug
+                    type:     stream
+                    path:     "%kernel.logs_dir%/security.log"
+                    channels: [security]
+
+                # un esempio per evitare i log del canale security per queso gestore
                 main:
-                    type:     stream
-                    path:     /var/log/symfony.log
-                    channels: ["!doctrine"]
-                doctrine:
-                    type:     stream
-                    path:     /var/log/doctrine.log
-                    channels: [doctrine]
+                    # ...
+                    # channels: ["!security"]
 
     .. code-block:: xml
 
@@ -48,15 +59,16 @@ Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
                 http://symfony.com/schema/dic/monolog/monolog-1.0.xsd"
         >
             <monolog:config>
-                <monolog:handler name="main" type="stream" path="/var/log/symfony.log">
+                <monolog:handler name="security" type="stream" path="%kernel.logs_dir%/security.log">
                     <monolog:channels>
-                        <monolog:channel>!doctrine</monolog:channel>
+                        <monolog:channel>security</monolog:channel>
                     </monolog:channels>
                 </monolog:handler>
 
-                <monolog:handler name="doctrine" type="stream" path="/var/log/doctrine.log">
+                <monolog:handler name="main" type="stream" path="%kernel.logs_dir%/main.log">
+                    <!-- ... -->
                     <monolog:channels>
-                        <monolog:channel>doctrine</monolog:channel>
+                        <monolog:channel>!security</monolog:channel>
                     </monolog:channels>
                 </monolog:handler>
             </monolog:config>
@@ -67,18 +79,17 @@ Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
         // app/config/config.php
         $container->loadFromExtension('monolog', array(
             'handlers' => array(
-                'main'     => array(
+                'security' => array(
                     'type'     => 'stream',
-                    'path'     => '/var/log/symfony.log',
+                    'path'     => '%kernel.logs_dir%/security.log',
                     'channels' => array(
-                        '!doctrine',
+                        'security',
                     ),
                 ),
-                'doctrine' => array(
-                    'type'     => 'stream',
-                    'path'     => '/var/log/doctrine.log',
+                'main'     => array(
+                    // ...
                     'channels' => array(
-                        'doctrine',
+                        '!security',
                     ),
                 ),
             ),

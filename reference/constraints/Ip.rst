@@ -6,7 +6,7 @@ un valore come IPv4, ma ci sono diverse opzioni per validare come IPv6 e
 altre combinazioni.
 
 +----------------+---------------------------------------------------------------------+
-| Si applica a   | :ref:`proprietà o metodo<validation-property-target>`               |
+| Si applica a   | :ref:`proprietà o metodo <validation-property-target>`              |
 +----------------+---------------------------------------------------------------------+
 | Opzioni        | - `version`_                                                        |
 |                | - `message`_                                                        |
@@ -20,14 +20,6 @@ Uso di base
 -----------
 
 .. configuration-block::
-
-    .. code-block:: yaml
-
-        # src/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            properties:
-                ipAddress:
-                    - Ip:
 
     .. code-block:: php-annotations
 
@@ -43,6 +35,14 @@ Uso di base
              */
              protected $ipAddress;
         }
+
+    .. code-block:: yaml
+
+        # src/Acme/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author:
+            properties:
+                ipAddress:
+                    - Ip: ~
 
     .. code-block:: xml
 
@@ -88,27 +88,39 @@ tanti valori a disposizione:
 
 **Tutte le fasce**
 
-* ``4`` - Valida indirizzi IPv4
-* ``6`` - Valida indirizzi IPv6
-* ``all`` - Valida tutti i formati IP
+``4``
+    Valida indirizzi IPv4
+``6``
+    Valida indirizzi IPv6
+``all``
+    Valida tutti i formati IP
 
 **Nessuna fascia privata**
 
-* ``4_no_priv`` - Valida IPv4, ma senza le fasce IP private
-* ``6_no_priv`` - Valida IPv6, ma senza le fasce IP private
-* ``all_no_priv`` - Valida tutti i formati IP, ma senza le fasce IP private
+``4_no_priv``
+    Valida IPv4, ma senza le fasce IP private
+``6_no_priv``
+    Valida IPv6, ma senza le fasce IP private
+``all_no_priv``
+    Valida tutti i formati IP, ma senza le fasce IP private
 
 **Nessuna fascia riservata**
 
-* ``4_no_res`` - Valida IPv4, ma senza le fasce IP riservate
-* ``6_no_res`` - Valida IPv6, ma senza le fasce IP riservate
-* ``all_no_res`` - Valida tutti i formati IP, ma senza le fasce IP riservate
+``4_no_res``
+    Valida IPv4, ma senza le fasce IP riservate
+``6_no_res``
+    Valida IPv6, ma senza le fasce IP riservate
+``all_no_res``
+    Valida tutti i formati IP, ma senza le fasce IP riservate
 
 **Solo fasce pubbliche**
 
-* ``4_public`` - Valida IPv4, ma senza fasce private e riservate
-* ``6_public`` - Valida IPv6, ma senza fasce private e riservate
-* ``all_public`` - VValida tutti i formati IP, ma senza le fasce IP private e riservate
+``4_public``
+    Valida IPv4, ma senza fasce private e riservate
+``6_public``
+    Valida IPv6, ma senza fasce private e riservate
+``all_public``
+    Valida tutti i formati IP, ma senza le fasce IP private e riservate
 
 message
 ~~~~~~~

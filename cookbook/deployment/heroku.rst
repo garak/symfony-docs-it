@@ -106,6 +106,16 @@ radice dell'applicazione e inserirvi il seguente contenuto:
 
     web: bin/heroku-php-apache2 web/
 
+.. note::
+
+    Se si preferisce usare Nginx, disponibile su Heroku, si può creare un
+    file di configurazione e puntarlo dal proprio Procfile, come descritto
+    nella `documentazione di Heroku`_:
+
+    .. code-block:: text
+
+        web: bin/heroku-php-nginx -C nginx_app.conf web/
+
 Se si preferisce lavorare sulla console, eseguire i seguenti comandi
 per creare il file ``Procfile`` e aggiungerlo al repository:
 
@@ -329,3 +339,4 @@ Questo risulta molto utile anche per costruire risorse sul sistema di produzione
 .. _`buildpack multiplo`: https://github.com/ddollar/heroku-buildpack-multi.git
 .. _`Grunt`: http://gruntjs.com
 .. _`gulp`: http://gulpjs.com
+.. _`documentazione di Heroku`: https://devcenter.heroku.com/articles/custom-php-settings#nginx

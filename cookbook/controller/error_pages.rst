@@ -11,8 +11,7 @@ l'eccezione in una ``Response``, in vari modi.
 
 Il bundle TwigBundle ha un ascoltatore per tale evento, che eseguirà un controllore configurabile
 (anche se arbitrario), per generare la risposta. Il controllore predefinito ha un modo
-intelligente per scegliere uno dei template di errore
-a disposizione.
+intelligente per scegliere uno dei template di errore a disposizione.
 
 Quindi, le pagine di errore possono essere personalizzate in diversi modi, a seconda di quanto
 controllo si vuole avere:

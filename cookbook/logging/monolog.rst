@@ -222,19 +222,74 @@ Il proprio formattatore deve implementare
             ),
         ));
 
+Ruotare i file di log
+---------------------
+
+Nel tempo, i file di log possono crescere molto, sia durante lo sviluppo sia
+in produzione. Una soluzione frequente è quella di usare uno strumento come `logrotate`_,
+un comando Linux per ruotare i file di log, prima che diventino troppo grossi.
+
+Un'altra opzione possibile e di lasciare la rotazione a Monolog, usando il gestore
+``rotating_file``. Questo gestore crea un nuovo file di log ogni giorno e
+può anche rimuovere i vecchi file automaticamente. Per usarlo, basta impostare l'opzione ``type``
+del gestore su ``rotating_file``:
+
+.. configuration-block::
+
+    .. code-block:: yaml
+
+        # app/config/config_dev.yml
+        monolog:
+            handlers:
+                main:
+                    type:  rotating_file
+                    path:  %kernel.logs_dir%/%kernel.environment%.log
+                    level: debug
+                    # numero massimo di file di log da mantenere
+                    # predefinito a zero, che vuol dire file infiniti
+                    max_files: 10
+
+    .. code-block:: xml
+
+        <!-- app/config/config_dev.xml -->
+        <?xml version="1.0" charset="UTF-8" ?>
+        <container xmlns=''http://symfony.com/schema/dic/services"
+            xmlns:monolog="http://symfony.com/schema/dic/monolog">
+
+            <monolog:config>
+                <monolog:handler name="main"
+                    type="rotating_file"
+                    path="%kernel.logs_dir%/%kernel.environment%.log"
+                    level="debug"
+                    <!-- numero massimo di file di log da mantenere
+                         predefinito a zero, che vuol dire file infiniti -->
+                    max_files="10"
+                />
+            </monolog:config>
+        </container>
+
+    .. code-block:: php
+
+        // app/config/config_dev.php
+        $container->loadFromExtension('monolog', array(
+            'handlers' => array(
+                'main' => array(
+                    'type'  => 'rotating_file',
+                    'path'  => '%kernel.logs_dir%/%kernel.environment%.log',
+                    'level' => 'debug',
+                    // numero massimo di file di log da mantenere
+                    // predefinito a zero, che vuol dire file infiniti
+                    'max_files' => 10,
+                ),
+            ),
+        ));
+
 Aggiungere dati extra nei messaggi di log
 -----------------------------------------
 
 Monolog consente di processare il record prima di loggarlo, per aggiungere
 alcuni dati extra. Un processore può essere applicato all'intera pila dei
 gestori oppure solo a un gestore specifico.
-
-.. tip::
-
-    Fare attenzione alle dimensioni del file di log, che possono crescere molto rapidamente, portando
-    all'esaurimento dello spazio su disco. Questo vale in modo particolare in ambiente ``dev``, dove una semplice
-    richiesta può generare centinaia di righe di log. Si consideri l'uso di strumenti come `logrotate`_,
-    un comando Linux per ruotare i file di log, prima che possano diventare un problema.
 
 Un processore è semplicemente una funzione che riceve il record come primo parametro.
 I processori sono configurati con il tag ``monolog.processor`` del DIC. Vedere il
@@ -479,5 +534,5 @@ tag ``monolog.processor``:
             ->addArgument(new Reference('session'))
             ->addTag('monolog.processor', array('method' => 'processRecord', 'channel' => 'main'));
 
-.. _Monolog: https://github.com/Seldaek/monolog
+.. _`Monolog`: https://github.com/Seldaek/monolog
 .. _`logrotate`: https://fedorahosted.org/logrotate/

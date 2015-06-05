@@ -4,23 +4,28 @@
 Creare un caricatore di rotte personalizzato
 ============================================
 
-Un caricatore di rotte personalizzato permette di aggiungere rotte a un'applicazione, senza 
-per esempio doverle includere un file Yaml. Questo può essere comodo quando si 
-ha un bundle, ma non si vogliono aggiungere manualmente le rotte per quel bundle
-a ``app/config/routing.yml``. Questo può essere in special modo importante 
-quando si vuole rendere il bundle riusabile o quando lo si è reso open source, in quanto
-questo rallenterebbe il processo di installazione e lo renderebbe più incline agli errori.
+Cosa è un caricatore di rotte personalizzato
+--------------------------------------------
 
-Alternativamente, si può usare un caricatore personalizzato di rotte, quando si vuole che le proprie 
-rotte siano generate o trovate automaticamente in base a qualche convenzione o schema.
-Un esempio è `FOSRestBundle`_, nel quale le rotte sono generate in base ai nomi
-dei metodi Action nei controllori.
+Un caricatore personalizzato di rotte consente di generare rotte in base
+a qualche convenzione o schema. Un buon esempio è
+`FOSRestBundle`_, nel quale le rotte sono generate in base ai nomi
+dei metodi delle azioni nei controllori.
+
+Un caricatore di rotte personalizzato permette di aggiungere rotte a un'applicazione, senza 
+per esempio dover modificare manualmente la configurazione delle rotte
+(p.e. ``app/config/routing.yml``).
+Se un bundle fornisce rotte, tramite file di configurazione, come
+fa `WebProfilerBundle`, oppure tramite un caricatore di rotte personalizzato, come fa
+`FOSRestBundle`_, è sempre necessaria una voce nella configurazione delle
+rotte.
 
 .. note::
 
     Ci sono molti bundle che usano i propri caticatori per gestire 
     casi come quello descritto qui sopra, ad esempio
-    `FOSRestBundle`_, `JMSI18nRoutingBundle`_, `KnpRadBundle`_ e `SonataAdminBundle`_.
+    `FOSRestBundle`_, `JMSI18nRoutingBundle`_, `KnpRadBundle`_ e
+    `SonataAdminBundle`_.
 
 Caricare le rotte
 -----------------
@@ -35,16 +40,14 @@ e quindi hanno due metodi importanti:
 :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
 e :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::load`.
 
-Osserviamo queste linee del file ``routing.yml`` in AcmeDemoBundle della Standard
-Edition:
+Osserviamo queste linee del file ``routing.yml`` in Symfony Standard Edition:
 
 .. code-block:: yaml
 
-    # src/Acme/DemoBundle/Resources/config/routing.yml
-    _demo:
-        resource: "@AcmeDemoBundle/Controller/DemoController.php"
+    # app/config/routing.yml
+    app:
+        resource: @AppBundle/Controller/
         type:     annotation
-        prefix:   /demo
 
 Quando il caricatore principale li analizza, interpella ogni caricatore delegato e ne chiama
 il metodo :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
@@ -61,18 +64,22 @@ Per caricare rotte da qualche fonte personalizzata (ossia da qualcosa di diverso
 file Yaml o XML), occorre creare un caricatore. Questo caricatore
 deve implementare l'interfaccia :class:`Symfony\\Component\\Config\\Loader\\LoaderInterface`.
 
+Nella maggior parte dei casi è meglio non implementare
+:class:`Symfony\\Component\\Config\\Loader\\LoaderInterface`
+da soli, ma estendere invece da :class:`Symfony\\Component\\Config\\Loader\\Loader`.
+
 Il caricatore d'esempio qui sotto supporta il caricamento di risorse di tipo
 ``extra``. Il tipo ``extra`` non è importante, si può inventare qualsiasi tiipo di risorsa
 si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio::
 
-    namespace Acme\DemoBundle\Routing;
+    // src/AppBundle/Routing/ExtraLoader.php
+    namespace AppBundle\Routing;
 
-    use Symfony\Component\Config\Loader\LoaderInterface;
-    use Symfony\Component\Config\Loader\LoaderResolverInterface;
+    use Symfony\Component\Config\Loader\Loader;
     use Symfony\Component\Routing\Route;
     use Symfony\Component\Routing\RouteCollection;
 
-    class ExtraLoader implements LoaderInterface
+    class ExtraLoader extends Loader
     {
         private $loaded = false;
 
@@ -87,7 +94,7 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
             // prepara una nuova rotta
             $path = '/extra/{parameter}';
             $defaults = array(
-                '_controller' => 'AcmeDemoBundle:Demo:extra',
+                '_controller' => 'AppBundle:Extra:extra',
             );
             $requirements = array(
                 'parameter' => '\d+',
@@ -107,22 +114,25 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
         {
             return 'extra' === $type;
         }
-
-        public function getResolver()
-        {
-            // necessario, ma può essere vuoto, a meno che non si vogliano caricare altre risorse
-            // se lo si, è più facile usando la classe Loader base (vedere sotto)
-        }
-
-        public function setResolver(LoaderResolverInterface $resolver)
-        {
-            // come sopra
-        }
     }
 
-.. note::
+Accertarsi che il controllore specifito esista realmente. In questo caso, si deve
+creare un metodo ``extraAction`` in ``ExtraController``
+di ``AppBundle``::
 
-    Accertarsi che il controllore specifito esista realmente.
+    // src/AppBundle/Controller/ExtraController.php
+    namespace AppBundle\Controller;
+
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+    class ExtraController extends Controller
+    {
+        public function extraAction($parameter)
+        {
+            return new Response($parameter);
+        }
+    }
 
 Adesso definire un servizio per l'``ExtraLoader``:
 
@@ -130,9 +140,10 @@ Adesso definire un servizio per l'``ExtraLoader``:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            acme_demo.routing_loader:
-                class: Acme\DemoBundle\Routing\ExtraLoader
+            app.routing_loader:
+                class: AppBundle\Routing\ExtraLoader
                 tags:
                     - { name: routing.loader }
 
@@ -144,7 +155,7 @@ Adesso definire un servizio per l'``ExtraLoader``:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="acme_demo.routing_loader" class="Acme\DemoBundle\Routing\ExtraLoader">
+                <service id="app.routing_loader" class="AppBundle\Routing\ExtraLoader">
                     <tag name="routing.loader" />
                 </service>
             </services>
@@ -156,14 +167,15 @@ Adesso definire un servizio per l'``ExtraLoader``:
 
         $container
             ->setDefinition(
-                'acme_demo.routing_loader',
-                new Definition('Acme\DemoBundle\Routing\ExtraLoader')
+                'app.routing_loader',
+                new Definition('AppBundle\Routing\ExtraLoader')
             )
             ->addTag('routing.loader')
         ;
 
-Si noti il tag ``routing.loader``. Tutti i servizi con questo tag saranno marcati
-come potenziali caricatori di rotte e aggiunti come router specializzati alla classe
+Si noti il tag ``routing.loader``. Tutti i servizi con questo *tag* saranno marcati
+come potenziali caricatori di rotte e aggiunti come router specializzati al *servizio*
+``routing.loader``, che è un'istanza di
 :class:`Symfony\\Bundle\\FrameworkBundle\\Routing\\DelegatingLoader`.
 
 Usare un Custom Loader
@@ -177,7 +189,7 @@ Occorre solo aggiungere qualche riga extra alla configurazione del router.
     .. code-block:: yaml
 
         # app/config/routing.yml
-        AcmeDemoBundle_Extra:
+        app_extra:
             resource: .
             type: extra
 
@@ -228,7 +240,8 @@ Ogni volta che si carica un'altra risorsa, per esempio un file di configurazione
 Yaml, si può richiamare il metodo
 :method:`Symfony\\Component\\Config\\Loader\\Loader::import` ::
 
-    namespace Acme\DemoBundle\Routing;
+    // src/AppBundle/Routing/AdvancedLoader.php
+    namespace AppBundle\Routing;
 
     use Symfony\Component\Config\Loader\Loader;
     use Symfony\Component\Routing\RouteCollection;
@@ -239,7 +252,7 @@ Yaml, si può richiamare il metodo
         {
             $collection = new RouteCollection();
 
-            $resource = '@AcmeDemoBundle/Resources/config/import_routing.yml';
+            $resource = '@AppBundle/Resources/config/import_routing.yml';
             $type = 'yaml';
 
             $importedRoutes = $this->import($resource, $type);
@@ -251,7 +264,7 @@ Yaml, si può richiamare il metodo
 
         public function supports($resource, $type = null)
         {
-            return $type === 'advanced_extra';
+            return 'advanced_extra' === $type;
         }
     }
 

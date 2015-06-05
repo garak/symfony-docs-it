@@ -5,7 +5,8 @@ Eventi dei form
 ===============
 
 Il componente Form fornisce un processo strutturato, che consente di personalizzare
-i form, facendo uso del componente :doc:`EventDispatcher </components/event_dispatcher/introduction>`.
+i form, facendo uso del componente 
+:doc:`EventDispatcher </components/event_dispatcher/introduction>`.
 Usando gli eventi dei form, si possono modificare informazioni o campi in
 vari punti del flusso: dal popolamento del form all'invio
 dei dati dalla richiesta.
@@ -59,8 +60,6 @@ L'evento ``FormEvents::PRE_SET_DATA`` è distribuito all'inizio del metodo
 * Modificare i dati forniti durante il pre-popolamento;
 * Modificare un form a seconda dei dati di pre-popolamento (aggiunta o rimozione dinamica di campi).
 
-:ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
-
 ================= ========
 Tipo di dati      Valore
 ================= ========
@@ -68,6 +67,11 @@ Dati modello      ``null``
 Dati normalizzati ``null``
 Dati vista        ``null``
 ================= ========
+
+.. seealso::
+
+    Si possono vedere tutti gli eventi insieme nella
+    :ref:`tabella degli eventi dei form <component-form-event-table>`.
 
 .. caution::
 
@@ -94,8 +98,6 @@ L'evento ``FormEvents::POST_SET_DATA`` è distribuito alla fine del metodo
 Questo evento per lo più serve a leggere dati dopo aver pre-popolato
 il form.
 
-:ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
-
 =================  ============================================================
 Tipo di dati       Valore
 =================  ============================================================
@@ -103,6 +105,11 @@ Dati modello       Dati del modello iniettati in ``setData()``
 Dati normalizzati  Dati del modello trasformati con un trasformatore di modello
 Dati vista         Dati normalizzati trasformati con un trasformatore di vista
 =================  ============================================================
+
+.. seealso::
+
+    Si possono vedere tutti gli eventi insieme nella
+    :ref:`tabella degli eventi dei form <component-form-event-table>`.
 
 .. sidebar:: ``FormEvents::POST_SET_DATA`` nel componente Form
 
@@ -134,8 +141,6 @@ Può essere usato per:
 * Cambiare i dati dalla richiesta, prima di inviare i dati al form.
 * Aggiungere i rimovere campi dal form, prima di inviare i dati al form.
 
-:ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
-
 =================  =======================================
 Tipo di dati       Valore
 =================  =======================================
@@ -143,6 +148,11 @@ Dati modello       Come in ``FormEvents::POST_SET_DATA``
 Dati normalizzati  Come in ``FormEvents::POST_SET_DATA``
 Dati vista         Come in ``FormEvents::POST_SET_DATA``
 =================  =======================================
+
+.. seealso::
+
+    Si possono vedere tutti gli eventi insieme nella
+    :ref:`tabella degli eventi dei form <component-form-event-table>`.
 
 .. sidebar:: ``FormEvents::PRE_SUBMIT`` nel componente Form
 
@@ -162,8 +172,6 @@ ritrasformi i dati normalizzati in dati di modello e di vista.
 
 Può essere usato per cambiare dati dalla rappresentazione normalizzata dei dati.
 
-:ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
-
 =================  ===================================================================
 Tipo di dati       Valore
 =================  ===================================================================
@@ -171,6 +179,11 @@ Dati modello       Come in ``FormEvents::POST_SET_DATA``
 Dati normalizzati  Dati ritrasformati dalla richiesta usando un trasformatore di vista
 Dati vista         Come in ``FormEvents::POST_SET_DATA``
 =================  ===================================================================
+
+.. seealso::
+
+    Si possono vedere tutti gli eventi insieme nella
+    :ref:`tabella degli eventi dei form <component-form-event-table>`.
 
 .. caution::
 
@@ -192,8 +205,6 @@ i dati di modello e vista sono stati denormalizzati.
 
 Può essere usato per recuperare dati dopo la denormalizzazione.
 
-:ref:`Tabella informativa sugli eventi dei form<component-form-event-table>`
-
 =================  ===================================================================
 Tipo di dati       Valore
 =================  ===================================================================
@@ -201,6 +212,11 @@ Dati modello       Dati normalizzati ritrasformati usando un trasformatore di mo
 Dati normalizzati  Come in ``FormEvents::POST_SUBMIT``
 Dati vista         Dati normalizzati trasformati usando un trasformatore di vista
 =================  ===================================================================
+
+.. seealso::
+
+    Si possono vedere tutti gli eventi insieme nella
+    :ref:`tabella degli eventi dei form <component-form-event-table>`.
 
 .. caution::
 

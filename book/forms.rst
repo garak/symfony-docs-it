@@ -550,8 +550,9 @@ Si può anche definire l'intera logica con una Closure::
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => function(FormInterface $form) {
+            'validation_groups' => function (FormInterface $form) {
                 $data = $form->getData();
+
                 if (Client::TYPE_PERSON == $data->getType()) {
                     return array('person');
                 }
@@ -573,8 +574,9 @@ dell'entità, occorre modificare l'opzione in questo modo::
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => function(FormInterface $form) {
+            'validation_groups' => function (FormInterface $form) {
                 $data = $form->getData();
+
                 if (Client::TYPE_PERSON == $data->getType()) {
                     return array('Default', 'person');
                 }
@@ -1048,7 +1050,8 @@ che ospiterà la logica per la costruzione del form task::
             $builder
                 ->add('task')
                 ->add('dueDate', null, array('widget' => 'single_text'))
-                ->add('save', 'submit');
+                ->add('save', 'submit')
+            ;
         }
 
         public function getName()
@@ -1123,7 +1126,8 @@ la scelta in ultima analisi, spetta allo sviluppatore.
             $builder
                 ->add('task')
                 ->add('dueDate', null, array('mapped' => false))
-                ->add('save', 'submit');
+                ->add('save', 'submit')
+            ;
         }
 
     Inoltre, se ci sono campi nel form che non sono inclusi nei dati inviati,
@@ -1155,7 +1159,7 @@ facilmente in un'applicazione.
 
         # src/AppBundle/Resources/config/services.yml
         services:
-            acme_demo.form.type.task:
+            app.form.type.task:
                 class: AppBundle\Form\Type\TaskType
                 tags:
                     - { name: form.type, alias: task }
@@ -1169,10 +1173,7 @@ facilmente in un'applicazione.
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service
-                    id="acme_demo.form.type.task"
-                    class="AppBundle\Form\Type\TaskType">
-
+                <service id="app.form.type.task" class="AppBundle\Form\Type\TaskType">
                     <tag name="form.type" alias="task" />
                 </service>
             </services>
@@ -1183,7 +1184,7 @@ facilmente in un'applicazione.
         // src/AppBundle/Resources/config/services.php
         $container
             ->register(
-                'acme_demo.form.type.task',
+                'app.form.type.task',
                 'AppBundle\Form\Type\TaskType'
             )
             ->addTag('form.type', array(
@@ -1444,7 +1445,7 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Form/fields.html.twig #}
+        {# app/Resources/views/form/fields.html.twig #}
         {% block form_row %}
         {% spaceless %}
             <div class="form_row">
@@ -1457,7 +1458,7 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Form/form_row.html.php -->
+        <!-- app/Resources/views/form/form_row.html.php -->
         <div class="form_row">
             <?php echo $view['form']->label($form, $label) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -1476,7 +1477,8 @@ rende il form:
         {# app/Resources/views/default/new.html.twig #}
         {% form_theme form 'form/fields.html.twig' %}
 
-        {% form_theme form 'form/fields.html.twig' 'Form/fields2.html.twig' %}
+        {# oppure, se si vogliono usare più temi #}
+        {% form_theme form 'form/fields.html.twig' 'form/fields2.html.twig' %}
 
         {# ... rendere il form #}
 
@@ -1485,6 +1487,7 @@ rende il form:
         <!-- app/Resources/views/default/new.html.php -->
         <?php $view['form']->setTheme($form, array('form')) ?>
 
+        <!-- oppure, se si vogliono usare più temi -->
         <?php $view['form']->setTheme($form, array('form', 'form2')) ?>
 
         <!-- ... rendere il form -->
@@ -1736,7 +1739,7 @@ dell'applicazione:
                         'Form',
                     ),
                 ),
-            )
+            ),
             // ...
         ));
 

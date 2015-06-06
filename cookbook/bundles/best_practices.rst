@@ -209,52 +209,102 @@ Istruzioni di installazione
 Per facilitare l'installazione di bundle di terze parti, si consideri l'uso delle
 seguenti istruzioni standardizzate, nel file ``README.md``.
 
-.. code-block:: text
+.. configuration-block::
 
-    Installazione
-    =============
+    .. code-block:: markdown
 
-    Passo 1: scaricare il bundle
-    ----------------------------
+        Installazione
+        =============
 
-    Aprire una console, entrare nella cartella del progetto ed eseguire il
-    comando seguente per scaricare l'ultima versione stabile di questo bundle:
+        Passo 1: scaricare il bundle
+        ----------------------------
 
-    ```bash
-    $ composer require <nome-pacchetto> "~1"
-    ```
+        Aprire una console, entrare nella cartella del progetto ed eseguire il
+        comando seguente per scaricare l'ultima versione stabile di questo bundle:
 
-    Questo comando richiede Composer installato globalmente, come spiegato
-    nel [capitolo dell'installazione](https://getcomposer.org/doc/00-intro.md)
-    della documentazione di Composer.
+        ```bash
+        $ composer require <nome-pacchetto> "~1"
+        ```
 
-    Passo 2: abilitare il bundle
-    ----------------------------
+        Questo comando richiede Composer installato globalmente, come spiegato
+        nel [capitolo dell'installazione](https://getcomposer.org/doc/00-intro.md)
+        della documentazione di Composer.
 
-    Quindi, abilitare il bundle, aggiungendo la riga seguente nel file `app/AppKernel.php`
-    del progetto:
+        Passo 2: abilitare il bundle
+        ----------------------------
 
-    ```php
-    <?php
-    // app/AppKernel.php
+        Quindi, abilitare il bundle, aggiungendo la riga seguente nel file `app/AppKernel.php`
+        del progetto:
 
-    // ...
-    class AppKernel extends Kernel
-    {
-        public function registerBundles()
+        ```php
+        <?php
+        // app/AppKernel.php
+
+        // ...
+        class AppKernel extends Kernel
         {
-            $bundles = array(
-                // ...
+            public function registerBundles()
+            {
+                $bundles = array(
+                    // ...
 
-                new <vendor>\<nome-bundle>\<nome-lungo-bundle>(),
-            );
+                    new <vendor>\<nome-bundle>\<nome-lungo-bundle>(),
+                );
+
+                // ...
+            }
 
             // ...
         }
+        ```
 
-        // ...
-    }
-    ```
+    .. code-block:: rst
+
+        Installazione
+        =============
+
+        Passo 1: scaricare il bundle
+        ----------------------------
+
+        Aprire una console, entrare nella cartella del progetto ed eseguire il
+        comando seguente per scaricare l'ultima versione stabile di questo bundle:
+
+        .. code-block:: bash
+
+            $ composer require <nome-pacchetto> "~1"
+
+        Questo comando richiede Composer installato globalmente, come spiegato
+        nel `capitolo dell'installazione` della documentazione di Composer.
+
+        Passo 2: abilitare il bundle
+        ----------------------------
+
+        Quindi, abilitare il bundle, aggiungendo la riga seguente nel file ``app/AppKernel.php``
+        del progetto:
+
+        .. code-block:: php
+
+            <?php
+            // app/AppKernel.php
+
+            // ...
+            class AppKernel extends Kernel
+            {
+                public function registerBundles()
+                {
+                    $bundles = array(
+                        // ...
+
+                        new <vendor>\<nome-bundle>\<nome-lungo-bundle>(),
+                    );
+
+                    // ...
+                }
+
+                // ...
+            }
+
+        .. _`capitolo dell'installazione`: https://getcomposer.org/doc/00-intro.md
 
 Questo template ipotizza che il bundle sia alla sua versione ``1.x``. In caso contrario, cambiare
 la versione ``"~1"`` in modo appropriato (``"~2"``, ``"~3"``, ecc.)
@@ -342,4 +392,4 @@ Imparare di più dal ricettario
 
 * :doc:`/cookbook/bundles/extension`
 
-.. _standard: http://www.php-fig.org/psr/psr-0/
+.. _standards: http://www.php-fig.org/psr/psr-4/

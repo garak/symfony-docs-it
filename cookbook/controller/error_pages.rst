@@ -11,7 +11,10 @@ l'eccezione in una ``Response``, in vari modi.
 
 Il bundle TwigBundle ha un ascoltatore per tale evento, che eseguirà un controllore configurabile
 (anche se arbitrario), per generare la risposta. Il controllore predefinito ha un modo
-intelligente per scegliere uno dei template di errore a disposizione.
+intelligente per scegliere uno dei template di errore a disposizione:
+
+.. image:: /images/cookbook/controller/error_pages/exceptions-in-dev-environment.png
+   :alt: Una tipica pagina di eccezione in ambiente di sviluppot
 
 Quindi, le pagine di errore possono essere personalizzate in diversi modi, a seconda di quanto
 controllo si vuole avere:
@@ -27,6 +30,7 @@ controllo si vuole avere:
    personalizzata (avanzato). <use-kernel-exception-event>`
 
 .. _use-default-exception-controller:
+.. _using-the-default-exceptioncontroller:
 
 ExceptionController predefinito
 -------------------------------
@@ -153,6 +157,7 @@ Fare riferimento alla sezione precedente per l'ordine in cui
     ``exception.json.twig``, per la pagina di eccezione JSON.
 
 .. _custom-exception-controller:
+.. _replacing-the-default-exceptioncontroller:
 
 Sostituire ExceptionController
 ------------------------------

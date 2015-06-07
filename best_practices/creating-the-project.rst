@@ -94,8 +94,8 @@ ProductBundle, InvoiceBundle, eccetera.
 
 Tuttavia, i bundle sono stati concepiti come moduli software da riutilizzare in maniera
 autonoma. Se UserBundle non può essere riusato "così com'è" in un'altra applicazione Symfony,
-allora non è più un bundle. Inoltre, se InvoiceBundle dipende da
-ProductBundle, non esiste alcun vantaggio ad avere due bundle separati.
+allora non è più un bundle. Inoltre, InvoiceBundle dipende da
+ProductBundle, quindi non esiste alcun vantaggio ad avere due bundle separati.
 
 .. best-practice::
 

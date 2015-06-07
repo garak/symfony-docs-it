@@ -80,8 +80,8 @@ Anche se l'annotazione ``@Template()`` risulta molto utile, essa nasconde qualch
 Ritenendo che il gioco non valga la candela, si raccomanda di non
 usarla.
 
-La maggior parte delle volte ``@Template`` è usato senza parametri il che rende più difficile
-sapere quale template viene renderizzato. Il suo utilizzo inoltre rende meno ovvio
+La maggior parte delle volte ``@Template`` è usato senza parametri, il che rende più difficile
+sapere quale template viene reso. Il suo utilizzo inoltre rende meno ovvio
 ai principianti che un controllore deve sempre restituire un oggetto Response (a meno che non si usi
 il livello della vista).
 

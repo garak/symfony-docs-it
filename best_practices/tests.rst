@@ -11,7 +11,7 @@ Test unitari
 
 I test unitari sono usati per testare la "logica di business"; essa è
 totalmente indipendente dal framework motivo per cui Symfony non include al suo interno
-nessun tool per i test unitari. Tuttavia, gli strumenti più conosciuti
+nessuno strumento per i test unitari. Tuttavia, gli strumenti più conosciuti
 sono `PhpUnit`_ e `PhpSpec`_.
 
 Test funzionali

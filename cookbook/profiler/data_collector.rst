@@ -84,21 +84,21 @@ configurazioni e assegnarli il tag ``data_collector``:
     .. code-block:: yaml
 
         services:
-            data_collector.your_collector_name:
-                class: Fully\Qualified\Collector\Class\Name
+            data_collector.nome_del_raccoglitore:
+                class: Nome\Classe\Raccoglitore
                 tags:
                     - { name: data_collector }
 
     .. code-block:: xml
 
-        <service id="data_collector.your_collector_name" class="Fully\Qualified\Collector\Class\Name">
+        <service id="data_collector.nome_del_raccoglitore" class="Nome\Classe\Raccoglitore">
             <tag name="data_collector" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('data_collector.your_collector_name', 'Fully\Qualified\Collector\Class\Name')
+            ->register('data_collector.nome_del_raccoglitore', 'Nome\Classe\Raccoglitore')
             ->addTag('data_collector')
         ;
 
@@ -114,19 +114,48 @@ questo scheletro:
     {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
     {% block toolbar %}
-        {# contenuto della barra di debug del web #}
+        {# Questa barra può apparire in cima allo schermo.#}
+        {% set icon %}
+        <span class="icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAcCAQAAADVGmdYAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQffAxkBCDStonIVAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAHpJREFUOMtj3PWfgXRAuqZd/5nIsIdhVBPFmgqIjCuYOrJsYtz1fxuUOYER2TQID8afwIiQ8YIkI4TzCv5D2AgaWSuExJKMIDbA7EEVhQEWXJ6FKUY4D48m7HYU/EcWZ8JlE6qfMELPDcUJuEMPxvYazYTDWRMjOcUyAEswO+VjeQQaAAAAAElFTkSuQmCC" alt=""/></span>
+        <span class="sf-toolbar-status">Esempio</span>
+        {% endset %}
+
+        {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>Un breve pezzo di dati</b>
+            <span>100 unità</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Un altro pezzo</b>
+            <span>300 unità</span>
+        </div>
+        {% endset %}
+
+        {# Impostare il valore "link" a false se no si ha una gorssa sezione "panel" 
+           a cui si vuole rimandare l'utente. #}
+        {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': true } %}
+
     {% endblock %}
 
     {% block head %}
-        {# se il profiltatore web ha bisogno di file JS o CSS #}
+        {# facoltativo, se il profiltatore web ha bisogno di file JS o CSS #}
+        {{ parent() }} {# Usare parent() per mantenere gli stili predefiniti #}        
     {% endblock %}
 
     {% block menu %}
-        {# contenuto del menù #}
+        {# Questo menu a sinistra appare usando il profilatore a pieno schermo. #}
+        <span class="label">
+            <span class="icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAcCAQAAADVGmdYAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQffAxkBCDStonIVAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAHpJREFUOMtj3PWfgXRAuqZd/5nIsIdhVBPFmgqIjCuYOrJsYtz1fxuUOYER2TQID8afwIiQ8YIkI4TzCv5D2AgaWSuExJKMIDbA7EEVhQEWXJ6FKUY4D48m7HYU/EcWZ8JlE6qfMELPDcUJuEMPxvYazYTDWRMjOcUyAEswO+VjeQQaAAAAAElFTkSuQmCC" alt=""/></span>
+            <strong>Esempio di raccoglitore</strong>
+        </span>
     {% endblock %}
 
     {% block panel %}
-        {# contenuto del pannello #}
+        {# Facoltativo, per mostrare più dettagli. #} 
+        <h2>Esempio</h2>
+        <p>
+            <em>Informazioni dettagliate vanno qui</em>
+        </p>
     {% endblock %}
 
 I blocchi sono tutti facoltativi. Il blocco ``toolbar`` è usato per la barra di debug
@@ -159,23 +188,28 @@ nella configurazione. Per esempio, ipotizzando che il template sia in un
     .. code-block:: yaml
 
         services:
-            data_collector.nome_del_collector:
-                class: Acme\DebugBundle\Nome\Classe\Collector
+            data_collector.nome_del_raccoglitore:
+                class: Acme\DebugBundle\Nome\Classe\Raccoglitore
                 tags:
-                    - { name: data_collector, template: "AcmeDebugBundle:Collector:nometemplate", id: "nome_del_collector" }
+                    - { name: data_collector, template: "AcmeDebugBundle:Collector:nometemplate", id: "nome_del_raccoglitore" }
 
     .. code-block:: xml
 
-        <service id="data_collector.your_collector_name" class="Acme\DebugBundle\Nome\Classe\Collector">
-            <tag name="data_collector" template="AcmeDebugBundle:Collector:nometemplate" id="nome_del_collector" />
+        <service id="data_collector.your_collector_name" class="Acme\DebugBundle\Nome\Classe\Raccoglitore">
+            <tag name="data_collector" template="AcmeDebugBundle:Collector:nometemplate" id="nome_del_raccoglitore" />
         </service>
 
     .. code-block:: php
 
         $container
-            ->register('data_collector.your_collector_name', 'Acme\DebugBundle\Nome\Classe\Collector')
+            ->register('data_collector.nome_del_raccoglitore', 'Acme\DebugBundle\Nome\Classe\Raccoglitore')
             ->addTag('data_collector', array(
                 'template' => 'AcmeDebugBundle:Collector:nometemplate',
-                'id'       => 'nome_del_collector',
+                'id'       => 'nome_del_raccoglitore',
             ))
         ;
+
+.. caution::
+
+    Assicurarsi che l'attributo ``id`` sia la stessa stringa usata per il metodo
+    ``getName()``.

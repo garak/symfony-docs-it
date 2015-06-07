@@ -189,6 +189,36 @@ mostrando un messaggio.
 Symfony registra alcuni meta-dati di base su ogni sessione, per dare completa libertà
 in quest'area.
 
+Limitare la cache della sessione
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Per evitare che gli utenti vedano dati vecchi, di solito si inviano risorse in cui compare la sessione
+con header che disabilitano la cache. Per questo scopo, le sessioni di PHP hanno un'opzione
+``sessions.cache_limiter``, che determina quali header eventualmente inviare
+nella risposta, quando inizia una sessione.
+
+Dopo la costruzione,
+:class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
+imposta questa opzione globale a ``""`` (non inviare header), in caso lo sviluppatore voglia
+usare un oggetto :class:`Symfony\\Component\\HttpFoundation\\Response` per gestire gli
+header della risposta.
+
+.. caution::
+
+    Se ci si basa sulle sessioni di PHP per gestire la cache HTTP, si *deve* impostare manualmente l'opzione
+    ``cache_limiter`` in
+    :class:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage`
+    a un valore non vuoto.
+
+    Per esempio, la si potrebbe impostare al valore predefinito di PHP durante la costruzione:
+
+    Esempio di utilizzo::
+
+        use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+
+        $options['cache_limiter'] = session_cache_limiter();
+        $storage = new NativeSessionStorage($options);
+
 Meta-dati di sessione
 ~~~~~~~~~~~~~~~~~~~~~
 

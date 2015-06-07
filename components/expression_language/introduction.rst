@@ -24,7 +24,7 @@ In che modo il linguaggio delle espressioni può essere utile?
 -------------------------------------------------------------
 
 Lo scopo del componente è consentire agli utenti di usare espressioni all'interno
-della configurazione, per logiche più complesse. Per esempio, il framework Symfony2
+della configurazione, per logiche più complesse. Per esempio, il framework Symfony
 usa espressioni nella sicurezza, per le regole di validazione e per la corrispondenza di rotte.
 
 Oltre a usare il componente nel framework, il componente ExpressionLanguage

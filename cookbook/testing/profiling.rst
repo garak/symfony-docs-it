@@ -9,7 +9,7 @@ scrivono test funzionali che monitorano i server di produzione, si potrebbe
 voler scrivere test sui dati di profilazione, che sono un ottimo strumento per
 verificare varie cose e controllare alcune metriche.
 
-Il :ref:`profilatore <internals-profiler>` di Symfony2 raccoglie diversi dati
+Il :ref:`profilatore <internals-profiler>` di Symfony raccoglie diversi dati
 per ogni richiesta. Usare questi dati per verificare il numero di chiamate alla base dati,
 il tempo speso nel framework, eccetera. Ma, prima di scrivere asserzioni, verificare
 sempre che il profilatore sia effettivamente una variabile (è abilitato per impostazione

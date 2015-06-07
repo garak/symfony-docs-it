@@ -18,7 +18,7 @@ Per informazioni su come sovrascrivere i template, vedere
 Rotte
 -----
 
-Le rotte non sono mai importate automaticamente in Symfony2. Se si vogliono includere rotte
+Le rotte non sono mai importate automaticamente in Symfony. Se si vogliono includere rotte
 da un bundle, occorre importarle manualmente da qualche parte nell'applicazione
 (p.e. ``app/config/routing.yml``).
 

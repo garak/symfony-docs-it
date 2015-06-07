@@ -96,7 +96,7 @@ all'interno di un controllore::
                 ->add('save', 'submit', array('label' => 'Crea post'))
                 ->getForm();
 
-            return $this->render('Default/new.html.twig', array(
+            return $this->render('default/new.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
@@ -144,14 +144,14 @@ aiutanti per i form:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
+        {# app/Resources/views/default/new.html.twig #}
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/new.html.php -->
+        <!-- app/Resources/views/default/new.html.php -->
         <?php echo $view['form']->start($form) ?>
         <?php echo $view['form']->widget($form) ?>
         <?php echo $view['form']->end($form) ?>
@@ -175,7 +175,7 @@ Questo è tutto! Bastano tre righe per rendere completamente il form:
     Rende tutti i campi, inclusi l'elemento stesso,
     un'etichetta ed eventuali messaggi di errori;
 
-``form_end()``
+``form_end(form)``
     Rende il tag finale del form e ogni campo che non sia ancora
     stato reso, nel caso in cui i campi siano stati resti singolarmante a mano. È utile
     per rendere campi nascosci e sfruttare la
@@ -442,12 +442,12 @@ rispettivi errori visualizzati nel form.
 
        .. code-block:: html+jinja
 
-           {# app/Resources/views/Default/new.html.twig #}
+           {# app/Resources/views/default/new.html.twig #}
            {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
        .. code-block:: html+php
 
-           <!-- app/Resources/views/Default/new.html.php -->
+           <!-- app/Resources/views/default/new.html.php -->
            <?php echo $view['form']->form($form, array(
                'attr' => array('novalidate' => 'novalidate'),
            )) ?>
@@ -560,6 +560,32 @@ Si può anche definire l'intera logica con una Closure::
             },
         ));
     }
+
+L'uso dell'opzione ``validation_groups`` sovrascrive il gruppo di validazione predefinito
+in uso. Se si vogliono validare anche i vincoli predefiniti
+dell'entità, si deve cambiare l'opzione in questo modo::
+
+    use Acme\AcmeBundle\Entity\Client;
+    use Symfony\Component\Form\FormInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+    // ...
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => function(FormInterface $form) {
+                $data = $form->getData();
+                if (Client::TYPE_PERSON == $data->getType()) {
+                    return array('Default', 'person');
+                }
+
+                return array('Default', 'company');
+            },
+        ));
+    }
+
+Si possono trovare maggiori informazioni su come funzionino i gruppi di validazione e i vincoli
+predefiniti nella sezione del libro relativa ai :ref:`gruppi di validazione <book-validation-validation-groups>`.
 
 .. index::
    single: Form; Gruppi di validazione basati sul bottone cliccato
@@ -758,7 +784,7 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
+        {# app/Resources/views/default/new.html.twig #}
         {{ form_start(form) }}
             {{ form_errors(form) }}
 
@@ -768,7 +794,7 @@ di codice. Naturalmente, solitamente si ha bisogno di molta più flessibilità:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/newAction.html.php -->
+        <!-- app/Resources/views/default/newAction.html.php -->
         <?php echo $view['form']->start($form) ?>
             <?php echo $view['form']->errors($form) ?>
 
@@ -1440,19 +1466,19 @@ rende il form:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
-        {% form_theme form 'Form/fields.html.twig' %}
+        {# app/Resources/views/default/new.html.twig #}
+        {% form_theme form 'form/fields.html.twig' %}
 
-        {% form_theme form 'Form/fields.html.twig' 'Form/fields2.html.twig' %}
+        {% form_theme form 'form/fields.html.twig' 'Form/fields2.html.twig' %}
 
         {# ... rendere il form #}
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/new.html.php -->
-        <?php $view['form']->setTheme($form, array('Form')) ?>
+        <!-- app/Resources/views/default/new.html.php -->
+        <?php $view['form']->setTheme($form, array('form')) ?>
 
-        <?php $view['form']->setTheme($form, array('Form', 'Form2')) ?>
+        <?php $view['form']->setTheme($form, array('form', 'form2')) ?>
 
         <!-- ... rendere il form -->
 
@@ -1578,9 +1604,8 @@ della configurazione dell'applicazione:
 
         # app/config/config.yml
         twig:
-            form:
-                resources:
-                    - 'Form/fields.html.twig'
+            form_themes:
+                - 'form/fields.html.twig'
             # ...
 
     .. code-block:: xml
@@ -1594,9 +1619,7 @@ della configurazione dell'applicazione:
                 http://symfony.com/schema/dic/twig http://symfony.com/schema/dic/twig/twig-1.0.xsd">
 
             <twig:config>
-                <twig:form>
-                    <twig:resource>Form/fields.html.twig</twig:resource>
-                </twig:form>
+                <twig:theme>form/fields.html.twig</twig:theme>
                 <!-- ... -->
             </twig:config>
         </container>
@@ -1605,10 +1628,8 @@ della configurazione dell'applicazione:
 
         // app/config/config.php
         $container->loadFromExtension('twig', array(
-            'form' => array(
-                'resources' => array(
-                    'Form/fields.html.twig',
-                ),
+            'form_themes' => array(
+                'form/fields.html.twig',
             ),
             // ...
         ));
@@ -1754,6 +1775,8 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Per 
 
         // ...
     }
+
+.. _form-disable-csrf:
 
 Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a ``false``.
 Si può anche personalizzarei a livello globale nel progetto. Per ulteriori informazioni,

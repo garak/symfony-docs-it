@@ -25,7 +25,7 @@ ma con valori predefiniti più appropriati per l'opzione `years`_. L'opzione
 | Opzioni ereditate        | dal tipo :doc:`date </reference/forms/types/date>`:                           |
 |                          |                                                                               |
 |                          | - `days`_                                                                     |
-|                          | - `empty_value`_                                                              |
+|                          | - `placeholder`_                                                              |
 |                          | - `format`_                                                                   |
 |                          | - `input`_                                                                    |
 |                          | - `model_timezone`_                                                           |
@@ -66,7 +66,7 @@ Queste opzioni sono ereditate dal tipo :doc:`date </reference/forms/types/date>`
 
 .. include:: /reference/forms/types/options/days.rst.inc
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/placeholder.rst.inc
 
 .. include:: /reference/forms/types/options/date_format.rst.inc
 

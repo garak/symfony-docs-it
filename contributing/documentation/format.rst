@@ -40,7 +40,7 @@ con la direttiva ``code-block``:
 
     .. code-block:: yaml
 
-        { foo: bar, bar: { foo: bar, bar: baz } }
+        { pippo: pluto, pluto: { pippo: pluto, pluto: paperino } }
 
 .. note::
 
@@ -91,19 +91,19 @@ Il precedente snippet reST mostra un blocco come di seguito:
 
 Ecco la lista dei formati attualmente supportati:
 
-=================== =========================
-Formato markup      Mostrato
-=================== =========================
-``html``            HTML
-``xml``             XML
-``php``             PHP
-``yaml``            YAML
-``jinja``           Twig puro
-``html+jinja``      Twig mescolato con HTML
-``html+php``        PHP mescolato con HTML
-``ini``             INI
-``php-annotations`` Annotazioni PHP
-=================== =========================
+===================  =========================
+Formato markup       Mostrato
+===================  =========================
+``html``             HTML
+``xml``              XML
+``php``              PHP
+``yaml``             YAML
+``jinja``            Twig puro
+``html+jinja``       Twig mescolato con HTML
+``html+php``         PHP mescolato con HTML
+``ini``              INI
+``php-annotations``  Annotazioni PHP
+===================  =========================
 
 Collegamenti
 ~~~~~~~~~~~~
@@ -190,7 +190,7 @@ in che modo il comportamento sia cambiato.
         La funzione ``include()`` è una nuova caratteristica di Twig, disponibile in
         Symfony 2.3. In precedenza, si usava il tag ``{% include %}``.
 
-A ogni rilascio di una versione minore di Symofny (p.e.. 2.4, 2.5, ecc),
+A ogni rilascio di una versione minore di Symfony (p.e. 2.4, 2.5, ecc),
 viene creato un nuovo ramo della documentazione, a partire da ``master``.
 A questo punto, i tag ``versionadded`` per versioni di Symfony che hanno raggiunto il
 fine vita saranno rimossi. Per esempio, se Symfony 2.5 fosse rilasciato oggi e
@@ -209,7 +209,6 @@ seguire questi passi:
 
 * Installare `Sphinx`_;
 * Installare le estensioni di Sphinx, eseguendo ``$ git submodule update --init``;
-* (Opzionale) Installare la documentazione dei bundle e di CMF: ``$ bash install.sh``;
 * Eseguire ``make html`` e controllare l'HTML generato nella cartella ``build/``.
 
 .. _reStructuredText:        http://docutils.sourceforge.net/rst.html

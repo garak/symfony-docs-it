@@ -49,7 +49,7 @@ che usa una semplice logica predefinita::
     }
 
 In altre parole, se si crea un ``Constraint``, ovvero un vincolo personalizzato (come ``MioVincolo``),
-Symfony2 cercherà automaticamente anche un'altra la classe, ``MioVincoloValidator``,
+Symfony cercherà automaticamente anche un'altra la classe, ``MioVincoloValidator``,
 per effettuare la validazione vera e propria.
 
 Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio, ``validate``::
@@ -85,7 +85,7 @@ Anche la classe validatrice è semplice e richiede solo un metodo obbligatorio, 
 Usare il nuovo validatore
 -------------------------
 
-Usare il nuovo validatore è molto facile, come quelli forniti da Symfony2:
+Usare il nuovo validatore è molto facile, come quelli forniti da Symfony:
 
 .. configuration-block::
 
@@ -194,11 +194,11 @@ validatore corretto::
         return 'nome_alias';
     }
 
-Come già detto, Symfony2 cercherà automaticamente una classe il cui nome
+Come già detto, Symfony cercherà automaticamente una classe il cui nome
 sia uguale a quello del vincolo ma con il suffisso ``Validator``. Se un
 validatore di vincoli è definito come servizio, è importante che si sovrascriva
 il metodo ``validatedBy()``, in modo tale che restituisca l'alias utilizzato
-nella definizione del servizio, altrimenti Symfony2 non utilizzerà il servizio di validazione
+nella definizione del servizio, altrimenti Symfony non utilizzerà il servizio di validazione
 dei vincoli e istanzierà la classe senza che le dipendenze vengano iniettate.
 
 Validatore con vincolo di classe

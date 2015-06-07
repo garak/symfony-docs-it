@@ -12,16 +12,16 @@ Creazione dei form
 
     Definire i form come classi PHP.
 
-Il componente `Form` consente di creare form direttamente dal controller.
+Il componente `Form` consente di creare form direttamente dal controllore.
 A meno che non si voglia riusare il form da qualche altra parte, quest'abitudine
-non è del tutto sbagliata. Nonostante ciò, per form più complessi da poter riutilizzare in altri controller
+non è del tutto sbagliata. Nonostante ciò, per form più complessi da poter riutilizzare in altri controllori
 si raccomanda di definire ogni form nella propria classe PHP::
 
     namespace AppBundle\Form;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
-    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolver;
 
     class PostType extends AbstractType
     {
@@ -36,7 +36,7 @@ si raccomanda di definire ogni form nella propria classe PHP::
             ;
         }
 
-        public function setDefaultOptions(OptionsResolverInterface $resolver)
+        public function configureOptions(OptionsResolver $resolver)
         {
             $resolver->setDefaults(array(
                 'data_class' => 'AppBundle\Entity\Post'
@@ -207,3 +207,21 @@ In secondo luogo si raccomand di usare ``$form->isSubmitted()`` nel costrutto ``
 per rendere il codice più chiaro. Tecnicamente non è necessario, dato che ``isValid()``  esegue prima
 ``isSubmitted()``. Senza questo, tuttavia, il flusso risulterebbe un po' strano
 e il form sembrerebbe *sempre* processato, anche per le richieste GET.
+
+TIpi di campo personalizzati
+----------------------------
+
+.. best-practice::
+
+    Aggiungere il prefisso ``app_`` ai campi personalizzati, per evitare collisioni.
+
+I tipi di campo personalizzati ereditano dalla classe ``AbstractType``, che definisce il metodo
+``getName()`` per configurare il nome del tipo. Tali nomi devono essere univoci
+nell'applicazione.
+
+Se un tipo personalizzato usa lo stesso nome di uno dei tipi di Symfony,
+lo sovrascriverà. Lo stesso accade quando il tipo personalizzato corrisponde
+a un qualsiasi tipo definito da bundle di terze parti installati nell'applicazione.
+
+Aggiungere il prefisso ``app_`` ai campi personalizzati, per evitare collisioni
+che potrebbero portare a errori.

@@ -4,7 +4,7 @@
 Rimuovere AcmeDemoBundle
 ========================
 
-La Standard Edition di Symfony2 dispone di una demo completa, che si trova in un bundle
+La Standard Edition di Symfony dispone di una demo completa, che si trova in un bundle
 chiamato AcmeDemoBundle. È un ottimo riferimento durante l'inizio
 di un progetto, ma probabilmente si vorrà rimuoverlo in un secondo momento.
 

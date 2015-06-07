@@ -30,7 +30,7 @@ Configurazione
     Se si lavora con il framework Symfony, il componente Form
     è già configurato. In questo caso, passare a :ref:`component-form-intro-create-simple-form`.
 
-In Symfony2, i form sono rappresentati da oggetti e tali oggetti sono costruiti
+In Symfony, i form sono rappresentati da oggetti e tali oggetti sono costruiti
 usando un *factory di form*. Costruire un factory di form è semplice::
 
     use Symfony\Component\Form\Forms;
@@ -74,9 +74,15 @@ Per processare i dati di un form, occorre richiamare il metodo :method:`Symfony\
 
     $form->handleRequest();
 
-Dietro le quinte, viene usato un oggetto a :class:`Symfony\\Component\\Form\\NativeRequestHandler`
-per leggere i dati dalle variabili globali di PHP (cioè da ``$_POST`` o da
-``$_GET``), a seconda del metodo HTTP configurato nel form (POST è quello predefinito).
+Dietro le quinte, viene usato un oggetto :class:`Symfony\\Component\\Form\\NativeRequestHandler`
+per leggere i dati dalle opportune variabili di PHP (``$_POST`` o
+``$_GET``), in base al metodo HTTP configurato nel form (quello predefinito è POST).
+
+.. seealso::
+
+    Se occorre maggiore controllo su come esattamente il form viene inviato o su quali
+    dati vi siano passati, si può usare :method:`Symfony\\Component\\Form\\FormInterface::submit`.
+    Per saperne di più, vedere :ref:`il ricettario <cookbook-form-call-submit-directly>`.
 
 .. sidebar:: Integrazione con il componente HttpFoundation
 
@@ -154,7 +160,7 @@ errori e label). Se si usa `Twig`_ come motore di template, il componente Form
 offre una ricca integrazione.
 
 Per usare tale integrazione, occorre ``TwigBridge``, che integra
-Twig con vari componenti di Symfony2. Usando Composer, si può
+Twig con vari componenti di Symfony. Usando Composer, si può
 installare la versione 2.3 più recente. aggiungendo la seguente riga
 al file ``composer.json``:
 
@@ -320,13 +326,13 @@ L'integrazione con il componente Validation sarà simile a questa::
     // ci sono traduzioni predefinite per i messaggi di errore principali
     $translator->addResource(
         'xlf',
-        $vendorFormDir . '/Resources/translations/validators.en.xlf',
+        $vendorFormDir.'/Resources/translations/validators.en.xlf',
         'en',
         'validators'
     );
     $translator->addResource(
         'xlf',
-        $vendorValidatorDir . '/Resources/translations/validators.en.xlf',
+        $vendorValidatorDir.'/Resources/translations/validators.en.xlf',
         'en',
         'validators'
     );
@@ -369,7 +375,7 @@ Creazione di un semplice form
 
 .. tip::
 
-    Se si usa il framework Symfony2, il factory di form è disponibile
+    Se si usa il framework Symfony, il factory di form è disponibile
     automaticamente come servizio, chiamato ``form.factory``. Inoltre, la
     classe controller base ha un metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller::createFormBuilder`,
     che è una scorciatoia per recuperare il factory di form e richiamare ``createBuilder``
@@ -488,6 +494,43 @@ insieme a label ed eventuali messaggi di errore. Essendo facile,
 non è ancora molto flessibile. Di solito, si vuole rendere ogni campo del form
 singolarmente, in modo da poterne controllare l'aspetto. Si vedrà come farlo
 nella sezione ":ref:`form-rendering-template`".
+
+Cambiare metodo e azione del form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.3
+    La possibilità di configurare metodo e azione del form è stata introdotta in
+    Symfony 2.3.
+
+Ogni form viene normalmente inviato allo stesso URI in cui è stato reso, con una
+richiesta HTTP POST. Si può modificare tale comportamento, usando le opzioni :ref:`form-option-action`
+e :ref:`form-option-method` (l'opzione ``method`` è usata anche
+da ``handleRequest()``, per determinare se il form sia stato inviato):
+
+.. configuration-block::
+
+    .. code-block:: php-standalone
+
+        $formBuilder = $formFactory->createBuilder('form', null, array(
+            'action' => '/search',
+            'method' => 'GET',
+        ));
+
+        // ...
+
+    .. code-block:: php-symfony
+
+        // ...
+
+        public function searchAction()
+        {
+            $formBuilder = $this->createFormBuilder('form', null, array(
+                'action' => '/search',
+                'method' => 'GET',
+            ));
+
+            // ...
+        }
 
 .. _component-form-intro-handling-submission:
 
@@ -616,6 +659,51 @@ e gli eventuali errori mostrati accanto ai rispettivi campi.
 
     Per un elenco di tutti i vincoli disponibili, vedere
     :doc:`/reference/constraints`.
+
+Accedere agli errori
+~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 2.5
+    Prima di Symfony 2.5, ``getErrors()`` restituiva un array di oggetti ``FormError``.
+    Il valore restituito è stato cambiato in un ``FormErrorIterator`` in Symfony
+    2.5.
+
+.. versionadded:: 2.5
+    I parametri ``$deep`` e ``$flatten`` sono stati introdotti in Symfony 2.5.
+
+Si può usare il metodo :method:`Symfony\\Component\\Form\\FormInterface::getErrors`
+per accedere alla lista degli errori. Ogni elemento è un oggetto
+:class:`Symfony\\Component\\Form\\FormError`::
+
+    $form = ...;
+
+    // ...
+
+    // un array di oggetti FormError, ma solo di errori allegati a questo
+    // livello del form (p.e. "errori globali")
+    $errori = $form->getErrors();
+
+    // un array di oggetti FormError, ma solo di errori allegati al campo
+    // "nome"
+    $errori = $form['nome']->getErrors();
+
+    // un'istanza di FormErrorIterator in una struttura appiattita
+    // usare getOrigin() per determinare il form che ha causato l'errore
+    $errors = $form->getErrors(true);
+
+    // un'istanza di FormErrorIterator che rappresenta tutti gli errori dell'intero form
+    $errori = $form->getErrors(true, false);
+
+.. tip::
+
+    Nelle versioni precedenti di Symfony, ``getErrors()`` restituiva un array. Per usare gli
+    errori nello stesso modo in Symfony 2.5 o successivi, si deve passarli alla funzione
+    :phpfunction:`iterator_to_array` di PHP::
+
+        $erroriComeArray = iterator_to_array($form->getErrors());
+
+    Questo può essere utile, per esempio, se si vuole usare una funzione ``array_`` di PHP
+    sugli errori del form.
 
 .. _Packagist: https://packagist.org/packages/symfony/form
 .. _Twig:      http://twig.sensiolabs.org

@@ -213,7 +213,7 @@ regole di validazione::
 
 .. note::
 
-    Grazie al fatto che si utilizza il vincolo ``File``, Symfony2 ipotizzerà
+    Grazie al fatto che si utilizza il vincolo ``File``, Symfony ipotizzerà
     automaticamente che il campo del form sia un file upload. È per questo motivo
     che non si rende necessario impostarlo esplicitamente al momento di creazione del form precedente (``->add('file')``).
 

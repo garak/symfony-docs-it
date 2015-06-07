@@ -40,7 +40,7 @@ Se si vuole aiutare nella traduzione di alcuni documenti nella propria lingua o 
 processo da seguire per far parte del team: 
 
 * Presentarsi sulla `lista Symfony docs`_;
-* *(opzionale)* Chiedere su quali documenti si puo lavorare;
+* *(opzionale)* Chiedere su quali documenti si può lavorare;
 * Forkare il repository *master* della propria lingua (cliccare  il bottone
   "Fork" nella pagina di Github);
 * Tradurre qualche documento;
@@ -56,7 +56,7 @@ processo da seguire per far parte del team:
 Aggiungere una nuova lingua
 ---------------------------
 
-Questa sezione fornisce alcune guide per iniziare la traduzione di Symfony2 per una nuova
+Questa sezione fornisce alcune guide per iniziare la traduzione di Symfony per una nuova
 lingua.
 
 Iniziare la trduzione in una nuova lingua comporta molto lavoro, è necessario parlarne sulla

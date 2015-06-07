@@ -15,15 +15,6 @@ Un semplice esempio: un prodotto
 In questa sezione, configureremo la nostra base dati, creeremo un oggetto ``Product``,
 lo persisteremo nella base dati e lo recuperemo nuovamente.
 
-.. sidebar:: Codice insieme all'esempio
-
-    Se si vuole seguire il codice di questo capitolo, creare un
-    ``AcmeStoreBundle``, tramite:
-
-    .. code-block:: bash
-
-        $ php app/console generate:bundle --namespace=Acme/StoreBundle
-
 Configurare la base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -42,12 +33,6 @@ file ``app/config/parameters.yml``:
         database_password: password
         database_charset:  UTF8
 
-.. note::
-
-    La definizione della configurazione tramite ``parameters.ini`` è solo una convenzione.
-    I parametri definiti in tale file sono riferiti dal file di configurazione principale
-    durante le impostazioni iniziali di Propel:
-
 I parametri definiti in ``parameters.yml`` possono essere inclusi nel file di
 configurazione (``config.yml``):
 
@@ -59,6 +44,12 @@ configurazione (``config.yml``):
             user:     "%database_user%"
             password: "%database_password%"
             dsn:      "%database_driver%:host=%database_host%;dbname=%database_name%;charset=%database_charset%"
+
+.. note::
+
+    La definizione della configurazione tramite ``parameters.yml`` è una
+    :ref:`best practice di Symfony <best-practices-canonical-parameters>`,
+    ma si può usare qualsiasi metodo si ritenga appropriato.
 
 Ora che Propel ha informazioni sulla base dati, si può fare in modo che crei la
 base dati al posto nostro:
@@ -86,14 +77,15 @@ generate da Propel contengono della logica di business.
 
 Si supponga di costruire un'applicazione in cui occorre mostrare dei prodotti.
 Innanzitutto, creare un file ``schema.xml`` nella cartella ``Resources/config`` del
-proprio ``AcmeStoreBundle``:
+proprio AppBundle:
 
 .. code-block:: xml
 
+    <!-- src/AppBundle/Resources/config/schema.xml -->
     <?xml version="1.0" encoding="UTF-8" ?>
     <database
         name="default"
-        namespace="Acme\StoreBundle\Model"
+        namespace="AppBundle\Model"
         defaultIdMethod="native">
 
         <table name="product">
@@ -129,7 +121,7 @@ Dopo aver creato ``schema.xml``, generare il modello, eseguendo:
     $ php app/console propel:model:build
 
 Questo comando genera ogni classe del modello, per sviluppare rapidamente
-un'applicazione, nella cartella ``Model/`` di ``AcmeStoreBundle``.
+un'applicazione, nella cartella ``Model/`` di AppBundle.
 
 Creare schema e tabelle della base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -149,33 +141,40 @@ schema creato in precedenza.
 
 .. tip::
 
-    Si possono eseguire gli ultimi tre comandi in uno, usando il seguente:
-    ``php app/console propel:build --insert-sql``.
+    Si possono eseguire gli ultimi tre comandi in uno, usando il seguente
+    comando:
+
+    .. code-block:: bash
+    
+        $ php app/console propel:build --insert-sql
 
 Persistere oggetti nella base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora che si ha un oggetto ``Product`` e una tabella ``product`` corrispondente,
 si è pronti per persistere nella base dati. Da dentro un controllore, è molto
-facile. Aggiungere il seguente metodo a ``DefaultController`` del
+facile. Aggiungere il seguente metodo a ``ProductController`` del
 bundle::
 
-    // src/Acme/StoreBundle/Controller/DefaultController.php
+    // src/AppBundle/Controller/ProductController.php
 
     // ...
-    use Acme\StoreBundle\Model\Product;
+    use AppBundle\Model\Product;
     use Symfony\Component\HttpFoundation\Response;
 
-    public function createAction()
+    class ProductController extends Controller
     {
-        $product = new Product();
-        $product->setName('Un nome');
-        $product->setPrice(19.99);
-        $product->setDescription('Lorem ipsum dolor');
+        public function createAction()
+        {
+            $product = new Product();
+            $product->setName('Un nome');
+            $product->setPrice(19.99);
+            $product->setDescription('Lorem ipsum dolor');
 
-        $product->save();
+            $product->save();
 
-        return new Response('Creato prodotto con id '.$product->getId());
+            return new Response('Creato prodotto con id '.$product->getId());
+        }
     }
 
 In questo pezzo di codice, è stato istanziato e usato un oggetto ``$product``.
@@ -194,21 +193,27 @@ Recuperare oggetti dalla base dati è anche più semplice. Per esempio, si suppo
 di aver configurato una rotta per mostrare uno specifico ``Product``, in base al
 valore del suo ``id``::
 
+    // src/AppBundle/Controller/ProductController.php
+
     // ...
-    use Acme\StoreBundle\Model\ProductQuery;
+    use AppBundle\Model\ProductQuery;
 
-    public function showAction($id)
+    class ProductController extends Controller
     {
-        $product = ProductQuery::create()
-            ->findPk($id);
+        // ...
 
-        if (!$product) {
-            throw $this->createNotFoundException(
-                'Nessun prodotto trovato con id '.$id
-            );
+        public function showAction($id)
+        {
+            $product = ProductQuery::create()->findPk($id);
+
+            if (!$product) {
+                throw $this->createNotFoundException(
+                    'Nessun prodotto trovato con id '.$id
+                );
+            }
+
+            // ... fare qualcosa, come passare l'oggetto $product a un template
         }
-
-        // ... fare qualcosa, come passare l'oggetto $product a un template
     }
 
 Aggiornare un oggetto
@@ -217,24 +222,30 @@ Aggiornare un oggetto
 Una volta recuperato un oggetto con Propel, aggiornarlo è facile. Si supponga di avere
 una rotta che mappi l'id di un prodotto all'azione di aggiornamento di un controllore::
 
+    // src/AppBundle/Controller/ProductController.php
+
     // ...
-    use Acme\StoreBundle\Model\ProductQuery;
+    use AppBundle\Model\ProductQuery;
 
-    public function updateAction($id)
+    class ProductController extends Controller
     {
-        $product = ProductQuery::create()
-            ->findPk($id);
+        // ...
 
-        if (!$product) {
-            throw $this->createNotFoundException(
-                'Nessun prodotto trovato con id '.$id
-            );
+        public function updateAction($id)
+        {
+            $product = ProductQuery::create()->findPk($id);
+
+            if (!$product) {
+                throw $this->createNotFoundException(
+                    'Nessun prodotto trovato con id '.$id
+                );
+            }
+
+            $product->setName('Nuovo nome del prodotto!');
+            $product->save();
+
+            return $this->redirect($this->generateUrl('homepage'));
         }
-
-        $product->setName('Nuovo nome del prodotto!');
-        $product->save();
-
-        return $this->redirect($this->generateUrl('homepage'));
     }
 
 L'aggiornamento di un oggetto si esegue in tre passi:
@@ -257,16 +268,22 @@ Cercare gli oggetti
 Propel fornisce delle classi ``Query``, per eseguire query, semplici o complesse,
 senza sforzo::
 
-    \Acme\StoreBundle\Model\ProductQuery::create()->findPk($id);
+    use AppBundle\Model\ProductQuery;
+    // ...
+    
+    ProductQuery::create()->findPk($id);
 
-    \Acme\StoreBundle\Model\ProductQuery::create()
+    ProductQuery::create()
         ->filterByName('Pippo')
         ->findOne();
 
 Si immagini di voler cercare prodotti che costino più di 19.99, ordinati dal più
 economico al più costoso. Da dentro un controllore, fare come segue::
 
-    $products = \Acme\StoreBundle\Model\ProductQuery::create()
+    use AppBundle\Model\ProductQuery;
+    // ...
+
+    $products = ProductQuery::create()
         ->filterByPrice(array('min' => 19.99))
         ->orderByPrice()
         ->find();
@@ -279,20 +296,26 @@ astrazione.
 Se si vogliono riutilizzare delle query, si possono aggiungere i propri metodi alla
 classe ``ProductQuery``::
 
-    // src/Acme/StoreBundle/Model/ProductQuery.php
+    // src/AppBundle/Model/ProductQuery.php
+
+    // ...
     class ProductQuery extends BaseProductQuery
     {
         public function filterByExpensivePrice()
         {
-            return $this
-                ->filterByPrice(array('min' => 1000));
+            return $this->filterByPrice(array(
+                'min' => 1000,
+            ));
         }
     }
 
 Ma si noti che Propel genera diversi metodi per noi e un semplice
 ``findAllOrderedByName()`` può essere scritto senza sforzi::
 
-    \Acme\StoreBundle\Model\ProductQuery::create()
+    use AppBundle\Model\ProductQuery;
+    // ...
+    
+    ProductQuery::create()
         ->orderByName()
         ->find();
 
@@ -310,7 +333,7 @@ Si inizi aggiungendo la definizione di ``category`` al file ``schema.xml``:
     <?xml version="1.0" encoding="UTF-8" ?>
     <database
         name="default"
-        namespace="Acme\StoreBundle\Model"
+        namespace="AppBundle\Model"
         defaultIdMethod="native">
 
         <table name="product">
@@ -382,12 +405,14 @@ Salvare oggetti correlati
 
 Vediamo ora un po' di codice in azione. Immaginiamo di essere dentro un controllore::
 
+    // src/AppBundle/Controller/ProductController.php
+
     // ...
-    use Acme\StoreBundle\Model\Category;
-    use Acme\StoreBundle\Model\Product;
+    use AppBundle\Model\Category;
+    use AppBundle\Model\Product;
     use Symfony\Component\HttpFoundation\Response;
 
-    class DefaultController extends Controller
+    class ProductController extends Controller
     {
         public function createProductAction()
         {
@@ -418,21 +443,25 @@ Recuperare oggetti correlati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quando serve recuperare oggetti correlati, il flusso di lavoro assomiglia del tutto al
-precedente. Prima, recuperare un oggetto ``$product`` e quindi accedere alla ``Category``
-relativa::
+precedente. Prima, recuperare un oggetto ``$product`` e quindi accedere alla ``Category`` relativa::
+
+    // src/AppBundle/Controller/ProductController.php
 
     // ...
-    use Acme\StoreBundle\Model\ProductQuery;
+    use AppBundle\Model\ProductQuery;
 
-    public function showAction($id)
+    class ProductController extends Controller
     {
-        $product = ProductQuery::create()
-            ->joinWithCategory()
-            ->findPk($id);
+        public function showAction($id)
+        {
+            $product = ProductQuery::create()
+                ->joinWithCategory()
+                ->findPk($id);
 
-        $categoryName = $product->getCategory()->getName();
+            $categoryName = $product->getCategory()->getName();
 
-        // ...
+            // ...
+        }
     }
 
 Si noti che, nell'esempio qui sopra, è stata eseguita una sola query.
@@ -448,13 +477,13 @@ Callback del ciclo di vita
 
 A volte, occorre eseguire un'azione appena prima (o appena dopo) che l'oggetto sia
 inserito, aggiornato o cancellato. Questi tipi di azioni sono noti come "callback del
-ciclo di vita" oppure come "hook", perché sono metodi callback che occorre eseguire
+ciclo di vita" oppure come "agganci", perché sono metodi callback che occorre eseguire
 durante i diversi stadi del ciclo di vita di un oggetto (p.e. quando l'oggetto viene
 inserito, aggiornato, cancellato, eccetera).
 
-Per aggiungere un hook, basta aggiungere un nuovo metodo alla classe::
+Per aggiungere un aggancio, basta aggiungere un nuovo metodo alla classe::
 
-    // src/Acme/StoreBundle/Model/Product.php
+    // src/AppBundle/Model/Product.php
 
     // ...
     class Product extends BaseProduct
@@ -465,7 +494,7 @@ Per aggiungere un hook, basta aggiungere un nuovo metodo alla classe::
         }
     }
 
-Propel fornisce i seguenti hook:
+Propel fornisce i seguenti agganci:
 
 ``preInsert()``
     codice eseguito prima dell'inserimento di un nuovo oggetto

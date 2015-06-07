@@ -92,8 +92,8 @@ di un oggetto controllore. I controllori sono anche chiamati *azioni*.
 
 .. code-block:: php
 
-    // src/Acme/HelloBundle/Controller/HelloController.php
-    namespace Acme\HelloBundle\Controller;
+    // src/AppBundle/Controller/HelloController.php
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\Response;
 
@@ -429,35 +429,47 @@ base di ``Controller``. Un ottimo modo per vedere le funzionalità del nucleo in
 Rinvio
 ~~~~~~
 
-Se si vuole rinviare l'utente a un'altra pagina, usare il
-metodo
-:method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::redirect`::
+Se si vuole rinviare l'utente a un'altra pagina, usare il metodo ``redirectToRoute``::
 
     public function indexAction()
     {
-        return $this->redirect($this->generateUrl('homepage'));
+        return $this->redirectToRoute('homepage');
+
+        // redirectToRoute è equivalente all'uso combinato di redirect() E generateUrl():
+        // return $this->redirect($this->generateUrl('homepage'), 301);
     }
 
-Il metodo ``generateUrl()`` è solo una funzione di supporto che genera l'URL
-per una determinata rotta. Per maggiori informazioni, vedere il capitolo
-:doc:`Rotte </book/routing>`.
+.. versionadded:: 2.6
+    Il metodo ``redirectToRoute()`` è stato aggiunto in Symfony 2.6. In precedenza (e anche ora), si
+    potevano usare ``redirect()`` e ``generateUrl()`` insieme (vedere esempio precedente).
+
+Oppure, se si vuole rinviare all'esterno, basta usare ``redirect()`` e passare l'URL::
+
+    public function indexAction()
+    {
+        return $this->redirect('http://symfony.com/doc');
+    }
 
 Per impostazione predefinita, il metodo ``redirect()`` esegue un rinvio 302 (temporaneo). Per
 eseguire un rinvio 301 (permanente), modificare il secondo parametro::
 
     public function indexAction()
     {
-        return $this->redirect($this->generateUrl('homepage'), 301);
+        return $this->redirectToRoute('homepage', array(), 301);
     }
 
 .. tip::
 
-    Il metodo ``redirect()`` è semplicemente una scorciatoia che crea un oggetto ``Response``
-    specializzato nel rinviare l'utente. È equivalente a::
+    Il metodo ``redirect()`` è semplicemente una scorciatoia che crea un oggetto
+    ``Response`` specializzato nel rinviare l'utente. È
+    equivalente a::
 
         use Symfony\Component\HttpFoundation\RedirectResponse;
 
-        return new RedirectResponse($this->generateUrl('homepage'));
+        public function indexAction()
+        {
+            return new RedirectResponse($this->generateUrl('homepage'));
+        }
 
 .. index::
    single: Controllore; Rendere i template
@@ -471,14 +483,16 @@ Se si serve dell'HTML, si vorrà rendere un template. Il metodo ``render()``
 rende un template **e** ne inserisce il contenuto in un oggetto
 ``Response``::
 
-    // rende app/Resources/views/Hello/index.html.twig
-    return $this->render('Hello/index.html.twig', array('name' => $name));
+    // rende app/Resources/views/hello/index.html.twig
+    return $this->render('hello/index.html.twig', array('name' => $name));
 
 Si possono anche mettere template in sottocartelle. Meglio però evitare di creare
 strutture inutilmente profonde::
 
-    // rende app/Resources/views/Hello/Greetings/index.html.twig
-    return $this->render('Hello/Greetings/index.html.twig', array('name' => $name));
+    // rende app/Resources/views/hello/greetings/index.html.twig
+    return $this->render('hello/greetings/index.html.twig', array(
+        'name' => $name
+    ));
 
 Il motore di template di Symfony è spiegato in gran deettaglio nel capitolo
 :doc:`Template </book/templating>`.
@@ -518,7 +532,10 @@ Ci sono innumerevoli altri servizi disponibili. Per elencarli tutti, utilizzare 
 
 .. code-block:: bash
 
-    $ php app/console container:debug
+    $ php app/console debug:container
+
+.. versionadded:: 2.6
+    Prima di Symfony 2.6, questo comando si chiamava ``container:debug``.
 
 Per maggiori informazioni, vedere il capitolo :doc:`/book/service_container`.
 
@@ -625,7 +642,9 @@ Per esempio, immaginiamo che si stia elaborando un form inviato::
                 'Le modifiche sono state salvate!'
             );
 
-            return $this->redirect($this->generateUrl(...));
+            // $this->addFlash è equivalente a $this->get('session')->getFlashBag()->add
+
+            return $this->redirectToRoute(...);
         }
 
         return $this->render(...);
@@ -654,7 +673,7 @@ il messaggio ``notice``:
             <div class="flash-notice">
                 <?php echo "<div class='flash-error'>$message</div>" ?>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 Per come sono stati progettati, i messaggi flash sono destinati a vivere esattamente per una richiesta (hanno la
 "durata di un flash"). Sono progettati per essere utilizzati con un rinvio, esattamente come
@@ -679,9 +698,6 @@ e il contenuto che viene inviato al client::
     // crea una risposta JSON con un codice di stato 200
     $response = new Response(json_encode(array('name' => $name)));
     $response->headers->set('Content-Type', 'application/json');
-
-.. versionadded:: 2.4
-    Il supporto per le costanti dei codici di stato HTTP è stato aggiunto in Symfony 2.4.
 
 La proprietà ``headers`` è un oggetto
 :class:`Symfony\\Component\\HttpFoundation\\HeaderBag` con alcuni utili metodi per leggere

@@ -43,7 +43,7 @@ migrare la propria applicazione per utilizzare le sessioni di Symfony.
 
     Le sessioni di Symfony salvano i dati come attributi in una speciale 'sacca' che utilizza
     una chiave nell'array superglobale ``$_SESSION``. Questo vuol dire che la sessione di Symfony
-    non puo accedere a chiavi arbitrarie di ``$_SESSION``, le quali potrebbero appartenere all'applicazione
+    non può accedere a chiavi arbitrarie di ``$_SESSION``, le quali potrebbero appartenere all'applicazione
     preesistente, anche se tutto il contenuto di ``$_SESSION`` verrà salvato quando la sessione
     viene salvata.
 

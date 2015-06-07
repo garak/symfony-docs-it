@@ -207,7 +207,7 @@ La versione XML della configurazione sarà dunque simile a questa:
 
 .. note::
 
-    Nel framework completo Symfony2 c'è una classe base ``Extension``, che
+    Nel framework completo Symfony c'è una classe base ``Extension``, che
     implementa questi metodi e un metodo scorciatoia per processare la
     configurazione. Vedere :doc:`/cookbook/bundles/extension` per maggiori dettagli.
 
@@ -298,7 +298,7 @@ implementando :class:`Symfony\\Component\\DependencyInjection\\Extension\\Prepen
     }
 
 Per maggiori dettagli, si veda :doc:`/cookbook/bundles/prepend_extension`, che è specifica
-del framework Symfony2, ma contiene più informazioni su questa caratteristica.
+del framework Symfony, ma contiene più informazioni su questa caratteristica.
 
 Creare un passo di compilatore
 ------------------------------
@@ -406,7 +406,7 @@ facile l'esportazione del contenitore compilato::
         file_put_contents($file, $dumper->dump());
     }
 
-``ProjectServiceContiner`` è il nome predefinito dato alla classe del contenitore
+``ProjectServiceContainer`` è il nome predefinito dato alla classe del contenitore
 esportata: lo si può cambiare tramite l'opzione ``class``, al momento
 dell'esportazione::
 

@@ -6,7 +6,7 @@ Il componente EventDispatcher
 =============================
 
     Il componente EventDispatcher fornisce strumenti che consentono ai componenti di un'applicazione
-    di comunicare tra di loro, distrubuendo eventi e ascoltandoli.
+    di comunicare tra di loro, distribuendo eventi e ascoltandoli.
 
 
 Introduzione
@@ -24,20 +24,20 @@ o dopo che un metodo sia eseguito, senza interferire con altri plugin. Questo pr
 si risolve facilmente con l'ereditarietà singola, mentre l'ereditarietà multipla
 (dove sia possibile con PHP) ha i suoi difetti.
 
-Il componente Event Dispatcher di Symfony2 implementa il pattern `Mediator`_ in modo
+Il componente Event Dispatcher di Symfony implementa il pattern `Mediator`_ in modo
 semplice ed efficace, per rendere possibile tutto questo e per rendere un progetto
 veramente estensibile.
 
 Si prenda un semplice esempio da :doc:`/components/http_kernel/introduction`. Una volta creato
 un oggetto ``Response``, può essere utile consentirne la modifica ad altri elementi del
 sistema (p.e. aggiungere header di cache) prima del suo utilizzo effettivo.
-Per poterlo fare, il kernel di Symfony2 lancia un evento,
+Per poterlo fare, il kernel di Symfony lancia un evento,
 ``kernel.response``. Ecco come funziona:
 
 * Un *ascoltatore* (oggetto PHP) dice a un oggetto *distributore* centrale che vuole
   ascoltare l'evento ``kernel.response``;
 
-* A un certo punto, il kernel di Symfony2 dice all'oggetto *distributore* di distribuire
+* A un certo punto, il kernel di Symfony dice all'oggetto *distributore* di distribuire
   l'evento ``kernel.response``, passando un oggetto ``Event``, che ha accesso
   all'oggetto ``Response``;
 

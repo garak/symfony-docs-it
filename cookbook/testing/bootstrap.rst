@@ -29,7 +29,7 @@ con ``tests.bootstrap.php``:
     <!-- ... -->
     <phpunit
         ...
-    bootstrap = "tests.bootstrap.php"
+        bootstrap = "tests.bootstrap.php"
     >
 
 Ora si può definire, nel proprio file ``phpunit.xml.dist``, quale ambiente della cache

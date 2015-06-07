@@ -5,7 +5,7 @@ Come creare un raccoglitore di dati personalizzato
 ==================================================
 
 Il :ref:`profilatore <internals-profiler>` di Symfony delega la raccolta di dati
-ai raccoglitori di dati. Symfony2 dispone di un paio di raccoglitori, ma se ne
+ai raccoglitori di dati. Symfony dispone di un paio di raccoglitori, ma se ne
 possono creare di personalizzati.
 
 Creare un raccoglitore di dati personalizzato

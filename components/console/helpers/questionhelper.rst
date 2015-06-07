@@ -57,7 +57,7 @@ se si vuole sapere il nome di un bundle, si può aggiungere a un comando::
 
     $bundle = $helper->ask($input, $output, $question);
 
-All'utente sarà chiesto "Si prega di inserire il nome del bundle". L'utente può insrire
+All'utente sarà chiesto "Si prega di inserire il nome del bundle". L'utente può inserire
 un nome, che sarà restituito dal metodo
 :method:`Symfony\\Component\\Console\\Helper\\QuestionHelper::ask`.
 Se la risposta sarà vuota, sarà restituito il valore predefinito (``AcmeDemoBundle``, in questo caso).
@@ -168,7 +168,7 @@ Validare la risposta
 --------------------
 
 Si può anche validare la risposta. Per esempio, nell'ultimo esempio è stato
-chiesto il nome di un bundle. Seguendo le convenzioni di Symfony2, il nome dovrebbe
+chiesto il nome di un bundle. Seguendo le convenzioni di Symfony, il nome dovrebbe
 avere il suffisso ``Bundle``. Lo si può validare, usando il
 metodo
 :method:`Symfony\\Component\\Console\\Question\\Question::setValidator`::

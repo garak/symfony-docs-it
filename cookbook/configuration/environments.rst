@@ -1,13 +1,13 @@
 .. index::
     single: Ambienti
 
-Come padroneggiare e creare nuovi ambienti
-==========================================
+Padroneggiare e creare nuovi ambienti
+=====================================
 
 Ogni applicazione è la combinazione di codice e di un insieme di configurazioni
 che determinano come il codice dovrà lavorare. La configurazione può definire
 la base dati da utilizzare, cosa dovrà essere messo in cache e cosa non, o quanto
-esaustivi dovranno essere i log. In Symfony2, l'idea di ambiente è quella di
+esaustivi dovranno essere i log. In Symfony, l'idea di ambiente è quella di
 eseguire il codice, utilizzando differenti configurazioni. Per esempio,
 l'ambiente ``dev`` dovrebbe usare una configurazione che renda lo sviluppo
 semplice e ricco di informazioni, mentre l'ambiente ``prod`` dovrebbe usare un
@@ -19,16 +19,16 @@ insieme di configurazioni che ottimizzino la velocità.
 Ambienti differenti, differenti file di configurazione
 ------------------------------------------------------
 
-Una tipica applicazione Symfony2 inizia con tre ambienti: ``dev``, ``prod``
+Una tipica applicazione Symfony inizia con tre ambienti: ``dev``, ``prod``
 e ``test``. Come si è già detto, ogni "ambiente " rappresenta un modo in cui
 eseguire l'intero codice con differenti configurazioni. Non dovrebbe destare
 sorpresa il fatto che ogni ambiente carichi i suoi propri file di configurazione.
 Se si utilizza il formato di configurazione YAML, verranno utilizzati
 i seguenti file:
 
- * per l'ambiente ``dev``: ``app/config/config_dev.yml``
- * per l'ambiente ``prod``: ``app/config/config_prod.yml``
- * per l'ambiente ``test``: ``app/config/config_test.yml``
+* per l'ambiente ``dev``: ``app/config/config_dev.yml``
+* per l'ambiente ``prod``: ``app/config/config_prod.yml``
+* per l'ambiente ``test``: ``app/config/config_test.yml``
 
 Il funzionamento si basa su di un semplice comportamento predefinito all'interno
 della classe ``AppKernel``:
@@ -49,7 +49,7 @@ della classe ``AppKernel``:
         }
     }
 
-Come si può vedere, quando Symfony2 viene caricato, utilizza l'ambiente
+Come si può vedere, quando Symfony viene caricato, utilizza l'ambiente
 per determinare quale file di configurazione caricare. Questo permette 
 di avere ambienti differenti in modo elegante, efficace e trasparente.
 
@@ -84,9 +84,10 @@ ottenuto facilmente e in modo trasparente:
 Per condividere una configurazione comune, i file di configurazione di ogni ambiente
 importano, per iniziare, un file di configurazione comune (``config.yml``).
 Il resto del file potrà deviare dalla configurazione predefinita, sovrascrivendo
-i singoli parametri. Ad esempio, nell'ambiente ``dev``, la barra delle applicazioni
-viene attivata modificando, nel file di configurazione di ``dev``, il relativo 
-parametro predefinito:
+i singoli parametri. Per esempio, l'opzione ``web_profiler`` è
+disabilitata. Tuttavia, in ambiente ``dev``, la barra degli strumenti
+viene attivata modificando il valore dell'opzione ``toolbar`` nel file di
+configurazione ``config_dev.yml``:
 
 .. configuration-block::
 
@@ -107,9 +108,7 @@ parametro predefinito:
             <import resource="config.xml" />
         </imports>
 
-        <webprofiler:config
-            toolbar="true"
-            ... />
+        <webprofiler:config toolbar="true" />
 
     .. code-block:: php
 
@@ -140,8 +139,8 @@ utilizzando il front controller ``app_dev.php`` (per l'ambiente ``dev``):
 .. note::
 
    Le precedenti URL presuppongono che il server web sia configurato in modo da
-   usare la cartella ``web/`` dell'applicazione, come radice. Per approfondire, si legga
-   :doc:`Installare Symfony2</book/installation>`.
+   usare la cartella ``web/`` dell'applicazione come radice. Per approfondire, si legga
+   :doc:`installare Symfony </book/installation>`.
 
 Guardando il contenuto di questi file, si vede come l'ambiente utilizzato da entrambi,
 sia definito in modo esplicito::
@@ -154,7 +153,7 @@ sia definito in modo esplicito::
     // ...
 
 Si può vedere come la chiave ``prod`` specifica che l'ambiente di esecuzione
-sarà l'ambiente ``prod``. Un'applicazione Symfony2 può essere esguita in qualsiasi
+sarà l'ambiente ``prod``. Un'applicazione Symfony può essere esguita in qualsiasi
 ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'ambiente.
 
 .. note::
@@ -172,7 +171,7 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     Importante, ma non collegato all'argomento *ambienti*, è il valore ``false``
     come secondo parametro di ``AppKernel``. Questo valore specifica se
     l'applicazione dovrà essere eseguità in "modalità debug" o meno. Indipendentemente
-    dall'ambiente, un'applicazione Symfony2 può essere eseguita con la modalità
+    dall'ambiente, un'applicazione Symfony può essere eseguita con la modalità
     debug configurata a ``true`` o a ``false``. Questo modifica diversi aspetti dell'applicazione,
     come il fatto che gli errori vengano mostrati o se la cache debba essere ricreata
     dinamicamente a ogni richiesta. Sebbene non sia obbligatorio, la modalità debug
@@ -212,21 +211,54 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
     debug. Occorrerà abilitarla nel fron controller, richiamando
     :method:`Symfony\\Component\\Debug\\Debug::enable`.
 
+Scegliere l'ambiente per i comandi di console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+I comandi di Symfony sono eseguiti in ambiente ``dev`` e con la modalità di
+debug abilitata. Usaree le opzioni ``--env`` e ``--no-debug`` per modificare questo
+comportamento:
+
+.. code-block:: bash
+
+    # ambiente 'dev' e debug abilitato
+    $ php app/console nome_comando
+
+    # ambiente 'prod' (debug sempre disabilitato per 'prod')
+    $ php app/console nome_comando --env=prod
+
+    # ambiente 'test' e debug disabilitato
+    $ php app/console nome_comando --env=test --no-debug
+
+Oltre alle opzioni ``--env`` e ``--debug``, il comportamento dei comandi di Symfony
+può essere controllato tramite variabili d'ambiente. La console di Symfony
+verifica l'esistenza e il valore di queste variabili, prima di
+eseguire ogni comando:
+
+``SYMFONY_ENV``
+    Imposta l'ambiente di esecuzione dei comandi al valore di questa variabile
+    (``dev``, ``prod``, ``test``, ecc.);
+``SYMFONY_DEBUG``
+    Se ``0``, la modalità di debug è disabilitata. Altrimenti, è abilitata.
+
+Queste variabili d'ambiente sono molto utili su server di produzione, perché
+consentono di assicurarsi che i comandi girino sempre in ambiente ``prod``, senza dover
+specificare alcuna opzione.
+
 .. index::
    single: Ambienti; Creare un nuovo ambiente
 
 Creare un nuovo ambiente
 ------------------------
 
-Un'applicazione Symfony2 viene generata con tre ambienti preconfigurati per
+Un'applicazione Symfony viene generata con tre ambienti preconfigurati per
 gestire la maggior parte dei casi. Ovviamente, visto che un ambiente non è nient'altro
 che una stringa  che corrisponde a un insieme di configurazioni, creare un nuovo
 ambiente è abbastanza semplice.
 
 Supponiamo, per esempio, di voler misurare le prestazioni dell'applicazione
 prima del suo invio in produzione. Un modo è quello di usare una configurazione
-simile a quella del rilascio ma che utilizzasse il ``web_profiler`` di Symfony2.
-Queso permetterebbe a Symfony2 di registrare le informazioni dell'applicazione mentre se ne misura le prestazioni.
+simile a quella del rilascio ma che utilizzasse il ``web_profiler`` di Symfony.
+Queso permetterebbe a Symfony di registrare le informazioni dell'applicazione mentre se ne misura le prestazioni.
 
 Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, per esempio,
 ``benchmark``. Si parte creando un nuovo file di configurazione:
@@ -276,7 +308,7 @@ necessario creare un apposito front controller. Basterà copiare il file ``web/a
 nel file ``web/app_benchmark.php`` e modificare l'ambiente in modo che punti a ``benchmark``::
 
     // web/app_benchmark.php
-
+    // ...
 
     // basta cambiare questa riga
     $kernel = new AppKernel('benchmark', false);
@@ -294,9 +326,7 @@ Il nuovo ambiente sarà accessibile tramite::
    il debug, potrebbero fornire troppe informazioni relative all'infrastruttura
    sottostante l'applicazione. Per essere sicuri che questi ambienti non siano
    accessibili, il front controller è solitamente protetto dall'accesso da parte di
-   indirizzi IP esterni tramite il seguente codice, posto in cima al controllore:
-
-    .. code-block:: php
+   indirizzi IP esterni tramite il seguente codice, posto in cima al controllore::
 
         if (!in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
             die('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
@@ -308,7 +338,7 @@ Il nuovo ambiente sarà accessibile tramite::
 Gli ambienti e la cartella della cache
 --------------------------------------
 
-Symfony2 sfrutta la cache in diversi modi: la configurazione dell'applicazione,
+Symfony sfrutta la cache in diversi modi: la configurazione dell'applicazione,
 la configurazione delle rotte, i template di Twig vengono tutti immagazzinati
 in oggetti PHP e salvati su file nella cartella della cache.
 
@@ -330,17 +360,20 @@ bisogna ricordarsi di guardare nella cartella dell'ambiente che si sta utilizzan
 (solitamente, in fase di sviluppo e debug, il ``dev``). Sebbene possa variare,
 il contenuto della cartella ``app/cache/dev`` includerà i seguenti file:
 
-* ``appDevDebugProjectContainer.php`` - il "contenitore di servizi" salvato in cache
-  che rappresenta la configurazione dell'applicazione;
+``appDevDebugProjectContainer.php``
+    Il "contenitore di servizi" salvato in cache  che rappresenta la configurazione
+    dell'applicazione.
 
-* ``appDevUrlGenerator.php`` - la classe PHP generata a partire dalla configurazione
-  delle rotte e usata nella generazione degli URL;
+``appDevUrlGenerator.php``
+   La classe PHP generata a partire dalla configurazione delle rotte e usata
+   nella generazione degli URL.
 
-* ``appDevUrlMatcher.php`` - la classe PHP utilizzata per ricercare le rotte: qui
-  è possibile vedere le espressioni regolari utilizzate per associare gli URL in ingresso
-  con le rotte disponibili;
+``appDevUrlMatcher.php``
+    La classe PHP utilizzata per ricercare le rotte: qui è possibile vedere le
+    espressioni regolari utilizzate per associare gli URL in ingresso con le rotte disponibili.
 
-* ``twig/`` - questa cartella contiene la cache dei template di Twig.
+``twig/``
+   Questa cartella contiene la cache dei template di Twig.
 
 .. note::
 

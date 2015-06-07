@@ -4,7 +4,7 @@
 Riferimento configurazione sicurezza
 ====================================
 
-Il sistema di sicurezza è una delle parti più potenti di Symfony2 e può
+Il sistema di sicurezza è una delle parti più potenti di Symfony e può
 essere controllato in gran parte tramite la sua configurazione.
 
 Configurazione predefinita completa

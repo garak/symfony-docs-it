@@ -20,8 +20,9 @@ giorno e anno) oppure tre select (vedere l'opzione `widget_`).
 | Reso come                | singolo campo testo o tre campi select                                      |
 +--------------------------+-----------------------------------------------------------------------------+
 | Opzioni                  | - `days`_                                                                   |
-|                          | - `empty_value`_                                                            |
+|                          | - `placeholder`_                                                            |
 |                          | - `format`_                                                                 |
+|                          | - `html5`_                                                                  |
 |                          | - `input`_                                                                  |
 |                          | - `model_timezone`_                                                         |
 |                          | - `months`_                                                                 |
@@ -82,28 +83,34 @@ Opzioni del campo
 
 .. include:: /reference/forms/types/options/days.rst.inc
 
-empty_value
+placeholder
 ~~~~~~~~~~~
+
+.. versionadded:: 2.6
+    L'opzione ``placeholder`` è stata introdotta in Symfony 2.6 al posto di
+    ``placeholder``, che è disponibile prima di 2.6.
 
 **tipo**: ``stringa`` o ``array``
 
 Se l'opzione del widget è ``choice``, il campo sarà rappresentato come una serie
-di ``select``. L'opzione ``empty_value`` può essere usata per aggiungere una voce
+di ``select``. L'opzione ``placeholder`` può essere usata per aggiungere una voce
 vuota in cima a ogni select::
 
     $builder->add('dueDate', 'date', array(
-        'empty_value' => '',
+        'placeholder' => '',
     ));
 
 In alternativa, si può specificare una stringa da mostrare per ogni voce vuota::
 
     $builder->add('dueDate', 'date', array(
-        'empty_value' => array('year' => 'Anno', 'month' => 'Mese', 'day' => 'Giorno')
+        'placeholder' => array('year' => 'Anno', 'month' => 'Mese', 'day' => 'Giorno')
     ));
 
 .. _reference-forms-type-date-format:
 
 .. include:: /reference/forms/types/options/date_format.rst.inc
+
+.. include:: /reference/forms/types/options/html5.rst.inc
 
 .. _form-reference-date-input:
 

@@ -1,6 +1,6 @@
 .. index::
-   single: Come interagiscono front controller, ``AppKernel`` e 
-   ambienti
+    single: Come interagiscono front controller, ``AppKernel`` e
+    ambienti
 
 Capire come interagiscono front controller, Kernel e ambienti
 =============================================================
@@ -18,7 +18,7 @@ tre elementi che lavorano assieme:
 .. note::
 
     Normalmente non si ha bisogno di definire un proprio front controller
-    o la classe ``AppKernel``, dato che `Symfony2 Standard Edition`_ fornisce
+    o la classe ``AppKernel``, dato che `Symfony Standard Edition`_ fornisce
     delle ragionevoli implementazioni predefinite
 
     Questa sezione di documentazione viene fornita per spiegare cosa succeda
@@ -30,7 +30,7 @@ Il front controller
 Il `front controller`_ è un design pattern molto conosciuto; è un pezzo di codice attraverso 
 il quale passano *tutte* le richieste soddisfatte da una applicazione.
 
-In `Symfony2 Standard Edition`_, questo ruolo viene svolto dai file `app.php`_
+In `Symfony Standard Edition`_, questo ruolo viene svolto dai file `app.php`_
 e `app_dev.php`_ che si trovano nella cartella ``web/``. Questi sono i primi file in assoluto 
 che vengono eseguiti quando una richiesta viene processata.
 
@@ -83,7 +83,7 @@ La classe Kernel
 ----------------
 
 La classe :class:`Symfony\\Component\\HttpKernel\\Kernel` è il cuore di 
-Symfony2. È responsabile del setup di tutti i bundle che compongono
+Symfony. È responsabile del setup di tutti i bundle che compongono
 l'applicazione e fornisce loro la configurazione dell'applicazione.
 Il Kernel crea poi un contenitore di servizi, prima di gestire le richieste col suo
 metodo
@@ -94,18 +94,16 @@ Ci sono due metodi dichiarati nell'interfaccia
 nella classe :class:`Symfony\\Component\\HttpKernel\\Kernel`,
 servendo quindi come `metodi template`_:
 
-* :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerBundles`,
-  che deve restituire un array di tutti i Bundle necessari per eseguire
-  l'applicazione.
-
-* :method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`,
-  che carica la configurazione dell'applicazione.
+:method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerBundles`
+    Deve restituire un array di tutti i Bundle necessari per eseguire l'applicazione.
+:method:`Symfony\\Component\\HttpKernel\\KernelInterface::registerContainerConfiguration`,
+    Carica la configurazione dell'applicazione.
 
 Per riempire questi (piccoli) buchi, l'applicazione deve essere una sottoclasse 
 del Kernel e implementare questi metodi. La classe che ne risulta viene convenzionalmente
 chiamata ``AppKernel``.
 
-Ancora una volta Symfony2 Standard Edition fornisce un `AppKernel`_ nella cartella ``app/``. 
+Ancora una volta Symfony Standard Edition fornisce un `AppKernel`_ nella cartella ``app/``. 
 Per decidere quali Bundle creare questa classe usa il nome dell'ambiente, che viene passato al
 :method:`costruttore<Symfony\\Component\\HttpKernel\\Kernel::__construct>` del Kernel
 ed è ottenibile tramite il metodo :method:`Symfony\\Component\\HttpKernel\\Kernel::getEnvironment`,
@@ -124,8 +122,7 @@ front controller (o aggiungerne uno nuovo) perché usi il nuovo kernel.
     può avere senso aggiungere sotto-cartelle aggiuntive, ad
     esempio: ``app/admin/AdminKernel.php`` e
     ``app/api/ApiKernel.php``. Quello che conta è che il front
-    controller sia in grado di creare una istanza del kernel
-    appropriato.
+    controller sia in grado di creare una istanza del kernel appropriato.
 
 Avere diversi ``AppKernel`` può essere utile per abilitare diversi front
 controller (potenzialmente su diversi server) per eseguire indipendentemente parti dell'applicazione
@@ -162,7 +159,7 @@ Si è ovviamente liberi di implementare questo metodo diversamente,
 se serve un sistema più sofisticato per caricare la configurazione.
 
 .. _front controller: http://en.wikipedia.org/wiki/Front_Controller_pattern
-.. _Symfony2 Standard Edition: https://github.com/symfony/symfony-standard
+.. _Symfony Standard Edition: https://github.com/symfony/symfony-standard
 .. _app.php: https://github.com/symfony/symfony-standard/blob/master/web/app.php
 .. _app_dev.php: https://github.com/symfony/symfony-standard/blob/master/web/app_dev.php
 .. _app/console: https://github.com/symfony/symfony-standard/blob/master/app/console

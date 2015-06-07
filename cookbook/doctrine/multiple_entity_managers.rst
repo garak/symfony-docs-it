@@ -4,7 +4,7 @@
 Lavorare con gestori di entità multipli
 =======================================
 
-Si possono usare gestori di entità multipli in un'applicazione Symfony2.
+Si possono usare gestori di entità multipli in un'applicazione Symfony.
 Questo si rende necessario quando si usano diverse basi dati o addirittura venditori
 con insiemi di entità completamente differenti. In altre parole, un gestore di entità
 che si connette a una base dati gestirà alcune entità, mentre un altro gestore di entità
@@ -49,7 +49,7 @@ La configurazione seguente mostra come configurare due gestori di entità:
                     default:
                         connection: default
                         mappings:
-                            AcmeDemoBundle:  ~
+                            AppBundle:  ~
                             AcmeStoreBundle: ~
                     customer:
                         connection: customer
@@ -90,7 +90,7 @@ La configurazione seguente mostra come configurare due gestori di entità:
 
                 <orm default-entity-manager="default">
                     <entity-manager name="default" connection="default">
-                        <mapping name="AcmeDemoBundle" />
+                        <mapping name="AppBundle" />
                         <mapping name="AcmeStoreBundle" />
                     </entity-manager>
 
@@ -134,7 +134,7 @@ La configurazione seguente mostra come configurare due gestori di entità:
                     'default' => array(
                         'connection' => 'default',
                         'mappings'   => array(
-                            'AcmeDemoBundle'  => null,
+                            'AppBundle'  => null,
                             'AcmeStoreBundle' => null,
                         ),
                     ),
@@ -150,8 +150,8 @@ La configurazione seguente mostra come configurare due gestori di entità:
 
 In questo caso, sono stati definiti due gestori di entità, chiamati ``default``
 e ``customer``. Il gestore di entità ``default`` gestisce le entità in
-``AcmeDemoBundle`` e ``AcmeStoreBundle``, mentre il gestore di entità ``customer``
-gestisce le entità in ``AcmeCustomerBundle``. Sono state definite anche due
+AppBundle e AcmeStoreBundle, mentre il gestore di entità ``customer``
+gestisce le entità in AcmeCustomerBundle. Sono state definite anche due
 connessioni, una per ogni gestore di entità.
 
 .. note::

@@ -1,9 +1,9 @@
 Un quadro generale
 ==================
 
-Volete provare Symfony avendo a disposizione solo dieci minuti? Questa prima
-parte di questa guida è stata scritta appositamente: spiega come
-partire subito con Symfony, mostrando la struttura di un semplice progetto già pronto.
+Iniziare a usare Symfony in dieci minuti! Questa guida attraverserò
+i concetti più importanti dietro a Symfony e spiegherà in che modo si può partire rapidamente
+con Symfony, mostrando la struttura di un semplice progetto già pronto.
 
 Chi ha già usato un framework per il web si troverà come a casa con Symfony. Altrimenti,
 benvenuti in un nuovo mondo per sviluppare applicazioni web!
@@ -24,7 +24,7 @@ Installare Symfony
 ------------------
 
 In passato, Symfony andava installato a mano su ogni nuovo progetto. Ora si può
-usare il **Symfony Installer**, che deve essere installato solo la prima volta che
+usare l'**installatore di Symfony**, che deve essere installato solo la prima volta che
 si usa Symfony su una macchina.
 
 Su sistemi **Linux** e **Mac OS X**, eseguire i seguenti comandi da console:
@@ -35,18 +35,7 @@ Su sistemi **Linux** e **Mac OS X**, eseguire i seguenti comandi da console:
     $ sudo mv symfony.phar /usr/local/bin/symfony
     $ chmod a+x /usr/local/bin/symfony
 
-.. note::
-
-    Se non si ha cURL installato, eseguire invece i seguenti
-    comandi:
-
-    .. code-block:: bash
-
-        $ php -r "readfile('http://symfony.com/installer');" > symfony.phar
-        $ sudo mv symfony.phar /usr/local/bin/symfony
-        $ chmod a+x /usr/local/bin/symfony
-
-Dopo aver installato Symfony Installer, aprire una nuova console, per poter
+Dopo aver installato l'installatore di Symfony, aprire una nuova console, per poter
 eseguire il nuovo comando ``symfony``:
 
 .. code-block:: bash
@@ -59,8 +48,8 @@ Su sistemi **Windows**, eseguire il seguente comando da console:
 
     c:\> php -r "readfile('http://symfony.com/installer');" > symfony.phar
 
-Questo comando scarica un file chiamato ``symfony.phar``, che contiene Symfony
-Installer. Salvare o spostare il file nella cartella in cui si vogliono creare i progetti Symfony
+Questo comando scarica un file chiamato ``symfony.phar``, che contiene l'installatore di Symfony.
+Salvare o spostare il file nella cartella in cui si vogliono creare i progetti Symfony
 ed eseguire Symfony Installer, con questo comando:
 
 .. code-block:: bash
@@ -70,7 +59,7 @@ ed eseguire Symfony Installer, con questo comando:
 Creare il primo progetto Symfony
 --------------------------------
 
-Una volta pronto Symfony Installer, usare il comando ``new`` per creare nuovi progetti
+Una volta pronto l'installatore di Symfony, usare il comando ``new`` per creare nuovi progetti
 Symfony. Creiamo un progetto chiamato ``mioprogetto``:
 
 .. code-block:: bash
@@ -217,18 +206,18 @@ alle tre linee di codice sopra al metodo ``indexAction``:
         }
     }
 
-L'annotazione ``@Route()`` definisce una nuova rotta con uno schema
-``/hello/{name}``, che esegue il metodo ``helloAction`` quando trovato.
-Una stringa racchiusa tra parentesi graffe, come ``{name}``, è chiamata segnaposto.
-Come si può vedere, il suo valore può essere recuperato tramite il parametro ``$name`` del metodo.
+Queste tre righe definiscono la configurazione delle rotte, tramite l'annotazione ``@Route()``.
+Un'**annotazione PHP** è un modo conveniente di configurare un metodo, senza dover scrivere
+codice PHP classico. Fare attenzione all'inizio del blocco dell'annotazione, che deve essere ``/**`` e
+non il semplice ``/*``.
 
-Dando un'occhiata più attenta al codice del controllore, si può vedere che invece di
-rendere un template e restituire un oggetto ``Response`` come prima, esso restituisce
-solo un array di parametri. L'annotazione ``@Template()`` dice a Symfony di rendere
-il template al posto nostro, passando ogni variabili dell'array al template. Il nome
-del template resto segue il nome del controllore. Quindi, nel nostro esempio, viene
-reso il template ``AcmeDemoBundle:Demo:hello.html.twig`` (localizzato in
-``src/Acme/DemoBundle/Resources/views/Demo/hello.html.twig``).
+Il primo valore di ``@Route()`` definisce l'URL a cui corrisponderà
+l'azione. Poiché non occorre aggiungere l'host dell'applicazione all'URL
+(p.e. ```http://example.com``), tali URL sono sempre relativi e solitamente sono
+chiamati *percorsi*. In questo caso, il percorso ``/`` si riferisce all'homepage dell'applicazione.
+Il secondo valore di ``@Route()`` (come ``name="homepage"``) è facoltativo e imposta
+il nome della rotta. Per ora tale nome non è necessario, ma più avanti si rivelerà utile
+per collegare le pagine.
 
 Considerando questo, l'annotazione ``@Route("/", name="homepage")`` crea una nuova
 rotta di nome ``homepage``, che fa eseguire a Symfony l'azione ``index`` del
@@ -237,7 +226,7 @@ controllore ``Default`` quando l'utente visita il percorso ``/`` dell'applicazio
 .. tip::
 
     Oltre alle annotazioni PHP, si possono configurare le rotte in file YAML, XML o
-    PHP, come spiegato nel `capitolo sulle rotte del libro di Symfony`_ .
+    PHP, come spiegato nel :doc:`capitolo sulle rotte del libro di Symfony </book/routing>`.
     Tale flessibilità è una delle caratteristiche principali di Symfony, un framework
     che non impone mai determinati formati di configurazione.
 
@@ -356,7 +345,6 @@ già vedere come Symfony rende veramente facile implementare siti web in modo
 migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossima
 sezione: ":doc:`la vista <the_view>`".
 
-.. _Composer:             https://getcomposer.org/
-.. _installer:            http://getcomposer.org/download
-.. _Twig:                 http://twig.sensiolabs.org/
-.. _capitolo sulle rotte del libro di Symfony: http://symfony.com/doc/current/book/routing.html
+.. _Composer: https://getcomposer.org/
+.. _installer: http://getcomposer.org/download
+.. _Twig: http://twig.sensiolabs.org/

@@ -5,7 +5,7 @@
 Test con le sessioni
 ====================
 
-Symfony2 è stato progettato fin dall'inizio con la testabilità in mente. Per rendere
+Symfony è stato progettato fin dall'inizio con la testabilità in mente. Per rendere
 facilmente testabile un codice che usa le sessioni, vengono forniti due diversi mock di
 meccanismi di memorizzazione, sia per test unitari che per test funzionali.
 

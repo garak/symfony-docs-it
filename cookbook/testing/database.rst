@@ -33,7 +33,7 @@ repository.
 
 Supponiamo che la classe da testare sia come questa::
 
-    namespace Acme\DemoBundle\Salary;
+    namespace AppBundle\Salary;
 
     use Doctrine\Common\Persistence\ObjectManager;
 
@@ -48,8 +48,8 @@ Supponiamo che la classe da testare sia come questa::
 
         public function calculateTotalSalary($id)
         {
-            $employeeRepository = $this->entityManager->getRepository('AcmeDemoBundle::Employee');
-            $employee = $userRepository->find($id);
+            $employeeRepository = $this->entityManager->getRepository('AppBundle::Employee');
+            $employee = $employeeRepository->find($id);
 
             return $employee->getSalary() + $employee->getBonus();
         }
@@ -62,11 +62,10 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
 
     class SalaryCalculatorTest extends \PHPUnit_Framework_TestCase
     {
-
         public function testCalculateTotalSalary()
         {
             // il primo mock che serve è quello da usare nel test
-            $employee = $this->getMock('\Acme\DemoBundle\Entity\Employee');
+            $employee = $this->getMock('\AppBundle\Entity\Employee');
             $employee->expects($this->once())
                 ->method('getSalary')
                 ->will($this->returnValue(1000));
@@ -119,9 +118,9 @@ predefinita:
         doctrine:
             # ...
             dbal:
-                host: localhost
-                dbname: testdb
-                user: testdb
+                host:     localhost
+                dbname:   testdb
+                user:     testdb
                 password: testdb
 
     .. code-block:: xml

@@ -13,8 +13,9 @@ eliminare problemi di prestazioni per l'utente finale.
 Usare Jpegoptim
 ---------------
 
-`Jpegoptim`_ è uno strumento per ottimizzare i file JPEG. Per poterlo usare,
-si aggiunge il seguente codice alla configurazione di Assetic:
+`Jpegoptim`_ è uno strumento per ottimizzare i file JPEG. Per poterlo usare con Assetic,
+assicurarsi di averlo già installato sul proprio sistema, quindi configurare la sua posizione,
+usando l'opzione ``bin`` del filtro ``jpegoptim``:
 
 .. configuration-block::
 
@@ -46,18 +47,13 @@ si aggiunge il seguente codice alla configurazione di Assetic:
             ),
         ));
 
-.. note::
-
-    Per poter utilizzare jpegoptim è necessario che sia già installato sul
-    proprio computer. L'opzione ``bin`` indica la posizione del programma eseguibile.
-
 Sarà ora possibile usarlo nei propri template:
 
 .. configuration-block::
 
     .. code-block:: html+jinja
 
-        {% image '@AcmeFooBundle/Resources/public/images/esempio.jpg'
+        {% image '@AppBundle/Resources/public/images/esempio.jpg'
             filter='jpegoptim' output='/images/esempio.jpg' %}
             <img src="{{ asset_url }}" alt="Esempio"/>
         {% endimage %}
@@ -65,7 +61,7 @@ Sarà ora possibile usarlo nei propri template:
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->image(
-            array('@AcmeFooBundle/Resources/public/images/esempio.jpg'),
+            array('@AppBundle/Resources/public/images/esempio.jpg'),
             array('jpegoptim')
         ) as $url): ?>
             <img src="<?php echo $view->escape($url) ?>" alt="Esempio"/>
@@ -206,7 +202,8 @@ A questo punto il template di Twig può essere modificato nel seguente modo:
 
     <img src="{{ jpegoptim('@AcmeFooBundle/Resources/public/images/esempio.jpg') }}" alt="Esempio"/>
 
-È possibile specificare la cartella di output nel seguente modo:
+Si può anche specificare la cartella di output delle immagini nella configurazione di
+Assetic:
 
 .. configuration-block::
 

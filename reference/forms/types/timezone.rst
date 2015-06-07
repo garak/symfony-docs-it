@@ -23,7 +23,7 @@ dovrebbe usare direttamente il tipo ``choice``.
 +---------------+------------------------------------------------------------------------+
 | Opzioni       | dal tipo :doc:`choice </reference/forms/types/choice>`                 |
 | ereditate     |                                                                        |
-|               | - `empty_value`_                                                       |
+|               | - `placeholder`_                                                       |
 |               | - `expanded`_                                                          |
 |               | - `multiple`_                                                          |
 |               | - `preferred_choices`_                                                 |
@@ -62,7 +62,7 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/placeholder.rst.inc
 
 .. include:: /reference/forms/types/options/expanded.rst.inc
 

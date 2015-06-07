@@ -8,35 +8,15 @@ In passato, i progetti Symfony erano creati con `Composer`_, il gestore di dipen
 per applicazioni PHP. Tuttavia, la raccomandazione attuale è di usare **l'installatore di Symfony**,
 che deve essere installato prima della creazione del primo progetto.
 
-Sistemi Linux e Mac OS X
-~~~~~~~~~~~~~~~~~~~~~~~~
+.. best-practice::
 
-Aprire una console dei comandi ed eseguire i seguenti comandi:
+    Usare l'installatore di Symfony per creare nuovi progetti basati su Symfony.
 
-.. code-block:: bash
+Leggere il :doc:`capitolo dell'installazione </book/installation>` del libro di Symfony per
+sapere come installare e usare l'installatore di Symfony.
 
-    $ curl -LsS http://symfony.com/installer > symfony.phar
-    $ sudo mv symfony.phar /usr/local/bin/symfony
-    $ chmod a+x /usr/local/bin/symfony
-
-Ora si può eseguire l'installatore di Symfony come comando globale di sistema, di nome
-``symfony``.
-
-Sistemi Windows
-~~~~~~~~~~~~~~~
-
-Aprire una console dei comandi ed eseguire i seguenti comandi:
-
-.. code-block:: bash
-
-    c:\> php -r "readfile('http://symfony.com/installer');" > symfony.phar
-
-Quindi spostare il file ``symfony.phar`` appena scaricato nella cartella dei progetti
-ed eseguirlo, come segue:
-
-.. code-block:: bash
-
-    c:\> php symfony.phar
+.. _linux-and-mac-os-x-systems:
+.. _windows-systems:
 
 Creare un'applicazione Blog
 ---------------------------

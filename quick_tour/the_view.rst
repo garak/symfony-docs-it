@@ -14,18 +14,20 @@ La `documentazione`_ ufficiale di Twig è la migliore risorsa per sapere tutto s
 questo motore di template. Questa sezione è solo un rapido sguardo ai
 concetti principali.
 
-Un template Twig è un file di test che può generare ogni tipo di contenuto (HTML,
+Un template Twig è un file di testo che può generare ogni tipo di contenuto (HTML,
 XML, CSV, LaTeX, ...). Gli elementi di Twig sono separati dal resto del contenuto
 del template tramite alcuni delimitatori:
 
-* ``{{ ... }}``: Stampa una variabile o il risultato della valutazione di
-  un'espressione;
+``{{ ... }}``
+    Stampa una variabile o il risultato di un'espressione;
 
-* ``{% ... %}``: Controlla la logica del template; è usato per eseguire dei cicli
-  ``for`` e delle istruzioni ``if``, per esempio.
+``{% ... %}``
+    Controlla la logica del template; è usato per eseguire dei cicli ``for``
+    e delle istruzioni ``if``, per esempio.
 
-* ``{# ... #}``: consente l'inserimento di commenti all'interno dei template. Diversamente
-  dai commenti HML, non sono inclusi nella resa del template.
+``{# ... #}``
+    consente l'inserimento di commenti all'interno dei template. Diversamente dai commenti HTML,
+    non sono inclusi nel template reso.
 
 Segue un template minimale, che illustra alcune caratteristiche di base, usando due
 variabili, ``page_title`` e ``navigation``, che dovrebbero essere passate al template:
@@ -92,7 +94,7 @@ chiamato "ereditarietà dei template". Questo consente
 di costruire un template di base, chiamato "layout", che contiene tutti gli elementi comuni
 di un sito e definisce dei "blocchi", che i template figli possono sovrascrivere.
 
-Il template ``hello.html.twig`` eredita da ``layout.html.twig``, grazie al tag
+Il template ``index.html.twig`` eredita da ``base.html.twig``, grazie al tag
 ``extends``:
 
 .. code-block:: html+jinja
@@ -104,7 +106,7 @@ Il template ``hello.html.twig`` eredita da ``layout.html.twig``, grazie al tag
         <h1>Benvenuto in Symfony!</h1>
     {% endblock %}
 
-Aprire il file ``app/Resources/views/base.html.twig``, che corrisponde al template
+Nel file ``app/Resources/views/base.html.twig``, che corrisponde al template
 ``base.html.twig``, si troverà il seguente codice Twig:
 
 .. code-block:: html+jinja
@@ -125,7 +127,7 @@ Aprire il file ``app/Resources/views/base.html.twig``, che corrisponde al templa
     </html>
 
 I tag ``{% block %}`` dicono al sistema di template che un template figlio può
-sovrascrivere quelle porzioni di template. In questo esempio, il template ``hello.html.twig``
+sovrascrivere quelle porzioni di template. In questo esempio, il template ``index.html.twig``
 sovrascrive il blocco ``content``, ma non il blocco ``title``, che mostrerà
 il contenuto predefinito, preso dal template ``base.html.twig``.
 
@@ -189,16 +191,16 @@ di alcune variabili, non disponibili nel template principale.
 Supponiamo di aver creato un metodo ``topArticlesAction`` in un controllore e di volerlo
 "rendere" dentro al template ``index``, che vuol dire inserire il risultato
 (cioè il codice HTML) del controllore. Per farlo, si usa la funzione
-``render``:
+``render()``:
 
 .. code-block:: jinja
 
-    {# src/Acme/DemoBundle/Resources/views/Demo/index.html.twig #}
-    {{ render(controller("AcmeDemoBundle:Demo:topArticles", {'num': 10})) }}
+    {# app/Resources/views/index.html.twig #}
+    {{ render(controller('AppBundle:Default:topArticles')) }}
 
-Qui, la stringa ``AcmeDemoBundle:Demo:topArticles`` si riferisce all'azione
-``topArticlesAction`` del controllore ``Demo``. Il parametro ``num``
-è reso disponibile al controllore::
+Qui, le funzioni ``render()`` e ``controller()`` usano la sintassi speciale
+``AppBundle:Default:topArticles`` per riferirsi all'azione ``topArticlesAction``
+del controllore ``Default`` (la parte ``AppBundle`` è spiegata in seguito)::
 
     // src/AppBundle/Controller/DefaultController.php
 
@@ -265,7 +267,7 @@ Twig è semplice ma potente. Grazie a layout, blocchi, template e inclusioni
 di azioni, è molto facile organizzare i template in un modo logico ed
 estensibile.
 
-Stiamo lavorando con Symfony da soli venti minuti e già siamo
+Pur lavorando con Symfony da soli venti minuti, si e già
 in grado di fare cose incredibili. Questo è il potere di Symfony.
 Imparare le basi è facile e si imparerà presto che questa
 facilità è nascosta sotto un'architettura molto flessibile.

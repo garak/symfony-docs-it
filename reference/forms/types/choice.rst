@@ -15,7 +15,7 @@ Per usare questo campo, bisogna specificare l'opzione ``choice_list`` *oppure* l
 +---------------+------------------------------------------------------------------------------+
 | Opzioni       | - `choices`_                                                                 |
 |               | - `choice_list`_                                                             |
-|               | - `empty_value`_                                                             |
+|               | - `placeholder`_                                                             |
 |               | - `expanded`_                                                                |
 |               | - `multiple`_                                                                |
 |               | - `preferred_choices`_                                                       |
@@ -122,7 +122,7 @@ Con questa opzione si possono anche aggiungere valori float, per essere selezion
       'choice_list' => new ChoiceList(array(1, 0.5), array('Pieno', 'Metà')
     ));
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/placeholder.rst.inc
 
 .. include:: /reference/forms/types/options/expanded.rst.inc
 
@@ -204,13 +204,13 @@ Variabili di campo
 +------------------------+--------------+-------------------------------------------------------------------+
 | separator              | ``stringa``  | Il separatore da usare tra i gruppi.                              |
 +------------------------+--------------+-------------------------------------------------------------------+
-| empty_value            | ``mixed``    | Il valore vuoto, se non già presente nella lista, altrimenti      |
+| placeholder            | ``mixed``    | Il valore vuoto, se non già presente nella lista, altrimenti      |
 |                        |              | ``null``.                                                         |
 +------------------------+--------------+-------------------------------------------------------------------+
 | is_selected            | ``callable`` | Una funziona che accetta un ``ChoiceView`` e i valori selezionati |
 |                        |              | e dice se la scelta fa parte dei valori selezionati.              |
 +------------------------+--------------+-------------------------------------------------------------------+
-| empty_value_in_choices | ``Booleano`` | Se il valore vuoto è nella lista di scelte                        |
+| placeholder_in_choices | ``Booleano`` | Se il valore vuoto è nella lista di scelte                        |
 +------------------------+--------------+-------------------------------------------------------------------+
 
 .. tip::

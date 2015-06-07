@@ -27,7 +27,7 @@ usare il tipo ``choice`` direttamente.
 +---------------+-----------------------------------------------------------------------+
 | Opzioni       | dal tipo :doc:`choice </reference/forms/types/choice>`                |
 | ereditate     |                                                                       |
-|               | - `empty_value`_                                                      |
+|               | - `placeholder`_                                                      |
 |               | - `error_bubbling`_                                                   |
 |               | - `error_mapping`_                                                    |
 |               | - `expanded`_                                                         |
@@ -66,7 +66,7 @@ Opzioni ereditate
 
 Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/placeholder.rst.inc
 
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 

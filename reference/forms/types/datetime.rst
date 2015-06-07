@@ -18,7 +18,7 @@ dati può essere un oggetto ``DateTime``, una stringa, un timestamp o un array.
 | Opzioni                  | - `date_format`_                                                            |
 |                          | - `date_widget`_                                                            |
 |                          | - `days`_                                                                   |
-|                          | - `empty_value`_                                                            |
+|                          | - `placeholder`_                                                            |
 |                          | - `format`_                                                                 |
 |                          | - `hours`_                                                                  |
 |                          | - `input`_                                                                  |
@@ -67,7 +67,7 @@ Definisce l'opzione ``widget`` per il tipo :doc:`date</reference/forms/types/dat
 
 .. include:: /reference/forms/types/options/days.rst.inc
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/placeholder.rst.inc
 
 format
 ~~~~~~

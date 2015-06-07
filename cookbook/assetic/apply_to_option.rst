@@ -20,15 +20,15 @@ I valori predefiniti sono ``/usr/bin/coffee`` e ``/usr/bin/node``:
         assetic:
             filters:
                 coffee:
-                    bin: /usr/bin/coffee
-                    node: /usr/bin/node
-                    node_paths: [ /usr/lib/node_modules/ ]
+                    bin:        /usr/bin/coffee
+                    node:       /usr/bin/node
+                    node_paths: [/usr/lib/node_modules/]
 
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
         <assetic:config>
-            <assetic:filter 
+            <assetic:filter
                 name="coffee"
                 bin="/usr/bin/coffee/"
                 node="/usr/bin/node/">
@@ -59,18 +59,18 @@ come se fosse un normale JavaScript:
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/js/esempio.coffee' filter='coffee' %}
-        <script src="{{ asset_url }}" type="text/javascript"></script>
+        {% javascripts '@AppBundle/Resources/public/js/esempio.coffee' filter='coffee' %}
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
-            array('@AcmePippoBundle/Resources/public/js/esempio.coffee'),
+            array('@AppBundle/Resources/public/js/esempio.coffee'),
             array('coffee')
         ) as $url): ?>
-            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
-        <?php endforeach; ?>
+            <script src="<?php echo $view->escape($url) ?>"></script>
+        <?php endforeach ?>
 
 Questo è tutto quel che serve per compilare il file CoffeeScript e restituirlo
 come un normale JavaScript.
@@ -84,26 +84,25 @@ Filtrare file multpili
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/js/esempio.coffee'
-                       '@AcmePippoBundle/Resources/public/js/altro.coffee'
+        {% javascripts '@AppBundle/Resources/public/js/esempio.coffee'
+                       '@AppBundle/Resources/public/js/altro.coffee'
             filter='coffee' %}
-            <script src="{{ asset_url }}" type="text/javascript"></script>
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
             array(
-                '@AcmePippoBundle/Resources/public/js/esempio.coffee',
-                '@AcmePippoBundle/Resources/public/js/altro.coffee',
+                '@AppBundle/Resources/public/js/esempio.coffee',
+                '@AppBundle/Resources/public/js/altro.coffee',
             ),
             array('coffee')
         ) as $url): ?>
-            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
-        <?php endforeach; ?>
+            <script src="<?php echo $view->escape($url) ?>"></script>
+        <?php endforeach ?>
 
-Tutti i file verranno restituiti e compilati in un unico, regolare file 
-JavaScript.
+Tutti i file verranno restituiti e compilati in un unico, regolare file JavaScript.
 
 .. _cookbook-assetic-apply-to:
 
@@ -130,10 +129,10 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
         assetic:
             filters:
                 coffee:
-                    bin: /usr/bin/coffee
-                    node: /usr/bin/node
-                    node_paths: [ /usr/lib/node_modules/ ]
-                    apply_to: "\.coffee$"
+                    bin:        /usr/bin/coffee
+                    node:       /usr/bin/node
+                    node_paths: [/usr/lib/node_modules/]
+                    apply_to:   "\.coffee$"
 
     .. code-block:: xml
 
@@ -170,20 +169,20 @@ dal filtro CoffeeScript):
 
     .. code-block:: html+jinja
 
-        {% javascripts '@AcmePippoBundle/Resources/public/js/esempio.coffee'
-                       '@AcmePippoBundle/Resources/public/js/altro.coffee'
-                       '@AcmePippoBundle/Resources/public/js/regolare.js' %}
-            <script src="{{ asset_url }}" type="text/javascript"></script>
+        {% javascripts '@AppBundle/Resources/public/js/esempio.coffee'
+                       '@AppBundle/Resources/public/js/altro.coffee'
+                       '@AppBundle/Resources/public/js/regolare.js' %}
+            <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
     .. code-block:: html+php
 
         <?php foreach ($view['assetic']->javascripts(
             array(
-                '@AcmePippoBundle/Resources/public/js/esempio.coffee',
-                '@AcmePippoBundle/Resources/public/js/altro.coffee',
-                '@AcmePippoBundle/Resources/public/js/regolare.js',
+                '@AppBundle/Resources/public/js/esempio.coffee',
+                '@AppBundle/Resources/public/js/altro.coffee',
+                '@AppBundle/Resources/public/js/regolare.js',
             )
         ) as $url): ?>
-            <script src="<?php echo $view->escape($url) ?>" type="text/javascript"></script>
-        <?php endforeach; ?>
+            <script src="<?php echo $view->escape($url) ?>"></script>
+        <?php endforeach ?>

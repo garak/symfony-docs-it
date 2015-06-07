@@ -5,7 +5,7 @@ Lo spool della posta
 ====================
 
 Quando si utilizza SwiftmailerBundle per l'invio delle email da un'applicazione
-Symfony2, queste vengono inviate immediatamente. È però possibile evitare il 
+Symfony, queste vengono inviate immediatamente. È però possibile evitare il 
 rallentamento dovuto dalla comunicazione tra ``Swiftmailer`` e  il servizio di
 trasporto delle email, che potrebbe mettere l'utente in attesa del caricamento della
 pagina durante l'invio. Per fare questo, basta scegliere di mettere le email 
@@ -38,7 +38,8 @@ Swiftmailer con l'opzione memory, usare la seguente configurazione:
 
         <!--
             xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            http://symfony.com/schema/dic/swiftmailer
+            http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config>
@@ -49,7 +50,7 @@ Swiftmailer con l'opzione memory, usare la seguente configurazione:
 
         // app/config/config.php
         $container->loadFromExtension('swiftmailer', array(
-             ...,
+             // ...
             'spool' => array('type' => 'memory')
         ));
 
@@ -75,7 +76,8 @@ Per usare lo spool con un file, usare la seguente configurazione:
 
         <!--
             xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-            http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
+            http://symfony.com/schema/dic/swiftmailer
+            http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd
         -->
 
         <swiftmailer:config>

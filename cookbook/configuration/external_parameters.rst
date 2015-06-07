@@ -14,12 +14,12 @@ Variabili d'ambiente
 --------------------
 
 Symfony recupera qualsiasi variabile d'ambiente, il cui prefisso sia ``SYMFONY__``
-e la usa come un parametro all'interno del contenitore dei servizi. Al nome di
-parametro risultante vengono applicate alcune trasformazioni:
+e la usa come un parametro all'interno del contenitore dei servizi. Al nome del
+parametro vengono applicate alcune trasformazioni:
 
-* viene rimosso il prefisso ``SYMFONY__``
-* il nome del parametro viene convertito in minuscolo
-* il doppio trattino basso viene sostituito da un punto, dato che il punto non è un 
+* Il prefisso ``SYMFONY__`` viene rimosso;
+* Il nome del parametro viene convertito in minuscolo;
+* Il doppio trattino basso viene sostituito da un punto, dato che il punto non è un 
   carattere valido per i nomi delle variabili d'ambiente.
 
 Ad esempio, se si usa l'ambiente Apache, le variabili d'ambiente possono
@@ -97,14 +97,6 @@ A questo punto, sarà possibile richiamare questi parametri ovunque sia necessar
                 'password' => '%password.database%',
             )
         ));
-
-.. note::
-
-    Anche in modalità di debug, impostare o modificare una variabile di ambiente
-    richiede una pulizia della cache, per rendere il parametro disponibile.
-    In modalità di debug, questo è necessario poiché solo una modifica a un file di
-    configurazione caricato da Symfony provoca una nuova lettura della
-    configurazione.
 
 Costanti
 --------

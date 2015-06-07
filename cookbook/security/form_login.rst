@@ -5,7 +5,7 @@ Personalizzare il form di login
 ===============================
 
 L'uso di un :ref:`form di login<book-security-form-login>` per l'autenticazione è un
-metodo comune e flessibile per gestire l'autenticazione in Symfony2. Quasi ogni aspetto
+metodo comune e flessibile per gestire l'autenticazione in Symfony. Quasi ogni aspetto
 del form è personalizzabile. La configurazione predefinita e completa è mostrata
 nella prossima sezione.
 

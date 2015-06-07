@@ -48,6 +48,8 @@ su tutti i campi che hanno ``form`` come genitore:
 Opzioni del campo
 -----------------
 
+.. _form-option-action:
+
 .. include:: /reference/forms/types/options/action.rst.inc
 
 .. include:: /reference/forms/types/options/by_reference.rst.inc
@@ -76,6 +78,8 @@ Il valore predefinito effettivo di questa opzione dipende da altre opzioni:
 .. include:: /reference/forms/types/options/empty_data.rst.inc
     :start-after: DEFAULT_PLACEHOLDER
 
+.. _reference-form-option-error-bubbling:
+
 .. include:: /reference/forms/types/options/error_bubbling.rst.inc
 
 .. include:: /reference/forms/types/options/error_mapping.rst.inc
@@ -95,6 +99,8 @@ Il valore predefinito effettivo di questa opzione dipende da altre opzioni:
 .. _reference-form-option-max_length:
 
 .. include:: /reference/forms/types/options/max_length.rst.inc
+
+.. _form-option-method:
 
 .. include:: /reference/forms/types/options/method.rst.inc
 

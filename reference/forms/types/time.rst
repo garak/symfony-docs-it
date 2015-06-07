@@ -15,7 +15,7 @@ come oggetto ``DateTime``, stringa, timestamp o array.
 +--------------------------+---------------------------------------------------------------------+
 | Reso come                | può essere vari tag (vedere sotto)                                  |
 +--------------------------+---------------------------------------------------------------------+
-| Opzioni                  | - `empty_value`_                                                    |
+| Opzioni                  | - `placeholder`_                                                    |
 |                          | - `hours`_                                                          |
 |                          | - `input`_                                                          |
 |                          | - `minutes`_                                                        |
@@ -77,7 +77,7 @@ Il campo supporta anche i valori ``array`` e ``string`` per l'opzione
 Opzioni del campo
 -----------------
 
-.. include:: /reference/forms/types/options/empty_value.rst.inc
+.. include:: /reference/forms/types/options/placeholder.rst.inc
 
 .. include:: /reference/forms/types/options/hours.rst.inc
 
@@ -89,7 +89,7 @@ input
 IL formato dei dati di *ingresso*, cioè il formato in cui la data è memorizzata
 nell'oggetto sottostante. Valori validi sono:
 
-* ``stringa`` (p.e. ``12:17:26``)
+* ``string`` (p.e. ``12:17:26``)
 * ``datetime`` (un oggetto ``DateTime``)
 * ``array`` (p.e. ``array('hour' => 12, 'minute' => 17, 'second' => 26)``)
 * ``timestamp`` (p.e. ``1307232000``)

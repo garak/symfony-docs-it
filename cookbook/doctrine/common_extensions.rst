@@ -20,7 +20,7 @@ Per farlo, si hanno due possibilità:
 #. Usare `StofDoctrineExtensionsBundle`_, che integra la libreria di cui sopra.
 
 #. Implementare questi servizi direttamente, seguendo la documentazione per l'integrazione
-   con Symfony2: `installare le estensioni Gedmo di Doctrine2 in Symfony2`_
+   con Symfony: `installare le estensioni Gedmo di Doctrine2 in Symfony`_
 
 .. _`DoctrineExtensions`: https://github.com/l3pp4rd/DoctrineExtensions
 .. _`StofDoctrineExtensionsBundle`: https://github.com/stof/StofDoctrineExtensionsBundle
@@ -30,4 +30,4 @@ Per farlo, si hanno due possibilità:
 .. _`Loggable`: https://github.com/l3pp4rd/DoctrineExtensions/blob/master/doc/loggable.md
 .. _`Tree`: https://github.com/l3pp4rd/DoctrineExtensions/blob/master/doc/tree.md
 .. _`Sortable`: https://github.com/l3pp4rd/DoctrineExtensions/blob/master/doc/sortable.md
-.. _`installare le estensioni Gedmo di Doctrine2 in Symfony2`: https://github.com/l3pp4rd/DoctrineExtensions/blob/master/doc/symfony2.md
+.. _`installare le estensioni Gedmo di Doctrine2 in Symfony`: https://github.com/l3pp4rd/DoctrineExtensions/blob/master/doc/symfony2.md

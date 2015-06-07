@@ -9,7 +9,7 @@ lo si può marcare con il tag ``kernel.event_listener``.
 Si possono approfondire i tag leggendo la sezione ":ref:`book-service-container-tags`"
 del capitolo sul contenitore di servizi.
 
-Di seguito si trovano informazioni su tutti i tag disponibili in Symfony2. Potrebbero
+Di seguito si trovano informazioni su tutti i tag disponibili in Symfony. Potrebbero
 esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -551,6 +551,9 @@ punti.
 Per un esempio completo di questo ascoltatore, leggere la ricetta
 :doc:`/cookbook/service_container/event_listener`.
 
+Per altri esempi pratici di un ascoltatore del nucleo, vedere la ricetta
+:doc:`/cookbook/request/mime_type`.
+
 Riferimenti sugli ascoltatori del nucleo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -629,7 +632,7 @@ kernel.terminate
 +-------------------------------------------------------------------------------------------+----------+
 | Nome della classe dell'ascoltatore                                                        | Priorità |
 +===========================================================================================+==========+
-| :class:`Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener`           | 0        |
+| `EmailSenderListener`_                                                                    | 0        |
 +-------------------------------------------------------------------------------------------+----------+
 
 .. _dic-tags-kernel-event-subscriber:
@@ -1104,7 +1107,7 @@ translation.extractor
 **Scopo**: Registrare un servizio personalizzato che estragga messaggi da un file
 
 Quando si esegue il comando ``translation:update``, esso usa degli estrattori per
-estrarre messaggi di traduzione da un file. Per impostazione predefinita, Symfony2
+estrarre messaggi di traduzione da un file. Per impostazione predefinita, Symfony
 ha un :class:`Symfony\\Bridge\\Twig\\Translation\\TwigExtractor` e un
 :class:`Symfony\\Bundle\\FrameworkBundle\\Translation\\PhpExtractor`, che
 aiutano a trovare ed estrarre chiavi di traduzione da template Twig e file PHP.
@@ -1185,7 +1188,7 @@ Dopo che un `Extractor <translation.extractor>`_ ha estratto tutti i messaggi da
 template, vengono eseguiti gli esportatori, per esportare i messaggi in un file di
 traduzione in uno specifico formato.
 
-Symfony2 dispone di diversi esportatori:
+Symfony dispone di diversi esportatori:
 
 * :class:`Symfony\\Component\\Translation\\Dumper\\CsvFileDumper`
 * :class:`Symfony\\Component\\Translation\\Dumper\\IcuResFileDumper`
@@ -1402,3 +1405,4 @@ Per un esempio, vedere la classe ``EntityInitializer`` dentro Doctrine Bridge.
 .. _`KernelEvents`: https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpKernel/KernelEvents.php
 .. _`documentazione dei plugin di SwiftMailer`: http://swiftmailer.org/docs/plugins.html
 .. _`Twig Loader`: http://twig.sensiolabs.org/doc/api.html#loaders
+.. _`EmailSenderListener`: https://github.com/symfony/SwiftmailerBundle/blob/master/EventListener/EmailSenderListener.php

@@ -23,8 +23,9 @@ convenzioni:
 * Deve trovarsi nello spazio dei nomi ``DependencyInjection`` del bundle;
 
 * Il nome deve essere uguale a quello del bundle, con il suffisso ``Bundle`` sostituito da
-  ``Extension`` (p.e. la classe Extension di ``AcmeHelloBundle`` si deve
-  chiamare ``AcmeHelloExtension``).
+  ``Extension`` (p.e. la classe Extension di AppBundle si deve chiamare
+  ``AppExtension`` e quella per AcmeHelloBundle si deve chiamare
+  ``AcmeHelloExtension``).
 
 La classe Extension deve implementare
 :class:`Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface`,
@@ -41,7 +42,7 @@ ma solitamente estende semplicemente la classe
     {
         public function load(array $configs, ContainerBuilder $container)
         {
-            // qui verranno caricati i file
+            // ... qui verranno caricati i file
         }
     }
 

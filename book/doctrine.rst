@@ -32,8 +32,8 @@ Il modo più facile per capire come funziona Doctrine è quello di vederlo in az
 In questa sezione, configureremo una base dati, creeremo un oggetto ``Product``,
 lo persisteremo nella base dati e lo recupereremo da esso.
 
-Configurazione dela base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configurazione della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Prima di iniziare, occorre configurare le informazioni sulla connessione alla
 base dati. Per convenzione, questa informazione solitamente è configurata in un
@@ -77,8 +77,10 @@ file ``app/config/parameters.yml``:
             <container xmlns="http://symfony.com/schema/dic/services"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+                xsi:schemaLocation="http://symfony.com/schema/dic/services
+                    http://symfony.com/schema/dic/services/services-1.0.xsd
+                    http://symfony.com/schema/dic/doctrine
+                    http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
                 <doctrine:config>
                     <doctrine:dbal
@@ -165,8 +167,10 @@ base dati al posto nostro:
             <container xmlns="http://symfony.com/schema/dic/services"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
-                xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
-                    http://symfony.com/schema/dic/doctrine http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+                xsi:schemaLocation="http://symfony.com/schema/dic/services
+                    http://symfony.com/schema/dic/services/services-1.0.xsd
+                    http://symfony.com/schema/dic/doctrine
+                    http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
 
                 <doctrine:config>
                     <doctrine:dbal
@@ -193,10 +197,10 @@ Creare una classe entità
 Supponiamo di star costruendo un'applicazione in cui i prodotti devono essere mostrati.
 Senza nemmeno pensare a Doctrine o alle basi dati, già sappiamo di aver bisogno di
 un oggetto ``Product`` che rappresenti questi prodotti. Creare questa classe dentro
-la cartella ``Entity`` di ``AcmeStoreBundle``::
+la cartella ``Entity`` di AppBundle::
 
-    // src/Acme/StoreBundle/Entity/Product.php
-    namespace Acme\StoreBundle\Entity;
+    // src/AppBundle/Entity/Product.php
+    namespace AppBundle\Entity;
 
     class Product
     {
@@ -400,10 +404,10 @@ metodi già presenti).
 
     Con il comando ``doctrine:generate:entities`` si può:
 
-    * generare getter e setter,
+    * generare getter e setter;
 
     * generare classi repository configurate con l'annotazione
-      ``@ORM\Entity(repositoryClass="...")``,
+      ``@ORM\Entity(repositoryClass="...")``;
 
     * generare il costruttore appropriato per relazioni 1:n e n:m.
 
@@ -426,6 +430,7 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
     # genera tutte le entità in AppBundle
     $ php app/console doctrine:generate:entities AppBundle
+
     # genera tutte le entità dei bundle nello spazio dei nomi Acme
     $ php app/console doctrine:generate:entities Acme
 
@@ -438,13 +443,13 @@ mappatura di Doctrine) di un bundle o di un intero spazio dei nomi:
 
 .. _book-doctrine-creating-the-database-tables-schema:
 
-Creare tabelle e schema dela base dati
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creare tabelle e schema della base dati
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ora si ha una classe ``Product`` usabile, con informazioni di mappatura che consentono
 a Doctrine di sapere esattamente come persisterla. Ovviamente, non si ha ancora la
 corrispondente tabella ``product`` nella propria base dati. Fortunatamente, Doctrine può
-creare automaticamente tutte le tabelle dela base dati necessarie a ogni entità nota
+creare automaticamente tutte le tabelle della base dati necessarie a ogni entità nota
 nella propria applicazione. Per farlo, eseguire:
 
 .. code-block:: bash
@@ -642,6 +647,9 @@ recuperare facilmente oggetti in base a condizioni multiple::
     Cliccando sull'icona, si aprirà il profilatore, che mostrerà il numero esatto
     di query eseguite.
 
+    L'icona diventa gialla se ci sono più di 50 query nella
+    pagina. Questo potrebbe indicare che qualcosa non va.
+
 Aggiornare un oggetto
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -667,9 +675,9 @@ di avere una rotta che mappi un id di prodotto a un'azione di aggiornamento in u
 
 L'aggiornamento di un oggetto si svolge in tre passi:
 
-1. recuperare l'oggetto da Doctrine;
-2. modificare l'oggetto;
-3. richiamare ``flush()`` sul gestore di entità
+#. recuperare l'oggetto da Doctrine;
+#. modificare l'oggetto;
+#. richiamare ``flush()`` sul gestore di entità
 
 Si noti che non è necessario richiamare ``$em->persist($product)``. Ricordiamo che
 questo metodo dice semplicemente a Doctrine di gestire o "osservare" l'oggetto ``$product``.
@@ -773,6 +781,8 @@ La sintassi DQL è incredibilmente potente e consente di fare join tra entità
 successivamente), raggruppare, ecc. Per maggiori informazioni, vedere la
 documentazione ufficiale di Doctrine `Doctrine Query Language`_.
 
+.. _book-doctrine-custom-repository-classes:
+
 Classi repository personalizzate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -864,7 +874,7 @@ Si può usare il metodo appena creato proprio come i metodi predefiniti del repo
 
     $em = $this->getDoctrine()->getManager();
     $products = $em->getRepository('AppBundle:Product')
-                ->findAllOrderedByName();
+        ->findAllOrderedByName();
 
 .. note::
 
@@ -884,7 +894,9 @@ Doctrine stesso a creare la classe.
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entity --entity="AcmeStoreBundle:Category" --fields="name:string(255)"
+    $ php app/console doctrine:generate:entity \
+        --entity="AppBundle:Category" \
+        --fields="name:string(255)"
 
 Questo task genera l'entità ``Category``, con un campo ``id``,
 un campo ``name`` e le relative funzioni getter e setter.
@@ -929,7 +941,8 @@ Per correlare le entità ``Category`` e ``Product``, iniziamo creando una propri
                 products:
                     targetEntity: Product
                     mappedBy: category
-            # non dimenticare di inizializzare la collection nel metodo __construct() dell'entità
+            # non dimenticare di inizializzare la collection nel metodo __construct()
+            # dell'entità
 
     .. code-block:: xml
 
@@ -1151,7 +1164,7 @@ categoria non viene richiesta (processo noto come "lazy load").
 
 Si può anche cercare nella direzione opposta::
 
-    public function showProductAction($id)
+    public function showProductsAction($id)
     {
         $category = $this->getDoctrine()
             ->getRepository('AppBundle:Category')

@@ -5,7 +5,7 @@ Deploy su Microsoft Azure
 =========================
 
 Questa ricetta descrive come eseguire passo-passo il deploy di una piccola
-applicazione Symfony2 sulla piattaforma di cloud Microsoft Azure. Spiegherà come
+applicazione Symfony sulla piattaforma di cloud Microsoft Azure. Spiegherà come
 preparare un nuovo sito Azure, inclusa la configurazione della corretta versione di PHP e
 delle variabili di ambiente. Verrà anche mostrato come si possono sfruttare
 Git e Composer per il deploy di un'applicazione Symfony nel cloud.
@@ -355,7 +355,7 @@ seguente. Ovviamente, i valori dipendono da quanto configurato.
 
 .. code-block:: text
 
-    Database=mysymfony2MySQL;Data Source=eu-cdbr-azure-north-c.cloudapp.net;User Id=bff2481a5b6074;Password=bdf50b42
+    Database=mysymfonyMySQL;Data Source=eu-cdbr-azure-north-c.cloudapp.net;User Id=bff2481a5b6074;Password=bdf50b42
 
 Tornare al terminale e rispondere alle domande, fornendo le seguenti
 risposte. Non dimenticare di adattare i valori seguenti ai valori reali
@@ -366,7 +366,7 @@ della stringa di connessione MySQL.
     database_driver: pdo_mysql
     database_host: u-cdbr-azure-north-c.cloudapp.net
     database_port: null
-    database_name: mysymfony2MySQL
+    database_name: mysymfonyMySQL
     database_user: bff2481a5b6074
     database_password: bdf50b42
     // ...

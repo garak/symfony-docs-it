@@ -33,8 +33,8 @@ Solitamente gli sviluppatori Symfony mettevano i template dell'applicazione nell
 ``Resources/views/`` di ciascun bundle. Per riferirsi ad essi usavano il nome logico
 (p.e. ``AcmeDemoBundle:Default:index.html.twig``).
 
-Anche se per i bundle a terzi quest'abitudine è corretta, è molto più conveniente, invece,
-inserire i template dell'applicazione nella directory ``app/Resources/views/``.
+Anche se per i bundle di terzi questa abitudine è corretta, è molto più conveniente, invece,
+inserire i template dell'applicazione nella cartella ``app/Resources/views/``.
 Innanzitutto questo semplifica drasticamente il nome logico dei template:
 
 =================================================  ==================================
@@ -51,12 +51,16 @@ Un altro vantaggio è che centralizzare i template semplifica il lavoro dei
 grafici. Essi non dovranno cercare più i template in tante cartelle sparpagliate fra
 i bundle.
 
+.. best-practice::
+
+    Usare la notazione_serpente in minuscolo per nomi di cartelle e template.
+
 Estensioni Twig
 ---------------
 
 .. best-practice::
 
-    Definire le estensioni di Twig nella directory ``AppBundle/Twig``, configurandole
+    Definire le estensioni di Twig nella cartella ``AppBundle/Twig``, configurandole
     nel file ``app/config/services.yml``.
 
 All'applicazione serve un filtro Twig personalizzato `m2html` in modo da poter

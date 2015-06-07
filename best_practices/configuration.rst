@@ -42,6 +42,8 @@ con il comportamento dell'applicazione. In altre parole, l'applicazione non si d
 sapere dov'è posizionata la base dati o come vi accede. L'unica cosa che gli importa sapere
 è che la base dati sia configurata correttamente.
 
+.. _best-practices-canonical-parameters:
+
 Parametri canonici
 ------------------
 

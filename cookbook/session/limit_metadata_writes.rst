@@ -4,9 +4,6 @@
 Limitare le scritture di metadati
 =================================
 
-.. versionadded:: 2.4
-    La possibilità di limitare i metadati di sessione è stata introdotta in Symfony 2.4.
-
 Il comportamento predefinito della sessione di PHP è di persistere la sessione, indipendentemente dal fatto
 che i dati di sessioni siano cambiati o no. In Symfony, ogni volta che si accede
 alla sessione, vengono registrati dei metadati (sessione creata/usata l'ultima volta), che si possono

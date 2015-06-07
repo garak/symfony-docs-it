@@ -12,7 +12,7 @@ Uso
 
 Ogni volta che si usa una classe non ancora richiesta o inclusa,
 PHP utilizza il `meccanismo di auto-caricamento`_ per delegare il caricamento di un file che definisca
-la classe. Symfony2 fornisce due autoloader, capaci di caricare classi:
+la classe. Symfony fornisce due autoloader, capaci di caricare classi:
 
 * :doc:`/components/class_loader/class_loader`: carica classi che seguono
   lo standard dei nomi `PSR-0`;

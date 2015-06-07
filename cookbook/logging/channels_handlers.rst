@@ -1,8 +1,8 @@
 .. index::
    single: Log
 
-Come scrivere messaggi di log su file diversi
-=============================================
+Scrivere messaggi di log su file diversi
+========================================
 
 La Standard Edition di Symfony contiene molti canali per i log: ``doctrine``,
 ``event``, ``security`` e ``request``. Ogni canale corrisponde a un servizio di
@@ -10,7 +10,7 @@ log (``monolog.logger.XXX``) nel contenitore ed è iniettato nel servizio
 interessato. Lo scopo dei canali è quello di poter organizzare diversi
 tipi di messaggi di log.
 
-Per impostazione predefinita, Symfony2 scrive ogni messaggio di log in un singolo file
+Per impostazione predefinita, Symfony scrive ogni messaggio di log in un singolo file
 (indipendentemente dal canale).
 
 Spostare un canale su un gestore diverso
@@ -30,7 +30,7 @@ Per farlo, basta creare un nuovo gestore e configurarlo in questo modo:
                 main:
                     type:     stream
                     path:     /var/log/symfony.log
-                    channels: [!doctrine]
+                    channels: ["!doctrine"]
                 doctrine:
                     type:     stream
                     path:     /var/log/doctrine.log
@@ -106,18 +106,13 @@ Si può cambiare il canale usato da monolog su un servizio alla volta. Lo si pu�
 tramite :ref:`configurazione <cookbook-monolog-channels-config>`, come mostrato qui sotto,
 o aggiungendo il tag :ref:`monolog.logger<dic_tags-monolog>` a un servizio e
 specificando quale canale il servizio dovrebbe usare per i log. In questo modo, il logger
-iniettato in questo servizio viene preconfigurarto per usare il canale
+iniettato in questo servizio viene preconfigurato per usare il canale
 specificato.
 
 .. _cookbook-monolog-channels-config:
 
-Configure Additional Channels without Tagged Services
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. versionadded:: 2.3
-    Questa caratteristica è stata introdotto in MonologBundle nella versione 2.4. Questa
-    versione è compatibile con Symfony 2.3, che però installa MonologBundle 2.3.
-    Per usare questa caratteristica, occorre aggiornare il bundle a mano.
+Configurare canali aggiuntivi senza tag dei servizi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Con MonologBundle 2.4 si possono configurare canali aggiuntivi, senza aver
 bisogno di tag per i servizi:

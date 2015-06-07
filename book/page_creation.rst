@@ -112,9 +112,9 @@ questo capitolo), eseguire il seguente comando e seguire le istruzioni su scherm
 
 .. code-block:: bash
 
-    $ php app/console generate:bundle --namespace=Acme/HelloBundle --format=yml
+    $ php app/console generate:bundle --namespace=Acme/DemoBundle --format=yml
 
-Dietro le quinte, viene creata una cartella per il bundle in ``src/Acme/HelloBundle``.
+Dietro le quinte, viene creata una cartella per il bundle in ``src/Acme/DemoBundle``.
 Inoltre viene aggiunta automaticamente una riga al file ``app/AppKernel.php``, in modo
 che il bundle sia registrato nel kernel::
 
@@ -141,7 +141,7 @@ Symfony si trova in ``app/config/routing.yml``. Come ogni configurazione in Symf
 si può anche scegliere di usare XML o PHP per configurare le rotte.
 
 Se si guarda il file principale delle rotte, si vedrà che Symfony ha già aggiunto
-una voce, quando è stato generato ``AcmeHelloBundle``:
+una voce, quando è stato generato ``AcmeDemoBundle``:
 
 .. configuration-block::
 
@@ -181,9 +181,10 @@ una voce, quando è stato generato ``AcmeHelloBundle``:
 
 Questa voce è molto basica: dice a Symfony di caricare la configurazione delle rotte
 dal file ``Resources/config/routing.yml`` (``routing.xml`` o ``routing.php``
-rispettivamente negli esempi di codice XML e PHP), che si trova dentro ``AcmeDemoBundle``.
-Questo vuol dire che si mette la configurazione delle rotte direttamente in ``app/config/routing.yml``
-o si organizzano le proprie rotte attraverso la propria applicazione, e le si importano da qui.
+rispettivamente negli esempi di codice XML e PHP), che si trova dentro
+AcmeDemoBundle. Questo vuol dire che si mette la configurazione delle rotte direttamente in
+``app/config/routing.yml`` o si organizzano le proprie rotte attraverso la propria applicazione
+e le si importano da qui.
 
 .. note::
 
@@ -248,14 +249,14 @@ Passo 2: creare il controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quando un URL come ``/hello/Ryan`` viene gestita dall'applicazione, la rotta ``hello``
-viene corrisposta e il controllore ``AcmeHelloBundle:Hello:index`` eseguito dal
+viene corrisposta e il controllore ``AcmeDemoBundle:Hello:index`` eseguito dal
 framework. Il secondo passo del processo di creazione della pagina è quello di creare
 tale controllore.
 
 Il controllore ha il nome *logico* ``AcmeDemoBundle:Random:index`` ed è mappato
 sul metodo ``indexAction`` di una classe PHP chiamata
-``Acme\DemoBundle\Controller\RandomController``. Iniziamo creando questo file dentro il nostro
-``AcmeDemoBundle``::
+``Acme\DemoBundle\Controller\RandomController``. Iniziamo creando questo file dentro
+il nostro AcmeDemoBundle::
 
     // src/Acme/DemoBundle/Controller/RandomController.php
     namespace Acme\DemoBundle\Controller;
@@ -378,7 +379,7 @@ predefinita, Symfony supporta due diversi linguaggi di template: i classici
 template PHP e i template, concisi ma potenti, `Twig`_. Non ci si allarmi,
 si è liberi di scegliere tra i due, o anche tutti e due nello stesso progetto.
 
-Il controllore rende il template ``AcmeHelloBundle:Hello:index.html.twig``,
+Il controllore rende il template ``AcmeDemoBundle:Hello:index.html.twig``,
 che usa la seguente convenzioni dei nomi:
 
     **NomeBundle**:**NomeControllore**:**NomeTemplate**
@@ -543,7 +544,7 @@ classe kernel, ``AppKernel``, per inizializzare l'applicazione.
         http://localhost/app.php/random/10
 
     Il front controller, ``app.php``, viene eseguito e l'URL "interno" 
-    ``/hello/Ryan`` è dirottato internamente, usando la configurazione delle rotte.
+    ``/random/10`` è dirottato internamente, usando la configurazione delle rotte.
     Usando ``mod_rewrite`` di Apache, si può forzare l'esecuzione del file ``app.php``
     senza bisogno di specificarlo nell'URL:
 
@@ -707,8 +708,9 @@ chiamato ``AcmeTestBundle.php``::
 
 .. tip::
 
-   Il nome ``AcmeTestBundle`` segue le :ref:`convenzioni sui nomi dei bundle<bundles-naming-conventions>`.
-   Si potrebbe anche scegliere di accorciare il nome del bundle semplicemente a ``TestBundle``,
+   Il nome AcmeTestBundle segue le
+   :ref:`convenzioni sui nomi dei bundle<bundles-naming-conventions>`. Si
+   potrebbe anche scegliere di accorciare il nome del bundle semplicemente a TestBundle,
    chiamando la classe ``TestBundle`` (e chiamando il file ``TestBundle.php``).
 
 Questa classe vuota è l'unico pezzo necessario a creare un nuovo bundle. Sebbene solitamente
@@ -730,8 +732,7 @@ Ora che il bundle è stato creato, va abilitato tramite la classe ``AppKernel``:
         return $bundles;
     }
 
-Sebbene non faccia ancora nulla, ``AcmeTestBundle`` è ora pronto per
-essere usato.
+Sebbene non faccia ancora nulla, AcmeTestBundle è ora pronto per essere usato.
 
 Symfony fornisce anche un'interfaccia a linea di comando per generare
 uno scheletro di base per un bundle:
@@ -767,7 +768,7 @@ mantenere il codice coerente tra tutti i bundle di Symfony. Si dia un'occhiata a
     (tale cartella non è indispensabile);
 
 ``Resources/config/``
-    ospita la configurazione, compresa la configurazione delle rotte (p.e. ``routing.yml``);
+    contiene la configurazione, compresa la configurazione delle rotte (p.e. ``routing.yml``);
 
 ``Resources/views/``
     contiene i template, organizzati per nome di controllore (p.e. ``Hello/index.html.twig``);
@@ -938,7 +939,7 @@ ogni richiesta nell'ambiente ``dev`` (per facilitare gli sviluppatori), ma salva
 in cache nell'ambiente ``prod``. Tutti gli ambienti stanno insieme nella stessa
 macchina e sono eseguiti nella stessa applicazione.
 
-Un progetto Symfony2 generalmente inizia con tre ambienti (``dev``, ``test``
+Un progetto Symfony generalmente inizia con tre ambienti (``dev``, ``test``
 e ``prod``), ma creare nuovi ambienti è facile. Si può vedere la propria applicazione
 in ambienti diversi, semplicemente cambiando il front controller nel
 browser. Per vedere l'applicazione in ambiente ``dev``, accedere all'applicazione

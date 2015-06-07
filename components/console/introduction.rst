@@ -20,22 +20,13 @@ Il componente può essere installato in due modi:
 * Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/console`` su `Packagist`_);
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console).
 
-.. note::
-
-    Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
-    disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
-    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
-    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
-
-    Per abilitare il supporto ai colori ANSI su Windows, si può installare `ANSICON`_.
-
 Creazione di comandi di base
 ----------------------------
 
 Per creare un comando che porga il saluto dal terminale, creare il file  ``SalutaCommand.php``,
 contenente il seguente codice::
 
-    namespace Acme\DemoBundle\Command;
+    namespace Acme\Console\Command;
 
     use Symfony\Component\Console\Command\Command;
     use Symfony\Component\Console\Input\InputArgument;
@@ -85,21 +76,23 @@ Occorre anche creare il file da eseguire in linea di comando, che crea
 una ``Application`` e vi aggiunge comandi::
 
     #!/usr/bin/env php
-    <?php 
-    // app/console
+    <?php
+    // application.php
 
-    use Acme\DemoBundle\Command\GreetCommand;
+    require __DIR__.'/vendor/autoload.php';
+
+    use Acme\Console\Command\SalutaCommand;
     use Symfony\Component\Console\Application;
 
     $application = new Application();
-    $application->add(new GreetCommand);
+    $application->add(new SalutaCommand());
     $application->run();
 
 È possibile provare il programma nel modo seguente
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien
+    $ php application.php demo:saluta Fabien
 
 Il comando scriverà, nel terminale, quello che segue:
 
@@ -111,7 +104,7 @@ Il comando scriverà, nel terminale, quello che segue:
 
 .. code-block:: bash
 
-    app/console demo:saluta Fabien --urla
+    $ php application.php demo:saluta Fabien --urla
 
 Il cui risultato sarà::
 
@@ -121,6 +114,14 @@ Il cui risultato sarà::
 
 Colorare l'output
 ~~~~~~~~~~~~~~~~~
+
+.. note::
+
+    Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
+    disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
+    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
+    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
+    Per abilitare il supporto ai colori ANSI su Windows, si può installare `ConEmu`_ o `ANSICON`_.
 
 È possibile inserire il testo da stampare, all'interno di speciali tag per colorare 
 l'output. Ad esempio::
@@ -145,7 +146,7 @@ Si può definire un proprio stile, usando la classe
     // ...
     $style = new OutputFormatterStyle('red', 'yellow', array('bold', 'blink'));
     $output->getFormatter()->setStyle('fire', $style);
-    $output->writeln('<fire>foo</fire>');
+    $output->writeln('<fire>pippo</fire>');
 
 I colori di sfondo e di testo disponibili sono: ``black``, ``red``, ``green``,
 ``yellow``, ``blue``, ``magenta``, ``cyan`` e ``white``.
@@ -201,13 +202,6 @@ di verbosità. Per esempio::
         $output->writeln(...);
     }
 
-.. versionadded:: 2.4
-   I metodi :method:`Symfony\\Component\\Console\\Output\\Output::isQuiet`,
-   :method:`Symfony\\Component\\Console\\Output\\Output::isVerbose`,
-   :method:`Symfony\\Component\\Console\\Output\\Output::isVeryVerbose` e
-   :method:`Symfony\\Component\\Console\\Output\\Output::isDebug`
-   sono stati introdotti in Symfony 2.4
-
 Ci sono anche metodi più semantici da usare, per testare ciascun livello
 di verbosità::
 
@@ -258,7 +252,7 @@ comando e rendere il parametro ``nome`` obbligatorio, si dovrà scrivere::
             'cognome',
             InputArgument::OPTIONAL,
             'Il tuo cognome?'
-        )
+        );
 
 A questo punto si può accedere al parametro ``cognome`` dal codice::
 
@@ -291,7 +285,7 @@ In questo modo, si possono specificare più nomi:
 
     $ php application.php demo:saluta Fabien Ryan Bernhard
 
-Si può accedere al parametro ``nmoi`` come un array::
+Si può accedere al parametro ``nomi`` come un array::
 
     if ($nomi = $input->getArgument('nomi')) {
         $testo .= ' '.implode(', ', $nomi);
@@ -329,9 +323,11 @@ trattino come in ``-u``). Le opzioni sono *sempre* opzionali e possono accettare
 
 .. tip::
 
-    È anche possibile fare in modo che un'opzione possa *opzionalmente* accettare un valore (ad esempio
-    si potrebbe avere ``--urla`` o ``--urla=forte``). Le opzioni possono anche essere configurate per 
-    accettare array di valori.
+    Nulla impedisce la creazione di un comando con un'opzione che accetti in modo facoltativo
+    un valore. Tuttavia, non c'è modo di distinguere quando l'opzione sia stata usata senza
+    un valore (``comando --urla``) o quando non sia stata usata affatto
+    (``comando``). In entrambi i casi, il valore recuperato per l'opzione
+    sarebbe ``null``.
 
 Ad esempio, per specificare il numero di volte in cui il messaggio di 
 saluto sarà stampato, si può aggiungere la seguente opzione::
@@ -362,11 +358,11 @@ l'impostazione ``--ripetizioni``:
     $ php application.php demo:saluta Fabien
     $ php application.php demo:saluta Fabien --ripetizioni=5
 
-Nel primo esempio, il saluto verrà stampata una sola volta, visto che ``ripetizioni`` è vuoto e
+Nel primo esempio, il saluto verrà stampato una sola volta, visto che ``ripetizioni`` è vuoto e
 il suo valore predefinito è ``1`` (l'ultimo parametro di ``addOption``). Nel secondo esempio, il
 saluto verrà stampato 5 volte.
 
-Ricordiamo che le opzioni non devono essere specificate in un ordina predefinito. Perciò, entrambi i
+Ricordiamo che le opzioni non devono essere specificate in un ordine predefinito. Perciò, entrambi i
 seguenti esempi funzioneranno correttamente:
 
 .. code-block:: bash
@@ -409,12 +405,13 @@ in grado di aiutare con diversi compiti:
 * :doc:`/components/console/helpers/formatterhelper`: personalizza i colori dei testi
 * :doc:`/components/console/helpers/progresshelper`: mostra una barra di progressione
 * :doc:`/components/console/helpers/tablehelper`: mostra dati in una tabella
-* :doc:`/components/console/helpers/dialoghelper`: (deprecato) pone domande interattive all'utente
+
+.. _component-console-testing-commands:
 
 Testare i comandi
 -----------------
 
-Symfony2 mette a disposizione diversi strumenti a supporto del test dei comandi. Il più utile 
+Symfony mette a disposizione diversi strumenti a supporto del test dei comandi. Il più utile 
 di questi è la classe :class:`Symfony\\Component\\Console\\Tester\\CommandTester`. Questa utilizza 
 particolari classi per la gestione dell'input/output che semplificano lo svolgimento di 
 test senza una reale interazione da terminale::
@@ -463,9 +460,11 @@ array al metodo
 
             $comando = $application->find('demo:saluta');
             $testDelComando = new CommandTester($command);
-            $testDelComando->execute(
-                array('command' => $comando->getName(), 'name' => 'Fabien')
-            );
+            $testDelComando->execute(array(
+                'command'       => $comando->getName(),
+                'name'          => 'Fabien',
+                '--ripetizioni' => 5,
+            ));
 
             $this->assertRegExp('/Fabien/', $testDelComando->getDisplay());
         }
@@ -532,6 +531,8 @@ Saperne di più
 * :doc:`/components/console/single_command_tool`
 * :doc:`/components/console/changing_default_command`
 * :doc:`/components/console/events`
+* :doc:`/components/console/console_arguments`
 
 .. _Packagist: https://packagist.org/packages/symfony/console
+.. _ConEmu: https://code.google.com/p/conemu-maximus5/
 .. _ANSICON: https://github.com/adoxa/ansicon/releases

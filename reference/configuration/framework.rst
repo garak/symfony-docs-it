@@ -25,10 +25,10 @@ Configurazione
     * enabled
     * field_name (deprecated)
 * `form`_
-    * enabled
+    * :ref:`enabled <form-enabled>`
     * csrf_protection
-        * enabled
-        * field_name
+        * :ref:`enabled <csrf-protection-enabled>`
+        * `field_name`_
 * `session`_
     * `name`_
     * `cookie_lifetime`_
@@ -51,12 +51,13 @@ Configurazione
     * :ref:`enabled <profiler.enabled>`
 * `translator`_
     * :ref:`enabled <translator.enabled>`
-    * `fallback`_
+    * `fallbacks`_
     * `logging`_
 * `property_accessor`_
     * `magic_call`_
     * `throw_exception_on_invalid_index`_
 * `validation`_
+    * :ref:`enabled <validation-enabled>`
     * `cache`_
     * `enable_annotations`_
     * `translation_domain`_
@@ -217,8 +218,45 @@ vedere :doc:`/components/http_foundation/trusting_proxies`.
 form
 ~~~~
 
+.. _form-enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``false``
+
+Se abilitare o meno il supporto per il componente Form.
+
+Se non si usano form, impostare questa opzione a ``false`` può aumentare le prestazioni,
+perché saranno caricati meno servizi nel contenitore.
+
+Se è attivato, anche :ref:`il sistema di validazione <validation-enabled>`
+è automaticamente abilitato.
+
 csrf_protection
 ~~~~~~~~~~~~~~~
+
+.. _csrf-protection-enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``true`` se il supporto per i form è abilitato, ``false``
+altrimenti
+
+Si può usare questa opzione per disabilitare la protezione CSRF su *tutti* i form. Ma si
+puà anche :ref:`disabilitare la protezione CSRF su singoli form <form-disable-csrf>`.
+
+Se si usano form, ma non si vuole far partire la sessione (p.e. si usano
+form in un sito di sole API), ``csrf_protection`` va impostato a
+``false``.
+
+field_name
+..........
+
+**tipo**: ``stringa`` **predefinito**: ``"_token"``
+
+Il nome del campo nascosto usato per rendere i :ref:`token CSRF <forms-csrf>`.
 
 session
 ~~~~~~~
@@ -539,10 +577,19 @@ enabled
 
 Se abilitare o meno il servizio ``translator`` nel contenitore.
 
-fallback
-........
+.. _fallback:
 
-**predefinito**: ``en``
+fallbacks
+.........
+
+**tipo**: ``stringa|array`` **predefinito**: ``array('en')``
+
+.. versionadded:: 2.3.25
+    L'opzione ``fallbacks`` è stata introdotta in Symfony 2.3.25. Prima
+    di Symfony 2.3.25, si chiamava ``fallback`` e consentiva un solo
+    linguaggio, definito come stringa.
+    Notare che è ancora possibile usare la vecchia opzione ``fallback``, se si vuole
+    definire un solo linguaggio.
 
 Opzione usata quando non viene trovata la chiave di traduzione del locale corrente.
 
@@ -586,13 +633,23 @@ prova ad accedere a un indice non valido di un array.
 validation
 ~~~~~~~~~~
 
+.. _validation-enabled:
+
+enabled
+.......
+
+**tipo**: ``booleano`` **predefinito**: ``true`` se :ref:`il supporto ai form è abilitato <form-enabled>`,
+``false`` altrimenti
+
+Se abilitare o meno il supporto alla validazione.
+
 cache
 .....
 
 **tipo**: ``stringa``
 
-Questo valore è usato per deterimnare il servizio utilizzato per persistere i metadati di classe in una cache. Il
-servizio deve implementare :class:`Symfony\\Component\\Validator\\Mapping\\Cache\\CacheInterface`.
+Questo valore è usato per deterimnare il servizio utilizzato per persistere i metadati di classe
+in una cache. Il servizio deve implementare :class:`Symfony\\Component\\Validator\\Mapping\\Cache\\CacheInterface`.
 
 enable_annotations
 ..................

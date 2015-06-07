@@ -5,7 +5,7 @@
 Gestione della sessione
 =======================
 
-Il componente HttpFoundation di Symfony2 ha un sotto-sistema per le sessioni molto potente
+Il componente HttpFoundation di Symfony ha un sotto-sistema per le sessioni molto potente
 e flessibile, progettato per fornire una gestione delle sessioni tramite una semplice
 interfaccia orientata agli oggetti, usando una varietà di driver per memorizzare la sessione.
 
@@ -141,16 +141,16 @@ Gestori del salvataggio
 
 La gestione delle sessioni di PHP richiede l'uso della variabile ``$_SESSION``,
 tuttavia questo interferisce in qualche modo con la testabilità e l'incapsulamento del codcie
-in un paradigma OOP. Per superare questo problema, Symfony2 usa delle "bag" di sessione, collegate
+in un paradigma OOP. Per superare questo problema, Symfony usa delle "bag" di sessione, collegate
 alla sessione, che incapsulano dati specifici di "attributi" o "messaggi flash".
 
 Questo approccio mitiga anche l'inquinamento dello spazio dei nomi all'interno di `$_SESSION`,
 perché ogni bas memorizza i suoi dati sotto uno spazio dei nomi univoco.
-Questo consente a Symfony2 di coesistere in modo pacifico con altre applicazioni o librerie
+Questo consente a Symfony di coesistere in modo pacifico con altre applicazioni o librerie
 che potrebbero usare `$_SESSION`, mantenendo tutti i dati completamente compatibili
-con la gestione delle sessioni di Symfony2.
+con la gestione delle sessioni di Symfony.
 
-Symfony2 fornisce due tipi di bag, con due implementazioni separate.
+Symfony fornisce due tipi di bag, con due implementazioni separate.
 Ogni cosa è scritta su interfacce, quindi si può estendere o creare i propri tipi di
 bag, se necessario.
 
@@ -162,7 +162,7 @@ seguente API, intesa principalmente per scopi interni:
     In generale questo valore può essere lasciato al suo predefinito ed è per uso interno.
 
 :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::initialize`
-    richiamato internamente dalle classi memorizzazione della sessione di Symfony2 per collegare
+    richiamato internamente dalle classi memorizzazione della sessione di Symfony per collegare
     i dati del bag alla sessione.
 
 :method:`Symfony\\Component\\HttpFoundation\\Session\\SessionBagInterface::getName`

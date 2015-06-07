@@ -381,10 +381,9 @@ dell'applicazione.
 La direttiva ``imports`` consente all'applicazione  di includere risorse di configurazione per il
 contenitore di servizi da qualsiasi altro posto (in genere da bundle).
 La locazione ``resource``, per i file, è il percorso assoluto al file
-risorse. La speciale sintassi ``@AcmeHello`` risolve il percorso della cartella del
-bundle ``AcmeHelloBundle``. Questo aiuta a specificare il percorso alla risorsa
-senza preoccuparsi in seguito, se si sposta ``AcmeHelloBundle`` in una cartella
-diversa.
+risorse. La speciale sintassi ``@AcmeHelloBundle`` risolve il percorso della cartella del
+bundle AcmeHelloBundle. Questo aiuta a specificare il percorso alla risorsa
+senza preoccuparsi in seguito, se si sposta AcmeHelloBundle in una cartella diversa.
 
 .. index::
    single: Contenitore di servizi; Configurazione delle estensioni
@@ -480,7 +479,7 @@ non contiene nessuna magia e non esegue nessuna azione su cui non si abbia
 il controllo.
 
 Naturalmente è possibile fare molto di più della semplice "attivazione" dell'estensione
-del contenitore dei servizi di ``FrameworkBundle``. Ogni estensione consente facilmente
+del contenitore dei servizi di FrameworkBundle. Ogni estensione consente facilmente
 di personalizzare il bundle, senza preoccuparsi di come i servizi interni siano
 definiti.
 
@@ -569,7 +568,7 @@ il contenitore dei servizi fornisce una soluzione molto migliore:
         services:
             my_mailer:
                 # ...
-            
+
             newsletter_manager:
                 class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 arguments: ["@my_mailer"]
@@ -762,7 +761,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         services:
             my_mailer:
                 # ...
-            
+
             newsletter_manager:
                 class:     Acme\HelloBundle\Newsletter\NewsletterManager
                 calls:
@@ -797,7 +796,7 @@ Iniettare la dipendenza con il metodo setter, necessita solo di un cambio di sin
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->setDefinition('my_mailer', ...);
-        
+
         $container->setDefinition('newsletter_manager', new Definition(
             'Acme\HelloBundle\Newsletter\NewsletterManager'
         ))->addMethodCall('setMailer', array(
@@ -938,7 +937,7 @@ esiste e in caso contrario non farà nulla:
                 <service id="my_mailer">
                 <!-- ... -->
                 </service>
-                
+
                 <service id="newsletter_manager" class="Acme\HelloBundle\Newsletter\NewsletterManager">
                     <argument type="service" id="my_mailer" on-invalid="ignore" />
                 </service>
@@ -953,7 +952,7 @@ esiste e in caso contrario non farà nulla:
         use Symfony\Component\DependencyInjection\ContainerInterface;
 
         $container->setDefinition('my_mailer', ...);
-        
+
         $container->setDefinition('newsletter_manager', new Definition(
             'Acme\HelloBundle\Newsletter\NewsletterManager',
             array(

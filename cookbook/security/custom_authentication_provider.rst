@@ -7,14 +7,14 @@ Creare un fornitore di autenticazione personalizzato
 .. tip::
 
     La creazione di un fornitore di autenticazione personalizzato è difficile: questa ricetta guiderà
-    passo passo nel procedimento. Ma, a seconda delle eseigenze, si potrebbe
+    passo passo nel procedimento. Ma, a seconda delle esigenze, si potrebbe
     risolvere la questione in modo più semplice, usando questi documenti:
 
     * :doc:`/cookbook/security/custom_password_authenticator`
     * :doc:`/cookbook/security/api_key_authentication`
 
 Chi ha letto il capitolo sulla :doc:`/book/security` può capire
-la distinzione che fa Symfony2 tra autenticazione e autorizzazione,
+la distinzione che fa Symfony tra autenticazione e autorizzazione,
 nell'implementazione della sicurezza. Questo capitolo discute le classi
 di base coinvolte nel processo di autenticazione e come implementare un
 fornitore di autenticazione personalizzato. Poiché autenticazione e autorizzazione
@@ -29,16 +29,16 @@ Il seguente capitolo mostra come creare un fornitore di autenticazione
 personalizzato per l'autenticazione WSSE. Questo protocollo di sicurezza per
 WSSE fornisce diversi benefici:
 
-1. Criptazione di nome utente e password
-2. Protezione dagli attacchi di replay
-3. Nessuna configurazione del server web necessaria
+#. Criptazione di nome utente e password
+#. Protezione dagli attacchi di replay
+#. Nessuna configurazione del server web necessaria
 
 WSSE è molto utile per proteggere i servizi web, siano essi SOAP o
 REST.
 
 C'è molta buona documentazione su `WSSE`_, ma questo articolo non approfondirà
 il protocollo di sicurezza, quanto il modo in cui un protocollo personalizzato
-possa essere aggiunto a un'applicazione Symfony2. La base di WSSE è la
+possa essere aggiunto a un'applicazione Symfony. La base di WSSE è la
 verifica degli header di richiesta tramite credenziali criptate, con l'uso di
 un timestamp e di `nonce`_, e la verifica dell'utente richiesto tramite un digest
 di password.
@@ -51,7 +51,7 @@ di password.
 Il token
 --------
 
-Il ruolo del token nel contesto della sicurezza di Symfony2 è importante.
+Il ruolo del token nel contesto della sicurezza di Symfony è importante.
 Un token rappresenta i dati di autenticazione dell'utente presenti nella richiesta.
 Una volta autenticata la richiesta, il token mantiene i dati dell'utente e fornisce
 tali dati attraverso il contesto della sicurezza. Prima di tutto, va creata una
@@ -60,8 +60,8 @@ al fornitore di autenticazione.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Authentication/Token/WsseUserToken.php
-    namespace Acme\DemoBundle\Security\Authentication\Token;
+    // src/AppBundle/Security/Authentication/Token/WsseUserToken.php
+    namespace AppBundle\Security\Authentication\Token;
 
     use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
@@ -106,25 +106,25 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Firewall/WsseListener.php
-    namespace Acme\DemoBundle\Security\Firewall;
+    // src/AppBundle/Security/Firewall/WsseListener.php
+    namespace AppBundle\Security\Firewall;
 
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-    use Symfony\Component\Security\Http\Firewall\ListenerInterface;
-    use Symfony\Component\Security\Core\Exception\AuthenticationException;
-    use Symfony\Component\Security\Core\SecurityContextInterface;
     use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
-    use Acme\DemoBundle\Security\Authentication\Token\WsseUserToken;
+    use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+    use Symfony\Component\Security\Core\Exception\AuthenticationException;
+    use Symfony\Component\Security\Http\Firewall\ListenerInterface;
+    use AppBundle\Security\Authentication\Token\WsseUserToken;
 
     class WsseListener implements ListenerInterface
     {
-        protected $securityContext;
+        protected $tokenStorage;
         protected $authenticationManager;
 
-        public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager)
+        public function __construct(TokenStorageInterface $tokenStorage, AuthenticationManagerInterface $authenticationManager)
         {
-            $this->securityContext = $securityContext;
+            $this->tokenStorage = $tokenStorage;
             $this->authenticationManager = $authenticationManager;
         }
 
@@ -146,7 +146,7 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
 
             try {
                 $authToken = $this->authenticationManager->authenticate($token);
-                $this->securityContext->setToken($authToken);
+                $this->tokenStorage->setToken($authToken);
 
                 return;
             } catch (AuthenticationException $failed) {
@@ -154,9 +154,9 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
 
                 // Per negare l'autenticazione, pulire il token. L'utente sarà rinviato alla pagina di login.
                 // Assicurarsi di pulire solo il proprio token, non quello di altri ascoltatori di autenticazione.
-                // $token = $this->securityContext->getToken();
+                // $token = $this->tokenStorage->getToken();
                 // if ($token instanceof WsseUserToken && $this->providerKey === $token->getProviderKey()) {
-                //     $this->securityContext->setToken(null);
+                //     $this->tokenStorage->setToken(null);
                 // }
                 // return;
             }
@@ -167,9 +167,6 @@ token di autenticazione nel contesto della sicurezza, in caso positivo.
             $event->setResponse($response);
         }
     }
-
-.. versionadded:: 2.4
-    Il supporto per le costanti dei codici di stato HTTP è stato introdotto in Symfony 2.4.
 
 Questo ascoltatore verifica che la richiesta contenga l'header `X-WSSE`, confronta il
 valore restituito con l'informazione WSSE attesa, crea un token usando tale informazione
@@ -205,15 +202,16 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Authentication/Provider/WsseProvider.php
-    namespace Acme\DemoBundle\Security\Authentication\Provider;
+    // src/AppBundle/Security/Authentication/Provider/WsseProvider.php
+    namespace AppBundle\Security\Authentication\Provider;
 
     use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
     use Symfony\Component\Security\Core\User\UserProviderInterface;
     use Symfony\Component\Security\Core\Exception\AuthenticationException;
     use Symfony\Component\Security\Core\Exception\NonceExpiredException;
     use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-    use Acme\DemoBundle\Security\Authentication\Token\WsseUserToken;
+    use AppBundle\Security\Authentication\Token\WsseUserToken;
+    use Symfony\Component\Security\Core\Util\StringUtils;
 
     class WsseProvider implements AuthenticationProviderInterface
     {
@@ -272,7 +270,7 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
             // Valida la parola segreta
             $expected = base64_encode(sha1(base64_decode($nonce).$created.$secret, true));
 
-            return $digest === $expected;
+            return StringUtils::equals($expected, $digest);
         }
 
         public function supports(TokenInterface $token)
@@ -289,6 +287,14 @@ minuti e che il valore dell'header ``PasswordDigest`` corrisponda alla password 
     dato. In caso di più fornitori, il gestore di autenticazione passerà al fornitore
     successivo della lista.
 
+.. note::
+
+    Il confronto tra digest fornito e atteso è eseguito a tempo costanto,
+    grazie al metodo
+    :method:`Symfony\\Component\\Security\\Core\\Util\\StringUtils::equals`
+    della classe ``StringUtils``. Questo mitiga la possibilità di
+    `timing attack`_.
+
 Il factory
 ----------
 
@@ -302,8 +308,8 @@ occorre creare una classe che implementi
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/DependencyInjection/Security/Factory/WsseFactory.php
-    namespace Acme\DemoBundle\DependencyInjection\Security\Factory;
+    // src/AppBundle/DependencyInjection/Security/Factory/WsseFactory.php
+    namespace AppBundle\DependencyInjection\Security\Factory;
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Reference;
@@ -395,33 +401,33 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
     .. code-block:: yaml
 
-        # src/Acme/DemoBundle/Resources/config/services.yml
+        # src/AppBundle/Resources/config/services.yml
         services:
             wsse.security.authentication.provider:
-                class: Acme\DemoBundle\Security\Authentication\Provider\WsseProvider
+                class: AppBundle\Security\Authentication\Provider\WsseProvider
                 arguments: ["", "%kernel.cache_dir%/security/nonces"]
 
             wsse.security.authentication.listener:
-                class: Acme\DemoBundle\Security\Firewall\WsseListener
-                arguments: ["@security.context", "@security.authentication.manager"]
+                class: AppBundle\Security\Firewall\WsseListener
+                arguments: ["@security.token_storage", "@security.authentication.manager"]
 
     .. code-block:: xml
 
-        <!-- src/Acme/DemoBundle/Resources/config/services.xml -->
+        <!-- src/AppBundle/Resources/config/services.xml -->
         <container xmlns="http://symfony.com/schema/dic/services"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
                 <service id="wsse.security.authentication.provider"
-                    class="Acme\DemoBundle\Security\Authentication\Provider\WsseProvider" public="false">
-                    <argument /> <!-- Fornitore di utenti -->
+                    class="AppBundle\Security\Authentication\Provider\WsseProvider" public="false">
+                    <argument /> <!-- User Provider -->
                     <argument>%kernel.cache_dir%/security/nonces</argument>
                 </service>
 
                 <service id="wsse.security.authentication.listener"
-                    class="Acme\DemoBundle\Security\Firewall\WsseListener" public="false">
-                    <argument type="service" id="security.context"/>
+                    class="AppBundle\Security\Firewall\WsseListener" public="false">
+                    <argument type="service" id="security.token_storage"/>
                     <argument type="service" id="security.authentication.manager" />
                 </service>
             </services>
@@ -429,13 +435,13 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
     .. code-block:: php
 
-        // src/Acme/DemoBundle/Resources/config/services.php
+        // src/AppBundle/Resources/config/services.php
         use Symfony\Component\DependencyInjection\Definition;
         use Symfony\Component\DependencyInjection\Reference;
 
         $container->setDefinition('wsse.security.authentication.provider',
             new Definition(
-                'Acme\DemoBundle\Security\Authentication\Provider\WsseProvider', array(
+                'AppBundle\Security\Authentication\Provider\WsseProvider', array(
                     '',
                     '%kernel.cache_dir%/security/nonces',
                 )
@@ -444,8 +450,8 @@ servizi che non esistono ancora: ``wsse.security.authentication.provider`` e
 
         $container->setDefinition('wsse.security.authentication.listener',
             new Definition(
-                'Acme\DemoBundle\Security\Firewall\WsseListener', array(
-                    new Reference('security.context'),
+                'AppBundle\Security\Firewall\WsseListener', array(
+                    new Reference('security.token_storage'),
                     new Reference('security.authentication.manager'),
                 )
             )
@@ -456,14 +462,14 @@ factory.
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/AcmeDemoBundle.php
-    namespace Acme\DemoBundle;
+    // src/AppBundle/AppBundle.php
+    namespace AppBundle;
 
-    use Acme\DemoBundle\DependencyInjection\Security\Factory\WsseFactory;
+    use AppBundle\DependencyInjection\Security\Factory\WsseFactory;
     use Symfony\Component\HttpKernel\Bundle\Bundle;
     use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-    class AcmeDemoBundle extends Bundle
+    class AppBundle extends Bundle
     {
         public function build(ContainerBuilder $container)
         {
@@ -620,3 +626,4 @@ utilizzata o passata a altre classi nel contenitore.
 
 .. _`WSSE`: http://www.xml.com/pub/a/2003/12/17/dive.html
 .. _`nonce`: http://it.wikipedia.org/wiki/Nonce
+.. _`timing attack`: http://en.wikipedia.org/wiki/Timing_attack

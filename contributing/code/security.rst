@@ -2,8 +2,8 @@ Problemi di sicurezza
 =====================
 
 Questo documento spiega la gestione da parte della squadra di Symfony  dei problemi di sicurezza
-di Symfony (in cui "Symfony" è il codice ospitato nel `repository Git`_ ``symfony/symfony``).
-
+di Symfony (in cui "Symfony" è il codice ospitato nel `repository Git`_
+``symfony/symfony``).
 
 Segnalare un problema di sicurezza
 ----------------------------------
@@ -19,10 +19,10 @@ Processo di risoluzione
 Per ogni rapporto, prima si cercherà di confermare la vulnerabilità. Quando
 confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi passi:
 
-1. Inviare un riconoscimento al segnalatore;
-2. Lavorare su una patch;
-3. Ottenere un identificatore CVE da mitre.org;
-4. Scrivere un annuncio sul `blog`_ di Symfony, che descriva la vulnerabilità.
+#. Inviare un riconoscimento al segnalatore;
+#. Lavorare su una patch;
+#. Ottenere un identificatore CVE da mitre.org;
+#. Scrivere un annuncio sul `blog`_ di Symfony, che descriva la vulnerabilità.
    Tale post dovrebbe contenere le seguenti informazioni:
 
    * un titolo che includa sempre la stringa "Security release";
@@ -32,12 +32,12 @@ confermata, la squadra di sviluppo lavorerà a una soluzione seguendo questi pas
    * come applicare patch/aggiornamenti/workaround alle applicazioni afflitte;
    * l'identificatore CVE;
    * riconoscimenti.
-5. Inviare patch e annuncio al segnalante per una revisione;
-6. Applicare la patch a tutte le versioni di Symfony in manutenzione;
-7. Pacchettizzare nuove versioni per tutte le versioni afflitte;
-8. Pubblicare il post sul `blog`_ ufficiale di Symfony (va anche aggiunti alla
+#. Inviare patch e annuncio al segnalante per una revisione;
+#. Applicare la patch a tutte le versioni di Symfony in manutenzione;
+#. Pacchettizzare nuove versioni per tutte le versioni afflitte;
+#. Pubblicare il post sul `blog`_ ufficiale di Symfony (va anche aggiunti alla
    categoria "`Security Advisories`_");
-9. Aggiornare la lista degli avvisi di sicurezza (vedere sotto).
+#. Aggiornare la lista degli avvisi di sicurezza (vedere sotto).
 
 .. note::
 
@@ -61,23 +61,23 @@ Poiché Symfony è usato da molti progetti open source, il modo in cui la
 squadra di sicurezza di Symfony collabora sulle problematiche di sicurezza è stata standardizzata
 con i progetti a valle. Il progetto funziona come segue:
 
-1. Dopo che la squadra di sicurezza di Symfony ha riconosciuto la problematica, invia
-immediatamente una email alle squadre di sicurezza dei progetti a valle, per informarli
-della probelamtica;
+#. Dopo che la squadra di sicurezza di Symfony ha riconosciuto la problematica, invia
+   immediatamente una email alle squadre di sicurezza dei progetti a valle, per informarli
+   della probelamtica;
 
-2. La squadra di sicurezza di Symfony crea un repository Git privato, per facilitare la
-collaborazione sulla problematica. L'accesso a tale repository è fornito all
-squadra di sicurezza di Symfony, ai contributori du Symfony che hanno avuto impatto sulla
-problematica e a un rappresentante i ogni progetto a valle;
+#. La squadra di sicurezza di Symfony crea un repository Git privato, per facilitare la
+   collaborazione sulla problematica. L'accesso a tale repository è fornito all
+   squadra di sicurezza di Symfony, ai contributori du Symfony che hanno avuto impatto sulla
+   problematica e a un rappresentante i ogni progetto a valle;
 
-3. Le persone che accedono al repository privato lavorano a una soluzione per
-risolvere la problematica, tramire richieste di pull, revisioni di codice e commenti;
+#. Le persone che accedono al repository privato lavorano a una soluzione per
+   risolvere la problematica, tramire richieste di pull, revisioni di codice e commenti;
 
-4. Una volta trovata la soluzione, tutti i progetti coinvolti collaborano per trovare
-la data migliore per un rilascio congiunto (non c'è garanzia che tutti i rllasci saranno
-contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo). Quando
-non si ritiene che la problematica abbia subito degli exploit, un periodo di due settimane
-sembra essere ragionevole.
+#. Una volta trovata la soluzione, tutti i progetti coinvolti collaborano per trovare
+   la data migliore per un rilascio congiunto (non c'è garanzia che tutti i rllasci saranno
+   contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo). Quando
+   non si ritiene che la problematica abbia subito degli exploit, un periodo di due settimane
+   sembra essere ragionevole.
 
 La lista dei progetti a valle partecipanti a tale processo è manutenuta più corta
 possibile, per meglio gestire il flusso di informazioni riservate, prima
@@ -96,11 +96,17 @@ Bollettini di sicurezza
 Questa sezione elenca le vulnerabilità di sicurezza che sono state risolte in Symfony,
 partendo da Symfony 1.0.0:
 
+* 1 aprile 2015: `CVE-2015-2309: Unsafe methods in the Request class <http://symfony.com/blog/cve-2015-2309-unsafe-methods-in-the-request-class>`_ (Symfony 2.3.27, 2.5.11 e 2.6.6)
+* 1 aprile 2015: `CVE-2015-2308: Esi Code Injection <http://symfony.com/blog/cve-2015-2308-esi-code-injection>`_ (Symfony 2.3.27, 2.5.11 e 2.6.6)
+* 3 settembre 2014: `CVE-2014-6072: CSRF vulnerability in the Web Profiler <http://symfony.com/blog/cve-2014-6072-csrf-vulnerability-in-the-web-profiler>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
+* 3 settembre 2014: `CVE-2014-6061: Security issue when parsing the Authorization header <http://symfony.com/blog/cve-2014-6061-security-issue-when-parsing-the-authorization-header>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
+* 3 settembre 2014: `CVE-2014-5245: Direct access of ESI URLs behind a trusted proxy <http://symfony.com/blog/cve-2014-5245-direct-access-of-esi-urls-behind-a-trusted-proxy>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
+* 3 settembre 2014: `CVE-2014-5244: Denial of service with a malicious HTTP Host header <http://symfony.com/blog/cve-2014-5244-denial-of-service-with-a-malicious-http-host-header>`_ (Symfony 2.3.19, 2.4.9 e 2.5.4)
 * 15 luglio 2014: `Security releases: Symfony 2.3.18, 2.4.8, and 2.5.2 released <http://symfony.com/blog/security-releases-cve-2014-4931-symfony-2-3-18-2-4-8-and-2-5-2-released>`_ (`CVE-2014-4931 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4931>`_)
 * 10 ottobre 2013: `Security releases: Symfony 2.0.25, 2.1.13, 2.2.9, and 2.3.6 released <http://symfony.com/blog/security-releases-cve-2013-5958-symfony-2-0-25-2-1-13-2-2-9-and-2-3-6-released>`_ (`CVE-2013-5958 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-5958>`_)
-* 7 agosto 2013: `Security releases: Symfony 2.0.24, 2.1.12, 2.2.5, and 2.3.3 released <http://symfony.com/blog/security-releases-symfony-2-0-24-2-1-12-2-2-5-and-2-3-3-released>`_ (`CVE-2013-4751 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4751>`_ and `CVE-2013-4752 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4752>`_)
-* 17 gennaio 2013: `Security release: Symfony 2.0.22 and 2.1.7 released <http://symfony.com/blog/security-release-symfony-2-0-22-and-2-1-7-released>`_ (`CVE-2013-1348 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1348>`_ and `CVE-2013-1397 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1397>`_)
-* 20 dicembre 2012: `Security release: Symfony 2.0.20 and 2.1.5 <http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released>`_  (`CVE-2012-6431 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6431>`_ and `CVE-2012-6432 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6432>`_)
+* 7 agosto 2013: `Security releases: Symfony 2.0.24, 2.1.12, 2.2.5, and 2.3.3 released <http://symfony.com/blog/security-releases-symfony-2-0-24-2-1-12-2-2-5-and-2-3-3-released>`_ (`CVE-2013-4751 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4751>`_ e `CVE-2013-4752 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-4752>`_)
+* 17 gennaio 2013: `Security release: Symfony 2.0.22 and 2.1.7 released <http://symfony.com/blog/security-release-symfony-2-0-22-and-2-1-7-released>`_ (`CVE-2013-1348 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1348>`_ e `CVE-2013-1397 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1397>`_)
+* 20 dicembre 2012: `Security release: Symfony 2.0.20 and 2.1.5 <http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released>`_  (`CVE-2012-6431 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6431>`_ e `CVE-2012-6432 <http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-6432>`_)
 * 29 novembre 2012: `Security release: Symfony 2.0.19 and 2.1.4 <http://symfony.com/blog/security-release-symfony-2-0-19-and-2-1-4>`_
 * 25 novembre 2012: `Security release: symfony 1.4.20 released  <http://symfony.com/blog/security-release-symfony-1-4-20-released>`_
 * 28 agosto 2012: `Security Release: Symfony 2.0.17 released <http://symfony.com/blog/security-release-symfony-2-0-17-released>`_
@@ -119,6 +125,6 @@ partendo da Symfony 1.0.0:
 * 21 marzo 2008: `symfony 1.0.12 is (finally) out ! <http://symfony.com/blog/symfony-1-0-12-is-finally-out>`_
 * 25 giugno 2007: `symfony 1.0.5 released (security fix) <http://symfony.com/blog/symfony-1-0-5-released-security-fix>`_
 
-.. _repository Git:      https://github.com/symfony/symfony
-.. _blog:                http://symfony.com/blog/
+.. _repository Git: https://github.com/symfony/symfony
+.. _blog: http://symfony.com/blog/
 .. _Security Advisories: http://symfony.com/blog/category/security-advisories

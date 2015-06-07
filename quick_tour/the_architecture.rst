@@ -4,19 +4,23 @@ L'architettura
 Sei un eroe! Chi avrebbe pensato che tu fossi ancora qui dopo le prime
 tre parti? I tuoi sforzi saranno presto ricompensati. Le prime tre parti
 non danno uno sguardo approfondito all'architettura del framework. Poiché
-essa rende unico Symfony2 nel panorama dei framework, vediamo in cosa
+essa rende unico Symfony nel panorama dei framework, vediamo in cosa
 consiste.
 
 Capire la struttura delle cartelle
 ----------------------------------
 
-La struttura delle cartelle di un':term:`applicazione` Symfony2 è alquanto flessibile,
+La struttura delle cartelle di un':term:`applicazione` Symfony è alquanto flessibile,
 ma la struttura raccomandata è la seguente:
 
-* ``app/``:    La configurazione dell'applicazione;
-* ``src/``:    Il codice PHP del progetto;
-* ``vendor/``: Le dipendenze di terze parti;
-* ``web/``:    La cartella radice del web.
+``app/``
+    La configurazione dell'applicazione;
+``src/``
+    Il codice PHP del progetto;
+``vendor/``
+    Le dipendenze di terze parti;
+``web/``
+    La cartella radice del web.
 
 La cartella ``web/``
 ~~~~~~~~~~~~~~~~~~~~
@@ -52,10 +56,11 @@ dell'applicazione e quindi è memorizzata nella cartella ``app/``.
 
 Questa classe deve implementare due metodi:
 
-* ``registerBundles()`` deve restituire un array di tutti i bundle necessari per
-  eseguire l'applicazione, come spiegato nella sezione successiva;
-* ``registerContainerConfiguration()`` carica la configurazione dell'applicazione
-  (approfondito più avanti);
+``registerBundles()``
+    deve restituire un array di tutti i bundle necessari per
+    eseguire l'applicazione;
+``registerContainerConfiguration()``
+    carica la configurazione dell'applicazione (approfondito più avanti);
 
 Il caricamento automatico essere configurato tramite `Composer`_, che vuol dire che si
 può usare qualsiasi classe PHP senza dover far nulla! Tutte le dipendenze sono
@@ -67,11 +72,11 @@ Capire il sistema dei bundle
 ----------------------------
 
 Questa sezione è un'introduzione a una delle più grandi e
-potenti caratteristiche di Symfony2, il sistema dei :term:`bundle`.
+potenti caratteristiche di Symfony, il sistema dei :term:`bundle`.
 
 Un bundle è molto simile a un plugin in un altro software. Ma perché
 allora si chiama *bundle* e non *plugin*? Perché *ogni cosa* è un bundle
-in Symfony2, dalle caratteristiche del nucleo del framework al codice
+in Symfony, dalle caratteristiche del nucleo del framework al codice
 scritto per un'applicazione.
 
 Tutto il codice scritto dallo sviluppatore è organizzato in bundle. Nel gergo di Symfony,
@@ -79,13 +84,13 @@ un bundle è un insieme strutturato di file (file PHP, fogli di stile, JavaScrip
 immagini, ...) che implementa una singola caratteristica (un blog, un forum, ...) e che può
 essere facilmente condivisi con altri sviluppatori.
 
-I bundle sono cittadini di prima classe in Symfony2. Essi forniscono la flessibilità
+I bundle sono cittadini di prima classe in Symfony. Essi forniscono la flessibilità
 di usare delle caratteristiche pre-costruite impacchettate in bundle di terze parti o di distribuire 
 i propri bundle. Questo rende molto facile scegliere quali caratteristiche abilitare in
 un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
 dell'applicazione è *importante* quanto il nucleo stesso del framework.
 
-Symfony include già un ``AppBundle``, che si può usare per iniziare a sviluppare
+Symfony include già un AppBundle, che si può usare per iniziare a sviluppare
 un'applicazione. Successivamente, se si avesse l'esigenza di suddividere l'applicazione
 in varie parti riutilizzabili, si possono creare i propri bundle.
 
@@ -94,7 +99,7 @@ Registrare un bundle
 
 Un'applicazione è composta di bundle, come definito nel metodo ``registerBundles()``
 della classe ``AppKernel`` . Ogni bundle è una cartella che contiene una singola classe
-``Bundle`` che la descrive::
+Bundle che la descrive::
 
     // app/AppKernel.php
     public function registerBundles()
@@ -140,7 +145,7 @@ XML o PHP. Si veda la configurazione predefinita:
 
     framework:
         #esi:             ~
-        #translator:      { fallback: "%locale%" }
+        #translator:      { fallbacks: ["%locale%"] }
         secret:          "%secret%"
         router:
             resource: "%kernel.root_dir%/config/routing.yml"
@@ -158,7 +163,7 @@ XML o PHP. Si veda la configurazione predefinita:
         debug:            "%kernel.debug%"
         strict_variables: "%kernel.debug%"
 
-    # Configurazione di Swiftmailer
+    # Configurazione di Swift Mailer
     swiftmailer:
         transport: "%mailer_transport%"
         host:      "%mailer_host%"
@@ -170,7 +175,7 @@ XML o PHP. Si veda la configurazione predefinita:
 
 Ogni voce come ``framework`` definisce la configurazione per uno specifico bundle.
 Per esempio, ``framework`` configura ``FrameworkBundle``, mentre ``swiftmailer``
-configura ``SwiftmailerBundle``.
+configura SwiftmailerBundle.
 
 Ogni :term:`ambiente` può sovrascrivere la configurazione predefinita, fornendo un file
 di configurazione specifico. Per esempio, l'ambiente ``dev`` carica il file ``config_dev.yml``,
@@ -204,32 +209,32 @@ Nomi logici di file
 ...................
 
 Quando si vuole fare riferimento a un file da un bundle, usare questa notazione:
-``@NOME_BUNDLE/percorso/del/file``; Symfony2 risolverà ``@NOME_BUNDLE`` nel percorso
+``@NOME_BUNDLE/percorso/del/file``; Symfony risolverà ``@NOME_BUNDLE`` nel percorso
 reale del bundle. Per esempio, il percorso logico
-``@AcmeDemoBundle/Controller/DemoController.php`` verrebbe convertito in
-``src/Acme/DemoBundle/Controller/DemoController.php``, perché Symfony conosce
-la locazione di ``AcmeDemoBundle``.
+``@AppBundle/Controller/DefaultController.php`` verrebbe convertito in
+``src/AppBundle/Controller/DefaultController.php``, perché Symfony conosce
+la posizione di AppBundle.
 
 Nomi logici di controllori
 ..........................
 
 Per i controllori, occorre fare riferimento ai nomi dei metodi usando il formato
 ``NOME_BUNDLE:NOME_CONTROLLORE:NOME_AZIONE``. Per esempio,
-``AcmeDemoBundle:Welcome:index`` mappa il metodo ``indexAction`` della classe
-``Acme\DemoBundle\Controller\WelcomeController``.
+``AppBundle:Default:index`` mappa il metodo ``indexAction`` della classe
+``AppBundle\Controller\DefaultController``.
 
 Estendere i bundle
 ..................
 
 Se si seguono queste convenzioni, si può usare
-l':doc:`ereditarietà dei bundle</cookbook/bundles/inheritance>`
+l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>`
 per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
-chiamato ``AcmeNewBundle`` estende AcmeDemoBundle, Symfony proverà a caricare
-prima il controllore ``AcmeDemoBundle:Welcome:index`` da AcmeNewBundle e poi
-cercherà in AcmeDemoBundle. Questo vuol dire che un bundle può sovrascrivere
+chiamato NewBundle estende AppBundle, Symfony proverà a caricare
+prima il controllore ``DefaultController`` da NewBundle e poi
+cercherà in AppBundle. Questo vuol dire che un bundle può sovrascrivere
 quasi ogni parte di un altro bundle!
 
-È chiaro ora perché Symfony2 è così flessibile? Condividere bundle tra le
+È chiaro ora perché Symfony è così flessibile? Condividere bundle tra le
 applicazioni, memorizzarli localmente o globalmente, a scelta.
 
 .. _using-vendors:
@@ -240,7 +245,7 @@ Usare i venditori
 Probabilmente l'applicazione dipenderà da librerie di terze parti.
 Queste ultime dovrebbero essere memorizzate nella cartella ``vendor/``. Non si dovrebbe
 toccare niente in tale cartella, che è gestita esclusivamente da Composer. Tale
-cartella contiene già le librerie di Symfony2, SwiftMailer, l'ORM Doctrine,
+cartella contiene già le librerie di Symfony, SwiftMailer, l'ORM Doctrine,
 il sistema di template Twig e alcune altre librerie e bundle di terze parti.
 
 Capire la cache e i log
@@ -269,8 +274,8 @@ Usare l'interfaccia a linea di comando
 --------------------------------------
 
 Ogni applicazione ha uno strumento di interfaccia a linea di comando (``app/console``),
-che aiuta nella manutenzione dell'applicazione. La console fornisce dei comandi che incrementano la produttività, automatizzando
-dei compiti noiosi e ripetitivi.
+che aiuta nella manutenzione dell'applicazione. La console fornisce dei comandi che incrementano la
+produttività, automatizzando dei compiti noiosi e ripetitivi.
 
 Richiamandola senza parametri, si può sapere di più sulle sue capacità:
 
@@ -282,7 +287,7 @@ L'opzione ``--help`` aiuta a scoprire l'utilizzo di un comando:
 
 .. code-block:: bash
 
-    $ php app/console router:debug --help
+    $ php app/console debug:router --help
 
 Considerazioni finali
 ---------------------

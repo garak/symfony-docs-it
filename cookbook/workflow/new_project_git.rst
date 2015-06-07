@@ -19,24 +19,10 @@ usando il sistema di controllo dei sorgenti `git`_.
 Preparazione del progetto
 -------------------------
 
-Per iniziare, occorre scaricare Symfony e inizializzare il repository
-locale:
+Per iniziare, occorre scaricare Symfony e installarlo. Vedere il capitolo
+sull':doc:`/book/installation` per maggiori dettagli
 
-#. Scaricare `Symfony Standard Edition`_, usando Composer:
-
-   .. code-block:: bash
-
-        $ php composer.phar create-project symfony/framework-standard-edition path/ "~2.5"
-
-.. tip::
-
-    Aggiungere l'opzione  ``-vvv`` per vedere cosa sta facendo Composer: Questo è particolarmente
-    utile su una connessione lenta, in cui si potrebbe avere l'impressione che non stia accadendo
-    nulla.
-
-   Composer scaricherà la Standard Edition, insieme a tutti le necessarie
-   librerie dei venditori. Per maggiori informazioni su come scaricare Symfony con
-   Composer, vedere `installare Symfony usando Composer`_.
+Una volta preparato il progetto, seguire questi passi:
 
 #. Inizializzare il repository git:
 
@@ -90,16 +76,6 @@ di più su come configurare e sviluppare un'applicazione.
 
 .. include:: _vendor_deps.rst.inc
 
-Venditori e sottomoduli
-~~~~~~~~~~~~~~~~~~~~~~~
-
-Invece di usare il sistema basato su ``composer.json`` per gestire le librerie
-dei venditori, si potrebbe invece voler usare i `sottomoduli di git`_.
-Non c'è nulla di sbagliato in questo approccio, ma il sistema ``composer.json`` è la via
-ufficiale per risolvere questo problema e probabilmente è più facile da gestire.
-Diversamente dai sottomoduli di git, ``Composer`` è abbastanza intelligente da calcolare
-le dipendenze tra le librerie.
-
 Memorizzare il progetto su un server remoto
 -------------------------------------------
 
@@ -109,7 +85,7 @@ questioni di backup, sia per fare in modo che altri sviluppatori possano collabo
 al progetto stesso.
 
 Il modo più facile per memorizzare un progetto su un server remoto è l'utilizzo
-di servizi come `GitHub`_ o `Bitbucket`. Ovviamente ci sono molti altri servizi
+di servizi come `GitHub`_ o `Bitbucket`_. Ovviamente ci sono molti altri servizi
 in giro, si può iniziare una ricerca su
 `confronto tra servizi di hosting`_.
 
@@ -119,7 +95,6 @@ un `repository privato`_ e usando quello. Una libreria che può aiutare in tal s
 
 .. _`git`: http://git-scm.com/
 .. _`Symfony Standard Edition`: http://symfony.com/download
-.. _`installare Symfony usando Composer`: http://symfony.com/doc/current/book/installation.html#option-1-composer
 .. _`sottomoduli di git`: http://git-scm.com/book/en/Git-Tools-Submodules
 .. _`GitHub`: https://github.com/
 .. _`repository privato`: http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository

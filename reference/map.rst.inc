@@ -27,4 +27,5 @@
 * **Altre aree**
 
   * :doc:`/reference/dic_tags`
+  * :doc:`/reference/events`
   * :doc:`/reference/requirements`

@@ -24,29 +24,12 @@ Per aggiornare le librerie alle ultime versioni, eseguire ``php composer.phar up
 
 .. tip::
 
-    Se si vuole aggiungere un nuovo pacchetto a un'applicazione, modificare il
-    file ``composer.json``:
-
-    .. code-block:: json
-
-        {
-            "require": {
-                ...
-                "doctrine/doctrine-fixtures-bundle": "@dev"
-            }
-        }
-
-    e quindi eseguire il comando ``update`` per lo specifico pacchetto, quindi:
+    Se si vuole aggiungere un nuovo pacchetto a un'applicazione, eseguire il comando
+    ``require``:
 
     .. code-block:: bash
 
-        $ php composer.phar update doctrine/doctrine-fixtures-bundle
-
-    Si possono anche combinare i due passi in un singolo comando:
-
-    .. code-block:: bash
-
-        $ php composer.phar require doctrine/doctrine-fixtures-bundle:@dev
+        $ composer require doctrine/doctrine-fixtures-bundle
 
 Per saperne di più su Composer, vedere `GetComposer.org`_:
 
@@ -73,5 +56,5 @@ Quindi, ogni volta che uno sviluppatore usa il progetto, deve eseguire lo script
     di sostituire solo le parti originali (cioè assicurarsi di non cancellare alcuna
     delle proprie voci).
 
-.. _Composer: http://getcomposer.org/
-.. _GetComposer.org: http://getcomposer.org/
+.. _Composer: https://getcomposer.org/
+.. _GetComposer.org: https://getcomposer.org/

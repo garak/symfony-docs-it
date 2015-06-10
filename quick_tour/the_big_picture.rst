@@ -107,6 +107,13 @@ Congratulazioni! Il primo progetto Symfony sta funzionando!
     :ref:`permessi <book-installation-permissions>`
     del libro ufficiale.
 
+    Se la pagina di benvenuto sembra non avere stili o immagini, provare
+    a installarli:
+    
+    .. code-block:: bash
+    
+        $ php app/console assets:install
+
 Dopo aver finito di lavorare sull'applicazione Symfony, si può fermare il
 server, con il comando ``server:stop``:
 
@@ -156,7 +163,7 @@ spiegata nella prossima sezione)::
     class DefaultController extends Controller
     {
         /**
-         * @Route("/", name="homepage")
+         * @Route("/app/example", name="homepage")
          */
         public function indexAction()
         {
@@ -198,7 +205,7 @@ alle tre linee di codice sopra al metodo ``indexAction``::
     class DefaultController extends Controller
     {
         /**
-         * @Route("/", name="homepage")
+         * @Route("/app/example", name="homepage")
          */
         public function indexAction()
         {
@@ -219,10 +226,10 @@ Il secondo valore di ``@Route()`` (come ``name="homepage"``) è facoltativo e im
 il nome della rotta. Per ora tale nome non è necessario, ma più avanti si rivelerà utile
 per collegare le pagine.
 
-Considerando tutto cioò, l'annotazione ``@Route("/", name="homepage")`` crea una nuova
-rotta di nome ``homepage``, che fa eseguire a Symfony l'azione ``index`` del
-controllore ``Default`` quando l'utente visita il percorso ``/``
-dell'applicazione.
+Considerando tutto cioò, l'annotazione ``@Route("/app/example", name="homepage")`` crea una
+nuova rotta di nome ``homepage``, che fa eseguire a Symfony l'azione ``index`` del
+controllore ``Default`` quando l'utente visita il percorso
+``/app/example`` dell'applicazione.
 
 .. tip::
 
@@ -349,5 +356,5 @@ migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossim
 sezione: ":doc:`la vista <the_view>`".
 
 .. _Composer: https://getcomposer.org/
-.. _installer: http://getcomposer.org/download
+.. _installer: https://getcomposer.org/download
 .. _Twig: http://twig.sensiolabs.org/

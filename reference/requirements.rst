@@ -7,9 +7,9 @@ Requisiti per far girare Symfony
 ================================
 
 Per far girare Symfony, un sistema deve soddisfare un elenco di requisiti.
-Si può verificare facilmente se un sistema abbia tutti i requisiti, richiamando ``web/config.php``
-in una distribuzione di Symfony. Poiché la CLI spesso usa un file di configurazione ``php.ini``
-diverso, è una buona idea verificare i requisiti anche tramite
+Si può verificare facilmente se un sistema abbia tutti i requisiti, richiamando
+``web/config.php`` in una distribuzione di Symfony. Poiché la CLI spesso usa un file di
+configurazione ``php.ini`` diverso, è una buona idea verificare i requisiti anche tramite
 riga di comando, con:
 
 .. code-block:: bash
@@ -21,16 +21,15 @@ Di seguito la lista dei requisiti e dei requisiti opzionali.
 Requisiti
 ---------
 
-* PHP deve essere almeno alla versione 5.3.3
+* PHP deve essere almeno alla versione 5.3.9
 * JSON deve essere abilitato
 * ctype deve essere abilitato
 * ``php.ini`` deve avere l'impostazione ``date.timezone``
 
 .. caution::
 
-    Fare attenzione, perché Symfony ha alcuni limiti noti con versioni precedenti
-    a PHP 5.3.8 o uguali a 5.3.16. Per maggiori informazoni, vedere la
-    `sezione Requisiti del README`_.
+    Fare attenzione, perché Symfony ha alcuni limiti noti con PHP 5.3.16.
+    Per maggiori informazoni, vedere la `sezione Requisiti del README`_.
 
 Opzionali
 ---------

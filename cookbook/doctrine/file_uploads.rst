@@ -97,8 +97,15 @@ caricato.
 .. note::
 
     Se si stanno utilizzando le annotazioni per specificare le regole di validazione
-    (come nell'esempio proposto), assicurarsi di abilitare la validazione tramite
-    annotazioni (confrontare :ref:`configurazione della validazione<book-validation-configuration>`).
+    (come nell'esempio proposto), assicurarsi di abilitare la validazione tramite annotazioni
+    (confrontare :ref:`configurazione della validazione<book-validation-configuration>`).
+
+.. caution::
+
+   Se si usa il metodo ``getUploadRootDir()``, fare attenzione al fatto che il file sarà
+   salvato dentro alla document root, che è pubblicamente accessibile. 
+   Si consideri di porre i file fuori dalla document root, aggiungendo una logica di visualizzazione,
+   se si vuole proteggere il file.
 
 Per gestire il file attualmente caricato tramite il form, utilizzare un campo
 ``file`` "virtuale". Per esempio, se si sta realizzando il form direttamente
@@ -152,15 +159,6 @@ regole di validazione::
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/AppBundle/Resources/config/validation.yml
-        AppBundle\Entity\Document:
-            properties:
-                file:
-                    - File:
-                        maxSize: 6000000
-
     .. code-block:: php-annotations
 
         // src/AppBundle/Entity/Document.php
@@ -178,6 +176,15 @@ regole di validazione::
 
             // ...
         }
+
+    .. code-block:: yaml
+
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Document:
+            properties:
+                file:
+                    - File:
+                        maxSize: 6000000
 
     .. code-block:: xml
 

@@ -115,6 +115,10 @@ min
 Questa opzione obbligatoria è il valore minimo. La validazione fallirà se il
 valore dato è **inferiore** a questo valore.
 
+È importante notare che valori nulli e stringhe vuote sono considerati
+validi, anche se il vincolo richiede una lunghezza minima. I validatori entrano in
+azione solo se il valore non è vuoto.
+
 max
 ~~~
 

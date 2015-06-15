@@ -125,3 +125,15 @@ Si possono anche sostituire le chiamate a metodi esistenti con un array di nuove
     prima che il contenitore sia compilato: una volta che il contenitore è compilato, non si
     possono manipolare ultetiormente le definizioni dei servizi. Per saperne di più sulla compilazione
     del contenitore, vedere :doc:`/components/dependency_injection/compilation`.
+
+Richiedere file
+~~~~~~~~~~~~~~~
+
+Ci sono dei casi d'uso in cui si vuole includere un altro file, appena prima che
+il servizio sia caricato. Per poterlo fare, si può usare il metodo
+:method:`Symfony\\Component\\DependencyInjection\\Definition::setFile`::
+
+    $definition->setFile('/percorso/del/file/pippo.php');
+
+Si noti che Symfony richiamerà internamente l'istruzione ``require_once`` di PHP,
+il che vuol dire che il file sarà incluso una volta sola per richiesta.

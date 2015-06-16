@@ -40,8 +40,11 @@ Una volta trovato il nome del pacchetto, lo si può installare con Composer:
 
 Questo comando sceglierà la versione migliore per il progetto, aggiungendola a ``composer.json``
 e scaricando la libreria nella cartella ``vendor/``. Se si ha bisogno di una specifica
-versione, aggiungere un ``:`` e la versione dopo il nome della libreria (vedere
-`composer require`_).
+versione, aggiungerla come secondo parametro del comando:
+
+.. code-block:: bash
+
+    $ composer require friendsofsymfony/user-bundle "~2.0"
 
 B) Abilitare il bundle
 ----------------------
@@ -60,9 +63,36 @@ L'unica cosa che resta da fare è registrare il bundle in ``AppKernel``::
         public function registerBundles()
         {
             $bundles = array(
-                // ...,
+                // ...
                 new FOS\UserBundle\FOSUserBundle(),
             );
+
+            // ...
+        }
+    }
+
+In alcuni rari casi, si potrebbe voler abilitare un bundle *solo* in
+:doc:`ambiente </cookbook/configuration/environments>` di sviluppo. Per esempio,
+DoctrineFixturesBundle può caricare dati fittizi, il che probabilmente è utile
+solo durante lo sviluppo. Per caricare un bundle solo in ambiente ``dev``
+e ``test``, registrarlo in questo modo::
+
+    // app/AppKernel.php
+
+    // ...
+    class AppKernel extends Kernel
+    {
+        // ...
+
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+            );
+
+            if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+                $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+            }
 
             // ...
         }
@@ -74,16 +104,14 @@ C) Configurare il bundle
 Di solito un bundle richiede un po' di configurazione, da aggiungere al
 file ``app/config/config.yml``. La documentazione del bundle probabilmente
 descriverà tale configurazione. Ma si può anche ottenere un riferimento alla
-configurazione del bundle tramite il comando ``config:dump-reference``.
-
-Per esepmio, per guardare il riferimento alla configurazione ``assetic``, si
-può usare:
+configurazione del bundle tramite il comando ``config:dump-reference``:
 
 .. code-block:: bash
 
     $ app/console config:dump-reference AsseticBundle
 
-oppure:
+Invece del nome completo del bundle, si può anche passare il nome breve, usato come radice
+della configurazione del bundle stesso:
 
 .. code-block:: bash
 

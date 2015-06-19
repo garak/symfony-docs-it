@@ -177,6 +177,8 @@ rigenerati. Si ricordi di farlo al deploy della propria applicazione.
 .. index::
    single: Template; Ereditarietà
 
+.. _twig-inheritance:
+
 Ereditarietà dei template e layout
 ----------------------------------
 
@@ -206,8 +208,8 @@ Primo, costruire un file per il layout di base:
                 <div id="sidebar">
                     {% block sidebar %}
                         <ul>
-                              <li><a href="/">Home</a></li>
-                              <li><a href="/blog">Blog</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/blog">Blog</a></li>
                         </ul>
                     {% endblock %}
                 </div>
@@ -663,7 +665,7 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
         {# ... #}
         <div id="sidebar">
             {{ render(controller(
-                'AcmeArticleBundle:Article:recentArticles',
+                'AppBundle:Article:recentArticles',
                 { 'max': 3 }
             )) }}
         </div>
@@ -676,7 +678,7 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
         <div id="sidebar">
             <?php echo $view['actions']->render(
                 new \Symfony\Component\HttpKernel\Controller\ControllerReference(
-                    'AcmeArticleBundle:Article:recentArticles',
+                    'AppBundle:Article:recentArticles',
                     array('max' => 3)
                 )
             ) ?>
@@ -796,7 +798,7 @@ essere impostato in modo globale nella configurazione dell'applicazione:
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             // ...
-            'templating'      => array(
+            'templating' => array(
                 'hinclude_default_template' => array(
                     'hinclude.html.twig',
                 ),
@@ -823,7 +825,7 @@ qualsiasi template predefinito globale):
             new ControllerReference('...'),
             array(
                 'renderer' => 'hinclude',
-                'default' => 'default/content.html.twig',
+                'default'  => 'default/content.html.twig',
             )
         ) ?>
 
@@ -1014,13 +1016,13 @@ altre risorse. Certamente, si potrebbe inserire manualmente il percorso a tali r
 
         <img src="{{ asset('images/logo.png') }}" alt="Symfony!" />
 
-        <link href="{{ asset('css/blog.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/blog.css') }}" rel="stylesheet" />
 
     .. code-block:: html+php
 
         <img src="<?php echo $view['assets']->getUrl('images/logo.png') ?>" alt="Symfony!" />
 
-        <link href="<?php echo $view['assets']->getUrl('css/blog.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $view['assets']->getUrl('css/blog.css') ?>" rel="stylesheet" />
 
 Lo scopo principale della funzione ``asset`` è rendere più portabile la propria
 applicazione. Se l'applicazione si trova nella radice dell'host

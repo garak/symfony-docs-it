@@ -275,6 +275,11 @@ Ma come si può entrare? Da dove vengono gli utenti?
     Che altri metodi sono supportati? Vedere :doc:`riferimento sulla configurazione </reference/configuration/security>`
     oppure :doc:`costruire un proprio </cookbook/security/custom_authentication_provider>`.
 
+.. tip::
+
+    Se l'applicazione autentica gli utenti tramite un servizio esterno, come Google,
+    Facebook o Twitter, dare un'occhiata al bundle `HWIOAuthBundle`_.
+
 .. _security-user-providers:
 .. _where-do-users-come-from-user-providers:
 
@@ -1283,3 +1288,4 @@ Saperne di più con il ricettario
 
 .. _`strumento online`: https://www.dailycred.com/blog/12/bcrypt-calculator
 .. _`frameworkextrabundle documentation`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
+.. _`HWIOAuthBundle`: https://github.com/hwi/HWIOAuthBundle

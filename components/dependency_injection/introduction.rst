@@ -19,6 +19,8 @@ Installazione
 * Installandolo via :doc:`Composer</components/using_components>` (``symfony/dependency-injection`` su `Packagist`_);
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DependencyInjection).
 
+.. include:: /components/require_autoload.rst.inc
+
 Utilizzo
 --------
 

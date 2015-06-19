@@ -22,6 +22,8 @@ Si può installare il componente in due modi:
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/form`` su `Packagist`_).
 * Usare il repository ufficiale Git (https://github.com/symfony/Form);
 
+.. include:: /components/require_autoload.rst.inc
+
 Configurazione
 --------------
 

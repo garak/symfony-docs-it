@@ -16,6 +16,8 @@ Si può installare il componente in due modi:
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/translation`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Translation).
 
+.. include:: /components/require_autoload.rst.inc
+
 Costruire il Translator
 -----------------------
 

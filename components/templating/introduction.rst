@@ -21,6 +21,8 @@ Si può installare il componente in due modi:
 * Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/templating`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Templating).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 

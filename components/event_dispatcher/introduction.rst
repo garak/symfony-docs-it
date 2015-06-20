@@ -56,6 +56,8 @@ Si può installare il componente in due modi:
 * Installarlo via :doc:`Composer </components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 

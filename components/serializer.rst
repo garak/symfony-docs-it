@@ -33,6 +33,8 @@ Si può installare il componente in due modi:
 * :doc:`Installarlo via Composer</components/using_components>` (``symfony/serializer`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Serializer).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 
@@ -198,7 +200,7 @@ Quando si serializza, si può impostare un callback per formattare una determina
         return $dateTime instanceof \DateTime
             ? $dateTime->format(\DateTime::ISO8601)
             : '';
-    }
+    };
 
     $normalizer->setCallbacks(array('createdAt' => $callback));
 

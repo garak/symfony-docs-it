@@ -250,4 +250,10 @@ Assetic:
             ),
         ));
 
+.. tip::
+
+    Si possono comprimere e manipolare immagini caricate, usando il bundle
+    `LiipImagineBundle`_.
+
 .. _`Jpegoptim`: http://www.kokkonen.net/tjko/projects.html
+.. _`LiipImagineBundle`: http://knpbundles.com/liip/LiipImagineBundle

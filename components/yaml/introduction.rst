@@ -34,6 +34,8 @@ Si può installare il componente in due modi:
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/yaml`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Yaml).
 
+.. include:: /components/require_autoload.rst.inc
+
 Perché?
 -------
 
@@ -102,7 +104,7 @@ e la converte in un array PHP:
 
     $yaml = new Parser();
 
-    $value = $yaml->parse(file_get_contents('/percorso/del/file.yml'));
+    $valore = $yaml->parse(file_get_contents('/percorso/del/file.yml'));
 
 Se si verifica un errore durante l'analizi, l'analizzatore lancia un'eccezione
 :class:`Symfony\\Component\\Yaml\\Exception\\ParseException`, che indica il tipo
@@ -114,7 +116,7 @@ di errore e la riga della stringa YAML originale in cui l'errore si
     use Symfony\Component\Yaml\Exception\ParseException;
 
     try {
-        $value = $yaml->parse(file_get_contents('/percorso/del/file.yml'));
+        $valore = $yaml->parse(file_get_contents('/percorso/del/file.yml'));
     } catch (ParseException $e) {
         printf("Impossibile analizzare la stringa YAML: %s", $e->getMessage());
     }

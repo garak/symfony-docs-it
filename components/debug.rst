@@ -19,6 +19,8 @@ Si può installare il componente in due modi:
 * Usando il  repository ufficiale su Git (https://github.com/symfony/Debug);
 * :doc:`Installandolo tramite Composer </components/using_components>` (``symfony/debug`` su `Packagist`_).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 

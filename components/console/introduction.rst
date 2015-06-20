@@ -20,6 +20,8 @@ Il componente può essere installato in due modi:
 * Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/console`` su `Packagist`_);
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console).
 
+.. include:: /components/require_autoload.rst.inc
+
 Creazione di comandi di base
 ----------------------------
 

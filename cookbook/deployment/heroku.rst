@@ -15,7 +15,7 @@ Per creare un nuovo sito Heroku, `iscriversi a Heroku`_ o entrare
 con le proprie credenziali. Quindi scaricare e installare `Heroku Toolbelt`_ sul
 proprio computer.
 
-Si puà anche dare un'occhiata alla guida `getting Started with PHP on Heroku`_, per
+Si può anche dare un'occhiata alla guida `getting Started with PHP on Heroku`_, per
 acquisire familiarità con le specifiche di come funzionano le applicazioni PHP su Heroku.
 
 Preparare l'applicazione

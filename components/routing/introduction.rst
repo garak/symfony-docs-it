@@ -16,6 +16,8 @@ Installazione
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Routing);
 * Installandolo via Composer (``symfony/routing`` su `Packagist`_).
 
+.. include:: /components/require_autoload.rst.inc
+
 Utilizzo
 --------
 
@@ -33,9 +35,9 @@ in modo tale da caricare il componente Routing::
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Route;
 
-    $route = new Route('/pippo', array('controller' => 'MioControllore'))
+    $rotta = new Route('/pippo', array('controller' => 'MioControllore'))
     $rotte = new RouteCollection();
-    $rotte->add('nome_rotta', new Route('/pippo', array('controller' => 'MioControllore')));
+    $rotte->add('nome_rotta', $rotta);
 
     $contesto = new RequestContext($_SERVER['REQUEST_URI']);
 
@@ -126,10 +128,10 @@ In questo caso la rotta viene trovata con ``/archivio/2012/01``, perché il segn
 *non* verrà trovata nessuna corrispondenza perché "pippo" non rispetta i requisiti del segnaposto.
 
 .. tip::
-    
+
     Per creare una corrispondenza che trovi tutti gli URL che inizino con un determinato percorso e
     terminino con un suffisso arbitrario, è possibile usare la seguente definizione::
-        
+
         $rotta = new Route(
             '/inizio/{suffisso}',
             array('suffisso' => ''),

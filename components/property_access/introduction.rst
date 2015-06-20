@@ -20,6 +20,8 @@ Si può installare il componente in due modi:
 * Installarlo :doc:`tramite Composer</components/using_components>` (``symfony/property-access`` su `Packagist`_);
 * Usare il repository Git ufficiale (https://github.com/symfony/PropertyAccess).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 

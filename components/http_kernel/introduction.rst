@@ -19,6 +19,8 @@ Installazione
 * Installandolo :doc:`via Composer</components/using_components>` (``symfony/http-kernel`` su Packagist);
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/HttpKernel).
 
+.. include:: /components/require_autoload.rst.inc
+
 Il flusso di una richiesta
 --------------------------
 
@@ -79,9 +81,10 @@ e spiega come funziona una specifica implementazione di HttpKernel, il framework
 Symfony.
 
 All'inizio, l'uso di :class:`Symfony\\Component\\HttpKernel\\HttpKernel`
-è molto semplice e implica la creazione un :doc:`distributore di eventi</components/event_dispatcher/introduction>`
-e un :ref:`risolutore di controllori<component-http-kernel-resolve-controller>`
-(spiegato più avanti). Per completare un kernel funzionante, si aggiungeranno ulteriori
+è molto semplice e implica la creazione un
+:doc:`distributore di eventi </components/event_dispatcher/introduction>` e un
+:ref:`risolutore di controllori <component-http-kernel-resolve-controller>` (spiegato
+più avanti). Per completare un kernel funzionante, si aggiungeranno ulteriori
 ascoltatori agli eventi discussi sotto::
 
     use Symfony\Component\HttpFoundation\Request;

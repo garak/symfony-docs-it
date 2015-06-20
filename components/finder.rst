@@ -16,6 +16,8 @@ Installazione
 * Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/finder`` su `Packagist`_);
 * Usando il repository ufficiale su Git (https://github.com/symfony/Finder).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 

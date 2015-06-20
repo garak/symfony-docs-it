@@ -16,6 +16,8 @@ Installazione
 * :doc:`installarlo tramite Composer </components/using_components>` (``symfony/options-resolver`` su `Packagist`_)
 * utilizzare il repository ufficiale Git (https://github.com/symfony/OptionsResolver)
 
+.. include:: /components/require_autoload.rst.inc
+
 Utilizzo
 --------
 

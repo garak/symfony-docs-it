@@ -20,6 +20,8 @@ Si può installare il componente in due modi:
 * :doc:`Installarlo tramite Composer</components/using_components>` (``symfony/stopwatch`` su `Packagist`_);
 * Usare il repository Git ufficiale (https://github.com/symfony/Stopwatch).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 

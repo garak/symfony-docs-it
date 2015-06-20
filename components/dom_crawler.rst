@@ -20,6 +20,8 @@ Installazione
 * Installandolo :doc:`via Composer </components/using_components>` (``symfony/dom-crawler`` su `Packagist`_).
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/DomCrawler);
 
+.. include:: /components/require_autoload.rst.inc
+
 Utilizzo
 --------
 

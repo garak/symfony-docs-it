@@ -6,3 +6,4 @@ Controllore
 
     error_pages
     service
+    upload_file

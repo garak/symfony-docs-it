@@ -18,6 +18,8 @@ Si può installare il componente in due modi:
 * Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/filesystem`` su `Packagist`_).
 * Usare il repository ufficiale su Git (https://github.com/symfony/Filesystem);
 
+.. include:: /components/require_autoload.rst.inc
+
 Utilizzo
 --------
 
@@ -30,7 +32,7 @@ punto finale per le operazioni su filesystem::
     $fs = new Filesystem();
 
     try {
-        $fs->mkdir('/tmp/random/dir/' . mt_rand());
+        $fs->mkdir('/tmp/random/dir/'.mt_rand());
     } catch (IOException $e) {
         echo "Errore durante la creazione della cartella";
     }
@@ -65,7 +67,7 @@ Exists
 ~~~~~~
 
 :method:`Symfony\\Component\\Filesystem\\Filesystem::exists` verifica la
-presenza di tutti i file o cartelle e restituisce `false` se un file manca::
+presenza di tutti i file o cartelle e restituisce ``false`` se un file manca::
 
     // questa cartella esiste, restituisce true
     $fs->exists('/tmp/photos');
@@ -152,7 +154,7 @@ la modalità di un file. Il terzo parametro è un'opzione ricorsiva booleana::
     // imposta la modalità di video.ogg a 0600
     $fs->chmod('video.ogg', 0600);
     // imposta ricorsivamente la modalità della cartella src
-    $fs->chmod('src', 0700, true);
+    $fs->chmod('src', 0700, 0000, true);
 
 .. note::
 
@@ -207,7 +209,7 @@ il percorso relativo di una cartella, data un'altra::
         '/var/lib/symfony/src/Symfony/',
         '/var/lib/symfony/src/Symfony/Component'
     );
-    // restituisce 'videos'
+    // restituisce 'videos/'
     $fs->makePathRelative('/tmp/videos', '/tmp')
 
 mirror

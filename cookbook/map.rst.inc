@@ -50,6 +50,7 @@
 
   * :doc:`/cookbook/controller/error_pages`
   * :doc:`/cookbook/controller/service`
+  * :doc:`/cookbook/controller/upload_file`
 
 * **Debug**
 
@@ -207,7 +208,7 @@
   * (email) :doc:`/cookbook/email/testing`
   * (form) :doc:`/cookbook/form/unit_testing`
 
-* **Aggiornare**
+* :doc:`/cookbook/upgrade/index`
 
   * :doc:`/cookbook/upgrade/patch_version`
   * :doc:`/cookbook/upgrade/minor_version`

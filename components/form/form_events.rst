@@ -32,8 +32,8 @@ a seconda dei valori della richiesta::
 
     // ...
 
-Il fluso del form
------------------
+Il flusso del form
+------------------
 
 Il flusso di invio del form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -4,7 +4,7 @@
 Iniettare istanze dento al contenitore
 --------------------------------------
 
-Usando il contenitore in un'applicaizone, a volte si ha bisogno di iniettare
+Usando il contenitore in un'applicazione, a volte si ha bisogno di iniettare
 un'istanza, invece di configurare il contenitore per creare una nuova istanza.
 
 Per esempi, se si usa il componente :doc:`HttpKernel </components/http_kernel/introduction>`

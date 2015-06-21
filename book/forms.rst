@@ -298,7 +298,7 @@ Inviare form con bottoni di submit multipli
     Il supporto per i bottoni nei form è stato aggiunto in Symfony 2.3.
 
 Quando un form contiene più di un bottone di submit, si vuole sapere
-quale dei bottoni sia stato cliccato, per adattare il fluso del controllore.
+quale dei bottoni sia stato cliccato, per adattare il flusso del controllore.
 Aggiungiamo un secondo bottone "Salva e aggiungi" al form::
 
     $form = $this->createFormBuilder($task)
@@ -308,7 +308,7 @@ Aggiungiamo un secondo bottone "Salva e aggiungi" al form::
         ->add('saveAndAdd', 'submit', array('label' => 'Salva e aggiungi'))
         ->getForm();
 
-Nel controllore, usaree il metodo
+Nel controllore, usare il metodo
 :method:`Symfony\\Component\\Form\\ClickableInterface::isClicked` del bottone
 per sapere se sia stato cliccato il bottone "Salva e aggiungi"::
 

@@ -33,7 +33,7 @@ nel firewall, insieme alla chiave ``form_login``:
         security:
             firewalls:
                 mio_firewall:
-                    http_basic:
+                    http_basic: ~
 
     .. code-block:: xml
 

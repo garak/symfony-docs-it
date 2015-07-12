@@ -60,8 +60,8 @@ il tag ``console.command``:
             ->addTag('console.command')
         ;
 
-Usare dipendenze e parametri per impostarae valori predefiniti per le opzioni
------------------------------------------------------------------------------
+Usare dipendenze e parametri per impostare valori predefiniti per le opzioni
+----------------------------------------------------------------------------
 
 Si immagini di voler fornire un valore predefinito per l'opzione ``nome``. Si potrebbe
 passare uno dei seguenti come quinto parametro di ``addOption()``:

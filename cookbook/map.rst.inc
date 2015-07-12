@@ -1,6 +1,7 @@
 * :doc:`/cookbook/assetic/index`
 
   * :doc:`/cookbook/assetic/asset_management`
+  * :doc:`/cookbook/assetic/php`
   * :doc:`/cookbook/assetic/uglifyjs`
   * :doc:`/cookbook/assetic/yuicompressor`
   * :doc:`/cookbook/assetic/jpeg_optimize`
@@ -113,6 +114,10 @@
 
   * :doc:`/cookbook/frontend/bower`
 
+* :doc:`/cookbook/install/index`
+
+  * :doc:`/cookbook/install/unstable_versions`
+
 * :doc:`/cookbook/logging/index`
 
   * :doc:`/cookbook/logging/monolog`
@@ -144,26 +149,29 @@
   * :doc:`/cookbook/routing/redirect_trailing_slash`
   * :doc:`/cookbook/routing/extra_information`
 
-* :doc:`/cookbook/security/index`
+* :doc:`Autenticazione di sicurezza (identificare/connettere l'utente) </cookbook/security/index>`
 
   * :doc:`/cookbook/security/form_login_setup`
   * :doc:`/cookbook/security/entity_provider`
   * :doc:`/cookbook/security/remember_me`
   * :doc:`/cookbook/security/impersonating_user`
-  * :doc:`/cookbook/security/voters`
-  * :doc:`/cookbook/security/voters_data_permission`
-  * :doc:`/cookbook/security/acl`
-  * :doc:`/cookbook/security/acl_advanced`
-  * :doc:`/cookbook/security/force_https`
   * :doc:`/cookbook/security/form_login`
-  * :doc:`/cookbook/security/securing_services`
   * :doc:`/cookbook/security/custom_provider`
   * :doc:`/cookbook/security/custom_authentication_provider`
   * :doc:`/cookbook/security/pre_authenticated`
   * :doc:`/cookbook/security/target_path`
   * :doc:`/cookbook/security/csrf_in_login_form`
-  * :doc:`/cookbook/security/access_control`
   * :doc:`/cookbook/security/multiple_user_providers`
+
+* :doc:`Autorizzazione di sicurezza (negare l'accesso) </cookbook/security/index>`
+
+  * :doc:`/cookbook/security/voters`
+  * :doc:`/cookbook/security/voters_data_permission`
+  * :doc:`/cookbook/security/acl`
+  * :doc:`/cookbook/security/acl_advanced`
+  * :doc:`/cookbook/security/force_https`
+  * :doc:`/cookbook/security/securing_services`
+  * :doc:`/cookbook/security/access_control`
 
 * **Serializer**
 

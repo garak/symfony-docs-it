@@ -98,7 +98,9 @@ per cancellare una specifica voce di un blog, per esempio:
 
     Ci sono in realtà nove metodi HTTP definiti dalla specifica HTTP,
     ma molti di essi non sono molto usati o supportati. In realtà, molti
-    browser moderni non supportano nemmeno i metodi ``PUT`` e ``DELETE``.
+    browser moderni non supportano nemmeno i metodi ``PUT`` e ``DELETE``
+    nei form. Molti altri sono invece supportati nelle richieste ajax,
+    così come nelle rotte di Symfony.
 
 In aggiunta alla prima linea, una richiesta HTTP contiene sempre altre linee
 di informazioni, chiamate header. Gli header possono fornire un ampio raggio

@@ -77,8 +77,8 @@ all'interno di un controllore::
     // src/AppBundle/Controller/DefaultController.php
     namespace AppBundle\Controller;
 
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use AppBundle\Entity\Task;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
 
     class DefaultController extends Controller
@@ -542,7 +542,7 @@ Questo richiamerà il metodo statico ``determineValidationGroups()`` della class
 L'oggetto Form è passato come parametro del metodo (vedere l'esempio successivo).
 Si può anche definire l'intera logica con una Closure::
 
-    use Acme\AcmeBundle\Entity\Client;
+    use AppBundle\Entity\Client;
     use Symfony\Component\Form\FormInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -566,7 +566,7 @@ L'uso dell'opzione ``validation_groups`` sovrascrive il gruppo predefinito di va
 in uso. Se si vogliono validare anche i vincoli predefiniti
 dell'entità, occorre modificare l'opzione in questo modo::
 
-    use Acme\AcmeBundle\Entity\Client;
+    use AppBundle\Entity\Client;
     use Symfony\Component\Form\FormInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -1140,6 +1140,8 @@ la scelta in ultima analisi, spetta allo sviluppatore.
     Inoltre, anche i dati di un campo non mappato si possono modificare direttamente::
 
         $form->get('dueDate')->setData(new \DateTime());
+
+.. _form-as-services:
 
 Definire i form come servizi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

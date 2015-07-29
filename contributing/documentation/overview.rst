@@ -5,7 +5,7 @@ Uno dei princìpi essenziali del progetto Symony è che **la documentazione è
 importante quanto il codice**. Ecco perché viene dedicata una grande quantità di risorse
 alla documentazione di nuove caratteristiche e all'aggiornamento del resto della documentazione.
 
-Più di 700 svilppatori, sparsi in tutto il mondo, hanno contribuito alla documentazione di Symfony
+Più di 700 sviluppatori, sparsi in tutto il mondo, hanno contribuito alla documentazione di Symfony
 ed è con piacere che viene accolta ogni volontà di unirsi a questa grande famiglia.
 Questa guida spiegherà tutto ciò che serve per contribuire alla documentazione
 di Symfony.
@@ -18,7 +18,7 @@ Prima di iniziare a contribuire
 * La documentazione di Symfony è scritta usando il linguaggio reStructuredText.
   Se non si ha familiarità con tale formato, leggere :doc:`questa pagina </contributing/documentation/format>`
   per una veloce panoramica sulle sue caratteristiche di base.
-* La documentazione di Symfony è ospistat su GitHub_. Si deve essere iscritti a GitHub per
+* La documentazione di Symfony è ospitata su GitHub_. Si deve essere iscritti a GitHub per
   poter contribuire.
 * La documentazione di Symfony è pubblicata sotto
   :doc:`licenza Creative Commons BY-SA 3.0 </contributing/documentation/license>`
@@ -27,7 +27,7 @@ Prima di iniziare a contribuire
 Il primo contributo alla documentazione
 ---------------------------------------
 
-In qesta sezione, si vedrà come contribuire alla documentazione di Symfony per la
+In questa sezione, si vedrà come contribuire alla documentazione di Symfony per la
 prima volta. La sezione successiva spiegherà il processo, più breve, da
 seguire in futuro per ogni contributo successivo al primo.
 
@@ -78,7 +78,7 @@ doc:`/contributing/documentation/standards`.
     $ git push origin miglioramento_capitolo_installazione
 
 **Passo 7.** Ora è tutto pronto per iniziare una **richiesta di pull**. Andare sul
-repositofy forkato, su ``https//github.com/<NOME_SU_GITHUB>/symfony-docs``
+repository forkato, su ``https//github.com/<NOME_SU_GITHUB>/symfony-docs``
 e cliccare sul collegamento ``Pull Requests``, nella barra laterale.
 
 Quindi, cliccare sul bottone ``New pull request``. Poiché GitHub non può sapere esattamente
@@ -269,7 +269,7 @@ Domande frequenti
 Perché ci vuole così tanto per la revisione delle modifiche?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Occorer pazienza. Possono volerci vari giorni prima della una revisione di una
+Occorre pazienza. Possono volerci vari giorni prima della una revisione di una
 richiesta di pull. Dopo il merge delle modifiche, potrebbero volerci ancora varie ore
 prima che le modifiche compaiano sul sito symfony.com.
 

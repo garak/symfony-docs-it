@@ -367,7 +367,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 La ``Request`` come parametro del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Che fare se si ha bisonog di leggere i parametri della query string o un header o accedere
+Che fare se si ha bisogno di leggere i parametri della query string o un header o accedere
 a un file caricato? Tutte queste informazioni sono memorizzate nell'oggetto ``Request`` di Symfony.
 Per ottenerlo in un controllore, basta aggiungerlo come parametro e
 **forzare il tipo a Request**::
@@ -482,7 +482,7 @@ strutture inutilmente profonde::
         'name' => $name
     ));
 
-Il motore di template di Symfony è spiegato in gran deettaglio nel capitolo
+Il motore di template di Symfony è spiegato in gran dettaglio nel capitolo
 :doc:`Template </book/templating>`.
 
 .. sidebar:: Riferimenti a template che si trovano in un bundle

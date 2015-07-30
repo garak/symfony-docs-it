@@ -405,7 +405,7 @@ sicuro (PUT, POST, DELETE) o quando la risposta ha un codice di stato di rinvio.
 Symfony imposta automaticamente un header ``Cache-Control`` conservativo, quando
 nessun header è impostato dallo sviluppatore, seguendo queste regole:
 
-* Se non è deinito nessun header di cache (``Cache-Control``, ``Expires``, ``ETag``
+* Se non è definito nessun header di cache (``Cache-Control``, ``Expires``, ``ETag``
   o ``Last-Modified``), ``Cache-Control`` è impostato a ``no-cache``, il che vuol dire
   che la risposta non sarà messa in cache;
 
@@ -504,7 +504,7 @@ Il risultante header HTTP sarà simile a questo:
 
 Si noti che, nelle versioni di HTTP precedenti alla 1.1, non era richiesto al server di origine di inviare
 l'header ``Date``. Di conseguenza, la cache (p.e. il browser) potrebbe aver bisogno di
-appoggiarsi all'orologio locale per valuare l'header ``Expires``, rendendo il calcolo del ciclo di vita
+appoggiarsi all'orologio locale per valutare l'header ``Expires``, rendendo il calcolo del ciclo di vita
 vulnerabile a difformità di ore. L'header ``Expires`` soffre di un'altra limitazione: le
 specifiche stabiliscono che "i server HTTP/1.1 non dovrebbero inviare header ``Expires``
 oltre un anno nel futuro."
@@ -852,7 +852,7 @@ Invalidazione della cache
     nomi delle cose." -- Phil Karlton
 
 Una volta che un URL è memorizzato in una gateway cache, la cache non chiederà più
-tale contenuto all'applicazione. Ciò consente alla chache di fornire risposte veloci
+tale contenuto all'applicazione. Ciò consente alla cache di fornire risposte veloci
 e ridurre il carico sull'applicazione. Tuttavia, si rischia di
 fornire contenuti obsoleti. Un modo per uscire da questo dilemma è usare tempi di cache
 lunghi, notificando alla gateway cache quando il contenuto cambia.
@@ -880,7 +880,7 @@ tali dati in cache.
 
     Se si vuole usare l'invalidazione della cache, si potrebbe usare
     `FOSHttpCacheBundle`_. Questo bundle fornisce servizi per l'aiuto in vari
-    concetti di invalidazione della cache e documenta la configuraiozne per un
+    concetti di invalidazione della cache e documenta la configurazione per un
     paio di proxy comunemente usati.
 
 Se un contenuto corrisponde a un URL, il modello ``PURGE`` funziona molto bene.
@@ -1117,7 +1117,7 @@ se non ci sono gateway per la cache installati.
     Come si vedrà più avanti, la variabile passata ``maxPerPage`` è disponibile
     come parametro del controllore (come ``$maxPerPage``). Le variabili
     passate tramite ``render_esi`` diventano ugualmente parte della chiave di cache, in modo
-    da avere cache uniche per ogni cobinazione di variabili e valori.
+    da avere cache uniche per ogni combinazione di variabili e valori.
 
 Quando si usa la funzione ``render`` predefinita (o si usa l'opzione
 ``inline``), Symfony fonde il contenuto della pagina inclusa in quello principale,

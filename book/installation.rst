@@ -22,7 +22,7 @@ solo una volta e che può quindi creare tutte le applicazioni Symfony.
     :ref:`book-creating-applications-without-the-installer` per sapere
     come procedere.
 
-A seconda del sistema operativo, l'installatore va innstallato in modi
+A seconda del sistema operativo, l'installatore va installato in modi
 diversi.
 
 Sistemi Linux e Mac OS X
@@ -126,7 +126,7 @@ si possono creare applicazioni Symfony usando un metodo alternativo di installaz
 basato su `Composer`_.
 
 Composer è un gestore di dipendenze, usato da applicazioni PHP moderne, e può essere usato
-per creare nuove applicazioni basate sul frameowrk Symfony. Se non lo si ha già
+per creare nuove applicazioni basate sul framework Symfony. Se non lo si ha già
 installato globalmente, seguire la prossima sezione.
 
 Installare Composer globalmente
@@ -217,7 +217,7 @@ Se ci sono problemi, correggerli prima di procedere.
 
 .. sidebar:: Impostare i permessi
 
-    Un problema comune duruante l'installazione è che le cartelle ``app/cache`` e
+    Un problema comune durante l'installazione è che le cartelle ``app/cache`` e
     ``app/logs`` devono essere scrivibili sia dal server web che dall'utente
     della linea di comando. Su sistemi UNIX, se l'utente del server web è diverso
     da quello della linea di comando, si possono provare le soluzioni seguenti.

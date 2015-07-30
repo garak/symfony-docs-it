@@ -518,7 +518,7 @@ del bundle::
 
 .. tip::
 
-    Questo articolo mostra come si interagisce con Doctrine dall'interno di un controllore, usando article shows working with Doctrine from within a controller by using
+    Questo articolo mostra come si interagisce con Doctrine dall'interno di un controllore, usando
     il metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::getDoctrine`
     del controllore. Tale metodo è una scorciatoia per ottenere il servizio
     ``doctrine``. Si può interagire con Doctrine in altri contesti,
@@ -751,7 +751,7 @@ come alias ``p``.
 
     Prendere nota del metodo ``setParameter()``. Interagendo con Doctrine,
     è sempre una buona idea impostare valori esterni tramite "segnaposto"
-    (``:price`` nell'esempio appena visto), per preveniore attacchi di tipo SQL injection.
+    (``:price`` nell'esempio appena visto), per prevenire attacchi di tipo SQL injection.
 
 Il metodo ``getResult()`` restituisce un array di risultati. Se si cerca un solo
 oggetto, si può usare invece il metodo ``getOneOrNullResult()``::
@@ -760,7 +760,7 @@ oggetto, si può usare invece il metodo ``getOneOrNullResult()``::
 
 La sintassi DQL è molto potente e consente di eseguire facilmente join tra
 entità (l'argomento :ref:`relazioni <book-doctrine-relations>` sarà affrontato
-successivamente), group by, ecc. Per maggiori informazioni, consultare la documetazione
+successivamente), group by, ecc. Per maggiori informazioni, consultare la documentazione
 `Query Builder`_ di Doctrine.
 
 Cercare oggetti usando DQL

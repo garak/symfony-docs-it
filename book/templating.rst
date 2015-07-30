@@ -295,7 +295,7 @@ Un template figlio potrebbe assomigliare a questo:
 
    Il template padre è identificato da una speciale sintassi di stringa
    (``base.html.twig``) che indica che il template si trova nella cartella ``app/Resources/views``
-   del progetto. Si può acnhe usare il nome logico equivalente,
+   del progetto. Si può anche usare il nome logico equivalente,
    ``::base.html.twig``. Questa convenzione di nomi è spiegata nel dettaglio in
    :ref:`template-naming-locations`.
 
@@ -687,7 +687,7 @@ per i controllori (cioè **bundle**:**controllore**:**azione**):
 Ogni volta che ci si trova ad aver bisogno di una variabile o di un pezzo di informazione
 a cui non si ha accesso in un template, considerare di rendere un controllore.
 I controllori sono veloci da eseguire e promuovono buona organizzazione e riuso del codice.
-Ovviamente, come tutti i controlori, dovrebbero idealmente essere snelli, perché la
+Ovviamente, come tutti i controllori, dovrebbero idealmente essere snelli, perché la
 maggior parte del codice dovrebbe trovarsi nei :doc:`servizi </book/service_container>`, che sono riusabili.
 
 .. _book-templating-hinclude:
@@ -1061,7 +1061,7 @@ l'ereditarietà dei template.
 Iniziamo aggiungendo due blocchi al template di base, che conterranno le risorse:
 uno chiamato ``stylesheets``, dentro al tag ``head``, e l'altro chiamato ``javascripts``,
 appena prima della chiusura del tag ``body``. Questi blocchi conterranno tutti i fogli
-di stile e i Javascript che occorrerano al sito:
+di stile e i Javascript che occorreranno al sito:
 
 .. configuration-block::
 

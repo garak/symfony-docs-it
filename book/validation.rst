@@ -697,7 +697,7 @@ Classi
 
 Alcuni vincoli si applicano all'intera classe da validare. Per esempio,
 il vincolo :doc:`Callback</reference/constraints/Callback>` è un vincolo
-generico, che si applica alla classe stessa. Quano tale classe viene validata,
+generico, che si applica alla classe stessa. Quando tale classe viene validata,
 i metodi specifici di questo vincolo vengono semplicemente eseguiti, in modo che
 ognuno possa fornire una validazione personalizzata.
 
@@ -852,7 +852,7 @@ classe o a ``Default``.
 .. caution::
 
     Se si valida *solo* l'oggetto User, non c'è differenza tra gruppo
-    ``Default`` e gruppo ``User``. C'è però differnza se ``User`` ha oggetti inclusi. Per esempio,
+    ``Default`` e gruppo ``User``. C'è però differenza se ``User`` ha oggetti inclusi. Per esempio,
     quando ``User`` ha una proprietà ``address`` che contiene un oggetto ``Address``, con
     un vincolo :doc:`/reference/constraints/Valid`, in modo che sia validato
     quando si valida l'oggetto

@@ -190,7 +190,7 @@ essere usato per selezionare elementi nella risposta, per cliccare su collegamen
     Il crawler può essere usato solo se il contenuto della risposta è un documento XML
     o HTML. Per altri tipi di contenuto, richiamare ``$client->getResponse()->getContent()``.
 
-Cliccare su un collegamento, seleziondolo prima con il  Crawler, usando o un'espressione XPath
+Cliccare su un collegamento, selezionandolo prima con il  Crawler, usando o un'espressione XPath
 o un selettore CSS, quindi usando il Client per cliccarlo. Per esempio::
 
     $link = $crawler

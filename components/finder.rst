@@ -87,7 +87,7 @@ Per cercare in diverse posizioni, è possibile concatenare diverse chiamate a
 .. versionadded:: 2.2
    Il supporto per i caratteri jolly è stato aggiunto nella  versione 2.2.
 
-Si possono usare caretteri jolly nelle cartelle, per cercare uno schema::
+Si possono usare caratteri jolly nelle cartelle, per cercare uno schema::
 
     $finder->in('src/Symfony/*/*/Resources');
 
@@ -216,7 +216,7 @@ metodo :method:`Symfony\\Component\\Finder\\Finder::path`::
 
     $finder->path('una/cartella/particolare');
 
-Su tutte le piattarforma, bisogna usare la barra (cioè ``/``) come separatore di cartelle.
+Su tutte le piattaforme, bisogna usare la barra (cioè ``/``) come separatore di cartelle.
 
 Il metodo ``path()`` accetta stringhe o espressioni regolari::
 

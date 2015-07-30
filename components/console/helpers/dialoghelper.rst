@@ -80,7 +80,7 @@ Nascondere la risposta dell'utente
 .. versionadded:: 2.2
     Il metodo ``askHiddenResponse`` è stato aggiunto in Symfony 2.2.
 
-Si può anche fare una domanda e nascodere la risposta. Ciò risulta utile
+Si può anche fare una domanda e nascondere la risposta. Ciò risulta utile
 in particolare per le password::
 
     $dialog = $this->getHelperSet()->get('dialog');
@@ -251,7 +251,7 @@ Testare un comando con un input atteso
 --------------------------------------
 
 Se si vuole scrivere un test per un comando che si aspetta un qualche tipo di input
-da linea di omando, occorre sovrascrivere HelperSet usato dal comando::
+da linea di comando, occorre sovrascrivere HelperSet usato dal comando::
 
     use Symfony\Component\Console\Application;
     use Symfony\Component\Console\Helper\DialogHelper;

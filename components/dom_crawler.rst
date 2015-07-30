@@ -218,7 +218,7 @@ e :phpclass:`DOMNode`:
     (sebbene sia possibile). Tuttavia, poiché il ``Crawler`` è un insieme di
     oggetti :phpclass:`DOMElement`, si può usare qualsiasi metodo o proprietà disponibile
     in :phpclass:`DOMElement`, :phpclass:`DOMNode` o :phpclass:`DOMDocument`.
-    Per esempio, si può ottenre l'HTML di un ``Crawler`` con qualcosa del
+    Per esempio, si può ottenere l'HTML di un ``Crawler`` con qualcosa del
     genere::
 
         $html = '';

@@ -231,7 +231,7 @@ esempio, se si vuole che ``m.example.com`` e
 .. tip::
 
     Assicurarsi di includere anche un'opzione per il segnaposto ``subdomain``,
-    atrlimenti occorrerà includere i valori dei sottodomini ogni volta
+    altrimenti occorrerà includere i valori dei sottodomini ogni volta
     che si genera la rotta.
 
 .. _component-routing-host-imported:

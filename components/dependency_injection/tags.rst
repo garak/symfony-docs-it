@@ -163,7 +163,7 @@ stesso.
 Registrare il passo con il contenitore
 --------------------------------------
 
-Occorerà anche registrare il passo con il contenitore, sarà poi eseguito quando
+Occorrerà anche registrare il passo con il contenitore, sarà poi eseguito quando
 il contenitore viene compilato::
 
     use Symfony\Component\DependencyInjection\ContainerBuilder;

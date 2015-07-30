@@ -98,7 +98,7 @@ si può usare:
     $ php application.php list --version
     $ php application.php list -V
 
-per ottnere queste informazioni:
+per ottenere queste informazioni:
 
 .. code-block:: text
 
@@ -151,4 +151,4 @@ eseguire con:
 
 Se si sceglie un comando troppo breve e quindi ambiguo (cioè più di un comando
 corrisponde), non verrà eseguito alcun comando,
-ma verranno mostrati dei sugerrimenti sui possibili comandi da eseguire.
+ma verranno mostrati dei suggerimenti sui possibili comandi da eseguire.

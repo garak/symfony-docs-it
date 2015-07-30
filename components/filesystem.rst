@@ -215,7 +215,7 @@ il percorso relativo di una cartella, data un'altra::
 mirror
 ~~~~~~
 
-:method:`Symfony\\Component\\Filesystem\\Filesystem::mirror` esegute il mirror
+:method:`Symfony\\Component\\Filesystem\\Filesystem::mirror` esegue il mirror
 di una cartella::
 
     $fs->mirror('/percorso/della/sorgente', '/percorso/della/destinazione');
@@ -223,7 +223,7 @@ di una cartella::
 isAbsolutePath
 ~~~~~~~~~~~~~~
 
-:method:`Symfony\\Component\\Filesystem\\Filesystem::isAbsolutePath` restiuisce
+:method:`Symfony\\Component\\Filesystem\\Filesystem::isAbsolutePath` restituisce
 ``true`` se il percorso dato è assoluto, ``false`` altrimenti::
 
     // restituisce true

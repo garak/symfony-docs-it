@@ -33,7 +33,7 @@ passargli un numero totale di unità e avanzare il progresso man mano che il com
 
 .. tip::
 
-    Si può anche impostare il progresso attaule, richiamando il metodo
+    Si può anche impostare il progresso attuale, richiamando il metodo
     :method:`Symfony\\Component\\Console\\Helper\\ProgressHelper::setCurrent`.
 
 

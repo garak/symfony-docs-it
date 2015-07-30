@@ -40,7 +40,7 @@ Il costruttore della classe ``Translator`` ha bisogno di un solo parametro: il l
 
 .. note::
 
-    Il locale impostato qui è quello predinito da usare. Lo può ridefinire
+    Il locale impostato qui è quello predefinito da usare. Lo può ridefinire
     durante la traduzione delle stringhe.
 
 .. note::
@@ -57,7 +57,7 @@ Caricare i cataloghi di messaggi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 I messaggi sono memorizzati in cataloghi, all'interno della classe ``Translator``.
-Un catalogo di messaggi è come un dizioniario di traduzioni per uno specifico
+Un catalogo di messaggi è come un dizionario di traduzioni per uno specifico
 locale.
 
 Il componente Translation usa della classi Loader per caricare i cataloghi. Si possono caricare
@@ -183,9 +183,9 @@ Uso dei domini dei messaggi
 Come già visto, i file dei messaggi sono organizzati nei vari locale che
 traducono. I file dei messaggi possono anche essere ulteriormente organizzati in "domini".
 
-Il domnio è specificato nel quarto parametro del metodo ``addResource()``.
+Il dominio è specificato nel quarto parametro del metodo ``addResource()``.
 Il dominio predefinito è ``messages``. Per esempio, si supponga che, per
-prganizzarle meglio, le traduzioni siano suddivise in tre domini:
+organizzarle meglio, le traduzioni siano suddivise in tre domini:
 ``messages``, ``admin`` e ``navigation``. La traduzione francese sarebbe
 caricata in questo modo::
 

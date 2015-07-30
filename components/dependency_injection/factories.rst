@@ -130,7 +130,7 @@ essere statico:
 .. note::
 
    Il servizio factory è specificato dal suo nome id e non da un riferimento al servizio
-   stesso. Non occorre quindi usare la sintassi con la chiocchiola nelle configurazioni
+   stesso. Non occorre quindi usare la sintassi con la chiocciola nelle configurazioni
    YAML.
 
 Passare parametri al metodo del factory

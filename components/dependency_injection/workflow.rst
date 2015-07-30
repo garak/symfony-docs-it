@@ -8,7 +8,7 @@ Nelle pagine precedenti di questa sezioni, è stato detto poco sulle posizioni i
 cui i vari file e le classi dovrebbero trovarsi. Questo perché ciò dipende
 dall'applicazione, libreria o framework in cui si vuole usare
 il contenitore. Vedere come il contenitore è configurato e costruito nel
-framework Syfmony2 aiuterà a capire come tutti questi file si incastrino insieme,
+framework Symfony2 aiuterà a capire come tutti questi file si incastrino insieme,
 sia che si voglia usare il framework, sia che si cerchi solo di usare il contenitore
 di servizi in un'altra applicazione.
 
@@ -39,7 +39,7 @@ La configurazione a livello di applicazione è caricata dalla cartella ``app/con
 Vengono caricati più file e quindi fusi, quando le estensioni vengono processate. Ciò
 consente di avere configurazioni diverse per ambienti diversi, p.e. dev, prod, ecc.
 
-Questi file contengono parametri e servici, che sono caricati direttamente nel
+Questi file contengono parametri e servizi, che sono caricati direttamente nel
 contenitore, come in :ref:`impostare il contenitore con file di configurazione<components-dependency-injection-loading-config>`.
 Contengono anche configurazioni che sono processate da estensioni, come in
 :ref:`gestire la configurazione con le estensioni<components-dependency-injection-extension>`.

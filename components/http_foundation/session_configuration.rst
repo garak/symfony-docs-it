@@ -33,7 +33,7 @@ fornito dall'estensione Memcached si può trovare in `php.net/memcached.setoptio
 
 Sebbene i gestori di salvataggio nativi possano essere attivati direttamente, usando
 ``ini_set('session.save_handler', $nome);``, Symfony fornisce un modo conveniente
-per attivarrli nello stesso modo dei gestori personalizzati.
+per attivarli nello stesso modo dei gestori personalizzati.
 
 Symfony fornisce driver per i gestori nativi, come per esempio:
 
@@ -94,7 +94,7 @@ Configurare le sessioni di PHP
 configurare la maggior parte delle direttive di php.ini documentate su
 `php.net/session.configuration`_.
 
-Per configurare tali impostazioni, passare le chavi (omettendo la parte ``session.`` iniziale
+Per configurare tali impostazioni, passare le chiavi (omettendo la parte ``session.`` iniziale
 della chiave) come array chiave-valore al parametro ``$options`` del costruttore.
 Oppure impostarle tramite il metodo
 :method:`Symfony\\Component\\HttpFoundation\\Session\\Storage\\NativeSessionStorage::setOptions`
@@ -178,7 +178,7 @@ o 10 minuti di inattività. L'impostazione della scadenza del cookie, in questo 
 è appropriata, perché potrebbe essere manipolata dal client, quindi occorre farlo
 scadere lato server. Il modo più facile di farlo è tramite il garbage collector, che viene
 eseguito con una frequenza ragionevole. Il ``lifetime`` del cookie andrebbe impostato a
-un valore relativamente alto e il ``maxlifetime`` del garbage collectore andrebbe impostato
+un valore relativamente alto e il ``maxlifetime`` del garbage collector andrebbe impostato
 per distruggere le sessioni al periodo di inattività desiderato.
 
 L'altra opzione è verificare specificatamente se una sessione sia scaduta dopo che

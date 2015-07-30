@@ -65,7 +65,7 @@ Questa classe deve implementare due metodi:
 Il caricamento automatico essere configurato tramite `Composer`_, che vuol dire che si
 può usare qualsiasi classe PHP senza dover far nulla! Tutte le dipendenze sono
 memorizzate sotto la cartella ``vendor/``, ma è solo una convenzione.
-Si possono memorizzare dove si preferisce, globalmente sul poprio server o localmente
+Si possono memorizzare dove si preferisce, globalmente sul proprio server o localmente
 nei propri progetti.
 
 Capire il sistema dei bundle

@@ -226,7 +226,7 @@ Il secondo valore di ``@Route()`` (come ``name="homepage"``) è facoltativo e im
 il nome della rotta. Per ora tale nome non è necessario, ma più avanti si rivelerà utile
 per collegare le pagine.
 
-Considerando tutto cioò, l'annotazione ``@Route("/app/example", name="homepage")`` crea una
+Considerando tutto ciò, l'annotazione ``@Route("/app/example", name="homepage")`` crea una
 nuova rotta di nome ``homepage``, che fa eseguire a Symfony l'azione ``index`` del
 controllore ``Default`` quando l'utente visita il percorso
 ``/app/example`` dell'applicazione.
@@ -246,8 +246,8 @@ Il contenuto dell'azione ``index`` è questa istruzione PHP::
 
     return $this->render('default/index.html.twig');
 
-Il metodo ``$this->render()`` è un'utile scorciatioa per rendere un template.
-Symfony fornisce alcune scorciatoie a ogni controlore che estenda la classe
+Il metodo ``$this->render()`` è un'utile scorciatoia per rendere un template.
+Symfony fornisce alcune scorciatoie a ogni controllore che estenda la classe
 ``Controller``.
 
 La posizione predefinita dei template è la cartella ``app/Resources/views/``.
@@ -289,7 +289,7 @@ utile di Symfony: il profilatore.
 .. image:: /images/quick_tour/profiler.png
    :align: center
 
-Questo strumento fonisce così tante informazioni interne sull'applicazione che ci
+Questo strumento fornisce così tante informazioni interne sull'applicazione che ci
 si potrebbe preoccupare sulla loro visibilità pubblica. Symfony è
 consapevole del problema e, per questo, non mostrerà tale barra quando
 l'applicazione gira su un server di produzione.

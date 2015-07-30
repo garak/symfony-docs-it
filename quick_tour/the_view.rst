@@ -59,7 +59,7 @@ come secondo parametro::
     ));
 
 Le variabili passate a un template possono essere stringhe, array o anche oggetti. Twig
-astrae le differenze tra essi e consente di accedere agli "attributi" di una variabie
+astrae le differenze tra essi e consente di accedere agli "attributi" di una variabile
 con la notazione del punto (``.``). Il codice seguente mostra come visualizzare il
 contenuto di una variabile, a seconda del tipo di variabile passata dal controllore, a
 seconda del tipo:
@@ -240,7 +240,7 @@ modo, tutti gli URL saranno facilmente aggiornati al cambiare della configurazio
 
     <a href="{{ path('homepage') }}">Torna alla homepage</a>
 
-La funzione  ``path`` accetta come parametri un nome di rotta e un array di parametri
+La funzione ``path`` accetta come parametri un nome di rotta e un array di parametri
 opzionali.
 
 .. tip::

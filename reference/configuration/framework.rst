@@ -906,11 +906,11 @@ Ora, attivare l'opzione ``assets_version``:
             ),
         ));
 
-Ora, la stessa risora sarà resa come ``/images/logo.png?v2``. Se si usa questa
+Ora, la stessa risorsa sarà resa come ``/images/logo.png?v2``. Se si usa questa
 caratteristica, si *deve* incrementare a mano il valore di ``assets_version``, prima
 di ogni deploy, in modo che il parametro della query cambi.
 
-Si può anche contollare il funzionamento della stringa della query, tramite
+Si può anche controllare il funzionamento della stringa della query, tramite
 l'opzione `assets_version_format`_.
 
 .. tip::
@@ -940,7 +940,7 @@ risorsa sarà ``/images/logo.png?version=5``.
 
 .. tip::
 
-    Alcuni CDN non sopportano la spaccatura della cache tramie stringa della query,
+    Alcuni CDN non sopportano la spaccatura della cache tramite stringa della query,
     quindi si rende necessario l'inserimento della versione nel vero percorso della risorsa.
     Fortunatamente, ``assets_version_format`` non è limitato alla produzione di stringhe di query
     con versioni.
@@ -952,7 +952,7 @@ risorsa sarà ``/images/logo.png?version=5``.
     ``version-%%2$s/%%1$s``, che sarà trasformato nel percorso
     ``version-5/images/logo.png``.
 
-    Si possono quindi usare le riscritture degli URL, per togliere il prefissod con la versione
+    Si possono quindi usare le riscritture degli URL, per togliere il prefisso con la versione
     prima di servire la risorsa. In alternativa, si possono copiare le risorse nel percorso
     appropriato con la versione, come parte del processo di deploy, e non usare la riscrittura
     degli URL. L'ultima opzione è utile se si vuole che le vecchie versioni delle risorse restino
@@ -1330,7 +1330,7 @@ enable_annotations
 
 **tipo**: ``Booleano`` **predefinito**: ``false``
 
-Se questa opzione è abilitata, si possone definire vincoli di validazione tramite annotazioni.
+Se questa opzione è abilitata, si possono definire vincoli di validazione tramite annotazioni.
 
 translation_domain
 ..................

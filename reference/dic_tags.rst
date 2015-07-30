@@ -59,7 +59,7 @@ esserci altri tag in alcuni bundle utilizzati, che non sono elencati qui.
 +-----------------------------------+---------------------------------------------------------------------------+
 | `security.voter`_                 | Aggiunta di un votante alla logica di autorizzazione di Symfony           |
 +-----------------------------------+---------------------------------------------------------------------------+
-| `security.remember_me_aware`_     | Consentire il "ricorami" nell'autenticazione                              |
+| `security.remember_me_aware`_     | Consentire il "ricordami" nell'autenticazione                             |
 +-----------------------------------+---------------------------------------------------------------------------+
 | `serializer.encoder`_             | Registrare un nuovo codificatore nel servizio ``serializer``              |
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -517,7 +517,7 @@ Per registrare un preparatore di cache, usare il tag ``kernel.cache_warmer``:
 
 .. note::
 
-    Il valore ``priority`` è facoltativo ed è predefinito a 0. I prepratori saranno
+    Il valore ``priority`` è facoltativo ed è predefinito a 0. I preparatori saranno
     eseguiti con un ordine basato sulla loro priorità.
 
 Preparatori di cache del nucleo
@@ -571,7 +571,7 @@ configurazioni e assegnarli il tag ``kernel.event_subscriber``:
 
         services:
             kernel.subscriber.nome_sottoscrittore:
-                class: Nome\Pienamente\QUalificato\Classe\Subscriber
+                class: Nome\Pienamente\Qualificato\Classe\Subscriber
                 tags:
                     - { name: kernel.event_subscriber }
 
@@ -585,7 +585,7 @@ configurazioni e assegnarli il tag ``kernel.event_subscriber``:
             <services>
                 <service
                     id="kernel.subscriber.nome_sottoscrittore"
-                    class="Nome\Pienamente\QUalificato\Classe\Subscriber">
+                    class="Nome\Pienamente\Qualificato\Classe\Subscriber">
 
                     <tag name="kernel.event_subscriber" />
                 </service>
@@ -597,7 +597,7 @@ configurazioni e assegnarli il tag ``kernel.event_subscriber``:
         $container
             ->register(
                 'kernel.subscriber.nome_sottoscrittore', 
-                'Nome\Pienamente\QUalificato\Classe\Subscriber'
+                'Nome\Pienamente\Qualificato\Classe\Subscriber'
             )
             ->addTag('kernel.event_subscriber')
         ;
@@ -639,7 +639,7 @@ quando si inietta il logger in un servizio.
 
         services:
             mio_servizio:
-                class: Nome\Pienamente\QUalificato\Classe\Loader
+                class: Nome\Pienamente\Qualificato\Classe\Loader
                 arguments: ["@logger"]
                 tags:
                     - { name: monolog.logger, channel: acme }
@@ -652,7 +652,7 @@ quando si inietta il logger in un servizio.
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="mio_servizio" class="Nome\Pienamente\QUalificato\Classe\Loader">
+                <service id="mio_servizio" class="Nome\Pienamente\Qualificato\Classe\Loader">
                     <argument type="service" id="logger" />
                     <tag name="monolog.logger" channel="acme" />
                 </service>
@@ -661,7 +661,7 @@ quando si inietta il logger in un servizio.
 
     .. code-block:: php
 
-        $definition = new Definition('Nome\Pienamente\QUalificato\Classe\Loader', array(
+        $definition = new Definition('Nome\Pienamente\Qualificato\Classe\Loader', array(
             new Reference('logger')
         );
         $definition->addTag('monolog.logger', array('channel' => 'acme'));
@@ -814,7 +814,7 @@ una configurazione e assegnargli il tag ``routing.loader``:
 
         services:
             routing.loader.nome_caricatore:
-                class: Nome\Pienamente\QUalificato\Classe\Caricatore
+                class: Nome\Pienamente\Qualificato\Classe\Caricatore
                 tags:
                     - { name: routing.loader }
 
@@ -828,7 +828,7 @@ una configurazione e assegnargli il tag ``routing.loader``:
             <services>
                 <service
                     id="routing.loader.nome_caricatore"
-                    class="Nome\Pienamente\QUalificato\Classe\Caricatore">
+                    class="Nome\Pienamente\Qualificato\Classe\Caricatore">
 
                     <tag name="routing.loader" />
                 </service>
@@ -838,7 +838,7 @@ una configurazione e assegnargli il tag ``routing.loader``:
     .. code-block:: php
 
         $container
-            ->register('routing.loader.nome_caricatore', 'Nome\Pienamente\QUalificato\Classe\Caricatore')
+            ->register('routing.loader.nome_caricatore', 'Nome\Pienamente\Qualificato\Classe\Caricatore')
             ->addTag('routing.loader')
         ;
 
@@ -847,7 +847,7 @@ Per maggiori informazioni, vedere :doc:`/cookbook/routing/custom_route_loader`.
 security.remember_me_aware
 --------------------------
 
-**Scopo**: Consetire il "ricordami" nell'autenticazione
+**Scopo**: Consentire il "ricordami" nell'autenticazione
 
 Questo tag è usato internamente per consentire il "ricordami" nell'autenticazione.
 Se si ha un metodo di autenticazione personalizzato, in cui l'utente può essere
@@ -865,7 +865,7 @@ security.voter
 
 **Scopo**: Aggiungere un votante personalizzato alla logica di autorizzazione di Symfony
 
-Quando si riciama ``isGranted`` nel contesto di sicurezza di Symfony, viene usato dietro
+Quando si richiama ``isGranted`` nel contesto di sicurezza di Symfony, viene usato dietro
 le quinte un sistema di "votanti", per determinare se l'utente possa accedere. Il tag
 ``security.voter`` consente di aggiungere un votante personalizzato a tale sistema.
 
@@ -901,7 +901,7 @@ swiftmailer.default.plugin
 **Scopo**: Registrare un plugin di SwiftMailer
 
 Se si usa (o si vuole creare) un plugin di SwiftMailer, lo si può registrare con
-SwiftMailer creando un servizio per il plugin e assegnadogli il tag
+SwiftMailer creando un servizio per il plugin e assegnandogli il tag
 ``swiftmailer.default.plugin`` (che non ha opzioni).
 
 .. note::
@@ -933,7 +933,7 @@ template):
 
         services:
             templating.helper.mio_aiutante:
-                class: Nome\Pienamente\QUalificato\Classe\Aiutante
+                class: Nome\Pienamente\Qualificato\Classe\Aiutante
                 tags:
                     - { name: templating.helper, alias: nome_alias }
 
@@ -947,7 +947,7 @@ template):
             <services>
                 <service
                     id="templating.helper.mio_aiutante"
-                    class="Nome\Pienamente\QUalificato\Classe\Aiutante">
+                    class="Nome\Pienamente\Qualificato\Classe\Aiutante">
 
                     <tag name="templating.helper" alias="nome_alias" />
                 </service>
@@ -957,7 +957,7 @@ template):
     .. code-block:: php
 
         $container
-            ->register('templating.helper.mio_aiutante', 'Nome\Pienamente\QUalificato\Classe\Aiutante')
+            ->register('templating.helper.mio_aiutante', 'Nome\Pienamente\Qualificato\Classe\Aiutante')
             ->addTag('templating.helper', array('alias' => 'nome_alias'))
         ;
 
@@ -1048,7 +1048,7 @@ aiutano a trovare ed estrarre chiavi di traduzione da template Twig e file PHP.
 
 Si può creare un estrattore, creando una classe che implementi
 :class:`Symfony\\Component\\Translation\\Extractor\\ExtractorInterface` e
-assegnado al servizio il tag ``translation.extractor``. Il tag ha un'opzione
+assegnando al servizio il tag ``translation.extractor``. Il tag ha un'opzione
 obbligatoria: ``alias``, che definisce il nome dell'estrattore::
 
     // src/Acme/DemoBundle/Translation/PippoExtractor.php
@@ -1198,7 +1198,7 @@ configurazione e assegnargli il tag ``twig.extension``:
 
         services:
             twig.extension.nome_estensione:
-                class: Nome\Pienamente\QUalificato\Classe\Extension
+                class: Nome\Pienamente\Qualificato\Classe\Extension
                 tags:
                     - { name: twig.extension }
 
@@ -1212,7 +1212,7 @@ configurazione e assegnargli il tag ``twig.extension``:
             <services>
                 <service
                     id="twig.extension.nome_estensione"
-                    class="Nome\Pienamente\QUalificato\Classe\Extension">
+                    class="Nome\Pienamente\Qualificato\Classe\Extension">
 
                     <tag name="twig.extension" />
                 </service>
@@ -1224,7 +1224,7 @@ configurazione e assegnargli il tag ``twig.extension``:
         $container
             ->register(
                 'twig.extension.nome_estensione',
-                'Nome\Pienamente\QUalificato\Classe\Extension'
+                'Nome\Pienamente\Qualificato\Classe\Extension'
             )
             ->addTag('twig.extension')
         ;
@@ -1236,7 +1236,7 @@ Per sapere come creare la classe estensione di Twig, vedere la
 Prima di scrivere la propria estensione, dare un'occhiata al
 `repository ufficiale delle estensioni di Twig`_, che contiene molte estensioni utili.
 Per esempio, ``Intl`` e il suo filtro ``localizeddate``, che formatta
-una data in base al locale dell'utente. Anche aueste estensioni ufficiali di Twig
+una data in base al locale dell'utente. Anche queste estensioni ufficiali di Twig
 devono essere aggiunte come normali servizi:
 
 .. configuration-block::

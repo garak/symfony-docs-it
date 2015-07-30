@@ -107,7 +107,7 @@ min
 
 **tipo**: ``intero`` [:ref:`opzione predefinita<validation-default-option>`]
 
-Questa opzione obbligatoria è il valore "min". La validazione fallità se gli elementi
+Questa opzione obbligatoria è il valore "min". La validazione fallirà se gli elementi
 dell'insieme dato sono in numero **inferiore** a questo valore.
 
 max
@@ -115,7 +115,7 @@ max
 
 **tipo**: ``intero`` [:ref:`opzione predefinita<validation-default-option>`]
 
-Questa opzione obbligatoria è il valore "max". La validazione fallità se gli elementi
+Questa opzione obbligatoria è il valore "max". La validazione fallirà se gli elementi
 dell'insieme dato sono in numero **superiore** a questo valore.
 
 minMessage

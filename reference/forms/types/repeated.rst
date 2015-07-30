@@ -5,7 +5,7 @@ Tipo di campo repeated
 ======================
 
 Uno speciale "gruppo" di campi, che crea due campi identici, i cui valori devono
-combaciare (altrimenti, viene lanciato un errore di validazionoe). L'uso più
+combaciare (altrimenti, viene lanciato un errore di validazione). L'uso più
 comune è quando serve che l'utente ripeta la sua password o la sua email, per
 verificarne l'accuratezza.
 

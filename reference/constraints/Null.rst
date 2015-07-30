@@ -19,7 +19,7 @@ Uso di base
 -----------
 
 Se, per qualche ragione, ci si vuole assicurare che la proprietà ``firstName`` di
-una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
+una classe ``Author`` sia esattamente uguale a ``null``, si può fare come segue:
 
 .. configuration-block::
 

@@ -11,7 +11,7 @@ Il valore di ogni fuso orario è il nome completo del fuso orario, come ``Americ
 o ``Europe/Istanbul``.
 
 Diversamente dal tipo ``choice``, non occorre specificare l'opzione ``choices`` o
-``choice_list``, percheé il campo usa automaticamente una lunga lista di
+``choice_list``, perché il campo usa automaticamente una lunga lista di
 locale. Si *può* specificare una di queste opzioni manualmente, ma allora si
 dovrebbe usare direttamente il tipo ``choice``.
 

@@ -110,5 +110,5 @@ checkHost
 **tipo**: ``booleano`` **predefinito**: ``false``
 
 Se ``true``, sarà usata la funzione :phpfunction:`checkdnsrr` di PHP per verificare
-la validità del recordo MX *o* del record A *o* del record AAAA dell'host
+la validità del record MX *o* del record A *o* del record AAAA dell'host
 dell'email data.

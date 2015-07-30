@@ -131,7 +131,7 @@ form):
     <input type="email" id="form_emails_0" name="form[emails][0]" value="foo@foo.com" />
     <input type="email" id="form_emails_1" name="form[emails][1]" value="bar@bar.com" />
 
-Per consetnire l'aggiunta di altre email, impostare `allow_add`_ a ``true``
+Per consentire l'aggiunta di altre email, impostare `allow_add`_ a ``true``
 e, tramite JavaScript, rendere un altro campo dal nome ``form[emails][2]``
 (e così via per ulteriori campi).
 

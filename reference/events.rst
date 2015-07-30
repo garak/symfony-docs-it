@@ -90,7 +90,7 @@ sistema di sottoviste. Questo evento è richiamato *solo* se il controllore *non
 restituisce un oggetto ``Response``. Lo scopo di questo evento è quello di dare la possibilità
 a un qualche altro valore restituito di essere convertito in ``Response``.
 
-Il valore restituito dal controllore è acccessibile tramite il metodo
+Il valore restituito dal controllore è accessibile tramite il metodo
 ``getControllerResult``::
 
     use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -163,7 +163,7 @@ Nome classe ascoltatore                                                         
 
 **Classe evento**: :class:`Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent`
 
-Loscopo di questo evento è quello di eseguire alcuni compiti dopo che la risposta è
+Lo scopo di questo evento è quello di eseguire alcuni compiti dopo che la risposta è
 stata servita al client.
 
 .. seealso::

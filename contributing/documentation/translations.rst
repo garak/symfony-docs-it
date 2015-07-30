@@ -42,10 +42,10 @@ processo da seguire per far parte del team:
 * Presentarsi sulla `lista Symfony docs`_;
 * *(opzionale)* Chiedere su quali documenti si puo lavorare;
 * Forkare il repository *master* della propria lingua (cliccare  il bottone
-  "Fork" nella pagina di Github);
+  "Fork" nella pagina di GitHub);
 * Tradurre qualche documento;
 * Fare una richiesta di pull (cliccare sul bottone "Pull Request" della propria pagina di
-  Github);
+  GitHub);
 * Il team manager accetta le modifiche e ne fa il merge nel repository
   principale;
 * La documentazione sul sito è aggiornata ogni notte dal repository
@@ -59,7 +59,7 @@ Aggiungere una nuova lingua
 Questa sezione fornisce alcune guide per iniziare la traduzione di Symfony per una nuova
 lingua.
 
-Iniziare la trduzione in una nuova lingua comporta molto lavoro, è necessario parlarne sulla
+Iniziare la traduzione in una nuova lingua comporta molto lavoro, è necessario parlarne sulla
 `lista Symfony docs`_ e trovare altre persone che diano supporto.
 
 Quando il team è pronto, nominare un manager; Quest'ultimo sarà il responsabile del repository

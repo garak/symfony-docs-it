@@ -17,7 +17,7 @@ I gruppi della squadra di Symfony, in ordine decrescente di priorità, sono i se
 1. **Capo progetto**
 
 * Elegge i membri degli altri gruppi;
-* Esegue i merge delle richieste di pull in tutti i repoistory di Symfony.
+* Esegue i merge delle richieste di pull in tutti i repository di Symfony.
 
 2. **Merger**
 

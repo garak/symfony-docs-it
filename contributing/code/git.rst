@@ -10,7 +10,7 @@ Richieste di pull
 A ogni merge di una richiesta di pull, tutte le informazioni contenute nella richiesta
 di pull (commenti inclusi) sono salvate nel repository.
 
-Si possono trovare facilmente i merge delle richeiste di pull, perché i messaggi di commit
+Si possono trovare facilmente i merge delle richieste di pull, perché i messaggi di commit
 seguono sempre questo schema:
 
 .. code-block:: text

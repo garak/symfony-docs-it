@@ -10,7 +10,7 @@ Sphinx
 * Per i vari livelli di intestazione vanno usati i segeuenti caratteri: livello 1
   è ``=`` (simbolo di uguale), livello 2 ``-`` (trattino), livello 3 ``~`` (tilde), livello 4
   ``.`` (punto) e livello 5 ``"`` (apice doppio);
-* Ogni riga va interrotta approssimativametne dopo la prima parola che attraversa
+* Ogni riga va interrotta approssimativamente dopo la prima parola che attraversa
   il 72esimo carattere (quindi quasi tutte le righe dovrebbeero essere tra i 72 e i 78 caratteri);
 * La scorciatoia ``::`` va *preferita* a ``.. code-block:: php``, quando si inizia un
   blocco di codice PHP (si legga la `documentazione di Sphinx`_ per vedere quando usare

@@ -88,7 +88,7 @@ Sezioni
 -------
 
 Le sezioni sono un modo per suddividere logicamente la linea temporale in gruppi. Si possono
-vedere come Symfony usa le sezioni per visualizzare il ciclo di vita del framwork
+vedere come Symfony usa le sezioni per visualizzare il ciclo di vita del framework
 nel profilatore. Ecco un esempio di uso di base delle sezioni::
 
     $stopwatch = new Stopwatch();

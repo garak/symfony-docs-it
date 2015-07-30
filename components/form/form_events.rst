@@ -269,7 +269,7 @@ Nome                    Costante ``FormEvents``        Dati evento
     ``FormEvents::POST_BIND`` saranno rimosse nella versione 3.0 di
     Symfony.
     I nomi degli eventi mantengono i valori originali, quindi assicurarsi di usare
-    le costanti ``FormEvents``, per compatibilitò futura.
+    le costanti ``FormEvents``, per compatibilità futura.
 
 Ascoltatori di eventi
 ~~~~~~~~~~~~~~~~~~~~~
@@ -337,7 +337,7 @@ Sottoscrittori di eventi
 I sottoscrittori di eventi hanno vari usi:
 
 * Migliorare la leggibilità;
-* Acoltare più eventi;
+* Ascoltare più eventi;
 * Raggruppare più ascoltatori in una singola classe.
 
 .. code-block:: php

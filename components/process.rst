@@ -196,7 +196,7 @@ una scadenza (in secondi)::
 Se questo tempo viene raggiunto, viene lanciata una
 :class:`Symfony\\Process\\Exception\\RuntimeException`.
 
-Per comandi che richiedono molto tempo, è responsabilità dello sviluppatore contollare
+Per comandi che richiedono molto tempo, è responsabilità dello sviluppatore controllare
 il timeout a intervalli regolari::
 
     $process->setTimeout(3600);

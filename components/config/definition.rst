@@ -142,7 +142,7 @@ Nodi enum
     Il nodo enum è nuovo in Symfony 2.1
 
 I nodi enum forniscono un vincolo che fa corrispondere il dato inserito a una
-serie divalori::
+serie di valori::
 
     $rootNode
         ->children()

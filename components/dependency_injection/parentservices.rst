@@ -413,7 +413,7 @@ di ``my_mailer``.
 
     Non si possono sovrascrivere le chiamate a metodi. Quando si definiscono nuove chiamate a metodi nel
     servizio figlio, saranno aggiunte all'insieme corrente di chiamate a metodi configurate. Questo vuol dire
-    che funziona ugualmente quanto il setter sovrascriver la proprietà corrente, ma non funziona
+    che funziona ugualmente quanto il setter sovrascrive la proprietà corrente, ma non funziona
     come ci si potrebbe aspettare quanto il setter lo aggiunge ai dati esistenti (p.e. un metodo
     ``addFilters()``).
     In questi casi, l'unica soluzione è di *non* estendere il servizio genitore e configurare

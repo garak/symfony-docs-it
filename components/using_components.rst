@@ -59,7 +59,7 @@ immediatamente::
 Usare tutti i componenti
 ------------------------
 
-Se si volgioni usare tutti i componenti di Symfony, invece di aggiungerli
+Se si vogliono usare tutti i componenti di Symfony, invece di aggiungerli
 uno per uno, si può includere il pacchetto ``symfony/symfony``:
 
 .. code-block:: bash

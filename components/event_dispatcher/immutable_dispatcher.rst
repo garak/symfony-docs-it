@@ -9,14 +9,14 @@ L'Event Dispatcher Immutable
 
 :class:`Symfony\\Component\\EventDispatcher\\ImmutableEventDispatcher` è un
 distributore di eventi bloccato o congelato. Il distributore non può registrare nuovi
-ascolatori o sottoscrittori.
+ascoltatori o sottoscrittori.
 
 ``ImmutableEventDispatcher`` accetta un altro distributore di eventi, con tutti gli
 ascoltatori e i sottoscrittore. Il distributore immutabile è solo un proxy di tale
-disitrbutore originale.
+distributore originale.
 
 Per poterlo usare, creare dapprima un distributore normale (``EventDispatcher`` o
-``ContainerAwareEventDispatcher``) e regustrare degli ascoltatori o dei
+``ContainerAwareEventDispatcher``) e registrare degli ascoltatori o dei
 sottoscrittori::
 
     use Symfony\Component\EventDispatcher\EventDispatcher;

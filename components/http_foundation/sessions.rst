@@ -140,7 +140,7 @@ Gestori del salvataggio
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 La gestione delle sessioni di PHP richiede l'uso della variabile ``$_SESSION``,
-tuttavia questo interferisce in qualche modo con la testabilità e l'incapsulamento del codcie
+tuttavia questo interferisce in qualche modo con la testabilità e l'incapsulamento del codice
 in un paradigma OOP. Per superare questo problema, Symfony usa delle "bag" di sessione, collegate
 alla sessione, che incapsulano dati specifici di "attributi" o "messaggi flash".
 
@@ -172,7 +172,7 @@ Attributi
 ~~~~~~~~~
 
 Lo scopo dei bag che implementano :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBagInterface`
-è gestire la memorizzazione degli attributi di sessione. Questo potrebbe includer cose come l'id utente,
+è gestire la memorizzazione degli attributi di sessione. Questo potrebbe includere cose come l'id utente,
 le impostazioni "ricordami" o altre informazioni basate sullo stato dell'utente.
 
 :class:`Symfony\\Component\\HttpFoundation\\Session\\Attribute\\AttributeBag`

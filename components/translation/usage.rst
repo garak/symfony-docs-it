@@ -88,7 +88,7 @@ Come visto, la creazione di una traduzione è un processo in due fasi:
 #. Astrarre il messaggio da tradurre, processandolo tramite
    ``Translator``.
 
-#. Creare una traduzioone per il messaggio in ogni locale che si desidera
+#. Creare una traduzione per il messaggio in ogni locale che si desidera
    supportare.
 
 Il secondo passo si esegue creando cataloghi di messaggi, che definiscono le traduzioni
@@ -199,7 +199,7 @@ formato raccomandato. Questi file sono analizzati da una delle classi Loader.
             );
 
     I livelli multipli vengono appiattiti in una singola coppia id/traduzione,
-    aggiungengo un punto (``.``) tra ogni livello, quindi l'esempio appena visto è
+    aggiungendo un punto (``.``) tra ogni livello, quindi l'esempio appena visto è
     equivalente al seguente:
 
     .. configuration-block::
@@ -280,8 +280,8 @@ prima stringa (``Il y a %count% pomme``) quando ``count`` è ``0`` o ``1``.
 
 Ogni locale ha il suo insieme di regole, alcuni con fino a sei diverse
 forme plurali, con regole complesse in base a cui mappare i numeri alle forme plurali.
-Le regole sono smeplici per inglese e francese, ma per il russo si potrebbe
-volere un sugerrimento su quale regola corrisponda a quale stringa. Per aiutare i traduttori,
+Le regole sono semplici per inglese e francese, ma per il russo si potrebbe
+volere un suggerimento su quale regola corrisponda a quale stringa. Per aiutare i traduttori,
 si può, facoltativamente, assegnare un tag a ogni stringa:
 
 .. code-block:: text

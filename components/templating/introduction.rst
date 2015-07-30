@@ -100,13 +100,13 @@ In un template:
 
 .. caution::
 
-    Le variabili globali non possono chiamrasi ``this`` o ``view``, poiché tali nomi
+    Le variabili globali non possono chiamarsi ``this`` o ``view``, poiché tali nomi
     sono usati dal motore PHP.
 
 .. note::
 
     Le variabili globali possono essere sovrascritte da variabili locali nel template
-    che abbiano lo stesson nome.
+    che abbiano lo stesso nome.
 
 Escape dell'output
 ------------------
@@ -162,7 +162,7 @@ la maggior parte delle volte si estenderà
 
 La classe ``Helper`` ha un metodo obbligatorio:
 :method:`Symfony\\Component\\Templating\\Helper\\HelperInterface::getName`.
-Resituisce il nome da usare per ottenere l'aiutante dall'oggetto ``$view``.
+Restituisce il nome da usare per ottenere l'aiutante dall'oggetto ``$view``.
 
 Creare un motore personalizzato
 -------------------------------

@@ -139,7 +139,7 @@ del metodo ``load`` dell'estensione::
 
 Il parametro ``$configs`` è un array contenente ogni diverso file di configurazione
 caricato nel contenitore. Nell'esempio precedente viene caricato solo un unico file di
-configrazione, ma sarà comunque dentro un array. L'array sarà simile a
+configurazione, ma sarà comunque dentro un array. L'array sarà simile a
 questo::
 
     array(
@@ -331,7 +331,7 @@ che si sta compilando::
 Si possono manipolare parametri e definizioni del contenitore, usando i metodi descritti
 in :doc:`/components/dependency_injection/definitions`. Un cosa che si fa solitamente in
 un passo di compilatore è la ricerca di tutti i servizi con determinato tag, in modo
-da poterli processare in quealche modo o collegarli dinamicamente in qualche
+da poterli processare in qualche modo o collegarli dinamicamente in qualche
 altro servizio.
 
 Registrare un passo di compilatore
@@ -410,7 +410,7 @@ facile l'esportazione del contenitore compilato::
         file_put_contents($file, $dumper->dump());
     }
 
-``ProjectServiceContiner`` è il nome predefinito dato alla classe del contenitore
+``ProjectServiceContainer`` è il nome predefinito dato alla classe del contenitore
 esportata: lo si può cambiare tramite l'opzione ``class``, al momento
 dell'esportazione::
 
@@ -503,7 +503,7 @@ come meta dati per la cache::
 
 Ora il contenitore in cache esportato viene usato indipendentemente dalla modalità di debug.
 La differenza è che ``ConfigCache`` è impostato a debug con il secondo parametro del suo
-costruttore. QUando la cache non è in debug, sarà sempre usato il contenitore in cache, se
+costruttore. Quando la cache non è in debug, sarà sempre usato il contenitore in cache, se
 esiste. In debug, viene scritto un file aggiuntivo di meta dati, con i timestamp di
 tutti i file risorsa. Vengono poi verificate eventuali modifiche dei file, nel caso in cui
 la cache debba essere considerata vecchia.

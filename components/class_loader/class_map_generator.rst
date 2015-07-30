@@ -8,10 +8,10 @@ Generatore di classi di mappe
 Il caricamento di una classe è solitamente facile, con gli standard `PSR-0`_ e `PSR-4`_.
 Grazie al componente ClassLoader di Symfony o al meccanismo fornito
 da Composer, non occorre mappare manualmente i nomi di classi ai file PHP.
-Oggiogiorno, le librerie PHP solitamente dispongono di un supporto per il caricamento tramite Composer.
+Oggigiorno, le librerie PHP solitamente dispongono di un supporto per il caricamento tramite Composer.
 
 A volte però capita di usare librerie di terze parti che non dispongono
-di un supporto per il caricamento, che constringono quindi a caricare ogni classe
+di un supporto per il caricamento, che costringono quindi a caricare ogni classe
 a mano. Per esempio, si immagini una libreria con la seguente struttura di cartelle:
 
 .. code-block:: text
@@ -52,7 +52,7 @@ al metodo :method:`Symfony\\Component\\ClassLoader\\ClassMapGenerator::createMap
 
     print_r(ClassMapGenerator::createMap(__DIR__.'/library'));
 
-Dati file e classi della tabella precedente, si dovrebbe ottnere un output come
+Dati file e classi della tabella precedente, si dovrebbe ottenere un output come
 questo:
 
 .. code-block:: text

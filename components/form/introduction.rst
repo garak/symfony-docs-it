@@ -12,7 +12,7 @@ Il componente Form è uno strumento che aiuta a risolvere il problema di consent
 di interagire con i dati e modificare i dati in un'applicazione. Sebbene,
 tradizionalmente, ciò viene fatto tramite form HTML, il componente si focalizza sul
 processamento dei dati da e verso il client e l'applicazione, sia che i dati
-vengano da un classico form, sia che vanegano da un'API.
+vengano da un classico form, sia che vengano da un'API.
 
 Installazione
 -------------
@@ -437,7 +437,7 @@ Impostazione di valori predefiniti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Se il form deve caricare alcuni valori predefiniti (o se si sta costruendo
-un form di modicica), basta passare i dati predefiniti durante la creazione del
+un form di modifica), basta passare i dati predefiniti durante la creazione del
 costruttore di form:
 
 .. configuration-block::
@@ -604,7 +604,7 @@ Se la richiesta è POST, processare i dati inseriti (tramite ``handleRequest()``
 Quindi:
 
 2) se il form non è valido, rendere nuovamente il form (che ora contiene errori)
-3) se il the è valido, eseguire delle azioni e redirigere.
+3) se il form è valido, eseguire delle azioni e redirigere.
 
 Per fortuna, non serve decidere se il form sia stato inviato o meno.
 Basta passare la richiesta al metodo ``handleRequest()``. Quindi, il componente Form

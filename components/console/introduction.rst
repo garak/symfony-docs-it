@@ -121,8 +121,8 @@ Colorare l'output
 
     Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
     disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
-    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
-    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
+    configurato con un driver ANSI e i propri comandi di console invocano altri script che
+    emettono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
     Per abilitare il supporto ai colori ANSI su Windows, si può installare `ConEmu`_ o `ANSICON`_.
 
 È possibile inserire il testo da stampare, all'interno di speciali tag per colorare 
@@ -457,7 +457,7 @@ di ricordare l'ordine di esecuzione, lo si può richiamare direttamente.
 Questo è utile anche quando si vuole creare un "meta" comando, che esegue solo una
 serie di altri comandi (per esempio, tutti i comandi necessari quando il codice
 del progetto è cambiato sui server di produzione: pulire la cache,
-genereare i proxy di Doctrine, esportare le risorse di Assetic, ...).
+generare i proxy di Doctrine, esportare le risorse di Assetic, ...).
 
 Richiamare un comando da un altro è molto semplice::
 

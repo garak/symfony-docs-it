@@ -35,7 +35,7 @@ le stringhe possono non avere apici:
     "Una stringa in YAML tra apici doppi"
 
 Gli apici sono utili quando una stringa inizia o finisce con spazi significativi,
-perché alle stringhe senza apici vengono tolti gli spazi iniziali e finiali.
+perché alle stringhe senza apici vengono tolti gli spazi iniziali e finali.
 Gli apici sono obbligatori quando la stringa contiene caratteri speciali o riservati.
 
 Usando apici singoli, un apice singolo interno deve essere raddoppiato,

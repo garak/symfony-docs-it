@@ -21,7 +21,7 @@ configurazione necessaria.
 Un altro caso d'uso interessante è quando si hanno molti oggetti che condividono
 una configurazione comune o che vanno configurati in modo simile a runtime.
 
-Per esempio, si supponga di avere un'applicazione in cui si inviano diversti tipi di
+Per esempio, si supponga di avere un'applicazione in cui si inviano diversi tipi di
 email agli utenti. Le email passano attraverso diversi formattatori, che possono essere
 abilitati o meno, a seconda di alcune impostazioni dinamiche dell'applicazione. Si inizia
 definendo una classe ``NewsletterManager``, come questa::
@@ -113,7 +113,7 @@ creare una classe configuratore, per configurare tali istanze::
         // ...
     }
 
-Il compito di ``EmailConfigurator`` è iniettare i filtri ablitati in ``NewsletterManager``
+Il compito di ``EmailConfigurator`` è iniettare i filtri abilitati in ``NewsletterManager``
 e ``GreetingCardManager``, perché non sono consapevoli di dove i filtri abilitati
 arrivino. D'altro canto, ``EmailFormatterManager`` sa dei
 formattatori abilitati e come caricarli, mantenendo il principio della

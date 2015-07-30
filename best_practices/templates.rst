@@ -2,7 +2,7 @@ Template
 ========
 
 Quando è nato PHP, 20 anni fa, gli sviluppatori rimasero incantati dalla sua semplicità e dalla
-possibilità di mescolare facilamente HTML e codice dinamico. Con il passare del tempo, sono nati tanti
+possibilità di mescolare facilmente HTML e codice dinamico. Con il passare del tempo, sono nati tanti
 linguaggi per i template, come `Twig`, in grado di gestire i template dell'applicazione in modo migliore.
 
 .. best-practice::

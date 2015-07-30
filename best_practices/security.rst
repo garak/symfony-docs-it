@@ -145,7 +145,7 @@ logica del metodo ``getAuthorEmail`` vista sopra:
     use Symfony\Component\Security\Core\Authorization\Voter\AbstractVoter;
     use Symfony\Component\Security\Core\User\UserInterface;
 
-    // La classe AbstractVoter richeide Symfony 2.6 o successivi
+    // La classe AbstractVoter richiede Symfony 2.6 o successivi
     class PostVoter extends AbstractVoter
     {
         const CREATE = 'create';

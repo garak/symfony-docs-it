@@ -28,7 +28,7 @@ sarebbero molto più corti:
 
 .. note::
 
-    Ricordarsi che la cartella ``web/`` è pubblica e che qualsiasi cosa memorizzatavi dentro
+    Ricordarsi che la cartella ``web/`` è pubblica e che qualsiasi cosa salvata in essa
     sarà pubblicamente accessibile. Per questo motivo, si dovrebbero mettere qui tutte le risorse
     compilate, ma non i relativi file sorgente (come i file SASS).
 
@@ -79,7 +79,7 @@ Applicazioni di Frontend
 Recentemente, tecnologie di frontend come AngularJS sono diventate molto popolari nello sviluppo
 di applicazioni web. Tali applicazioni comunicano con il sistema tramite API.
 
-Se si sta sviluppando un'applicazione come questa, si dovrebbero uasre strumenti raccomandati
+Se si sta sviluppando un'applicazione come questa, si dovrebbero usare strumenti raccomandati
 dalla tecnologia, come Bower e GruntJS. Inoltre, si dovrebbe sviluppare l'applicazione frontend
 in modo del tutto separato dal backend Symfony (anche separando
 i repository, eventualmente).

@@ -35,7 +35,7 @@ Questa guida è **particolarmente indicata** per:
 * Siti web e applicazioni web sviluppato con il framework Symfony.
 
 Per altre situazioni, questa guida potrebbe essere un buon **punto di partenza**, che si
-potre **estendere per soddisfare le proprie esigenze specifiche**:
+potrà **estendere per soddisfare le proprie esigenze specifiche**:
 
 * Bundle condivisi pubblicamente con la comunità di Symfony;
 * Sviluppatori esperti o squadre che hanno creato i propri standard;

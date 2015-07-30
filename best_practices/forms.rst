@@ -85,7 +85,7 @@ i form possono essere riusati più facilmente.
 
     Aggiungere i bottoni nel template, non nelle classi dei form o nei controllori.
 
-A partire da Symfony 2.5 è possibile aggiugere campi button all'interno del form.
+A partire da Symfony 2.5 è possibile aggiungere campi button all'interno del form.
 Il vantaggio è che si semplifica il codice del template che visualizza il form.
 Lo svantaggio è che aggiungere il bottone alla classe form ne limita la sua riusabilità.
 
@@ -165,7 +165,7 @@ insieme:
 
 Se si ha bisogno di un controllo più preciso sulla renderizzazione del form
 non usare la funzione ``form_widget(form)`` e rendere i campi individualmente.
-Cnsultare la ricetta :doc:`/cookbook/form/form_customization`
+Consultare la ricetta :doc:`/cookbook/form/form_customization`
 per maggiori informazioni su come rendere i form e su come impostare un tema
 in modo globale.
 

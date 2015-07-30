@@ -29,7 +29,7 @@ Requisiti
 .. caution::
 
     Fare attenzione, perché Symfony ha alcuni limiti noti con versioni precedenti
-    a PHP 5.3.8 o uguali a 5.3.16. Per maggiori informazoni, vedere la
+    a PHP 5.3.8 o uguali a 5.3.16. Per maggiori informazioni, vedere la
     `sezione Requisiti del README`_.
 
 Opzionali

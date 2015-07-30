@@ -183,7 +183,7 @@ htmlPattern
 **tipo**: ``stringa|booleano`` **predefinito**: null
 
 Questa opzione specifica lo schema da usare nell'attributo HTML5 ``pattern``.
-Solitamente non si ha bisogno di specificare tale opzione, perché, per impostazione predefinta, il vincolo
+Solitamente non si ha bisogno di specificare tale opzione, perché, per impostazione predefinita, il vincolo
 convertirà lo schema fornito nell'opzione `pattern`_ in uno schema compatibile con HTML5.
 Questo vuol dire che i delimitatori sono rimossi (p.e. ``/[a-z]+/`` diventa ``[a-z]+``).
 

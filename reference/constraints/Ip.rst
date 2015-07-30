@@ -83,7 +83,7 @@ version
 
 **tipo**: ``stringa`` **predefinito**: ``4``
 
-Determina esattamente *come* è validato l'indirizzo IP e acceta uno dei
+Determina esattamente *come* è validato l'indirizzo IP e accetta uno dei
 tanti valori a disposizione:
 
 **Tutte le fasce**

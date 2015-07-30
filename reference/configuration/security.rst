@@ -418,10 +418,10 @@ Contesto del firewall
 La maggior parte delle applicazioni ha bisogno di un unico :ref:`firewall<book-security-firewalls>`.
 Se però un'applicazione usa effettivamente più firewall, si noterà che,
 se si è autenticati in un firewall, non si è automaticamente autenticati
-in un altro. In altre parole, i sistemi non condividiono un "contesto" comune: ciascun
+in un altro. In altre parole, i sistemi non condividono un "contesto" comune: ciascun
 firewall agisce come sistema di sicurezza separato.
 
-Tuttavia, ciascun firewall ha una chiave facolativa ``context`` (con valore predefinito
+Tuttavia, ciascun firewall ha una chiave facoltativa ``context`` (con valore predefinito
 il nome del firewall stesso), usata quando memorizza e recupera dati di
 sicurezza da e per la sessione. Se tale chiave è stata impostata con lo stesso valore in
 più firewall, il "contesto" può essere effettivamente condiviso:

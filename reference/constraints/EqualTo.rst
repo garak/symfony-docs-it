@@ -10,7 +10,7 @@ forzare che un valore *non* non sia uguale, vedere :doc:`/reference/constraints/
 .. caution::
 
     Questo vincolo confronta tramite ``==``, quindi ``3`` e ``"3"`` sono considerati
-    uguali. Usare :doc:`/reference/constraints/IdenticalTo` per confrontanre con
+    uguali. Usare :doc:`/reference/constraints/IdenticalTo` per confrontare con
     ``===``.
 
 +----------------+-----------------------------------------------------------------------+

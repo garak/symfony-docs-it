@@ -89,10 +89,10 @@ Preparazione
             }
         }
 
-Il metod callback
------------------
+Il metodo callback
+------------------
 
-Il metod callback è passato a uno speciale oggetto ``ExecutionContextInterface``. Si possono
+Il metodo callback è passato a uno speciale oggetto ``ExecutionContextInterface``. Si possono
 impostare le "violazioni" direttamente su questo oggetto e determinare a quale campo
 questi errori vadano attribuiti::
 

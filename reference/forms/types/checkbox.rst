@@ -28,7 +28,7 @@ il campo sarà impostato a falso.
 +---------------+------------------------------------------------------------------------+
 | Tipo genitore | :doc:`form </reference/forms/types/form>`                              |
 +---------------+------------------------------------------------------------------------+
-| Classee       | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType` |
+| Classe        | :class:`Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType` |
 +---------------+------------------------------------------------------------------------+
 
 Esempio di utilizzo

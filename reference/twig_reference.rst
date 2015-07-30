@@ -436,7 +436,7 @@ yaml_encode
 ``dumpObjects``
     **tipo**: ``booleano`` **predefinito**: ``false``
 
-Trasforma l'input in sinstassi YAML. Vedere :ref:`components-yaml-dump` per maggiori
+Trasforma l'input in sintassi YAML. Vedere :ref:`components-yaml-dump` per maggiori
 informazioni.
 
 yaml_dump

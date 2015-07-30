@@ -63,7 +63,7 @@ con i progetti a valle. Il progetto funziona come segue:
 
 #. Dopo che la squadra di sicurezza di Symfony ha riconosciuto la problematica, invia
    immediatamente una email alle squadre di sicurezza dei progetti a valle, per informarli
-   della probelamtica;
+   della problematica;
 
 #. La squadra di sicurezza di Symfony crea un repository Git privato, per facilitare la
    collaborazione sulla problematica. L'accesso a tale repository è fornito all
@@ -71,15 +71,15 @@ con i progetti a valle. Il progetto funziona come segue:
    problematica e a un rappresentante i ogni progetto a valle;
 
 #. Le persone che accedono al repository privato lavorano a una soluzione per
-   risolvere la problematica, tramire richieste di pull, revisioni di codice e commenti;
+   risolvere la problematica, tramite richieste di pull, revisioni di codice e commenti;
 
 #. Una volta trovata la soluzione, tutti i progetti coinvolti collaborano per trovare
-   la data migliore per un rilascio congiunto (non c'è garanzia che tutti i rllasci saranno
-   contempoaranei, ma si tenterà il più possibili di pubblicarli nello stesso periodo). Quando
+   la data migliore per un rilascio congiunto (non c'è garanzia che tutti i rilasci saranno
+   contemporanei, ma si tenterà il più possibili di pubblicarli nello stesso periodo). Quando
    non si ritiene che la problematica abbia subito degli exploit, un periodo di due settimane
    sembra essere ragionevole.
 
-La lista dei progetti a valle partecipanti a tale processo è manutenuta più corta
+La lista dei progetti a valle partecipanti a tale processo è mantenuta più corta
 possibile, per meglio gestire il flusso di informazioni riservate, prima
 della pubblicazione. Per questo motivo, i progetti saranno inclusi a sola discrezione
 della squadra di sicurezza di Symfony.

@@ -238,7 +238,7 @@ sulle classi di Symfony:
 Tipo di modifica                                    Normale         API
 ==================================================  ==============  ==============
 Rimuovere del tutto                                 No              No
-Rendere finala                                      No              No
+Rendere finale                                      No              No
 Rendere astratta                                    No              No
 Cambiare nome o spazio dei nomi                     No              No
 Cambiare classe genitrice                           Sì [7]_         Sì [7]_
@@ -353,7 +353,7 @@ Cmabiare statico in non statico                     No              No
        ``Traversable``      array
        ``Countable``        array
        classe ``<C>``       qualsiasi sottoclasse di ``<C>``
-       interfaccia ``<I>``  qualsiasi sottointerfacia o classe che implementi ``<I>``
+       interfaccia ``<I>``  qualsiasi sottointerfaccia o classe che implementi ``<I>``
        ===================  ==================================================================
 
 .. [7] Quando si cambia la classe genitrice, la classe genitrice originale deve restare un

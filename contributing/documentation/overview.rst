@@ -253,7 +253,7 @@ Modifiche minori (p.e. errori di battitura)
 
 Si potrebbe voler correggere un semplice errore di battitura. Grazie all'interfaccia di GitHub,
 è molto semplice creare una richiesta di pull direttamente nel
-browser, mentre si leggono i documenti su symfony.com. Per potrelo fare, basta cliccare
+browser, mentre si leggono i documenti su symfony.com. Per poterlo fare, basta cliccare
 sul link **edit this page** nell'angolo in alto a destra. In precedenza,
 si prega di scegliere il ramo giusto, come già menzionato. Ora si può
 modificare il contenuto e descrivere le modifiche all'interno di GitHub.

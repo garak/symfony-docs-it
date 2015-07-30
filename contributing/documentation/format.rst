@@ -202,7 +202,7 @@ Test della documentazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quando si inviano nuovi contenuti al repository della documentazione o quando si modificano
-risorse esisteni, un processo automatico controllerà l'eventuale presenza di
+risorse esistenti, un processo automatico controllerà l'eventuale presenza di
 errori di sintassi..
 
 Se tuttavia si preferisce verificare in locale, prima di inviare documentazione,

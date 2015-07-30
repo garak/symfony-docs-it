@@ -30,7 +30,7 @@ Il periodo semestrale è suddiviso in due fasi:
 * *Sviluppo*: *quattro mesi* per aggiungere nuove caratteristiche e per migliorare
   quelle esistenti;
 
-* *Stabilizazzione*: *due mesi* per chiudere bug, preparare il rilascio e attendere che
+* *Stabilizzazione*: *due mesi* per chiudere bug, preparare il rilascio e attendere che
   l'intero ecosistema di Symfony (librerie di terze parti, bundle, progetti che usano
   Symfony) sia pronto.
 
@@ -50,7 +50,7 @@ di rilascio. Ci sono due periodi di manutenzione:
   La fine di questo periodo è indicata come *fine manutenzione* di un
   rilascio.
 
-* *Solo fix di sicurezza*: durante questo periodo, possono essere risolti solamente propblemi relativi
+* *Solo fix di sicurezza*: durante questo periodo, possono essere risolti solamente problemi relativi
   alla sicurezza. La fine di questo periodo è indicata come *fine
   vita* di un rilascio.
 

@@ -42,7 +42,7 @@ Impostare le informazioni utente con il proprio nome reale e il proprio indirizz
 .. tip::
 
     Utenti di Windows: quando si installa Git, l'installazione chiederà cosa fare con
-    i fine riga, suggerendo di sostituire Lf con CRLF. Questa impostazine è sbagliata,
+    i fine riga, suggerendo di sostituire Lf con CRLF. Questa impostazione è sbagliata,
     se si vuole contribuire a Symfony! Impostare il metodo "as-is" come scelta
     migliore, così git convertirà i fine riga con quelli nel
     repository. Se git è già stato installato, si può verificare questa impostazione
@@ -88,7 +88,7 @@ Ottenere il codice sorgente di Symfony:
 Verificare che i test passino
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ora che Symfony è installato, verifcare che tutti i test unitari passino nel proprio
+Ora che Symfony è installato, verificare che tutti i test unitari passino nel proprio
 ambiente, come spiegato nel :doc:`documento <tests>` dedicato.
 
 Passo 2: lavorare su una patch
@@ -253,7 +253,7 @@ Verificare che tutti i test stiano ancora passando e inviare gli sviluppi nel ra
 Richiedere un pull
 ~~~~~~~~~~~~~~~~~~
 
-Si può ora eseguire una richiesta di pull sul repository ``symfony/symfony`` su Github.
+Si può ora eseguire una richiesta di pull sul repository ``symfony/symfony`` su GitHub.
 
 .. tip::
 
@@ -302,7 +302,7 @@ Un esempio di proposta potrebbe essere il seguente:
     | Doc PR        | symfony/symfony-docs#123
 
 L'intera tabella va inclusa (**non** rimuovere le righe che si ritengono
-non rilevanti). Per sempici errori di battitura, modifiche minori in PHPDoc o modifiche
+non rilevanti). Per semplici errori di battitura, modifiche minori in PHPDoc o modifiche
 nei file di traduzione, usare la versione breve della lista:
 
 .. code-block:: text

@@ -6,10 +6,10 @@ Sicurezza
 
 Il sistema di sicurezza di Symfony è incredibilmente potente, ma può anche essere difficile da
 configurare. In questo capitolo si vedrà come impostare passo-passo la sicurezza di
-un'applicazione, dalla configurazionoe del firewall a come caricare utenti per negare
+un'applicazione, dalla configurazione del firewall a come caricare utenti per negare
 l'accesso e recuperare un oggetto utente. A seconda dei bisogni, a volte la prima
-configurazione potrebbe essere difficoltosa. Ma, una volta a posto, il sitema di sicurezza di Symfony
-sarà flessibile e (speriamo) divertente-
+configurazione potrebbe essere difficoltosa. Ma, una volta a posto, il sistema di sicurezza di Symfony
+sarà flessibile e (speriamo) divertente.
 
 Questa guida è divisa in alcune
 sezioni:
@@ -122,7 +122,7 @@ Più avanti si vedrà come negare l'accesso ad alcuni URL o controllori.
 A) Configurare il modo in cui gli utenti si autenticano
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Il lavoro principalre di un firewall è quello di configurare il *modo* in cui gli utenti si
+Il lavoro principale di un firewall è quello di configurare il *modo* in cui gli utenti si
 autenticheranno. Useranno un form? Http Basic? Il token di un'API? Tutti questi metodi insieme?
 
 Iniziamo con Http Basic (il caro vecchio popup).
@@ -360,7 +360,7 @@ ma è meglio pensare a esso come fornitore "in configurazione":
 
 Come per i ``firewalls``, si possono avere più ``providers``, ma probabilmente
 ne basterà uno solo. Se si ha bisogno di più fornitori, si può configurare il fornitore
-usato dal fireall, sotto la voce ``provider`` (p.e.
+usato dal firewall, sotto la voce ``provider`` (p.e.
 ``provider: in_memory``).
 
 .. seealso::
@@ -368,7 +368,7 @@ usato dal fireall, sotto la voce ``provider`` (p.e.
     Vedere :doc:`/cookbook/security/multiple_user_providers` per tutti
     i dettagli sulla configurazione di fornitori multipli.
 
-Provare a entarre con nome utente ``admin`` e password ``kitten``. Si dovrebbe
+Provare a entrare con nome utente ``admin`` e password ``kitten``. Si dovrebbe
 vedere un errore!
 
     No encoder has been configured for account "Symfony\Component\Security\Core\User\User"
@@ -612,14 +612,14 @@ I prossimi passi possono variare:
 Ora gli utenti possono accedere all'applicazione usando ``http_basic`` o un altro metodo.
 Ottimo! Ora, occorre imparare come negare l'accesso e lavorare con l'oggetto ``User``.
 Questo processo prende il nome di **autorizzazione** e spetta a esso decidere se un utente possa
-accedere a una determinata risorsa (un URL, un oggetto delo modello, una chiamata a un metodo, ...).
+accedere a una determinata risorsa (un URL, un oggetto del modello, una chiamata a un metodo, ...).
 
 Il processo di autorizzazione ha due lati:
 
 #. L'utente riceve uno specifico insieme di ruoli, quando entra (p.e. ``ROLE_ADMIN``).
 #. Si aggiunge codice in modo che una risorsa (come un URL o un controllore) richieda uno specifico
    "attributo" (solitamente un ruolo, come ``ROLE_ADMIN``) per potervi
-   acceedere.
+   accedere.
 
 .. tip::
 
@@ -645,7 +645,7 @@ della tabella.
     In caso contrario, non possono essere gestiti dal sistema di sicurezza di Symfony
     (a meno che non si faccia qualcosa di avanzato, assegnare un
     ruolo come ``PIPPO`` a un utente e poi verificare ``PIPPO``, come descritto
-    :ref:`succcessivamente <security-role-authorization>` non funzionerà).
+    :ref:`successivamente <security-role-authorization>` non funzionerà).
 
 I ruoli sono semplici e sono di base stringhe inventate e usate come necessario.
 Per esempio, per poter iniziare a limitare l'accesso alla sezione amministrativa di un blog,
@@ -1028,7 +1028,7 @@ Logout
 ------
 
 Solitamente, si desidera che gli utenti possano eseguire un logout. Per fortuna,
-il fierwall può gestirlo automaticamente, se si attiva il parametro
+il firewall può gestirlo automaticamente, se si attiva il parametro
 ``logout`` nella configurazione:
 
 .. configuration-block::
@@ -1154,7 +1154,7 @@ come secondo parametro.
 
     Quando si consente a un utente di inviare una password in chiaro (p.e. un form
     di registrazione, un form di cambio password), si *deve* avere una validazione che garantisca
-    una lunghezza massima della passwordi di 4096 caratteri. Maggiori dettagli su
+    una lunghezza massima della password di 4096 caratteri. Maggiori dettagli su
     :ref:`implementare una semplice form di registrazione <cookbook-registration-password-max>`.
 
 .. _security-role-hierarchy:
@@ -1264,7 +1264,7 @@ Considerazioni finali
 ---------------------
 
 Ora sappiamo più di qualche base sulla sicurezza. Le parti più difficili
-coinvologono i requisiti personalizzati: una strategia di autenticazione
+coinvolgono i requisiti personalizzati: una strategia di autenticazione
 personalizzata (p.e. token API), logica di autorizzazione complessa e molte altre cose
 (perché la sicurezza è complessa!).
 

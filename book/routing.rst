@@ -1432,7 +1432,7 @@ In una delle prossime sezioni, si imparerà a generare URL dall'interno di un te
             {"slug": 'my-blog-post'}
         );
 
-    Per ultetiori informazioni, vedere la documentazione del bundle.
+    Per ulteriori informazioni, vedere la documentazione del bundle.
 
 .. index::
    single: Rotte; Generare URL in un template

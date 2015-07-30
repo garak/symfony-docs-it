@@ -14,7 +14,7 @@ e imparare le caratteristiche più importanti della libreria dei form.
    Il componente form di Symfony è una libreria autonoma che può essere usata al di fuori
    dei progetti Symfony. Per maggiori informazioni, vedere
    la :doc:`documentazione del componente Form </components/form/introduction>`
-   su Github.
+   su GitHub.
 
 .. index::
    single: Form; Creazione di un form semplice
@@ -178,7 +178,7 @@ Questo è tutto! Bastano tre righe per rendere completamente il form:
 ``form_end(form)``
     Rende il tag finale del form e ogni campo che non sia ancora
     stato reso, nel caso in cui i campi siano stati resti singolarmante a mano. È utile
-    per rendere campi nascosci e sfruttare la
+    per rendere campi nascosti e sfruttare la
     :ref:`protezione CSRF <forms-csrf>` automatica.
 
 .. seealso::
@@ -243,7 +243,7 @@ controllore::
 .. versionadded:: 2.3
     Il metodo :method:`Symfony\\Component\\Form\\FormInterface::handleRequest` è stato
     aggiunto in Symfony 2.3. In precedenza, veniva passata ``$request`` al
-    metodo ``submit``, una straetegia deprecata, che sarà rimossa
+    metodo ``submit``, una strategia deprecata, che sarà rimossa
     in Symfony 3.0. Per dettagli sul metodo, vedere :ref:`cookbook-form-submit-request`.
 
 Questo controllore segue uno schema comune per gestire i form e ha tre
@@ -256,7 +256,7 @@ possibili percorsi:
    se il form non è stato inviato.
 
 #. Quando l'utente invia il form, :method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
-   lo capisce e scrive immmediatamente i dati nelle proprietà
+   lo capisce e scrive immediatamente i dati nelle proprietà
    ``task`` e ``dueDate`` dell'oggetto ``$task``. Quindi tale oggetto
    viene validato. Se non è valido (la validazione è trattata nella prossima sezione),
    :method:`Symfony\\Component\\Form\\FormInterface::isValid` restituisce ``false``
@@ -269,7 +269,7 @@ possibili percorsi:
        che i dati inviati siano validi o meno.
 
 #. Quando l'utente invia il form con dati validi, i dati inviati sono scritti
-   nuvamente nel form, ma stavolta :method:`Symfony\\Component\\Form\\FormInterface::isValid`
+   nuovamente nel form, ma stavolta :method:`Symfony\\Component\\Form\\FormInterface::isValid`
    restituisce ``true``. Ora si ha la possibilità di eseguire alcune azioni usando l'oggetto
    ``$task`` (ad esempio persistendolo nella base dati) prima di rinviare l'utente
    a un'altra pagina (ad esempio una pagina "thank you" o "success").
@@ -1064,7 +1064,7 @@ che ospiterà la logica per la costruzione del form task::
 
     Il metodo ``getName()`` restituisce l'identificatore per questo "tipo" di form. Questi
     identificatori devono essere univoci nell'applicazione. A meno che non si voglia sovrascrivere
-    un tipo predefinito, devono essere diversi dai tipi di Symfonu e da ogni
+    un tipo predefinito, devono essere diversi dai tipi di Symfony e da ogni
     tipo definito da bundle di terze parti installati nell'applicazione.
     Si consideri l'uso di un prefisso ``app_``, per evitare collisioni.
 
@@ -1584,7 +1584,7 @@ frammento per il tipo del genitore se il frammento di base non
 esiste.
 
 Quindi, per ignorare gli errori dei *soli* campi ``textarea``, copiare il
-frammento ``form_errors``, rinominarlo in ``textarea_errors`` e personalizzrlo. Per
+frammento ``form_errors``, rinominarlo in ``textarea_errors`` e personalizzarlo. Per
 sovrascrivere la resa degli errori predefiniti di *tutti* i campi, copiare e personalizzare
 direttamente il frammento ``form_errors``.
 
@@ -1800,7 +1800,7 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Per 
 .. _form-disable-csrf:
 
 Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a ``false``.
-Si può anche personalizzarei a livello globale nel progetto. Per ulteriori informazioni,
+Si può anche personalizzare a livello globale nel progetto. Per ulteriori informazioni,
 vedere la sezione
 :ref:`riferimento della configurazione dei form <reference-framework-form>`.
 

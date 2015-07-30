@@ -35,7 +35,7 @@ Questa guida è **particolarmente indicata** per:
 * Siti web e applicazioni web sviluppato con il framework Symfony.
 
 Per altre situazioni, questa guida potrebbe essere un buon **punto di partenza**, che si
-potre **estendere per soddisfare le proprie esigenze specifiche**:
+potrà **estendere per soddisfare le proprie esigenze specifiche**:
 
 * Bundle condivisi pubblicamente con la comunità di Symfony;
 * Sviluppatori esperti o squadre che hanno creato i propri standard;
@@ -70,14 +70,22 @@ L'applicazione
 --------------
 
 Insieme a questa guida ci sarà un'applicazione di esempio, sviluppata seguendo le
-best practice. **L'applicazione è un semplice blog**, che
-consentirà di concentrarsi sui concetti di Symfony, senza sconfinare in
-particolarità proprie dell'applicazione.
+best practice. Questo progetto, chiamato Symfony Demo, può essere installato
+tramite l'installatore di Symfony. `Scaricare e installare`_ l'installatore
+e quindi eseguire il comando seguente, per scaricare l'applicazione:
 
-Invece di sviluppare l'applicazione passo passo, ci saranno pezzi di codice all'interno
-dei singoli capitoli. Fare riferimento all'ultimo capitolo di questa guida per maggiori
-dettagli sull'applicazione e le istruzioni per
-installarla.
+.. code-block:: bash
+
+    # Linux and Mac OS X
+    $ symfony demo
+
+    # Windows
+    c:\> php symfony demo
+
+**L'applicazione è un semplice blog**, che consentirà di concentrarsi sui
+concetti di Symfony, senza sconfinare in particolarità proprie dell'applicazione,
+più complesse. Invece di sviluppare l'applicazione passo passo in 
+questa guida, ci saranno pezzi di codice all'interno dei singoli capitoli.
 
 Non aggiornare un'applicazione esistente
 ----------------------------------------
@@ -95,3 +103,4 @@ practice**. Le ragioni per non farlo sono diverse:
   i test o ad aggiungere funzionalità che forniscano valore reale agli utenti finali.
 
 .. _`Fabien Potencier`: https://connect.sensiolabs.com/profile/fabpot
+.. _`Scaricare e installare`: http://symfony.com/download

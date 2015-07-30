@@ -12,7 +12,7 @@ rimanda alla :doc:`sezione sicurezza del ricettario </cookbook/security/index>`.
 A prescindere dalle necessità, l'autenticazione è configurata in ``security.yml``, sotto
 la voce ``firewalls``.
 
-.. best-practice:
+.. best-practice::
 
     A meno che non si abbiano due meccanismi di autenticazione differenti (ad esempio il
     form di login per il sito principale e un sistema a token per le API), si

@@ -2,6 +2,7 @@
    single: Creazione di pagine
 
 .. _creating-pages-in-symfony2:
+.. _creating-pages-in-symfony:
 
 Creare pagine in Symfony
 ========================

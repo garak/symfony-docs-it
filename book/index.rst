@@ -11,6 +11,8 @@ Libro
     controller
     routing
     templating
+    configuration
+    bundles
     doctrine
     propel
     testing
@@ -21,6 +23,5 @@ Libro
     translation
     service_container
     performance
-    internals
 
 .. include:: /book/map.rst.inc

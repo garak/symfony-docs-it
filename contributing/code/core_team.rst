@@ -17,7 +17,7 @@ I gruppi della squadra di Symfony, in ordine decrescente di priorità, sono i se
 1. **Capo progetto**
 
 * Elegge i membri degli altri gruppi;
-* Esegue i merge delle richieste di pull in tutti i repoistory di Symfony.
+* Esegue i merge delle richieste di pull in tutti i repository di Symfony.
 
 2. **Merger**
 
@@ -37,37 +37,42 @@ Membri attivi
 
 * **Capo progetto**:
 
-  * **Fabien Potencier** (:leader:`fabpot`).
+  * **Fabien Potencier** (`fabpot`_).
 
-* **Merger**:
+* **Merger** (``@symfony/mergers`` su GitHub):
 
-  * **Bernhard Schussek** (:merger:`webmozart`) per i componenti Form_,
+  * **Bernhard Schussek** (`webmozart`_) per i componenti Form_,
     Validator_, Icu_, Intl_, Locale_, OptionsResolver_ e PropertyAccess_;
 
 
-  * **Tobias Schultze** (:merger:`Tobion`) per il componente Routing_;
+  * **Tobias Schultze** (`Tobion`_) per i componenti Routing_,
+    OptionsResolver_ e PropertyAccess_;
 
-
-  * **Romain Neutron** (:merger:`romainneutron`) per il componente
+  * **Romain Neutron** (`romainneutron`_) per il componente
     Process_;
 
-  * **Nicolas Grekas** (:merger:`nicolas-grekas`) per il componente Debug_.
+  * **Nicolas Grekas** (`nicolas-grekas`_) per il componente Debug_.
 
 
-  * **Christophe Coevoet** (:merger:`stof`) per i componenti BrowserKit_,
+  * **Christophe Coevoet** (`stof`_) per i componenti BrowserKit_,
     Config_, Console_, DependencyInjection_, DomCrawler_, EventDispatcher_,
     HttpFoundation_, HttpKernel_, Serializer_, Stopwatch_, DoctrineBridge_,
     MonologBridge_, e TwigBridge_.
 
-  * **Kévin Dunglas** (:merger:`dunglas`) per il componente Serializer_.
+  * **Kévin Dunglas** (`dunglas`_) per il componente Serializer_.
 
+
+  * **Abdellatif AitBoudad** (`aitboudad`_) per il componente Translation_.
+
+
+  * **Jakub Zalas** (`jakzal`_) per il componente DomCrawler_.
 
 * **Decider**:
 
-  * **Jakub Zalas** (:decider:`jakzal`);
-  * **Jordi Boggiano** (:decider:`seldaek`);
-  * **Lukas Kahwe Smith** (:decider:`lsmith77`);
-  * **Ryan Weaver** (:decider:`weaverryan`).
+  * **Jakub Zalas** (`jakzal`_);
+  * **Jordi Boggiano** (`seldaek`_);
+  * **Lukas Kahwe Smith** (`lsmith77`_);
+  * **Ryan Weaver** (`weaverryan`_).
 
 Richiesta di affiliazione
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -112,9 +117,8 @@ Merge delle richieste di pull
 
 Si può eseguire il merge di una richiesta di pull se:
 
-* Sia passato abbastanza tempo per le revisioni (alcuni minuti per le modifiche
-  minori, almeno due giorni per le richieste di pull "normali" e quattro giorni per
-  le richieste di pull con "impatto significativo");
+* Sia passato abbastanza tempo per le revisioni (almeno due giorni per le richieste
+  di pull "normali" e quattro giorni per le richieste di pull con "impatto significativo");
 
 * Sia una modifica minore [1]_, indipendentemente dal numero di voti;
 
@@ -165,6 +169,20 @@ a discrezione del **capo progetto**.
 .. _PropertyAccess: https://github.com/symfony/PropertyAccess
 .. _Routing: https://github.com/symfony/Routing
 .. _Serializer: https://github.com/symfony/Serializer
+.. _Translation: https://github.com/symfony/Translation
 .. _Stopwatch: https://github.com/symfony/Stopwatch
 .. _TwigBridge: https://github.com/symfony/TwigBridge
 .. _Validator: https://github.com/symfony/Validator
+.. _`fabpot`: https://github.com/fabpot/
+.. _`webmozart`: https://github.com/webmozart/
+.. _`Tobion`: https://github.com/Tobion/
+.. _`romainneutron`: https://github.com/romainneutron/
+.. _`nicolas-grekas`: https://github.com/nicolas-grekas/
+.. _`stof`: https://github.com/stof/
+.. _`dunglas`: https://github.com/dunglas/
+.. _`jakzal`: https://github.com/jakzal/
+.. _`Seldaek`: https://github.com/Seldaek/
+.. _`lsmith77`: https://github.com/lsmith77/
+.. _`weaverryan`: https://github.com/weaverryan/
+.. _`aitboudad`: https://github.com/aitboudad/
+.. _`xabbuh`: https://github.com/xabbuh/

@@ -16,6 +16,8 @@ Installazione
 * :doc:`installarlo tramite Composer </components/using_components>` (``symfony/options-resolver`` su `Packagist`_)
 * utilizzare il repository ufficiale Git (https://github.com/symfony/OptionsResolver)
 
+.. include:: /components/require_autoload.rst.inc
+
 Utilizzo
 --------
 
@@ -183,7 +185,7 @@ Le opzioni con valori predefiniti sono sempre impostate come facoltative.
 
 .. tip::
 
-    Se si imposta un'opzione come facoltatva, non si può essere sicuri che sia compresa o meno
+    Se si imposta un'opzione come facoltativa, non si può essere sicuri che sia compresa o meno
     nell'array. Occorre verificarne l'esistenza prima di poterla usare.
 
     Per evitare di doverla verificare ogni volta, si può anche impostare un valore predefinito di
@@ -399,7 +401,7 @@ invocando
         ));
     }
 
-Si può notare che la closure riceve un parametetro ``$options``. Qualche volta, è
+Si può notare che la closure riceve un parametro ``$options``. Qualche volta, è
 necessario utilizzare altre opzioni per normalizzare::
 
     // ...

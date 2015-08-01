@@ -11,9 +11,10 @@ Dopo aver caricato i valori di configurazione da ogni tipo di risorsa, i valori 
 le loro strutture possono essere validati, usando la parte "Definition" del componente
 Config. Solitamente ci si aspetta che i valori di configurazione mostrino un qualche tipo
 di gerarchia. Inoltre, i valori dovrebbero essere di un certo tipo, ristretti in numero
-o all'interno di un determinato insieme di valori. Per esempio, la configurazione seguente
-(in Yaml) mostra una chiara gerarchia e alcune regole di validazione che vi andrebbero
-applicate (come: "il valore per ``auto_connect`` deve essere booleano"):
+o all'interno di un determinato insieme di valori. Per esempio, la configurazione
+seguente (in YAML) mostra una chiara gerarchia e alcune regole di validazione che vi
+andrebbero applicate (come: "il valore per ``auto_connect`` deve
+essere booleano"):
 
 .. code-block:: yaml
 
@@ -89,7 +90,8 @@ riflettere la reale struttura dei valori di configurazione::
 
 Lo stesso nodo radice è un nodo array e ha dei figli, come il nodo booleano
 ``auto_connect`` e il nodo scalare ``default_connection``. In generale:
-dopo aver definito un nodo, una chiamata ``end()`` porta un gradino in alto nella gerarchia.
+dopo aver definito un nodo, una chiamata ``end()`` porta un gradino in alto nella
+gerarchia.
 
 Tipo di nodo
 ~~~~~~~~~~~~
@@ -97,11 +99,12 @@ Tipo di nodo
 Si può validare il tipo di un valore fornito, usando l'appropriata definizione
 di nodo. I tipi di nodo disponibili sono:
 
-* scalare
+* scalare (tipo generico che include booleani, stringhe, interi, virgola mobile
+  e ``null``)
 * booleano
 * intero
 * virgola mobile
-* enum
+* enum (simile a scalare, ma consente solo un insieme determinato di valori)
 * array
 * variabile (nessuna validazione)
 
@@ -134,7 +137,7 @@ Nodi enum
 ~~~~~~~~~~
 
 I nodi enum forniscono un vincolo che fa corrispondere il dato inserito a una
-serie divalori::
+serie di valori::
 
     $rootNode
         ->children()
@@ -193,12 +196,14 @@ Opzioni dei nodi array
 Prima di definire i figli di un nodo array, si possono fornire opzioni, come:
 
 ``useAttributeAsKey()``
-    Fornisce il nome di un nodo figlio, i cui valori sono usati come chiavi nell'array risultante
+    Fornisce il nome di un nodo figlio, i cui valori sono usati come chiavi
+    nell'array risultante
 ``requiresAtLeastOneElement()``
-    Dovrebbe esserci almeno un elemento nell'array (funziona solo se viene richiamato anche
-    ``isRequired()``).
+    Dovrebbe esserci almeno un elemento nell'array (funziona solo se viene richiamato
+    anche ``isRequired()``).
 ``addDefaultsIfNotSet()``
-    Se dei nodi figli hanno valori predefiniti, usarli se non sono stati forniti dati espliciti.
+    Se dei nodi figli hanno valori predefiniti, usarli se non sono stati forniti
+    dati espliciti.
 
 Un esempio::
 
@@ -246,7 +251,8 @@ abbia un determinato valore:
 ``default*()``
     (``null``, ``true``, ``false``), scorciatoia per ``defaultValue()``
 ``treat*Like()``
-    (``null``, ``true``, ``false``), fornisce un valore di rimpiazzo in caso in cui il valore sia ``*.``
+    (``null``, ``true``, ``false``), fornisce un valore di rimpiazzo in caso in cui
+    il valore sia ``*.``
 
 .. code-block:: php
 
@@ -261,7 +267,7 @@ abbia un determinato valore:
                     ->scalarNode('host')
                         ->defaultValue('localhost')
                     ->end()
-                    ->scalarNode('username')->end()
+                    ->scalarNode('utente')->end()
                     ->scalarNode('password')->end()
                     ->booleanNode('memory')
                         ->defaultFalse()
@@ -401,7 +407,7 @@ entrambi ``auto_connect``.
     ``pippo-pluto_muu``, o se esiste già.
 
 Un'altra differenza tra Yaml e XML è il modo in cui sono rappresentati array
-di dati. In Yaml si può avere:
+di dati. In YAML si può avere:
 
 .. code-block:: yaml
 
@@ -546,8 +552,9 @@ originale del nodo.
 Processare i valori di configurazione
 -------------------------------------
 
-La classe :class:`Symfony\\Component\\Config\\Definition\\Processor` usa l'albero,
-costruito usando :class:`Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder`,
+La classe :class:`Symfony\\Component\\Config\\Definition\\Processor` usa
+l'albero, costruito usando
+:class:`Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder`,
 per processare molteplici array di valori di configurazione da fondere.
 Se un valore non è del tipo atteso, è obbligatorio e non ancora definito oppure non può
 essere validato in altri modi, sarà lanciata un'eccezione.
@@ -557,8 +564,12 @@ Altrimenti, il risultato è un array pulito di valori di configurazione::
     use Symfony\Component\Config\Definition\Processor;
     use Acme\DatabaseConfiguration;
 
-    $config1 = Yaml::parse(__DIR__.'/src/Matthias/config/config.yml');
-    $config2 = Yaml::parse(__DIR__.'/src/Matthias/config/config_extra.yml');
+    $config1 = Yaml::parse(
+        file_get_contents(__DIR__.'/src/Matthias/config/config.yml')
+    );
+    $config2 = Yaml::parse(
+        file_get_contents(__DIR__.'/src/Matthias/config/config_extra.yml')
+    );
 
     $configs = array($config1, $config2);
 

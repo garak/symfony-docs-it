@@ -101,7 +101,7 @@ specifica caratteristica, incluse classi PHP, configurazioni e anche fogli di st
 e file JavaScript (si veda :ref:`page-creation-bundles`).
 
 A seconda della modalità di installazione di Symfony, si potrebbe già a vere un bundle, chiamato
-``AcmeDemoBundle``. Controllare nella cartella ``src/`` del progetto se c'è
+AcmeDemoBundle. Controllare nella cartella ``src/`` del progetto se c'è
 una cartella ``DemoBundle/`` sotto la cartella ``Acme/``. Se tali
 cartelle esistono, saltare il resto di questa sezione e andare direttamente alla
 creazione della rotta.
@@ -141,7 +141,7 @@ Symfony si trova in ``app/config/routing.yml``. Come ogni configurazione in Symf
 si può anche scegliere di usare XML o PHP per configurare le rotte.
 
 Se si guarda il file principale delle rotte, si vedrà che Symfony ha già aggiunto
-una voce, quando è stato generato ``AcmeDemoBundle``:
+una voce, quando è stato generato AcmeDemoBundle:
 
 .. configuration-block::
 
@@ -565,7 +565,7 @@ nella cartella ``app/``.
 
 Questa classe deve implementare due metodi, che definiscono tutto ciò di cui Symfony
 ha bisogno di sapere sulla propria applicazione. Non ci si deve preoccupare di questi
-metodi all'inizio, Symfony li riempe al posto nostro con delle impostazioni
+metodi all'inizio, Symfony li riempie al posto nostro con delle impostazioni
 predefinite.
 
 ``registerBundles()``
@@ -1077,10 +1077,10 @@ fondamentali:
 * creare una pagine è un processo in tre passi, che coinvolge una **rotta**, un **controllore**
   e (opzionalmente) un **template**.
 
-* ogni progetto contienre solo alcune cartelle principali: ``web/`` (risorse web e
+* ogni progetto contiene solo alcune cartelle principali: ``web/`` (risorse web e
   front controller), ``app/`` (configurazione), ``src/`` (i propri bundle)
   e ``vendor/`` (codice di terze parti) (c'è anche la cartella ``bin/``, usata per aiutare
-  nell'aggiornamento delle librerire dei venditori);
+  nell'aggiornamento delle librerie dei venditori);
 
 * ogni caratteristica in Symfony (incluso in nucleo del framework stesso) è organizzata in
   *bundle*, insiemi strutturati di file relativi a tale caratteristica;
@@ -1088,7 +1088,7 @@ fondamentali:
 * la **configurazione** per ciascun bundle risiede nella cartella ``app/config`` e
   può essere specificata in YAML, XML o PHP;
 
-* la **configuratione dell'applicazione** globale si trova nella cartella
+* la **configurazione dell'applicazione** globale si trova nella cartella
   ``app/config``;
 
 * ogni **ambiente** è accessibile tramite un diverso front controller (p.e.

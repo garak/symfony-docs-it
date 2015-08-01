@@ -16,6 +16,8 @@ Installazione
 * Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/finder`` su `Packagist`_);
 * Usando il repository ufficiale su Git (https://github.com/symfony/Finder).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 
@@ -82,7 +84,7 @@ Per cercare in diverse posizioni, è possibile concatenare diverse chiamate a
 
     $finder->files()->in(__DIR__)->in('/altraparte');
 
-Si possono usare caretteri jolly nelle cartelle, per cercare uno schema::
+Si possono usare caratteri jolly nelle cartelle, per cercare uno schema::
 
     $finder->in('src/Symfony/*/*/Resources');
 
@@ -208,7 +210,7 @@ metodo :method:`Symfony\\Component\\Finder\\Finder::path`::
 
     $finder->path('una/cartella/particolare');
 
-Su tutte le piattarforma, bisogna usare la barra (cioè ``/``) come separatore di cartelle.
+Su tutte le piattaforme, bisogna usare la barra (cioè ``/``) come separatore di cartelle.
 
 Il metodo ``path()`` accetta stringhe o espressioni regolari::
 
@@ -302,7 +304,8 @@ Il contenuto dei file restituiti può essere letto con
 
     foreach ($finder as $file) {
         $contents = $file->getContents();
-        ...
+        
+        // ...
     }
 
 .. _strtotime:    http://php.net/manual/it/datetime.formats.php

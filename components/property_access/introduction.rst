@@ -16,6 +16,8 @@ Si può installare il componente in due modi:
 * Installarlo :doc:`tramite Composer</components/using_components>` (``symfony/property-access`` su `Packagist`_);
 * Usare il repository Git ufficiale (https://github.com/symfony/PropertyAccess).
 
+.. include:: /components/require_autoload.rst.inc
+
 Uso
 ---
 
@@ -93,7 +95,7 @@ Per leggere da proprietà, usare la notazione con il punto::
     L'accesso a proprietà pubbliche è l'ultima opzione usata da ``PropertyAccessor``.
     Prima prova ad accedere al valore usando i metodi, prima di usare
     direttamente la proprietà. Per esempio, se si ha una proprietà pubblica con
-    un metodo gettere, sarà usato il getter.
+    un metodo getter, sarà usato il getter.
 
 Uso dei getter
 ~~~~~~~~~~~~~~
@@ -404,7 +406,7 @@ per abilitare caratteristiche extra. Per poterlo fare, si può usare
         ->enableMagicCall()
         ->getPropertyAccessor();
 
-Oppure si possono passsare parametri direttamente al costruttore (non raccomandato)::
+Oppure si possono passare parametri direttamente al costruttore (non raccomandato)::
 
     // ...
     $accessor = new PropertyAccessor(true) // abilita la gestione di __call

@@ -8,8 +8,9 @@ Sphinx
 ------
 
 * Per i vari livelli di intestazione vanno usati i segeuenti caratteri: livello 1
-  è ``=``, livello 2 ``-``, livello 3 ``~``, livello 4 ``.`` e livello 5 ``"``;
-* Ogni riga va interrotta approssimativametne dopo la prima parola che attraversa
+  è ``=`` (simbolo di uguale), livello 2 ``-`` (trattino), livello 3 ``~`` (tilde), livello 4
+  ``.`` (punto) e livello 5 ``"`` (apice doppio);
+* Ogni riga va interrotta approssimativamente dopo la prima parola che attraversa
   il 72esimo carattere (quindi quasi tutte le righe dovrebbeero essere tra i 72 e i 78 caratteri);
 * La scorciatoia ``::`` va *preferita* a ``.. code-block:: php``, quando si inizia un
   blocco di codice PHP (si legga la `documentazione di Sphinx`_ per vedere quando usare
@@ -50,6 +51,12 @@ Esempi di codice
 
 * Il codice segue gli :doc:`standard di codice di Symfony </contributing/code/standards>`
   e gli `standard di codice di Twig`_;
+* Gli esempi di codice devono sembrare reali per il contesto di un'applicazione web. Evitare esempi
+  astratti o banali (``pippo``, ``pluto``, ``demo``, ecc.);
+* Il codice deve seguire le :doc:`best practice di Symfony </best_practices/introduction>`.
+  A meno che l'esempio non richieda un bundle personalizzato, assicurarsi di usare sempre
+  ``AppBundle`` per il codice;
+* Usare ``Acme``, quando il codice richiede un nome di venditore;
 * Per evitare le barre orizzontali sui blocchi di codici, si preferisce interrompere una riga
   se va oltre l'85esimo carattere;
 * Quando si omettono righe di codice, porre ``...`` in un commento nel punto
@@ -58,8 +65,10 @@ Esempi di codice
 * Quando si omette una parte di riga, p.e. il valore di una variabile, porre ``...`` (senza commenti)
   nel punto di omissione;
 * Descrizione del codice omesso (facoltativa):
-  se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``
-  se si omette parte di una riga: la descrizione può essere posta prima della riga;
+
+  * Se si omettono molte righe: la descrizione dell'omissione può essere posta dopo ``...``;
+  * Se si omette parte di una riga: la descrizione può essere posta prima della riga;
+
 * Se utile per il lettore, un esempio di codice PHP dovrebbe iniziare con la dichiarazione dello
   spazio dei nomi;
 * Facendo riferimento a una classe, assicurarsi di mostrare l''istruzione ``use`` in cima
@@ -78,6 +87,7 @@ Gli esempi di configurazione vanno mostrati in tutti i formati supportati, usand
 (in ordine) sono:
 
 * **Configurazione** (inclusi servizi e rotte): YAML, XML, PHP
+* **Rotte**: Annotazioni, YAML, XML, PHP
 * **Validazione**: YAML, Annotazioni, XML, PHP
 * **Mappatura Doctrine**: Annotazioni, YAML, XML, PHP
 * **Traduzione**: XML, YAML, PHP

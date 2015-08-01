@@ -19,7 +19,7 @@ Quando si costruisce un'applicazione in console, può essere utile mostrare dati
 .. image:: /images/components/console/table.png
 
 Per mostrare una tabella, usare :class:`Symfony\\Component\\Console\\Helper\\TableHelper`,
-impostanto testata e righe, e rendere::
+impostando testata e righe, e rendere::
 
     $table = $this->getHelper('table');
     $table

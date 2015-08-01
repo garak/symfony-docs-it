@@ -14,7 +14,7 @@ e imparare le caratteristiche più importanti della libreria dei form.
    Il componente form di Symfony è una libreria autonoma che può essere usata al di fuori
    dei progetti Symfony. Per maggiori informazioni, vedere
    la :doc:`documentazione del componente Form </components/form/introduction>`
-   su Github.
+   su GitHub.
 
 .. index::
    single: Form; Creazione di un form semplice
@@ -77,8 +77,8 @@ all'interno di un controllore::
     // src/AppBundle/Controller/DefaultController.php
     namespace AppBundle\Controller;
 
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use AppBundle\Entity\Task;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
 
     class DefaultController extends Controller
@@ -178,7 +178,7 @@ Questo è tutto! Bastano tre righe per rendere completamente il form:
 ``form_end(form)``
     Rende il tag finale del form e ogni campo che non sia ancora
     stato reso, nel caso in cui i campi siano stati resti singolarmante a mano. È utile
-    per rendere campi nascosci e sfruttare la
+    per rendere campi nascosti e sfruttare la
     :ref:`protezione CSRF <forms-csrf>` automatica.
 
 .. seealso::
@@ -243,7 +243,7 @@ controllore::
 .. versionadded:: 2.3
     Il metodo :method:`Symfony\\Component\\Form\\FormInterface::handleRequest` è stato
     aggiunto in Symfony 2.3. In precedenza, veniva passata ``$request`` al
-    metodo ``submit``, una straetegia deprecata, che sarà rimossa
+    metodo ``submit``, una strategia deprecata, che sarà rimossa
     in Symfony 3.0. Per dettagli sul metodo, vedere :ref:`cookbook-form-submit-request`.
 
 Questo controllore segue uno schema comune per gestire i form e ha tre
@@ -256,7 +256,7 @@ possibili percorsi:
    se il form non è stato inviato.
 
 #. Quando l'utente invia il form, :method:`Symfony\\Component\\Form\\FormInterface::handleRequest`
-   lo capisce e scrive immmediatamente i dati nelle proprietà
+   lo capisce e scrive immediatamente i dati nelle proprietà
    ``task`` e ``dueDate`` dell'oggetto ``$task``. Quindi tale oggetto
    viene validato. Se non è valido (la validazione è trattata nella prossima sezione),
    :method:`Symfony\\Component\\Form\\FormInterface::isValid` restituisce ``false``
@@ -269,7 +269,7 @@ possibili percorsi:
        che i dati inviati siano validi o meno.
 
 #. Quando l'utente invia il form con dati validi, i dati inviati sono scritti
-   nuvamente nel form, ma stavolta :method:`Symfony\\Component\\Form\\FormInterface::isValid`
+   nuovamente nel form, ma stavolta :method:`Symfony\\Component\\Form\\FormInterface::isValid`
    restituisce ``true``. Ora si ha la possibilità di eseguire alcune azioni usando l'oggetto
    ``$task`` (ad esempio persistendolo nella base dati) prima di rinviare l'utente
    a un'altra pagina (ad esempio una pagina "thank you" o "success").
@@ -298,7 +298,7 @@ Inviare form con bottoni di submit multipli
     Il supporto per i bottoni nei form è stato aggiunto in Symfony 2.3.
 
 Quando un form contiene più di un bottone di submit, si vuole sapere
-quale dei bottoni sia stato cliccato, per adattare il fluso del controllore.
+quale dei bottoni sia stato cliccato, per adattare il flusso del controllore.
 Aggiungiamo un secondo bottone "Salva e aggiungi" al form::
 
     $form = $this->createFormBuilder($task)
@@ -308,7 +308,7 @@ Aggiungiamo un secondo bottone "Salva e aggiungi" al form::
         ->add('saveAndAdd', 'submit', array('label' => 'Salva e aggiungi'))
         ->getForm();
 
-Nel controllore, usaree il metodo
+Nel controllore, usare il metodo
 :method:`Symfony\\Component\\Form\\ClickableInterface::isClicked` del bottone
 per sapere se sia stato cliccato il bottone "Salva e aggiungi"::
 
@@ -542,7 +542,7 @@ Questo richiamerà il metodo statico ``determineValidationGroups()`` della class
 L'oggetto Form è passato come parametro del metodo (vedere l'esempio successivo).
 Si può anche definire l'intera logica con una Closure::
 
-    use Acme\AcmeBundle\Entity\Client;
+    use AppBundle\Entity\Client;
     use Symfony\Component\Form\FormInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -550,7 +550,7 @@ Si può anche definire l'intera logica con una Closure::
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => function(FormInterface $form) {
+            'validation_groups' => function (FormInterface $form) {
                 $data = $form->getData();
                 if (Client::TYPE_PERSON == $data->getType()) {
                     return array('person');
@@ -565,7 +565,7 @@ L'uso dell'opzione ``validation_groups`` sovrascrive il gruppo di validazione pr
 in uso. Se si vogliono validare anche i vincoli predefiniti
 dell'entità, si deve cambiare l'opzione in questo modo::
 
-    use Acme\AcmeBundle\Entity\Client;
+    use AppBundle\Entity\Client;
     use Symfony\Component\Form\FormInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -573,7 +573,7 @@ dell'entità, si deve cambiare l'opzione in questo modo::
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'validation_groups' => function(FormInterface $form) {
+            'validation_groups' => function (FormInterface $form) {
                 $data = $form->getData();
                 if (Client::TYPE_PERSON == $data->getType()) {
                     return array('Default', 'person');
@@ -1002,12 +1002,12 @@ Infine, si possono sovrascrivere azione e metodo nel template, passandoli all'ai
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Default/new.html.twig #}
+        {# app/Resources/views/default/new.html.twig #}
         {{ form_start(form, {'action': path('target_route'), 'method': 'GET'}) }}
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Default/newAction.html.php -->
+        <!-- app/Resources/views/default/newAction.html.php -->
         <?php echo $view['form']->start($form, array(
             'action' => $view['router']->generate('target_route'),
             'method' => 'GET',
@@ -1048,7 +1048,8 @@ che ospiterà la logica per la costruzione del form task::
             $builder
                 ->add('task')
                 ->add('dueDate', null, array('widget' => 'single_text'))
-                ->add('save', 'submit');
+                ->add('save', 'submit')
+            ;
         }
 
         public function getName()
@@ -1083,7 +1084,7 @@ la scelta in ultima analisi, spetta allo sviluppatore.
 .. sidebar:: Impostare ``data_class``
 
     Ogni form ha bisogno di sapere il nome della classe che detiene i dati
-    sottostanti (ad esempio ``Acme\TaskBundle\Entity\Task``). Di solito, questo viene indovinato
+    sottostanti (ad esempio ``AppBundle\Entity\Task``). Di solito, questo viene indovinato
     in base all'oggetto passato al secondo parametro di ``createForm``
     (vale a dire ``$task``). Dopo, quando si inizia a incorporare i form, questo
     non sarà più sufficiente. Così, anche se non sempre necessario, è in genere una
@@ -1116,7 +1117,8 @@ la scelta in ultima analisi, spetta allo sviluppatore.
             $builder
                 ->add('task')
                 ->add('dueDate', null, array('mapped' => false))
-                ->add('save', 'submit');
+                ->add('save', 'submit')
+            ;
         }
 
     Inoltre, se ci sono campi nel form che non sono inclusi nei dati inviati,
@@ -1148,7 +1150,7 @@ facilmente in un'applicazione.
 
         # src/AppBundle/Resources/config/services.yml
         services:
-            acme_demo.form.type.task:
+            app.form.type.task:
                 class: AppBundle\Form\Type\TaskType
                 tags:
                     - { name: form.type, alias: task }
@@ -1162,10 +1164,7 @@ facilmente in un'applicazione.
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service
-                    id="acme_demo.form.type.task"
-                    class="AppBundle\Form\Type\TaskType">
-
+                <service id="app.form.type.task" class="AppBundle\Form\Type\TaskType">
                     <tag name="form.type" alias="task" />
                 </service>
             </services>
@@ -1176,7 +1175,7 @@ facilmente in un'applicazione.
         // src/AppBundle/Resources/config/services.php
         $container
             ->register(
-                'acme_demo.form.type.task',
+                'app.form.type.task',
                 'AppBundle\Form\Type\TaskType'
             )
             ->addTag('form.type', array(
@@ -1267,8 +1266,8 @@ Incorporare un oggetto singolo
 Supponiamo che ogni ``Task`` appartenga a un semplice oggetto ``Category``. Si parte,
 naturalmente, con la creazione di un oggetto ``Category``::
 
-    // src/Acme/TaskBundle/Entity/Category.php
-    namespace Acme\TaskBundle\Entity;
+    // src/AppBundle/Entity/Category.php
+    namespace AppBundle\Entity;
 
     use Symfony\Component\Validator\Constraints as Assert;
 
@@ -1437,7 +1436,7 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
 
     .. code-block:: html+jinja
 
-        {# app/Resources/views/Form/fields.html.twig #}
+        {# app/Resources/views/form/fields.html.twig #}
         {% block form_row %}
         {% spaceless %}
             <div class="form_row">
@@ -1450,7 +1449,7 @@ farlo, creare un nuovo file template per salvare il nuovo codice:
 
     .. code-block:: html+php
 
-        <!-- app/Resources/views/Form/form_row.html.php -->
+        <!-- app/Resources/views/form/form_row.html.php -->
         <div class="form_row">
             <?php echo $view['form']->label($form, $label) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -1469,7 +1468,8 @@ rende il form:
         {# app/Resources/views/default/new.html.twig #}
         {% form_theme form 'form/fields.html.twig' %}
 
-        {% form_theme form 'form/fields.html.twig' 'Form/fields2.html.twig' %}
+        {# oppure, se si vogliono usare più temi #}
+        {% form_theme form 'form/fields.html.twig' 'form/fields2.html.twig' %}
 
         {# ... rendere il form #}
 
@@ -1478,6 +1478,7 @@ rende il form:
         <!-- app/Resources/views/default/new.html.php -->
         <?php $view['form']->setTheme($form, array('form')) ?>
 
+        <!-- oppure, se si vogliono usare più temi -->
         <?php $view['form']->setTheme($form, array('form', 'form2')) ?>
 
         <!-- ... rendere il form -->
@@ -1572,7 +1573,7 @@ frammento per il tipo del genitore se il frammento di base non
 esiste.
 
 Quindi, per ignorare gli errori dei *soli* campi ``textarea``, copiare il
-frammento ``form_errors``, rinominarlo in ``textarea_errors`` e personalizzrlo. Per
+frammento ``form_errors``, rinominarlo in ``textarea_errors`` e personalizzarlo. Per
 sovrascrivere la resa degli errori predefiniti di *tutti* i campi, copiare e personalizzare
 direttamente il frammento ``form_errors``.
 
@@ -1674,9 +1675,9 @@ per definire l'output del form.
 PHP
 ...
 
-Per includere automaticamente i template personalizzati dalla cartella
-``Acme/TaskBundle/Resources/views/Form`` creata in precedenza in *tutti* i template, modificare il file
-con la configurazione dell'applicazione:
+Per includere automaticamente i template personalizzati dalla cartella ``app/Resources/views/Form``
+creata in precedenza in *tutti* i template, modificare il file con la configurazione
+dell'applicazione:
 
 .. configuration-block::
 
@@ -1720,12 +1721,12 @@ con la configurazione dell'applicazione:
                         'Form',
                     ),
                 ),
-            )
+            ),
             // ...
         ));
 
-Ogni frammento all'interno della cartella ``Acme/TaskBundle/Resources/views/Form``
-è ora usato globalmente per definire l'output del form.
+Ogni frammento all'interno della cartella ``app/Resources/views/Form`` è ora
+usato globalmente per definire l'output del form.
 
 .. index::
    single: Form; Protezione CSRF
@@ -1779,7 +1780,7 @@ Il token CSRF può essere personalizzato specificatamente per ciascun form. Per 
 .. _form-disable-csrf:
 
 Per disabilitare la protezione CSRF, impostare l'opzione ``csrf_protection`` a ``false``.
-Si può anche personalizzarei a livello globale nel progetto. Per ulteriori informazioni,
+Si può anche personalizzare a livello globale nel progetto. Per ulteriori informazioni,
 vedere la sezione
 :ref:`riferimento della configurazione dei form <reference-framework-form>`.
 
@@ -1836,10 +1837,10 @@ Per impostazione predefinita, un form ipotizza che si voglia lavorare con array
 di dati, invece che con oggetti. Ci sono due modi per modificare questo comportamento
 e legare un form a un oggetto:
 
-1. Passare un oggetto alla creazione del form (come primo parametro di
+#. Passare un oggetto alla creazione del form (come primo parametro di
    ``createFormBuilder`` o come secondo parametro di ``createForm``);
 
-2. Dichiarare l'opzione ``data_class`` nel form.
+#. Dichiarare l'opzione ``data_class`` nel form.
 
 Se *non* si fa nessuna di queste due cose, il form restituirà i dati come
 array. In questo esempio, poiché ``$defaultData`` non è un oggetto (e
@@ -1849,11 +1850,11 @@ un array.
 .. tip::
 
     Si può anche accedere ai valori POST ("name", in questo caso) direttamente tramite
-    l'oggetto `Request`, in questo modo::
+    l'oggetto ``Request``, in questo modo::
 
         $this->get('request')->request->get('name');
 
-    Tuttavia, si faccia attenzione che in molti casi l'uso del metodo getData() è
+    Tuttavia, si faccia attenzione che in molti casi l'uso del metodo ``getData()`` è
     preferibile, poiché restituisce i dati (solitamente un oggetto) dopo
     che sono stati manipolati dal sistema dei form.
 

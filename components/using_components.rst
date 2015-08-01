@@ -51,8 +51,9 @@ immediatamente::
 
     // File esempio: src/script.php
 
-    // cambiare il percorso in quello della cartella "vendor/", relativamente a questo file
-    require_once__DIR__.'/../vendor/autoload.php';
+    // cambiare il percorso in quello della cartella "vendor/"
+    // relativamente a questo file
+    require_once __DIR__.'/../vendor/autoload.php';
 
     use Symfony\Component\Finder\Finder;
 
@@ -64,7 +65,7 @@ immediatamente::
 Usare tutti i componenti
 ------------------------
 
-Se si volgioni usare tutti i componenti di Symfony, invece di aggiungerli
+Se si vogliono usare tutti i componenti di Symfony, invece di aggiungerli
 uno per uno, si può includere il pacchetto ``symfony/symfony``:
 
 .. code-block:: bash

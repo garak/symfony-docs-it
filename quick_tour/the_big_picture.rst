@@ -48,9 +48,10 @@ Su sistemi **Windows**, eseguire il seguente comando da console:
 
     c:\> php -r "readfile('http://symfony.com/installer');" > symfony.phar
 
-Questo comando scarica un file chiamato ``symfony.phar``, che contiene l'installatore di Symfony.
-Salvare o spostare il file nella cartella in cui si vogliono creare i progetti Symfony
-ed eseguire Symfony Installer, con questo comando:
+Questo comando scarica un file chiamato ``symfony.phar``, che contiene l'installatore di
+Symfony. Salvare o spostare il file nella cartella in cui si vogliono creare i
+progetti Symfony ed eseguire l'installatore di Symfony, con questo
+comando:
 
 .. code-block:: bash
 
@@ -185,9 +186,7 @@ Rotte
 Le rotte di Symfony mappano ogni richiesta all'azione che la gestisce, facendo corrispondere
 un URL a un percorso configurato dall'applicazione. Aprire di nuovo il file
 ``src/AppBundle/Controller/DefaultController.php`` e dare un'occhiata
-alle tre linee di codice sopra al metodo ``indexAction``:
-
-.. code-block:: php
+alle tre linee di codice sopra al metodo ``indexAction``::
 
     // src/AppBundle/Controller/DefaultController.php
     namespace AppBundle\Controller;
@@ -233,14 +232,12 @@ controllore ``Default`` quando l'utente visita il percorso ``/`` dell'applicazio
 Template
 ~~~~~~~~
 
-Il contenuto dell'azione ``index`` è questa istruzione PHP:
-
-.. code-block:: php
+Il contenuto dell'azione ``index`` è questa istruzione PHP::
 
     return $this->render('default/index.html.twig');
 
-Il metodo ``$this->render()`` è un'utile scorciatioa per rendere un template.
-Symfony fornisce alcune scorciatoie a ogni controlore che estenda la classe
+Il metodo ``$this->render()`` è un'utile scorciatoia per rendere un template.
+Symfony fornisce alcune scorciatoie a ogni controllore che estenda la classe
 ``Controller``.
 
 La posizione predefinita dei template è la cartella ``app/Resources/views/``.
@@ -281,7 +278,7 @@ utile di Symfony: il profilatore.
 .. image:: /images/quick_tour/profiler.png
    :align: center
 
-Questo strumento fonisce così tante informazioni interne sull'applicazione che ci
+Questo strumento fornisce così tante informazioni interne sull'applicazione che ci
 si potrebbe preoccupare sulla loro visibilità pubblica. Symfony è
 consapevole del problema e, per questo, non mostrerà tale barra quando
 l'applicazione gira su un server di produzione.
@@ -346,5 +343,5 @@ migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossim
 sezione: ":doc:`la vista <the_view>`".
 
 .. _Composer: https://getcomposer.org/
-.. _installer: http://getcomposer.org/download
+.. _installer: https://getcomposer.org/download
 .. _Twig: http://twig.sensiolabs.org/

@@ -5,7 +5,7 @@ Il controllore
 ==============
 
 Un controllore è una funzione PHP da creare, che prende le informazioni dalla
-richiesta HTTP e dai costruttori e restituisce una risposta HTTP (come oggetto
+richiesta HTTP e crea e restituisce una risposta HTTP (come oggetto
 ``Response`` di Symfony). La risposta potrebbe essere una pagina HTML, un documento XML,
 un array serializzato JSON, una immagine, un rinvio, un errore 404 o qualsiasi altra cosa
 possa venire in mente. Il controllore contiene una qualunque logica arbitraria di cui la
@@ -367,7 +367,7 @@ in mente le seguenti linee guida mentre si sviluppa.
 La ``Request`` come parametro del controllore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Che fare se si ha bisonog di leggere i parametri della query string o un header o accedere
+Che fare se si ha bisogno di leggere i parametri della query string o un header o accedere
 a un file caricato? Tutte queste informazioni sono memorizzate nell'oggetto ``Request`` di Symfony.
 Per ottenerlo in un controllore, basta aggiungerlo come parametro e
 **forzare il tipo a Request**::
@@ -494,12 +494,12 @@ strutture inutilmente profonde::
         'name' => $name
     ));
 
-Il motore di template di Symfony è spiegato in gran deettaglio nel capitolo
+Il motore di template di Symfony è spiegato in gran dettaglio nel capitolo
 :doc:`Template </book/templating>`.
 
 .. sidebar:: Riferimenti a template che si trovano in un bundle
 
-    Si possono anche mettere template nella cartella ``Resources/views`` directory di un
+    Si possono anche mettere template nella cartella ``Resources/views`` di un
     bundle e farvi riferimento con la sintassi
     ``NomeBundle:NomeCartella:NomeFile``. Per esempio,
     ``AppBundle:Hello:index.html.twig`` si riferisce a un template collocato in
@@ -563,10 +563,10 @@ Se si sta estendendo la classe base del controllore, procedere come segue::
 
 Il metodo ``createNotFoundException()`` crea uno speciale oggetto
 :class:`Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException`,
-che in ultima analisi innesca una risposta HTTP 404 all'interno di Symfony.
+che infine innesca una risposta HTTP 404 all'interno di Symfony.
 
-Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllore -
-Symfony ritornerà automaticamente un codice di risposta HTTP 500.
+Naturalmente si è liberi di lanciare qualunque classe ``Exception`` nel controllore:
+Symfony restituirà automaticamente un codice di risposta HTTP 500.
 
 .. code-block:: php
 

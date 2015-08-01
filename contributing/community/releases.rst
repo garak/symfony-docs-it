@@ -30,7 +30,7 @@ Il periodo semestrale è suddiviso in due fasi:
 * *Sviluppo*: *quattro mesi* per aggiungere nuove caratteristiche e per migliorare
   quelle esistenti;
 
-* *Stabilizazzione*: *due mesi* per chiudere bug, preparare il rilascio e attendere che
+* *Stabilizzazione*: *due mesi* per chiudere bug, preparare il rilascio e attendere che
   l'intero ecosistema di Symfony (librerie di terze parti, bundle, progetti che usano
   Symfony) sia pronto.
 
@@ -50,7 +50,7 @@ di rilascio. Ci sono due periodi di manutenzione:
   La fine di questo periodo è indicata come *fine manutenzione* di un
   rilascio.
 
-* *Solo fix di sicurezza*: durante questo periodo, possono essere risolti solamente propblemi relativi
+* *Solo fix di sicurezza*: durante questo periodo, possono essere risolti solamente problemi relativi
   alla sicurezza. La fine di questo periodo è indicata come *fine
   vita* di un rilascio.
 
@@ -96,18 +96,19 @@ Versione  Freeze   Rilascio  Fine manutenzione       Fine vita
 2.2       01/2013  03/2013   11/2013 (8 mesi)        05/2014
 **2.3**   03/2013  05/2013   05/2016 (36 mesi)       05/2017
 2.4       09/2013  11/2013   09/2014 (10 mesi [1]_)  01/2015
-2.5       03/2014  05/2014   01/2015 (8 mesi)        07/2015
+2.5       02/2014  05/2014   01/2015 (8 mesi)        07/2015
 2.6       09/2014  11/2014   07/2015 (8 mesi)        01/2016
-**2.7**   03/2015  05/2015   05/2018 (36 mesi [2]_)  05/2019
+**2.7**   02/2015  05/2015   05/2018 (36 mesi)       05/2019
+**2.8**   09/2015  11/2015   11/2018 (36 mesi [2]_)  11/2019
 3.0       09/2015  11/2015   07/2016 (8 mesi)        01/2017
-3.1       03/2016  05/2016   01/2017 (8 mesi)        07/2017
+3.1       02/2016  05/2016   01/2017 (8 mesi)        07/2017
 3.2       09/2016  11/2016   07/2017 (8 mesi)        01/2018
-**3.3**   03/2017  05/2017   05/2020 (36 mesi)       05/2021
+**3.3**   02/2017  05/2017   05/2020 (36 mesi)       05/2021
 ...       ...      ...       ...                     ...
 ========  =======  ========  ======================  =========
 
 .. [1] La manutenzione di Symfony 2.4 è stata `estesa a settembre 2014`_.
-.. [2] Symfony 2.7 è l'ultima versione del ramo 2.x di Symfony.
+.. [2] Symfony 2.8 è l'ultima versione del ramo 2.x di Symfony.
 
 .. tip::
 

@@ -20,6 +20,8 @@ Il componente può essere installato in due modi:
 * Installandolo :doc:`tramite Composer </components/using_components>` (``symfony/console`` su `Packagist`_);
 * Utilizzando il repository Git ufficiale (https://github.com/symfony/Console).
 
+.. include:: /components/require_autoload.rst.inc
+
 Creazione di comandi di base
 ----------------------------
 
@@ -119,8 +121,8 @@ Colorare l'output
 
     Windows non supporta i colori ANSI in modo predefinito, quindi il componente Console individua e
     disabilita i colori quando Windows non dà supporto. Tuttavia, se Windows non è
-    configurato con un driver ANSI e i propri comandi di console invocano altri scipt che
-    emetttono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
+    configurato con un driver ANSI e i propri comandi di console invocano altri script che
+    emettono sequenze di colori ANSI, saranno mostrati come sequenze di caratteri grezzi.
     Per abilitare il supporto ai colori ANSI su Windows, si può installare `ConEmu`_ o `ANSICON`_.
 
 È possibile inserire il testo da stampare, all'interno di speciali tag per colorare 
@@ -318,8 +320,8 @@ Diversamente dagli argomenti, le opzioni non sono ordinate (cioè possono essere
 specificate in qualsiasi ordine) e sono identificate dal doppio trattino (come in --urla; è 
 anche possibile dichiarare una scorciatoia a singola lettera preceduta da un solo  
 trattino come in ``-u``). Le opzioni sono *sempre* opzionali e possono accettare valori 
-(come in ``dir=src``) o essere semplici indicatori booleani senza alcuna assegnazione 
-(come in ``urla``).
+(come in ``--dir=src``) o essere semplici indicatori booleani senza alcuna assegnazione 
+(come in ``--urla``).
 
 .. tip::
 
@@ -462,7 +464,7 @@ array al metodo
             $testDelComando = new CommandTester($command);
             $testDelComando->execute(array(
                 'command'       => $comando->getName(),
-                'name'          => 'Fabien',
+                'nome'          => 'Fabien',
                 '--ripetizioni' => 5,
             ));
 
@@ -483,7 +485,7 @@ di ricordare l'ordine di esecuzione, lo si può richiamare direttamente.
 Questo è utile anche quando si vuole creare un "meta" comando, che esegue solo una
 serie di altri comandi (per esempio, tutti i comandi necessari quando il codice
 del progetto è cambiato sui server di produzione: pulire la cache,
-genereare i proxy di Doctrine, esportare le risorse di Assetic, ...).
+generare i proxy di Doctrine, esportare le risorse di Assetic, ...).
 
 Richiamare un comando da un altro è molto semplice::
 

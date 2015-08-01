@@ -5,9 +5,9 @@
 Il componente EventDispatcher
 =============================
 
-    Il componente EventDispatcher fornisce strumenti che consentono ai componenti di un'applicazione
-    di comunicare tra di loro, distribuendo eventi e ascoltandoli.
-
+    Il componente EventDispatcher fornisce strumenti che consentono ai componenti di
+    un'applicazione di comunicare tra di loro, distribuendo eventi e
+    ascoltandoli.
 
 Introduzione
 ------------
@@ -55,6 +55,8 @@ Si può installare il componente in due modi:
 
 * Installarlo via :doc:`Composer </components/using_components>` (``symfony/event-dispatcher`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/EventDispatcher).
+
+.. include:: /components/require_autoload.rst.inc
 
 Uso
 ---
@@ -437,7 +439,7 @@ sottoscrittore con il distributore, usare il metodo
 Il distributore registrerà automaticamente il sottoscrittore per ciascun evento
 restituito dal metodo ``getSubscribedEvents``. Questo metodo restituisce un array
 indicizzata per nomi di eventi e i cui valori sono o i nomi dei metodi da chiamare o
-array composti dal nome del metodo e da una priorità. L'esempio precedentemostra come
+array composti dal nome del metodo e da una priorità. L'esempio precedente mostra come
 registrare diversi metodi ascoltatori per lo stesso evento in un sottoscrittore e mostra
 anche come passare una priorità a ciascun metodo ascoltatore.
 Più è alta la priorità, prima sarà chiamato il metodo. Nell'esempio precedente,
@@ -573,7 +575,7 @@ Iniezione tramite setter::
 La scelta tra i due è una questione di gusti. Molti preferiscono l'iniezione per
 costruttore, perché l'oggetto in questo modo viene inizializzato durante la
 costruzione. Ma quando si ha una lunga lista di dipendenze, l'utilizzo dell'iniezione
-per settere può essere l'unico modo, specialmente per dipendenze opzionali.
+per setter può essere l'unico modo, specialmente per dipendenze opzionali.
 
 .. index::
    single: EventDispatcher; Scorciatoie del distributore
@@ -584,8 +586,8 @@ Scorciatoie del distributore
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Il metodo :method:`EventDispatcher::dispatch <Symfony\\Component\\EventDispatcher\\EventDispatcher::dispatch>`
-restiuisce sempre un oggetto :class:`Symfony\\Component\\EventDispatcher\\Event`.
-Questo conente diverse scorciatoie. Per esempio, se non si ha bisogno di un oggetto
+restituisce sempre un oggetto :class:`Symfony\\Component\\EventDispatcher\\Event`.
+Questo consente diverse scorciatoie. Per esempio, se non si ha bisogno di un oggetto
 evento personalizzato, ci si può appoggiare semplicemente su un oggetto
 :class:`Symfony\\Component\\EventDispatcher\\Event`. Non occorre nemmeno
 passarlo al distributore, perché ne sarà creato uno per impostazione predefinita, a meno  che

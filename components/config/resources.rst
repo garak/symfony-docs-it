@@ -39,7 +39,7 @@ che consente di importare ricorsivamente altre risorse::
     {
         public function load($resource, $type = null)
         {
-            $configValues = Yaml::parse($resource);
+            $configValues = Yaml::parse(file_get_contents($resource));
 
             // ... gestione dei valori di configurazione
 

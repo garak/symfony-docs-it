@@ -194,7 +194,7 @@ Per quanto possa sembrare strano, questa piccola applicazione di fatto prende
 informazioni dalla richiesta HTTP e le usa per creare una risposta HTTP. Invece di
 analizzare il messaggio di richiesta HTTP grezzo, PHP prepara della variabili superglobali,
 come ``$_SERVER`` e ``$_GET``, che contengono tutte le informazioni dalla richiesta.
-Similmente, inece di restituire un testo di risposta formattato come da HTTP, si può
+Similmente, invece di restituire un testo di risposta formattato come da HTTP, si può
 usare la funzione ``header()`` per creare header di risposta e stampare semplicemente
 il contenuto, che sarà la parte di contenuto del messaggio di risposta. PHP creerà una
 vera risposta HTTP e la restituirà al client:

@@ -45,7 +45,7 @@ precision
 **tipo**: ``intero`` **predefinito**: ``0``
 
 Per impostazione predefinita, i numeri inseriti sono arrotondanti. Per consentire
-ultetiori posizioni decimali, usare questa opzione.
+ulteriori posizioni decimali, usare questa opzione.
 
 type
 ~~~~

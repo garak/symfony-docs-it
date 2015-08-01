@@ -19,6 +19,8 @@ Installazione
 * Installandolo :doc:`via Composer</components/using_components>` (``symfony/http-kernel`` su Packagist);
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/HttpKernel).
 
+.. include:: /components/require_autoload.rst.inc
+
 Il flusso di una richiesta
 --------------------------
 
@@ -56,7 +58,7 @@ importa quanto vari l'architettura di tale sistema::
     }
 
 Internamente, :method:`HttpKernel::handle()<Symfony\\Component\\HttpKernel\\HttpKernel::handle>`,
-l'implementazione concreta di :method:`HttpKernelInterface::handle()<Symfony\\Component\\HttpKernel\\HttpKernelInterface::handle>`,
+l'implementazione concreta di :method:`HttpKernelInterface::handle() <Symfony\\Component\\HttpKernel\\HttpKernelInterface::handle>`,
 definisce un flusso che inizia con una :class:`Symfony\\Component\\HttpFoundation\\Request`
 e finisce con una :class:`Symfony\\Component\\HttpFoundation\\Response`.
 
@@ -130,9 +132,9 @@ Per informazioni generali sull'aggiunta di ascoltatori agli eventi qui sotto, ve
 le parti del sistema oppure restituire una ``Response`` se possibile (p.e. un livello
 di sicurezza che nega accesso)
 
-:ref:`Tabella informativa sugli eventi del kernel<component-http-kernel-event-table>`
+:ref:`Tabella informativa sugli eventi del kernel <component-http-kernel-event-table>`
 
-Il primo evento distribuito in :method:`HttpKernel::handle<Symfony\\Component\\HttpKernel\\HttpKernel::handle>`
+Il primo evento distribuito in :method:`HttpKernel::handle <Symfony\\Component\\HttpKernel\\HttpKernel::handle>`
 è ``kernel.request``, che può avere vari ascoltatori.
 
 .. image:: /images/components/http_kernel/02-kernel-request.png
@@ -164,7 +166,7 @@ dal risolutore di controllori).
 
 Complessivamente, lo scopo dell'evento ``kernel.request`` è quello di creare e restituire
 una ``Response`` direttamente oppure di aggiungere informazioni alla ``Request``
-(p.e. impostando il locale o altre informaioni sugli attributi della
+(p.e. impostando il locale o altre informazioni sugli attributi della
 ``Request``).
 
 .. note::
@@ -481,10 +483,10 @@ più veloce possibile al client (p.e. invio di email).
 
 .. caution::
 
-    Internamente, HttpKernel  fa uso della funazione :phpfunction:`fastcgi_finish_request` di
+    Internamente, HttpKernel  fa uso della funzione :phpfunction:`fastcgi_finish_request` di
     PHP. Questo vuole dire che, al momento, solo le API del server `PHP FPM`_ sono
     in grado di inviare al cliente una risposta mentre il processo PHP del server
-    esegue ancora alcuni compiti. Con le API di ogni altro server, gli acoltatori di ``kernel.terminate``
+    esegue ancora alcuni compiti. Con le API di ogni altro server, gli ascoltatori di ``kernel.terminate``
     sono comunque eseguiti, ma la risposta non viene inviata al cliente finché non
     sono tutti completati.
 
@@ -496,8 +498,8 @@ più veloce possibile al client (p.e. invio di email).
 .. sidebar:: ``kernel.terminate`` in the Symfony Framework
 
     Se si usa SwiftmailerBundle con Symfony e si usa lo spool ``memory``,
-    viene attivato `EmailSenderListener`, che invia effettivamente le email
-    pianificate per essere inviate durante la richiesta.
+    viene attivato `EmailSenderListener`_, che invia effettivamente
+    le email pianificate per essere inviate durante la richiesta.
 
 .. _component-http-kernel-kernel-exception:
 
@@ -607,7 +609,7 @@ Un esempio funzionante
 ----------------------
 
 Quando si usa il componente HttpKernel, si è liberi di connettere qualsiasi ascoltatore
-agli eventi del nuvlce e di usare qualsiasi risolutore di controllori che implementi
+agli eventi del nucleo e di usare qualsiasi risolutore di controllori che implementi
 :class:`Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface`.
 Tuttavia, il componente HttpKernel dispone di alcuni ascoltatori predefiniti e di un
 ControllerResolver predefinito, utilizzabili per creare un esempio funzionante::
@@ -681,10 +683,10 @@ parametro, come segue::
 
 Questo crea un altro ciclo richiesta-risposta, in cui la nuova ``Request`` è
 trasformata in una ``Response``. L'unica differenza interna è che alcuni
-ascoltatori (p.e. security) possono intervenire solo per la richiesta principale. A ggni
+ascoltatori (p.e. security) possono intervenire solo per la richiesta principale. A ogni
 ascoltatore viene passata una sotto-classe di :class:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent`,
 il cui metodo :method:`Symfony\\Component\\HttpKernel\\Event\\KernelEvent::getRequestType`
-può essere usato per capire se la richiesta corrente sia una richiesta principale o  una sotto-richiesta.
+può essere usato per capire se la richiesta corrente sia una richiesta principale o una sotto-richiesta.
 
 Per esempio, un ascoltatore che deve agire solo sulla richiesta principale può
 assomigliare a questo::
@@ -705,7 +707,7 @@ assomigliare a questo::
 .. _reflection: http://php.net/manual/it/book.reflection.php
 .. _FOSRestBundle: https://github.com/friendsofsymfony/FOSRestBundle
 .. _`Create your own framework... on top of the Symfony2 Components`: http://fabien.potencier.org/article/50/create-your-own-framework-on-top-of-the-symfony2-components-part-1
-.. _`PHP FPM`: http://php.net/manual/en/install.fpm.php
+.. _`PHP FPM`: http://php.net/manual/it/install.fpm.php
 .. _`SensioFrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 .. _`@ParamConverter`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
 .. _`@Template`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/view.html

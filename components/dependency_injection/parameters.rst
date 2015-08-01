@@ -29,7 +29,7 @@ e impostare un parametro nel contenitore con::
 
     La notazione ``.`` usata è solo una
     :ref:`convenzione di Symfony <service-naming-conventions>` per rendere più
-    leggibili i parametri. I parametri sono solo elementi chiave-vlore e non possono
+    leggibili i parametri. I parametri sono solo elementi chiave-valore e non possono
     essere organizzati in array.
 
 .. note::

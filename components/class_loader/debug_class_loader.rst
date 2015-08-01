@@ -1,8 +1,8 @@
 .. index::
     single: ClassLoader; DebugClassLoader
-    
-Debug di un Class Loader
-========================
+
+Debug di un ClassLoader
+=======================
 
 A partire da Symfony 2.4, ``DebugClassLoader`` del componente ClassLoader è
 deprecato. Usare

@@ -67,7 +67,7 @@ Si può anche semplificare come eseguire l'applicazione::
     <?php
     // command.php
 
-    use Acme\Tool\MyApplication;
+    use Acme\Tool\MiaApplicazione;
 
-    $application = new MyApplication();
-    $application->run();
+    $applicazione = new MiaApplicazione();
+    $applicazione->run();

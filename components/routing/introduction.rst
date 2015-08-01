@@ -16,6 +16,8 @@ Installazione
 * Utilizzando il repository ufficiale su Git (https://github.com/symfony/Routing);
 * Installandolo via Composer (``symfony/routing`` su `Packagist`_).
 
+.. include:: /components/require_autoload.rst.inc
+
 Utilizzo
 --------
 
@@ -33,15 +35,15 @@ in modo tale da caricare il componente Routing::
     use Symfony\Component\Routing\RouteCollection;
     use Symfony\Component\Routing\Route;
 
-    $route = new Route('/pippo', array('controller' => 'MioControllore'))
+    $rotta = new Route('/pippo', array('controller' => 'MioControllore'))
     $rotte = new RouteCollection();
-    $rotte->add('nome_rotta', new Route('/pippo', array('controller' => 'MioControllore')));
+    $rotte->add('nome_rotta', $rotta);
 
     $contesto = new RequestContext($_SERVER['REQUEST_URI']);
 
     $abbinatore = new UrlMatcher($rotte, $contesto);
 
-    $parametri = $abbinatore->match( '/pippo' ); 
+    $parametri = $abbinatore->match( '/pippo');
     // array('controller' => 'MioControllore', '_route' => 'nome_rotta')
 
 .. note::
@@ -72,25 +74,25 @@ Definire le rotte
 
 La definizione completa di una rotta può contenere fino a quattro parti:
 
-1. Lo schema dell'URL della rotta. È questo il valore con il quale si confronta l'URL passato a `RequestContext`.
+#. Lo schema dell'URL della rotta. È questo il valore con il quale si confronta l'URL passato a `RequestContext`.
 Può contenere diversi segnaposto (per esempio ``{segnaposto}``)
 che possono abbinarsi a parti dinamiche dell'URL.
 
-2. Un array di valori base. Contiene un array di valori arbitrari
+#. Un array di valori base. Contiene un array di valori arbitrari
 che verranno restituiti quando la richiesta viene abbinata alla rotta.
 
-3. Un array di requisiti. Definisce i requisiti per i valori dei segnaposto
+#. Un array di requisiti. Definisce i requisiti per i valori dei segnaposto
 in forma di espressione regolare.
 
-4. Un array di opzioni. Questo array contiene configurazioni interne per le rotte e,
+#. Un array di opzioni. Questo array contiene configurazioni interne per le rotte e,
 solitamente, sono la parte di cui meno ci si interessa.
 
-5. Un host. Viene cercata corrispondenza con l'host della richiesta. Vedere
+#. Un host. Viene cercata corrispondenza con l'host della richiesta. Vedere
    :doc:`/components/routing/hostname_pattern` per ulteriori dettagli.
 
-6. Un array di schemi. Restringe a specifici schemi HTTP (``http``, ``https``).
+#. Un array di schemi. Restringe a specifici schemi HTTP (``http``, ``https``).
 
-7. Un array di metodi. Restringe a specifici metodi di richiesta HTTP (``HEAD``,
+#. Un array di metodi. Restringe a specifici metodi di richiesta HTTP (``HEAD``,
    ``GET``, ``POST``, ...).
 
 Si prenda la seguente rotta, che combina diversi dei concetti esposti::
@@ -100,7 +102,7 @@ Si prenda la seguente rotta, che combina diversi dei concetti esposti::
        array('controller' => 'mostraArchivio'), // valori predefiniti
        array('mese' => '[0-9]{4}-[0-9]{2}'), // requisiti
        array(), // opzioni
-       '{subdomain}.example.com', // host
+       '{sottodominio}.example.com', // host
        array(), // schemi
        array() // metodi
    );
@@ -141,7 +143,7 @@ Usare i prefissi
 In questo modo si possono creare alberi di rotte. Inoltre è possibile definire dei prefissi,
 requisiti predefiniti e opzioni predefinite per tutte le rotte di un sotto-albero, con
 i metodi forniti dalla classe
-``RouteCollection`` class::
+``RouteCollection``::
 
     $collezioneRadice = new RouteCollection();
 

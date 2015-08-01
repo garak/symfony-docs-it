@@ -59,25 +59,31 @@ usando il secondo parametro, opzionale::
     ));
 
 Le variabili passate a un template possono essere stringhe, array o anche oggetti. Twig
-astrae le differenze tra essi e consente di accedere agli "attributi" di una variabie
+astrae le differenze tra essi e consente di accedere agli "attributi" di una variabile
 con la notazione del punto (``.``). Il codice seguente mostra come visualizzare il
 contenuto di una variabile, a seconda del tipo di variabile passata dal controllore:
 
 .. code-block:: jinja
 
     {# 1. Variabile semplice #}
-    {# $this->render('template.html.twig', array('name' => 'Fabien') ) #}
+    {# $this->render('template.html.twig', array(
+           'name' => 'Fabien')
+       ) #}
     {{ name }}
 
     {# 2. Array #}
-    {# $this->render('template.html.twig', array('user' => array('name' => 'Fabien')) ) #}
+    {# $this->render('template.html.twig', array(
+           'user' => array('name' => 'Fabien'))
+       ) #}
     {{ user.name }}
 
     {# sintassi alternativa per array #}
     {{ user['name'] }}
 
     {# 3. Oggetti #}
-    {# $this->render('template.html.twig', array('user' => new User('Fabien')) ) #}
+    {# $this->render('template.html.twig', array(
+           'user' => new User('Fabien'))
+       ) #}
     {{ user.name }}
     {{ user.getName }}
 
@@ -128,7 +134,7 @@ Nel file ``app/Resources/views/base.html.twig``, che corrisponde al template
 
 I tag ``{% block %}`` dicono al sistema di template che un template figlio può
 sovrascrivere quelle porzioni di template. In questo esempio, il template ``index.html.twig``
-sovrascrive il blocco ``content``, ma non il blocco ``title``, che mostrerà
+sovrascrive il blocco ``body``, ma non il blocco ``title``, che mostrerà
 il contenuto predefinito, preso dal template ``base.html.twig``.
 
 Usare tag, filtri e funzioni
@@ -229,9 +235,9 @@ modo, tutti gli URL saranno facilmente aggiornati al cambiare della configurazio
 
 .. code-block:: html+jinja
 
-    <a href="{{ path('homepage') }}">Torna all homepage</a>
+    <a href="{{ path('homepage') }}">Torna alla homepage</a>
 
-La funzione  ``path`` accetta un nome di rotta come primo parametro e un array di parametri
+La funzione ``path`` accetta un nome di rotta come primo parametro e un array di parametri
 di rotta come secondo parametro opzionale.
 
 .. tip::
@@ -253,7 +259,7 @@ Symfony fornisce la funzione ``asset`` per gestirli facilmente.
     <img src="{{ asset('images/logo.png') }}" />
 
 La funzione ``asset()`` cerca risorse nella cartella ``web/``.
-Se si memorizzano risorse in altre cartella, leggere :doc:`questa ricetta </cookbook/assetic/asset_management>`
+Se si memorizzano risorse in altre cartelle, leggere :doc:`questa ricetta </cookbook/assetic/asset_management>`
 per sapere come gestirle.
 
 L'uso della funzione ``asset()`` rende le applicazioni maggiormente portabili.

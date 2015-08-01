@@ -262,8 +262,8 @@ array ``defaults``:
 
         return $collection;
 
-Questa rotta corrisponde alla homepage (``/``) e la mappa nel controllore ``AcmeDemoBundle:Main:homepage``.
-La stringa ``_controller`` è tradotta da Symfony in una
+Questa rotta corrisponde alla homepage (``/``) e la mappa nel controllore
+``AppBundle:Main:homepage``. La stringa ``_controller`` è tradotta da Symfony in una
 funzione PHP effettiva, ed eseguita. Questo processo verrà spiegato a breve
 nella sezione :ref:`controller-string-syntax`.
 

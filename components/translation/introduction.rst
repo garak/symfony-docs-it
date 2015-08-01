@@ -16,6 +16,8 @@ Si può installare il componente in due modi:
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/translation`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/Translation).
 
+.. include:: /components/require_autoload.rst.inc
+
 Costruire il Translator
 -----------------------
 
@@ -38,7 +40,7 @@ Il costruttore della classe ``Translator`` ha bisogno di un solo parametro: il l
 
 .. note::
 
-    Il locale impostato qui è quello predinito da usare. Lo può ridefinire
+    Il locale impostato qui è quello predefinito da usare. Lo può ridefinire
     durante la traduzione delle stringhe.
 
 .. note::
@@ -55,15 +57,12 @@ Caricare i cataloghi di messaggi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 I messaggi sono memorizzati in cataloghi, all'interno della classe ``Translator``.
-Un catalogo di messaggi è come un dizioniario di traduzioni per uno specifico
+Un catalogo di messaggi è come un dizionario di traduzioni per uno specifico
 locale.
 
 Il componente Translation usa della classi Loader per caricare i cataloghi. Si possono caricare
 più risorse per lo stesso locale, saranno combinato in un unico
 catalogo.
-
-.. versionadded:: 2.4
-    ``JsonFileLoader`` è stato introdotto in Symfony 2.4.
 
 Il componente dispone di alcuni Loader, ma se ne possono creare altri.
 I Loader predefiniti sono:
@@ -160,19 +159,19 @@ Se il messaggio non si trova nel catalogo speficiato dal locale,
 Translator cercherà nei cataloghi dei locale predefiniti. Per
 esempio, se si prova a tradurre nel locale ``fr_FR``:
 
-1. Translator cerca prima la traduzione nel locale ``fr_FR``;
+#. Translator cerca prima la traduzione nel locale ``fr_FR``;
 
-2. Se non la trova, cerca la traduzione nel locale
+#. Se non la trova, cerca la traduzione nel locale
    ``fr``;
 
-3. Se non la trova ancora, usa uno o più
+#. Se non la trova ancora, usa uno o più
    locale predefiniti, impostati esplicitamente.
 
 Per il terzo punto, i locale predefiniti possono essere impostati richiamando
 :method:`Symfony\\Component\\Translation\\Translator::setFallbackLocale`::
 
     // ...
-    $translator->setFallbackLocale(array('en'));
+    $translator->setFallbackLocales(array('en'));
 
 .. _using-message-domains:
 
@@ -182,20 +181,20 @@ Uso dei domini dei messaggi
 Come già visto, i file dei messaggi sono organizzati nei vari locale che
 traducono. I file dei messaggi possono anche essere ulteriormente organizzati in "domini".
 
-Il domnio è specificato nel quarto parametro del metodo ``addResource()``.
+Il dominio è specificato nel quarto parametro del metodo ``addResource()``.
 Il dominio predefinito è ``messages``. Per esempio, si supponga che, per
-prganizzarle meglio, le traduzioni siano suddivise in tre domini:
+organizzarle meglio, le traduzioni siano suddivise in tre domini:
 ``messages``, ``admin`` e ``navigation``. La traduzione francese sarebbe
 caricata in questo modo::
 
     // ...
-    $translator->addLoader('xliff', new XliffLoader());
+    $translator->addLoader('xlf', new XliffFileLoader());
 
-    $translator->addResource('xliff', 'messages.fr.xliff', 'fr_FR');
-    $translator->addResource('xliff', 'admin.fr.xliff', 'fr_FR', 'admin');
+    $translator->addResource('xlf', 'messages.fr.xlf', 'fr_FR');
+    $translator->addResource('xlf', 'admin.fr.xlf', 'fr_FR', 'admin');
     $translator->addResource(
-        'xliff',
-        'navigation.fr.xliff',
+        'xlf',
+        'navigation.fr.xlf',
         'fr_FR',
         'navigation'
     );

@@ -164,7 +164,7 @@ Si può anche fare una domanda e validare una risposta nascosta::
 
     $password = $dialog->askHiddenResponseAndValidate(
         $output,
-        'Si prega di inserire il nome del widget',
+        'Si prega di inserire la password',
         $validator,
         20,
         false
@@ -245,7 +245,7 @@ Testare un comando con un input atteso
 --------------------------------------
 
 Se si vuole scrivere un test per un comando che si aspetta un qualche tipo di input
-da linea di omando, occorre sovrascrivere HelperSet usato dal comando::
+da linea di comando, occorre sovrascrivere HelperSet usato dal comando::
 
     use Symfony\Component\Console\Helper\DialogHelper;
     use Symfony\Component\Console\Helper\HelperSet;

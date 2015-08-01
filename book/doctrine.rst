@@ -118,7 +118,7 @@ base dati al posto nostro:
 
     $ php app/console doctrine:database:create
 
-.. sidebar:: Impostazioni della base dati
+.. sidebar:: Impostazioni dei caratteri della base dati
 
     Uno sbaglio che anche programmatori esperti commettono all'inizio di un progetto Symfony
     è dimenticare di impostare charset e collation nella base dati,
@@ -141,8 +141,13 @@ base dati al posto nostro:
     .. code-block:: ini
 
         [mysqld]
-        collation-server = utf8_general_ci
-        character-set-server = utf8
+        # La versione 5.5.3 ha introdotto "utf8mb4", che è raccomandato
+        collation-server     = utf8mb4_general_ci # Sostituisce utf8_general_ci
+        character-set-server = utf8mb4            # Sostituisce utf8
+
+    Si raccomanda di non usare il set di caratteri ``utf8`` di MySQL, poiché non
+    supporta caratteri unicode a 4 byte, quindi le stringhe che li contenessero sarebbero
+    troncate. Il problema è stato risolta nel `nuovo set di caratteri utf8mb4`_.
 
 .. note::
 
@@ -194,7 +199,7 @@ base dati al posto nostro:
 Creare una classe entità
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Supponiamo di star costruendo un'applicazione in cui i prodotti devono essere mostrati.
+Supponiamo di star costruendo un'applicazione in cui si devono elencare dei prodotti.
 Senza nemmeno pensare a Doctrine o alle basi dati, già sappiamo di aver bisogno di
 un oggetto ``Product`` che rappresenti questi prodotti. Creare questa classe dentro
 la cartella ``Entity`` di AppBundle::
@@ -387,7 +392,7 @@ Fortunatamente, Doctrine può farlo al posto nostro, basta eseguire:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entities Acme/StoreBundle/Entity/Product
+    $ php app/console doctrine:generate:entities AppBundle/Entity/Product
 
 Il comando si assicura che i getter e i setter siano generati per la classe
 ``Product``. È un comando sicuro, lo si può eseguire diverse volte: genererà i
@@ -513,7 +518,7 @@ del bundle::
 
 .. tip::
 
-    Questo articolo mostra come si interagisce con Doctrine dall'interno di un controllore, usando article shows working with Doctrine from within a controller by using
+    Questo articolo mostra come si interagisce con Doctrine dall'interno di un controllore, usando
     il metodo :method:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller::getDoctrine`
     del controllore. Tale metodo è una scorciatoia per ottenere il servizio
     ``doctrine``. Si può interagire con Doctrine in altri contesti,
@@ -595,8 +600,8 @@ accedere all'oggetto repository per una classe entità tramite::
 
 .. note::
 
-    La stringa ``AcmeStoreBundle:Product`` è una scorciatoia utilizzabile ovunque in
-    Doctrine al posto del nome intero della classe dell'entità (cioè ``Acme\StoreBundle\Entity\Product``).
+    La stringa ``AppBundle:Product`` è una scorciatoia utilizzabile ovunque in
+    Doctrine al posto del nome intero della classe dell'entità (cioè ``AppBundle\Entity\Product``).
     Questo funzionerà finché le entità rimarranno sotto lo spazio dei nomi ``Entity``
     del bundle.
 
@@ -734,6 +739,8 @@ di ``19.99``, ordinati dal più economico al più caro. Si può usare
         ->getQuery();
 
     $products = $query->getResult();
+    // per ottenere un singolo risultato:
+    // $product = $query->setMaxResults(1)->getOneOrNullResult();
 
 L'oggetto ``QueryBuilder`` contiene tutti i metodi necessari per costruire una
 query. Richiamando il metodo ``getQuery()``, ``QueryBuilder`` restituisce un
@@ -743,7 +750,7 @@ oggetto ``Query``, che può essere usato per ottenere il risultato della query.
 
     Prendere nota del metodo ``setParameter()``. Interagendo con Doctrine,
     è sempre una buona idea impostare valori esterni tramite "segnaposto"
-    (``:price`` nell'esempio appena visto), per preveniore attacchi di tipo SQL injection.
+    (``:price`` nell'esempio appena visto), per prevenire attacchi di tipo SQL injection.
 
 Il metodo ``getResult()`` restituisce un array di risultati. Se si cerca un solo
 oggetto, si può usare invece il metodo ``getSingleResult()`` (che lancia un'eccezione se
@@ -769,6 +776,8 @@ usando DQL::
     )->setParameter('price', '19.99');
 
     $products = $query->getResult();
+    // per ottenere un singolo risultato:
+    // $product = $query->setMaxResults(1)->getOneOrNullResult();
 
 Se ci si trova a proprio agio con SQL, DQL dovrebbe sembrare molto naturale. La
 maggiore differenza è che occorre pensare in termini di "oggetti" invece che di
@@ -840,7 +849,7 @@ usato precedentemente per generare i metodi getter e setter mancanti:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entities Acme
+    $ php app/console doctrine:generate:entities AppBundle
 
 Quindi, aggiungere un nuovo metodo, chiamato ``findAllOrderedByName()``, alla classe
 repository appena generata. Questo metodo cercherà tutte le entità ``Product``,
@@ -1051,7 +1060,7 @@ setter:
 
 .. code-block:: bash
 
-    $ php app/console doctrine:generate:entities Acme
+    $ php app/console doctrine:generate:entities AppBundle
 
 Ignoriamo per un momento i metadati di Doctrine. Abbiamo ora due classi, ``Category``
 e ``Product``, con una relazione naturale uno-a-molti. La classe ``Category``
@@ -1422,3 +1431,4 @@ Per maggiori informazioni su Doctrine, vedere la sezione *Doctrine* del
 .. _`migrazioni`: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
 .. _`DoctrineFixturesBundle`: http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
 .. _`documentazione di FrameworkExtraBundle`: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+.. _`nuovo set di caratteri utf8mb4`: https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8mb4.html

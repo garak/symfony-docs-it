@@ -102,7 +102,7 @@ Un metodo molto più flessibile sarebbe questo:
                 <?php echo $view['form']->errors($emailField) ?>
                 <?php echo $view['form']->widget($emailField) ?>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ul>
 
 In entrambi i casi, non sarebbe reso alcun campo, a meno che l'array ``emails``
@@ -131,7 +131,7 @@ form):
     <input type="email" id="form_emails_0" name="form[emails][0]" value="foo@foo.com" />
     <input type="email" id="form_emails_1" name="form[emails][1]" value="bar@bar.com" />
 
-Per consetnire l'aggiunta di altre email, impostare `allow_add`_ a ``true``
+Per consentire l'aggiunta di altre email, impostare `allow_add`_ a ``true``
 e, tramite JavaScript, rendere un altro campo dal nome ``form[emails][2]``
 (e così via per ulteriori campi).
 
@@ -161,7 +161,8 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
             {# ... #}
 
             {# memorizza il prototipo nell'attributo data-prototype #}
-            <ul id="email-fields-list" data-prototype="{{ form_widget(form.emails.vars.prototype) | e }}">
+            <ul id="email-fields-list"
+                data-prototype="{{ form_widget(form.emails.vars.prototype)|e }}">
             {% for emailField in form.emails %}
                 <li>
                     {{ form_errors(emailField) }}
@@ -177,10 +178,12 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 
         <script type="text/javascript">
             // tiene traccia di quanti campi email sono stati resi
-            var emailCount = '{{ form.emails | length }}';
+            var emailCount = '{{ form.emails|length }}';
 
             jQuery(document).ready(function() {
-                jQuery('#add-another-email').click(function() {
+                jQuery('#add-another-email').click(function (e) {
+                    e.preventDefault();
+
                     var emailList = jQuery('#email-fields-list');
 
                     // prende il template prototipo
@@ -193,9 +196,7 @@ ulteriormente, perché l'attributo ``data-prototype`` viene reso automaticamente
 
                     // crea un nuovo elemento nella lista e lo aggiunge
                     var newLi = jQuery('<li></li>').html(newWidget);
-                    newLi.appendTo(jQuery('#email-fields-list'));
-
-                    return false;
+                    newLi.appendTo(emailList);
                 });
             })
         </script>
@@ -224,7 +225,8 @@ dettagli.
 
 Si può usare l'opzione `prototype`_ per rendere un elemento prototipo, che può
 essere usato, con JavaScript, per creare dinamicamente nuovi elementi lato
-client. Per maggiori informazioni, vedere l'esempio sopra e :ref:`cookbook-form-collections-new-prototype`.
+client. Per maggiori informazioni, vedere l'esempio sopra e
+:ref:`cookbook-form-collections-new-prototype`.
 
 .. caution::
 

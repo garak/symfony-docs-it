@@ -357,7 +357,7 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
 
                 <service
                     id="newsletter_manager"
-                    class="%newsletter_manager.class%"
+                    class="NewsletterManager"
                     parent="mail_manager">
 
                     <call method="setMailer">
@@ -367,7 +367,7 @@ sovrascritte. Se quindi si ha bisogno di passare una dipendenza diversa, solo al
 
                 <service
                     id="greeting_card_manager"
-                    class="%greeting_card_manager.class%"
+                    class="GreetingCardManager"
                     parent="mail_manager" />
             </services>
         </container>

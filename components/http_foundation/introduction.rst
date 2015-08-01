@@ -24,6 +24,8 @@ Si può installare il componente in due modi:
 * Installarlo tramite :doc:`Composer </components/using_components>` (``symfony/http-foundation`` su `Packagist`_);
 * Usare il repository ufficiale su Git (https://github.com/symfony/HttpFoundation).
 
+.. include:: /components/require_autoload.rst.inc
+
 .. _component-http-foundation-request:
 
 Richiesta
@@ -477,7 +479,7 @@ rappresentato da un callable PHP, invece che da una stringa::
 Scaricare file
 ~~~~~~~~~~~~~~
 
-Quando si carica un file, occorre aggiungere un header ``Content-Disposition`` alla
+Quando si scarica un file, occorre aggiungere un header ``Content-Disposition`` alla
 risposta. Sebbene la creazione di questo header per scaricamenti di base sia facile,
 l'uso di nomi di file non ASCII è più complesso. Il metodo
 :method:`:Symfony\\Component\\HttpFoundation\\Response:makeDisposition`
@@ -529,7 +531,7 @@ Si noti che questo non funzionerà se è impostato l'header ``X-Sendfile``.
 Creare una risposta JSON
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Si può creare qualsiasi tipo di rispsota tramite la classe
+Si può creare qualsiasi tipo di risposta tramite la classe
 :class:`Symfony\\Component\\HttpFoundation\\Response`, impostando il contenuto
 e gli header corretti. Una risposta JSON può essere come questa::
 

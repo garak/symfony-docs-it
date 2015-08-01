@@ -26,7 +26,7 @@ dell'utente::
     un carattere di sottolineatura (``_``), poi il codice di *paese* `ISO 3166-1 alpha-2`_
     (per esempio ``fr_FR`` per francese/Francia).
 
-In questo capitolo si imparerà a usare il componenten Translation nel
+In questo capitolo si imparerà a usare il componente Translation nel
 framework Symfony. Si può leggere la
 :doc:`documentazione del componente Translation </components/translation/usage>`
 per saperne di più. Nel complesso, il processo ha diverse fasi:

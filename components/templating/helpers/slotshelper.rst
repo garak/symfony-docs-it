@@ -42,7 +42,7 @@ il contenuto del sotto-template.
 
 .. caution::
 
-    Se si usa il compoennte da solo, assicurarsi di avere registrato
+    Se si usa il componente da solo, assicurarsi di avere registrato
     :class:`Symfony\\Component\\Templating\\Helper\\SlotsHelper`::
 
         use Symfony\Component\Templating\Helper\SlotsHelper;

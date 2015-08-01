@@ -56,7 +56,7 @@ L'opzione ``choices`` è impostata in modo predefinito a tutte le valute.
 Opzioni ereditate
 -----------------
 
-Queste opzioni sono eredidate dal tipo :doc:`choice </reference/forms/types/choice>`:
+Queste opzioni sono ereditate dal tipo :doc:`choice </reference/forms/types/choice>`:
 
 .. include:: /reference/forms/types/options/placeholder.rst.inc
 

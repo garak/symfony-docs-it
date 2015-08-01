@@ -61,7 +61,7 @@ linea di comando e potrebbe diventare parte del processo di deploy:
 
 .. code-block:: bash
 
-    $ php composer.phar dump-autoload --optimize
+    $ composer dump-autoload --optimize
 
 Internamente, costruisce un grosso array di mappature delle classi in ``vendor/composer/autoload_classmap.php``.
 
@@ -69,7 +69,7 @@ Cache dell'autoloader con APC
 -----------------------------
 
 Un'altra soluzione è mettere in cache la posizione di ogni classe, dopo che è stata trovata
-per la prima volta. Symfony disponse di una classe, :class:`Symfony\\Component\\ClassLoader\\ApcClassLoader`,
+per la prima volta. Symfony dispone di una classe, :class:`Symfony\\Component\\ClassLoader\\ApcClassLoader`,
 che si occupa proprio di questo. Per usarla, basta adattare il file del front controller.
 Se si usa la Standard Edition, il codice è già disponibile nel file, ma
 commentato::

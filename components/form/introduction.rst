@@ -12,7 +12,7 @@ Il componente Form è uno strumento che aiuta a risolvere il problema di consent
 di interagire con i dati e modificare i dati in un'applicazione. Sebbene,
 tradizionalmente, ciò viene fatto tramite form HTML, il componente si focalizza sul
 processamento dei dati da e verso il client e l'applicazione, sia che i dati
-vengano da un classico form, sia che vanegano da un'API.
+vengano da un classico form, sia che vengano da un'API.
 
 Installazione
 -------------
@@ -21,6 +21,8 @@ Si può installare il componente in due modi:
 
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/form`` su `Packagist`_).
 * Usare il repository ufficiale Git (https://github.com/symfony/Form);
+
+.. include:: /components/require_autoload.rst.inc
 
 Configurazione
 --------------
@@ -186,17 +188,17 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     // questo file fa parte di TwigBridge
     $defaultFormTheme = 'form_div_layout.html.twig';
 
-    $vendorDir = realpath(__DIR__ . '/../vendor');
+    $vendorDir = realpath(__DIR__.'/../vendor');
     // percorso di TwigBridge, che consente a Twig di trovare il file
     // form_div_layout.html.twig
     $vendorTwigBridgeDir =
         $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
     // percorso degli altri template
-    $viewsDir = realpath(__DIR__ . '/../views');
+    $viewsDir = realpath(__DIR__.'/../views');
 
     $twig = new Twig_Environment(new Twig_Loader_Filesystem(array(
         $viewsDir,
-        $vendorTwigBridgeDir . '/Resources/views/Form',
+        $vendorTwigBridgeDir.'/Resources/views/Form',
     )));
     $formEngine = new TwigRendererEngine(array($defaultFormTheme));
     $formEngine->setEnvironment($twig);
@@ -315,10 +317,10 @@ L'integrazione con il componente Validation sarà simile a questa::
     use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
     use Symfony\Component\Validator\Validation;
 
-    $vendorDir = realpath(__DIR__ . '/../vendor');
-    $vendorFormDir = $vendorDir . '/symfony/form/Symfony/Component/Form';
+    $vendorDir = realpath(__DIR__.'/../vendor');
+    $vendorFormDir = $vendorDir.'/symfony/form/Symfony/Component/Form';
     $vendorValidatorDir =
-        $vendorDir . '/symfony/validator/Symfony/Component/Validator';
+        $vendorDir.'/symfony/validator/Symfony/Component/Validator';
 
     // creare il validatore (i dettagli possono variare)
     $validator = Validation::createValidator();
@@ -435,7 +437,7 @@ Impostazione di valori predefiniti
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Se il form deve caricare alcuni valori predefiniti (o se si sta costruendo
-un form di modicica), basta passare i dati predefiniti durante la creazione del
+un form di modifica), basta passare i dati predefiniti durante la creazione del
 costruttore di form:
 
 .. configuration-block::
@@ -602,7 +604,7 @@ Se la richiesta è POST, processare i dati inseriti (tramite ``handleRequest()``
 Quindi:
 
 2) se il form non è valido, rendere nuovamente il form (che ora contiene errori)
-3) se il the è valido, eseguire delle azioni e redirigere.
+3) se il form è valido, eseguire delle azioni e redirigere.
 
 Per fortuna, non serve decidere se il form sia stato inviato o meno.
 Basta passare la richiesta al metodo ``handleRequest()``. Quindi, il componente Form

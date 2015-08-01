@@ -245,7 +245,7 @@ enabled
 altrimenti
 
 Si può usare questa opzione per disabilitare la protezione CSRF su *tutti* i form. Ma si
-puà anche :ref:`disabilitare la protezione CSRF su singoli form <form-disable-csrf>`.
+può anche :ref:`disabilitare la protezione CSRF su singoli form <form-disable-csrf>`.
 
 Se si usano form, ma non si vuole far partire la sessione (p.e. si usano
 form in un sito di sole API), ``csrf_protection`` va impostato a
@@ -656,7 +656,7 @@ enable_annotations
 
 **tipo**: ``Booleano`` **predefinito**: ``false``
 
-Se questa opzione è abilitata, si possone definire vincoli di validazione tramite annotazioni.
+Se questa opzione è abilitata, si possono definire vincoli di validazione tramite annotazioni.
 
 translation_domain
 ..................

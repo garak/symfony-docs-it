@@ -1,8 +1,8 @@
 .. index::
     single: APC; ApcClassLoader
-    single: Class Loader; ApcClassLoader
-    single: Class Loader; Cache
-    single: Class Loader; XcacheClassLoader
+    single: ClassLoader; ApcClassLoader
+    single: ClassLoader; Cache
+    single: ClassLoader; XcacheClassLoader
     single: XCache; XcacheClassLoader
     
 Cache di Class Loader
@@ -30,16 +30,16 @@ ApcClassLoader
 metodo ``findFile()``, usando `APC`_::
 
     require_once '/path/to/src/Symfony/Component/ClassLoader/ApcClassLoader.php';
-    
+
     // istanza di una classe che implementa un metodo findFile(), come ClassLoader
     $loader = ...;
-    
+
     // mio_prefisso è il prefisso da usare in APC
     $cachedLoader = new ApcClassLoader('mio_prefisso', $loader);
-    
+
     // registra il class loader in cache
     $cachedLoader->register();
-    
+
     // disattiva il loader originale, non in cache, se era stato precedentemente registrato
     $loader->unregister();
 
@@ -50,16 +50,16 @@ XcacheClassLoader
 è semplice::
 
     require_once '/path/to/src/Symfony/Component/ClassLoader/XcacheClassLoader.php';
-    
+
     // istanza di una classe che implementa un metodo findFile(), come ClassLoader
     $loader = ...;
-    
+
     // mio_prefisso è il prefisso da usare in XCache
     $cachedLoader = new XcacheClassLoader('mio_prefisso', $loader);
-    
+
     // registra il class loader in cache
     $cachedLoader->register();
-    
+
     // disattiva il loader originale, non in cache, se era stato precedentemente registrato
     $loader->unregister();
 

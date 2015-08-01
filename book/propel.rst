@@ -13,7 +13,7 @@ Un semplice esempio: un prodotto
 --------------------------------
 
 In questa sezione, configureremo la nostra base dati, creeremo un oggetto ``Product``,
-lo persisteremo nella base dati e lo recuperemo nuovamente.
+lo persisteremo nella base dati e lo recupereremo nuovamente.
 
 Configurare la base dati
 ~~~~~~~~~~~~~~~~~~~~~~~~

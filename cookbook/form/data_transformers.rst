@@ -88,7 +88,7 @@ della conversione da numero di issue a oggetto Issue e viceversa::
 
             if (null === $issue) {
                 throw new TransformationFailedException(sprintf(
-                    'Non essite una issue con numero "%s"!',
+                    'Non esiste una issue con numero "%s"!',
                     $number
                 ));
             }

@@ -65,7 +65,7 @@ Sarà ora possibile usarlo nei propri template:
             array('jpegoptim')
         ) as $url): ?>
             <img src="<?php echo $view->escape($url) ?>" alt="Esempio"/>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
 Rimozione dei dati EXIF 
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -250,4 +250,10 @@ Assetic:
             ),
         ));
 
+.. tip::
+
+    Per immagini caricate, le si può comprimere e manipolare usando il bundle
+    `LiipImagineBundle`_.
+
 .. _`Jpegoptim`: http://www.kokkonen.net/tjko/projects.html
+.. _`LiipImagineBundle`: http://knpbundles.com/liip/LiipImagineBundle

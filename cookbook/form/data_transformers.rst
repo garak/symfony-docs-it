@@ -28,13 +28,13 @@ Creare il trasformatore
 Come prima cosa, creare una classe `IssueToNumberTransformer`, che sarà responsabile
 della conversione da numero di issue a oggetto Issue e viceversa::
 
-    // src/Acme/TaskBundle/Form/DataTransformer/IssueToNumberTransformer.php
-    namespace Acme\TaskBundle\Form\DataTransformer;
+    // src/AppBundle/Form/DataTransformer/IssueToNumberTransformer.php
+    namespace AppBundle\Form\DataTransformer;
 
     use Symfony\Component\Form\DataTransformerInterface;
     use Symfony\Component\Form\Exception\TransformationFailedException;
     use Doctrine\Common\Persistence\ObjectManager;
-    use Acme\TaskBundle\Entity\Issue;
+    use AppBundle\Entity\Issue;
 
     class IssueToNumberTransformer implements DataTransformerInterface
     {
@@ -82,13 +82,13 @@ della conversione da numero di issue a oggetto Issue e viceversa::
             }
 
             $issue = $this->om
-                ->getRepository('AcmeTaskBundle:Issue')
+                ->getRepository('AppBundle:Issue')
                 ->findOneBy(array('number' => $number))
             ;
 
             if (null === $issue) {
                 throw new TransformationFailedException(sprintf(
-                    'Non essite una issue con numero "%s"!',
+                    'Non esiste una issue con numero "%s"!',
                     $number
                 ));
             }
@@ -119,7 +119,7 @@ richiamando ``addModelTransformer`` (o ``addViewTransformer``, vedere
 `Trasformatore per modelli e viste`_) sul builder di un campo::
 
     use Symfony\Component\Form\FormBuilderInterface;
-    use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
+    use AppBundle\Form\DataTransformer\IssueToNumberTransformer;
 
     class TaskType extends AbstractType
     {
@@ -144,7 +144,7 @@ richiamando ``addModelTransformer`` (o ``addViewTransformer``, vedere
         {
             $resolver
                 ->setDefaults(array(
-                    'data_class' => 'Acme\TaskBundle\Entity\Task',
+                    'data_class' => 'AppBundle\Entity\Task',
                 ))
                 ->setRequired(array('em'))
                 ->setAllowedTypes('em', 'Doctrine\Common\Persistence\ObjectManager')
@@ -250,14 +250,14 @@ che usi i trasformatori.
 Per questi motivi, si potrebbe scegliere di :doc:`creare un tipo di campo personalizzato</cookbook/form/create_custom_field_type>`.
 Prima di tutto, creare una classe::
 
-    // src/Acme/TaskBundle/Form/Type/IssueSelectorType.php
-    namespace Acme\TaskBundle\Form\Type;
+    // src/AppBundle/Form/Type/IssueSelectorType.php
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
-    use Acme\TaskBundle\Form\DataTransformer\IssueToNumberTransformer;
+    use AppBundle\Form\DataTransformer\IssueToNumberTransformer;
     use Doctrine\Common\Persistence\ObjectManager;
-    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolver;
 
     class IssueSelectorType extends AbstractType
     {
@@ -280,7 +280,7 @@ Prima di tutto, creare una classe::
             $builder->addModelTransformer($transformer);
         }
 
-        public function setDefaultOptions(OptionsResolverInterface $resolver)
+        public function configureOptions(OptionsResolver $resolver)
         {
             $resolver->setDefaults(array(
                 'invalid_message' => 'La issue scelta non esiste',
@@ -305,26 +305,48 @@ riconosciuto come tipo di campo personalizzato:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            acme_demo.type.issue_selector:
-                class: Acme\TaskBundle\Form\Type\IssueSelectorType
+            app.type.issue_selector:
+                class: AppBundle\Form\IssueSelectorType
                 arguments: ["@doctrine.orm.entity_manager"]
                 tags:
                     - { name: form.type, alias: issue_selector }
 
+
     .. code-block:: xml
 
-        <service id="acme_demo.type.issue_selector" class="Acme\TaskBundle\Form\Type\IssueSelectorType">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <tag name="form.type" alias="issue_selector" />
-        </service>
+        <!-- app/config/services.xml -->
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/services
+                http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+            <services>
+                <service id="app.type.issue_selector"
+                    class="AppBundle\Form\IssueSelectorType">
+                    <argument type="service" id="doctrine.orm.entity_manager"/>
+                    <tag name="form.type" alias="issue_selector" />
+                </service>
+            </services>
+        </container>
 
     .. code-block:: php
 
+        // app/config/services.php
+        use Symfony\Component\DependencyInjection\Definition;
+        use Symfony\Component\DependencyInjection\Reference;
+        // ...
+
         $container
-            ->setDefinition('acme_demo.type.issue_selector', array(
-                new Reference('doctrine.orm.entity_manager'),
-            ))
+            ->setDefinition('app.type.issue_selector', new Definition(
+                    'AppBundle\Form\IssueSelectorType'
+                ),
+                array(
+                    new Reference('doctrine.orm.entity_manager'),
+                )
+            )
             ->addTag('form.type', array(
                 'alias' => 'issue_selector',
             ))
@@ -333,24 +355,21 @@ riconosciuto come tipo di campo personalizzato:
 Ora, ogni volta che serve il tipo ``issue_selector``,
 è molto facile::
 
-    // src/Acme/TaskBundle/Form/Type/TaskType.php
-    namespace Acme\TaskBundle\Form\Type;
+    // src/AppBundle/Form/TaskType.php
+    namespace AppBundle\Form\Type;
 
-    use Symfony\Component\Form\AbstractType;
-    use Symfony\Component\Form\FormBuilderInterface;
+    use AppBundle\Form\DataTransformer\IssueToNumberTransformer;
+    // ...
 
     class TaskType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
             $builder
-                ->add('task')
-                ->add('dueDate', null, array('widget' => 'single_text'))
-                ->add('issue', 'issue_selector');
+                ->add('description', 'textarea')
+                ->add('issue', 'issue_selector')
+            ;
         }
 
-        public function getName()
-        {
-            return 'task';
-        }
+        // ...
     }

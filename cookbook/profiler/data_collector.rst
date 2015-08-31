@@ -138,7 +138,7 @@ questo scheletro:
     {% endblock %}
 
     {% block head %}
-        {# facoltativo, se il profiltatore web ha bisogno di file JS o CSS #}
+        {# facoltativo, se il profilatore web ha bisogno di file JS o CSS #}
         {{ parent() }} {# Usare parent() per mantenere gli stili predefiniti #}        
     {% endblock %}
 

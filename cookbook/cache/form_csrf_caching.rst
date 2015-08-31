@@ -17,7 +17,7 @@ Di solito, a ciascun utente è assegnato un token CSRF univoco, memorizzato nell
 sessione per la validazione. Questo vuol dire che se si mette in cache una pagina con
 un form che contiene token CSRF, si metterà in cache il token CSRF solo per il *primo*
 utente. Quando un utente compila il form, il token non corrisponderà più a quello
-memorizzato in sessione e tutti gli utenti (tranne il primo) vedreanno fallire la
+memorizzato in sessione e tutti gli utenti (tranne il primo) vedranno fallire la
 validazione all'invio del form.
 
 In effetti, molti reverse proxy (come  Varnish) rifiuteranno di mettere in cache una pagina
@@ -32,7 +32,7 @@ Per mettere in cache una pagina che contenga un token CSRF, si possono usare tec
 di cache, come i :ref:`frammenti ESI <edge-side-includes>`, in cui si mette in cache
 l'intera pagina e si include il form in un tag ESI, senza alcuna cache.
 
-Un'altra opzione è quella dicaricare il form tramite una richiesta AJAX non in cache, ma
+Un'altra opzione è quella di caricare il form tramite una richiesta AJAX non in cache, ma
 mettendo in cache il resto della risposta HTML.
 
 Si può anche solo caricare il token CSRF con una richiesta AJAX e sostituire il valore

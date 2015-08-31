@@ -73,7 +73,7 @@ Google analytics sono comunque inviati al server. Questi cookie non sono
 rilevanti per il backend e non dovrebbero influire sulle decisioni di cache. Configurare
 Varnish per `pulire gli header dei cookie`_. È desiderabile mantenere i
 cookie di sessione, se presenti, e togliere ogni altro cookie, in modo che le pagine
-vengano messe in cache in assenza di sessioni attive. A meno di non vaer modificato la
+vengano messe in cache in assenza di sessioni attive. A meno di non aver modificato la
 configurazione predefinita di PHP, il cookie di sessione si chiama PHPSESSID:
 
 .. code-block:: varnish4

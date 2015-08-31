@@ -255,7 +255,7 @@ con il comando ``git init``, ed eseguire il commit con il comando
 ``git commit``.
 
 Assicurarsi anche di avere un file ``.gitignore`` nella cartella radice del repository,
-con almento il seguente contenuto:
+con almeno il seguente contenuto:
 
 .. code-block:: text
 
@@ -378,7 +378,7 @@ nome host e credenziali di un qualche servizio di mailer esterno, se
 l'applicazione ha bisogno di inviare email.
 
 .. image:: /images/cookbook/deployment/azure-website/step-18.png
-   :alt: Configuazione di Symfony
+   :alt: Configurazione di Symfony
 
 L'applicazione Symfony è ora configurata e dovrebbe essere quasi operativa. Il passo
 finale è costruire lo schema della base dati. Lo si può fare facilmente con

@@ -32,8 +32,8 @@ Per installare Composer su Linux e Mac OS X, eseguire questi due comandi:
         $ php installer
         $ sudo mv composer.phar /usr/local/bin/composer
 
-Installre Composer su Windows
------------------------------
+Installare Composer su Windows
+------------------------------
 
 Scaricare l'installatore da `getcomposer.org/download`_, eseguirlo e seguire
 le istruzioni.

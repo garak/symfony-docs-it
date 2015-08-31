@@ -82,7 +82,7 @@ si hanno tre possibili opzioni:
   sincronizzata con lo scope ``request`` (vedere
   :ref:`using-synchronized-service`).
 
-* Inserire il servizio nello stesso scope della dipendenza (o in uno più limitatato). Se
+* Inserire il servizio nello stesso scope della dipendenza (o in uno più limitato). Se
   si dipende dal servizio ``request``, questo vuol dire inserire il nuovo servizio
   nello scope ``request`` (vedere :ref:`changing-service-scope`);
 

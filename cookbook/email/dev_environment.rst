@@ -126,7 +126,7 @@ Invio a un indirizzo specifico ma con eccezioni
 
 Si supponga di volere che tutte le email siano rinviate a un indirizzo specifico
 (come nello scenario precedente, a ``dev@example.com``). Mi si vorrebbe anche
-che alcune email, indirizzate a specifici inidirizzi, passino normalmente non
+che alcune email, indirizzate a specifici indirizzi, passino normalmente non
 siano rinviate (anche in ambiente di sviluppo). Lo si può fare tramite
 l'opzione ``delivery_whitelist``:
 

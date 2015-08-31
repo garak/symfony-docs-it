@@ -10,13 +10,13 @@ di un progetto, ma probabilmente si vorrà rimuoverlo in un secondo momento.
 
 .. tip::
 
-    Quesa ricetta usa AcmeDemoBundle come esempio, ma si possono usare questi
+    Questa ricetta usa AcmeDemoBundle come esempio, ma si possono usare questi
     passi per rimuovere qualsiasi bundle.
 
 1. De-registrare il bundle in ``AppKernel``
 -------------------------------------------
 
-Per sconnettere il bundel dal framework, occorre rimuoverlo dal metodo
+Per sconnettere il bundle dal framework, occorre rimuoverlo dal metodo
 ``AppKernel::registerBundles()``. Il bundle si trova solitamente
 nell'array ``$bundles``, ma AcmeDemoBundle viene registrato solamente
 in ambiente di sviluppo, quindi lo si può trovare nell'istruzione successiva::
@@ -42,7 +42,7 @@ in ambiente di sviluppo, quindi lo si può trovare nell'istruzione successiva::
 -----------------------------------------
 
 Ora che Symfony non sa più nulla del bundle, occorre rimuovere ogni 
-configirazione, dalla cartella ``app/config``, che faccia
+configurazione, dalla cartella ``app/config``, che faccia
 riferimento al bundle.
 
 2.1 Rimuovere le rotte del bundle

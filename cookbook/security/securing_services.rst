@@ -204,7 +204,7 @@ Si possono ottenere gli stessi risultati usando le annotazioni::
     privati o su metodi finali.
 
 Il bundle JMSSecurityExtraBundle consente anche di proteggere i parametri e
-i valori resituiti dai metodi. Per maggiori informazioni vedere la documentazione di
+i valori restituiti dai metodi. Per maggiori informazioni vedere la documentazione di
 `JMSSecurityExtraBundle`_.
 
 .. _securing-services-annotations-sidebar:

@@ -121,7 +121,7 @@ a qualsiasi ``ip``, ``host`` o ``method``:
 |                 |             |             |            |                                | ``path`` della voce ``ROLE_USER``, è usato.                 |
 +-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
 | ``/pippo``      | 127.0.0.1   | symfony.com | POST       | nessuna corrispondenza         | Non corrisponde ad alcun ``access_control``, perché il suo  |
-|                 |             |             |            |                                | URI non corrisponde a nessuno dei valoro di ``path``.       |
+|                 |             |             |            |                                | URI non corrisponde a nessuno dei valori di ``path``.       |
 +-----------------+-------------+-------------+------------+--------------------------------+-------------------------------------------------------------+
 
 .. _security-book-access-control-enforcement-options:
@@ -163,7 +163,7 @@ ogni richiesta, *tranne* quelle provenienti da un server fidato.
     Come si vedrà nelle spiegazioni successive, l'opzione ``ips``
     non restringe a uno specifico indirizzo IP. Invece, usando la chiave ``ips``,
     la voce ``access_control`` corrisponderà solo a quello specifico indirizzo IP
-    e gli utenti che accedeono da indirizzi IP diversi passeranno oltre nella
+    e gli utenti che accedono da indirizzi IP diversi passeranno oltre nella
     lista degli ``access_control``.
 
 Ecco un esempio di come si possono configurare alcuni schemi di URL ``/internal*``,

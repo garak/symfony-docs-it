@@ -380,7 +380,7 @@ il nuovo form type in molti posti o includerlo in altri form::
 b) Definire il form come servizio
 .................................
 
-Per definire il form come servizio, creare un normale serizio e aggiungere il tag
+Per definire il form come servizio, creare un normale servizio e aggiungere il tag
 :ref:`dic-tags-form-type`.
 
 .. configuration-block::
@@ -522,7 +522,7 @@ In un form, possiamo solitamente ascoltare questi eventi:
     Symfony 2.3. In precedenza, si chiamavano ``PRE_BIND``, ``BIND`` e ``POST_BIND``.
 
 .. versionadded:: 2.2.6
-    Il comportamento dell'evento ``POST_SUBMIT`` è cambiato leggermento in 2.2.6, usato
+    Il comportamento dell'evento ``POST_SUBMIT`` è cambiato leggermente in 2.2.6, usato
     dall'esempio seguente.
 
 La chiave sta nell'aggiungere un ascoltatore ``POST_SUBMIT`` al campo da cui dipende il nuovo
@@ -587,7 +587,7 @@ La classe ora sarà così::
         // ...
     }
 
-Si può vedere come occorra scoltare questi due eventi e avere callback diversi,
+Si può vedere come occorra ascoltare questi due eventi e avere callback diversi,
 solo perché in due scenari diversi i dati che si possono usare vengono restituiti in
 eventi diversi. Oltre a questo, gli ascoltatori eseguono esattamente le stesse cose
 su un form dato.

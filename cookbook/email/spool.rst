@@ -101,7 +101,7 @@ Per usare lo spool con un file, usare la seguente configurazione:
 .. tip::
 
     Per creare lo spool all'interno delle cartelle del progetto, è possibile usare
-    il paramtreo `%kernel.root_dir%` per indicare la cartella radice del
+    il parametro `%kernel.root_dir%` per indicare la cartella radice del
     progetto:
 
     .. code-block:: yaml

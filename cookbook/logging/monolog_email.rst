@@ -21,7 +21,7 @@ singolarmente.
                     type:         fingers_crossed
                     # gli errori 500 sono loggati a livello critical
                     action_level: critical
-                    # per loggare anche gli errori 400 (trane i 404):
+                    # per loggare anche gli errori 400 (tranne i 404):
                     # action_level: error
                     # excluded_404s:
                     #     - ^/
@@ -92,7 +92,7 @@ singolarmente.
                 'mail' => array(
                     'type'         => 'fingers_crossed',
                     'action_level' => 'critical',
-                    // per loggare anche gli errori 400 (trane i 404):
+                    // per loggare anche gli errori 400 (tranne i 404):
                     // 'action_level' => 'error',
                     // 'excluded_404s' => array(
                     //     '^/',

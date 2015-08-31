@@ -81,7 +81,7 @@ per costruire un oggetto ``HelloService`` in modo appropriato:
             ->register('hello_service', 'Acme\SoapBundle\Services\HelloService')
             ->addArgument(new Reference('mailer'));
 
-Di seguito un esempio di un controllore che è in grando di gestire una richiesta
+Di seguito un esempio di un controllore che è in grado di gestire una richiesta
 SOAP. Se ``indexAction()`` è accessibile tramite la rotta ``/soap``, il documento
 WSDL può essere recuperato tramite ``/soap?wsdl``.
 

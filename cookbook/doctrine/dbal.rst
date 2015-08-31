@@ -9,7 +9,7 @@ Usare il livello DBAL di Doctrine
     Questa ricetta riguarda il livello DBAL di Doctrine. Di solito si lavora con il livello
     dell'ORM di Doctrine, che è un livello più astratto e usa il DBAL dietro le
     quinte, per comunicare con la base dati. Per saperne di più sull'ORM
-    di Docrine, si veda ":doc:`/book/doctrine`".
+    di Doctrine, si veda ":doc:`/book/doctrine`".
 
 Il livello di astrazione della base dati (Database Abstraction Layer o DBAL) di `Doctrine`_
 è un livello posto sopra `PDO`_ e offre un'API intuitiva e flessibile per comunicare

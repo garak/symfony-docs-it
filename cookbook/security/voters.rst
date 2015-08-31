@@ -148,7 +148,7 @@ e assegnargli il tag "security.voter":
    Assicurarsi di importare questo file di configurazione dal file di configurazione
    principale (p.e. ``app/config/config.yml``). Per ulteriori informazioni,
    vedere :ref:`service-container-imports-directive`. Per saperne di più sulla definizione
-   di servizi in generale, vederre il capitolo :doc:`/book/service_container`.
+   di servizi in generale, vedere il capitolo :doc:`/book/service_container`.
 
 .. _security-voters-change-strategy:
 

@@ -17,7 +17,7 @@ che sono come semplici istruzioni condizionali.
 .. tip::
 
     Dare un'occhiata al capitolo
-    sulll':doc:`autorizzazione </components/security/authorization>`
+    sull':doc:`autorizzazione </components/security/authorization>`
     per una comprensione più approfondita sui votanti.
 
 Come Symfony usa i votanti

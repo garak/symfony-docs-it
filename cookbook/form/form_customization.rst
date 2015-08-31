@@ -180,7 +180,7 @@ personalizzare l'output del form, è necessario soltanto identificare e sovrascr
 corretto. Un set di queste personalizzazioni di frammenti è conosciuto come "tema" di un form.
 Quando viene reso un form, è possibile scegliere quale tema del form si vuole applicare.
 
-In Twig un tema è un singolo file di template e i frammente sono dei blocchi definiti
+In Twig un tema è un singolo file di template e i frammenti sono dei blocchi definiti
 in questo file.
 
 In PHP un tema è una cartella e i frammenti sono singoli file di template in
@@ -491,7 +491,7 @@ form verrà reso.
             // ...
         ));
 
-Per impostazioone predefinita, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
+Per impostazione predefinita, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
 potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risorsa ``form_table_layout.html.twig``
 per ottenere questo tipo di layout:
 
@@ -742,7 +742,7 @@ la resa di un form. La chiave di tutto è personalizzare uno specifico frammento
 corrisponde alla porzione del form che si vuole controllare (si veda 
 :ref:`nominare i blocchi dei form<cookbook-form-customization-sidebar>`).
 
-Nella prossima sezone, si potrà vedere come è possibile effettuare diverse personalizzazioni comuni per il form.
+Nella prossima sezione, si potrà vedere come è possibile effettuare diverse personalizzazioni comuni per il form.
 Per applicare queste personalizzazioni, si utilizzi uno dei metodi descritti nella
 sezione :ref:`cookbook-form-theming-methods`.
 
@@ -1055,7 +1055,7 @@ Usare le variabili nei Form
 ---------------------------
 
 La maggior parte delle funzioni disponibili per rendere le varie parti di un form (p.e.
-il widget form, la label del form, etcc.) consentono anche di eseguire direttamente alcune
+il widget form, la label del form, etc.) consentono anche di eseguire direttamente alcune
 personalizzazioni. Si veda l'esempio seguente:
 
 .. configuration-block::

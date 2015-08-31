@@ -107,7 +107,7 @@ Annotazioni, XML, Yaml, PHP e StaticPHP. I parametri sono:
   per specificare il nome del gestore predefinito. Il primo parametro che viene trovato viene usato
   e le mappature vengono  registrate con quel gestore;
 * un nome di parametro del contenitore opzionale, che viene usato dal passo di compilatore
-  perdeterminare se questo tipo di Doctrine viene usato in assoluto (questo è rilevante se
+  predeterminare se questo tipo di Doctrine viene usato in assoluto (questo è rilevante se
   l'utente ha più di un tipo di bundle di Doctrine installato e il proprio
   bundle viene utilizzato con solo un tipo di Doctrine.
 

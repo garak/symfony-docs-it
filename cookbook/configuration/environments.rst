@@ -14,7 +14,7 @@ semplice e ricco di informazioni, mentre l'ambiente ``prod`` dovrebbe usare un
 insieme di configurazioni che ottimizzino la velocità.
 
 .. index::
-   single: Ambienti; File di configurzione
+   single: Ambienti; File di configurazione
 
 Ambienti differenti, differenti file di configurazione
 ------------------------------------------------------
@@ -153,7 +153,7 @@ sia definito in modo esplicito::
     // ...
 
 Si può vedere come la chiave ``prod`` specifica che l'ambiente di esecuzione
-sarà l'ambiente ``prod``. Un'applicazione Symfony può essere esguita in qualsiasi
+sarà l'ambiente ``prod``. Un'applicazione Symfony può essere eseguita in qualsiasi
 ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'ambiente.
 
 .. note::
@@ -208,14 +208,14 @@ ambiente utilizzando lo stesso codice, cambiando la sola stringa relativa all'am
             ));
 
     Da Symfony 2.3, la visualizzazione degli errori non dipende più dalla modalità di
-    debug. Occorrerà abilitarla nel fron controller, richiamando
+    debug. Occorrerà abilitarla nel front controller, richiamando
     :method:`Symfony\\Component\\Debug\\Debug::enable`.
 
 Scegliere l'ambiente per i comandi di console
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 I comandi di Symfony sono eseguiti in ambiente ``dev`` e con la modalità di
-debug abilitata. Usaree le opzioni ``--env`` e ``--no-debug`` per modificare questo
+debug abilitata. Usare le opzioni ``--env`` e ``--no-debug`` per modificare questo
 comportamento:
 
 .. code-block:: bash
@@ -258,7 +258,7 @@ ambiente è abbastanza semplice.
 Supponiamo, per esempio, di voler misurare le prestazioni dell'applicazione
 prima del suo invio in produzione. Un modo è quello di usare una configurazione
 simile a quella del rilascio ma che utilizzasse il ``web_profiler`` di Symfony.
-Queso permetterebbe a Symfony di registrare le informazioni dell'applicazione mentre se ne misura le prestazioni.
+Questo permetterebbe a Symfony di registrare le informazioni dell'applicazione mentre se ne misura le prestazioni.
 
 Il modo migliore per ottenere tutto ciò è tramite un ambiente che si chiami, per esempio,
 ``benchmark``. Si parte creando un nuovo file di configurazione:
@@ -300,7 +300,7 @@ Con queste poche e semplici modifiche, l'applicazione supporta un nuovo
 ambiente chiamato ``benchmark``.
 
 Questa nuova configurazione importa la configurazione dell'ambiente ``prod`` 
-e la modifica. Così si garantice che l'ambiente sia identico a quello 
+e la modifica. Così si garantisce che l'ambiente sia identico a quello
 ``prod`` eccetto per le modifiche espressamente inserite in configurazione.
 
 Siccome sarà necessario che l'ambiente sia accessibile tramite browser, sarà

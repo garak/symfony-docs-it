@@ -25,9 +25,9 @@ Il deploy di un'applicazione Symfony su Heroku non richiede alcuna modifica nel
 codice, ma richiede alcuni piccoli aggiustamenti alla configurazione.
 
 La posizione standard dei log di Symfony è la cartella ``app/log/``.
-Questo non è idale, perché Heroku usa un `filesystem effimero`_. Su
+Questo non è ideale, perché Heroku usa un `filesystem effimero`_. Su
 Heroku, il modo migliore per salvare i log è `Logplex`_. Il modo migliore per
-inviare dati di log a Logplex è la scrittura su ``STDERR`` o ``STDOUT``. Fortunamente, 
+inviare dati di log a Logplex è la scrittura su ``STDERR`` o ``STDOUT``. Fortunamente,
 Symfony usa l'eccellente libreria Monolog per gestire i log. Quindi, il cambio di
 destinazione per i log implica una semplice modifica nella configurazione.
 
@@ -69,7 +69,7 @@ Si è ora pronti per il deploy dell'applicazione, come spiegato nella prossima s
 Deploy dell'applicazione su Heroku
 ----------------------------------
 
-Perima del primo deploy, occorrono solo altri due passi, descritti
+Prima del primo deploy, occorrono solo altri due passi, descritti
 qui:
 
 #. :ref:`Creare un Procfile <heroku-procfile>`
@@ -95,7 +95,7 @@ applicazioni. Tuttavia, alle applicazioni Symfony si applicano due circostanze s
 .. note::
 
     I binari dei venditori sono solitamente installati da Composer in ``vendor/bin``, ma
-    a volte (p.e. con un progeetto basato su Symfony Standard Edition), la
+    a volte (p.e. con un progetto basato su Symfony Standard Edition), la
     posizione sarà diversa. In caso di dubbi, si può sempre eseguire
     ``composer config bin-dir`` per trovare la posizione corretta.
 
@@ -248,7 +248,7 @@ Si dovrebbe vedere l'applicazione Symfony nel browser.
 Passi di compilazione personalizzati
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Se si voglio eseguire comandi agguintivi durante una build, si possono sfruttare i
+Se si voglio eseguire comandi aggiuntivi durante una build, si possono sfruttare i
 `passi di compilazione personalizzati`_ di Heroku. Si immagini di voler rimuovere il front controller `dev`
 dall'ambiente di produzione su Heroku, per evitare possibili vulnerabilità.
 L'aggiunta di un comando per rimuovere ``web/app_dev.php`` a `post-install-commands`_ in Composer

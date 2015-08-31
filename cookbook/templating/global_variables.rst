@@ -43,8 +43,8 @@ Ora, la variabile ``ga_tracking`` è disponibile in tutti i template Twig
 
 È molto facile!
 
-Usare parametri del conenitore di servizi
------------------------------------------
+Usare parametri del contenitore di servizi
+------------------------------------------
 
 Si può anche usare il sistema dei :ref:`book-service-container-parameters`,
 che consente di isolare o riutilizzare il valore:

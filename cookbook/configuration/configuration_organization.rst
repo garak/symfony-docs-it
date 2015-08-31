@@ -155,7 +155,7 @@ necessaria per il file ``app/config/dev/config.yml``:
 File di configurazione semantica
 --------------------------------
 
-Una doversa strategia di organizzazione potrebbe essere necessaria per applicazioni complesse,
+Una doverosa strategia di organizzazione potrebbe essere necessaria per applicazioni complesse,
 con molti file di configurazione. Per esempio, si potrebbe creare un file per bundle
 e molti file per definire tutti i servizi dell'applicazione:
 

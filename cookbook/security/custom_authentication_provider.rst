@@ -356,7 +356,7 @@ richiede i seguenti metodi:
 
 ``addConfiguration``
     Metodo usato per definire le opzioni di configurazione
-    sotto la chiave ``configuration`` della configurazione della sciurezza.
+    sotto la chiave ``configuration`` della configurazione della sicurezza.
     Le opzioni di configurazione sono spiegate più avanti in questo capitolo.
 
 .. note::

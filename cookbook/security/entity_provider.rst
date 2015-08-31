@@ -192,7 +192,7 @@ Ora che si ha un'entità ``Utente``, che implementa ``UserInterface``, basta
 dirlo al sistema di sicurezza di Symfony, all'interno di ``security.yml``.
 
 In questo esempio, l'utente inserirà username e password tramite HTTP
-basic authentication. Symfony cercherà un'entità ``Utente`` corrsipondente
+basic authentication. Symfony cercherà un'entità ``Utente`` corrispondente
 allo username e ne verificherà la password:
 
 .. configuration-block::

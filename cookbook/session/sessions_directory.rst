@@ -15,7 +15,7 @@ salvare le sessioni. Questo a causa della seguente configurazione:
         # app/config/config.yml
         framework:
             session:
-                # handler_id impostato a null userà il gestore di sesssioni predefinito da php.ini
+                # handler_id impostato a null userà il gestore di sessioni predefinito da php.ini
                 handler_id: ~
 
     .. code-block:: xml
@@ -31,7 +31,7 @@ salvare le sessioni. Questo a causa della seguente configurazione:
                 http://symfony.com/schema/dic/symfony/symfony-1.0.xsd"
         >
             <framework:config>
-                <!-- handler_id impostato a null userà il gestore di sesssioni predefinito da php.ini -->
+                <!-- handler_id impostato a null userà il gestore di sessioni predefinito da php.ini -->
                 <framework:session handler-id="null" />
             </framework:config>
         </container>
@@ -41,7 +41,7 @@ salvare le sessioni. Questo a causa della seguente configurazione:
         // app/config/config.php
         $container->loadFromExtension('framework', array(
             'session' => array(
-                // handler_id impostato a null userà il gestore di sesssioni predefinito da php.ini
+                // handler_id impostato a null userà il gestore di sessioni predefinito da php.ini
                 'handler_id' => null,
             ),
         ));

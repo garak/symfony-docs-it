@@ -62,7 +62,7 @@ il costruttore senza parametri::
     }
 
 Si può istanziare la classe nel modo preferito. In questo esempio, viene passata
-una dipedendenza a ``BlogType`` durante l'istanza, quindi la si usa
+una dipendenza a ``BlogType`` durante l'istanza, quindi la si usa
 per istanziare l'oggetto ``Blog``. Il punto è che si può impostare ``empty_data``
 al nuovo oggetto che si vuole usare.
 

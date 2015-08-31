@@ -110,10 +110,10 @@ per ottenere il locale dell'utente::
 Impostare il locale in base alle preferenze dell'utente
 -------------------------------------------------------
 
-Si potrebbe voler migliorare questa tecnica ulteriormente, definedno il locale in base all'entità
+Si potrebbe voler migliorare questa tecnica ulteriormente, definendo il locale in base all'entità
 dell'utente o all'utente connesso. Tuttavia, poiché ``LocaleListener`` è richiamato
 prima di ``FirewallListener``, che si occupa di gestira l'autenticazione e
-impostre il token dell'utente su ``TokenStorage``, non si può accedere
+impostare il token dell'utente su ``TokenStorage``, non si può accedere
 all'utente connesso.
 
 Si supponga di aver definito una proprietà ``locale`` nella propria entità ``User`` e di

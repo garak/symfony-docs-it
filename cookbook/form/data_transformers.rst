@@ -246,7 +246,7 @@ Nell'esempio precedente, abbiamo applicato i trasformatori a un normale campo ``
 È stato facile, ma con due svantaggi:
 
 1) Si deve sempre ricordare di applicare i trasformatori ogni volta che si aggiunge un campo
-per i numeri di isssue
+per i numeri di issue
 
 2) Ci si deve preoccupare di passare l'opzione ``em`` ogni volta che si crea un form
 che usi i trasformatori.

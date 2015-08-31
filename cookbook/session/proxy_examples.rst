@@ -16,7 +16,7 @@ gestore registrato con il driver di memorizzazione della sessione::
     $session = new Session(new NativeSessionStorage($proxy));
 
 Di seguito, vedremo due esempi reali, utilizzabili per ``YourProxy``:
-crittazione della sessione e sessioni ospiti in sola lettura.
+criptazione della sessione e sessioni ospiti in sola lettura.
 
 Criptare i dati della sessione
 ------------------------------

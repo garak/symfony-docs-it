@@ -22,7 +22,7 @@ rotte.
 
 .. note::
 
-    Ci sono molti bundle che usano i propri caticatori per gestire 
+    Ci sono molti bundle che usano i propri caricatori per gestire
     casi come quello descritto qui sopra, ad esempio
     `FOSRestBundle`_, `JMSI18nRoutingBundle`_, `KnpRadBundle`_ e
     `SonataAdminBundle`_.
@@ -32,7 +32,7 @@ Caricare le rotte
 
 Le rotte in una applicazione Symfony vengono caricate
 da :class:`Symfony\\Bundle\\FrameworkBundle\\Routing\\DelegatingLoader`.
-Questo caticatore usa svariati altri caricatori (delegati) per caricare risorse di 
+Questo caricatore usa svariati altri caricatori (delegati) per caricare risorse di
 tipi differenti, per esempio file Yaml o annotazioni ``@Route`` e ``@Method`` 
 nei file dei controllori. I caricatori specializzati implementano 
 :class:`Symfony\\Component\\Config\\Loader\\LoaderInterface`
@@ -69,7 +69,7 @@ Nella maggior parte dei casi è meglio non implementare
 da soli, ma estendere invece da :class:`Symfony\\Component\\Config\\Loader\\Loader`.
 
 Il caricatore d'esempio qui sotto supporta il caricamento di risorse di tipo
-``extra``. Il tipo ``extra`` non è importante, si può inventare qualsiasi tiipo di risorsa
+``extra``. Il tipo ``extra`` non è importante, si può inventare qualsiasi tipo di risorsa
 si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio::
 
     // src/AppBundle/Routing/ExtraLoader.php
@@ -116,7 +116,7 @@ si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio
         }
     }
 
-Accertarsi che il controllore specifito esista realmente. In questo caso, si deve
+Accertarsi che il controllore specifico esista realmente. In questo caso, si deve
 creare un metodo ``extraAction`` in ``ExtraController``
 di ``AppBundle``::
 

@@ -82,7 +82,7 @@ come spiegato sotto:
 .. note::
 
     Il rinvio di una richiesta POST non funziona bene nei vecchi browser. Un 302
-    su una richiessta POST manderebbe una richiesta GET dopo il rinvio per questioni
+    su una richiesta POST manderebbe una richiesta GET dopo il rinvio per questioni
     di compatibilità. Per questo motivo, la rotta qui corrisponde solo a richieste GET.
 
 .. caution::

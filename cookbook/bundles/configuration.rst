@@ -112,12 +112,12 @@ configurazione del bundle sarebbe simile a questa:
     sovrascrivere alcun parametro del contenitore di servizi per quel bundle. L'idea
     è che, se è presente una classe Extension, ogni impostazione che si possa
     configurare dovrebbe essere presente nella configurazione messa a disposizione da
-    tale classe. In altre parole, la classe Extension definiesce tutte le impostazioni
+    tale classe. In altre parole, la classe Extension definisce tutte le impostazioni
     pubbliche per cui sara mantenuta una retrocompatibilità.
 
 .. seealso::
 
-    Per gestire parametri ddentro una classe Dependency Injection, vedere
+    Per gestire parametri dentro una classe Dependency Injection, vedere
     :doc:`/cookbook/configuration/using_parameters_in_dic`.
 
 
@@ -281,8 +281,8 @@ Modificare la configurazione di un altro bundle
 -----------------------------------------------
 
 Se si hanno più bundle che dipendono l'uno dall'altro, potrebbe essere utile
-consenitre a una classe ``Extension`` di modificare la configurazione passata alla
-classe ``Extension`` di un altro bundle, come se lo sviluppatore finale avesse effetivamente messo tale
+consentire a una classe ``Extension`` di modificare la configurazione passata alla
+classe ``Extension`` di un altro bundle, come se lo sviluppatore finale avesse effettivamente messo tale
 configurazione nel suo file ``app/config/config.yml``. Lo si può fare,
 usando una ``PrependExtension``. Per maggiori dettagli, vedere
 :doc:`/cookbook/bundles/prepend_extension`.
@@ -293,7 +293,7 @@ Esportare la configurazione
 Il comando ``config:dump-reference`` esporta la configurazione predefinita di un
 bundle in console, usando il formato YAML.
 
-Se la configurazione di un bundle is trova nella posizione standard
+Se la configurazione di un bundle si trova nella posizione standard
 (``MioBundle\DependencyInjection\Configuration``) e non ha bisogno
 di parametri da passare al costruttore, funzionerà automaticamente. Se
 qualcosa cambia, la classe ``Extension`` deve sovrascrivere il metodo
@@ -349,7 +349,7 @@ descrivere tutti i possibili elementi e attributi e i valori in una definizione 
 XML (un file xsd). Questo file XSD è usato dagli IDE per l'autocompletamento ed
 è usato dal componente Config per validare gli elementi.
 
-Per usare lo shcema, il file di configurazione XML deve fornire un attributo
+Per usare lo schema, il file di configurazione XML deve fornire un attributo
 ``xsi:schemaLocation``, che punti al file XSD per un determinato spazio di nomi XML.
 Questa posizione inizia sempre con lo spazio di nomi XML. Questo spazio di nomi XML
 viene quindi sostituito dal percorso base di validazione XSD, restituito dal metodo

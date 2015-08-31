@@ -15,7 +15,7 @@ ripetere le impostazioni per i vari bundle.
 Usando l'approccio seguente, è possibile rimuovere lo svantaggio dell'approccio
 dei molti bundle, abilitando una singola estensione a prependere le
 impostazioni di ciascun bundle. Si possono usare le impostazioni definite in ``app/config/config.yml``
-per le impostzioni prepese, come se fossero state scritte esplicitamente
+per le impostazioni prepese, come se fossero state scritte esplicitamente
 dall'utente nella configurazione dell'applicazione.
 
 Per esempio, lo si potrebbe fare per configurare il nome del gestore di entità da usare
@@ -45,7 +45,7 @@ Per dare tale possibilità a un'estensione, questa  deve implementare
 Dentro al metodo :method:`Symfony\\Component\\DependencyInjection\\Extension\\PrependExtensionInterface::prepend`,
 gli sviluppatori hanno pieno accesso all'istanza di :class:`Symfony\\Component\\DependencyInjection\\ContainerBuilder`
 subito prima che il metodo :method:`Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface::load`
-sia richiamato su ogni estensione dei bundle registrati. Per poter  prependere
+sia richiamato su ogni estensione dei bundle registrati. Per poter prependere
 le impostazioni dell'estensione di un bundle, gli sviluppatori possono usare il metodo
 :method:`Symfony\\Component\\DependencyInjection\\ContainerBuilder::prependExtensionConfig`
 sull'istanza di :class:`Symfony\\Component\\DependencyInjection\\ContainerBuilder`.

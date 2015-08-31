@@ -16,7 +16,7 @@ qui sotto.
 Test funzionali
 ---------------
 
-Se occorre eseguire effettivamente una query, occorrerò far partire il kernel, per
+Se occorre eseguire effettivamente una query, occorrerà far partire il kernel, per
 ottenere una connessione valida. In questo caso, si estenderà ``WebTestCase``,
 che rende tutto alquanto facile::
 

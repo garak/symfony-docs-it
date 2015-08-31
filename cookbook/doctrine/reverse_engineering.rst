@@ -104,7 +104,7 @@ comando.
     Se si vogliono usare le annotazioni, si possono tranquillamente eliminare i file XML,
     dopo l'esecuzione dei due comandi.
 
-Per esempio, la nuva classe entità ``BlogComment`` è simile a questa::
+Per esempio, la nuova classe entità ``BlogComment`` è simile a questa::
 
     // src/Acme/BlogBundle/Entity/BlogComment.php
     namespace Acme\BlogBundle\Entity;

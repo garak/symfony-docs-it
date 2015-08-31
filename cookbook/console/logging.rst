@@ -23,7 +23,7 @@ Log manuale da un comando di console;
 Questa parte è molto semplice. Quando si crea un comando usando il
 framework, come descritto in ":doc:`/cookbook/console/console_command`", il comando
 estende :class:`Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand`.
-Questo vuol dire che si può accedere facilmente al servizio predefinito di log attravaerso
+Questo vuol dire che si può accedere facilmente al servizio predefinito di log attraverso
 il contenitore e usarlo per i log::
 
     // src/Acme/DemoBundle/Command/GreetCommand.php

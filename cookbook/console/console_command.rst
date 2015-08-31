@@ -125,7 +125,7 @@ serve per ottenere il locale in cui tradurre i contenuti::
         return $this->locale;
     }
 
-Quindi, quando si usa il servizio ``translator`` dentro a un comando, si otterà il messaggio
+Quindi, quando si usa il servizio ``translator`` dentro a un comando, si otterrà il messaggio
 di errore *"You cannot create a service of an inactive scope"*.
 La soluzione, in questo caso, è facile: basta impostare esplicitamente il valore del locale,
 prima di tradurre::

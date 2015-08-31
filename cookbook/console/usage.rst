@@ -11,7 +11,7 @@ framework completo, ci sono alcune opzioni globali aggiuntive.
 Per impostazione predefinita, i comandi della console girano in ambiente ``dev``, ma si
 potrebbe voler cambiare ambiente per alcuni comandi. Per esempio, si potrebbero voler
 eseguire alcuni comandi in ambiente ``prod``, per questioni prestazionali. Inoltre, il
-risultato di alcuni comandi varia a seconda dell'ambiente. Per esempio, il coomando ``cache:clear``
+risultato di alcuni comandi varia a seconda dell'ambiente. Per esempio, il comando ``cache:clear``
 cancella e prepara la cache sono per l'ambiente specificato. Per pulire e preparare la
 cache di ``prod``, occorre eseguire:
 

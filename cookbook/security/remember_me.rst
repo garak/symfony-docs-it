@@ -63,7 +63,7 @@ Il firewall ``remember_me`` definisce le seguenti opzioni di configurazione:
     potrebbero avere molti problemi di sicurezza.
 
 ``lifetime`` (valore predefinito: ``31536000``)
-    Il numero di secondi in cui l'utente resterà connesso. Per impostazione predefinitam
+    Il numero di secondi in cui l'utente resterà connesso. Per impostazione predefinita
     gli utenti restano connessi per un anno.
 
 ``path`` (valore predefinito: ``/``)

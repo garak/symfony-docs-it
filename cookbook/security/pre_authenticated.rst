@@ -11,7 +11,7 @@ predefinito, Symfony supporta la maggior parte dei meccanismi di autenticazione.
 Tali richieste sono chiamate richieste "pre autenticate*, perché l'utente è già
 autenticato quando raggiunge l'applicazione.
 
-Autenticazione con cerfiticato client X.509
+Autenticazione con certificato client X.509
 -------------------------------------------
 
 Quando si usando certificati lato client, il server web si occupa di tutta l'autenticazione.

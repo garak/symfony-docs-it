@@ -8,7 +8,7 @@ Costruire un form di login tradizionale
     un oggetto ``User`` e fornisce molte rotte e controllori per compiti comuni,
     come login, registrazione e recupero della password.
 
-In questa ricetta, si costruità un form di login tradizionale. Ovviamente, quando l'utente
+In questa ricetta, si costruirà un form di login tradizionale. Ovviamente, quando l'utente
 entra, si possono caricare utenti da dovunque, anche da una base dati.
 Vedere :ref:`security-user-providers` per i dettagli.
 
@@ -70,7 +70,7 @@ First, enable form login under your firewall:
 .. tip::
 
     Le voci ``login_path`` e ``check_path``  possono anche contenere nomi di rotte (purché
-    senza segnaposto obblicatori, come ``/login/{pippo}`` dove ``pippo`` non ha un
+    senza segnaposto obbligatori, come ``/login/{pippo}`` dove ``pippo`` non ha un
     valore predefinito).
 
 Ora, quando il sistema di sicurezza inizia il processo di autenticazione, rinvierà

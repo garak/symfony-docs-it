@@ -82,7 +82,7 @@ Ora, tutti i meccanismi di autenticazione useranno ``chain_provider``, perché
 è il primo specificato. ``chain_provider`` proverà a caricare
 l'utente sia dal fornitore ``in_memory`` sia dal fornitore ``user_db``.
 
-Si può anche configurare il firewall o singoli meccaniscmi di autenticazione
+Si può anche configurare il firewall o singoli meccanismi di autenticazione
 per usare uno specifico fornitore. Anche qui, a meno di specificare un fornitore,
 sarà sempre usato il primo fornitore:
 

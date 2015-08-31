@@ -375,7 +375,7 @@ il nuovo form type in molti posti o includerlo in altri form::
 b) Definire il form come servizio
 .................................
 
-Per definire il form come servizio, creare un normale serizio e aggiungere il tag
+Per definire il form come servizio, creare un normale servizio e aggiungere il tag
 :ref:`dic-tags-form-type`.
 
 .. configuration-block::
@@ -486,7 +486,7 @@ accedere a ciascuno sport in questo modo::
                     $positions = null === $sport ? array() : $sport->getAvailablePositions();
 
                     $form->add('position', 'entity', array(
-                        'class'       => 'AcmeDemoBundle:Position',
+                        'class'       => 'AppBundle:Position',
                         'empty_value' => '',
                         'choices'     => $positions,
                     ));
@@ -578,7 +578,7 @@ La classe ora sarà così::
         // ...
     }
 
-Si può vedere come occorra scoltare questi due eventi e avere callback diversi,
+Si può vedere come occorra ascoltare questi due eventi e avere callback diversi,
 solo perché in due scenari diversi i dati che si possono usare vengono restituiti in
 eventi diversi. Oltre a questo, gli ascoltatori eseguono esattamente le stesse cose
 su un form dato.
@@ -658,7 +658,7 @@ a seconda del valore selezionato nel campo ``sport``:
 
     .. code-block:: html+php
 
-        <!-- src/Acme/DemoBundle/Resources/views/Meetup/create.html.php -->
+        <!-- src/AppBundle/Resources/views/Meetup/create.html.php -->
         <?php echo $view['form']->start($form) ?>
             <?php echo $view['form']->row($form['sport']) ?>    <!-- <select id="meetup_sport" ... -->
             <?php echo $view['form']->row($form['position']) ?> <!-- <select id="meetup_position" ... -->

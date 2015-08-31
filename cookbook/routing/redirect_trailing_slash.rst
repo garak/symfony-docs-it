@@ -41,7 +41,7 @@ come spiegato sotto:
 
         remove_trailing_slash:
             path: /{url}
-            defaults: { _controller: AcmeDemoBundle:Redirecting:removeTrailingSlash }
+            defaults: { _controller: AppBundle:Redirecting:removeTrailingSlash }
             requirements:
                 url: .*/$
                 _method: GET
@@ -52,7 +52,7 @@ come spiegato sotto:
         <?xml version="1.0" encoding="UTF-8" ?>
         <routes xmlns="http://symfony.com/schema/routing">
             <route id="remove_trailing_slash" path="/{url}">
-                <default key="_controller">AcmeDemoBundle:Redirecting:removeTrailingSlash</default>
+                <default key="_controller">AppBundle:Redirecting:removeTrailingSlash</default>
                 <requirement key="url">.*/$</requirement>
                 <requirement key="_method">GET</requirement>
             </route>
@@ -69,7 +69,7 @@ come spiegato sotto:
             new Route(
                 '/{url}',
                 array(
-                    '_controller' => 'AcmeDemoBundle:Redirecting:removeTrailingSlash',
+                    '_controller' => 'AppBundle:Redirecting:removeTrailingSlash',
                 ),
                 array(
                     'url' => '.*/$',
@@ -81,12 +81,12 @@ come spiegato sotto:
 .. note::
 
     Il rinvio di una richiesta POST non funziona bene nei vecchi browser. Un 302
-    su una richiessta POST manderebbe una richiesta GET dopo il rinvio per questioni
+    su una richiesta POST manderebbe una richiesta GET dopo il rinvio per questioni
     di compatibilità. Per questo motivo, la rotta qui corrisponde solo a richieste GET.
 
 .. caution::
 
     Assicurarsi di includere questa rotta nella configurazione delle rotte
     all'ultimo posto della lista. In caso contrario, si rischia di rinviare rotte
-    reali (incluse quelle predefinite di Symfony2), che hanno effettivamente una barra
+    reali (incluse quelle predefinite di Symfony), che hanno effettivamente una barra
     finale nel percorso.

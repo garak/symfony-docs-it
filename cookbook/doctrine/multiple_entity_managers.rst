@@ -187,12 +187,12 @@ si otterrà il gestore di entità predefinito (cioè ``default``)::
     {
         public function indexAction()
         {
-            // entrambi restiuiscono il gestore "default"
+            // entrambi restituiscono il gestore "default"
             $em = $this->get('doctrine')->getManager();
             $em = $this->get('doctrine')->getManager('default');
             $em = $this->get('doctrine.orm.default_entity_manager');
 
-            // entrambi restiuiscono il gestore "customer"
+            // entrambi restituiscono il gestore "customer"
             $customerEm = $this->get('doctrine')->getManager('customer');
             $customerEm = $this->get('doctrine.orm.customer_entity_manager');
         }

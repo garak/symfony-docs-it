@@ -4,7 +4,7 @@
 Come creare un raccoglitore di dati personalizzato
 ==================================================
 
-Il :ref:`profilatore <internals-profiler>` di Symfony delega la raccolta di dati
+Il :doc:`profilatore di Symfony</cookbook/profiler/index>` delega la raccolta di dati
 ai raccoglitori di dati. Symfony dispone di un paio di raccoglitori, ma se ne
 possono creare di personalizzati.
 
@@ -179,3 +179,8 @@ nella configurazione. Per esempio, ipotizzando che il template sia in un
                 'id'       => 'nome_del_collector',
             ))
         ;
+
+.. caution::
+
+    Assicurarsi che l'attributo ``id`` sia la stessa stringa usata per il metodo
+    ``getName()``.

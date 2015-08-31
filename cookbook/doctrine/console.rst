@@ -33,7 +33,7 @@ Alcuni comandi interessanti:
       $ php app/console doctrine:ensure-production-settings --env=prod
 
 * ``doctrine:mapping:import`` - consente a Doctrine un'introspezione di una base dati
-  esistente e la creazione di informazioni di mappature. Per maggiori informazioni, vedere
+  esistente e la creazione di informazioni di mappatura. Per maggiori informazioni, vedere
   :doc:`/cookbook/doctrine/reverse_engineering`.
 
 * ``doctrine:mapping:info`` - mostra tutte le entità di cui Doctrine è a

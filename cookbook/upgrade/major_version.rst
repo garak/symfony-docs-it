@@ -1,8 +1,8 @@
 .. index::
     single: Aggiornamento; Versione maggiore
 
-Aggiorare una versione maggiore (p.e. da 2.7.0 a 3.0.0)
-=======================================================
+Aggiornare una versione maggiore (p.e. da 2.7.0 a 3.0.0)
+========================================================
 
 Dopo qualche anno, Symfony rilascia una nuova versione maggiore (cambia il
 primo numero). Tali rilasci sono meno facili da aggiornare, perché non garantiscono
@@ -45,7 +45,7 @@ tali notifiche sono mostrate nella barra di debug del web:
 Deprecati in PHPUnit
 ~~~~~~~~~~~~~~~~~~~~
 
-PHPUnit gestirà gli avvisi sul codice depracto come se fossero errori. Questo vuol dire
+PHPUnit gestirà gli avvisi sul codice depracato come se fossero errori. Questo vuol dire
 che tutti i test falliscono.
 
 Per evitare questo comportamento, si può installare il bridge per PHPUnit:

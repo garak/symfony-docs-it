@@ -18,7 +18,7 @@ di testare sempre gli stessi dati.
 Mock di ``Repository`` in un test unitario
 ------------------------------------------
 
-Se si vuole testare codice che dipende da un ``Repository`` Doctrine in isolamento,
+Se si vuole testare codice che dipende da un repository Doctrine in isolamento,
 occorre un  mock di ``Repository``. Normalmente, si inietta ``EntityManager``
 in una classe e lo si usa per ottenere il repository. Questo rende le cose un po'
 più difficili, perché occorrono mock sia di ``EntityManager`` che della classe
@@ -27,7 +27,7 @@ repository.
 .. tip::
 
     È possibile (ed è una buona idea) iniettare il repository direttamente,
-    registrandolo come :doc:`servizio factory </components/dependency_injection/factories>`
+    registrandolo come :doc:`servizio factory </components/dependency_injection/factories>`.
     C'è da fare un po' di lavoro in più per la preparazione, ma facilita i test, perché
     serve solo il mock del repository.
 
@@ -48,7 +48,8 @@ Supponiamo che la classe da testare sia come questa::
 
         public function calculateTotalSalary($id)
         {
-            $employeeRepository = $this->entityManager->getRepository('AppBundle::Employee');
+            $employeeRepository = $this->entityManager
+                ->getRepository('AppBundle:Employee');
             $employee = $employeeRepository->find($id);
 
             return $employee->getSalary() + $employee->getBonus();
@@ -58,7 +59,7 @@ Supponiamo che la classe da testare sia come questa::
 Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
 è facile passare un oggetto mock in un test::
 
-    use Acme\DemoBundle\Salary\SalaryCalculator;
+    use AppBundle\Salary\SalaryCalculator;
 
     class SalaryCalculatorTest extends \PHPUnit_Framework_TestCase
     {
@@ -74,7 +75,8 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
                 ->will($this->returnValue(1100));
 
             // ora serve il mock del repository, in modo che restituisca il mock di Employee
-            $employeeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+            $employeeRepository = $this
+                ->getMockBuilder('\Doctrine\ORM\EntityRepository')
                 ->disableOriginalConstructor()
                 ->getMock();
             $employeeRepository->expects($this->once())
@@ -82,7 +84,8 @@ Poiché ``ObjectManager`` viene iniettato nella classe tramite il costruttore,
                 ->will($this->returnValue($employee));
 
             // infine, serve il mock di EntityManager, per restituire il mock del repository
-            $entityManager = $this->getMockBuilder('\Doctrine\Common\Persistence\ObjectManager')
+            $entityManager = $this
+                ->getMockBuilder('\Doctrine\Common\Persistence\ObjectManager')
                 ->disableOriginalConstructor()
                 ->getMock();
             $entityManager->expects($this->once())

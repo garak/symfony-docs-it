@@ -1,12 +1,12 @@
 .. index::
-    single: Profiazione; Matcher
+    single: Profilazione; Matcher
 
 Usare un Matcher per abilitare dinamicamente il profilatore
 ===========================================================
 
 Per impostazione predefinita, il profilatore è attivo solo nell'ambiente di sviluppo. Tuttavia,
 è ipotizzabile che uno sviluppatore voglia vedere il profilatore anche in
-produzione. Un'altra siturazione potrebbe essere quella di voler mostrare il profilatore solo
+produzione. Un'altra situazione potrebbe essere quella di voler mostrare il profilatore solo
 a un utente amministratore. In questi casi, si può abilitare il profilatore,
 usando dei matcher.
 
@@ -59,7 +59,7 @@ Si può anche creare un matcher personalizzato. Non è altro che un servizio, ch
 se il profilatore vada abilitato o meno. Per creare tale servizio, creare una classe
 che implementi
 :class:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface`. Questa
-inferfaccia richiede un solo metodo:
+interfaccia richiede un solo metodo:
 :method:`Symfony\\Component\\HttpFoundation\\RequestMatcherInterface::matches`.
 Questo metodo restituisce ``false`` per disabilitare il profilatore e ``true`` per
 abilitarlo.

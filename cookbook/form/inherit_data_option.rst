@@ -118,7 +118,7 @@ Chiameremo questo form ``LocationType``::
 
 Questo form ha un'opzione interessante, chiamata ``inherit_data``. Tale
 opzione fa sì che il form erediti i suoi dati dal form genitore. Se incluso
-nel form company, i campi del form location portranno accedere alle proprietà
+nel form company, i campi del form location potranno accedere alle proprietà
 dell'istanza  ``Company``. Se incluso nel form customer, i campi invece potranno
 accedere alle proprietà dell'istanza ``Customer``.
 

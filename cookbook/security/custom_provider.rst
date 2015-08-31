@@ -10,7 +10,7 @@ utenti configurato di restituire un oggetto utente per un dato nome utente.
 Symfony quindi verifica che la password di tale utente sia corretta e genera
 un token di sicurezza, in modo che l'utente resti autenticato per la sessione corrente.
 Symfony dispone di due fornitori utenti predefiniti, "in_memory" e "entity".
-In questa ricetta, vedremo come poter creare il poprio fornitore utenti, che potrebbe
+In questa ricetta, vedremo come poter creare il proprio fornitore utenti, che potrebbe
 essere utile se gli utenti accedono tramite una base dati personalizzata, un file, oppure
 (come mostrato in questo esempio) tramite un servizio web.
 
@@ -21,7 +21,7 @@ Prima di tutto, indipendentemente dalla *provenienza* dei dati utente, occorre c
 una classe ``User``, che rappresenti tali dati. La classe ``User``, comunque, può
 essere fatta a piacere e contenere qualsiasi dato si desideri. L'unico requisito è che
 implementi :class:`Symfony\\Component\\Security\\Core\\User\\UserInterface`.
-I metodi in tale interfaccia vanno quindi deifniti nella classe utente personalizzata:
+I metodi in tale interfaccia vanno quindi definiti nella classe utente personalizzata:
 :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getRoles`,
 :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getPassword`,
 :method:`Symfony\\Component\\Security\\Core\\User\\UserInterface::getSalt`,
@@ -273,7 +273,7 @@ quando compilano il form di login. Lo si può fare aggiungendo una riga alla sez
         ));
 
 Il valore inserito deve corrispondere al modo in cui le password sono state codificate
-originariamente, alla creazione degli uenti (in qualsiasi modo siano stati creati).
+originariamente, alla creazione degli utenti (in qualsiasi modo siano stati creati).
 Quando un utente inserisce la sua password, la password viene concatenata con il valore
 del sale e quindi codificata con questo algoritmo, prima di confrontarla con la password
 restituita dal proprio metodo ``getPassword()``. Inoltre, a seconda delle proprie opzioni,

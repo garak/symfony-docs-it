@@ -3,7 +3,7 @@ Usare più fornitori di utenti
 
 Ogni meccanismo di autenticazione (autenticazione HTTP, form di login, ecc.)
 usa esattamente un fornitore di utente, il primo fornitore di utenti
-dichiarato. E se invece si volessero specificare alcuni utenti nella configuraizone
+dichiarato. E se invece si volessero specificare alcuni utenti nella configurazione
 e tutti gli altri nella base dati? Lo si può fare, creando un nuovo
 fornitore, che formi una catena degli altri fornitori esistenti:
 
@@ -82,7 +82,7 @@ Ora, tutti i meccanismi di autenticazione useranno ``chain_provider``, perché
 è il primo specificato. ``chain_provider`` proverà a caricare
 l'utente sia dal fornitore ``in_memory`` sia dal fornitore ``user_db``.
 
-Si può anche configurare il firewall o singoli meccaniscmi di autenticazione
+Si può anche configurare il firewall o singoli meccanismi di autenticazione
 per usare uno specifico fornitore. Anche qui, a meno di specificare un fornitore,
 sarà sempre usato il primo fornitore:
 

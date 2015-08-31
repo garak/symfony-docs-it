@@ -162,7 +162,7 @@ dovrà applicarsi a tutti e soli i file ``.coffee``:
 
 In questo modo non è più necessario specificare il filtro ``coffee`` nel template.
 È anche possibile elencare i normali file JavaScript, i quali verranno combinati e restituiti 
-come un unico file JavaScript (e in modo tale che i soli file ``.coffee`` venagano elaborati
+come un unico file JavaScript (e in modo tale che i soli file ``.coffee`` vengano elaborati
 dal filtro CoffeeScript):
 
 .. configuration-block::

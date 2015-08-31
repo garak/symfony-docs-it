@@ -13,7 +13,7 @@ questi oggetti ogni volta che accade una certa azione (p.e. ``prePersist``).
 Questo può essere utile, per esempio, per creare un indice di ricerca indipendente
 ogni volta che un oggetto viene salvato nella base dati.
 
-Doctrine defininsce due tipi di oggetti che possono ascoltare eventi:
+Doctrine definisce due tipi di oggetti che possono ascoltare eventi:
 ascoltatori e sottoscrittori. Sono simili tra loro, ma gli ascoltatori sono leggermente
 più semplificati. Per approfondimenti, vedere `The Event System`_ sul sito di Doctrine.
 
@@ -171,7 +171,7 @@ e avere un metodo per ogni evento sottoscritto::
 
     use Doctrine\Common\EventSubscriber;
     use Doctrine\ORM\Event\LifecycleEventArgs;
-    // per doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+    // per Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
     use Acme\StoreBundle\Entity\Product;
 
     class SearchIndexerSubscriber implements EventSubscriber

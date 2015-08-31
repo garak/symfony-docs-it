@@ -10,7 +10,7 @@ Minimizzare file JavaScript e fogli di stile con YUI Compressor
     **caldamente consigliato di evitare l'uso di YUI**, a meno che non sia strettamente
     necessario. Leggere :doc:`/cookbook/assetic/uglifyjs` per un'alternativa aggiornata.
 
-Yahoo! mette a disposizione un eccellente strumento per minimizzare i file JavaScipt
+Yahoo! mette a disposizione un eccellente strumento per minimizzare i file JavaScript
 e i fogli di stile, che così possono viaggiare più velocemente sulla rete: lo `YUI Compressor`_. 
 Grazie ad Assetic utilizzare questo strumento è semplicissimo.
 

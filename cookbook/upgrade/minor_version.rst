@@ -5,8 +5,8 @@ Aggiornare una versione minore (p.e. da 2.5.3 a 2.6.1)
 ======================================================
 
 Se si sta aggiornando una versione minore (in cui cambia il numero di mezzo), si
-dovebbero incontrare anche modifiche alla retrocompatibilità non significanti.
-Per deettagli, vedere :doc:`/contributing/code/bc`.
+dovrebbero incontrare anche modifiche alla retrocompatibilità non significanti.
+Per dettagli, vedere :doc:`/contributing/code/bc`.
 
 Tuttavia, sono possibili alcune modifiche non retrocompatibili, che ora vedremo
 come affrontare.
@@ -54,7 +54,7 @@ potrebbero funzionare, ma essere ora deprecate. Questo non è in realtà un prob
 ma essere consapevoli di tali deprecati può essere un primo passo per sistemarli per tempo.
 
 Ogni versione di Symfony dispone di un file UPGRADE (come `UPGRADE-2.7.md`_),
-che descrive tali modifiche. Se si seguono le istruiozni presenti nel documento
+che descrive tali modifiche. Se si seguono le istruzioni presenti nel documento
 e si aggiorna il codice di conseguenza, dovrebbe essere sicuro
 aggiornare in futuro.
 

@@ -24,7 +24,7 @@ resi usando la funzione di Twig ``form_row`` oppure il metodo dell'helper PHP
 
     .. code-block:: php
 
-        <?php echo $view['form']->row($form['age']) }} ?>
+        <?php echo $view['form']->row($form['age']); ?>
 
 È possibile anche rendere individualmente ogni parte dell'albero del campo:
 
@@ -172,7 +172,7 @@ personalizzare l'output del form, è necessario soltanto identificare e sovrascr
 corretto. Un set di queste personalizzazioni di frammenti è conosciuto come "tema" di un form.
 Quando viene reso un form, è possibile scegliere quale tema del form si vuole applicare.
 
-In Twig un tema è un singolo file di template e i frammente sono dei blocchi definiti
+In Twig un tema è un singolo file di template e i frammenti sono dei blocchi definiti
 in questo file.
 
 In PHP un tema è una cartella e i frammenti sono singoli file di template in
@@ -274,7 +274,7 @@ ora è possibile riutilizzare la personalizzazione del formi in diversi template
 
 .. code-block:: html+jinja
 
-    {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
+    {# src/AppBundle/Resources/views/Form/fields.html.twig #}
     {% block integer_widget %}
         <div class="integer_widget">
             {% set type = type|default('number') %}
@@ -290,7 +290,7 @@ dire a Symfony di utilizzare il template attraverso il tag ``form_theme``:
 
 .. code-block:: html+jinja
 
-    {% form_theme form 'AcmeDemoBundle:Form:fields.html.twig' %}
+    {% form_theme form 'AppBundle:Form:fields.html.twig' %}
 
     {{ form_widget(form.age) }}
 
@@ -307,7 +307,7 @@ nomi di tutti i template come array, usando la parola chiave ``with``:
 .. code-block:: html+jinja
 
     {% form_theme form with ['::common.html.twig', ':Form:fields.html.twig',
-                             'AcmeDemoBundle:Form:fields.html.twig'] %}
+                             'AppBundle:Form:fields.html.twig'] %}
 
     {# ... #}
 
@@ -321,16 +321,16 @@ Si può anche applicare un tema a uno specifico figlio del form:
 
 .. code-block:: html+jinja
 
-    {% form_theme form.child 'AcmeDemoBundle:Form:fields.html.twig' %}
+    {% form_theme form.child 'AppBundle:Form:fields.html.twig' %}
 
 Questo torna utile quanto si vuole avere un tema personalizzato per un form innestato che
 differisca da quello del form principale. Basta specificare entrambi i temi:
 
 .. code-block:: html+jinja
 
-    {% form_theme form 'AcmeDemoBundle:Form:fields.html.twig' %}
+    {% form_theme form 'AppBundle:Form:fields.html.twig' %}
 
-    {% form_theme form.child 'AcmeDemoBundle:Form:fields_child.html.twig' %}
+    {% form_theme form.child 'AppBundle:Form:fields_child.html.twig' %}
 
 .. _cookbook-form-php-theming:
 
@@ -346,7 +346,7 @@ per personalizzare il frammento ``integer_widget``.
 
 .. code-block:: html+php
 
-    <!-- src/Acme/DemoBundle/Resources/views/Form/integer_widget.html.php -->
+    <!-- src/AppBundle/Resources/views/Form/integer_widget.html.php -->
     <div class="integer_widget">
         <?php echo $view['form']->block($form, 'form_widget_simple', array('type' => isset($type) ? $type : "number")) ?>
     </div>
@@ -359,7 +359,7 @@ dire a Symfony di utilizzare il tema attraverso il metodo ``setTheme`` dell'help
 
 .. code-block:: php
 
-    <?php $view['form']->setTheme($form, array('AcmeDemoBundle:Form')); ?>
+    <?php $view['form']->setTheme($form, array('AppBundle:Form')); ?>
 
     <?php $view['form']->widget($form['age']) ?>
 
@@ -372,7 +372,7 @@ Se si vuole applicare un tema a uno specifico form figlio, passarlo al metodo ``
 
 .. code-block:: php
 
-    <?php $view['form']->setTheme($form['child'], 'AcmeDemoBundle:Form/Child'); ?>
+    <?php $view['form']->setTheme($form['child'], 'AppBundle:Form/Child'); ?>
 
 .. _cookbook-form-twig-import-base-blocks:
 
@@ -418,7 +418,7 @@ il blocco base utilizzando la funzione di Twig ``parent()``:
 
 .. code-block:: html+jinja
 
-    {# src/Acme/DemoBundle/Resources/views/Form/fields.html.twig #}
+    {# src/AppBundle/Resources/views/Form/fields.html.twig #}
     {% extends 'form_div_layout.html.twig' %}
 
     {% block integer_widget %}
@@ -445,8 +445,8 @@ esterno e dopo importarlo nella configurazione dell'applicazione:
 Twig
 ~~~~
 
-Utilizzando la seguente configurazione, ogni blocco di form personalizzato nel
-template ``AcmeDemoBundle:Form:fields.html.twig`` verrà utilizzato globalmente quando un
+Utilizzando la seguente configurazione, ogni blocco di form personalizzato nel template
+``AppBundle:Form:fields.html.twig`` verrà utilizzato globalmente quando un
 form verrà reso.
 
 .. configuration-block::
@@ -457,7 +457,7 @@ form verrà reso.
         twig:
             form:
                 resources:
-                    - 'AcmeDemoBundle:Form:fields.html.twig'
+                    - 'AppBundle:Form:fields.html.twig'
             # ...
 
     .. code-block:: xml
@@ -465,7 +465,7 @@ form verrà reso.
         <!-- app/config/config.xml -->
         <twig:config>
             <twig:form>
-                <resource>AcmeDemoBundle:Form:fields.html.twig</resource>
+                <resource>AppBundle:Form:fields.html.twig</resource>
             </twig:form>
             <!-- ... -->
         </twig:config>
@@ -476,14 +476,14 @@ form verrà reso.
         $container->loadFromExtension('twig', array(
             'form' => array(
                 'resources' => array(
-                    'AcmeDemoBundle:Form:fields.html.twig',
+                    'AppBundle:Form:fields.html.twig',
                 ),
             ),
 
             // ...
         ));
 
-Per impostazioone predefinita, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
+Per impostazione predefinita, Twig utilizza un layout a *div* quando rende i form. Qualcuno, tuttavia,
 potrebbe preferire rendere i form in un layout a *tabella*. Utilizzare la risorsa ``form_table_layout.html.twig``
 per ottenere questo tipo di layout:
 
@@ -525,7 +525,7 @@ file di template piuttosto che aggiungere un template come risorsa:
 
 .. code-block:: html+jinja
 
-  {% form_theme form 'form_table_layout.html.twig' %}
+    {% form_theme form 'form_table_layout.html.twig' %}
 
 Si osservi che la variabile ``form`` nel codice sottostante è la variabile della vista form
 che è stata passata al template.
@@ -546,7 +546,7 @@ form viene reso.
             templating:
                 form:
                     resources:
-                        - 'AcmeDemoBundle:Form'
+                        - 'AppBundle:Form'
             # ...
 
     .. code-block:: xml
@@ -555,7 +555,7 @@ form viene reso.
         <framework:config>
             <framework:templating>
                 <framework:form>
-                    <resource>AcmeDemoBundle:Form</resource>
+                    <resource>AppBundle:Form</resource>
                 </framework:form>
             </framework:templating>
             <!-- ... -->
@@ -569,7 +569,7 @@ form viene reso.
             'templating' => array(
                 'form' => array(
                     'resources' => array(
-                        'AcmeDemoBundle:Form',
+                        'AppBundle:Form',
                     ),
                 ),
              ),
@@ -657,11 +657,11 @@ personalizzare solo il campo ``name``:
     .. code-block:: html+php
 
         <!-- Main template -->
-        <?php echo $view['form']->setTheme($form, array('AcmeDemoBundle:Form')); ?>
+        <?php echo $view['form']->setTheme($form, array('AppBundle:Form')); ?>
 
         <?php echo $view['form']->widget($form['name']); ?>
 
-        <!-- src/Acme/DemoBundle/Resources/views/Form/_product_name_widget.html.php -->
+        <!-- src/AppBundle/Resources/views/Form/_product_name_widget.html.php -->
         <div class="text_widget">
               echo $view['form']->block('form_widget_simple') ?>
         </div>
@@ -714,11 +714,11 @@ campo del quale l'*id* è ``product_name`` (e il nome è ``product[name]``).
     .. code-block:: html+php
 
         <!-- Template principale -->
-        <?php echo $view['form']->setTheme($form, array('AcmeDemoBundle:Form')); ?>
+        <?php echo $view['form']->setTheme($form, array('AppBundle:Form')); ?>
 
         <?php echo $view['form']->row($form['name']); ?>
 
-        <!-- src/Acme/DemoBundle/Resources/views/Form/_product_name_row.html.php -->
+        <!-- src/AppBundle/Resources/views/Form/_product_name_row.html.php -->
         <div class="name_row">
             <?php echo $view['form']->label($form) ?>
             <?php echo $view['form']->errors($form) ?>
@@ -733,7 +733,7 @@ la resa di un form. La chiave di tutto è personalizzare uno specifico frammento
 corrisponde alla porzione del form che si vuole controllare (si veda 
 :ref:`nominare i blocchi dei form<cookbook-form-customization-sidebar>`).
 
-Nella prossima sezone, si potrà vedere come è possibile effettuare diverse personalizzazioni comuni per il form.
+Nella prossima sezione, si potrà vedere come è possibile effettuare diverse personalizzazioni comuni per il form.
 Per applicare queste personalizzazioni, si utilizzi uno dei metodi descritti nella
 sezione :ref:`cookbook-form-theming-methods`.
 
@@ -795,7 +795,7 @@ incollare e personalizzare il frammento ``form_errors``.
             <ul>
                 <?php foreach ($errors as $error): ?>
                     <li><?php echo $error->getMessage() ?></li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
         <?php endif ?>
 
@@ -860,11 +860,11 @@ campi (p.e. un form intero) e non solo un campo singolo.
                 <ul>
                     <?php foreach ($errors as $error): ?>
                         <li><?php echo $error->getMessage() ?></li>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </ul>
             <?php else: ?>
                 <!-- ... render the errors for a single field -->
-            <?php endif; ?>
+            <?php endif ?>
         <?php endif ?>
 
 
@@ -1046,7 +1046,7 @@ Usare le variabili nei Form
 ---------------------------
 
 La maggior parte delle funzioni disponibili per rendere le varie parti di un form (p.e.
-il widget form, la label del form, etcc.) consentono anche di eseguire direttamente alcune
+il widget form, la label del form, ecc.) consentono anche di eseguire direttamente alcune
 personalizzazioni. Si veda l'esempio seguente:
 
 .. configuration-block::

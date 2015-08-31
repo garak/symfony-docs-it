@@ -19,8 +19,8 @@ L'ascoltatore sarà simile al seguente. Tipicamente, ``_locale`` è usato
 come parametro di rotta per indicare il locale, sebbene non sia veramente importante
 il modo in cui si ricavi il locale dalla richiesta::
 
-    // src/Acme/LocaleBundle/EventListener/LocaleListener.php
-    namespace Acme\LocaleBundle\EventListener;
+    // src/AppBundle/EventListener/LocaleListener.php
+    namespace AppBundle\EventListener;
 
     use Symfony\Component\HttpKernel\Event\GetResponseEvent;
     use Symfony\Component\HttpKernel\KernelEvents;
@@ -67,16 +67,16 @@ Registrare l'ascoltatore:
     .. code-block:: yaml
 
         services:
-            acme_locale.locale_listener:
-                class: Acme\LocaleBundle\EventListener\LocaleListener
+            app.locale_listener:
+                class: AppBundle\EventListener\LocaleListener
                 arguments: ["%kernel.default_locale%"]
                 tags:
                     - { name: kernel.event_subscriber }
 
     .. code-block:: xml
 
-        <service id="acme_locale.locale_listener"
-            class="Acme\LocaleBundle\EventListener\LocaleListener">
+        <service id="app.locale_listener"
+            class="AppBundle\EventListener\LocaleListener">
             <argument>%kernel.default_locale%</argument>
 
             <tag name="kernel.event_subscriber" />
@@ -87,8 +87,8 @@ Registrare l'ascoltatore:
         use Symfony\Component\DependencyInjection\Definition;
 
         $container
-            ->setDefinition('acme_locale.locale_listener', new Definition(
-                'Acme\LocaleBundle\EventListener\LocaleListener',
+            ->setDefinition('app.locale_listener', new Definition(
+                'AppBundle\EventListener\LocaleListener',
                 array('%kernel.default_locale%')
             ))
             ->addTag('kernel.event_subscriber')

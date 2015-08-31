@@ -7,7 +7,7 @@ Implementare un semplice form di registrazione
 
 Alcuni form hanno campi aggiuntivi, i cui valori non devono essere memorizzati nella
 base dati. Per esempio, si potrebbe voler creare un form di registrazione con alcuni
-campi aggiuntivi (come un campo cehckbox "termini accettati") e includere il form che
+campi aggiuntivi (come un campo checkbox "termini accettati") e includere il form che
 contiene effettivamente informazioni sull'account.
 
 Il semplice modello User

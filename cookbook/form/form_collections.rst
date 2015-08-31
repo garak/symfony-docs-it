@@ -236,7 +236,7 @@ Quando l'utente invia il form, i dati inviati per i campi di ``Tags``
 sono utilizzato per costruire un ArrayCollection di oggetti ``Tag``, che viene poi
 impostato sul campo ``tag`` dell'istanza ``Task``.
 
-L'insieme ``Tags`` è acessibile tramite ``$task->getTags()``
+L'insieme ``Tags`` è accessibile tramite ``$task->getTags()``
 e può essere persistito nella base dati, oppure utilizzato dove necessario.
 
 Finora, tutto ciò funziona bene, ma questo non è ancora possibile aggiungere dinamicamente 
@@ -256,7 +256,7 @@ bene, ma ancora non si possono aggiungere nuovi tag.
     la resa del form nel template, se si rende l'intero form in una volta
     sola (p.e. con ``form_widget(form)``). Per risolvere, si può impostare la direttiva
     a un valore più alto (tramite il file ini di PHP o tramite :phpfunction:`ini_set`,
-    per esempio in ``app/autoload.php``) opure si può rendere ogni campo del form a mano,
+    per esempio in ``app/autoload.php``) oppure si può rendere ogni campo del form a mano,
     usando ``form_row``.
 
 .. _cookbook-form-collections-new-prototype:
@@ -389,7 +389,7 @@ un esempio:
         // Prende data-prototype, come spiegato in precedenza
         var prototype = $collectionHolder.data('prototype');
 
-        // prende il nuov indice
+        // prende il nuovo indice
         var index = $collectionHolder.data('index');
 
         // Sostituisce '__name__' nell'HTML del prototipo per essere
@@ -657,7 +657,7 @@ relazione tra l'oggetto ``Tag`` rimosso e l'oggetto ``Task``.
     lavoro ulteriore per assicurare che la relazione tra il Task e il Tag rimosso sia
     propriamente eliminata.
 
-    In Doctrine, si hanno due lati di una relazione: il lato di apparteneza e il lato
+    In Doctrine, si hanno due lati di una relazione: il lato di appartenenza e il lato
     inverso. Normalmente, in questo caso si avrà una relazione ``ManyToMany`` e i tag
     cancellati spariranno e saranno persistiti correttamente (e anche l'aggiunta di nuovi
     tag funzionerà senza sforzi ulteriori).

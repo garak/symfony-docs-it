@@ -49,9 +49,8 @@ riga di un post tramite una chiave esterna.
 Prima di addentrarsi nella ricetta, assicurarsi di aver configurato correttamente
 i parametri di connessione, nel file ``app/config/parameters.yml`` (o in qualsiasi
 altro posto in cui la configurazione è memorizzata) e di aver inizializzato un bundle
-che possa ospitare le future classi entità. In questa guida, si ipotizza che esista
-un ``AcmeBlogBundle``, posto nella cartella
-``src/Acme/BlogBundle``.
+che possa ospitare le future classi entità. In questa guida, si ipotizza che esista un
+AcmeBlogBundle, posto nella cartella ``src/Acme/BlogBundle``.
 
 Il primo passo nella costruzione di classi entità da una base dati esistente è quello di
 chiedere a Doctrine un'introspezione della base dati e una generazione dei file dei
@@ -105,7 +104,7 @@ comando.
     Se si vogliono usare le annotazioni, si possono tranquillamente eliminare i file XML,
     dopo l'esecuzione dei due comandi.
 
-Per esempio, la nuva classe entità ``BlogComment`` è simile a questa::
+Per esempio, la nuova classe entità ``BlogComment`` è simile a questa::
 
     // src/Acme/BlogBundle/Entity/BlogComment.php
     namespace Acme\BlogBundle\Entity;

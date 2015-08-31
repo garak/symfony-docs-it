@@ -1,5 +1,5 @@
-Personalizzare il processo di boostrap prima dei test
-=====================================================
+Personalizzare il processo di bootstrap prima dei test
+======================================================
 
 A volte, quando si eseguono i test, occorre fare qualcosa in più nel bootstrap,
 prima dell'esecuzione stessa. Per esempio, se si esegue un test funzionale ed è
@@ -43,4 +43,4 @@ si vuole pulire:
     </php>
 
 Ora si dispone di una variabile di ambiente (come ``$_ENV``)
-nel file di boostrap personalizzato (``tests.bootstrap.php``).
+nel file di bootstrap personalizzato (``tests.bootstrap.php``).

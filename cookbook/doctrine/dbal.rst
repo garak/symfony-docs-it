@@ -93,8 +93,8 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
         doctrine:
             dbal:
                 types:
-                    primo:   Acme\HelloBundle\Type\Primo
-                    secondo: Acme\HelloBundle\Type\Secondo
+                    primo:   AppBundle\Type\Primo
+                    secondo: AppBundle\Type\Secondo
 
     .. code-block:: xml
 
@@ -107,8 +107,8 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
 
             <doctrine:config>
                 <doctrine:dbal>
-                    <doctrine:type name="primo" class="Acme\HelloBundle\Type\Primo" />
-                    <doctrine:type name="secondo" class="Acme\HelloBundle\Type\Secondo" />
+                    <doctrine:type name="primo" class="AppBundle\Type\Primo" />
+                    <doctrine:type name="secondo" class="AppBundle\Type\Secondo" />
                 </doctrine:dbal>
             </doctrine:config>
         </container>
@@ -119,8 +119,8 @@ tipi di mappatura personalizzati, leggere la sezione `Custom Mapping Types`_ del
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
                 'types' => array(
-                    'primo'   => 'Acme\HelloBundle\Type\Primo',
-                    'secondo' => 'Acme\HelloBundle\Type\Secondo',
+                    'primo'   => 'AppBundle\Type\Primo',
+                    'secondo' => 'AppBundle\Type\Secondo',
                 ),
             ),
         ));
@@ -166,7 +166,7 @@ Mappiamo il tipo ENUM (non supportato di base dal DBAL) sul tipo di mappatura
         // app/config/config.php
         $container->loadFromExtension('doctrine', array(
             'dbal' => array(
-               mapping_types' => array(
+               'mapping_types' => array(
                   'enum'  => 'string',
                ),
             ),

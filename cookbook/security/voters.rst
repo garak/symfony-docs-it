@@ -37,8 +37,8 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
 
 .. code-block:: php
 
-    // src/Acme/DemoBundle/Security/Authorization/Voter/ClientIpVoter.php
-    namespace Acme\DemoBundle\Security\Authorization\Voter;
+    // src/AppBundle/Security/Authorization/Voter/ClientIpVoter.php
+    namespace AppBundle\Security\Authorization\Voter;
 
     use Symfony\Component\DependencyInjection\ContainerInterface;
     use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
@@ -49,7 +49,7 @@ Per inserire un utente nella lista nera in base al suo IP, possiamo usare il ser
         private $container;
 
         private $blacklistedIp;
-            
+
         public function __construct(ContainerInterface $container, array $blacklistedIp = array())
         {
             $this->container     = $container;
@@ -106,9 +106,9 @@ e assegnargli il tag "security.voter":
         # src/Acme/AcmeBundle/Resources/config/services.yml
         services:
             security.access.blacklist_voter:
-                class:      Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter
-                arguments:  ["@service_container", [123.123.123.123, 171.171.171.171]]
-                public:     false
+                class:     AppBundle\Security\Authorization\Voter\ClientIpVoter
+                arguments: ["@service_container", [123.123.123.123, 171.171.171.171]]
+                public:    false
                 tags:
                     - { name: security.voter }
 
@@ -116,7 +116,7 @@ e assegnargli il tag "security.voter":
 
         <!-- src/Acme/AcmeBundle/Resources/config/services.xml -->
         <service id="security.access.blacklist_voter"
-                 class="Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter" public="false">
+                 class="AppBundle\Security\Authorization\Voter\ClientIpVoter" public="false">
             <argument type="service" id="service_container" strict="false" />
             <argument type="collection">
                 <argument>123.123.123.123</argument>
@@ -132,7 +132,7 @@ e assegnargli il tag "security.voter":
         use Symfony\Component\DependencyInjection\Reference;
 
         $definition = new Definition(
-            'Acme\DemoBundle\Security\Authorization\Voter\ClientIpVoter',
+            'AppBundle\Security\Authorization\Voter\ClientIpVoter',
             array(
                 new Reference('service_container'),
                 array('123.123.123.123', '171.171.171.171'),
@@ -148,7 +148,7 @@ e assegnargli il tag "security.voter":
    Assicurarsi di importare questo file di configurazione dal file di configurazione
    principale (p.e. ``app/config/config.yml``). Per ulteriori informazioni,
    vedere :ref:`service-container-imports-directive`. Per saperne di più sulla definizione
-   di servizi in generale, vederre il capitolo :doc:`/book/service_container`.
+   di servizi in generale, vedere il capitolo :doc:`/book/service_container`.
 
 .. _security-voters-change-strategy:
 

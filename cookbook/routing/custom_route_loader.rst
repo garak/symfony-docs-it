@@ -27,7 +27,7 @@ Caricare le rotte
 
 Le rotte in una applicazione Symfony vengono caricate
 da :class:`Symfony\\Bundle\\FrameworkBundle\\Routing\\DelegatingLoader`.
-Questo caticatore usa svariati altri caricatori (delegati) per caricare risorse di 
+Questo caricatore usa svariati altri caricatori (delegati) per caricare risorse di 
 tipi differenti, per esempio file Yaml o annotazioni ``@Route`` e ``@Method`` 
 nei file dei controllori. I caricatori specializzati implementano 
 :class:`Symfony\\Component\\Config\\Loader\\LoaderInterface`
@@ -35,14 +35,14 @@ e quindi hanno due metodi importanti:
 :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::supports`
 e :method:`Symfony\\Component\\Config\\Loader\\LoaderInterface::load`.
 
-Osserviamo queste linee del file ``routing.yml`` in AcmeDemoBundle della Standard
+Osserviamo queste linee del file ``routing.yml`` in Symfony Standard
 Edition:
 
 .. code-block:: yaml
 
-    # src/Acme/DemoBundle/Resources/config/routing.yml
-    _demo:
-        resource: "@AcmeDemoBundle/Controller/DemoController.php"
+    # app/config/routing.yml
+    app:
+        resource: @AppBundle/Controller/
         type:     annotation
         prefix:   /demo
 
@@ -65,7 +65,8 @@ Il caricatore d'esempio qui sotto supporta il caricamento di risorse di tipo
 ``extra``. Il tipo ``extra`` non è importante, si può inventare qualsiasi tiipo di risorsa
 si voglia. Il nome della risorsa non viene concretamente utilizzato nell'esempio::
 
-    namespace Acme\DemoBundle\Routing;
+    // src/AppBundle/Routing/ExtraLoader.php
+    namespace AppBundle\Routing;
 
     use Symfony\Component\Config\Loader\LoaderInterface;
     use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -130,9 +131,10 @@ Adesso definire un servizio per l'``ExtraLoader``:
 
     .. code-block:: yaml
 
+        # app/config/services.yml
         services:
-            acme_demo.routing_loader:
-                class: Acme\DemoBundle\Routing\ExtraLoader
+            app.routing_loader:
+                class: AppBundle\Routing\ExtraLoader
                 tags:
                     - { name: routing.loader }
 
@@ -144,7 +146,7 @@ Adesso definire un servizio per l'``ExtraLoader``:
             xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
             <services>
-                <service id="acme_demo.routing_loader" class="Acme\DemoBundle\Routing\ExtraLoader">
+                <service id="app.routing_loader" class="AppBundle\Routing\ExtraLoader">
                     <tag name="routing.loader" />
                 </service>
             </services>
@@ -156,8 +158,8 @@ Adesso definire un servizio per l'``ExtraLoader``:
 
         $container
             ->setDefinition(
-                'acme_demo.routing_loader',
-                new Definition('Acme\DemoBundle\Routing\ExtraLoader')
+                'app.routing_loader',
+                new Definition('AppBundle\Routing\ExtraLoader')
             )
             ->addTag('routing.loader')
         ;
@@ -177,7 +179,7 @@ Occorre solo aggiungere qualche riga extra alla configurazione del router.
     .. code-block:: yaml
 
         # app/config/routing.yml
-        AcmeDemoBundle_Extra:
+        app_extra:
             resource: .
             type: extra
 
@@ -228,7 +230,8 @@ Ogni volta che si carica un'altra risorsa, per esempio un file di configurazione
 Yaml, si può richiamare il metodo
 :method:`Symfony\\Component\\Config\\Loader\\Loader::import` ::
 
-    namespace Acme\DemoBundle\Routing;
+    // src/AppBundle/Routing/AdvancedLoader.php
+    namespace AppBundle\Routing;
 
     use Symfony\Component\Config\Loader\Loader;
     use Symfony\Component\Routing\RouteCollection;
@@ -239,7 +242,7 @@ Yaml, si può richiamare il metodo
         {
             $collection = new RouteCollection();
 
-            $resource = '@AcmeDemoBundle/Resources/config/import_routing.yml';
+            $resource = '@AppBundle/Resources/config/import_routing.yml';
             $type = 'yaml';
 
             $importedRoutes = $this->import($resource, $type);
@@ -251,7 +254,7 @@ Yaml, si può richiamare il metodo
 
         public function supports($resource, $type = null)
         {
-            return $type === 'advanced_extra';
+            return 'advanced_extra' === $type;
         }
     }
 

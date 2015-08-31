@@ -94,7 +94,7 @@ Passare Request a Form::submit() (deprecato)
 
 Prima di Symfony 2.3, il metodo :method:`Symfony\\Component\\Form\\FormInterface::submit`
 accettava un oggetto :class:`Symfony\\Component\\HttpFoundation\\Request` come
-scorciatoria per l'esempio precedente::
+scorciatoia per l'esempio precedente::
 
     use Symfony\Component\HttpFoundation\Request;
     // ...

@@ -39,7 +39,7 @@ template. Ma le estensioni del tipo form consentono di farlo in modo DRY.
 Definire l'estensione del tipo form
 -----------------------------------
 
-Il primo passo consiste nel creare la classe dell'estensione. Chiamamola
+Il primo passo consiste nel creare la classe dell'estensione. Chiamiamola
 ``ImageTypeExtension``. Per convenzione, le estensioni dei form di solito si
 pongono nella cartella ``Form\Extension`` di un bundle.
 
@@ -183,7 +183,7 @@ il tipo form ``file``:
 #. Ridefinire i metodi ``buildForm`` e ``buildView`` per poter passare l'url dell'immagine
    alla vista.
 
-La logica è la seguente: quando si aggiunger un campo di tipo ``file``,
+La logica è la seguente: quando si aggiunge un campo di tipo ``file``,
 si potrà specificare una nuova opzione: ``image_path``. Tale opzione dirà
 al campo file come recuperare l'url dell'immagine, per poterla mostrare
 nella vista::

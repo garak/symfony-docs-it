@@ -94,7 +94,7 @@ questo:
 
         <form action="<?php echo $view['router']->generate('login_check') ?>" method="post">
             <label for="username">Nome utente:</label>
-            <input type="text" id="username" 
+            <input type="text" id="username"
                    name="_username" value="<?php echo $last_username ?>" />
 
             <label for="password">Password:</label>

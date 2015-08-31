@@ -1,8 +1,8 @@
 .. index::
    single: Bundle; Ereditarietà
 
-Come sovrascrivere parti di un bundle
-=====================================
+Sovrascrivere parti di un bundle
+================================
 
 Questa ricetta è un riferimento veloce su come sovrascrivere le varie parti di un
 bundle di terze parti.
@@ -34,7 +34,7 @@ Ipotizzando che un bundle di terze parti usi controllori che non siano servizi (
 dei bundle. Per maggiori informazioni, vedere :doc:`/cookbook/bundles/inheritance`.
 Se il controllore è un servizio, vedere la sezione successiva su come sovrascriverlo.
 
-Servizi & configurazione
+Servizi e configurazione
 ------------------------
 
 Ci sono due opzioni per poter estendere o sovrascrivere un servizio. La prima è
@@ -93,7 +93,7 @@ Si veda :doc:`/cookbook/service_container/compiler_passes` per informazioni su c
 i passi di compilatore. Se non si vuole solo sovrascrivere la classe, per esempio si vuole
 aggiungere la chiamata a un metodo, l'unica opzione è il passo di compilatore.
 
-Entità & mappature
+Entità e mappature
 ------------------
 
 Per come funziona Doctrine, non è possibile sovrascrivere la mappatura di entità
@@ -107,7 +107,7 @@ Form
 
 Per poter sovrascrivere un tipo di form, questo deve essere registrato come servizio (con
 il tag "form.type"). Lo si può quindi sovrascrivere come qualsiasi altro servizio, come
-descritto in `servizi & configurazione`_. Ovviamente, funziona solo se il tipo
+descritto in `Servizi e configurazione`_. Ovviamente, funziona solo se il tipo
 è referenziato tramite alias, piuttosto che istanziato,
 p.e.::
 

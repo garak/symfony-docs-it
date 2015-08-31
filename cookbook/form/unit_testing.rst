@@ -184,7 +184,7 @@ da altre estensioni. Occorre aggiungere tali estensioni all'oggetto factory::
         protected function setUp()
         {
             parent::setUp();
-            
+
             $validator = $this->getMock('\Symfony\Component\Validator\ValidatorInterface');
             $validator->method('validate')->will($this->returnValue(new ConstraintViolationList()));
 
@@ -257,7 +257,7 @@ essere una buona occasione::
         }
     }
 
-Qeusto codice eseguira il test tre volte, con tre diversi insiemi di
+Questo codice eseguira il test tre volte, con tre diversi insiemi di
 dati. Questo consente di disaccoppiare le fixture dei test dai test stessi e
 di testare facilmente insiemi diversi di dati.
 

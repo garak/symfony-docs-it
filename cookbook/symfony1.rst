@@ -176,7 +176,7 @@ cartelle specifiche, senza definire dipendenze:
 
 Questo vuol dire che se una classe non viene trovata nella cartella ``vendor``, Composer
 cercherà nella cartella ``src``, prima di lanciare un'eccezione "class does not exist".
-Si può approndire la configurazione dell'auto-caricamento di Composer nella
+Si può approfondire la configurazione dell'auto-caricamento di Composer nella
 `documentazione di Composer`_
 
 Uso della console
@@ -262,7 +262,7 @@ Rotte (``routing.yml``) e configurazione (``config.yml``)
 In symfony1, i file di configurazione ``routing.yml`` e ``app.yml`` sono
 caricati automaticamente all'interno di un plugin. In Symfony2, le rotte e le
 configurazioni dell'applicazioni all'interno di un bundle vanno incluse
-a mano. Per esempio, per inmcludere le rotte di un bundle chiamato ``AcmeDemoBundle``,
+a mano. Per esempio, per includere le rotte di un bundle chiamato ``AcmeDemoBundle``,
 si può fare nel seguente modo:
 
 .. configuration-block::

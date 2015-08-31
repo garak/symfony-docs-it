@@ -84,7 +84,7 @@ per mostrare un collegamento che riporti all'utente precedente:
             >
                 Torna a utente precedente
             </a>
-        <?php endif; ?>
+        <?php endif ?>
 
 Ovviamente, si dovrebbe rendere disponibile questa opzione a un gruppo ristretto di utenti.
 Per impostazione predefinita, l'accesso è ristretto a utenti con il ruolo ``ROLE_ALLOWED_TO_SWITCH``.

@@ -1,8 +1,8 @@
 ﻿.. index::
    single: Rotte; Consentire / in un parametro di rotta
 
-Come permettere un carattere "/" in un parametro di rotta
-=========================================================
+Consentire un carattere "/" in un parametro di rotta
+====================================================
 
 A volte è necessario comporre URL con parametri che possono contenere una barra
 ``/``. Per esempio, prendiamo la classica rotta ``/hello/{name}``. Per impostazione predefinita,
@@ -28,7 +28,7 @@ una espressione regolare più permissiva.
 
         _hello:
             path:     /hello/{name}
-            defaults: { _controller: AcmeDemoBundle:Demo:hello }
+            defaults: { _controller: AppBundle:Demo:hello }
             requirements:
                 name: ".+"
 
@@ -41,7 +41,7 @@ una espressione regolare più permissiva.
             xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
             <route id="_hello" path="/hello/{name}">
-                <default key="_controller">AcmeDemoBundle:Demo:hello</default>
+                <default key="_controller">AppBundle:Demo:hello</default>
                 <requirement key="name">.+</requirement>
             </route>
         </routes>
@@ -53,7 +53,7 @@ una espressione regolare più permissiva.
 
         $collection = new RouteCollection();
         $collection->add('_hello', new Route('/hello/{name}', array(
-            '_controller' => 'AcmeDemoBundle:Demo:hello',
+            '_controller' => 'AppBundle:Demo:hello',
         ), array(
             'name' => '.+',
         )));

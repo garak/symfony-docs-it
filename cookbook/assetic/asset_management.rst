@@ -150,7 +150,7 @@ non usare il filtro :ref:`cssrewrite<cookbook-assetic-cssrewrite>`.
 
 .. note::
 
-    Si noti che,  nell'esempio originale che includeva i file JavaScript files, abbiamo
+    Si noti che, nell'esempio originale che includeva i file JavaScript files, abbiamo
     fatto riferimento ai file con un percorso come ``@AcmePippoBundle/Resources/public/file.js``,
     mentre in questo esempio, abbiamo fatto riferimento ai file CSS tramite il loro vero
     percorso, accessibile pubblicamente: ``bundles/acme_foo/css``. Si possono usare entrambi, tranne

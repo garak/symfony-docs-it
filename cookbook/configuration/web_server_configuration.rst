@@ -50,7 +50,7 @@ La basi minime per far funzionare un'applicazione sotto Apache sono:
         </Directory>
 
         # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
-        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # o si avranno problemi compilando risorse LESS/Sass/CoffeScript
         # <Directory /var/www/progetto>
         #     Option FollowSymlinks
         # </Directory>
@@ -88,7 +88,7 @@ e quindi incrementare le prestazioni del server web:
         </Directory>
 
         # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
-        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # o si avranno problemi compilando risorse LESS/Sass/CoffeScript
         # <Directory /var/www/progetto>
         #     Option FollowSymlinks
         # </Directory>
@@ -192,7 +192,7 @@ per passare richieste di file PHP a PHP FPM:
         </Directory>
 
         # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
-        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # o si avranno problemi compilando risorse LESS/Sass/CoffeScript
         # <Directory /var/www/project>
         #     Option FollowSymlinks
         # </Directory>
@@ -228,7 +228,7 @@ dovrebbe essere come questa:
         </Directory>
 
         # scommentare le seguenti righe se si installano risorse come collegamenti simbolici
-        # o si avranno problemi compilando riosorse LESS/Sass/CoffeScript
+        # o si avranno problemi compilando risorse LESS/Sass/CoffeScript
         # <Directory /var/www/project>
         #     Option FollowSymlinks
         # </Directory>

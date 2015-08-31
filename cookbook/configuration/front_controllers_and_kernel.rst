@@ -117,7 +117,7 @@ front controller (o aggiungerne uno nuovo) perché usi il nuovo kernel.
 
 .. note::
 
-    Il nome e la posizione di ``AppKernel`` non sono fissati. QUando
+    Il nome e la posizione di ``AppKernel`` non sono fissati. Quando
     si mettono kernel multipli in una singola applicazione, 
     può avere senso aggiungere sotto-cartelle aggiuntive, ad
     esempio: ``app/admin/AdminKernel.php`` e

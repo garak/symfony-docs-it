@@ -14,7 +14,7 @@ Il bundle TwigBundle ha un ascoltatore per tale evento, che eseguirà un control
 intelligente per scegliere uno dei template di errore a disposizione:
 
 .. image:: /images/cookbook/controller/error_pages/exceptions-in-dev-environment.png
-   :alt: Una tipica pagina di eccezione in ambiente di sviluppot
+   :alt: Una tipica pagina di eccezione in ambiente di sviluppo
 
 Quindi, le pagine di errore possono essere personalizzate in diversi modi, a seconda di quanto
 controllo si vuole avere:

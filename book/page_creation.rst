@@ -393,7 +393,7 @@ controllore e ``index.html.twig`` il template:
 
     .. code-block:: jinja
 
-        {# app/Resources/views/random/index.html.twig #}
+        {# src/Acme/DemoBundle/Resources/views/Random/index.html.twig #}
         {% extends '::base.html.twig' %}
 
         {% block body %}

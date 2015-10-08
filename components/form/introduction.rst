@@ -20,7 +20,7 @@ Installazione
 Si può installare il componente in due modi:
 
 * :doc:`Installarlo tramite Composer </components/using_components>` (``symfony/form`` su `Packagist`_).
-* Usare il repository ufficiale Git (https://github.com/symfony/Form);
+* Usare il repository ufficiale Git (https://github.com/symfony/form);
 
 .. include:: /components/require_autoload.rst.inc
 
@@ -140,7 +140,7 @@ codice appena visto e assicurarsi che nessuno, tranne il server web, possa
 accedervi.
 
 Internamente, l'estensione aggiungerà automaticamente a ogni form un campo nascosto
-(chiamato ``__token``), il cui valore è automaticamente generato e
+(chiamato ``_token``), il cui valore è automaticamente generato e
 validato.
 
 .. tip::
@@ -191,8 +191,8 @@ accedere a Twig e aggiungere  :class:`Symfony\\Bridge\\Twig\\Extension\\FormExte
     $vendorDir = realpath(__DIR__.'/../vendor');
     // percorso di TwigBridge, che consente a Twig di trovare il file
     // form_div_layout.html.twig
-    $vendorTwigBridgeDir =
-        $vendorDir . '/symfony/twig-bridge/Symfony/Bridge/Twig';
+    $appVariableReflection = new \ReflectionClass('\Symfony\Bridge\Twig\AppVariable');
+    $vendorTwigBridgeDir = dirname($appVariableReflection->getFileName());
     // percorso degli altri template
     $viewsDir = realpath(__DIR__.'/../views');
 
@@ -396,9 +396,9 @@ in cui si costruiscono e configurano i vari campi. Il costruttore di form
             ->add('dueDate', 'date')
             ->getForm();
 
-        echo $twig->render('new.html.twig', array(
+        var_dump($twig->render('new.html.twig', array(
             'form' => $form->createView(),
-        ));
+        )));
 
     .. code-block:: php-symfony
 
@@ -482,11 +482,11 @@ aiutanti:
 
 .. code-block:: html+jinja
 
-    <form action="#" method="post" {{ form_enctype(form) }}>
+    {{ form_start(form) }}
         {{ form_widget(form) }}
 
         <input type="submit" />
-    </form>
+    {{ form_end(form) }}
 
 .. image:: /images/book/form-simple.png
     :align: center

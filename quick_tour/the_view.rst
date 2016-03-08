@@ -22,8 +22,8 @@ del template tramite alcuni delimitatori:
     Stampa una variabile o il risultato di un'espressione;
 
 ``{% ... %}``
-    Controlla la logica del template; è usato per eseguire dei cicli ``for``
-    e delle istruzioni ``if``, per esempio.
+    Controlla la logica del template; è usato per eseguire dei cicli
+    ``for`` e delle istruzioni ``if``, per esempio.
 
 ``{# ... #}``
     consente l'inserimento di commenti all'interno dei template. Diversamente dai commenti HTML,
@@ -32,7 +32,7 @@ del template tramite alcuni delimitatori:
 Segue un template minimale, che illustra alcune caratteristiche di base, usando due
 variabili, ``page_title`` e ``navigation``, che dovrebbero essere passate al template:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     <!DOCTYPE html>
     <html>
@@ -61,9 +61,10 @@ usando il secondo parametro, opzionale::
 Le variabili passate a un template possono essere stringhe, array o anche oggetti. Twig
 astrae le differenze tra essi e consente di accedere agli "attributi" di una variabile
 con la notazione del punto (``.``). Il codice seguente mostra come visualizzare il
-contenuto di una variabile, a seconda del tipo di variabile passata dal controllore:
+contenuto di una variabile, a seconda del tipo di variabile passata dal
+controllore:
 
-.. code-block:: jinja
+.. code-block:: twig
 
     {# 1. Variabile semplice #}
     {# $this->render('template.html.twig', array(
@@ -103,7 +104,7 @@ di un sito e definisce dei "blocchi", che i template figli possono sovrascrivere
 Il template ``index.html.twig`` eredita da ``base.html.twig``, grazie al tag
 ``extends``:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     {# app/Resources/views/default/index.html.twig #}
     {% extends 'base.html.twig' %}
@@ -115,7 +116,7 @@ Il template ``index.html.twig`` eredita da ``base.html.twig``, grazie al tag
 Nel file ``app/Resources/views/base.html.twig``, che corrisponde al template
 ``base.html.twig``, si troverà il seguente codice Twig:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     {# app/Resources/views/base.html.twig #}
     <!DOCTYPE html>
@@ -133,9 +134,10 @@ Nel file ``app/Resources/views/base.html.twig``, che corrisponde al template
     </html>
 
 I tag ``{% block %}`` dicono al sistema di template che un template figlio può
-sovrascrivere quelle porzioni di template. In questo esempio, il template ``index.html.twig``
-sovrascrive il blocco ``body``, ma non il blocco ``title``, che mostrerà
-il contenuto predefinito, preso dal template ``base.html.twig``.
+sovrascrivere quelle porzioni di template. In questo esempio, il template
+``index.html.twig`` sovrascrive il blocco ``body``, ma non il blocco ``title``, che
+mostrerà il contenuto predefinito, preso dal template
+``base.html.twig``.
 
 Usare tag, filtri e funzioni
 ----------------------------
@@ -144,7 +146,7 @@ Una delle migliori caratteristiche di Twig è la sua estensibilità tramite tag,
 funzioni. Si veda nell'esempio seguente un template che usa filtri in modo estensivo,
 per modificare le informazioni prima che siano mostrate all'utente:
 
-.. code-block:: jinja
+.. code-block:: twig
 
     <h1>{{ article.title|capitalize }}</h1>
 
@@ -166,7 +168,7 @@ di definire un template che possa essere incluso in altri template.
 Si immagini di voler mostrare pubblicità su alcune pagine dell'applicazione. Innanzitutto,
 creare un template ``banner.html.twig``:
 
-.. code-block:: jinja
+.. code-block:: twig
 
     {# app/Resources/views/ads/banner.html.twig #}
     <div id="ad-banner">
@@ -176,7 +178,7 @@ creare un template ``banner.html.twig``:
 Per mostrare la pubblicità su ogni pagina, includere il template ``banner.html.twig``, usando
 la funzione ``include()``:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     {# app/Resources/views/default/index.html.twig #}
     {% extends 'base.html.twig' %}
@@ -199,14 +201,15 @@ Supponiamo di aver creato un metodo ``topArticlesAction`` in un controllore e di
 (cioè il codice HTML) del controllore. Per farlo, si usa la funzione
 ``render()``:
 
-.. code-block:: jinja
+.. code-block:: twig
 
     {# app/Resources/views/index.html.twig #}
     {{ render(controller('AppBundle:Default:topArticles')) }}
 
 Qui, le funzioni ``render()`` e ``controller()`` usano la sintassi speciale
 ``AppBundle:Default:topArticles`` per riferirsi all'azione ``topArticlesAction``
-del controllore ``Default`` (la parte ``AppBundle`` è spiegata in seguito)::
+del controllore ``Default`` (la parte ``AppBundle`` è spiegata in
+seguito)::
 
     // src/AppBundle/Controller/DefaultController.php
 
@@ -233,7 +236,7 @@ essenziale. Invece di inserire a mano gli URL nei template, la funzione
 ``path`` sa come generare URL in base alla configurazione delle rotte. In questo
 modo, tutti gli URL saranno facilmente aggiornati al cambiare della configurazione:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     <a href="{{ path('homepage') }}">Torna alla homepage</a>
 
@@ -252,7 +255,7 @@ Includere risorse: immagini, JavaScript e fogli di stile
 Cosa sarebbe Internet senza immagini, JavaScript e fogli di stile?
 Symfony fornisce la funzione ``asset`` per gestirli facilmente.
 
-.. code-block:: jinja
+.. code-block:: twig
 
     <link href="{{ asset('css/blog.css') }}" rel="stylesheet" type="text/css" />
 
@@ -282,5 +285,5 @@ Ma non corriamo troppo. Prima occorre imparare di più sul
 controllore e questo è esattamente l'argomento della :doc:`prossima parte di questa guida <the_controller>`.
 Pronti per altri dieci minuti di Symfony?
 
-.. _Twig:           http://twig.sensiolabs.org/
+.. _Twig: http://twig.sensiolabs.org/
 .. _documentazione: http://twig.sensiolabs.org/documentation

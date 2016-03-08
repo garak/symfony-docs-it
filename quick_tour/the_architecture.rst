@@ -88,7 +88,8 @@ I bundle sono cittadini di prima classe in Symfony. Essi forniscono la flessibil
 di usare delle caratteristiche pre-costruite impacchettate in bundle di terze parti o di distribuire 
 i propri bundle. Questo rende molto facile scegliere quali caratteristiche abilitare in
 un'applicazione e ottimizzarle nel modo preferito. A fine giornata, il codice
-dell'applicazione è *importante* quanto il nucleo stesso del framework.
+dell'applicazione è *importante* quanto il nucleo stesso del
+framework.
 
 Symfony include già un AppBundle, che si può usare per iniziare a sviluppare
 un'applicazione. Successivamente, se si avesse l'esigenza di suddividere l'applicazione
@@ -113,7 +114,7 @@ Bundle che la descrive::
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle();
+            new AppBundle\AppBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -145,37 +146,38 @@ XML o PHP. Si veda la configurazione predefinita:
 
     framework:
         #esi:             ~
-        #translator:      { fallbacks: ["%locale%"] }
-        secret:          "%secret%"
+        #translator:      { fallbacks: ['%locale%'] }
+        secret:          '%secret%'
         router:
-            resource: "%kernel.root_dir%/config/routing.yml"
-            strict_requirements: "%kernel.debug%"
+            resource: '%kernel.root_dir%/config/routing.yml'
+            strict_requirements: '%kernel.debug%'
         form:            true
         csrf_protection: true
         validation:      { enable_annotations: true }
         templating:      { engines: ['twig'] }
-        default_locale:  "%locale%"
+        default_locale:  '%locale%'
         trusted_proxies: ~
         session:         ~
 
     # Configurazione di Twig
     twig:
-        debug:            "%kernel.debug%"
-        strict_variables: "%kernel.debug%"
+        debug:            '%kernel.debug%'
+        strict_variables: '%kernel.debug%'
 
     # Configurazione di Swift Mailer
     swiftmailer:
-        transport: "%mailer_transport%"
-        host:      "%mailer_host%"
-        username:  "%mailer_user%"
-        password:  "%mailer_password%"
+        transport: '%mailer_transport%'
+        host:      '%mailer_host%'
+        username:  '%mailer_user%'
+        password:  '%mailer_password%'
         spool:     { type: memory }
 
     # ...
 
-Ogni voce come ``framework`` definisce la configurazione per uno specifico bundle.
-Per esempio, ``framework`` configura FrameworkBundle, mentre ``swiftmailer``
-configura SwiftmailerBundle.
+Ogni voce come ``framework``, ``twig`` e ``swiftmailer``
+definisce la configurazione per uno specifico bundle. Per esempio, ``framework``
+configura FrameworkBundle, mentre ``swiftmailer`` configura
+SwiftmailerBundle.
 
 Ogni :term:`ambiente` può sovrascrivere la configurazione predefinita, fornendo un file
 di configurazione specifico. Per esempio, l'ambiente ``dev`` carica il file ``config_dev.yml``,
@@ -189,7 +191,7 @@ aggiungere alcuni strumenti di debug:
         - { resource: config.yml }
 
     framework:
-        router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
+        router:   { resource: '%kernel.root_dir%/config/routing_dev.yml' }
         profiler: { only_exceptions: false }
 
     web_profiler:
@@ -203,7 +205,8 @@ Estendere un bundle
 
 Oltre a essere un bel modo per organizzare e configurare il codice, un bundle
 può estendere un altro bundle. L'ereditarietà dei bundle consente di sovrascrivere un bundle
-esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro suo file.
+esistente, per poter personalizzare i suoi controllori, i template o qualsiasi altro
+suo file.
 
 Nomi logici di file
 ...................
@@ -227,12 +230,13 @@ Estendere i bundle
 ..................
 
 Se si seguono queste convenzioni, si può usare
-l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>`
-per "sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
-chiamato NewBundle estende AppBundle, Symfony proverà a caricare
-prima il controllore ``DefaultController`` da NewBundle e poi
-cercherà in AppBundle. Questo vuol dire che un bundle può sovrascrivere
-quasi ogni parte di un altro bundle!
+l':doc:`ereditarietà dei bundle </cookbook/bundles/inheritance>` per
+"sovrascrivere" file, controllori o template. Per esempio, se un nuovo bundle
+chiamato NewBundle estende AppBundle, quando Symfony proverà a caricare
+``AppBundle:Default:index``, cercherà prima in ``DefaultController`
+in NewBundle e poi, se questo non esiste, cercherà in AppBundle. Questo
+vuol dire che un bundle può sovrascrivere quasi ogni parte
+di un altro bundle!
 
 È chiaro ora perché Symfony è così flessibile? Condividere bundle tra le
 applicazioni, memorizzarli localmente o globalmente, a scelta.
@@ -246,21 +250,24 @@ Probabilmente l'applicazione dipenderà da librerie di terze parti.
 Queste ultime dovrebbero essere memorizzate nella cartella ``vendor/``. Non si dovrebbe
 toccare niente in tale cartella, che è gestita esclusivamente da Composer. Tale
 cartella contiene già le librerie di Symfony, SwiftMailer, l'ORM Doctrine,
-il sistema di template Twig e alcune altre librerie e bundle di terze parti.
+il sistema di template Twig e alcune altre librerie e bundle di terze
+parti.
 
 Capire la cache e i log
 -----------------------
 
-Le applicazioni Symfony possono contenere decine di file di configurazione, definiti in vari
-formati (YAML, XML, PHP, ecc.) Invece di analizzare e combinare tutti questi file
-a ogni richiesta, Symfony usa un suo sistema di cache. In effetti, la configurazione dell'applicazione
-viene analizzata solo per la prima richiesta e quindi compilata in 
-codice PHP puro, nella cartella ``app/cache/``.
+Le applicazioni Symfony possono contenere decine di file di configurazione, definiti in
+vari formati (YAML, XML, PHP, ecc.) Invece di analizzare e combinare tutti questi
+file a ogni richiesta, Symfony usa un suo sistema di cache. In effetti,
+la configurazione dell'applicazione viene analizzata solo per la prima richiesta
+e quindi compilata in codice PHP puro, nella cartella
+``app/cache/``.
 
-In ambiente di sviluppo, Symfony è abbastanza intelligente da aggiornare la cache se un file
-cambia. Invece, in ambiente di produzione, per accellerare le cose, è compito
-dello sviluppatore pulire la cache, quando il codice o la configurazione sono stati cambiati.
-Eseguire questo comando per pulire la cache nell'ambiente ``prod``:
+In ambiente di sviluppo, Symfony è abbastanza intelligente da aggiornare la cache
+se un file cambia. Invece, in ambiente di produzione, per accellerare le cose, è
+compito dello sviluppatore pulire la cache, quando il codice o la configurazione
+sono stati cambiati. Eseguire questo comando per pulire la cache
+nell'ambiente ``prod``:
 
 .. code-block:: bash
 
@@ -302,4 +309,4 @@ imparare diverse cose per padroneggiare Symfony. Pronti per approfondire questi
 temi? Senza indugi, basta andare nella pagine del :doc:`libro </book/index>` e
 scegliere un argomento a piacere.
 
-.. _Composer:   http://getcomposer.org
+.. _Composer:   https://getcomposer.org

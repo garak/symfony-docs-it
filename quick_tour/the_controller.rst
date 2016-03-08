@@ -8,10 +8,11 @@ Risposte grezze
 ---------------
 
 Symfony si definisce un framework Richiesta-Risposta. Quando l'utente fa una
-richiesta all'applicazione, Symfony crea un oggetto ``Request``, per incapsulare
-tutte le informazioni collegata a tale richiesta. Similmente, il risultato dell'esecuzione
-di un'azione di un controllore è la creazione di un oggetto ``Response``, usato da
-Symfony per generare contenuto HTML poi restituito all'utente.
+richiesta all'applicazione, Symfony crea un oggetto ``Request``, per
+incapsulare tutte le informazioni collegata a tale richiesta. Similmente, il
+risultato dell'esecuzione di un'azione di un controllore è la creazione di un oggetto
+``Response``, usato da Symfony per generare contenuto HTML poi restituito
+all'utente.
 
 Finora, tutte le azioni mostrare in questa guida hanno usato la scorciatoia ``$this->render()``
 per rendere una risposta come risultato. In caso di necessità, si può anche
@@ -38,14 +39,15 @@ creare un oggetto ``Response`` grezzo, per restituire un qualsiasi contenuto tes
 Parametri delle rotte
 ---------------------
 
-La maggior parte delle volte, gli URL di un'applicazione includono parti variabili. Se per
-esempio si crea un'applicazione per un blog, l'URL per mostrare gli articoli dovrebbe
-includere il titolo o altre parti identificative univoche, per far sapere all'applicazione
-cosa mostrare esattamente.
+La maggior parte delle volte, gli URL di un'applicazione includono parti variabili.
+Se per esempio si crea un'applicazione per un blog, l'URL per mostrare gli
+articoli dovrebbe includere il titolo o altre parti identificative univoche, per
+far sapere all'applicazione cosa mostrare esattamente.
 
 Nelle applicazioni Symfony, le parti variabili delle rotte sono racchiuse tra parentesi
-graffe (p.e. ``/blog/read/{article_title}/``). A ciascuna parte viene assegnato un
-nome univoco, che può essere usato successivamente nel controllore, per recuperare ciascun valore.
+graffe (p.e. ``/blog/read/{article_title}/``). A ciascuna parte viene assegnato
+un nome univoco, che può essere usato successivamente nel controllore, per recuperare
+ciascun valore.
 
 Creare una nuova azione con variabili di rotta, per vedere in azione questa caratteristica.
 Aprire il file ``src/AppBundle/Controller/DefaultController.php`` e aggiungere un
@@ -73,14 +75,15 @@ metodo chiamato ``helloAction``, con il seguente contenuto::
     }
 
 Aprire un browser e andare all'URL ``http://localhost:8000/hello/fabien`` per
-vedere il risultato dell'esecuzione di questa nuova a zione. Invece del risultato dell'azione, si
-vedrà una pagina di errore. La causa di questo errore è che si sta cercando
-di rendere un template (``default/hello.html.twig``) che ancora non esiste.
+vedere il risultato dell'esecuzione di questa nuova a zione. Invece del
+risultato dell'azione, si vedrà una pagina di errore. La causa di questo
+errore è che si sta cercando di rendere un template
+(``default/hello.html.twig``) che ancora non esiste.
 
 Creare il template ``app/Resources/views/default/hello.html.twig``, con il
 seguente contenuto:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     {# app/Resources/views/default/hello.html.twig #}
     {% extends 'base.html.twig' %}
@@ -91,10 +94,11 @@ seguente contenuto:
 
 Andare di nuovo sull'URL ``http://localhost:8000/hello/fabien`` e si vedrà il
 nuovo template reso, con le informazioni passate dal controllore. Se si
-cambia l'ultima parte dell'URL (p.e. ``http://localhost:8000/hello/thomas``)
-e si ricarica la pagina, si vedrà un messaggio diverso. Inoltre, se si
-rimuove l'ultima parte dell'URL (p.e. ``http://localhost:8000/hello``), Symfony
-mostrerà un errore, perché la rotta si aspetta un nome, che non è stato fornito.
+cambia l'ultima parte dell'URL (p.e.
+``http://localhost:8000/hello/thomas``) e si ricarica la pagina,
+si vedrà un messaggio diverso. Inoltre, se si rimuove l'ultima parte
+dell'URL (p.e. ``http://localhost:8000/hello``), Symfony mostrerà un errore,
+perché la rotta si aspetta un nome, che non è stato fornito.
 
 Usare i formati
 ---------------
@@ -172,6 +176,8 @@ L'azione ``hello`` ora corrisponderà a URL come ``/hello/fabien.xml`` o
 come ``/hello/fabien.js``, poiché il valore della variabile ``_format`` non
 soddisfa i requisiti.
 
+.. _redirecting-and-forwarding:
+
 Rinvii e rimandi
 ----------------
 
@@ -190,25 +196,9 @@ Se si vuole rinviare l'utente a un'altra pagina, usare il metodo
         }
     }
 
-Il metodo ``redirectToRoute()`` accetta come parametri il nome della rotta e un array
-opzionale di parametri e rinvia l'utente all'URL generato con tali parametri.
-
-Si può anche rimandare internamente l'azione a un'altra azione, dello stesso controllore
-o di uno diverso, col metodo ``forward()``::
-
-    // src/AppBundle/Controller/DefaultController.php
-    class DefaultController extends Controller
-    {
-        /**
-         * @Route("/", name="homepage")
-         */
-        public function indexAction()
-        {
-            return $this->forward('AppBundle:Blog:index', array(
-                'name'  => $name
-            );
-        }
-    }
+Il metodo ``redirectToRoute()`` accetta come parametri il nome della rotta e
+un array opzionale di parametri e rinvia l'utente all'URL generato con tali
+parametri.
 
 Mostrare pagine di errore
 -------------------------
@@ -291,11 +281,11 @@ per importare la classe ``Request``)::
 In un template, si può anche avere accesso all'oggetto ``Request`` tramite la
 variabile ``app.request``:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     {{ app.request.query.get('page') }}
 
-    {{ app.request.parameter('page') }}
+    {{ app.request.request.get('page') }}
 
 Persistere i dati nella sessione
 --------------------------------
@@ -338,11 +328,13 @@ l'utente a un'altra pagina (che mostrerà il messaggio)::
 
 E si può mostrare il messaggio nella richiesta successiva in un template, così:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
-    <div>
-        {{ app.session.flashbag.get('notice') }}
-    </div>
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
 
 Considerazioni finali
 ---------------------
@@ -351,4 +343,4 @@ Considerazioni finali
 Nella prima parte abbiamo introdotto brevemente i bundle e tutte le caratteristiche
 apprese finora fanno parte del bundle del nucleo del framework. Ma, grazie ai bundle,
 ogni cosa in Symfony può essere estesa o sostituita. Questo è l'argomento della
-:doc:`prossima parte di questa guida<the_architecture>`.
+:doc:`prossima parte di questa guida <the_architecture>`.

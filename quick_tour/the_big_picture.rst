@@ -1,122 +1,21 @@
 Un quadro generale
 ==================
 
-Iniziare a usare Symfony in dieci minuti! Questa guida attraverserò
+Iniziare a usare Symfony in dieci minuti! Questa guida attraverserà
 i concetti più importanti dietro a Symfony e spiegherà in che modo si può partire rapidamente
 con Symfony, mostrando la struttura di un semplice progetto già pronto.
 
 Chi ha già usato un framework per il web si troverà come a casa con Symfony. Altrimenti,
 benvenuti in un nuovo mondo per sviluppare applicazioni web!
 
-L'unico requisito tecnico per seguire questa guida è avere **PHP 5.4 o successivi
-installato sulla propria macchina**. Se si usa una soluzione predefinita per PHP, come WAMP,
-XAMP o MAMP, verificare di stare usando PHP 5.4 o una versione più recente.
-Si può anche eseguire il seguente comando nel terminale o nella console,
-per mostrare la versione di PHP installata:
-
-.. code-block:: bash
-
-    $ php --version
-
 .. _installing-symfony2:
 
 Installare Symfony
 ------------------
 
-In passato, Symfony andava installato a mano su ogni nuovo progetto. Ora si può
-usare l'**installatore di Symfony**, che deve essere installato solo la prima volta che
-si usa Symfony su una macchina.
-
-Su sistemi **Linux** e **Mac OS X**, eseguire i seguenti comandi da console:
-
-.. code-block:: bash
-
-    $ curl -LsS http://symfony.com/installer > symfony.phar
-    $ sudo mv symfony.phar /usr/local/bin/symfony
-    $ chmod a+x /usr/local/bin/symfony
-
-Dopo aver installato l'installatore di Symfony, aprire una nuova console, per poter
-eseguire il nuovo comando ``symfony``:
-
-.. code-block:: bash
-
-    $ symfony
-
-Su sistemi **Windows**, eseguire il seguente comando da console:
-
-.. code-block:: bash
-
-    c:\> php -r "readfile('http://symfony.com/installer');" > symfony.phar
-
-Questo comando scarica un file chiamato ``symfony.phar``, che contiene l'installatore di
-Symfony. Salvare o spostare il file nella cartella in cui si vogliono creare i
-progetti Symfony ed eseguire l'installatore di Symfony, con questo
-comando:
-
-.. code-block:: bash
-
-    c:\> php symfony.phar
-
-Creare il primo progetto Symfony
---------------------------------
-
-Una volta pronto l'installatore di Symfony, usare il comando ``new`` per creare nuovi progetti
-Symfony. Creiamo un progetto chiamato ``mioprogetto``:
-
-.. code-block:: bash
-
-    # Linux e Mac OS X
-    $ symfony new mioprogetto
-
-    # Windows
-    c:\> php symfony.phar new mioprogetto
-
-Questo comando scarica l'ultima versione stabile di Symfony e crea un progetto
-vuoto nella cartella ``mioprogetto/``, in modo da poter iniziare lo sviluppo
-di un'applicazione.
-
-.. _running-symfony2:
-
-Eseguire Symfony
-----------------
-
-Questa guida si appoggia al server web interno fornito da PHP, per eseguire applicazioni Symonfy.
-Di conseguenza, per eseguire un'applicazione Symfony basta andare
-nella cartella del progetto ed eseguire questo comando:
-
-.. code-block:: bash
-
-    $ cd mioprogetto/
-    $ php app/console server:run
-
-Aprire un browser e accedere all'URL ``http://localhost:8000`` per vedere
-la pagina di benvenuto di Symfony:
-
-.. image:: /images/quick_tour/welcome.png
-   :align: center
-   :alt:   Pagina di benvenuto di Symfony
-
-Congratulazioni! Il primo progetto Symfony sta funzionando!
-
-.. note::
-
-    Al posto della pagina di benvenuto, si potrebbe vedere una pagina vuota o di errore.
-    La causa è una mancata configurazione dei permessi delle cartelle. Ci sono diverse
-    possibili soluzioni, a seconda del sistema operativo. Sono tutte spiegate
-    nella sezione :ref:`permessi <book-installation-permissions>`
-    del libro ufficiale.
-
-Dopo aver finito di lavorare sull'applicazione Symfony, si può fermare il
-server, con il comando ``server:stop``:
-
-.. code-block:: bash
-
-    $ php app/console server:stop
-
-.. tip::
-
-    Chi preferisce un server web tradizionale, come Apache o Nginx, può leggere la ricetta
-    :doc:`/cookbook/configuration/web_server_configuration`.
+Prima di continuare a leggere, assicurarsi di avere installato sia PHP
+sia Symfony, come spiegato nel :doc:`capitolo sull'installazione </book/installation>`
+del libro.
 
 Capire i fondamenti
 -------------------
@@ -134,7 +33,7 @@ Il codice da eseguire è definito in **azioni** e **controllori**, La mappatura
 tra richiesta utente e tale codice è definita tramite la configurazione delle **rotte**.
 Il contenuto mostrato nel browser solitamente viene reso usando dei **template**.
 
-Aprendo in precedenza ``http://localhost:8000/``, Symfony ha eseguito il
+Aprendo in precedenza ``http://localhost:8000/app/esempio``, Symfony ha eseguito il
 controllore definito nel file ``src/AppBundle/Controller/DefaultController.php``
 e reso il template ``app/Resources/views/default/index.html.twig`` template.
 Nelle sezioni successive, si vedrà in dettaglio le operazioni interne di
@@ -224,9 +123,10 @@ controllore ``Default`` quando l'utente visita il percorso ``/`` dell'applicazio
 
 .. tip::
 
-    Oltre alle annotazioni PHP, si possono configurare le rotte in file YAML, XML o
-    PHP, come spiegato nel :doc:`capitolo sulle rotte del libro di Symfony </book/routing>`.
-    Tale flessibilità è una delle caratteristiche principali di Symfony, un framework
+    Oltre alle annotazioni PHP, si possono configurare le rotte in file YAML, XML
+    o PHP, come spiegato nel
+    :doc:`capitolo sulle rotte del libro di Symfony </book/routing>`. Tale
+    flessibilità è una delle caratteristiche principali di Symfony, un framework
     che non impone mai determinati formati di configurazione.
 
 Template
@@ -245,13 +145,15 @@ Quindi, il template ``default/index.html.twig`` corrisponde a
 ``app/Resources/views/default/index.html.twig``. Aprire il file per vedere
 il seguente codice:
 
-.. code-block:: html+jinja
+.. code-block:: html+twig
 
     {# app/Resources/views/default/index.html.twig #}
     {% extends 'base.html.twig' %}
 
     {% block body %}
         <h1>Benvenuto in Symfony!</h1>
+
+        {# ... #}
     {% endblock %}
 
 Questo template è scritto in `Twig`_, un motore di template creato per applicazioni
@@ -284,7 +186,8 @@ consapevole del problema e, per questo, non mostrerà tale barra quando
 l'applicazione gira su un server di produzione.
 
 Come fa Symfony a sapere se nun'applicazione stia girando localmente o su
-un server di produzione? Nella prossima sezione si illustrerà il concetto di **ambiente**.
+un server di produzione? Nella prossima sezione si illustrerà il concetto di
+**ambiente**.
 
 .. _quick-tour-big-picture-environments-intro:
 
@@ -304,8 +207,9 @@ Se si preferisce mostrare sempre l'ambiente ``dev``, si può aprire l'URL
 
 La differenza principale tra gli ambienti è che ``dev`` è ottimizzato per fornire
 varie informazioni allo sviluppatore, che vuol dire prestazioni peggiori.
-Invece, ``prod`` è ottimizzato per ottenere migliori prestazioni, quindi le informazioni
-di debug sono disabilitate, come anche la barra di debug.
+Invece, ``prod`` è ottimizzato per ottenere migliori prestazioni, quindi
+le informazioni di debug sono disabilitate, come anche la barra di
+debug.
 
 Un'altra differenza tra gli ambienti è rappresentata dalle opzioni di configurazione usate per
 eseguire l'applicazione. Accedendo all'ambiente ``dev``, Symfony carica il file di

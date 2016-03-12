@@ -212,7 +212,6 @@ del controllore ``Default`` (la parte ``AppBundle`` è spiegata in
 seguito)::
 
     // src/AppBundle/Controller/DefaultController.php
-
     class DefaultController extends Controller
     {
         public function topArticlesAction()
@@ -262,7 +261,8 @@ Symfony fornisce la funzione ``asset`` per gestirli facilmente.
     <img src="{{ asset('images/logo.png') }}" />
 
 La funzione ``asset()`` cerca risorse nella cartella ``web/``.
-Se si memorizzano risorse in altre cartelle, leggere :doc:`questa ricetta </cookbook/assetic/asset_management>`
+Se si memorizzano risorse in altre cartelle, leggere
+:doc:`questa ricetta </cookbook/assetic/asset_management>`
 per sapere come gestirle.
 
 L'uso della funzione ``asset()`` rende le applicazioni maggiormente portabili.

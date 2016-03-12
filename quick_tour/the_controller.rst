@@ -16,7 +16,8 @@ all'utente.
 
 Finora, tutte le azioni mostrare in questa guida hanno usato la scorciatoia ``$this->render()``
 per rendere una risposta come risultato. In caso di necessità, si può anche
-creare un oggetto ``Response`` grezzo, per restituire un qualsiasi contenuto testuale::
+creare un oggetto ``Response`` grezzo, per restituire un qualsiasi contenuto
+testuale::
 
     // src/AppBundle/Controller/DefaultController.php
     namespace AppBundle\Controller;

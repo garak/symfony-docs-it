@@ -29,13 +29,17 @@ Sviluppando un'applicazione Symfony, la responsabilità dello sviluppatore è sc
 codice che mappi una *richiesta* dell'utente (come ``http://localhost:8000/``)
 su una *risorsa* a essa associata (la pagina HTML ``Benvenuto in Symfony!``).
 
-Il codice da eseguire è definito in **azioni** e **controllori**, La mappatura
+Il codice da eseguire è definito in metodi di classi PHP. I metodi sono
+chiamati **azioni** e le classi **controllori**, ma in pratica la maggior parte degli sviluppatori
+usa la dicitura **controllori** per riferirsi a entrambi.  La mappatura
 tra richiesta utente e tale codice è definita tramite la configurazione delle **rotte**.
-Il contenuto mostrato nel browser solitamente viene reso usando dei **template**.
+Il contenuto mostrato nel browser solitamente viene reso usando dei
+**template**.
 
 Aprendo in precedenza ``http://localhost:8000/app/esempio``, Symfony ha eseguito il
 controllore definito nel file ``src/AppBundle/Controller/DefaultController.php``
 e reso il template ``app/Resources/views/default/index.html.twig`` template.
+
 Nelle sezioni successive, si vedrà in dettaglio le operazioni interne di
 controllori, rotte e template.
 
@@ -138,7 +142,8 @@ Il contenuto dell'azione ``index`` è questa istruzione PHP::
 
 Il metodo ``$this->render()`` è un'utile scorciatoia per rendere un template.
 Symfony fornisce alcune scorciatoie a ogni controllore che estenda la classe
-``Controller``.
+base di Symfony :class:`Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller`.
+
 
 La posizione predefinita dei template è la cartella ``app/Resources/views/``.
 Quindi, il template ``default/index.html.twig`` corrisponde a
@@ -246,6 +251,4 @@ già vedere come Symfony rende veramente facile implementare siti web in modo
 migliore e più veloce. Se siete ansiosi di saperne di più, andate alla prossima
 sezione: ":doc:`la vista <the_view>`".
 
-.. _Composer: https://getcomposer.org/
-.. _installer: https://getcomposer.org/download
 .. _Twig: http://twig.sensiolabs.org/

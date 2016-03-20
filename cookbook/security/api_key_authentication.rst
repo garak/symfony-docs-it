@@ -568,7 +568,7 @@ per verificare se l'URL corrente corrisponde all'URL cercato. In questo
 caso, l'URL (``/login/check``) è stato scritto a mano nella classe, ma lo si può
 anche iniettare come terzo parametro del costruttore.
 
-Successivamente, basta aggiornare la configuraizone del servizio, per iniettare il
+Successivamente, basta aggiornare la configurazione del servizio, per iniettare il
 servizio ``security.http_utils``:
 
 .. configuration-block::

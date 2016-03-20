@@ -32,7 +32,7 @@ Aprire un terminale ed eseguire i seguenti tre comandi:
 
 .. code-block:: bash
 
-    $ sudo curl -LsS http://symfony.com/installer -o /usr/local/bin/symfony
+    $ sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
     $ sudo chmod a+x /usr/local/bin/symfony
 
 Questo creerà nel sistema un comando globale ``symfony``.
@@ -44,7 +44,7 @@ Aprire la console dei comandi ed eseguire il seguente comando:
 
 .. code-block:: bash
 
-    c:\> php -r "readfile('http://symfony.com/installer');" > symfony
+    c:\> php -r "readfile('https://symfony.com/installer');" > symfony
 
 Quindi, spostare il file ``symfony.phar`` nella cartella dei progetti ed
 eseguirlo, come segue:
@@ -81,6 +81,11 @@ necessarie a soddisfare tali requisiti.
     di essere distribuite. Se si vuole verificare l'integrità di una versione di Symfony,
     seguire i passi `spiegati in questo post`_.
 
+.. note::
+
+    Se l'installatore non funziona o non mostra nulla, assicurarsi che
+    l'`estensione Phar` sia installata e abilitata.
+
 Basare un progetto su una specifica versione di Symfony
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -106,11 +111,7 @@ passare ``lts`` come secondo parametro del comando ``new``:
 
 .. code-block:: bash
 
-    # Linux, Mac OS X
     $ symfony new progetto lts
-
-    # Windows
-    c:\projects\> php symfony new progetto lts
 
 Leggere il :doc:`processo di rilascio di Symfony </contributing/community/releases>`
 per comprendere meglio il motivo per cui esistono varie versioni di Symfony e quale
@@ -194,11 +195,7 @@ server web `Apache`_ o `Nginx`_, come spiegato in
 :doc:`/cookbook/configuration/web_server_configuration`.
 
 Dopo aver finito di lavorare su un'applicazione Symfony, si può fermare il
-server con il comando ``server:stop``:
-
-.. code-block:: bash
-
-    $ php app/console server:stop
+server premendo `Ctrl+C` nel terminale:
 
 Verifica della configurazione di un'applicazione Symfony
 --------------------------------------------------------
@@ -242,7 +239,7 @@ Se ci sono problemi, correggerli prima di procedere.
         $ rm -rf app/cache/*
         $ rm -rf app/logs/*
 
-        $ HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+        $ HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
         $ sudo chmod +a "$HTTPDUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
         $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
@@ -257,7 +254,7 @@ Se ci sono problemi, correggerli prima di procedere.
 
     .. code-block:: bash
 
-        $ HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+        $ HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
         $ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
         $ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
 
@@ -313,6 +310,30 @@ vari minuti per essere completato.
 
     Una buona pratica di sicurezza consiste nell'eseguire regolarmente questo comando, per poter
     aggiornare o sostituire delle dipendenze compromesse, il prima possibile.
+
+Installare l'applicazione demo di Symfony
+-----------------------------------------
+
+L'applicazione demo di Symfony è un'applicazione funzionate, che mostra il modo
+raccomandato di sviluppare applicazioni Symfony. L'applicazione è stata
+concepita come strumento di apprendimento per novizi di Symfony e il suo codice sorgente
+contiene vai commenti e note utili.
+
+Per scaricare l'applicazione demo di Symfony, eseguire il comando ``demo``
+dell'installatore di Symfony:
+
+.. code-block:: bash
+
+    # Linux, Mac OS X
+    $ symfony demo
+
+    # Windows
+    c:\progetti\> php symfony demo
+
+Una volta scaricata, entrare nella cartella ``symfony_demo/`` ed eseguire il server web
+interno di PHP, tramite il comando ``php app/console server:run``. Accedere
+all'URL ``http://localhost:8000`` con un browser per iniziare a usare
+l'applicazione demo di Symfony.
 
 .. _installing-a-symfony2-distribution:
 
@@ -385,13 +406,8 @@ la nuova applicazione.
 Assicurarsi di dare un'occhiata anche al :doc:`ricettario </cookbook/index>`, che contiene
 una grande varietà di ricette, pensate per risolvere problemi specifici con Symfony.
 
-.. note::
-
-    Se si vuole rimuovere il codice di esempio dalla distribuzione, dare un'occhiata
-    a questa ricetta: ":doc:`/cookbook/bundles/remove`"
-
-.. _`spiegati in questo post`: http://fabien.potencier.org/article/73/signing-project-releases
-.. _`Composer`: http://getcomposer.org/
+.. _`spiegati in questo post`: http://fabien.potencier.org/signing-project-releases.html
+.. _`Composer`: https://getcomposer.org/
 .. _`Composer download page`: https://getcomposer.org/download/
 .. _`Apache`: http://httpd.apache.org/docs/current/mod/core.html#documentroot
 .. _`Nginx`: http://wiki.nginx.org/Symfony
@@ -401,3 +417,4 @@ una grande varietà di ricette, pensate per risolvere problemi specifici con Sym
 .. _`Symfony REST Edition`: https://github.com/gimler/symfony-rest-edition
 .. _`FOSRestBundle`: https://github.com/FriendsOfSymfony/FOSRestBundle
 .. _`Git`: http://git-scm.com/
+.. _`estensione Phar`: http://php.net/manual/en/intro.phar.php

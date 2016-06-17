@@ -1,11 +1,6 @@
 Callback
 ========
 
-.. versionadded:: 2.4
-    Il vincolo ``Callback`` è stato semplificato in Symfony 2.4. Per esempi
-    di utilizzo con precedenti versioni di Symfony, vedere le versioni corrispondenti
-    di questa pagina.
-
 Lo scopo del vincolo Callback è di poter creare delle regole di validazione
 completamente personalizzate e di assegnare qualsiasi errore di validazione a
 campi specifici di un oggetto. Se si usa la validazione con i form, questo vuol dire
@@ -26,6 +21,7 @@ fare qualsiasi cosa, incluso creare e assegnare errori di validazione.
 | Si applica a   | :ref:`classi <validation-class-target>`                                |
 +----------------+------------------------------------------------------------------------+
 | Opzioni        | - :ref:`callback <callback-option>`                                    |
+|                | - `payload`_                                                           |
 +----------------+------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Callback`          |
 +----------------+------------------------------------------------------------------------+
@@ -37,20 +33,15 @@ Preparazione
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            constraints:
-                - Callback: [validate]
-
     .. code-block:: php-annotations
 
-        // src/Acme/BlogBundle/Entity/Author.php
-        namespace Acme\BlogBundle\Entity;
+        // src/AppBundle/Entity/Author.php
+        namespace AppBundle\Entity;
 
         use Symfony\Component\Validator\Constraints as Assert;
-        use Symfony\Component\Validator\ExecutionContextInterface;
+        use Symfony\Component\Validator\Context\ExecutionContextInterface;
+        // se si usa la vecchia API di validazione, si deve usare invece
+        // use Symfony\Component\Validator\ExecutionContextInterface;
 
         class Author
         {
@@ -63,23 +54,30 @@ Preparazione
             }
         }
 
+    .. code-block:: yaml
+
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Author:
+            constraints:
+                - Callback: [validate]
+
     .. code-block:: xml
 
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <!-- src/AppBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="Acme\BlogBundle\Entity\Author">
+            <class name="AppBundle\Entity\Author">
                 <constraint name="Callback">validate</constraint>
             </class>
         </constraint-mapping>
 
     .. code-block:: php
 
-        // src/Acme/BlogBundle/Entity/Author.php
-        namespace Acme\BlogBundle\Entity;
+        // src/AppBundle/Entity/Author.php
+        namespace AppBundle\Entity;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
@@ -100,7 +98,9 @@ impostare le "violazioni" direttamente su questo oggetto e determinare a quale c
 questi errori vadano attribuiti::
 
     // ...
-    use Symfony\Component\Validator\ExecutionContextInterface;
+    use Symfony\Component\Validator\Context\ExecutionContextInterface;
+        // se si usa la vecchia API di validazione, si deve usare invece
+        // use Symfony\Component\Validator\ExecutionContextInterface;
 
     class Author
     {
@@ -114,12 +114,18 @@ questi errori vadano attribuiti::
 
             // verifica se il nome è in effetti un nome fasullo
             if (in_array($this->getFirstName(), $fakeNames)) {
+                // Se si usa la nuova API di validazione (probabile)
+                $context->buildViolation('Questo nome sembra proprio falso!')
+                    ->atPath('firstName')
+                    ->addViolation();
+
+                // Se si usa la vecchia API di validazione
+                /*
                 $context->addViolationAt(
                     'firstName',
-                    'Questo nome sembra proprio falso!',
-                    array(),
-                    null
+                    'Questo nome sembra proprio falso!'
                 );
+                */
             }
         }
     }
@@ -137,12 +143,19 @@ accedere all'istanza dell'oggetto, ricevono l'oggetto stesso come primo parametr
 
         // verifica se il nome è in effetti un nome fasullo
         if (in_array($object->getFirstName(), $fakeNames)) {
+            // Se si usa la nuova API di validazione (probabile)
+            $context->buildViolation('Questo nome sembra proprio falso!')
+                ->atPath('firstName')
+                ->addViolation()
+            ;
+
+            // Se si usa la vecchia API di validazione
+            /*
             $context->addViolationAt(
                 'firstName',
-                'Questo nome sembra proprio falso!',
-                array(),
-                null
+                'Questo nome sembra proprio falso!'
             );
+            */
         }
     }
 
@@ -156,7 +169,9 @@ che la funzione di validazione sia ``Vendor\Package\Validator::validate()``::
 
     namespace Vendor\Package;
 
-    use Symfony\Component\Validator\ExecutionContextInterface;
+    use Symfony\Component\Validator\Context\ExecutionContextInterface;
+    // if you're using the older 2.4 validation API, you'll need this instead
+    // use Symfony\Component\Validator\ExecutionContextInterface;
 
     class Validator
     {
@@ -170,17 +185,10 @@ Si può quindi usare la seguente configurazione per invocare il validatore:
 
 .. configuration-block::
 
-    .. code-block:: yaml
-
-        # src/Acme/BlogBundle/Resources/config/validation.yml
-        Acme\BlogBundle\Entity\Author:
-            constraints:
-                - Callback: [Vendor\Package\Validator, validate]
-
     .. code-block:: php-annotations
 
-        // src/Acme/BlogBundle/Entity/Author.php
-        namespace Acme\BlogBundle\Entity;
+        // src/AppBundle/Entity/Author.php
+        namespace AppBundle\Entity;
 
         use Symfony\Component\Validator\Constraints as Assert;
 
@@ -191,15 +199,22 @@ Si può quindi usare la seguente configurazione per invocare il validatore:
         {
         }
 
+    .. code-block:: yaml
+
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Author:
+            constraints:
+                - Callback: [Vendor\Package\Validator, validate]
+
     .. code-block:: xml
 
-        <!-- src/Acme/BlogBundle/Resources/config/validation.xml -->
+        <!-- src/AppBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="Acme\BlogBundle\Entity\Author">
+            <class name="AppBundle\Entity\Author">
                 <constraint name="Callback">
                     <value>Vendor\Package\Validator</value>
                     <value>validate</value>
@@ -209,8 +224,8 @@ Si può quindi usare la seguente configurazione per invocare il validatore:
 
     .. code-block:: php
 
-        // src/Acme/BlogBundle/Entity/Author.php
-        namespace Acme\BlogBundle\Entity;
+        // src/AppBundle/Entity/Author.php
+        namespace AppBundle\Entity;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
@@ -237,8 +252,12 @@ Si può quindi usare la seguente configurazione per invocare il validatore:
 Quando si configura il vincolo tramite PHP, si può anche passare una closure al
 costruttore di Callback::
 
-    // src/Acme/BlogBundle/Entity/Author.php
-    namespace Acme\BlogBundle\Entity;
+    // src/AppBundle/Entity/Author.php
+    namespace AppBundle\Entity;
+
+    use Symfony\Component\Validator\Context\ExecutionContextInterface;
+    // Se si usa la vecchia API di validazione, usare invece
+    // use Symfony\Component\Validator\ExecutionContextInterface;
 
     use Symfony\Component\Validator\Mapping\ClassMetadata;
     use Symfony\Component\Validator\Constraints as Assert;
@@ -274,9 +293,11 @@ callback:
 
 * Una closure.
 
-I callback concreti ricevono un'istanza di :class:`Symfony\\Component\\Validator\\ExecutionContextInterface`
+I callback concreti ricevono un'istanza di :class:`Symfony\\Component\\Validator\\Context\\ExecutionContextInterface`
 come unico parametro.
 
 I callback statici o closuer ricevono l'oggetto da validare come primo parametro
 e un'istanza di :class:`Symfony\\Component\\Validator\\ExecutionContextInterface`
 come secondo parametro.
+
+.. include:: /reference/constraints/_payload-option.rst.inc

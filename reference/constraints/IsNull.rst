@@ -1,10 +1,11 @@
-Blank
-=====
+Null
+====
 
-Valida che un valore sia vuoto, definito come uguale alla stringa vuota o uguale
-a ``null``. Per forzare un valore per essere strettamente uguale a ``null``, vedere
-il vincolo :doc:`/reference/constraints/IsNull`. Per forzare un valore a *non* essere
-vuoto, vedere :doc:`/reference/constraints/NotBlank`.
+Valida che un valore sia esattamente uguale a ``null``. Per forzare una proprietà a essere
+vuota (stringa vuota o ``null``), vedere il vincolo :doc:`/reference/constraints/Blank`.
+Per assicurarsi che una proprietà non sia ``null``, vedere :doc:`/reference/constraints/NotNull`.
+
+Vedere anche :doc:`NotNull <NotNull>`.
 
 +----------------+-----------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
@@ -12,16 +13,16 @@ vuoto, vedere :doc:`/reference/constraints/NotBlank`.
 | Opzioni        | - `message`_                                                          |
 |                | - `payload`_                                                          |
 +----------------+-----------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Blank`            |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\IsNull`           |
 +----------------+-----------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\BlankValidator`   |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\IsNullValidator`  |
 +----------------+-----------------------------------------------------------------------+
 
 Uso di base
 -----------
 
-Se, per qualche ragione, ci si vuole assicurare che la proprietà ``firstName`` di una
-classe ``Author`` sia vuota, si può fare come segue:
+Se, per qualche ragione, ci si vuole assicurare che la proprietà ``firstName`` di
+una classe ``Author`` sia esttamente uguale a ``null``, si può fare come segue:
 
 .. configuration-block::
 
@@ -35,7 +36,7 @@ classe ``Author`` sia vuota, si può fare come segue:
         class Author
         {
             /**
-             * @Assert\Blank()
+             * @Assert\IsNull()
              */
             protected $firstName;
         }
@@ -46,7 +47,7 @@ classe ``Author`` sia vuota, si può fare come segue:
         AppBundle\Entity\Author:
             properties:
                 firstName:
-                    - Blank: ~
+                    - 'IsNull': ~
 
     .. code-block:: xml
 
@@ -58,7 +59,7 @@ classe ``Author`` sia vuota, si può fare come segue:
 
             <class name="AppBundle\Entity\Author">
                 <property name="firstName">
-                    <constraint name="Blank" />
+                    <constraint name="IsNull" />
                 </property>
             </class>
         </constraint-mapping>
@@ -75,7 +76,7 @@ classe ``Author`` sia vuota, si può fare come segue:
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('firstName', new Assert\Blank());
+                $metadata->addPropertyConstraint('firstName', Assert\IsNull());
             }
         }
 
@@ -85,8 +86,8 @@ Opzioni
 message
 ~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This value should be blank``
+**tipo**: ``stringa`` **predefinito**: ``This value should be null``
 
-Messaggio che sarà mostrato se il valore non è vuoto.
+Messaggio mostrato se il valore non è ``null``.
 
 .. include:: /reference/constraints/_payload-option.rst.inc

@@ -10,6 +10,7 @@ tramite un gateway.
 +----------------+--------------------------------------------------------------------------+
 | Opzioni        | - `schemes`_                                                             |
 |                | - `message`_                                                             |
+|                | - `payload`_                                                             |
 +----------------+--------------------------------------------------------------------------+
 | Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\CardScheme`          |
 +----------------+--------------------------------------------------------------------------+
@@ -24,10 +25,28 @@ su un oggetto che conterrà un numero di carta di credito.
 
 .. configuration-block::
 
+    .. code-block:: php-annotations
+
+        // src/AppBundle/Entity/Transaction.php
+        namespace AppBundle\Entity\Transaction;
+
+        use Symfony\Component\Validator\Constraints as Assert;
+
+        class Transaction
+        {
+            /**
+             * @Assert\CardScheme(
+             *     schemes={"VISA"},
+             *     message="Numero di carta di credito non valido."
+             * )
+             */
+            protected $cardNumber;
+        }
+
     .. code-block:: yaml
 
-        # src/Acme/SubscriptionBundle/Resources/config/validation.yml
-        Acme\SubscriptionBundle\Entity\Transaction:
+        # src/AppBundle/Resources/config/validation.yml
+        AppBundle\Entity\Transaction:
             properties:
                 cardNumber:
                     - CardScheme:
@@ -36,13 +55,13 @@ su un oggetto che conterrà un numero di carta di credito.
 
     .. code-block:: xml
 
-        <!-- src/Acme/SubscriptionBundle/Resources/config/validation.xml -->
+        <!-- src/AppBundle/Resources/config/validation.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
         <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-            <class name="Acme\SubscriptionBundle\Entity\Transaction">
+            <class name="AppBundle\Entity\Transaction">
                 <property name="cardNumber">
                     <constraint name="CardScheme">
                         <option name="schemes">
@@ -54,25 +73,10 @@ su un oggetto che conterrà un numero di carta di credito.
             </class>
         </constraint-mapping>
 
-    .. code-block:: php-annotations
-
-        // src/Acme/SubscriptionBundle/Entity/Transaction.php
-        namespace Acme\SubscriptionBundle\Entity\Transaction;
-
-        use Symfony\Component\Validator\Constraints as Assert;
-
-        class Transaction
-        {
-            /**
-             * @Assert\CardScheme(schemes = {"VISA"}, message = "Numero di carta di credito non valido.")
-             */
-            protected $cardNumber;
-        }
-
     .. code-block:: php
 
-        // src/Acme/SubscriptionBundle/Entity/Transaction.php
-        namespace Acme\SubscriptionBundle\Entity\Transaction;
+        // src/AppBundle/Entity/Transaction.php
+        namespace AppBundle\Entity\Transaction;
 
         use Symfony\Component\Validator\Mapping\ClassMetadata;
         use Symfony\Component\Validator\Constraints as Assert;
@@ -115,7 +119,8 @@ validi sono:
 * ``MASTERCARD``
 * ``VISA``
 
-Per maggiori infomazioni sugli schemi usati, vedere `Wikipedia: Issuer identification number (IIN)`_.
+Per maggiori infomazioni sugli schemi usati, vedere
+`Wikipedia: Issuer identification number (IIN)`_.
 
 message
 ~~~~~~~
@@ -124,4 +129,6 @@ message
 
 Il messaggio mostrato quando il valore non passa il controllo ``CardScheme``.
 
-.. _`Wikipedia: Issuer identification number (IIN)`: http://en.wikipedia.org/wiki/Bank_card_number#Issuer_identification_number_.28IIN.29
+.. include:: /reference/constraints/_payload-option.rst.inc
+
+.. _`Wikipedia: Issuer identification number (IIN)`: https://en.wikipedia.org/wiki/Bank_card_number#Issuer_identification_number_.28IIN.29

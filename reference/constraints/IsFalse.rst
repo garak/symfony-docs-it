@@ -1,10 +1,11 @@
-Blank
+False
 =====
 
-Valida che un valore sia vuoto, definito come uguale alla stringa vuota o uguale
-a ``null``. Per forzare un valore per essere strettamente uguale a ``null``, vedere
-il vincolo :doc:`/reference/constraints/IsNull`. Per forzare un valore a *non* essere
-vuoto, vedere :doc:`/reference/constraints/NotBlank`.
+Valida che un valore sia ``false``. Nello specifico, verifica se il valore sia
+esattamente ``false``, esattamente l'intero ``0`` o esattamente la stringa
+"``0``".
+
+Vedere anche :doc:`IsTrue <IsTrue>`.
 
 +----------------+-----------------------------------------------------------------------+
 | Si applica a   | :ref:`proprietà o metodo<validation-property-target>`                 |
@@ -12,16 +13,30 @@ vuoto, vedere :doc:`/reference/constraints/NotBlank`.
 | Opzioni        | - `message`_                                                          |
 |                | - `payload`_                                                          |
 +----------------+-----------------------------------------------------------------------+
-| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\Blank`            |
+| Classe         | :class:`Symfony\\Component\\Validator\\Constraints\\IsFalse`          |
 +----------------+-----------------------------------------------------------------------+
-| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\BlankValidator`   |
+| Validatore     | :class:`Symfony\\Component\\Validator\\Constraints\\IsFalseValidator` |
 +----------------+-----------------------------------------------------------------------+
 
 Uso di base
 -----------
 
-Se, per qualche ragione, ci si vuole assicurare che la proprietà ``firstName`` di una
-classe ``Author`` sia vuota, si può fare come segue:
+Il vincolo ``IsFalse`` può essere applicato a una proprietà o a un metodo "getter",
+ma è usato più comunemente nel secondo caso. Per esempio, si supponga di voler
+garantire che una proprietà ``state`` *non* sia in un array dinamico
+``invalidStates``. Per prima cosa, creare un metodo "getter"::
+
+    protected $state;
+
+    protected $invalidStates = array();
+
+    public function isStateInvalid()
+    {
+        return in_array($this->state, $this->invalidStates);
+    }
+
+In questo caso, l'oggetto sottostante è valido solamente se il metodo ``isStateInvalid``
+restituisce **false**:
 
 .. configuration-block::
 
@@ -35,18 +50,24 @@ classe ``Author`` sia vuota, si può fare come segue:
         class Author
         {
             /**
-             * @Assert\Blank()
+             * @Assert\IsFalse(
+             *     message = "You've entered an invalid state."
+             * )
              */
-            protected $firstName;
+             public function isStateInvalid()
+             {
+                // ...
+             }
         }
 
     .. code-block:: yaml
 
-        # src/AppBundle/Resources/config/validation.yml
-        AppBundle\Entity\Author:
-            properties:
-                firstName:
-                    - Blank: ~
+        # src/BlogBundle/Resources/config/validation.yml
+        Acme\BlogBundle\Entity\Author
+            getters:
+                stateInvalid:
+                    - 'IsFalse':
+                        message: You've entered an invalid state.
 
     .. code-block:: xml
 
@@ -57,9 +78,11 @@ classe ``Author`` sia vuota, si può fare come segue:
             xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
             <class name="AppBundle\Entity\Author">
-                <property name="firstName">
-                    <constraint name="Blank" />
-                </property>
+                <getter property="stateInvalid">
+                    <constraint name="IsFalse">
+                        <option name="message">You've entered an invalid state.</option>
+                    </constraint>
+                </getter>
             </class>
         </constraint-mapping>
 
@@ -75,7 +98,7 @@ classe ``Author`` sia vuota, si può fare come segue:
         {
             public static function loadValidatorMetadata(ClassMetadata $metadata)
             {
-                $metadata->addPropertyConstraint('firstName', new Assert\Blank());
+                $metadata->addGetterConstraint('stateInvalid', new Assert\IsFalse());
             }
         }
 
@@ -85,8 +108,8 @@ Opzioni
 message
 ~~~~~~~
 
-**tipo**: ``stringa`` **predefinito**: ``This value should be blank``
+**tipo**: ``stringa`` **predefinito**: ``This value should be false``
 
-Messaggio che sarà mostrato se il valore non è vuoto.
+Messaggio mostrato se i dati sottostanti non sono ``false``.
 
 .. include:: /reference/constraints/_payload-option.rst.inc

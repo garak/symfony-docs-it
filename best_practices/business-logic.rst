@@ -157,7 +157,7 @@ Questa abitudine trae la sua origine da un'erronea imitazione dei bundle di terz
 Quando Symfony introdusse il suo contenitore di servizi, qualche sviluppatore usò questa tecnica per
 permettere di sostituire più facilmente i servizi attivi. Comunque sostituire un servizio cambiando soltanto 
 il nome della classe è una possibilità molto rara nell'uso pratico perché, frequentemente, il nuovo servizio
-ha anche argomenti diversi per il costruttore.
+ha anche parametri diversi per il costruttore.
 
 Usare uno strato di persistenza
 -------------------------------

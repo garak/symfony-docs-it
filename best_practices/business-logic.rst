@@ -1,14 +1,14 @@
 Organizzare la logica di business
 =================================
 
-In informatica, La logica di business è "la parte del programma che codifica
-le regole di business della vita reale, che determinano il modo in cui i dati possono essere
+In informatica, la **logica di business** o logica di dominio è "la parte del programma che codifica
+le regole di business della vita reale che determinano il modo in cui i dati possono essere
 creati, memorizzati e modificati" (vedere la `definizione completa`_).
 
 Nelle applicazioni Symfony, la logica di business comprende tutto il codice implementato per
-l'applicazione non relativo al framework. Le classi di dominio, le entità Doctrine
-e classiche classi PHP utilizzate come servizi rappresentano buoni esempi di logica
-di business.
+l'applicazione non relativo al framework (quindi ad esempio non le rotte e i controllori).
+Le classi di dominio, le entità Doctrine e classiche classi PHP utilizzate come servizi rappresentano buoni esempi di
+logica di business.
 
 Nella maggior parte dei progetti, la logica di business dovrebbe essere inserita dentro AppBundle.
 All'interno di tale bundle è possibile creare qualsiasi gerarchia di cartelle, come struttura organizzativa.
@@ -29,7 +29,7 @@ Mettere classi fuori dal bundle?
 
 Non vi è alcuna limitazione tecnica che ci impedisca di mettere la logica di business
 fuori dal bundle. Se si vuole si può creare il proprio namespace
-dentro **src/** e mettere tutto là dentro:
+dentro ``src/`` e mettere tutto là dentro:
 
 .. code-block:: text
 
@@ -45,7 +45,7 @@ dentro **src/** e mettere tutto là dentro:
 
 .. tip::
 
-    La raccomandazione di usare il bundle `AppBundle` è giustificata dal voler rendere
+    La raccomandazione di usare il bundle ``AppBundle`` è giustificata dal voler rendere
     tutto più facile da gestire. Se sei così esperto da sapere cosa è necessario mettere
     dentro un bundle e cosa mettere invece fuori, sentiti libero di farlo.
 
@@ -86,12 +86,12 @@ Definiamo quindi un nuovo servizio per tale classe.
 
 Per la definizione dei nomi dei servizi solitamente si sceglie
 di utilizzare il nome e la posizione della classe, per evitare collisioni di nomi.
-Pertanto il servizio dovrebbe chiamarsi ``app.utils.slugger``. Tuttavia, se si usano
+Pertanto il servizio *dovrebbe* chiamarsi ``app.utils.slugger``. Tuttavia, se si usano
 nomi dei servizi brevi, il codice risulterà più facile da leggere e da usare.
 
 .. best-practice::
 
-    Il nome di un servizio dovrebbe essere il più breve possibile,
+    Il nome di un servizio dell'applicazione dovrebbe essere il più breve possibile,
     ma abbastanza univoco da poter cercare il servizio nel progetto, se
     necessario.
 
@@ -122,11 +122,11 @@ Per la definizione del servizio, nella sezione precedente, è stato usato il for
     Per la definizione dei propri servizi usare il formato YAML.
 
 Si sa che questa raccomandazione è molto controversa. È noto che sia il formato YAML sia il formato XML
-sono ugualmente utilizzati tra gli sviluppatori, con una leggere preferenza verso YAML.
+sono ugualmente utilizzati tra gli sviluppatori, con una leggera preferenza verso YAML.
 Entrambi i formati hanno le stesse prestazioni, quindi la scelta di quale utilizzare
 è una questione di gusti personali.
 
-Si raccomanda di usare YAML, perché risulta più semplice da gestire dai nuovi
+Si raccomanda di usare YAML, perché risulta più semplice da gestire per i nuovi
 programmatori e perché più conciso. Ovviamente, si può usare il formato che si preferisce.
 
 Servizi: niente parametri di classe
@@ -147,24 +147,24 @@ un parametro di configurazione per definire la classe di servizio:
         app.slugger:
             class: "%slugger.class%"
 
-Questa pratica risulta scomoda e assolutamente non necessaria per i propri servizi:
+Questa pratica risulta scomoda e assolutamente non necessaria per i servizi dell'applicazione:
 
 .. best-practice::
 
-    Non definire parametri di configurazione per le classi dei servizi.
+    Non definire parametri di configurazione per le classi dei servizi dell'applicazione.
 
 Questa abitudine trae la sua origine da un'erronea imitazione dei bundle di terze parti.
-Se si sviluppa un bundle da condividere, è possibile allora definire parametri di configurazione
-per le classi. Ma se si sviluppa un servizio per la propria applicazione, non c'è bisogno
-che le sue classi siano 
-configurabili.
+Quando Symfony introdusse il suo contenitore di servizi, qualche sviluppatore usò questa tecnica per
+permettere di sostituire più facilmente i servizi attivi. Comunque sostituire un servizio cambiando soltanto 
+il nome della classe è una possibilità molto rara nell'uso pratico perché, frequentemente, il nuovo servizio
+ha anche argomenti diversi per il costruttore.
 
 Usare uno strato di persistenza
 -------------------------------
 
 Symfony è un framework HTTP, che si preoccupa solo di generare una risposta HTTP
 per ogni richiesta HTTP. Questo è il motivo per cui Symfony non prevede una
-sua modalità per comunicare con uno strato di persistenza (come una base dati o API esterne)
+sua modalità per comunicare con uno strato di persistenza (come una base dati o API esterne).
 È possibile quindi scegliere la libreria o la strategia preferita.
 
 In pratica, molte applicazioni Symfony si appoggiano al
@@ -195,8 +195,8 @@ Informazioni di mappatura di Doctrine
 
 Le entità doctrine sono semplici classi PHP le cui informazioni vengono memorizzate in qualche "database".
 Le uniche informazioni conosciute da Doctrine su queste entità sono informazioni di
-mapping di metadati sul modello.
-Doctrine supporta quattro formati per definire queste informazioni: YAML, XML, PHP e annotazioni.
+mapping di metadati configurate per la classe che rappresenta il modello. Doctrine supporta quattro 
+formati per definire queste informazioni: YAML, XML, PHP e annotazioni.
 
 .. best-practice::
 

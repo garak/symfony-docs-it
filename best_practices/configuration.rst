@@ -156,7 +156,7 @@ L'unico svantaggio da considerare nell'utilizzo delle costanti come opzioni di c
 che non possono essere ridefinite facilmente nei test.
 
 Configurazione semantica: non usarla
--------------------------------------
+------------------------------------
 
 .. best-practice::
 
